@@ -3964,6 +3964,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.item(1, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_fut.item(2, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
 
+        return
+
     # Call 컬러처리
     def call_cv_color_clear(self):
 
@@ -3974,6 +3976,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_call.item(i, Option_column.현재가.value).setBackground(QBrush(옅은회색))
         else:
             pass
+
+        return
 
     def call_node_color_clear(self):
 
@@ -4023,6 +4027,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
         else:
             pass
+
+        return
 
     def call_node_color_update(self):
 
@@ -4718,6 +4724,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         str = '[{0:02d}:{1:02d}:{2:02d}] Call Table Color Check : {3:0.2f} ms\r'.format(delta_hour, delta_minute, delta_sec, process_time)
         self.textBrowser.append(str)
 
+        return
+
     # Put 컬러처리
     def put_cv_color_clear(self):
 
@@ -4728,6 +4736,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_put.item(i, Option_column.현재가.value).setBackground(QBrush(옅은회색))
         else:
             pass
+
+        return
 
     def put_node_color_clear(self):
 
@@ -4778,6 +4788,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
         else:
             pass
+
+        return
 
     def put_node_color_update(self):
 	
@@ -5472,6 +5484,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         str = '[{0:02d}:{1:02d}:{2:02d}] Put Table Color Check : {3:0.2f} ms\r'.format(delta_hour, delta_minute, delta_sec, process_time)
         self.textBrowser.append(str)
+
+        return
 
     def OnReceiveData(self, szTrCode, result):
 
