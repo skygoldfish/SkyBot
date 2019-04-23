@@ -85,6 +85,8 @@ currentt_month = '201905'
 next_month = '201906'
 month_firstday = '20190412'
 
+start_hour = 9
+
 price_threshold = 0.3
 
 콜매수 = ''
@@ -98,6 +100,7 @@ time_delta = 0
 START_ON = False
 service_time_start = False
 nRowCount = 99
+
 Option_column = Enum('Option_column', '행사가 OLOH 기준가 월저 월고 전저 전고 종가 피봇 시가 시가갭 저가 현재가 고가 대비 진폭 OI OID')
 Option_che_column = Enum('Option_che_column', '매도누적체결량 매도누적체결건수 매수누적체결량 매수누적체결건수')
 Futures_column = Enum('Futures_column', '매수건수 매도건수 매수잔량 매도잔량 건수비 잔량비 전저 전고 종가 피봇 시가 시가갭 저가 현재가 고가 대비 진폭 거래량 VR OI OID')
@@ -402,8 +405,6 @@ df_plotdata_cm_put_oi = pd.DataFrame()
 df_plotdata_fut = pd.DataFrame()
 df_plotdata_fut_che = pd.DataFrame()
 df_plotdata_kp200 = pd.DataFrame()
-
-start_hour = 9
 
 blueviolet = QColor(138, 43, 226)
 darkviolet = QColor(0x94, 0x00, 0xD3)
