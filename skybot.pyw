@@ -8893,6 +8893,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         call_ol = [False] * nCount_cm_option_pairs
         call_oh = [False] * nCount_cm_option_pairs
 
+        call_below_atm_count = 0
+
         for index in range(nCount_cm_option_pairs):
         
             if df_cm_call.iloc[index]['시가'] >= price_threshold and df_cm_call.iloc[index]['저가'] < df_cm_call.iloc[index]['고가']:
@@ -9724,6 +9726,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         put_open = [False] * nCount_cm_option_pairs
         put_ol = [False] * nCount_cm_option_pairs
         put_oh = [False] * nCount_cm_option_pairs
+
+        put_above_atm_count = 0
 
         for index in range(nCount_cm_option_pairs):
         
