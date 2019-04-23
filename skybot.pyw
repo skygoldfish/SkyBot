@@ -479,10 +479,11 @@ fut_jl_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 fut_jh_pen = pg.mkPen(orangered, width=2, style=QtCore.Qt.DotLine)
 fut_pvt_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 
-aqua_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.SolidLine)
-magenta_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.SolidLine)
+aqua_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
+magenta_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 green_pen = pg.mkPen('g', width=2, style=QtCore.Qt.SolidLine)
 gold_pen = pg.mkPen(gold, width=2, style=QtCore.Qt.DotLine)
+yellow_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
 
 overnight = False
 
@@ -2336,20 +2337,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         fut_che_left_curve = self.Plot_Fut.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         cm_call_volume_left_curve = self.Plot_Fut.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_put_volume_left_curve = self.Plot_Fut.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        cm_put_volume_left_curve = self.Plot_Fut.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
         cm_volume_cha_left_curve = self.Plot_Fut.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         cm_call_oi_left_curve = self.Plot_Fut.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_put_oi_left_curve = self.Plot_Fut.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        cm_put_oi_left_curve = self.Plot_Fut.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
         
         kp200_curve = self.Plot_Fut.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         fut_curve = self.Plot_Fut.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         
         cm_call_oi_right_curve = self.Plot_Opt.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_put_oi_right_curve = self.Plot_Opt.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        cm_put_oi_right_curve = self.Plot_Opt.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
         cm_call_volume_right_curve = self.Plot_Opt.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_put_volume_right_curve = self.Plot_Opt.plot(pen=bpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        cm_put_volume_right_curve = self.Plot_Opt.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
         cm_volume_cha_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         fut_che_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)        
@@ -2357,7 +2358,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global time_line_opt, mv_line, opt_base_line, call_curve, put_curve
 
         time_line_opt = self.Plot_Opt.addLine(x=0, y=None, pen=tpen)
-        opt_base_line = self.Plot_Opt.addLine(x=None, pen=gold_pen)
+        opt_base_line = self.Plot_Opt.addLine(x=None, pen=yellow_pen)
 
         for i in range(9):
             mv_line.append(self.Plot_Opt.addLine(x=None, pen=mvpen))
