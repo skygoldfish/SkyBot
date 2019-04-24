@@ -2519,20 +2519,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         for i in range(len(의미가)):
 
-            list_low5.append(의미가[i] - 0.05)
-            list_low4.append(의미가[i] - 0.04)
-            list_low3.append(의미가[i] - 0.03)
-            list_low2.append(의미가[i] - 0.02)
-            list_low1.append(의미가[i] - 0.01)
+            list_low5.append(round(의미가[i] - 0.05, 2))
+            list_low4.append(round(의미가[i] - 0.04, 2))
+            list_low3.append(round(의미가[i] - 0.03, 2))
+            list_low2.append(round(의미가[i] - 0.02, 2))
+            list_low1.append(round(의미가[i] - 0.01, 2))
 
-            list_high1.append(의미가[i] + 0.01)
-            list_high2.append(의미가[i] + 0.02)
-            list_high3.append(의미가[i] + 0.03)
-            list_high4.append(의미가[i] + 0.04)
-            list_high5.append(의미가[i] + 0.05)
+            list_high1.append(round(의미가[i] + 0.01, 2))
+            list_high2.append(round(의미가[i] + 0.02, 2))
+            list_high3.append(round(의미가[i] + 0.03, 2))
+            list_high4.append(round(의미가[i] + 0.04, 2))
+            list_high5.append(round(의미가[i] + 0.05, 2))
 
         coreval = 의미가 + list_low1 + list_low2 + list_low3 + list_low4 + list_low5 + list_high1 + list_high2 + list_high3 + list_high4 + list_high5
         coreval.sort()
+
+        print(coreval)
 
         # 컬럼 헤더 click시 Event 처리용.
         call_h_header = self.tableWidget_call.horizontalHeader()
