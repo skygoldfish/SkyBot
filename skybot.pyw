@@ -3555,7 +3555,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             new_list = [x for x in cm_call_시가 if x not in old_list_set]
                             len_new_list = len(new_list)
 
-                            print('call new_list', new_list)
+                            #print('call new_list', new_list)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 콜 시가리스트 : {3} !!!\r'.format(delta_hour, delta_minute, delta_sec, new_list)
+                            self.textBrowser.append(str)
                             
                             for i in range(len_new_list):
                                 self.call_open_update_by_index(cm_call_시가.index(new_list[i]))
@@ -3576,7 +3578,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             new_list = [x for x in cm_put_시가 if x not in old_list_set]
                             len_new_list = len(new_list)
 
-                            print('put new_list', new_list)
+                            #print('put new_list', new_list)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 풋 시가리스트 : {3} !!!\r'.format(delta_hour, delta_minute, delta_sec, new_list)
+                            self.textBrowser.append(str)
                             
                             for i in range(len_new_list):
                                 self.put_open_update_by_index(cm_put_시가.index(new_list[i]))
@@ -6328,14 +6332,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 cm_put_종가 = df_cm_put['종가'].values.tolist()
                 cm_put_종가_node_list = self.make_node_list(cm_put_종가)
+                
+                콜시가리스트 = [0.0] * nCount_cm_option_pairs
+                풋시가리스트 = [0.0] * nCount_cm_option_pairs
 
                 if not pre_start:
 
                     # 콜 컬러링 리스트 작성
                     cm_call_시가 = df_cm_call['시가'].values.tolist()
                     cm_call_시가_node_list = self.make_node_list(cm_call_시가)
-
-                    콜시가리스트 = [0.0] * nCount_cm_option_pairs
 
                     cm_call_피봇 = df_cm_call['피봇'].values.tolist()
                     cm_call_피봇_node_list = self.make_node_list(cm_call_피봇)
@@ -6350,8 +6355,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_put_시가 = df_cm_put['시가'].values.tolist()
                     cm_put_시가_node_list = self.make_node_list(cm_put_시가)
 
-                    풋시가리스트 = [0.0] * nCount_cm_option_pairs
-
                     cm_put_피봇 = df_cm_put['피봇'].values.tolist()
                     cm_put_피봇_node_list = self.make_node_list(cm_put_피봇)
 
@@ -6361,8 +6364,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_put_고가 = df_cm_put['고가'].values.tolist()
                     cm_put_고가_node_list = self.make_node_list(cm_put_고가)
                 else:
-                    콜시가리스트 = [0.0] * nCount_cm_option_pairs
-                    풋시가리스트 = [0.0] * nCount_cm_option_pairs
+                    pass
 
                 df_plotdata_cm_call_volume.iloc[0][0] = 0                
                 df_plotdata_cm_put_volume.iloc[0][0] = 0
@@ -9053,7 +9055,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}] 전광판 갱신 !!!\r'.format(delta_hour, delta_minute, delta_sec, index)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}, {4:0.2f}] 전광판 갱신 !!!\r'.format(delta_hour, delta_minute, delta_sec, index, df_cm_call.iloc[index]['시가'])
                     self.textBrowser.append(str)
                 else:
                     print('call_gap_percent_local is empty...')        
@@ -9934,7 +9936,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 전광판 갱신 !!!\r'.format(delta_hour, delta_minute, delta_sec, index)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}, {4:0.2f}] 전광판 갱신 !!!\r'.format(delta_hour, delta_minute, delta_sec, index, df_cm_put.iloc[index]['시가'])
                     self.textBrowser.append(str)
                 else:
                     print('put_gap_percent_local is empty...')
