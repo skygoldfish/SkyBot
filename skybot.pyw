@@ -2232,7 +2232,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_call.setRowCount(nRowCount)
         self.tableWidget_call.setColumnCount(Option_column.OID.value + 1)
         self.tableWidget_call.setHorizontalHeaderLabels(['▲', '행사가', '↑/↓', '기준가', '월저', '월고', '전저', '전고', 
-        '종가 √', '피봇 √', '시가 √', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '∑(미결 or 체결량)', '미결증감'])
+        '종가 √', '피봇 √', '시가 √', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '미결∑ or 체결량∑', '미결증감'])
         self.tableWidget_call.verticalHeader().setVisible(False)
         self.tableWidget_call.clearContents()
 
@@ -2251,7 +2251,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_put.setRowCount(nRowCount)
         self.tableWidget_put.setColumnCount(Option_column.OID.value + 1)
         self.tableWidget_put.setHorizontalHeaderLabels(['▼', '행사가', '↑/↓', '기준가', '월저', '월고', '전저', '전고', 
-        '종가 √', '피봇 √', '시가 √', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '∑(미결 or 체결량)', '미결증감'])
+        '종가 √', '피봇 √', '시가 √', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '미결∑ or 체결량∑', '미결증감'])
         self.tableWidget_put.verticalHeader().setVisible(False)
         self.tableWidget_put.clearContents()
 
@@ -11943,10 +11943,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             START_ON = True
 
             self.tableWidget_call.setHorizontalHeaderLabels(['▲', '행사가', '↑/↓', '기준가', '월저', '월고', '전저', '전고', 
-            '종가 √', '피봇 √', '시가 √', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '∑(미결 or 체결량)', 'OIΔ'])
+            '종가 √', '피봇 √', '시가 √', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '미결∑ or 체결량∑', 'OIΔ'])
 
             self.tableWidget_put.setHorizontalHeaderLabels(['▲', '행사가', '↑/↓', '기준가', '월저', '월고', '전저', '전고', 
-            '종가 √', '피봇 √', '시가 √', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '∑(미결 or 체결량)', 'OIΔ'])
+            '종가 √', '피봇 √', '시가 √', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '미결∑ or 체결량∑', 'OIΔ'])
 
             kp200_realdata['전저'] = 0.0
             kp200_realdata['전고'] = 0.0
