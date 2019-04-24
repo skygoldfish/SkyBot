@@ -3566,7 +3566,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             콜시가리스트 = copy.deepcopy(cm_call_시가)
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 콜 시가리스트 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 콜 시가리스트 {3} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, 콜시가리스트)
                             self.textBrowser.append(str)
                         else:
                             pass
@@ -3589,7 +3589,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             풋시가리스트 = copy.deepcopy(cm_put_시가)
                             
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 풋 시가리스트 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 풋 시가리스트 {3} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, 풋시가리스트)
                             self.textBrowser.append(str)
                         else:
                             pass
@@ -8660,14 +8660,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}] 시가 {4} Open됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, call_result['시가'])
         self.textBrowser.append(str)
-
+        '''
         if opt_x_idx >= 10:
 
             txt = '콜 {} 오픈'.format(call_result['시가'])
             Speak(txt)
         else:
             pass
-
+        '''
         if df_cm_call.iloc[index]['전저'] > 0 and df_cm_call.iloc[index]['전고'] > 0:
 
             피봇 = self.calc_pivot(df_cm_call.iloc[index]['전저'], df_cm_call.iloc[index]['전고'],
@@ -9539,14 +9539,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 시가 {4} Open됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, put_result['시가'])
         self.textBrowser.append(str)
-
+        '''
         if opt_x_idx >= 10:
 
             txt = '풋 {} 오픈'.format(put_result['시가'])
             Speak(txt)
         else:
             pass
-
+        '''
         if df_cm_put.iloc[index]['전저'] > 0 and df_cm_put.iloc[index]['전고'] > 0:
 
             피봇 = self.calc_pivot(df_cm_put.iloc[index]['전저'], df_cm_put.iloc[index]['전고'],
