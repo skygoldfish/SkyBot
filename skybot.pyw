@@ -2242,6 +2242,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         for i in range(nRowCount):
             call_ckbox.append(QCheckBox())
+            cell_widget = QWidget()
+            lay_out = QHBoxLayout(cell_widget)
+            lay_out.addWidget(QCheckBox())
+            lay_out.setAlignment(Qt.AlignCenter)
+            lay_out.setContentsMargins(0,0,0,0)
+            call_ckbox[i].setLayout(lay_out)
             self.tableWidget_call.setCellWidget(i, 0, call_ckbox[i])
 
         self.tableWidget_call.resizeColumnsToContents()
@@ -2259,6 +2265,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         for i in range(nRowCount):
             put_ckbox.append(QCheckBox())
+            cell_widget = QWidget()
+            lay_out = QHBoxLayout(cell_widget)
+            lay_out.addWidget(QCheckBox())
+            lay_out.setAlignment(Qt.AlignCenter)
+            lay_out.setContentsMargins(0,0,0,0)
+            put_ckbox[i].setLayout(lay_out)
             self.tableWidget_put.setCellWidget(i, 0, put_ckbox[i])
 
         self.tableWidget_put.resizeColumnsToContents()
@@ -9736,7 +9748,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 put_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
 
                 gap_str = "{0:0.2f}({1:0.0f}%)".format(대비, put_db_percent[index])
-                    
+
                 item = QTableWidgetItem(gap_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setItem(index, Option_column.대비.value, item) 
@@ -9745,7 +9757,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             # 시가 갱신
             if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
-                
+
                 self.put_open_update()
                 '''
                 if opt_x_idx >= 10:
@@ -9766,7 +9778,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem(저가)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setItem(index, Option_column.저가.value, item)
-                
+
                 if float(저가) >= price_threshold:
 
                     cm_put_저가 = df_cm_put['저가'].values.tolist()
@@ -9791,7 +9803,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem(고가)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setItem(index, Option_column.고가.value, item)
-                
+
                 if float(고가) >= price_threshold:
 
                     cm_put_고가 = df_cm_put['고가'].values.tolist()
