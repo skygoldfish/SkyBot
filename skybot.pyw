@@ -3555,7 +3555,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             new_list = [x for x in cm_call_시가 if x not in old_list_set]
                             len_new_list = len(new_list)
 
-                            #print('call new_list', new_list)
                             str = '[{0:02d}:{1:02d}:{2:02d}] 콜 시가리스트 : {3} !!!\r'.format(delta_hour, delta_minute, delta_sec, new_list)
                             self.textBrowser.append(str)
                             
@@ -3578,7 +3577,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             new_list = [x for x in cm_put_시가 if x not in old_list_set]
                             len_new_list = len(new_list)
 
-                            #print('put new_list', new_list)
                             str = '[{0:02d}:{1:02d}:{2:02d}] 풋 시가리스트 : {3} !!!\r'.format(delta_hour, delta_minute, delta_sec, new_list)
                             self.textBrowser.append(str)
                             
@@ -3595,11 +3593,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             pass
 
                         # 매 20초마다 한번씩 맥점 컬러링 채크 및 실행
-                        if delta_sec in every_20sec and self.alternate_flag:
+                        if delta_sec in every_10sec and self.alternate_flag:
 
                             color_update = False
 
                             if cm_call_저가 != 콜저가리스트:
+
                                 콜저가리스트 = copy.deepcopy(cm_call_저가)
                                 color_update = True
 
@@ -3609,6 +3608,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 pass
 
                             if cm_call_고가 != 콜고가리스트:
+
                                 콜고가리스트 = copy.deepcopy(cm_call_고가)
                                 color_update = True
 
@@ -3618,6 +3618,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 pass
 
                             if cm_put_저가 != 풋저가리스트:
+
                                 풋저가리스트 = copy.deepcopy(cm_put_저가)
                                 color_update = True
 
@@ -3627,6 +3628,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 pass
 
                             if cm_put_고가 != 풋고가리스트:
+
                                 풋고가리스트 = copy.deepcopy(cm_put_고가)
                                 color_update = True
 
@@ -9038,47 +9040,43 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def call_open_update_by_index(self, index):
 
         global df_cm_call, call_gap_percent
+        
+        if df_cm_call.iloc[index]['종가'] > 0:
 
-        if df_cm_call.iloc[index]['시가'] >= price_threshold:
+            df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
+            call_gap_percent[index] = (df_cm_call.iloc[index]['시가'] / df_cm_call.iloc[index]['종가'] - 1) * 100
 
-            if df_cm_call.iloc[index]['종가'] > 0:
+            gap_str = "{0:0.2f}({1:0.0f}%)".format(df_cm_call.iloc[index]['시가갭'], call_gap_percent[index])
 
-                df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
-                call_gap_percent[index] = (df_cm_call.iloc[index]['시가'] / df_cm_call.iloc[index]['종가'] - 1) * 100
+            item = QTableWidgetItem(gap_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
 
-                gap_str = "{0:0.2f}({1:0.0f}%)".format(df_cm_call.iloc[index]['시가갭'], call_gap_percent[index])
+            # 시가갭 갱신
+            temp = call_gap_percent[:]
+            call_gap_percent_local = [value for value in temp if not math.isnan(value)]
+            call_gap_percent_local.sort()
 
-                item = QTableWidgetItem(gap_str)
+            if call_gap_percent_local:
+
+                sumc = round(df_cm_call['시가갭'].sum(), 2)
+                tmp = np.array(call_gap_percent_local)            
+                meanc = int(round(np.mean(tmp), 2))
+                call_str = repr(sumc) + '(' + repr(meanc) + '%' + ')'
+
+                item = QTableWidgetItem(call_str)
                 item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-                # 시가갭 갱신
-                temp = call_gap_percent[:]
-                call_gap_percent_local = [value for value in temp if not math.isnan(value)]
-                call_gap_percent_local.sort()
-
-                if call_gap_percent_local:
-
-                    sumc = round(df_cm_call['시가갭'].sum(), 2)
-                    tmp = np.array(call_gap_percent_local)            
-                    meanc = int(round(np.mean(tmp), 2))
-                    call_str = repr(sumc) + '(' + repr(meanc) + '%' + ')'
-
-                    item = QTableWidgetItem(call_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}, {4:0.2f}] 시가 갱신 !!!\r'.format(delta_hour, delta_minute, delta_sec, index, df_cm_call.iloc[index]['시가'])
-                    self.textBrowser.append(str)
-                else:
-                    print('call_gap_percent_local is empty...')        
-
-                self.tableWidget_call.resizeColumnsToContents()
-                self.tableWidget_call.setColumnWidth(0, 15)
+                str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}, {4:0.2f}] 시가 갱신 !!!\r'.format(delta_hour, delta_minute, delta_sec, index, df_cm_call.iloc[index]['시가'])
+                self.textBrowser.append(str)
             else:
-                pass            
+                print('call_gap_percent_local is empty...')        
+
+            self.tableWidget_call.resizeColumnsToContents()
+            self.tableWidget_call.setColumnWidth(0, 15)
         else:
-            pass        
+            pass       
 
         return
     '''
@@ -9932,47 +9930,43 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def put_open_update_by_index(self, index):
 
         global df_cm_put, put_gap_percent
+        
+        if df_cm_put.iloc[index]['종가'] > 0:
 
-        if df_cm_put.iloc[index]['시가'] >= price_threshold:                
+            df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']
+            put_gap_percent[index] = (df_cm_put.iloc[index]['시가'] / df_cm_put.iloc[index]['종가'] - 1) * 100
 
-            if df_cm_put.iloc[index]['종가'] > 0:
+            gap_str = "{0:0.2f}({1:0.0f}%)".format(df_cm_put.iloc[index]['시가갭'], put_gap_percent[index])
 
-                df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']
-                put_gap_percent[index] = (df_cm_put.iloc[index]['시가'] / df_cm_put.iloc[index]['종가'] - 1) * 100
+            item = QTableWidgetItem(gap_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
 
-                gap_str = "{0:0.2f}({1:0.0f}%)".format(df_cm_put.iloc[index]['시가갭'], put_gap_percent[index])
+            # 시가갭 갱신
+            temp = put_gap_percent[:]
+            put_gap_percent_local = [value for value in temp if not math.isnan(value)]
+            put_gap_percent_local.sort()
 
-                item = QTableWidgetItem(gap_str)
+            if put_gap_percent_local:
+
+                sumc = round(df_cm_put['시가갭'].sum(), 2)
+                tmp = np.array(put_gap_percent_local)            
+                meanc = int(round(np.mean(tmp), 2))
+                put_str = repr(sumc) + '(' + repr(meanc) + '%' + ')'
+
+                item = QTableWidgetItem(put_str)
                 item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-                # 시가갭 갱신
-                temp = put_gap_percent[:]
-                put_gap_percent_local = [value for value in temp if not math.isnan(value)]
-                put_gap_percent_local.sort()
-
-                if put_gap_percent_local:
-
-                    sumc = round(df_cm_put['시가갭'].sum(), 2)
-                    tmp = np.array(put_gap_percent_local)            
-                    meanc = int(round(np.mean(tmp), 2))
-                    put_str = repr(sumc) + '(' + repr(meanc) + '%' + ')'
-
-                    item = QTableWidgetItem(put_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}, {4:0.2f}] 시가 갱신 !!!\r'.format(delta_hour, delta_minute, delta_sec, index, df_cm_put.iloc[index]['시가'])
-                    self.textBrowser.append(str)
-                else:
-                    print('put_gap_percent_local is empty...')
-
-                self.tableWidget_put.resizeColumnsToContents()
-                self.tableWidget_put.setColumnWidth(0, 15)
+                str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}, {4:0.2f}] 시가 갱신 !!!\r'.format(delta_hour, delta_minute, delta_sec, index, df_cm_put.iloc[index]['시가'])
+                self.textBrowser.append(str)
             else:
-                pass            
+                print('put_gap_percent_local is empty...')
+
+            self.tableWidget_put.resizeColumnsToContents()
+            self.tableWidget_put.setColumnWidth(0, 15)
         else:
-            pass        
+            pass           
 
         return   
     '''
