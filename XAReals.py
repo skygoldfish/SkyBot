@@ -1472,7 +1472,8 @@ class EC0(XAReal):
             print("%s-%s " % (클래스이름, 함수이름), e)
 
         # print(" EXIT : %s --> %s" % (클래스이름, 함수이름))
-        # print('누적거래량, 매도체결량, 매수체결량', result['누적거래량'], result['매도누적체결량'], result['매수누적체결량'])
+        # 야간은 미결정보 미제공임
+        # print('미결제약정수량, 미결제약정증감', result['미결제약정수량'], result['미결제약정증감'])
 
 # EUREX연계 KP200지수옵션 선물호가(EH0)
 class EH0(XAReal):
