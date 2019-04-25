@@ -2281,9 +2281,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_fut.setRowCount(3)
         self.tableWidget_fut.setColumnCount(Futures_column.OID.value + 1)
         self.tableWidget_fut.setVerticalHeaderLabels(['CME', 'FUT', 'KP200'])
+        self.tableWidget_fut.verticalHeaderItem(0).setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.verticalHeaderItem(1).setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.verticalHeaderItem(2).setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setHorizontalHeaderLabels(
             ['↑↓', 'MSC', 'MDC', 'MSR', 'MDR', 'CR', 'RR', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
-             '현재가', '고가', '대비', '진폭', 'PVP', 'VR', 'OI', 'OIΔ'])
+             '현재가', '고가', '대비', '진폭', 'PVP', 'VR', 'OI', 'OIΔ'])        
 
         # 수급 tablewidget 초기화
         self.tableWidget_supply.setRowCount(1)
@@ -2304,7 +2307,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.상태그림 = ['▼', '▬', '▲']
         self.상태문자 = ['매도', '대기', '매수']
-        self.특수문자 = ['☆', '★', '※', '○', '●', '◎', '√', '↗', '↘', '↑', '↓', '♣', '♠', '♥', '◆', 'Δ', '【', '】']
+        self.특수문자 = ['☆', '★', '※', '○', '●', '◎', '√', '↗', '↘', '↑', '↓', '↕', '♣', '♠', '♥', '◆', 'Δ', '【', '】']
 
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
