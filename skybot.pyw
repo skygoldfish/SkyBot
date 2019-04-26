@@ -298,6 +298,9 @@ df_nm_put = pd.DataFrame()
 
 call_ckbox = []
 put_ckbox = []
+call_cell_widget = []
+put_cell_widget = []
+
 nm_call_ckbox = []
 nm_put_ckbox = []
 
@@ -2231,60 +2234,50 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # call tablewidget 초기화
         self.tableWidget_call.setRowCount(nRowCount)
         self.tableWidget_call.setColumnCount(Option_column.OID.value + 1)
-        self.tableWidget_call.setHorizontalHeaderLabels(['', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
+        self.tableWidget_call.setHorizontalHeaderLabels(['▲', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
         '종가 √', '피봇 √', '시가 √', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '미결∑ or 체결량∑', '미결증감'])
         self.tableWidget_call.verticalHeader().setVisible(False)
         self.tableWidget_call.clearContents()
 
-        global call_ckbox, put_ckbox
+        global call_ckbox, put_ckbox, call_cell_widget, put_cell_widget
 
         call_ckbox = []
-        #cell_widget = []
+        call_cell_widget = []
 
         for i in range(nRowCount):
-
-            chk_bx = QCheckBox()
-            call_ckbox.append(chk_bx)
-            self.tableWidget_call.setCellWidget(i, 0, call_ckbox[i])
-            '''
-            cell_widget.append(QWidget())            
-            lay_out = QHBoxLayout(cell_widget[i])
-            lay_out.addWidget(chk_bx)
+            
+            call_cell_widget.append(QWidget())            
+            lay_out = QHBoxLayout(call_cell_widget[i])
+            lay_out.addWidget(QCheckBox())
             lay_out.setAlignment(Qt.AlignCenter)
             lay_out.setContentsMargins(2,0,0,0)            
-            cell_widget[i].setLayout(lay_out)            
-            self.tableWidget_call.setCellWidget(i, 0, cell_widget[i])
-            '''
-        self.tableWidget_call.resizeColumnsToContents()
-        #self.tableWidget_call.setColumnWidth(0, 14)
+            call_cell_widget[i].setLayout(lay_out)         
+            self.tableWidget_call.setCellWidget(i, 0, call_cell_widget[i])
+            
+        self.tableWidget_call.resizeColumnsToContents()   
 
         # put tablewidget 초기화
         self.tableWidget_put.setRowCount(nRowCount)
         self.tableWidget_put.setColumnCount(Option_column.OID.value + 1)
-        self.tableWidget_put.setHorizontalHeaderLabels(['', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
+        self.tableWidget_put.setHorizontalHeaderLabels(['▼', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
         '종가 √', '피봇 √', '시가 √', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '미결∑ or 체결량∑', '미결증감'])
         self.tableWidget_put.verticalHeader().setVisible(False)
         self.tableWidget_put.clearContents()
 
         put_ckbox = []
-        #cell_widget = []
+        put_cell_widget = []
 
         for i in range(nRowCount):
 
-            chk_bx = QCheckBox()
-            put_ckbox.append(chk_bx)
-            self.tableWidget_put.setCellWidget(i, 0, put_ckbox[i])
-            '''
-            cell_widget.append(QWidget())            
-            lay_out = QHBoxLayout(cell_widget[i])
-            lay_out.addWidget(chk_bx)
+            put_cell_widget.append(QWidget())            
+            lay_out = QHBoxLayout(put_cell_widget[i])
+            lay_out.addWidget(QCheckBox())
             lay_out.setAlignment(Qt.AlignCenter)
             lay_out.setContentsMargins(2,0,0,0)            
-            cell_widget[i].setLayout(lay_out)
-            self.tableWidget_put.setCellWidget(i, 0, cell_widget[i])
-            '''
+            put_cell_widget[i].setLayout(lay_out)
+            self.tableWidget_put.setCellWidget(i, 0, put_cell_widget[i])
+            
         self.tableWidget_put.resizeColumnsToContents()
-        #self.tableWidget_put.setColumnWidth(0, 14)
 
         # Quote tablewidget 초기화
         self.tableWidget_quote.setRowCount(1)
@@ -2769,7 +2762,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem(call_temp)
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
                 self.tableWidget_call.resizeColumnsToContents()
-                #self.tableWidget_call.setColumnWidth(0, 14)
             else:
                 pass
 
@@ -2777,7 +2769,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem(put_temp)
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
                 self.tableWidget_put.resizeColumnsToContents()
-                #self.tableWidget_put.setColumnWidth(0, 14)
             else:
                 pass
         else:
@@ -2951,7 +2942,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
 
         self.tableWidget_call.resizeColumnsToContents()
-        #self.tableWidget_call.setColumnWidth(0, 14)
         
         return
 
@@ -3022,7 +3012,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
 
         self.tableWidget_put.resizeColumnsToContents()
-        #self.tableWidget_put.setColumnWidth(0, 14)
         
         return
 
@@ -3041,7 +3030,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_call.setItem(idx, Option_column.행사가.value, item)
 
         self.tableWidget_call.resizeColumnsToContents()
-        #self.tableWidget_call.setColumnWidth(0, 14)
 
         return
 
@@ -3060,7 +3048,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_put.setItem(idx, Option_column.행사가.value, item)
 
         self.tableWidget_put.resizeColumnsToContents()
-        #self.tableWidget_put.setColumnWidth(0, 14)
 
         return
 
@@ -3224,7 +3211,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 call_scroll_end_position = call_scroll_begin_position + 9
 
             self.tableWidget_call.resizeColumnsToContents()
-            #self.tableWidget_call.setColumnWidth(0, 14)
 
             print('call scroll position -----> from %d to %d' % (call_scroll_begin_position, call_scroll_end_position))
 
@@ -3254,7 +3240,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 put_scroll_end_position = put_scroll_begin_position + 9
 
             self.tableWidget_put.resizeColumnsToContents()
-            #self.tableWidget_put.setColumnWidth(0, 14)
 
             print('put scroll position -----> from %d to %d' % (put_scroll_begin_position, put_scroll_end_position))
 
@@ -3356,25 +3341,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             for i in range(nCount_cm_option_pairs):
 
-                call_ckbox = self.tableWidget_call.cellWidget(i, 0)
-
-                if isinstance(call_ckbox, QCheckBox):
-                    if call_ckbox.isChecked():
-                        call_idx.append(i)
-                    else:
-                        pass
+                if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
+                    call_idx.append(i)
                 else:
                     pass
 
-                put_ckbox = self.tableWidget_put.cellWidget(i, 0)
-
-                if isinstance(put_ckbox, QCheckBox):
-                    if put_ckbox.isChecked():
-                        put_idx.append(i)
-                    else:
-                        pass
+                if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
+                    put_idx.append(i)
                 else:
-                    pass                
+                    pass          
 
             selected_call = call_idx
             selected_put = put_idx            
@@ -3729,23 +3704,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     for i in range(nCount_cm_option_pairs):
 
-                        call_ckbox = self.tableWidget_call.cellWidget(i, 0)
-
-                        if isinstance(call_ckbox, QCheckBox):
-                            if call_ckbox.isChecked():
-                                call_idx.append(i)
-                            else:
-                                pass
+                        if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
+                            call_idx.append(i)
                         else:
                             pass
 
-                        put_ckbox = self.tableWidget_put.cellWidget(i, 0)
-
-                        if isinstance(put_ckbox, QCheckBox):
-                            if put_ckbox.isChecked():
-                                put_idx.append(i)
-                            else:
-                                pass
+                        if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
+                            put_idx.append(i)
                         else:
                             pass                
 
@@ -6002,10 +5967,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         atm_index_old = i
 
                         if not overnight:
-
-                            call_ckbox[atm_index - 1].setCheckState(Qt.Checked)
-                            call_ckbox[atm_index].setCheckState(Qt.Checked)
-                            call_ckbox[atm_index + 1].setCheckState(Qt.Checked)
+                            
+                            self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                            self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                            self.tableWidget_call.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
 
                             selected_call = [atm_index - 1, atm_index, atm_index + 1]
                         else:
@@ -6074,7 +6039,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 print(df_cm_call)
 
                 self.tableWidget_call.resizeColumnsToContents()
-                #self.tableWidget_call.setColumnWidth(0, 14)
 
                 # 풋처리
                 for i in range(nCount_cm_option_pairs):
@@ -6280,10 +6244,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         atm_index_old = i
 
                         if not overnight:
-
-                            put_ckbox[atm_index - 1].setCheckState(Qt.Checked)
-                            put_ckbox[atm_index].setCheckState(Qt.Checked)
-                            put_ckbox[atm_index + 1].setCheckState(Qt.Checked)
+                            
+                            self.tableWidget_put.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                            self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                            self.tableWidget_put.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
 
                             selected_put = [atm_index - 1, atm_index, atm_index + 1]
                         else:
@@ -6352,7 +6316,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 print(df_cm_put)
 
                 self.tableWidget_put.resizeColumnsToContents()
-                #self.tableWidget_put.setColumnWidth(0, 14)
 
                 cm_call_종가 = df_cm_call['종가'].values.tolist()
                 cm_call_종가_node_list = self.make_node_list(cm_call_종가)
@@ -6729,10 +6692,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     XQ.Query(월물=currentt_month)
             
             self.tableWidget_call.resizeColumnsToContents()
-            #self.tableWidget_call.setColumnWidth(0, 14)
-
             self.tableWidget_put.resizeColumnsToContents()
-            #self.tableWidget_put.setColumnWidth(0, 14)
 
         elif szTrCode == 't2801':
 
@@ -7381,10 +7341,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 print('t2835 put', df_cm_put)
 
                 self.tableWidget_call.resizeColumnsToContents()
-                #self.tableWidget_call.setColumnWidth(0, 14)
-
                 self.tableWidget_put.resizeColumnsToContents()
-                #self.tableWidget_put.setColumnWidth(0, 14)
 
                 cm_call_전저 = df_cm_call['전저'].values.tolist()
                 cm_call_전저_node_list = self.make_node_list(cm_call_전저)
@@ -7589,9 +7546,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     콜_수정미결퍼센트, 풋_수정미결퍼센트)
                 self.label_atm.setText(str)
 
-                call_ckbox[atm_index - 1].setCheckState(Qt.Checked)
-                call_ckbox[atm_index].setCheckState(Qt.Checked)
-                call_ckbox[atm_index + 1].setCheckState(Qt.Checked)
+                self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                self.tableWidget_call.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
 
                 selected_call = [atm_index - 1, atm_index, atm_index + 1]
 
@@ -7601,9 +7558,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
                 self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
 
-                put_ckbox[atm_index - 1].setCheckState(Qt.Checked)
-                put_ckbox[atm_index].setCheckState(Qt.Checked)
-                put_ckbox[atm_index + 1].setCheckState(Qt.Checked)
+                self.tableWidget_put.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                self.tableWidget_put.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
 
                 selected_put = [atm_index - 1, atm_index, atm_index + 1]
 
@@ -7649,10 +7606,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
             
             self.tableWidget_call.resizeColumnsToContents()
-            #self.tableWidget_call.setColumnWidth(0, 14)
-
             self.tableWidget_put.resizeColumnsToContents()
-            #self.tableWidget_put.setColumnWidth(0, 14) 
 
         elif szTrCode == 't8415':
 
@@ -7868,7 +7822,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.textBrowser.append(str)
 
                         self.tableWidget_call.resizeColumnsToContents()
-                        #self.tableWidget_call.setColumnWidth(0, 14)
 
                         call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
                         self.tableWidget_call.scrollToItem(call_positionCell)
@@ -8011,7 +7964,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     print('\r')
 
                     self.tableWidget_put.resizeColumnsToContents()
-                    #self.tableWidget_put.setColumnWidth(0, 14)
 
                     put_positionCell = self.tableWidget_put.item(atm_index + 3, 1)
                     self.tableWidget_put.scrollToItem(put_positionCell)
@@ -8880,7 +8832,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem(call_str)
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
                 self.tableWidget_call.resizeColumnsToContents()
-                #self.tableWidget_call.setColumnWidth(0, 14)
             else:
                 pass
         else:
@@ -9196,7 +9147,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass                               
 
         self.tableWidget_call.resizeColumnsToContents()
-        #self.tableWidget_call.setColumnWidth(0, 14)
 
         return
 
@@ -9237,7 +9187,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 print('call_gap_percent_local is empty...')        
 
             self.tableWidget_call.resizeColumnsToContents()
-            #self.tableWidget_call.setColumnWidth(0, 14)
         else:
             pass       
 
@@ -9294,7 +9243,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             print('call_gap_percent_local is empty...')        
 
         self.tableWidget_call.resizeColumnsToContents()
-        #self.tableWidget_call.setColumnWidth(0, 14)
 
         return
     '''
@@ -9443,7 +9391,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             print('call_gap_percent_local is empty...')        
 
         self.tableWidget_call.resizeColumnsToContents()
-        #self.tableWidget_call.setColumnWidth(0, 14)
 
         return
 
@@ -9487,7 +9434,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
                 self.tableWidget_call.resizeColumnsToContents()
-                #self.tableWidget_call.setColumnWidth(0, 14)
             else:
                 pass
         else:
@@ -9907,7 +9853,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
                 self.tableWidget_put.resizeColumnsToContents()
-                #self.tableWidget_put.setColumnWidth(0, 14)
             else:
                 pass
         else:
@@ -10224,7 +10169,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass           
 
         self.tableWidget_put.resizeColumnsToContents()
-        #self.tableWidget_put.setColumnWidth(0, 14)
 
         return
 
@@ -10265,7 +10209,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 print('put_gap_percent_local is empty...')
 
             self.tableWidget_put.resizeColumnsToContents()
-            #self.tableWidget_put.setColumnWidth(0, 14)
         else:
             pass           
 
@@ -10322,7 +10265,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             print('put_gap_percent_local is empty...')
 
         self.tableWidget_put.resizeColumnsToContents()
-        #self.tableWidget_put.setColumnWidth(0, 14)
 
         return
     '''
@@ -10471,7 +10413,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             print('put_gap_percent_local is empty...')
 
         self.tableWidget_put.resizeColumnsToContents()
-        #self.tableWidget_put.setColumnWidth(0, 14)
 
         return
 
@@ -10515,7 +10456,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
                 self.tableWidget_put.resizeColumnsToContents()
-                #self.tableWidget_put.setColumnWidth(0, 14)
             else:
                 pass
         else:
@@ -11113,7 +11053,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                         self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
 
                                         self.tableWidget_call.resizeColumnsToContents()
-                                        #self.tableWidget_call.setColumnWidth(0, 14)
                                     else:
                                         pass
                                 else:
@@ -11146,7 +11085,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 item = QTableWidgetItem(call_str)
                                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
                                 self.tableWidget_call.resizeColumnsToContents()
-                                #self.tableWidget_call.setColumnWidth(0, 14)
                             else:
                                 pass
                         else:
@@ -11203,7 +11141,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                         self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
 
                                         self.tableWidget_put.resizeColumnsToContents()
-                                        #self.tableWidget_put.setColumnWidth(0, 14)
                                     else:
                                         pass
                                 else:
@@ -11236,7 +11173,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 item = QTableWidgetItem(put_str)
                                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
                                 self.tableWidget_put.resizeColumnsToContents()
-                                #self.tableWidget_put.setColumnWidth(0, 14)
                             else:
                                 pass
                         else:
@@ -12263,10 +12199,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             START_ON = True
 
-            self.tableWidget_call.setHorizontalHeaderLabels(['', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
+            self.tableWidget_call.setHorizontalHeaderLabels(['▲', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
             '종가 √', '피봇 √', '시가 √', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '미결∑ or 체결량∑', 'OIΔ'])
 
-            self.tableWidget_put.setHorizontalHeaderLabels(['', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
+            self.tableWidget_put.setHorizontalHeaderLabels(['▼', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
             '종가 √', '피봇 √', '시가 √', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '미결∑ or 체결량∑', 'OIΔ'])
 
             kp200_realdata['전저'] = 0.0
@@ -12587,7 +12523,6 @@ class 화면_차월물옵션전광판(QDialog, Ui_차월물옵션전광판):
             self.tableWidget_call.setCellWidget(i, 0, nm_call_ckbox[i])
 
         self.tableWidget_call.resizeColumnsToContents()
-        #self.tableWidget_call.setColumnWidth(0, 14)
 
         # put tablewidget 초기화
         self.tableWidget_put.setRowCount(nRowCount)
@@ -12604,7 +12539,6 @@ class 화면_차월물옵션전광판(QDialog, Ui_차월물옵션전광판):
             self.tableWidget_put.setCellWidget(i, 0, nm_put_ckbox[i])
 
         self.tableWidget_put.resizeColumnsToContents()
-        #self.tableWidget_put.setColumnWidth(0, 14)
 
         # Quote tablewidget 초기화
         self.tableWidget_quote.setRowCount(1)
