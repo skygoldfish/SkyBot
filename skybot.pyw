@@ -2239,7 +2239,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_call.setHorizontalHeaderLabels(['▲', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', 
         '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '미결∑ or 체결량∑', '미결증감'])
         self.tableWidget_call.verticalHeader().setVisible(False)
-        #self.tableWidget_call.clearContents()
 
         cell_widget = []
 
@@ -2261,7 +2260,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_put.setHorizontalHeaderLabels(['▼', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', 
         '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '미결∑ or 체결량∑', '미결증감'])
         self.tableWidget_put.verticalHeader().setVisible(False)
-        #self.tableWidget_put.clearContents()
 
         cell_widget = []
 
@@ -2302,12 +2300,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(녹색))
         self.tableWidget_fut.setItem(2, 0, item)
-        '''
-        self.tableWidget_fut.setVerticalHeaderLabels(['CME', 'FUT', 'KP200'])
-        self.tableWidget_fut.verticalHeaderItem(0).setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.verticalHeaderItem(1).setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.verticalHeaderItem(2).setTextAlignment(Qt.AlignCenter)        
-        '''
+        
         self.tableWidget_fut.resizeColumnsToContents()
 
         # Quote tablewidget 초기화
