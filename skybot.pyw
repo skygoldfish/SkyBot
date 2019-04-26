@@ -2234,48 +2234,48 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # call tablewidget 초기화
         self.tableWidget_call.setRowCount(nRowCount)
         self.tableWidget_call.setColumnCount(Option_column.OID.value + 1)
-        self.tableWidget_call.setHorizontalHeaderLabels(['▲', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
-        '종가 √', '피봇 √', '시가 √', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '미결∑ or 체결량∑', '미결증감'])
+        self.tableWidget_call.setHorizontalHeaderLabels(['▲', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', 
+        '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '미결∑ or 체결량∑', '미결증감'])
         self.tableWidget_call.verticalHeader().setVisible(False)
         self.tableWidget_call.clearContents()
 
-        global call_ckbox, put_ckbox, call_cell_widget, put_cell_widget
+        #global call_ckbox, put_ckbox, call_cell_widget, put_cell_widget
 
-        call_ckbox = []
-        call_cell_widget = []
+        #call_ckbox = []
+        cell_widget = []
 
         for i in range(nRowCount):
             
-            call_cell_widget.append(QWidget())            
-            lay_out = QHBoxLayout(call_cell_widget[i])
+            cell_widget.append(QWidget())            
+            lay_out = QHBoxLayout(cell_widget[i])
             lay_out.addWidget(QCheckBox())
             lay_out.setAlignment(Qt.AlignCenter)
             lay_out.setContentsMargins(2,0,0,0)            
-            call_cell_widget[i].setLayout(lay_out)         
-            self.tableWidget_call.setCellWidget(i, 0, call_cell_widget[i])
+            cell_widget[i].setLayout(lay_out)         
+            self.tableWidget_call.setCellWidget(i, 0, cell_widget[i])
             
         self.tableWidget_call.resizeColumnsToContents()   
 
         # put tablewidget 초기화
         self.tableWidget_put.setRowCount(nRowCount)
         self.tableWidget_put.setColumnCount(Option_column.OID.value + 1)
-        self.tableWidget_put.setHorizontalHeaderLabels(['▼', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
-        '종가 √', '피봇 √', '시가 √', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '미결∑ or 체결량∑', '미결증감'])
+        self.tableWidget_put.setHorizontalHeaderLabels(['▼', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', 
+        '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '미결∑ or 체결량∑', '미결증감'])
         self.tableWidget_put.verticalHeader().setVisible(False)
         self.tableWidget_put.clearContents()
 
-        put_ckbox = []
-        put_cell_widget = []
+        #put_ckbox = []
+        cell_widget = []
 
         for i in range(nRowCount):
 
-            put_cell_widget.append(QWidget())            
-            lay_out = QHBoxLayout(put_cell_widget[i])
+            cell_widget.append(QWidget())            
+            lay_out = QHBoxLayout(cell_widget[i])
             lay_out.addWidget(QCheckBox())
             lay_out.setAlignment(Qt.AlignCenter)
             lay_out.setContentsMargins(2,0,0,0)            
-            put_cell_widget[i].setLayout(lay_out)
-            self.tableWidget_put.setCellWidget(i, 0, put_cell_widget[i])
+            cell_widget[i].setLayout(lay_out)
+            self.tableWidget_put.setCellWidget(i, 0, cell_widget[i])
             
         self.tableWidget_put.resizeColumnsToContents()
 
@@ -2301,7 +2301,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_fut.verticalHeaderItem(2).setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setHorizontalHeaderLabels(
             ['↑↓', 'MSC', 'MDC', 'MSR', 'MDR', 'CR', 'RR', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
-             '현재가', '고가', '대비', '진폭', 'PVP', 'VR', 'OI', 'OIΔ'])        
+             'CV', '고가', '대비', '진폭', 'PVP', 'VR', 'OI', 'OIΔ'])        
 
         # 수급 tablewidget 초기화
         self.tableWidget_supply.setRowCount(1)
@@ -12199,11 +12199,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             START_ON = True
 
-            self.tableWidget_call.setHorizontalHeaderLabels(['▲', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
-            '종가 √', '피봇 √', '시가 √', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '미결∑ or 체결량∑', 'OIΔ'])
+            self.tableWidget_call.setHorizontalHeaderLabels(['▲', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', 
+            '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '미결∑ or 체결량∑', 'OIΔ'])
 
-            self.tableWidget_put.setHorizontalHeaderLabels(['▼', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
-            '종가 √', '피봇 √', '시가 √', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '미결∑ or 체결량∑', 'OIΔ'])
+            self.tableWidget_put.setHorizontalHeaderLabels(['▼', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', 
+            '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '미결∑ or 체결량∑', 'OIΔ'])
 
             kp200_realdata['전저'] = 0.0
             kp200_realdata['전고'] = 0.0
@@ -12510,7 +12510,7 @@ class 화면_차월물옵션전광판(QDialog, Ui_차월물옵션전광판):
         self.tableWidget_call.setRowCount(nRowCount)
         self.tableWidget_call.setColumnCount(Option_column.OID.value + 1)
         self.tableWidget_call.setHorizontalHeaderLabels(
-            ['▲', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가', '현재가', '고가',
+            ['▲', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가', 'CV', '고가',
              '대비', '진폭', '거래량', 'OIΔ'])
         self.tableWidget_call.clearContents()
 
@@ -12528,7 +12528,7 @@ class 화면_차월물옵션전광판(QDialog, Ui_차월물옵션전광판):
         self.tableWidget_put.setRowCount(nRowCount)
         self.tableWidget_put.setColumnCount(Option_column.OID.value + 1)
         self.tableWidget_put.setHorizontalHeaderLabels(
-            ['▼', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가', '현재가', '고가',
+            ['▼', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가', 'CV', '고가',
              '대비', '진폭', '거래량', 'OIΔ'])
         self.tableWidget_put.clearContents()
 
