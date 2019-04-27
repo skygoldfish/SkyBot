@@ -453,7 +453,7 @@ darkslateblue = QColor(0x48, 0x3D, 0x8B)
 
 선물색 = Qt.magenta
 
-콜기준가색 = crimson
+콜기준가색 = orange
 콜월저색 = indianred
 콜월고색 = darkorange
 콜전저색 = goldenrod
@@ -2556,7 +2556,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.label_3rd_co.setStyleSheet('background-color: yellow ; color: black')
 
         self.label_msg.setText("★ 주요 시그날 알림창 ★")
-        self.label_msg.setStyleSheet('background-color: lime; color: blue')
+        self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
 
         self.label_atm.setText("[Basis] [양합/양차] [∑COI:∑POI]")
         self.label_atm.setStyleSheet('background-color: yellow; color: black')
@@ -3568,27 +3568,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 선물, 콜, 풋 현재가 클리어
                     self.fut_cv_color_clear()
                     self.call_cv_color_clear()                    
-                    self.put_cv_color_clear()
-
-                    # 옵션 대비 갱신
-                    self.call_db_update()
-                    self.put_db_update()
+                    self.put_cv_color_clear()                    
                     
                     # 수정거래량 및 수정미결 갱신
                     self.call_volume_oi_update() 
                     self.put_volume_oi_update() 
-
-                    # 등가, 미결 Label 갱신
-                    self.label_atm_display()
-
+                    
                     # 옵션 체결량 갱신
                     self.call_volume_power_update()
                     self.put_volume_power_update()
+
+                    # 등가, 미결 Label 갱신
+                    self.label_atm_display()
                                         
-                    # Open Count 및 OL/OH 갱신
+                    # 대비, Open Count 및 OL/OH 갱신
                     if self.alternate_flag:
+                        self.call_db_update()
                         self.call_state_update()                        
                     else:
+                        self.put_db_update()
                         self.put_state_update()                        
                     
                     self.alternate_flag = not self.alternate_flag
@@ -3640,7 +3638,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        # 매 20초마다 한번씩 맥점 컬러링 채크 및 실행
+                        # 매 10초마다 한번씩 맥점 컬러링 채크 및 실행
                         if delta_sec in every_10sec and self.alternate_flag:
 
                             color_update = False
@@ -4257,42 +4255,42 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if df_cm_call.iloc[i]['기준가'] in cm_put_저가_node_list:
 
                         self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(콜기준가색))
-                        self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(흰색))
+                        self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
                     else:
                         pass
 
                     if df_cm_call.iloc[i]['기준가'] in cm_put_고가_node_list:
 
                         self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(콜기준가색))
-                        self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(흰색))
+                        self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
                     else:
                         pass
 
                     if df_cm_call.iloc[i]['기준가'] in cm_call_저가_node_list:
 
                         self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(콜기준가색))
-                        self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(흰색))
+                        self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
                     else:
                         pass
 
                     if df_cm_call.iloc[i]['기준가'] in cm_call_고가_node_list:
 
                         self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(콜기준가색))
-                        self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(흰색))
+                        self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
                     else:
                         pass
 
                     if df_cm_call.iloc[i]['저가'] in cm_call_기준가_node_list:
 
                         self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(콜기준가색))
-                        self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(흰색))
+                        self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
                     else:
                         pass
 
                     if df_cm_call.iloc[i]['고가'] in cm_call_기준가_node_list:
 
                         self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(콜기준가색))
-                        self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(흰색))
+                        self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
                     else:
                         pass
                 else:
@@ -4867,14 +4865,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if df_cm_call.iloc[i]['기준가'] in cm_put_저가_node_list:
 
                         self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(콜기준가색))
-                        self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(흰색))
+                        self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
                     else:
                         pass
 						
                     if df_cm_call.iloc[i]['기준가'] in cm_put_고가_node_list:
 
                         self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(콜기준가색))
-                        self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(흰색))
+                        self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
                     else:
                         pass
                 else:
@@ -5387,14 +5385,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if df_cm_put.iloc[i]['저가'] in cm_call_기준가_node_list:
 
                         self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(콜기준가색))
-                        self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(흰색))
+                        self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
                     else:
                         pass
 
                     if df_cm_put.iloc[i]['고가'] in cm_call_기준가_node_list:
 
                         self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(콜기준가색))
-                        self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(흰색))
+                        self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
                     else:
                         pass
                 else:
@@ -7650,7 +7648,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 refresh_flag = True
                 
-                self.pushButton_add.setStyleSheet("background-color: lime")
+                self.pushButton_add.setStyleSheet("background-color: lawngreen")
                 self.pushButton_add.setText('Refresh')                
             else:
                 pass
@@ -8079,7 +8077,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             refresh_flag = True
 
-                            self.pushButton_add.setStyleSheet("background-color: lime")
+                            self.pushButton_add.setStyleSheet("background-color: lawngreen")
                             self.pushButton_add.setText('Refresh')
                         else:
                             pass                                             

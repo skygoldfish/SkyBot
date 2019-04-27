@@ -38,6 +38,9 @@
          <property name="frameShape">
           <enum>QFrame::WinPanel</enum>
          </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
          <property name="text">
           <string>Message Notification !!!</string>
          </property>
@@ -70,7 +73,7 @@
           <enum>QFrame::WinPanel</enum>
          </property>
          <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
+          <enum>QFrame::Sunken</enum>
          </property>
          <property name="text">
           <string>KOSPI</string>
@@ -91,7 +94,7 @@
           <enum>QFrame::WinPanel</enum>
          </property>
          <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
+          <enum>QFrame::Sunken</enum>
          </property>
          <property name="text">
           <string>KOSDAQ</string>
