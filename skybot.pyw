@@ -8284,6 +8284,27 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
+
+            if 대비 >= 0:
+
+                direction = '▲'
+
+                if direction != self.tableWidget_fut.horizontalHeaderItem(0).text():
+                    item = QTableWidgetItem(direction)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_fut.setHorizontalHeaderItem(0, item)
+                else:
+                    pass
+            else:
+
+                direction = '▼'
+
+                if direction != self.tableWidget_fut.horizontalHeaderItem(0).text():
+                    item = QTableWidgetItem(direction)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_fut.setHorizontalHeaderItem(0, item)
+                else:
+                    pass        
         else:
             pass        
 
