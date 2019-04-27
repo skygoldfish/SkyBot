@@ -2212,7 +2212,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         month = int(currentt_month[4:6])
 
-        cm_option_title = repr(month) + '월물 옵션전광판' + '(' + today_str_title + ')'
+        cm_option_title = repr(month) + '월물 선물옵션 전광판' + '(' + today_str_title + ')'
         self.setWindowTitle(cm_option_title)
 
         self.parent = parent
