@@ -3164,7 +3164,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             fut_txt = cell.text()
 
-            if row == 2 and col == 1:
+            if row == 2 and col == Futures_column.매수건수.value:
 
                 콜매수 = fut_txt
 
@@ -3175,7 +3175,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif row == 2 and col == 2:
+            elif row == 2 and col == Futures_column.매도건수.value:
 
                 콜매도 = fut_txt
 
@@ -3186,7 +3186,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif row == 2 and col == 3:
+            elif row == 2 and col == Futures_column.매수잔량.value:
 
                 풋매수 = fut_txt
 
@@ -3197,7 +3197,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif row == 2 and col == 4:
+            elif row == 2 and col == Futures_column.매도잔량.value:
 
                 풋매도 = fut_txt
 
@@ -3208,7 +3208,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif row == 2 and col == 5:
+            elif row == 2 and col == Futures_column.건수비.value:
 
                 손절 = fut_txt
 
@@ -3219,7 +3219,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif row == 2 and col == 6:
+            elif row == 2 and col == Futures_column.잔량비.value:
 
                 익절 = fut_txt
 
