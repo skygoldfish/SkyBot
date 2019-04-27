@@ -2247,7 +2247,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         self.tableWidget_call.horizontalHeader().setStyleSheet(stylesheet)
 
-        self.tableWidget_call.setHorizontalHeaderLabels(['▲', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', 
+        self.tableWidget_call.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', 
         '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '미결∑ or 체결량∑', '미결증감'])
         self.tableWidget_call.verticalHeader().setVisible(False)
 
@@ -2271,7 +2271,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_put.horizontalHeader().setStyleSheet(stylesheet)
 
-        self.tableWidget_put.setHorizontalHeaderLabels(['▼', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', 
+        self.tableWidget_put.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', 
         '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '미결∑ or 체결량∑', '미결증감'])
         self.tableWidget_put.verticalHeader().setVisible(False)
 
@@ -3555,7 +3555,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             # 시스템시간을 서버시간에 맞춘다.
             self.adjust_system_clock()
-            
+                        
             if receive_realdata:                    
                                 
                 # 호가 갱신
@@ -8675,6 +8675,27 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_call.resizeColumnsToContents()
             else:
                 pass
+
+            if sumc >= 0:
+
+                direction = '▲'
+
+                if direction != self.tableWidget_call.horizontalHeaderItem(0).text():
+                    item = QTableWidgetItem(direction)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setHorizontalHeaderItem(0, item)
+                else:
+                    pass
+            else:
+
+                direction = '▼'
+
+                if direction != self.tableWidget_call.horizontalHeaderItem(0).text():
+                    item = QTableWidgetItem(direction)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setHorizontalHeaderItem(0, item)
+                else:
+                    pass            
         else:
             print('call_db_percent_local is empty...')
 
@@ -9487,6 +9508,27 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_put.resizeColumnsToContents()
             else:
                 pass
+
+            if sump >= 0:
+
+                direction = '▲'
+
+                if direction != self.tableWidget_put.horizontalHeaderItem(0).text():
+                    item = QTableWidgetItem(direction)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setHorizontalHeaderItem(0, item)
+                else:
+                    pass
+            else:
+
+                direction = '▼'
+
+                if direction != self.tableWidget_put.horizontalHeaderItem(0).text():
+                    item = QTableWidgetItem(direction)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setHorizontalHeaderItem(0, item)
+                else:
+                    pass       
         else:
             print('put_db_percent_local is empty...')
 
@@ -11830,13 +11872,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if not refresh_flag:
 
             START_ON = True
-
-            self.tableWidget_call.setHorizontalHeaderLabels(['▲', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', 
-            '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '미결∑ or 체결량∑', 'OIΔ'])
-
-            self.tableWidget_put.setHorizontalHeaderLabels(['▼', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', 
-            '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '미결∑ or 체결량∑', 'OIΔ'])
-
+            
             kp200_realdata['전저'] = 0.0
             kp200_realdata['전고'] = 0.0
             kp200_realdata['종가'] = 0.0
