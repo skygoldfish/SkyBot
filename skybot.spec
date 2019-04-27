@@ -5,7 +5,7 @@ block_cipher = None
 import sys
 sys.setrecursionlimit(5000)
 
-a = Analysis(['skybot.pyw'],
+a = Analysis(['SkyBot.pyw'],
              pathex=['D:\\SkyBot'],
              binaries=[],
              datas=[],
@@ -25,7 +25,7 @@ exe = EXE(pyz,
           a.zipfiles,
           a.datas,
           [],
-          name='skybot',
+          name='SkyBot',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,

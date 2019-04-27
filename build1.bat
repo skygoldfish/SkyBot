@@ -1,1 +1,1 @@
-pyinstaller -F -w --ico="skybot.ico" skybot.pyw
+pyinstaller -F -w --ico="skybot.ico" SkyBot.pyw
