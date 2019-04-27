@@ -2235,8 +2235,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.update_worker = update_worker()
         self.update_worker.finished.connect(self.update_screen)
 
-        self.comboBox1.setStyleSheet("background-color: lightGray")
-        self.comboBox2.setStyleSheet("background-color: lightGray")
+        self.comboBox1.setStyleSheet("background-color: white")
+        self.comboBox2.setStyleSheet("background-color: white")
         
         self.pushButton_add.setStyleSheet("background-color: lightGray")
         self.pushButton_remove.setStyleSheet("background-color: lightGray")
