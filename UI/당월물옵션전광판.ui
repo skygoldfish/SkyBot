@@ -181,10 +181,18 @@
         </spacer>
        </item>
        <item>
-        <widget class="QComboBox" name="comboBox1"/>
+        <widget class="QComboBox" name="comboBox1">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="comboBox2"/>
+        <widget class="QComboBox" name="comboBox2">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QCheckBox" name="checkBox_realtime">
@@ -194,6 +202,9 @@
            <weight>75</weight>
            <bold>true</bold>
           </font>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
          </property>
          <property name="text">
           <string>RTE</string>
@@ -238,6 +249,9 @@
            <bold>false</bold>
           </font>
          </property>
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="text">
           <string> ScrShot </string>
          </property>
@@ -255,6 +269,9 @@
            <weight>50</weight>
            <bold>false</bold>
           </font>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
          </property>
          <property name="frameShape">
           <enum>QFrame::WinPanel</enum>
@@ -275,6 +292,9 @@
            <weight>50</weight>
            <bold>false</bold>
           </font>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
          </property>
          <property name="frameShape">
           <enum>QFrame::WinPanel</enum>
@@ -300,6 +320,9 @@
            <bold>true</bold>
           </font>
          </property>
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="frameShape">
           <enum>QFrame::WinPanel</enum>
          </property>
@@ -314,6 +337,9 @@
           <font>
            <family>Consolas</family>
           </font>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
          </property>
          <property name="frameShape">
           <enum>QFrame::WinPanel</enum>
@@ -331,6 +357,9 @@
            <weight>50</weight>
            <bold>false</bold>
           </font>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
          </property>
          <property name="frameShape">
           <enum>QFrame::WinPanel</enum>
@@ -355,6 +384,9 @@
              <bold>false</bold>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="frameShape">
             <enum>QFrame::WinPanel</enum>
            </property>
@@ -372,6 +404,9 @@
              <italic>true</italic>
              <bold>true</bold>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
            <property name="frameShape">
             <enum>QFrame::WinPanel</enum>
@@ -392,6 +427,9 @@
            <italic>true</italic>
            <bold>true</bold>
           </font>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
          </property>
          <property name="frameShape">
           <enum>QFrame::WinPanel</enum>

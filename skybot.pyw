@@ -2250,8 +2250,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_call.horizontalHeader().setStyleSheet(stylesheet)
 
         self.tableWidget_call.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', 
-        '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '미결∑ or 체결량∑', '미결증감'])
+        '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '미결∑ or 체결량∑', 'OIΔ'])
         self.tableWidget_call.verticalHeader().setVisible(False)
+        #self.tableWidget_call.setFocusPolicy(Qt.NoFocus)
 
         cell_widget = []
 
@@ -2274,8 +2275,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_put.horizontalHeader().setStyleSheet(stylesheet)
 
         self.tableWidget_put.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', 
-        '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '미결∑ or 체결량∑', '미결증감'])
+        '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '미결∑ or 체결량∑', 'OIΔ'])
         self.tableWidget_put.verticalHeader().setVisible(False)
+        #self.tableWidget_put.setFocusPolicy(Qt.NoFocus)
 
         cell_widget = []
 
@@ -2301,6 +2303,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             ['▲▼', '↑↓', 'MSC', 'MDC', 'MSR', 'MDR', 'CR', 'RR', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
              'CV', '고가', '대비', '진폭', 'PVP', 'VR', 'OI', 'OIΔ'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
+        #self.tableWidget_fut.setFocusPolicy(Qt.NoFocus)
 
         item = QTableWidgetItem("{0}".format('CME'))
         item.setTextAlignment(Qt.AlignCenter)
@@ -2332,6 +2335,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                                           'P-MSCC', 'P-MDCC', 'P-MSCR', 'P-MDCR', '콜건수비', '콜잔량비',
                                                           '풋건수비', '풋잔량비', '호가 ∑(CRΔ/RRΔ)'])
         self.tableWidget_quote.verticalHeader().setVisible(False)
+        #self.tableWidget_quote.setFocusPolicy(Qt.NoFocus)
+
         header = self.tableWidget_quote.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
         header.setSectionResizeMode(12, QHeaderView.Stretch)
@@ -2346,6 +2351,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_supply.setHorizontalHeaderLabels(['외인선물', '프로그램', '외인현물', '개인선물', '기관선물', '∑(선물/현물)'])
         self.tableWidget_supply.verticalHeader().setVisible(False)
+        #self.tableWidget_supply.setFocusPolicy(Qt.NoFocus)
+
         header = self.tableWidget_supply.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
         header.setSectionResizeMode(5, QHeaderView.Stretch)
