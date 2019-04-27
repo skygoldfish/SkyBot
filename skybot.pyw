@@ -2210,7 +2210,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global cm_option_title
 
-        cm_option_title = '당월물 선물옵션 전광판 ' + '(' + today_str_title + ')'
+        month = int(currentt_month[4:6])
+
+        cm_option_title = repr(month) + '월물 옵션전광판' + '(' + today_str_title + ')'
         self.setWindowTitle(cm_option_title)
 
         self.parent = parent
@@ -12959,7 +12961,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.dialog['당월물옵션전광판'] = 화면_당월물옵션전광판(parent=self)
                 self.dialog['당월물옵션전광판'].show()
-
+        '''
         # 차월물 옵션전광판
         if _action == "actionNMOptionPrice":
             if self.dialog.get('차월물옵션전광판') is not None:
@@ -12971,7 +12973,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.dialog['차월물옵션전광판'] = 화면_차월물옵션전광판(parent=self)
                 self.dialog['차월물옵션전광판'].show()
-
+        '''
 
     # ------------------------------------------------------------
 

@@ -154,7 +154,6 @@
     <addaction name="separator"/>
     <addaction name="actionCMOptionPrice"/>
     <addaction name="separator"/>
-    <addaction name="actionNMOptionPrice"/>
     <addaction name="separator"/>
     <addaction name="actionSupplyDemand"/>
     <addaction name="separator"/>
@@ -762,7 +761,7 @@
      <normaloff>PNG/당월물 옵션전광판.png</normaloff>PNG/당월물 옵션전광판.png</iconset>
    </property>
    <property name="text">
-    <string>당월물 선물옵션 전광판</string>
+    <string>선물옵션 전광판</string>
    </property>
   </action>
   <action name="actionNMOptionPrice">
