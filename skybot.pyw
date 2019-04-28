@@ -2250,7 +2250,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_call.horizontalHeader().setStyleSheet(stylesheet)
 
         self.tableWidget_call.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', 
-        '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '미결∑ or 체결량∑', 'OIΔ'])
+        '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '∑미결 or ∑체결량', 'OIΔ'])
         self.tableWidget_call.verticalHeader().setVisible(False)
         #self.tableWidget_call.setFocusPolicy(Qt.NoFocus)
 
@@ -2275,7 +2275,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_put.horizontalHeader().setStyleSheet(stylesheet)
 
         self.tableWidget_put.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', 
-        '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '미결∑ or 체결량∑', 'OIΔ'])
+        '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '∑미결 or ∑체결량', 'OIΔ'])
         self.tableWidget_put.verticalHeader().setVisible(False)
         #self.tableWidget_put.setFocusPolicy(Qt.NoFocus)
 
@@ -2333,7 +2333,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_quote.setHorizontalHeaderLabels(['C-MSCC', 'C-MDCC', 'C-MSCR', 'C-MDCR',
                                                           'P-MSCC', 'P-MDCC', 'P-MSCR', 'P-MDCR', '콜건수비', '콜잔량비',
-                                                          '풋건수비', '풋잔량비', '호가 ∑(CRΔ/RRΔ)'])
+                                                          '풋건수비', '풋잔량비', '[콜/풋 순미결량] ∑CRΔ/∑RRΔ'])
         self.tableWidget_quote.verticalHeader().setVisible(False)
         #self.tableWidget_quote.setFocusPolicy(Qt.NoFocus)
 
@@ -2349,7 +2349,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_supply.horizontalHeader().setStyleSheet(stylesheet)
 
-        self.tableWidget_supply.setHorizontalHeaderLabels(['외인선물', '프로그램', '외인현물', '개인선물', '기관선물', '∑(선물/현물)'])
+        self.tableWidget_supply.setHorizontalHeaderLabels(['외인선물', '프로그램', '외인현물', '개인선물', '기관선물', '∑선물/∑현물'])
         self.tableWidget_supply.verticalHeader().setVisible(False)
         #self.tableWidget_supply.setFocusPolicy(Qt.NoFocus)
 
@@ -6444,7 +6444,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                             dt.minute, dt.second, format(콜_순미결합, ','), format(풋_순미결합, ','))
                     self.textBrowser.append(str)
 
-                    temp = 'P-OIIV({0}/{1}) ∑(CRΔ/RRΔ)'.format(format(콜_순미결합, ','), format(풋_순미결합, ','))
+                    temp = '[{0}/{1}] ∑CRΔ/∑RRΔ'.format(format(콜_순미결합, ','), format(풋_순미결합, ','))
 
                     item = QTableWidgetItem(temp)
                     self.tableWidget_quote.setHorizontalHeaderItem(Quote_column.호가종합.value - 1, item)
@@ -6756,6 +6756,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fut_realdata['KP200'] = df['KOSPI200지수']
             kp200_realdata['종가'] = df['KOSPI200지수']
 
+            atm_str = self.find_ATM(fut_realdata['KP200'])
+
+            if atm_str in cm_call_actval:
+
+                atm_index = cm_call_actval.index(atm_str)
+                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
+                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
+                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
+                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
+
+                call_atm_value = df_cm_call.iloc[atm_index]['현재가']
+                put_atm_value = df_cm_put.iloc[atm_index]['현재가']
+
+                str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}] [{3:0.1f}:{4:0.1f}]'.format(
+                    fut_realdata['현재가'] - fut_realdata['KP200'],
+                    call_atm_value + put_atm_value,
+                    abs(call_atm_value - put_atm_value),
+                    콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                self.label_atm.setText(str)
+            else:
+                print("atm_str이 리스트에 없습니다.", atm_str)
+
             # 주간 데이타를 가져옴
             if overnight:
 
@@ -6777,44 +6799,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setBackground(QBrush(옅은회색))
             self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
 
-            if overnight:
 
-                fut_realdata['전저'] = fut_realdata['저가']
-                item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['전저']))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setItem(0, Futures_column.전저.value, item)
+            fut_realdata['전저'] = fut_realdata['저가']
+            item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['전저']))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(0, Futures_column.전저.value, item)
 
-                fut_realdata['전고'] = fut_realdata['고가']
-                item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['전고']))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setItem(0, Futures_column.전고.value, item)
+            fut_realdata['전고'] = fut_realdata['고가']
+            item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['전고']))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(0, Futures_column.전고.value, item)
 
-                fut_realdata['종가'] = fut_realdata['현재가']
-                item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['종가']))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setItem(0, Futures_column.종가.value, item)
-            else:
-                atm_str = self.find_ATM(fut_realdata['KP200'])
-
-                if atm_str in cm_call_actval:
-
-                    atm_index = cm_call_actval.index(atm_str)
-                    self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
-                    self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-                    self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
-                    self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-
-                    call_atm_value = df_cm_call.iloc[atm_index]['현재가']
-                    put_atm_value = df_cm_put.iloc[atm_index]['현재가']
-
-                    str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}] [{3:0.1f}:{4:0.1f}]'.format(
-                        fut_realdata['현재가'] - fut_realdata['KP200'],
-                        call_atm_value + put_atm_value,
-                        abs(call_atm_value - put_atm_value),
-                        콜_수정미결퍼센트, 풋_수정미결퍼센트)
-                    self.label_atm.setText(str)
-                else:
-                    print("atm_str이 리스트에 없습니다.", atm_str)
+            fut_realdata['종가'] = fut_realdata['현재가']
+            item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['종가']))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(0, Futures_column.종가.value, item)                
 
             fut_realdata['시가'] = df['시가']
 
