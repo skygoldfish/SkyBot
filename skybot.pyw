@@ -3706,7 +3706,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     
                     if abs(call_atm_value - put_atm_value) <= center_val_threshold:
                         
-                        if abs(call_atm_value - put_atm_value) == 0.0:
+                        if abs(call_atm_value - put_atm_value) <= 0.02:
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] 교차 중심가 {3} 출현 !!!\r'.format(delta_hour, delta_minute, delta_sec, call_atm_value)
                             self.textBrowser.append(str)            
