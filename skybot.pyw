@@ -2429,7 +2429,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         cm_call_oi_left_curve = self.Plot_Fut.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         cm_put_oi_left_curve = self.Plot_Fut.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        cm_two_sum_left_curve = self.Plot_Fut.plot(pen=ypen, symbolBrush=purple, symbolPen='w', symbol='o', symbolSize=3)
+        cm_two_sum_left_curve = self.Plot_Fut.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         cm_two_cha_left_curve = self.Plot_Fut.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         
         kp200_curve = self.Plot_Fut.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
@@ -2444,7 +2444,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         fut_che_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
 
-        cm_two_sum_right_curve = self.Plot_Opt.plot(pen=ypen, symbolBrush=purple, symbolPen='w', symbol='o', symbolSize=3)
+        cm_two_sum_right_curve = self.Plot_Opt.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         cm_two_cha_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)    
 
         global time_line_opt, mv_line, opt_base_line, call_curve, put_curve
