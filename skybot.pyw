@@ -81,8 +81,7 @@ UI_DIR = "UI\\"
 ########################################################################################################################
 
 # 만기일 야간옵션은 월물 만 변경할 것
-currentt_month = '201905'
-next_month = '201906'
+month_info = ''
 month_firstday = '20190412'
 
 start_hour = 9
@@ -2229,9 +2228,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setupUi(self)
 
-        global cm_option_title
+        global cm_option_title, month_info
 
-        month = int(currentt_month[4:6])
+        with open('month_info.txt', mode='r') as monthfile:
+            month_info = monthfile.readline().strip()
+
+        month = int(month_info[4:6])
 
         cm_option_title = repr(month) + '월물 선물옵션 전광판' + '(' + today_str_title + ')'
         self.setWindowTitle(cm_option_title)
@@ -3722,7 +3724,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
                     else:
                         pass
-                                        
+
                     # 대비, Open Count 및 OL/OH 갱신
                     if self.alternate_flag:
                         self.call_db_update()
@@ -6744,7 +6746,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         # EUREX 야간옵션 시세전광판
                         XQ = t2835(parent=self)
-                        XQ.Query(월물=currentt_month)
+                        XQ.Query(월물=month_info)
             else:
                 if not overnight:
 
@@ -6893,7 +6895,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     # EUREX 야간옵션 시세전광판
                     XQ = t2835(parent=self)
-                    XQ.Query(월물=currentt_month)
+                    XQ.Query(월물=month_info)
             
             self.tableWidget_call.resizeColumnsToContents()
             self.tableWidget_put.resizeColumnsToContents()
@@ -8185,7 +8187,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         # EUREX 야간옵션 시세전광판
                         XQ = t2835(parent=self)
-                        XQ.Query(월물=currentt_month)
+                        XQ.Query(월물=month_info)
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] EUREX 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
@@ -10608,7 +10610,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         '''
                         # 장시작시 시가를 갱신하기 위해 t2301요청
                         XQ = t2301(parent=self)
-                        XQ.Query(월물=currentt_month, 미니구분='G')
+                        XQ.Query(월물=month_info, 미니구분='G')
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] t2301을 재요청 합니다.\r'.format(delta_hour, delta_minute, delta_sec)
                         self.textBrowser.append(str)
@@ -11674,7 +11676,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     '''
                     # 장시작시 시가를 갱신하기 위해 t2301요청
                     XQ = t2301(parent=self)
-                    XQ.Query(월물=currentt_month, 미니구분='G')
+                    XQ.Query(월물=month_info, 미니구분='G')
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] t2301을 재요청 합니다.\r'.format(delta_hour, delta_minute, delta_sec)
                     self.textBrowser.append(str)
@@ -11746,7 +11748,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     '''
                     # 장시작시 시가를 갱신하기 위해 t2301요청
                     XQ = t2301(parent=self)
-                    XQ.Query(월물=currentt_month, 미니구분='G')
+                    XQ.Query(월물=month_info, 미니구분='G')
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] t2301을 재요청 합니다.\r'.format(delta_hour, delta_minute, delta_sec)
                     self.textBrowser.append(str)
@@ -12262,7 +12264,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 옵션 전광판
                 XQ = t2301(parent=self)
-                XQ.Query(월물=currentt_month, 미니구분='G')
+                XQ.Query(월물=month_info, 미니구분='G')
 
                 start_hour = 9
 
@@ -12273,7 +12275,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 옵션 전광판
                 XQ = t2301(parent=self)
-                XQ.Query(월물=currentt_month, 미니구분='G')
+                XQ.Query(월물=month_info, 미니구분='G')
 
                 start_hour = 18
 
@@ -12282,7 +12284,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             # 옵션 전광판
             XQ = t2301(parent=self)
-            XQ.Query(월물=currentt_month, 미니구분='G')
+            XQ.Query(월물=month_info, 미니구분='G')
 
             print('주간 선물/옵션 로그요청...')
 
