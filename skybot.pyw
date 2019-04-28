@@ -87,7 +87,8 @@ month_firstday = '20190412'
 
 start_hour = 9
 
-price_threshold = 0.3
+price_threshold = 0.30
+center_val_threshold = 0.60
 
 콜매수 = ''
 콜매도 = ''
@@ -520,6 +521,7 @@ royalblue = QColor(0x41, 0x69, 0xE1)
 dodgerblue = QColor(0x1E, 0x90, 0xFF)
 darkturquoise = QColor(0x00, 0xCE, 0xD1)
 darkslateblue = QColor(0x48, 0x3D, 0x8B)
+purple = QColor(0x80, 0x00, 0x80)
 
 기본바탕색 = Qt.white
 검정색 = Qt.black
@@ -557,6 +559,7 @@ futpen = pg.mkPen(magenta, width=2, style=QtCore.Qt.SolidLine)
 rpen = pg.mkPen('r', width=2, style=QtCore.Qt.SolidLine)
 bpen = pg.mkPen('b', width=2, style=QtCore.Qt.SolidLine)
 gpen = pg.mkPen('g', width=2, style=QtCore.Qt.SolidLine)
+ypen = pg.mkPen('y', width=2, style=QtCore.Qt.SolidLine)
 mvpen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DotLine)
 tpen = pg.mkPen(lightyellow, width=1, style=QtCore.Qt.DotLine)
 
@@ -2426,8 +2429,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         cm_call_oi_left_curve = self.Plot_Fut.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         cm_put_oi_left_curve = self.Plot_Fut.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        cm_two_sum_left_curve = self.Plot_Fut.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_two_cha_left_curve = self.Plot_Fut.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        cm_two_sum_left_curve = self.Plot_Fut.plot(pen=ypen, symbolBrush=purple, symbolPen='w', symbol='o', symbolSize=3)
+        cm_two_cha_left_curve = self.Plot_Fut.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         
         kp200_curve = self.Plot_Fut.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         fut_curve = self.Plot_Fut.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
@@ -2441,8 +2444,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         fut_che_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
 
-        cm_two_sum_right_curve = self.Plot_Opt.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_two_cha_right_curve = self.Plot_Opt.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)      
+        cm_two_sum_right_curve = self.Plot_Opt.plot(pen=ypen, symbolBrush=purple, symbolPen='w', symbol='o', symbolSize=3)
+        cm_two_cha_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)    
 
         global time_line_opt, mv_line, opt_base_line, call_curve, put_curve
 
@@ -3700,6 +3703,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # 등가, 미결 Label 갱신
                     self.label_atm_display()
+                    
+                    if abs(call_atm_value - put_atm_value) <= center_val_threshold:
+                        
+                        if abs(call_atm_value - put_atm_value) == 0.0:
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 교차 중심가 {3} 출현 !!!\r'.format(delta_hour, delta_minute, delta_sec, call_atm_value)
+                            self.textBrowser.append(str)            
+                        else:
+                            pass
+
+                        if self.alternate_flag:
+
+                            self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(적색))
+                            self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(적색))
+                        else:
+                            self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
+                            self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
+                    else:
+                        pass
                                         
                     # 대비, Open Count 및 OL/OH 갱신
                     if self.alternate_flag:
