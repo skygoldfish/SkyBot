@@ -395,22 +395,99 @@ nm_put_종가 = []
 nm_put_피봇 = []
 nm_put_시가 = []
 
-df_plotdata_cm_call = pd.DataFrame()
-df_plotdata_cm_put = pd.DataFrame()
+overnight = False
 
-df_plotdata_cm_call_volume = pd.DataFrame()
-df_plotdata_cm_put_volume = pd.DataFrame()
-df_plotdata_cm_volume_cha = pd.DataFrame()
+call_scroll_begin_position = 0
+call_scroll_end_position = 0
+put_scroll_begin_position = 0
+put_scroll_end_position = 0
 
-df_plotdata_cm_call_oi = pd.DataFrame()
-df_plotdata_cm_put_oi = pd.DataFrame()
+nm_call_scroll_position = 0
+nm_put_scroll_position = 0
 
-df_plotdata_cm_two_sum = pd.DataFrame()
-df_plotdata_cm_two_cha = pd.DataFrame()
+x_idx = 0
 
-df_plotdata_fut = pd.DataFrame()
-df_plotdata_fut_che = pd.DataFrame()
-df_plotdata_kp200 = pd.DataFrame()
+pre_start = False
+market_service = False
+
+selected_call = []
+selected_put = []
+
+call_node_state = dict()
+put_node_state = dict()
+
+yoc_call_gap_percent = [NaN] * nRowCount
+yoc_put_gap_percent = [NaN] * nRowCount
+
+call_open = [False] * nRowCount
+call_ol = [False] * nRowCount
+call_oh = [False] * nRowCount
+call_gap_percent = [NaN] * nRowCount
+call_db_percent = [NaN] * nRowCount
+
+put_open = [False] * nRowCount
+put_ol = [False] * nRowCount
+put_oh = [False] * nRowCount
+put_gap_percent = [NaN] * nRowCount
+put_db_percent = [NaN] * nRowCount
+
+nm_call_open_count = 0
+nm_put_open_count = 0
+
+nm_call_ol_count = 0
+nm_call_oh_count = 0
+nm_put_ol_count = 0
+nm_put_oh_count = 0
+
+nm_call_ol = [False] * nRowCount
+nm_call_oh = [False] * nRowCount
+nm_put_ol = [False] * nRowCount
+nm_put_oh = [False] * nRowCount
+
+nm_call_gap_percent = [NaN] * nRowCount
+nm_put_gap_percent = [NaN] * nRowCount
+
+opt_callreal_update_counter = 0
+opt_putreal_update_counter = 0
+opt_call_ho_update_counter = 0
+opt_put_ho_update_counter = 0
+
+call_update = False
+put_update = False
+opt_ho_update = False
+
+call_max_volume_index = 0
+put_max_volume_index = 0
+
+refresh_flag = False
+
+oi_delta = 0
+oi_delta_old = 0
+
+volume_delta = 0
+volume_delta_old = 0
+
+delta_hour = 0
+delta_minute = 0
+delta_sec = 0
+
+comboindex1 = 0
+comboindex2 = 0
+
+콜현재가 = ''
+풋현재가 = ''
+선물현재가 = 0
+
+콜시가리스트 = None
+콜저가리스트 = None
+콜고가리스트 = None
+
+풋시가리스트 = None
+풋저가리스트 = None
+풋고가리스트 = None
+
+콜_순매수_체결량 = 0
+풋_순매수_체결량 = 0
 
 blueviolet = QColor(138, 43, 226)
 darkviolet = QColor(0x94, 0x00, 0xD3)
@@ -493,23 +570,22 @@ green_pen = pg.mkPen('g', width=2, style=QtCore.Qt.SolidLine)
 gold_pen = pg.mkPen(gold, width=2, style=QtCore.Qt.DotLine)
 yellow_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
 
-overnight = False
+df_plotdata_cm_call = pd.DataFrame()
+df_plotdata_cm_put = pd.DataFrame()
 
-call_scroll_begin_position = 0
-call_scroll_end_position = 0
-put_scroll_begin_position = 0
-put_scroll_end_position = 0
+df_plotdata_cm_call_volume = pd.DataFrame()
+df_plotdata_cm_put_volume = pd.DataFrame()
+df_plotdata_cm_volume_cha = pd.DataFrame()
 
-nm_call_scroll_position = 0
-nm_put_scroll_position = 0
+df_plotdata_cm_call_oi = pd.DataFrame()
+df_plotdata_cm_put_oi = pd.DataFrame()
 
-x_idx = 0
+df_plotdata_cm_two_sum = pd.DataFrame()
+df_plotdata_cm_two_cha = pd.DataFrame()
 
-pre_start = False
-market_service = False
-
-selected_call = []
-selected_put = []
+df_plotdata_fut = pd.DataFrame()
+df_plotdata_fut_che = pd.DataFrame()
+df_plotdata_kp200 = pd.DataFrame()
 
 mv_curve = []
 mv_line = []
@@ -543,83 +619,11 @@ cm_volume_cha_right_curve = None
 cm_call_oi_right_curve = None
 cm_put_oi_right_curve = None
 
-volume_cha_sign = []
+cm_two_sum_left_curve = None
+cm_two_cha_left_curve = None
 
-call_node_state = dict()
-put_node_state = dict()
-
-yoc_call_gap_percent = [NaN] * nRowCount
-yoc_put_gap_percent = [NaN] * nRowCount
-
-call_open = [False] * nRowCount
-call_ol = [False] * nRowCount
-call_oh = [False] * nRowCount
-call_gap_percent = [NaN] * nRowCount
-call_db_percent = [NaN] * nRowCount
-
-put_open = [False] * nRowCount
-put_ol = [False] * nRowCount
-put_oh = [False] * nRowCount
-put_gap_percent = [NaN] * nRowCount
-put_db_percent = [NaN] * nRowCount
-
-nm_call_open_count = 0
-nm_put_open_count = 0
-
-nm_call_ol_count = 0
-nm_call_oh_count = 0
-nm_put_ol_count = 0
-nm_put_oh_count = 0
-
-nm_call_ol = [False] * nRowCount
-nm_call_oh = [False] * nRowCount
-nm_put_ol = [False] * nRowCount
-nm_put_oh = [False] * nRowCount
-
-nm_call_gap_percent = [NaN] * nRowCount
-nm_put_gap_percent = [NaN] * nRowCount
-
-opt_callreal_update_counter = 0
-opt_putreal_update_counter = 0
-opt_call_ho_update_counter = 0
-opt_put_ho_update_counter = 0
-
-call_update = False
-put_update = False
-opt_ho_update = False
-
-call_max_volume_index = 0
-put_max_volume_index = 0
-
-refresh_flag = False
-
-oi_delta = 0
-oi_delta_old = 0
-
-volume_delta = 0
-volume_delta_old = 0
-
-delta_hour = 0
-delta_minute = 0
-delta_sec = 0
-
-comboindex1 = 0
-comboindex2 = 0
-
-콜현재가 = ''
-풋현재가 = ''
-선물현재가 = 0
-
-콜시가리스트 = None
-콜저가리스트 = None
-콜고가리스트 = None
-
-풋시가리스트 = None
-풋저가리스트 = None
-풋고가리스트 = None
-
-콜_순매수_체결량 = 0
-풋_순매수_체결량 = 0
+cm_two_sum_right_curve = None
+cm_two_cha_right_curve = None
 
 ########################################################################################################################
 
@@ -2076,7 +2080,9 @@ class update_worker(QThread):
 
             elif comboindex1 == 3:
 
-                pass            
+                curve1_data = df_plotdata_cm_two_sum.iloc[0].values.tolist()
+                curve2_data = df_plotdata_cm_two_cha.iloc[0].values.tolist()
+                curve3_data = None            
             else:                
                 curve1_data = df_plotdata_kp200.iloc[0].values.tolist()
                 curve2_data = df_plotdata_fut.iloc[0].values.tolist()
@@ -2102,7 +2108,9 @@ class update_worker(QThread):
 
             elif comboindex2 == 3:
 
-                pass
+                curve4_data = df_plotdata_cm_two_sum.iloc[0].values.tolist()
+                curve5_data = df_plotdata_cm_two_cha.iloc[0].values.tolist()
+                curve6_data = None 
             else:                
                 curve4_data = None
                 curve5_data = None
@@ -2392,13 +2400,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global time_line_fut, fut_curve, kp200_curve
         global fut_jl_line, fut_jh_line, fut_pivot_line, volume_base_line
+
         global fut_che_left_curve, fut_che_right_curve
+        
+        global cm_call_oi_left_curve, cm_put_oi_left_curve, cm_call_oi_right_curve, cm_put_oi_right_curve
 
         global cm_call_volume_left_curve, cm_put_volume_left_curve, cm_volume_cha_left_curve
-        global cm_call_oi_left_curve, cm_put_oi_left_curve
-
         global cm_call_volume_right_curve, cm_put_volume_right_curve, cm_volume_cha_right_curve
-        global cm_call_oi_right_curve, cm_put_oi_right_curve
+        
+        global cm_two_sum_left_curve, cm_two_cha_left_curve, cm_two_sum_right_curve, cm_two_cha_right_curve
 
         time_line_fut = self.Plot_Fut.addLine(x=0, y=None, pen=tpen)
 
@@ -2415,6 +2425,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         cm_call_oi_left_curve = self.Plot_Fut.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         cm_put_oi_left_curve = self.Plot_Fut.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+
+        cm_two_sum_left_curve = self.Plot_Fut.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        cm_two_cha_left_curve = self.Plot_Fut.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
         
         kp200_curve = self.Plot_Fut.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         fut_curve = self.Plot_Fut.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
@@ -2426,7 +2439,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         cm_put_volume_right_curve = self.Plot_Opt.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
         cm_volume_cha_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
-        fut_che_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)        
+        fut_che_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
+
+        cm_two_sum_right_curve = self.Plot_Opt.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        cm_two_cha_right_curve = self.Plot_Opt.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)      
 
         global time_line_opt, mv_line, opt_base_line, call_curve, put_curve
 
@@ -2689,6 +2705,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global fut_curve, kp200_curve, fut_che_left_curve
         global cm_call_volume_left_curve, cm_put_volume_left_curve
         global cm_call_oi_left_curve, cm_put_oi_left_curve
+        global cm_two_sum_left_curve, cm_two_cha_left_curve
 
         txt = self.comboBox1.currentText()
         comboindex1 = self.comboBox1.currentIndex()        
@@ -2700,7 +2717,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             cm_call_volume_left_curve.clear()
             cm_put_volume_left_curve.clear()
-            cm_volume_cha_left_curve.clear()            
+            cm_volume_cha_left_curve.clear() 
+
+            cm_two_sum_left_curve.clear()
+            cm_two_cha_left_curve.clear()           
             
             kp200_curve.clear()
             fut_curve.clear()
@@ -2734,6 +2754,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_put_volume_left_curve.clear()
             cm_volume_cha_left_curve.clear()
 
+            cm_two_sum_left_curve.clear()
+            cm_two_cha_left_curve.clear()
+
             kp200_curve.clear()
             fut_curve.clear()
             
@@ -2765,6 +2788,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_call_oi_left_curve.clear()
             cm_put_oi_left_curve.clear()
 
+            cm_two_sum_left_curve.clear()
+            cm_two_cha_left_curve.clear() 
+
             kp200_curve.clear()
             fut_curve.clear()  
             
@@ -2791,7 +2817,38 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         elif comboindex1 == 3:
 
-            pass
+            fut_che_left_curve.clear()
+
+            cm_call_volume_left_curve.clear()
+            cm_put_volume_left_curve.clear()
+            cm_volume_cha_left_curve.clear()
+
+            cm_call_oi_left_curve.clear()
+            cm_put_oi_left_curve.clear()
+
+            kp200_curve.clear()
+            fut_curve.clear()  
+            
+            fut_jl_line.setValue(0)
+            fut_jh_line.setValue(0)
+            fut_pivot_line.setValue(0)
+            volume_base_line.setValue(0)
+
+            for i in range(nCount_cm_option_pairs):
+                temp = format(df_cm_call.iloc[i]['수정미결'], ',')
+
+                item = QTableWidgetItem(temp)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setItem(i, Option_column.OI.value, item)
+
+                temp = format(df_cm_put.iloc[i]['수정미결'], ',')
+
+                item = QTableWidgetItem(temp)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setItem(i, Option_column.OI.value, item)
+
+            call_temp = format(df_cm_call['수정미결'].sum(), ',')
+            put_temp = format(df_cm_put['수정미결'].sum(), ',')
 
         elif comboindex1 == 4:
             
@@ -2803,6 +2860,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_volume_cha_left_curve.clear()
 
             fut_che_left_curve.clear()
+
+            cm_two_sum_left_curve.clear()
+            cm_two_cha_left_curve.clear() 
             
             fut_jl_line.setValue(fut_realdata['전저'])
             fut_jh_line.setValue(fut_realdata['전고'])
@@ -2828,21 +2888,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        if comboindex1 == 0 or comboindex1 == 1 or comboindex1 == 2 or comboindex1 == 3 or comboindex1 == 4:
+        if call_temp != self.tableWidget_call.horizontalHeaderItem(Option_column.OI.value).text():
+            item = QTableWidgetItem(call_temp)
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
+            self.tableWidget_call.resizeColumnsToContents()
+        else:
+            pass
 
-            if call_temp != self.tableWidget_call.horizontalHeaderItem(Option_column.OI.value).text():
-                item = QTableWidgetItem(call_temp)
-                self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
-                self.tableWidget_call.resizeColumnsToContents()
-            else:
-                pass
-
-            if put_temp != self.tableWidget_put.horizontalHeaderItem(Option_column.OI.value).text():
-                item = QTableWidgetItem(put_temp)
-                self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
-                self.tableWidget_put.resizeColumnsToContents()
-            else:
-                pass
+        if put_temp != self.tableWidget_put.horizontalHeaderItem(Option_column.OI.value).text():
+            item = QTableWidgetItem(put_temp)
+            self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
+            self.tableWidget_put.resizeColumnsToContents()
         else:
             pass        
 
@@ -2852,6 +2908,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_curve, put_curve, fut_che_right_curve
         global cm_call_volume_right_curve, cm_put_volume_right_curve
         global cm_call_oi_right_curve, cm_put_oi_right_curve
+        global cm_two_sum_right_curve, cm_two_cha_right_curve
 
         txt = self.comboBox2.currentText()
         comboindex2 = self.comboBox2.currentIndex()
@@ -2863,6 +2920,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_volume_cha_right_curve.clear()
 
             fut_che_right_curve.clear()
+
+            cm_two_sum_right_curve.clear()
+            cm_two_cha_right_curve.clear()
             
             for i in range(9):
                 call_curve[i].clear()
@@ -2879,6 +2939,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_put_oi_right_curve.clear()
 
             fut_che_right_curve.clear()
+
+            cm_two_sum_right_curve.clear()
+            cm_two_cha_right_curve.clear()
             
             for i in range(9):
                 call_curve[i].clear()
@@ -2898,6 +2961,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_put_volume_right_curve.clear()
             cm_volume_cha_right_curve.clear()
 
+            cm_two_sum_right_curve.clear()
+            cm_two_cha_right_curve.clear()
+
             for i in range(9):
                 call_curve[i].clear()
                 put_curve[i].clear() 
@@ -2909,7 +2975,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         elif comboindex2 == 3:
 
-            pass
+            cm_call_oi_right_curve.clear()
+            cm_put_oi_right_curve.clear()   
+
+            cm_call_volume_right_curve.clear()
+            cm_put_volume_right_curve.clear()
+            cm_volume_cha_right_curve.clear()
+
+            fut_che_right_curve.clear()
+
+            for i in range(9):
+                call_curve[i].clear()
+                put_curve[i].clear() 
+
+            for i in range(9):
+                mv_line[i].setValue(0)
+
+            opt_base_line.setValue(0)
 
         elif comboindex2 == 4:
 
@@ -2922,6 +3004,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             fut_che_right_curve.clear()
 
+            cm_two_sum_right_curve.clear()
+            cm_two_cha_right_curve.clear()
+
             # 대맥점 표시
             mv_line[0].setValue(1.2)
             mv_line[1].setValue(2.5)
@@ -2929,7 +3014,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             mv_line[3].setValue(4.85)
             mv_line[4].setValue(5.1)
             mv_line[5].setValue(5.5)
-
         else:
             pass
 
@@ -3851,7 +3935,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif comboindex1 == 3:
 
-                    pass
+                    cm_two_sum_left_curve.setData(curve1_data)
+                    cm_two_cha_left_curve.setData(curve2_data)
                 else:
                     kp200_curve.setData(curve1_data)
                     fut_curve.setData(curve2_data)   
@@ -3874,7 +3959,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif comboindex2 == 3:
 
-                    pass
+                    cm_two_sum_right_curve.setData(curve4_data)
+                    cm_two_cha_right_curve.setData(curve5_data)
                 else:
                     pass                                                       
             else:
@@ -3892,9 +3978,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if not overnight:
 
             global oi_delta, oi_delta_old, 수정미결_직전대비
+            global df_plotdata_cm_two_sum, df_plotdata_cm_two_cha
 
             콜_수정미결합 = df_cm_call['수정미결'].sum()
             풋_수정미결합 = df_cm_put['수정미결'].sum()
+
+            df_plotdata_cm_two_sum[opt_x_idx + 1] = call_atm_value + put_atm_value
+            df_plotdata_cm_two_cha[opt_x_idx + 1] = call_atm_value - put_atm_value
 
             수정미결합 = 콜_수정미결합 + 풋_수정미결합
 
@@ -5640,7 +5730,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global call_oi_init_value, put_oi_init_value
         global call_gap_percent, call_db_percent, put_gap_percent, put_db_percent
-        global volume_cha_sign
 
         global call_open
         global call_ol
@@ -5652,6 +5741,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global call_volume_total, put_volume_total
         global 콜시가리스트, 콜저가리스트, 콜고가리스트, 풋시가리스트, 풋저가리스트, 풋고가리스트
+
+        global df_plotdata_cm_two_sum, df_plotdata_cm_two_cha
 
         dt = datetime.datetime.now()
 
@@ -5829,11 +5920,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_plotdata_cm_call_oi = DataFrame(index=range(0, 1), columns=range(0, 395 + 10))
                     df_plotdata_cm_put_oi = DataFrame(index=range(0, 1), columns=range(0, 395 + 10))
 
+                    df_plotdata_cm_two_sum = DataFrame(index=range(0, 1), columns=range(0, 395 + 10))
+                    df_plotdata_cm_two_cha = DataFrame(index=range(0, 1), columns=range(0, 395 + 10))
+
                     df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, 395 + 10))
                     df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, 395 + 10))
                     df_plotdata_fut_che = DataFrame(index=range(0, 1), columns=range(0, 395 + 10))
-
-                    volume_cha_sign = [False] * 406
                 else:
                     self.Plot_Opt.setRange(xRange=[0, 660 + 10], padding=0)
                     time_line_opt.setValue(669)
@@ -5851,11 +5943,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_plotdata_cm_call_oi = DataFrame(index=range(0, 1), columns=range(0, 660 + 10))
                     df_plotdata_cm_put_oi = DataFrame(index=range(0, 1), columns=range(0, 660 + 10))
 
+                    df_plotdata_cm_two_sum = DataFrame(index=range(0, 1), columns=range(0, 660 + 10))
+                    df_plotdata_cm_two_cha = DataFrame(index=range(0, 1), columns=range(0, 660 + 10))
+
                     df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, 660 + 10))
                     df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, 660 + 10))
                     df_plotdata_fut_che = DataFrame(index=range(0, 1), columns=range(0, 660 + 10))
-
-                    volume_cha_sign = [False] * 671
 
                 # 콜처리
                 for i in range(nCount_cm_option_pairs):
