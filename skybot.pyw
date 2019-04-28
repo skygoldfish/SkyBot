@@ -405,6 +405,9 @@ df_plotdata_cm_volume_cha = pd.DataFrame()
 df_plotdata_cm_call_oi = pd.DataFrame()
 df_plotdata_cm_put_oi = pd.DataFrame()
 
+df_plotdata_cm_two_sum = pd.DataFrame()
+df_plotdata_cm_two_cha = pd.DataFrame()
+
 df_plotdata_fut = pd.DataFrame()
 df_plotdata_fut_che = pd.DataFrame()
 df_plotdata_kp200 = pd.DataFrame()
@@ -2070,7 +2073,10 @@ class update_worker(QThread):
                 curve1_data = df_plotdata_cm_call_volume.iloc[0].values.tolist()
                 curve2_data = df_plotdata_cm_put_volume.iloc[0].values.tolist()
                 curve3_data = df_plotdata_cm_volume_cha.iloc[0].values.tolist()
-            
+
+            elif comboindex1 == 3:
+
+                pass            
             else:                
                 curve1_data = df_plotdata_kp200.iloc[0].values.tolist()
                 curve2_data = df_plotdata_fut.iloc[0].values.tolist()
@@ -2092,7 +2098,11 @@ class update_worker(QThread):
 
                 curve4_data = df_plotdata_fut_che.iloc[0].values.tolist()
                 curve5_data = None
-                curve6_data = None    
+                curve6_data = None  
+
+            elif comboindex2 == 3:
+
+                pass
             else:                
                 curve4_data = None
                 curve5_data = None
@@ -2249,8 +2259,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         self.tableWidget_call.horizontalHeader().setStyleSheet(stylesheet)
 
-        self.tableWidget_call.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', 
-        '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '∑미결 or ∑체결량', 'OIΔ'])
+        self.tableWidget_call.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
+        '종가√', '피봇√', '시가√', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '∑미결 or ∑체결량', 'OIΔ'])
         self.tableWidget_call.verticalHeader().setVisible(False)
         #self.tableWidget_call.setFocusPolicy(Qt.NoFocus)
 
@@ -2262,7 +2272,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             lay_out = QHBoxLayout(cell_widget[i])
             lay_out.addWidget(QCheckBox())
             lay_out.setAlignment(Qt.AlignCenter)
-            lay_out.setContentsMargins(2,0,0,0)            
+            #lay_out.setContentsMargins(1,0,0,0)            
             cell_widget[i].setLayout(lay_out)         
             self.tableWidget_call.setCellWidget(i, 0, cell_widget[i])
             
@@ -2274,8 +2284,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_put.horizontalHeader().setStyleSheet(stylesheet)
 
-        self.tableWidget_put.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', 'RV', '월저', '월고', '전저', '전고', 
-        '종가 √', '피봇 √', '시가 √', '시가갭', '저가', 'CV', '고가', '대비', '진폭', '∑미결 or ∑체결량', 'OIΔ'])
+        self.tableWidget_put.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
+        '종가√', '피봇√', '시가√', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '∑미결 or ∑체결량', 'OIΔ'])
         self.tableWidget_put.verticalHeader().setVisible(False)
         #self.tableWidget_put.setFocusPolicy(Qt.NoFocus)
 
@@ -2287,7 +2297,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             lay_out = QHBoxLayout(cell_widget[i])
             lay_out.addWidget(QCheckBox())
             lay_out.setAlignment(Qt.AlignCenter)
-            lay_out.setContentsMargins(2,0,0,0)            
+            #lay_out.setContentsMargins(1,0,0,0)            
             cell_widget[i].setLayout(lay_out)
             self.tableWidget_put.setCellWidget(i, 0, cell_widget[i])
 
@@ -2301,7 +2311,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_fut.setHorizontalHeaderLabels(
             ['▲▼', '↑↓', 'MSC', 'MDC', 'MSR', 'MDR', 'CR', 'RR', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
-             'CV', '고가', '대비', '진폭', 'PVP', 'VR', 'OI', 'OIΔ'])
+             '현재가', '고가', '대비', '진폭', 'PVP', 'VR', 'OI', 'OIΔ'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
         #self.tableWidget_fut.setFocusPolicy(Qt.NoFocus)
 
@@ -2359,10 +2369,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_supply.verticalHeader().setStretchLastSection(True)
         self.tableWidget_supply.clearContents()
 
-        self.comboBox1.addItems(['FV-Plot', 'OO-Plot', 'OV-Plot', 'FP-Plot'])
+        self.comboBox1.addItems(['FV-Plot', 'OO-Plot', 'OV-Plot', 'HC-Plot', 'FP-Plot'])
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['OO-Plot', 'OV-Plot', 'FV-Plot', 'OP-Plot'])
+        self.comboBox2.addItems(['OO-Plot', 'OV-Plot', 'FV-Plot', 'HC-Plot', 'OP-Plot'])
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         self.상태그림 = ['▼', '▬', '▲']
@@ -2615,13 +2625,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         put_h_header = self.tableWidget_put.horizontalHeader()
         put_h_header.sectionClicked.connect(self._put_horizontal_header_clicked)
-
+        '''
         call_v_header = self.tableWidget_call.verticalHeader()
         call_v_header.sectionClicked.connect(self._call_vertical_header_clicked)
 
         put_v_header = self.tableWidget_put.verticalHeader()
         put_v_header.sectionClicked.connect(self._put_vertical_header_clicked)
-
+        '''
         self.tableWidget_call.cellClicked.connect(self._calltable_cell_clicked)
         self.tableWidget_put.cellClicked.connect(self._puttable_cell_clicked)
 
@@ -2778,8 +2788,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             call_temp = format(df_cm_call['수정거래량'].sum(), ',')
             put_temp = format(df_cm_put['수정거래량'].sum(), ',')
-
+        
         elif comboindex1 == 3:
+
+            pass
+
+        elif comboindex1 == 4:
             
             cm_call_oi_left_curve.clear()
             cm_put_oi_left_curve.clear()
@@ -2810,10 +2824,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             call_temp = format(df_cm_call['수정미결'].sum(), ',')
             put_temp = format(df_cm_put['수정미결'].sum(), ',')
+
         else:
             pass
 
-        if comboindex1 == 0 or comboindex1 == 1 or comboindex1 == 2 or comboindex1 == 3:
+        if comboindex1 == 0 or comboindex1 == 1 or comboindex1 == 2 or comboindex1 == 3 or comboindex1 == 4:
 
             if call_temp != self.tableWidget_call.horizontalHeaderItem(Option_column.OI.value).text():
                 item = QTableWidgetItem(call_temp)
@@ -2891,8 +2906,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 mv_line[i].setValue(0)
 
             opt_base_line.setValue(0)
-
+        
         elif comboindex2 == 3:
+
+            pass
+
+        elif comboindex2 == 4:
 
             cm_call_oi_right_curve.clear()
             cm_put_oi_right_curve.clear()   
@@ -2910,6 +2929,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             mv_line[3].setValue(4.85)
             mv_line[4].setValue(5.1)
             mv_line[5].setValue(5.5)
+
         else:
             pass
 
@@ -2941,8 +2961,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             col_text = self.tableWidget_call.horizontalHeaderItem(idx).text()
 
-            if col_text.find(' √') == -1:
-                item = QTableWidgetItem(col_text + ' √')
+            if col_text.find('√') == -1:
+                item = QTableWidgetItem(col_text + '√')
                 self.tableWidget_call.setHorizontalHeaderItem(idx, item)
                 print("call header column.. ", idx, col_text)
 
@@ -2965,7 +2985,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                item = QTableWidgetItem(col_text.replace(' √', ''))
+                item = QTableWidgetItem(col_text.replace('√', ''))
                 self.tableWidget_call.setHorizontalHeaderItem(idx, item)
                 print("call header column.. ", idx, col_text)
 
@@ -3011,8 +3031,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             col_text = self.tableWidget_put.horizontalHeaderItem(idx).text()
 
-            if col_text.find(' √') == -1:
-                item = QTableWidgetItem(col_text + ' √')
+            if col_text.find('√') == -1:
+                item = QTableWidgetItem(col_text + '√')
                 self.tableWidget_put.setHorizontalHeaderItem(idx, item)
                 print("put header column.. ", idx, col_text)
 
@@ -3035,7 +3055,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                item = QTableWidgetItem(col_text.replace(' √', ''))
+                item = QTableWidgetItem(col_text.replace('√', ''))
                 self.tableWidget_put.setHorizontalHeaderItem(idx, item)
                 print("put header column.. ", idx, col_text)
 
@@ -3071,18 +3091,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_put.resizeColumnsToContents()
         
         return
-
+    '''
     @pyqtSlot(int)
     def _call_vertical_header_clicked(self, idx):
 
         row_text = self.tableWidget_call.item(idx, Option_column.행사가.value).text()
 
-        if row_text.find(' √') == -1:
-            item = QTableWidgetItem(row_text + ' √')
+        if row_text.find('√') == -1:
+            item = QTableWidgetItem(row_text + '√')
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setItem(idx, Option_column.행사가.value, item)
         else:
-            item = QTableWidgetItem(row_text.replace(' √', ''))
+            item = QTableWidgetItem(row_text.replace('√', ''))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setItem(idx, Option_column.행사가.value, item)
 
@@ -3095,19 +3115,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         row_text = self.tableWidget_put.item(idx, Option_column.행사가.value).text()
 
-        if row_text.find(' √') == -1:
-            item = QTableWidgetItem(row_text + ' √')
+        if row_text.find('√') == -1:
+            item = QTableWidgetItem(row_text + '√')
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setItem(idx, Option_column.행사가.value, item)
         else:
-            item = QTableWidgetItem(row_text.replace(' √', ''))
+            item = QTableWidgetItem(row_text.replace('√', ''))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setItem(idx, Option_column.행사가.value, item)
 
         self.tableWidget_put.resizeColumnsToContents()
 
         return
-
+    '''
     @pyqtSlot(int, int)
     def _calltable_cell_clicked(self, row, col):
 
@@ -3351,7 +3371,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # X축 세로선 데이타처리
         if x_idx > 10 and opt_x_idx > 10:
 
-            if comboindex1 == 0 or comboindex1 == 3:
+            if comboindex1 == 0 or comboindex1 == 4:
 
                 time_line_fut.setValue(x_idx + 1)
             else:
@@ -3365,7 +3385,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
         
         # 옵션그래프 초기화
-        if comboindex2 == 3:
+        if comboindex2 == 4:
             
             for i in range(9):
                 call_curve[i].clear()
@@ -3417,7 +3437,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             index = cm_call_actval.index(actval)
 
-            if comboindex2 == 3:
+            if comboindex2 == 4:
 
                 for i in range(len(call_idx)):
 
@@ -3470,6 +3490,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_put_volume_left_curve.setData(curve2_data)
             cm_volume_cha_left_curve.setData(curve3_data)
 
+        elif comboindex1 == 3:
+
+            pass
         else:
             kp200_curve.setData(curve1_data)
             fut_curve.setData(curve2_data)   
@@ -3501,6 +3524,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         elif comboindex2 == 2:
 
             fut_che_right_curve.setData(curve4_data)
+
+        elif comboindex2 == 3:
+
+            pass
         else:
             pass 
 
@@ -3712,7 +3739,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # X축 세로선 데이타처리
                 if x_idx > 10 and opt_x_idx > 10:
 
-                    if comboindex1 == 0 or comboindex1 == 3:
+                    if comboindex1 == 0 or comboindex1 == 4:
 
                         time_line_fut.setValue(x_idx + 1)
                     else:
@@ -3726,7 +3753,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
 
                 # 옵션그래프 초기화
-                if comboindex2 == 3:
+                if comboindex2 == 4:
 
                     for i in range(9):
                         call_curve[i].clear()
@@ -3778,7 +3805,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     index = cm_call_actval.index(actval)
 
-                    if comboindex2 == 3:
+                    if comboindex2 == 4:
 
                         for i in range(len(call_idx)):
 
@@ -3822,6 +3849,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_put_volume_left_curve.setData(curve2_data)
                     cm_volume_cha_left_curve.setData(curve3_data)
 
+                elif comboindex1 == 3:
+
+                    pass
                 else:
                     kp200_curve.setData(curve1_data)
                     fut_curve.setData(curve2_data)   
@@ -3841,6 +3871,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 elif comboindex2 == 2:
 
                     fut_che_right_curve.setData(curve4_data)
+
+                elif comboindex2 == 3:
+
+                    pass
                 else:
                     pass                                                       
             else:
