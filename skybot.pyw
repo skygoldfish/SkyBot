@@ -6521,13 +6521,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 print(df_cm_put)
 
                 self.tableWidget_put.resizeColumnsToContents()
-                '''
+                
                 cm_call_종가 = df_cm_call['종가'].values.tolist()
                 cm_call_종가_node_list = self.make_node_list(cm_call_종가)
 
                 cm_put_종가 = df_cm_put['종가'].values.tolist()
                 cm_put_종가_node_list = self.make_node_list(cm_put_종가)
-                '''
+                
                 콜시가리스트 = [0.0] * nCount_cm_option_pairs
                 풋시가리스트 = [0.0] * nCount_cm_option_pairs
 
@@ -7874,12 +7874,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_call_월고 = df_cm_call['월고'].values.tolist()
                     cm_call_전저 = df_cm_call['전저'].values.tolist()
                     cm_call_전고 = df_cm_call['전고'].values.tolist()
+                    cm_call_종가 = df_cm_call['종가'].values.tolist()
 
                     cm_call_기준가_node_list = self.make_node_list(cm_call_기준가)
                     cm_call_월저_node_list = self.make_node_list(cm_call_월저)
                     cm_call_월고_node_list = self.make_node_list(cm_call_월고)
                     cm_call_전저_node_list = self.make_node_list(cm_call_전저)
                     cm_call_전고_node_list = self.make_node_list(cm_call_전고)
+                    cm_call_종가_node_list = self.make_node_list(cm_call_종가)
 
                     self.t8416_callworker.terminate()
                     str = '[{0:02d}:{1:02d}:{2:02d}] Call 과거데이타 수신완료 !!!\r'.format(dt.hour, dt.minute,
