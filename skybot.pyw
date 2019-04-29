@@ -6521,13 +6521,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 print(df_cm_put)
 
                 self.tableWidget_put.resizeColumnsToContents()
-                
-                cm_call_종가 = df_cm_call['종가'].values.tolist()
-                cm_call_종가_node_list = self.make_node_list(cm_call_종가)
-
-                cm_put_종가 = df_cm_put['종가'].values.tolist()
-                cm_put_종가_node_list = self.make_node_list(cm_put_종가)
-                
+                                
                 콜시가리스트 = [0.0] * nCount_cm_option_pairs
                 풋시가리스트 = [0.0] * nCount_cm_option_pairs
 
@@ -6752,7 +6746,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     for i in range(nCount_cm_option_pairs):
 
                         # 콜 데이타 획득
-                        종가 = df_cm_call.iloc[i]['종가']
+                        현재가 = df['현재가'][i]
+
+                        if df['전일대비구분'][i] == '2':
+
+                            종가 = round((현재가 - df['전일대비'][i]), 2)
+
+                        elif df['전일대비구분'][i] == '5':
+
+                            종가 = round((현재가 + df['전일대비'][i]), 2)
+
+                        else:
+                            종가 = round(현재가, 2)
+
+                        df_cm_call.loc[i, '종가'] = 종가
+
+                        item = QTableWidgetItem("{0:0.2f}".format(종가))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(i, Option_column.종가.value, item)
 
                         시가 = df['시가'][i]
                         df_cm_call.loc[i, '시가'] = 시가
@@ -6765,6 +6776,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             시가갭 = 시가 - 종가
                             df_cm_call.loc[i, '시가갭'] = 시가갭
+
+                            if df_cm_call.iloc[i]['시가'] >= price_threshold:
+
+                                call_gap_percent[i] = (df_cm_call.iloc[i]['시가'] / df_cm_call.iloc[i]['종가'] - 1) * 100
+                                gap_str = "{0:0.2f}({1:0.0f}%)".format(df_cm_call.iloc[i]['시가갭'], call_gap_percent[i])
+                            else:
+                                call_gap_percent[i] = 0.0
+                                gap_str = "{0:0.2f}".format(df_cm_call.iloc[i]['시가갭'])
+
+                            item = QTableWidgetItem(gap_str)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_call.setItem(i, Option_column.시가갭.value, item)
 
                             피봇 = self.calc_pivot(df_cm_call.iloc[i]['전저'], df_cm_call.iloc[i]['전고'], 종가, 시가)
 
@@ -6801,7 +6824,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.tableWidget_call.setItem(i, Option_column.고가.value, item)
 
                         # 풋 데이타 획득
-                        종가 = df_cm_put.iloc[i]['종가']
+                        현재가 = df1['현재가'][i]
+
+                        if df1['전일대비구분'][i] == '2':
+
+                            종가 = round((현재가 - df1['전일대비'][i]), 2)
+
+                        elif df1['전일대비구분'][i] == '5':
+
+                            종가 = round((현재가 + df1['전일대비'][i]), 2)
+
+                        else:
+                            종가 = round(현재가, 2)
+
+                        df_cm_put.loc[i, '종가'] = 종가
+
+                        item = QTableWidgetItem("{0:0.2f}".format(종가))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(i, Option_column.종가.value, item)
 
                         시가 = df1['시가'][i]
                         df_cm_put.loc[i, '시가'] = 시가
@@ -6814,6 +6854,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             시가갭 = 시가 - 종가
                             df_cm_put.loc[i, '시가갭'] = 시가갭
+
+                            if df_cm_put.iloc[i]['시가'] >= price_threshold:
+
+                                put_gap_percent[i] = (df_cm_put.iloc[i]['시가'] / df_cm_put.iloc[i]['종가'] - 1) * 100
+                                gap_str = "{0:0.2f}({1:0.0f}%)".format(df_cm_put.iloc[i]['시가갭'], put_gap_percent[i])
+                            else:
+                                put_gap_percent[i] = 0.0
+                                gap_str = "{0:0.2f}".format(df_cm_put.iloc[i]['시가갭'])
+
+                            item = QTableWidgetItem(gap_str)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_put.setItem(i, Option_column.시가갭.value, item)
 
                             피봇 = self.calc_pivot(df_cm_put.iloc[i]['전저'], df_cm_put.iloc[i]['전고'], 종가, 시가)
 
@@ -6849,7 +6901,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_put.setItem(i, Option_column.고가.value, item)
 
-                    # Node 리스트 갱신
+                    # Node 리스트 갱신                    
+                    cm_call_종가 = df_cm_call['종가'].values.tolist()
+                    cm_call_종가_node_list = self.make_node_list(cm_call_종가)
+
                     cm_call_시가 = df_cm_call['시가'].values.tolist()
                     cm_call_시가_node_list = self.make_node_list(cm_call_시가)
 
@@ -6861,6 +6916,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     cm_call_고가 = df_cm_call['고가'].values.tolist()
                     cm_call_고가_node_list = self.make_node_list(cm_call_고가)
+
+                    cm_put_종가 = df_cm_put['종가'].values.tolist()
+                    cm_put_종가_node_list = self.make_node_list(cm_put_종가)
 
                     cm_put_시가 = df_cm_put['시가'].values.tolist()
                     cm_put_시가_node_list = self.make_node_list(cm_put_시가)
