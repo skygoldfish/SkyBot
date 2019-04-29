@@ -6889,9 +6889,29 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.call_node_color_update()
                     self.put_node_color_update()
 
+                    XQ = t2101(parent=self)
+                    XQ.Query(종목코드=gmshcode)
+                    print('t2101 요청')
+
+                    time.sleep(0.1)
+
+                    XQ = t2801(parent=self)
+                    XQ.Query(종목코드=gmshcode)
+                    print('t2801 요청')
+
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신했습니다.\r'.format(delta_hour, delta_minute, delta_sec)
                     self.textBrowser.append(str)
                 else:
+                    XQ = t2101(parent=self)
+                    XQ.Query(종목코드=gmshcode)
+                    print('t2101 요청')
+
+                    time.sleep(0.1)
+
+                    XQ = t2801(parent=self)
+                    XQ.Query(종목코드=gmshcode)
+                    print('t2801 요청')
+
                     # EUREX 야간옵션 시세전광판
                     XQ = t2835(parent=self)
                     XQ.Query(월물=month_info)
@@ -8288,6 +8308,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global fut_realdata
         global df_plotdata_fut, df_plotdata_kp200, df_plotdata_fut_che
         global atm_index, atm_index_old
+
+        시가 = result['시가']
+        현재가 = result['현재가']
+        저가 = result['저가']
+        고가 = result['고가']
         
         # 세로축 시간 좌표값 계산
         if overnight:
@@ -8310,7 +8335,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 x_idx = 1
 
-        df_plotdata_fut.iloc[0][x_idx + 1] = result['현재가']
+        df_plotdata_fut.iloc[0][x_idx + 1] = round(float(현재가), 2)
 
         '''
         if x_idx == 1:
@@ -8351,8 +8376,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
         
         # FUT OL/OH
-        if self.within_n_tick(result['시가'], result['저가'], 10) and \
-                not self.within_n_tick(result['시가'], result['고가'], 10):
+        if self.within_n_tick(round(float(시가), 2), round(float(저가), 2), 10) and \
+                not self.within_n_tick(round(float(시가), 2), round(float(고가), 2), 10):
 
             item = QTableWidgetItem('↑')
             item.setTextAlignment(Qt.AlignCenter)
@@ -8364,8 +8389,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.OLOH.value, item)
 
-        elif not self.within_n_tick(result['시가'], result['저가'], 10) and \
-                self.within_n_tick(result['시가'], result['고가'], 10):
+        elif not self.within_n_tick(round(float(시가), 2), round(float(저가), 2), 10) and \
+                self.within_n_tick(round(float(시가), 2), round(float(고가), 2), 10):
 
             item = QTableWidgetItem('↓')
             item.setTextAlignment(Qt.AlignCenter)
@@ -8387,15 +8412,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         # 현재가 갱신
         if overnight:
-            fut_price = float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text())
+            fut_price = self.tableWidget_fut.item(0, Futures_column.현재가.value).text()
         else:
-            fut_price = float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text())
+            fut_price = self.tableWidget_fut.item(1, Futures_column.현재가.value).text()
 
-        if result['현재가'] != fut_price:
+        if 현재가 != fut_price:
 
-            fut_realdata['현재가'] = result['현재가']
+            fut_realdata['현재가'] = round(float(현재가), 2)
 
-            item = QTableWidgetItem("{0:0.2f}".format(result['현재가']))
+            item = QTableWidgetItem("{0}".format(현재가))
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(기본바탕색))
 
@@ -8404,14 +8429,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)
 
-            if result['시가'] < result['현재가']:
+            if round(float(시가), 2) < round(float(현재가), 2):
 
                 if overnight:
                     self.tableWidget_fut.item(0, Futures_column.현재가.value).setForeground(QBrush(적색))
                 else:
                     self.tableWidget_fut.item(1, Futures_column.현재가.value).setForeground(QBrush(적색))
 
-            elif result['시가'] > result['현재가']:
+            elif round(float(시가), 2) > round(float(현재가), 2):
 
                 if overnight:
                     self.tableWidget_fut.item(0, Futures_column.현재가.value).setForeground(QBrush(청색))
@@ -8424,7 +8449,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     self.tableWidget_fut.item(1, Futures_column.현재가.value).setForeground(QBrush(검정색))
 
-            대비 = round((result['현재가'] - result['시가']), 2)
+            대비 = round(float(현재가), 2) - round(float(시가), 2)
             item = QTableWidgetItem("{0:0.2f}".format(대비))
             item.setTextAlignment(Qt.AlignCenter)
 
@@ -8454,81 +8479,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass        
         else:
-            pass        
-
-        # 저가 갱신
-        if overnight:
-            fut_low = float(self.tableWidget_fut.item(0, Futures_column.저가.value).text())
-        else:
-            fut_low = float(self.tableWidget_fut.item(1, Futures_column.저가.value).text())
-
-        if result['저가'] != fut_low:
-
-            fut_realdata['저가'] = result['저가']
-
-            item = QTableWidgetItem("{0:0.2f}".format(result['저가']))
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if overnight:
-                self.tableWidget_fut.setItem(0, Futures_column.저가.value, item)
-            else:
-                self.tableWidget_fut.setItem(1, Futures_column.저가.value, item)
-
-            fut_realdata['진폭'] = result['고가'] - result['저가']
-            item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['진폭']))
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if overnight:
-                self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
-            else:
-                self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
-        else:
-            pass
-
-        # 고가 갱신
-        if overnight:
-            fut_high = float(self.tableWidget_fut.item(0, Futures_column.고가.value).text())
-        else:
-            fut_high = float(self.tableWidget_fut.item(1, Futures_column.고가.value).text())
-
-        if result['고가'] != fut_high:
-
-            fut_realdata['고가'] = result['고가']
-
-            item = QTableWidgetItem("{0:0.2f}".format(result['고가']))
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if overnight:
-                self.tableWidget_fut.setItem(0, Futures_column.고가.value, item)
-            else:
-                self.tableWidget_fut.setItem(1, Futures_column.고가.value, item)
-
-            fut_realdata['진폭'] = result['고가'] - result['저가']
-            item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['진폭']))
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if overnight:
-                self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
-            else:
-                self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
-        else:
-            pass
+            pass 
 
         # 시가 및 피봇 갱신
-
-        시가 = round(result['시가'], 2)
-
         if overnight:
-            fut_open = round(float(self.tableWidget_fut.item(0, Futures_column.시가.value).text()), 2)
+            fut_open = self.tableWidget_fut.item(0, Futures_column.시가.value).text()
         else:
-            fut_open = round(float(self.tableWidget_fut.item(1, Futures_column.시가.value).text()), 2)
+            fut_open = self.tableWidget_fut.item(1, Futures_column.시가.value).text()
 
         if 시가 != fut_open:
 
-            fut_realdata['시가'] = 시가
-            df_plotdata_fut.iloc[0][1] = 시가
+            fut_realdata['시가'] = round(float(시가), 2)
+            df_plotdata_fut.iloc[0][1] = round(float(시가), 2)
 
-            item = QTableWidgetItem("{0:0.2f}".format(시가))
+            item = QTableWidgetItem("{0}".format(시가))
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(기본바탕색))
 
@@ -8565,13 +8529,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
         else:
             if overnight:
-                fut_pivot = round(float(self.tableWidget_fut.item(0, Futures_column.피봇.value).text()), 2)
+                fut_pivot = self.tableWidget_fut.item(0, Futures_column.피봇.value).text()
             else:
-                fut_pivot = round(float(self.tableWidget_fut.item(1, Futures_column.피봇.value).text()), 2)
+                fut_pivot = self.tableWidget_fut.item(1, Futures_column.피봇.value).text()
 
-            if fut_pivot == 0.0:
+            if fut_pivot == '0.00':
 
-                fut_realdata['시가'] = 시가
+                fut_realdata['시가'] = round(float(시가), 2)
 
                 fut_realdata['피봇'] = self.calc_pivot(fut_realdata['전저'], fut_realdata['전고'],
                                                      fut_realdata['종가'], fut_realdata['시가'])
@@ -8594,7 +8558,65 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
             else:
-                pass
+                pass       
+
+        # 저가 갱신
+        if overnight:
+            fut_low = self.tableWidget_fut.item(0, Futures_column.저가.value).text()
+        else:
+            fut_low = self.tableWidget_fut.item(1, Futures_column.저가.value).text()
+
+        if 저가 != fut_low:
+
+            fut_realdata['저가'] = round(float(저가), 2)
+
+            item = QTableWidgetItem("{0}".format(저가))
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if overnight:
+                self.tableWidget_fut.setItem(0, Futures_column.저가.value, item)
+            else:
+                self.tableWidget_fut.setItem(1, Futures_column.저가.value, item)
+
+            fut_realdata['진폭'] = round(float(고가), 2) - round(float(저가), 2)
+            item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['진폭']))
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if overnight:
+                self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
+            else:
+                self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
+        else:
+            pass
+
+        # 고가 갱신
+        if overnight:
+            fut_high = self.tableWidget_fut.item(0, Futures_column.고가.value).text()
+        else:
+            fut_high = self.tableWidget_fut.item(1, Futures_column.고가.value).text()
+
+        if 고가 != fut_high:
+
+            fut_realdata['고가'] = round(float(고가), 2)
+
+            item = QTableWidgetItem("{0}".format(고가))
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if overnight:
+                self.tableWidget_fut.setItem(0, Futures_column.고가.value, item)
+            else:
+                self.tableWidget_fut.setItem(1, Futures_column.고가.value, item)
+
+            fut_realdata['진폭'] = round(float(고가), 2) - round(float(저가), 2)
+            item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['진폭']))
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if overnight:
+                self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
+            else:
+                self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
+        else:
+            pass        
 
         # KOSPI200지수 갱신
         if result['KOSPI200지수'] != float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()):
