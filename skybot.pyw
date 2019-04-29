@@ -6521,13 +6521,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 print(df_cm_put)
 
                 self.tableWidget_put.resizeColumnsToContents()
-
+                '''
                 cm_call_종가 = df_cm_call['종가'].values.tolist()
                 cm_call_종가_node_list = self.make_node_list(cm_call_종가)
 
                 cm_put_종가 = df_cm_put['종가'].values.tolist()
                 cm_put_종가_node_list = self.make_node_list(cm_put_종가)
-                
+                '''
                 콜시가리스트 = [0.0] * nCount_cm_option_pairs
                 풋시가리스트 = [0.0] * nCount_cm_option_pairs
 
@@ -8034,9 +8034,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if not overnight:
 
                         cm_call_전저 = df_cm_call['전저'].values.tolist()
-                        cm_call_전고 = df_cm_call['전고'].values.tolist()
+                        cm_call_전고 = df_cm_call['전고'].values.tolist()                        
+                        cm_call_종가 = df_cm_call['종가'].values.tolist()
+
                         cm_call_전저_node_list = self.make_node_list(cm_call_전저)
-                        cm_call_전고_node_list = self.make_node_list(cm_call_전고)
+                        cm_call_전고_node_list = self.make_node_list(cm_call_전고)                        
+                        cm_call_종가_node_list = self.make_node_list(cm_call_종가)
                     else:
                         pass
 
@@ -8174,9 +8177,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if not overnight:
 
                         cm_put_전저 = df_cm_put['전저'].values.tolist()
-                        cm_put_전고 = df_cm_put['전고'].values.tolist()                    
+                        cm_put_전고 = df_cm_put['전고'].values.tolist()
+                        cm_put_종가 = df_cm_put['종가'].values.tolist() 
+
                         cm_put_전저_node_list = self.make_node_list(cm_put_전저)
                         cm_put_전고_node_list = self.make_node_list(cm_put_전고)
+                        cm_put_종가_node_list = self.make_node_list(cm_put_종가)
                     else:
                         pass
 
