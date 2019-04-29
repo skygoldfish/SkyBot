@@ -2857,14 +2857,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif comboindex1 == 4:
             
+            fut_che_left_curve.clear()
+            
             cm_call_oi_left_curve.clear()
             cm_put_oi_left_curve.clear()
 
             cm_call_volume_left_curve.clear()
             cm_put_volume_left_curve.clear()
             cm_volume_cha_left_curve.clear()
-
-            fut_che_left_curve.clear()
 
             cm_two_sum_left_curve.clear()
             cm_two_cha_left_curve.clear() 
