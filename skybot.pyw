@@ -6988,7 +6988,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['시가']))
             item.setTextAlignment(Qt.AlignCenter)
-
             item.setBackground(QBrush(기본바탕색))
 
             if overnight:
