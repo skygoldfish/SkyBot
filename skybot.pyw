@@ -2858,7 +2858,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         elif comboindex1 == 4:
             
             fut_che_left_curve.clear()
-            
+
             cm_call_oi_left_curve.clear()
             cm_put_oi_left_curve.clear()
 
@@ -8517,17 +8517,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         # 시가 및 피봇 갱신
+
+        시가 = round(result['시가'], 2)
+
         if overnight:
-            fut_open = float(self.tableWidget_fut.item(0, Futures_column.시가.value).text())
+            fut_open = round(float(self.tableWidget_fut.item(0, Futures_column.시가.value).text()), 2)
         else:
-            fut_open = float(self.tableWidget_fut.item(1, Futures_column.시가.value).text())
+            fut_open = round(float(self.tableWidget_fut.item(1, Futures_column.시가.value).text()), 2)
 
-        if result['시가'] != fut_open:
+        if 시가 != fut_open:
 
-            fut_realdata['시가'] = result['시가']
-            df_plotdata_fut.iloc[0][1] = result['시가']
+            fut_realdata['시가'] = 시가
+            df_plotdata_fut.iloc[0][1] = 시가
 
-            item = QTableWidgetItem("{0:0.2f}".format(result['시가']))
+            item = QTableWidgetItem("{0:0.2f}".format(시가))
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(기본바탕색))
 
@@ -8564,13 +8567,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
         else:
             if overnight:
-                fut_pivot = float(self.tableWidget_fut.item(0, Futures_column.피봇.value).text())
+                fut_pivot = round(float(self.tableWidget_fut.item(0, Futures_column.피봇.value).text()), 2)
             else:
-                fut_pivot = float(self.tableWidget_fut.item(1, Futures_column.피봇.value).text())
+                fut_pivot = round(float(self.tableWidget_fut.item(1, Futures_column.피봇.value).text()), 2)
 
-            if fut_pivot == 0:
+            if fut_pivot == 0.0:
 
-                fut_realdata['시가'] = result['시가']
+                fut_realdata['시가'] = 시가
 
                 fut_realdata['피봇'] = self.calc_pivot(fut_realdata['전저'], fut_realdata['전고'],
                                                      fut_realdata['종가'], fut_realdata['시가'])
@@ -8582,6 +8585,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
                 else:
                     self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
+
+                fut_realdata['시가갭'] = fut_realdata['시가'] - fut_realdata['종가']
+                
+                item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['시가갭']))
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if overnight:
+                    self.tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
+                else:
+                    self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
             else:
                 pass
 
