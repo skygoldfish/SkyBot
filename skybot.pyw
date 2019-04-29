@@ -5821,7 +5821,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if pre_start:
 
                 kp200_realdata['종가'] = df['KOSPI200지수']
-
             else:
                 if df['KOSPI200전일대비구분'] == '2':
 
@@ -6949,7 +6948,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(옅은회색))
             self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
-
 
             fut_realdata['전저'] = fut_realdata['저가']
             item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['전저']))
@@ -8587,7 +8585,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
 
                 fut_realdata['시가갭'] = fut_realdata['시가'] - fut_realdata['종가']
-                
+
                 item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['시가갭']))
                 item.setTextAlignment(Qt.AlignCenter)
 
