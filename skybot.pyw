@@ -6570,6 +6570,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_plotdata_cm_call_oi[0][1] = 0
                 df_plotdata_cm_put_oi[0][1] = 0
 
+                df_plotdata_cm_two_sum[0][0] = 0
+                df_plotdata_cm_two_cha[0][0] = 0
+
+                df_plotdata_cm_two_sum[0][1] = 0
+                df_plotdata_cm_two_cha[0][1] = 0
+
                 콜_순미결합 = df_cm_call['순미결'].sum()
                 풋_순미결합 = df_cm_put['순미결'].sum()
 
