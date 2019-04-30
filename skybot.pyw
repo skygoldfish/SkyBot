@@ -3186,7 +3186,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global call_node_state, put_node_state
 
-        for idx in range(3, 11):
+        for idx in range(Option_column.기준가.value, Option_column.시가갭.value):
 
             col_text = self.tableWidget_call.horizontalHeaderItem(idx).text()
 
@@ -3195,21 +3195,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem(col_text + '√')
                 self.tableWidget_call.setHorizontalHeaderItem(idx, item)
 
-                if idx == 3:
+                if idx == Option_column.기준가.value:
                     call_node_state['기준가'] = True
-                elif idx == 4:
+                elif idx == Option_column.월저.value:
                     call_node_state['월저'] = True
-                elif idx == 5:
+                elif idx == Option_column.월고.value:
                     call_node_state['월고'] = True
-                elif idx == 6:
+                elif idx == Option_column.전저.value:
                     call_node_state['전저'] = True
-                elif idx == 7:
+                elif idx == Option_column.전고.value:
                     call_node_state['전고'] = True
-                elif idx == 8:
+                elif idx == Option_column.종가.value:
                     call_node_state['종가'] = True
-                elif idx == 9:
+                elif idx == Option_column.피봇.value:
                     call_node_state['피봇'] = True
-                elif idx == 10:
+                elif idx == Option_column.시가.value:
                     call_node_state['시가'] = True
                 else:
                     pass
@@ -3223,21 +3223,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem(col_text + '√')
                 self.tableWidget_put.setHorizontalHeaderItem(idx, item)
 
-                if idx == 3:
+                if idx == Option_column.기준가.value:
                     put_node_state['기준가'] = True
-                elif idx == 4:
+                elif idx == Option_column.월저.value:
                     put_node_state['월저'] = True
-                elif idx == 5:
+                elif idx == Option_column.월고.value:
                     put_node_state['월고'] = True
-                elif idx == 6:
+                elif idx == Option_column.전저.value:
                     put_node_state['전저'] = True
-                elif idx == 7:
+                elif idx == Option_column.전고.value:
                     put_node_state['전고'] = True
-                elif idx == 8:
+                elif idx == Option_column.종가.value:
                     put_node_state['종가'] = True
-                elif idx == 9:
+                elif idx == Option_column.피봇.value:
                     put_node_state['피봇'] = True
-                elif idx == 10:
+                elif idx == Option_column.시가.value:
                     put_node_state['시가'] = True
                 else:
                     pass
@@ -7198,7 +7198,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setBackground(QBrush(옅은회색))
 
             if df['시가'] > 0:
-                
+
                 if df['현재가'] > df['시가']:
                     item.setForeground(QBrush(적색))
                 elif df['현재가'] < df['시가']:
