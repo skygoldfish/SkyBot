@@ -4069,16 +4069,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def label_atm_display(self):
 
+        global df_plotdata_cm_two_sum, df_plotdata_cm_two_cha
+        
+        df_plotdata_cm_two_sum[opt_x_idx + 1] = call_atm_value + put_atm_value
+        df_plotdata_cm_two_cha[opt_x_idx + 1] = call_atm_value - put_atm_value
+
         if not overnight:
 
-            global oi_delta, oi_delta_old, 수정미결_직전대비
-            global df_plotdata_cm_two_sum, df_plotdata_cm_two_cha
+            global oi_delta, oi_delta_old, 수정미결_직전대비            
 
             콜_수정미결합 = df_cm_call['수정미결'].sum()
             풋_수정미결합 = df_cm_put['수정미결'].sum()
-
-            df_plotdata_cm_two_sum[opt_x_idx + 1] = call_atm_value + put_atm_value
-            df_plotdata_cm_two_cha[opt_x_idx + 1] = call_atm_value - put_atm_value
 
             수정미결합 = 콜_수정미결합 + 풋_수정미결합
 
