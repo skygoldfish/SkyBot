@@ -3771,23 +3771,27 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # 등가, 미결 Label 갱신
                     self.label_atm_display()
-                    
-                    if abs(call_atm_value - put_atm_value) <= center_val_threshold:
-                        
-                        if abs(call_atm_value - put_atm_value) <= 0.02:
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 교차 중심가 {3} 출현 !!!\r'.format(delta_hour, delta_minute, delta_sec, call_atm_value)
-                            self.textBrowser.append(str)            
+                    if not overnight:
+
+                        if abs(call_atm_value - put_atm_value) <= center_val_threshold:
+                        
+                            if abs(call_atm_value - put_atm_value) <= 0.02:
+
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 교차 중심가 {3} 출현 !!!\r'.format(delta_hour, delta_minute, delta_sec, call_atm_value)
+                                self.textBrowser.append(str)            
+                            else:
+                                pass
+
+                            if self.alternate_flag:
+
+                                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(적색))
+                                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(적색))
+                            else:
+                                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
+                                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
                         else:
                             pass
-
-                        if self.alternate_flag:
-
-                            self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(적색))
-                            self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(적색))
-                        else:
-                            self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-                            self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
                     else:
                         pass
 
@@ -5936,6 +5940,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['현재가']))
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(옅은회색))
+
+            if df['현재가'] > df['시가']:
+                item.setForeground(QBrush(적색))
+            elif df['현재가'] < df['시가']:
+                item.setForeground(QBrush(청색))
+            else:
+                item.setForeground(QBrush(검정색))
+
             self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)
             
             if df['시가'] > 0:
