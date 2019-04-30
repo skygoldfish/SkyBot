@@ -7027,20 +7027,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setBackground(QBrush(옅은회색))
             self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
 
-            fut_realdata['전저'] = fut_realdata['저가']
-            item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['전저']))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(0, Futures_column.전저.value, item)
+            if overnight:
 
-            fut_realdata['전고'] = fut_realdata['고가']
-            item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['전고']))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(0, Futures_column.전고.value, item)
+                fut_realdata['전저'] = fut_realdata['저가']
+                item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['전저']))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(0, Futures_column.전저.value, item)
 
-            fut_realdata['종가'] = fut_realdata['현재가']
-            item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['종가']))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(0, Futures_column.종가.value, item)                
+                fut_realdata['전고'] = fut_realdata['고가']
+                item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['전고']))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(0, Futures_column.전고.value, item)
+
+                fut_realdata['종가'] = fut_realdata['현재가']
+                item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['종가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(0, Futures_column.종가.value, item) 
+            else:
+                pass                           
 
             fut_realdata['시가'] = df['시가']
 
