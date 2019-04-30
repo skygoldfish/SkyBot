@@ -3234,6 +3234,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     call_positionCell = self.tableWidget_call.item(atm_index - 4, 1)
 
                 self.tableWidget_call.scrollToItem(call_positionCell)
+
             else:
                 pass
 
@@ -7098,6 +7099,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             item = QTableWidgetItem("{0:0.2f}".format(df['현재가']))
             item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(옅은회색))
 
             if df['현재가'] > df['시가']:
                 item.setForeground(QBrush(적색))
@@ -8380,7 +8382,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global x_idx
         global fut_realdata
         global df_plotdata_fut, df_plotdata_kp200, df_plotdata_fut_che
-        global atm_index, atm_index_old
+        global atm_str, atm_index, atm_index_old
 
         시가 = result['시가']
         현재가 = result['현재가']
