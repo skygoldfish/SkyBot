@@ -3181,6 +3181,70 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_put.resizeColumnsToContents()
         
         return
+
+    def all_node_set(self):
+
+        global call_node_state, put_node_state
+
+        for idx in range(3, 11):
+
+            col_text = self.tableWidget_call.horizontalHeaderItem(idx).text()
+
+            if col_text.find('√') == -1:
+            
+                item = QTableWidgetItem(col_text + '√')
+                self.tableWidget_call.setHorizontalHeaderItem(idx, item)
+
+                if idx == 3:
+                    call_node_state['기준가'] = True
+                elif idx == 4:
+                    call_node_state['월저'] = True
+                elif idx == 5:
+                    call_node_state['월고'] = True
+                elif idx == 6:
+                    call_node_state['전저'] = True
+                elif idx == 7:
+                    call_node_state['전고'] = True
+                elif idx == 8:
+                    call_node_state['종가'] = True
+                elif idx == 9:
+                    call_node_state['피봇'] = True
+                elif idx == 10:
+                    call_node_state['시가'] = True
+                else:
+                    pass
+            else:
+            	pass
+
+            col_text = self.tableWidget_put.horizontalHeaderItem(idx).text()
+
+            if col_text.find('√') == -1:
+
+                item = QTableWidgetItem(col_text + '√')
+                self.tableWidget_put.setHorizontalHeaderItem(idx, item)
+
+                if idx == 3:
+                    put_node_state['기준가'] = True
+                elif idx == 4:
+                    put_node_state['월저'] = True
+                elif idx == 5:
+                    put_node_state['월고'] = True
+                elif idx == 6:
+                    put_node_state['전저'] = True
+                elif idx == 7:
+                    put_node_state['전고'] = True
+                elif idx == 8:
+                    put_node_state['종가'] = True
+                elif idx == 9:
+                    put_node_state['피봇'] = True
+                elif idx == 10:
+                    put_node_state['시가'] = True
+                else:
+                    pass
+            else:
+                pass
+        return
+
     '''
     @pyqtSlot(int)
     def _call_vertical_header_clicked(self, idx):
@@ -5778,6 +5842,34 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             fut_realdata['KP200'] = df['KOSPI200지수']
 
+            atm_str = self.find_ATM(fut_realdata['KP200'])
+
+            if atm_str in cm_call_actval:
+
+                atm_index = cm_call_actval.index(atm_str)
+                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
+                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
+                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
+                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
+
+                call_atm_value = df_cm_call.iloc[atm_index]['현재가']
+                put_atm_value = df_cm_put.iloc[atm_index]['현재가']
+
+                str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}] [{3:0.1f}:{4:0.1f}]'.format(
+                    fut_realdata['현재가'] - fut_realdata['KP200'],
+                    call_atm_value + put_atm_value,
+                    abs(call_atm_value - put_atm_value),
+                    콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                self.label_atm.setText(str)
+            else:
+                print("atm_str이 리스트에 없습니다.", atm_str)
+
+            fut_realdata['종가'] = df['전일종가']
+
+            item = QTableWidgetItem("{0:0.2f}".format(df['전일종가']))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
+
             fut_realdata['시가'] = df['시가']
 
             item = QTableWidgetItem("{0:0.2f}".format(df['시가']))
@@ -5803,14 +5895,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if fut_realdata['시가'] > 0:
 
                     df_plotdata_fut.iloc[0][1] = fut_realdata['시가']
-                    fut_realdata['시가갭'] = fut_realdata['시가'] - fut_realdata['종가']
                     fut_realdata['피봇'] = self.calc_pivot(fut_realdata['전저'], fut_realdata['전고'],
                                                          fut_realdata['종가'], fut_realdata['시가'])
                 else:
-                    fut_realdata['시가갭'] = 0.0
                     fut_realdata['피봇'] = 0.0
             else:
                 pass
+
+            fut_realdata['시가갭'] = fut_realdata['시가'] - fut_realdata['종가']
 
             item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['시가갭']))
             item.setTextAlignment(Qt.AlignCenter)
@@ -7053,29 +7145,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(0, Futures_column.종가.value, item)             
 
-            if overnight:
+            if df['시가'] > 0:
+
                 fut_realdata['시가'] = df['시가']
-            else:
-                pass
 
-            item = QTableWidgetItem("{0:0.2f}".format(df['시가']))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(기본바탕색))
+                item = QTableWidgetItem("{0:0.2f}".format(df['시가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(기본바탕색))
 
-            if df['시가'] > df['전일종가']:
-                item.setForeground(QBrush(적색))
-            elif df['시가'] < df['전일종가']:
-                item.setForeground(QBrush(청색))
-            else:
-                item.setForeground(QBrush(검정색))
+                if df['시가'] > df['전일종가']:
+                    item.setForeground(QBrush(적색))
+                elif df['시가'] < df['전일종가']:
+                    item.setForeground(QBrush(청색))
+                else:
+                    item.setForeground(QBrush(검정색))
 
-            self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)
-            
-            item = QTableWidgetItem("{0:0.2f}".format(df['시가'] - df['전일종가']))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
+                self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)
 
-            if overnight:
+                item = QTableWidgetItem("{0:0.2f}".format(df['시가'] - df['전일종가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
 
                 if fut_realdata['전저'] > 0 and fut_realdata['전고'] > 0:
 
@@ -7088,7 +7177,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                pass
+                pass 
 
             if overnight:
                 fut_realdata['저가'] = df['저가']
@@ -7108,12 +7197,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(옅은회색))
 
-            if df['현재가'] > df['시가']:
-                item.setForeground(QBrush(적색))
-            elif df['현재가'] < df['시가']:
-                item.setForeground(QBrush(청색))
+            if df['시가'] > 0:
+                
+                if df['현재가'] > df['시가']:
+                    item.setForeground(QBrush(적색))
+                elif df['현재가'] < df['시가']:
+                    item.setForeground(QBrush(청색))
+                else:
+                    item.setForeground(QBrush(검정색))
             else:
-                item.setForeground(QBrush(검정색))
+                pass
 
             self.tableWidget_fut.setItem(0, Futures_column.현재가.value, item)
 
@@ -12370,7 +12463,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_supply.setItem(0, Supply_column.프로그램.value, item)
         else:
-            pass
+            self.all_node_set()
 
         # 지수선물 마스터조회 API용
         XQ = t8432(parent=self)
