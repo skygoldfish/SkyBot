@@ -82,7 +82,14 @@ UI_DIR = "UI\\"
 
 # 만기일 야간옵션은 월물 만 변경할 것
 month_info = ''
-month_firstday = '20190412'
+current_month_firstday = '20190412'
+
+today = datetime.date.today()
+today_str = today.strftime('%Y%m%d')
+today_str_title = today.strftime('%Y-%m-%d')
+
+yesterday = today - datetime.timedelta(1)
+yesterday_str = yesterday.strftime('%Y%m%d')
 
 start_hour = 9
 
@@ -152,13 +159,6 @@ every_5min = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
 receive_realdata = False
 
 cm_option_title = ''
-
-today = datetime.date.today()
-today_str = today.strftime('%Y%m%d')
-today_str_title = today.strftime('%Y-%m-%d')
-
-yesterday = today - datetime.timedelta(1)
-yesterday_str = yesterday.strftime('%Y%m%d')
 
 toggle_calltable = False
 toggle_puttable = False
@@ -2534,26 +2534,38 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         item = QTableWidgetItem("{0}".format('콜매수'))
         item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)
 
         item = QTableWidgetItem("{0}".format('콜매도'))
         item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)
 
         item = QTableWidgetItem("{0}".format('풋매수'))
         item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
 
         item = QTableWidgetItem("{0}".format('풋매도'))
         item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
 
         item = QTableWidgetItem("{0}".format('손절'))
         item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)
 
         item = QTableWidgetItem("{0}".format('익절'))
         item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
 
         self.tableWidget_fut.resizeColumnsToContents()
@@ -3485,7 +3497,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         try:
 
             XQ = t8415(parent=self)
-            XQ.Query(단축코드=cm_call_code[data], 시작일자=month_firstday, 종료일자=today_str)
+            XQ.Query(단축코드=cm_call_code[data], 시작일자=current_month_firstday, 종료일자=today_str)
 
         except:
             pass
@@ -3495,7 +3507,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         try:
 
             XQ = t8415(parent=self)
-            XQ.Query(단축코드=cm_put_code[data], 시작일자=month_firstday, 종료일자=today_str)
+            XQ.Query(단축코드=cm_put_code[data], 시작일자=current_month_firstday, 종료일자=today_str)
 
         except:
             pass
@@ -3506,7 +3518,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             #print('t8416_call_request', data, cm_call_code[data])
             XQ = t8416(parent=self)
-            XQ.Query(단축코드=cm_call_code[data], 시작일자=month_firstday, 종료일자=today_str)
+            XQ.Query(단축코드=cm_call_code[data], 시작일자=current_month_firstday, 종료일자=today_str)
 
         except:
             pass
@@ -3516,7 +3528,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         try:
 
             XQ = t8416(parent=self)
-            XQ.Query(단축코드=cm_put_code[data], 시작일자=month_firstday, 종료일자=today_str)
+            XQ.Query(단축코드=cm_put_code[data], 시작일자=current_month_firstday, 종료일자=today_str)
 
         except:
             pass
@@ -3778,7 +3790,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         
                             if abs(call_atm_value - put_atm_value) <= 0.02:
 
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 교차 중심가 {3} 출현 !!!\r'.format(delta_hour, delta_minute, delta_sec, call_atm_value)
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 교차 중심가 {3} 발생 !!!\r'.format(delta_hour, delta_minute, delta_sec, call_atm_value)
                                 self.textBrowser.append(str)            
                             else:
                                 pass
@@ -5894,28 +5906,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 df_plotdata_kp200.iloc[0][0] = fut_realdata['KP200']
                 df_plotdata_fut.iloc[0][0] = fut_realdata['종가']
+                df_plotdata_fut.iloc[0][1] = df['시가']
                 df_plotdata_fut_che.iloc[0][0] = 0
                 df_plotdata_fut_che.iloc[0][1] = 0
-
-                if fut_realdata['시가'] > 0:
-
-                    df_plotdata_fut.iloc[0][1] = fut_realdata['시가']
-                    fut_realdata['피봇'] = self.calc_pivot(fut_realdata['전저'], fut_realdata['전고'],
-                                                         fut_realdata['종가'], fut_realdata['시가'])
-                else:
-                    fut_realdata['피봇'] = 0.0
             else:
                 pass
+
+            fut_realdata['피봇'] = self.calc_pivot(fut_realdata['전저'], fut_realdata['전고'],
+                                                     fut_realdata['종가'], df['시가'])
+                
+            item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['피봇']))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
 
             fut_realdata['시가갭'] = fut_realdata['시가'] - fut_realdata['종가']
 
             item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['시가갭']))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
-
-            item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['피봇']))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
 
             if pre_start:
 
@@ -6808,7 +6816,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.PM.AdviseRealData()
 
                     # t8416 요청
-                    if today_str != month_firstday:
+                    if today_str != current_month_firstday:
                         self.t8416_callworker.start()
                         self.t8416_callworker.daemon = True
                     else:
@@ -6846,7 +6854,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     XQ.Query(종목코드=gmshcode)
 
                     # t8416 요청
-                    if today_str != month_firstday:
+                    if today_str != current_month_firstday:
                         self.t8416_callworker.start()
                         self.t8416_callworker.daemon = True
                     else:
@@ -8463,23 +8471,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             print('근월물선물코드', 근월물선물코드)
             print('차월물선물코드', 차월물선물코드)
 
-            if not overnight:
-                fut_realdata['전저'] = df.iloc[0]['전일저가']
-                item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일저가']))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setItem(1, Futures_column.전저.value, item)
+            fut_realdata['전저'] = df.iloc[0]['전일저가']
+            item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일저가']))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(1, Futures_column.전저.value, item)
 
-                fut_realdata['전고'] = df.iloc[0]['전일고가']
-                item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일고가']))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setItem(1, Futures_column.전고.value, item)
+            fut_realdata['전고'] = df.iloc[0]['전일고가']
+            item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일고가']))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(1, Futures_column.전고.value, item)
 
-                fut_realdata['종가'] = df.iloc[0]['전일종가']
-                item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일종가']))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
-            else:
-                pass
+            fut_realdata['종가'] = df.iloc[0]['전일종가']
+            item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일종가']))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
 
             self.tableWidget_fut.resizeColumnsToContents()
 
