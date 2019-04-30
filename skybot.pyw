@@ -521,11 +521,12 @@ dodgerblue = QColor(0x1E, 0x90, 0xFF)
 darkturquoise = QColor(0x00, 0xCE, 0xD1)
 darkslateblue = QColor(0x48, 0x3D, 0x8B)
 purple = QColor(0x80, 0x00, 0x80)
+gainsboro = QColor(0xDC, 0xDC, 0xDC)
 
 기본바탕색 = Qt.white
 검정색 = Qt.black
 흰색 = Qt.white
-옅은회색 = Qt.lightGray
+옅은회색 = gainsboro
 적색 = Qt.red
 청색 = Qt.blue
 녹색 = Qt.green
