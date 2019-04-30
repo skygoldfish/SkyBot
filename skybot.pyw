@@ -5931,34 +5931,34 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
 
-            fut_realdata['저가'] = df['저가']
-
-            item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['저가']))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(1, Futures_column.저가.value, item)
-
             fut_realdata['현재가'] = df['현재가']
 
             item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['현재가']))
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(옅은회색))
             self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)
+            
+            if df['시가'] > 0:
 
-            fut_realdata['고가'] = df['고가']
-
-            item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['고가']))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(1, Futures_column.고가.value, item)
-
-            if fut_realdata['시가'] > 0:
-
-                fut_realdata['대비'] = int((round((df['현재가'] - df['시가']), 2)) * 1)
+                fut_realdata['대비'] = round((df['현재가'] - df['시가']), 2)
             else:
                 fut_realdata['대비'] = 0
 
             item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['대비']))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
+            
+            fut_realdata['저가'] = df['저가']
+
+            item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['저가']))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(1, Futures_column.저가.value, item)
+
+            fut_realdata['고가'] = df['고가']
+
+            item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['고가']))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(1, Futures_column.고가.value, item)
 
             fut_realdata['진폭'] = df['고가'] - df['저가']
 
