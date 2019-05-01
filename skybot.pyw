@@ -2392,7 +2392,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.comboBox2.addItems(['OO-Plot', 'OV-Plot', 'FV-Plot', 'HC-Plot', 'OP-Plot'])
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
-        self.상태그림 = ['▼', '▬', '▲']
+        #self.상태그림 = ['▼', '▬', '▲']
+        self.상태그림 = ['▼', '▲']
         self.상태문자 = ['매도', '대기', '매수']
         self.특수문자 = ['☆', '★', '※', '○', '●', '◎', '√', '↗', '↘', '↑', '↓', '↕', '♣', '♠', '♥', '◆', 'Δ', '【', '】']
 
@@ -8972,6 +8973,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             df_cm_call.loc[index, '현재가'] = round(float(현재가), 2)
             df_plotdata_cm_call.iloc[index][opt_x_idx + 1] = float(현재가)
+            
+            대비 = round((float(현재가) - float(시가)), 2)
+            df_cm_call.loc[index, '대비'] = 대비
+
+            if float(시가) >= price_threshold:
+
+                call_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
+
+                if float(현재가) < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()):
+                    gap_str = "{0:0.2f}({1:0.0f}%){2}".format(대비, call_db_percent[index], self.상태그림[0])
+                else:
+                    gap_str = "{0:0.2f}({1:0.0f}%){2}".format(대비, call_db_percent[index], self.상태그림[1])
+            else:
+                call_db_percent[index] = 0.0               
+                gap_str = "{0:0.2f}".format(대비)
 
             item = QTableWidgetItem(현재가)
             item.setTextAlignment(Qt.AlignCenter)
@@ -8985,17 +9001,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setForeground(QBrush(검정색))
             
             self.tableWidget_call.setItem(index, Option_column.현재가.value, item)
-
-            대비 = round((float(현재가) - float(시가)), 2)
-            df_cm_call.loc[index, '대비'] = 대비
-
-            if float(시가) >= price_threshold:
-
-                call_db_percent[index] = (float(현재가) / float(시가) - 1) * 100                
-                gap_str = "{0:0.2f}({1:0.0f}%)".format(대비, call_db_percent[index])
-            else:
-                call_db_percent[index] = 0.0               
-                gap_str = "{0:0.2f}".format(대비)
                 
             item = QTableWidgetItem(gap_str)
             item.setTextAlignment(Qt.AlignCenter)                        
@@ -9820,6 +9825,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             df_cm_put.loc[index, '현재가'] = round(float(현재가), 2)
             df_plotdata_cm_put.iloc[index][opt_x_idx + 1] = float(현재가)
 
+            대비 = round((float(현재가) - float(시가)), 2)
+            df_cm_put.loc[index, '대비'] = 대비
+
+            if float(시가) >= price_threshold:
+
+                put_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
+
+                if float(현재가) < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()):
+                    gap_str = "{0:0.2f}({1:0.0f}%){2}".format(대비, put_db_percent[index], self.상태그림[0])
+                else:
+                    gap_str = "{0:0.2f}({1:0.0f}%){2}".format(대비, put_db_percent[index], self.상태그림[1])
+            else:
+                put_db_percent[index] = 0.0               
+                gap_str = "{0:0.2f}".format(대비)
+
             item = QTableWidgetItem(현재가)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(기본바탕색))
@@ -9832,17 +9852,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setForeground(QBrush(검정색))
 
             self.tableWidget_put.setItem(index, Option_column.현재가.value, item)
-
-            대비 = round((float(현재가) - float(시가)), 2)
-            df_cm_put.loc[index, '대비'] = 대비
-
-            if float(시가) >= price_threshold:
-
-                put_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
-                gap_str = "{0:0.2f}({1:0.0f}%)".format(대비, put_db_percent[index])
-            else:
-                put_db_percent[index] = 0.0
-                gap_str = "{0:0.2f}".format(대비)
                 
             item = QTableWidgetItem(gap_str)
             item.setTextAlignment(Qt.AlignCenter)
