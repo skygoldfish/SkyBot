@@ -2532,6 +2532,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
 
+        item = QTableWidgetItem("{0}".format('T'))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(흰색))
+        self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
+
         item = QTableWidgetItem("{0}".format('콜매수'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
@@ -2616,6 +2622,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.color_flag = True
         self.alternate_flag = True
+        self.telegram_flag = True
 
         global call_node_state, put_node_state
 
@@ -3360,73 +3367,116 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             fut_txt = cell.text()
 
-            if row == 2 and col == Futures_column.매수건수.value:
+            if row == 2 and col == Futures_column.OLOH.value:
 
-                콜매수 = fut_txt
+                if self.telegram_flag:
 
-                if 콜매수 != '콜매수':
+                    콜매수 = self.tableWidget_fut.item(2, Futures_column.매수건수.value).text()
+                    콜매도 = self.tableWidget_fut.item(2, Futures_column.매도건수.value).text()
+                    풋매수 = self.tableWidget_fut.item(2, Futures_column.매수잔량.value).text()
+                    풋매도 = self.tableWidget_fut.item(2, Futures_column.매도잔량.value).text()
+                    손절 = self.tableWidget_fut.item(2, Futures_column.건수비.value).text()
+                    익절 = self.tableWidget_fut.item(2, Futures_column.잔량비.value).text()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜매수 {3} 진입...\r'.format(delta_hour, delta_minute, delta_sec, 콜매수)
+                    if 콜매수 != '콜매수':
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 콜매수 {3} 진입...\r'.format(delta_hour, delta_minute, delta_sec, 콜매수)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+
+                    if 콜매도 != '콜매도':
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 콜매도 {3} 진입...\r'.format(delta_hour, delta_minute, delta_sec, 콜매도)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+
+                    if 풋매수 != '풋매수':
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 풋매수 {3} 진입...\r'.format(delta_hour, delta_minute, delta_sec, 풋매수)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+
+                    if 풋매도 != '풋매도':
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 풋매도 {3} 진입...\r'.format(delta_hour, delta_minute, delta_sec, 풋매도)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+
+                    if 손절 != '손절':
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 손절 {3}틱 설정됨\r'.format(delta_hour, delta_minute, delta_sec, 손절)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+
+                    if 익절 != '익절':
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 익절 {3}틱 설정됨\r'.format(delta_hour, delta_minute, delta_sec, 익절)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+
+                    item = QTableWidgetItem("{0}".format('R'))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송이 예약되었습니다.\r'.format(delta_hour, delta_minute, delta_sec)
                     self.textBrowser.append(str)
+
+                    self.telegram_flag = not self.telegram_flag
                 else:
-                    pass
+                    item = QTableWidgetItem("{0}".format('T'))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(검정색))
+                    item.setForeground(QBrush(흰색))
+                    self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
 
-            elif row == 2 and col == Futures_column.매도건수.value:
+                    item = QTableWidgetItem("{0}".format('콜매수'))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(검정색))
+                    item.setForeground(QBrush(흰색))
+                    self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)
 
-                콜매도 = fut_txt
+                    item = QTableWidgetItem("{0}".format('콜매도'))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(검정색))
+                    item.setForeground(QBrush(흰색))
+                    self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)
 
-                if 콜매도 != '콜매도':
+                    item = QTableWidgetItem("{0}".format('풋매수'))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(검정색))
+                    item.setForeground(QBrush(흰색))
+                    self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜매도 {3} 진입...\r'.format(delta_hour, delta_minute, delta_sec, 콜매도)
+                    item = QTableWidgetItem("{0}".format('풋매도'))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(검정색))
+                    item.setForeground(QBrush(흰색))
+                    self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
+
+                    item = QTableWidgetItem("{0}".format('손절'))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(검정색))
+                    item.setForeground(QBrush(흰색))
+                    self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)
+
+                    item = QTableWidgetItem("{0}".format('익절'))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(검정색))
+                    item.setForeground(QBrush(흰색))
+                    self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송예약이 취소되었습니다.\r'.format(delta_hour, delta_minute, delta_sec)
                     self.textBrowser.append(str)
-                else:
-                    pass
 
-            elif row == 2 and col == Futures_column.매수잔량.value:
-
-                풋매수 = fut_txt
-
-                if 풋매수 != '풋매수':
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋매수 {3} 진입...\r'.format(delta_hour, delta_minute, delta_sec, 풋매수)
-                    self.textBrowser.append(str)
-                else:
-                    pass
-
-            elif row == 2 and col == Futures_column.매도잔량.value:
-
-                풋매도 = fut_txt
-
-                if 풋매도 != '풋매도':
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋매도 {3} 진입...\r'.format(delta_hour, delta_minute, delta_sec, 풋매도)
-                    self.textBrowser.append(str)
-                else:
-                    pass
-
-            elif row == 2 and col == Futures_column.건수비.value:
-
-                손절 = fut_txt
-
-                if 손절 != '손절':
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 손절 {3}틱 설정됨\r'.format(delta_hour, delta_minute, delta_sec, 손절)
-                    self.textBrowser.append(str)
-                else:
-                    pass
-
-            elif row == 2 and col == Futures_column.잔량비.value:
-
-                익절 = fut_txt
-
-                if 익절 != '익절':
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 익절 {3}틱 설정됨\r'.format(delta_hour, delta_minute, delta_sec, 익절)
-                    self.textBrowser.append(str)
-                else:
-                    pass
+                    self.telegram_flag = not self.telegram_flag
             else:
-                pass            
+                pass             
         else:
             pass  
             
