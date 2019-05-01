@@ -2346,7 +2346,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(녹색))
         self.tableWidget_fut.setItem(2, 0, item)
-        
+        '''
+        button = QPushButton()
+        self.tableWidget_fut.setCellWidget(2, Futures_column.OLOH.value, button)
+        '''
         self.tableWidget_fut.resizeColumnsToContents()
 
         # Quote tablewidget 초기화
@@ -3359,7 +3362,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     @pyqtSlot(int, int)
     def _futtable_cell_clicked(self, row, col):
         
-        cell = self.tableWidget_fut.currentItem()      
+        cell = self.tableWidget_fut.currentItem()
         
         if cell is not None:
 
