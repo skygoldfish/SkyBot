@@ -8983,8 +8983,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if float(현재가) < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()):
                     gap_str = "{0:0.2f}({1:0.0f}%){2}".format(대비, call_db_percent[index], self.상태그림[0])
-                else:
+                elif float(현재가) > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()):
                     gap_str = "{0:0.2f}({1:0.0f}%){2}".format(대비, call_db_percent[index], self.상태그림[1])
+                else:
+                    gap_str = "{0:0.2f}({1:0.0f}%)".format(대비, call_db_percent[index])
             else:
                 call_db_percent[index] = 0.0               
                 gap_str = "{0:0.2f}".format(대비)
@@ -9834,8 +9836,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if float(현재가) < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()):
                     gap_str = "{0:0.2f}({1:0.0f}%){2}".format(대비, put_db_percent[index], self.상태그림[0])
-                else:
+                elif float(현재가) > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()):
                     gap_str = "{0:0.2f}({1:0.0f}%){2}".format(대비, put_db_percent[index], self.상태그림[1])
+                else:
+                    gap_str = "{0:0.2f}({1:0.0f}%)".format(대비, put_db_percent[index])
             else:
                 put_db_percent[index] = 0.0               
                 gap_str = "{0:0.2f}".format(대비)
