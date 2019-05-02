@@ -120,6 +120,8 @@ FOREIGNER = "0017"
 INSTITUTIONAL = "0018"
 
 VIX = "VXK19"
+S&P500 = "ESM19"
+DOW = "YMM19"
 
 price_threshold = 0.30
 center_val_threshold = 0.60
