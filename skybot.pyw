@@ -3512,8 +3512,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             print('call scroll position -----> from %d to %d' % (call_scroll_begin_position, call_scroll_end_position))
 
-            self.call_node_color_clear()
-            self.call_node_color_update()
+            if refresh_flag:
+                self.AddCode()
+            else:
+                self.call_node_color_clear()
+                self.call_node_color_update()            
 
         return
 
@@ -3541,8 +3544,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             print('put scroll position -----> from %d to %d' % (put_scroll_begin_position, put_scroll_end_position))
 
-            self.put_node_color_clear()
-            self.put_node_color_update()
+            if refresh_flag:
+                self.AddCode()
+            else:
+                self.put_node_color_clear()
+                self.put_node_color_update()
 
         return
 
@@ -8950,12 +8956,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         call_result = copy.deepcopy(result)
 
-        index = cm_call_행사가.index(call_result['단축코드'][5:8])
+        index = cm_call_행사가.index(result['단축코드'][5:8])
         
-        시가 = call_result['시가']
-        현재가 = call_result['현재가']
-        저가 = call_result['저가']
-        고가 = call_result['고가']
+        시가 = result['시가']
+        현재가 = result['현재가']
+        저가 = result['저가']
+        고가 = result['고가']
 
         if index == atm_index:
             call_atm_value = float(현재가)
@@ -8991,22 +8997,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 call_db_percent[index] = 0.0               
                 gap_str = "{0:0.2f}".format(대비)
 
-            item = QTableWidgetItem(현재가)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(기본바탕색))
+            if call_scroll_begin_position <= index < call_scroll_end_position:
 
-            if float(시가) < float(현재가):
-                item.setForeground(QBrush(적색))
-            elif float(시가) > float(현재가):
-                item.setForeground(QBrush(청색))
+                item = QTableWidgetItem(현재가)
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(기본바탕색))
+
+                if float(시가) < float(현재가):
+                    item.setForeground(QBrush(적색))
+                elif float(시가) > float(현재가):
+                    item.setForeground(QBrush(청색))
+                else:
+                    item.setForeground(QBrush(검정색))
+
+                self.tableWidget_call.setItem(index, Option_column.현재가.value, item)
+
+                item = QTableWidgetItem(gap_str)
+                item.setTextAlignment(Qt.AlignCenter)                        
+                self.tableWidget_call.setItem(index, Option_column.대비.value, item) 
             else:
-                item.setForeground(QBrush(검정색))
-            
-            self.tableWidget_call.setItem(index, Option_column.현재가.value, item)
-                
-            item = QTableWidgetItem(gap_str)
-            item.setTextAlignment(Qt.AlignCenter)                        
-            self.tableWidget_call.setItem(index, Option_column.대비.value, item) 
+                pass
         else:
             pass
         
@@ -9029,10 +9039,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if 저가 != self.tableWidget_call.item(index, Option_column.저가.value).text():
 
             df_cm_call.loc[index, '저가'] = round(float(저가), 2)
-
-            item = QTableWidgetItem(저가)
-            item.setTextAlignment(Qt.AlignCenter)             
-            self.tableWidget_call.setItem(index, Option_column.저가.value, item)
             
             if float(저가) >= price_threshold:
 
@@ -9044,9 +9050,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-            item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
+            if call_scroll_begin_position <= index < call_scroll_end_position:
+
+                item = QTableWidgetItem(저가)
+                item.setTextAlignment(Qt.AlignCenter)             
+                self.tableWidget_call.setItem(index, Option_column.저가.value, item)
+
+                item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
+            else:
+                pass
         else:
             pass
 
@@ -9054,10 +9068,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if 고가 != self.tableWidget_call.item(index, Option_column.고가.value).text():
 
             df_cm_call.loc[index, '고가'] = round(float(고가), 2)
-
-            item = QTableWidgetItem(고가)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_call.setItem(index, Option_column.고가.value, item)
             
             if float(고가) >= price_threshold:
 
@@ -9069,9 +9079,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-            item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
+            if call_scroll_begin_position <= index < call_scroll_end_position:
+
+                item = QTableWidgetItem(고가)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setItem(index, Option_column.고가.value, item)
+
+                item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
+            else:
+                pass
         else:
             pass
 
@@ -9803,12 +9821,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         put_result = copy.deepcopy(result)  
 
-        index = cm_put_행사가.index(put_result['단축코드'][5:8])
+        index = cm_put_행사가.index(result['단축코드'][5:8])
         
-        시가 = put_result['시가']
-        현재가 = put_result['현재가']
-        저가 = put_result['저가']
-        고가 = put_result['고가']
+        시가 = result['시가']
+        현재가 = result['현재가']
+        저가 = result['저가']
+        고가 = result['고가']
         
         if index == atm_index:
             put_atm_value = float(현재가)
@@ -9844,22 +9862,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 put_db_percent[index] = 0.0               
                 gap_str = "{0:0.2f}".format(대비)
 
-            item = QTableWidgetItem(현재가)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(기본바탕색))
+            if put_scroll_begin_position <= index < put_scroll_end_position:
 
-            if float(시가) < float(현재가):
-                item.setForeground(QBrush(적색))
-            elif float(시가) > float(현재가):
-                item.setForeground(QBrush(청색))
+                item = QTableWidgetItem(현재가)
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(기본바탕색))
+
+                if float(시가) < float(현재가):
+                    item.setForeground(QBrush(적색))
+                elif float(시가) > float(현재가):
+                    item.setForeground(QBrush(청색))
+                else:
+                    item.setForeground(QBrush(검정색))
+
+                self.tableWidget_put.setItem(index, Option_column.현재가.value, item)
+
+                item = QTableWidgetItem(gap_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setItem(index, Option_column.대비.value, item)
             else:
-                item.setForeground(QBrush(검정색))
-
-            self.tableWidget_put.setItem(index, Option_column.현재가.value, item)
-                
-            item = QTableWidgetItem(gap_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setItem(index, Option_column.대비.value, item) 
+                pass 
         else:
             pass
 
@@ -9882,10 +9904,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if 저가 != self.tableWidget_put.item(index, Option_column.저가.value).text():
 
             df_cm_put.loc[index, '저가'] = round(float(저가), 2)
-
-            item = QTableWidgetItem(저가)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setItem(index, Option_column.저가.value, item)
             
             if float(저가) >= price_threshold:
 
@@ -9897,9 +9915,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-            item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
+            if put_scroll_begin_position <= index < put_scroll_end_position:
+
+                item = QTableWidgetItem(저가)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setItem(index, Option_column.저가.value, item)
+
+                item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
+            else:
+                pass
         else:
             pass
 
@@ -9907,10 +9933,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if 고가 != self.tableWidget_put.item(index, Option_column.고가.value).text():
 
             df_cm_put.loc[index, '고가'] = round(float(고가), 2)
-
-            item = QTableWidgetItem(고가)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setItem(index, Option_column.고가.value, item)
             
             if float(고가) >= price_threshold:
 
@@ -9922,9 +9944,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-            item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
+            if put_scroll_begin_position <= index < put_scroll_end_position:
+
+                item = QTableWidgetItem(고가)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setItem(index, Option_column.고가.value, item)
+
+                item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
+            else:
+                pass
         else:
             pass
 
