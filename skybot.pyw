@@ -9957,7 +9957,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
                 '''
-            else:        
+            else:
+                pass        
 
         return
     
