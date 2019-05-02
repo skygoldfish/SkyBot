@@ -2041,7 +2041,7 @@ class OVC(XAReal):
         result['체결일자_한국'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kordate")
         result['체결시간_현지'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "trdtm")
         result['체결시간_한국'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kortm")
-        result['체결가격'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "curpr"))
+        result['체결가격'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "curpr")
         result['전일대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "ydiffpr"))
         result['전일대비기호'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ydiffSign")
         result['시가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "open"))

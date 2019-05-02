@@ -93,6 +93,34 @@ yesterday_str = yesterday.strftime('%Y%m%d')
 
 start_hour = 9
 
+# 업종코드
+KOSPI = '001'
+KOSPI200 = '101'
+KOSDAQ = '301'
+OPT_CALL = '700'
+OPT_PUT = '800'
+FUTURES = '900'
+CME = '950'
+
+SAMSUNG = '005930'
+HYUNDAI = '005380'
+Celltrion = '068270'
+MOBIS = '012330'
+NAVER = '035420'
+
+STOCK = "0001"
+BOHEOM = "0002"
+TOOSIN = "0003"
+BANK = "0004"
+JONGGEUM = "0005"
+GIGEUM = "0006"
+GITA = "0007"
+RETAIL = "0008"
+FOREIGNER = "0017"
+INSTITUTIONAL = "0018"
+
+VIX = "VXK19"
+
 price_threshold = 0.30
 center_val_threshold = 0.60
 
@@ -162,32 +190,6 @@ cm_option_title = ''
 
 toggle_calltable = False
 toggle_puttable = False
-
-# 업종코드
-KOSPI = '001'
-KOSPI200 = '101'
-KOSDAQ = '301'
-OPT_CALL = '700'
-OPT_PUT = '800'
-FUTURES = '900'
-CME = '950'
-
-SAMSUNG = '005930'
-HYUNDAI = '005380'
-Celltrion = '068270'
-MOBIS = '012330'
-NAVER = '035420'
-
-STOCK = "0001"
-BOHEOM = "0002"
-TOOSIN = "0003"
-BANK = "0004"
-JONGGEUM = "0005"
-GIGEUM = "0006"
-GITA = "0007"
-RETAIL = "0008"
-FOREIGNER = "0017"
-INSTITUTIONAL = "0018"
 
 FUT_FOREIGNER_거래대금순매수 = 0
 FUT_RETAIL_거래대금순매수 = 0
@@ -522,6 +524,8 @@ darkturquoise = QColor(0x00, 0xCE, 0xD1)
 darkslateblue = QColor(0x48, 0x3D, 0x8B)
 purple = QColor(0x80, 0x00, 0x80)
 gainsboro = QColor(0xDC, 0xDC, 0xDC)
+pink = QColor(0xFF, 0xC0, 0xCB)
+lightskyblue = QColor(0x87, 0xCE, 0xFA)
 
 기본바탕색 = Qt.white
 검정색 = Qt.black
@@ -2615,7 +2619,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.label_1st_co.setStyleSheet('background-color: yellow ; color: black')
         self.label_2nd_co.setText("HYUNDAI : 0(0.0%)")
         self.label_2nd_co.setStyleSheet('background-color: yellow ; color: black')
-        self.label_3rd_co.setText("CELLTRION : 0(0.0%)")
+        self.label_3rd_co.setText("VIX : 0(0.0%)")
         self.label_3rd_co.setStyleSheet('background-color: yellow ; color: black')
 
         self.label_msg.setText("★ 주요 시그날 알림창 ★")
@@ -3325,7 +3329,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             else:
                 pass
-
         else:
             txt = "call table cell clicked = ({0},{1}) ==>None type<==".format(row, col)
 
@@ -3352,7 +3355,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_put.scrollToItem(put_positionCell)
             else:
                 pass
-
         else:
             txt = "put table cell clicked = ({0},{1}) ==>None type<==".format(row, col)
 
@@ -6786,19 +6788,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                '''
-                self.call_open_check()
-                self.call_db_check()
+                # VIX 요청
+                self.OVC = OVC(parent=self)
+                self.OVC.AdviseRealData(종목코드=VIX)
 
-                self.put_open_check()
-                self.put_db_check()
-
-                self.call_node_color_clear()
-                self.put_node_color_clear()
-
-                self.call_node_color_update()
-                self.put_node_color_update()
-                '''
                 if not overnight:
 
                     XQ = t2101(parent=self)
@@ -6826,7 +6819,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.YS3 = YS3(parent=self)
                         self.YS3.AdviseRealData(SAMSUNG)
                         self.YS3.AdviseRealData(HYUNDAI)
-                        self.YS3.AdviseRealData(Celltrion)
+                        #self.YS3.AdviseRealData(Celltrion)
 
                         # 지수옵션예상체결 요청
                         self.YOC = YOC(parent=self)
@@ -6866,7 +6859,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # KOSPI체결 요청
                     self.S3.AdviseRealData(SAMSUNG)
                     self.S3.AdviseRealData(HYUNDAI)
-                    self.S3.AdviseRealData(Celltrion)
+                    #self.S3.AdviseRealData(Celltrion)
 
                     # 업종별 투자자별 매매현황 요청
                     self.BM.AdviseRealData(FUTURES)
@@ -7811,8 +7804,50 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 print('\r')
                 print('t2835 put', df_cm_put)
 
-                self.tableWidget_call.resizeColumnsToContents()
-                self.tableWidget_put.resizeColumnsToContents()
+                atm_str = self.find_ATM(fut_realdata['KP200'])
+
+                if atm_str in cm_call_actval:
+
+                    atm_index = cm_call_actval.index(atm_str)
+
+                    self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
+                    self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
+
+                    call_atm_value = df_cm_call.iloc[atm_index]['현재가']
+                    put_atm_value = df_cm_put.iloc[atm_index]['현재가']
+
+                    str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}] [{3:0.1f}:{4:0.1f}]'.format(
+                        fut_realdata['현재가'] - fut_realdata['KP200'],
+                        call_atm_value + put_atm_value,
+                        abs(call_atm_value - put_atm_value),
+                        콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                    self.label_atm.setText(str)
+
+                    self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                    self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                    self.tableWidget_call.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+
+                    selected_call = [atm_index - 1, atm_index, atm_index + 1]
+
+                    call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
+                    self.tableWidget_call.scrollToItem(call_positionCell)
+
+                    self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
+                    self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
+
+                    self.tableWidget_put.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                    self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                    self.tableWidget_put.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+
+                    selected_put = [atm_index - 1, atm_index, atm_index + 1]
+
+                    put_positionCell = self.tableWidget_put.item(atm_index + 3, 1)
+                    self.tableWidget_put.scrollToItem(put_positionCell)
+                else:
+                    print("atm_str이 리스트에 없습니다.", atm_str)
+
+                #self.tableWidget_call.resizeColumnsToContents()
+                #self.tableWidget_put.resizeColumnsToContents()
 
                 cm_call_전저 = df_cm_call['전저'].values.tolist()
                 cm_call_전저_node_list = self.make_node_list(cm_call_전저)
@@ -7997,48 +8032,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판을 갱신했습니다.\r'.format(delta_hour, delta_minute, delta_sec)
                 self.textBrowser.append(str)
-
-            atm_str = self.find_ATM(fut_realdata['KP200'])
-
-            if atm_str in cm_call_actval:
-
-                atm_index = cm_call_actval.index(atm_str)
-
-                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
-                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-
-                call_atm_value = df_cm_call.iloc[atm_index]['현재가']
-                put_atm_value = df_cm_put.iloc[atm_index]['현재가']
-
-                str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}] [{3:0.1f}:{4:0.1f}]'.format(
-                    fut_realdata['현재가'] - fut_realdata['KP200'],
-                    call_atm_value + put_atm_value,
-                    abs(call_atm_value - put_atm_value),
-                    콜_수정미결퍼센트, 풋_수정미결퍼센트)
-                self.label_atm.setText(str)
-
-                self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                self.tableWidget_call.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-
-                selected_call = [atm_index - 1, atm_index, atm_index + 1]
-
-                call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
-                self.tableWidget_call.scrollToItem(call_positionCell)
-
-                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
-                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-
-                self.tableWidget_put.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                self.tableWidget_put.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-
-                selected_put = [atm_index - 1, atm_index, atm_index + 1]
-
-                put_positionCell = self.tableWidget_put.item(atm_index + 3, 1)
-                self.tableWidget_put.scrollToItem(put_positionCell)
-            else:
-                print("atm_str이 리스트에 없습니다.", atm_str)
             
             if not refresh_flag:
 
@@ -9007,7 +9000,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_call.setItem(index, Option_column.현재가.value, item)
 
                 item = QTableWidgetItem(gap_str)
-                item.setTextAlignment(Qt.AlignCenter)                        
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if gap_str[-1] == '▼':
+                    item.setBackground(QBrush(lightskyblue))
+                elif gap_str[-1] == '▲':
+                    item.setBackground(QBrush(pink))
+                else:
+                    item.setBackground(QBrush(흰색))
+
                 self.tableWidget_call.setItem(index, Option_column.대비.value, item) 
             else:
                 pass
@@ -9874,6 +9875,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 item = QTableWidgetItem(gap_str)
                 item.setTextAlignment(Qt.AlignCenter)
+
+                if gap_str[-1] == '▼':
+                    item.setBackground(QBrush(lightskyblue))
+                elif gap_str[-1] == '▲':
+                    item.setBackground(QBrush(pink))
+                else:
+                    item.setBackground(QBrush(흰색))
+
                 self.tableWidget_put.setItem(index, Option_column.대비.value, item)
             else:
                 pass
@@ -11188,7 +11197,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             self.label_2nd_co.setStyleSheet('background-color: yellow ; color: black')
 
                     elif result['단축코드'] == Celltrion:
-
+                        pass
+                        '''
                         if result['예상체결가전일종가대비구분'] == '5':
 
                             jisu_str = "CTRO : {0}({1}, {2:0.1f}%)".format(현재가, format(-result['예상체결가전일종가대비'], ','),
@@ -11207,6 +11217,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             jisu_str = "CTRO : {0}({1})".format(현재가, format(result['예상체결가전일종가대비'], ','))
                             self.label_3rd_co.setText(jisu_str)
                             self.label_3rd_co.setStyleSheet('background-color: yellow ; color: black')
+                        '''
                     else:
                         #print('단축코드', result['단축코드'])
                         pass
@@ -11485,7 +11496,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.label_2nd_co.setStyleSheet('background-color: yellow ; color: black')
 
                 elif result['단축코드'] == Celltrion:
-
+                    pass
+                    '''
                     if result['전일대비구분'] == '5':
 
                         jisu_str = "CTRO : {0}({1}, {2:0.1f}%)".format(현재가, format(-result['전일대비'], ','), result['등락율'])
@@ -11502,6 +11514,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         jisu_str = "CTRO : {0}({1})".format(현재가, format(result['전일대비'], ','))
                         self.label_3rd_co.setText(jisu_str)
                         self.label_3rd_co.setStyleSheet('background-color: yellow ; color: black')
+                    '''
                 else:
                     pass
 
@@ -12124,6 +12137,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if result['현재가'] != 콜현재가:
                         
                         콜현재가 = result['현재가']
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Call {3} 수신'.format(
+                            int(result['체결시간'][0:2]),
+                            int(result['체결시간'][2:4]),
+                            int(result['체결시간'][4:6]),
+                            result['현재가'])
+                        self.textBrowser.append(str)
+                        
                         self.call_display(result)                      
 
                         if opt_callreal_update_counter >= 500:
@@ -12137,22 +12158,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if opt_callreal_update_counter >= opt_putreal_update_counter:
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] Call {3} 수신 C({4}/{5}) : {6:0.2f} ms... \r'.format(
+                            str = '[{0:02d}:{1:02d}:{2:02d}] C({3}/{4}) 처리시간 : {5:0.2f} ms... \r'.format(
                                 int(result['체결시간'][0:2]),
                                 int(result['체결시간'][2:4]),
                                 int(result['체결시간'][4:6]),
-                                result['현재가'],
                                 opt_callreal_update_counter,
                                 opt_putreal_update_counter,
                                 process_time)
                             self.textBrowser.append(str)
                         else:
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] Call {3} 수신 P({4}/{5}) : {6:0.2f} ms... \r'.format(
+                            str = '[{0:02d}:{1:02d}:{2:02d}] P({3}/{4}) 처리시간 : {5:0.2f} ms... \r'.format(
                                 int(result['체결시간'][0:2]),
                                 int(result['체결시간'][2:4]),
                                 int(result['체결시간'][4:6]),
-                                result['현재가'],
                                 opt_callreal_update_counter,
                                 opt_putreal_update_counter,
                                 process_time)
@@ -12165,6 +12184,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if result['현재가'] != 풋현재가:
 
                         풋현재가 = result['현재가']
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Put {3} 수신'.format(
+                            int(result['체결시간'][0:2]),
+                            int(result['체결시간'][2:4]),
+                            int(result['체결시간'][4:6]),
+                            result['현재가'])
+                        self.textBrowser.append(str)
+
                         self.put_display(result)                      
 
                         if opt_putreal_update_counter >= 500:
@@ -12178,22 +12205,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if opt_callreal_update_counter >= opt_putreal_update_counter:
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] Put {3} 수신 C({4}/{5}) : {6:0.2f} ms... \r'.format(
+                            str = '[{0:02d}:{1:02d}:{2:02d}] C({3}/{4}) 처리시간 : {5:0.2f} ms... \r'.format(
                                 int(result['체결시간'][0:2]),
                                 int(result['체결시간'][2:4]),
                                 int(result['체결시간'][4:6]),
-                                result['현재가'],
                                 opt_callreal_update_counter,
                                 opt_putreal_update_counter,
                                 process_time)
                             self.textBrowser.append(str)
                         else:
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] Put {3} 수신 P({4}/{5}) : {6:0.2f} ms... \r'.format(
+                            str = '[{0:02d}:{1:02d}:{2:02d}] P({3}/{4}) 처리시간 : {5:0.2f} ms... \r'.format(
                                 int(result['체결시간'][0:2]),
                                 int(result['체결시간'][2:4]),
                                 int(result['체결시간'][4:6]),
-                                result['현재가'],
                                 opt_callreal_update_counter,
                                 opt_putreal_update_counter,
                                 process_time)
@@ -12381,6 +12406,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
                 '''
+            
+            elif szTrCode == 'OVC':
+
+                if result['종목코드'] == VIX:
+
+                    #print('result', result)
+
+                    if result['전일대비기호'] == '5':
+
+                        jisu_str = "VIX : {0}(▼ {1}, {2:0.2f}%)".format(result['체결가격'], format(-result['전일대비'], ','), result['등락율'])
+                        self.label_3rd_co.setText(jisu_str)
+                        self.label_3rd_co.setStyleSheet('background-color: red ; color: white')
+
+                    elif result['전일대비기호'] == '2':
+
+                        jisu_str = "VIX : {0}(▲ {1}, {2:0.2f}%)".format(result['체결가격'], format(result['전일대비'], ','), result['등락율'])
+                        self.label_3rd_co.setText(jisu_str)
+                        self.label_3rd_co.setStyleSheet('background-color: blue ; color: white')
+
+                    else:
+                        jisu_str = "VIX : {0}({1})".format(result['체결가격'], format(result['전일대비'], ','))
+                        self.label_3rd_co.setText(jisu_str)
+                        self.label_3rd_co.setStyleSheet('background-color: yellow ; color: black')
+                else:
+                    pass
             else:
                 print('요청하지 않은 TR 코드 : ', szTrCode)
             '''
