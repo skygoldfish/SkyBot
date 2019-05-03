@@ -11121,7 +11121,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif szTrCode == 'YJ_':
 
-                if not yoc_stop:
+                if pre_start:
 
                     if result['업종코드'] == KOSPI200:
 
@@ -11251,7 +11251,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif szTrCode == 'YOC':
 
-                if pre_start:
+                if not yoc_stop:
 
                     if result['단축코드'][0:3] == '201':
 
