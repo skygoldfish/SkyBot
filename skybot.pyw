@@ -3839,9 +3839,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     global 콜시가리스트, 콜저가리스트, 콜고가리스트, 풋시가리스트, 풋저가리스트, 풋고가리스트
 
                     # 선물, 콜, 풋 현재가 클리어
-                    #self.fut_cv_color_clear()
-                    #self.call_cv_color_clear()                    
-                    #self.put_cv_color_clear()                    
+                    self.fut_cv_color_clear()
+                    self.call_cv_color_clear()                    
+                    self.put_cv_color_clear()                    
                     
                     # 수정거래량 및 수정미결 갱신
                     self.call_volume_oi_update() 
