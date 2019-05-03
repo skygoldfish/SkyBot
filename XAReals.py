@@ -1681,7 +1681,7 @@ class YOC(XAReal):
         try:
             result = dict()
             result['예상체결시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ychetime")
-            result['예상체결가격'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "yeprice"))
+            result['예상체결가격'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "yeprice")
             result['예상체결가전일종가대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilysign")
             result['예상체결가전일종가대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "preychange"))
             result['예상체결가전일종가등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilydrate"))

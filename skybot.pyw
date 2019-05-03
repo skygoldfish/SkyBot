@@ -634,6 +634,8 @@ cm_two_cha_left_curve = None
 cm_two_sum_right_curve = None
 cm_two_cha_right_curve = None
 
+yoc_stop = False
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -10871,6 +10873,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global cm_put_저가, cm_put_저가_node_list, cm_put_고가, cm_put_고가_node_list
             global market_service
 
+            global yoc_stop
+
             start_time = timeit.default_timer()
 
             dt = datetime.datetime.now()
@@ -10918,6 +10922,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 지수옵션 예상체결 요청취소(안하면 시작시 지연발생함)
                     self.YOC.UnadviseRealData()
 
+                    yoc_stop = True
+
                     str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(delta_hour, delta_minute, delta_sec)
                     self.textBrowser.append(str)
 
@@ -10929,6 +10935,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # 지수옵션 예상체결 요청취소(안하면 시작시 지연발생함)
                     self.YOC.UnadviseRealData()
+
+                    yoc_stop = True
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(delta_hour, delta_minute, delta_sec)
                     self.textBrowser.append(str)
@@ -11113,7 +11121,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif szTrCode == 'YJ_':
 
-                if pre_start:
+                if not yoc_stop:
 
                     if result['업종코드'] == KOSPI200:
 
@@ -11249,67 +11257,61 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         index = cm_call_행사가.index(result['단축코드'][5:8])
 
-                        if result['예상체결가격'] != float(self.tableWidget_call.item(index, Option_column.시가.value).text()):
+                        if result['예상체결가격'] != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
-                            if result['예상체결가격'] > 0:
+                            df_plotdata_cm_call.iloc[index][1] = float(result['예상체결가격'])
 
-                                df_plotdata_cm_call.iloc[index][1] = result['예상체결가격']
+                            df_cm_call.loc[index, '시가'] = round(float(result['예상체결가격']), 2)
+                            item = QTableWidgetItem("{0}".format(result['예상체결가격']))
+                            item.setTextAlignment(Qt.AlignCenter)
 
-                                df_cm_call.loc[index, '시가'] = round(result['예상체결가격'], 2)
-                                item = QTableWidgetItem("{0:0.2f}".format(result['예상체결가격']))
-                                item.setTextAlignment(Qt.AlignCenter)
+                            if float(result['예상체결가격']) > df_cm_call.iloc[index]['종가']:
+                                item.setForeground(QBrush(적색))
+                            elif float(result['예상체결가격']) < df_cm_call.iloc[index]['종가']:
+                                item.setForeground(QBrush(청색))
+                            else:
+                                item.setForeground(QBrush(검정색))
 
-                                if result['예상체결가격'] > df_cm_call.iloc[index]['종가']:
-                                    item.setForeground(QBrush(적색))
-                                elif result['예상체결가격'] < df_cm_call.iloc[index]['종가']:
-                                    item.setForeground(QBrush(청색))
-                                else:
-                                    item.setForeground(QBrush(검정색))
+                            self.tableWidget_call.setItem(index, Option_column.시가.value, item)
 
-                                self.tableWidget_call.setItem(index, Option_column.시가.value, item)
+                            temp = self.calc_pivot(df_cm_call.iloc[index]['전저'], df_cm_call.iloc[index]['전고'],
+                                                    df_cm_call.iloc[index]['종가'], df_cm_call.iloc[index]['시가'])
 
-                                temp = self.calc_pivot(df_cm_call.iloc[index]['전저'],
-                                                                              df_cm_call.iloc[index]['전고'],
-                                                                              df_cm_call.iloc[index]['종가'],
-                                                                              df_cm_call.iloc[index]['시가'])
+                            df_cm_call.loc[index, '피봇'] = temp
 
-                                df_cm_call.loc[index, '피봇'] = round(temp, 2)
+                            item = QTableWidgetItem("{0:0.2f}".format(df_cm_call.iloc[index]['피봇']))
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_call.setItem(index, Option_column.피봇.value, item)
 
-                                item = QTableWidgetItem("{0:0.2f}".format(df_cm_call.iloc[index]['피봇']))
-                                item.setTextAlignment(Qt.AlignCenter)
-                                self.tableWidget_call.setItem(index, Option_column.피봇.value, item)
+                            if float(result['예상체결가격']) >= price_threshold and df_cm_call.iloc[index]['종가'] > 0:
 
-                                if result['예상체결가격'] >= price_threshold and df_cm_call.iloc[index]['종가'] > 0:
+                                시가갭 = float(result['예상체결가격']) - df_cm_call.iloc[index]['종가']
+                                df_cm_call.loc[index, '시가갭'] = 시가갭
 
-                                    시가갭 = result['예상체결가격'] - df_cm_call.iloc[index]['종가']
-                                    df_cm_call.loc[index, '시가갭'] = 시가갭
+                                yoc_call_gap_percent[index] = (float(result['예상체결가격']) / df_cm_call.iloc[index][
+                                    '종가'] - 1) * 100
 
-                                    yoc_call_gap_percent[index] = (result['예상체결가격'] / df_cm_call.iloc[index][
-                                        '종가'] - 1) * 100
+                                gap_str = "{0:0.2f}({1:0.0f}%)".format(시가갭, yoc_call_gap_percent[index])
 
-                                    gap_str = "{0:0.2f}({1:0.0f}%)".format(시가갭, yoc_call_gap_percent[index])
+                                if gap_str != self.tableWidget_call.item(index, Option_column.시가갭.value).text():
 
-                                    if gap_str != self.tableWidget_call.item(index, Option_column.시가갭.value).text():
+                                    item = QTableWidgetItem(gap_str)
+                                    item.setTextAlignment(Qt.AlignCenter)
+                                    self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
 
-                                        item = QTableWidgetItem(gap_str)
-                                        item.setTextAlignment(Qt.AlignCenter)
-                                        self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
-
-                                        self.tableWidget_call.resizeColumnsToContents()
-                                    else:
-                                        pass
+                                    self.tableWidget_call.resizeColumnsToContents()
                                 else:
                                     pass
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] [{3}] Call {4} 시작예상가 수신... \r'.format(
-                                    int(result['예상체결시간'][0:2]),
-                                    int(result['예상체결시간'][2:4]),
-                                    int(result['예상체결시간'][4:6]),
-                                    szTrCode,
-                                    result['예상체결가격'])
-                                self.textBrowser.append(str)
                             else:
                                 pass
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] [{3}] Call {4} 시작예상가 수신... \r'.format(
+                                int(result['예상체결시간'][0:2]),
+                                int(result['예상체결시간'][2:4]),
+                                int(result['예상체결시간'][4:6]),
+                                szTrCode,
+                                result['예상체결가격'])
+                            self.textBrowser.append(str)
                         else:
                             pass
 
@@ -11337,67 +11339,63 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         index = cm_put_행사가.index(result['단축코드'][5:8])
 
-                        if result['예상체결가격'] != float(self.tableWidget_put.item(index, Option_column.시가.value).text()):
+                        if result['예상체결가격'] != self.tableWidget_put.item(index, Option_column.시가.value).text():
 
-                            if result['예상체결가격'] > 0:
+                            df_plotdata_cm_put.iloc[index][1] = float(result['예상체결가격'])
 
-                                df_plotdata_cm_put.iloc[index][1] = result['예상체결가격']
+                            df_cm_put.loc[index, '시가'] = round(float(result['예상체결가격']), 2)
+                            item = QTableWidgetItem("{0}".format(result['예상체결가격']))
+                            item.setTextAlignment(Qt.AlignCenter)
 
-                                df_cm_put.loc[index, '시가'] = round(result['예상체결가격'], 2)
-                                item = QTableWidgetItem("{0:0.2f}".format(result['예상체결가격']))
-                                item.setTextAlignment(Qt.AlignCenter)
+                            if float(result['예상체결가격']) > df_cm_put.iloc[index]['종가']:
+                                item.setForeground(QBrush(적색))
+                            elif float(result['예상체결가격']) < df_cm_put.iloc[index]['종가']:
+                                item.setForeground(QBrush(청색))
+                            else:
+                                item.setForeground(QBrush(검정색))
 
-                                if result['예상체결가격'] > df_cm_put.iloc[index]['종가']:
-                                    item.setForeground(QBrush(적색))
-                                elif result['예상체결가격'] < df_cm_put.iloc[index]['종가']:
-                                    item.setForeground(QBrush(청색))
-                                else:
-                                    item.setForeground(QBrush(검정색))
+                            self.tableWidget_put.setItem(index, Option_column.시가.value, item)
 
-                                self.tableWidget_put.setItem(index, Option_column.시가.value, item)
+                            temp = self.calc_pivot(df_cm_put.iloc[index]['전저'],
+                                                                          df_cm_put.iloc[index]['전고'],
+                                                                          df_cm_put.iloc[index]['종가'],
+                                                                          df_cm_put.iloc[index]['시가'])
 
-                                temp = self.calc_pivot(df_cm_put.iloc[index]['전저'],
-                                                                              df_cm_put.iloc[index]['전고'],
-                                                                              df_cm_put.iloc[index]['종가'],
-                                                                              df_cm_put.iloc[index]['시가'])
+                            df_cm_put.loc[index, '피봇'] = temp
 
-                                df_cm_put.loc[index, '피봇'] = round(temp, 2)
+                            item = QTableWidgetItem("{0:0.2f}".format(df_cm_put.iloc[index]['피봇']))
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
 
-                                item = QTableWidgetItem("{0:0.2f}".format(df_cm_put.iloc[index]['피봇']))
-                                item.setTextAlignment(Qt.AlignCenter)
-                                self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
+                            if float(result['예상체결가격']) >= price_threshold and df_cm_put.iloc[index]['종가'] > 0:
 
-                                if result['예상체결가격'] >= price_threshold and df_cm_put.iloc[index]['종가'] > 0:
+                                시가갭 = float(result['예상체결가격']) - df_cm_put.iloc[index]['종가']
+                                df_cm_put.loc[index, '시가갭'] = 시가갭
 
-                                    시가갭 = result['예상체결가격'] - df_cm_put.iloc[index]['종가']
-                                    df_cm_put.loc[index, '시가갭'] = 시가갭
+                                yoc_put_gap_percent[index] = (float(result['예상체결가격']) / df_cm_put.iloc[index][
+                                    '종가'] - 1) * 100
 
-                                    yoc_put_gap_percent[index] = (result['예상체결가격'] / df_cm_put.iloc[index][
-                                        '종가'] - 1) * 100
+                                gap_str = "{0:0.2f}({1:0.0f}%)".format(시가갭, yoc_put_gap_percent[index])
 
-                                    gap_str = "{0:0.2f}({1:0.0f}%)".format(시가갭, yoc_put_gap_percent[index])
+                                if gap_str != self.tableWidget_put.item(index, Option_column.시가갭.value).text():
 
-                                    if gap_str != self.tableWidget_put.item(index, Option_column.시가갭.value).text():
+                                    item = QTableWidgetItem(gap_str)
+                                    item.setTextAlignment(Qt.AlignCenter)
+                                    self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
 
-                                        item = QTableWidgetItem(gap_str)
-                                        item.setTextAlignment(Qt.AlignCenter)
-                                        self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
-
-                                        self.tableWidget_put.resizeColumnsToContents()
-                                    else:
-                                        pass
+                                    self.tableWidget_put.resizeColumnsToContents()
                                 else:
                                     pass
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] [{3}] Put {4} 시작예상가 수신... \r'.format(
-                                    int(result['예상체결시간'][0:2]),
-                                    int(result['예상체결시간'][2:4]),
-                                    int(result['예상체결시간'][4:6]),
-                                    szTrCode,
-                                    result['예상체결가격'])
-                                self.textBrowser.append(str)
                             else:
                                 pass
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] [{3}] Put {4} 시작예상가 수신... \r'.format(
+                                int(result['예상체결시간'][0:2]),
+                                int(result['예상체결시간'][2:4]),
+                                int(result['예상체결시간'][4:6]),
+                                szTrCode,
+                                result['예상체결가격'])
+                            self.textBrowser.append(str)
                         else:
                             pass
 
