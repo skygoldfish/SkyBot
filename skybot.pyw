@@ -11274,10 +11274,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             self.tableWidget_call.setItem(index, Option_column.시가.value, item)
 
-                            temp = self.calc_pivot(df_cm_call.iloc[index]['전저'], df_cm_call.iloc[index]['전고'],
-                                                    df_cm_call.iloc[index]['종가'], df_cm_call.iloc[index]['시가'])
-
-                            df_cm_call.loc[index, '피봇'] = temp
+                            df_cm_call.loc[index, '피봇'] = self.calc_pivot(df_cm_call.iloc[index]['전저'],
+                                                                          df_cm_call.iloc[index]['전고'],
+                                                                          df_cm_call.iloc[index]['종가'],
+                                                                          df_cm_call.iloc[index]['시가'])
 
                             item = QTableWidgetItem("{0:0.2f}".format(df_cm_call.iloc[index]['피봇']))
                             item.setTextAlignment(Qt.AlignCenter)
@@ -11298,7 +11298,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     item = QTableWidgetItem(gap_str)
                                     item.setTextAlignment(Qt.AlignCenter)
                                     self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
-
                                     self.tableWidget_call.resizeColumnsToContents()
                                 else:
                                     pass
@@ -11356,12 +11355,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             self.tableWidget_put.setItem(index, Option_column.시가.value, item)
 
-                            temp = self.calc_pivot(df_cm_put.iloc[index]['전저'],
+                            df_cm_put.loc[index, '피봇'] = self.calc_pivot(df_cm_put.iloc[index]['전저'],
                                                                           df_cm_put.iloc[index]['전고'],
                                                                           df_cm_put.iloc[index]['종가'],
                                                                           df_cm_put.iloc[index]['시가'])
-
-                            df_cm_put.loc[index, '피봇'] = temp
 
                             item = QTableWidgetItem("{0:0.2f}".format(df_cm_put.iloc[index]['피봇']))
                             item.setTextAlignment(Qt.AlignCenter)
@@ -11382,7 +11379,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     item = QTableWidgetItem(gap_str)
                                     item.setTextAlignment(Qt.AlignCenter)
                                     self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
-
                                     self.tableWidget_put.resizeColumnsToContents()
                                 else:
                                     pass
