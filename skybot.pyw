@@ -2344,13 +2344,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         item = QTableWidgetItem("{0}".format('CME'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
-        item.setForeground(QBrush(선물색))
+        item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(0, 0, item)
 
         item = QTableWidgetItem("{0}".format('FUT'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
-        item.setForeground(QBrush(선물색))
+        item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(1, 0, item)
 
         item = QTableWidgetItem("{0}".format('KP200'))
@@ -3839,9 +3839,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     global 콜시가리스트, 콜저가리스트, 콜고가리스트, 풋시가리스트, 풋저가리스트, 풋고가리스트
 
                     # 선물, 콜, 풋 현재가 클리어
-                    self.fut_cv_color_clear()
-                    self.call_cv_color_clear()                    
-                    self.put_cv_color_clear()                    
+                    #self.fut_cv_color_clear()
+                    #self.call_cv_color_clear()                    
+                    #self.put_cv_color_clear()                    
                     
                     # 수정거래량 및 수정미결 갱신
                     self.call_volume_oi_update() 
@@ -8674,17 +8674,47 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         # 현재가 갱신
         if overnight:
-            fut_price = self.tableWidget_fut.item(0, Futures_column.현재가.value).text()
+            fut_price = self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]
         else:
-            fut_price = self.tableWidget_fut.item(1, Futures_column.현재가.value).text()
+            fut_price = self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]
 
         if 현재가 != fut_price:
 
             fut_realdata['현재가'] = round(float(현재가), 2)
 
-            item = QTableWidgetItem("{0}".format(현재가))
+            if overnight:
+
+                if float(현재가) < float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
+                    item = QTableWidgetItem(현재가 + ' ' + self.상태그림[0])
+                elif float(현재가) > float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
+                    item = QTableWidgetItem(현재가 + ' ' + self.상태그림[1])
+                else:    
+                    item = QTableWidgetItem(현재가)
+            else:
+                if float(현재가) < float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
+                    item = QTableWidgetItem(현재가 + ' ' + self.상태그림[0])
+                elif float(현재가) > float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
+                    item = QTableWidgetItem(현재가 + ' ' + self.상태그림[1])
+                else:    
+                    item = QTableWidgetItem(현재가)            
+
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(기본바탕색))
+
+            if overnight:
+
+                if float(현재가) < float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
+                    item.setBackground(QBrush(lightskyblue))
+                elif float(현재가) > float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
+                    item.setBackground(QBrush(pink))
+                else:
+                    item.setBackground(QBrush(옅은회색))
+            else:
+                if float(현재가) < float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
+                    item.setBackground(QBrush(lightskyblue))
+                elif float(현재가) > float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
+                    item.setBackground(QBrush(pink))
+                else:
+                    item.setBackground(QBrush(옅은회색))            
 
             if overnight:
                 self.tableWidget_fut.setItem(0, Futures_column.현재가.value, item)
@@ -8881,13 +8911,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass        
 
         # KOSPI200지수 갱신
-        if result['KOSPI200지수'] != float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()):
+        if result['KOSPI200지수'] != self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]:
 
-            fut_realdata['KP200'] = result['KOSPI200지수']
-            kp200_realdata['현재가'] = result['KOSPI200지수']
+            fut_realdata['KP200'] = round(float(result['KOSPI200지수']), 2)
+            kp200_realdata['현재가'] = round(float(result['KOSPI200지수']), 2)
 
-            item = QTableWidgetItem("{0:0.2f}".format(result['KOSPI200지수']))
+            if float(result['KOSPI200지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
+                item = QTableWidgetItem(result['KOSPI200지수'] + ' ' + self.상태그림[0])
+            elif float(result['KOSPI200지수']) > float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
+                item = QTableWidgetItem(result['KOSPI200지수'] + ' ' + self.상태그림[1])
+            else:    
+                item = QTableWidgetItem(result['KOSPI200지수'])
+
             item.setTextAlignment(Qt.AlignCenter)
+
+            if float(result['KOSPI200지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
+                item.setBackground(QBrush(lightskyblue))
+            elif float(result['KOSPI200지수']) > float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
+                item.setBackground(QBrush(pink))
+            else:
+                item.setBackground(QBrush(옅은회색)) 
 
             if kp200_realdata['현재가'] > kp200_realdata['시가']:
                 item.setForeground(QBrush(적색))
@@ -8899,7 +8942,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
 
             # 등가 check & coloring
-            atm_str = self.find_ATM(result['KOSPI200지수'])
+            atm_str = self.find_ATM(fut_realdata['KP200'])
             atm_index = cm_call_actval.index(atm_str)
 
             if atm_index != atm_index_old:
@@ -8980,31 +9023,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if call_scroll_begin_position <= index < call_scroll_end_position:
 
             # 현재가 갱신
-            if 현재가 != self.tableWidget_call.item(index, Option_column.현재가.value).text():
+            if 현재가 != self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]:
 
                 df_cm_call.loc[index, '현재가'] = round(float(현재가), 2)
                 df_plotdata_cm_call.iloc[index][opt_x_idx + 1] = float(현재가)
 
-                대비 = round((float(현재가) - float(시가)), 2)
-                df_cm_call.loc[index, '대비'] = 대비
-
-                if float(시가) >= price_threshold:
-
-                    call_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
-
-                    if float(현재가) < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()):
-                        gap_str = "{0:0.2f}({1:0.0f}%){2}".format(대비, call_db_percent[index], self.상태그림[0])
-                    elif float(현재가) > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()):
-                        gap_str = "{0:0.2f}({1:0.0f}%){2}".format(대비, call_db_percent[index], self.상태그림[1])
-                    else:
-                        gap_str = "{0:0.2f}({1:0.0f}%)".format(대비, call_db_percent[index])
-                else:
-                    call_db_percent[index] = 0.0               
-                    gap_str = "{0:0.2f}".format(대비)
-
-                item = QTableWidgetItem(현재가)
+                if float(현재가) < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+                    item = QTableWidgetItem(현재가 + ' ' + self.상태그림[0])
+                elif float(현재가) > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+                    item = QTableWidgetItem(현재가 + ' ' + self.상태그림[1])
+                else:    
+                    item = QTableWidgetItem(현재가)
+                
                 item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(기본바탕색))
+
+                if float(현재가) < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+                    item.setBackground(QBrush(lightskyblue))
+                elif float(현재가) > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+                    item.setBackground(QBrush(pink))
+                else:
+                    item.setBackground(QBrush(옅은회색))
 
                 if float(시가) < float(현재가):
                     item.setForeground(QBrush(적색))
@@ -9014,17 +9052,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setForeground(QBrush(검정색))
 
                 self.tableWidget_call.setItem(index, Option_column.현재가.value, item)
+                
+                대비 = round((float(현재가) - float(시가)), 2)
+                df_cm_call.loc[index, '대비'] = 대비
+
+                if float(시가) >= price_threshold:
+
+                    call_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
+                    gap_str = "{0:0.2f}({1:0.0f}%)".format(대비, call_db_percent[index])
+                else:
+                    call_db_percent[index] = 0.0               
+                    gap_str = "{0:0.2f}".format(대비)
 
                 item = QTableWidgetItem(gap_str)
                 item.setTextAlignment(Qt.AlignCenter)
-
-                if gap_str[-1] == '▼':
-                    item.setBackground(QBrush(lightskyblue))
-                elif gap_str[-1] == '▲':
-                    item.setBackground(QBrush(pink))
-                else:
-                    item.setBackground(QBrush(흰색))
-
                 self.tableWidget_call.setItem(index, Option_column.대비.value, item) 
             else:
                 pass
@@ -9854,31 +9895,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if put_scroll_begin_position <= index < put_scroll_end_position:
 
             # 현재가 갱신
-            if 현재가 != self.tableWidget_put.item(index, Option_column.현재가.value).text():
+            if 현재가 != self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]:
 
                 df_cm_put.loc[index, '현재가'] = round(float(현재가), 2)
                 df_plotdata_cm_put.iloc[index][opt_x_idx + 1] = float(현재가)
 
-                대비 = round((float(현재가) - float(시가)), 2)
-                df_cm_put.loc[index, '대비'] = 대비
+                if float(현재가) < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+                    item = QTableWidgetItem(현재가 + ' ' + self.상태그림[0])
+                elif float(현재가) > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+                    item = QTableWidgetItem(현재가 + ' ' + self.상태그림[1])
+                else:    
+                    item = QTableWidgetItem(현재가)
 
-                if float(시가) >= price_threshold:
-
-                    put_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
-
-                    if float(현재가) < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()):
-                        gap_str = "{0:0.2f}({1:0.0f}%){2}".format(대비, put_db_percent[index], self.상태그림[0])
-                    elif float(현재가) > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()):
-                        gap_str = "{0:0.2f}({1:0.0f}%){2}".format(대비, put_db_percent[index], self.상태그림[1])
-                    else:
-                        gap_str = "{0:0.2f}({1:0.0f}%)".format(대비, put_db_percent[index])
-                else:
-                    put_db_percent[index] = 0.0               
-                    gap_str = "{0:0.2f}".format(대비)
-
-                item = QTableWidgetItem(현재가)
                 item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(기본바탕색))
+
+                if float(현재가) < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+                    item.setBackground(QBrush(lightskyblue))
+                elif float(현재가) > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+                    item.setBackground(QBrush(pink))
+                else:
+                    item.setBackground(QBrush(옅은회색))
 
                 if float(시가) < float(현재가):
                     item.setForeground(QBrush(적색))
@@ -9888,17 +9924,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setForeground(QBrush(검정색))
 
                 self.tableWidget_put.setItem(index, Option_column.현재가.value, item)
+                
+                대비 = round((float(현재가) - float(시가)), 2)
+                df_cm_put.loc[index, '대비'] = 대비
+
+                if float(시가) >= price_threshold:
+
+                    put_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
+                    gap_str = "{0:0.2f}({1:0.0f}%)".format(대비, put_db_percent[index])                        
+                else:
+                    put_db_percent[index] = 0.0               
+                    gap_str = "{0:0.2f}".format(대비)
 
                 item = QTableWidgetItem(gap_str)
                 item.setTextAlignment(Qt.AlignCenter)
-
-                if gap_str[-1] == '▼':
-                    item.setBackground(QBrush(lightskyblue))
-                elif gap_str[-1] == '▲':
-                    item.setBackground(QBrush(pink))
-                else:
-                    item.setBackground(QBrush(흰색))
-
                 self.tableWidget_put.setItem(index, Option_column.대비.value, item)
             else:
                 pass
@@ -12430,40 +12469,40 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if result['전일대비기호'] == '5':
 
-                        jisu_str = "VIX: {0:0.2f}(▼ {1:0.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
+                        jisu_str = "VIX: {0:.2f}(▼ {1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
                         self.label_3rd_co.setText(jisu_str)
                         self.label_3rd_co.setStyleSheet('background-color: red ; color: white')
 
                     elif result['전일대비기호'] == '2':
 
-                        jisu_str = "VIX: {0:0.2f}(▲ {1:0.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
+                        jisu_str = "VIX: {0:.2f}(▲ {1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
                         self.label_3rd_co.setText(jisu_str)
                         self.label_3rd_co.setStyleSheet('background-color: blue ; color: white')
 
                     else:
-                        jisu_str = "VIX: {0:0.2f}({1:0.2f})".format(result['체결가격'], result['전일대비'])
+                        jisu_str = "VIX: {0:.2f}({1:.2f})".format(result['체결가격'], result['전일대비'])
                         self.label_3rd_co.setText(jisu_str)
                         self.label_3rd_co.setStyleSheet('background-color: yellow ; color: black')
 
                 elif result['종목코드'] == SP500:
 
-                    sp500_val = locale.format('%.2f', result['체결가격'], 1)
-                    sp500_jldb = locale.format('%.2f', result['전일대비'], 1)
+                    체결가격 = locale.format('%.2f', result['체결가격'], 1)
+                    전일대비 = locale.format('%.2f', result['전일대비'], 1)
 
                     if result['전일대비기호'] == '5':
 
-                        jisu_str = "SP500: {0}(▼ {1}, {2:0.2f}%)".format(sp500_val, -sp500_jldb, result['등락율'])
+                        jisu_str = "SP500: {0}(▼ {1}, {2:0.2f}%)".format(체결가격, -전일대비, result['등락율'])
                         self.label_1st_co.setText(jisu_str)
                         self.label_1st_co.setStyleSheet('background-color: blue ; color: white')
 
                     elif result['전일대비기호'] == '2':
 
-                        jisu_str = "SP500: {0}(▲ {1}, {2:0.2f}%)".format(sp500_val, sp500_jldb, result['등락율'])
+                        jisu_str = "SP500: {0}(▲ {1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
                         self.label_1st_co.setText(jisu_str)
                         self.label_1st_co.setStyleSheet('background-color: red ; color: white')
 
                     else:
-                        jisu_str = "SP500: {0}({1})".format(sp500_val, sp500_jldb)
+                        jisu_str = "SP500: {0}({1})".format(체결가격, 전일대비)
                         self.label_1st_co.setText(jisu_str)
                         self.label_1st_co.setStyleSheet('background-color: yellow ; color: black')
 
