@@ -63,6 +63,7 @@ import collections
 from PIL import ImageGrab
 import win32gui
 import copy
+import locale
 
 from XASessions import *
 from XAQueries import *
@@ -71,6 +72,9 @@ from XAReals import *
 pd.set_option('display.max_columns', None)
 pd.set_option('display.expand_frame_repr', False)
 pd.set_option('max_colwidth', -1)
+
+# 시스템 기본 로케일 사용
+locale.setlocale(locale.LC_ALL, '')  
 
 주문지연 = 3000
 
@@ -12428,37 +12432,40 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if result['전일대비기호'] == '5':
 
-                        jisu_str = "VIX: {0:0.3f}(▼ {1}, {2:0.2f}%)".format(result['체결가격'], format(-result['전일대비'], ','), result['등락율'])
+                        jisu_str = "VIX: {0:0.2f}(▼ {1:0.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
                         self.label_3rd_co.setText(jisu_str)
                         self.label_3rd_co.setStyleSheet('background-color: red ; color: white')
 
                     elif result['전일대비기호'] == '2':
 
-                        jisu_str = "VIX: {0:0.3f}(▲ {1}, {2:0.2f}%)".format(result['체결가격'], format(result['전일대비'], ','), result['등락율'])
+                        jisu_str = "VIX: {0:0.2f}(▲ {1:0.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
                         self.label_3rd_co.setText(jisu_str)
                         self.label_3rd_co.setStyleSheet('background-color: blue ; color: white')
 
                     else:
-                        jisu_str = "VIX: {0:0.3f}({1})".format(result['체결가격'], format(result['전일대비'], ','))
+                        jisu_str = "VIX: {0:0.2f}({1:0.2f})".format(result['체결가격'], result['전일대비'])
                         self.label_3rd_co.setText(jisu_str)
                         self.label_3rd_co.setStyleSheet('background-color: yellow ; color: black')
 
                 elif result['종목코드'] == SP500:
 
+                    sp500_val = locale.format('%.2f', result['체결가격'], 1)
+                    sp500_jldb = locale.format('%.2f', result['전일대비'], 1)
+
                     if result['전일대비기호'] == '5':
 
-                        jisu_str = "SP500: {0}(▼ {1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'])
+                        jisu_str = "SP500: {0}(▼ {1}, {2:0.2f}%)".format(sp500_val, -sp500_jldb, result['등락율'])
                         self.label_1st_co.setText(jisu_str)
                         self.label_1st_co.setStyleSheet('background-color: blue ; color: white')
 
                     elif result['전일대비기호'] == '2':
 
-                        jisu_str = "SP500: {0}(▲ {1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'])
+                        jisu_str = "SP500: {0}(▲ {1}, {2:0.2f}%)".format(sp500_val, sp500_jldb, result['등락율'])
                         self.label_1st_co.setText(jisu_str)
                         self.label_1st_co.setStyleSheet('background-color: red ; color: white')
 
                     else:
-                        jisu_str = "SP500: {0}({1})".format(format(result['체결가격'], ','), format(result['전일대비'], ','))
+                        jisu_str = "SP500: {0}({1})".format(sp500_val, sp500_jldb)
                         self.label_1st_co.setText(jisu_str)
                         self.label_1st_co.setStyleSheet('background-color: yellow ; color: black')
 
