@@ -12428,8 +12428,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if result['종목코드'] == VIX:
 
-                    #print('result', result)
-
                     if result['전일대비기호'] == '5':
 
                         jisu_str = "VIX: {0:0.2f}(▼ {1:0.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
