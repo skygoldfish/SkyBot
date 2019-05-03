@@ -11083,6 +11083,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(delta_hour, delta_minute, delta_sec)
                     self.textBrowser.append(str)
 
+                    # 해외선물 지수 요청취소
+                    self.OVC.UnadviseRealData()
+
                     self.SaveResult()
 
                 # 야간 선물장 종료
