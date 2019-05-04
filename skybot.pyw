@@ -640,6 +640,10 @@ cm_two_cha_right_curve = None
 
 yoc_stop = False
 
+sp500_price = 0
+dow_price = 0
+vix_price = 0
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -4002,7 +4006,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 선물, 콜, 풋 현재가 클리어
                     self.fut_cv_color_clear()
                     self.call_cv_color_clear()                    
-                    self.put_cv_color_clear()                    
+                    self.put_cv_color_clear()
+                    self.label_clear()                    
                     
                     # 수정거래량 및 수정미결 갱신
                     self.call_volume_oi_update() 
@@ -4507,6 +4512,27 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_call.item(i, Option_column.현재가.value).setBackground(QBrush(옅은회색))
         else:
             pass
+
+        return
+    
+    # Put 컬러처리
+    def put_cv_color_clear(self):
+
+        if put_scroll_end_position <= nCount_cm_option_pairs:
+
+            for i in range(put_scroll_begin_position, put_scroll_end_position):
+
+                self.tableWidget_put.item(i, Option_column.현재가.value).setBackground(QBrush(옅은회색))
+        else:
+            pass
+
+        return
+
+    def label_clear(self):
+
+        self.label_1st_co.setStyleSheet('background-color: yellow')
+        self.label_2nd_co.setStyleSheet('background-color: yellow')
+        self.label_3rd_co.setStyleSheet('background-color: yellow')
 
         return
 
@@ -5254,19 +5280,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         str = '[{0:02d}:{1:02d}:{2:02d}] Call Table Color Check : {3:0.2f} ms\r'.format(delta_hour, delta_minute, delta_sec, process_time)
         self.textBrowser.append(str)
-
-        return
-
-    # Put 컬러처리
-    def put_cv_color_clear(self):
-
-        if put_scroll_end_position <= nCount_cm_option_pairs:
-
-            for i in range(put_scroll_begin_position, put_scroll_end_position):
-
-                self.tableWidget_put.item(i, Option_column.현재가.value).setBackground(QBrush(옅은회색))
-        else:
-            pass
 
         return
 
@@ -11451,7 +11464,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif szTrCode == 'YOC':
 
-                if int(result['예상체결시간'][0:2]) == 8 and int(result['예상체결시간'][2:4]) == 59 and int(result['예상체결시간'][4:6]) == 58:
+                if int(result['예상체결시간'][0:2]) == start_hour and int(result['예상체결시간'][2:4]) == 59 and \
+                    (int(result['예상체결시간'][4:6]) == 58 or int(result['예상체결시간'][4:6]) == 59):
 
                     # 지수옵션 예상체결 요청취소(안하면 시작시 지연발생함)
                     self.YOC.UnadviseRealData()
@@ -12636,63 +12650,141 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if result['종목코드'] == VIX:
 
-                    if result['전일대비기호'] == '5':
+                    global vix_price                    
 
-                        jisu_str = "VIX: {0:.2f}(▼ {1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
-                        self.label_3rd_co.setText(jisu_str)
-                        self.label_3rd_co.setStyleSheet('background-color: red ; color: white')
+                    if result['체결가격'] != vix_price:
 
-                    elif result['전일대비기호'] == '2':
+                        if result['체결가격'] > vix_price:
 
-                        jisu_str = "VIX: {0:.2f}(▲ {1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
-                        self.label_3rd_co.setText(jisu_str)
-                        self.label_3rd_co.setStyleSheet('background-color: blue ; color: white')
+                            if result['전일대비기호'] == '5':
 
+                                jisu_str = "VIX: {0:.2f}(▼ {1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
+                                self.label_3rd_co.setText(jisu_str)
+                                self.label_3rd_co.setStyleSheet('background-color: lightskyblue ; color: red')
+
+                            elif result['전일대비기호'] == '2':
+
+                                jisu_str = "VIX: {0:.2f}(▼ {1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
+                                self.label_3rd_co.setText(jisu_str)
+                                self.label_3rd_co.setStyleSheet('background-color: lightskyblue ; color: blue')
+                            else:
+                                pass
+
+                        elif result['체결가격'] < vix_price:
+
+                            if result['전일대비기호'] == '5':
+
+                                jisu_str = "VIX: {0:.2f}(▲ {1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
+                                self.label_3rd_co.setText(jisu_str)
+                                self.label_3rd_co.setStyleSheet('background-color: pink ; color: red')
+
+                            elif result['전일대비기호'] == '2':
+
+                                jisu_str = "VIX: {0:.2f}(▲ {1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
+                                self.label_3rd_co.setText(jisu_str)
+                                self.label_3rd_co.setStyleSheet('background-color: pink ; color: blue')
+                            else:
+                                pass
+                        else:
+                            pass
+
+                        vix_price = result['체결가격']
                     else:
-                        jisu_str = "VIX: {0:.2f}({1:.2f})".format(result['체결가격'], result['전일대비'])
-                        self.label_3rd_co.setText(jisu_str)
-                        self.label_3rd_co.setStyleSheet('background-color: yellow ; color: black')
+                        pass                    
 
                 elif result['종목코드'] == SP500:
 
-                    체결가격 = locale.format('%.2f', result['체결가격'], 1)
-                    전일대비 = locale.format('%.2f', result['전일대비'], 1)
+                    global sp500_price
 
-                    if result['전일대비기호'] == '5':
+                    if result['체결가격'] != sp500_price:
 
-                        jisu_str = "SP500: {0}(▼ {1}, {2:0.2f}%)".format(체결가격, -전일대비, result['등락율'])
-                        self.label_1st_co.setText(jisu_str)
-                        self.label_1st_co.setStyleSheet('background-color: blue ; color: white')
+                        if result['체결가격'] > sp500_price:
 
-                    elif result['전일대비기호'] == '2':
+                            체결가격 = locale.format('%.2f', result['체결가격'], 1)
+                            전일대비 = locale.format('%.2f', result['전일대비'], 1)
 
-                        jisu_str = "SP500: {0}(▲ {1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
-                        self.label_1st_co.setText(jisu_str)
-                        self.label_1st_co.setStyleSheet('background-color: red ; color: white')
+                            if result['전일대비기호'] == '5':
 
+                                jisu_str = "SP500: {0}(▲ {1}, {2:0.2f}%)".format(체결가격, -전일대비, result['등락율'])
+                                self.label_1st_co.setText(jisu_str)
+                                self.label_1st_co.setStyleSheet('background-color: pink ; color: blue')
+
+                            elif result['전일대비기호'] == '2':
+
+                                jisu_str = "SP500: {0}(▲ {1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
+                                self.label_1st_co.setText(jisu_str)
+                                self.label_1st_co.setStyleSheet('background-color: pink ; color: red')
+                            else:
+                                pass
+
+                        elif result['체결가격'] < sp500_price:
+
+                            체결가격 = locale.format('%.2f', result['체결가격'], 1)
+                            전일대비 = locale.format('%.2f', result['전일대비'], 1)
+
+                            if result['전일대비기호'] == '5':
+
+                                jisu_str = "SP500: {0}(▼ {1}, {2:0.2f}%)".format(체결가격, -전일대비, result['등락율'])
+                                self.label_1st_co.setText(jisu_str)
+                                self.label_1st_co.setStyleSheet('background-color: lightskyblue ; color: blue')
+
+                            elif result['전일대비기호'] == '2':
+
+                                jisu_str = "SP500: {0}(▼ {1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
+                                self.label_1st_co.setText(jisu_str)
+                                self.label_1st_co.setStyleSheet('background-color: lightskyblue ; color: red')
+                            else:
+                                pass
+                        else:
+                            pass
+
+                        sp500_price = result['체결가격']
                     else:
-                        jisu_str = "SP500: {0}({1})".format(체결가격, 전일대비)
-                        self.label_1st_co.setText(jisu_str)
-                        self.label_1st_co.setStyleSheet('background-color: yellow ; color: black')
+                        pass                    
 
                 elif result['종목코드'] == DOW:
 
-                    if result['전일대비기호'] == '5':
+                    global dow_price
 
-                        jisu_str = "DOW: {0}(▼ {1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'])
-                        self.label_2nd_co.setText(jisu_str)
-                        self.label_2nd_co.setStyleSheet('background-color: blue ; color: white')
+                    if result['체결가격'] != dow_price:
 
-                    elif result['전일대비기호'] == '2':
+                        if result['체결가격'] > dow_price:
 
-                        jisu_str = "DOW: {0}(▲ {1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'])
-                        self.label_2nd_co.setText(jisu_str)
-                        self.label_2nd_co.setStyleSheet('background-color: red ; color: white')
+                            if result['전일대비기호'] == '5':
 
+                                jisu_str = "DOW: {0}(▲ {1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'])
+                                self.label_2nd_co.setText(jisu_str)
+                                self.label_2nd_co.setStyleSheet('background-color: pink ; color: blue')
+
+                            elif result['전일대비기호'] == '2':
+
+                                jisu_str = "DOW: {0}(▲ {1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'])
+                                self.label_2nd_co.setText(jisu_str)
+                                self.label_2nd_co.setStyleSheet('background-color: pink ; color: red')
+                            else:
+                                pass
+
+                        elif result['체결가격'] < dow_price:
+
+                            if result['전일대비기호'] == '5':
+
+                                jisu_str = "DOW: {0}(▼ {1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'])
+                                self.label_2nd_co.setText(jisu_str)
+                                self.label_2nd_co.setStyleSheet('background-color: lightskyblue ; color: blue')
+
+                            elif result['전일대비기호'] == '2':
+
+                                jisu_str = "DOW: {0}(▼ {1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'])
+                                self.label_2nd_co.setText(jisu_str)
+                                self.label_2nd_co.setStyleSheet('background-color: lightskyblue ; color: red')
+                            else:
+                                pass
+                        else:
+                            pass
+
+                        dow_price = result['체결가격']
                     else:
-                        jisu_str = "DOW: {0}({1})".format(format(result['체결가격'], ','), format(result['전일대비'], ','))
-                        self.label_2nd_co.setText(jisu_str)
-                        self.label_2nd_co.setStyleSheet('background-color: yellow ; color: black')
+                        pass                    
                 else:
                     pass
             else:

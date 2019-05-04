@@ -118,7 +118,7 @@
           <enum>QFrame::Sunken</enum>
          </property>
          <property name="text">
-          <string>SAMSUNG</string>
+          <string>1st company</string>
          </property>
          <property name="margin">
           <number>0</number>
@@ -142,7 +142,7 @@
           <enum>QFrame::Sunken</enum>
          </property>
          <property name="text">
-          <string>MOBIS</string>
+          <string>2nd company</string>
          </property>
         </widget>
        </item>
@@ -163,7 +163,7 @@
           <enum>QFrame::Sunken</enum>
          </property>
          <property name="text">
-          <string>NAVER</string>
+          <string>3rd company</string>
          </property>
         </widget>
        </item>
