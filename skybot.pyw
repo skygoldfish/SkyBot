@@ -12658,13 +12658,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             if result['전일대비기호'] == '5':
 
-                                jisu_str = "VIX: {0:.2f}(▼ {1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
+                                jisu_str = "VIX: {0:.2f} ▼ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
                                 self.label_3rd_co.setText(jisu_str)
                                 self.label_3rd_co.setStyleSheet('background-color: lightskyblue ; color: red')
 
                             elif result['전일대비기호'] == '2':
 
-                                jisu_str = "VIX: {0:.2f}(▼ {1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
+                                jisu_str = "VIX: {0:.2f} ▼ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
                                 self.label_3rd_co.setText(jisu_str)
                                 self.label_3rd_co.setStyleSheet('background-color: lightskyblue ; color: blue')
                             else:
@@ -12674,13 +12674,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             if result['전일대비기호'] == '5':
 
-                                jisu_str = "VIX: {0:.2f}(▲ {1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
+                                jisu_str = "VIX: {0:.2f} ▲ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
                                 self.label_3rd_co.setText(jisu_str)
                                 self.label_3rd_co.setStyleSheet('background-color: pink ; color: red')
 
                             elif result['전일대비기호'] == '2':
 
-                                jisu_str = "VIX: {0:.2f}(▲ {1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
+                                jisu_str = "VIX: {0:.2f} ▲ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
                                 self.label_3rd_co.setText(jisu_str)
                                 self.label_3rd_co.setStyleSheet('background-color: pink ; color: blue')
                             else:
@@ -12705,13 +12705,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             if result['전일대비기호'] == '5':
 
-                                jisu_str = "SP500: {0}(▲ {1}, {2:0.2f}%)".format(체결가격, -전일대비, result['등락율'])
+                                jisu_str = "SP500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, -전일대비, result['등락율'])
                                 self.label_1st_co.setText(jisu_str)
                                 self.label_1st_co.setStyleSheet('background-color: pink ; color: blue')
 
                             elif result['전일대비기호'] == '2':
 
-                                jisu_str = "SP500: {0}(▲ {1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
+                                jisu_str = "SP500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
                                 self.label_1st_co.setText(jisu_str)
                                 self.label_1st_co.setStyleSheet('background-color: pink ; color: red')
                             else:
@@ -12724,13 +12724,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             if result['전일대비기호'] == '5':
 
-                                jisu_str = "SP500: {0}(▼ {1}, {2:0.2f}%)".format(체결가격, -전일대비, result['등락율'])
+                                jisu_str = "SP500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, -전일대비, result['등락율'])
                                 self.label_1st_co.setText(jisu_str)
                                 self.label_1st_co.setStyleSheet('background-color: lightskyblue ; color: blue')
 
                             elif result['전일대비기호'] == '2':
 
-                                jisu_str = "SP500: {0}(▼ {1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
+                                jisu_str = "SP500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
                                 self.label_1st_co.setText(jisu_str)
                                 self.label_1st_co.setStyleSheet('background-color: lightskyblue ; color: red')
                             else:
@@ -12752,13 +12752,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             if result['전일대비기호'] == '5':
 
-                                jisu_str = "DOW: {0}(▲ {1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'])
+                                jisu_str = "DOW: {0} ▲ ({1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'])
                                 self.label_2nd_co.setText(jisu_str)
                                 self.label_2nd_co.setStyleSheet('background-color: pink ; color: blue')
 
                             elif result['전일대비기호'] == '2':
 
-                                jisu_str = "DOW: {0}(▲ {1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'])
+                                jisu_str = "DOW: {0} ▲ ({1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'])
                                 self.label_2nd_co.setText(jisu_str)
                                 self.label_2nd_co.setStyleSheet('background-color: pink ; color: red')
                             else:
@@ -12768,13 +12768,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             if result['전일대비기호'] == '5':
 
-                                jisu_str = "DOW: {0}(▼ {1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'])
+                                jisu_str = "DOW: {0} ▼ ({1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'])
                                 self.label_2nd_co.setText(jisu_str)
                                 self.label_2nd_co.setStyleSheet('background-color: lightskyblue ; color: blue')
 
                             elif result['전일대비기호'] == '2':
 
-                                jisu_str = "DOW: {0}(▼ {1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'])
+                                jisu_str = "DOW: {0} ▼ ({1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'])
                                 self.label_2nd_co.setText(jisu_str)
                                 self.label_2nd_co.setStyleSheet('background-color: lightskyblue ; color: red')
                             else:
