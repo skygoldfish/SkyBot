@@ -2636,6 +2636,167 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.label_atm.setText("[Basis] [양합/양차] [∑COI:∑POI]")
         self.label_atm.setStyleSheet('background-color: yellow; color: black')
 
+        kp200_realdata['전저'] = 0.0
+        kp200_realdata['전고'] = 0.0
+        kp200_realdata['종가'] = 0.0
+        kp200_realdata['피봇'] = 0.0
+        kp200_realdata['시가'] = 0.0
+        kp200_realdata['시가갭'] = 0.0
+        kp200_realdata['저가'] = 0.0
+        kp200_realdata['현재가'] = 0.0
+        kp200_realdata['고가'] = 0.0
+        kp200_realdata['대비'] = 0
+        kp200_realdata['진폭'] = 0.0
+
+        fut_realdata['선물코드'] = ''
+        fut_realdata['KP200'] = 0.0
+        fut_realdata['전저'] = 0.0
+        fut_realdata['전고'] = 0.0
+        fut_realdata['종가'] = 0.0
+        fut_realdata['피봇'] = 0.0
+        fut_realdata['시가'] = 0.0
+        fut_realdata['시가갭'] = 0.0
+        fut_realdata['저가'] = 0.0
+        fut_realdata['현재가'] = 0.0
+        fut_realdata['고가'] = 0.0
+        fut_realdata['대비'] = 0
+        fut_realdata['진폭'] = 0.0
+        fut_realdata['거래량'] = 0
+        fut_realdata['미결'] = 0
+        fut_realdata['미결증감'] = 0
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
+
+        item = QTableWidgetItem('0.00')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
+
+        item = QTableWidgetItem('0.00')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item)
+
+        item = QTableWidgetItem('0.00')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
+
+        item = QTableWidgetItem('0.00')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
+
+        item = QTableWidgetItem('0.0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.VR.value, item)
+
+        item = QTableWidgetItem('0.0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.VR.value, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_quote.setItem(0, 0, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_quote.setItem(0, 1, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_quote.setItem(0, 2, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_quote.setItem(0, 3, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_quote.setItem(0, 4, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_quote.setItem(0, 5, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_quote.setItem(0, 6, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_quote.setItem(0, 7, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_quote.setItem(0, 8, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_quote.setItem(0, 9, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_quote.setItem(0, 10, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_quote.setItem(0, 11, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_quote.setItem(0, 12, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_supply.setItem(0, Supply_column.외인선옵.value - 1, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_supply.setItem(0, Supply_column.개인선옵.value - 1, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_supply.setItem(0, Supply_column.기관선옵.value - 1, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_supply.setItem(0, Supply_column.외인현물.value - 1, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_supply.setItem(0, Supply_column.프로그램.value - 1, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_supply.setItem(0, Supply_column.프로그램.value, item)
+
         self.color_flag = True
         self.alternate_flag = True
         self.telegram_flag = True
@@ -9056,13 +9217,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 대비 = round((float(현재가) - float(시가)), 2)
                 df_cm_call.loc[index, '대비'] = 대비
 
-                if float(시가) >= price_threshold:
-
-                    call_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
-                    gap_str = "{0:0.2f}({1:0.0f}%)".format(대비, call_db_percent[index])
-                else:
-                    call_db_percent[index] = 0.0               
-                    gap_str = "{0:0.2f}".format(대비)
+                call_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
+                gap_str = "{0:0.2f}({1:0.0f}%)".format(대비, call_db_percent[index])
 
                 item = QTableWidgetItem(gap_str)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -9090,15 +9246,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 df_cm_call.loc[index, '저가'] = round(float(저가), 2)
 
-                if float(저가) >= price_threshold:
+                cm_call_저가 = df_cm_call['저가'].values.tolist()
+                cm_call_저가_node_list = self.make_node_list(cm_call_저가)
 
-                    cm_call_저가 = df_cm_call['저가'].values.tolist()
-                    cm_call_저가_node_list = self.make_node_list(cm_call_저가)
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}] 저가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 저가)
-                    self.textBrowser.append(str)
-                else:
-                    pass
+                str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}] 저가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 저가)
+                self.textBrowser.append(str)
 
                 item = QTableWidgetItem(저가)
                 item.setTextAlignment(Qt.AlignCenter)             
@@ -9115,15 +9267,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 df_cm_call.loc[index, '고가'] = round(float(고가), 2)
 
-                if float(고가) >= price_threshold:
+                cm_call_고가 = df_cm_call['고가'].values.tolist()
+                cm_call_고가_node_list = self.make_node_list(cm_call_고가)
 
-                    cm_call_고가 = df_cm_call['고가'].values.tolist()
-                    cm_call_고가_node_list = self.make_node_list(cm_call_고가)
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}] 고가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 고가)
-                    self.textBrowser.append(str)
-                else:
-                    pass
+                str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}] 고가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 고가)
+                self.textBrowser.append(str)
 
                 item = QTableWidgetItem(고가)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -9149,6 +9297,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
                 '''
+            else:
+                pass
+
+            if float(시가) >= price_threshold:
+
+                df_cm_call.loc[index, '저가'] = round(float(저가), 2)
+                df_cm_call.loc[index, '고가'] = round(float(고가), 2)
             else:
                 pass         
 
@@ -9928,13 +10083,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 대비 = round((float(현재가) - float(시가)), 2)
                 df_cm_put.loc[index, '대비'] = 대비
 
-                if float(시가) >= price_threshold:
-
-                    put_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
-                    gap_str = "{0:0.2f}({1:0.0f}%)".format(대비, put_db_percent[index])                        
-                else:
-                    put_db_percent[index] = 0.0               
-                    gap_str = "{0:0.2f}".format(대비)
+                put_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
+                gap_str = "{0:0.2f}({1:0.0f}%)".format(대비, put_db_percent[index])  
 
                 item = QTableWidgetItem(gap_str)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -9962,15 +10112,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 df_cm_put.loc[index, '저가'] = round(float(저가), 2)
 
-                if float(저가) >= price_threshold:
+                cm_put_저가 = df_cm_put['저가'].values.tolist()
+                cm_put_저가_node_list = self.make_node_list(cm_put_저가)
 
-                    cm_put_저가 = df_cm_put['저가'].values.tolist()
-                    cm_put_저가_node_list = self.make_node_list(cm_put_저가)
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 저가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 저가)
-                    self.textBrowser.append(str)
-                else:
-                    pass
+                str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 저가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 저가)
+                self.textBrowser.append(str)
 
                 item = QTableWidgetItem(저가)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -9987,15 +10133,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 df_cm_put.loc[index, '고가'] = round(float(고가), 2)
 
-                if float(고가) >= price_threshold:
+                cm_put_고가 = df_cm_put['고가'].values.tolist()
+                cm_put_고가_node_list = self.make_node_list(cm_put_고가)
 
-                    cm_put_고가 = df_cm_put['고가'].values.tolist()
-                    cm_put_고가_node_list = self.make_node_list(cm_put_고가)
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 고가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 고가)
-                    self.textBrowser.append(str)
-                else:
-                    pass
+                str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 고가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 고가)
+                self.textBrowser.append(str)
 
                 item = QTableWidgetItem(고가)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -10022,7 +10164,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
                 '''
             else:
-                pass        
+                pass
+
+            if float(시가) >= price_threshold:
+
+                df_cm_put.loc[index, '저가'] = round(float(저가), 2)
+                df_cm_put.loc[index, '고가'] = round(float(고가), 2)
+            else:
+                pass          
 
         return
     
@@ -10962,20 +11111,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 현물장 시작 10초전
                 elif result['장구분'] == '1' and result['장상태'] == '22':
 
-                    # 지수옵션 예상체결 요청취소(안하면 시작시 지연발생함)
-                    self.YOC.UnadviseRealData()
-
-                    yoc_stop = True
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(delta_hour, delta_minute, delta_sec)
-                    self.textBrowser.append(str)
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 현물장 시작 10초전입니다.\r'.format(delta_hour, delta_minute, delta_sec)
-                    self.textBrowser.append(str)
-
-                # 선물장 시작 10초전
-                elif result['장구분'] == '5' and result['장상태'] == '22':
-
+                    '''
                     # 지수옵션 예상체결 요청취소(안하면 시작시 지연발생함)
                     self.YOC.UnadviseRealData()
 
@@ -10984,6 +11120,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(delta_hour, delta_minute, delta_sec)
                     self.textBrowser.append(str)
                     '''
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 현물장 시작 10초전입니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    self.textBrowser.append(str)
+
+                # 선물장 시작 10초전
+                elif result['장구분'] == '5' and result['장상태'] == '22':
+                    
+                    '''
+                    # 지수옵션 예상체결 요청취소(안하면 시작시 지연발생함)
+                    self.YOC.UnadviseRealData()
+
+                    yoc_stop = True
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    self.textBrowser.append(str)
+                    
                     # 지수선물 예상체결 요청취소
                     self.YFC.UnadviseRealData()
 
@@ -11004,6 +11156,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # 서버시간과 동기를 위한 delta time 계산
                     time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (start_hour * 3600 + 0 * 60 + 0)
+
+                    if not yoc_stop:
+                        yoc_stop = True
+                    else:
+                        pass
 
                     if pre_start:
 
@@ -11293,6 +11450,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 '''
 
             elif szTrCode == 'YOC':
+
+                if int(result['예상체결시간'][0:2]) == 8 and int(result['예상체결시간'][2:4]) == 59 and int(result['예상체결시간'][4:6]) == 58:
+
+                    # 지수옵션 예상체결 요청취소(안하면 시작시 지연발생함)
+                    self.YOC.UnadviseRealData()
+
+                    yoc_stop = True
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    self.textBrowser.append(str)
+                else:
+                    pass
 
                 if not yoc_stop:
 
@@ -12561,168 +12730,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if not refresh_flag:
 
-            START_ON = True
+            START_ON = True            
             
-            kp200_realdata['전저'] = 0.0
-            kp200_realdata['전고'] = 0.0
-            kp200_realdata['종가'] = 0.0
-            kp200_realdata['피봇'] = 0.0
-            kp200_realdata['시가'] = 0.0
-            kp200_realdata['시가갭'] = 0.0
-            kp200_realdata['저가'] = 0.0
-            kp200_realdata['현재가'] = 0.0
-            kp200_realdata['고가'] = 0.0
-            kp200_realdata['대비'] = 0
-            kp200_realdata['진폭'] = 0.0
-
-            fut_realdata['선물코드'] = ''
-            fut_realdata['KP200'] = 0.0
-            fut_realdata['전저'] = 0.0
-            fut_realdata['전고'] = 0.0
-            fut_realdata['종가'] = 0.0
-            fut_realdata['피봇'] = 0.0
-            fut_realdata['시가'] = 0.0
-            fut_realdata['시가갭'] = 0.0
-            fut_realdata['저가'] = 0.0
-            fut_realdata['현재가'] = 0.0
-            fut_realdata['고가'] = 0.0
-            fut_realdata['대비'] = 0
-            fut_realdata['진폭'] = 0.0
-            fut_realdata['거래량'] = 0
-            fut_realdata['미결'] = 0
-            fut_realdata['미결증감'] = 0
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
-
-            item = QTableWidgetItem("{0:0.2f}".format(0.0))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
-
-            item = QTableWidgetItem("{0:0.2f}".format(0.0))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item)
-
-            item = QTableWidgetItem("{0:0.2f}".format(0.0))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
-
-            item = QTableWidgetItem("{0:0.2f}".format(0.0))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
-
-            item = QTableWidgetItem("{0:0.1f}".format(0.0))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(0, Futures_column.VR.value, item)
-
-            item = QTableWidgetItem("{0:0.1f}".format(0.0))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(1, Futures_column.VR.value, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_quote.setItem(0, 0, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_quote.setItem(0, 1, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_quote.setItem(0, 2, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_quote.setItem(0, 3, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_quote.setItem(0, 4, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_quote.setItem(0, 5, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_quote.setItem(0, 6, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_quote.setItem(0, 7, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_quote.setItem(0, 8, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_quote.setItem(0, 9, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_quote.setItem(0, 10, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_quote.setItem(0, 11, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_quote.setItem(0, 12, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_supply.setItem(0, Supply_column.외인선옵.value - 1, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_supply.setItem(0, Supply_column.개인선옵.value - 1, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_supply.setItem(0, Supply_column.기관선옵.value - 1, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_supply.setItem(0, Supply_column.외인현물.value - 1, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_supply.setItem(0, Supply_column.프로그램.value - 1, item)
-
-            item = QTableWidgetItem("{0}".format('0'))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_supply.setItem(0, Supply_column.프로그램.value, item)
         else:
             self.all_node_set()
 
@@ -12939,7 +12948,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
-        self.setWindowTitle("SkyBot ver-1.0.0")
+        self.setWindowTitle("SkyBot ver1.0")
 
         self.plugins = CPluginManager.plugin_loader()
         menuitems = self.plugins.keys()
