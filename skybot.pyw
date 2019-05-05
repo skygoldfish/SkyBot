@@ -2263,7 +2263,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         month = int(month_info[4:6])
 
-        cm_option_title = repr(month) + '월물 선물옵션 전광판' + '(' + today_str_title + ')'
+        buildtime = time.ctime(os.path.getmtime(__file__))
+
+        cm_option_title = repr(month) + '월물 선물옵션 전광판' + '(' + today_str_title + ')' + ' build: ' + buildtime
         self.setWindowTitle(cm_option_title)
 
         self.parent = parent
