@@ -4039,14 +4039,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if not overnight:
 
                         if abs(call_atm_value - put_atm_value) <= center_val_threshold:
-                        
-                            if abs(call_atm_value - put_atm_value) <= 0.02:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 교차 중심가 {3} 발생 !!!\r'.format(delta_hour, delta_minute, delta_sec, call_atm_value)
-                                self.textBrowser.append(str)            
-                            else:
-                                pass
-
+                            
                             if self.alternate_flag:
 
                                 self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(적색))
@@ -4054,6 +4047,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             else:
                                 self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
                                 self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
+                        
+                            if abs(call_atm_value - put_atm_value) <= 0.02:
+
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 교차 중심가 {3} 발생 !!!\r'.format(delta_hour, delta_minute, delta_sec, call_atm_value)
+                                self.textBrowser.append(str)            
+                            else:
+                                pass
                         else:
                             pass
                     else:
@@ -9341,8 +9341,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if float(시가) >= price_threshold:
 
-                df_cm_call.loc[index, '저가'] = round(float(저가), 2)
-                df_cm_call.loc[index, '고가'] = round(float(고가), 2)
+                if round(float(저가), 2) != df_cm_call.iloc[index]['저가']:
+                    df_cm_call.loc[index, '저가'] = round(float(저가), 2)
+                else:
+                    pass
+
+                if round(float(고가), 2) != df_cm_call.iloc[index]['고가']:
+                    df_cm_call.loc[index, '고가'] = round(float(고가), 2)
+                else:
+                    pass
             else:
                 pass         
 
@@ -9799,10 +9806,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}, {4:0.2f}] 시가 갱신 !!!\r'.format(delta_hour, delta_minute, delta_sec, index, df_cm_call.iloc[index]['시가'])
                 self.textBrowser.append(str)
-            else:
-                print('call_gap_percent_local is empty...')        
 
-            self.tableWidget_call.resizeColumnsToContents()
+                self.tableWidget_call.resizeColumnsToContents()
+            else:
+                print('call_gap_percent_local is empty...')
         else:
             pass       
 
@@ -10207,8 +10214,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if float(시가) >= price_threshold:
 
-                df_cm_put.loc[index, '저가'] = round(float(저가), 2)
-                df_cm_put.loc[index, '고가'] = round(float(고가), 2)
+                if round(float(저가), 2) != df_cm_put.iloc[index]['저가']:
+                    df_cm_put.loc[index, '저가'] = round(float(저가), 2)
+                else:
+                    pass
+
+                if round(float(고가), 2) != df_cm_put.iloc[index]['고가']:
+                    df_cm_put.loc[index, '고가'] = round(float(고가), 2)
+                else:
+                    pass
             else:
                 pass          
 
@@ -10667,10 +10681,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}, {4:0.2f}] 시가 갱신 !!!\r'.format(delta_hour, delta_minute, delta_sec, index, df_cm_put.iloc[index]['시가'])
                 self.textBrowser.append(str)
+                
+                self.tableWidget_put.resizeColumnsToContents()
             else:
                 print('put_gap_percent_local is empty...')
-
-            self.tableWidget_put.resizeColumnsToContents()
         else:
             pass           
 
