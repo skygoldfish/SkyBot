@@ -2299,6 +2299,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_call.setColumnCount(Option_column.OID.value + 1)
         
         self.tableWidget_call.horizontalHeader().setStyleSheet(stylesheet)
+        self.tableWidget_call.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_call.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
         '종가√', '피봇√', '시가√', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '∑미결 or ∑체결량', 'OIΔ'])
@@ -2324,6 +2325,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_put.setColumnCount(Option_column.OID.value + 1)
 
         self.tableWidget_put.horizontalHeader().setStyleSheet(stylesheet)
+        self.tableWidget_put.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_put.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
         '종가√', '피봇√', '시가√', '시가갭', '저가', '현재가', '고가', '대비', '진폭', '∑미결 or ∑체결량', 'OIΔ'])
@@ -2349,6 +2351,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_fut.setColumnCount(Futures_column.OID.value + 1)
 
         self.tableWidget_fut.horizontalHeader().setStyleSheet(stylesheet)
+        self.tableWidget_fut.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_fut.setHorizontalHeaderLabels(
             ['▲▼', '↑↓', 'MSC', 'MDC', 'MSR', 'MDR', 'CR', 'RR', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
@@ -2384,6 +2387,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_quote.setColumnCount(Quote_column.호가종합.value)
 
         self.tableWidget_quote.horizontalHeader().setStyleSheet(stylesheet)
+        self.tableWidget_quote.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_quote.setHorizontalHeaderLabels(['C-MSCC', 'C-MDCC', 'C-MSCR', 'C-MDCR',
                                                           'P-MSCC', 'P-MDCC', 'P-MSCR', 'P-MDCR', '콜건수비', '콜잔량비',
@@ -2402,6 +2406,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_supply.setColumnCount(Supply_column.프로그램.value + 1)
 
         self.tableWidget_supply.horizontalHeader().setStyleSheet(stylesheet)
+        self.tableWidget_supply.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_supply.setHorizontalHeaderLabels(['외인선물', '프로그램', '외인현물', '개인선물', '기관선물', '∑선물/∑현물'])
         self.tableWidget_supply.verticalHeader().setVisible(False)
