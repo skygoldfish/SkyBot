@@ -640,6 +640,8 @@ cm_two_cha_right_curve = None
 
 yoc_stop = False
 
+kospi_price = 0
+kosdaq_price = 0
 sp500_price = 0
 dow_price = 0
 vix_price = 0
@@ -4530,6 +4532,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def label_clear(self):
 
+        self.label_kospi.setStyleSheet('background-color: yellow')
+        self.label_kosdaq.setStyleSheet('background-color: yellow')
         self.label_1st_co.setStyleSheet('background-color: yellow')
         self.label_2nd_co.setStyleSheet('background-color: yellow')
         self.label_3rd_co.setStyleSheet('background-color: yellow')
@@ -11833,55 +11837,117 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif result['업종코드'] == KOSPI:
 
-                    temp_str = format(result['지수'], ',')
+                    global kospi_price                    
 
-                    if result['전일대비구분'] == '5':
+                    if result['지수'] != kospi_price:
 
-                        jisu_str = "KOSPI: {0}(▼ {1:0.2f}, {2:0.1f}%)".format(temp_str,
-                                                                                    -result['전일비'],
-                                                                                    result['등락율'])
-                        self.label_kospi.setText(jisu_str)
-                        self.label_kospi.setStyleSheet('background-color: blue ; color: white')
+                        if result['지수'] > kospi_price:
 
-                    elif result['전일대비구분'] == '2':
+                            temp_str = format(result['지수'], ',')
 
-                        jisu_str = "KOSPI: {0}(▲ {1:0.2f}, {2:0.1f}%)".format(temp_str,
-                                                                                    result['전일비'],
-                                                                                    result['등락율'])
-                        self.label_kospi.setText(jisu_str)
-                        self.label_kospi.setStyleSheet('background-color: red ; color: white')
+                            if result['전일대비구분'] == '5':
 
+                                jisu_str = "KOSPI: {0} ▲ ({1:0.2f}, {2:0.1f}%)".format(temp_str,
+                                                                                            -result['전일비'],
+                                                                                            result['등락율'])
+                                self.label_kospi.setText(jisu_str)
+                                self.label_kospi.setStyleSheet('background-color: pink ; color: blue')
+
+                            elif result['전일대비구분'] == '2':
+
+                                jisu_str = "KOSPI: {0} ▲ ({1:0.2f}, {2:0.1f}%)".format(temp_str,
+                                                                                            result['전일비'],
+                                                                                            result['등락율'])
+                                self.label_kospi.setText(jisu_str)
+                                self.label_kospi.setStyleSheet('background-color: pink ; color: red')
+                            else:
+                                pass
+
+                        elif result['지수'] < kospi_price:
+
+                            temp_str = format(result['지수'], ',')
+
+                            if result['전일대비구분'] == '5':
+
+                                jisu_str = "KOSPI: {0} ▼ ({1:0.2f}, {2:0.1f}%)".format(temp_str,
+                                                                                            -result['전일비'],
+                                                                                            result['등락율'])
+                                self.label_kospi.setText(jisu_str)
+                                self.label_kospi.setStyleSheet('background-color: lightskyblue ; color: blue')
+
+                            elif result['전일대비구분'] == '2':
+
+                                jisu_str = "KOSPI: {0} ▼ ({1:0.2f}, {2:0.1f}%)".format(temp_str,
+                                                                                            result['전일비'],
+                                                                                            result['등락율'])
+                                self.label_kospi.setText(jisu_str)
+                                self.label_kospi.setStyleSheet('background-color: lightskyblue ; color: red')
+                            else:
+                                pass
+                        else:
+                            pass
+
+                        kospi_price = result['지수']
                     else:
-
-                        jisu_str = "KOSPI: {0}({1:0.2f})".format(temp_str, result['전일비'])
-                        self.label_kospi.setText(jisu_str)
-                        self.label_kospi.setStyleSheet('background-color: yellow ; color: black')
+                        pass                    
 
                 elif result['업종코드'] == KOSDAQ:
 
-                    temp_str = format(result['지수'], ',')
+                    global kosdaq_price                    
 
-                    if result['전일대비구분'] == '5':
+                    if result['지수'] != kosdaq_price:
 
-                        jisu_str = "KOSDAQ: {0}(▼ {1:0.2f}, {2:0.1f}%)".format(temp_str,
-                                                                                     -result['전일비'],
-                                                                                     result['등락율'])
-                        self.label_kosdaq.setText(jisu_str)
-                        self.label_kosdaq.setStyleSheet('background-color: blue ; color: white')
+                        if result['지수'] > kosdaq_price:
 
-                    elif result['전일대비구분'] == '2':
+                            temp_str = format(result['지수'], ',')
 
-                        jisu_str = "KOSDAQ: {0}(▲ {1:0.2f}, {2:0.1f}%)".format(temp_str,
-                                                                                     result['전일비'],
-                                                                                     result['등락율'])
-                        self.label_kosdaq.setText(jisu_str)
-                        self.label_kosdaq.setStyleSheet('background-color: red ; color: white')
+                            if result['전일대비구분'] == '5':
 
+                                jisu_str = "KOSDAQ: {0} ▲ ({1:0.2f}, {2:0.1f}%)".format(temp_str,
+                                                                                             -result['전일비'],
+                                                                                             result['등락율'])
+                                self.label_kosdaq.setText(jisu_str)
+                                self.label_kosdaq.setStyleSheet('background-color: pink ; color: blue')
+
+                            elif result['전일대비구분'] == '2':
+
+                                jisu_str = "KOSDAQ: {0} ▲ ({1:0.2f}, {2:0.1f}%)".format(temp_str,
+                                                                                             result['전일비'],
+                                                                                             result['등락율'])
+                                self.label_kosdaq.setText(jisu_str)
+                                self.label_kosdaq.setStyleSheet('background-color: pink ; color: red')
+                            else:
+                                pass
+
+                        elif result['지수'] < kosdaq_price:
+
+                            temp_str = format(result['지수'], ',')
+
+                            if result['전일대비구분'] == '5':
+
+                                jisu_str = "KOSDAQ: {0} ▼ ({1:0.2f}, {2:0.1f}%)".format(temp_str,
+                                                                                             -result['전일비'],
+                                                                                             result['등락율'])
+                                self.label_kosdaq.setText(jisu_str)
+                                self.label_kosdaq.setStyleSheet('background-color: lightskyblue ; color: blue')
+
+                            elif result['전일대비구분'] == '2':
+
+                                jisu_str = "KOSDAQ: {0} ▼ ({1:0.2f}, {2:0.1f}%)".format(temp_str,
+                                                                                             result['전일비'],
+                                                                                             result['등락율'])
+                                self.label_kosdaq.setText(jisu_str)
+                                self.label_kosdaq.setStyleSheet('background-color: lightskyblue ; color: red')
+                            else:
+                                pass
+                        else:
+                            pass
+
+                        kosdaq_price = result['지수']
                     else:
+                        pass
 
-                        jisu_str = "KOSDAQ: {0}({1:0.2f})".format(temp_str, result['전일비'])
-                        self.label_kosdaq.setText(jisu_str)
-                        self.label_kosdaq.setStyleSheet('background-color: yellow ; color: black')
+                    
                 else:
                     pass
 
