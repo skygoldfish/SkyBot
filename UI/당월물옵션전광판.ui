@@ -65,7 +65,7 @@
           <font>
            <family>Consolas</family>
            <weight>75</weight>
-           <italic>true</italic>
+           <italic>false</italic>
            <bold>true</bold>
           </font>
          </property>
@@ -86,7 +86,7 @@
           <font>
            <family>Consolas</family>
            <weight>75</weight>
-           <italic>true</italic>
+           <italic>false</italic>
            <bold>true</bold>
           </font>
          </property>
@@ -107,7 +107,7 @@
           <font>
            <family>Consolas</family>
            <weight>75</weight>
-           <italic>true</italic>
+           <italic>false</italic>
            <bold>true</bold>
           </font>
          </property>
@@ -131,7 +131,7 @@
           <font>
            <family>Consolas</family>
            <weight>75</weight>
-           <italic>true</italic>
+           <italic>false</italic>
            <bold>true</bold>
           </font>
          </property>
@@ -152,7 +152,7 @@
           <font>
            <family>Consolas</family>
            <weight>75</weight>
-           <italic>true</italic>
+           <italic>false</italic>
            <bold>true</bold>
           </font>
          </property>

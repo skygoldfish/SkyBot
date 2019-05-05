@@ -2103,11 +2103,16 @@ class update_worker(QThread):
 
                 curve1_data = df_plotdata_cm_two_sum.iloc[0].values.tolist()
                 curve2_data = df_plotdata_cm_two_cha.iloc[0].values.tolist()
-                curve3_data = None            
-            else:                
+                curve3_data = None  
+
+            elif comboindex1 == 4:     
+
                 curve1_data = df_plotdata_kp200.iloc[0].values.tolist()
                 curve2_data = df_plotdata_fut.iloc[0].values.tolist()
                 curve3_data = None
+            else:
+                pass
+
 
             if comboindex2 == 0:
                 
@@ -2132,10 +2137,14 @@ class update_worker(QThread):
                 curve4_data = df_plotdata_cm_two_sum.iloc[0].values.tolist()
                 curve5_data = df_plotdata_cm_two_cha.iloc[0].values.tolist()
                 curve6_data = None 
-            else:                
+
+            elif comboindex2 == 4:
+
                 curve4_data = None
                 curve5_data = None
                 curve6_data = None
+            else:
+                pass
             
             return call_curve_data, put_curve_data, curve1_data, curve2_data, curve3_data, curve4_data, curve5_data, curve6_data
 
@@ -2404,10 +2413,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_supply.verticalHeader().setStretchLastSection(True)
         self.tableWidget_supply.clearContents()
 
-        self.comboBox1.addItems(['FV-Plot', 'OO-Plot', 'OV-Plot', 'HC-Plot', 'FP-Plot'])
+        self.comboBox1.addItems(['FV-Plot', 'OO-Plot', 'OV-Plot', 'HC-Plot', 'FP-Plot', 'S&P 500', 'DOW', 'VIX'])
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['OO-Plot', 'OV-Plot', 'FV-Plot', 'HC-Plot', 'OP-Plot'])
+        self.comboBox2.addItems(['OO-Plot', 'OV-Plot', 'FV-Plot', 'HC-Plot', 'OP-Plot', 'S&P 500', 'DOW', 'VIX'])
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         #self.상태그림 = ['▼', '▬', '▲']
@@ -2624,19 +2633,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_put.setItem(i, j + 1, item)
                 self.tableWidget_put.item(i, j + 1).setBackground(QBrush(검정색))
 
-        self.label_kospi.setText("KOSPI: 0(0.0%)")
+        self.label_kospi.setText("KOSPI: 가격 (전일대비, 등락율)")
         self.label_kospi.setStyleSheet('background-color: yellow ; color: black')
-        self.label_kosdaq.setText("KOSDAQ: 0(0.0%)")
+        self.label_kosdaq.setText("KOSDAQ: 가격 (전일대비, 등락율)")
         self.label_kosdaq.setStyleSheet('background-color: yellow ; color: black')
 
-        self.label_1st_co.setText("SP500: 0(0.0%)")
+        self.label_1st_co.setText("S&P 500: 가격 (전일대비, 등락율)")
         self.label_1st_co.setStyleSheet('background-color: yellow ; color: black')
-        self.label_2nd_co.setText("DOW: 0(0.0%)")
+        self.label_2nd_co.setText("DOW: 가격 (전일대비, 등락율)")
         self.label_2nd_co.setStyleSheet('background-color: yellow ; color: black')
-        self.label_3rd_co.setText("VIX: 0(0.0%)")
+        self.label_3rd_co.setText("VIX: 가격 (전일대비, 등락율)")
         self.label_3rd_co.setStyleSheet('background-color: yellow ; color: black')
 
-        self.label_msg.setText("★ 주요 시그날 알림창 ★")
+        self.label_msg.setText("★ 시계 ★")
         self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
 
         self.label_atm.setText("[Basis] [양합/양차] [∑COI:∑POI]")
@@ -4281,9 +4290,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     cm_two_sum_left_curve.setData(curve1_data)
                     cm_two_cha_left_curve.setData(curve2_data)
-                else:
+
+                elif comboindex1 == 4:
+                
                     kp200_curve.setData(curve1_data)
-                    fut_curve.setData(curve2_data)   
+                    fut_curve.setData(curve2_data)
+                else:
+                    pass   
 
                 # 선택된 오른쪽 그래프 그리기
                 if comboindex2 == 0:
@@ -4305,6 +4318,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     cm_two_sum_right_curve.setData(curve4_data)
                     cm_two_cha_right_curve.setData(curve5_data)
+
+                elif comboindex2 == 4:
+
+                    pass
                 else:
                     pass                                                       
             else:
