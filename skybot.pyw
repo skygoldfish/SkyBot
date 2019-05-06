@@ -4356,99 +4356,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         df_plotdata_cm_two_sum[opt_x_idx + 1] = call_atm_value + put_atm_value
         df_plotdata_cm_two_cha[opt_x_idx + 1] = call_atm_value - put_atm_value
 
-        if not overnight:
+        self.label_atm.setStyleSheet('background-color: yellow; color: black')
+        self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
 
-            global oi_delta, oi_delta_old, 수정미결_직전대비            
-
-            콜_수정미결합 = df_cm_call['수정미결'].sum()
-            풋_수정미결합 = df_cm_put['수정미결'].sum()
-
-            수정미결합 = 콜_수정미결합 + 풋_수정미결합
-
-            oi_delta_old = oi_delta
-
-            if 수정미결합 > 0:
-
-                콜_수정미결퍼센트 = (콜_수정미결합 / 수정미결합) * 100
-                풋_수정미결퍼센트 = 100 - 콜_수정미결퍼센트
-                call_oi_delta = 콜_수정미결합 - call_oi_init_value
-                put_oi_delta = 풋_수정미결합 - put_oi_init_value
-
-                oi_delta = call_oi_delta - put_oi_delta
-                수정미결_직전대비.extend([oi_delta - oi_delta_old])
-                temp = list(수정미결_직전대비)
-            else:
-                pass
-
-            if oi_delta > 0:
-
-                self.label_atm.setStyleSheet('background-color: red; color: white')
-                self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                if min(temp) > 0:
-
-                    str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}] [{3}:{4}] ↗'.format(
-                        fut_realdata['현재가'] - fut_realdata['KP200'],
-                        call_atm_value + put_atm_value,
-                        abs(call_atm_value - put_atm_value),
-                        format(call_oi_delta, ','), format(put_oi_delta, ','))
-                elif max(temp) < 0:
-
-                    str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}] [{3}:{4}] ↘'.format(
-                        fut_realdata['현재가'] - fut_realdata['KP200'],
-                        call_atm_value + put_atm_value,
-                        abs(call_atm_value - put_atm_value),
-                        format(call_oi_delta, ','), format(put_oi_delta, ','))
-                else:
-
-                    str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}] [{3}:{4}]'.format(
-                        fut_realdata['현재가'] - fut_realdata['KP200'],
-                        call_atm_value + put_atm_value,
-                        abs(call_atm_value - put_atm_value),
-                        format(call_oi_delta, ','), format(put_oi_delta, ','))
-
-            elif oi_delta < 0:
-
-                self.label_atm.setStyleSheet('background-color: blue; color: white')
-                self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                if min(temp) > 0:
-
-                    str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}] [{3}:{4}] ↘'.format(
-                        fut_realdata['현재가'] - fut_realdata['KP200'],
-                        call_atm_value + put_atm_value,
-                        abs(call_atm_value - put_atm_value),
-                        format(call_oi_delta, ','), format(put_oi_delta, ','))
-                elif max(temp) < 0:
-
-                    str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}] [{3}:{4}] ↗'.format(
-                        fut_realdata['현재가'] - fut_realdata['KP200'],
-                        call_atm_value + put_atm_value,
-                        abs(call_atm_value - put_atm_value),
-                        format(call_oi_delta, ','), format(put_oi_delta, ','))
-                else:
-
-                    str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}] [{3}:{4}]'.format(
-                        fut_realdata['현재가'] - fut_realdata['KP200'],
-                        call_atm_value + put_atm_value,
-                        abs(call_atm_value - put_atm_value),
-                        format(call_oi_delta, ','), format(put_oi_delta, ','))
-
-            else:
-                self.label_atm.setStyleSheet('background-color: yellow; color: black')
-                self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}] [{3:0.1f}:{4:0.1f}]'.format(
-                    fut_realdata['현재가'] - fut_realdata['KP200'],
-                    call_atm_value + put_atm_value,
-                    abs(call_atm_value - put_atm_value),
-                    콜_수정미결퍼센트, 풋_수정미결퍼센트)
-        else:
-            str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}] [{3}:{4}]'.format(
-                fut_realdata['현재가'] - fut_realdata['KP200'],
-                call_atm_value + put_atm_value,
-                abs(call_atm_value - put_atm_value),
-                '-', '-')
+        str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}]'.format(
+            fut_realdata['현재가'] - fut_realdata['KP200'],
+            call_atm_value + put_atm_value,
+            abs(call_atm_value - put_atm_value))
 
         self.label_atm.setText(str)
 
@@ -6152,12 +6066,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 call_atm_value = df_cm_call.iloc[atm_index]['현재가']
                 put_atm_value = df_cm_put.iloc[atm_index]['현재가']
 
-                str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}] [{3:0.1f}:{4:0.1f}]'.format(
+                str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}]'.format(
                     fut_realdata['현재가'] - fut_realdata['KP200'],
                     call_atm_value + put_atm_value,
-                    abs(call_atm_value - put_atm_value),
-                    콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                    abs(call_atm_value - put_atm_value))
                 self.label_atm.setText(str)
+
+                item_str = '{0:0.2f}:{1:0.2f}'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+
+                item = QTableWidgetItem(item_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_quote.setItem(0, 13, item)
             else:
                 print("atm_str이 리스트에 없습니다.", atm_str)
 
@@ -7406,12 +7325,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     call_atm_value = df_cm_call.iloc[atm_index]['현재가']
                     put_atm_value = df_cm_put.iloc[atm_index]['현재가']
 
-                    str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}] [{3:0.1f}:{4:0.1f}]'.format(
+                    str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}]'.format(
                         fut_realdata['현재가'] - fut_realdata['KP200'],
                         call_atm_value + put_atm_value,
-                        abs(call_atm_value - put_atm_value),
-                        콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                        abs(call_atm_value - put_atm_value))
                     self.label_atm.setText(str)
+
+                    item_str = '{0:0.2f}:{1:0.2f}'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+
+                    item = QTableWidgetItem(item_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_quote.setItem(0, 13, item)
                 else:
                     print("atm_str이 리스트에 없습니다.", atm_str)
 
@@ -8042,12 +7966,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     call_atm_value = df_cm_call.iloc[atm_index]['현재가']
                     put_atm_value = df_cm_put.iloc[atm_index]['현재가']
 
-                    str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}] [{3:0.1f}:{4:0.1f}]'.format(
+                    str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}]'.format(
                         fut_realdata['현재가'] - fut_realdata['KP200'],
                         call_atm_value + put_atm_value,
-                        abs(call_atm_value - put_atm_value),
-                        콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                        abs(call_atm_value - put_atm_value))
                     self.label_atm.setText(str)
+
+                    item_str = '{0:0.2f}:{1:0.2f}'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+
+                    item = QTableWidgetItem(item_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_quote.setItem(0, 13, item)
 
                     self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
                     self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
@@ -10956,6 +10885,85 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     # 호가표시
     def quote_display(self):
+        
+        if not overnight:
+
+            global oi_delta, oi_delta_old, 수정미결_직전대비            
+
+            콜_수정미결합 = df_cm_call['수정미결'].sum()
+            풋_수정미결합 = df_cm_put['수정미결'].sum()
+
+            수정미결합 = 콜_수정미결합 + 풋_수정미결합
+
+            oi_delta_old = oi_delta
+
+            if 수정미결합 > 0:
+
+                콜_수정미결퍼센트 = (콜_수정미결합 / 수정미결합) * 100
+                풋_수정미결퍼센트 = 100 - 콜_수정미결퍼센트
+                call_oi_delta = 콜_수정미결합 - call_oi_init_value
+                put_oi_delta = 풋_수정미결합 - put_oi_init_value
+
+                oi_delta = call_oi_delta - put_oi_delta
+                수정미결_직전대비.extend([oi_delta - oi_delta_old])
+                temp = list(수정미결_직전대비)
+            else:
+                pass
+
+            if oi_delta > 0:
+
+                if min(temp) > 0:
+
+                    item_str = '{0}:{1} ↗'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+
+                elif max(temp) < 0:
+
+                    item_str = '{0}:{1} ↘'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                else:
+
+                    item_str = '{0}:{1}'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+
+            elif oi_delta < 0:
+
+                if min(temp) > 0:
+
+                    item_str = '{0}:{1} ↘'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+
+                elif max(temp) < 0:
+
+                    item_str = '{0}:{1} ↗'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                else:
+
+                    item_str = '{0}:{1}'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+
+            else:
+
+                item_str = '{0:0.1f}:{1:0.1f}'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+
+            if item_str != self.tableWidget_quote.item(0, 13).text():
+
+                item = QTableWidgetItem(item_str)
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if oi_delta > 0:
+
+                    item.setBackground(QBrush(적색))
+                    item.setForeground(QBrush(흰색))
+
+                elif oi_delta < 0:
+
+                    item.setBackground(QBrush(청색))
+                    item.setForeground(QBrush(흰색))
+
+                else:
+                    item.setBackground(QBrush(기본바탕색))
+                    item.setForeground(QBrush(검정색))
+
+                self.tableWidget_quote.setItem(0, 13, item)
+            else:
+                pass
+        else:
+            pass
 
         global call_quote, put_quote
 
