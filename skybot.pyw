@@ -2424,10 +2424,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_supply.verticalHeader().setStretchLastSection(True)
         self.tableWidget_supply.clearContents()
 
-        self.comboBox1.addItems(['FV-Plot', 'OO-Plot', 'OV-Plot', 'HC-Plot', 'FP-Plot', 'S&P 500', 'DOW', 'VIX'])
+        self.comboBox1.addItems(['FV-Plot', 'OO-Plot', 'OV-Plot', 'HC-Plot', 'FP-Plot', 'S&P500', 'DOW', 'VIX'])
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['OO-Plot', 'OV-Plot', 'FV-Plot', 'HC-Plot', 'OP-Plot', 'S&P 500', 'DOW', 'VIX'])
+        self.comboBox2.addItems(['OO-Plot', 'OV-Plot', 'FV-Plot', 'HC-Plot', 'OP-Plot', 'S&P500', 'DOW', 'VIX'])
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         #self.상태그림 = ['▼', '▬', '▲']
@@ -2649,7 +2649,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.label_kosdaq.setText("KOSDAQ: 가격 (전일대비, 등락율)")
         self.label_kosdaq.setStyleSheet('background-color: yellow ; color: black')
 
-        self.label_1st_co.setText("S&P 500: 가격 (전일대비, 등락율)")
+        self.label_1st_co.setText("S&P500: 가격 (전일대비, 등락율)")
         self.label_1st_co.setStyleSheet('background-color: yellow ; color: black')
         self.label_2nd_co.setText("DOW: 가격 (전일대비, 등락율)")
         self.label_2nd_co.setStyleSheet('background-color: yellow ; color: black')
@@ -2661,6 +2661,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.label_atm.setText("[Basis] [양합/양차]")
         self.label_atm.setStyleSheet('background-color: yellow; color: black')
+        self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
 
         kp200_realdata['전저'] = 0.0
         kp200_realdata['전고'] = 0.0
@@ -4358,9 +4359,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         df_plotdata_cm_two_sum[opt_x_idx + 1] = call_atm_value + put_atm_value
         df_plotdata_cm_two_cha[opt_x_idx + 1] = call_atm_value - put_atm_value
-
-        self.label_atm.setStyleSheet('background-color: yellow; color: black')
-        self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
 
         str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}]'.format(
             fut_realdata['현재가'] - fut_realdata['KP200'],
@@ -6075,7 +6073,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     abs(call_atm_value - put_atm_value))
                 self.label_atm.setText(str)
 
-                item_str = '{0:0.2f}:{1:0.2f}'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                item_str = '{0:0.2f}%:{1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -7334,7 +7332,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         abs(call_atm_value - put_atm_value))
                     self.label_atm.setText(str)
 
-                    item_str = '{0:0.2f}:{1:0.2f}'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                    item_str = '{0:0.2f}%:{1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -7975,7 +7973,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         abs(call_atm_value - put_atm_value))
                     self.label_atm.setText(str)
 
-                    item_str = '{0:0.2f}:{1:0.2f}'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                    item_str = '{0:0.2f}%:{1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -11048,7 +11046,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item_str = '{0}:{1}'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
 
             else:
-                item_str = '{0:0.1f}:{1:0.1f}'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                item_str = '{0:0.1f}%:{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
             if item_str != self.tableWidget_quote.item(0, 13).text():
 
@@ -12812,7 +12810,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 전일대비 = locale.format('%.2f', -result['전일대비'], 1)
 
-                                jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
+                                jisu_str = "S&P500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
                                 self.label_1st_co.setText(jisu_str)
                                 self.label_1st_co.setStyleSheet('background-color: pink ; color: blue')
 
@@ -12820,7 +12818,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 전일대비 = locale.format('%.2f', result['전일대비'], 1)
 
-                                jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
+                                jisu_str = "S&P500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
                                 self.label_1st_co.setText(jisu_str)
                                 self.label_1st_co.setStyleSheet('background-color: pink ; color: red')
                             else:
@@ -12834,7 +12832,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 전일대비 = locale.format('%.2f', -result['전일대비'], 1)
 
-                                jisu_str = "S&P 500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
+                                jisu_str = "S&P500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
                                 self.label_1st_co.setText(jisu_str)
                                 self.label_1st_co.setStyleSheet('background-color: lightskyblue ; color: blue')
 
@@ -12842,7 +12840,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 전일대비 = locale.format('%.2f', result['전일대비'], 1)
 
-                                jisu_str = "S&P 500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
+                                jisu_str = "S&P500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
                                 self.label_1st_co.setText(jisu_str)
                                 self.label_1st_co.setStyleSheet('background-color: lightskyblue ; color: red')
                             else:
