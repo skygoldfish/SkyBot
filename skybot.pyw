@@ -6908,7 +6908,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                             dt.minute, dt.second, format(콜_순미결합, ','), format(풋_순미결합, ','))
                     self.textBrowser.append(str)
 
-                    temp = '{0}/{1}'.format(format(콜_순미결합, ','), format(풋_순미결합, ','))
+                    temp = '{0}:{1}'.format(format(콜_순미결합, ','), format(풋_순미결합, ','))
 
                     item = QTableWidgetItem(temp)
                     self.tableWidget_quote.setHorizontalHeaderItem(Quote_column.미결종합.value - 1, item)
