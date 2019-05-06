@@ -646,6 +646,12 @@ sp500_price = 0.0
 dow_price = 0.0
 vix_price = 0.0
 
+kospi_text_color = ''
+kosdaq_text_color = ''
+sp500_text_color = ''
+dow_text_color = ''
+vix_text_color = ''
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -4020,6 +4026,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             # 시스템시간을 서버시간에 맞춘다.
             self.adjust_system_clock()
+
+            self.label_clear()
                         
             if receive_realdata:                    
                                 
@@ -4479,11 +4487,40 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def label_clear(self):
 
-        self.label_kospi.setStyleSheet('background-color: yellow')
-        self.label_kosdaq.setStyleSheet('background-color: yellow')
-        self.label_1st_co.setStyleSheet('background-color: yellow')
-        self.label_2nd_co.setStyleSheet('background-color: yellow')
-        self.label_3rd_co.setStyleSheet('background-color: yellow')
+        if kospi_text_color == 'red':
+            self.label_kospi.setStyleSheet('background-color: yellow; color: red')
+        elif kospi_text_color == 'blue':
+            self.label_kospi.setStyleSheet('background-color: yellow; color: blue')
+        else:
+            self.label_kospi.setStyleSheet('background-color: yellow; color: black')
+
+        if kosdaq_text_color == 'red':
+            self.label_kosdaq.setStyleSheet('background-color: yellow; color: red')
+        elif kosdaq_text_color == 'blue':
+            self.label_kosdaq.setStyleSheet('background-color: yellow; color: blue')
+        else:
+            self.label_kosdaq.setStyleSheet('background-color: yellow; color: black')
+
+        if sp500_text_color == 'red':
+            self.label_1st_co.setStyleSheet('background-color: yellow; color: red')
+        elif sp500_text_color == 'blue':
+            self.label_1st_co.setStyleSheet('background-color: yellow; color: blue')
+        else:
+            self.label_1st_co.setStyleSheet('background-color: yellow; color: black')
+
+        if dow_text_color == 'red':
+            self.label_2nd_co.setStyleSheet('background-color: yellow; color: red')
+        elif dow_text_color == 'blue':
+            self.label_2nd_co.setStyleSheet('background-color: yellow; color: blue')
+        else:
+            self.label_2nd_co.setStyleSheet('background-color: yellow; color: black')
+
+        if vix_text_color == 'red':
+            self.label_3rd_co.setStyleSheet('background-color: yellow; color: red')
+        elif vix_text_color == 'blue':
+            self.label_3rd_co.setStyleSheet('background-color: yellow; color: blue')
+        else:
+            self.label_3rd_co.setStyleSheet('background-color: yellow; color: black')
 
         return
 
@@ -11891,7 +11928,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif result['업종코드'] == KOSPI:
 
-                    global kospi_price                    
+                    global kospi_price, kospi_text_color                    
 
                     if result['지수'] != kospi_price:
 
@@ -11904,12 +11941,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 jisu_str = "KOSPI: {0} ▲ ({1:0.2f}, {2:0.1f}%)".format(temp_str, -result['전일비'], result['등락율'])
                                 self.label_kospi.setText(jisu_str)
                                 self.label_kospi.setStyleSheet('background-color: pink ; color: blue')
+                                kospi_text_color = 'blue'
 
                             elif result['전일대비구분'] == '2':
 
                                 jisu_str = "KOSPI: {0} ▲ ({1:0.2f}, {2:0.1f}%)".format(temp_str, result['전일비'], result['등락율'])
                                 self.label_kospi.setText(jisu_str)
                                 self.label_kospi.setStyleSheet('background-color: pink ; color: red')
+                                kospi_text_color = 'red'
                             else:
                                 pass
 
@@ -11922,12 +11961,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 jisu_str = "KOSPI: {0} ▼ ({1:0.2f}, {2:0.1f}%)".format(temp_str, -result['전일비'], result['등락율'])
                                 self.label_kospi.setText(jisu_str)
                                 self.label_kospi.setStyleSheet('background-color: lightskyblue ; color: blue')
+                                kospi_text_color = 'blue'
 
                             elif result['전일대비구분'] == '2':
 
                                 jisu_str = "KOSPI: {0} ▼ ({1:0.2f}, {2:0.1f}%)".format(temp_str, result['전일비'], result['등락율'])
                                 self.label_kospi.setText(jisu_str)
                                 self.label_kospi.setStyleSheet('background-color: lightskyblue ; color: red')
+                                kospi_text_color = 'red'
                             else:
                                 pass
                         else:
@@ -11939,7 +11980,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif result['업종코드'] == KOSDAQ:
 
-                    global kosdaq_price                    
+                    global kosdaq_price, kosdaq_text_color                    
 
                     if result['지수'] != kosdaq_price:
 
@@ -11952,12 +11993,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 jisu_str = "KOSDAQ: {0} ▲ ({1:0.2f}, {2:0.1f}%)".format(temp_str, -result['전일비'], result['등락율'])
                                 self.label_kosdaq.setText(jisu_str)
                                 self.label_kosdaq.setStyleSheet('background-color: pink ; color: blue')
+                                kosdaq_text_color = 'blue'
 
                             elif result['전일대비구분'] == '2':
 
                                 jisu_str = "KOSDAQ: {0} ▲ ({1:0.2f}, {2:0.1f}%)".format(temp_str, result['전일비'], result['등락율'])
                                 self.label_kosdaq.setText(jisu_str)
                                 self.label_kosdaq.setStyleSheet('background-color: pink ; color: red')
+                                kosdaq_text_color = 'red'
                             else:
                                 pass
 
@@ -11970,12 +12013,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 jisu_str = "KOSDAQ: {0} ▼ ({1:0.2f}, {2:0.1f}%)".format(temp_str, -result['전일비'], result['등락율'])
                                 self.label_kosdaq.setText(jisu_str)
                                 self.label_kosdaq.setStyleSheet('background-color: lightskyblue ; color: blue')
+                                kosdaq_text_color = 'blue'
 
                             elif result['전일대비구분'] == '2':
 
                                 jisu_str = "KOSDAQ: {0} ▼ ({1:0.2f}, {2:0.1f}%)".format(temp_str, result['전일비'], result['등락율'])
                                 self.label_kosdaq.setText(jisu_str)
                                 self.label_kosdaq.setStyleSheet('background-color: lightskyblue ; color: red')
+                                kosdaq_text_color = 'red'
                             else:
                                 pass
                         else:
@@ -12754,7 +12799,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if result['종목코드'] == VIX:
 
-                    global vix_price                    
+                    global vix_price, vix_text_color                    
 
                     if result['체결가격'] != vix_price:
 
@@ -12764,13 +12809,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 jisu_str = "VIX: {0:.2f} ▲ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
                                 self.label_3rd_co.setText(jisu_str)
-                                self.label_3rd_co.setStyleSheet('background-color: lightskyblue ; color: red')
+                                self.label_3rd_co.setStyleSheet('background-color: lightskyblue; color: red')
+                                vix_text_color = 'red'
 
                             elif result['전일대비기호'] == '2':
 
                                 jisu_str = "VIX: {0:.2f} ▲ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
                                 self.label_3rd_co.setText(jisu_str)
-                                self.label_3rd_co.setStyleSheet('background-color: lightskyblue ; color: blue')
+                                self.label_3rd_co.setStyleSheet('background-color: lightskyblue; color: blue')
+                                vix_text_color = 'blue'
                             else:
                                 pass
 
@@ -12780,13 +12827,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 jisu_str = "VIX: {0:.2f} ▼ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
                                 self.label_3rd_co.setText(jisu_str)
-                                self.label_3rd_co.setStyleSheet('background-color: pink ; color: red')
+                                self.label_3rd_co.setStyleSheet('background-color: pink; color: red')
+                                vix_text_color = 'red'
 
                             elif result['전일대비기호'] == '2':
 
                                 jisu_str = "VIX: {0:.2f} ▼ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
                                 self.label_3rd_co.setText(jisu_str)
-                                self.label_3rd_co.setStyleSheet('background-color: pink ; color: blue')
+                                self.label_3rd_co.setStyleSheet('background-color: pink; color: blue')
+                                vix_text_color = 'blue'
                             else:
                                 pass
                         else:
@@ -12798,7 +12847,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif result['종목코드'] == SP500:
 
-                    global sp500_price
+                    global sp500_price, sp500_text_color
 
                     if result['체결가격'] != sp500_price:
                         
@@ -12812,7 +12861,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 jisu_str = "S&P500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
                                 self.label_1st_co.setText(jisu_str)
-                                self.label_1st_co.setStyleSheet('background-color: pink ; color: blue')
+                                self.label_1st_co.setStyleSheet('background-color: pink; color: blue')
+                                sp500_text_color = 'blue'
 
                             elif result['전일대비기호'] == '2':
 
@@ -12820,7 +12870,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 jisu_str = "S&P500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
                                 self.label_1st_co.setText(jisu_str)
-                                self.label_1st_co.setStyleSheet('background-color: pink ; color: red')
+                                self.label_1st_co.setStyleSheet('background-color: pink; color: red')
+                                sp500_text_color = 'red'
                             else:
                                 pass
                             
@@ -12834,7 +12885,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 jisu_str = "S&P500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
                                 self.label_1st_co.setText(jisu_str)
-                                self.label_1st_co.setStyleSheet('background-color: lightskyblue ; color: blue')
+                                self.label_1st_co.setStyleSheet('background-color: lightskyblue; color: blue')
+                                sp500_text_color = 'blue'
 
                             elif result['전일대비기호'] == '2':
 
@@ -12842,7 +12894,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 jisu_str = "S&P500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
                                 self.label_1st_co.setText(jisu_str)
-                                self.label_1st_co.setStyleSheet('background-color: lightskyblue ; color: red')
+                                self.label_1st_co.setStyleSheet('background-color: lightskyblue; color: red')
+                                sp500_text_color = 'red'
                             else:
                                 pass                            
                         else:
@@ -12854,7 +12907,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif result['종목코드'] == DOW:
 
-                    global dow_price
+                    global dow_price, dow_text_color
 
                     if result['체결가격'] != dow_price:
 
@@ -12865,12 +12918,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 jisu_str = "DOW: {0} ▲ ({1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'])
                                 self.label_2nd_co.setText(jisu_str)
                                 self.label_2nd_co.setStyleSheet('background-color: pink ; color: blue')
+                                dow_text_color = 'blue'
 
                             elif result['전일대비기호'] == '2':
 
                                 jisu_str = "DOW: {0} ▲ ({1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'])
                                 self.label_2nd_co.setText(jisu_str)
                                 self.label_2nd_co.setStyleSheet('background-color: pink ; color: red')
+                                dow_text_color = 'red'
                             else:
                                 pass
 
@@ -12881,12 +12936,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 jisu_str = "DOW: {0} ▼ ({1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'])
                                 self.label_2nd_co.setText(jisu_str)
                                 self.label_2nd_co.setStyleSheet('background-color: lightskyblue ; color: blue')
+                                dow_text_color = 'blue'
 
                             elif result['전일대비기호'] == '2':
 
                                 jisu_str = "DOW: {0} ▼ ({1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'])
                                 self.label_2nd_co.setText(jisu_str)
                                 self.label_2nd_co.setStyleSheet('background-color: lightskyblue ; color: red')
+                                dow_text_color = 'red'
                             else:
                                 pass
                         else:
