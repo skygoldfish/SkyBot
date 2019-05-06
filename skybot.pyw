@@ -4042,7 +4042,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.fut_cv_color_clear()
                     self.call_cv_color_clear()                    
                     self.put_cv_color_clear()
-                    #self.label_clear()
 
                     # 미결합 표시
                     self.oi_sum_display()                    
