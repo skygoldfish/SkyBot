@@ -4033,7 +4033,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.fut_cv_color_clear()
                     self.call_cv_color_clear()                    
                     self.put_cv_color_clear()
-                    self.label_clear()                    
+                    #self.label_clear()
+
+                    # 미결합 표시
+                    self.oi_sum_display()                    
                     
                     # 수정거래량 및 수정미결 갱신
                     self.call_volume_oi_update() 
@@ -10886,85 +10889,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     # 호가표시
     def quote_display(self):
         
-        if not overnight:
-
-            global oi_delta, oi_delta_old, 수정미결_직전대비            
-
-            콜_수정미결합 = df_cm_call['수정미결'].sum()
-            풋_수정미결합 = df_cm_put['수정미결'].sum()
-
-            수정미결합 = 콜_수정미결합 + 풋_수정미결합
-
-            oi_delta_old = oi_delta
-
-            if 수정미결합 > 0:
-
-                콜_수정미결퍼센트 = (콜_수정미결합 / 수정미결합) * 100
-                풋_수정미결퍼센트 = 100 - 콜_수정미결퍼센트
-                call_oi_delta = 콜_수정미결합 - call_oi_init_value
-                put_oi_delta = 풋_수정미결합 - put_oi_init_value
-
-                oi_delta = call_oi_delta - put_oi_delta
-                수정미결_직전대비.extend([oi_delta - oi_delta_old])
-                temp = list(수정미결_직전대비)
-            else:
-                pass
-
-            if oi_delta > 0:
-
-                if min(temp) > 0:
-
-                    item_str = '{0}:{1} ↗'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
-
-                elif max(temp) < 0:
-
-                    item_str = '{0}:{1} ↘'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
-                else:
-
-                    item_str = '{0}:{1}'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
-
-            elif oi_delta < 0:
-
-                if min(temp) > 0:
-
-                    item_str = '{0}:{1} ↘'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
-
-                elif max(temp) < 0:
-
-                    item_str = '{0}:{1} ↗'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
-                else:
-
-                    item_str = '{0}:{1}'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
-
-            else:
-
-                item_str = '{0:0.1f}:{1:0.1f}'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
-
-            if item_str != self.tableWidget_quote.item(0, 13).text():
-
-                item = QTableWidgetItem(item_str)
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if oi_delta > 0:
-
-                    item.setBackground(QBrush(적색))
-                    item.setForeground(QBrush(흰색))
-
-                elif oi_delta < 0:
-
-                    item.setBackground(QBrush(청색))
-                    item.setForeground(QBrush(흰색))
-
-                else:
-                    item.setBackground(QBrush(기본바탕색))
-                    item.setForeground(QBrush(검정색))
-
-                self.tableWidget_quote.setItem(0, 13, item)
-            else:
-                pass
-        else:
-            pass
-
         global call_quote, put_quote
 
         call_quote = df_cm_call_ho.sum()
@@ -11072,6 +10996,84 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         return
+
+    def oi_sum_display(self):
+        
+        if not overnight:
+
+            global oi_delta, oi_delta_old, 수정미결_직전대비            
+
+            콜_수정미결합 = df_cm_call['수정미결'].sum()
+            풋_수정미결합 = df_cm_put['수정미결'].sum()
+
+            수정미결합 = 콜_수정미결합 + 풋_수정미결합
+
+            oi_delta_old = oi_delta
+
+            if 수정미결합 > 0:
+
+                콜_수정미결퍼센트 = (콜_수정미결합 / 수정미결합) * 100
+                풋_수정미결퍼센트 = 100 - 콜_수정미결퍼센트
+                call_oi_delta = 콜_수정미결합 - call_oi_init_value
+                put_oi_delta = 풋_수정미결합 - put_oi_init_value
+
+                oi_delta = call_oi_delta - put_oi_delta
+                수정미결_직전대비.extend([oi_delta - oi_delta_old])
+                temp = list(수정미결_직전대비)
+            else:
+                pass
+
+            if oi_delta > 0:
+
+                if min(temp) > 0:
+
+                    item_str = '{0}:{1}\n↗'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+
+                elif max(temp) < 0:
+
+                    item_str = '{0}:{1}\n↘'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                else:
+                    item_str = '{0}:{1}'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+
+            elif oi_delta < 0:
+
+                if min(temp) > 0:
+
+                    item_str = '{0}:{1}\n↘'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+
+                elif max(temp) < 0:
+
+                    item_str = '{0}:{1}\n↗'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                else:
+                    item_str = '{0}:{1}'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+
+            else:
+                item_str = '{0:0.1f}:{1:0.1f}'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+
+            if item_str != self.tableWidget_quote.item(0, 13).text():
+
+                item = QTableWidgetItem(item_str)
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if oi_delta > 0:
+
+                    item.setBackground(QBrush(적색))
+                    item.setForeground(QBrush(흰색))
+
+                elif oi_delta < 0:
+
+                    item.setBackground(QBrush(청색))
+                    item.setForeground(QBrush(흰색))
+
+                else:
+                    item.setBackground(QBrush(기본바탕색))
+                    item.setForeground(QBrush(검정색))
+
+                self.tableWidget_quote.setItem(0, 13, item)
+            else:
+                pass
+        else:
+            pass
 
     def OnReceiveRealData(self, szTrCode, result):
         try:
@@ -12810,7 +12812,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 전일대비 = locale.format('%.2f', -result['전일대비'], 1)
 
-                                jisu_str = "SP500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
+                                jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
                                 self.label_1st_co.setText(jisu_str)
                                 self.label_1st_co.setStyleSheet('background-color: pink ; color: blue')
 
@@ -12818,7 +12820,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 전일대비 = locale.format('%.2f', result['전일대비'], 1)
 
-                                jisu_str = "SP500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
+                                jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
                                 self.label_1st_co.setText(jisu_str)
                                 self.label_1st_co.setStyleSheet('background-color: pink ; color: red')
                             else:
@@ -12832,7 +12834,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 전일대비 = locale.format('%.2f', -result['전일대비'], 1)
 
-                                jisu_str = "SP500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
+                                jisu_str = "S&P 500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
                                 self.label_1st_co.setText(jisu_str)
                                 self.label_1st_co.setStyleSheet('background-color: lightskyblue ; color: blue')
 
@@ -12840,7 +12842,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 전일대비 = locale.format('%.2f', result['전일대비'], 1)
 
-                                jisu_str = "SP500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
+                                jisu_str = "S&P 500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
                                 self.label_1st_co.setText(jisu_str)
                                 self.label_1st_co.setStyleSheet('background-color: lightskyblue ; color: red')
                             else:
