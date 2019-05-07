@@ -6102,7 +6102,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     abs(call_atm_value - put_atm_value))
                 self.label_atm.setText(str)
 
-                item_str = '{0:0.2f}%:{1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                item_str = '{0:0.2f}% : {1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -6938,7 +6938,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                             dt.minute, dt.second, format(콜_순미결합, ','), format(풋_순미결합, ','))
                     self.textBrowser.append(str)
 
-                    temp = '{0}:{1}'.format(format(콜_순미결합, ','), format(풋_순미결합, ','))
+                    temp = '{0} : {1}'.format(format(콜_순미결합, ','), format(풋_순미결합, ','))
 
                     item = QTableWidgetItem(temp)
                     self.tableWidget_quote.setHorizontalHeaderItem(Quote_column.미결종합.value - 1, item)
@@ -7361,7 +7361,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         abs(call_atm_value - put_atm_value))
                     self.label_atm.setText(str)
 
-                    item_str = '{0:0.2f}%:{1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                    item_str = '{0:0.2f}% : {1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -8002,7 +8002,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         abs(call_atm_value - put_atm_value))
                     self.label_atm.setText(str)
 
-                    item_str = '{0:0.2f}%:{1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                    item_str = '{0:0.2f}% : {1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -11069,7 +11069,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item_str = '{0}:{1}'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
 
             else:
-                item_str = '{0:0.1f}%:{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                item_str = '{0:0.1f}% : {1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
             if item_str != self.tableWidget_quote.item(0, 13).text():
 
@@ -12512,7 +12512,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         
                         콜현재가 = result['현재가']
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Call {3} 수신'.format(
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Call {3} 수신\r'.format(
                             int(result['체결시간'][0:2]),
                             int(result['체결시간'][2:4]),
                             int(result['체결시간'][4:6]),
@@ -12559,7 +12559,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         풋현재가 = result['현재가']
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Put {3} 수신'.format(
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Put {3} 수신\r'.format(
                             int(result['체결시간'][0:2]),
                             int(result['체결시간'][2:4]),
                             int(result['체결시간'][4:6]),
