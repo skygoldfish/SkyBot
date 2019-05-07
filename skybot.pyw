@@ -8780,9 +8780,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             df_plotdata_kp200.iloc[0][x_idx + 1] = df_plotdata_kp200.iloc[0][1]
         else:
-            df_plotdata_kp200.iloc[0][x_idx + 1] = result['KOSPI200지수']
+            df_plotdata_kp200.iloc[0][x_idx + 1] = round(float(result['KOSPI200지수']), 2)
         '''
-        df_plotdata_kp200.iloc[0][x_idx + 1] = result['KOSPI200지수']
+        df_plotdata_kp200.iloc[0][x_idx + 1] = round(float(result['KOSPI200지수']), 2)
 
         # 장중 거래량 갱신
 
