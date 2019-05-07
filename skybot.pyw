@@ -142,7 +142,7 @@ START_ON = False
 service_time_start = False
 nRowCount = 99
 
-Option_column = Enum('Option_column', '행사가 OLOH 기준가 월저 월고 전저 전고 종가 피봇 시가 시가갭 저가 현재가 고가 대비 진폭 OI OID')
+Option_column = Enum('Option_column', '행사가 OLOH 기준가 월저 월고 전저 전고 종가 피봇 시가 시가갭 저가 현재가 고가 대비 진폭 VP OI OID')
 Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수잔량 매도잔량 건수비 잔량비 전저 전고 종가 피봇 시가 시가갭 저가 현재가 고가 대비 진폭 거래량 VR OI OID')
 Option_che_column = Enum('Option_che_column', '매도누적체결량 매도누적체결건수 매수누적체결량 매수누적체결건수')
 Supply_column = Enum('Supply_column', '외인선옵 개인선옵 기관선옵 외인현물 프로그램')
@@ -2298,7 +2298,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_call.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_call.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
-        '종가√', '피봇√', '시가√', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑미결 or ∑체결량', 'OIΔ'])
+        '종가√', '피봇√', '시가√', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑체결량', '∑미결', 'OIΔ'])
         self.tableWidget_call.verticalHeader().setVisible(False)
         #self.tableWidget_call.setFocusPolicy(Qt.NoFocus)
 
@@ -2324,7 +2324,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_put.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_put.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
-        '종가√', '피봇√', '시가√', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑미결 or ∑체결량', 'OIΔ'])
+        '종가√', '피봇√', '시가√', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑체결량', '∑미결', 'OIΔ'])
         self.tableWidget_put.verticalHeader().setVisible(False)
         #self.tableWidget_put.setFocusPolicy(Qt.NoFocus)
 
