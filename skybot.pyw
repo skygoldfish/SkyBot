@@ -11558,7 +11558,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif szTrCode == 'YOC':
 
-                if int(result['예상체결시간'][0:2]) == start_hour and int(result['예상체결시간'][2:4]) == 59 and \
+                if int(result['예상체결시간'][0:2]) == (start_hour - 1) and int(result['예상체결시간'][2:4]) == 59 and \
                     (int(result['예상체결시간'][4:6]) == 58 or int(result['예상체결시간'][4:6]) == 59):
 
                     # 지수옵션 예상체결 요청취소(안하면 시작시 지연발생함)
