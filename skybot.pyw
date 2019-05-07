@@ -636,6 +636,8 @@ sp500_text_color = ''
 dow_text_color = ''
 vix_text_color = ''
 
+scroll_move = False
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -2298,7 +2300,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_call.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_call.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
-        '종가√', '피봇√', '시가√', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑체결량', '∑미결', 'OIΔ'])
+        '종가√', '피봇√', '시가√', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
         self.tableWidget_call.verticalHeader().setVisible(False)
         #self.tableWidget_call.setFocusPolicy(Qt.NoFocus)
 
@@ -2324,7 +2326,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_put.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_put.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
-        '종가√', '피봇√', '시가√', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑체결량', '∑미결', 'OIΔ'])
+        '종가√', '피봇√', '시가√', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
         self.tableWidget_put.verticalHeader().setVisible(False)
         #self.tableWidget_put.setFocusPolicy(Qt.NoFocus)
 
@@ -2351,7 +2353,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_fut.setHorizontalHeaderLabels(
             ['▲▼', '↑↓', 'MSC', 'MDC', 'MSR', 'MDR', 'CR', 'RR', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
-             '현재가', '고가', '대비', '진폭', 'PVP', 'VR', 'OI', 'OIΔ'])
+             '현재가', '고가', '대비', '진폭', 'PVP', 'VR', 'OI', 'OI↕'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
         #self.tableWidget_fut.setFocusPolicy(Qt.NoFocus)
 
@@ -3684,6 +3686,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def _calltable_vertical_scroll_position(self, row):
 
         global call_scroll_begin_position, call_scroll_end_position
+        global scroll_move
+
         call_scroll_begin_position = row
 
         if nCount_cm_option_pairs == 0:
@@ -3704,6 +3708,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             print('call scroll position -----> from %d to %d' % (call_scroll_begin_position, call_scroll_end_position))
 
+            scroll_move = True
+
             if refresh_flag:
                 self.AddCode()
             else:
@@ -3716,6 +3722,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def _puttable_vertical_scroll_position(self, row):
 
         global put_scroll_begin_position, put_scroll_end_position
+        global scroll_move
         put_scroll_begin_position = row
 
         if nCount_cm_option_pairs == 0:
@@ -3735,6 +3742,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_put.resizeColumnsToContents()
 
             print('put scroll position -----> from %d to %d' % (put_scroll_begin_position, put_scroll_end_position))
+
+            scroll_move = True
 
             if refresh_flag:
                 self.AddCode()
@@ -6479,15 +6488,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     순미결 = df['미결제약정'][i]
                     순거래량 = df['매수잔량'][i] - df['매도잔량'][i]
 
+                    temp = format(수정거래량, ',')
+                    
+                    item = QTableWidgetItem(temp)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(i, Option_column.VP.value, item)
+
                     if pre_start:
 
                         temp = format(순미결, ',')
                     else:
-                        if comboindex1 == 2:
-
-                            temp = format(수정거래량, ',')
-                        else:
-                            temp = format(수정미결, ',')
+                        temp = format(수정미결, ',')                            
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -6555,6 +6566,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 columns = ['매수건수', '매도건수', '매수잔량', '매도잔량']
                 df_cm_call_ho = DataFrame(data=callho_result, columns=columns)
 
+                temp = format(df_cm_call['수정거래량'].sum(), ',')
+
+                item = QTableWidgetItem(temp)
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.VP.value, item)
+
                 if pre_start:
 
                     순미결합 = format(df_cm_call['순미결'].sum(), ',')
@@ -6562,17 +6578,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(순미결합)
                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
                 else:
-                    if comboindex1 == 2:
-
-                        temp = format(df_cm_call['수정거래량'].sum(), ',')
-                    else:
-                        temp = format(df_cm_call['수정미결'].sum(), ',')
+                    temp = format(df_cm_call['수정미결'].sum(), ',')                        
                     
-                    if temp != self.tableWidget_call.horizontalHeaderItem(Option_column.OI.value).text():
-                        item = QTableWidgetItem(temp)
-                        self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
-                    else:
-                        pass
+                    item = QTableWidgetItem(temp)
+                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
 
                 cm_call_행사가 = df_cm_call['행사가'].values.tolist()
 
@@ -6753,17 +6762,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         수정거래량 = int((df1['매수잔량'][i] - df1['매도잔량'][i]) * (df1['현재가'][i] - 시가갭))
                     
                     순미결 = df1['미결제약정'][i]
-                    순거래량 = df1['매수잔량'][i] - df1['매도잔량'][i]                    
+                    순거래량 = df1['매수잔량'][i] - df1['매도잔량'][i] 
+
+                    temp = format(수정거래량, ',')
+
+                    item = QTableWidgetItem(temp)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(i, Option_column.VP.value, item)                   
 
                     if pre_start:
 
                         temp = format(순미결, ',')
                     else:
-                        if comboindex1 == 2:
-
-                            temp = format(수정거래량, ',')
-                        else:
-                            temp = format(수정미결, ',')                        
+                        temp = format(수정미결, ',')                                                
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -6832,6 +6843,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 columns = ['매수건수', '매도건수', '매수잔량', '매도잔량']
                 df_cm_put_ho = DataFrame(data=putho_result, columns=columns)
 
+                temp = format(df_cm_put['수정거래량'].sum(), ',')
+
+                item = QTableWidgetItem(temp)
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.VP.value, item)
+
                 if pre_start:
 
                     순미결합 = format(df_cm_put['순미결'].sum(), ',')
@@ -6839,17 +6855,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(순미결합)
                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
                 else:
-                    if comboindex1 == 2:
+                    temp = format(df_cm_put['수정미결'].sum(), ',')                                            
 
-                        temp = format(df_cm_put['수정거래량'].sum(), ',')
-                    else:
-                        temp = format(df_cm_put['수정미결'].sum(), ',')                    
-
-                    if temp != self.tableWidget_put.horizontalHeaderItem(Option_column.OI.value).text():
-                        item = QTableWidgetItem(temp)
-                        self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
-                    else:
-                        pass
+                    item = QTableWidgetItem(temp)
+                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
 
                 cm_put_행사가 = df_cm_put['행사가'].values.tolist()
                 
@@ -7536,10 +7545,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem('↑↓')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.OLOH.value, item)
 
-                item = QTableWidgetItem('시가갭')
+                item = QTableWidgetItem('시가갭\n(%)')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-                item = QTableWidgetItem('대비')
+                item = QTableWidgetItem('대비\n(%)')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
 
                 item = QTableWidgetItem('행사가')
@@ -7548,10 +7557,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem('↑↓')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.OLOH.value, item)
 
-                item = QTableWidgetItem('시가갭')
+                item = QTableWidgetItem('시가갭\n(%)')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-                item = QTableWidgetItem('대비')
+                item = QTableWidgetItem('대비\n(%)')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
 
                 for i in range(nCount_cm_option_pairs):
@@ -7755,7 +7764,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(i, Option_column.OI.value, item)
+                    self.tableWidget_call.setItem(i, Option_column.VP.value, item)
 
                     df_cm_call.loc[i, '수정미결증감'] = 0
                     temp = format(0, ',')
@@ -7955,7 +7964,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(i, Option_column.OI.value, item)
+                    self.tableWidget_put.setItem(i, Option_column.VP.value, item)
 
                     df_cm_put.loc[i, '수정미결증감'] = 0
                     temp = format(0, ',')
@@ -9477,52 +9486,49 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         df_plotdata_cm_call_volume.iloc[0][opt_x_idx + 1] = call_volume_total
         df_cm_call.loc[index, '거래량'] = call_result['누적거래량']
 
-        if comboindex1 == 2:
+        temp = format(df_cm_call.iloc[index]['수정거래량'], ',')
 
-            temp = format(df_cm_call.iloc[index]['수정거래량'], ',')
+        if temp != self.tableWidget_call.item(index, Option_column.VP.value).text():
 
-            if temp != self.tableWidget_call.item(index, Option_column.OI.value).text():
+            item = QTableWidgetItem(temp)
+            item.setTextAlignment(Qt.AlignCenter)
 
-                item = QTableWidgetItem(temp)
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if index == df_cm_call['수정거래량'].idxmax():
-                    item.setBackground(QBrush(라임))
-                else:
-                    item.setBackground(QBrush(기본바탕색))
-
-                self.tableWidget_call.setItem(index, Option_column.OI.value, item)
+            if index == df_cm_call['수정거래량'].idxmax():
+                item.setBackground(QBrush(라임))
             else:
-                pass
+                item.setBackground(QBrush(기본바탕색))
 
-            temp = format(call_volume_total, ',')
-
-            if temp != self.tableWidget_call.horizontalHeaderItem(Option_column.OI.value).text():
-                item = QTableWidgetItem(temp)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
-            else:
-                pass
+            self.tableWidget_call.setItem(index, Option_column.VP.value, item)
         else:
+            pass
 
-            temp = format(df_cm_call.iloc[index]['수정미결'], ',')
+        temp = format(call_volume_total, ',')
 
-            if temp != self.tableWidget_call.item(index, Option_column.OI.value).text():
+        if temp != self.tableWidget_call.horizontalHeaderItem(Option_column.VP.value).text():
+            item = QTableWidgetItem(temp)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.VP.value, item)
+        else:
+            pass
 
-                item = QTableWidgetItem(temp)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(index, Option_column.OI.value, item)
-            else:
-                pass
+        temp = format(df_cm_call.iloc[index]['수정미결'], ',')
 
-            temp = format(df_cm_call['수정미결'].sum(), ',')
+        if temp != self.tableWidget_call.item(index, Option_column.OI.value).text():
 
-            if temp != self.tableWidget_call.horizontalHeaderItem(Option_column.OI.value).text():
-                item = QTableWidgetItem(temp)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
-            else:
-                pass        
+            item = QTableWidgetItem(temp)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_call.setItem(index, Option_column.OI.value, item)
+        else:
+            pass
+
+        temp = format(df_cm_call['수정미결'].sum(), ',')
+
+        if temp != self.tableWidget_call.horizontalHeaderItem(Option_column.OI.value).text():
+            item = QTableWidgetItem(temp)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
+        else:
+            pass                
 
         미결증감 = format(df_cm_call.iloc[index]['수정미결증감'], ',')
 
@@ -10352,52 +10358,49 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         df_plotdata_cm_volume_cha.iloc[0][opt_x_idx + 1] = call_volume_total - put_volume_total
         df_cm_put.loc[index, '거래량'] = put_result['누적거래량']
 
-        if comboindex1 == 2:
+        temp = format(df_cm_put.iloc[index]['수정거래량'], ',')
 
-            temp = format(df_cm_put.iloc[index]['수정거래량'], ',')
+        if temp != self.tableWidget_put.item(index, Option_column.VP.value).text():
 
-            if temp != self.tableWidget_put.item(index, Option_column.OI.value).text():
+            item = QTableWidgetItem(temp)
+            item.setTextAlignment(Qt.AlignCenter)
 
-                item = QTableWidgetItem(temp)
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if index == df_cm_put['수정거래량'].idxmax():
-                    item.setBackground(QBrush(라임))
-                else:
-                    item.setBackground(QBrush(기본바탕색))
-
-                self.tableWidget_put.setItem(index, Option_column.OI.value, item)
+            if index == df_cm_put['수정거래량'].idxmax():
+                item.setBackground(QBrush(라임))
             else:
-                pass
+                item.setBackground(QBrush(기본바탕색))
 
-            temp = format(put_volume_total, ',')
-
-            if temp != self.tableWidget_put.horizontalHeaderItem(Option_column.OI.value).text():
-                item = QTableWidgetItem(temp)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
-            else:
-                pass
+            self.tableWidget_put.setItem(index, Option_column.VP.value, item)
         else:
+            pass
 
-            temp = format(df_cm_put.iloc[index]['수정미결'], ',')
+        temp = format(put_volume_total, ',')
 
-            if temp != self.tableWidget_put.item(index, Option_column.OI.value).text():
+        if temp != self.tableWidget_put.horizontalHeaderItem(Option_column.VP.value).text():
+            item = QTableWidgetItem(temp)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_put.setHorizontalHeaderItem(Option_column.VP.value, item)
+        else:
+            pass
 
-                item = QTableWidgetItem(temp)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(index, Option_column.OI.value, item)
-            else:
-                pass
+        temp = format(df_cm_put.iloc[index]['수정미결'], ',')
 
-            temp = format(df_cm_put['수정미결'].sum(), ',')
+        if temp != self.tableWidget_put.item(index, Option_column.OI.value).text():
 
-            if temp != self.tableWidget_put.horizontalHeaderItem(Option_column.OI.value).text():
-                item = QTableWidgetItem(temp)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
-            else:
-                pass        
+            item = QTableWidgetItem(temp)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_put.setItem(index, Option_column.OI.value, item)
+        else:
+            pass
+
+        temp = format(df_cm_put['수정미결'].sum(), ',')
+
+        if temp != self.tableWidget_put.horizontalHeaderItem(Option_column.OI.value).text():
+            item = QTableWidgetItem(temp)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
+        else:
+            pass                  
 
         미결증감 = format(df_cm_put.iloc[index]['수정미결증감'], ',')
 
@@ -12964,6 +12967,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global START_ON
 
         global kp200_realdata, fut_realdata
+        global scroll_move
 
         current = datetime.datetime.now()
         current_str = current.strftime('%H:%M:%S')
@@ -12972,10 +12976,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if not refresh_flag:
 
-            START_ON = True            
-            
+            START_ON = True
         else:
-            self.all_node_set()
+
+            if not scroll_move:
+                self.all_node_set()
+            else:
+                scroll_move = False
 
         # 지수선물 마스터조회 API용
         XQ = t8432(parent=self)
