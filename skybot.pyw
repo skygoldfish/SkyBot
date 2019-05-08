@@ -464,10 +464,6 @@ oi_delta_old = 0
 volume_delta = 0
 volume_delta_old = 0
 
-delta_hour = 0
-delta_minute = 0
-delta_sec = 0
-
 comboindex1 = 0
 comboindex2 = 0
 
@@ -3581,42 +3577,42 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if 콜매수 != '콜매수':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 콜매수 {3} 진입...\r'.format(delta_hour, delta_minute, delta_sec, 콜매수)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 콜매수 {3} 진입...\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), 콜매수)
                         self.textBrowser.append(str)
                     else:
                         pass
 
                     if 콜매도 != '콜매도':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 콜매도 {3} 진입...\r'.format(delta_hour, delta_minute, delta_sec, 콜매도)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 콜매도 {3} 진입...\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), 콜매도)
                         self.textBrowser.append(str)
                     else:
                         pass
 
                     if 풋매수 != '풋매수':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 풋매수 {3} 진입...\r'.format(delta_hour, delta_minute, delta_sec, 풋매수)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 풋매수 {3} 진입...\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), 풋매수)
                         self.textBrowser.append(str)
                     else:
                         pass
 
                     if 풋매도 != '풋매도':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 풋매도 {3} 진입...\r'.format(delta_hour, delta_minute, delta_sec, 풋매도)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 풋매도 {3} 진입...\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), 풋매도)
                         self.textBrowser.append(str)
                     else:
                         pass
 
                     if 손절 != '손절':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 손절 {3}틱 설정됨\r'.format(delta_hour, delta_minute, delta_sec, 손절)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 손절 {3}틱 설정됨\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), 손절)
                         self.textBrowser.append(str)
                     else:
                         pass
 
                     if 익절 != '익절':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 익절 {3}틱 설정됨\r'.format(delta_hour, delta_minute, delta_sec, 익절)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 익절 {3}틱 설정됨\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), 익절)
                         self.textBrowser.append(str)
                     else:
                         pass
@@ -3625,7 +3621,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송이 예약되었습니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송이 예약되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
                     self.telegram_flag = not self.telegram_flag
@@ -3672,7 +3668,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setForeground(QBrush(흰색))
                     self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송예약이 취소되었습니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송예약이 취소되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
                     self.telegram_flag = not self.telegram_flag
@@ -3946,60 +3942,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             pass
         else:
-            pass 
-
-    def adjust_system_clock(self):
-
-        dt = datetime.datetime.now()
-
-        global delta_hour, delta_minute, delta_sec
-
-        # 시스템시간이 서버시간보다 빠른 경우
-        if time_delta > 0:
-
-            if dt.second - time_delta < 0:
-
-                delta_sec = 60 + dt.second - time_delta
-
-                if dt.minute == 0:
-
-                    delta_minute = 59
-                    delta_hour = dt.hour - 1
-                else:
-                    delta_minute = dt.minute - 1
-                    delta_hour = dt.hour
-            else:
-                delta_sec = dt.second - time_delta
-                delta_minute = dt.minute
-                delta_hour = dt.hour
-
-        # 시스템시간이 서버시간보다 느린 경우
-        elif time_delta < 0:
-
-            delta_sec = (dt.second - time_delta) % 60
-
-            if (dt.second - time_delta) // 60:
-
-                if dt.minute == 59:
-
-                    delta_minute = 0
-                    delta_hour = dt.hour + 1
-                else:
-                    delta_minute = dt.minute + (dt.second - time_delta) // 60
-                    delta_hour = dt.hour
-            else:
-                delta_minute = dt.minute
-                delta_hour = dt.hour
-
-        # 같은 경우
-        else:
-            delta_sec = dt.second
-            delta_minute = dt.minute
-            delta_hour = dt.hour
-
-        # 시간표시
-        str = '{0:02d}:{1:02d}:{2:02d}'.format(delta_hour, delta_minute, delta_sec)
-        self.label_msg.setText(str)   
+            pass
 
     @pyqtSlot(dict)
     def update_screen(self, data):
@@ -4010,8 +3953,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global ovc_on
 
             # 시스템시간을 서버시간에 맞춘다.
-            if ovc_on: 
-                #self.adjust_system_clock()
+            if ovc_on:
                 str = '{0:02d}:{1:02d}:{2:02d}'.format(int(체결시간[0:2]), int(체결시간[2:4]), int(체결시간[4:6]))
                 self.label_msg.setText(str) 
             else:
@@ -4071,7 +4013,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         
                             if abs(call_atm_value - put_atm_value) <= 0.02:
 
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 교차 중심가 {3} 발생 !!!\r'.format(delta_hour, delta_minute, delta_sec, call_atm_value)
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 교차 중심가 {3} 발생 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), call_atm_value)
                                 self.textBrowser.append(str)            
                             else:
                                 pass
@@ -4100,7 +4042,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             new_list = [x for x in cm_call_시가 if x not in old_list_set]
                             len_new_list = len(new_list)
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 콜 시가리스트 : {3} !!!\r'.format(delta_hour, delta_minute, delta_sec, new_list)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 콜 시가리스트 : {3} !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), new_list)
                             self.textBrowser.append(str)
                             
                             for i in range(len_new_list):
@@ -4110,7 +4052,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             콜시가리스트 = copy.deepcopy(cm_call_시가)
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 콜 시가리스트 {3} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, 콜시가리스트)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 콜 시가리스트 {3} 갱신됨 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), 콜시가리스트)
                             self.textBrowser.append(str)
                         else:
                             pass
@@ -4122,7 +4064,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             new_list = [x for x in cm_put_시가 if x not in old_list_set]
                             len_new_list = len(new_list)
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 풋 시가리스트 : {3} !!!\r'.format(delta_hour, delta_minute, delta_sec, new_list)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 풋 시가리스트 : {3} !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), new_list)
                             self.textBrowser.append(str)
                             
                             for i in range(len_new_list):
@@ -4132,7 +4074,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             풋시가리스트 = copy.deepcopy(cm_put_시가)
                             
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 풋 시가리스트 {3} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, 풋시가리스트)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 풋 시가리스트 {3} 갱신됨 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), 풋시가리스트)
                             self.textBrowser.append(str)
                         else:
                             pass
@@ -4147,7 +4089,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 콜저가리스트 = copy.deepcopy(cm_call_저가)
                                 color_update = True
 
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 콜 저가리스트 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec)
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 콜 저가리스트 갱신됨 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                                 self.textBrowser.append(str)
                             else:
                                 pass
@@ -4157,7 +4099,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 콜고가리스트 = copy.deepcopy(cm_call_고가)
                                 color_update = True
 
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 콜 고가리스트 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec)
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 콜 고가리스트 갱신됨 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                                 self.textBrowser.append(str)
                             else:
                                 pass
@@ -4167,7 +4109,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 풋저가리스트 = copy.deepcopy(cm_put_저가)
                                 color_update = True
 
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 풋 저가리스트 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec)
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 풋 저가리스트 갱신됨 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                                 self.textBrowser.append(str)
                             else:
                                 pass
@@ -4177,7 +4119,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 풋고가리스트 = copy.deepcopy(cm_put_고가)
                                 color_update = True
 
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 풋 고가리스트 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec)
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 풋 고가리스트 갱신됨 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                                 self.textBrowser.append(str)
                             else:
                                 pass
@@ -4353,8 +4295,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass                        
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간 : {3:0.2f} ms...\r'.format(delta_hour, 
-            delta_minute, delta_sec, (timeit.default_timer() - start_time) * 1000)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간 : {3:0.2f} ms...\r'.format(int(호가시간[0:2]), \
+                int(호가시간[2:4]), int(호가시간[4:6]), (timeit.default_timer() - start_time) * 1000)
             print(str)
             # self.textBrowser.append(str)
         except:
@@ -5265,7 +5207,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 			
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Call Table Color Check : {3:0.2f} ms\r'.format(delta_hour, delta_minute, delta_sec, process_time)
+        str = '[{0:02d}:{1:02d}:{2:02d}] Call Table Color Check : {3:0.2f} ms\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), process_time)
         self.textBrowser.append(str)
 
         return
@@ -6013,7 +5955,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 			
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Put Table Color Check : {3:0.2f} ms\r'.format(delta_hour, delta_minute, delta_sec, process_time)
+        str = '[{0:02d}:{1:02d}:{2:02d}] Put Table Color Check : {3:0.2f} ms\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), process_time)
         self.textBrowser.append(str)
 
         return
@@ -7313,7 +7255,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     XQ.Query(종목코드=gmshcode)
                     print('t2801 요청')
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신했습니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
                 else:
                     XQ = t2101(parent=self)
@@ -8222,7 +8164,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 put_volume_total = df_cm_put['수정거래량'].sum()
                 '''
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판을 갱신했습니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판을 갱신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                 self.textBrowser.append(str)
             
             if not refresh_flag:
@@ -9745,7 +9687,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setHorizontalHeaderItem(2, item)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call OLOH 갱신 !!!\r'.format(delta_hour, delta_minute, delta_sec)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call OLOH 갱신 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
             self.textBrowser.append(str)
         else:
             pass                               
@@ -9785,7 +9727,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}, {4:0.2f}] 시가 갱신 !!!\r'.format(delta_hour, delta_minute, delta_sec, index, df_cm_call.iloc[index]['시가'])
+                str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}, {4:0.2f}] 시가 갱신 !!!\r'.format(int(호가시간[0:2]), \
+                    int(호가시간[2:4]), int(호가시간[4:6]), index, df_cm_call.iloc[index]['시가'])
                 self.textBrowser.append(str)
 
                 self.tableWidget_call.resizeColumnsToContents()
@@ -9841,7 +9784,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call 전광판 갱신 !!!\r'.format(delta_hour, delta_minute, delta_sec)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call 전광판 갱신 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
             self.textBrowser.append(str)
         else:
             print('call_gap_percent_local is empty...')        
@@ -9994,7 +9937,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call 전광판 갱신 with call_open_check !!!\r'.format(delta_hour, delta_minute, delta_sec)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call 전광판 갱신 with call_open_check !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
             self.textBrowser.append(str)
         else:
             print('call_gap_percent_local is empty...')        
@@ -10625,7 +10568,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setHorizontalHeaderItem(2, item)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put OLOH 갱신 !!!\r'.format(delta_hour, delta_minute, delta_sec)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put OLOH 갱신 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
             self.textBrowser.append(str)
         else:
             pass           
@@ -10665,7 +10608,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}, {4:0.2f}] 시가 갱신 !!!\r'.format(delta_hour, delta_minute, delta_sec, index, df_cm_put.iloc[index]['시가'])
+                str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}, {4:0.2f}] 시가 갱신 !!!\r'.format(int(호가시간[0:2]), \
+                    int(호가시간[2:4]), int(호가시간[4:6]), index, df_cm_put.iloc[index]['시가'])
                 self.textBrowser.append(str)
                 
                 self.tableWidget_put.resizeColumnsToContents()
@@ -10721,7 +10665,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put 전광판 갱신 !!!\r'.format(delta_hour, delta_minute, delta_sec)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put 전광판 갱신 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
             self.textBrowser.append(str)
         else:
             print('put_gap_percent_local is empty...')
@@ -10874,7 +10818,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put 전광판 갱신 with put_open_check !!!\r'.format(delta_hour, delta_minute, delta_sec)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put 전광판 갱신 with put_open_check !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
             self.textBrowser.append(str)
         else:
             print('put_gap_percent_local is empty...')
@@ -11190,7 +11134,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if szTrCode == 'JIF':
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(delta_hour, delta_minute, delta_sec, result['장구분'], result['장상태'])
+                str = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(dt.hour, dt.minute, dt.second, result['장구분'], result['장상태'])
                 self.textBrowser.append(str)
 
                 # 장시작 10분전
@@ -11234,11 +11178,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     yoc_stop = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                     '''
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 현물장 시작 10초전입니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 현물장 시작 10초전입니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                 # 선물장 시작 10초전
@@ -11250,22 +11194,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     yoc_stop = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                     
                     # 지수선물 예상체결 요청취소
                     self.YFC.UnadviseRealData()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수선물 예상체결 요청을 취소합니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수선물 예상체결 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                     # KOSPI 예상체결 요청취소
                     self.YS3.UnadviseRealData()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] KOSPI 예상체결 요청을 취소합니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] KOSPI 예상체결 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                     '''
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 선물장 시작 10초전입니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 선물장 시작 10초전입니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                 # 주간 선물/옵션장 시작
@@ -11287,16 +11231,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         XQ = t2301(parent=self)
                         XQ.Query(월물=month_info, 미니구분='G')
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] t2301을 재요청 합니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] t2301을 재요청 합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
                         '''
                     else:
                         pass
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Time Delta = {3}초\r'.format(delta_hour, delta_minute, delta_sec, time_delta)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Time Delta = {3}초\r'.format(dt.hour, dt.minute, dt.second, time_delta)
                     self.textBrowser.append(str)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장이 시작됩니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                 # 야간 선물장 시작
@@ -11360,58 +11304,58 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 elif result['장구분'] == '1' and result['장상태'] == '44':
 
                     #print('현물 장마감 5분전입니다.')
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 5분전입니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 5분전입니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                 # 현물 장마감 1분전
                 elif result['장구분'] == '1' and result['장상태'] == '43':
 
                     #print('현물 장마감 1분전입니다.')
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 1분전입니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 1분전입니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                     # FUTURES/KOSPI200 예상지수 요청취소
                     self.YJ.UnadviseRealData()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] FUTURES/KOSPI200 예상지수 요청을 취소합니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] FUTURES/KOSPI200 예상지수 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                     # 지수선물예상체결 요청취소
                     self.YFC.UnadviseRealData()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수선물 예상체결 요청을 취소합니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수선물 예상체결 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                     # KOSPI예상체결 요청취소
                     self.YS3.UnadviseRealData()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] KOSPI 예상체결 요청을 취소합니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] KOSPI 예상체결 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                     # 지수옵션예상체결 요청취소
                     self.YOC.UnadviseRealData()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                 # 장후 동시호가 시작
                 elif result['장구분'] == '5' and result['장상태'] == '31':
 
                     #print('장후 동시호가가 시작되었습니다.')
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 장후 동시호가가 시작되었습니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 장후 동시호가가 시작되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                 # 주간 선물/옵션장 종료
                 elif result['장구분'] == '5' and result['장상태'] == '41':
 
                     #print('주간 선물/옵션장이 종료되었습니다.')
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                     # 해외선물 지수 요청취소
                     self.OVC.UnadviseRealData()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                     self.SaveResult()
@@ -11420,7 +11364,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 elif result['장구분'] == '7' and result['장상태'] == '41':
 
                     #print('야간 선물장이 종료되었습니다.')
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                     self.SaveResult()
@@ -11429,7 +11373,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 elif result['장구분'] == '8' and result['장상태'] == '41':
 
                     #print('야간 옵션장이 종료되었습니다...')
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 종료되었습니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                     self.SaveResult()
@@ -11576,7 +11520,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     yoc_stop = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
                 else:
                     pass
@@ -11905,7 +11849,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         atm_index = cm_call_actval.index(atm_str)
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 전일호가 취소 및 당일호가(등가:{3})를 요청합니다.\r'.format(
-                            delta_hour, delta_minute, delta_sec, atm_str)
+                            int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), atm_str)
                         self.textBrowser.append(str)
 
                         # 당일 호가요청
@@ -12408,7 +12352,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         market_service = True
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 주간 선물 데이타를 수신했습니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 주간 선물 데이타를 수신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                         self.textBrowser.append(str)
                     else:
                         pass
@@ -12423,7 +12367,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     XQ = t2301(parent=self)
                     XQ.Query(월물=month_info, 미니구분='G')
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] t2301을 재요청 합니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] t2301을 재요청 합니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
                     '''
                 else:
@@ -12433,7 +12377,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if not receive_realdata:
                         receive_realdata = True
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 야간 선물 데이타를 수신했습니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 야간 선물 데이타를 수신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                         self.textBrowser.append(str)
                     else:
                         pass
@@ -12482,7 +12426,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     market_service = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 옵션 데이타를 수신했습니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 옵션 데이타를 수신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
                 else:
                     pass
@@ -12495,7 +12439,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     XQ = t2301(parent=self)
                     XQ.Query(월물=month_info, 미니구분='G')
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] t2301을 재요청 합니다.\r'.format(delta_hour, delta_minute, delta_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] t2301을 재요청 합니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
                     '''
                 else:
