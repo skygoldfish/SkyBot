@@ -97,6 +97,8 @@ yesterday_str = yesterday.strftime('%Y%m%d')
 
 start_hour = 9
 
+호가시간 = '000000'
+
 # 업종코드
 KOSPI = '001'
 KOSPI200 = '101'
@@ -3999,14 +4001,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     @pyqtSlot(dict)
     def update_screen(self, data):
         try:
-            start_time = timeit.default_timer()
+            start_time = timeit.default_timer()            
+            dt = datetime.datetime.now()
 
             # 시스템시간을 서버시간에 맞춘다.
-            self.adjust_system_clock()
+            if not receive_realdata: 
+                #self.adjust_system_clock()
+                str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
+                self.label_msg.setText(str) 
+            else:
+                pass
 
             self.label_clear()
                         
-            if receive_realdata:                    
+            if receive_realdata:                
+
+                # 실시간 시간표시
+                str = '{0:02d}:{1:02d}:{2:02d}'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                self.label_msg.setText(str)                       
                                 
                 # 호가 갱신
                 self.quote_display()
@@ -9243,7 +9255,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_call_저가 = df_cm_call['저가'].values.tolist()
                     cm_call_저가_node_list = self.make_node_list(cm_call_저가)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}] 저가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 저가)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 저가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
+                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 저가)
                     self.textBrowser.append(str)
 
                     item = QTableWidgetItem(저가)
@@ -9264,7 +9277,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_call_고가 = df_cm_call['고가'].values.tolist()
                     cm_call_고가_node_list = self.make_node_list(cm_call_고가)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}] 고가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 고가)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 고가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
+                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 고가)
                     self.textBrowser.append(str)
 
                     item = QTableWidgetItem(고가)
@@ -9350,7 +9364,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         cm_call_시가 = df_cm_call['시가'].values.tolist()
         cm_call_시가_node_list = self.make_node_list(cm_call_시가)
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}] 시가 {4} Open됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, call_result['시가'])
+        str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}] 시가 {4} Open됨 !!!\r'.format(int(call_result['체결시간'][0:2]), \
+                        int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), index+1, call_result['시가'])
         self.textBrowser.append(str)
         
         if df_cm_call.iloc[index]['전저'] > 0 and df_cm_call.iloc[index]['전고'] > 0:
@@ -9367,7 +9382,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_call_피봇 = df_cm_call['피봇'].values.tolist()
             cm_call_피봇_node_list = self.make_node_list(cm_call_피봇)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call 피봇 리스트 갱신 !!!\r'.format(delta_hour, delta_minute, delta_sec)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call 피봇 리스트 갱신 !!!\r'.format(int(call_result['체결시간'][0:2]), \
+                        int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
             self.textBrowser.append(str)
         else:
             pass
@@ -10117,7 +10133,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_put_저가 = df_cm_put['저가'].values.tolist()
                     cm_put_저가_node_list = self.make_node_list(cm_put_저가)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 저가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 저가)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 저가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
+                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 저가)
                     self.textBrowser.append(str)
 
                     item = QTableWidgetItem(저가)
@@ -10138,7 +10155,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_put_고가 = df_cm_put['고가'].values.tolist()
                     cm_put_고가_node_list = self.make_node_list(cm_put_고가)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 고가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 고가)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 고가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
+                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 고가)
                     self.textBrowser.append(str)
 
                     item = QTableWidgetItem(고가)
@@ -10224,7 +10242,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         cm_put_시가 = df_cm_put['시가'].values.tolist()
         cm_put_시가_node_list = self.make_node_list(cm_put_시가)
         
-        str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 시가 {4} Open됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, put_result['시가'])
+        str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 시가 {4} Open됨 !!!\r'.format(int(put_result['체결시간'][0:2]), \
+                        int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), index+1, put_result['시가'])
         self.textBrowser.append(str)
         
         if df_cm_put.iloc[index]['전저'] > 0 and df_cm_put.iloc[index]['전고'] > 0:
@@ -10241,7 +10260,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_put_피봇 = df_cm_put['피봇'].values.tolist()
             cm_put_피봇_node_list = self.make_node_list(cm_put_피봇)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put 피봇 리스트 갱신 !!!\r'.format(delta_hour, delta_minute, delta_sec)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put 피봇 리스트 갱신 !!!\r'.format(int(put_result['체결시간'][0:2]), \
+                        int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
             self.textBrowser.append(str)
         else:
             pass
@@ -12595,6 +12615,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
 
             elif szTrCode == 'OH0' or szTrCode == 'EH0':
+
+                global 호가시간
+
+                호가시간 = result['호가시간']
 
                 if not receive_realdata:
                     receive_realdata = True
