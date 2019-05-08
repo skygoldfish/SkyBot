@@ -97,7 +97,10 @@ yesterday_str = yesterday.strftime('%Y%m%d')
 
 start_hour = 9
 
+체결시간 = '000000'
 호가시간 = '000000'
+
+ovc_on = False
 
 # 업종코드
 KOSPI = '001'
@@ -4004,17 +4007,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             start_time = timeit.default_timer()            
             dt = datetime.datetime.now()
 
+            global ovc_on
+
             # 시스템시간을 서버시간에 맞춘다.
-            if not receive_realdata: 
+            if ovc_on: 
                 #self.adjust_system_clock()
-                str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
+                str = '{0:02d}:{1:02d}:{2:02d}'.format(int(체결시간[0:2]), int(체결시간[2:4]), int(체결시간[4:6]))
                 self.label_msg.setText(str) 
             else:
-                pass
+                if not receive_realdata:
+                    str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
+                    self.label_msg.setText(str) 
+                else:
+                    pass
 
             self.label_clear()
                         
-            if receive_realdata:                
+            if receive_realdata:
+
+                ovc_on = False                
 
                 # 실시간 시간표시
                 str = '{0:02d}:{1:02d}:{2:02d}'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
@@ -12798,6 +12809,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 '''
             
             elif szTrCode == 'OVC':
+
+                global ovc_on, 체결시간
+
+                if not ovc_on:
+                    ovc_on = True
+                else:
+                    pass
+
+                체결시간 = result['체결시간_한국']
 
                 if result['종목코드'] == VIX:
 
