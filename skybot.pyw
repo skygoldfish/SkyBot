@@ -3971,11 +3971,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         
             if receive_realdata:
 
-                ovc_on = False                
+                ovc_on = False             
 
                 # 실시간 시간표시
                 str = '{0:02d}:{1:02d}:{2:02d}'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
-                self.label_msg.setText(str)                       
+                self.label_msg.setText(str)                    
                                 
                 # 호가 갱신
                 self.quote_display()
@@ -4143,7 +4143,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                #self.plot_data()                
+                #self.plot_data()              
                 
                 # X축 세로선 데이타처리
                 if x_idx > 10 and opt_x_idx > 10:
@@ -12577,8 +12577,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif szTrCode == 'OH0' or szTrCode == 'EH0':
 
-                호가시간 = result['호가시간']
-
                 if not receive_realdata:
                     receive_realdata = True
                 else:
@@ -12649,6 +12647,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 '''
 
             elif szTrCode == 'FH0' or szTrCode == 'NH0':
+                
+                호가시간 = result['호가시간']
 
                 # 선물호가 갱신
                 item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
