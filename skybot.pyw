@@ -9231,49 +9231,53 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
                 '''
             else:
-                pass 
-
-            # 저가 갱신
-            if 저가 != self.tableWidget_call.item(index, Option_column.저가.value).text():
-
-                df_cm_call.loc[index, '저가'] = round(float(저가), 2)
-
-                cm_call_저가 = df_cm_call['저가'].values.tolist()
-                cm_call_저가_node_list = self.make_node_list(cm_call_저가)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}] 저가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 저가)
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem(저가)
-                item.setTextAlignment(Qt.AlignCenter)             
-                self.tableWidget_call.setItem(index, Option_column.저가.value, item)
-
-                item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
-            else:
                 pass
 
-            # 고가 갱신
-            if 고가 != self.tableWidget_call.item(index, Option_column.고가.value).text():
+            if 저가 != 고가:
 
-                df_cm_call.loc[index, '고가'] = round(float(고가), 2)
+                # 저가 갱신
+                if 저가 != self.tableWidget_call.item(index, Option_column.저가.value).text():
 
-                cm_call_고가 = df_cm_call['고가'].values.tolist()
-                cm_call_고가_node_list = self.make_node_list(cm_call_고가)
+                    df_cm_call.loc[index, '저가'] = round(float(저가), 2)
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}] 고가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 고가)
-                self.textBrowser.append(str)
+                    cm_call_저가 = df_cm_call['저가'].values.tolist()
+                    cm_call_저가_node_list = self.make_node_list(cm_call_저가)
 
-                item = QTableWidgetItem(고가)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(index, Option_column.고가.value, item)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}] 저가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 저가)
+                    self.textBrowser.append(str)
 
-                item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
+                    item = QTableWidgetItem(저가)
+                    item.setTextAlignment(Qt.AlignCenter)             
+                    self.tableWidget_call.setItem(index, Option_column.저가.value, item)
+
+                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
+                else:
+                    pass
+
+                # 고가 갱신
+                if 고가 != self.tableWidget_call.item(index, Option_column.고가.value).text():
+
+                    df_cm_call.loc[index, '고가'] = round(float(고가), 2)
+
+                    cm_call_고가 = df_cm_call['고가'].values.tolist()
+                    cm_call_고가_node_list = self.make_node_list(cm_call_고가)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}] 고가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 고가)
+                    self.textBrowser.append(str)
+
+                    item = QTableWidgetItem(고가)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(index, Option_column.고가.value, item)
+
+                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
+                else:
+                    pass
             else:
-                pass
+                pass            
                        
             opt_callreal_update_counter += 1
         else:
@@ -10103,45 +10107,49 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-            # 저가 갱신
-            if 저가 != self.tableWidget_put.item(index, Option_column.저가.value).text():
+            if 저가 != 고가:
 
-                df_cm_put.loc[index, '저가'] = round(float(저가), 2)
+                # 저가 갱신
+                if 저가 != self.tableWidget_put.item(index, Option_column.저가.value).text():
 
-                cm_put_저가 = df_cm_put['저가'].values.tolist()
-                cm_put_저가_node_list = self.make_node_list(cm_put_저가)
+                    df_cm_put.loc[index, '저가'] = round(float(저가), 2)
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 저가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 저가)
-                self.textBrowser.append(str)
+                    cm_put_저가 = df_cm_put['저가'].values.tolist()
+                    cm_put_저가_node_list = self.make_node_list(cm_put_저가)
 
-                item = QTableWidgetItem(저가)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(index, Option_column.저가.value, item)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 저가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 저가)
+                    self.textBrowser.append(str)
 
-                item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
-            else:
-                pass
+                    item = QTableWidgetItem(저가)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(index, Option_column.저가.value, item)
 
-            # 고가 갱신
-            if 고가 != self.tableWidget_put.item(index, Option_column.고가.value).text():
+                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
+                else:
+                    pass
 
-                df_cm_put.loc[index, '고가'] = round(float(고가), 2)
+                # 고가 갱신
+                if 고가 != self.tableWidget_put.item(index, Option_column.고가.value).text():
 
-                cm_put_고가 = df_cm_put['고가'].values.tolist()
-                cm_put_고가_node_list = self.make_node_list(cm_put_고가)
+                    df_cm_put.loc[index, '고가'] = round(float(고가), 2)
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 고가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 고가)
-                self.textBrowser.append(str)
+                    cm_put_고가 = df_cm_put['고가'].values.tolist()
+                    cm_put_고가_node_list = self.make_node_list(cm_put_고가)
 
-                item = QTableWidgetItem(고가)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(index, Option_column.고가.value, item)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 고가 {4} 갱신됨 !!!\r'.format(delta_hour, delta_minute, delta_sec, index+1, 고가)
+                    self.textBrowser.append(str)
 
-                item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
+                    item = QTableWidgetItem(고가)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(index, Option_column.고가.value, item)
+
+                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
+                else:
+                    pass
             else:
                 pass
                         
