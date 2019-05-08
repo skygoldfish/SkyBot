@@ -636,8 +636,6 @@ sp500_text_color = ''
 dow_text_color = ''
 vix_text_color = ''
 
-scroll_move = False
-
 ########################################################################################################################
 
 def sqliteconn():
@@ -3686,7 +3684,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def _calltable_vertical_scroll_position(self, row):
 
         global call_scroll_begin_position, call_scroll_end_position
-        global scroll_move
 
         call_scroll_begin_position = row
 
@@ -3708,21 +3705,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             print('call scroll position -----> from %d to %d' % (call_scroll_begin_position, call_scroll_end_position))
 
-            scroll_move = True
-
-            if refresh_flag:
-                self.AddCode()
-            else:
-                self.call_node_color_clear()
-                self.call_node_color_update()            
-
+            self.call_node_color_clear()
+            self.call_node_color_update()
         return
 
     @pyqtSlot(int)
     def _puttable_vertical_scroll_position(self, row):
 
         global put_scroll_begin_position, put_scroll_end_position
-        global scroll_move
         put_scroll_begin_position = row
 
         if nCount_cm_option_pairs == 0:
@@ -3743,14 +3733,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             print('put scroll position -----> from %d to %d' % (put_scroll_begin_position, put_scroll_end_position))
 
-            scroll_move = True
-
-            if refresh_flag:
-                self.AddCode()
-            else:
-                self.put_node_color_clear()
-                self.put_node_color_update()
-
+            self.put_node_color_clear()
+            self.put_node_color_update()
         return
 
     @pyqtSlot(object)
@@ -6938,7 +6922,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                             dt.minute, dt.second, format(콜_순미결합, ','), format(풋_순미결합, ','))
                     self.textBrowser.append(str)
 
-                    temp = '{0} : {1}'.format(format(콜_순미결합, ','), format(풋_순미결합, ','))
+                    temp = '{0}k:{1}k'.format(format(int(콜_순미결합/1000), ','), format(int(풋_순미결합/1000), ','))
 
                     item = QTableWidgetItem(temp)
                     self.tableWidget_quote.setHorizontalHeaderItem(Quote_column.미결종합.value - 1, item)
@@ -12967,7 +12951,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global START_ON
 
         global kp200_realdata, fut_realdata
-        global scroll_move
 
         current = datetime.datetime.now()
         current_str = current.strftime('%H:%M:%S')
@@ -12978,11 +12961,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             START_ON = True
         else:
-
-            if not scroll_move:
-                self.all_node_set()
-            else:
-                scroll_move = False
+            self.all_node_set()
 
         # 지수선물 마스터조회 API용
         XQ = t8432(parent=self)
