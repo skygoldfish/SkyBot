@@ -169,24 +169,6 @@ opt_x_idx_old = 0
 call_below_atm_count = 0
 put_above_atm_count = 0
 
-call_background_color1 = [0] * nRowCount
-call_foreground_color1 = [1] * nRowCount
-call_background_color2 = [0] * nRowCount
-call_foreground_color2 = [1] * nRowCount
-call_background_color3 = [0] * nRowCount
-call_foreground_color3 = [1] * nRowCount
-call_background_color4 = [0] * nRowCount
-call_foreground_color4 = [1] * nRowCount
-
-put_background_color1 = [0] * nRowCount
-put_foreground_color1 = [1] * nRowCount
-put_background_color2 = [0] * nRowCount
-put_foreground_color2 = [1] * nRowCount
-put_background_color3 = [0] * nRowCount
-put_foreground_color3 = [1] * nRowCount
-put_background_color4 = [0] * nRowCount
-put_foreground_color4 = [1] * nRowCount
-
 every_10sec = [0, 10, 20, 30, 40, 50]
 every_20sec = [0, 20, 40]
 every_30sec = [0, 30]
@@ -198,9 +180,6 @@ every_5min = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
 receive_realdata = False
 
 cm_option_title = ''
-
-toggle_calltable = False
-toggle_puttable = False
 
 FUT_FOREIGNER_거래대금순매수 = 0
 FUT_RETAIL_거래대금순매수 = 0
@@ -255,7 +234,6 @@ PROGRAM_직전대비 = collections.deque([0, 0, 0], 3)
 거래량_직전대비 = collections.deque([0, 0, 0], 3)
 
 actval_increased = False
-nm_actval_increased = False
 
 gmshcode = ''
 
@@ -264,9 +242,6 @@ put_atm_value = 0
 
 kp200_realdata = dict()
 fut_realdata = dict()
-
-nm_opt_realdata = dict()
-nm_opt_ho_realdata = dict()
 
 cm_call_code = []
 cm_put_code = []
@@ -294,20 +269,6 @@ put_quote = pd.Series()
 
 call_che = pd.Series()
 put_che = pd.Series()
-
-nCount_nm_option_pairs = 0
-nm_call_code = []
-nm_put_code = []
-nm_call_actval = []
-nm_put_actval = []
-
-nm_call_code_on = []
-nm_put_code_on = []
-
-nm_call_t8416_count = 0
-nm_put_t8416_count = 0
-df_nm_call = pd.DataFrame()
-df_nm_put = pd.DataFrame()
 
 call_ckbox = []
 put_ckbox = []
@@ -415,9 +376,6 @@ call_scroll_end_position = 0
 put_scroll_begin_position = 0
 put_scroll_end_position = 0
 
-nm_call_scroll_position = 0
-nm_put_scroll_position = 0
-
 x_idx = 0
 
 pre_start = False
@@ -448,13 +406,6 @@ opt_callreal_update_counter = 0
 opt_putreal_update_counter = 0
 opt_call_ho_update_counter = 0
 opt_put_ho_update_counter = 0
-
-call_update = False
-put_update = False
-opt_ho_update = False
-
-call_max_volume_index = 0
-put_max_volume_index = 0
 
 refresh_flag = False
 
@@ -637,9 +588,9 @@ sp500_text_color = ''
 dow_text_color = ''
 vix_text_color = ''
 
-vix_전일종가 = 0
-sp500_전일종가 = 0
-dow_전일종가 = 0  
+vix_전일종가 = 0.0
+sp500_전일종가 = 0.0
+dow_전일종가 = 0.0  
 
 ########################################################################################################################
 
@@ -6055,7 +6006,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     abs(call_atm_value - put_atm_value))
                 self.label_atm.setText(str)
 
-                item_str = '{0:0.2f}% : {1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                item_str = '{0:0.2f}%\n{1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -7314,7 +7265,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         abs(call_atm_value - put_atm_value))
                     self.label_atm.setText(str)
 
-                    item_str = '{0:0.2f}% : {1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                    item_str = '{0:0.2f}%\n{1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -7955,7 +7906,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         abs(call_atm_value - put_atm_value))
                     self.label_atm.setText(str)
 
-                    item_str = '{0:0.2f}% : {1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                    item_str = '{0:0.2f}%\n{1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -9151,9 +9102,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_plotdata_cm_call.iloc[index][opt_x_idx + 1] = float(현재가)
 
                 if float(현재가) < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
-                    item = QTableWidgetItem(현재가 + ' ' + self.상태그림[0])
+                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
                 elif float(현재가) > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
-                    item = QTableWidgetItem(현재가 + ' ' + self.상태그림[1])
+                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
                 else:    
                     item = QTableWidgetItem(현재가)
                 
@@ -10030,9 +9981,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_plotdata_cm_put.iloc[index][opt_x_idx + 1] = float(현재가)
 
                 if float(현재가) < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
-                    item = QTableWidgetItem(현재가 + ' ' + self.상태그림[0])
+                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
                 elif float(현재가) > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
-                    item = QTableWidgetItem(현재가 + ' ' + self.상태그림[1])
+                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
                 else:    
                     item = QTableWidgetItem(현재가)
 
@@ -11019,28 +10970,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if min(temp) > 0:
 
-                    item_str = '{0}:{1}\n↗'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                    item_str = '{0}\n{1}↗'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
 
                 elif max(temp) < 0:
 
-                    item_str = '{0}:{1}\n↘'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                    item_str = '{0}\n{1}↘'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
                 else:
-                    item_str = '{0}:{1}'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                    item_str = '{0}\n{1}'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
 
             elif oi_delta < 0:
 
                 if min(temp) > 0:
 
-                    item_str = '{0}:{1}\n↘'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                    item_str = '{0}\n{1}↘'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
 
                 elif max(temp) < 0:
 
-                    item_str = '{0}:{1}\n↗'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                    item_str = '{0}\n{1}↗'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
                 else:
-                    item_str = '{0}:{1}'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                    item_str = '{0}\n{1}'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
 
             else:
-                item_str = '{0:0.1f}% : {1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                item_str = '{0:0.1f}%\n{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
             if item_str != self.tableWidget_quote.item(0, 13).text():
 
@@ -12007,7 +11958,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if min(temp) > 0:
 
-                        item_str = "{0}({1})\n↗".format(순매수, result['거래대금순매수직전대비'])
+                        item_str = "{0}\n({1})↗".format(순매수, result['거래대금순매수직전대비'])
 
                         if item_str != self.tableWidget_supply.item(0, 0).text():
                             item = QTableWidgetItem(item_str)
@@ -12020,7 +11971,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     elif max(temp) < 0:
 
-                        item_str = "{0}({1})\n↘".format(순매수, result['거래대금순매수직전대비'])
+                        item_str = "{0}\n({1})↘".format(순매수, result['거래대금순매수직전대비'])
 
                         if item_str != self.tableWidget_supply.item(0, 0).text():
                             item = QTableWidgetItem(item_str)
@@ -12033,7 +11984,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     else:
 
-                        item_str = "{0}({1})".format(순매수, result['거래대금순매수직전대비'])
+                        item_str = "{0}\n({1})".format(순매수, result['거래대금순매수직전대비'])
 
                         if item_str != self.tableWidget_supply.item(0, 0).text():
                             item = QTableWidgetItem(item_str)
@@ -12056,14 +12007,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if min(temp) > 0:
 
-                        item_str = "{0}({1})\n↗".format(순매수, result['거래대금순매수직전대비'])
+                        item_str = "{0}\n({1})↗".format(순매수, result['거래대금순매수직전대비'])
 
                     elif max(temp) < 0:
 
-                        item_str = "{0}({1})\n↘".format(순매수, result['거래대금순매수직전대비'])
+                        item_str = "{0}\n({1})↘".format(순매수, result['거래대금순매수직전대비'])
 
                     else:
-                        item_str = "{0}({1})".format(순매수, result['거래대금순매수직전대비'])
+                        item_str = "{0}\n({1})".format(순매수, result['거래대금순매수직전대비'])
 
                     if item_str != self.tableWidget_supply.item(0, 3).text():
                         item = QTableWidgetItem(item_str)
@@ -12092,14 +12043,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if min(temp) > 0:
 
-                        item_str = "{0}({1})\n↗".format(순매수, 기관_거래대금순매수_직전대비)
+                        item_str = "{0}\n({1})↗".format(순매수, 기관_거래대금순매수_직전대비)
 
                     elif max(temp) < 0:
 
-                        item_str = "{0}({1})\n↘".format(순매수, 기관_거래대금순매수_직전대비)
+                        item_str = "{0}\n({1})↘".format(순매수, 기관_거래대금순매수_직전대비)
 
                     else:
-                        item_str = "{0}({1})".format(순매수, 기관_거래대금순매수_직전대비)
+                        item_str = "{0}\n({1})".format(순매수, 기관_거래대금순매수_직전대비)
 
                     if item_str != self.tableWidget_supply.item(0, 4).text():
                         item = QTableWidgetItem(item_str)
@@ -12155,7 +12106,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if min(temp) > 0:
 
-                        item_str = "{0}({1})\n↗".format(순매수, result['거래대금순매수직전대비'])
+                        item_str = "{0}\n({1})↗".format(순매수, result['거래대금순매수직전대비'])
 
                         if item_str != self.tableWidget_supply.item(0, 2).text():
                             item = QTableWidgetItem(item_str)
@@ -12168,7 +12119,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     elif max(temp) < 0:
 
-                        item_str = "{0}({1})\n↘".format(순매수, result['거래대금순매수직전대비'])
+                        item_str = "{0}\n({1})↘".format(순매수, result['거래대금순매수직전대비'])
 
                         if item_str != self.tableWidget_supply.item(0, 2).text():
                             item = QTableWidgetItem(item_str)
@@ -12180,7 +12131,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             pass
 
                     else:
-                        item_str = "{0}({1})".format(순매수, result['거래대금순매수직전대비'])
+                        item_str = "{0}\n({1})".format(순매수, result['거래대금순매수직전대비'])
 
                         if item_str != self.tableWidget_supply.item(0, 2).text():
                             item = QTableWidgetItem(item_str)
@@ -12302,7 +12253,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if min(temp) > 0:
 
-                    item_str = "{0}({1})\n↗".format(순매수, 프로그램_전체순매수금액직전대비)
+                    item_str = "{0}\n({1})↗".format(순매수, 프로그램_전체순매수금액직전대비)
 
                     if item_str != self.tableWidget_supply.item(0, 1).text():
                         item = QTableWidgetItem(item_str)
@@ -12315,7 +12266,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif max(temp) < 0:
 
-                    item_str = "{0}({1})\n↘".format(순매수, 프로그램_전체순매수금액직전대비)
+                    item_str = "{0}\n({1})↘".format(순매수, 프로그램_전체순매수금액직전대비)
 
                     if item_str != self.tableWidget_supply.item(0, 1).text():
                         item = QTableWidgetItem(item_str)
@@ -12327,7 +12278,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         pass
 
                 else:
-                    item_str = "{0}({1})".format(순매수, 프로그램_전체순매수금액직전대비)
+                    item_str = "{0}\n({1})".format(순매수, 프로그램_전체순매수금액직전대비)
 
                     if item_str != self.tableWidget_supply.item(0, 1).text():
                         item = QTableWidgetItem(item_str)
