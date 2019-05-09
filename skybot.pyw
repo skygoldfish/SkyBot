@@ -86,7 +86,7 @@ UI_DIR = "UI\\"
 
 # 만기일 야간옵션은 월물 만 변경할 것
 month_info = ''
-current_month_firstday = '20190412'
+current_month_firstday = '20190510'
 
 today = datetime.date.today()
 today_str = today.strftime('%Y%m%d')
@@ -6948,6 +6948,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.PM.AdviseRealData()
 
                     # t8416 요청
+                    self.t8416_callworker.start()
+                    self.t8416_callworker.daemon = True
+                    '''
+                    # t8416 요청
                     if today_str != current_month_firstday:
                         self.t8416_callworker.start()
                         self.t8416_callworker.daemon = True
@@ -6975,8 +6979,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
+                    '''
                 else:
-
+                    # 야간요청
                     XQ = t2101(parent=self)
                     XQ.Query(종목코드=gmshcode)
 
@@ -6986,6 +6991,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     XQ.Query(종목코드=gmshcode)
 
                     # t8416 요청
+                    self.t8416_callworker.start()
+                    self.t8416_callworker.daemon = True
+                    '''
+                    # t8416 요청
                     if today_str != current_month_firstday:
                         self.t8416_callworker.start()
                         self.t8416_callworker.daemon = True
@@ -6993,6 +7002,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         # EUREX 야간옵션 시세전광판
                         XQ = t2835(parent=self)
                         XQ.Query(월물=month_info)
+                    '''
             else:
                 if not overnight:
 
@@ -8258,20 +8268,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif block['단축코드'][0:3] == '201':
 
-                df_cm_call.loc[cm_call_t8416_count, '기준가'] = round(df['저가'][0], 2)
-                item = QTableWidgetItem("{0:0.2f}".format(df['저가'][0]))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(cm_call_t8416_count, Option_column.기준가.value, item)
+                if today_str != current_month_firstday:
 
-                df_cm_call.loc[cm_call_t8416_count, '월저'] = round(min(df['저가']), 2)
-                item = QTableWidgetItem("{0:0.2f}".format(min(df['저가'])))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(cm_call_t8416_count, Option_column.월저.value, item)
+                    df_cm_call.loc[cm_call_t8416_count, '기준가'] = round(df['저가'][0], 2)
+                    item = QTableWidgetItem("{0:0.2f}".format(df['저가'][0]))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(cm_call_t8416_count, Option_column.기준가.value, item)
 
-                df_cm_call.loc[cm_call_t8416_count, '월고'] = round(max(df['고가']), 2)
-                item = QTableWidgetItem("{0:0.2f}".format(max(df['고가'])))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(cm_call_t8416_count, Option_column.월고.value, item)
+                    df_cm_call.loc[cm_call_t8416_count, '월저'] = round(min(df['저가']), 2)
+                    item = QTableWidgetItem("{0:0.2f}".format(min(df['저가'])))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(cm_call_t8416_count, Option_column.월저.value, item)
+
+                    df_cm_call.loc[cm_call_t8416_count, '월고'] = round(max(df['고가']), 2)
+                    item = QTableWidgetItem("{0:0.2f}".format(max(df['고가'])))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(cm_call_t8416_count, Option_column.월고.value, item)
+                else:
+                    pass
 
                 df_cm_call.loc[cm_call_t8416_count, '전저'] = round(block['전일저가'], 2)
                 item = QTableWidgetItem("{0:0.2f}".format(df_cm_call.iloc[cm_call_t8416_count]['전저']))
@@ -8355,13 +8369,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if cm_call_t8416_count == nCount_cm_option_pairs:
 
-                    cm_call_기준가 = df_cm_call['기준가'].values.tolist()
-                    cm_call_월저 = df_cm_call['월저'].values.tolist()
-                    cm_call_월고 = df_cm_call['월고'].values.tolist()
+                    if today_str != current_month_firstday:
 
-                    cm_call_기준가_node_list = self.make_node_list(cm_call_기준가)
-                    cm_call_월저_node_list = self.make_node_list(cm_call_월저)
-                    cm_call_월고_node_list = self.make_node_list(cm_call_월고)                    
+                        cm_call_기준가 = df_cm_call['기준가'].values.tolist()
+                        cm_call_월저 = df_cm_call['월저'].values.tolist()
+                        cm_call_월고 = df_cm_call['월고'].values.tolist()
+
+                        cm_call_기준가_node_list = self.make_node_list(cm_call_기준가)
+                        cm_call_월저_node_list = self.make_node_list(cm_call_월저)
+                        cm_call_월고_node_list = self.make_node_list(cm_call_월고)  
+                    else:
+                        pass     
 
                     if not overnight:
 
@@ -8397,20 +8415,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif block['단축코드'][0:3] == '301':
 
-                df_cm_put.loc[cm_put_t8416_count, '기준가'] = round(df['저가'][0], 2)
-                item = QTableWidgetItem("{0:0.2f}".format(df['저가'][0]))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(cm_put_t8416_count, Option_column.기준가.value, item)
+                if today_str != current_month_firstday:
 
-                df_cm_put.loc[cm_put_t8416_count, '월저'] = round(min(df['저가']), 2)
-                item = QTableWidgetItem("{0:0.2f}".format(min(df['저가'])))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(cm_put_t8416_count, Option_column.월저.value, item)
+                    df_cm_put.loc[cm_put_t8416_count, '기준가'] = round(df['저가'][0], 2)
+                    item = QTableWidgetItem("{0:0.2f}".format(df['저가'][0]))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(cm_put_t8416_count, Option_column.기준가.value, item)
 
-                df_cm_put.loc[cm_put_t8416_count, '월고'] = round(max(df['고가']), 2)
-                item = QTableWidgetItem("{0:0.2f}".format(max(df['고가'])))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(cm_put_t8416_count, Option_column.월고.value, item)
+                    df_cm_put.loc[cm_put_t8416_count, '월저'] = round(min(df['저가']), 2)
+                    item = QTableWidgetItem("{0:0.2f}".format(min(df['저가'])))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(cm_put_t8416_count, Option_column.월저.value, item)
+
+                    df_cm_put.loc[cm_put_t8416_count, '월고'] = round(max(df['고가']), 2)
+                    item = QTableWidgetItem("{0:0.2f}".format(max(df['고가'])))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(cm_put_t8416_count, Option_column.월고.value, item)
+                else:
+                    pass                
 
                 df_cm_put.loc[cm_put_t8416_count, '전저'] = round(block['전일저가'], 2)
                 item = QTableWidgetItem("{0:0.2f}".format(df_cm_put.iloc[cm_put_t8416_count]['전저']))
@@ -8498,13 +8520,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if cm_put_t8416_count == new_count:
 
-                    cm_put_기준가 = df_cm_put['기준가'].values.tolist()
-                    cm_put_월저 = df_cm_put['월저'].values.tolist()
-                    cm_put_월고 = df_cm_put['월고'].values.tolist()
+                    if today_str != current_month_firstday:
 
-                    cm_put_기준가_node_list = self.make_node_list(cm_put_기준가)
-                    cm_put_월저_node_list = self.make_node_list(cm_put_월저)
-                    cm_put_월고_node_list = self.make_node_list(cm_put_월고)
+                        cm_put_기준가 = df_cm_put['기준가'].values.tolist()
+                        cm_put_월저 = df_cm_put['월저'].values.tolist()
+                        cm_put_월고 = df_cm_put['월고'].values.tolist()
+
+                        cm_put_기준가_node_list = self.make_node_list(cm_put_기준가)
+                        cm_put_월저_node_list = self.make_node_list(cm_put_월저)
+                        cm_put_월고_node_list = self.make_node_list(cm_put_월고)
+                    else:
+                        pass
 
                     if not overnight:
 
