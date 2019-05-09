@@ -86,7 +86,7 @@ UI_DIR = "UI\\"
 
 # 만기일 야간옵션은 월물 만 변경할 것
 month_info = ''
-current_month_firstday = '20190510'
+month_firstday = '20190510'
 
 today = datetime.date.today()
 today_str = today.strftime('%Y%m%d')
@@ -3698,7 +3698,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         try:
 
             XQ = t8415(parent=self)
-            XQ.Query(단축코드=cm_call_code[data], 시작일자=current_month_firstday, 종료일자=today_str)
+            XQ.Query(단축코드=cm_call_code[data], 시작일자=month_firstday, 종료일자=today_str)
 
         except:
             pass
@@ -3708,7 +3708,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         try:
 
             XQ = t8415(parent=self)
-            XQ.Query(단축코드=cm_put_code[data], 시작일자=current_month_firstday, 종료일자=today_str)
+            XQ.Query(단축코드=cm_put_code[data], 시작일자=month_firstday, 종료일자=today_str)
 
         except:
             pass
@@ -3719,7 +3719,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             #print('t8416_call_request', data, cm_call_code[data])
             XQ = t8416(parent=self)
-            XQ.Query(단축코드=cm_call_code[data], 시작일자=current_month_firstday, 종료일자=today_str)
+            XQ.Query(단축코드=cm_call_code[data], 시작일자=month_firstday, 종료일자=today_str)
 
         except:
             pass
@@ -3729,7 +3729,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         try:
 
             XQ = t8416(parent=self)
-            XQ.Query(단축코드=cm_put_code[data], 시작일자=current_month_firstday, 종료일자=today_str)
+            XQ.Query(단축코드=cm_put_code[data], 시작일자=month_firstday, 종료일자=today_str)
 
         except:
             pass
@@ -6952,7 +6952,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.t8416_callworker.daemon = True
                     '''
                     # t8416 요청
-                    if today_str != current_month_firstday:
+                    if today_str != month_firstday:
                         self.t8416_callworker.start()
                         self.t8416_callworker.daemon = True
                     else:
@@ -6995,7 +6995,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.t8416_callworker.daemon = True
                     '''
                     # t8416 요청
-                    if today_str != current_month_firstday:
+                    if today_str != month_firstday:
                         self.t8416_callworker.start()
                         self.t8416_callworker.daemon = True
                     else:
@@ -8268,7 +8268,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif block['단축코드'][0:3] == '201':
 
-                if today_str != current_month_firstday:
+                if today_str != month_firstday:
 
                     df_cm_call.loc[cm_call_t8416_count, '기준가'] = round(df['저가'][0], 2)
                     item = QTableWidgetItem("{0:0.2f}".format(df['저가'][0]))
@@ -8369,7 +8369,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if cm_call_t8416_count == nCount_cm_option_pairs:
 
-                    if today_str != current_month_firstday:
+                    if today_str != month_firstday:
 
                         cm_call_기준가 = df_cm_call['기준가'].values.tolist()
                         cm_call_월저 = df_cm_call['월저'].values.tolist()
@@ -8415,7 +8415,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif block['단축코드'][0:3] == '301':
 
-                if today_str != current_month_firstday:
+                if today_str != month_firstday:
 
                     df_cm_put.loc[cm_put_t8416_count, '기준가'] = round(df['저가'][0], 2)
                     item = QTableWidgetItem("{0:0.2f}".format(df['저가'][0]))
@@ -8505,7 +8505,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
                 else:
-                    pass
+                    passtoday
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Put 행사가 {3}개중 {4}번째 Packet을 수신했습니다.\r'.format(dt.hour, dt.minute, dt.second, 
                     nCount_cm_option_pairs, cm_put_t8416_count + 1)
@@ -8520,7 +8520,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if cm_put_t8416_count == new_count:
 
-                    if today_str != current_month_firstday:
+                    if today_str != month_firstday:
 
                         cm_put_기준가 = df_cm_put['기준가'].values.tolist()
                         cm_put_월저 = df_cm_put['월저'].values.tolist()
