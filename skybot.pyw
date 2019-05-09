@@ -9158,14 +9158,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 저가 갱신
                 if 저가 != self.tableWidget_call.item(index, Option_column.저가.value).text():
 
-                    df_cm_call.loc[index, '저가'] = round(float(저가), 2)
+                    if float(저가) >= price_threshold:
 
-                    cm_call_저가 = df_cm_call['저가'].values.tolist()
-                    cm_call_저가_node_list = self.make_node_list(cm_call_저가)
+                        df_cm_call.loc[index, '저가'] = round(float(저가), 2)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 저가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
-                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 저가)
-                    self.textBrowser.append(str)
+                        cm_call_저가 = df_cm_call['저가'].values.tolist()
+                        cm_call_저가_node_list = self.make_node_list(cm_call_저가)
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 저가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
+                            int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 저가)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
 
                     item = QTableWidgetItem(저가)
                     item.setTextAlignment(Qt.AlignCenter)             
@@ -9180,14 +9184,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 고가 갱신
                 if 고가 != self.tableWidget_call.item(index, Option_column.고가.value).text():
 
-                    df_cm_call.loc[index, '고가'] = round(float(고가), 2)
+                    if float(고가) >= price_threshold:
 
-                    cm_call_고가 = df_cm_call['고가'].values.tolist()
-                    cm_call_고가_node_list = self.make_node_list(cm_call_고가)
+                        df_cm_call.loc[index, '고가'] = round(float(고가), 2)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 고가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
-                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 고가)
-                    self.textBrowser.append(str)
+                        cm_call_고가 = df_cm_call['고가'].values.tolist()
+                        cm_call_고가_node_list = self.make_node_list(cm_call_고가)
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 고가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
+                            int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 고가)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
 
                     item = QTableWidgetItem(고가)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -10037,14 +10045,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 저가 갱신
                 if 저가 != self.tableWidget_put.item(index, Option_column.저가.value).text():
 
-                    df_cm_put.loc[index, '저가'] = round(float(저가), 2)
+                    if float(저가) >= price_threshold:
 
-                    cm_put_저가 = df_cm_put['저가'].values.tolist()
-                    cm_put_저가_node_list = self.make_node_list(cm_put_저가)
+                        df_cm_put.loc[index, '저가'] = round(float(저가), 2)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 저가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
-                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 저가)
-                    self.textBrowser.append(str)
+                        cm_put_저가 = df_cm_put['저가'].values.tolist()
+                        cm_put_저가_node_list = self.make_node_list(cm_put_저가)
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 저가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
+                            int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 저가)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
 
                     item = QTableWidgetItem(저가)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -10059,14 +10071,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 고가 갱신
                 if 고가 != self.tableWidget_put.item(index, Option_column.고가.value).text():
 
-                    df_cm_put.loc[index, '고가'] = round(float(고가), 2)
+                    if float(고가) >= price_threshold:
 
-                    cm_put_고가 = df_cm_put['고가'].values.tolist()
-                    cm_put_고가_node_list = self.make_node_list(cm_put_고가)
+                        df_cm_put.loc[index, '고가'] = round(float(고가), 2)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 고가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
-                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 고가)
-                    self.textBrowser.append(str)
+                        cm_put_고가 = df_cm_put['고가'].values.tolist()
+                        cm_put_고가_node_list = self.make_node_list(cm_put_고가)
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 고가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
+                            int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 고가)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
 
                     item = QTableWidgetItem(고가)
                     item.setTextAlignment(Qt.AlignCenter)
