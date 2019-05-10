@@ -99,7 +99,7 @@ start_hour = 9
 start_time_str = ''
 end_time_str = ''
 
-체결시간 = '000000'
+OVC_체결시간 = '000000'
 호가시간 = '000000'
 
 ovc_on = False
@@ -3881,7 +3881,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             # 시스템시간을 서버시간에 맞춘다.
             if ovc_on:                 
-                str = '{0:02d}:{1:02d}:{2:02d}'.format(int(체결시간[0:2]), int(체결시간[2:4]), int(체결시간[4:6]))
+                str = '{0:02d}:{1:02d}:{2:02d}'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                 self.label_msg.setText(str) 
             else:
                 if not receive_realdata:
@@ -11113,7 +11113,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global market_service
 
             global yoc_stop
-            global 호가시간
+            global OVC_체결시간, 호가시간, ovc_on
 
             start_time = timeit.default_timer()
 
@@ -12740,14 +12740,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             elif szTrCode == 'OVC':
 
-                global ovc_on, 체결시간
-
                 if not ovc_on:
                     ovc_on = True
                 else:
                     pass
 
-                체결시간 = result['체결시간_한국']
+                OVC_체결시간 = result['체결시간_한국']
 
                 if result['종목코드'] == VIX:
 
