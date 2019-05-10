@@ -96,6 +96,8 @@ yesterday = today - datetime.timedelta(1)
 yesterday_str = yesterday.strftime('%Y%m%d')
 
 start_hour = 9
+start_time_str = ''
+end_time_str = ''
 
 체결시간 = '000000'
 호가시간 = '000000'
@@ -3696,7 +3698,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     @pyqtSlot(object)
     def t8415_call_request(self, data):
         try:
-
             XQ = t8415(parent=self)
             XQ.Query(단축코드=cm_call_code[data], 시작일자=month_firstday, 종료일자=today_str)
 
@@ -3706,7 +3707,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     @pyqtSlot(object)
     def t8415_put_request(self, data):
         try:
-
             XQ = t8415(parent=self)
             XQ.Query(단축코드=cm_put_code[data], 시작일자=month_firstday, 종료일자=today_str)
 
@@ -3716,10 +3716,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     @pyqtSlot(object)
     def t8416_call_request(self, data):
         try:
-
-            #print('t8416_call_request', data, cm_call_code[data])
             XQ = t8416(parent=self)
-            XQ.Query(단축코드=cm_call_code[data], 시작일자=month_firstday, 종료일자=today_str)
+
+            if today_str == month_firstday:
+                XQ.Query(단축코드=cm_call_code[data], 시작일자=yesterday_str, 종료일자=today_str)
+            else:
+                XQ.Query(단축코드=cm_call_code[data], 시작일자=month_firstday, 종료일자=today_str)
 
         except:
             pass
@@ -3727,9 +3729,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     @pyqtSlot(object)
     def t8416_put_request(self, data):
         try:
-
             XQ = t8416(parent=self)
-            XQ.Query(단축코드=cm_put_code[data], 시작일자=month_firstday, 종료일자=today_str)
+
+            if today_str == month_firstday:
+                XQ.Query(단축코드=cm_put_code[data], 시작일자=yesterday_str, 종료일자=today_str)
+            else:
+                XQ.Query(단축코드=cm_put_code[data], 시작일자=month_firstday, 종료일자=today_str)
 
         except:
             pass
@@ -5978,6 +5983,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global 콜시가리스트, 콜저가리스트, 콜고가리스트, 풋시가리스트, 풋저가리스트, 풋고가리스트
 
         global df_plotdata_cm_two_sum, df_plotdata_cm_two_cha
+        global start_hour, start_time_str, end_time_str
 
         dt = datetime.datetime.now()
 
@@ -8301,6 +8307,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem("{0:0.2f}".format(df_cm_call.iloc[cm_call_t8416_count]['종가']))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setItem(cm_call_t8416_count, Option_column.종가.value, item)
+
+                if start_time_str == '':
+                
+                    start_time_str = block['장시작시간']
+                    end_time_str = block['장종료시간']
+
+                    start_hour = int(start_time_str[0:2])
+                    print('장시작시간 : ', start_hour)
+                else:
+                    pass
 
                 if not pre_start:
 
