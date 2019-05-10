@@ -2111,7 +2111,6 @@ class t8415_Call_Worker(QThread):
         while True:
 
             data = cm_call_t8415_count
-            #print('t8416 call', data)
 
             self.finished.emit(data)
             self.msleep(1100)
@@ -2126,7 +2125,6 @@ class t8415_Put_Worker(QThread):
         while True:
 
             data = cm_put_t8415_count
-            #print('t8416 put', data)
 
             self.finished.emit(data)
             self.msleep(1100)
@@ -2141,7 +2139,6 @@ class t8416_Call_Worker(QThread):
         while True:
 
             data = cm_call_t8416_count
-            #print('t8416 call', data)
 
             self.finished.emit(data)
             self.msleep(1100)
@@ -2156,7 +2153,6 @@ class t8416_Put_Worker(QThread):
         while True:
 
             data = cm_put_t8416_count
-            #print('t8416 put', data)
 
             self.finished.emit(data)
             self.msleep(1100)
