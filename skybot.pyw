@@ -8494,7 +8494,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
                 else:
-                    passtoday
+                    pass
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Put 행사가 {3}개중 {4}번째 Packet을 수신했습니다.\r'.format(dt.hour, dt.minute, dt.second, 
                     nCount_cm_option_pairs, cm_put_t8416_count + 1)
