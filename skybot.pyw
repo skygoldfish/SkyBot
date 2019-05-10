@@ -8308,15 +8308,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setItem(cm_call_t8416_count, Option_column.종가.value, item)
 
-                if start_time_str == '':
-                
-                    start_time_str = block['장시작시간']
-                    end_time_str = block['장종료시간']
+                if not overnight:
 
-                    start_hour = int(start_time_str[0:2])
-                    print('장시작시간 : ', start_hour)
+                    if start_time_str == '':
+                
+                        start_time_str = block['장시작시간']
+                        end_time_str = block['장종료시간']
+
+                        start_hour = int(start_time_str[0:2])
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 장시작시간 {3}시를 갱신했습니다.\r'.format(dt.hour, dt.minute, dt.second, start_hour)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
                 else:
-                    pass
+                    pass                
 
                 if not pre_start:
 
