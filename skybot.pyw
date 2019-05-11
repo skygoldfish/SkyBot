@@ -7134,56 +7134,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.BM.AdviseRealData(KOSPI)
 
                     # 프로그램 매매현황 요청
-                    self.PM.AdviseRealData()
-
-                    # t8416 요청
-                    self.t8416_callworker.start()
-                    self.t8416_callworker.daemon = True                    
-                    
-                    '''
-                    # t8416 요청
-                    if today_str != month_firstday:
-                        self.t8416_callworker.start()
-                        self.t8416_callworker.daemon = True
-                    else:
-                        call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
-                        self.tableWidget_call.scrollToItem(call_positionCell)
-
-                        put_positionCell = self.tableWidget_put.item(atm_index + 3, 1)
-                        self.tableWidget_put.scrollToItem(put_positionCell)
-
-                        self.call_open_check()
-                        self.call_db_check()
-
-                        self.put_open_check()
-                        self.put_db_check()
-
-                        self.call_node_color_clear()
-                        self.put_node_color_clear()
-
-                        self.call_node_color_update()
-                        self.put_node_color_update()
-
-                        self.update_worker.start()
-                        self.update_worker.daemon = True
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
-                    '''
+                    self.PM.AdviseRealData()                    
                 else:
                     pass
-
-                    # 야간요청                    
-                    '''
-                    # t8416 요청
-                    if today_str != month_firstday:
-                        self.t8416_callworker.start()
-                        self.t8416_callworker.daemon = True
-                    else:
-                        # EUREX 야간옵션 시세전광판
-                        XQ = t2835(parent=self)
-                        XQ.Query(월물=month_info)
-                    '''
+                    # 야간요청 
 
                 # t8416 요청
                 self.t8416_callworker.start()
