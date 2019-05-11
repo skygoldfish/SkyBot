@@ -237,7 +237,9 @@ PROGRAM_직전대비 = collections.deque([0, 0, 0], 3)
 
 actval_increased = False
 
+fut_code = ''
 gmshcode = ''
+cmshcode = ''
 
 call_atm_value = 0
 put_atm_value = 0
@@ -2183,12 +2185,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setupUi(self)
 
-        global cm_option_title, month_info
+        global cm_option_title, month_info, fut_code
 
         with open('month_info.txt', mode='r') as monthfile:
             month_info = monthfile.readline().strip()
+            cm_fut_info = monthfile.readline().strip()
 
-        month = int(month_info[4:6])
+        month = int(month_info[4:6])        
+
+        if cm_fut_info != '':
+            fut_code = cm_fut_info            
+            print('cm_fut_info', fut_code)
+        else:
+            print('cm_fut_info is None...')
 
         if os.path.exists('SkyBot.exe'):
 
@@ -5930,7 +5939,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def OnReceiveData(self, szTrCode, result):
 
-        global gmshcode
+        global fut_code, gmshcode, cmshcode
         global cm_call_code, cm_put_code
         global cm_call_actval, cm_put_actval
         global df_plotdata_fut
@@ -6878,14 +6887,30 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.OVC.AdviseRealData(종목코드=DOW)
 
                 XQ = t2101(parent=self)
-                XQ.Query(종목코드=gmshcode)
-                print('t2101 요청')
+                XQ.Query(종목코드=fut_code)
+
+                if fut_code == gmshcode:
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 근뭘 주간선물({3})을 요청했습니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
+                elif fut_code == cmshcode:
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 차뭘 주간선물({3})을 요청했습니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
+                else:
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
+
+                self.textBrowser.append(str)
 
                 time.sleep(0.1)
 
                 XQ = t2801(parent=self)
-                XQ.Query(종목코드=gmshcode)
-                print('t2801 요청')
+                XQ.Query(종목코드=fut_code)
+
+                if fut_code == gmshcode:
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 근뭘 야간선물({3})을 요청했습니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
+                elif fut_code == cmshcode:
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 차뭘 야간선물({3})을 요청했습니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
+                else:
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
+
+                self.textBrowser.append(str)
 
                 if not overnight:                    
 
@@ -6898,7 +6923,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         # 지수선물예상체결 요청
                         self.YFC = YFC(parent=self)
-                        self.YFC.AdviseRealData(gmshcode)
+                        self.YFC.AdviseRealData(fut_code)
 
                         # KOSPI예상체결 요청
                         #self.YS3 = YS3(parent=self)
@@ -6933,8 +6958,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.fut_real = FC0(parent=self)
                     self.fut_ho = FH0(parent=self)
 
-                    self.fut_real.AdviseRealData(gmshcode)
-                    self.fut_ho.AdviseRealData(gmshcode)
+                    self.fut_real.AdviseRealData(fut_code)
+                    self.fut_ho.AdviseRealData(fut_code)
 
                     # KOSPI/KOSPI200/KOSDAQ 지수요청
                     self.IJ.AdviseRealData(KOSPI)
@@ -7214,26 +7239,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.put_node_color_update()
                     
                     XQ = t2101(parent=self)
-                    XQ.Query(종목코드=gmshcode)
+                    XQ.Query(종목코드=fut_code)
                     print('t2101 요청')
 
                     time.sleep(0.1)
 
                     XQ = t2801(parent=self)
-                    XQ.Query(종목코드=gmshcode)
+                    XQ.Query(종목코드=fut_code)
                     print('t2801 요청')
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
                 else:
                     XQ = t2101(parent=self)
-                    XQ.Query(종목코드=gmshcode)
+                    XQ.Query(종목코드=fut_code)
                     print('t2101 요청')
 
                     time.sleep(0.1)
 
                     XQ = t2801(parent=self)
-                    XQ.Query(종목코드=gmshcode)
+                    XQ.Query(종목코드=fut_code)
                     print('t2801 요청')
 
                     # EUREX 야간옵션 시세전광판
@@ -8143,8 +8168,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.fut_real = NC0(parent=self)
                 self.fut_ho = NH0(parent=self)
 
-                self.fut_real.AdviseRealData(gmshcode)
-                self.fut_ho.AdviseRealData(gmshcode)
+                self.fut_real.AdviseRealData(fut_code)
+                self.fut_ho.AdviseRealData(fut_code)
 
                 # 업종별 투자자별 매매현황 요청
                 self.BM.AdviseRealData(CME)
@@ -8654,9 +8679,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             차월물선물코드 = df.iloc[1]['단축코드']
 
             gmshcode = 근월물선물코드
+            cmshcode = 차월물선물코드
 
-            print('근월물선물코드', 근월물선물코드)
-            print('차월물선물코드', 차월물선물코드)
+            if fut_code == '':
+                fut_code = gmshcode
+                print('근월물선물코드', fut_code)
+            else:
+                fut_code = cmshcode
+                print('차월물선물코드', fut_code)
 
             fut_realdata['전저'] = df.iloc[0]['전일저가']
             item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일저가']))
