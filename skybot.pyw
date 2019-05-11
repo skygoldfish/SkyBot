@@ -5965,11 +5965,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if atm_str in cm_call_actval:
 
                 atm_index = cm_call_actval.index(atm_str)
+                atm_index_old = atm_index
+
                 self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
                 self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
                 self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
                 self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
 
+                if not overnight:
+                            
+                    self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                    self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                    self.tableWidget_call.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+
+                    self.tableWidget_put.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                    self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                    self.tableWidget_put.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+
+                    selected_call = [atm_index - 1, atm_index, atm_index + 1]
+                    selected_put = [atm_index - 1, atm_index, atm_index + 1]
+                else:
+                    pass
+                
                 call_atm_value = df_cm_call.iloc[atm_index]['현재가']
                 put_atm_value = df_cm_put.iloc[atm_index]['현재가']
 
@@ -6389,23 +6406,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.OID.value, item)
 
-                    if df['ATM구분'][i] == '1':
-
-                        atm_index = i
-                        atm_index_old = i
-
-                        if not overnight:
-                            
-                            self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                            self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                            self.tableWidget_call.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-
-                            selected_call = [atm_index - 1, atm_index, atm_index + 1]
-                        else:
-                            pass
-                    else:
-                        pass
-
                     단축코드 = 0
                     체결시간 = 0
                     기준가 = 0.0
@@ -6665,24 +6665,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.OID.value, item)
 
-                    if df1['ATM구분'][i] == '1':
-
-                        # atm_str = 행사가
-                        atm_index = i
-                        atm_index_old = i
-
-                        if not overnight:
-                            
-                            self.tableWidget_put.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                            self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                            self.tableWidget_put.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-
-                            selected_put = [atm_index - 1, atm_index, atm_index + 1]
-                        else:
-                            pass
-                    else:
-                        pass
-
                     단축코드 = 0
                     체결시간 = 0
                     기준가 = 0.0
@@ -6922,7 +6904,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # t8416 요청
                     self.t8416_callworker.start()
-                    self.t8416_callworker.daemon = True
+                    self.t8416_callworker.daemon = True                    
+                    
                     '''
                     # t8416 요청
                     if today_str != month_firstday:
@@ -8390,7 +8373,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.tableWidget_call.resizeColumnsToContents()
 
-                        call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
+                        call_positionCell = self.tableWidget_call.item(atm_index + 4, 1)
                         self.tableWidget_call.scrollToItem(call_positionCell)
 
                         time.sleep(1.1)
@@ -8543,7 +8526,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     self.tableWidget_put.resizeColumnsToContents()
 
-                    put_positionCell = self.tableWidget_put.item(atm_index + 3, 1)
+                    put_positionCell = self.tableWidget_put.item(atm_index + 4, 1)
                     self.tableWidget_put.scrollToItem(put_positionCell)
 
                     if self.t8416_putworker.isRunning():
