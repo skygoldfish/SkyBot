@@ -12806,7 +12806,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if result['체결가격'] != vix_price:
 
-                        df_plotdata_vix.iloc[0][ovc_x_idx + 1] = result['체결가격']
+                        if ovc_x_idx >= 1:
+                            df_plotdata_vix.iloc[0][ovc_x_idx + 1] = result['체결가격']
+                        else:
+                            pass
 
                         if result['체결가격'] > vix_price:
 
@@ -12884,7 +12887,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if result['체결가격'] != sp500_price:
 
-                        df_plotdata_sp500.iloc[0][ovc_x_idx + 1] = result['체결가격']
+                        if ovc_x_idx >= 1:
+                            df_plotdata_sp500.iloc[0][ovc_x_idx + 1] = result['체결가격']
+                        else:
+                            pass
                         
                         if result['체결가격'] > sp500_price:
 
@@ -12974,7 +12980,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if result['체결가격'] != dow_price:
 
-                        df_plotdata_dow.iloc[0][ovc_x_idx + 1] = result['체결가격']
+                        if ovc_x_idx >= 1:
+                            df_plotdata_dow.iloc[0][ovc_x_idx + 1] = result['체결가격']
+                        else:
+                            pass
 
                         if result['체결가격'] > dow_price:
 
