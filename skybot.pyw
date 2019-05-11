@@ -8094,56 +8094,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 print('t2835 call', df_cm_call)
                 print('\r')
                 print('t2835 put', df_cm_put)
+                
+                call_atm_value = df_cm_call.iloc[atm_index]['현재가']
+                put_atm_value = df_cm_put.iloc[atm_index]['현재가']
 
-                atm_str = self.find_ATM(fut_realdata['KP200'])
-
-                if atm_str in cm_call_actval:
-
-                    atm_index = cm_call_actval.index(atm_str)
-
-                    self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
-                    self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-
-                    call_atm_value = df_cm_call.iloc[atm_index]['현재가']
-                    put_atm_value = df_cm_put.iloc[atm_index]['현재가']
-
-                    str = '{0:0.2f}/{1:0.2f}:{2:0.2f}'.format(
-                        fut_realdata['현재가'] - fut_realdata['KP200'],
-                        call_atm_value + put_atm_value,
-                        abs(call_atm_value - put_atm_value))
-                    self.label_atm.setText(str)
-
-                    item_str = '{0:0.2f}%\n{1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
-
-                    item = QTableWidgetItem(item_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_quote.setItem(0, 13, item)
-
-                    self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                    self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                    self.tableWidget_call.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-
-                    selected_call = [atm_index - 1, atm_index, atm_index + 1]
-
-                    call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
-                    self.tableWidget_call.scrollToItem(call_positionCell)
-
-                    self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
-                    self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-
-                    self.tableWidget_put.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                    self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                    self.tableWidget_put.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-
-                    selected_put = [atm_index - 1, atm_index, atm_index + 1]
-
-                    put_positionCell = self.tableWidget_put.item(atm_index + 3, 1)
-                    self.tableWidget_put.scrollToItem(put_positionCell)
-                else:
-                    print("atm_str이 리스트에 없습니다.", atm_str)
-
-                #self.tableWidget_call.resizeColumnsToContents()
-                #self.tableWidget_put.resizeColumnsToContents()
+                str = '{0:0.2f}/{1:0.2f}:{2:0.2f}'.format(
+                    fut_realdata['현재가'] - fut_realdata['KP200'],
+                    call_atm_value + put_atm_value,
+                    abs(call_atm_value - put_atm_value))
+                self.label_atm.setText(str)             
 
                 cm_call_전저 = df_cm_call['전저'].values.tolist()
                 cm_call_전저_node_list = self.make_node_list(cm_call_전저)
@@ -8186,6 +8145,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 cm_put_고가 = df_cm_put['고가'].values.tolist()
                 cm_put_고가_node_list = self.make_node_list(cm_put_고가)
+
+                self.call_open_check()
+                self.call_db_check()
+
+                self.put_open_check()
+                self.put_db_check()
+
             else:
                 for i in range(nCount_cm_option_pairs):
 
@@ -8321,6 +8287,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 self.call_node_color_update()
                 self.put_node_color_update()
+
                 '''
                 call_volume_total = df_cm_call['수정거래량'].sum()
                 put_volume_total = df_cm_put['수정거래량'].sum()
@@ -10027,7 +9994,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if index != atm_index:
                     self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
                 else:
-                    pass
+                    self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
 
                 if df_cm_call.iloc[index]['종가'] > 0:
 
@@ -10916,7 +10883,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if index != atm_index:
                     self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
                 else:
-                    pass
+                    self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
 
                 if df_cm_put.iloc[index]['종가'] > 0:
 
