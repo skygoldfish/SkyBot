@@ -7616,6 +7616,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem('대비\n(%)')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
 
+                item = QTableWidgetItem('∑OI')
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
+
                 item = QTableWidgetItem('행사가')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.행사가.value, item)
 
@@ -7628,17 +7631,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem('대비\n(%)')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
 
+                item = QTableWidgetItem('∑OI')
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
+
                 for i in range(nCount_cm_option_pairs):
 
                     # 수정거래량 초기화
                     df_cm_call.loc[i, '수정거래량'] = 0
-                    df_cm_put.loc[i, '수정거래량'] = 0
-
                     df_cm_call.loc[i, '시가갭'] = 0
-                    df_cm_put.loc[i, '시가갭'] = 0
-
                     df_cm_call.loc[i, '대비'] = 0
-                    df_cm_put.loc[i, '대비'] = 0
 
                     # Call 처리
                     self.tableWidget_call.item(i, Option_column.행사가.value).setBackground(QBrush(기본바탕색))
@@ -7822,17 +7823,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     df_cm_call.loc[i, '수정거래량'] = 수정거래량
 
-                    # t2835에 미결항목이 없음
+                    # t2835에 미결항목이 없음                    
+                    df_cm_call.loc[i, '순미결'] = 0
                     df_cm_call.loc[i, '수정미결'] = 0
+                    df_cm_call.loc[i, '수정미결증감'] = 0
 
                     temp = format(수정거래량, ',')
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.VP.value, item)
-
-                    df_cm_call.loc[i, '수정미결증감'] = 0
+                    
                     temp = format(0, ',')
+
+                    item = QTableWidgetItem(temp)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(i, Option_column.OI.value, item)
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -7842,6 +7848,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_plotdata_cm_call_volume.iloc[0][1] = 0
 
                     # Put 처리
+                    df_cm_put.loc[i, '수정거래량'] = 0
+                    df_cm_put.loc[i, '시가갭'] = 0
+                    df_cm_put.loc[i, '대비'] = 0
+
                     self.tableWidget_put.item(i, Option_column.행사가.value).setBackground(QBrush(기본바탕색))
 
                     item = QTableWidgetItem(oloh_str)
@@ -8023,7 +8033,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_cm_put.loc[i, '수정거래량'] = 수정거래량
 
                     # t2835에 미결항목이 없음
+                    df_cm_put.loc[i, '순미결'] = 0
                     df_cm_put.loc[i, '수정미결'] = 0
+                    df_cm_put.loc[i, '수정미결증감'] = 0
 
                     temp = format(수정거래량, ',')
 
@@ -8031,8 +8043,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.VP.value, item)
 
-                    df_cm_put.loc[i, '수정미결증감'] = 0
                     temp = format(0, ',')
+
+                    item = QTableWidgetItem(temp)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(i, Option_column.OI.value, item)
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
