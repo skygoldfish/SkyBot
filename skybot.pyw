@@ -3600,7 +3600,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if atm_str != '':
 
                 if row < atm_index:
-                    call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
+                    call_positionCell = self.tableWidget_call.item(atm_index + 4, 1)
                 else:
                     call_positionCell = self.tableWidget_call.item(atm_index - 4, 1)
 
@@ -3627,7 +3627,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if atm_str != '':
 
                 if row < atm_index:
-                    put_positionCell = self.tableWidget_put.item(atm_index + 3, 1)
+                    put_positionCell = self.tableWidget_put.item(atm_index + 4, 1)
                 else:
                     put_positionCell = self.tableWidget_put.item(atm_index - 4, 1)
 
@@ -7616,6 +7616,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem('대비\n(%)')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
 
+                item = QTableWidgetItem('∑PVP')
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.VP.value, item)
+
                 item = QTableWidgetItem('∑OI')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
 
@@ -7630,6 +7633,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 item = QTableWidgetItem('대비\n(%)')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
+
+                item = QTableWidgetItem('∑PVP')
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.VP.value, item)
 
                 item = QTableWidgetItem('∑OI')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
