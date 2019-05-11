@@ -2348,7 +2348,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         #self.상태그림 = ['▼', '▬', '▲']
         self.상태그림 = ['▼', '▲']
         self.상태문자 = ['매도', '대기', '매수']
-        self.특수문자 = ['☆', '★', '※', '○', '●', '◎', '√', '↗', '↘', '↑', '↓', '↕', '♣', '♠', '♥', '◆', 'Δ', '【', '】']
+        self.특수문자 = ['☆', '★', '※', '○', '●', '◎', '√', '↗', '↘', '↑', '↓', '↕', '♣', '♠', '♥', '◆', 'Δ', '【', '】', '🕘']
 
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
@@ -2571,7 +2571,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.label_3rd_co.setText("VIX: 가격 (전일대비, 등락율)")
         self.label_3rd_co.setStyleSheet('background-color: yellow ; color: black')
 
-        self.label_msg.setText("★ 시계 ★")
+        self.label_msg.setText("★ 🕘 ★")
         self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
 
         self.label_atm.setText("[Basis] [양합/양차]")
@@ -4355,40 +4355,60 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def label_clear(self):
 
-        if kospi_text_color == 'red':
-            self.label_kospi.setStyleSheet('background-color: yellow; color: red')
-        elif kospi_text_color == 'blue':
-            self.label_kospi.setStyleSheet('background-color: yellow; color: blue')
-        else:
-            self.label_kospi.setStyleSheet('background-color: yellow; color: black')
+        if kospi_text_color != '':
 
-        if kosdaq_text_color == 'red':
-            self.label_kosdaq.setStyleSheet('background-color: yellow; color: red')
-        elif kosdaq_text_color == 'blue':
-            self.label_kosdaq.setStyleSheet('background-color: yellow; color: blue')
+            if kospi_text_color == 'red':
+                self.label_kospi.setStyleSheet('background-color: yellow; color: red')
+            elif kospi_text_color == 'blue':
+                self.label_kospi.setStyleSheet('background-color: yellow; color: blue')
+            else:
+                self.label_kospi.setStyleSheet('background-color: yellow; color: black')
         else:
-            self.label_kosdaq.setStyleSheet('background-color: yellow; color: black')
+            pass        
 
-        if sp500_text_color == 'red':
-            self.label_1st_co.setStyleSheet('background-color: yellow; color: red')
-        elif sp500_text_color == 'blue':
-            self.label_1st_co.setStyleSheet('background-color: yellow; color: blue')
-        else:
-            self.label_1st_co.setStyleSheet('background-color: yellow; color: black')
+        if kosdaq_text_color != '':
 
-        if dow_text_color == 'red':
-            self.label_2nd_co.setStyleSheet('background-color: yellow; color: red')
-        elif dow_text_color == 'blue':
-            self.label_2nd_co.setStyleSheet('background-color: yellow; color: blue')
+            if kosdaq_text_color == 'red':
+                self.label_kosdaq.setStyleSheet('background-color: yellow; color: red')
+            elif kosdaq_text_color == 'blue':
+                self.label_kosdaq.setStyleSheet('background-color: yellow; color: blue')
+            else:
+                self.label_kosdaq.setStyleSheet('background-color: yellow; color: black')
         else:
-            self.label_2nd_co.setStyleSheet('background-color: yellow; color: black')
+            pass        
 
-        if vix_text_color == 'red':
-            self.label_3rd_co.setStyleSheet('background-color: yellow; color: red')
-        elif vix_text_color == 'blue':
-            self.label_3rd_co.setStyleSheet('background-color: yellow; color: blue')
+        if sp500_text_color != '':
+
+            if sp500_text_color == 'red':
+                self.label_1st_co.setStyleSheet('background-color: yellow; color: red')
+            elif sp500_text_color == 'blue':
+                self.label_1st_co.setStyleSheet('background-color: yellow; color: blue')
+            else:
+                self.label_1st_co.setStyleSheet('background-color: yellow; color: black')
         else:
-            self.label_3rd_co.setStyleSheet('background-color: yellow; color: black')
+            pass        
+
+        if dow_text_color != '':
+
+            if dow_text_color == 'red':
+                self.label_2nd_co.setStyleSheet('background-color: yellow; color: red')
+            elif dow_text_color == 'blue':
+                self.label_2nd_co.setStyleSheet('background-color: yellow; color: blue')
+            else:
+                self.label_2nd_co.setStyleSheet('background-color: yellow; color: black')
+        else:
+            pass        
+
+        if vix_text_color != '':
+
+            if vix_text_color == 'red':
+                self.label_3rd_co.setStyleSheet('background-color: yellow; color: red')
+            elif vix_text_color == 'blue':
+                self.label_3rd_co.setStyleSheet('background-color: yellow; color: blue')
+            else:
+                self.label_3rd_co.setStyleSheet('background-color: yellow; color: black')
+        else:
+            pass        
 
         return
 
@@ -6364,12 +6384,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         전저 = 0.0
                         전고 = 0.0
 
+                        '''
                         if 시가 > 0 and round(저가, 2) < round(고가, 2):
                             self.tableWidget_call.item(i, Option_column.행사가.value).setBackground(QBrush(라임))
                             self.tableWidget_call.item(i, Option_column.행사가.value).setForeground(QBrush(검정색))
                             pass
                         else:
                             pass
+                        '''
 
                     if df['현재가'][i] <= 시가갭:
 
@@ -6619,16 +6641,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         전저 = 0.0
                         전고 = 0.0
 
-                    if not overnight:
-
+                        '''
                         if 시가 > 0 and round(저가, 2) < round(고가, 2):
                             self.tableWidget_put.item(i, Option_column.행사가.value).setBackground(QBrush(라임))
                             self.tableWidget_put.item(i, Option_column.행사가.value).setForeground(QBrush(검정색))
                             pass
                         else:
                             pass
-                    else:
-                        pass
+                        '''
 
                     if df1['현재가'][i] <= 시가갭:
 
@@ -6826,17 +6846,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.OVC = OVC(parent=self)
                 self.OVC.AdviseRealData(종목코드=DOW)
 
-                if not overnight:
+                XQ = t2101(parent=self)
+                XQ.Query(종목코드=gmshcode)
+                print('t2101 요청')
 
-                    XQ = t2101(parent=self)
-                    XQ.Query(종목코드=gmshcode)
-                    print('t2101 요청')
+                time.sleep(0.1)
 
-                    time.sleep(0.1)
+                XQ = t2801(parent=self)
+                XQ.Query(종목코드=gmshcode)
+                print('t2801 요청')
 
-                    XQ = t2801(parent=self)
-                    XQ.Query(종목코드=gmshcode)
-                    print('t2801 요청')
+                if not overnight:                    
 
                     if pre_start:
 
@@ -6937,18 +6957,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.textBrowser.append(str)
                     '''
                 else:
-                    # 야간요청
-                    XQ = t2101(parent=self)
-                    XQ.Query(종목코드=gmshcode)
+                    pass
 
-                    time.sleep(0.1)
-
-                    XQ = t2801(parent=self)
-                    XQ.Query(종목코드=gmshcode)
-
-                    # t8416 요청
-                    self.t8416_callworker.start()
-                    self.t8416_callworker.daemon = True
+                    # 야간요청                    
                     '''
                     # t8416 요청
                     if today_str != month_firstday:
@@ -6959,6 +6970,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         XQ = t2835(parent=self)
                         XQ.Query(월물=month_info)
                     '''
+
+                # t8416 요청
+                self.t8416_callworker.start()
+                self.t8416_callworker.daemon = True
+
             else:
                 if not overnight:
 
@@ -7165,7 +7181,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     self.call_node_color_update()
                     self.put_node_color_update()
-
+                    
                     XQ = t2101(parent=self)
                     XQ.Query(종목코드=gmshcode)
                     print('t2101 요청')
@@ -8067,7 +8083,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 cm_put_저가_node_list = self.make_node_list(cm_put_저가)
 
                 cm_put_고가 = df_cm_put['고가'].values.tolist()
-                cm_put_고가_node_list = self.make_node_list(cm_put_고가)
+                cm_put_고가_node_list = self.make_node_list(cm_put_고가)                
                 
                 self.call_open_check()
                 self.call_db_check()
@@ -8567,7 +8583,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] 수정거래량을 초기화합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
-                        else:
+                        else:                            
                             self.call_open_check()
                             self.call_db_check()
 
@@ -8578,7 +8594,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             self.put_node_color_clear()
 
                             self.call_node_color_update()
-                            self.put_node_color_update()
+                            self.put_node_color_update()                            
 
                         if not refresh_flag:
 
@@ -12740,7 +12756,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             if result['전일대비기호'] == '5':
 
-                                vix_전일종가 = result['체결가격'] + result['전일대비']
+                                if vix_전일종가 == 0.0:
+                                    vix_전일종가 = result['체결가격'] + result['전일대비']
+                                else:
+                                    pass
 
                                 jisu_str = "VIX: {0:.2f} ▲ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
                                 self.label_3rd_co.setText(jisu_str)
@@ -12749,7 +12768,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             elif result['전일대비기호'] == '2':
 
-                                vix_전일종가 = result['체결가격'] - result['전일대비']
+                                if vix_전일종가 == 0.0:
+                                    vix_전일종가 = result['체결가격'] - result['전일대비']
+                                else:
+                                    pass
 
                                 jisu_str = "VIX: {0:.2f} ▲ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
                                 self.label_3rd_co.setText(jisu_str)
@@ -12762,7 +12784,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             if result['전일대비기호'] == '5':
 
-                                vix_전일종가 = result['체결가격'] + result['전일대비']
+                                if vix_전일종가 == 0.0:
+                                    vix_전일종가 = result['체결가격'] + result['전일대비']
+                                else:
+                                    pass
 
                                 jisu_str = "VIX: {0:.2f} ▼ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
                                 self.label_3rd_co.setText(jisu_str)
@@ -12771,7 +12796,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             elif result['전일대비기호'] == '2':
 
-                                vix_전일종가 = result['체결가격'] - result['전일대비']
+                                if vix_전일종가 == 0.0:
+                                    vix_전일종가 = result['체결가격'] - result['전일대비']
+                                else:
+                                    pass
 
                                 jisu_str = "VIX: {0:.2f} ▼ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
                                 self.label_3rd_co.setText(jisu_str)
@@ -12798,7 +12826,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             
                             if result['전일대비기호'] == '5':
 
-                                sp500_전일종가 = result['체결가격'] + result['전일대비']
+                                if sp500_전일종가 == 0.0:
+                                    sp500_전일종가 = result['체결가격'] + result['전일대비']
+                                else:
+                                    pass
 
                                 전일대비 = locale.format('%.2f', -result['전일대비'], 1)
 
@@ -12809,7 +12840,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             elif result['전일대비기호'] == '2':
 
-                                sp500_전일종가 = result['체결가격'] - result['전일대비']
+                                if sp500_전일종가 == 0.0:
+                                    sp500_전일종가 = result['체결가격'] - result['전일대비']
+                                else:
+                                    pass
 
                                 전일대비 = locale.format('%.2f', result['전일대비'], 1)
 
@@ -12826,7 +12860,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             
                             if result['전일대비기호'] == '5':
 
-                                sp500_전일종가 = result['체결가격'] + result['전일대비']
+                                if sp500_전일종가 == 0.0:
+                                    sp500_전일종가 = result['체결가격'] + result['전일대비']
+                                else:
+                                    pass
 
                                 전일대비 = locale.format('%.2f', -result['전일대비'], 1)
 
@@ -12837,7 +12874,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             elif result['전일대비기호'] == '2':
 
-                                sp500_전일종가 = result['체결가격'] - result['전일대비']
+                                if sp500_전일종가 == 0.0:
+                                    sp500_전일종가 = result['체결가격'] - result['전일대비']
+                                else:
+                                    pass
 
                                 전일대비 = locale.format('%.2f', result['전일대비'], 1)
 
@@ -12864,7 +12904,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             if result['전일대비기호'] == '5':
 
-                                dow_전일종가 = result['체결가격'] + result['전일대비']
+                                if dow_전일종가 == 0.0:
+                                    dow_전일종가 = result['체결가격'] + result['전일대비']
+                                else:
+                                    pass
 
                                 jisu_str = "DOW: {0} ▲ ({1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'])
                                 self.label_2nd_co.setText(jisu_str)
@@ -12873,7 +12916,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             elif result['전일대비기호'] == '2':
 
-                                dow_전일종가 = result['체결가격'] - result['전일대비']
+                                if dow_전일종가 == 0.0:
+                                    dow_전일종가 = result['체결가격'] - result['전일대비']
+                                else:
+                                    pass
 
                                 jisu_str = "DOW: {0} ▲ ({1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'])
                                 self.label_2nd_co.setText(jisu_str)
@@ -12886,7 +12932,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             if result['전일대비기호'] == '5':
 
-                                dow_전일종가 = result['체결가격'] + result['전일대비']
+                                if dow_전일종가 == 0.0:
+                                    dow_전일종가 = result['체결가격'] + result['전일대비']
+                                else:
+                                    pass
 
                                 jisu_str = "DOW: {0} ▼ ({1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'])
                                 self.label_2nd_co.setText(jisu_str)
@@ -12895,7 +12944,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             elif result['전일대비기호'] == '2':
 
-                                dow_전일종가 = result['체결가격'] - result['전일대비']
+                                if dow_전일종가 == 0.0:
+                                    dow_전일종가 = result['체결가격'] - result['전일대비']
+                                else:
+                                    pass
 
                                 jisu_str = "DOW: {0} ▼ ({1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'])
                                 self.label_2nd_co.setText(jisu_str)
