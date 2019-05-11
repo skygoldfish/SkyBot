@@ -538,6 +538,10 @@ df_plotdata_fut = pd.DataFrame()
 df_plotdata_fut_che = pd.DataFrame()
 df_plotdata_kp200 = pd.DataFrame()
 
+df_plotdata_sp500 = pd.DataFrame()
+df_plotdata_dow = pd.DataFrame()
+df_plotdata_vix = pd.DataFrame()
+
 mv_curve = []
 mv_line = []
 time_line_opt = None
@@ -575,6 +579,14 @@ cm_two_cha_left_curve = None
 
 cm_two_sum_right_curve = None
 cm_two_cha_right_curve = None
+
+sp500_left_curve = None
+dow_left_curve = None
+vix_left_curve = None
+
+sp500_right_curve = None
+dow_right_curve = None
+vix_right_curve = None
 
 yoc_stop = False
 
@@ -2372,6 +2384,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global cm_call_volume_right_curve, cm_put_volume_right_curve, cm_volume_cha_right_curve
         
         global cm_two_sum_left_curve, cm_two_cha_left_curve, cm_two_sum_right_curve, cm_two_cha_right_curve
+        global sp500_left_curve, dow_left_curve, vix_left_curve, sp500_right_curve, dow_right_curve, vix_right_curve
 
         time_line_fut = self.Plot_Fut.addLine(x=0, y=None, pen=tpen)
 
@@ -2405,7 +2418,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         fut_che_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
 
         cm_two_sum_right_curve = self.Plot_Opt.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_two_cha_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)    
+        cm_two_cha_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
+
+        sp500_left_curve = self.Plot_Fut.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        dow_left_curve = self.Plot_Fut.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        vix_left_curve = self.Plot_Fut.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)   
+
+        sp500_right_curve = self.Plot_Opt.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        dow_right_curve = self.Plot_Opt.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        vix_right_curve = self.Plot_Opt.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)   
 
         global time_line_opt, mv_line, opt_base_line, call_curve, put_curve
 
@@ -5972,6 +5993,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global df_plotdata_cm_two_sum, df_plotdata_cm_two_cha
         global start_hour, start_time_str, end_time_str
 
+        global df_plotdata_sp500, df_plotdata_dow, df_plotdata_vix
+
         dt = datetime.datetime.now()
 
         if szTrCode == 't2101':
@@ -6207,6 +6230,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, 395 + 10))
                     df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, 395 + 10))
                     df_plotdata_fut_che = DataFrame(index=range(0, 1), columns=range(0, 395 + 10))
+
+                    df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, 395 + 10))
+                    df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 395 + 10))
+                    df_plotdata_vix = DataFrame(index=range(0, 1), columns=range(0, 395 + 10))
                 else:
                     self.Plot_Opt.setRange(xRange=[0, 660 + 10], padding=0)
                     time_line_opt.setValue(669)
@@ -6230,6 +6257,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, 660 + 10))
                     df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, 660 + 10))
                     df_plotdata_fut_che = DataFrame(index=range(0, 1), columns=range(0, 660 + 10))
+
+                    df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, 660 + 10))
+                    df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 660 + 10))
+                    df_plotdata_vix = DataFrame(index=range(0, 1), columns=range(0, 660 + 10))
 
                 # 콜처리
                 for i in range(nCount_cm_option_pairs):
@@ -11113,6 +11144,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             global yoc_stop
             global OVC_체결시간, 호가시간, ovc_on
+            global df_plotdata_sp500, df_plotdata_dow, df_plotdata_vix
 
             start_time = timeit.default_timer()
 
@@ -12746,11 +12778,35 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 OVC_체결시간 = result['체결시간_한국']
 
+                # X축 시간좌표 계산
+                if overnight:
+
+                    if result['체결시간_한국'] != '':
+
+                        nighttime = int(result['체결시간_한국'][0:2])
+
+                        if 0 <= nighttime <= 5:
+                            nighttime = nighttime + 24
+                        else:
+                            pass
+
+                        ovc_x_idx = (nighttime - start_hour) * 60 + int(result['체결시간_한국'][2:4]) + 1
+                    else:
+                        ovc_x_idx = 1
+                else:
+
+                    if result['체결시간_한국'] != '':
+                        ovc_x_idx = (int(result['체결시간_한국'][0:2]) - start_hour) * 60 + int(result['체결시간_한국'][2:4]) + 1
+                    else:
+                        ovc_x_idx = 1
+
                 if result['종목코드'] == VIX:
 
                     global vix_price, vix_text_color, vix_전일종가               
 
                     if result['체결가격'] != vix_price:
+
+                        df_plotdata_vix.iloc[0][ovc_x_idx + 1] = result['체결가격']
 
                         if result['체결가격'] > vix_price:
 
@@ -12758,6 +12814,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 if vix_전일종가 == 0.0:
                                     vix_전일종가 = result['체결가격'] + result['전일대비']
+                                    df_plotdata_vix.iloc[0][0] = vix_전일종가
+                                    df_plotdata_vix.iloc[0][1] = result['시가']
                                 else:
                                     pass
 
@@ -12770,6 +12828,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 if vix_전일종가 == 0.0:
                                     vix_전일종가 = result['체결가격'] - result['전일대비']
+                                    df_plotdata_vix.iloc[0][0] = vix_전일종가
+                                    df_plotdata_vix.iloc[0][1] = result['시가']
                                 else:
                                     pass
 
@@ -12786,6 +12846,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 if vix_전일종가 == 0.0:
                                     vix_전일종가 = result['체결가격'] + result['전일대비']
+                                    df_plotdata_vix.iloc[0][0] = vix_전일종가
+                                    df_plotdata_vix.iloc[0][1] = result['시가']
                                 else:
                                     pass
 
@@ -12798,6 +12860,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 if vix_전일종가 == 0.0:
                                     vix_전일종가 = result['체결가격'] - result['전일대비']
+                                    df_plotdata_vix.iloc[0][0] = vix_전일종가
+                                    df_plotdata_vix.iloc[0][1] = result['시가']
                                 else:
                                     pass
 
@@ -12819,6 +12883,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     global sp500_price, sp500_text_color, sp500_전일종가
 
                     if result['체결가격'] != sp500_price:
+
+                        df_plotdata_sp500.iloc[0][ovc_x_idx + 1] = result['체결가격']
                         
                         if result['체결가격'] > sp500_price:
 
@@ -12828,6 +12894,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 if sp500_전일종가 == 0.0:
                                     sp500_전일종가 = result['체결가격'] + result['전일대비']
+                                    df_plotdata_sp500.iloc[0][0] = sp500_전일종가
+                                    df_plotdata_sp500.iloc[0][1] = result['시가']
                                 else:
                                     pass
 
@@ -12842,6 +12910,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 if sp500_전일종가 == 0.0:
                                     sp500_전일종가 = result['체결가격'] - result['전일대비']
+                                    df_plotdata_sp500.iloc[0][0] = sp500_전일종가
+                                    df_plotdata_sp500.iloc[0][1] = result['시가']
                                 else:
                                     pass
 
@@ -12862,6 +12932,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 if sp500_전일종가 == 0.0:
                                     sp500_전일종가 = result['체결가격'] + result['전일대비']
+                                    df_plotdata_sp500.iloc[0][0] = sp500_전일종가
+                                    df_plotdata_sp500.iloc[0][1] = result['시가']
                                 else:
                                     pass
 
@@ -12876,6 +12948,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 if sp500_전일종가 == 0.0:
                                     sp500_전일종가 = result['체결가격'] - result['전일대비']
+                                    df_plotdata_sp500.iloc[0][0] = sp500_전일종가
+                                    df_plotdata_sp500.iloc[0][1] = result['시가']
                                 else:
                                     pass
 
@@ -12900,12 +12974,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if result['체결가격'] != dow_price:
 
+                        df_plotdata_dow.iloc[0][ovc_x_idx + 1] = result['체결가격']
+
                         if result['체결가격'] > dow_price:
 
                             if result['전일대비기호'] == '5':
 
                                 if dow_전일종가 == 0.0:
                                     dow_전일종가 = result['체결가격'] + result['전일대비']
+                                    df_plotdata_dow.iloc[0][0] = dow_전일종가
+                                    df_plotdata_dow.iloc[0][1] = result['시가']
                                 else:
                                     pass
 
@@ -12918,6 +12996,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 if dow_전일종가 == 0.0:
                                     dow_전일종가 = result['체결가격'] - result['전일대비']
+                                    df_plotdata_dow.iloc[0][0] = dow_전일종가
+                                    df_plotdata_dow.iloc[0][1] = result['시가']
                                 else:
                                     pass
 
@@ -12934,6 +13014,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 if dow_전일종가 == 0.0:
                                     dow_전일종가 = result['체결가격'] + result['전일대비']
+                                    df_plotdata_dow.iloc[0][0] = dow_전일종가
+                                    df_plotdata_dow.iloc[0][1] = result['시가']
                                 else:
                                     pass
 
@@ -12946,6 +13028,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 if dow_전일종가 == 0.0:
                                     dow_전일종가 = result['체결가격'] - result['전일대비']
+                                    df_plotdata_dow.iloc[0][0] = dow_전일종가
+                                    df_plotdata_dow.iloc[0][1] = result['시가']
                                 else:
                                     pass
 
