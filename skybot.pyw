@@ -2072,6 +2072,24 @@ class update_worker(QThread):
                 curve1_data = df_plotdata_kp200.iloc[0].values.tolist()
                 curve2_data = df_plotdata_fut.iloc[0].values.tolist()
                 curve3_data = None
+
+            elif comboindex1 == 5: 
+
+                curve1_data = df_plotdata_sp500.iloc[0].values.tolist()
+                curve2_data = None
+                curve3_data = None
+
+            elif comboindex1 == 6: 
+
+                curve1_data = df_plotdata_dow.iloc[0].values.tolist()
+                curve2_data = None
+                curve3_data = None
+
+            elif comboindex1 == 7: 
+
+                curve1_data = df_plotdata_vix.iloc[0].values.tolist()
+                curve2_data = None
+                curve3_data = None
             else:
                 pass
 
@@ -2105,6 +2123,24 @@ class update_worker(QThread):
                 curve4_data = None
                 curve5_data = None
                 curve6_data = None
+
+            elif comboindex2 == 5:
+
+                curve4_data = df_plotdata_sp500.iloc[0].values.tolist()
+                curve5_data = None
+                curve6_data = None 
+
+            elif comboindex2 == 6:
+
+                curve4_data = df_plotdata_dow.iloc[0].values.tolist()
+                curve5_data = None
+                curve6_data = None 
+
+            elif comboindex2 == 7:
+
+                curve4_data = df_plotdata_vix.iloc[0].values.tolist()
+                curve5_data = None
+                curve6_data = None 
             else:
                 pass
             
@@ -2244,7 +2280,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_call.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_call.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
-        '종가√', '피봇√', '시가√', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
+        '종가✓', '피봇✓', '시가✓', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
         self.tableWidget_call.verticalHeader().setVisible(False)
         #self.tableWidget_call.setFocusPolicy(Qt.NoFocus)
 
@@ -2270,7 +2306,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_put.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_put.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
-        '종가√', '피봇√', '시가√', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
+        '종가✓', '피봇✓', '시가✓', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
         self.tableWidget_put.verticalHeader().setVisible(False)
         #self.tableWidget_put.setFocusPolicy(Qt.NoFocus)
 
@@ -2369,7 +2405,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         #self.상태그림 = ['▼', '▬', '▲']
         self.상태그림 = ['▼', '▲']
         self.상태문자 = ['매도', '대기', '매수']
-        self.특수문자 = ['☆', '★', '※', '○', '●', '◎', '√', '↗', '↘', '↑', '↓', '↕', '♣', '♠', '♥', '◆', 'Δ', '【', '】', '🕘']
+        self.특수문자 = ['☆', '★', '※', '○', '●', '◎', '√', '↗', '↘', '↑', '↓', '↕', '♣', '♠', '♥', '◆', 'Δ', '【', '】', '🕘', '✔', '⬍']
 
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
@@ -2448,6 +2484,62 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             put_curve.append(self.Plot_Opt.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))
 
         # init value & clear color
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
+
+        item = QTableWidgetItem('0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
+
+        item = QTableWidgetItem('0.00')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
+
+        item = QTableWidgetItem('0.00')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item)
+
+        item = QTableWidgetItem('0.00')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
+
+        item = QTableWidgetItem('0.00')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
+
+        item = QTableWidgetItem('0.0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.VR.value, item)
+
+        item = QTableWidgetItem('0.0')
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.VR.value, item)
+
         item = QTableWidgetItem("{0:0.2f}".format(0.0))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(0, Futures_column.종가.value, item)
@@ -2503,7 +2595,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(0, Futures_column.고가.value, item)
 
-        item = QTableWidgetItem("{0:0.2f}".format(2.0))
+        item = QTableWidgetItem("{0:0.2f}".format(0.0))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(1, Futures_column.고가.value, item)
 
@@ -2601,10 +2693,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.label_3rd_co.setText("VIX: 가격 (전일대비, 등락율)")
         self.label_3rd_co.setStyleSheet('background-color: yellow ; color: black')
 
-        self.label_msg.setText("★ 🕘 ★")
+        self.label_msg.setText("🕘")
         self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
 
-        self.label_atm.setText("[Basis] [양합/양차]")
+        self.label_atm.setText("Basis/양합:양차")
         self.label_atm.setStyleSheet('background-color: yellow; color: black')
         self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -2635,63 +2727,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         fut_realdata['진폭'] = 0.0
         fut_realdata['거래량'] = 0
         fut_realdata['미결'] = 0
-        fut_realdata['미결증감'] = 0
-
-        item = QTableWidgetItem('0')
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
-
-        item = QTableWidgetItem('0')
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
-
-        item = QTableWidgetItem('0')
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
-
-        item = QTableWidgetItem('0')
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
-
-        item = QTableWidgetItem('0')
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
-
-        item = QTableWidgetItem('0')
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
-
-        item = QTableWidgetItem('0')
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
-
-        item = QTableWidgetItem('0')
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
-
-        item = QTableWidgetItem('0.00')
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
-
-        item = QTableWidgetItem('0.00')
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item)
-
-        item = QTableWidgetItem('0.00')
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
-
-        item = QTableWidgetItem('0.00')
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
-
-        item = QTableWidgetItem('0.0')
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(0, Futures_column.VR.value, item)
-
-        item = QTableWidgetItem('0.0')
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(1, Futures_column.VR.value, item)
+        fut_realdata['미결증감'] = 0        
 
         item = QTableWidgetItem('0')
         item.setTextAlignment(Qt.AlignCenter)
@@ -2908,21 +2944,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fut_pivot_line.setValue(0)
             volume_base_line.setValue(0)
 
-            for i in range(nCount_cm_option_pairs):
-                temp = format(df_cm_call.iloc[i]['수정미결'], ',')
-
-                item = QTableWidgetItem(temp)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(i, Option_column.OI.value, item)
-
-                temp = format(df_cm_put.iloc[i]['수정미결'], ',')
-
-                item = QTableWidgetItem(temp)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(i, Option_column.OI.value, item)
-
-            call_temp = format(df_cm_call['수정미결'].sum(), ',')
-            put_temp = format(df_cm_put['수정미결'].sum(), ',')
+            sp500_left_curve.clear()
+            dow_left_curve.clear()
+            vix_left_curve.clear()
 
         elif comboindex1 == 1:
             
@@ -2941,23 +2965,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fut_jl_line.setValue(0)
             fut_jh_line.setValue(0)
             fut_pivot_line.setValue(0)
-            volume_base_line.setValue(0)          
+            volume_base_line.setValue(0)
 
-            for i in range(nCount_cm_option_pairs):
-                temp = format(df_cm_call.iloc[i]['수정미결'], ',')
-
-                item = QTableWidgetItem(temp)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(i, Option_column.OI.value, item)
-
-                temp = format(df_cm_put.iloc[i]['수정미결'], ',')
-
-                item = QTableWidgetItem(temp)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(i, Option_column.OI.value, item)
-
-            call_temp = format(df_cm_call['수정미결'].sum(), ',')
-            put_temp = format(df_cm_put['수정미결'].sum(), ',')
+            sp500_left_curve.clear()
+            dow_left_curve.clear()
+            vix_left_curve.clear()          
 
         elif comboindex1 == 2:
 
@@ -2975,23 +2987,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fut_jl_line.setValue(0)
             fut_jh_line.setValue(0)
             fut_pivot_line.setValue(0)
-            volume_base_line.setValue(0)          
+            volume_base_line.setValue(0)
 
-            for i in range(nCount_cm_option_pairs):
-                temp = format(df_cm_call.iloc[i]['수정거래량'], ',')
-
-                item = QTableWidgetItem(temp)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(i, Option_column.OI.value, item)
-
-                temp = format(df_cm_put.iloc[i]['수정거래량'], ',')
-
-                item = QTableWidgetItem(temp)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(i, Option_column.OI.value, item)
-
-            call_temp = format(df_cm_call['수정거래량'].sum(), ',')
-            put_temp = format(df_cm_put['수정거래량'].sum(), ',')
+            sp500_left_curve.clear()
+            dow_left_curve.clear()
+            vix_left_curve.clear()          
         
         elif comboindex1 == 3:
 
@@ -3012,21 +3012,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fut_pivot_line.setValue(0)
             volume_base_line.setValue(0)
 
-            for i in range(nCount_cm_option_pairs):
-                temp = format(df_cm_call.iloc[i]['수정미결'], ',')
-
-                item = QTableWidgetItem(temp)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(i, Option_column.OI.value, item)
-
-                temp = format(df_cm_put.iloc[i]['수정미결'], ',')
-
-                item = QTableWidgetItem(temp)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(i, Option_column.OI.value, item)
-
-            call_temp = format(df_cm_call['수정미결'].sum(), ',')
-            put_temp = format(df_cm_put['수정미결'].sum(), ',')
+            sp500_left_curve.clear()
+            dow_left_curve.clear()
+            vix_left_curve.clear()
 
         elif comboindex1 == 4:
             
@@ -3045,40 +3033,88 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fut_jl_line.setValue(fut_realdata['전저'])
             fut_jh_line.setValue(fut_realdata['전고'])
             volume_base_line.setValue(fut_realdata['피봇'])
-            fut_pivot_line.setValue(fut_realdata['피봇'])  
+            fut_pivot_line.setValue(fut_realdata['피봇']) 
 
-            for i in range(nCount_cm_option_pairs):
-                temp = format(df_cm_call.iloc[i]['수정미결'], ',')
+            sp500_left_curve.clear()
+            dow_left_curve.clear()
+            vix_left_curve.clear() 
 
-                item = QTableWidgetItem(temp)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(i, Option_column.OI.value, item)
+        elif comboindex1 == 5:
 
-                temp = format(df_cm_put.iloc[i]['수정미결'], ',')
+            fut_che_left_curve.clear()
 
-                item = QTableWidgetItem(temp)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(i, Option_column.OI.value, item)
+            cm_call_oi_left_curve.clear()
+            cm_put_oi_left_curve.clear()
 
-            call_temp = format(df_cm_call['수정미결'].sum(), ',')
-            put_temp = format(df_cm_put['수정미결'].sum(), ',')
+            cm_call_volume_left_curve.clear()
+            cm_put_volume_left_curve.clear()
+            cm_volume_cha_left_curve.clear()
 
+            cm_two_sum_left_curve.clear()
+            cm_two_cha_left_curve.clear()
+
+            kp200_curve.clear()
+            fut_curve.clear()  
+            
+            fut_jl_line.setValue(0)
+            fut_jh_line.setValue(0)
+            fut_pivot_line.setValue(0)
+            volume_base_line.setValue(0) 
+
+            dow_left_curve.clear()
+            vix_left_curve.clear()
+
+        elif comboindex1 == 6:
+
+            fut_che_left_curve.clear()
+
+            cm_call_oi_left_curve.clear()
+            cm_put_oi_left_curve.clear()
+
+            cm_call_volume_left_curve.clear()
+            cm_put_volume_left_curve.clear()
+            cm_volume_cha_left_curve.clear()
+
+            cm_two_sum_left_curve.clear()
+            cm_two_cha_left_curve.clear()
+
+            kp200_curve.clear()
+            fut_curve.clear()  
+            
+            fut_jl_line.setValue(0)
+            fut_jh_line.setValue(0)
+            fut_pivot_line.setValue(0)
+            volume_base_line.setValue(0) 
+
+            sp500_left_curve.clear()
+            vix_left_curve.clear()
+
+        elif comboindex1 == 7:
+
+            fut_che_left_curve.clear()
+
+            cm_call_oi_left_curve.clear()
+            cm_put_oi_left_curve.clear()
+
+            cm_call_volume_left_curve.clear()
+            cm_put_volume_left_curve.clear()
+            cm_volume_cha_left_curve.clear()
+
+            cm_two_sum_left_curve.clear()
+            cm_two_cha_left_curve.clear()
+
+            kp200_curve.clear()
+            fut_curve.clear()  
+            
+            fut_jl_line.setValue(0)
+            fut_jh_line.setValue(0)
+            fut_pivot_line.setValue(0)
+            volume_base_line.setValue(0) 
+
+            sp500_left_curve.clear()
+            dow_left_curve.clear()
         else:
             pass
-
-        if call_temp != self.tableWidget_call.horizontalHeaderItem(Option_column.OI.value).text():
-            item = QTableWidgetItem(call_temp)
-            self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
-            self.tableWidget_call.resizeColumnsToContents()
-        else:
-            pass
-
-        if put_temp != self.tableWidget_put.horizontalHeaderItem(Option_column.OI.value).text():
-            item = QTableWidgetItem(put_temp)
-            self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
-            self.tableWidget_put.resizeColumnsToContents()
-        else:
-            pass        
 
     def cb2_selectionChanged(self):
 
@@ -3111,6 +3147,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             opt_base_line.setValue(0)
 
+            sp500_right_curve.clear()
+            dow_right_curve.clear()
+            vix_right_curve.clear()
+
         elif comboindex2 == 1:
             
             cm_call_oi_right_curve.clear()
@@ -3129,6 +3169,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 mv_line[i].setValue(0)
 
             opt_base_line.setValue(0)
+
+            sp500_right_curve.clear()
+            dow_right_curve.clear()
+            vix_right_curve.clear()
 
         elif comboindex2 == 2:
 
@@ -3150,6 +3194,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 mv_line[i].setValue(0)
 
             opt_base_line.setValue(0)
+
+            sp500_right_curve.clear()
+            dow_right_curve.clear()
+            vix_right_curve.clear()
         
         elif comboindex2 == 3:
 
@@ -3170,6 +3218,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 mv_line[i].setValue(0)
 
             opt_base_line.setValue(0)
+
+            sp500_right_curve.clear()
+            dow_right_curve.clear()
+            vix_right_curve.clear()
 
         elif comboindex2 == 4:
 
@@ -3192,6 +3244,88 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             mv_line[3].setValue(4.85)
             mv_line[4].setValue(5.1)
             mv_line[5].setValue(5.5)
+
+            sp500_right_curve.clear()
+            dow_right_curve.clear()
+            vix_right_curve.clear()
+
+        elif comboindex2 == 5:
+
+            cm_call_oi_right_curve.clear()
+            cm_put_oi_right_curve.clear()   
+
+            cm_call_volume_right_curve.clear()
+            cm_put_volume_right_curve.clear()
+            cm_volume_cha_right_curve.clear()
+
+            fut_che_right_curve.clear()
+
+            cm_two_sum_right_curve.clear()
+            cm_two_cha_right_curve.clear()
+
+            for i in range(9):
+                call_curve[i].clear()
+                put_curve[i].clear() 
+
+            for i in range(9):
+                mv_line[i].setValue(0)
+
+            opt_base_line.setValue(0)
+
+            dow_right_curve.clear()
+            vix_right_curve.clear()
+
+        elif comboindex2 == 6:
+
+            cm_call_oi_right_curve.clear()
+            cm_put_oi_right_curve.clear()   
+
+            cm_call_volume_right_curve.clear()
+            cm_put_volume_right_curve.clear()
+            cm_volume_cha_right_curve.clear()
+
+            fut_che_right_curve.clear()
+
+            cm_two_sum_right_curve.clear()
+            cm_two_cha_right_curve.clear()
+
+            for i in range(9):
+                call_curve[i].clear()
+                put_curve[i].clear() 
+
+            for i in range(9):
+                mv_line[i].setValue(0)
+
+            opt_base_line.setValue(0)
+
+            sp500_right_curve.clear()
+            vix_right_curve.clear()
+
+        elif comboindex2 == 7:
+
+            cm_call_oi_right_curve.clear()
+            cm_put_oi_right_curve.clear()   
+
+            cm_call_volume_right_curve.clear()
+            cm_put_volume_right_curve.clear()
+            cm_volume_cha_right_curve.clear()
+
+            fut_che_right_curve.clear()
+
+            cm_two_sum_right_curve.clear()
+            cm_two_cha_right_curve.clear()
+
+            for i in range(9):
+                call_curve[i].clear()
+                put_curve[i].clear() 
+
+            for i in range(9):
+                mv_line[i].setValue(0)
+
+            opt_base_line.setValue(0)
+
+            sp500_right_curve.clear()
+            dow_right_curve.clear()
         else:
             pass
 
@@ -3223,8 +3357,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             col_text = self.tableWidget_call.horizontalHeaderItem(idx).text()
 
-            if col_text.find('√') == -1:
-                item = QTableWidgetItem(col_text + '√')
+            if col_text.find('✓') == -1:
+                item = QTableWidgetItem(col_text + '✓')
                 self.tableWidget_call.setHorizontalHeaderItem(idx, item)
                 print("call header column.. ", idx, col_text)
 
@@ -3247,7 +3381,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                item = QTableWidgetItem(col_text.replace('√', ''))
+                item = QTableWidgetItem(col_text.replace('✓', ''))
                 self.tableWidget_call.setHorizontalHeaderItem(idx, item)
                 print("call header column.. ", idx, col_text)
 
@@ -3293,8 +3427,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             col_text = self.tableWidget_put.horizontalHeaderItem(idx).text()
 
-            if col_text.find('√') == -1:
-                item = QTableWidgetItem(col_text + '√')
+            if col_text.find('✓') == -1:
+                item = QTableWidgetItem(col_text + '✓')
                 self.tableWidget_put.setHorizontalHeaderItem(idx, item)
                 print("put header column.. ", idx, col_text)
 
@@ -3317,7 +3451,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                item = QTableWidgetItem(col_text.replace('√', ''))
+                item = QTableWidgetItem(col_text.replace('✓', ''))
                 self.tableWidget_put.setHorizontalHeaderItem(idx, item)
                 print("put header column.. ", idx, col_text)
 
@@ -3362,9 +3496,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             col_text = self.tableWidget_call.horizontalHeaderItem(idx).text()
 
-            if col_text.find('√') == -1:
+            if col_text.find('✓') == -1:
             
-                item = QTableWidgetItem(col_text + '√')
+                item = QTableWidgetItem(col_text + '✓')
                 self.tableWidget_call.setHorizontalHeaderItem(idx, item)
 
                 if idx == Option_column.기준가.value:
@@ -3390,9 +3524,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             col_text = self.tableWidget_put.horizontalHeaderItem(idx).text()
 
-            if col_text.find('√') == -1:
+            if col_text.find('✓') == -1:
 
-                item = QTableWidgetItem(col_text + '√')
+                item = QTableWidgetItem(col_text + '✓')
                 self.tableWidget_put.setHorizontalHeaderItem(idx, item)
 
                 if idx == Option_column.기준가.value:
@@ -3423,12 +3557,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         row_text = self.tableWidget_call.item(idx, Option_column.행사가.value).text()
 
-        if row_text.find('√') == -1:
-            item = QTableWidgetItem(row_text + '√')
+        if row_text.find('✓') == -1:
+            item = QTableWidgetItem(row_text + '✓')
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setItem(idx, Option_column.행사가.value, item)
         else:
-            item = QTableWidgetItem(row_text.replace('√', ''))
+            item = QTableWidgetItem(row_text.replace('✓', ''))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setItem(idx, Option_column.행사가.value, item)
 
@@ -3441,12 +3575,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         row_text = self.tableWidget_put.item(idx, Option_column.행사가.value).text()
 
-        if row_text.find('√') == -1:
-            item = QTableWidgetItem(row_text + '√')
+        if row_text.find('✓') == -1:
+            item = QTableWidgetItem(row_text + '✓')
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setItem(idx, Option_column.행사가.value, item)
         else:
-            item = QTableWidgetItem(row_text.replace('√', ''))
+            item = QTableWidgetItem(row_text.replace('✓', ''))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setItem(idx, Option_column.행사가.value, item)
 
@@ -4220,6 +4354,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 
                     kp200_curve.setData(curve1_data)
                     fut_curve.setData(curve2_data)
+
+                elif comboindex1 == 5:
+
+                    sp500_left_curve.setData(curve1_data)
+
+                elif comboindex1 == 6:
+
+                    dow_left_curve.setData(curve1_data)
+
+                elif comboindex1 == 7:
+
+                    vix_left_curve.setData(curve1_data)
                 else:
                     pass   
 
@@ -4247,6 +4393,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 elif comboindex2 == 4:
 
                     pass
+
+                elif comboindex2 == 5:
+
+                    sp500_right_curve.setData(curve4_data) 
+
+                elif comboindex2 == 6: 
+
+                    dow_right_curve.setData(curve4_data) 
+
+                elif comboindex2 == 7: 
+
+                    vix_right_curve.setData(curve4_data)
                 else:
                     pass                                                       
             else:
@@ -4266,7 +4424,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         df_plotdata_cm_two_sum[opt_x_idx + 1] = call_atm_value + put_atm_value
         df_plotdata_cm_two_cha[opt_x_idx + 1] = call_atm_value - put_atm_value
 
-        str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}]'.format(
+        str = '{0:0.2f}/{1:0.2f}:{2:0.2f}'.format(
             fut_realdata['현재가'] - fut_realdata['KP200'],
             call_atm_value + put_atm_value,
             abs(call_atm_value - put_atm_value))
@@ -6042,7 +6200,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 call_atm_value = df_cm_call.iloc[atm_index]['현재가']
                 put_atm_value = df_cm_put.iloc[atm_index]['현재가']
 
-                str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}]'.format(
+                str = '{0:0.2f}/{1:0.2f}:{2:0.2f}'.format(
                     fut_realdata['현재가'] - fut_realdata['KP200'],
                     call_atm_value + put_atm_value,
                     abs(call_atm_value - put_atm_value))
@@ -7294,10 +7452,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
                     self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
 
+                    self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                    self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                    self.tableWidget_call.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+
+                    self.tableWidget_put.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                    self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                    self.tableWidget_put.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+
+                    selected_call = [atm_index - 1, atm_index, atm_index + 1]
+                    selected_put = [atm_index - 1, atm_index, atm_index + 1]
+
                     call_atm_value = df_cm_call.iloc[atm_index]['현재가']
                     put_atm_value = df_cm_put.iloc[atm_index]['현재가']
 
-                    str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}]'.format(
+                    str = '{0:0.2f}/{1:0.2f}:{2:0.2f}'.format(
                         fut_realdata['현재가'] - fut_realdata['KP200'],
                         call_atm_value + put_atm_value,
                         abs(call_atm_value - put_atm_value))
@@ -7938,7 +8107,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     call_atm_value = df_cm_call.iloc[atm_index]['현재가']
                     put_atm_value = df_cm_put.iloc[atm_index]['현재가']
 
-                    str = '[{0:0.2f}] [{1:0.2f}/{2:0.2f}]'.format(
+                    str = '{0:0.2f}/{1:0.2f}:{2:0.2f}'.format(
                         fut_realdata['현재가'] - fut_realdata['KP200'],
                         call_atm_value + put_atm_value,
                         abs(call_atm_value - put_atm_value))
