@@ -235,6 +235,10 @@ PROGRAM_직전대비 = collections.deque([0, 0, 0], 3)
 수정미결_직전대비 = collections.deque([0, 0, 0], 3)
 거래량_직전대비 = collections.deque([0, 0, 0], 3)
 
+sp500_직전대비 = collections.deque([0, 0, 0], 3)
+dow_직전대비 = collections.deque([0, 0, 0], 3)
+vix_직전대비 = collections.deque([0, 0, 0], 3)
+
 actval_increased = False
 
 fut_code = ''
@@ -353,26 +357,6 @@ cm_put_시가_node_list = []
 cm_put_저가_node_list = []
 cm_put_고가_node_list = []
 
-nm_call_행사가 = []
-nm_call_기준가 = []
-nm_call_월저 = []
-nm_call_월고 = []
-nm_call_전저 = []
-nm_call_전고 = []
-nm_call_종가 = []
-nm_call_피봇 = []
-nm_call_시가 = []
-
-nm_put_행사가 = []
-nm_put_기준가 = []
-nm_put_월저 = []
-nm_put_월고 = []
-nm_put_전저 = []
-nm_put_전고 = []
-nm_put_종가 = []
-nm_put_피봇 = []
-nm_put_시가 = []
-
 overnight = False
 
 call_scroll_begin_position = 0
@@ -418,6 +402,15 @@ oi_delta_old = 0
 
 volume_delta = 0
 volume_delta_old = 0
+
+sp500_delta = 0
+sp500_delta_old = 0
+
+dow_delta = 0
+dow_delta_old = 0
+
+vix_delta = 0
+vix_delta_old = 0
 
 comboindex1 = 0
 comboindex2 = 0
@@ -11334,6 +11327,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global OVC_체결시간, 호가시간, ovc_on
             global df_plotdata_sp500, df_plotdata_dow, df_plotdata_vix
 
+            global sp500_delta, sp500_delta_old, sp500_직전대비
+            global dow_delta, dow_delta_old, dow_직전대비
+            global vix_delta, vix_delta_old, vix_직전대비
+
             start_time = timeit.default_timer()
 
             dt = datetime.datetime.now()
@@ -12993,7 +12990,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     global vix_price, vix_text_color, vix_전일종가               
 
                     if result['체결가격'] != vix_price:
-
+                        '''
+                        vix_delta_old = vix_delta
+                        vix_delta = result['체결가격']
+                        vix_직전대비.extend([vix_delta - vix_delta_old])
+                        temp = list(vix_직전대비)
+                        '''
                         if ovc_x_idx >= 1:
                             df_plotdata_vix.iloc[0][ovc_x_idx + 1] = result['체결가격']
                         else:
@@ -13074,7 +13076,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     global sp500_price, sp500_text_color, sp500_전일종가
 
                     if result['체결가격'] != sp500_price:
-
+                        '''
+                        sp500_delta_old = sp500_delta
+                        sp500_delta = result['체결가격']
+                        sp500_직전대비.extend([sp500_delta - sp500_delta_old])
+                        temp = list(sp500_직전대비)
+                        '''
                         if ovc_x_idx >= 1:
                             df_plotdata_sp500.iloc[0][ovc_x_idx + 1] = result['체결가격']
                         else:
@@ -13167,7 +13174,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     global dow_price, dow_text_color, dow_전일종가   
 
                     if result['체결가격'] != dow_price:
-
+                        '''
+                        dow_delta_old = dow_delta
+                        dow_delta = result['체결가격']
+                        dow_직전대비.extend([dow_delta - dow_delta_old])
+                        temp = list(dow_직전대비)
+                        '''
                         if ovc_x_idx >= 1:
                             df_plotdata_dow.iloc[0][ovc_x_idx + 1] = result['체결가격']
                         else:
@@ -14264,4 +14276,3 @@ if __name__ == "__main__":
     QTimer().singleShot(1, window.OnQApplicationStarted)
 
     sys.exit(app.exec_())
-
