@@ -4044,7 +4044,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             start_time = timeit.default_timer()            
             dt = datetime.datetime.now()
 
-            global ovc_on
+            global ovc_on, call_max_actval, put_max_actval
 
             # 시스템시간을 서버시간에 맞춘다.
             if ovc_on:                 
@@ -4113,6 +4113,36 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 pass
                         else:
                             pass
+                    else:
+                        pass
+
+                    if call_max_actval:
+
+                        call_max_actval = False
+
+                        self.call_open_check()
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 콜 최대 시작가 {3:.2f} 오픈되었습니다.\r'.format(\
+                            int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), df_cm_call.iloc[nCount_cm_option_pairs - 1]['시가'])
+                        self.textBrowser.append(str)
+                        
+                        txt = '콜 최대가 오픈'
+                        Speak(txt)
+                    else:
+                        pass
+
+                    if put_max_actval:
+
+                        put_max_actval = False
+
+                        self.put_open_check()
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 풋 최대 시작가 {3:.2f} 오픈되었습니다.\r'.format(\
+                            int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), df_cm_put.iloc[0]['시가'])
+                        self.textBrowser.append(str)
+
+                        txt = '풋 최대가 오픈'
+                        Speak(txt)
                     else:
                         pass
 
@@ -9455,11 +9485,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_call.setItem(index, Option_column.시가.value, item)  
 
-        if index == nCount_cm_option_pairs - 1:
-            call_max_actval = True
-        else:
-            pass
-
         if float(call_result['시가']) >= price_threshold:     
         
             call_gap_percent[index] = (float(call_result['시가']) / df_cm_call.iloc[index]['종가'] - 1) * 100
@@ -9498,6 +9523,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.textBrowser.append(str)
         else:
             pass
+        
+        if index == nCount_cm_option_pairs - 1:
+
+            call_max_actval = True
+        else:
+            pass
 
         return
     
@@ -9523,10 +9554,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if sumc >= 0:
 
-                if call_max_actval:
-                    direction = '▲*'
-                else:
-                    direction = '▲'
+                direction = '▲'
 
                 if direction != self.tableWidget_call.horizontalHeaderItem(0).text():
                     item = QTableWidgetItem(direction)
@@ -9536,10 +9564,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
             else:
 
-                if call_max_actval:
-                    direction = '▼*'
-                else:
-                    direction = '▼'
+                direction = '▼'
 
                 if direction != self.tableWidget_call.horizontalHeaderItem(0).text():
                     item = QTableWidgetItem(direction)
@@ -10354,11 +10379,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_put.setItem(index, Option_column.시가.value, item)
 
-        if index == 0:
-            put_max_actval = True
-        else:
-            pass
-
         if float(put_result['시가']) >= price_threshold:
             
             put_gap_percent[index] = (float(put_result['시가']) / df_cm_put.iloc[index]['종가'] - 1) * 100
@@ -10397,6 +10417,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.textBrowser.append(str)
         else:
             pass
+        
+        if index == 0:
+
+            put_max_actval = True
+        else:
+            pass
 
         return
     
@@ -10423,10 +10449,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if sump >= 0:
 
-                if put_max_actval:
-                    direction = '▲*'
-                else:
-                    direction = '▲'
+                direction = '▲'
 
                 if direction != self.tableWidget_put.horizontalHeaderItem(0).text():
                     item = QTableWidgetItem(direction)
@@ -10436,10 +10459,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
             else:
 
-                if put_max_actval:
-                    direction = '▼*'
-                else:
-                    direction = '▼'
+                direction = '▼'
 
                 if direction != self.tableWidget_put.horizontalHeaderItem(0).text():
                     item = QTableWidgetItem(direction)
