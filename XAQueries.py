@@ -2470,7 +2470,6 @@ class t2830(XAQuery):
         result['KOSPI200전일대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "kospichange", 0))
         result['KOSPI200등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "kospidiff", 0))
         result['CME야간선물현재가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "cmeprice", 0))
-        result['KOSPI200전일대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kospisign", 0)
         result['CME야간선물전일대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "cmechange", 0))
         result['CME야간선물등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "cmediff", 0))
         result['CME야간선물종목코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "cmefocode", 0)
