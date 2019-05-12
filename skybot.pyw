@@ -608,6 +608,9 @@ vix_전일종가 = 0.0
 sp500_전일종가 = 0.0
 dow_전일종가 = 0.0  
 
+call_max_actval = False
+put_max_actval = False
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -6168,6 +6171,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             df = result[0]
 
+            fut_realdata['현재가'] = df['현재가']
             fut_realdata['KP200'] = df['KOSPI200지수']
 
             atm_str = self.find_ATM(fut_realdata['KP200'])
@@ -7384,8 +7388,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             df = result[0]            
 
-            # 주간 데이타를 가져옴
-            
+            # 주간 데이타를 가져옴            
             item = QTableWidgetItem("{0:0.2f}".format(df['KOSPI200지수']))
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(옅은회색))
@@ -7393,7 +7396,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if overnight:
 
-                fut_realdata['KP200'] = df['KOSPI200지수']
+                #fut_realdata['KP200'] = df['KOSPI200지수']
                 kp200_realdata['종가'] = df['KOSPI200지수']
 
                 atm_str = self.find_ATM(fut_realdata['KP200'])
@@ -9431,7 +9434,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def call_open_update(self):
 
         global df_cm_call, call_gap_percent, df_plotdata_cm_call
-        global cm_call_시가, cm_call_시가_node_list, cm_call_피봇, cm_call_피봇_node_list 
+        global cm_call_시가, cm_call_시가_node_list, cm_call_피봇, cm_call_피봇_node_list
+        global call_max_actval 
 
         index = cm_call_행사가.index(call_result['단축코드'][5:8])
 
@@ -9450,6 +9454,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setForeground(QBrush(검정색))
 
         self.tableWidget_call.setItem(index, Option_column.시가.value, item)  
+
+        if index == nCount_cm_option_pairs - 1:
+            call_max_actval = True
+        else:
+            pass
 
         if float(call_result['시가']) >= price_threshold:     
         
@@ -9514,7 +9523,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if sumc >= 0:
 
-                direction = '▲'
+                if call_max_actval:
+                    direction = '▲*'
+                else:
+                    direction = '▲'
 
                 if direction != self.tableWidget_call.horizontalHeaderItem(0).text():
                     item = QTableWidgetItem(direction)
@@ -9524,7 +9536,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
             else:
 
-                direction = '▼'
+                if call_max_actval:
+                    direction = '▼*'
+                else:
+                    direction = '▼'
 
                 if direction != self.tableWidget_call.horizontalHeaderItem(0).text():
                     item = QTableWidgetItem(direction)
@@ -9947,7 +9962,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_below_atm_count
         global df_cm_call, call_open, call_ol, call_oh
         global call_gap_percent
-        global cm_call_시가, cm_call_시가_node_list, cm_call_피봇, cm_call_피봇_node_list
+        global cm_call_시가, cm_call_시가_node_list, cm_call_피봇, cm_call_피봇_node_list        
 
         call_open = [False] * nCount_cm_option_pairs
         call_ol = [False] * nCount_cm_option_pairs
@@ -10319,6 +10334,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global df_cm_put, put_gap_percent, df_plotdata_cm_put
         global cm_put_시가, cm_put_시가_node_list, cm_put_피봇, cm_put_피봇_node_list
+        global put_max_actval
 
         index = cm_put_행사가.index(put_result['단축코드'][5:8])
 
@@ -10337,6 +10353,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setForeground(QBrush(검정색))
 
         self.tableWidget_put.setItem(index, Option_column.시가.value, item)
+
+        if index == 0:
+            put_max_actval = True
+        else:
+            pass
 
         if float(put_result['시가']) >= price_threshold:
             
@@ -10402,7 +10423,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if sump >= 0:
 
-                direction = '▲'
+                if put_max_actval:
+                    direction = '▲*'
+                else:
+                    direction = '▲'
 
                 if direction != self.tableWidget_put.horizontalHeaderItem(0).text():
                     item = QTableWidgetItem(direction)
@@ -10412,7 +10436,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
             else:
 
-                direction = '▼'
+                if put_max_actval:
+                    direction = '▼*'
+                else:
+                    direction = '▼'
 
                 if direction != self.tableWidget_put.horizontalHeaderItem(0).text():
                     item = QTableWidgetItem(direction)
