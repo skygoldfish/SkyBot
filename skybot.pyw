@@ -2270,7 +2270,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_call.horizontalHeader().setStyleSheet(stylesheet)
         self.tableWidget_call.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.tableWidget_call.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
+        self.tableWidget_call.setHorizontalHeaderLabels(['▲▼', '행사가', '⬆⬇', '기준가', '월저', '월고', '전저', '전고', 
         '종가✓', '피봇✓', '시가✓', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
         self.tableWidget_call.verticalHeader().setVisible(False)
         #self.tableWidget_call.setFocusPolicy(Qt.NoFocus)
@@ -2296,7 +2296,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_put.horizontalHeader().setStyleSheet(stylesheet)
         self.tableWidget_put.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.tableWidget_put.setHorizontalHeaderLabels(['▲▼', '행사가', '↑↓', '기준가', '월저', '월고', '전저', '전고', 
+        self.tableWidget_put.setHorizontalHeaderLabels(['▲▼', '행사가', '⬆⬇', '기준가', '월저', '월고', '전저', '전고', 
         '종가✓', '피봇✓', '시가✓', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
         self.tableWidget_put.verticalHeader().setVisible(False)
         #self.tableWidget_put.setFocusPolicy(Qt.NoFocus)
@@ -2323,7 +2323,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_fut.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_fut.setHorizontalHeaderLabels(
-            ['▲▼', '↑↓', 'MSC', 'MDC', 'MSR', 'MDR', 'CR', 'RR', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
+            ['▲▼', '⬆⬇', 'MSC', 'MDC', 'MSR', 'MDR', 'CR', 'RR', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
              '현재가', '고가', '대비', '진폭', 'PVP', 'VR', 'OI', 'OI↕'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
         #self.tableWidget_fut.setFocusPolicy(Qt.NoFocus)
@@ -2396,7 +2396,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         #self.상태그림 = ['▼', '▬', '▲']
         self.상태그림 = ['▼', '▲']
         self.상태문자 = ['매도', '대기', '매수']
-        self.특수문자 = ['☆', '★', '※', '○', '●', '◎', '√', '↗', '↘', '↑', '↓', '↕', '♣', '♠', '♥', '◆', 'Δ', '【', '】', '🕘', '✔', '⬍', '⌛']
+        self.특수문자 = \
+        ['☆', '★', '※', '○', '●', '◎', '√', '↗', '⬈', '↘', '⬊', '↑', '⬆', '↓', '⬇', '↕', '♣', '♠', '♥', '◆', 'Δ', '【', '】', '🕘', '✔', '⬍', '⌛', '⬀ ⬁ ⬂ ⬃']
 
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
@@ -2456,8 +2457,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         cm_two_sum_right_curve = self.Plot_Opt.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         cm_two_cha_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
 
-        sp500_left_curve = self.Plot_Fut.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        dow_left_curve = self.Plot_Fut.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        sp500_left_curve = self.Plot_Fut.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        dow_left_curve = self.Plot_Fut.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         vix_left_curve = self.Plot_Fut.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)   
 
         sp500_right_curve = self.Plot_Opt.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
@@ -7630,7 +7631,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem('행사가')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.행사가.value, item)
 
-                item = QTableWidgetItem('↑↓')
+                item = QTableWidgetItem('⬆⬇')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.OLOH.value, item)
 
                 item = QTableWidgetItem('시가갭\n(%)')
@@ -7648,7 +7649,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem('행사가')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.행사가.value, item)
 
-                item = QTableWidgetItem('↑↓')
+                item = QTableWidgetItem('⬆⬇')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.OLOH.value, item)
 
                 item = QTableWidgetItem('시가갭\n(%)')
@@ -8923,7 +8924,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if self.within_n_tick(round(float(시가), 2), round(float(저가), 2), 10) and \
                 not self.within_n_tick(round(float(시가), 2), round(float(고가), 2), 10):
 
-            item = QTableWidgetItem('↑')
+            item = QTableWidgetItem('⬆')
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(적색))
             item.setForeground(QBrush(흰색))
@@ -8936,7 +8937,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         elif not self.within_n_tick(round(float(시가), 2), round(float(저가), 2), 10) and \
                 self.within_n_tick(round(float(시가), 2), round(float(고가), 2), 10):
 
-            item = QTableWidgetItem('↓')
+            item = QTableWidgetItem('⬇')
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(청색))
             item.setForeground(QBrush(흰색))
@@ -9809,7 +9810,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['저가'], 2) \
                             and not self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['고가'], 2):
 
-                        oloh_str = '↑'
+                        oloh_str = '⬆'
 
                         item = QTableWidgetItem(oloh_str)
                         item.setTextAlignment(Qt.AlignCenter)
@@ -9822,7 +9823,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     elif self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['고가'], 2) \
                             and not self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['저가'], 2):
 
-                        oloh_str = '↓'
+                        oloh_str = '⬇'
 
                         item = QTableWidgetItem(oloh_str)
                         item.setTextAlignment(Qt.AlignCenter)
@@ -10028,7 +10029,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['저가'], 2) \
                             and not self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['고가'], 2):
 
-                        oloh_str = '↑'
+                        oloh_str = '⬆'
 
                         if oloh_str != self.tableWidget_call.item(index, Option_column.OLOH.value).text():
                             item = QTableWidgetItem(oloh_str)
@@ -10044,7 +10045,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     elif self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['고가'], 2) \
                             and not self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['저가'], 2):
 
-                        oloh_str = '↓'
+                        oloh_str = '⬇'
 
                         if oloh_str != self.tableWidget_call.item(index, Option_column.OLOH.value).text():
                             item = QTableWidgetItem(oloh_str)
@@ -10705,7 +10706,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['저가'], 2) \
                             and not self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['고가'], 2):
 
-                        oloh_str = '↑'
+                        oloh_str = '⬆'
 
                         item = QTableWidgetItem(oloh_str)
                         item.setTextAlignment(Qt.AlignCenter)
@@ -10718,7 +10719,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     elif self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['고가'], 2) \
                             and not self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['저가'], 2):
 
-                        oloh_str = '↓'
+                        oloh_str = '⬇'
 
                         item = QTableWidgetItem(oloh_str)
                         item.setTextAlignment(Qt.AlignCenter)
@@ -10924,7 +10925,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['저가'], 2) \
                             and not self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['고가'], 2):
 
-                        oloh_str = '↑'
+                        oloh_str = '⬆'
 
                         if oloh_str != self.tableWidget_put.item(index, Option_column.OLOH.value).text():
                             item = QTableWidgetItem(oloh_str)
@@ -10940,7 +10941,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     elif self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['고가'], 2) \
                             and not self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['저가'], 2):
 
-                        oloh_str = '↓'
+                        oloh_str = '⬇'
 
                         if oloh_str != self.tableWidget_put.item(index, Option_column.OLOH.value).text():
                             item = QTableWidgetItem(oloh_str)
@@ -11209,11 +11210,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if min(temp) > 0:
 
-                    item_str = '{0}\n{1}↗'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                    item_str = '{0}\n{1}⬈'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
 
                 elif max(temp) < 0:
 
-                    item_str = '{0}\n{1}↘'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                    item_str = '{0}\n{1}⬊'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
                 else:
                     item_str = '{0}\n{1}'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
 
@@ -11221,11 +11222,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if min(temp) > 0:
 
-                    item_str = '{0}\n{1}↘'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                    item_str = '{0}\n{1}⬊'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
 
                 elif max(temp) < 0:
 
-                    item_str = '{0}\n{1}↗'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                    item_str = '{0}\n{1}⬈'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
                 else:
                     item_str = '{0}\n{1}'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
 
@@ -12202,7 +12203,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if min(temp) > 0:
 
-                        item_str = "{0}\n({1})↗".format(순매수, result['거래대금순매수직전대비'])
+                        item_str = "{0}\n({1})⬈".format(순매수, result['거래대금순매수직전대비'])
 
                         if item_str != self.tableWidget_supply.item(0, 0).text():
                             item = QTableWidgetItem(item_str)
@@ -12215,7 +12216,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     elif max(temp) < 0:
 
-                        item_str = "{0}\n({1})↘".format(순매수, result['거래대금순매수직전대비'])
+                        item_str = "{0}\n({1})⬊".format(순매수, result['거래대금순매수직전대비'])
 
                         if item_str != self.tableWidget_supply.item(0, 0).text():
                             item = QTableWidgetItem(item_str)
@@ -12251,11 +12252,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if min(temp) > 0:
 
-                        item_str = "{0}\n({1})↗".format(순매수, result['거래대금순매수직전대비'])
+                        item_str = "{0}\n({1})⬈".format(순매수, result['거래대금순매수직전대비'])
 
                     elif max(temp) < 0:
 
-                        item_str = "{0}\n({1})↘".format(순매수, result['거래대금순매수직전대비'])
+                        item_str = "{0}\n({1})⬊".format(순매수, result['거래대금순매수직전대비'])
 
                     else:
                         item_str = "{0}\n({1})".format(순매수, result['거래대금순매수직전대비'])
@@ -12287,11 +12288,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if min(temp) > 0:
 
-                        item_str = "{0}\n({1})↗".format(순매수, 기관_거래대금순매수_직전대비)
+                        item_str = "{0}\n({1})⬈".format(순매수, 기관_거래대금순매수_직전대비)
 
                     elif max(temp) < 0:
 
-                        item_str = "{0}\n({1})↘".format(순매수, 기관_거래대금순매수_직전대비)
+                        item_str = "{0}\n({1})⬊".format(순매수, 기관_거래대금순매수_직전대비)
 
                     else:
                         item_str = "{0}\n({1})".format(순매수, 기관_거래대금순매수_직전대비)
@@ -12350,7 +12351,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if min(temp) > 0:
 
-                        item_str = "{0}\n({1})↗".format(순매수, result['거래대금순매수직전대비'])
+                        item_str = "{0}\n({1})⬈".format(순매수, result['거래대금순매수직전대비'])
 
                         if item_str != self.tableWidget_supply.item(0, 2).text():
                             item = QTableWidgetItem(item_str)
@@ -12363,7 +12364,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     elif max(temp) < 0:
 
-                        item_str = "{0}\n({1})↘".format(순매수, result['거래대금순매수직전대비'])
+                        item_str = "{0}\n({1})⬊".format(순매수, result['거래대금순매수직전대비'])
 
                         if item_str != self.tableWidget_supply.item(0, 2).text():
                             item = QTableWidgetItem(item_str)
@@ -12497,7 +12498,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if min(temp) > 0:
 
-                    item_str = "{0}\n({1})↗".format(순매수, 프로그램_전체순매수금액직전대비)
+                    item_str = "{0}\n({1})⬈".format(순매수, 프로그램_전체순매수금액직전대비)
 
                     if item_str != self.tableWidget_supply.item(0, 1).text():
                         item = QTableWidgetItem(item_str)
@@ -12510,7 +12511,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif max(temp) < 0:
 
-                    item_str = "{0}\n({1})↘".format(순매수, 프로그램_전체순매수금액직전대비)
+                    item_str = "{0}\n({1})⬊".format(순매수, 프로그램_전체순매수금액직전대비)
 
                     if item_str != self.tableWidget_supply.item(0, 1).text():
                         item = QTableWidgetItem(item_str)
@@ -13010,7 +13011,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     pass                                
 
                                 if min(temp) > 0:
-                                    jisu_str = "VIX: {0:.2f} ({1:.2f}, {2:0.2f}%)↗".format(result['체결가격'], -result['전일대비'], result['등락율'])                                    
+                                    jisu_str = "VIX: {0:.2f} ({1:.2f}, {2:0.2f}%)⬈".format(result['체결가격'], -result['전일대비'], result['등락율'])                                    
                                 else:
                                     jisu_str = "VIX: {0:.2f} ▲ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
 
@@ -13028,7 +13029,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     pass                                
 
                                 if min(temp) > 0:
-                                    jisu_str = "VIX: {0:.2f} ({1:.2f}, {2:0.2f}%)↗".format(result['체결가격'], result['전일대비'], result['등락율'])                                    
+                                    jisu_str = "VIX: {0:.2f} ({1:.2f}, {2:0.2f}%)⬈".format(result['체결가격'], result['전일대비'], result['등락율'])                                    
                                 else:
                                     jisu_str = "VIX: {0:.2f} ▲ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
 
@@ -13050,7 +13051,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     pass                                
 
                                 if max(temp) < 0:
-                                    jisu_str = "VIX: {0:.2f} ({1:.2f}, {2:0.2f}%)↘".format(result['체결가격'], -result['전일대비'], result['등락율'])                                    
+                                    jisu_str = "VIX: {0:.2f} ({1:.2f}, {2:0.2f}%)⬊".format(result['체결가격'], -result['전일대비'], result['등락율'])                                    
                                 else:
                                     jisu_str = "VIX: {0:.2f} ▼ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
 
@@ -13068,7 +13069,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     pass                                
 
                                 if max(temp) < 0:
-                                    jisu_str = "VIX: {0:.2f} ({1:.2f}, {2:0.2f}%)↘".format(result['체결가격'], result['전일대비'], result['등락율'])                                    
+                                    jisu_str = "VIX: {0:.2f} ({1:.2f}, {2:0.2f}%)⬊".format(result['체결가격'], result['전일대비'], result['등락율'])                                    
                                 else:
                                     jisu_str = "VIX: {0:.2f} ▼ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
 
@@ -13116,7 +13117,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 전일대비 = locale.format('%.2f', -result['전일대비'], 1)                                
 
                                 if min(temp) > 0:
-                                    jisu_str = "S&P500: {0} ({1}, {2:0.2f}%)↗".format(체결가격, 전일대비, result['등락율'])                                    
+                                    jisu_str = "S&P500: {0} ({1}, {2:0.2f}%)⬈".format(체결가격, 전일대비, result['등락율'])                                    
                                 else:
                                     jisu_str = "S&P500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
 
@@ -13136,7 +13137,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 전일대비 = locale.format('%.2f', result['전일대비'], 1)                                
 
                                 if min(temp) > 0:
-                                    jisu_str = "S&P500: {0} ▲ ({1}, {2:0.2f}%)↗".format(체결가격, 전일대비, result['등락율'])                                    
+                                    jisu_str = "S&P500: {0} ▲ ({1}, {2:0.2f}%)⬈".format(체결가격, 전일대비, result['등락율'])                                    
                                 else:
                                     jisu_str = "S&P500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
 
@@ -13162,7 +13163,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 전일대비 = locale.format('%.2f', -result['전일대비'], 1)                                
 
                                 if max(temp) < 0:
-                                    jisu_str = "S&P500: {0} ({1}, {2:0.2f}%)↘".format(체결가격, 전일대비, result['등락율'])                                    
+                                    jisu_str = "S&P500: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, 전일대비, result['등락율'])                                    
                                 else:
                                     jisu_str = "S&P500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
 
@@ -13182,7 +13183,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 전일대비 = locale.format('%.2f', result['전일대비'], 1)
                                 
                                 if max(temp) < 0:
-                                    jisu_str = "S&P500: {0} ({1}, {2:0.2f}%)↘".format(체결가격, 전일대비, result['등락율'])                                    
+                                    jisu_str = "S&P500: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, 전일대비, result['등락율'])                                    
                                 else:
                                     jisu_str = "S&P500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
 
@@ -13226,7 +13227,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     pass                                
 
                                 if min(temp) > 0:
-                                    jisu_str = "DOW: {0} ({1}, {2:0.2f}%)↗".format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'])                                    
+                                    jisu_str = "DOW: {0} ({1}, {2:0.2f}%)⬈".format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'])                                    
                                 else:
                                     jisu_str = "DOW: {0} ▲ ({1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'])
 
@@ -13244,7 +13245,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     pass                                
 
                                 if min(temp) > 0:
-                                    jisu_str = "DOW: {0} ({1}, {2:0.2f}%)↗".format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'])                                    
+                                    jisu_str = "DOW: {0} ({1}, {2:0.2f}%)⬈".format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'])                                    
                                 else:
                                     jisu_str = "DOW: {0} ▲ ({1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'])
 
@@ -13266,7 +13267,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     pass                                
 
                                 if max(temp) < 0:
-                                    jisu_str = "DOW: {0} ({1}, {2:0.2f}%)↘".format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'])                                    
+                                    jisu_str = "DOW: {0} ({1}, {2:0.2f}%)⬊".format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'])                                    
                                 else:
                                     jisu_str = "DOW: {0} ▼ ({1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'])
 
@@ -13284,7 +13285,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     pass                                
 
                                 if max(temp) < 0:
-                                    jisu_str = "DOW: {0} ({1}, {2:0.2f}%)↘".format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'])                                    
+                                    jisu_str = "DOW: {0} ({1}, {2:0.2f}%)⬊".format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'])                                    
                                 else:
                                     jisu_str = "DOW: {0} ▼ ({1}, {2:0.2f}%)".format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'])
 
