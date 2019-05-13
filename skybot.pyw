@@ -3133,15 +3133,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             for i in range(9):
                 call_curve[i].clear()
                 put_curve[i].clear() 
+            
+            sp500_right_curve.clear()
+            dow_right_curve.clear()
+            vix_right_curve.clear()
 
             for i in range(9):
                 mv_line[i].setValue(0)
 
             opt_base_line.setValue(0)
-
-            sp500_right_curve.clear()
-            dow_right_curve.clear()
-            vix_right_curve.clear()
 
         elif comboindex2 == 1:
             
@@ -3152,19 +3152,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             cm_two_sum_right_curve.clear()
             cm_two_cha_right_curve.clear()
-            
+                        
             for i in range(9):
                 call_curve[i].clear()
-                put_curve[i].clear() 
+                put_curve[i].clear()
+            
+            sp500_right_curve.clear()
+            dow_right_curve.clear()
+            vix_right_curve.clear()
 
             for i in range(9):
                 mv_line[i].setValue(0)
 
             opt_base_line.setValue(0)
-
-            sp500_right_curve.clear()
-            dow_right_curve.clear()
-            vix_right_curve.clear()
 
         elif comboindex2 == 2:
 
@@ -3177,19 +3177,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             cm_two_sum_right_curve.clear()
             cm_two_cha_right_curve.clear()
-
+            
             for i in range(9):
                 call_curve[i].clear()
-                put_curve[i].clear() 
+                put_curve[i].clear()
+
+            sp500_right_curve.clear()
+            dow_right_curve.clear()
+            vix_right_curve.clear() 
 
             for i in range(9):
                 mv_line[i].setValue(0)
 
             opt_base_line.setValue(0)
-
-            sp500_right_curve.clear()
-            dow_right_curve.clear()
-            vix_right_curve.clear()
         
         elif comboindex2 == 3:
 
@@ -3201,19 +3201,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_volume_cha_right_curve.clear()
 
             fut_che_right_curve.clear()
-
+            
             for i in range(9):
                 call_curve[i].clear()
                 put_curve[i].clear() 
+
+            sp500_right_curve.clear()
+            dow_right_curve.clear()
+            vix_right_curve.clear()
 
             for i in range(9):
                 mv_line[i].setValue(0)
 
             opt_base_line.setValue(0)
-
-            sp500_right_curve.clear()
-            dow_right_curve.clear()
-            vix_right_curve.clear()
 
         elif comboindex2 == 4:
 
@@ -3228,6 +3228,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             cm_two_sum_right_curve.clear()
             cm_two_cha_right_curve.clear()
+            
+            sp500_right_curve.clear()
+            dow_right_curve.clear()
+            vix_right_curve.clear()
 
             # 대맥점 표시
             mv_line[0].setValue(1.2)
@@ -3236,10 +3240,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             mv_line[3].setValue(4.85)
             mv_line[4].setValue(5.1)
             mv_line[5].setValue(5.5)
-
-            sp500_right_curve.clear()
-            dow_right_curve.clear()
-            vix_right_curve.clear()
 
         elif comboindex2 == 5:
 
@@ -3254,18 +3254,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             cm_two_sum_right_curve.clear()
             cm_two_cha_right_curve.clear()
-
+            
             for i in range(9):
                 call_curve[i].clear()
                 put_curve[i].clear() 
+
+            dow_right_curve.clear()
+            vix_right_curve.clear()
 
             for i in range(9):
                 mv_line[i].setValue(sp500_전일종가)
 
             opt_base_line.setValue(sp500_전일종가)
-
-            dow_right_curve.clear()
-            vix_right_curve.clear()
 
         elif comboindex2 == 6:
 
@@ -3280,18 +3280,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             cm_two_sum_right_curve.clear()
             cm_two_cha_right_curve.clear()
-
+            
             for i in range(9):
                 call_curve[i].clear()
-                put_curve[i].clear() 
+                put_curve[i].clear()
+
+            sp500_right_curve.clear()
+            vix_right_curve.clear() 
 
             for i in range(9):
                 mv_line[i].setValue(dow_전일종가)
 
             opt_base_line.setValue(dow_전일종가)
-
-            sp500_right_curve.clear()
-            vix_right_curve.clear()
 
         elif comboindex2 == 7:
 
@@ -3306,18 +3306,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             cm_two_sum_right_curve.clear()
             cm_two_cha_right_curve.clear()
-
+            
             for i in range(9):
                 call_curve[i].clear()
-                put_curve[i].clear() 
+                put_curve[i].clear()
+                
+            sp500_right_curve.clear()
+            dow_right_curve.clear() 
 
             for i in range(9):
                 mv_line[i].setValue(vix_전일종가)
 
             opt_base_line.setValue(vix_전일종가)
 
-            sp500_right_curve.clear()
-            dow_right_curve.clear()
         else:
             pass
 
