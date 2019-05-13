@@ -2270,7 +2270,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_call.horizontalHeader().setStyleSheet(stylesheet)
         self.tableWidget_call.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.tableWidget_call.setHorizontalHeaderLabels(['▲▼', '행사가', '⬆⬇', '기준가', '월저', '월고', '전저', '전고', 
+        self.tableWidget_call.setHorizontalHeaderLabels(['▲▼', '행사가', '▲▼', '기준가', '월저', '월고', '전저', '전고', 
         '종가✓', '피봇✓', '시가✓', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
         self.tableWidget_call.verticalHeader().setVisible(False)
         #self.tableWidget_call.setFocusPolicy(Qt.NoFocus)
@@ -2296,7 +2296,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_put.horizontalHeader().setStyleSheet(stylesheet)
         self.tableWidget_put.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.tableWidget_put.setHorizontalHeaderLabels(['▲▼', '행사가', '⬆⬇', '기준가', '월저', '월고', '전저', '전고', 
+        self.tableWidget_put.setHorizontalHeaderLabels(['▲▼', '행사가', '▲▼', '기준가', '월저', '월고', '전저', '전고', 
         '종가✓', '피봇✓', '시가✓', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
         self.tableWidget_put.verticalHeader().setVisible(False)
         #self.tableWidget_put.setFocusPolicy(Qt.NoFocus)
@@ -2323,7 +2323,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_fut.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_fut.setHorizontalHeaderLabels(
-            ['▲▼', '⬆⬇', 'MSC', 'MDC', 'MSR', 'MDR', 'CR', 'RR', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
+            ['▲▼', '▲▼', 'MSC', 'MDC', 'MSR', 'MDR', 'CR', 'RR', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
              '현재가', '고가', '대비', '진폭', 'PVP', 'VR', 'OI', 'OI↕'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
         #self.tableWidget_fut.setFocusPolicy(Qt.NoFocus)
@@ -7631,7 +7631,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem('행사가')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.행사가.value, item)
 
-                item = QTableWidgetItem('⬆⬇')
+                item = QTableWidgetItem('▲▼')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.OLOH.value, item)
 
                 item = QTableWidgetItem('시가갭\n(%)')
@@ -7649,7 +7649,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem('행사가')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.행사가.value, item)
 
-                item = QTableWidgetItem('⬆⬇')
+                item = QTableWidgetItem('▲▼')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.OLOH.value, item)
 
                 item = QTableWidgetItem('시가갭\n(%)')
@@ -8924,7 +8924,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if self.within_n_tick(round(float(시가), 2), round(float(저가), 2), 10) and \
                 not self.within_n_tick(round(float(시가), 2), round(float(고가), 2), 10):
 
-            item = QTableWidgetItem('⬆')
+            item = QTableWidgetItem('▲')
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(적색))
             item.setForeground(QBrush(흰색))
@@ -8937,7 +8937,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         elif not self.within_n_tick(round(float(시가), 2), round(float(저가), 2), 10) and \
                 self.within_n_tick(round(float(시가), 2), round(float(고가), 2), 10):
 
-            item = QTableWidgetItem('⬇')
+            item = QTableWidgetItem('▼')
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(청색))
             item.setForeground(QBrush(흰색))
@@ -9810,7 +9810,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['저가'], 2) \
                             and not self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['고가'], 2):
 
-                        oloh_str = '⬆'
+                        oloh_str = '▲'
 
                         item = QTableWidgetItem(oloh_str)
                         item.setTextAlignment(Qt.AlignCenter)
@@ -9823,7 +9823,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     elif self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['고가'], 2) \
                             and not self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['저가'], 2):
 
-                        oloh_str = '⬇'
+                        oloh_str = '▼'
 
                         item = QTableWidgetItem(oloh_str)
                         item.setTextAlignment(Qt.AlignCenter)
@@ -10029,7 +10029,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['저가'], 2) \
                             and not self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['고가'], 2):
 
-                        oloh_str = '⬆'
+                        oloh_str = '▲'
 
                         if oloh_str != self.tableWidget_call.item(index, Option_column.OLOH.value).text():
                             item = QTableWidgetItem(oloh_str)
@@ -10045,7 +10045,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     elif self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['고가'], 2) \
                             and not self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['저가'], 2):
 
-                        oloh_str = '⬇'
+                        oloh_str = '▼'
 
                         if oloh_str != self.tableWidget_call.item(index, Option_column.OLOH.value).text():
                             item = QTableWidgetItem(oloh_str)
@@ -10706,7 +10706,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['저가'], 2) \
                             and not self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['고가'], 2):
 
-                        oloh_str = '⬆'
+                        oloh_str = '▲'
 
                         item = QTableWidgetItem(oloh_str)
                         item.setTextAlignment(Qt.AlignCenter)
@@ -10719,7 +10719,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     elif self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['고가'], 2) \
                             and not self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['저가'], 2):
 
-                        oloh_str = '⬇'
+                        oloh_str = '▼'
 
                         item = QTableWidgetItem(oloh_str)
                         item.setTextAlignment(Qt.AlignCenter)
@@ -10925,7 +10925,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['저가'], 2) \
                             and not self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['고가'], 2):
 
-                        oloh_str = '⬆'
+                        oloh_str = '▲'
 
                         if oloh_str != self.tableWidget_put.item(index, Option_column.OLOH.value).text():
                             item = QTableWidgetItem(oloh_str)
@@ -10941,7 +10941,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     elif self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['고가'], 2) \
                             and not self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['저가'], 2):
 
-                        oloh_str = '⬇'
+                        oloh_str = '▼'
 
                         if oloh_str != self.tableWidget_put.item(index, Option_column.OLOH.value).text():
                             item = QTableWidgetItem(oloh_str)
