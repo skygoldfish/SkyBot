@@ -3047,13 +3047,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             kp200_curve.clear()
             fut_curve.clear()  
             
-            fut_jl_line.setValue(0)
-            fut_jh_line.setValue(0)
-            fut_pivot_line.setValue(0)
-            volume_base_line.setValue(0) 
-
             dow_left_curve.clear()
             vix_left_curve.clear()
+            
+            fut_jl_line.setValue(sp500_전일종가)
+            fut_jh_line.setValue(sp500_전일종가)
+            fut_pivot_line.setValue(sp500_전일종가)
+            volume_base_line.setValue(sp500_전일종가) 
 
         elif comboindex1 == 6:
 
@@ -3070,15 +3070,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_two_cha_left_curve.clear()
 
             kp200_curve.clear()
-            fut_curve.clear()  
+            fut_curve.clear()
             
-            fut_jl_line.setValue(0)
-            fut_jh_line.setValue(0)
-            fut_pivot_line.setValue(0)
-            volume_base_line.setValue(0) 
-
             sp500_left_curve.clear()
-            vix_left_curve.clear()
+            vix_left_curve.clear()  
+            
+            fut_jl_line.setValue(dow_전일종가)
+            fut_jh_line.setValue(dow_전일종가)
+            fut_pivot_line.setValue(dow_전일종가)
+            volume_base_line.setValue(dow_전일종가) 
 
         elif comboindex1 == 7:
 
@@ -3095,15 +3095,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_two_cha_left_curve.clear()
 
             kp200_curve.clear()
-            fut_curve.clear()  
+            fut_curve.clear()
             
-            fut_jl_line.setValue(0)
-            fut_jh_line.setValue(0)
-            fut_pivot_line.setValue(0)
-            volume_base_line.setValue(0) 
-
             sp500_left_curve.clear()
-            dow_left_curve.clear()
+            dow_left_curve.clear()  
+            
+            fut_jl_line.setValue(vix_전일종가)
+            fut_jh_line.setValue(vix_전일종가)
+            fut_pivot_line.setValue(vix_전일종가)
+            volume_base_line.setValue(vix_전일종가) 
+
         else:
             pass
 
@@ -3259,9 +3260,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 put_curve[i].clear() 
 
             for i in range(9):
-                mv_line[i].setValue(0)
+                mv_line[i].setValue(sp500_전일종가)
 
-            opt_base_line.setValue(0)
+            opt_base_line.setValue(sp500_전일종가)
 
             dow_right_curve.clear()
             vix_right_curve.clear()
@@ -3285,9 +3286,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 put_curve[i].clear() 
 
             for i in range(9):
-                mv_line[i].setValue(0)
+                mv_line[i].setValue(dow_전일종가)
 
-            opt_base_line.setValue(0)
+            opt_base_line.setValue(dow_전일종가)
 
             sp500_right_curve.clear()
             vix_right_curve.clear()
@@ -3311,9 +3312,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 put_curve[i].clear() 
 
             for i in range(9):
-                mv_line[i].setValue(0)
+                mv_line[i].setValue(vix_전일종가)
 
-            opt_base_line.setValue(0)
+            opt_base_line.setValue(vix_전일종가)
 
             sp500_right_curve.clear()
             dow_right_curve.clear()
