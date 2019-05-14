@@ -2271,7 +2271,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_call.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_call.setHorizontalHeaderLabels(['▲▼', '행사가', '▲▼', '기준가', '월저', '월고', '전저', '전고', 
-        '종가✓', '피봇✓', '시가✓', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
+        '종가\n✓', '피봇\n✓', '시가\n✓', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
         self.tableWidget_call.verticalHeader().setVisible(False)
         #self.tableWidget_call.setFocusPolicy(Qt.NoFocus)
 
@@ -2297,7 +2297,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_put.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_put.setHorizontalHeaderLabels(['▲▼', '행사가', '▲▼', '기준가', '월저', '월고', '전저', '전고', 
-        '종가✓', '피봇✓', '시가✓', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
+        '종가\n✓', '피봇\n✓', '시가\n✓', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
         self.tableWidget_put.verticalHeader().setVisible(False)
         #self.tableWidget_put.setFocusPolicy(Qt.NoFocus)
 
@@ -3352,7 +3352,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             col_text = self.tableWidget_call.horizontalHeaderItem(idx).text()
 
             if col_text.find('✓') == -1:
-                item = QTableWidgetItem(col_text + '✓')
+                item = QTableWidgetItem(col_text + '\n✓')
                 self.tableWidget_call.setHorizontalHeaderItem(idx, item)
                 print("call header column.. ", idx, col_text)
 
@@ -3375,7 +3375,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                item = QTableWidgetItem(col_text.replace('✓', ''))
+                item = QTableWidgetItem(col_text.replace('\n✓', ''))
                 self.tableWidget_call.setHorizontalHeaderItem(idx, item)
                 print("call header column.. ", idx, col_text)
 
@@ -3422,7 +3422,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             col_text = self.tableWidget_put.horizontalHeaderItem(idx).text()
 
             if col_text.find('✓') == -1:
-                item = QTableWidgetItem(col_text + '✓')
+                item = QTableWidgetItem(col_text + '\n✓')
                 self.tableWidget_put.setHorizontalHeaderItem(idx, item)
                 print("put header column.. ", idx, col_text)
 
@@ -3445,7 +3445,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                item = QTableWidgetItem(col_text.replace('✓', ''))
+                item = QTableWidgetItem(col_text.replace('\n✓', ''))
                 self.tableWidget_put.setHorizontalHeaderItem(idx, item)
                 print("put header column.. ", idx, col_text)
 
@@ -3492,7 +3492,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if col_text.find('✓') == -1:
             
-                item = QTableWidgetItem(col_text + '✓')
+                item = QTableWidgetItem(col_text + '\n✓')
                 self.tableWidget_call.setHorizontalHeaderItem(idx, item)
 
                 if idx == Option_column.기준가.value:
@@ -3520,7 +3520,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if col_text.find('✓') == -1:
 
-                item = QTableWidgetItem(col_text + '✓')
+                item = QTableWidgetItem(col_text + '\n✓')
                 self.tableWidget_put.setHorizontalHeaderItem(idx, item)
 
                 if idx == Option_column.기준가.value:
@@ -4250,7 +4250,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
                     else:
-                        pass                 
+                        self.call_node_color_clear()
+                        self.put_node_color_clear()
+                        self.call_coreval_color_update()
+                        self.put_coreval_color_update()                 
                 else:
                     pass
 
@@ -4674,6 +4677,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         return
+
+    def call_coreval_color_update(self):
+
+        if call_scroll_end_position <= nCount_cm_option_pairs:            
+
+            for i in range(call_scroll_begin_position, call_scroll_end_position):
+
+                if df_cm_call.iloc[i]['저가'] in coreval:
+
+                    self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
+
+                if df_cm_call.iloc[i]['고가'] in coreval:
+
+                    self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+                else:
+                    pass      
 
     def call_node_color_update(self):
 
@@ -5422,6 +5445,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         return
+
+    def put_coreval_color_update(self):
+
+        if put_scroll_end_position <= nCount_cm_option_pairs:            
+
+            for i in range(put_scroll_begin_position, put_scroll_end_position):
+
+                if df_cm_put.iloc[i]['저가'] in coreval:
+
+                    self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
+
+                if df_cm_put.iloc[i]['고가'] in coreval:
+
+                    self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
 
     def put_node_color_update(self):
 	
