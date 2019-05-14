@@ -237,7 +237,7 @@ PROGRAM_직전대비 = collections.deque([0, 0, 0], 3)
 
 sp500_직전대비 = collections.deque([0, 0, 0], 5)
 dow_직전대비 = collections.deque([0, 0, 0], 5)
-vix_직전대비 = collections.deque([0, 0, 0], 5)
+vix_직전대비 = collections.deque([0, 0, 0], 3)
 
 actval_increased = False
 
