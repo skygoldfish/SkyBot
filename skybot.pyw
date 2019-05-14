@@ -8347,23 +8347,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 실시간테이타 요청
                 self.cm_opt_real = EC0(parent=self)
-                self.cm_opt_ho = EH0(parent=self)
-                self.fut_real = NC0(parent=self)
-                self.fut_ho = NH0(parent=self)
 
+                for i in range(nCount_cm_option_pairs):
+                    self.cm_opt_real.AdviseRealData(cm_call_code[i])
+                    self.cm_opt_real.AdviseRealData(cm_put_code[i]) 
+
+                self.cm_opt_ho = EH0(parent=self)
+
+                for i in range(nCount_cm_option_pairs):
+                    self.cm_opt_ho.AdviseRealData(cm_call_code[i])
+                    self.cm_opt_ho.AdviseRealData(cm_put_code[i]) 
+
+                self.fut_real = NC0(parent=self)
                 self.fut_real.AdviseRealData(fut_code)
+
+                self.fut_ho = NH0(parent=self)                
                 self.fut_ho.AdviseRealData(fut_code)
 
                 # 업종별 투자자별 매매현황 요청
                 self.BM.AdviseRealData(CME)
+                
                 '''
                 for i in range(15):
                     self.cm_opt_ho.AdviseRealData(cm_call_code[(atm_index_old - 7) + i])
                     self.cm_opt_ho.AdviseRealData(cm_put_code[(atm_index_old - 7) + i])
-                '''
-                for i in range(nCount_cm_option_pairs):
-                    self.cm_opt_real.AdviseRealData(cm_call_code[i])
-                    self.cm_opt_real.AdviseRealData(cm_put_code[i])
+                '''                                   
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
