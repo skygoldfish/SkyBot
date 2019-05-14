@@ -2387,13 +2387,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_supply.verticalHeader().setStretchLastSection(True)
         self.tableWidget_supply.clearContents()
 
-        self.comboBox1.addItems(['FV-Plot', 'OO-Plot', 'OV-Plot', 'HC-Plot', 'FP-Plot', 'S&P500', 'DOW', 'VIX'])
+        self.comboBox1.addItems(['1. FV-Plot', '2. OO-Plot', '3. OV-Plot', '4. HC-Plot', '5. FP-Plot', '6. S&P500', '7. DOW', '8. VIX'])
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['OO-Plot', 'OV-Plot', 'FV-Plot', 'HC-Plot', 'OP-Plot', 'S&P500', 'DOW', 'VIX'])
+        self.comboBox2.addItems(['1. OO-Plot', '2. OV-Plot', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P500', '7. DOW', '8. VIX'])
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
-        #self.상태그림 = ['▼', '▬', '▲']
         self.상태그림 = ['▼', '▲']
         self.상태문자 = ['매도', '대기', '매수']
         self.특수문자 = \
@@ -6747,7 +6746,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(순미결합)
                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
                 else:
-                    temp = format(df_cm_call['수정미결'].sum(), ',')                        
+                    temp = '{0}k'.format(format(int(df_cm_call['수정미결'].sum()/1000), ','))                       
                     
                     item = QTableWidgetItem(temp)
                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
@@ -7004,7 +7003,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(순미결합)
                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
                 else:
-                    temp = format(df_cm_put['수정미결'].sum(), ',')                                            
+                    temp = '{0}k'.format(format(int(df_cm_put['수정미결'].sum()/1000), ','))                                   
 
                     item = QTableWidgetItem(temp)
                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
@@ -7165,8 +7164,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.YOC = YOC(parent=self)
 
                         for i in range(nCount_cm_option_pairs):
-                            self.YOC.AdviseRealData(df['콜옵션코드'][i])
-                            self.YOC.AdviseRealData(df1['풋옵션코드'][i])
+                            self.YOC.AdviseRealData(cm_call_code[i])
+                            self.YOC.AdviseRealData(cm_put_code[i])
                     else:
                         pass
 
@@ -7174,15 +7173,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.cm_opt_real = OC0(parent=self)
 
                     for i in range(nCount_cm_option_pairs):
-                        self.cm_opt_real.AdviseRealData(df['콜옵션코드'][i])
-                        self.cm_opt_real.AdviseRealData(df1['풋옵션코드'][i])
+                        self.cm_opt_real.AdviseRealData(cm_call_code[i])
+                        self.cm_opt_real.AdviseRealData(cm_put_code[i])
 
                     # 전일등가 중심 9개 행사가 호가요청
                     self.cm_opt_ho = OH0(parent=self)
 
-                    for i in range(15):
-                        self.cm_opt_ho.AdviseRealData(cm_call_code[(atm_index_old - 7) + i])
-                        self.cm_opt_ho.AdviseRealData(cm_put_code[(atm_index_old - 7) + i])
+                    for i in range(nCount_cm_option_pairs):
+                        self.cm_opt_ho.AdviseRealData(cm_call_code[i])
+                        self.cm_opt_ho.AdviseRealData(cm_put_code[i])
 
                     # 선물 실시간테이타 요청
                     self.fut_real = FC0(parent=self)
@@ -8355,14 +8354,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 업종별 투자자별 매매현황 요청
                 self.BM.AdviseRealData(CME)
-
+                '''
                 for i in range(15):
                     self.cm_opt_ho.AdviseRealData(cm_call_code[(atm_index_old - 7) + i])
                     self.cm_opt_ho.AdviseRealData(cm_put_code[(atm_index_old - 7) + i])
-
+                '''
                 for i in range(nCount_cm_option_pairs):
-                    self.cm_opt_real.AdviseRealData(df['콜옵션코드'][i])
-                    self.cm_opt_real.AdviseRealData(df1['풋옵션코드'][i])
+                    self.cm_opt_real.AdviseRealData(cm_call_code[i])
+                    self.cm_opt_real.AdviseRealData(cm_put_code[i])
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
@@ -9705,7 +9704,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        temp = format(df_cm_call['수정미결'].sum(), ',')
+        temp = '{0}k'.format(format(int(df_cm_call['수정미결'].sum()/1000), ','))
 
         if temp != self.tableWidget_call.horizontalHeaderItem(Option_column.OI.value).text():
             item = QTableWidgetItem(temp)
@@ -10601,7 +10600,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        temp = format(df_cm_put['수정미결'].sum(), ',')
+        temp = '{0}k'.format(format(int(df_cm_put['수정미결'].sum()/1000), ','))
 
         if temp != self.tableWidget_put.horizontalHeaderItem(Option_column.OI.value).text():
             item = QTableWidgetItem(temp)
@@ -12088,23 +12087,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             int(result['시간'][4:6]),
                             kp200_realdata['시가'])
                         self.textBrowser.append(str)
-
+                        '''
                         # 전일 등가중심 호가요청 취소
                         for i in range(15):
                             self.cm_opt_ho.UnadviseRealDataWithKey(cm_call_code[(atm_index_old - 7) + i])
                             self.cm_opt_ho.UnadviseRealDataWithKey(cm_put_code[(atm_index_old - 7) + i])
-
+                        '''
                         atm_str = self.find_ATM(kp200_realdata['시가'])
                         atm_index = cm_call_actval.index(atm_str)
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 전일호가 취소 및 당일호가(등가:{3})를 요청합니다.\r'.format(
                             int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), atm_str)
                         self.textBrowser.append(str)
-
+                        '''
                         # 당일 호가요청
                         for i in range(15):
                             self.cm_opt_ho.AdviseRealData(cm_call_code[(atm_index - 7) + i])
                             self.cm_opt_ho.AdviseRealData(cm_put_code[(atm_index - 7) + i])
+                        '''
                     else:
                         pass
 
