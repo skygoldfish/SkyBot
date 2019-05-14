@@ -4696,7 +4696,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
                 else:
-                    pass      
+                    pass
+        else:
+            pass      
 
     def call_node_color_update(self):
 
@@ -5465,6 +5467,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
                 else:
                     pass
+        else:
+            pass
 
     def put_node_color_update(self):
 	
