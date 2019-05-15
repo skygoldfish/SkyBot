@@ -171,7 +171,8 @@ opt_x_idx_old = 0
 call_below_atm_count = 0
 put_above_atm_count = 0
 
-every_10sec = [0, 10, 20, 30, 40, 50]
+every_10sec_a = [0, 10, 20, 30, 40, 50]
+every_10sec_b = [5, 15, 25, 35, 45, 55]
 every_20sec = [0, 20, 40]
 every_30sec = [0, 30]
 only_30sec = [30]
@@ -4081,7 +4082,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 옵션 체결량 갱신
                     self.call_volume_power_update()
                     self.put_volume_power_update()
-
+                    
                     # 등가, 미결 Label 갱신
                     self.label_atm_display()
 
@@ -4138,15 +4139,35 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
 
+                    #str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간1 : {3:0.2f} ms...\r'.format(int(호가시간[0:2]), \
+                    #int(호가시간[2:4]), int(호가시간[4:6]), (timeit.default_timer() - start_time) * 1000)
+                    #print(str)
+
                     # 대비, Open Count 및 OL/OH 갱신
                     if self.alternate_flag:
-                        self.call_db_update()
-                        self.call_state_update()                        
+                        self.call_state_update()
+                        self.call_db_update()                      
                     else:
-                        self.put_db_update()
-                        self.put_state_update()                        
+                        self.put_state_update() 
+                        self.put_db_update()                     
                     
                     self.alternate_flag = not self.alternate_flag
+
+                    '''
+                    if int(호가시간[4:6]) in every_10sec_a and self.alternate_flag:                        
+                        self.call_state_update() 
+                    else:
+                        pass  
+
+                    if int(호가시간[4:6]) in every_10sec_b and self.alternate_flag: 
+                        self.put_state_update()   
+                    else:
+                        pass
+                    '''                  
+
+                    #str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간2 : {3:0.2f} ms...\r'.format(int(호가시간[0:2]), \
+                    #int(호가시간[2:4]), int(호가시간[4:6]), (timeit.default_timer() - start_time) * 1000)
+                    #print(str)
 
                     # 시작 1분 이후부터 연산
                     if opt_x_idx > 1:
@@ -4196,7 +4217,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             pass
 
                         # 매 10초마다 한번씩 맥점 컬러링 채크 및 실행
-                        if int(호가시간[4:6]) in every_10sec and self.alternate_flag:
+                        if int(호가시간[4:6]) in every_10sec_a and self.alternate_flag:
 
                             color_update = False
 
@@ -4258,7 +4279,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                #self.plot_data()              
+                #str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간3 : {3:0.2f} ms...\r'.format(int(호가시간[0:2]), \
+                #int(호가시간[2:4]), int(호가시간[4:6]), (timeit.default_timer() - start_time) * 1000)
+                #print(str)                              
                 
                 # X축 세로선 데이타처리
                 if x_idx > 10 and opt_x_idx > 10:
@@ -4441,7 +4464,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간 : {3:0.2f} ms...\r'.format(int(호가시간[0:2]), \
                 int(호가시간[2:4]), int(호가시간[4:6]), (timeit.default_timer() - start_time) * 1000)
             print(str)
-            # self.textBrowser.append(str)
         except:
             pass
 
@@ -4458,6 +4480,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             abs(call_atm_value - put_atm_value))
 
         self.label_atm.setText(str)
+
+        return
 
     def set_call_atm_row_color(self, rowIndex, brush):
 
@@ -9338,7 +9362,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     # 콜 표시
     def call_display(self, result):
 
-        global call_result
+        global call_result, call_open, call_below_atm_count
         global df_cm_call, df_plotdata_cm_call
         global call_atm_value, call_db_percent
         global cm_call_저가, cm_call_저가_node_list, cm_call_고가, cm_call_고가_node_list
@@ -9421,6 +9445,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if 저가 != 고가:
 
+                if not call_open[index]:
+
+                    call_open[index] = True
+
+                    if index > atm_index:
+                        call_below_atm_count += 1
+                    else:
+                        pass
+                else:
+                    pass
+
                 # 저가 갱신
                 if 저가 != self.tableWidget_call.item(index, Option_column.저가.value).text():
 
@@ -9430,6 +9465,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         cm_call_저가 = df_cm_call['저가'].values.tolist()
                         cm_call_저가_node_list = self.make_node_list(cm_call_저가)
+
+                        self.check_call_oloh(index)
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 저가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
                             int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 저가)
@@ -9456,6 +9493,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         cm_call_고가 = df_cm_call['고가'].values.tolist()
                         cm_call_고가_node_list = self.make_node_list(cm_call_고가)
+
+                        self.check_call_oloh(index)
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 고가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
                             int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 고가)
@@ -9496,11 +9535,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if round(float(저가), 2) != df_cm_call.iloc[index]['저가']:
                     df_cm_call.loc[index, '저가'] = round(float(저가), 2)
+                    self.check_call_oloh(index)
                 else:
                     pass
 
                 if round(float(고가), 2) != df_cm_call.iloc[index]['고가']:
                     df_cm_call.loc[index, '고가'] = round(float(고가), 2)
+                    self.check_call_oloh(index)
+                else:
+                    pass
+
+                if 저가 != 고가:
+
+                    if not call_open[index]:
+
+                        call_open[index] = True
+
+                        if index > atm_index:
+                            call_below_atm_count += 1
+                        else:
+                            pass
+                    else:
+                        pass
                 else:
                     pass
             else:
@@ -9832,16 +9888,63 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         return
+
+    def check_call_oloh(self, index):
+
+        global call_ol, call_oh
+
+        if df_cm_call.iloc[index]['시가'] >= price_threshold:
+
+            # call OL/OH count
+            if self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['저가'], 2) \
+                    and not self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['고가'], 2):
+
+                oloh_str = '▲'
+
+                item = QTableWidgetItem(oloh_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(적색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
+
+                call_ol[index] = True
+
+            elif self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['고가'], 2) \
+                    and not self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['저가'], 2):
+
+                oloh_str = '▼'
+
+                item = QTableWidgetItem(oloh_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(청색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
+
+                call_oh[index] = True
+
+            else:
+                oloh_str = ''
+
+                item = QTableWidgetItem(oloh_str)
+                item.setBackground(QBrush(기본바탕색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
+
+                call_ol[index] = False
+                call_oh[index] = False              
+        else:
+            pass
     
     def call_state_update(self):
 
-        global call_below_atm_count, call_open, call_ol, call_oh
+        #global call_below_atm_count, call_open, call_ol, call_oh
+        
+        '''
+        call_below_atm_count = 0
 
         call_open = [False] * nCount_cm_option_pairs
         call_ol = [False] * nCount_cm_option_pairs
         call_oh = [False] * nCount_cm_option_pairs
-
-        call_below_atm_count = 0
 
         for index in range(nCount_cm_option_pairs):
 
@@ -9903,6 +10006,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
             else:
                 pass
+        '''
 
         if call_open[nCount_cm_option_pairs - 1]:
             new_actval = repr(call_below_atm_count) + '/' + repr(call_open.count(True)) + '*'
@@ -9913,6 +10017,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem(new_actval)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setHorizontalHeaderItem(1, item)
+            self.tableWidget_call.resizeColumnsToContents()
         else:
             pass 
 
@@ -9922,13 +10027,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem(new_oloh)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setHorizontalHeaderItem(2, item)
+            self.tableWidget_call.resizeColumnsToContents()
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call OLOH 갱신 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
             self.textBrowser.append(str)
         else:
             pass                               
-
-        self.tableWidget_call.resizeColumnsToContents()
 
         return
 
@@ -10232,7 +10336,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     # 풋 표시
     def put_display(self, result):
 
-        global put_result
+        global put_result, put_open, put_above_atm_count
         global df_cm_put, df_plotdata_cm_put
         global put_atm_value, put_db_percent
         global cm_put_저가, cm_put_저가_node_list, cm_put_고가, cm_put_고가_node_list
@@ -10315,6 +10419,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if 저가 != 고가:
 
+                if not put_open[index]:
+
+                    put_open[index] = True
+
+                    if index < atm_index:
+                        put_above_atm_count += 1
+                    else:
+                        pass
+                else:
+                    pass
+
                 # 저가 갱신
                 if 저가 != self.tableWidget_put.item(index, Option_column.저가.value).text():
 
@@ -10324,6 +10439,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         cm_put_저가 = df_cm_put['저가'].values.tolist()
                         cm_put_저가_node_list = self.make_node_list(cm_put_저가)
+
+                        self.check_put_oloh(index)
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 저가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
                             int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 저가)
@@ -10350,6 +10467,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         cm_put_고가 = df_cm_put['고가'].values.tolist()
                         cm_put_고가_node_list = self.make_node_list(cm_put_고가)
+
+                        self.check_put_oloh(index)
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 고가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
                             int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 고가)
@@ -10390,11 +10509,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if round(float(저가), 2) != df_cm_put.iloc[index]['저가']:
                     df_cm_put.loc[index, '저가'] = round(float(저가), 2)
+                    self.check_put_oloh(index)
                 else:
                     pass
 
                 if round(float(고가), 2) != df_cm_put.iloc[index]['고가']:
                     df_cm_put.loc[index, '고가'] = round(float(고가), 2)
+                    self.check_put_oloh(index)
+                else:
+                    pass
+
+                if 저가 != 고가:
+
+                    if not put_open[index]:
+
+                        put_open[index] = True
+
+                        if index < atm_index:
+                            put_above_atm_count += 1
+                        else:
+                            pass
+                    else:
+                        pass
                 else:
                     pass
             else:
@@ -10728,16 +10864,63 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         return
+
+    def check_put_oloh(self, index):
+
+        global put_ol, put_oh
+
+        if df_cm_put.iloc[index]['시가'] >= price_threshold:
+
+            # put OL/OH count
+            if self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['저가'], 2) \
+                    and not self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['고가'], 2):
+
+                oloh_str = '▲'
+
+                item = QTableWidgetItem(oloh_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(청색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
+
+                put_ol[index] = True
+
+            elif self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['고가'], 2) \
+                    and not self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['저가'], 2):
+
+                oloh_str = '▼'
+
+                item = QTableWidgetItem(oloh_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(적색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
+
+                put_oh[index] = True
+
+            else:
+                oloh_str = ''
+
+                item = QTableWidgetItem(oloh_str)
+                item.setBackground(QBrush(기본바탕색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
+
+                put_ol[index] = False
+                put_oh[index] = False    
+        else:
+            pass
     
     def put_state_update(self):
 
-        global put_above_atm_count, put_open, put_ol, put_oh
+        #global put_above_atm_count, put_open, put_ol, put_oh
+        
+        '''
+        put_above_atm_count = 0
 
         put_open = [False] * nCount_cm_option_pairs
         put_ol = [False] * nCount_cm_option_pairs
         put_oh = [False] * nCount_cm_option_pairs
-
-        put_above_atm_count = 0
 
         for index in range(nCount_cm_option_pairs):
 
@@ -10799,7 +10982,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
             else:
                 pass        
-                    
+        '''
+
         if put_open[0]:
             new_actval = repr(put_above_atm_count) + '/' + repr(put_open.count(True)) + '*'
         else:
@@ -10809,6 +10993,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem(new_actval)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setHorizontalHeaderItem(1, item)
+            self.tableWidget_put.resizeColumnsToContents()
         else:
             pass
 
@@ -10818,13 +11003,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem(new_oloh)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setHorizontalHeaderItem(2, item)
+            self.tableWidget_put.resizeColumnsToContents()
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put OLOH 갱신 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
             self.textBrowser.append(str)
         else:
             pass           
-
-        self.tableWidget_put.resizeColumnsToContents()
 
         return
 
