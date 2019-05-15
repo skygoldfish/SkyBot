@@ -8366,7 +8366,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 업종별 투자자별 매매현황 요청
                 self.BM.AdviseRealData(CME)
-                
+
                 '''
                 for i in range(15):
                     self.cm_opt_ho.AdviseRealData(cm_call_code[(atm_index_old - 7) + i])
@@ -13038,7 +13038,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if result['체결시간_한국'] != '':
                         ovc_x_idx = (int(result['체결시간_한국'][0:2]) - start_hour) * 60 + int(result['체결시간_한국'][2:4]) + 1
                     else:
-                        ovc_x_idx = 1
+                        ovc_x_idx = 1                
 
                 if result['종목코드'] == VIX:
 
@@ -13359,6 +13359,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         pass                    
                 else:
                     pass
+
+                if sp500_text_color == 'blue' and dow_text_color == 'blue' and vix_text_color == 'blue':
+
+                    pass
+
+                elif sp500_text_color == 'red' and dow_text_color == 'red' and vix_text_color == 'red':
+
+                    pass
+                else:
+
+                    if vix_text_color != '':
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] VIX, SP500, DOW의 극성이 상이합니다... \r'.format(
+                                    int(result['체결시간_한국'][0:2]),
+                                    int(result['체결시간_한국'][2:4]),
+                                    int(result['체결시간_한국'][4:6]))                                
+                        self.textBrowser.append(str)
+                    else:
+                        pass
             else:
                 print('요청하지 않은 TR 코드 : ', szTrCode)
             '''
