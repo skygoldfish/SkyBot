@@ -4082,6 +4082,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 옵션 체결량 갱신
                     self.call_volume_power_update()
                     self.put_volume_power_update()
+
+                    self.call_db_update() 
+                    self.put_db_update()   
                     
                     # 등가, 미결 Label 갱신
                     self.label_atm_display()
@@ -4145,11 +4148,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # 대비, Open Count 및 OL/OH 갱신
                     if self.alternate_flag:
-                        self.call_state_update()
-                        self.call_db_update()                      
+                        self.call_state_update()                                              
                     else:
-                        self.put_state_update() 
-                        self.put_db_update()                     
+                        self.put_state_update()                  
                     
                     self.alternate_flag = not self.alternate_flag
 
@@ -9644,6 +9645,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if call_db_percent_local:
 
             sumc = round(df_cm_call['대비'].sum(), 2)
+
+            if sumc >= 0:
+
+                direction = '▲'
+            else:
+                direction = '▼'
+            
+            if direction != self.tableWidget_call.horizontalHeaderItem(0).text():
+                item = QTableWidgetItem(direction)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setHorizontalHeaderItem(0, item)
+            else:
+                pass
+
             tmp = np.array(call_db_percent_local)            
             meanc = int(round(np.mean(tmp), 2))
             call_str = repr(sumc) + '\n (' + repr(meanc) + '%' + ') '
@@ -9653,28 +9668,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
                 self.tableWidget_call.resizeColumnsToContents()
             else:
-                pass
-
-            if sumc >= 0:
-
-                direction = '▲'
-
-                if direction != self.tableWidget_call.horizontalHeaderItem(0).text():
-                    item = QTableWidgetItem(direction)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setHorizontalHeaderItem(0, item)
-                else:
-                    pass
-            else:
-
-                direction = '▼'
-
-                if direction != self.tableWidget_call.horizontalHeaderItem(0).text():
-                    item = QTableWidgetItem(direction)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setHorizontalHeaderItem(0, item)
-                else:
-                    pass            
+                pass                    
         else:
             print('call_db_percent_local is empty...')
 
@@ -10618,6 +10612,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if put_db_percent_local:
 
             sump = round(df_cm_put['대비'].sum(), 2)
+            
+            if sump >= 0:
+
+                direction = '▲'
+            else:
+                direction = '▼'
+            
+            if direction != self.tableWidget_put.horizontalHeaderItem(0).text():
+                item = QTableWidgetItem(direction)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setHorizontalHeaderItem(0, item)
+            else:
+                pass   
+
             tmp = np.array(put_db_percent_local)            
             meanp = int(round(np.mean(tmp), 2))
             put_str = repr(sump) + '\n (' + repr(meanp) + '%' + ') '
@@ -10629,27 +10637,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_put.resizeColumnsToContents()
             else:
                 pass
-
-            if sump >= 0:
-
-                direction = '▲'
-
-                if direction != self.tableWidget_put.horizontalHeaderItem(0).text():
-                    item = QTableWidgetItem(direction)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setHorizontalHeaderItem(0, item)
-                else:
-                    pass
-            else:
-
-                direction = '▼'
-
-                if direction != self.tableWidget_put.horizontalHeaderItem(0).text():
-                    item = QTableWidgetItem(direction)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setHorizontalHeaderItem(0, item)
-                else:
-                    pass       
         else:
             print('put_db_percent_local is empty...')
 
