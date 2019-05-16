@@ -12368,19 +12368,39 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         item_str = "{0}\n({1})⬈".format(순매수, result['거래대금순매수직전대비'])
 
+                        if item_str != self.tableWidget_supply.item(0, 3).text():
+                            item = QTableWidgetItem(item_str)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            #item.setBackground(QBrush(적색))
+                            #item.setForeground(QBrush(흰색))
+                            self.tableWidget_supply.setItem(0, 3, item)
+                        else:
+                            pass
+
                     elif max(temp) < 0:
 
                         item_str = "{0}\n({1})⬊".format(순매수, result['거래대금순매수직전대비'])
 
+                        if item_str != self.tableWidget_supply.item(0, 3).text():
+                            item = QTableWidgetItem(item_str)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            #item.setBackground(QBrush(청색))
+                            #item.setForeground(QBrush(흰색))
+                            self.tableWidget_supply.setItem(0, 3, item)
+                        else:
+                            pass
+
                     else:
                         item_str = "{0}\n({1})".format(순매수, result['거래대금순매수직전대비'])
 
-                    if item_str != self.tableWidget_supply.item(0, 3).text():
-                        item = QTableWidgetItem(item_str)
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_supply.setItem(0, 3, item)
-                    else:
-                        pass
+                        if item_str != self.tableWidget_supply.item(0, 3).text():
+                            item = QTableWidgetItem(item_str)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            #item.setBackground(QBrush(기본바탕색))
+                            #item.setForeground(QBrush(검정색))
+                            self.tableWidget_supply.setItem(0, 3, item)
+                        else:
+                            pass
 
                 elif result['업종코드'] == FUTURES and result['투자자코드'] == INSTITUTIONAL or result['업종코드'] == CME and result['투자자코드'] == INSTITUTIONAL:
 
@@ -12404,19 +12424,39 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         item_str = "{0}\n({1})⬈".format(순매수, 기관_거래대금순매수_직전대비)
 
+                        if item_str != self.tableWidget_supply.item(0, 4).text():
+                            item = QTableWidgetItem(item_str)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(적색))
+                            item.setForeground(QBrush(흰색))
+                            self.tableWidget_supply.setItem(0, 4, item)
+                        else:
+                            pass
+
                     elif max(temp) < 0:
 
                         item_str = "{0}\n({1})⬊".format(순매수, 기관_거래대금순매수_직전대비)
 
+                        if item_str != self.tableWidget_supply.item(0, 4).text():
+                            item = QTableWidgetItem(item_str)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(청색))
+                            item.setForeground(QBrush(흰색))
+                            self.tableWidget_supply.setItem(0, 4, item)
+                        else:
+                            pass
+
                     else:
                         item_str = "{0}\n({1})".format(순매수, 기관_거래대금순매수_직전대비)
 
-                    if item_str != self.tableWidget_supply.item(0, 4).text():
-                        item = QTableWidgetItem(item_str)
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_supply.setItem(0, 4, item)
-                    else:
-                        pass
+                        if item_str != self.tableWidget_supply.item(0, 4).text():
+                            item = QTableWidgetItem(item_str)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(기본바탕색))
+                            item.setForeground(QBrush(검정색))
+                            self.tableWidget_supply.setItem(0, 4, item)
+                        else:
+                            pass
 
                 elif result['업종코드'] == FUTURES and result['투자자코드'] == STOCK or result['업종코드'] == CME and result['투자자코드'] == STOCK:
 
