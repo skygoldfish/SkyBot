@@ -102,8 +102,6 @@ end_time_str = ''
 OVC_체결시간 = '000000'
 호가시간 = '000000'
 
-ovc_on = False
-
 # 업종코드
 KOSPI = '001'
 KOSPI200 = '101'
@@ -4037,28 +4035,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             start_time = timeit.default_timer()            
             dt = datetime.datetime.now()
 
-            global ovc_on, call_max_actval, put_max_actval
-
-            # 시스템시간을 서버시간에 맞춘다.
-            if ovc_on:                 
-                str = '{0:02d}:{1:02d}:{2:02d}'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
-                self.label_msg.setText(str) 
-            else:
-                if not receive_realdata:
-                    str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
-                    self.label_msg.setText(str) 
-                else:
-                    pass
+            global call_max_actval, put_max_actval
+            
+            # 로컬타임 표시
+            str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
+            self.label_msg.setText(str) 
 
             self.label_clear()
                         
-            if receive_realdata:
-
-                ovc_on = False             
-
-                # 실시간 시간표시
-                str = '{0:02d}:{1:02d}:{2:02d}'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
-                self.label_msg.setText(str)                    
+            if receive_realdata:                 
                                 
                 # 호가 갱신
                 self.quote_display()
@@ -8444,6 +8429,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global cm_call_t8416_count, cm_put_t8416_count
             global actval_increased
 
+            str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
+            self.label_msg.setText(str)
+
             if block['단축코드'] == '':
 
                 if self.t8416_callworker.isRunning():
@@ -10981,7 +10969,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass           
 
         return  
-        
+
     def put_open_check(self):
 
         global put_above_atm_count
@@ -11435,7 +11423,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global market_service
 
             global yoc_stop
-            global OVC_체결시간, 호가시간, ovc_on
+            global OVC_체결시간, 호가시간
             global df_plotdata_sp500, df_plotdata_dow, df_plotdata_vix
 
             global sp500_delta, sp500_delta_old, sp500_직전대비
@@ -13067,11 +13055,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 '''
             
             elif szTrCode == 'OVC':
-
-                if not ovc_on:
-                    ovc_on = True
-                else:
-                    pass
 
                 OVC_체결시간 = result['체결시간_한국']
 
