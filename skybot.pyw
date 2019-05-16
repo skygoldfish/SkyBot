@@ -4072,22 +4072,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.call_cv_color_clear()                    
                     self.put_cv_color_clear()
 
-                    # 미결합 표시
-                    self.oi_sum_display()                    
-                    
+                    '''
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간- : {3:0.2f} ms...\r'.format(\
+                            dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
+                    print(str)                              
+                    '''
+
                     # 수정거래량 및 수정미결 갱신
                     self.call_volume_oi_update() 
                     self.put_volume_oi_update() 
-                    
-                    # 옵션 체결량 갱신
-                    self.call_volume_power_update()
-                    self.put_volume_power_update()
 
-                    self.call_db_update() 
-                    self.put_db_update()   
-                    
-                    # 등가, 미결 Label 갱신
-                    self.label_atm_display()
+                    '''
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간0 : {3:0.2f} ms...\r'.format(\
+                        dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
+                    print(str)
+                    '''
 
                     if not overnight:
 
@@ -4142,33 +4141,30 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
 
-                    #str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간1 : {3:0.2f} ms...\r'.format(int(호가시간[0:2]), \
-                    #int(호가시간[2:4]), int(호가시간[4:6]), (timeit.default_timer() - start_time) * 1000)
-                    #print(str)
-
-                    # 대비, Open Count 및 OL/OH 갱신
-                    if self.alternate_flag:
-                        self.call_state_update()                                              
-                    else:
-                        self.put_state_update()                  
+                    '''
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간1 : {3:0.2f} ms...\r'.format(\
+                        dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
+                    print(str)
+                    '''
                     
-                    self.alternate_flag = not self.alternate_flag
+                    if self.alternate_flag:
+                        self.call_volume_power_update()
+                        self.call_state_update() 
+                        self.call_db_update()
+                        self.label_atm_display()                                              
+                    else:
+                        self.put_volume_power_update()
+                        self.put_state_update()
+                        self.put_db_update()
+                        self.oi_sum_display()               
+                    
+                    self.alternate_flag = not self.alternate_flag         
 
                     '''
-                    if int(호가시간[4:6]) in every_10sec_a and self.alternate_flag:                        
-                        self.call_state_update() 
-                    else:
-                        pass  
-
-                    if int(호가시간[4:6]) in every_10sec_b and self.alternate_flag: 
-                        self.put_state_update()   
-                    else:
-                        pass
-                    '''                  
-
-                    #str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간2 : {3:0.2f} ms...\r'.format(int(호가시간[0:2]), \
-                    #int(호가시간[2:4]), int(호가시간[4:6]), (timeit.default_timer() - start_time) * 1000)
-                    #print(str)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간2 : {3:0.2f} ms...\r'.format(\
+                        dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
+                    print(str)
+                    '''
 
                     # 시작 1분 이후부터 연산
                     if opt_x_idx > 1:
@@ -4185,8 +4181,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             
                             for i in range(len_new_list):
                                 self.call_open_update_by_index(cm_call_시가.index(new_list[i]))
-                            
-                            #self.call_open_list_update()
 
                             콜시가리스트 = copy.deepcopy(cm_call_시가)
 
@@ -4207,8 +4201,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             
                             for i in range(len_new_list):
                                 self.put_open_update_by_index(cm_put_시가.index(new_list[i]))
-                            
-                            #self.put_open_list_update()
 
                             풋시가리스트 = copy.deepcopy(cm_put_시가)
                             
@@ -4280,9 +4272,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                #str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간3 : {3:0.2f} ms...\r'.format(int(호가시간[0:2]), \
-                #int(호가시간[2:4]), int(호가시간[4:6]), (timeit.default_timer() - start_time) * 1000)
-                #print(str)                              
+                '''
+                str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간3 : {3:0.2f} ms...\r'.format(\
+                    dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
+                print(str)
+                '''                             
                 
                 # X축 세로선 데이타처리
                 if x_idx > 10 and opt_x_idx > 10:
@@ -4462,8 +4456,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass                        
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간 : {3:0.2f} ms...\r'.format(int(호가시간[0:2]), \
-                int(호가시간[2:4]), int(호가시간[4:6]), (timeit.default_timer() - start_time) * 1000)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간 : {3:0.2f} ms...\r'.format(\
+                dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
             print(str)
         except:
             pass
@@ -9368,7 +9362,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_atm_value, call_db_percent
         global cm_call_저가, cm_call_저가_node_list, cm_call_고가, cm_call_고가_node_list
         global call_gap_percent
-        global opt_callreal_update_counter         
+        global opt_callreal_update_counter
 
         call_result = copy.deepcopy(result)
 
@@ -10072,61 +10066,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass       
 
         return
-    '''
-    def call_open_list_update(self):
 
-        global df_cm_call, call_gap_percent
-
-        for index in range(nCount_cm_option_pairs):
-
-            if df_cm_call.iloc[index]['시가'] >= price_threshold:
-
-                if df_cm_call.iloc[index]['종가'] > 0:
-
-                    df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
-                    call_gap_percent[index] = (df_cm_call.iloc[index]['시가'] / df_cm_call.iloc[index]['종가'] - 1) * 100
-
-                    gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(df_cm_call.iloc[index]['시가갭'], call_gap_percent[index])
-
-                    if gap_str != self.tableWidget_call.item(index, Option_column.시가갭.value).text():
-                        item = QTableWidgetItem(gap_str)
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
-                    else:
-                        pass
-                else:
-                    pass
-            else:
-                pass
-
-        # 시가갭 갱신
-        temp = call_gap_percent[:]
-        call_gap_percent_local = [value for value in temp if not math.isnan(value)]
-        call_gap_percent_local.sort()
-
-        if call_gap_percent_local:
-
-            sumc = round(df_cm_call['시가갭'].sum(), 2)
-            tmp = np.array(call_gap_percent_local)            
-            meanc = int(round(np.mean(tmp), 2))
-            call_str = repr(sumc) + '(' + repr(meanc) + '%' + ')'
-
-            if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.시가갭.value).text():
-                item = QTableWidgetItem(call_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
-            else:
-                pass
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call 전광판 갱신 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
-            self.textBrowser.append(str)
-        else:
-            print('call_gap_percent_local is empty...')        
-
-        self.tableWidget_call.resizeColumnsToContents()
-
-        return
-    '''
     def call_open_check(self):
 
         global call_below_atm_count
@@ -11040,62 +10980,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass           
 
-        return   
-    '''
-    def put_open_list_update(self):
-
-        global df_cm_put, put_gap_percent
-
-        for index in range(nCount_cm_option_pairs):
-
-            if df_cm_put.iloc[index]['시가'] >= price_threshold:                
-
-                if df_cm_put.iloc[index]['종가'] > 0:
-
-                    df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']
-                    put_gap_percent[index] = (df_cm_put.iloc[index]['시가'] / df_cm_put.iloc[index]['종가'] - 1) * 100
-
-                    gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(df_cm_put.iloc[index]['시가갭'], put_gap_percent[index])
-
-                    if gap_str != self.tableWidget_put.item(index, Option_column.시가갭.value).text():
-                        item = QTableWidgetItem(gap_str)
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
-                    else:
-                        pass
-                else:
-                    pass
-            else:
-                pass        
-
-        # 시가갭 갱신
-        temp = put_gap_percent[:]
-        put_gap_percent_local = [value for value in temp if not math.isnan(value)]
-        put_gap_percent_local.sort()
-
-        if put_gap_percent_local:
-
-            sumc = round(df_cm_put['시가갭'].sum(), 2)
-            tmp = np.array(put_gap_percent_local)            
-            meanc = int(round(np.mean(tmp), 2))
-            put_str = repr(sumc) + '(' + repr(meanc) + '%' + ')'
-
-            if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.시가갭.value).text():
-                item = QTableWidgetItem(put_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
-            else:
-                pass
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put 전광판 갱신 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
-            self.textBrowser.append(str)
-        else:
-            print('put_gap_percent_local is empty...')
-
-        self.tableWidget_put.resizeColumnsToContents()
-
-        return
-    '''
+        return  
+        
     def put_open_check(self):
 
         global put_above_atm_count
