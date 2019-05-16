@@ -9526,18 +9526,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_cm_call.loc[index, '고가'] = round(float(고가), 2)
                     self.check_call_oloh(index)
                 else:
-                    pass
+                    pass                
+            else:
+                pass
 
-                if 저가 != 고가:
+            if 저가 != 고가:
 
-                    if not call_open[index]:
+                if not call_open[index]:
 
-                        call_open[index] = True
+                    call_open[index] = True
 
-                        if index > atm_index:
-                            call_below_atm_count += 1
-                        else:
-                            pass
+                    if index > atm_index:
+                        call_below_atm_count += 1
                     else:
                         pass
                 else:
@@ -10446,23 +10446,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.check_put_oloh(index)
                 else:
                     pass
+            else:
+                pass
+            
+            if 저가 != 고가:
 
-                if 저가 != 고가:
+                if not put_open[index]:
 
-                    if not put_open[index]:
+                    put_open[index] = True
 
-                        put_open[index] = True
-
-                        if index < atm_index:
-                            put_above_atm_count += 1
-                        else:
-                            pass
+                    if index < atm_index:
+                        put_above_atm_count += 1
                     else:
                         pass
                 else:
                     pass
             else:
-                pass          
+                pass        
 
         return
     
