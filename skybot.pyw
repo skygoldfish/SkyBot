@@ -7477,11 +7477,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if atm_str in cm_call_actval:
 
                     atm_index = cm_call_actval.index(atm_str)
+                    '''
                     self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
                     self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
                     self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
                     self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-
+                    '''
                     self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
                     self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
                     self.tableWidget_call.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
@@ -8145,6 +8146,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 print('t2835 call', df_cm_call)
                 print('\r')
                 print('t2835 put', df_cm_put)
+
+                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
+                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
+                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
+                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
                 
                 call_atm_value = df_cm_call.iloc[atm_index]['현재가']
                 put_atm_value = df_cm_put.iloc[atm_index]['현재가']
