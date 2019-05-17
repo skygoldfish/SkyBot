@@ -9622,6 +9622,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         index = cm_call_행사가.index(call_result['단축코드'][5:8])
 
+        if index != atm_index:
+            self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
+        else:
+            self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
+
         df_cm_call.loc[index, '시가'] = round(float(call_result['시가']), 2)
         df_cm_call.loc[index, '시가갭'] = float(call_result['시가']) - df_cm_call.iloc[index]['종가']
         df_plotdata_cm_call.iloc[index][1] = float(call_result['시가'])
@@ -10601,6 +10606,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global put_max_actval
 
         index = cm_put_행사가.index(put_result['단축코드'][5:8])
+
+        if index != atm_index:
+            self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
+        else:
+            self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
 
         df_cm_put.loc[index, '시가'] = round(float(put_result['시가']), 2)
         df_cm_put.loc[index, '시가갭'] = float(put_result['시가']) - df_cm_put.iloc[index]['종가']
