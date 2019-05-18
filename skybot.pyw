@@ -6477,9 +6477,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, 395 + 10))
                     df_plotdata_fut_che = DataFrame(index=range(0, 1), columns=range(0, 395 + 10))
 
-                    df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, 395 + 10))
-                    df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 395 + 10))
-                    df_plotdata_vix = DataFrame(index=range(0, 1), columns=range(0, 395 + 10))
+                    df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, 60 + 395 + 10))
+                    df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 60 + 395 + 10))
+                    df_plotdata_vix = DataFrame(index=range(0, 1), columns=range(0, 60 + 395 + 10))
                 else:
                     self.Plot_Opt.setRange(xRange=[0, 660 + 10], padding=0)
                     time_line_opt.setValue(669)
@@ -13265,9 +13265,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         ovc_x_idx = 1
                 else:
-
+                    # 개장시간은 오전 8시
                     if result['체결시간_한국'] != '':
-                        ovc_x_idx = (int(result['체결시간_한국'][0:2]) - start_hour) * 60 + int(result['체결시간_한국'][2:4]) + 1
+                        ovc_x_idx = (int(result['체결시간_한국'][0:2]) - (start_hour - 1)) * 60 + int(result['체결시간_한국'][2:4]) + 1
                     else:
                         ovc_x_idx = 1                
 
