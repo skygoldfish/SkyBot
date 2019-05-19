@@ -13128,9 +13128,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     # 해외선물 개장시간은 오전 8시
                     if result['체결시간_한국'] != '':
-                        ovc_x_idx = (int(result['체결시간_한국'][0:2]) - ovc_start_hour) * 60 + int(result['체결시간_한국'][2:4]) + 1
+                        ovc_x_idx = (int(result['체결시간_한국'][0:2]) - ovc_start_hour) * 60 + int(result['체결시간_한국'][2:4]) + 2
                     else:
-                        ovc_x_idx = 1                
+                        ovc_x_idx = 2                
 
                 if result['종목코드'] == VIX:
 
@@ -13143,8 +13143,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         vix_직전대비.extend([vix_delta - vix_delta_old])
                         temp = list(vix_직전대비)
                         
-                        if ovc_x_idx >= 1:
-                            df_plotdata_vix.iloc[0][ovc_x_idx + 1] = result['체결가격']
+                        if ovc_x_idx >= 2:
+                            df_plotdata_vix.iloc[0][ovc_x_idx] = result['체결가격']
                         else:
                             pass
 
@@ -13245,8 +13245,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         sp500_직전대비.extend([sp500_delta - sp500_delta_old])
                         temp = list(sp500_직전대비)
                         
-                        if ovc_x_idx >= 1:
-                            df_plotdata_sp500.iloc[0][ovc_x_idx + 1] = result['체결가격']
+                        if ovc_x_idx >= 2:
+                            df_plotdata_sp500.iloc[0][ovc_x_idx] = result['체결가격']
                         else:
                             pass
                         
@@ -13359,8 +13359,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         dow_직전대비.extend([dow_delta - dow_delta_old])
                         temp = list(dow_직전대비)
                         
-                        if ovc_x_idx >= 1:
-                            df_plotdata_dow.iloc[0][ovc_x_idx + 1] = result['체결가격']
+                        if ovc_x_idx >= 2:
+                            df_plotdata_dow.iloc[0][ovc_x_idx] = result['체결가격']
                         else:
                             pass
 
