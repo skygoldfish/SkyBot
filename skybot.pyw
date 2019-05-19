@@ -95,7 +95,8 @@ today_str_title = today.strftime('%Y-%m-%d')
 yesterday = today - datetime.timedelta(1)
 yesterday_str = yesterday.strftime('%Y%m%d')
 
-start_hour = 9
+ovc_start_hour = 8
+domestic_start_hour = 9
 start_time_str = ''
 end_time_str = ''
 
@@ -6090,7 +6091,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global 콜시가리스트, 콜저가리스트, 콜고가리스트, 풋시가리스트, 풋저가리스트, 풋고가리스트
 
         global df_plotdata_cm_two_sum, df_plotdata_cm_two_cha
-        global start_hour, start_time_str, end_time_str
+        global domestic_start_hour, start_time_str, end_time_str
 
         global df_plotdata_sp500, df_plotdata_dow, df_plotdata_vix
 
@@ -8397,9 +8398,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         start_time_str = block['장시작시간']
                         end_time_str = block['장종료시간']
 
-                        start_hour = int(start_time_str[0:2])
+                        domestic_start_hour = int(start_time_str[0:2])
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 장시작시간 {3}시를 갱신했습니다.\r'.format(dt.hour, dt.minute, dt.second, start_hour)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 장시작시간 {3}시를 갱신했습니다.\r'.format(dt.hour, dt.minute, dt.second, domestic_start_hour)
                         self.textBrowser.append(str)
                     else:
                         pass
@@ -11416,7 +11417,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if result['장구분'] == '5' and result['장상태'] == '25':
 
                     # 서버시간과 동기를 위한 delta time 계산
-                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - ((start_hour - 1) * 3600 + 50 * 60 + 0)
+                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - ((domestic_start_hour - 1) * 3600 + 50 * 60 + 0)
 
                     if time_delta > 0:
                         str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 빠릅니다.\r'.format(dt.hour, dt.minute,
@@ -11491,7 +11492,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 elif result['장구분'] == '5' and result['장상태'] == '21':
 
                     # 서버시간과 동기를 위한 delta time 계산
-                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (start_hour * 3600 + 0 * 60 + 0)
+                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (domestic_start_hour * 3600 + 0 * 60 + 0)
 
                     if not yoc_stop:
                         yoc_stop = True
@@ -11522,7 +11523,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 elif result['장구분'] == '7' and result['장상태'] == '21':
 
                     # 서버시간과 동기를 위한 delta time 계산
-                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (start_hour * 3600 + 0 * 60 + 0)
+                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (domestic_start_hour * 3600 + 0 * 60 + 0)
 
                     if time_delta > 0:
                         str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 빠릅니다.\r'.format(dt.hour, dt.minute,
@@ -11550,7 +11551,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 elif result['장구분'] == '8' and result['장상태'] == '21':
 
                     # 서버시간과 동기를 위한 delta time 계산
-                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (start_hour * 3600 + 0 * 60 + 0)
+                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (domestic_start_hour * 3600 + 0 * 60 + 0)
 
                     if time_delta > 0:
                         str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 빠릅니다.\r'.format(dt.hour, dt.minute,
@@ -11787,7 +11788,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif szTrCode == 'YOC':
 
-                if int(result['예상체결시간'][0:2]) == (start_hour - 1) and int(result['예상체결시간'][2:4]) == 59 and \
+                if int(result['예상체결시간'][0:2]) == (domestic_start_hour - 1) and int(result['예상체결시간'][2:4]) == 59 and \
                     (int(result['예상체결시간'][4:6]) == 58 or int(result['예상체결시간'][4:6]) == 59):
 
                     # 지수옵션 예상체결 요청취소(안하면 시작시 지연발생함)
@@ -12713,13 +12714,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        x_idx = (nighttime - start_hour) * 60 + int(result['체결시간'][2:4]) + 2
+                        x_idx = (nighttime - domestic_start_hour) * 60 + int(result['체결시간'][2:4]) + 2
                     else:
                         x_idx = 2
                 else:
 
                     if result['체결시간'] != '':
-                        x_idx = (int(result['체결시간'][0:2]) - start_hour) * 60 + int(result['체결시간'][2:4]) + 1
+                        x_idx = (int(result['체결시간'][0:2]) - domestic_start_hour) * 60 + int(result['체결시간'][2:4]) + 1
                     else:
                         x_idx = 1
 
@@ -12799,13 +12800,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        opt_x_idx = (nighttime - start_hour) * 60 + int(result['체결시간'][2:4]) + 2
+                        opt_x_idx = (nighttime - domestic_start_hour) * 60 + int(result['체결시간'][2:4]) + 2
                     else:
                         opt_x_idx = 2
                 else:
 
                     if result['체결시간'] != '':
-                        opt_x_idx = (int(result['체결시간'][0:2]) - start_hour) * 60 + int(result['체결시간'][2:4]) + 1
+                        opt_x_idx = (int(result['체결시간'][0:2]) - domestic_start_hour) * 60 + int(result['체결시간'][2:4]) + 1
                     else:
                         opt_x_idx = 1
 
@@ -13121,13 +13122,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        ovc_x_idx = (nighttime - start_hour) * 60 + int(result['체결시간_한국'][2:4]) + 2
+                        ovc_x_idx = (nighttime - domestic_start_hour) * 60 + int(result['체결시간_한국'][2:4]) + 2
                     else:
                         ovc_x_idx = 2
                 else:
                     # 해외선물 개장시간은 오전 8시
                     if result['체결시간_한국'] != '':
-                        ovc_x_idx = (int(result['체결시간_한국'][0:2]) - (start_hour - 1)) * 60 + int(result['체결시간_한국'][2:4]) + 1
+                        ovc_x_idx = (int(result['체결시간_한국'][0:2]) - ovc_start_hour) * 60 + int(result['체결시간_한국'][2:4]) + 1
                     else:
                         ovc_x_idx = 1                
 
@@ -13491,7 +13492,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def AddCode(self):
 
-        global overnight, start_hour
+        global overnight, domestic_start_hour
         global pre_start, service_time_start
         global START_ON
 
@@ -13528,7 +13529,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 XQ = t2301(parent=self)
                 XQ.Query(월물=month_info, 미니구분='G')
 
-                start_hour = 9
+                domestic_start_hour = 9
 
                 print('주간 선물/옵션 실시간요청...')
                 
@@ -13543,7 +13544,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 XQ = t2301(parent=self)
                 XQ.Query(월물=month_info, 미니구분='G')
 
-                start_hour = 18
+                domestic_start_hour = 18
 
                 print('야간 선물/옵션 실시간요청...')
 
