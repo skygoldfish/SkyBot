@@ -3985,19 +3985,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     '''
                     
                     if self.alternate_flag:
-                        self.call_oi_update()                    
+                        
+                        self.call_oi_update()                  
                         self.call_volume_power_update()
+                        
                         self.call_state_update() 
                         self.call_db_update()
                         self.label_atm_display()                                              
                     else:
+                        
                         self.put_oi_update()
                         self.put_volume_power_update()
+                    
                         self.put_state_update()
                         self.put_db_update()
-                        self.oi_sum_display()               
+                        self.oi_sum_display()                                   
                     
-                    self.alternate_flag = not self.alternate_flag         
+                    self.alternate_flag = not self.alternate_flag       
 
                     '''
                     str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간2 : {3:0.2f} ms...\r'.format(\
@@ -4115,7 +4119,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간3 : {3:0.2f} ms...\r'.format(\
                     dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
                 print(str)
-                '''                             
+                '''
+                
+                #print('해외선물_시간차', 해외선물_시간차, x_idx, opt_x_idx)                             
                 
                 # X축 세로선 데이타처리
                 time_line_fut_start.setValue(해외선물_시간차)
@@ -6914,21 +6920,33 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_plotdata_cm_put_volume.iloc[0][0] = 0
                 df_plotdata_cm_volume_cha.iloc[0][0] = 0
 
-                df_plotdata_cm_call_volume.iloc[0][해외선물_시간차] = 0                
-                df_plotdata_cm_put_volume.iloc[0][해외선물_시간차] = 0
-                df_plotdata_cm_volume_cha.iloc[0][해외선물_시간차] = 0
+                if not overnight:
+
+                    df_plotdata_cm_call_volume.iloc[0][해외선물_시간차] = 0                
+                    df_plotdata_cm_put_volume.iloc[0][해외선물_시간차] = 0
+                    df_plotdata_cm_volume_cha.iloc[0][해외선물_시간차] = 0
+                else:
+                    pass
                 
                 df_plotdata_cm_call_oi[0][0] = 0
                 df_plotdata_cm_put_oi[0][0] = 0
 
-                df_plotdata_cm_call_oi[0][해외선물_시간차] = 0
-                df_plotdata_cm_put_oi[0][해외선물_시간차] = 0
+                if not overnight:
+
+                    df_plotdata_cm_call_oi[0][해외선물_시간차] = 0
+                    df_plotdata_cm_put_oi[0][해외선물_시간차] = 0
+                else:
+                    pass
 
                 df_plotdata_cm_two_sum[0][0] = 0
                 df_plotdata_cm_two_cha[0][0] = 0
 
-                df_plotdata_cm_two_sum[0][해외선물_시간차] = 0
-                df_plotdata_cm_two_cha[0][해외선물_시간차] = 0
+                if not overnight:
+
+                    df_plotdata_cm_two_sum[0][해외선물_시간차] = 0
+                    df_plotdata_cm_two_cha[0][해외선물_시간차] = 0
+                else:
+                    pass
 
                 콜_순미결합 = df_cm_call['순미결'].sum()
                 풋_순미결합 = df_cm_put['순미결'].sum()
@@ -7785,7 +7803,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_call.setItem(i, Option_column.OID.value, item)
 
                     df_plotdata_cm_call_volume.iloc[0][0] = 0
-                    df_plotdata_cm_call_volume.iloc[0][해외선물_시간차] = 0
+                    df_plotdata_cm_call_volume.iloc[0][1] = 0
 
                     # Put 처리
                     df_cm_put.loc[i, '수정거래량'] = 0
@@ -7996,8 +8014,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_plotdata_cm_put_volume.iloc[0][0] = 0
                     df_plotdata_cm_volume_cha.iloc[0][0] = 0
 
-                    df_plotdata_cm_put_volume.iloc[0][해외선물_시간차] = 0
-                    df_plotdata_cm_volume_cha.iloc[0][해외선물_시간차] = 0
+                    df_plotdata_cm_put_volume.iloc[0][1] = 0
+                    df_plotdata_cm_volume_cha.iloc[0][1] = 0
                 
                 print('\r')
                 print('t2835 call', df_cm_call)
@@ -9677,7 +9695,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         순매수누적체결량 = format(call_volume_total, ',')
 
-        if temp != self.tableWidget_call.horizontalHeaderItem(Option_column.VP.value).text():
+        if 순매수누적체결량 != self.tableWidget_call.horizontalHeaderItem(Option_column.VP.value).text():
             item = QTableWidgetItem(순매수누적체결량)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.VP.value, item)
@@ -10265,6 +10283,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 
                 put_volume_total = df_cm_put_che['매수누적체결량'].sum() - df_cm_put_che['매도누적체결량'].sum()
                 df_plotdata_cm_put_volume.iloc[0][opt_x_idx] = put_volume_total
+                df_plotdata_cm_volume_cha.iloc[0][opt_x_idx] = call_volume_total - put_volume_total
                 df_cm_put.loc[index, '거래량'] = result['누적거래량']
 
                 if not overnight:
@@ -11402,6 +11421,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global sp500_delta, sp500_delta_old, sp500_직전대비
             global dow_delta, dow_delta_old, dow_직전대비
             global vix_delta, vix_delta_old, vix_직전대비
+            global receive_real_ovc
 
             start_time = timeit.default_timer()
 
@@ -12726,6 +12746,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # 주간은 해외선물 시작시간과 동기를 맞춤
                     x_idx = x_idx + 해외선물_시간차
+                
+                #print('x_idx', x_idx)
 
                 if result['현재가'] != 선물현재가:
                        
@@ -12812,6 +12834,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # 주간은 해외선물 시작시간과 동기를 맞춤
                     opt_x_idx = opt_x_idx + 해외선물_시간차
+                
+                #print('opt_x_idx', opt_x_idx)
 
                 # 서버시간과 동기를 위한 delta time 계산
                 time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - \
