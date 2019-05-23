@@ -129,9 +129,9 @@ RETAIL = "0008"
 FOREIGNER = "0017"
 INSTITUTIONAL = "0018"
 
-VIX = "VXK19"
-SP500 = "ESM19"
-DOW = "YMM19"
+SP500 = ''
+DOW = ''
+VIX = ''
 
 price_threshold = 0.30
 center_val_threshold = 0.60
@@ -543,6 +543,9 @@ time_line_fut = None
 
 time_line_opt_start = None
 time_line_fut_start = None
+
+time_line_opt_dow_start = None
+time_line_fut_dow_start = None
 
 fut_curve = None
 fut_che_left_curve = None
@@ -2219,11 +2222,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setupUi(self)
 
-        global cm_option_title, month_info, fut_code
+        global cm_option_title, month_info, SP500, DOW, VIX, fut_code
 
         with open('month_info.txt', mode='r') as monthfile:
             month_info = monthfile.readline().strip()
+            SP500 = monthfile.readline().strip()
+            DOW = monthfile.readline().strip()
+            VIX = monthfile.readline().strip()
             cm_fut_info = monthfile.readline().strip()
+            print('sp500,dow,vix', SP500, DOW, VIX)
 
         month = int(month_info[4:6])        
 
@@ -2418,7 +2425,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.Plot_Opt.plotItem.showGrid(True, True, 0.5)
         self.Plot_Opt.setRange(xRange=[0, 해외선물_시간차 + 395 + 10], padding=0)
 
-        global time_line_fut_start, time_line_fut, fut_curve, kp200_curve
+        global time_line_fut_start, time_line_fut_dow_start, time_line_fut, fut_curve, kp200_curve
         global fut_jl_line, fut_jh_line, fut_pivot_line, volume_base_line
 
         global fut_che_left_curve, fut_che_right_curve
@@ -2432,6 +2439,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global sp500_left_curve, dow_left_curve, vix_left_curve, sp500_right_curve, dow_right_curve, vix_right_curve
 
         time_line_fut_start = self.Plot_Fut.addLine(x=0, y=None, pen=tpen)
+        time_line_fut_dow_start = self.Plot_Fut.addLine(x=0, y=None, pen=tpen)
         time_line_fut = self.Plot_Fut.addLine(x=0, y=None, pen=tpen)
 
         fut_jl_line = self.Plot_Fut.addLine(x=None, pen=fut_jl_pen)
@@ -2474,9 +2482,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         dow_right_curve = self.Plot_Opt.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         vix_right_curve = self.Plot_Opt.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)   
 
-        global time_line_opt_start, time_line_opt, mv_line, opt_base_line, call_curve, put_curve
+        global time_line_opt_start, time_line_opt_dow_start, time_line_opt, mv_line, opt_base_line, call_curve, put_curve
 
         time_line_opt_start = self.Plot_Opt.addLine(x=0, y=None, pen=tpen)
+        time_line_opt_dow_start = self.Plot_Opt.addLine(x=0, y=None, pen=tpen)
         time_line_opt = self.Plot_Opt.addLine(x=0, y=None, pen=tpen)
         opt_base_line = self.Plot_Opt.addLine(x=None, pen=yellow_pen)
 
@@ -4126,6 +4135,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # X축 세로선 데이타처리
                 time_line_fut_start.setValue(해외선물_시간차)
                 time_line_opt_start.setValue(해외선물_시간차)
+
+                if overnight:
+
+                    time_line_fut_dow_start.setValue(해외선물_시간차 + 4 * 해외선물_시간차 + 30)
+                    time_line_opt_dow_start.setValue(해외선물_시간차 + 4 * 해외선물_시간차 + 30)
+                else:
+                    pass
                 
                 if x_idx > 해외선물_시간차 + 10 and opt_x_idx > 해외선물_시간차 + 10:
 
@@ -6343,10 +6359,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_plotdata_vix = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 395 + 10))
                 else:
                     self.Plot_Opt.setRange(xRange=[0, 해외선물_시간차 + 660 + 10], padding=0)
-                    time_line_opt.setValue(669)
+                    time_line_opt.setValue(해외선물_시간차 + 660 + 9)
 
                     self.Plot_Fut.setRange(xRange=[0, 해외선물_시간차 + 660 + 10], padding=0)
-                    time_line_fut.setValue(669)
+                    time_line_fut.setValue(해외선물_시간차 + 660 + 9)
 
                     df_plotdata_cm_call = DataFrame(index=range(0, nCount_cm_option_pairs), columns=range(0, 해외선물_시간차 + 660 + 10))
                     df_plotdata_cm_put = DataFrame(index=range(0, nCount_cm_option_pairs), columns=range(0, 해외선물_시간차 + 660 + 10))
