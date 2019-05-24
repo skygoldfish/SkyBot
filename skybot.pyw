@@ -2883,7 +2883,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_call.verticalScrollBar().valueChanged.connect(self._calltable_vertical_scroll_position)
         self.tableWidget_put.verticalScrollBar().valueChanged.connect(self._puttable_vertical_scroll_position)        
         
-        self.jif = JIF(parent=self)
+        self.JIF = JIF(parent=self)
 
         self.YJ = YJ_(parent=self)
         self.YFC = YFC(parent=self)
@@ -2897,10 +2897,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.OVC = OVC(parent=self)
 
-        self.cm_opt_real = OC0(parent=self)
-        self.cm_opt_ho = OH0(parent=self)
-        self.fut_real = FC0(parent=self)
-        self.fut_ho = FH0(parent=self)
+        self.OPT_REAL = OC0(parent=self)
+        self.OPT_HO = OH0(parent=self)
+        self.FUT_REAL = FC0(parent=self)
+        self.FUT_HO = FH0(parent=self)
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -7012,7 +7012,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
 
                 # 장운영정보 요청
-                self.jif.AdviseRealData('0')
+                self.JIF.AdviseRealData('0')
 
                 # S&P500, DOW, VIX 요청
                 self.OVC.AdviseRealData(종목코드=SP500)
@@ -7070,17 +7070,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # 옵션 실시간테이타 요청
                     for i in range(nCount_cm_option_pairs):
-                        self.cm_opt_real.AdviseRealData(cm_call_code[i])
-                        self.cm_opt_real.AdviseRealData(cm_put_code[i])
+                        self.OPT_REAL.AdviseRealData(cm_call_code[i])
+                        self.OPT_REAL.AdviseRealData(cm_put_code[i])
 
                     # 전일등가 중심 9개 행사가 호가요청
                     for i in range(nCount_cm_option_pairs):
-                        self.cm_opt_ho.AdviseRealData(cm_call_code[i])
-                        self.cm_opt_ho.AdviseRealData(cm_put_code[i])
+                        self.OPT_HO.AdviseRealData(cm_call_code[i])
+                        self.OPT_HO.AdviseRealData(cm_put_code[i])
 
                     # 선물 실시간테이타 요청
-                    self.fut_real.AdviseRealData(fut_code)
-                    self.fut_ho.AdviseRealData(fut_code)
+                    self.FUT_REAL.AdviseRealData(fut_code)
+                    self.FUT_HO.AdviseRealData(fut_code)
 
                     # KOSPI/KOSPI200/KOSDAQ 지수요청
                     self.IJ.AdviseRealData(KOSPI)
@@ -8242,31 +8242,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if not refresh_flag:
 
                 # 실시간테이타 요청
-                self.cm_opt_real = EC0(parent=self)
+                self.OPT_REAL = EC0(parent=self)
 
                 for i in range(nCount_cm_option_pairs):
-                    self.cm_opt_real.AdviseRealData(cm_call_code[i])
-                    self.cm_opt_real.AdviseRealData(cm_put_code[i]) 
+                    self.OPT_REAL.AdviseRealData(cm_call_code[i])
+                    self.OPT_REAL.AdviseRealData(cm_put_code[i]) 
 
-                self.cm_opt_ho = EH0(parent=self)
+                self.OPT_HO = EH0(parent=self)
 
                 for i in range(nCount_cm_option_pairs):
-                    self.cm_opt_ho.AdviseRealData(cm_call_code[i])
-                    self.cm_opt_ho.AdviseRealData(cm_put_code[i]) 
+                    self.OPT_HO.AdviseRealData(cm_call_code[i])
+                    self.OPT_HO.AdviseRealData(cm_put_code[i]) 
 
-                self.fut_real = NC0(parent=self)
-                self.fut_real.AdviseRealData(fut_code)
+                self.FUT_REAL = NC0(parent=self)
+                self.FUT_REAL.AdviseRealData(fut_code)
 
-                self.fut_ho = NH0(parent=self)                
-                self.fut_ho.AdviseRealData(fut_code)
+                self.FUT_HO = NH0(parent=self)                
+                self.FUT_HO.AdviseRealData(fut_code)
 
                 # 업종별 투자자별 매매현황 요청
                 self.BM.AdviseRealData(CME)
 
                 '''
                 for i in range(15):
-                    self.cm_opt_ho.AdviseRealData(cm_call_code[(atm_index_old - 7) + i])
-                    self.cm_opt_ho.AdviseRealData(cm_put_code[(atm_index_old - 7) + i])
+                    self.OPT_HO.AdviseRealData(cm_call_code[(atm_index_old - 7) + i])
+                    self.OPT_HO.AdviseRealData(cm_put_code[(atm_index_old - 7) + i])
                 '''                                   
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -12199,8 +12199,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         '''
                         # 전일 등가중심 호가요청 취소
                         for i in range(15):
-                            self.cm_opt_ho.UnadviseRealDataWithKey(cm_call_code[(atm_index_old - 7) + i])
-                            self.cm_opt_ho.UnadviseRealDataWithKey(cm_put_code[(atm_index_old - 7) + i])
+                            self.OPT_HO.UnadviseRealDataWithKey(cm_call_code[(atm_index_old - 7) + i])
+                            self.OPT_HO.UnadviseRealDataWithKey(cm_put_code[(atm_index_old - 7) + i])
                         '''
                         atm_str = self.find_ATM(kp200_realdata['시가'])
                         atm_index = cm_call_actval.index(atm_str)
@@ -12211,8 +12211,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         '''
                         # 당일 호가요청
                         for i in range(15):
-                            self.cm_opt_ho.AdviseRealData(cm_call_code[(atm_index - 7) + i])
-                            self.cm_opt_ho.AdviseRealData(cm_put_code[(atm_index - 7) + i])
+                            self.OPT_HO.AdviseRealData(cm_call_code[(atm_index - 7) + i])
+                            self.OPT_HO.AdviseRealData(cm_put_code[(atm_index - 7) + i])
                         '''
                     else:
                         pass
