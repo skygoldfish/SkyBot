@@ -7060,7 +7060,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         # KOSPI예상체결 요청                        
                         self.YS3.AdviseRealData(SAMSUNG)
-                        #self.YS3.AdviseRealData(HYUNDAI)
+                        self.YS3.AdviseRealData(HYUNDAI)
                         #self.YS3.AdviseRealData(Celltrion)
 
                         # 지수옵션예상체결 요청
@@ -7314,7 +7314,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     self.call_node_color_update()
                     self.put_node_color_update()
-                    
+                    '''
                     XQ = t2101(parent=self)
                     XQ.Query(종목코드=fut_code)
                     print('t2101 요청')
@@ -7324,20 +7324,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     XQ = t2801(parent=self)
                     XQ.Query(종목코드=fut_code)
                     print('t2801 요청')
-
+                    '''
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
                 else:
+                    '''
                     XQ = t2101(parent=self)
                     XQ.Query(종목코드=fut_code)
                     print('t2101 요청')
 
                     time.sleep(0.1)
-
+                    
                     XQ = t2801(parent=self)
                     XQ.Query(종목코드=fut_code)
                     print('t2801 요청')
-
+                    '''
                     # EUREX 야간옵션 시세전광판
                     XQ = t2835(parent=self)
                     XQ.Query(월물=month_info)
@@ -11770,30 +11771,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             jisu_str = "SAMSUNG: {0}({1})".format(현재가, format(result['예상체결가전일종가대비'], ','))
                             self.label_kosdaq.setText(jisu_str)
                             self.label_kosdaq.setStyleSheet('background-color: yellow ; color: black')
-                    else:
-                        pass
-                    '''
+                    
                     elif result['단축코드'] == HYUNDAI:
 
                         if result['예상체결가전일종가대비구분'] == '5':
 
-                            jisu_str = "HD : {0}({1}, {2:0.1f}%)".format(현재가, format(-result['예상체결가전일종가대비'], ','),
+                            jisu_str = "HYUNDAI: {0}({1}, {2:0.1f}%)".format(현재가, format(-result['예상체결가전일종가대비'], ','),
                                                                               result['예상체결가전일종가등락율'])
-                            self.label_2nd_co.setText(jisu_str)
-                            self.label_2nd_co.setStyleSheet('background-color: blue ; color: white')
+                            self.label_kospi.setText(jisu_str)
+                            self.label_kospi.setStyleSheet('background-color: blue ; color: white')
 
                         elif result['예상체결가전일종가대비구분'] == '2':
 
-                            jisu_str = "HD : {0}({1}, {2:0.1f}%)".format(현재가, format(result['예상체결가전일종가대비'], ','),
+                            jisu_str = "HYUNDAI: {0}({1}, {2:0.1f}%)".format(현재가, format(result['예상체결가전일종가대비'], ','),
                                                                               result['예상체결가전일종가등락율'])
-                            self.label_2nd_co.setText(jisu_str)
-                            self.label_2nd_co.setStyleSheet('background-color: red ; color: white')
+                            self.label_kospi.setText(jisu_str)
+                            self.label_kospi.setStyleSheet('background-color: red ; color: white')
 
                         else:
-                            jisu_str = "HD : {0}({1})".format(현재가, format(result['예상체결가전일종가대비'], ','))
-                            self.label_2nd_co.setText(jisu_str)
-                            self.label_2nd_co.setStyleSheet('background-color: yellow ; color: black')
+                            jisu_str = "HYUNDAI: {0}({1})".format(현재가, format(result['예상체결가전일종가대비'], ','))
+                            self.label_kospi.setText(jisu_str)
+                            self.label_kospi.setStyleSheet('background-color: yellow ; color: black')
+                    else:
+                        pass
 
+                    '''
                     elif result['단축코드'] == Celltrion:
                         
                         if result['예상체결가전일종가대비구분'] == '5':
