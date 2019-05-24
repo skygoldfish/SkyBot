@@ -2223,7 +2223,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             __init__(parent, flags=Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint | Qt.WindowCloseButtonHint)
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setupUi(self)
-        
+
         self.parent = parent
 
         global cm_option_title, month_info, SP500, DOW, VIX, fut_code
@@ -2241,9 +2241,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if cm_fut_info != '':
             fut_code = cm_fut_info            
-            print('cm_fut_info', fut_code)
+            print('차월물요청...')
         else:
-            print('cm_fut_info is None...')
+            print('근월물요청...')
 
         if os.path.exists('SkyBot.exe'):
 
