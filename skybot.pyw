@@ -592,12 +592,14 @@ yoc_stop = False
 
 kospi_price = 0.0
 kosdaq_price = 0.0
+samsung_price = 0.0
 sp500_price = 0.0
 dow_price = 0.0
 vix_price = 0.0
 
 kospi_text_color = ''
 kosdaq_text_color = ''
+samsung_text_color = ''
 sp500_text_color = ''
 dow_text_color = ''
 vix_text_color = ''
@@ -2879,16 +2881,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_fut.cellClicked.connect(self._futtable_cell_clicked)
         
         self.tableWidget_call.verticalScrollBar().valueChanged.connect(self._calltable_vertical_scroll_position)
-        self.tableWidget_put.verticalScrollBar().valueChanged.connect(self._puttable_vertical_scroll_position)
+        self.tableWidget_put.verticalScrollBar().valueChanged.connect(self._puttable_vertical_scroll_position)        
+        
+        self.jif = JIF(parent=self)
+
+        self.YJ = YJ_(parent=self)
+        self.YFC = YFC(parent=self)
+        self.YS3 = YS3(parent=self)
+        self.YOC = YOC(parent=self)
 
         self.IJ = IJ_(parent=self)
         self.S3 = S3_(parent=self)
         self.BM = BM_(parent=self)
         self.PM = PM_(parent=self)
 
-        self.jif = JIF(parent=self)
-        self.jif.AdviseRealData('0')
-        #print('장운영정보를 요청합니다.')
+        self.OVC = OVC(parent=self)
+
+        self.cm_opt_real = OC0(parent=self)
+        self.cm_opt_ho = OH0(parent=self)
+        self.fut_real = FC0(parent=self)
+        self.fut_ho = FH0(parent=self)
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -4474,7 +4486,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 self.label_kosdaq.setStyleSheet('background-color: yellow; color: black')
         else:
-            pass        
+            pass 
+
+        if samsung_text_color != '':
+
+            if samsung_text_color == 'red':
+                self.label_kosdaq.setStyleSheet('background-color: yellow; color: red')
+            elif samsung_text_color == 'blue':
+                self.label_kosdaq.setStyleSheet('background-color: yellow; color: blue')
+            else:
+                self.label_kosdaq.setStyleSheet('background-color: yellow; color: black')
+        else:
+            pass            
 
         if sp500_text_color != '':
 
@@ -6988,17 +7011,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                # VIX 요청
-                self.OVC = OVC(parent=self)
-                self.OVC.AdviseRealData(종목코드=VIX)
+                # 장운영정보 요청
+                self.jif.AdviseRealData('0')
 
-                # S&P500 요청
-                self.OVC = OVC(parent=self)
+                # S&P500, DOW, VIX 요청
                 self.OVC.AdviseRealData(종목코드=SP500)
-
-                # DOW 요청
-                self.OVC = OVC(parent=self)
                 self.OVC.AdviseRealData(종목코드=DOW)
+                self.OVC.AdviseRealData(종목코드=VIX)
 
                 XQ = t2101(parent=self)
                 XQ.Query(종목코드=fut_code)
@@ -7031,23 +7050,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if pre_start:
 
                         # FUTURES/KOSPI200 예상지수 요청
-                        self.YJ = YJ_(parent=self)
                         self.YJ.AdviseRealData(FUTURES)
                         self.YJ.AdviseRealData(KOSPI200)
 
                         # 지수선물예상체결 요청
-                        self.YFC = YFC(parent=self)
                         self.YFC.AdviseRealData(fut_code)
 
-                        # KOSPI예상체결 요청
-                        #self.YS3 = YS3(parent=self)
-                        #self.YS3.AdviseRealData(SAMSUNG)
+                        # KOSPI예상체결 요청                        
+                        self.YS3.AdviseRealData(SAMSUNG)
                         #self.YS3.AdviseRealData(HYUNDAI)
                         #self.YS3.AdviseRealData(Celltrion)
 
                         # 지수옵션예상체결 요청
-                        self.YOC = YOC(parent=self)
-
                         for i in range(nCount_cm_option_pairs):
                             self.YOC.AdviseRealData(cm_call_code[i])
                             self.YOC.AdviseRealData(cm_put_code[i])
@@ -7055,23 +7069,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         pass
 
                     # 옵션 실시간테이타 요청
-                    self.cm_opt_real = OC0(parent=self)
-
                     for i in range(nCount_cm_option_pairs):
                         self.cm_opt_real.AdviseRealData(cm_call_code[i])
                         self.cm_opt_real.AdviseRealData(cm_put_code[i])
 
                     # 전일등가 중심 9개 행사가 호가요청
-                    self.cm_opt_ho = OH0(parent=self)
-
                     for i in range(nCount_cm_option_pairs):
                         self.cm_opt_ho.AdviseRealData(cm_call_code[i])
                         self.cm_opt_ho.AdviseRealData(cm_put_code[i])
 
                     # 선물 실시간테이타 요청
-                    self.fut_real = FC0(parent=self)
-                    self.fut_ho = FH0(parent=self)
-
                     self.fut_real.AdviseRealData(fut_code)
                     self.fut_ho.AdviseRealData(fut_code)
 
@@ -7081,7 +7088,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.IJ.AdviseRealData(KOSDAQ)
 
                     # KOSPI체결 요청
-                    #self.S3.AdviseRealData(SAMSUNG)
+                    self.S3.AdviseRealData(SAMSUNG)
                     #self.S3.AdviseRealData(HYUNDAI)
                     #self.S3.AdviseRealData(Celltrion)
 
@@ -11733,10 +11740,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif szTrCode == 'YS3':
-
-                pass
-                '''
+            elif szTrCode == 'YS3':                
+                
                 if pre_start:
 
                     현재가 = format(result['예상체결가격'], ',')
@@ -11745,23 +11750,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if result['예상체결가전일종가대비구분'] == '5':
 
-                            jisu_str = "SS : {0}({1}, {2:0.1f}%)".format(현재가, format(-result['예상체결가전일종가대비'], ','),
+                            jisu_str = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(-result['예상체결가전일종가대비'], ','),
                                                                                 result['예상체결가전일종가등락율'])
-                            self.label_1st_co.setText(jisu_str)
-                            self.label_1st_co.setStyleSheet('background-color: blue ; color: white')
+                            self.label_kosdaq.setText(jisu_str)
+                            self.label_kosdaq.setStyleSheet('background-color: blue ; color: white')
 
                         elif result['예상체결가전일종가대비구분'] == '2':
 
-                            jisu_str = "SS : {0}({1}, {2:0.1f}%)".format(현재가, format(result['예상체결가전일종가대비'], ','),
+                            jisu_str = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(result['예상체결가전일종가대비'], ','),
                                                                                 result['예상체결가전일종가등락율'])
-                            self.label_1st_co.setText(jisu_str)
-                            self.label_1st_co.setStyleSheet('background-color: red ; color: white')
+                            self.label_kosdaq.setText(jisu_str)
+                            self.label_kosdaq.setStyleSheet('background-color: red ; color: white')
 
                         else:
-                            jisu_str = "SS : {0}({1})".format(현재가, format(result['예상체결가전일종가대비'], ','))
-                            self.label_1st_co.setText(jisu_str)
-                            self.label_1st_co.setStyleSheet('background-color: yellow ; color: black')
-
+                            jisu_str = "SAMSUNG: {0}({1})".format(현재가, format(result['예상체결가전일종가대비'], ','))
+                            self.label_kosdaq.setText(jisu_str)
+                            self.label_kosdaq.setStyleSheet('background-color: yellow ; color: black')
+                    else:
+                        pass
+                    '''
                     elif result['단축코드'] == HYUNDAI:
 
                         if result['예상체결가전일종가대비구분'] == '5':
@@ -11806,9 +11813,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         #print('단축코드', result['단축코드'])
                         pass
+                    '''
                 else:
-                    pass
-                '''
+                    pass                
 
             elif szTrCode == 'YOC':
 
@@ -12038,32 +12045,82 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
 
             elif szTrCode == 'S3_':
-
-                pass
-
-                '''
-                현재가 = format(result['현재가'], ',')
+                
+                #현재가 = format(result['현재가'], ',')
 
                 # S3 데이타표시
                 if result['단축코드'] == SAMSUNG:
-
+                    '''
                     if result['전일대비구분'] == '5':
 
-                        jisu_str = "SS : {0}({1}, {2:0.1f}%)".format(현재가, format(-result['전일대비'], ','), result['등락율'])
-                        self.label_1st_co.setText(jisu_str)
-                        self.label_1st_co.setStyleSheet('background-color: blue ; color: white')
+                        jisu_str = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(-result['전일대비'], ','), result['등락율'])
+                        self.label_kosdaq.setText(jisu_str)
+                        self.label_kosdaq.setStyleSheet('background-color: blue ; color: white')
 
                     elif result['전일대비구분'] == '2':
 
-                        jisu_str = "SS : {0}({1}, {2:0.1f}%)".format(현재가, format(result['전일대비'], ','), result['등락율'])
-                        self.label_1st_co.setText(jisu_str)
-                        self.label_1st_co.setStyleSheet('background-color: red ; color: white')
+                        jisu_str = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(result['전일대비'], ','), result['등락율'])
+                        self.label_kosdaq.setText(jisu_str)
+                        self.label_kosdaq.setStyleSheet('background-color: red ; color: white')
 
                     else:
-                        jisu_str = "SS : {0}({1})".format(현재가, format(result['전일대비'], ','))
-                        self.label_1st_co.setText(jisu_str)
-                        self.label_1st_co.setStyleSheet('background-color: yellow ; color: black')
+                        jisu_str = "SAMSUNG: {0}({1})".format(현재가, format(result['전일대비'], ','))
+                        self.label_kosdaq.setText(jisu_str)
+                        self.label_kosdaq.setStyleSheet('background-color: yellow ; color: black')
+                    '''
+                    global samsung_price, samsung_text_color                    
 
+                    if result['현재가'] != samsung_price:
+
+                        if result['현재가'] > samsung_price:
+
+                            temp_str = format(result['현재가'], ',')
+
+                            if result['전일대비구분'] == '5':
+
+                                jisu_str = "SAMSUNG: {0} ▲ ({1}, {2:0.1f}%)".format(temp_str, format(-result['전일대비'], ','), result['등락율'])
+                                self.label_kosdaq.setText(jisu_str)
+                                self.label_kosdaq.setStyleSheet('background-color: pink ; color: blue')
+                                samsung_text_color = 'blue'
+
+                            elif result['전일대비구분'] == '2':
+
+                                jisu_str = "SAMSUNG: {0} ▲ ({1}, {2:0.1f}%)".format(temp_str, format(result['전일대비'], ','), result['등락율'])
+                                self.label_kosdaq.setText(jisu_str)
+                                self.label_kosdaq.setStyleSheet('background-color: pink ; color: red')
+                                samsung_text_color = 'red'
+                            else:
+                                pass
+
+                        elif result['현재가'] < samsung_price:
+
+                            temp_str = format(result['현재가'], ',')
+
+                            if result['전일대비구분'] == '5':
+
+                                jisu_str = "SAMSUNG: {0} ▼ ({1}, {2:0.1f}%)".format(temp_str, format(-result['전일대비'], ','), result['등락율'])
+                                self.label_kosdaq.setText(jisu_str)
+                                self.label_kosdaq.setStyleSheet('background-color: lightskyblue ; color: blue')
+                                samsung_text_color = 'blue'
+
+                            elif result['전일대비구분'] == '2':
+
+                                jisu_str = "SAMSUNG: {0} ▼ ({1}, {2:0.1f}%)".format(temp_str, format(result['전일대비'], ','), result['등락율'])
+                                self.label_kosdaq.setText(jisu_str)
+                                self.label_kosdaq.setStyleSheet('background-color: lightskyblue ; color: red')
+                                samsung_text_color = 'red'
+                            else:
+                                pass
+                        else:
+                            pass
+
+                        samsung_price = result['현재가']
+                    else:
+                        pass
+                else:
+                    pass
+                
+                '''
                 elif result['단축코드'] == HYUNDAI:
 
                     if result['전일대비구분'] == '5':
@@ -12282,9 +12339,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         kosdaq_price = result['지수']
                     else:
-                        pass
-
-                    
+                        pass                    
                 else:
                     pass
 
