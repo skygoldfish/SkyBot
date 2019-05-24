@@ -2223,6 +2223,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             __init__(parent, flags=Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint | Qt.WindowCloseButtonHint)
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setupUi(self)
+        
+        self.parent = parent
 
         global cm_option_title, month_info, SP500, DOW, VIX, fut_code
 
@@ -2232,7 +2234,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             DOW = monthfile.readline().strip()
             VIX = monthfile.readline().strip()
             cm_fut_info = monthfile.readline().strip()
-            print('sp500,dow,vix', SP500, DOW, VIX)
+
+        print('SP500 = %s, DOW = %s, VIX = %s' % (SP500, DOW, VIX))
 
         month = int(month_info[4:6])        
 
@@ -2251,7 +2254,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         cm_option_title = repr(month) + '월물 선물옵션 전광판' + '(' + today_str_title + ')' + ' build: ' + buildtime
         self.setWindowTitle(cm_option_title)
 
-        self.parent = parent
         '''
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.timeout)
@@ -6218,7 +6220,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 df_plotdata_kp200.iloc[0][0] = fut_realdata['KP200']
                 df_plotdata_fut.iloc[0][0] = fut_realdata['종가']
-                df_plotdata_fut.iloc[0][해외선물_시간차] = df['시가']
+                df_plotdata_fut.iloc[0][해외선물_시간차] = fut_realdata['시가']
                 df_plotdata_fut_che.iloc[0][0] = 0
                 df_plotdata_fut_che.iloc[0][해외선물_시간차] = 0
             else:
@@ -7398,8 +7400,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     print("atm_str이 리스트에 없습니다.", atm_str)
 
                 df_plotdata_kp200.iloc[0][0] = kp200_realdata['종가']
-                #df_plotdata_kp200.iloc[0][1] = kp200_realdata['종가']
+
+                # 주간 현재가가 야간 종가임 
                 df_plotdata_fut.iloc[0][0] = fut_realdata['현재가']
+
                 df_plotdata_fut_che.iloc[0][0] = 0
                 df_plotdata_fut_che.iloc[0][해외선물_시간차] = 0
 
@@ -8773,10 +8777,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if fut_code == '':
                 fut_code = gmshcode
-                print('근월물선물코드', fut_code)
+                print('근월물선물코드 요청', fut_code)
             else:
                 fut_code = cmshcode
-                print('차월물선물코드', fut_code)
+                print('차월물선물코드 요청', fut_code)
 
             fut_realdata['전저'] = df.iloc[0]['전일저가']
             item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일저가']))
