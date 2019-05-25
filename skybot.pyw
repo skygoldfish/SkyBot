@@ -13597,6 +13597,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             START_ON = True
         else:
             self.all_node_set()
+            Speak("전광판을 갱신합니다.")
 
         # 지수선물 마스터조회 API용
         XQ = t8432(parent=self)
