@@ -2288,7 +2288,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_call.horizontalHeader().setStyleSheet(stylesheet)
         self.tableWidget_call.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.tableWidget_call.setHorizontalHeaderLabels(['▲▼', '행사가', '▲▼', '기준가', '월저', '월고', '전저', '전고', 
+        self.tableWidget_call.setHorizontalHeaderLabels(['C', '행사가', '▲▼', '기준가', '월저', '월고', '전저', '전고', 
         '종가\n✓', '피봇\n✓', '시가\n✓', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
         self.tableWidget_call.verticalHeader().setVisible(False)
         #self.tableWidget_call.setFocusPolicy(Qt.NoFocus)
@@ -2314,7 +2314,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_put.horizontalHeader().setStyleSheet(stylesheet)
         self.tableWidget_put.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.tableWidget_put.setHorizontalHeaderLabels(['▲▼', '행사가', '▲▼', '기준가', '월저', '월고', '전저', '전고', 
+        self.tableWidget_put.setHorizontalHeaderLabels(['P', '행사가', '▲▼', '기준가', '월저', '월고', '전저', '전고', 
         '종가\n✓', '피봇\n✓', '시가\n✓', '시가갭\n(%)', '저가', '현재가', '고가', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
         self.tableWidget_put.verticalHeader().setVisible(False)
         #self.tableWidget_put.setFocusPolicy(Qt.NoFocus)
@@ -2341,7 +2341,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_fut.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_fut.setHorizontalHeaderLabels(
-            ['▲▼', '▲▼', 'MSC', 'MDC', 'MSR', 'MDR', 'CR', 'RR', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
+            ['F', '▲▼', 'MSC', 'MDC', 'MSR', 'MDR', 'CR', 'RR', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
              '현재가', '고가', '대비', '진폭', 'PVP', 'VR', 'OI', 'OI↕'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
         #self.tableWidget_fut.setFocusPolicy(Qt.NoFocus)
@@ -6330,7 +6330,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.tableWidget_fut.resizeColumnsToContents()
 
-            fut_realdata['선물코드'] = 'FUT'
+            fut_realdata['선물코드'] = fut_code
 
             columns = ['선물코드', 'KP200', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
                        '현재가', '고가', '대비', '진폭', '거래량', '미결', '미결증감']
@@ -7539,7 +7539,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.tableWidget_fut.resizeColumnsToContents()
 
-            fut_realdata['선물코드'] = 'CME'
+            fut_realdata['선물코드'] = fut_code
 
             columns = ['선물코드', 'KP200', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
                        '현재가', '고가', '대비', '진폭', '거래량', '미결', '미결증감']
