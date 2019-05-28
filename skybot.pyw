@@ -13552,7 +13552,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if vix_text_color != '':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] VIX, SP500, DOW의 극성이 상이합니다... \r'.format(
+                        str = '[{0:02d}:{1:02d}:{2:02d}] S&P500, DOW, VIX의 극성이 상이합니다... \r'.format(
                                     int(result['체결시간_한국'][0:2]),
                                     int(result['체결시간_한국'][2:4]),
                                     int(result['체결시간_한국'][4:6]))                                
