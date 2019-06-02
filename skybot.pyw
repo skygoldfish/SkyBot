@@ -8732,7 +8732,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 item.setTextAlignment(Qt.AlignCenter)
                                 self.tableWidget_put.setItem(i, Option_column.VP.value, item)
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 수정거래량을 초기화합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                                수정미결 = 0
+
+                                df_cm_call.loc[i, '수정미결'] = 수정미결
+                                df_cm_put.loc[i, '수정미결'] = 수정미결
+
+                                temp = format(수정미결, ',')
+
+                                item = QTableWidgetItem(temp)
+                                item.setTextAlignment(Qt.AlignCenter)
+                                self.tableWidget_call.setItem(i, Option_column.OI.value, item)
+
+                                item = QTableWidgetItem(temp)
+                                item.setTextAlignment(Qt.AlignCenter)
+                                self.tableWidget_put.setItem(i, Option_column.OI.value, item)
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 수정거래량 및 수정미결을 초기화합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
                         else:                            
                             self.call_open_check()
