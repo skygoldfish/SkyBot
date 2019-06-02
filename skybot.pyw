@@ -6593,7 +6593,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         temp = format(순미결, ',')
                     else:
-                        temp = format(수정미결, ',')                            
+                        temp = format(수정미결, ',')               
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -8726,11 +8726,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 item = QTableWidgetItem(temp)
                                 item.setTextAlignment(Qt.AlignCenter)
-                                self.tableWidget_call.setItem(i, Option_column.OI.value, item)
+                                self.tableWidget_call.setItem(i, Option_column.VP.value, item)
 
                                 item = QTableWidgetItem(temp)
                                 item.setTextAlignment(Qt.AlignCenter)
-                                self.tableWidget_put.setItem(i, Option_column.OI.value, item)
+                                self.tableWidget_put.setItem(i, Option_column.VP.value, item)
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] 수정거래량을 초기화합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
