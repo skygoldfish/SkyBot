@@ -143,6 +143,8 @@ center_val_threshold = 0.60
 손절 = ''
 익절 = '' 
 
+basis = 0
+
 time_delta = 0
 START_ON = False
 service_time_start = False
@@ -4014,7 +4016,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         
                         self.call_state_update() 
                         self.call_db_update()
-                        self.label_atm_display()                                              
+
+                        if not overnight:
+
+                            self.label_atm_display()
+                        else:
+                            pass                                              
                     else:
                         
                         self.put_oi_update()
@@ -4342,14 +4349,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def label_atm_display(self):
 
-        global df_plotdata_cm_two_sum, df_plotdata_cm_two_cha
+        global df_plotdata_cm_two_sum, df_plotdata_cm_two_cha, basis
         
         df_plotdata_cm_two_sum[opt_x_idx] = call_atm_value + put_atm_value
         df_plotdata_cm_two_cha[opt_x_idx] = call_atm_value - put_atm_value
 
-        str = '{0:0.2f}/{1:0.2f}:{2:0.2f}'.format(
-            fut_realdata['현재가'] - fut_realdata['KP200'],
-            call_atm_value + put_atm_value,
+        basis = fut_realdata['현재가'] - fut_realdata['KP200']
+
+        if basis < 0:
+
+            self.label_atm.setStyleSheet('background-color: black; color: yellow')
+        else:
+            self.label_atm.setStyleSheet('background-color: yellow; color: black')
+
+        str = '{0:0.2f}/{1:0.2f}:{2:0.2f}'.format(basis, call_atm_value + put_atm_value,
             abs(call_atm_value - put_atm_value))
 
         self.label_atm.setText(str)
