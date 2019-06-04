@@ -4008,6 +4008,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
                     print(str)
                     '''
+
+                    global call_volume_total, df_plotdata_cm_call_volume, df_plotdata_cm_call_oi
+                    global put_volume_total, df_plotdata_cm_put_volume, df_plotdata_cm_volume_cha, df_plotdata_cm_put_oi
+
+                    call_volume_total = df_cm_call_che['매수누적체결량'].sum() - df_cm_call_che['매도누적체결량'].sum()
+                    df_plotdata_cm_call_volume.iloc[0][opt_x_idx] = call_volume_total
+
+                    put_volume_total = df_cm_put_che['매수누적체결량'].sum() - df_cm_put_che['매도누적체결량'].sum()
+                    df_plotdata_cm_put_volume.iloc[0][opt_x_idx] = put_volume_total
+
+                    df_plotdata_cm_volume_cha.iloc[0][opt_x_idx] = call_volume_total - put_volume_total
+
+                    if not overnight:
+
+                        df_plotdata_cm_call_oi.iloc[0][opt_x_idx] = df_cm_call['수정미결'].sum() - call_oi_init_value
+                        df_plotdata_cm_put_oi.iloc[0][opt_x_idx] = df_cm_put['수정미결'].sum() - put_oi_init_value
+                    else:
+                        pass
                     
                     if self.alternate_flag:
                         
@@ -9345,9 +9363,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_cm_call_che.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
                 else:
                     pass
-                
+                '''
                 call_volume_total = df_cm_call_che['매수누적체결량'].sum() - df_cm_call_che['매도누적체결량'].sum()
                 df_plotdata_cm_call_volume.iloc[0][opt_x_idx] = call_volume_total
+                '''
                 df_cm_call.loc[index, '거래량'] = result['누적거래량']
 
                 if not overnight:
@@ -9363,7 +9382,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_cm_call.loc[index, '수정미결'] = int(수정미결)
                     df_cm_call.loc[index, '수정미결증감'] = int(수정미결증감)
 
-                    df_plotdata_cm_call_oi.iloc[0][opt_x_idx] = df_cm_call['수정미결'].sum() - call_oi_init_value
+                    # df_plotdata_cm_call_oi.iloc[0][opt_x_idx] = df_cm_call['수정미결'].sum() - call_oi_init_value
                 else:
                     pass
             else:
@@ -10330,10 +10349,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_cm_put_che.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
                 else:
                     pass
-                
+                '''
                 put_volume_total = df_cm_put_che['매수누적체결량'].sum() - df_cm_put_che['매도누적체결량'].sum()
                 df_plotdata_cm_put_volume.iloc[0][opt_x_idx] = put_volume_total
                 df_plotdata_cm_volume_cha.iloc[0][opt_x_idx] = call_volume_total - put_volume_total
+                '''
                 df_cm_put.loc[index, '거래량'] = result['누적거래량']
 
                 if not overnight:
@@ -10349,7 +10369,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_cm_put.loc[index, '수정미결'] = int(수정미결)
                     df_cm_put.loc[index, '수정미결증감'] = int(수정미결증감)
 
-                    df_plotdata_cm_put_oi.iloc[0][opt_x_idx] = df_cm_put['수정미결'].sum() - put_oi_init_value
+                    # df_plotdata_cm_put_oi.iloc[0][opt_x_idx] = df_cm_put['수정미결'].sum() - put_oi_init_value
                 else:
                     pass              
             else:
