@@ -6194,6 +6194,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 call_atm_value = df_cm_call.iloc[atm_index]['현재가']
                 put_atm_value = df_cm_put.iloc[atm_index]['현재가']
 
+                df_plotdata_cm_two_sum[0][0] = call_atm_value + put_atm_value
+                df_plotdata_cm_two_cha[0][0] = call_atm_value - put_atm_value
+
+                df_plotdata_cm_two_sum[0][해외선물_시간차] = call_atm_value + put_atm_value
+                df_plotdata_cm_two_cha[0][해외선물_시간차] = call_atm_value - put_atm_value
+
                 str = '{0:0.2f}/{1:0.2f}:{2:0.2f}'.format(
                     fut_realdata['현재가'] - fut_realdata['KP200'],
                     call_atm_value + put_atm_value,
@@ -6983,13 +6989,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 df_plotdata_cm_call_oi[0][해외선물_시간차] = 0
                 df_plotdata_cm_put_oi[0][해외선물_시간차] = 0
-
+                '''
                 df_plotdata_cm_two_sum[0][0] = 0
                 df_plotdata_cm_two_cha[0][0] = 0
 
                 df_plotdata_cm_two_sum[0][해외선물_시간차] = 0
                 df_plotdata_cm_two_cha[0][해외선물_시간차] = 0
-
+                '''
                 콜_순미결합 = df_cm_call['순미결'].sum()
                 풋_순미결합 = df_cm_put['순미결'].sum()
 
