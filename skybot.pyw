@@ -2028,11 +2028,29 @@ class 화면_버전(QDialog, Ui_버전):
 class update_worker(QThread):
 
     finished = pyqtSignal(dict)
+    
+    global call_volume_total, df_plotdata_cm_call_volume, df_plotdata_cm_call_oi
+    global put_volume_total, df_plotdata_cm_put_volume, df_plotdata_cm_volume_cha, df_plotdata_cm_put_oi
 
     def run(self):
 
         while True:
             data = {}
+
+            call_volume_total = df_cm_call_che['매수누적체결량'].sum() - df_cm_call_che['매도누적체결량'].sum()
+            df_plotdata_cm_call_volume.iloc[0][opt_x_idx] = call_volume_total
+
+            put_volume_total = df_cm_put_che['매수누적체결량'].sum() - df_cm_put_che['매도누적체결량'].sum()
+            df_plotdata_cm_put_volume.iloc[0][opt_x_idx] = put_volume_total
+
+            df_plotdata_cm_volume_cha.iloc[0][opt_x_idx] = call_volume_total - put_volume_total
+
+            if not overnight:
+
+                df_plotdata_cm_call_oi.iloc[0][opt_x_idx] = df_cm_call['수정미결'].sum() - call_oi_init_value
+                df_plotdata_cm_put_oi.iloc[0][opt_x_idx] = df_cm_put['수정미결'].sum() - put_oi_init_value
+            else:
+                pass
 
             for actval in cm_call_actval:
                 data[actval] = self.get_data_infos(actval)
@@ -4009,24 +4027,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     print(str)
                     '''
 
-                    global call_volume_total, df_plotdata_cm_call_volume, df_plotdata_cm_call_oi
-                    global put_volume_total, df_plotdata_cm_put_volume, df_plotdata_cm_volume_cha, df_plotdata_cm_put_oi
-
-                    call_volume_total = df_cm_call_che['매수누적체결량'].sum() - df_cm_call_che['매도누적체결량'].sum()
-                    df_plotdata_cm_call_volume.iloc[0][opt_x_idx] = call_volume_total
-
-                    put_volume_total = df_cm_put_che['매수누적체결량'].sum() - df_cm_put_che['매도누적체결량'].sum()
-                    df_plotdata_cm_put_volume.iloc[0][opt_x_idx] = put_volume_total
-
-                    df_plotdata_cm_volume_cha.iloc[0][opt_x_idx] = call_volume_total - put_volume_total
-
-                    if not overnight:
-
-                        df_plotdata_cm_call_oi.iloc[0][opt_x_idx] = df_cm_call['수정미결'].sum() - call_oi_init_value
-                        df_plotdata_cm_put_oi.iloc[0][opt_x_idx] = df_cm_put['수정미결'].sum() - put_oi_init_value
-                    else:
-                        pass
-                    
                     if self.alternate_flag:
                         
                         self.call_oi_update()                  
