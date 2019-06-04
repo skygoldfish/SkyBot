@@ -2029,8 +2029,8 @@ class update_worker(QThread):
 
     finished = pyqtSignal(dict)
     
-    global call_volume_total, df_plotdata_cm_call_volume, df_plotdata_cm_call_oi
-    global put_volume_total, df_plotdata_cm_put_volume, df_plotdata_cm_volume_cha, df_plotdata_cm_put_oi
+    # global call_volume_total, df_plotdata_cm_call_volume, df_plotdata_cm_call_oi
+    # global put_volume_total, df_plotdata_cm_put_volume, df_plotdata_cm_volume_cha, df_plotdata_cm_put_oi
 
     def run(self):
 
@@ -9762,6 +9762,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
+        call_volume_total = df_cm_call_che['매수누적체결량'].sum() - df_cm_call_che['매도누적체결량'].sum()
+
         순매수누적체결량 = format(call_volume_total, ',')
 
         if 순매수누적체결량 != self.tableWidget_call.horizontalHeaderItem(Option_column.VP.value).text():
@@ -10749,6 +10751,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_put.setItem(index, Option_column.VP.value, item)
         else:
             pass
+
+        put_volume_total = df_cm_put_che['매수누적체결량'].sum() - df_cm_put_che['매도누적체결량'].sum()
 
         순매수누적체결량 = format(put_volume_total, ',')
 
