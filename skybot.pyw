@@ -2031,14 +2031,14 @@ class update_worker(QThread):
 
     finished = pyqtSignal(dict)
     
-    # global call_volume_total, df_plotdata_cm_call_volume, df_plotdata_cm_call_oi
-    # global put_volume_total, df_plotdata_cm_put_volume, df_plotdata_cm_volume_cha, df_plotdata_cm_put_oi
-
     def run(self):
-
+        
         while True:
-            data = {}
-
+            data = {}            
+            
+            dt = datetime.datetime.now()
+            start_time = timeit.default_timer()  
+            
             if opt_x_idx >= 해외선물_시간차 + 1:
 
                 call_volume_total = df_cm_call_che['매수누적체결량'].sum() - df_cm_call_che['매도누적체결량'].sum()
@@ -2056,12 +2056,18 @@ class update_worker(QThread):
                 else:
                     pass
             else:
-                pass            
+                pass 
 
+            #for actval in cm_call_actval[atm_index-5:atm_index+6]:
             for actval in cm_call_actval:
-                data[actval] = self.get_data_infos(actval)
 
-            self.finished.emit(data)
+                data[actval] = self.get_data_infos(actval)
+            
+            str = '[{0:02d}:{1:02d}:{2:02d}] update_worker 처리시간 : {3:0.2f} ms...\r'.format(\
+                dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
+            print(str)            
+            
+            self.finished.emit(data)    
             self.msleep(500)
 
     def get_data_infos(self, actval):
@@ -2072,6 +2078,7 @@ class update_worker(QThread):
             call_curve_data = df_plotdata_cm_call.iloc[index].values.tolist()
             put_curve_data = df_plotdata_cm_put.iloc[index].values.tolist()
 
+            # COMBO 1
             if comboindex1 == 0:
 
                 curve1_data = df_plotdata_fut_che.iloc[0].values.tolist()
@@ -2122,7 +2129,7 @@ class update_worker(QThread):
             else:
                 pass
 
-
+            # COMBO 2
             if comboindex2 == 0:
                 
                 curve4_data = df_plotdata_cm_call_oi.iloc[0].values.tolist()
@@ -6214,6 +6221,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     selected_put = [atm_index - 1, atm_index, atm_index + 1]
                 else:
                     pass
+
+                print('new list', cm_call_actval[atm_index-5: atm_index+6])
                 
                 call_atm_value = df_cm_call.iloc[atm_index]['현재가']
                 put_atm_value = df_cm_put.iloc[atm_index]['현재가']
