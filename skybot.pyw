@@ -264,6 +264,8 @@ cm_put_code = []
 cm_call_actval = []
 cm_put_actval = []
 
+view_actval = []
+
 cm_call_t8415_count = 0
 cm_put_t8415_count = 0
 cm_call_t8416_count = 0
@@ -2035,10 +2037,10 @@ class update_worker(QThread):
         
         while True:
             data = {}            
-            
+            '''
             dt = datetime.datetime.now()
             start_time = timeit.default_timer()  
-            
+            '''
             if opt_x_idx >= 해외선물_시간차 + 1:
 
                 call_volume_total = df_cm_call_che['매수누적체결량'].sum() - df_cm_call_che['매도누적체결량'].sum()
@@ -2058,15 +2060,21 @@ class update_worker(QThread):
             else:
                 pass 
 
-            #for actval in cm_call_actval[atm_index-5:atm_index+6]:
-            for actval in cm_call_actval:
+            # atm index 중심으로 위,아래 5개 요청(총 11개)
+            for actval in cm_call_actval[atm_index - 5:atm_index + 6]:
+            #for actval in cm_call_actval:
 
                 data[actval] = self.get_data_infos(actval)
-            
+
+            # dummy 요청(안하면 screen update로 못들어감 ?)
+            for actval in cm_call_actval[nCount_cm_option_pairs - 1:nCount_cm_option_pairs]:
+
+                data[actval] = self.get_data_infos(actval)
+            '''
             str = '[{0:02d}:{1:02d}:{2:02d}] update_worker 처리시간 : {3:0.2f} ms...\r'.format(\
                 dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
             print(str)            
-            
+            '''
             self.finished.emit(data)    
             self.msleep(500)
 
@@ -6185,6 +6193,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global domestic_start_hour, start_time_str, end_time_str
 
         global df_plotdata_sp500, df_plotdata_dow, df_plotdata_vix
+        global view_actval
 
         dt = datetime.datetime.now()
 
@@ -6222,7 +6231,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                print('new list', cm_call_actval[atm_index-5: atm_index+6])
+                view_actval = cm_call_actval[atm_index-5:atm_index+6]
+
+                print('new list', view_actval)
                 
                 call_atm_value = df_cm_call.iloc[atm_index]['현재가']
                 put_atm_value = df_cm_put.iloc[atm_index]['현재가']
