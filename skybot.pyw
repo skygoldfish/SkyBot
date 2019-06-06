@@ -4250,7 +4250,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     call_idx = []
                     put_idx = []
 
-                    for i in range(nCount_cm_option_pairs):
+                    # atm index 중심으로 위,아래 5개 만 탐색
+                    #for i in range(nCount_cm_option_pairs):
+                    for i in range(atm_index - 5, atm_index + 6):
 
                         if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
                             call_idx.append(i)
