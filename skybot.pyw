@@ -515,6 +515,9 @@ fut_jl_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 fut_jh_pen = pg.mkPen(orangered, width=2, style=QtCore.Qt.DotLine)
 fut_pvt_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 
+atm_upper_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DotLine)
+atm_lower_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DotLine)
+
 aqua_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 magenta_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 green_pen = pg.mkPen('g', width=2, style=QtCore.Qt.SolidLine)
@@ -570,6 +573,9 @@ hc_fut_upper_line = None
 hc_fut_lower_line = None
 hc_opt_upper_line = None
 hc_opt_lower_line = None
+
+atm_upper_line = None
+atm_lower_line = None
 
 cm_call_volume_left_curve = None
 cm_put_volume_left_curve = None
@@ -2534,6 +2540,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global time_line_opt_start, time_line_opt_dow_start, time_line_opt, mv_line, opt_base_line, call_curve, put_curve
         global hc_fut_upper_line, hc_fut_lower_line, hc_opt_upper_line, hc_opt_lower_line
+        global atm_upper_line, atm_lower_line
 
         time_line_opt_start = self.Plot_Opt.addLine(x=0, y=None, pen=tpen)
         time_line_opt_dow_start = self.Plot_Opt.addLine(x=0, y=None, pen=tpen)
@@ -2545,6 +2552,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         hc_opt_upper_line = self.Plot_Opt.addLine(x=None, pen=yellow_pen)
         hc_opt_lower_line = self.Plot_Opt.addLine(x=None, pen=yellow_pen)
+
+        atm_upper_line = self.Plot_Fut.addLine(x=None, pen=atm_upper_pen)
+        atm_lower_line = self.Plot_Fut.addLine(x=None, pen=atm_lower_pen)
 
         for i in range(9):
             mv_line.append(self.Plot_Opt.addLine(x=None, pen=mvpen))
@@ -3017,6 +3027,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             kp200_curve.clear()
             fut_curve.clear()
             
+            atm_upper_line.setValue(0)
+            atm_lower_line.setValue(0)
+            
             fut_jl_line.setValue(0)
             fut_jh_line.setValue(0)
             fut_pivot_line.setValue(0)
@@ -3042,6 +3055,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             kp200_curve.clear()
             fut_curve.clear()
+
+            atm_upper_line.setValue(0)
+            atm_lower_line.setValue(0)
             
             fut_jl_line.setValue(0)
             fut_jh_line.setValue(0)
@@ -3068,6 +3084,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             kp200_curve.clear()
             fut_curve.clear()  
             
+            atm_upper_line.setValue(0)
+            atm_lower_line.setValue(0)
+            
             fut_jl_line.setValue(0)
             fut_jh_line.setValue(0)
             fut_pivot_line.setValue(0)
@@ -3092,7 +3111,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_put_oi_left_curve.clear()
 
             kp200_curve.clear()
-            fut_curve.clear()  
+            fut_curve.clear() 
+            
+            atm_upper_line.setValue(0)
+            atm_lower_line.setValue(0) 
             
             fut_jl_line.setValue(0)
             fut_jh_line.setValue(0)
@@ -3126,7 +3148,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fut_jl_line.setValue(fut_realdata['전저'])
             fut_jh_line.setValue(fut_realdata['전고'])
             volume_base_line.setValue(fut_realdata['피봇'])
-            fut_pivot_line.setValue(fut_realdata['피봇']) 
+            fut_pivot_line.setValue(fut_realdata['피봇'])
+
+            if atm_str[-1] == '2' or atm_str[-1] == '7':
+
+                atm_upper_line.setValue(float(atm_str) + 0.5 + 1.25)
+                atm_lower_line.setValue(float(atm_str) + 0.5 - 1.25)
+            else:
+                atm_upper_line.setValue(float(atm_str) + 1.25)
+                atm_lower_line.setValue(float(atm_str) - 1.25)
 
             sp500_left_curve.clear()
             dow_left_curve.clear()
@@ -3151,6 +3181,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             dow_left_curve.clear()
             vix_left_curve.clear()
+            
+            atm_upper_line.setValue(sp500_전일종가)
+            atm_lower_line.setValue(sp500_전일종가)
 
             hc_fut_upper_line.setValue(sp500_전일종가)
             hc_fut_lower_line.setValue(sp500_전일종가)
@@ -3179,6 +3212,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             sp500_left_curve.clear()
             vix_left_curve.clear()  
+            
+            atm_upper_line.setValue(dow_전일종가)
+            atm_lower_line.setValue(dow_전일종가)
 
             hc_fut_upper_line.setValue(dow_전일종가)
             hc_fut_lower_line.setValue(dow_전일종가)
@@ -3207,6 +3243,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             sp500_left_curve.clear()
             dow_left_curve.clear()  
+            
+            atm_upper_line.setValue(vix_전일종가)
+            atm_lower_line.setValue(vix_전일종가)
 
             hc_fut_upper_line.setValue(vix_전일종가)
             hc_fut_lower_line.setValue(vix_전일종가)
