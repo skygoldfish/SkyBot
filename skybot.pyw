@@ -515,6 +515,8 @@ tpen = pg.mkPen(lightyellow, width=1, style=QtCore.Qt.DotLine)
 fut_jl_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 fut_jh_pen = pg.mkPen(orangered, width=2, style=QtCore.Qt.DotLine)
 fut_pvt_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
+fut_hc_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DotLine)
+opt_hc_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DotLine)
 
 atm_upper_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DotLine)
 atm_lower_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DotLine)
@@ -2548,11 +2550,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         time_line_opt = self.Plot_Opt.addLine(x=0, y=None, pen=tpen)
         opt_base_line = self.Plot_Opt.addLine(x=None, pen=yellow_pen)
 
-        hc_fut_upper_line = self.Plot_Fut.addLine(x=None, pen=fut_pvt_pen)
-        hc_fut_lower_line = self.Plot_Fut.addLine(x=None, pen=fut_pvt_pen)
+        hc_fut_upper_line = self.Plot_Fut.addLine(x=None, pen=fut_hc_pen)
+        hc_fut_lower_line = self.Plot_Fut.addLine(x=None, pen=fut_hc_pen)
 
-        hc_opt_upper_line = self.Plot_Opt.addLine(x=None, pen=yellow_pen)
-        hc_opt_lower_line = self.Plot_Opt.addLine(x=None, pen=yellow_pen)
+        hc_opt_upper_line = self.Plot_Opt.addLine(x=None, pen=opt_hc_pen)
+        hc_opt_lower_line = self.Plot_Opt.addLine(x=None, pen=opt_hc_pen)
 
         atm_upper_line = self.Plot_Fut.addLine(x=None, pen=atm_upper_pen)
         atm_lower_line = self.Plot_Fut.addLine(x=None, pen=atm_lower_pen)
@@ -3153,7 +3155,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             atm_upper_line.setValue(atm_val + 1.25)
             atm_lower_line.setValue(atm_val - 1.25)
-            
+
             sp500_left_curve.clear()
             dow_left_curve.clear()
             vix_left_curve.clear() 
