@@ -292,6 +292,7 @@ call_cell_widget = []
 put_cell_widget = []
 
 atm_str = ''
+atm_val = 0
 atm_index = 0
 atm_index_old = 0
 atm_index_yj = 0
@@ -3150,14 +3151,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             volume_base_line.setValue(fut_realdata['피봇'])
             fut_pivot_line.setValue(fut_realdata['피봇'])
 
-            if atm_str[-1] == '2' or atm_str[-1] == '7':
-
-                atm_upper_line.setValue(float(atm_str) + 0.5 + 1.25)
-                atm_lower_line.setValue(float(atm_str) + 0.5 - 1.25)
-            else:
-                atm_upper_line.setValue(float(atm_str) + 1.25)
-                atm_lower_line.setValue(float(atm_str) - 1.25)
-
+            atm_upper_line.setValue(atm_val + 1.25)
+            atm_lower_line.setValue(atm_val - 1.25)
+            
             sp500_left_curve.clear()
             dow_left_curve.clear()
             vix_left_curve.clear() 
@@ -6239,7 +6235,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global df_plotdata_cm_call, df_plotdata_cm_put
         global df_plotdata_cm_call_volume, df_plotdata_cm_put_volume, df_plotdata_cm_volume_cha
         global df_plotdata_cm_call_oi, df_plotdata_cm_put_oi
-        global atm_str
+        global atm_str, atm_val
 
         global fut_realdata
 
@@ -6307,6 +6303,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fut_realdata['KP200'] = df['KOSPI200지수']
 
             atm_str = self.find_ATM(fut_realdata['KP200'])
+
+            if atm_str[-1] == '2' or atm_str[-1] == '7':
+
+                atm_val = float(atm_str) + 0.5
+            else:
+                atm_val = float(atm_str)
 
             if atm_str in opt_actval:
 
@@ -7527,6 +7529,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 kp200_realdata['종가'] = df['KOSPI200지수']
 
                 atm_str = self.find_ATM(fut_realdata['KP200'])
+
+                if atm_str[-1] == '2' or atm_str[-1] == '7':
+
+                    atm_val = float(atm_str) + 0.5
+                else:
+                    atm_val = float(atm_str)
 
                 if atm_str in opt_actval:
 
@@ -8991,7 +8999,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global fut_realdata
         global df_plotdata_fut, df_plotdata_kp200, df_plotdata_fut_che
-        global atm_str, atm_index, atm_index_old
+        global atm_str, atm_val, atm_index, atm_index_old
 
         시가 = result['시가']
         현재가 = result['현재가']
@@ -9337,6 +9345,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # 등가 check & coloring
             atm_str = self.find_ATM(fut_realdata['KP200'])
             atm_index = opt_actval.index(atm_str)
+
+            if atm_str[-1] == '2' or atm_str[-1] == '7':
+
+                atm_val = float(atm_str) + 0.5
+            else:
+                atm_val = float(atm_str)
 
             if atm_index != atm_index_old:
 
@@ -11559,7 +11573,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def OnReceiveRealData(self, szTrCode, result):
         try:
             global pre_start
-            global atm_str, atm_index
+            global atm_str, atm_val, atm_index
             global atm_index_yj
 
             global fut_realdata
@@ -11907,6 +11921,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             pass
 
                         atm_str = self.find_ATM(result['예상지수'])
+
+                        if atm_str[-1] == '2' or atm_str[-1] == '7':
+
+                            atm_val = float(atm_str) + 0.5
+                        else:
+                            atm_val = float(atm_str)
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 예상 등가지수 : {3}, 예상 Basis : {4:0.2f}\r'.format(
                                         int(result['시간'][0:2]),
@@ -12396,6 +12416,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         '''
                         atm_str = self.find_ATM(kp200_realdata['시가'])
                         atm_index = opt_actval.index(atm_str)
+
+                        if atm_str[-1] == '2' or atm_str[-1] == '7':
+
+                            atm_val = float(atm_str) + 0.5
+                        else:
+                            atm_val = float(atm_str)
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 전일호가 취소 및 당일호가(등가:{3})를 요청합니다.\r'.format(
                             int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), atm_str)
