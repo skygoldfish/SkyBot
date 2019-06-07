@@ -566,6 +566,11 @@ put_curve = []
 
 volume_base_line = None
 
+hc_fut_upper_line = None
+hc_fut_lower_line = None
+hc_opt_upper_line = None
+hc_opt_lower_line = None
+
 cm_call_volume_left_curve = None
 cm_put_volume_left_curve = None
 cm_volume_cha_left_curve = None
@@ -2528,11 +2533,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         vix_right_curve = self.Plot_Opt.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)   
 
         global time_line_opt_start, time_line_opt_dow_start, time_line_opt, mv_line, opt_base_line, call_curve, put_curve
+        global hc_fut_upper_line, hc_fut_lower_line, hc_opt_upper_line, hc_opt_lower_line
 
         time_line_opt_start = self.Plot_Opt.addLine(x=0, y=None, pen=tpen)
         time_line_opt_dow_start = self.Plot_Opt.addLine(x=0, y=None, pen=tpen)
         time_line_opt = self.Plot_Opt.addLine(x=0, y=None, pen=tpen)
         opt_base_line = self.Plot_Opt.addLine(x=None, pen=yellow_pen)
+
+        hc_fut_upper_line = self.Plot_Fut.addLine(x=None, pen=fut_pvt_pen)
+        hc_fut_lower_line = self.Plot_Fut.addLine(x=None, pen=fut_pvt_pen)
+
+        hc_opt_upper_line = self.Plot_Opt.addLine(x=None, pen=yellow_pen)
+        hc_opt_lower_line = self.Plot_Opt.addLine(x=None, pen=yellow_pen)
 
         for i in range(9):
             mv_line.append(self.Plot_Opt.addLine(x=None, pen=mvpen))
@@ -3010,6 +3022,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fut_pivot_line.setValue(0)
             volume_base_line.setValue(0)
 
+            hc_fut_upper_line.setValue(0)
+            hc_fut_lower_line.setValue(0)
+
             sp500_left_curve.clear()
             dow_left_curve.clear()
             vix_left_curve.clear()
@@ -3033,6 +3048,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fut_pivot_line.setValue(0)
             volume_base_line.setValue(0)
 
+            hc_fut_upper_line.setValue(0)
+            hc_fut_lower_line.setValue(0)
+
             sp500_left_curve.clear()
             dow_left_curve.clear()
             vix_left_curve.clear()          
@@ -3054,6 +3072,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fut_jh_line.setValue(0)
             fut_pivot_line.setValue(0)
             volume_base_line.setValue(0)
+
+            hc_fut_upper_line.setValue(0)
+            hc_fut_lower_line.setValue(0)
 
             sp500_left_curve.clear()
             dow_left_curve.clear()
@@ -3082,6 +3103,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             dow_left_curve.clear()
             vix_left_curve.clear()
 
+            hc_fut_upper_line.setValue(1.5)
+            hc_fut_lower_line.setValue(-1.5)
+
         elif comboindex1 == 4:
             
             fut_che_left_curve.clear()
@@ -3095,6 +3119,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             cm_two_sum_left_curve.clear()
             cm_two_cha_left_curve.clear() 
+
+            hc_fut_upper_line.setValue(fut_realdata['피봇'])
+            hc_fut_lower_line.setValue(fut_realdata['피봇'])
             
             fut_jl_line.setValue(fut_realdata['전저'])
             fut_jh_line.setValue(fut_realdata['전고'])
@@ -3124,6 +3151,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             dow_left_curve.clear()
             vix_left_curve.clear()
+
+            hc_fut_upper_line.setValue(sp500_전일종가)
+            hc_fut_lower_line.setValue(sp500_전일종가)
             
             fut_jl_line.setValue(sp500_전일종가)
             fut_jh_line.setValue(sp500_전일종가)
@@ -3149,6 +3179,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             sp500_left_curve.clear()
             vix_left_curve.clear()  
+
+            hc_fut_upper_line.setValue(dow_전일종가)
+            hc_fut_lower_line.setValue(dow_전일종가)
             
             fut_jl_line.setValue(dow_전일종가)
             fut_jh_line.setValue(dow_전일종가)
@@ -3174,6 +3207,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             sp500_left_curve.clear()
             dow_left_curve.clear()  
+
+            hc_fut_upper_line.setValue(vix_전일종가)
+            hc_fut_lower_line.setValue(vix_전일종가)
             
             fut_jl_line.setValue(vix_전일종가)
             fut_jh_line.setValue(vix_전일종가)
@@ -3218,6 +3254,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             opt_base_line.setValue(0)
 
+            hc_opt_upper_line.setValue(0)
+            hc_opt_lower_line.setValue(0)
+
         elif comboindex2 == 1:
             
             cm_call_oi_right_curve.clear()
@@ -3240,6 +3279,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 mv_line[i].setValue(0)
 
             opt_base_line.setValue(0)
+
+            hc_opt_upper_line.setValue(0)
+            hc_opt_lower_line.setValue(0)
 
         elif comboindex2 == 2:
 
@@ -3265,6 +3307,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 mv_line[i].setValue(0)
 
             opt_base_line.setValue(0)
+
+            hc_opt_upper_line.setValue(0)
+            hc_opt_lower_line.setValue(0)
         
         elif comboindex2 == 3:
 
@@ -3290,6 +3335,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             opt_base_line.setValue(0)
 
+            hc_opt_upper_line.setValue(1.5)
+            hc_opt_lower_line.setValue(-1.5)
+
         elif comboindex2 == 4:
 
             cm_call_oi_right_curve.clear()
@@ -3307,6 +3355,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             sp500_right_curve.clear()
             dow_right_curve.clear()
             vix_right_curve.clear()
+
+            hc_opt_upper_line.setValue(0)
+            hc_opt_lower_line.setValue(0)
 
             # 대맥점 표시
             mv_line[0].setValue(1.2)
@@ -3342,6 +3393,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             opt_base_line.setValue(sp500_전일종가)
 
+            hc_opt_upper_line.setValue(sp500_전일종가)
+            hc_opt_lower_line.setValue(sp500_전일종가)
+
         elif comboindex2 == 6:
 
             cm_call_oi_right_curve.clear()
@@ -3368,6 +3422,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             opt_base_line.setValue(dow_전일종가)
 
+            hc_opt_upper_line.setValue(dow_전일종가)
+            hc_opt_lower_line.setValue(dow_전일종가)
+
         elif comboindex2 == 7:
 
             cm_call_oi_right_curve.clear()
@@ -3393,6 +3450,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 mv_line[i].setValue(vix_전일종가)
 
             opt_base_line.setValue(vix_전일종가)
+
+            hc_opt_upper_line.setValue(vix_전일종가)
+            hc_opt_lower_line.setValue(vix_전일종가)
 
         else:
             pass
