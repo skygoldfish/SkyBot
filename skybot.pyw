@@ -261,8 +261,8 @@ fut_realdata = dict()
 
 cm_call_code = []
 cm_put_code = []
-cm_call_actval = []
-cm_put_actval = []
+opt_actval = []
+#cm_put_actval = []
 
 view_actval = []
 
@@ -2066,13 +2066,13 @@ class update_worker(QThread):
                 pass 
 
             # atm index 중심으로 위,아래 5개 요청(총 11개)
-            for actval in cm_call_actval[atm_index - 5:atm_index + 6]:
-            #for actval in cm_call_actval:
+            for actval in opt_actval[atm_index - 5:atm_index + 6]:
+            #for actval in opt_actval:
 
                 data[actval] = self.get_data_infos(actval)
 
             # dummy 요청(안하면 screen update로 못들어감 ?)
-            for actval in cm_call_actval[nCount_cm_option_pairs - 1:nCount_cm_option_pairs]:
+            for actval in opt_actval[nCount_cm_option_pairs - 1:nCount_cm_option_pairs]:
 
                 data[actval] = self.get_data_infos(actval)
             '''
@@ -2086,7 +2086,7 @@ class update_worker(QThread):
     def get_data_infos(self, actval):
 
         try:
-            index = cm_call_actval.index(actval)
+            index = opt_actval.index(actval)
 
             call_curve_data = df_plotdata_cm_call.iloc[index].values.tolist()
             put_curve_data = df_plotdata_cm_put.iloc[index].values.tolist()
@@ -4331,7 +4331,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 for actval, infos in data.items():
 
-                    index = cm_call_actval.index(actval)
+                    index = opt_actval.index(actval)
 
                     if comboindex2 == 4:
 
@@ -6193,7 +6193,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global fut_code, gmshcode, cmshcode
         global cm_call_code, cm_put_code
-        global cm_call_actval, cm_put_actval
+        global opt_actval
+        #global cm_put_actval
         global df_plotdata_fut
         global atm_index, atm_index_old
         global df_plotdata_cm_call, df_plotdata_cm_put
@@ -6268,9 +6269,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             atm_str = self.find_ATM(fut_realdata['KP200'])
 
-            if atm_str in cm_call_actval:
+            if atm_str in opt_actval:
 
-                atm_index = cm_call_actval.index(atm_str)
+                atm_index = opt_actval.index(atm_str)
                 atm_index_old = atm_index
 
                 self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
@@ -6293,7 +6294,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                view_actval = cm_call_actval[atm_index-5:atm_index+6]
+                view_actval = opt_actval[atm_index-5:atm_index+6]
 
                 print('new list', view_actval)
                 
@@ -6544,7 +6545,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_call.setItem(i, Option_column.행사가.value, item)
 
                     cm_call_code.append(df['콜옵션코드'][i])
-                    cm_call_actval.append(df['콜옵션코드'][i][5:8])
+                    opt_actval.append(df['콜옵션코드'][i][5:8])
 
                     OLOH = ''
                     item = QTableWidgetItem(OLOH)
@@ -6801,7 +6802,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_put.setItem(i, Option_column.행사가.value, item)
 
                     cm_put_code.append(df1['풋옵션코드'][i])
-                    cm_put_actval.append(df1['풋옵션코드'][i][5:8])
+                    #cm_put_actval.append(df1['풋옵션코드'][i][5:8])
 
                     OLOH = ''
                     item = QTableWidgetItem(OLOH)
@@ -7488,9 +7489,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 atm_str = self.find_ATM(fut_realdata['KP200'])
 
-                if atm_str in cm_call_actval:
+                if atm_str in opt_actval:
 
-                    atm_index = cm_call_actval.index(atm_str)
+                    atm_index = opt_actval.index(atm_str)
                     '''
                     self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
                     self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
@@ -9296,7 +9297,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             # 등가 check & coloring
             atm_str = self.find_ATM(fut_realdata['KP200'])
-            atm_index = cm_call_actval.index(atm_str)
+            atm_index = opt_actval.index(atm_str)
 
             if atm_index != atm_index_old:
 
@@ -11876,8 +11877,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                         fut_realdata['시가'] - fut_realdata['KP200'])
                         self.textBrowser.append(str)
 
-                        if atm_str in cm_call_actval:
-                            atm_index_yj = cm_call_actval.index(atm_str)
+                        if atm_str in opt_actval:
+                            atm_index_yj = opt_actval.index(atm_str)
                             #print('예상 등가지수 index : ', atm_index_yj)
                         else:
                             print("atm_str이 리스트에 없습니다.", atm_str)
@@ -12355,7 +12356,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             self.OPT_HO.UnadviseRealDataWithKey(cm_put_code[(atm_index_old - 7) + i])
                         '''
                         atm_str = self.find_ATM(kp200_realdata['시가'])
-                        atm_index = cm_call_actval.index(atm_str)
+                        atm_index = opt_actval.index(atm_str)
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 전일호가 취소 및 당일호가(등가:{3})를 요청합니다.\r'.format(
                             int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), atm_str)
