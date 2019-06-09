@@ -2411,7 +2411,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(0, 0, item)
 
-        item = QTableWidgetItem("{0}".format('FUT'))
+        item = QTableWidgetItem("{0}".format('KSE'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(흰색))
@@ -9279,6 +9279,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             item = QTableWidgetItem("{0}".format(저가))
             item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(흰색))
+            item.setForeground(QBrush(검정색))
             
             # 전저, 전고, 피봇, 종가 비교
 
@@ -9287,8 +9289,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setBackground(QBrush(적색))
                 item.setForeground(QBrush(흰색))
             else:
-                item.setBackground(QBrush(흰색))
-                item.setForeground(QBrush(검정색))
+                pass
 
             if overnight:
                 self.tableWidget_fut.setItem(0, Futures_column.저가.value, item)
@@ -9318,6 +9319,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             item = QTableWidgetItem("{0}".format(고가))
             item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(흰색))
+            item.setForeground(QBrush(검정색))
 
             # 전저, 전고, 피봇, 종가 비교
 
@@ -9326,8 +9329,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setBackground(QBrush(청색))
                 item.setForeground(QBrush(흰색))
             else:
-                item.setBackground(QBrush(흰색))
-                item.setForeground(QBrush(검정색))
+                pass
 
             if overnight:
                 self.tableWidget_fut.setItem(0, Futures_column.고가.value, item)
