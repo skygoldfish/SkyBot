@@ -12702,12 +12702,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_fut.setItem(2, Futures_column.시가갭.value, item)
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] KP200 시작가 {3:0.2f)를 수신했습니다.\r'.format(
+                        str = '[{0:02d}:{1:02d}:{2:02d}] KP200 시작가 {3:0.2f}를 수신했습니다.\r'.format(
                             int(result['시간'][0:2]),
                             int(result['시간'][2:4]),
                             int(result['시간'][4:6]),
                             kp200_realdata['시가'])
-                        self.textBrowser.append(str)
+                        self.textBrowser.append(str)                        
+                        
                         '''
                         # 전일 등가중심 호가요청 취소
                         for i in range(15):
@@ -12721,7 +12722,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             atm_val = float(atm_str) + 0.5
                         else:
-                            atm_val = float(atm_str)                        
+                            atm_val = float(atm_str)                     
 
                         # kp200 맥점 9개를 리스트로 만듬
                         global kp200_coreval
@@ -12756,16 +12757,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(흰색))
                         item.setForeground(QBrush(검정색))
-
+                        
                         for i in range(9):
-
+                            print('kp200_coreval', kp200_coreval[i])
                             if self.within_n_tick(result['저가지수'], kp200_coreval[i], 10):
-
+                                
                                 item.setBackground(QBrush(대맥점색))
                                 item.setForeground(QBrush(검정색))
                             else:
                                 pass
-
+                        
                         self.tableWidget_fut.setItem(2, Futures_column.저가.value, item)
                     else:
                         pass
