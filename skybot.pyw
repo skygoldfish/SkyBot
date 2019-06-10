@@ -12736,11 +12736,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             kp200_coreval.append(atm_val + 2.5 * i)
 
                         kp200_coreval.sort()
-
+                        
+                        '''
                         str = '[{0:02d}:{1:02d}:{2:02d}] 전일호가 취소 및 당일호가(등가:{3})를 요청합니다.\r'.format(
                             int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), atm_str)
                         self.textBrowser.append(str)
-                        '''
+                        
                         # 당일 호가요청
                         for i in range(15):
                             self.OPT_HO.AdviseRealData(cm_call_code[(atm_index - 7) + i])
