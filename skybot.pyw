@@ -9341,7 +9341,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.시가.value).setBackground(QBrush(흰색))
                 self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(검정색))
 
-            if self.within_n_tick(fut_realdata['시가'], round(float(저가), 2), 10):
+            if self.within_n_tick(fut_realdata['시가'], round(float(저가), 2), 10) or \
+                self.within_n_tick(fut_realdata['시가'], round(float(고가), 2), 10):
 
                 if overnight:
 
@@ -9362,7 +9363,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.전저.value).setBackground(QBrush(흰색))
                 self.tableWidget_fut.item(1, Futures_column.전저.value).setForeground(QBrush(검정색))
 
-            if self.within_n_tick(fut_realdata['전저'], round(float(저가), 2), 10):
+            if self.within_n_tick(fut_realdata['전저'], round(float(저가), 2), 10) or \
+                self.within_n_tick(fut_realdata['전저'], round(float(고가), 2), 10):
 
                 if overnight:
 
@@ -9383,7 +9385,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.전고.value).setBackground(QBrush(흰색))
                 self.tableWidget_fut.item(1, Futures_column.전고.value).setForeground(QBrush(검정색))
 
-            if self.within_n_tick(fut_realdata['전고'], round(float(저가), 2), 10):
+            if self.within_n_tick(fut_realdata['전고'], round(float(저가), 2), 10) or \
+                self.within_n_tick(fut_realdata['전고'], round(float(고가), 2), 10):
 
                 if overnight:
 
@@ -9404,7 +9407,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.종가.value).setBackground(QBrush(흰색))
                 self.tableWidget_fut.item(1, Futures_column.종가.value).setForeground(QBrush(검정색))
 
-            if self.within_n_tick(fut_realdata['종가'], round(float(저가), 2), 10):
+            if self.within_n_tick(fut_realdata['종가'], round(float(저가), 2), 10) or \
+                self.within_n_tick(fut_realdata['종가'], round(float(고가), 2), 10):
 
                 if overnight:
 
@@ -9425,7 +9429,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.피봇.value).setBackground(QBrush(흰색))
                 self.tableWidget_fut.item(1, Futures_column.피봇.value).setForeground(QBrush(검정색))
 
-            if self.within_n_tick(fut_realdata['피봇'], round(float(저가), 2), 10):
+            if self.within_n_tick(fut_realdata['피봇'], round(float(저가), 2), 10) or \
+                self.within_n_tick(fut_realdata['피봇'], round(float(고가), 2), 10):
 
                 if overnight:
 
@@ -9513,7 +9518,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.시가.value).setBackground(QBrush(흰색))
                 self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(검정색))
 
-            if self.within_n_tick(fut_realdata['시가'], round(float(고가), 2), 10):
+            if self.within_n_tick(fut_realdata['시가'], round(float(고가), 2), 10) or \
+                self.within_n_tick(fut_realdata['시가'], round(float(저가), 2), 10):
 
                 if overnight:
 
@@ -9534,7 +9540,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.전저.value).setBackground(QBrush(흰색))
                 self.tableWidget_fut.item(1, Futures_column.전저.value).setForeground(QBrush(검정색))
 
-            if self.within_n_tick(fut_realdata['전저'], round(float(고가), 2), 10):
+            if self.within_n_tick(fut_realdata['전저'], round(float(고가), 2), 10) or \
+                self.within_n_tick(fut_realdata['전저'], round(float(저가), 2), 10):
 
                 if overnight:
 
@@ -9555,7 +9562,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.전고.value).setBackground(QBrush(흰색))
                 self.tableWidget_fut.item(1, Futures_column.전고.value).setForeground(QBrush(검정색))
 
-            if self.within_n_tick(fut_realdata['전고'], round(float(고가), 2), 10):
+            if self.within_n_tick(fut_realdata['전고'], round(float(고가), 2), 10) or \
+                self.within_n_tick(fut_realdata['전고'], round(float(저가), 2), 10):
 
                 if overnight:
 
@@ -9576,7 +9584,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.종가.value).setBackground(QBrush(흰색))
                 self.tableWidget_fut.item(1, Futures_column.종가.value).setForeground(QBrush(검정색))
 
-            if self.within_n_tick(fut_realdata['종가'], round(float(고가), 2), 10):
+            if self.within_n_tick(fut_realdata['종가'], round(float(고가), 2), 10) or \
+                self.within_n_tick(fut_realdata['종가'], round(float(저가), 2), 10):
 
                 if overnight:
 
@@ -9597,7 +9606,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.피봇.value).setBackground(QBrush(흰색))
                 self.tableWidget_fut.item(1, Futures_column.피봇.value).setForeground(QBrush(검정색))
 
-            if self.within_n_tick(fut_realdata['피봇'], round(float(고가), 2), 10):
+            if self.within_n_tick(fut_realdata['피봇'], round(float(고가), 2), 10) or \
+                self.within_n_tick(fut_realdata['피봇'], round(float(저가), 2), 10):
 
                 if overnight:
 
