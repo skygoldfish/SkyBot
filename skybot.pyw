@@ -12772,7 +12772,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item.setForeground(QBrush(검정색))
                         
                         for i in range(10):
-                            print('kp200_coreval', kp200_coreval[i])
+                            
                             if self.within_n_tick(result['저가지수'], kp200_coreval[i], 10):
                                 
                                 item.setBackground(QBrush(대맥점색))
