@@ -519,8 +519,8 @@ fut_pvt_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 fut_hc_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DotLine)
 opt_hc_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DotLine)
 
-atm_upper_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DotLine)
-atm_lower_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DotLine)
+atm_upper_pen = pg.mkPen(lawngreen, width=2, style=QtCore.Qt.DotLine)
+atm_lower_pen = pg.mkPen(lawngreen, width=2, style=QtCore.Qt.DotLine)
 
 aqua_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 magenta_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
@@ -12772,7 +12772,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item.setForeground(QBrush(검정색))
                         
                         for i in range(10):
-                            
+
                             if self.within_n_tick(result['저가지수'], kp200_coreval[i], 10):
                                 
                                 item.setBackground(QBrush(대맥점색))
