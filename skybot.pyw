@@ -516,11 +516,11 @@ tpen = pg.mkPen(lightyellow, width=1, style=QtCore.Qt.DotLine)
 fut_jl_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 fut_jh_pen = pg.mkPen(orangered, width=2, style=QtCore.Qt.DotLine)
 fut_pvt_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
-fut_hc_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DotLine)
-opt_hc_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DotLine)
+fut_hc_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DashLine)
+opt_hc_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DashLine)
 
-atm_upper_pen = pg.mkPen(lawngreen, width=2, style=QtCore.Qt.DotLine)
-atm_lower_pen = pg.mkPen(lawngreen, width=2, style=QtCore.Qt.DotLine)
+atm_upper_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DashLine)
+atm_lower_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DashLine)
 
 aqua_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 magenta_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
@@ -3149,12 +3149,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_two_sum_left_curve.clear()
             cm_two_cha_left_curve.clear() 
 
-            hc_fut_upper_line.setValue(fut_realdata['피봇'])
-            hc_fut_lower_line.setValue(fut_realdata['피봇'])
+            volume_base_line.setValue(fut_realdata['전저'])
+            hc_fut_upper_line.setValue(fut_realdata['전저'])
+            hc_fut_lower_line.setValue(fut_realdata['전저'])
             
             fut_jl_line.setValue(fut_realdata['전저'])
             fut_jh_line.setValue(fut_realdata['전고'])
-            volume_base_line.setValue(fut_realdata['피봇'])
+            
             fut_pivot_line.setValue(fut_realdata['피봇'])
 
             atm_upper_line.setValue(atm_val + 1.25)
@@ -9336,13 +9337,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if overnight:
 
                 self.tableWidget_fut.item(0, Futures_column.시가.value).setBackground(QBrush(흰색))
-                self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(검정색))
             else:
                 self.tableWidget_fut.item(1, Futures_column.시가.value).setBackground(QBrush(흰색))
-                self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(검정색))
 
-            if self.within_n_tick(fut_realdata['시가'], round(float(저가), 2), 10) or \
-                self.within_n_tick(fut_realdata['시가'], round(float(고가), 2), 10):
+            if fut_realdata['시가'] > fut_realdata['종가']:
+                item.setForeground(QBrush(적색))
+            elif fut_realdata['시가'] < fut_realdata['종가']:
+                item.setForeground(QBrush(청색))
+            else:
+                item.setForeground(QBrush(검정색))
+
+            if fut_ol and not fut_oh:
 
                 if overnight:
 
@@ -9513,13 +9518,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if overnight:
 
                 self.tableWidget_fut.item(0, Futures_column.시가.value).setBackground(QBrush(흰색))
-                self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(검정색))
             else:
                 self.tableWidget_fut.item(1, Futures_column.시가.value).setBackground(QBrush(흰색))
-                self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(검정색))
 
-            if self.within_n_tick(fut_realdata['시가'], round(float(고가), 2), 10) or \
-                self.within_n_tick(fut_realdata['시가'], round(float(저가), 2), 10):
+            if fut_realdata['시가'] > fut_realdata['종가']:
+                item.setForeground(QBrush(적색))
+            elif fut_realdata['시가'] < fut_realdata['종가']:
+                item.setForeground(QBrush(청색))
+            else:
+                item.setForeground(QBrush(검정색))
+
+            if not fut_ol and fut_oh:
 
                 if overnight:
 
