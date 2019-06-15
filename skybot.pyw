@@ -258,11 +258,11 @@ put_atm_value = 0
 
 kp200_realdata = dict()
 fut_realdata = dict()
+cme_realdata = dict()
 
 cm_call_code = []
 cm_put_code = []
 opt_actval = []
-#cm_put_actval = []
 
 view_actval = []
 
@@ -271,8 +271,8 @@ cm_put_t8415_count = 0
 cm_call_t8416_count = 0
 cm_put_t8416_count = 0
 
-df_cme = pd.DataFrame()
-df_futures = pd.DataFrame()
+# df_cme = pd.DataFrame()
+df_fut = pd.DataFrame()
 df_cm_call = pd.DataFrame()
 df_cm_put = pd.DataFrame()
 df_cm_call_ho = pd.DataFrame()
@@ -2785,6 +2785,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.label_atm.setStyleSheet('background-color: yellow; color: black')
         self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
 
+        kp200_realdata['KP200'] = 0.0
         kp200_realdata['전저'] = 0.0
         kp200_realdata['전고'] = 0.0
         kp200_realdata['종가'] = 0.0
@@ -2796,8 +2797,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         kp200_realdata['고가'] = 0.0
         kp200_realdata['대비'] = 0
         kp200_realdata['진폭'] = 0.0
+        kp200_realdata['거래량'] = 0
+        kp200_realdata['미결'] = 0
+        kp200_realdata['미결증감'] = 0
 
-        fut_realdata['선물코드'] = ''
         fut_realdata['KP200'] = 0.0
         fut_realdata['전저'] = 0.0
         fut_realdata['전고'] = 0.0
@@ -2812,7 +2815,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         fut_realdata['진폭'] = 0.0
         fut_realdata['거래량'] = 0
         fut_realdata['미결'] = 0
-        fut_realdata['미결증감'] = 0        
+        fut_realdata['미결증감'] = 0
+
+        cme_realdata['KP200'] = 0.0
+        cme_realdata['전저'] = 0.0
+        cme_realdata['전고'] = 0.0
+        cme_realdata['종가'] = 0.0
+        cme_realdata['피봇'] = 0.0
+        cme_realdata['시가'] = 0.0
+        cme_realdata['시가갭'] = 0.0
+        cme_realdata['저가'] = 0.0
+        cme_realdata['현재가'] = 0.0
+        cme_realdata['고가'] = 0.0
+        cme_realdata['대비'] = 0
+        cme_realdata['진폭'] = 0.0
+        cme_realdata['거래량'] = 0
+        cme_realdata['미결'] = 0
+        cme_realdata['미결증감'] = 0              
 
         item = QTableWidgetItem('0')
         item.setTextAlignment(Qt.AlignCenter)
@@ -6253,12 +6272,49 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return
 
+    def fut_node_color_clear(self):
+
+        for i in range(3):
+
+            self.tableWidget_fut.item(i, Futures_column.전저.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_fut.item(i, Futures_column.전저.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_fut.item(i, Futures_column.전고.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_fut.item(i, Futures_column.전고.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_fut.item(i, Futures_column.종가.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_fut.item(i, Futures_column.종가.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_fut.item(i, Futures_column.피봇.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_fut.item(i, Futures_column.피봇.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_fut.item(i, Futures_column.시가.value).setBackground(QBrush(기본바탕색))
+
+            if df_cm_put.iloc[i]['시가'] > df_cm_put.iloc[i]['종가']:
+                self.tableWidget_fut.item(i, Futures_column.시가.value).setForeground(QBrush(적색))
+            elif df_cm_put.iloc[i]['시가'] < df_cm_put.iloc[i]['종가']:
+                self.tableWidget_fut.item(i, Futures_column.시가.value).setForeground(QBrush(청색))
+            else:
+                self.tableWidget_fut.item(i, Futures_column.시가.value).setForeground(QBrush(검정색))
+
+            if df_cm_put.iloc[i]['시가'] == 0.0:
+                self.tableWidget_fut.item(i, Futures_column.시가.value).setForeground(QBrush(검정색))
+            else:
+                pass
+
+            self.tableWidget_fut.item(i, Futures_column.저가.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_fut.item(i, Futures_column.저가.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_fut.item(i, Futures_column.고가.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_fut.item(i, Futures_column.고가.value).setForeground(QBrush(검정색))
+
+        return
+
     def OnReceiveData(self, szTrCode, result):
 
         global fut_code, gmshcode, cmshcode
         global cm_call_code, cm_put_code
         global opt_actval
-        #global cm_put_actval
         global df_plotdata_fut
         global atm_index, atm_index_old
         global df_plotdata_cm_call, df_plotdata_cm_put
@@ -6266,7 +6322,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global df_plotdata_cm_call_oi, df_plotdata_cm_put_oi
         global atm_str, atm_val
 
-        global fut_realdata
+        global fut_realdata, cme_realdata
 
         global call_ckbox
         global selected_call
@@ -6297,7 +6353,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global 콜_수정미결합, 풋_수정미결합, 콜_수정미결퍼센트, 풋_수정미결퍼센트
         global call_atm_value, put_atm_value
 
-        global df_cme, df_futures
+        global df_fut
         global kp200_realdata
 
         global refresh_flag
@@ -6525,13 +6581,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)
 
             self.tableWidget_fut.resizeColumnsToContents()
+            '''
+            #fut_realdata['선물코드'] = fut_code
 
-            fut_realdata['선물코드'] = fut_code
-
-            columns = ['선물코드', 'KP200', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
+            columns = ['KP200', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
                        '현재가', '고가', '대비', '진폭', '거래량', '미결', '미결증감']
 
-            df_futures = DataFrame(data=[fut_realdata], columns=columns)
+            df_fut = DataFrame(data=[fut_realdata], columns=columns)
+
+            print('df_fut', df_fut)
+            '''
 
         elif szTrCode == 't2301':
 
@@ -7615,18 +7674,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                fut_realdata['전저'] = fut_realdata['저가']
-                item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['전저']))
+                cme_realdata['전저'] = fut_realdata['저가']
+                item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['전저']))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(0, Futures_column.전저.value, item)
 
-                fut_realdata['전고'] = fut_realdata['고가']
-                item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['전고']))
+                cme_realdata['전고'] = fut_realdata['고가']
+                item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['전고']))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(0, Futures_column.전고.value, item)
 
-                fut_realdata['종가'] = fut_realdata['현재가']
-                item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['종가']))
+                cme_realdata['종가'] = fut_realdata['현재가']
+                item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['종가']))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(0, Futures_column.종가.value, item) 
             else:
@@ -7636,7 +7695,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if df['시가'] > 0:
 
-                fut_realdata['시가'] = df['시가']
+                cme_realdata['시가'] = df['시가']
 
                 item = QTableWidgetItem("{0:0.2f}".format(df['시가']))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -7655,12 +7714,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
 
-                if fut_realdata['전저'] > 0 and fut_realdata['전고'] > 0:
+                if cme_realdata['전저'] > 0 and cme_realdata['전고'] > 0:
 
-                    fut_realdata['피봇'] = self.calc_pivot(fut_realdata['전저'], fut_realdata['전고'], 
-                                            df['전일종가'], fut_realdata['시가'])
+                    cme_realdata['피봇'] = self.calc_pivot(cme_realdata['전저'], cme_realdata['전고'], 
+                                            df['전일종가'], cme_realdata['시가'])
 
-                    item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['피봇']))
+                    item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['피봇']))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
                 else:
@@ -7669,7 +7728,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass 
 
             if overnight:
-                fut_realdata['저가'] = df['저가']
+                cme_realdata['저가'] = df['저가']
             else:
                 pass
 
@@ -7678,7 +7737,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.setItem(0, Futures_column.저가.value, item)
 
             if overnight:
-                fut_realdata['현재가'] = df['현재가']
+                cme_realdata['현재가'] = df['현재가']
             else:
                 pass            
 
@@ -7706,7 +7765,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
 
             if overnight:
-                fut_realdata['고가'] = df['고가']
+                cme_realdata['고가'] = df['고가']
             else:
                 pass
 
@@ -7714,7 +7773,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(0, Futures_column.고가.value, item)
 
-            item = QTableWidgetItem("{0:0.2f}".format(df['고가'] - df['저가']))
+            cme_realdata['진폭'] = df['고가'] - df['저가']
+
+            item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['진폭']))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
 
@@ -7741,12 +7802,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.tableWidget_fut.resizeColumnsToContents()
 
-            fut_realdata['선물코드'] = fut_code
-
-            columns = ['선물코드', 'KP200', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
+            columns = ['KP200', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
                        '현재가', '고가', '대비', '진폭', '거래량', '미결', '미결증감']
 
-            df_cme = DataFrame(data=[fut_realdata], columns=columns)
+            df_fut = DataFrame(data=[cme_realdata, fut_realdata, kp200_realdata], columns=columns)
+
+            print('df_fut', df_fut)
 
         elif szTrCode == 't2830':
 
@@ -14258,14 +14319,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         file.write(text)
         file.close()
 
-        if df_cme.empty:
+        if df_fut.empty:
 
             pass
         else:
             fut_csv = "Futures 전광판 {}{}".format(times, '.csv')
-            temp = df_cme.append(df_futures, ignore_index=True)
-            # temp = pd.concat([df_cme, df_futures], ignore_index=True)
-            temp.to_csv(fut_csv, encoding='ms949')
+            # temp = df_cme.append(df_fut, ignore_index=True)
+            # temp = pd.concat([df_cme, df_fut], ignore_index=True)
+            df_fut.to_csv(fut_csv, encoding='ms949')
 
             kp200_graph_csv = "KP200 Graph {}{}".format(times, '.csv')
             df_plotdata_kp200.to_csv(kp200_graph_csv, encoding='ms949')
