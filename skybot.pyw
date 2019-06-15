@@ -3184,17 +3184,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             dow_left_curve.clear()
             vix_left_curve.clear()
-            
-            atm_upper_line.setValue(sp500_전일종가)
-            atm_lower_line.setValue(sp500_전일종가)
 
-            hc_fut_upper_line.setValue(sp500_전일종가)
-            hc_fut_lower_line.setValue(sp500_전일종가)
-            
-            fut_jl_line.setValue(sp500_전일종가)
-            fut_jh_line.setValue(sp500_전일종가)
-            fut_pivot_line.setValue(sp500_전일종가)
-            volume_base_line.setValue(sp500_전일종가) 
+            if sp500_전일종가 > 0:
+
+                atm_upper_line.setValue(sp500_전일종가)
+                atm_lower_line.setValue(sp500_전일종가)
+
+                hc_fut_upper_line.setValue(sp500_전일종가)
+                hc_fut_lower_line.setValue(sp500_전일종가)
+
+                fut_jl_line.setValue(sp500_전일종가)
+                fut_jh_line.setValue(sp500_전일종가)
+                fut_pivot_line.setValue(sp500_전일종가)
+                volume_base_line.setValue(sp500_전일종가) 
+            else:
+                pass
 
         elif comboindex1 == 6:
 
@@ -3215,17 +3219,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             sp500_left_curve.clear()
             vix_left_curve.clear()  
-            
-            atm_upper_line.setValue(dow_전일종가)
-            atm_lower_line.setValue(dow_전일종가)
 
-            hc_fut_upper_line.setValue(dow_전일종가)
-            hc_fut_lower_line.setValue(dow_전일종가)
-            
-            fut_jl_line.setValue(dow_전일종가)
-            fut_jh_line.setValue(dow_전일종가)
-            fut_pivot_line.setValue(dow_전일종가)
-            volume_base_line.setValue(dow_전일종가) 
+            if dow_전일종가 > 0:
+
+                atm_upper_line.setValue(dow_전일종가)
+                atm_lower_line.setValue(dow_전일종가)
+
+                hc_fut_upper_line.setValue(dow_전일종가)
+                hc_fut_lower_line.setValue(dow_전일종가)
+
+                fut_jl_line.setValue(dow_전일종가)
+                fut_jh_line.setValue(dow_전일종가)
+                fut_pivot_line.setValue(dow_전일종가)
+                volume_base_line.setValue(dow_전일종가)
+            else:
+                pass             
 
         elif comboindex1 == 7:
 
@@ -3246,18 +3254,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             sp500_left_curve.clear()
             dow_left_curve.clear()  
-            
-            atm_upper_line.setValue(vix_전일종가)
-            atm_lower_line.setValue(vix_전일종가)
 
-            hc_fut_upper_line.setValue(vix_전일종가)
-            hc_fut_lower_line.setValue(vix_전일종가)
-            
-            fut_jl_line.setValue(vix_전일종가)
-            fut_jh_line.setValue(vix_전일종가)
-            fut_pivot_line.setValue(vix_전일종가)
-            volume_base_line.setValue(vix_전일종가) 
+            if vix_전일종가 > 0:
 
+                atm_upper_line.setValue(vix_전일종가)
+                atm_lower_line.setValue(vix_전일종가)
+
+                hc_fut_upper_line.setValue(vix_전일종가)
+                hc_fut_lower_line.setValue(vix_전일종가)
+
+                fut_jl_line.setValue(vix_전일종가)
+                fut_jh_line.setValue(vix_전일종가)
+                fut_pivot_line.setValue(vix_전일종가)
+                volume_base_line.setValue(vix_전일종가) 
+            else:
+                pass
         else:
             pass
 
@@ -3430,13 +3441,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             dow_right_curve.clear()
             vix_right_curve.clear()
 
-            for i in range(9):
-                mv_line[i].setValue(sp500_전일종가)
+            if sp500_전일종가 > 0:
 
-            opt_base_line.setValue(sp500_전일종가)
+                for i in range(9):
+                    mv_line[i].setValue(sp500_전일종가)
 
-            hc_opt_upper_line.setValue(sp500_전일종가)
-            hc_opt_lower_line.setValue(sp500_전일종가)
+                opt_base_line.setValue(sp500_전일종가)
+
+                hc_opt_upper_line.setValue(sp500_전일종가)
+                hc_opt_lower_line.setValue(sp500_전일종가)
+            else:
+                pass            
 
         elif comboindex2 == 6:
 
@@ -3457,15 +3472,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 put_curve[i].clear()
 
             sp500_right_curve.clear()
-            vix_right_curve.clear() 
+            vix_right_curve.clear()
 
-            for i in range(9):
-                mv_line[i].setValue(dow_전일종가)
+            if dow_전일종가 > 0:
 
-            opt_base_line.setValue(dow_전일종가)
+                for i in range(9):
+                    mv_line[i].setValue(dow_전일종가)
 
-            hc_opt_upper_line.setValue(dow_전일종가)
-            hc_opt_lower_line.setValue(dow_전일종가)
+                opt_base_line.setValue(dow_전일종가)
+
+                hc_opt_upper_line.setValue(dow_전일종가)
+                hc_opt_lower_line.setValue(dow_전일종가)
+            else:
+                pass
 
         elif comboindex2 == 7:
 
@@ -3488,14 +3507,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             sp500_right_curve.clear()
             dow_right_curve.clear() 
 
-            for i in range(9):
-                mv_line[i].setValue(vix_전일종가)
+            if vix_전일종가 > 0:
 
-            opt_base_line.setValue(vix_전일종가)
+                for i in range(9):
+                    mv_line[i].setValue(vix_전일종가)
 
-            hc_opt_upper_line.setValue(vix_전일종가)
-            hc_opt_lower_line.setValue(vix_전일종가)
+                opt_base_line.setValue(vix_전일종가)
 
+                hc_opt_upper_line.setValue(vix_전일종가)
+                hc_opt_lower_line.setValue(vix_전일종가)
+            else:
+                pass
         else:
             pass
 
@@ -9327,6 +9349,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fut_realdata['진폭'] = round(float(고가), 2) - round(float(저가), 2)
             item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['진폭']))
             item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(흰색))
+            item.setForeground(QBrush(검정색))
 
             if overnight:
                 self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
@@ -9508,6 +9532,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fut_realdata['진폭'] = round(float(고가), 2) - round(float(저가), 2)
             item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['진폭']))
             item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(흰색))
+            item.setForeground(QBrush(검정색))
 
             if overnight:
                 self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
