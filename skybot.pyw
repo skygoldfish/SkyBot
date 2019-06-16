@@ -6345,7 +6345,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return
 
+
     def fut_node_color_update(self):
+
+        global fut_ol, fut_oh
 
         if overnight:
 
@@ -6355,15 +6358,40 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             피봇 = cme_realdata['피봇']
 
             # 시가, 전저, 전고, 종가, 피봇 컬러링
-            if fut_ol:
 
-                self.tableWidget_fut.item(0, Futures_column.시가.value).setBackground(QBrush(적색))
-                self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(흰색))
+            # FUT OL/OH
+            if self.within_n_tick(cme_realdata['시가'], cme_realdata['저가'], 10) and \
+                    not self.within_n_tick(cme_realdata['시가'], cme_realdata['고가'], 10):
 
-                self.tableWidget_fut.item(0, Futures_column.저가.value).setBackground(QBrush(적색))
-                self.tableWidget_fut.item(0, Futures_column.저가.value).setForeground(QBrush(흰색))
+                fut_ol = True
+
+                item = QTableWidgetItem('▲')
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(적색))
+                item.setForeground(QBrush(흰색))
+
+                self.tableWidget_fut.setItem(0, Futures_column.OLOH.value, item)
+
+            elif not self.within_n_tick(cme_realdata['시가'], cme_realdata['저가'], 10) and \
+                    self.within_n_tick(cme_realdata['시가'], cme_realdata['고가'], 10):
+
+                fut_oh = True
+
+                item = QTableWidgetItem('▼')
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(청색))
+                item.setForeground(QBrush(흰색))
+
+                self.tableWidget_fut.setItem(0, Futures_column.OLOH.value, item)
+
             else:
-                pass
+                fut_ol = False
+                fut_oh = False
+
+                item = QTableWidgetItem('')
+
+                self.tableWidget_fut.setItem(0, Futures_column.OLOH.value, item)
+
 
             if self.within_n_tick(전저, df_fut.iloc[0]['저가'], 10):
 
@@ -6461,15 +6489,40 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             피봇 = fut_realdata['피봇']
 
             # 시가, 전저, 전고, 종가, 피봇 컬러링
-            if fut_ol:
 
-                self.tableWidget_fut.item(1, Futures_column.시가.value).setBackground(QBrush(적색))
-                self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(흰색))
+            # FUT OL/OH
+            if self.within_n_tick(fut_realdata['시가'], fut_realdata['저가'], 10) and \
+                    not self.within_n_tick(fut_realdata['시가'], fut_realdata['고가'], 10):
 
-                self.tableWidget_fut.item(1, Futures_column.저가.value).setBackground(QBrush(적색))
-                self.tableWidget_fut.item(1, Futures_column.저가.value).setForeground(QBrush(흰색))
+                fut_ol = True
+
+                item = QTableWidgetItem('▲')
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(적색))
+                item.setForeground(QBrush(흰색))
+
+                self.tableWidget_fut.setItem(1, Futures_column.OLOH.value, item)                    
+
+            elif not self.within_n_tick(fut_realdata['시가'], fut_realdata['저가'], 10) and \
+                    self.within_n_tick(fut_realdata['시가'], fut_realdata['고가'], 10):
+
+                fut_oh = True
+
+                item = QTableWidgetItem('▼')
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(청색))
+                item.setForeground(QBrush(흰색))
+
+                self.tableWidget_fut.setItem(1, Futures_column.OLOH.value, item)                    
+
             else:
-                pass
+                fut_ol = False
+                fut_oh = False
+
+                item = QTableWidgetItem('')
+
+                self.tableWidget_fut.setItem(1, Futures_column.OLOH.value, item)                     
+
 
             if self.within_n_tick(전저, df_fut.iloc[1]['저가'], 10):
 
