@@ -2531,7 +2531,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         cm_put_volume_right_curve = self.Plot_Opt.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
         cm_volume_cha_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
-        fut_che_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
+        fut_che_right_curve = self.Plot_Opt.plot(pen=magenta, symbolBrush=gpen, symbolPen='w', symbol='o', symbolSize=3) 
 
         cm_two_sum_right_curve = self.Plot_Opt.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         cm_two_cha_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
@@ -2622,7 +2622,93 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         item = QTableWidgetItem('0.0')
         item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(1, Futures_column.VR.value, item)
+        self.tableWidget_fut.setItem(1, Futures_column.VR.value, item)        
+
+        item = QTableWidgetItem("{0}".format(0))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
+
+        item = QTableWidgetItem("{0}".format(0))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
+
+        item = QTableWidgetItem("{0}".format('T'))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(흰색))
+        self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
+
+        item = QTableWidgetItem("{0}".format('콜매수'))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(흰색))
+        self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)
+
+        item = QTableWidgetItem("{0}".format('콜매도'))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(흰색))
+        self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)
+
+        item = QTableWidgetItem("{0}".format('풋매수'))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(흰색))
+        self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
+
+        item = QTableWidgetItem("{0}".format('풋매도'))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(흰색))
+        self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
+
+        item = QTableWidgetItem("{0}".format('손절'))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(흰색))
+        self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)
+
+        item = QTableWidgetItem("{0}".format('익절'))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(검정색))
+        item.setForeground(QBrush(흰색))
+        self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
+        
+        item = QTableWidgetItem("{0:0.2f}".format(0.0))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.전저.value, item)
+        
+        item = QTableWidgetItem("{0:0.2f}".format(0.0))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.전저.value, item)
+
+        item = QTableWidgetItem("{0}".format('-'))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(2, Futures_column.전저.value, item)
+
+        item = QTableWidgetItem("{0:0.2f}".format(0.0))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.전고.value, item)
+        
+        item = QTableWidgetItem("{0:0.2f}".format(0.0))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.전고.value, item)
+
+        item = QTableWidgetItem("{0}".format('-'))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(2, Futures_column.전고.value, item)
+
+        item = QTableWidgetItem("{0:0.2f}".format(0.0))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
+        
+        item = QTableWidgetItem("{0:0.2f}".format(0.0))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
+
+        item = QTableWidgetItem("{0}".format('-'))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(2, Futures_column.피봇.value, item)
 
         item = QTableWidgetItem("{0:0.2f}".format(0.0))
         item.setTextAlignment(Qt.AlignCenter)
@@ -2686,56 +2772,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         item = QTableWidgetItem("{0:0.2f}".format(0.0))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(2, Futures_column.고가.value, item)
-
-        item = QTableWidgetItem("{0}".format(0))
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
-
-        item = QTableWidgetItem("{0}".format(0))
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
-
-        item = QTableWidgetItem("{0}".format('T'))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(검정색))
-        item.setForeground(QBrush(흰색))
-        self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
-
-        item = QTableWidgetItem("{0}".format('콜매수'))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(검정색))
-        item.setForeground(QBrush(흰색))
-        self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)
-
-        item = QTableWidgetItem("{0}".format('콜매도'))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(검정색))
-        item.setForeground(QBrush(흰색))
-        self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)
-
-        item = QTableWidgetItem("{0}".format('풋매수'))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(검정색))
-        item.setForeground(QBrush(흰색))
-        self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
-
-        item = QTableWidgetItem("{0}".format('풋매도'))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(검정색))
-        item.setForeground(QBrush(흰색))
-        self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
-
-        item = QTableWidgetItem("{0}".format('손절'))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(검정색))
-        item.setForeground(QBrush(흰색))
-        self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)
-
-        item = QTableWidgetItem("{0}".format('익절'))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(검정색))
-        item.setForeground(QBrush(흰색))
-        self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
 
         self.tableWidget_fut.resizeColumnsToContents()
 
@@ -6305,7 +6341,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.item(i, Futures_column.저가.value).setForeground(QBrush(검정색))
 
             self.tableWidget_fut.item(i, Futures_column.고가.value).setBackground(QBrush(기본바탕색))
-            self.tableWidget_fut.item(i, Futures_column.고가.value).setForeground(QBrush(검정색))
+            self.tableWidget_fut.item(i, Futures_column.고가.value).setForeground(QBrush(검정색))        
 
         return
 
@@ -14522,6 +14558,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             START_ON = True
         else:
+            self.fut_node_color_clear()
+            self.fut_node_color_update()
             self.all_node_set()
             Speak("전광판을 갱신합니다.")
 
