@@ -4131,7 +4131,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             # 로컬타임 표시
             str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
-            self.label_msg.setText(str) 
+            self.label_msg.setText(str)
 
             self.label_clear()
                         
@@ -9370,20 +9370,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 fut_code = cmshcode
                 print('차월물선물코드 요청', fut_code)
 
-            fut_realdata['전저'] = df.iloc[0]['전일저가']
-            item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일저가']))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(1, Futures_column.전저.value, item)
+            if not refresh_flag:
 
-            fut_realdata['전고'] = df.iloc[0]['전일고가']
-            item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일고가']))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(1, Futures_column.전고.value, item)
+                fut_realdata['전저'] = df.iloc[0]['전일저가']
+                item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일저가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(1, Futures_column.전저.value, item)
 
-            fut_realdata['종가'] = df.iloc[0]['전일종가']
-            item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일종가']))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
+                fut_realdata['전고'] = df.iloc[0]['전일고가']
+                item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일고가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(1, Futures_column.전고.value, item)
+
+                fut_realdata['종가'] = df.iloc[0]['전일종가']
+                item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일종가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
+            else:
+                pass
 
             self.tableWidget_fut.resizeColumnsToContents()
 
