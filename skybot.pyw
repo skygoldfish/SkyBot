@@ -2523,7 +2523,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         cm_two_cha_left_curve = self.Plot_Fut.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         
         kp200_curve = self.Plot_Fut.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
-        fut_curve = self.Plot_Fut.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        fut_curve = self.Plot_Fut.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         
         cm_call_oi_right_curve = self.Plot_Opt.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         cm_put_oi_right_curve = self.Plot_Opt.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
