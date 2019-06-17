@@ -508,6 +508,7 @@ futpen = pg.mkPen(magenta, width=2, style=QtCore.Qt.SolidLine)
 rpen = pg.mkPen('r', width=2, style=QtCore.Qt.SolidLine)
 bpen = pg.mkPen('b', width=2, style=QtCore.Qt.SolidLine)
 gpen = pg.mkPen('g', width=2, style=QtCore.Qt.SolidLine)
+ypen1 = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
 ypen = pg.mkPen('y', width=2, style=QtCore.Qt.SolidLine)
 mvpen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DotLine)
 tpen = pg.mkPen(lightyellow, width=1, style=QtCore.Qt.DotLine)
@@ -2507,7 +2508,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         fut_jl_line = self.Plot_Fut.addLine(x=None, pen=fut_jl_pen)
         fut_jh_line = self.Plot_Fut.addLine(x=None, pen=fut_jh_pen)
-        volume_base_line = self.Plot_Fut.addLine(x=None, pen=gpen)
+        volume_base_line = self.Plot_Fut.addLine(x=None, pen=ypen1)
         fut_pivot_line = self.Plot_Fut.addLine(x=None, pen=fut_pvt_pen)
         
         fut_che_left_curve = self.Plot_Fut.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
