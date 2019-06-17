@@ -523,6 +523,7 @@ atm_lower_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DashLine)
 
 aqua_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 magenta_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
+magenta_pen1 = pg.mkPen(magenta, width=2, style=QtCore.Qt.SolidLine)
 green_pen = pg.mkPen('g', width=2, style=QtCore.Qt.SolidLine)
 gold_pen = pg.mkPen(gold, width=2, style=QtCore.Qt.DotLine)
 yellow_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
@@ -2509,7 +2510,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         volume_base_line = self.Plot_Fut.addLine(x=None, pen=gpen)
         fut_pivot_line = self.Plot_Fut.addLine(x=None, pen=fut_pvt_pen)
         
-        fut_che_left_curve = self.Plot_Fut.plot(pen=magenta, symbolBrush=gpen, symbolPen='w', symbol='o', symbolSize=3)
+        fut_che_left_curve = self.Plot_Fut.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
 
         cm_call_volume_left_curve = self.Plot_Fut.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         cm_put_volume_left_curve = self.Plot_Fut.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -2531,7 +2532,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         cm_put_volume_right_curve = self.Plot_Opt.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
         cm_volume_cha_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
-        fut_che_right_curve = self.Plot_Opt.plot(pen=magenta, symbolBrush=gpen, symbolPen='w', symbol='o', symbolSize=3) 
+        fut_che_right_curve = self.Plot_Opt.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
 
         cm_two_sum_right_curve = self.Plot_Opt.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         cm_two_cha_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
@@ -3088,6 +3089,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             kp200_curve.clear()
             fut_curve.clear()
             
+            sp500_left_curve.clear()
+            dow_left_curve.clear()
+            vix_left_curve.clear()
+            
             atm_upper_line.setValue(0)
             atm_lower_line.setValue(0)
             
@@ -3098,10 +3103,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             hc_fut_upper_line.setValue(0)
             hc_fut_lower_line.setValue(0)
-
-            sp500_left_curve.clear()
-            dow_left_curve.clear()
-            vix_left_curve.clear()
 
         elif comboindex1 == 1:
             
@@ -3116,6 +3117,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             kp200_curve.clear()
             fut_curve.clear()
+            
+            sp500_left_curve.clear()
+            dow_left_curve.clear()
+            vix_left_curve.clear()   
 
             atm_upper_line.setValue(0)
             atm_lower_line.setValue(0)
@@ -3126,11 +3131,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             volume_base_line.setValue(0)
 
             hc_fut_upper_line.setValue(0)
-            hc_fut_lower_line.setValue(0)
-
-            sp500_left_curve.clear()
-            dow_left_curve.clear()
-            vix_left_curve.clear()          
+            hc_fut_lower_line.setValue(0)     
 
         elif comboindex1 == 2:
 
@@ -3143,7 +3144,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_two_cha_left_curve.clear() 
 
             kp200_curve.clear()
-            fut_curve.clear()  
+            fut_curve.clear()
+            
+            sp500_left_curve.clear()
+            dow_left_curve.clear()
+            vix_left_curve.clear()     
             
             atm_upper_line.setValue(0)
             atm_lower_line.setValue(0)
@@ -3154,11 +3159,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             volume_base_line.setValue(0)
 
             hc_fut_upper_line.setValue(0)
-            hc_fut_lower_line.setValue(0)
-
-            sp500_left_curve.clear()
-            dow_left_curve.clear()
-            vix_left_curve.clear()          
+            hc_fut_lower_line.setValue(0)  
         
         elif comboindex1 == 3:
 
@@ -3174,6 +3175,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             kp200_curve.clear()
             fut_curve.clear() 
             
+            sp500_left_curve.clear()
+            dow_left_curve.clear()
+            vix_left_curve.clear()
+            
             atm_upper_line.setValue(0)
             atm_lower_line.setValue(0) 
             
@@ -3181,10 +3186,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fut_jh_line.setValue(0)
             fut_pivot_line.setValue(0)
             volume_base_line.setValue(0)
-
-            sp500_left_curve.clear()
-            dow_left_curve.clear()
-            vix_left_curve.clear()
 
             hc_fut_upper_line.setValue(1.5)
             hc_fut_lower_line.setValue(-1.5)
@@ -3201,7 +3202,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_volume_cha_left_curve.clear()
 
             cm_two_sum_left_curve.clear()
-            cm_two_cha_left_curve.clear() 
+            cm_two_cha_left_curve.clear()
+            
+            sp500_left_curve.clear()
+            dow_left_curve.clear()
+            vix_left_curve.clear()  
 
             volume_base_line.setValue(fut_realdata['전저'])
             hc_fut_upper_line.setValue(fut_realdata['전저'])
@@ -3214,10 +3219,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             atm_upper_line.setValue(atm_val + 1.25)
             atm_lower_line.setValue(atm_val - 1.25)
-
-            sp500_left_curve.clear()
-            dow_left_curve.clear()
-            vix_left_curve.clear() 
 
         elif comboindex1 == 5:
 
@@ -13141,7 +13142,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if result['시가지수'] != float(self.tableWidget_fut.item(2, Futures_column.시가.value).text()):
 
                         kp200_realdata['시가'] = result['시가지수']
-                        df_fut.iloc[2]['시가'] = result['시가지수']
+                        #df_fut.iloc[2]['시가'] = result['시가지수']
                         df_plotdata_kp200.iloc[0][해외선물_시간차] = result['시가지수']
 
                         item = QTableWidgetItem("{0:0.2f}".format(result['시가지수']))
@@ -13215,7 +13216,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if result['저가지수'] != float(self.tableWidget_fut.item(2, Futures_column.저가.value).text()):
 
                         kp200_realdata['저가'] = result['저가지수']
-                        df_fut.iloc[2]['저가'] = result['저가지수']
+                        #df_fut.iloc[2]['저가'] = result['저가지수']
 
                         item = QTableWidgetItem("{0:0.2f}".format(result['저가지수']))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -13238,7 +13239,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if result['고가지수'] != float(self.tableWidget_fut.item(2, Futures_column.고가.value).text()):
 
                         kp200_realdata['고가'] = result['고가지수']
-                        df_fut.iloc[2]['고가'] = result['고가지수']
+                        #df_fut.iloc[2]['고가'] = result['고가지수']
 
                         item = QTableWidgetItem("{0:0.2f}".format(result['고가지수']))
                         item.setTextAlignment(Qt.AlignCenter)
