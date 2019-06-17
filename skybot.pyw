@@ -3206,16 +3206,27 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             sp500_left_curve.clear()
             dow_left_curve.clear()
-            vix_left_curve.clear()  
+            vix_left_curve.clear()
 
-            volume_base_line.setValue(fut_realdata['전저'])
-            hc_fut_upper_line.setValue(fut_realdata['전저'])
-            hc_fut_lower_line.setValue(fut_realdata['전저'])
-            
-            fut_jl_line.setValue(fut_realdata['전저'])
-            fut_jh_line.setValue(fut_realdata['전고'])
-            
-            fut_pivot_line.setValue(fut_realdata['피봇'])
+            if overnight:
+
+                volume_base_line.setValue(cme_realdata['전저'])
+                hc_fut_upper_line.setValue(cme_realdata['전저'])
+                hc_fut_lower_line.setValue(cme_realdata['전저'])
+
+                fut_jl_line.setValue(cme_realdata['전저'])
+                fut_jh_line.setValue(cme_realdata['전고'])
+
+                fut_pivot_line.setValue(cme_realdata['피봇']) 
+            else:
+                volume_base_line.setValue(fut_realdata['전저'])
+                hc_fut_upper_line.setValue(fut_realdata['전저'])
+                hc_fut_lower_line.setValue(fut_realdata['전저'])
+
+                fut_jl_line.setValue(fut_realdata['전저'])
+                fut_jh_line.setValue(fut_realdata['전고'])
+
+                fut_pivot_line.setValue(fut_realdata['피봇'])            
 
             atm_upper_line.setValue(atm_val + 1.25)
             atm_lower_line.setValue(atm_val - 1.25)
