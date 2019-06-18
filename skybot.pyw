@@ -3095,15 +3095,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             vix_left_curve.clear()
             
             atm_upper_line.setValue(0)
-            atm_lower_line.setValue(0)
-            
-            fut_jl_line.setValue(0)
-            fut_jh_line.setValue(0)
-            fut_pivot_line.setValue(0)
+            atm_lower_line.setValue(0)            
+
             volume_base_line.setValue(0)
 
             hc_fut_upper_line.setValue(0)
             hc_fut_lower_line.setValue(0)
+
+            fut_jl_line.setValue(0)
+            fut_jh_line.setValue(0)
+            fut_pivot_line.setValue(0)
 
         elif comboindex1 == 1:
             
@@ -3126,13 +3127,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             atm_upper_line.setValue(0)
             atm_lower_line.setValue(0)
             
-            fut_jl_line.setValue(0)
-            fut_jh_line.setValue(0)
-            fut_pivot_line.setValue(0)
             volume_base_line.setValue(0)
 
             hc_fut_upper_line.setValue(0)
-            hc_fut_lower_line.setValue(0)     
+            hc_fut_lower_line.setValue(0)
+            
+            fut_jl_line.setValue(0)
+            fut_jh_line.setValue(0)
+            fut_pivot_line.setValue(0)     
 
         elif comboindex1 == 2:
 
@@ -3154,13 +3156,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             atm_upper_line.setValue(0)
             atm_lower_line.setValue(0)
             
-            fut_jl_line.setValue(0)
-            fut_jh_line.setValue(0)
-            fut_pivot_line.setValue(0)
             volume_base_line.setValue(0)
 
             hc_fut_upper_line.setValue(0)
-            hc_fut_lower_line.setValue(0)  
+            hc_fut_lower_line.setValue(0)
+            
+            fut_jl_line.setValue(0)
+            fut_jh_line.setValue(0)
+            fut_pivot_line.setValue(0) 
         
         elif comboindex1 == 3:
 
@@ -3182,11 +3185,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             atm_upper_line.setValue(0)
             atm_lower_line.setValue(0) 
+
+            volume_base_line.setValue(0)
             
             fut_jl_line.setValue(0)
             fut_jh_line.setValue(0)
-            fut_pivot_line.setValue(0)
-            volume_base_line.setValue(0)
+            fut_pivot_line.setValue(0)            
 
             hc_fut_upper_line.setValue(1.5)
             hc_fut_lower_line.setValue(-1.5)
@@ -3217,7 +3221,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 fut_jl_line.setValue(cme_realdata['전저'])
                 fut_jh_line.setValue(cme_realdata['전고'])
-
                 fut_pivot_line.setValue(cme_realdata['피봇']) 
             else:
                 volume_base_line.setValue(fut_realdata['전저'])
@@ -3226,7 +3229,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 fut_jl_line.setValue(fut_realdata['전저'])
                 fut_jh_line.setValue(fut_realdata['전고'])
-
                 fut_pivot_line.setValue(fut_realdata['피봇'])            
 
             atm_upper_line.setValue(atm_val + 1.25)
@@ -3257,13 +3259,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 atm_upper_line.setValue(sp500_전일종가)
                 atm_lower_line.setValue(sp500_전일종가)
 
-                hc_fut_upper_line.setValue(sp500_전일종가)
-                hc_fut_lower_line.setValue(sp500_전일종가)
-
+                volume_base_line.setValue(sp500_전일종가) 
+                
                 fut_jl_line.setValue(sp500_전일종가)
                 fut_jh_line.setValue(sp500_전일종가)
                 fut_pivot_line.setValue(sp500_전일종가)
-                volume_base_line.setValue(sp500_전일종가) 
+
+                hc_fut_upper_line.setValue(sp500_전일종가)
+                hc_fut_lower_line.setValue(sp500_전일종가)                
             else:
                 pass
 
@@ -3292,13 +3295,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 atm_upper_line.setValue(dow_전일종가)
                 atm_lower_line.setValue(dow_전일종가)
 
-                hc_fut_upper_line.setValue(dow_전일종가)
-                hc_fut_lower_line.setValue(dow_전일종가)
-
+                volume_base_line.setValue(dow_전일종가) 
+                
                 fut_jl_line.setValue(dow_전일종가)
                 fut_jh_line.setValue(dow_전일종가)
                 fut_pivot_line.setValue(dow_전일종가)
-                volume_base_line.setValue(dow_전일종가)
+
+                hc_fut_upper_line.setValue(dow_전일종가)
+                hc_fut_lower_line.setValue(dow_전일종가)
             else:
                 pass             
 
@@ -3327,13 +3331,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 atm_upper_line.setValue(vix_전일종가)
                 atm_lower_line.setValue(vix_전일종가)
 
-                hc_fut_upper_line.setValue(vix_전일종가)
-                hc_fut_lower_line.setValue(vix_전일종가)
-
+                volume_base_line.setValue(vix_전일종가) 
+                
                 fut_jl_line.setValue(vix_전일종가)
                 fut_jh_line.setValue(vix_전일종가)
                 fut_pivot_line.setValue(vix_전일종가)
-                volume_base_line.setValue(vix_전일종가) 
+
+                hc_fut_upper_line.setValue(vix_전일종가)
+                hc_fut_lower_line.setValue(vix_전일종가)
             else:
                 pass
         else:
