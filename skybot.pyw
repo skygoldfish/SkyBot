@@ -9829,8 +9829,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             item = QTableWidgetItem("{0:0.2f}".format(진폭))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
 
             if overnight:
                 self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
@@ -10013,8 +10011,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             item = QTableWidgetItem("{0:0.2f}".format(진폭))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
-            item.setForeground(QBrush(검정색))
 
             if overnight:
                 self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
