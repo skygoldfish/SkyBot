@@ -9843,15 +9843,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if overnight:
 
                 self.tableWidget_fut.item(0, Futures_column.시가.value).setBackground(QBrush(흰색))
+
+                if 시가실수 > 종가:
+                    self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(적색))
+                elif 시가실수 < 종가:
+                    self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(청색))
+                else:
+                    self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(검정색))
             else:
                 self.tableWidget_fut.item(1, Futures_column.시가.value).setBackground(QBrush(흰색))
-                        
-            if 시가실수 > 종가:
-                item.setForeground(QBrush(적색))
-            elif 시가실수 < 종가:
-                item.setForeground(QBrush(청색))
-            else:
-                item.setForeground(QBrush(검정색))    
+
+                if 시가실수 > 종가:
+                    self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(적색))
+                elif 시가실수 < 종가:
+                    self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(청색))
+                else:
+                    self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(검정색))
 
             if fut_ol and not fut_oh:
 
@@ -10023,15 +10030,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if overnight:
 
                 self.tableWidget_fut.item(0, Futures_column.시가.value).setBackground(QBrush(흰색))
-            else:
-                self.tableWidget_fut.item(1, Futures_column.시가.value).setBackground(QBrush(흰색))
 
-            if 시가실수 > 종가:
-                item.setForeground(QBrush(적색))
-            elif 시가실수 < 종가:
-                item.setForeground(QBrush(청색))
+                if 시가실수 > 종가:
+                    self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(적색))
+                elif 시가실수 < 종가:
+                    self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(청색))
+                else:
+                    self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(검정색))
             else:
-                item.setForeground(QBrush(검정색))
+                self.tableWidget_fut.item(1, Futures_column.시가.value).setBackground(QBrush(흰색)) 
+
+                if 시가실수 > 종가:
+                    self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(적색))
+                elif 시가실수 < 종가:
+                    self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(청색))
+                else:
+                    self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(검정색))           
 
             if not fut_ol and fut_oh:
 
