@@ -6376,24 +6376,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             피봇 = cme_realdata['피봇']
 
             # 시가, 전저, 전고, 종가, 피봇 컬러링
-            item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['시가']))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(기본바탕색))
+            if cme_realdata['시가'] > 0:
 
-            if cme_realdata['시가'] > cme_realdata['종가']:
-                item.setForeground(QBrush(적색))
-            elif cme_realdata['시가'] < cme_realdata['종가']:
-                item.setForeground(QBrush(청색))
+                item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['시가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(기본바탕색))
+
+                if cme_realdata['시가'] > cme_realdata['종가']:
+                    item.setForeground(QBrush(적색))
+                elif cme_realdata['시가'] < cme_realdata['종가']:
+                    item.setForeground(QBrush(청색))
+                else:
+                    item.setForeground(QBrush(검정색))
+
+                self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)
+
+                cme_realdata['시가갭'] = cme_realdata['시가'] - cme_realdata['종가']
+
+                item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['시가갭']))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
             else:
-                item.setForeground(QBrush(검정색))
-
-            self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)
-
-            cme_realdata['시가갭'] = cme_realdata['시가'] - cme_realdata['종가']
-
-            item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['시가갭']))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
+                pass
 
             # FUT OL/OH
             if self.within_n_tick(cme_realdata['시가'], cme_realdata['저가'], 10) and \
@@ -6527,24 +6531,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             피봇 = fut_realdata['피봇']
 
             # 시가, 전저, 전고, 종가, 피봇 컬러링
-            item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['시가']))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(기본바탕색))
+            if fut_realdata['시가'] > 0:
 
-            if fut_realdata['시가'] > fut_realdata['종가']:
-                item.setForeground(QBrush(적색))
-            elif fut_realdata['시가'] < fut_realdata['종가']:
-                item.setForeground(QBrush(청색))
+                item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['시가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(기본바탕색))
+
+                if fut_realdata['시가'] > fut_realdata['종가']:
+                    item.setForeground(QBrush(적색))
+                elif fut_realdata['시가'] < fut_realdata['종가']:
+                    item.setForeground(QBrush(청색))
+                else:
+                    item.setForeground(QBrush(검정색))
+
+                self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
+
+                fut_realdata['시가갭'] = fut_realdata['시가'] - fut_realdata['종가']
+
+                item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['시가갭']))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
             else:
-                item.setForeground(QBrush(검정색))
-
-            self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
-
-            fut_realdata['시가갭'] = fut_realdata['시가'] - fut_realdata['종가']
-
-            item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['시가갭']))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
+                pass
             
             # FUT OL/OH
             if self.within_n_tick(fut_realdata['시가'], fut_realdata['저가'], 10) and \
@@ -6949,16 +6957,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)
 
             self.tableWidget_fut.resizeColumnsToContents()
-            '''
-            #fut_realdata['선물코드'] = fut_code
-
-            columns = ['KP200', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
-                       '현재가', '고가', '대비', '진폭', '거래량', '미결', '미결증감']
-
-            df_fut = DataFrame(data=[fut_realdata], columns=columns)
-
-            print('df_fut', df_fut)
-            '''
 
         elif szTrCode == 't2301':
 
@@ -8176,6 +8174,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             df_fut = DataFrame(data=[cme_realdata, fut_realdata, kp200_realdata], columns=columns)
 
             print('df_fut', df_fut)
+            
+            if refresh_flag:
+
+                self.fut_node_color_clear()
+                self.fut_node_color_update()
+            else:
+                pass
 
         elif szTrCode == 't2830':
 
@@ -9429,24 +9434,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 fut_code = cmshcode
                 print('차월물선물코드 요청', fut_code)
 
-            if not refresh_flag:
+            fut_realdata['전저'] = df.iloc[0]['전일저가']
+            item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일저가']))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(1, Futures_column.전저.value, item)
 
-                fut_realdata['전저'] = df.iloc[0]['전일저가']
-                item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일저가']))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setItem(1, Futures_column.전저.value, item)
+            fut_realdata['전고'] = df.iloc[0]['전일고가']
+            item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일고가']))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(1, Futures_column.전고.value, item)
 
-                fut_realdata['전고'] = df.iloc[0]['전일고가']
-                item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일고가']))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setItem(1, Futures_column.전고.value, item)
-
-                fut_realdata['종가'] = df.iloc[0]['전일종가']
-                item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일종가']))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
-            else:
-                pass
+            fut_realdata['종가'] = df.iloc[0]['전일종가']
+            item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일종가']))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
 
             self.tableWidget_fut.resizeColumnsToContents()
 
@@ -14671,23 +14672,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global kp200_realdata, fut_realdata
 
-        current = datetime.datetime.now()
-        current_str = current.strftime('%H:%M:%S')
-
-        print('서비스요청 시간 :', current_str)
+        dt = datetime.datetime.now()
+        current_str = dt.strftime('%H:%M:%S')
 
         if not refresh_flag:
 
             START_ON = True
+            
+            # 지수선물 마스터조회 API용
+            XQ = t8432(parent=self)
+            XQ.Query(구분='F')
         else:
-            self.fut_node_color_clear()
-            self.fut_node_color_update()
-            self.all_node_set()
+            str = '[{0:02d}:{1:02d}:{2:02d}] 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
+
             Speak("전광판을 갱신합니다.")
 
-        # 지수선물 마스터조회 API용
-        XQ = t8432(parent=self)
-        XQ.Query(구분='F')
+            self.all_node_set()            
 
         if self.checkBox_realtime.isChecked():
 
@@ -14712,7 +14713,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 시작시간 X축 표시(index 60은 시가)
                 time_line_fut_start.setValue(해외선물_시간차)
                 time_line_opt_start.setValue(해외선물_시간차)
-
             else:
                 overnight = True
 
@@ -14727,6 +14727,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
                 time_line_fut_start.setValue(1)
                 time_line_opt_start.setValue(1)
+
+            if refresh_flag:
+
+                XQ = t2101(parent=self)
+                XQ.Query(종목코드=fut_code)
+
+                time.sleep(0.1)
+
+                XQ = t2801(parent=self)
+                XQ.Query(종목코드=fut_code)
+            else:
+                pass
         else:
 
             # 옵션 전광판
