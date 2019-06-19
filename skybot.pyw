@@ -9493,7 +9493,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # 장중 거래량 갱신
 
         # 장중 거래량은 누적거래량이 아닌 수정거래량 임
-        # fut_realdata['거래량'] = result['누적거래량']
+
         거래량 = result['매수누적체결량'] - result['매도누적체결량']
         df_plotdata_fut_che.iloc[0][x_idx] = 거래량
 
@@ -9781,7 +9781,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setForeground(QBrush(검정색))
             
             # 시가, 전저, 전고, 종가, 피봇 컬러링
-            if fut_ol:
+            if fut_ol and not fut_oh:
 
                 item.setBackground(QBrush(적색))
                 item.setForeground(QBrush(흰색))
@@ -9972,7 +9972,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setForeground(QBrush(검정색))
 
             # 시가, 전저, 전고, 종가, 피봇 컬러링
-            if fut_oh:
+            if not fut_ol and fut_oh:
 
                 item.setBackground(QBrush(청색))
                 item.setForeground(QBrush(흰색))
