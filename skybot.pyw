@@ -245,7 +245,7 @@ PROGRAM_직전대비 = collections.deque([0, 0, 0], 3)
 
 sp500_직전대비 = collections.deque([0, 0, 0], 5)
 dow_직전대비 = collections.deque([0, 0, 0], 5)
-vix_직전대비 = collections.deque([0, 0, 0], 3)
+nasdaq_직전대비 = collections.deque([0, 0, 0], 3)
 
 actval_increased = False
 
@@ -415,8 +415,8 @@ sp500_delta_old = 0
 dow_delta = 0
 dow_delta_old = 0
 
-vix_delta = 0
-vix_delta_old = 0
+nasdaq_delta = 0
+nasdaq_delta_old = 0
 
 comboindex1 = 0
 comboindex2 = 0
@@ -548,7 +548,7 @@ df_plotdata_kp200 = pd.DataFrame()
 
 df_plotdata_sp500 = pd.DataFrame()
 df_plotdata_dow = pd.DataFrame()
-df_plotdata_vix = pd.DataFrame()
+df_plotdata_nasdaq = pd.DataFrame()
 
 mv_curve = []
 mv_line = []
@@ -604,11 +604,11 @@ cm_two_cha_right_curve = None
 
 sp500_left_curve = None
 dow_left_curve = None
-vix_left_curve = None
+nasdaq_left_curve = None
 
 sp500_right_curve = None
 dow_right_curve = None
-vix_right_curve = None
+nasdaq_right_curve = None
 
 yoc_stop = False
 
@@ -617,16 +617,16 @@ kosdaq_price = 0.0
 samsung_price = 0.0
 sp500_price = 0.0
 dow_price = 0.0
-vix_price = 0.0
+nasdaq_price = 0.0
 
 kospi_text_color = ''
 kosdaq_text_color = ''
 samsung_text_color = ''
 sp500_text_color = ''
 dow_text_color = ''
-vix_text_color = ''
+nasdaq_text_color = ''
 
-vix_전일종가 = 0.0
+nasdaq_전일종가 = 0.0
 sp500_전일종가 = 0.0
 dow_전일종가 = 0.0  
 
@@ -2150,7 +2150,7 @@ class update_worker(QThread):
 
             elif comboindex1 == 7: 
 
-                curve1_data = df_plotdata_vix.iloc[0].values.tolist()
+                curve1_data = df_plotdata_nasdaq.iloc[0].values.tolist()
                 curve2_data = None
                 curve3_data = None
             else:
@@ -2201,7 +2201,7 @@ class update_worker(QThread):
 
             elif comboindex2 == 7:
 
-                curve4_data = df_plotdata_vix.iloc[0].values.tolist()
+                curve4_data = df_plotdata_nasdaq.iloc[0].values.tolist()
                 curve5_data = None
                 curve6_data = None 
             else:
@@ -2500,7 +2500,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global cm_call_volume_right_curve, cm_put_volume_right_curve, cm_volume_cha_right_curve
         
         global cm_two_sum_left_curve, cm_two_cha_left_curve, cm_two_sum_right_curve, cm_two_cha_right_curve
-        global sp500_left_curve, dow_left_curve, vix_left_curve, sp500_right_curve, dow_right_curve, vix_right_curve
+        global sp500_left_curve, dow_left_curve, nasdaq_left_curve, sp500_right_curve, dow_right_curve, nasdaq_right_curve
 
         time_line_fut_start = self.Plot_Fut.addLine(x=0, y=None, pen=tpen)
         time_line_fut_dow_start = self.Plot_Fut.addLine(x=0, y=None, pen=tpen)
@@ -2540,11 +2540,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         sp500_left_curve = self.Plot_Fut.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         dow_left_curve = self.Plot_Fut.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        vix_left_curve = self.Plot_Fut.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)   
+        nasdaq_left_curve = self.Plot_Fut.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)   
 
         sp500_right_curve = self.Plot_Opt.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         dow_right_curve = self.Plot_Opt.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        vix_right_curve = self.Plot_Opt.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)   
+        nasdaq_right_curve = self.Plot_Opt.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)   
 
         global time_line_opt_start, time_line_opt_dow_start, time_line_opt, mv_line, opt_base_line, call_curve, put_curve
         global hc_fut_upper_line, hc_fut_lower_line, hc_opt_upper_line, hc_opt_lower_line
@@ -3092,7 +3092,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             sp500_left_curve.clear()
             dow_left_curve.clear()
-            vix_left_curve.clear()
+            nasdaq_left_curve.clear()
             
             atm_upper_line.setValue(0)
             atm_lower_line.setValue(0)            
@@ -3122,7 +3122,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             sp500_left_curve.clear()
             dow_left_curve.clear()
-            vix_left_curve.clear()   
+            nasdaq_left_curve.clear()   
 
             atm_upper_line.setValue(0)
             atm_lower_line.setValue(0)
@@ -3151,7 +3151,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             sp500_left_curve.clear()
             dow_left_curve.clear()
-            vix_left_curve.clear()     
+            nasdaq_left_curve.clear()     
             
             atm_upper_line.setValue(0)
             atm_lower_line.setValue(0)
@@ -3181,7 +3181,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             sp500_left_curve.clear()
             dow_left_curve.clear()
-            vix_left_curve.clear()
+            nasdaq_left_curve.clear()
             
             atm_upper_line.setValue(0)
             atm_lower_line.setValue(0) 
@@ -3211,7 +3211,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             sp500_left_curve.clear()
             dow_left_curve.clear()
-            vix_left_curve.clear()
+            nasdaq_left_curve.clear()
 
             if overnight:
 
@@ -3252,7 +3252,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fut_curve.clear()  
             
             dow_left_curve.clear()
-            vix_left_curve.clear()
+            nasdaq_left_curve.clear()
 
             if sp500_전일종가 > 0:
 
@@ -3288,7 +3288,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fut_curve.clear()
             
             sp500_left_curve.clear()
-            vix_left_curve.clear()  
+            nasdaq_left_curve.clear()  
 
             if dow_전일종가 > 0:
 
@@ -3326,19 +3326,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             sp500_left_curve.clear()
             dow_left_curve.clear()  
 
-            if vix_전일종가 > 0:
+            if nasdaq_전일종가 > 0:
 
-                atm_upper_line.setValue(vix_전일종가)
-                atm_lower_line.setValue(vix_전일종가)
+                atm_upper_line.setValue(nasdaq_전일종가)
+                atm_lower_line.setValue(nasdaq_전일종가)
 
-                volume_base_line.setValue(vix_전일종가) 
+                volume_base_line.setValue(nasdaq_전일종가) 
                 
-                fut_jl_line.setValue(vix_전일종가)
-                fut_jh_line.setValue(vix_전일종가)
-                fut_pivot_line.setValue(vix_전일종가)
+                fut_jl_line.setValue(nasdaq_전일종가)
+                fut_jh_line.setValue(nasdaq_전일종가)
+                fut_pivot_line.setValue(nasdaq_전일종가)
 
-                hc_fut_upper_line.setValue(vix_전일종가)
-                hc_fut_lower_line.setValue(vix_전일종가)
+                hc_fut_upper_line.setValue(nasdaq_전일종가)
+                hc_fut_lower_line.setValue(nasdaq_전일종가)
             else:
                 pass
         else:
@@ -3372,7 +3372,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             sp500_right_curve.clear()
             dow_right_curve.clear()
-            vix_right_curve.clear()
+            nasdaq_right_curve.clear()
 
             for i in range(9):
                 mv_line[i].setValue(0)
@@ -3398,7 +3398,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             sp500_right_curve.clear()
             dow_right_curve.clear()
-            vix_right_curve.clear()
+            nasdaq_right_curve.clear()
 
             for i in range(9):
                 mv_line[i].setValue(0)
@@ -3426,7 +3426,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             sp500_right_curve.clear()
             dow_right_curve.clear()
-            vix_right_curve.clear() 
+            nasdaq_right_curve.clear() 
 
             for i in range(9):
                 mv_line[i].setValue(0)
@@ -3453,7 +3453,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             sp500_right_curve.clear()
             dow_right_curve.clear()
-            vix_right_curve.clear()
+            nasdaq_right_curve.clear()
 
             for i in range(9):
                 mv_line[i].setValue(0)
@@ -3479,7 +3479,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             sp500_right_curve.clear()
             dow_right_curve.clear()
-            vix_right_curve.clear()
+            nasdaq_right_curve.clear()
 
             hc_opt_upper_line.setValue(0)
             hc_opt_lower_line.setValue(0)
@@ -3511,7 +3511,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 put_curve[i].clear() 
 
             dow_right_curve.clear()
-            vix_right_curve.clear()
+            nasdaq_right_curve.clear()
 
             if sp500_전일종가 > 0:
 
@@ -3544,7 +3544,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 put_curve[i].clear()
 
             sp500_right_curve.clear()
-            vix_right_curve.clear()
+            nasdaq_right_curve.clear()
 
             if dow_전일종가 > 0:
 
@@ -3579,15 +3579,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             sp500_right_curve.clear()
             dow_right_curve.clear() 
 
-            if vix_전일종가 > 0:
+            if nasdaq_전일종가 > 0:
 
                 for i in range(9):
-                    mv_line[i].setValue(vix_전일종가)
+                    mv_line[i].setValue(nasdaq_전일종가)
 
-                opt_base_line.setValue(vix_전일종가)
+                opt_base_line.setValue(nasdaq_전일종가)
 
-                hc_opt_upper_line.setValue(vix_전일종가)
-                hc_opt_lower_line.setValue(vix_전일종가)
+                hc_opt_upper_line.setValue(nasdaq_전일종가)
+                hc_opt_lower_line.setValue(nasdaq_전일종가)
             else:
                 pass
         else:
@@ -4533,7 +4533,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif comboindex1 == 7:
 
-                    vix_left_curve.setData(curve1_data)
+                    nasdaq_left_curve.setData(curve1_data)
                 else:
                     pass   
 
@@ -4572,7 +4572,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif comboindex2 == 7: 
 
-                    vix_right_curve.setData(curve4_data)
+                    nasdaq_right_curve.setData(curve4_data)
                 else:
                     pass                                                       
             else:
@@ -4774,11 +4774,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass        
 
-        if vix_text_color != '':
+        if nasdaq_text_color != '':
 
-            if vix_text_color == 'red':
+            if nasdaq_text_color == 'red':
                 self.label_3rd_co.setStyleSheet('background-color: yellow; color: red')
-            elif vix_text_color == 'blue':
+            elif nasdaq_text_color == 'blue':
                 self.label_3rd_co.setStyleSheet('background-color: yellow; color: blue')
             else:
                 self.label_3rd_co.setStyleSheet('background-color: yellow; color: black')
@@ -6747,7 +6747,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global df_plotdata_cm_two_sum, df_plotdata_cm_two_cha
         global domestic_start_hour, start_time_str, end_time_str
 
-        global df_plotdata_sp500, df_plotdata_dow, df_plotdata_vix
+        global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq
         global view_actval
 
         dt = datetime.datetime.now()
@@ -7002,7 +7002,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 395 + 10))
                     df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 395 + 10))
-                    df_plotdata_vix = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 395 + 10))
+                    df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 395 + 10))
                 else:
                     self.Plot_Opt.setRange(xRange=[0, 해외선물_시간차 + 660 + 10], padding=0)
                     time_line_opt.setValue(해외선물_시간차 + 660 + 9)
@@ -7029,7 +7029,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 10))
                     df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 10))
-                    df_plotdata_vix = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 10))
+                    df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 10))
 
                 # 콜처리
                 for i in range(nCount_cm_option_pairs):
@@ -12433,11 +12433,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             global yoc_stop
             global OVC_체결시간, 호가시간
-            global df_plotdata_sp500, df_plotdata_dow, df_plotdata_vix
+            global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq
 
             global sp500_delta, sp500_delta_old, sp500_직전대비
             global dow_delta, dow_delta_old, dow_직전대비
-            global vix_delta, vix_delta_old, vix_직전대비
+            global nasdaq_delta, nasdaq_delta_old, nasdaq_직전대비
             global receive_real_ovc
 
             start_time = timeit.default_timer()
@@ -14280,28 +14280,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if result['종목코드'] == NASDAQ:
 
-                    global vix_price, vix_text_color, vix_전일종가               
+                    global nasdaq_price, nasdaq_text_color, nasdaq_전일종가               
 
-                    if result['체결가격'] != vix_price:
+                    if result['체결가격'] != nasdaq_price:
                         
-                        vix_delta_old = vix_delta
-                        vix_delta = result['체결가격']
-                        vix_직전대비.extend([vix_delta - vix_delta_old])
-                        temp = list(vix_직전대비)
+                        nasdaq_delta_old = nasdaq_delta
+                        nasdaq_delta = result['체결가격']
+                        nasdaq_직전대비.extend([nasdaq_delta - nasdaq_delta_old])
+                        temp = list(nasdaq_직전대비)
                         
                         if ovc_x_idx >= 2:
-                            df_plotdata_vix.iloc[0][ovc_x_idx] = result['체결가격']
+                            df_plotdata_nasdaq.iloc[0][ovc_x_idx] = result['체결가격']
                         else:
                             pass
 
-                        if result['체결가격'] > vix_price:
+                        if result['체결가격'] > nasdaq_price:
 
                             if result['전일대비기호'] == '5':
 
-                                if vix_전일종가 == 0.0:
-                                    vix_전일종가 = result['체결가격'] + result['전일대비']
-                                    df_plotdata_vix.iloc[0][0] = vix_전일종가
-                                    df_plotdata_vix.iloc[0][1] = result['시가']
+                                if nasdaq_전일종가 == 0.0:
+                                    nasdaq_전일종가 = result['체결가격'] + result['전일대비']
+                                    df_plotdata_nasdaq.iloc[0][0] = nasdaq_전일종가
+                                    df_plotdata_nasdaq.iloc[0][1] = result['시가']
                                 else:
                                     pass                                
 
@@ -14312,14 +14312,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 self.label_3rd_co.setText(jisu_str)
                                 self.label_3rd_co.setStyleSheet('background-color: lightskyblue; color: red')
-                                vix_text_color = 'red'
+                                nasdaq_text_color = 'red'
 
                             elif result['전일대비기호'] == '2':
 
-                                if vix_전일종가 == 0.0:
-                                    vix_전일종가 = result['체결가격'] - result['전일대비']
-                                    df_plotdata_vix.iloc[0][0] = vix_전일종가
-                                    df_plotdata_vix.iloc[0][1] = result['시가']
+                                if nasdaq_전일종가 == 0.0:
+                                    nasdaq_전일종가 = result['체결가격'] - result['전일대비']
+                                    df_plotdata_nasdaq.iloc[0][0] = nasdaq_전일종가
+                                    df_plotdata_nasdaq.iloc[0][1] = result['시가']
                                 else:
                                     pass                                
 
@@ -14330,18 +14330,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 self.label_3rd_co.setText(jisu_str)
                                 self.label_3rd_co.setStyleSheet('background-color: lightskyblue; color: blue')
-                                vix_text_color = 'blue'
+                                nasdaq_text_color = 'blue'
                             else:
                                 pass
 
-                        elif result['체결가격'] < vix_price:
+                        elif result['체결가격'] < nasdaq_price:
 
                             if result['전일대비기호'] == '5':
 
-                                if vix_전일종가 == 0.0:
-                                    vix_전일종가 = result['체결가격'] + result['전일대비']
-                                    df_plotdata_vix.iloc[0][0] = vix_전일종가
-                                    df_plotdata_vix.iloc[0][1] = result['시가']
+                                if nasdaq_전일종가 == 0.0:
+                                    nasdaq_전일종가 = result['체결가격'] + result['전일대비']
+                                    df_plotdata_nasdaq.iloc[0][0] = nasdaq_전일종가
+                                    df_plotdata_nasdaq.iloc[0][1] = result['시가']
                                 else:
                                     pass                                
 
@@ -14352,14 +14352,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 self.label_3rd_co.setText(jisu_str)
                                 self.label_3rd_co.setStyleSheet('background-color: pink; color: red')
-                                vix_text_color = 'red'
+                                nasdaq_text_color = 'red'
 
                             elif result['전일대비기호'] == '2':
 
-                                if vix_전일종가 == 0.0:
-                                    vix_전일종가 = result['체결가격'] - result['전일대비']
-                                    df_plotdata_vix.iloc[0][0] = vix_전일종가
-                                    df_plotdata_vix.iloc[0][1] = result['시가']
+                                if nasdaq_전일종가 == 0.0:
+                                    nasdaq_전일종가 = result['체결가격'] - result['전일대비']
+                                    df_plotdata_nasdaq.iloc[0][0] = nasdaq_전일종가
+                                    df_plotdata_nasdaq.iloc[0][1] = result['시가']
                                 else:
                                     pass                                
 
@@ -14370,13 +14370,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 self.label_3rd_co.setText(jisu_str)
                                 self.label_3rd_co.setStyleSheet('background-color: pink; color: blue')
-                                vix_text_color = 'blue'
+                                nasdaq_text_color = 'blue'
                             else:
                                 pass
                         else:
                             pass
 
-                        vix_price = result['체결가격']
+                        nasdaq_price = result['체결가격']
                     else:
                         pass                    
 
@@ -14608,18 +14608,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if sp500_text_color == 'blue' and dow_text_color == 'blue' and vix_text_color == 'blue':
+                if sp500_text_color == 'blue' and dow_text_color == 'blue' and nasdaq_text_color == 'blue':
 
                     pass
 
-                elif sp500_text_color == 'red' and dow_text_color == 'red' and vix_text_color == 'red':
+                elif sp500_text_color == 'red' and dow_text_color == 'red' and nasdaq_text_color == 'red':
 
                     pass
                 else:
 
-                    if vix_text_color != '':
+                    if nasdaq_text_color != '':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] S&P500, DOW, VIX의 극성이 상이합니다... \r'.format(
+                        str = '[{0:02d}:{1:02d}:{2:02d}] S&P500, DOW, NASDAQ의 극성이 상이합니다... \r'.format(
                                     int(result['체결시간_한국'][0:2]),
                                     int(result['체결시간_한국'][2:4]),
                                     int(result['체결시간_한국'][4:6]))                                
