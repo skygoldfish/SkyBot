@@ -131,7 +131,7 @@ INSTITUTIONAL = "0018"
 
 SP500 = ''
 DOW = ''
-VIX = ''
+NASDAQ = ''
 
 price_threshold = 0.30
 center_val_threshold = 0.60
@@ -2286,16 +2286,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.parent = parent
 
-        global cm_option_title, month_info, SP500, DOW, VIX, fut_code
+        global cm_option_title, month_info, SP500, DOW, NASDAQ, fut_code
 
         with open('month_info.txt', mode='r') as monthfile:
             month_info = monthfile.readline().strip()
             SP500 = monthfile.readline().strip()
             DOW = monthfile.readline().strip()
-            VIX = monthfile.readline().strip()
+            NASDAQ = monthfile.readline().strip()
             cm_fut_info = monthfile.readline().strip()
 
-        print('SP500 = %s, DOW = %s, VIX = %s' % (SP500, DOW, VIX))
+        print('SP500 = %s, DOW = %s, NASDAQ = %s' % (SP500, DOW, NASDAQ))
 
         month = int(month_info[4:6])        
 
@@ -2465,10 +2465,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_supply.verticalHeader().setStretchLastSection(True)
         self.tableWidget_supply.clearContents()
 
-        self.comboBox1.addItems(['1. FV-Plot', '2. OO-Plot', '3. OV-Plot', '4. HC-Plot', '5. FP-Plot', '6. S&P500', '7. DOW', '8. VIX'])
+        self.comboBox1.addItems(['1. FV-Plot', '2. OO-Plot', '3. OV-Plot', '4. HC-Plot', '5. FP-Plot', '6. S&P500', '7. DOW', '8. NASDAQ'])
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['1. OO-Plot', '2. OV-Plot', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P500', '7. DOW', '8. VIX'])
+        self.comboBox2.addItems(['1. OO-Plot', '2. OV-Plot', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P500', '7. DOW', '8. NASDAQ'])
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         self.상태그림 = ['▼', '▲']
@@ -2812,7 +2812,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.label_1st_co.setStyleSheet('background-color: yellow ; color: black')
         self.label_2nd_co.setText("DOW: 가격 (전일대비, 등락율, 진폭)")
         self.label_2nd_co.setStyleSheet('background-color: yellow ; color: black')
-        self.label_3rd_co.setText("VIX: 가격 (전일대비, 등락율)")
+        self.label_3rd_co.setText("NASDAQ: 가격 (전일대비, 등락율)")
         self.label_3rd_co.setStyleSheet('background-color: yellow ; color: black')
 
         self.label_msg.setText("🕘")
@@ -7637,10 +7637,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 장운영정보 요청
                 self.JIF.AdviseRealData('0')
 
-                # S&P500, DOW, VIX 요청
+                # S&P500, DOW, NASDAQ 요청
                 self.OVC.AdviseRealData(종목코드=SP500)
                 self.OVC.AdviseRealData(종목코드=DOW)
-                self.OVC.AdviseRealData(종목코드=VIX)
+                self.OVC.AdviseRealData(종목코드=NASDAQ)
 
                 XQ = t2101(parent=self)
                 XQ.Query(종목코드=fut_code)
@@ -14278,7 +14278,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         ovc_x_idx = 1                
 
-                if result['종목코드'] == VIX:
+                if result['종목코드'] == NASDAQ:
 
                     global vix_price, vix_text_color, vix_전일종가               
 
@@ -14306,9 +14306,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     pass                                
 
                                 if min(temp) > 0:
-                                    jisu_str = "VIX: {0:.2f} ({1:.2f}, {2:0.2f}%)⬈".format(result['체결가격'], -result['전일대비'], result['등락율'])                                    
+                                    jisu_str = "NASDAQ: {0:.2f} ({1:.2f}, {2:0.2f}%)⬈".format(result['체결가격'], -result['전일대비'], result['등락율'])                                    
                                 else:
-                                    jisu_str = "VIX: {0:.2f} ▲ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
+                                    jisu_str = "NASDAQ: {0:.2f} ▲ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
 
                                 self.label_3rd_co.setText(jisu_str)
                                 self.label_3rd_co.setStyleSheet('background-color: lightskyblue; color: red')
@@ -14324,9 +14324,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     pass                                
 
                                 if min(temp) > 0:
-                                    jisu_str = "VIX: {0:.2f} ({1:.2f}, {2:0.2f}%)⬈".format(result['체결가격'], result['전일대비'], result['등락율'])                                    
+                                    jisu_str = "NASDAQ: {0:.2f} ({1:.2f}, {2:0.2f}%)⬈".format(result['체결가격'], result['전일대비'], result['등락율'])                                    
                                 else:
-                                    jisu_str = "VIX: {0:.2f} ▲ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
+                                    jisu_str = "NASDAQ: {0:.2f} ▲ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
 
                                 self.label_3rd_co.setText(jisu_str)
                                 self.label_3rd_co.setStyleSheet('background-color: lightskyblue; color: blue')
@@ -14346,9 +14346,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     pass                                
 
                                 if max(temp) < 0:
-                                    jisu_str = "VIX: {0:.2f} ({1:.2f}, {2:0.2f}%)⬊".format(result['체결가격'], -result['전일대비'], result['등락율'])                                    
+                                    jisu_str = "NASDAQ: {0:.2f} ({1:.2f}, {2:0.2f}%)⬊".format(result['체결가격'], -result['전일대비'], result['등락율'])                                    
                                 else:
-                                    jisu_str = "VIX: {0:.2f} ▼ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
+                                    jisu_str = "NASDAQ: {0:.2f} ▼ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
 
                                 self.label_3rd_co.setText(jisu_str)
                                 self.label_3rd_co.setStyleSheet('background-color: pink; color: red')
@@ -14364,9 +14364,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     pass                                
 
                                 if max(temp) < 0:
-                                    jisu_str = "VIX: {0:.2f} ({1:.2f}, {2:0.2f}%)⬊".format(result['체결가격'], result['전일대비'], result['등락율'])                                    
+                                    jisu_str = "NASDAQ: {0:.2f} ({1:.2f}, {2:0.2f}%)⬊".format(result['체결가격'], result['전일대비'], result['등락율'])                                    
                                 else:
-                                    jisu_str = "VIX: {0:.2f} ▼ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
+                                    jisu_str = "NASDAQ: {0:.2f} ▼ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
 
                                 self.label_3rd_co.setText(jisu_str)
                                 self.label_3rd_co.setStyleSheet('background-color: pink; color: blue')
