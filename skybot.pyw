@@ -9780,7 +9780,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setBackground(QBrush(흰색))
             item.setForeground(QBrush(검정색))
             
-            # 시가, 전저, 전고, 종가, 피봇 컬러링
+            # OLOH, 전저, 전고, 종가, 피봇 컬러링
             if fut_ol and not fut_oh:
 
                 item.setBackground(QBrush(적색))
@@ -9839,27 +9839,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_fut.iloc[1]['진폭'] = 진폭
                 fut_realdata['진폭'] = 진폭
 
-            # 시가 컬러링
-            if overnight:
-
-                self.tableWidget_fut.item(0, Futures_column.시가.value).setBackground(QBrush(흰색))
-
-                if 시가실수 > 종가:
-                    self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(적색))
-                elif 시가실수 < 종가:
-                    self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(청색))
-                else:
-                    self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(검정색))
-            else:
-                self.tableWidget_fut.item(1, Futures_column.시가.value).setBackground(QBrush(흰색))
-
-                if 시가실수 > 종가:
-                    self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(적색))
-                elif 시가실수 < 종가:
-                    self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(청색))
-                else:
-                    self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(검정색))
-
+            # OLOH 컬러링
             if fut_ol and not fut_oh:
 
                 if overnight:
@@ -9971,7 +9951,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setBackground(QBrush(흰색))
             item.setForeground(QBrush(검정색))
 
-            # 시가, 전저, 전고, 종가, 피봇 컬러링
+            # OLOH, 전저, 전고, 종가, 피봇 컬러링
             if not fut_ol and fut_oh:
 
                 item.setBackground(QBrush(청색))
@@ -10026,27 +10006,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
                 df_fut.iloc[1]['진폭'] = 진폭
 
-            # 시가 컬러링
-            if overnight:
-
-                self.tableWidget_fut.item(0, Futures_column.시가.value).setBackground(QBrush(흰색))
-
-                if 시가실수 > 종가:
-                    self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(적색))
-                elif 시가실수 < 종가:
-                    self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(청색))
-                else:
-                    self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(검정색))
-            else:
-                self.tableWidget_fut.item(1, Futures_column.시가.value).setBackground(QBrush(흰색)) 
-
-                if 시가실수 > 종가:
-                    self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(적색))
-                elif 시가실수 < 종가:
-                    self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(청색))
-                else:
-                    self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(검정색))           
-
+            # OLOH 컬러링
             if not fut_ol and fut_oh:
 
                 if overnight:
