@@ -9561,7 +9561,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if overnight:
                 self.tableWidget_fut.setItem(0, Futures_column.OLOH.value, item)
             else:
-                self.tableWidget_fut.setItem(1, Futures_column.OLOH.value, item) 
+                self.tableWidget_fut.setItem(1, Futures_column.OLOH.value, item)                    
         
         # 현재가 갱신
         if overnight:
@@ -9849,6 +9849,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     self.tableWidget_fut.item(1, Futures_column.시가.value).setBackground(QBrush(적색))
                     self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(흰색))
+
+            elif not fut_ol and not fut_oh:
+
+                if overnight:
+
+                    self.tableWidget_fut.item(0, Futures_column.시가.value).setBackground(QBrush(흰색))
+                    self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(검정색))
+                else:
+                    self.tableWidget_fut.item(1, Futures_column.시가.value).setBackground(QBrush(흰색))
+                    self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(검정색))
             else:
                 pass
 
@@ -10016,6 +10026,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     self.tableWidget_fut.item(1, Futures_column.시가.value).setBackground(QBrush(청색))
                     self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(흰색))
+
+            elif not fut_ol and not fut_oh:
+
+                if overnight:
+
+                    self.tableWidget_fut.item(0, Futures_column.시가.value).setBackground(QBrush(흰색))
+                    self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(검정색))
+                else:
+                    self.tableWidget_fut.item(1, Futures_column.시가.value).setBackground(QBrush(흰색))
+                    self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(검정색))
             else:
                 pass
 
