@@ -2538,9 +2538,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         cm_two_sum_right_curve = self.Plot_Opt.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         cm_two_cha_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
 
-        sp500_left_curve = self.Plot_Fut.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        dow_left_curve = self.Plot_Fut.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        nasdaq_left_curve = self.Plot_Fut.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)   
+        sp500_left_curve = self.Plot_Fut.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        dow_left_curve = self.Plot_Fut.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        nasdaq_left_curve = self.Plot_Fut.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)   
 
         sp500_right_curve = self.Plot_Opt.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         dow_right_curve = self.Plot_Opt.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
