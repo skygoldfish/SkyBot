@@ -14311,8 +14311,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     jisu_str = "NASDAQ: {0:.2f} ▲ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
 
                                 self.label_3rd_co.setText(jisu_str)
-                                self.label_3rd_co.setStyleSheet('background-color: lightskyblue; color: red')
-                                nasdaq_text_color = 'red'
+                                self.label_3rd_co.setStyleSheet('background-color: pink ; color: blue')
+                                nasdaq_text_color = 'blue'
 
                             elif result['전일대비기호'] == '2':
 
@@ -14329,8 +14329,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     jisu_str = "NASDAQ: {0:.2f} ▲ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
 
                                 self.label_3rd_co.setText(jisu_str)
-                                self.label_3rd_co.setStyleSheet('background-color: lightskyblue; color: blue')
-                                nasdaq_text_color = 'blue'
+                                self.label_3rd_co.setStyleSheet('background-color: pink ; color: red')
+                                nasdaq_text_color = 'red'
                             else:
                                 pass
 
@@ -14351,8 +14351,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     jisu_str = "NASDAQ: {0:.2f} ▼ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
 
                                 self.label_3rd_co.setText(jisu_str)
-                                self.label_3rd_co.setStyleSheet('background-color: pink; color: red')
-                                nasdaq_text_color = 'red'
+                                self.label_3rd_co.setStyleSheet('background-color: lightskyblue ; color: blue')
+                                nasdaq_text_color = 'blue'
 
                             elif result['전일대비기호'] == '2':
 
@@ -14369,8 +14369,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     jisu_str = "NASDAQ: {0:.2f} ▼ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
 
                                 self.label_3rd_co.setText(jisu_str)
-                                self.label_3rd_co.setStyleSheet('background-color: pink; color: blue')
-                                nasdaq_text_color = 'blue'
+                                self.label_3rd_co.setStyleSheet('background-color: lightskyblue ; color: red')
+                                nasdaq_text_color = 'red'
                             else:
                                 pass
                         else:
