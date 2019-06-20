@@ -2338,6 +2338,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         self.pushButton_add.setStyleSheet("background-color: lightGray")
         self.pushButton_remove.setStyleSheet("background-color: lightGray")
+        
+        self.label_msg.setText("🕘")
+        self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
+
+        self.label_atm.setText("Basis/양합:양차")
+        self.label_atm.setStyleSheet('background-color: yellow; color: black')
+        self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
+        
+        self.label_kospi.setText("KOSPI: 가격 (전일대비, 등락율)")
+        self.label_kospi.setStyleSheet('background-color: black ; color: yellow')
+        self.label_kosdaq.setText("KOSDAQ: 가격 (전일대비, 등락율)")
+        self.label_kosdaq.setStyleSheet('background-color: black ; color: yellow')
+
+        self.label_1st_co.setText("S&P500: 가격 (전일대비, 등락율)")
+        self.label_1st_co.setStyleSheet('background-color: black ; color: yellow')
+        self.label_2nd_co.setText("DOW: 가격 (전일대비, 등락율, 진폭)")
+        self.label_2nd_co.setStyleSheet('background-color: black ; color: yellow')
+        self.label_3rd_co.setText("NASDAQ: 가격 (전일대비, 등락율)")
+        self.label_3rd_co.setStyleSheet('background-color: black ; color: yellow')
 
         stylesheet = "::section{Background-color: lightGray}"
 
@@ -2802,25 +2821,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem("{0}".format(''))
                 self.tableWidget_put.setItem(i, j + 1, item)
                 self.tableWidget_put.item(i, j + 1).setBackground(QBrush(검정색))
-
-        self.label_kospi.setText("KOSPI: 가격 (전일대비, 등락율)")
-        self.label_kospi.setStyleSheet('background-color: yellow ; color: black')
-        self.label_kosdaq.setText("KOSDAQ: 가격 (전일대비, 등락율)")
-        self.label_kosdaq.setStyleSheet('background-color: yellow ; color: black')
-
-        self.label_1st_co.setText("S&P500: 가격 (전일대비, 등락율)")
-        self.label_1st_co.setStyleSheet('background-color: yellow ; color: black')
-        self.label_2nd_co.setText("DOW: 가격 (전일대비, 등락율, 진폭)")
-        self.label_2nd_co.setStyleSheet('background-color: yellow ; color: black')
-        self.label_3rd_co.setText("NASDAQ: 가격 (전일대비, 등락율)")
-        self.label_3rd_co.setStyleSheet('background-color: yellow ; color: black')
-
-        self.label_msg.setText("🕘")
-        self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
-
-        self.label_atm.setText("Basis/양합:양차")
-        self.label_atm.setStyleSheet('background-color: yellow; color: black')
-        self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
 
         kp200_realdata['KP200'] = 0.0
         kp200_realdata['전저'] = 0.0
@@ -4722,66 +4722,66 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if kospi_text_color != '':
 
             if kospi_text_color == 'red':
-                self.label_kospi.setStyleSheet('background-color: yellow; color: red')
+                self.label_kospi.setStyleSheet('background-color: black; color: red')
             elif kospi_text_color == 'blue':
-                self.label_kospi.setStyleSheet('background-color: yellow; color: blue')
+                self.label_kospi.setStyleSheet('background-color: black; color: blue')
             else:
-                self.label_kospi.setStyleSheet('background-color: yellow; color: black')
+                self.label_kospi.setStyleSheet('background-color: black; color: yellow')
         else:
             pass        
 
         if kosdaq_text_color != '':
 
             if kosdaq_text_color == 'red':
-                self.label_kosdaq.setStyleSheet('background-color: yellow; color: red')
+                self.label_kosdaq.setStyleSheet('background-color: black; color: red')
             elif kosdaq_text_color == 'blue':
-                self.label_kosdaq.setStyleSheet('background-color: yellow; color: blue')
+                self.label_kosdaq.setStyleSheet('background-color: black; color: blue')
             else:
-                self.label_kosdaq.setStyleSheet('background-color: yellow; color: black')
+                self.label_kosdaq.setStyleSheet('background-color: black; color: yellow')
         else:
             pass 
 
         if samsung_text_color != '':
 
             if samsung_text_color == 'red':
-                self.label_kosdaq.setStyleSheet('background-color: yellow; color: red')
+                self.label_kosdaq.setStyleSheet('background-color: black; color: red')
             elif samsung_text_color == 'blue':
-                self.label_kosdaq.setStyleSheet('background-color: yellow; color: blue')
+                self.label_kosdaq.setStyleSheet('background-color: black; color: blue')
             else:
-                self.label_kosdaq.setStyleSheet('background-color: yellow; color: black')
+                self.label_kosdaq.setStyleSheet('background-color: black; color: yellow')
         else:
             pass            
 
         if sp500_text_color != '':
 
             if sp500_text_color == 'red':
-                self.label_1st_co.setStyleSheet('background-color: yellow; color: red')
+                self.label_1st_co.setStyleSheet('background-color: black; color: red')
             elif sp500_text_color == 'blue':
-                self.label_1st_co.setStyleSheet('background-color: yellow; color: blue')
+                self.label_1st_co.setStyleSheet('background-color: black; color: blue')
             else:
-                self.label_1st_co.setStyleSheet('background-color: yellow; color: black')
+                self.label_1st_co.setStyleSheet('background-color: black; color: yellow')
         else:
             pass        
 
         if dow_text_color != '':
 
             if dow_text_color == 'red':
-                self.label_2nd_co.setStyleSheet('background-color: yellow; color: red')
+                self.label_2nd_co.setStyleSheet('background-color: black; color: red')
             elif dow_text_color == 'blue':
-                self.label_2nd_co.setStyleSheet('background-color: yellow; color: blue')
+                self.label_2nd_co.setStyleSheet('background-color: black; color: blue')
             else:
-                self.label_2nd_co.setStyleSheet('background-color: yellow; color: black')
+                self.label_2nd_co.setStyleSheet('background-color: black; color: yellow')
         else:
             pass        
 
         if nasdaq_text_color != '':
 
             if nasdaq_text_color == 'red':
-                self.label_3rd_co.setStyleSheet('background-color: yellow; color: red')
+                self.label_3rd_co.setStyleSheet('background-color: black; color: red')
             elif nasdaq_text_color == 'blue':
-                self.label_3rd_co.setStyleSheet('background-color: yellow; color: blue')
+                self.label_3rd_co.setStyleSheet('background-color: black; color: blue')
             else:
-                self.label_3rd_co.setStyleSheet('background-color: yellow; color: black')
+                self.label_3rd_co.setStyleSheet('background-color: black; color: yellow')
         else:
             pass        
 
