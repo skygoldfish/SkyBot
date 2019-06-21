@@ -245,7 +245,7 @@ PROGRAM_직전대비 = collections.deque([0, 0, 0], 3)
 
 sp500_직전대비 = collections.deque([0, 0, 0], 5)
 dow_직전대비 = collections.deque([0, 0, 0], 5)
-nasdaq_직전대비 = collections.deque([0, 0, 0], 3)
+nasdaq_직전대비 = collections.deque([0, 0, 0], 5)
 
 actval_increased = False
 
@@ -6530,6 +6530,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             종가 = fut_realdata['종가']
             피봇 = fut_realdata['피봇']
 
+            # kp200 맥점 컬러링
+            for i in range(10):
+
+                if self.within_n_tick(kp200_realdata['저가'], kp200_coreval[i], 10):
+
+                    self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
+
+                if self.within_n_tick(kp200_realdata['고가'], kp200_coreval[i], 10):
+
+                    self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
+
             # 시가, 전저, 전고, 종가, 피봇 컬러링
             if fut_realdata['시가'] > 0:
 
@@ -9521,7 +9538,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
             df_fut.iloc[1]['거래량'] = 거래량
-            fut_realdata['거래량'] = 거래량
+            fut_realdata['거래량'] = 거래량        
         
         # FUT OL/OH
         if self.within_n_tick(시가실수, 저가실수, 10) and not self.within_n_tick(시가실수, 고가실수, 10):
