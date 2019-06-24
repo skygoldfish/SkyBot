@@ -4864,6 +4864,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         start_time = timeit.default_timer()
 
+        dt = datetime.datetime.now()
+
         if put_scroll_end_position <= nCount_cm_option_pairs:
 
             for i in range(put_scroll_begin_position, put_scroll_end_position):
@@ -5551,7 +5553,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 			
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Call Table Color Check : {3:0.2f} ms\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), process_time)
+        str = '[{0:02d}:{1:02d}:{2:02d}] Call Table Color Check : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
         self.textBrowser.append(str)
 
         return
@@ -5633,6 +5635,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def put_node_color_update(self):
 	
         start_time = timeit.default_timer()
+
+        dt = datetime.datetime.now()
 
         if call_scroll_end_position <= nCount_cm_option_pairs:
 
@@ -6321,7 +6325,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 			
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Put Table Color Check : {3:0.2f} ms\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), process_time)
+        str = '[{0:02d}:{1:02d}:{2:02d}] Put Table Color Check : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
         self.textBrowser.append(str)
 
         return
@@ -7963,7 +7967,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     XQ.Query(종목코드=fut_code)
                     print('t2801 요청')
                     '''
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신했습니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                 else:
                     '''
@@ -8894,7 +8898,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 put_volume_total = df_cm_put['수정거래량'].sum()
                 '''
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판을 갱신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판을 갱신했습니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
             
             if not refresh_flag:
@@ -10888,6 +10892,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def call_state_update(self):
 
         #global call_below_atm_count, call_open, call_ol, call_oh
+
+        dt = datetime.datetime.now()
         
         '''
         call_below_atm_count = 0
@@ -10979,7 +10985,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_call.setHorizontalHeaderItem(2, item)
             self.tableWidget_call.resizeColumnsToContents()
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call OLOH 갱신 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call OLOH 갱신 !!!\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(str)
         else:
             pass                               
@@ -10989,6 +10995,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def call_open_update_by_index(self, index):
 
         global df_cm_call, call_gap_percent
+
+        dt = datetime.datetime.now()
         
         if df_cm_call.iloc[index]['종가'] > 0:
 
@@ -11041,6 +11049,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         call_oh = [False] * nCount_cm_option_pairs
 
         call_below_atm_count = 0
+
+        dt = datetime.datetime.now()
 
         for index in range(nCount_cm_option_pairs):
 
@@ -11173,7 +11183,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call 전광판 갱신 with call_open_check !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call 전광판 갱신 with call_open_check !!!\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(str)
         else:
             print('call_gap_percent_local is empty...')        
@@ -11878,6 +11888,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def put_state_update(self):
 
         #global put_above_atm_count, put_open, put_ol, put_oh
+
+        dt = datetime.datetime.now()
         
         '''
         put_above_atm_count = 0
@@ -12031,6 +12043,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         put_oh = [False] * nCount_cm_option_pairs
 
         put_above_atm_count = 0
+        
+        dt = datetime.datetime.now()
 
         for index in range(nCount_cm_option_pairs):
 
@@ -12163,7 +12177,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put 전광판 갱신 with put_open_check !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put 전광판 갱신 with put_open_check !!!\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(str)
         else:
             print('put_gap_percent_local is empty...')
