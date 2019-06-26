@@ -2288,6 +2288,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global cm_option_title, month_info, SP500, DOW, NASDAQ, fut_code
 
+        dt = datetime.datetime.now()
+        current_str = dt.strftime('%H:%M:%S')
+
         with open('month_info.txt', mode='r') as monthfile:
             month_info = monthfile.readline().strip()
             SP500 = monthfile.readline().strip()
@@ -2311,7 +2314,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             buildtime = time.ctime(os.path.getmtime(__file__))
 
-        cm_option_title = repr(month) + '월물 선물옵션 전광판' + '(' + today_str_title + ')' + ' build: ' + buildtime
+        if 4 < int(current_str[0:2]) < 17:
+
+            cm_option_title = repr(month) + '월물 주간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
+        else:
+            cm_option_title = repr(month) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
+        
         self.setWindowTitle(cm_option_title)
 
         '''
