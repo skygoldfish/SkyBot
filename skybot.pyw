@@ -6355,7 +6355,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.item(i, Futures_column.피봇.value).setForeground(QBrush(검정색))
 
             self.tableWidget_fut.item(i, Futures_column.시가.value).setBackground(QBrush(기본바탕색))
-
+            self.tableWidget_fut.item(i, Futures_column.시가.value).setForeground(QBrush(검정색))
+            '''
             if df_fut.iloc[i]['시가'] > 0:
 
                 if df_fut.iloc[i]['시가'] > df_fut.iloc[i]['종가']:
@@ -6366,7 +6367,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_fut.item(i, Futures_column.시가.value).setForeground(QBrush(검정색))
             else:
                 pass
-
+            '''
             self.tableWidget_fut.item(i, Futures_column.저가.value).setBackground(QBrush(기본바탕색))
             self.tableWidget_fut.item(i, Futures_column.저가.value).setForeground(QBrush(검정색))
 
@@ -12505,8 +12506,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if szTrCode == 'JIF':
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(int(호가시간[0:2]), \
-                    int(호가시간[2:4]), int(호가시간[4:6]), result['장구분'], result['장상태'])
+                str = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(dt.hour, \
+                    dt.minute, dt.second, result['장구분'], result['장상태'])
                 self.textBrowser.append(str)
 
                 # 장시작 10분전
@@ -13236,6 +13237,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif szTrCode == 'IJ_':
 
+                global kospi_price, kospi_text_color   
+                global kosdaq_price, kosdaq_text_color 
+
                 # IJ 데이타표시
                 if result['업종코드'] == KOSPI200:
 
@@ -13359,9 +13363,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
 
-                elif result['업종코드'] == KOSPI:
-
-                    global kospi_price, kospi_text_color                    
+                elif result['업종코드'] == KOSPI:                                     
 
                     if result['지수'] != kospi_price:
 
@@ -13408,12 +13410,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             pass
 
                         kospi_price = result['지수']
+
+                        if kospi_text_color != kosdaq_text_color:
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] KOSPI, KOSDAQ의 극성이 상이합니다... \r'.format(
+                                    int(result['시간'][0:2]),
+                                    int(result['시간'][2:4]),
+                                    int(result['시간'][4:6]))                                
+                            self.textBrowser.append(str)
+                        else:
+                            pass
                     else:
                         pass                    
 
-                elif result['업종코드'] == KOSDAQ:
-
-                    global kosdaq_price, kosdaq_text_color                    
+                elif result['업종코드'] == KOSDAQ:                                       
 
                     if result['지수'] != kosdaq_price:
 
