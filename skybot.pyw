@@ -634,6 +634,14 @@ sp500_시가 = 0.0
 dow_시가 = 0.0  
 nasdaq_시가 = 0.0
 
+sp500_저가 = 0.0
+dow_저가 = 0.0  
+nasdaq_저가 = 0.0
+
+sp500_고가 = 0.0
+dow_고가 = 0.0  
+nasdaq_고가 = 0.0
+
 call_max_actval = False
 put_max_actval = False
 
@@ -3275,8 +3283,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 fut_jh_line.setValue(sp500_전일종가)
                 fut_pivot_line.setValue(sp500_전일종가)
 
-                hc_fut_upper_line.setValue(sp500_전일종가)
-                hc_fut_lower_line.setValue(sp500_전일종가)
+                hc_fut_upper_line.setValue(sp500_고가)
+                hc_fut_lower_line.setValue(sp500_저가)
                 
                 volume_base_line.setValue(sp500_시가)                
             else:
@@ -3311,8 +3319,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 fut_jh_line.setValue(dow_전일종가)
                 fut_pivot_line.setValue(dow_전일종가)
 
-                hc_fut_upper_line.setValue(dow_전일종가)
-                hc_fut_lower_line.setValue(dow_전일종가)
+                hc_fut_upper_line.setValue(dow_고가)
+                hc_fut_lower_line.setValue(dow_저가)
                 
                 volume_base_line.setValue(dow_시가) 
             else:
@@ -3347,8 +3355,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 fut_jh_line.setValue(nasdaq_전일종가)
                 fut_pivot_line.setValue(nasdaq_전일종가)
 
-                hc_fut_upper_line.setValue(nasdaq_전일종가)
-                hc_fut_lower_line.setValue(nasdaq_전일종가)
+                hc_fut_upper_line.setValue(nasdaq_고가)
+                hc_fut_lower_line.setValue(nasdaq_저가)
                 
                 volume_base_line.setValue(nasdaq_시가) 
             else:
@@ -3530,8 +3538,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 for i in range(9):
                     mv_line[i].setValue(sp500_전일종가)
 
-                hc_opt_upper_line.setValue(sp500_전일종가)
-                hc_opt_lower_line.setValue(sp500_전일종가)
+                hc_opt_upper_line.setValue(sp500_고가)
+                hc_opt_lower_line.setValue(sp500_저가)
                 
                 opt_base_line.setValue(sp500_시가)
             else:
@@ -3563,8 +3571,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 for i in range(9):
                     mv_line[i].setValue(dow_전일종가)
 
-                hc_opt_upper_line.setValue(dow_전일종가)
-                hc_opt_lower_line.setValue(dow_전일종가)
+                hc_opt_upper_line.setValue(dow_고가)
+                hc_opt_lower_line.setValue(dow_저가)
                 
                 opt_base_line.setValue(dow_시가)
             else:
@@ -3596,8 +3604,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 for i in range(9):
                     mv_line[i].setValue(nasdaq_전일종가)
 
-                hc_opt_upper_line.setValue(nasdaq_전일종가)
-                hc_opt_lower_line.setValue(nasdaq_전일종가)
+                hc_opt_upper_line.setValue(nasdaq_고가)
+                hc_opt_lower_line.setValue(nasdaq_저가)
                 
                 opt_base_line.setValue(nasdaq_시가)
             else:
@@ -14353,7 +14361,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if result['종목코드'] == NASDAQ:
 
-                    global nasdaq_price, nasdaq_text_color, nasdaq_시가, nasdaq_전일종가               
+                    global nasdaq_price, nasdaq_text_color, nasdaq_시가, nasdaq_전일종가, nasdaq_저가, nasdaq_고가 
+
+                    nasdaq_저가 =  result['저가']
+                    nasdaq_고가 =  result['고가']              
 
                     if result['체결가격'] != nasdaq_price:
                         
@@ -14459,7 +14470,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif result['종목코드'] == SP500:
 
-                    global sp500_price, sp500_text_color, sp500_시가, sp500_전일종가
+                    global sp500_price, sp500_text_color, sp500_시가, sp500_전일종가, sp500_저가, sp500_고가
+
+                    sp500_저가 =  result['저가']
+                    sp500_고가 =  result['고가']
 
                     if result['체결가격'] != sp500_price:
                         
@@ -14577,7 +14591,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif result['종목코드'] == DOW:
 
-                    global dow_price, dow_text_color, dow_시가, dow_전일종가   
+                    global dow_price, dow_text_color, dow_시가, dow_전일종가, dow_저가, dow_고가 
+
+                    dow_저가 =  result['저가']
+                    dow_고가 =  result['고가']
 
                     진폭 = result['고가'] - result['저가']
 
