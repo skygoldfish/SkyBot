@@ -4547,13 +4547,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     sp500_left_curve.setData(curve1_data)
 
+                    hc_fut_upper_line.setValue(sp500_고가)
+                    hc_fut_lower_line.setValue(sp500_저가)
+
                 elif comboindex1 == 6:
 
                     dow_left_curve.setData(curve1_data)
 
+                    hc_fut_upper_line.setValue(dow_고가)
+                    hc_fut_lower_line.setValue(dow_저가)
+
                 elif comboindex1 == 7:
 
                     nasdaq_left_curve.setData(curve1_data)
+
+                    hc_fut_upper_line.setValue(nasdaq_고가)
+                    hc_fut_lower_line.setValue(nasdaq_저가)
                 else:
                     pass   
 
@@ -4586,13 +4595,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     sp500_right_curve.setData(curve4_data) 
 
+                    hc_opt_upper_line.setValue(sp500_고가)
+                    hc_opt_lower_line.setValue(sp500_저가)
+
                 elif comboindex2 == 6: 
 
                     dow_right_curve.setData(curve4_data) 
 
+                    hc_opt_upper_line.setValue(dow_고가)
+                    hc_opt_lower_line.setValue(dow_저가)
+
                 elif comboindex2 == 7: 
 
                     nasdaq_right_curve.setData(curve4_data)
+
+                    hc_opt_upper_line.setValue(nasdaq_고가)
+                    hc_opt_lower_line.setValue(nasdaq_저가)
                 else:
                     pass                                                       
             else:
