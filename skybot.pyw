@@ -7064,32 +7064,33 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 395 + 10))
                     df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 395 + 10))
                 else:
-                    self.Plot_Opt.setRange(xRange=[0, 해외선물_시간차 + 660 + 10], padding=0)
-                    time_line_opt.setValue(해외선물_시간차 + 660 + 9)
+                    # 야간옵션은 4시, 야간선물은 5시 장마감됨
+                    self.Plot_Opt.setRange(xRange=[0, 해외선물_시간차 + 660 + 60 + 10], padding=0)
+                    time_line_opt.setValue(해외선물_시간차 + 660 + 60 + 9)
 
                     self.Plot_Fut.setRange(xRange=[0, 해외선물_시간차 + 660 + 10], padding=0)
-                    time_line_fut.setValue(해외선물_시간차 + 660 + 9)
+                    time_line_fut.setValue(해외선물_시간차 + 660 + 60 + 9)
 
-                    df_plotdata_cm_call = DataFrame(index=range(0, nCount_cm_option_pairs), columns=range(0, 해외선물_시간차 + 660 + 10))
-                    df_plotdata_cm_put = DataFrame(index=range(0, nCount_cm_option_pairs), columns=range(0, 해외선물_시간차 + 660 + 10))
+                    df_plotdata_cm_call = DataFrame(index=range(0, nCount_cm_option_pairs), columns=range(0, 해외선물_시간차 + 660 + 60 + 10))
+                    df_plotdata_cm_put = DataFrame(index=range(0, nCount_cm_option_pairs), columns=range(0, 해외선물_시간차 + 660 + 60 + 10))
 
-                    df_plotdata_cm_call_volume = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 10))
-                    df_plotdata_cm_put_volume = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 10))
-                    df_plotdata_cm_volume_cha = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 10))
+                    df_plotdata_cm_call_volume = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 60 + 10))
+                    df_plotdata_cm_put_volume = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 60 + 10))
+                    df_plotdata_cm_volume_cha = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 60 + 10))
 
-                    df_plotdata_cm_call_oi = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 10))
-                    df_plotdata_cm_put_oi = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 10))
+                    df_plotdata_cm_call_oi = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 60 + 10))
+                    df_plotdata_cm_put_oi = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 60 + 10))
 
-                    df_plotdata_cm_two_sum = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 10))
-                    df_plotdata_cm_two_cha = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 10))
+                    df_plotdata_cm_two_sum = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 60 + 10))
+                    df_plotdata_cm_two_cha = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 60 + 10))
 
-                    df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 10))
-                    df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 10))
-                    df_plotdata_fut_che = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 10))
+                    df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 60 + 10))
+                    df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 60 + 10))
+                    df_plotdata_fut_che = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 60 + 10))
 
-                    df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 10))
-                    df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 10))
-                    df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 10))
+                    df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 60 + 10))
+                    df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 60 + 10))
+                    df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 해외선물_시간차 + 660 + 60 + 10))
 
                 # 콜처리
                 for i in range(nCount_cm_option_pairs):
