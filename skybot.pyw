@@ -7068,7 +7068,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.Plot_Opt.setRange(xRange=[0, 해외선물_시간차 + 660 + 60 + 10], padding=0)
                     time_line_opt.setValue(해외선물_시간차 + 660 + 60 + 9)
 
-                    self.Plot_Fut.setRange(xRange=[0, 해외선물_시간차 + 660 + 10], padding=0)
+                    self.Plot_Fut.setRange(xRange=[0, 해외선물_시간차 + 660  + 60 + 10], padding=0)
                     time_line_fut.setValue(해외선물_시간차 + 660 + 60 + 9)
 
                     df_plotdata_cm_call = DataFrame(index=range(0, nCount_cm_option_pairs), columns=range(0, 해외선물_시간차 + 660 + 60 + 10))
