@@ -3687,9 +3687,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     call_node_state['시가'] = False
             
             self.call_node_color_clear()
-            self.put_node_color_clear()            
+            self.put_node_color_clear() 
+
             self.put_node_color_update()
             self.call_node_color_update()
+
+            self.call_coreval_color_update()
+            self.put_coreval_color_update()
         else:
             if idx == 11:
                 self.call_open_check()
@@ -3758,8 +3762,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             self.call_node_color_clear()
             self.put_node_color_clear()
+
             self.call_node_color_update()
             self.put_node_color_update()
+
+            self.call_coreval_color_update()
+            self.put_coreval_color_update()
         else:
             if idx == 11:
                 self.put_open_check()
@@ -4386,8 +4394,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 self.call_node_color_clear()
                                 self.put_node_color_clear()
+
                                 self.call_node_color_update()
                                 self.put_node_color_update()
+
+                                self.call_coreval_color_update()
+                                self.put_coreval_color_update()
                             else:
                                 pass
                         else:
@@ -4881,6 +4893,34 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if call_scroll_end_position <= nCount_cm_option_pairs:            
 
             for i in range(call_scroll_begin_position, call_scroll_end_position):
+
+                if df_cm_call.iloc[i]['저가'] in cm_put_저가_node_list:
+
+                    self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(흰색))
+                else:
+                    pass
+
+                if df_cm_call.iloc[i]['저가'] in cm_put_고가_node_list:
+
+                    self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(흰색))
+                else:
+                    pass
+
+                if df_cm_call.iloc[i]['고가'] in cm_put_저가_node_list:
+
+                    self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(흰색))
+                else:
+                    pass
+
+                if df_cm_call.iloc[i]['고가'] in cm_put_고가_node_list:
+
+                    self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(흰색))
+                else:
+                    pass
 
                 if df_cm_call.iloc[i]['저가'] in coreval:
 
@@ -5653,6 +5693,34 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if put_scroll_end_position <= nCount_cm_option_pairs:            
 
             for i in range(put_scroll_begin_position, put_scroll_end_position):
+
+                if df_cm_put.iloc[i]['저가'] in cm_call_저가_node_list:
+
+                    self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(흰색))
+                else:
+                    pass
+
+                if df_cm_put.iloc[i]['저가'] in cm_call_고가_node_list:
+
+                    self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(흰색))
+                else:
+                    pass
+
+                if df_cm_put.iloc[i]['고가'] in cm_call_저가_node_list:
+
+                    self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(흰색))
+                else:
+                    pass
+
+                if df_cm_put.iloc[i]['고가'] in cm_call_고가_node_list:
+
+                    self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(흰색))
+                else:
+                    pass
 
                 if df_cm_put.iloc[i]['저가'] in coreval:
 
@@ -7996,6 +8064,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     self.call_node_color_update()
                     self.put_node_color_update()
+
+                    self.call_coreval_color_update()
+                    self.put_coreval_color_update()
                     '''
                     XQ = t2101(parent=self)
                     XQ.Query(종목코드=fut_code)
@@ -8933,6 +9004,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.call_node_color_update()
                 self.put_node_color_update()
 
+                self.call_coreval_color_update()
+                self.put_coreval_color_update()
+
                 '''
                 call_volume_total = df_cm_call['수정거래량'].sum()
                 put_volume_total = df_cm_put['수정거래량'].sum()
@@ -9457,7 +9531,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             self.put_node_color_clear()
 
                             self.call_node_color_update()
-                            self.put_node_color_update()                            
+                            self.put_node_color_update()
+
+                            self.call_coreval_color_update()
+                            self.put_coreval_color_update()                            
 
                         if not refresh_flag:
 
@@ -14791,7 +14868,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             Speak("전광판을 갱신합니다.")
 
-            self.all_node_set()            
+            self.all_node_set()         
 
         if self.checkBox_realtime.isChecked():
 
