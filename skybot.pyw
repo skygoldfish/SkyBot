@@ -4097,6 +4097,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.call_node_color_clear()
             self.call_node_color_update()
+            self.call_center_color_update()
+            self.call_coreval_color_update()
         return
 
     @pyqtSlot(int)
@@ -4125,6 +4127,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.put_node_color_clear()
             self.put_node_color_update()
+            self.put_center_color_update()
+            self.put_coreval_color_update()
         return
 
     @pyqtSlot(object)
@@ -4353,7 +4357,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             self.textBrowser.append(str)
                         else:
                             pass
-                            
+
                         # 매 2초마다 한번씩 맥점 컬러링 채크
                         if int(호가시간[4:6]) in every_2sec and self.alternate_flag:
 
