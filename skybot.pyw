@@ -172,6 +172,7 @@ opt_x_idx_old = 0
 call_below_atm_count = 0
 put_above_atm_count = 0
 
+every_2sec = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58]
 every_5sec = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
 
 every_10sec_a = [0, 10, 20, 30, 40, 50]
@@ -4352,12 +4353,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             self.textBrowser.append(str)
                         else:
                             pass
-
-                        # 매 10초마다 한번씩 맥점 컬러링 채크
-                        # if int(호가시간[4:6]) in every_10sec_a and self.alternate_flag:
-
-                        # 매 5초마다 한번씩 맥점 컬러링 채크
-                        if int(호가시간[4:6]) in every_5sec and self.alternate_flag:
+                            
+                        # 매 2초마다 한번씩 맥점 컬러링 채크
+                        if int(호가시간[4:6]) in every_2sec and self.alternate_flag:
 
                             color_update = False
 
