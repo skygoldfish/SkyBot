@@ -4358,8 +4358,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        # 매 2초마다 한번씩 맥점 컬러링 채크
-                        if int(호가시간[4:6]) in every_2sec and self.alternate_flag:
+                        # 매 1초마다 한번씩 맥점 컬러링 채크
+                        # if int(호가시간[4:6]) in every_2sec and self.alternate_flag:
+                        if self.alternate_flag:
 
                             color_update = False
 
