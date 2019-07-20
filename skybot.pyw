@@ -2367,6 +2367,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         self.label_msg.setText("🕘")
         self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
+        self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.label_atm.setText("Basis/양합:양차")
         self.label_atm.setStyleSheet('background-color: yellow; color: black')
@@ -4788,6 +4789,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def check_oneway(self):
 
         dt = datetime.datetime.now()
+        
+        # 로컬타임 표시
+        str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
+        self.label_msg.setText(str)
 
         if FUT_INSTITUTIONAL_거래대금순매수 > 3000:
 
@@ -4802,14 +4807,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 self.label_msg.setStyleSheet('background-color: blue; color: white')
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] ★★★ 풋 OneWay 가능성 레벨 2...\r'.format(dt.hour, dt.minute, dt.second)
+                str = '[{0:02d}:{1:02d}:{2:02d}] ★★ 풋 OneWay 가능성 레벨 2...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
 
             elif FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0:
 
                 self.label_msg.setStyleSheet('background-color: blue; color: white')
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] ★★★ 풋 OneWay 가능성 레벨 1...\r'.format(dt.hour, dt.minute, dt.second)
+                str = '[{0:02d}:{1:02d}:{2:02d}] ★ 풋 OneWay 가능성 레벨 1...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
             else:
                 self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
@@ -4827,24 +4832,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 self.label_msg.setStyleSheet('background-color: red; color: white')
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] ★★★ 콜 OneWay 가능성 레벨 2...\r'.format(dt.hour, dt.minute, dt.second)
+                str = '[{0:02d}:{1:02d}:{2:02d}] ★★ 콜 OneWay 가능성 레벨 2...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
 
             elif FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0:
 
                 self.label_msg.setStyleSheet('background-color: red; color: white')
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] ★★★ 콜 OneWay 가능성 레벨 1...\r'.format(dt.hour, dt.minute, dt.second)
+                str = '[{0:02d}:{1:02d}:{2:02d}] ★ 콜 OneWay 가능성 레벨 1...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
             else:
                 self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
 
         else:
-            self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
-        
-        # 로컬타임 표시
-        str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
-        self.label_msg.setText(str)
+            self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')        
 
         return
 
