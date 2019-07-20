@@ -225,6 +225,9 @@ KOSPI_JONGGEUM_거래대금순매수 = 0
 KOSPI_GIGEUM_거래대금순매수 = 0
 KOSPI_GITA_거래대금순매수 = 0
 
+프로그램_전체순매수금액 = 0
+프로그램_전체순매수금액직전대비 = 0
+
 KOSPI_FOREIGNER_거래대금순매수_직전대비 = 0
 KOSPI_RETAIL_거래대금순매수_직전대비 = 0
 KOSPI_INSTITUTIONAL_거래대금순매수_직전대비 = 0
@@ -4187,10 +4190,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             global call_max_actval, put_max_actval
             
-            # 로컬타임 표시
-            str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
-            self.label_msg.setText(str)
-
+            self.check_oneway()
+            
             self.label_clear()
                         
             if receive_real_ovc:     
@@ -4781,6 +4782,41 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_put.item(i, Option_column.현재가.value).setBackground(QBrush(옅은회색))
         else:
             pass
+
+        return
+
+    def check_oneway(self):
+
+        dt = datetime.datetime.now()
+
+        if FUT_INSTITUTIONAL_거래대금순매수 > 3000:
+
+            if FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0:
+
+                self.label_msg.setStyleSheet('background-color: blue; color: white')
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] ★★★ 풋 OneWay 가능성 큼...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+            else:
+                self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
+
+        elif FUT_INSTITUTIONAL_거래대금순매수 < -3000:
+
+            if FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0:
+
+                self.label_msg.setStyleSheet('background-color: red; color: white')
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] ★★★ 콜 OneWay 가능성 큼...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+            else:
+                self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
+
+        else:
+            self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
+        
+        # 로컬타임 표시
+        str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
+        self.label_msg.setText(str)
 
         return
 
@@ -12673,6 +12709,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             global FUT_FOREIGNER_직전대비, FUT_RETAIL_직전대비, FUT_INSTITUTIONAL_직전대비, \
                 KOSPI_FOREIGNER_직전대비, PROGRAM_직전대비
+
+            global 프로그램_전체순매수금액, 프로그램_전체순매수금액직전대비
 
             global kp200_realdata
             global call_result, put_result
