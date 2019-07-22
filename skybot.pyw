@@ -4864,7 +4864,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
 
         else:
-            pass      
+            pass
+
+        # 예상 중심가 표시
+        if call_atm_value > put_atm_value:
+
+            center = put_atm_value + (call_atm_value - put_atm_value) / 2
+
+        elif put_atm_value > call_atm_value:
+
+            center = call_atm_value + (put_atm_value - call_atm_value) / 2
+
+        else:
+            center = call_atm_value
+
+        item = QTableWidgetItem("{0:0.2f}".format(center))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(대맥점색))
+        item.setForeground(QBrush(검정색))
+        self.tableWidget_fut.setItem(2, Futures_column.진폭.value, item)      
 
         return
 
