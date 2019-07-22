@@ -4882,7 +4882,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(대맥점색))
         item.setForeground(QBrush(검정색))
-        self.tableWidget_fut.setItem(2, Futures_column.진폭.value, item)      
+        self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)      
 
         return
 
