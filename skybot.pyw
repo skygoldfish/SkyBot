@@ -4875,7 +4875,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             if abs(call_atm_value - put_atm_value) <= 0.02:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 교차 중심가 {3} 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, call_atm_value)
+                str = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, atm_str, call_atm_value)
                 self.textBrowser.append(str)            
             else:
                 pass
