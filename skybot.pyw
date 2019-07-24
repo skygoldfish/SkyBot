@@ -13202,7 +13202,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 종료되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
-                    self.SaveResult()
+                    #self.SaveResult()
                 else:
                     pass
 
@@ -15328,17 +15328,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if overnight:
 
-            #self.timer.stop()
-            #print('All Timer is stopped !!!')
-            '''
-            if self.update_worker.isRunning():
-                self.update_worker.terminate()
-                print('Plot Thread is terminated...')
-            '''
-            #print('서버연결을 Release 합니다.')
             self.parent.connection.logout()
-            self.parent.connection.disconnect()
-            self.parent.statusbar.showMessage("서버연결을 Release 합니다.")
+            self.parent.statusbar.showMessage("로그아웃 합니다.")
+            #self.parent.connection.disconnect()
+            #self.parent.statusbar.showMessage("서버연결을 Release 합니다.")
         else:
             self.parent.connection.logout()
             self.parent.statusbar.showMessage("로그아웃 합니다.")
