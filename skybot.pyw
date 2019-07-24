@@ -4238,14 +4238,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(적색))
                             else:
                                 self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-                                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-                        
-                            if abs(call_atm_value - put_atm_value) <= 0.02:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 교차 중심가 {3} 발생 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), call_atm_value)
-                                self.textBrowser.append(str)            
-                            else:
-                                pass
+                                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))                        
                         else:
                             pass
                     else:
@@ -4867,22 +4860,40 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         # 예상 중심가 표시
-        if call_atm_value > put_atm_value:
+        if not overnight:
 
-            center = put_atm_value + (call_atm_value - put_atm_value) / 2
+            if call_atm_value > put_atm_value:
 
-        elif put_atm_value > call_atm_value:
+                center = put_atm_value + (call_atm_value - put_atm_value) / 2
 
-            center = call_atm_value + (put_atm_value - call_atm_value) / 2
+            elif put_atm_value > call_atm_value:
 
+                center = call_atm_value + (put_atm_value - call_atm_value) / 2
+
+            else:
+                center = call_atm_value
+            
+            if abs(call_atm_value - put_atm_value) <= 0.02:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 교차 중심가 {3} 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, call_atm_value)
+                self.textBrowser.append(str)            
+            else:
+                pass
+
+            item = QTableWidgetItem("{0:0.2f}".format(center))
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if call_atm_value == put_atm_value:
+
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(대맥점색))
+            else:
+                item.setBackground(QBrush(대맥점색))
+                item.setForeground(QBrush(검정색))
+
+            self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)      
         else:
-            center = call_atm_value
-
-        item = QTableWidgetItem("{0:0.2f}".format(center))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(대맥점색))
-        item.setForeground(QBrush(검정색))
-        self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)      
+            pass        
 
         return
 
