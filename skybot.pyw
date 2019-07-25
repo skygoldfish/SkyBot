@@ -4311,7 +4311,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     '''
 
                     # 시작 1분 이후부터 연산
-                    if opt_x_idx > 해외선물_시간차 + 1:
+                    # if opt_x_idx > 해외선물_시간차 + 1:
+
+                    # 시작과 동시에 컬러링 갱신
+                    if opt_x_idx > 해외선물_시간차 + 0:
 
                         # 콜 시가 갱신
                         if cm_call_시가 != 콜시가리스트:
@@ -4417,10 +4420,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
                     else:
+                        pass
+                        '''
                         self.call_node_color_clear()
                         self.put_node_color_clear()
                         self.call_coreval_color_update()
-                        self.put_coreval_color_update()                 
+                        self.put_coreval_color_update()
+                        '''                
                 else:
                     pass
 
@@ -4638,7 +4644,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass                                                       
             else:
-                pass                        
+                pass
+            
+            if overnight:
+
+                current_str = dt.strftime('%H:%M:%S')
+
+                if int(current_str[0:2]) == 7:
+
+                    self.parent.connection.disconnect()
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)   
+                else:
+                    pass
+            else:
+                pass                              
             
             str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간 : {3:0.2f} ms...\r'.format(\
                 dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
@@ -15619,7 +15640,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()
             self.거래비밀번호 = 주식계좌정보['거래비밀번호'].values[0].strip()
             self.url = 주식계좌정보['url'].values[0].strip()
-            self.connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
+            self.connection.login(url='hts.ebestsec.co.kr', id=self.id, pwd=self.pwd, cert=self.cert)
         else:
             print("secret디렉토리의 passwords.csv 파일에서 거래 계좌를 지정해 주세요")
 
