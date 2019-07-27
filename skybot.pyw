@@ -15347,6 +15347,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.image_grab()
 
+            self.parent.connection.logout()
+            self.parent.statusbar.showMessage("로그아웃 합니다.")
+
+            return
+            
+        '''
         if overnight:
 
             self.parent.connection.logout()
@@ -15356,6 +15362,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             self.parent.connection.logout()
             self.parent.statusbar.showMessage("로그아웃 합니다.")
+        '''
 
     def RemoveCode(self):
 
