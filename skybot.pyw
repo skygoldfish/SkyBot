@@ -13150,14 +13150,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 현물 장마감 5분전
                 elif result['장구분'] == '1' and result['장상태'] == '44':
 
-                    #print('현물 장마감 5분전입니다.')
                     str = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 5분전입니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
                 # 현물 장마감 1분전
                 elif result['장구분'] == '1' and result['장상태'] == '43':
 
-                    #print('현물 장마감 1분전입니다.')
                     str = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 1분전입니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
@@ -13188,29 +13186,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 장후 동시호가 시작
                 elif result['장구분'] == '5' and result['장상태'] == '31':
 
-                    #print('장후 동시호가가 시작되었습니다.')
                     str = '[{0:02d}:{1:02d}:{2:02d}] 장후 동시호가가 시작되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
                 # 주간 선물/옵션장 종료
                 elif result['장구분'] == '5' and result['장상태'] == '41':
 
-                    #print('주간 선물/옵션장이 종료되었습니다.')
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
                     # 해외선물 지수 요청취소
+                    '''
                     self.OVC.UnadviseRealData()
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
+                    '''
 
                     self.SaveResult()
 
                 # 야간 선물장 종료
                 elif result['장구분'] == '7' and result['장상태'] == '41':
 
-                    #print('야간 선물장이 종료되었습니다.')
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
@@ -13219,7 +13216,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 야간 옵션장 종료
                 elif result['장구분'] == '8' and result['장상태'] == '41':
 
-                    #print('야간 옵션장이 종료되었습니다...')
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 종료되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
@@ -15351,7 +15347,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.parent.statusbar.showMessage("로그아웃 합니다.")
 
             return
-            
+
         '''
         if overnight:
 
