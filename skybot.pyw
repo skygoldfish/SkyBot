@@ -2979,6 +2979,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.color_flag = True
         self.alternate_flag = True
+        self.centerval_flag = True
         self.telegram_flag = True
 
         global call_node_state, put_node_state
@@ -4228,22 +4229,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     print(str)
                     '''
 
-                    if not overnight:
-
-                        if abs(call_atm_value - put_atm_value) <= center_val_threshold:
-                            
-                            if self.alternate_flag:
-
-                                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(적색))
-                                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(적색))
-                            else:
-                                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-                                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))                        
-                        else:
-                            pass
-                    else:
-                        pass
-
                     if call_max_actval:
 
                         call_max_actval = False
@@ -4912,7 +4897,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setBackground(QBrush(대맥점색))
                 item.setForeground(QBrush(검정색))
 
-            self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)      
+            self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
+
+            if abs(call_atm_value - put_atm_value) <= center_val_threshold:
+                            
+                if self.centerval_flag:
+
+                    self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(적색))
+                    self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(적색))
+                else:
+                    self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
+                    self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
+
+                self.centerval_flag = not self.centerval_flag                        
+            else:
+                pass      
         else:
             pass        
 
