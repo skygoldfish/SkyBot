@@ -5096,19 +5096,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if call_scroll_end_position <= nCount_cm_option_pairs:            
 
-            for i in range(call_scroll_begin_position, call_scroll_end_position):                
+            for i in range(call_scroll_begin_position, call_scroll_end_position):
 
-                if df_cm_call.iloc[i]['저가'] in coreval:
+                if call_open[i]:
 
-                    self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
-                    self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
-                else:
-                    pass
+                    if df_cm_call.iloc[i]['저가'] in coreval:
 
-                if df_cm_call.iloc[i]['고가'] in coreval:
+                        self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
+                        self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+                    else:
+                        pass
 
-                    self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
-                    self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+                    if df_cm_call.iloc[i]['고가'] in coreval:
+
+                        self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
+                        self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+                    else:
+                        pass
                 else:
                     pass
         else:
@@ -5860,26 +5864,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass                    
                 else:
-                    pass
-                
-
-                if call_open[i]:
-
-                    if df_cm_call.iloc[i]['저가'] in coreval:
-
-                        self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
-                        self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_call.iloc[i]['고가'] in coreval:
-
-                        self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
-                        self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass      
-                else:
-                    pass                          
+                    pass              
         else:
             pass        
 			
@@ -6002,17 +5987,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             for i in range(put_scroll_begin_position, put_scroll_end_position):
 
-                if df_cm_put.iloc[i]['저가'] in coreval:
+                if put_open[i]:
 
-                    self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
-                    self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
-                else:
-                    pass
+                    if df_cm_put.iloc[i]['저가'] in coreval:
 
-                if df_cm_put.iloc[i]['고가'] in coreval:
+                        self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
+                        self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+                    else:
+                        pass
 
-                    self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
-                    self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+                    if df_cm_put.iloc[i]['고가'] in coreval:
+
+                        self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
+                        self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+                    else:
+                        pass
                 else:
                     pass
         else:
@@ -6764,25 +6753,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass                    
                 else:
-                    pass
-                
-                if put_open[i]:
-
-                    if df_cm_put.iloc[i]['저가'] in coreval:
-
-                        self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
-                        self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_put.iloc[i]['고가'] in coreval:
-
-                        self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
-                        self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass       
-                else:
-                    pass                         
+                    pass              
         else:
             pass
 			
