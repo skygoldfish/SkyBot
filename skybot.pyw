@@ -3696,9 +3696,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             self.call_node_color_clear()
             self.put_node_color_clear() 
-
-            self.put_node_color_update()
+            
             self.call_node_color_update()
+            self.put_node_color_update()
 
             self.call_center_color_update()
             self.put_center_color_update()
