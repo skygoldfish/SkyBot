@@ -4796,88 +4796,91 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
         self.label_msg.setText(str)
 
-        if call_oi_delta > put_oi_delta \
-            and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 \
-            and FUT_RETAIL_거래대금순매수 < 0 and FUT_INSTITUTIONAL_거래대금순매수 < 0 and fut_realdata['거래량'] > 0:
+        if overnight:
 
-            self.label_msg.setStyleSheet('background-color: orange; color: black')
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] ★ 콜 OneWay 가능성 레벨 1...\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)
-
-        elif call_oi_delta < put_oi_delta \
-            and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 \
-            and FUT_RETAIL_거래대금순매수 > 0 and FUT_INSTITUTIONAL_거래대금순매수 > 0 and fut_realdata['거래량'] < 0:
-
-            self.label_msg.setStyleSheet('background-color: royalblue; color: white')
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] ★ 풋 OneWay 가능성 레벨 1...\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)
-
-        else:
             self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
-
-        if FUT_INSTITUTIONAL_거래대금순매수 > 3000 or FUT_RETAIL_거래대금순매수 > 3000:
-
-            if call_oi_delta < put_oi_delta \
-                and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0:
-
-                self.label_msg.setStyleSheet('background-color: blue; color: white')
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] ★★★★ 풋 OneWay 가능성 레벨 4...\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
-
-            elif call_oi_delta < put_oi_delta \
-                and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] < 0:
-                self.label_msg.setStyleSheet('background-color: blue; color: white')
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] ★★★ 풋 OneWay 가능성 레벨 3...\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
-
-            elif call_oi_delta < put_oi_delta \
-                and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0:
-
-                self.label_msg.setStyleSheet('background-color: blue; color: white')
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] ★★ 풋 OneWay 가능성 레벨 2...\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
-            else:
-                self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
-
-        elif FUT_INSTITUTIONAL_거래대금순매수 < -3000 or FUT_RETAIL_거래대금순매수 < -3000:
-
-            if call_oi_delta > put_oi_delta \
-                and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0:
-
-                self.label_msg.setStyleSheet('background-color: red; color: white')
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] ★★★★ 콜 OneWay 가능성 레벨 4...\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
-
-            elif call_oi_delta > put_oi_delta \
-                and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] > 0:
-
-                self.label_msg.setStyleSheet('background-color: red; color: white')
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] ★★★ 콜 OneWay 가능성 레벨 3...\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
-
-            elif call_oi_delta > put_oi_delta \
-                and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0:
-
-                self.label_msg.setStyleSheet('background-color: red; color: white')
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] ★★ 콜 OneWay 가능성 레벨 2...\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
-            else:
-                self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
-
         else:
-            pass
+            # oneway check
+            if call_oi_delta > put_oi_delta \
+                and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 \
+                and FUT_RETAIL_거래대금순매수 < 0 and FUT_INSTITUTIONAL_거래대금순매수 < 0 and fut_realdata['거래량'] > 0:
 
-        # 예상 중심가 표시
-        if not overnight:
+                self.label_msg.setStyleSheet('background-color: orange; color: black')
 
+                str = '[{0:02d}:{1:02d}:{2:02d}] ★ 콜 OneWay 가능성 레벨 1...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+
+            elif call_oi_delta < put_oi_delta \
+                and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 \
+                and FUT_RETAIL_거래대금순매수 > 0 and FUT_INSTITUTIONAL_거래대금순매수 > 0 and fut_realdata['거래량'] < 0:
+
+                self.label_msg.setStyleSheet('background-color: royalblue; color: white')
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] ★ 풋 OneWay 가능성 레벨 1...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+
+            else:
+                self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
+
+            if FUT_INSTITUTIONAL_거래대금순매수 > 3000 or FUT_RETAIL_거래대금순매수 > 3000:
+
+                if call_oi_delta < put_oi_delta \
+                    and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0:
+
+                    self.label_msg.setStyleSheet('background-color: blue; color: white')
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] ★★★★ 풋 OneWay 가능성 레벨 4...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+
+                elif call_oi_delta < put_oi_delta \
+                    and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] < 0:
+                    self.label_msg.setStyleSheet('background-color: blue; color: white')
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] ★★★ 풋 OneWay 가능성 레벨 3...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+
+                elif call_oi_delta < put_oi_delta \
+                    and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0:
+
+                    self.label_msg.setStyleSheet('background-color: blue; color: white')
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] ★★ 풋 OneWay 가능성 레벨 2...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+                else:
+                    self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
+
+            elif FUT_INSTITUTIONAL_거래대금순매수 < -3000 or FUT_RETAIL_거래대금순매수 < -3000:
+
+                if call_oi_delta > put_oi_delta \
+                    and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0:
+
+                    self.label_msg.setStyleSheet('background-color: red; color: white')
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] ★★★★ 콜 OneWay 가능성 레벨 4...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+
+                elif call_oi_delta > put_oi_delta \
+                    and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] > 0:
+
+                    self.label_msg.setStyleSheet('background-color: red; color: white')
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] ★★★ 콜 OneWay 가능성 레벨 3...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+
+                elif call_oi_delta > put_oi_delta \
+                    and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0:
+
+                    self.label_msg.setStyleSheet('background-color: red; color: white')
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] ★★ 콜 OneWay 가능성 레벨 2...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+                else:
+                    self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
+
+            else:
+                pass
+
+            # 예상 중심가 표시
             if call_atm_value > put_atm_value:
 
                 center = put_atm_value + (call_atm_value - put_atm_value) / 2
@@ -4921,9 +4924,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 self.centerval_flag = not self.centerval_flag                        
             else:
-                pass      
-        else:
-            pass        
+                pass  
 
         return
 
