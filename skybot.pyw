@@ -412,6 +412,9 @@ refresh_flag = False
 oi_delta = 0
 oi_delta_old = 0
 
+call_oi_delta = 0
+put_oi_delta = 0
+
 volume_delta = 0
 volume_delta_old = 0
 
@@ -4794,7 +4797,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.label_msg.setText(str)
 
         if FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 \
-            and FUT_RETAIL_거래대금순매수 < 0 and FUT_INSTITUTIONAL_거래대금순매수 < 0 and fut_realdata['거래량'] > 0:
+            and FUT_RETAIL_거래대금순매수 < 0 and FUT_INSTITUTIONAL_거래대금순매수 < 0 and fut_realdata['거래량'] > 0 \
+            and call_oi_delta > put_oi_delta:
 
             self.label_msg.setStyleSheet('background-color: orange; color: black')
 
@@ -4802,7 +4806,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.textBrowser.append(str)
 
         elif FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 \
-            and FUT_RETAIL_거래대금순매수 > 0 and FUT_INSTITUTIONAL_거래대금순매수 > 0 and fut_realdata['거래량'] < 0:
+            and FUT_RETAIL_거래대금순매수 > 0 and FUT_INSTITUTIONAL_거래대금순매수 > 0 and fut_realdata['거래량'] < 0 \
+            and call_oi_delta < put_oi_delta:
 
             self.label_msg.setStyleSheet('background-color: royalblue; color: white')
 
@@ -4814,21 +4819,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if FUT_INSTITUTIONAL_거래대금순매수 > 3000 or FUT_RETAIL_거래대금순매수 > 3000:
 
-            if FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0:
+            if FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0 \
+                and call_oi_delta < put_oi_delta:
 
                 self.label_msg.setStyleSheet('background-color: blue; color: white')
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] ★★★★ 풋 OneWay 가능성 레벨 4...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
 
-            elif FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] < 0:
+            elif FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] < 0 \
+                and call_oi_delta < put_oi_delta:
 
                 self.label_msg.setStyleSheet('background-color: blue; color: white')
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] ★★★ 풋 OneWay 가능성 레벨 3...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
 
-            elif FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0:
+            elif FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0 \
+                and call_oi_delta < put_oi_delta:
 
                 self.label_msg.setStyleSheet('background-color: blue; color: white')
 
@@ -4839,21 +4847,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif FUT_INSTITUTIONAL_거래대금순매수 < -3000 or FUT_RETAIL_거래대금순매수 < -3000:
 
-            if FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0:
+            if FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0 \
+                and call_oi_delta > put_oi_delta:
 
                 self.label_msg.setStyleSheet('background-color: red; color: white')
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] ★★★★ 콜 OneWay 가능성 레벨 4...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
 
-            elif FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] > 0:
+            elif FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] > 0 \
+                and call_oi_delta > put_oi_delta:
 
                 self.label_msg.setStyleSheet('background-color: red; color: white')
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] ★★★ 콜 OneWay 가능성 레벨 3...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
 
-            elif FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0:
+            elif FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0 \
+                and call_oi_delta > put_oi_delta:
 
                 self.label_msg.setStyleSheet('background-color: red; color: white')
 
@@ -12802,7 +12813,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         if not overnight:
 
-            global oi_delta, oi_delta_old, 수정미결_직전대비            
+            global oi_delta, oi_delta_old, 수정미결_직전대비
+            global call_oi_delta, put_oi_delta            
 
             콜_수정미결합 = df_cm_call['수정미결'].sum()
             풋_수정미결합 = df_cm_put['수정미결'].sum()
