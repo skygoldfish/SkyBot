@@ -102,6 +102,8 @@ end_time_str = ''
 
 옵션잔존일 = 0
 
+oneway_threshold = 2500
+
 OVC_체결시간 = '000000'
 호가시간 = '000000'
 
@@ -4823,7 +4825,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
 
-            if FUT_INSTITUTIONAL_거래대금순매수 > 3000 or FUT_RETAIL_거래대금순매수 > 3000:
+            if FUT_INSTITUTIONAL_거래대금순매수 > oneway_threshold or FUT_RETAIL_거래대금순매수 > oneway_threshold:
 
                 if call_oi_delta < put_oi_delta \
                     and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0:
@@ -4850,7 +4852,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
 
-            elif FUT_INSTITUTIONAL_거래대금순매수 < -3000 or FUT_RETAIL_거래대금순매수 < -3000:
+            elif FUT_INSTITUTIONAL_거래대금순매수 < -oneway_threshold or FUT_RETAIL_거래대금순매수 < -oneway_threshold:
 
                 if call_oi_delta > put_oi_delta \
                     and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0:
