@@ -100,6 +100,8 @@ domestic_start_hour = 9
 start_time_str = ''
 end_time_str = ''
 
+옵션잔존일 = 0
+
 OVC_체결시간 = '000000'
 호가시간 = '000000'
 
@@ -247,7 +249,6 @@ PROGRAM_직전대비 = collections.deque([0, 0, 0], 3)
 수정미결_직전대비 = collections.deque([0, 0, 0], 3)
 콜순매수_직전대비 = collections.deque([0, 0, 0], 3)
 풋순매수_직전대비 = collections.deque([0, 0, 0], 3)
-# 거래량_직전대비 = collections.deque([0, 0, 0], 3)
 
 sp500_직전대비 = collections.deque([0, 0, 0], 5)
 dow_직전대비 = collections.deque([0, 0, 0], 5)
@@ -7429,7 +7430,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             block, df, df1 = result
 
+            global 옵션잔존일
+
             if not refresh_flag:
+
+                # 옵션 잔존일
+                옵션잔존일 = block['옵션잔존일']                
 
                 # 옵션 행사가 갯수
                 nCount_cm_option_pairs = len(df)
@@ -9890,6 +9896,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             self.update_worker.daemon = True
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            self.textBrowser.append(str)
+                            
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 잔존일은 {3}일 남았습니다.\r'.format(dt.hour, dt.minute, dt.second, 옵션잔존일)
                             self.textBrowser.append(str)
 
                             refresh_flag = True
@@ -12813,6 +12822,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         if not overnight:
 
+            global 콜_수정미결합, 풋_수정미결합
             global oi_delta, oi_delta_old, 수정미결_직전대비
             global call_oi_delta, put_oi_delta            
 
