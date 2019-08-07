@@ -9517,6 +9517,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 actval_increased = True
                 new_actval_count = nCount_cm_option_pairs - cm_call_t8416_count
 
+                # 추가된 행사가 갯수 표시
+                item_str = '{0:+02d}'.format(new_actval_count)
+                item = QTableWidgetItem(item_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setHorizontalHeaderItem(0, item)
+                self.tableWidget_put.setHorizontalHeaderItem(0, item)
+
                 print('new_actval_count', new_actval_count)
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_count)
