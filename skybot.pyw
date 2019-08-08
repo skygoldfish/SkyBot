@@ -86,7 +86,7 @@ UI_DIR = "UI\\"
 
 # 만기일 야간옵션은 month_info.txt에서 월물 만 변경
 month_info = ''
-month_firstday = '20190712'
+month_firstday = '20190809'
 
 today = datetime.date.today()
 today_str = today.strftime('%Y%m%d')
