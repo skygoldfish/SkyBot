@@ -10332,7 +10332,30 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_fut.iloc[1]['시가갭'] = 시가갭
                     fut_realdata['시가갭'] = 시가갭
             else:
-                pass                   
+                pass 
+            
+        if overnight:
+            fut_open_gap = self.tableWidget_fut.item(0, Futures_column.시가갭.value).text()
+        else:
+            fut_open_gap = self.tableWidget_fut.item(1, Futures_column.시가갭.value).text()
+
+        if fut_open_gap == '':
+
+            시가갭 = 시가실수 - 종가
+
+            item = QTableWidgetItem("{0:0.2f}".format(시가갭))
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if overnight:
+                self.tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
+                df_fut.iloc[0]['시가갭'] = 시가갭
+                cme_realdata['시가갭'] = 시가갭
+            else:
+                self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
+                df_fut.iloc[1]['시가갭'] = 시가갭
+                fut_realdata['시가갭'] = 시가갭
+        else:
+            pass
 
         # 저가 갱신
         if overnight:
