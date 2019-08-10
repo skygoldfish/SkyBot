@@ -10334,6 +10334,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass 
             
+        # 시가갭 갱신(가끔 표시오류 발생)
         if overnight:
             fut_open_gap = self.tableWidget_fut.item(0, Futures_column.시가갭.value).text()
         else:
