@@ -10335,14 +10335,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass 
             
         # 시가갭 갱신(가끔 표시오류 발생)
+
+        시가갭 = 시가실수 - 종가
+
         if overnight:
             fut_open_gap = self.tableWidget_fut.item(0, Futures_column.시가갭.value).text()
         else:
             fut_open_gap = self.tableWidget_fut.item(1, Futures_column.시가갭.value).text()
 
-        if fut_open_gap == '':
-
-            시가갭 = 시가실수 - 종가
+        if round(float(fut_open_gap), 2) != 시가갭:            
 
             item = QTableWidgetItem("{0:0.2f}".format(시가갭))
             item.setTextAlignment(Qt.AlignCenter)
