@@ -10335,7 +10335,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass 
             
         # 시가갭 갱신(가끔 표시오류 발생)
-
+        '''
         시가갭 = 시가실수 - 종가
 
         if overnight:
@@ -10358,7 +10358,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 fut_realdata['시가갭'] = 시가갭
         else:
             pass
-
+        '''
+        
         # 저가 갱신
         if overnight:
             fut_low = self.tableWidget_fut.item(0, Futures_column.저가.value).text()
@@ -13662,6 +13663,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 item.setForeground(QBrush(검정색))
 
                             self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
+
+                            시가갭 = fut_realdata['시가'] - fut_realdata['종가']
+
+                            item = QTableWidgetItem("{0:0.2f}".format(시가갭))
+                            item.setTextAlignment(Qt.AlignCenter)
+
+                            self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
 
                             fut_realdata['피봇'] = self.calc_pivot(fut_realdata['전저'], fut_realdata['전고'],
                                                                  fut_realdata['종가'],
