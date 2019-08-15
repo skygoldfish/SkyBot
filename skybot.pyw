@@ -4200,6 +4200,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             global call_max_actval, put_max_actval
             
+            if overnight:
+
+                current_str = dt.strftime('%H:%M:%S')
+
+                if int(current_str[0:2]) == 6:
+                    
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)  
+
+                    self.parent.connection.disconnect() 
+                else:
+                    pass
+            else:
+                pass         
+            
             self.check_oneway()
             
             self.label_clear()
@@ -4637,22 +4652,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass                                                       
             else:
-                pass
-            
-            if overnight:
-
-                current_str = dt.strftime('%H:%M:%S')
-
-                if int(current_str[0:2]) == 7:
-
-                    self.parent.connection.disconnect()
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)   
-                else:
-                    pass
-            else:
-                pass                              
+                pass                                 
             
             str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간 : {3:0.2f} ms...\r'.format(\
                 dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
