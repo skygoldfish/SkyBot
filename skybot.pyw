@@ -88,6 +88,8 @@ UI_DIR = "UI\\"
 month_info = ''
 month_firstday = '20190809'
 
+server_connect = True
+
 today = datetime.date.today()
 today_str = today.strftime('%Y%m%d')
 today_str_title = today.strftime('%Y-%m-%d')
@@ -4202,12 +4204,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             if overnight:
 
+                global server_connect
+
                 current_str = dt.strftime('%H:%M:%S')
 
-                if int(current_str[0:2]) == 6:
+                if int(current_str[0:2]) == 6 and server_connect:
                     
                     str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)  
+
+                    server_connect = False
 
                     self.parent.connection.disconnect() 
                 else:
