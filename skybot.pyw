@@ -8130,9 +8130,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 XQ.Query(종목코드=fut_code)
 
                 if fut_code == gmshcode:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 근뭘 주간선물({3})을 요청했습니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 근뭘 주간선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
                 elif fut_code == cmshcode:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 차뭘 주간선물({3})을 요청했습니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 차뭘 주간선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
                 else:
                     str = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
 
@@ -8144,9 +8144,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 XQ.Query(종목코드=fut_code)
 
                 if fut_code == gmshcode:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 근뭘 야간선물({3})을 요청했습니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 근뭘 야간선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
                 elif fut_code == cmshcode:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 차뭘 야간선물({3})을 요청했습니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 차뭘 야간선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
                 else:
                     str = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
 
@@ -8436,7 +8436,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     XQ.Query(종목코드=fut_code)
                     print('t2801 요청')
                     '''
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신했습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                 else:
                     '''
@@ -9373,7 +9373,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 put_volume_total = df_cm_put['수정거래량'].sum()
                 '''
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판을 갱신했습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
             
             if not refresh_flag:
@@ -9606,7 +9606,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         domestic_start_hour = int(start_time_str[0:2])
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 장시작시간 {3}시를 갱신했습니다.\r'.format(dt.hour, dt.minute, dt.second, domestic_start_hour)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 장시작시간 {3}시를 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second, domestic_start_hour)
                         self.textBrowser.append(str)
                     else:
                         pass
