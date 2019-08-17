@@ -88,8 +88,6 @@ UI_DIR = "UI\\"
 month_info = ''
 month_firstday = '20190809'
 
-server_connect = True
-
 today = datetime.date.today()
 today_str = today.strftime('%Y%m%d')
 today_str_title = today.strftime('%Y-%m-%d')
@@ -4201,7 +4199,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             dt = datetime.datetime.now()
 
             global call_max_actval, put_max_actval
-            
+            '''
             if overnight:
 
                 global server_connect
@@ -4220,7 +4218,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
             else:
                 pass         
-            
+            '''
             self.check_oneway()
             
             self.label_clear()
@@ -13312,6 +13310,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     self.SaveResult()
 
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str) 
+
+                    self.parent.connection.disconnect()      
+
                 # 야간 옵션장 종료
                 elif result['장구분'] == '8' and result['장상태'] == '41':
 
@@ -15398,6 +15401,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def SaveResult(self):
 
         now = time.localtime()
+
         times = "%04d-%02d-%02d-%02d-%02d-%02d" % \
                 (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
 
@@ -15449,10 +15453,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             put_volume_csv = "Put Volume {}{}".format(times, '.csv')
             df_plotdata_cm_put_volume.to_csv(put_volume_csv, encoding='ms949')
 
-            self.parent.connection.logout()
-            self.parent.statusbar.showMessage("로그아웃 합니다.")
+        str = '[{0:02d}:{1:02d}:{2:02d}] 로그아웃 합니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
+        self.textBrowser.append(str)
 
-            return
+        self.parent.connection.logout()
+        self.parent.statusbar.showMessage("로그아웃 합니다.")
+
+        return
 
         '''
         if overnight:
