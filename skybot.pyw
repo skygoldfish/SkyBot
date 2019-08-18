@@ -4199,6 +4199,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             dt = datetime.datetime.now()
 
             global call_max_actval, put_max_actval
+
             '''
             if overnight:
 
@@ -4219,6 +4220,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass         
             '''
+
             self.check_oneway()
             
             self.label_clear()
@@ -5124,6 +5126,99 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                         self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+
+                        if df_cm_call.iloc[i]['저가'] == 1.2:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 콜 저까 가 {} 입니다'.format(df_cm_call.iloc[i]['저가'])
+                            else:
+                                txt = '콜 저까 가 {} 입니다'.format(df_cm_call.iloc[i]['저가'])
+
+                            Speak(txt)
+
+                        elif df_cm_call.iloc[i]['저가'] == 2.5:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 콜 저까 가 {} 입니다'.format(df_cm_call.iloc[i]['저가'])
+                            else:
+                                txt = '콜 저까 가 {} 입니다'.format(df_cm_call.iloc[i]['저가'])
+
+                            Speak(txt)
+
+                        elif df_cm_call.iloc[i]['저가'] == 3.5:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 콜 저까 가 {} 입니다'.format(df_cm_call.iloc[i]['저가'])
+                            else:
+                                txt = '콜 저까 가 {} 입니다'.format(df_cm_call.iloc[i]['저가'])
+
+                            Speak(txt)
+
+                        elif df_cm_call.iloc[i]['저가'] == 4.85:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 콜 저까 가 {} 입니다'.format(df_cm_call.iloc[i]['저가'])
+                            else:
+                                txt = '콜 저까 가 {} 입니다'.format(df_cm_call.iloc[i]['저가'])
+
+                            Speak(txt)
+
+                        elif df_cm_call.iloc[i]['저가'] == 5.1:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 콜 저까 가 {} 입니다'.format(df_cm_call.iloc[i]['저가'])
+                            else:
+                                txt = '콜 저까 가 {} 입니다'.format(df_cm_call.iloc[i]['저가'])
+
+                            Speak(txt)
+
+                        elif df_cm_call.iloc[i]['저가'] == 5.5:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 콜 저까 가 {} 입니다'.format(df_cm_call.iloc[i]['저가'])
+                            else:
+                                txt = '콜 저까 가 {} 입니다'.format(df_cm_call.iloc[i]['저가'])
+
+                            Speak(txt)
+
+                        elif df_cm_call.iloc[i]['저가'] == 6.85:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 콜 저까 가 {} 입니다'.format(df_cm_call.iloc[i]['저가'])
+                            else:
+                                txt = '콜 저까 가 {} 입니다'.format(df_cm_call.iloc[i]['저가'])
+
+                            Speak(txt)
+
+                        elif df_cm_call.iloc[i]['저가'] == 7.1:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 콜 저까 가 {} 입니다'.format(df_cm_call.iloc[i]['저가'])
+                            else:
+                                txt = '콜 저까 가 {} 입니다'.format(df_cm_call.iloc[i]['저가'])
+
+                            Speak(txt)
+
+                        elif df_cm_call.iloc[i]['저가'] == 8.1:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 콜 저까 가 {} 입니다'.format(df_cm_call.iloc[i]['저가'])
+                            else:
+                                txt = '콜 저까 가 {} 입니다'.format(df_cm_call.iloc[i]['저가'])
+
+                            Speak(txt)
+
+                        else:
+                            pass
                     else:
                         pass
 
@@ -5131,6 +5226,99 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                         self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+
+                        if df_cm_call.iloc[i]['고가'] == 1.2:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 콜 고까 가 {} 입니다'.format(df_cm_call.iloc[i]['고가'])
+                            else:
+                                txt = '콜 고까 가 {} 입니다'.format(df_cm_call.iloc[i]['고가'])
+
+                            Speak(txt)
+
+                        elif df_cm_call.iloc[i]['고가'] == 2.5:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 콜 고까 가 {} 입니다'.format(df_cm_call.iloc[i]['고가'])
+                            else:
+                                txt = '콜 고까 가 {} 입니다'.format(df_cm_call.iloc[i]['고가'])
+
+                            Speak(txt)
+
+                        elif df_cm_call.iloc[i]['고가'] == 3.5:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 콜 고까 가 {} 입니다'.format(df_cm_call.iloc[i]['고가'])
+                            else:
+                                txt = '콜 고까 가 {} 입니다'.format(df_cm_call.iloc[i]['고가'])
+
+                            Speak(txt)
+
+                        elif df_cm_call.iloc[i]['고가'] == 4.85:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 콜 고까 가 {} 입니다'.format(df_cm_call.iloc[i]['고가'])
+                            else:
+                                txt = '콜 고까 가 {} 입니다'.format(df_cm_call.iloc[i]['고가'])
+
+                            Speak(txt)
+
+                        elif df_cm_call.iloc[i]['고가'] == 5.1:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 콜 고까 가 {} 입니다'.format(df_cm_call.iloc[i]['고가'])
+                            else:
+                                txt = '콜 고까 가 {} 입니다'.format(df_cm_call.iloc[i]['고가'])
+
+                            Speak(txt)
+
+                        elif df_cm_call.iloc[i]['고가'] == 5.5:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 콜 고까 가 {} 입니다'.format(df_cm_call.iloc[i]['고가'])
+                            else:
+                                txt = '콜 고까 가 {} 입니다'.format(df_cm_call.iloc[i]['고가'])
+
+                            Speak(txt)
+
+                        elif df_cm_call.iloc[i]['고가'] == 6.85:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 콜 고까 가 {} 입니다'.format(df_cm_call.iloc[i]['고가'])
+                            else:
+                                txt = '콜 고까 가 {} 입니다'.format(df_cm_call.iloc[i]['고가'])
+
+                            Speak(txt)
+
+                        elif df_cm_call.iloc[i]['고가'] == 7.1:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 콜 고까 가 {} 입니다'.format(df_cm_call.iloc[i]['고가'])
+                            else:
+                                txt = '콜 고까 가 {} 입니다'.format(df_cm_call.iloc[i]['고가'])
+
+                            Speak(txt)
+
+                        elif df_cm_call.iloc[i]['고가'] == 8.1:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 콜 고까 가 {} 입니다'.format(df_cm_call.iloc[i]['고가'])
+                            else:
+                                txt = '콜 고까 가 {} 입니다'.format(df_cm_call.iloc[i]['고가'])
+
+                            Speak(txt)
+
+                        else:
+                            pass
                     else:
                         pass
                 else:
@@ -6013,6 +6201,99 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                         self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+
+                        if df_cm_put.iloc[i]['저가'] == 1.2:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 풋 저까 가 {} 입니다'.format(df_cm_put.iloc[i]['저가'])
+                            else:
+                                txt = '풋 저까 가 {} 입니다'.format(df_cm_put.iloc[i]['저가'])
+
+                            Speak(txt)
+
+                        elif df_cm_put.iloc[i]['저가'] == 2.5:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 풋 저까 가 {} 입니다'.format(df_cm_put.iloc[i]['저가'])
+                            else:
+                                txt = '풋 저까 가 {} 입니다'.format(df_cm_put.iloc[i]['저가'])
+
+                            Speak(txt)
+
+                        elif df_cm_put.iloc[i]['저가'] == 3.5:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 풋 저까 가 {} 입니다'.format(df_cm_put.iloc[i]['저가'])
+                            else:
+                                txt = '풋 저까 가 {} 입니다'.format(df_cm_put.iloc[i]['저가'])
+
+                            Speak(txt)
+
+                        elif df_cm_put.iloc[i]['저가'] == 4.85:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 풋 저까 가 {} 입니다'.format(df_cm_put.iloc[i]['저가'])
+                            else:
+                                txt = '풋 저까 가 {} 입니다'.format(df_cm_put.iloc[i]['저가'])
+
+                            Speak(txt)
+
+                        elif df_cm_put.iloc[i]['저가'] == 5.1:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 풋 저까 가 {} 입니다'.format(df_cm_put.iloc[i]['저가'])
+                            else:
+                                txt = '풋 저까 가 {} 입니다'.format(df_cm_put.iloc[i]['저가'])
+
+                            Speak(txt)
+
+                        elif df_cm_put.iloc[i]['저가'] == 5.5:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 풋 저까 가 {} 입니다'.format(df_cm_put.iloc[i]['저가'])
+                            else:
+                                txt = '풋 저까 가 {} 입니다'.format(df_cm_put.iloc[i]['저가'])
+
+                            Speak(txt)
+
+                        elif df_cm_put.iloc[i]['저가'] == 6.85:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 풋 저까 가 {} 입니다'.format(df_cm_put.iloc[i]['저가'])
+                            else:
+                                txt = '풋 저까 가 {} 입니다'.format(df_cm_put.iloc[i]['저가'])
+
+                            Speak(txt)
+
+                        elif df_cm_put.iloc[i]['저가'] == 7.1:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 풋 저까 가 {} 입니다'.format(df_cm_put.iloc[i]['저가'])
+                            else:
+                                txt = '풋 저까 가 {} 입니다'.format(df_cm_put.iloc[i]['저가'])
+
+                            Speak(txt)
+
+                        elif df_cm_put.iloc[i]['저가'] == 8.1:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 풋 저까 가 {} 입니다'.format(df_cm_put.iloc[i]['저가'])
+                            else:
+                                txt = '풋 저까 가 {} 입니다'.format(df_cm_put.iloc[i]['저가'])
+
+                            Speak(txt)
+
+                        else:
+                            pass
                     else:
                         pass
 
@@ -6020,6 +6301,99 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                         self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+
+                        if df_cm_put.iloc[i]['고가'] == 1.2:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 풋 고까 가 {} 입니다'.format(df_cm_put.iloc[i]['고가'])
+                            else:
+                                txt = '풋 고까 가 {} 입니다'.format(df_cm_put.iloc[i]['고가'])
+
+                            Speak(txt)
+
+                        elif df_cm_put.iloc[i]['고가'] == 2.5:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 풋 고까 가 {} 입니다'.format(df_cm_put.iloc[i]['고가'])
+                            else:
+                                txt = '풋 고까 가 {} 입니다'.format(df_cm_put.iloc[i]['고가'])
+
+                            Speak(txt)
+
+                        elif df_cm_put.iloc[i]['고가'] == 3.5:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 풋 고까 가 {} 입니다'.format(df_cm_put.iloc[i]['고가'])
+                            else:
+                                txt = '풋 고까 가 {} 입니다'.format(df_cm_put.iloc[i]['고가'])
+
+                            Speak(txt)
+
+                        elif df_cm_put.iloc[i]['고가'] == 4.85:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 풋 고까 가 {} 입니다'.format(df_cm_put.iloc[i]['고가'])
+                            else:
+                                txt = '풋 고까 가 {} 입니다'.format(df_cm_put.iloc[i]['고가'])
+
+                            Speak(txt)
+
+                        elif df_cm_put.iloc[i]['고가'] == 5.1:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 풋 고까 가 {} 입니다'.format(df_cm_put.iloc[i]['고가'])
+                            else:
+                                txt = '풋 고까 가 {} 입니다'.format(df_cm_put.iloc[i]['고가'])
+
+                            Speak(txt)
+
+                        elif df_cm_put.iloc[i]['고가'] == 5.5:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 풋 고까 가 {} 입니다'.format(df_cm_put.iloc[i]['고가'])
+                            else:
+                                txt = '풋 고까 가 {} 입니다'.format(df_cm_put.iloc[i]['고가'])
+
+                            Speak(txt)
+
+                        elif df_cm_put.iloc[i]['고가'] == 6.85:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 풋 고까 가 {} 입니다'.format(df_cm_put.iloc[i]['고가'])
+                            else:
+                                txt = '풋 고까 가 {} 입니다'.format(df_cm_put.iloc[i]['고가'])
+
+                            Speak(txt)
+
+                        elif df_cm_put.iloc[i]['고가'] == 7.1:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 풋 고까 가 {} 입니다'.format(df_cm_put.iloc[i]['고가'])
+                            else:
+                                txt = '풋 고까 가 {} 입니다'.format(df_cm_put.iloc[i]['고가'])
+
+                            Speak(txt)
+
+                        elif df_cm_put.iloc[i]['고가'] == 8.1:
+
+                            if fut_code == cmshcode:
+
+                                txt = '차월물 풋 고까 가 {} 입니다'.format(df_cm_put.iloc[i]['고가'])
+                            else:
+                                txt = '풋 고까 가 {} 입니다'.format(df_cm_put.iloc[i]['고가'])
+
+                            Speak(txt)
+
+                        else:
+                            pass
                     else:
                         pass
                 else:
