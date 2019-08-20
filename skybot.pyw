@@ -4762,6 +4762,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         str = '[{0:02d}:{1:02d}:{2:02d}] 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
         self.textBrowser.append(str)
 
+        return
+
     # 선물 현재가 클리어
     def fut_cv_color_clear(self):
 
