@@ -4761,7 +4761,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         str = '[{0:02d}:{1:02d}:{2:02d}] 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
         self.textBrowser.append(str)
-
+        
         return
 
     # 선물 현재가 클리어
@@ -13677,6 +13677,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     '''
 
                     self.SaveResult()
+                    
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 끊습니다..\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
+                    self.textBrowser.append(str)
+
+                    self.parent.connection.disconnect()
+                    self.parent.statusbar.showMessage("오프라인")
 
                 # 야간 선물장 종료
                 elif result['장구분'] == '7' and result['장상태'] == '41':
@@ -13686,10 +13692,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     self.SaveResult()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str) 
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 끊습니다..\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
+                    self.textBrowser.append(str)
 
-                    self.parent.connection.disconnect()      
+                    self.parent.connection.disconnect()
+                    self.parent.statusbar.showMessage("오프라인")    
 
                 # 야간 옵션장 종료
                 elif result['장구분'] == '8' and result['장상태'] == '41':
@@ -13697,7 +13704,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
-                    #self.SaveResult()
                 else:
                     pass
 
@@ -15829,25 +15835,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             put_volume_csv = "Put Volume {}{}".format(times, '.csv')
             df_plotdata_cm_put_volume.to_csv(put_volume_csv, encoding='ms949')
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 로그아웃 합니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
-        self.textBrowser.append(str)
-
-        self.parent.connection.logout()
-        self.parent.statusbar.showMessage("로그아웃 합니다.")
-
         return
-
-        '''
-        if overnight:
-
-            self.parent.connection.logout()
-            self.parent.statusbar.showMessage("로그아웃 합니다.")
-            #self.parent.connection.disconnect()
-            #self.parent.statusbar.showMessage("서버연결을 Release 합니다.")
-        else:
-            self.parent.connection.logout()
-            self.parent.statusbar.showMessage("로그아웃 합니다.")
-        '''
 
     def RemoveCode(self):
 
