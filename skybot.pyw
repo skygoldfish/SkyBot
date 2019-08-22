@@ -100,6 +100,8 @@ domestic_start_hour = 9
 start_time_str = ''
 end_time_str = ''
 
+service_terminate = False
+
 옵션잔존일 = 0
 
 oneway_threshold = 2500
@@ -4200,26 +4202,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             global call_max_actval, put_max_actval
 
-            '''
-            if overnight:
+            global service_terminate
 
-                global server_connect
+            if self.alternate_flag:
 
-                current_str = dt.strftime('%H:%M:%S')
+                if service_terminate:
 
-                if int(current_str[0:2]) == 6 and server_connect:
-                    
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 끊습니다...\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)  
 
-                    server_connect = False
-
                     self.parent.connection.disconnect() 
+                    self.parent.statusbar.showMessage("오프라인")
                 else:
                     pass
             else:
-                pass         
-            '''
+                if not self.parent.connection.IsConnected():
+                
+                    service_terminate = False                
+                else:
+                    pass             
 
             self.check_oneway()
             
@@ -13436,7 +13437,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global put_atm_value, put_db_percent
             global cm_put_피봇, cm_put_피봇_node_list, cm_put_시가, cm_put_시가_node_list
             global cm_put_저가, cm_put_저가_node_list, cm_put_고가, cm_put_고가_node_list
-            global market_service
+            global market_service, service_terminate
 
             global yoc_stop
             global OVC_체결시간, 호가시간
@@ -13668,6 +13669,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
+                    market_service = False
+                    service_terminate = True
+                    
+                    self.SaveResult()  
+
                     # 해외선물 지수 요청취소
                     '''
                     self.OVC.UnadviseRealData()
@@ -13675,14 +13681,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
                     '''
-
-                    self.SaveResult()
                     
                     str = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 끊습니다..\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
                     self.textBrowser.append(str)
 
                     self.parent.connection.disconnect()
-                    self.parent.statusbar.showMessage("오프라인")
+                    self.parent.statusbar.showMessage("오프라인")                
 
                 # 야간 선물장 종료
                 elif result['장구분'] == '7' and result['장상태'] == '41':
@@ -13690,13 +13694,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
-                    self.SaveResult()
+                    market_service = False
+                    service_terminate = True
+                    
+                    self.SaveResult()  
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 끊습니다..\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
                     self.textBrowser.append(str)
 
                     self.parent.connection.disconnect()
-                    self.parent.statusbar.showMessage("오프라인")    
+                    self.parent.statusbar.showMessage("오프라인")
 
                 # 야간 옵션장 종료
                 elif result['장구분'] == '8' and result['장상태'] == '41':
