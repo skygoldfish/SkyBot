@@ -13682,7 +13682,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.textBrowser.append(str)
                     '''
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 끊습니다..\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 끊습니다..\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                     self.parent.connection.disconnect()
@@ -13699,7 +13699,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     
                     self.SaveResult()  
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 끊습니다..\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 끊습니다..\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                     self.parent.connection.disconnect()
