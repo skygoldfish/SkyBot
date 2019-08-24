@@ -4202,11 +4202,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             global call_max_actval, put_max_actval
 
-            global service_terminate
+            if service_terminate:
 
-            if self.alternate_flag:
-
-                if service_terminate:
+                if self.parent.connection.IsConnected():
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)  
@@ -4214,13 +4212,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.parent.connection.disconnect() 
                     self.parent.statusbar.showMessage("오프라인")
                 else:
-                    pass
+                    pass                
             else:
-                if not self.parent.connection.IsConnected():
-                
-                    service_terminate = False                
-                else:
-                    pass             
+                pass
 
             self.check_oneway()
             
