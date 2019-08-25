@@ -2146,6 +2146,67 @@ class t8414(XAQuery):
         if self.parent != None:
             self.parent.OnReceiveData(szTrCode, [block, df])
 
+# CME 야간 선물틱분별 조회(t8408)
+class t8408(XAQuery):
+
+    # 30초 간격의 데이타를 리턴하므로 1시간 분량 데이타는 조회건수로 120회를 줌
+    def Query(self, 단축코드, 차트구분='B', 분구분='1', 조회건수='120'):
+        self.ActiveX.LoadFromResFile(self.RESFILE)
+        self.ActiveX.SetFieldData(self.INBLOCK, "focode", 0, 단축코드)
+        self.ActiveX.SetFieldData(self.INBLOCK, "cgubun", 0, 차트구분)
+        self.ActiveX.SetFieldData(self.INBLOCK, "bgubun", 0, 차트구분)
+        self.ActiveX.SetFieldData(self.INBLOCK, "cnt", 0, 조회건수)
+        self.ActiveX.Request(0)
+
+    def OnReceiveMessage(self, systemError, messageCode, message):
+        클래스이름 = self.__class__.__name__
+        함수이름 = inspect.currentframe().f_code.co_name
+        print("%s-%s " % (클래스이름, 함수이름), systemError, messageCode, message)
+
+    def OnReceiveData(self, szTrCode):
+
+        result = []
+        nCount = self.ActiveX.GetBlockCount(self.OUTBLOCK1)
+
+        for i in range(nCount):
+            시간 = self.ActiveX.GetFieldData(self.OUTBLOCK1, "chetime", i).strip()
+            현재가 = float(self.ActiveX.GetFieldData(self.OUTBLOCK1, "price", i).strip())
+            전일대비구분 = self.ActiveX.GetFieldData(self.OUTBLOCK1, "sign", i).strip()
+            전일대비 = float(self.ActiveX.GetFieldData(self.OUTBLOCK1, "change", i).strip())
+            시가 = float(self.ActiveX.GetFieldData(self.OUTBLOCK1, "open", i).strip())
+            고가 = float(self.ActiveX.GetFieldData(self.OUTBLOCK1, "high", i).strip())
+            저가 = float(self.ActiveX.GetFieldData(self.OUTBLOCK1, "low", i).strip())
+            거래량 = int(self.ActiveX.GetFieldData(self.OUTBLOCK1, "volume", i).strip())
+            거래대금 = int(self.ActiveX.GetFieldData(self.OUTBLOCK1, "value", i).strip())
+            미결수량 = int(self.ActiveX.GetFieldData(self.OUTBLOCK1, "openyak", i).strip())
+            미결증감 = int(self.ActiveX.GetFieldData(self.OUTBLOCK1, "openupdn", i).strip())
+            체결수량 = int(self.ActiveX.GetFieldData(self.OUTBLOCK1, "cvolume", i).strip())
+            매수순간체결건수 = int(self.ActiveX.GetFieldData(self.OUTBLOCK1, "s_mschecnt", i).strip())
+            매도순간체결건수 = int(self.ActiveX.GetFieldData(self.OUTBLOCK1, "s_mdchecnt", i).strip())
+            순매수순간체결건수 = int(self.ActiveX.GetFieldData(self.OUTBLOCK1, "ss_mschecnt", i).strip())
+            매수순간체결량 = int(self.ActiveX.GetFieldData(self.OUTBLOCK1, "s_mschevol", i).strip())
+            매도순간체결량 = int(self.ActiveX.GetFieldData(self.OUTBLOCK1, "s_mdchevol", i).strip())
+            순매수순간체결량 = int(self.ActiveX.GetFieldData(self.OUTBLOCK1, "ss_mschevol", i).strip())
+            체결강도1 = float(self.ActiveX.GetFieldData(self.OUTBLOCK1, "chdegvol", i).strip())
+            체결강도2 = float(self.ActiveX.GetFieldData(self.OUTBLOCK1, "chdegcnt", i).strip())            
+
+            lst = [시간,현재가,전일대비구분,전일대비,시가,고가,저가,거래량,거래대금,미결수량,미결증감,체결수량,매수순간체결건수,매도순간체결건수,
+                   순매수순간체결건수,매수순간체결량,매도순간체결량,순매수순간체결량,체결강도1,체결강도2]
+
+            result.append(lst)
+
+        columns = ['시간','현재가','전일대비구분','전일대비','시가','고가','저가','거래량','거래대금','미결수량','미결증감','체결수량','매수순간체결건수',
+                   '매도순간체결건수','순매수순간체결건수','매수순간체결량','매도순간체결량','순매수순간체결량','체결강도1','체결강도2']
+
+        df = DataFrame(data=result, columns=columns)
+
+        if self.parent != None:            
+
+            # 주의 !!! [df]가 아닌 df로 return을 해야함
+            #self.parent.OnReceiveData(szTrCode, [df])
+            self.parent.OnReceiveData(szTrCode, df)
+
+
 # 선물/옵션챠트(N분)(t8415)
 class t8415(XAQuery):
     # def Query(self, 단축코드='201N7302', 단위='15', 요청건수='2000', 조회영업일수='0', 시작일자='20180629', 시작시간='', 종료일자='20180629', 종료시간='', 연속일자='', 연속시간='', 압축여부='N', 연속조회=False):

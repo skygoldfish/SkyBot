@@ -4174,6 +4174,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
     @pyqtSlot(object)
+    def t8408_cme_request(self):
+        try:
+            XQ = t8408(parent=self)
+            XQ.Query(단축코드=gmshcode)
+
+        except:
+            pass
+
+    @pyqtSlot(object)
     def t8416_call_request(self, data):
         try:
             XQ = t8416(parent=self)
@@ -9809,6 +9818,30 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_call.resizeColumnsToContents()
             self.tableWidget_put.resizeColumnsToContents()
 
+        elif szTrCode == 't8408':
+
+            df = result
+
+            print('\r')
+            print('[t8408 cme data]')
+            print('\r')
+            print(df)
+            print('\r')
+
+            temp = df['현재가'].values.tolist()
+            temp.reverse()
+            temp1 = copy.deepcopy(temp)
+
+            #print(temp1)
+
+            CME_전일종가 = temp1[1::2]
+            
+            print('[CME_전일종가]')
+            print('\r')
+
+            print(CME_전일종가)
+            print('\r')            
+
         elif szTrCode == 't8415':
 
             block, df = result
@@ -10435,7 +10468,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.tableWidget_fut.resizeColumnsToContents()              
 
-            self.t8415_fut_request()
+            #self.t8415_fut_request()
+            self.t8408_cme_request()
 
         elif szTrCode == 't8433':
 
