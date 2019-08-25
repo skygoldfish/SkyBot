@@ -4165,6 +4165,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
     @pyqtSlot(object)
+    def t8415_fut_request(self):
+        try:
+            XQ = t8415(parent=self)
+            XQ.Query(단축코드=gmshcode, 시작일자=month_firstday, 종료일자=today_str)
+
+        except:
+            pass
+
+    @pyqtSlot(object)
     def t8416_call_request(self, data):
         try:
             XQ = t8416(parent=self)
@@ -7531,7 +7540,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def OnReceiveData(self, szTrCode, result):
 
-        global fut_code, gmshcode, cmshcode
+        global gmshcode, cmshcode, fut_code
         global cm_call_code, cm_put_code
         global opt_actval
         global df_plotdata_fut
@@ -8141,6 +8150,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 self.tableWidget_call.resizeColumnsToContents()
 
+                str = '[{0:02d}:{1:02d}:{2:02d}] Call 전광판 데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+
                 # 풋처리
                 for i in range(nCount_cm_option_pairs):
 
@@ -8397,6 +8409,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 print(df_cm_put)
 
                 self.tableWidget_put.resizeColumnsToContents()
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] Put 전광판 데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
                                 
                 콜시가리스트 = [0.0] * nCount_cm_option_pairs
                 풋시가리스트 = [0.0] * nCount_cm_option_pairs
@@ -9798,7 +9813,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             block, df = result
 
-            if block['단축코드'][0:3] == '201':
+            if block['단축코드'][0:3] == '101':
+
+                print('\r')
+                print('[t8415 fut block]')
+                print('\r')
+                print(block)
+                print('\r')
+                print('[t8415 fut data]')
+                print('\r')
+                print(df)
+                print('\r')
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 선물 전일데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+
+            elif block['단축코드'][0:3] == '201':
 
                 for i in range(len(selected_call)):
 
@@ -10391,7 +10421,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
 
-            self.tableWidget_fut.resizeColumnsToContents()
+            self.tableWidget_fut.resizeColumnsToContents()              
+
+            self.t8415_fut_request()
 
         elif szTrCode == 't8433':
 

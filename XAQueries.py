@@ -2174,6 +2174,11 @@ class t8415(XAQuery):
                 함수이름 = inspect.currentframe().f_code.co_name
                 print("%s-%s " % (클래스이름, 함수이름), "error... {0}".format(err_code))
 
+    def OnReceiveMessage(self, systemError, messageCode, message):
+        클래스이름 = self.__class__.__name__
+        함수이름 = inspect.currentframe().f_code.co_name
+        print("%s-%s " % (클래스이름, 함수이름), systemError, messageCode, message)
+
     def OnReceiveData(self, szTrCode):
         block = dict()
         nCount = self.ActiveX.GetBlockCount(self.OUTBLOCK)
