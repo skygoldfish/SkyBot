@@ -9825,6 +9825,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 print(df)
                 print('\r')
 
+                # 전일 장종료 전 1시간 데이타(60개)
+                temp = df['저가'].values.tolist()
+                선물_전일저가 = temp[440:]
+
+                temp = df['고가'].values.tolist()
+                선물_전일고가 = temp[440:]
+
+                temp = df['종가'].values.tolist()
+                선물_전일종가 = temp[440:]
+
+                # print(len(선물_전일종가), 선물_전일종가)
+
                 str = '[{0:02d}:{1:02d}:{2:02d}] 선물 전일데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
 
