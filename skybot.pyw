@@ -9840,7 +9840,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             print('\r')
 
             print(CME_전일종가)
-            print('\r')            
+            print('\r') 
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 야간선물 전일데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)           
 
         elif szTrCode == 't8415':
 
