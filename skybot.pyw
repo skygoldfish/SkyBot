@@ -10469,10 +10469,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
 
-            self.tableWidget_fut.resizeColumnsToContents()              
+            self.tableWidget_fut.resizeColumnsToContents()
 
-            #self.t8415_fut_request()
-            self.t8408_cme_request()
+            if overnight:
+
+                self.t8415_fut_request()
+            else:
+            
+                self.t8408_cme_request()
 
         elif szTrCode == 't8433':
 
