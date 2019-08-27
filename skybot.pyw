@@ -13765,7 +13765,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.textBrowser.append(str)
 
                     market_service = False
-                    service_terminate = True
                     
                     # 해외선물 지수 요청취소                    
                     self.OVC.UnadviseRealData()
@@ -13773,7 +13772,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                     
-                    self.SaveResult()         
+                    self.SaveResult()
+                    
+                    service_terminate = True         
 
                 # 야간 옵션장 종료
                 elif result['장구분'] == '8' and result['장상태'] == '41':
