@@ -10475,7 +10475,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 self.t8415_fut_request()
             else:
-            
                 self.t8408_cme_request()
 
         elif szTrCode == 't8433':
@@ -13747,9 +13746,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
-
-                    # 저장을 먼저
-                    self.SaveResult()
+                    
+                    self.SaveResult()  
 
                     market_service = False
                     
@@ -13757,15 +13755,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.OVC.UnadviseRealData()
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
+                    self.textBrowser.append(str) 
+                    
+                    self.image_grab()                                         
 
                 # 야간 선물장 종료
                 elif result['장구분'] == '7' and result['장상태'] == '41':
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
-
-                    self.SaveResult()
+                    
+                    self.SaveResult() 
 
                     market_service = False
                     
@@ -13775,7 +13775,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                                         
-                    service_terminate = True         
+                    service_terminate = True
+
+                    self.image_grab()        
 
                 # 야간 옵션장 종료
                 elif result['장구분'] == '8' and result['장상태'] == '41':
@@ -15871,7 +15873,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         file.write(text)
         file.close()
         
-        self.image_grab()
+        # self.image_grab()
 
         if df_fut.empty:
 
@@ -15918,12 +15920,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def RemoveCode(self):
 
-        self.image_grab()
-
         file = open('skybot.log', 'w')
         text = self.textBrowser.toPlainText()
         file.write(text)
-        file.close()        
+        file.close()      
+        
+        self.image_grab()  
 
 '''
 ########################################################################################################################
