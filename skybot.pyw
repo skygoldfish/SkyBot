@@ -13765,19 +13765,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                     
-                    self.SaveResult() 
+                    if not service_terminate:
 
-                    market_service = False
+                        self.SaveResult() 
+
+                        market_service = False
                     
-                    # 해외선물 지수 요청취소                    
-                    self.OVC.UnadviseRealData()
+                        # 해외선물 지수 요청취소                    
+                        self.OVC.UnadviseRealData()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
-                                        
-                    service_terminate = True
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
 
-                    self.image_grab()        
+                        service_terminate = True
+
+                        self.image_grab()      
+                    else:
+                        pass                      
 
                 # 야간 옵션장 종료
                 elif result['장구분'] == '8' and result['장상태'] == '41':
