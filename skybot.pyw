@@ -92,6 +92,9 @@ today = datetime.date.today()
 today_str = today.strftime('%Y%m%d')
 today_str_title = today.strftime('%Y-%m-%d')
 
+now = datetime.datetime.now()        
+nowDate = now.strftime('%Y-%m-%d')
+
 yesterday = today - datetime.timedelta(1)
 yesterday_str = yesterday.strftime('%Y%m%d')
 
@@ -270,6 +273,9 @@ put_atm_value = 0
 kp200_realdata = dict()
 fut_realdata = dict()
 cme_realdata = dict()
+
+fut_tick_list = []
+fut_value_list = []
 
 cm_call_code = []
 cm_put_code = []
@@ -2317,7 +2323,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global cm_option_title, month_info, SP500, DOW, NASDAQ, fut_code
 
         dt = datetime.datetime.now()
-        current_str = dt.strftime('%H:%M:%S')
+        
+        nowDate = now.strftime('%Y-%m-%d')
+        current_str = dt.strftime('%H:%M:%S')        
 
         with open('month_info.txt', mode='r') as monthfile:
             month_info = monthfile.readline().strip()
@@ -10490,7 +10498,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global df_plotdata_fut, df_plotdata_kp200, df_plotdata_fut_che
         global atm_str, atm_val, atm_index, atm_index_old
         global fut_ol, fut_oh
+        global fut_tick_list, fut_value_list
 
+        체결시간 = result['체결시간']
         시가 = result['시가']
         현재가 = result['현재가']
         저가 = result['저가']
@@ -10500,7 +10510,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         현재가실수 = round(float(현재가), 2)
         저가실수 = round(float(저가), 2)
         고가실수 = round(float(고가), 2)
-        
+
+        '''
+        # 선물 OHLC 데이타프레임 생성
+        time_str = 체결시간[0:2] + ':' + 체결시간[2:4] + ':' + 체결시간[4:6]
+        chetime = nowDate + ' ' + time_str
+
+        fut_tick_list.append(chetime)
+        fut_value_list.append(현재가실수)
+
+        fut_dict = {"value": fut_value_list}
+        df = pd.DataFrame(fut_dict, index=fut_tick_list)
+
+        # Converting the index as DatetimeIndex
+        df.index = pd.to_datetime(df.index)
+
+        # 1 Minute resample
+        fut_ohlc = df.resample('1T').ohlc()
+        print('선물 OHLC', fut_ohlc)
+        '''
+
         df_plotdata_fut.iloc[0][x_idx] = 현재가실수
         df_plotdata_kp200.iloc[0][x_idx] = round(float(result['KOSPI200지수']), 2)
 
