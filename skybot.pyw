@@ -276,6 +276,7 @@ cme_realdata = dict()
 
 fut_tick_list = []
 fut_value_list = []
+df_fut_ohlc = pd.DataFrame()
 
 cm_call_code = []
 cm_put_code = []
@@ -4680,11 +4681,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass                                                       
             else:
                 pass                                 
-            
+            '''
             str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간 : {3:0.2f} ms...\r'.format(\
                 dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
             print(str)
-            
+            '''
         except:
             pass
 
@@ -10498,7 +10499,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global df_plotdata_fut, df_plotdata_kp200, df_plotdata_fut_che
         global atm_str, atm_val, atm_index, atm_index_old
         global fut_ol, fut_oh
-        global fut_tick_list, fut_value_list
+        global fut_tick_list, fut_value_list, df_fut_ohlc
 
         체결시간 = result['체결시간']
         시가 = result['시가']
@@ -10510,8 +10511,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         현재가실수 = round(float(현재가), 2)
         저가실수 = round(float(저가), 2)
         고가실수 = round(float(고가), 2)
-
-        '''
+        
         # 선물 OHLC 데이타프레임 생성
         time_str = 체결시간[0:2] + ':' + 체결시간[2:4] + ':' + 체결시간[4:6]
         chetime = nowDate + ' ' + time_str
@@ -10526,9 +10526,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         df.index = pd.to_datetime(df.index)
 
         # 1 Minute resample
-        fut_ohlc = df.resample('1T').ohlc()
-        print('선물 OHLC', fut_ohlc)
-        '''
+        df_fut_ohlc = df.resample('1T').ohlc()
+        print('\r선물 틱 데이타 {}\r 선물 OHLC {}\r'.format(df, df_fut_ohlc))
 
         df_plotdata_fut.iloc[0][x_idx] = 현재가실수
         df_plotdata_kp200.iloc[0][x_idx] = round(float(result['KOSPI200지수']), 2)
@@ -10545,9 +10544,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             종가 = fut_realdata['종가']
             피봇 = fut_realdata['피봇']
         
-        # 장중 거래량 갱신
-
-        # 장중 거래량은 누적거래량이 아닌 수정거래량 임
+        # 장중 거래량 갱신, 장중 거래량은 누적거래량이 아닌 수정거래량 임
 
         거래량 = result['매수누적체결량'] - result['매도누적체결량']
         df_plotdata_fut_che.iloc[0][x_idx] = 거래량
@@ -15916,6 +15913,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # temp = df_cme.append(df_fut, ignore_index=True)
             # temp = pd.concat([df_cme, df_fut], ignore_index=True)
             df_fut.to_csv(fut_csv, encoding='ms949')
+
+            fut_ohlc_csv = "Futures OHLC {}{}".format(times, '.csv')
+            df_fut_ohlc.to_csv(fut_ohlc_csv, encoding='ms949')
 
             kp200_graph_csv = "KP200 Graph {}{}".format(times, '.csv')
             df_plotdata_kp200.to_csv(kp200_graph_csv, encoding='ms949')
