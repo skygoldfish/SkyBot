@@ -9927,6 +9927,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if self.t8416_callworker.isRunning():
 
+                    '''
                     if today_str != month_firstday:
 
                         cm_call_기준가 = df_cm_call['기준가'].values.tolist()
@@ -9937,19 +9938,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         cm_call_월저_node_list = self.make_node_list(cm_call_월저)
                         cm_call_월고_node_list = self.make_node_list(cm_call_월고)  
                     else:
-                        pass     
-
-                    if not overnight:
-
-                        cm_call_전저 = df_cm_call['전저'].values.tolist()
-                        cm_call_전고 = df_cm_call['전고'].values.tolist()                        
-                        cm_call_종가 = df_cm_call['종가'].values.tolist()
-
-                        cm_call_전저_node_list = self.make_node_list(cm_call_전저)
-                        cm_call_전고_node_list = self.make_node_list(cm_call_전고)                        
-                        cm_call_종가_node_list = self.make_node_list(cm_call_종가)
-                    else:
                         pass
+                    ''' 
 
                     cm_call_기준가 = df_cm_call['기준가'].values.tolist()
                     cm_call_월저 = df_cm_call['월저'].values.tolist()
@@ -9957,6 +9947,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_call_전저 = df_cm_call['전저'].values.tolist()
                     cm_call_전고 = df_cm_call['전고'].values.tolist()
                     cm_call_종가 = df_cm_call['종가'].values.tolist()
+                    cm_call_피봇 = df_cm_call['피봇'].values.tolist()
+                    cm_call_시가 = df_cm_call['시가'].values.tolist()
+                    cm_call_저가 = df_cm_call['저가'].values.tolist()
+                    cm_call_고가 = df_cm_call['고가'].values.tolist()
 
                     cm_call_기준가_node_list = self.make_node_list(cm_call_기준가)
                     cm_call_월저_node_list = self.make_node_list(cm_call_월저)
@@ -9964,6 +9958,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_call_전저_node_list = self.make_node_list(cm_call_전저)
                     cm_call_전고_node_list = self.make_node_list(cm_call_전고)
                     cm_call_종가_node_list = self.make_node_list(cm_call_종가)
+                    cm_call_피봇_node_list = self.make_node_list(cm_call_피봇)
+                    cm_call_시가_node_list = self.make_node_list(cm_call_시가)
+                    cm_call_저가_node_list = self.make_node_list(cm_call_저가)
+                    cm_call_고가_node_list = self.make_node_list(cm_call_고가)
 
                     print('Call 과거데이타 수신완료')
 
