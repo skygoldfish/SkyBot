@@ -104,6 +104,7 @@ start_time_str = ''
 end_time_str = ''
 
 service_terminate = False
+offline = False
 
 옵션잔존일 = 0
 
@@ -4228,6 +4229,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             dt = datetime.datetime.now()
 
             global call_max_actval, put_max_actval
+            global offline
 
             if service_terminate:
 
@@ -4236,10 +4238,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)  
 
-                    self.parent.connection.disconnect() 
-                    self.parent.statusbar.showMessage("오프라인")
+                    self.parent.connection.disconnect()
                 else:
-                    pass                
+
+                    if not offline:
+                        self.parent.statusbar.showMessage("오프라인") 
+                        offline = True 
+                    else:
+                        pass              
             else:
                 pass
 
@@ -10138,6 +10144,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 
                 if cm_call_t8416_count == nCount_cm_option_pairs - new_actval_count:
 
+                    '''
                     if today_str != month_firstday:
 
                         cm_call_기준가 = df_cm_call['기준가'].values.tolist()
@@ -10148,27 +10155,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         cm_call_월저_node_list = self.make_node_list(cm_call_월저)
                         cm_call_월고_node_list = self.make_node_list(cm_call_월고)  
                     else:
-                        pass     
-
-                    if not overnight:
-
-                        cm_call_전저 = df_cm_call['전저'].values.tolist()
-                        cm_call_전고 = df_cm_call['전고'].values.tolist()                        
-                        cm_call_종가 = df_cm_call['종가'].values.tolist()
-
-                        cm_call_전저_node_list = self.make_node_list(cm_call_전저)
-                        cm_call_전고_node_list = self.make_node_list(cm_call_전고)                        
-                        cm_call_종가_node_list = self.make_node_list(cm_call_종가)
-                    else:
-                        pass
+                        pass 
+                    '''
 
                     if self.t8416_callworker.isRunning():
 
+                        cm_call_기준가 = df_cm_call['기준가'].values.tolist()
                         cm_call_월저 = df_cm_call['월저'].values.tolist()
                         cm_call_월고 = df_cm_call['월고'].values.tolist()
                         cm_call_전저 = df_cm_call['전저'].values.tolist()
                         cm_call_전고 = df_cm_call['전고'].values.tolist()
                         cm_call_종가 = df_cm_call['종가'].values.tolist()
+                        cm_call_피봇 = df_cm_call['피봇'].values.tolist()
+                        cm_call_시가 = df_cm_call['시가'].values.tolist()
+                        cm_call_저가 = df_cm_call['저가'].values.tolist()
+                        cm_call_고가 = df_cm_call['고가'].values.tolist()
 
                         cm_call_기준가_node_list = self.make_node_list(cm_call_기준가)
                         cm_call_월저_node_list = self.make_node_list(cm_call_월저)
@@ -10176,6 +10177,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         cm_call_전저_node_list = self.make_node_list(cm_call_전저)
                         cm_call_전고_node_list = self.make_node_list(cm_call_전고)
                         cm_call_종가_node_list = self.make_node_list(cm_call_종가)
+                        cm_call_피봇_node_list = self.make_node_list(cm_call_피봇)
+                        cm_call_시가_node_list = self.make_node_list(cm_call_시가)
+                        cm_call_저가_node_list = self.make_node_list(cm_call_저가)
+                        cm_call_고가_node_list = self.make_node_list(cm_call_고가)
 
                         print('Call 과거데이타 수신완료')
 
@@ -10301,6 +10306,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if cm_put_t8416_count == nCount_cm_option_pairs - new_actval_count:
 
+                    '''
                     if today_str != month_firstday:
 
                         cm_put_기준가 = df_cm_put['기준가'].values.tolist()
@@ -10312,18 +10318,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         cm_put_월고_node_list = self.make_node_list(cm_put_월고)
                     else:
                         pass
-
-                    if not overnight:
-
-                        cm_put_전저 = df_cm_put['전저'].values.tolist()
-                        cm_put_전고 = df_cm_put['전고'].values.tolist()
-                        cm_put_종가 = df_cm_put['종가'].values.tolist() 
-
-                        cm_put_전저_node_list = self.make_node_list(cm_put_전저)
-                        cm_put_전고_node_list = self.make_node_list(cm_put_전고)
-                        cm_put_종가_node_list = self.make_node_list(cm_put_종가)
-                    else:
-                        pass
+                    '''
 
                     print('\r')
                     print('t8416 Call 전광판\r')
@@ -10340,11 +10335,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if self.t8416_putworker.isRunning():
 
+                        cm_put_기준가 = df_cm_put['기준가'].values.tolist()
                         cm_put_월저 = df_cm_put['월저'].values.tolist()
                         cm_put_월고 = df_cm_put['월고'].values.tolist()
                         cm_put_전저 = df_cm_put['전저'].values.tolist()
                         cm_put_전고 = df_cm_put['전고'].values.tolist()
                         cm_put_종가 = df_cm_put['종가'].values.tolist()
+                        cm_put_피봇 = df_cm_put['피봇'].values.tolist()
+                        cm_put_시가 = df_cm_put['시가'].values.tolist()
+                        cm_put_저가 = df_cm_put['저가'].values.tolist()
+                        cm_put_고가 = df_cm_put['고가'].values.tolist()
 
                         cm_put_기준가_node_list = self.make_node_list(cm_put_기준가)
                         cm_put_월저_node_list = self.make_node_list(cm_put_월저)
@@ -10352,6 +10352,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         cm_put_전저_node_list = self.make_node_list(cm_put_전저)
                         cm_put_전고_node_list = self.make_node_list(cm_put_전고)
                         cm_put_종가_node_list = self.make_node_list(cm_put_종가)
+                        cm_put_피봇_node_list = self.make_node_list(cm_put_피봇)
+                        cm_put_시가_node_list = self.make_node_list(cm_put_시가)
+                        cm_put_저가_node_list = self.make_node_list(cm_put_저가)
+                        cm_put_고가_node_list = self.make_node_list(cm_put_고가)
 
                         self.t8416_putworker.terminate()
                         
@@ -10405,7 +10409,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] 수정거래량 및 수정미결을 초기화합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
-                        else:                            
+                        else:                      
                             self.call_open_check()
                             self.call_db_check()
 
