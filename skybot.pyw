@@ -3093,8 +3093,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Afternoon! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
 
-        self.XingAdminCheck()      
-    
+        self.XingAdminCheck()
+            
     # Xing 관리자모드 실행 체크함수
     def XingAdminCheck(self):
 
@@ -12039,6 +12039,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         new_oloh = repr(call_ol.count(True)) + '/' + repr(call_oh.count(True))
 
         if new_oloh != self.tableWidget_call.horizontalHeaderItem(2).text():
+
             item = QTableWidgetItem(new_oloh)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setHorizontalHeaderItem(2, item)
@@ -12046,6 +12047,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call OLOH 갱신 !!!\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(str)
+
+            if fut_code == cmshcode:
+
+                txt = '차월물 콜 오엘 {}개, 콜 오에이치 {}개'.format(call_ol.count(True), call_oh.count(True))
+                Speak(txt)
+            else:
+                txt = '콜 오엘 {}개, 콜 오에이치 {}개'.format(call_ol.count(True), call_oh.count(True))
+                Speak(txt)            
         else:
             pass                               
 
@@ -13035,6 +13044,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         new_oloh = repr(put_ol.count(True)) + '/' + repr(put_oh.count(True))
 
         if new_oloh != self.tableWidget_put.horizontalHeaderItem(2).text():
+
             item = QTableWidgetItem(new_oloh)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setHorizontalHeaderItem(2, item)
@@ -13042,6 +13052,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put OLOH 갱신 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
             self.textBrowser.append(str)
+
+            if fut_code == cmshcode:
+
+                txt = '차월물 풋 오엘 {}개, 풋 오에이치 {}개'.format(put_ol.count(True), put_oh.count(True))
+                Speak(txt)
+            else:
+                txt = '풋 오엘 {}개, 풋 오에이치 {}개'.format(put_ol.count(True), put_oh.count(True))
+                Speak(txt)            
         else:
             pass           
 
