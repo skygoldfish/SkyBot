@@ -12050,10 +12050,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if fut_code == cmshcode:
 
-                txt = '차월물 콜 오엘 {}개, 콜 오에이치 {}개'.format(call_ol.count(True), call_oh.count(True))
+                txt = '차월물 콜 오엘 {}개, 오에이치 {}개'.format(call_ol.count(True), call_oh.count(True))
                 Speak(txt)
             else:
-                txt = '콜 오엘 {}개, 콜 오에이치 {}개'.format(call_ol.count(True), call_oh.count(True))
+                txt = '콜 오엘 {}개, 오에이치 {}개'.format(call_ol.count(True), call_oh.count(True))
                 Speak(txt)            
         else:
             pass                               
@@ -13055,10 +13055,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if fut_code == cmshcode:
 
-                txt = '차월물 풋 오엘 {}개, 풋 오에이치 {}개'.format(put_ol.count(True), put_oh.count(True))
+                txt = '차월물 풋 오엘 {}개, 오에이치 {}개'.format(put_ol.count(True), put_oh.count(True))
                 Speak(txt)
             else:
-                txt = '풋 오엘 {}개, 풋 오에이치 {}개'.format(put_ol.count(True), put_oh.count(True))
+                txt = '풋 오엘 {}개, 오에이치 {}개'.format(put_ol.count(True), put_oh.count(True))
                 Speak(txt)            
         else:
             pass           
