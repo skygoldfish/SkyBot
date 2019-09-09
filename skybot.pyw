@@ -12048,13 +12048,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Call OLOH 갱신 !!!\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(str)
 
+            # 차월물에서 OLOH 판단
             if fut_code == cmshcode:
 
-                txt = '차월물 콜 오엘 {}개, 오에이치 {}개'.format(call_ol.count(True), call_oh.count(True))
+                txt = '콜 오엘 {}개, 오에이치 {}개'.format(call_ol.count(True), call_oh.count(True))
                 Speak(txt)
             else:
-                txt = '콜 오엘 {}개, 오에이치 {}개'.format(call_ol.count(True), call_oh.count(True))
-                Speak(txt)            
+                pass           
         else:
             pass                               
 
@@ -13053,13 +13053,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Put OLOH 갱신 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
             self.textBrowser.append(str)
 
+            # 차월물에서 OLOH 판단
             if fut_code == cmshcode:
 
-                txt = '차월물 풋 오엘 {}개, 오에이치 {}개'.format(put_ol.count(True), put_oh.count(True))
+                txt = '풋 오엘 {}개, 오에이치 {}개'.format(put_ol.count(True), put_oh.count(True))
                 Speak(txt)
             else:
-                txt = '풋 오엘 {}개, 오에이치 {}개'.format(put_ol.count(True), put_oh.count(True))
-                Speak(txt)            
+                pass           
         else:
             pass           
 
