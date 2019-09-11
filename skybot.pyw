@@ -2338,13 +2338,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         print('SP500 = %s, DOW = %s, NASDAQ = %s' % (SP500, DOW, NASDAQ))
 
-        month = int(month_info[4:6])        
+        month = int(month_info[4:6])      
 
         if cm_fut_info != '':
             fut_code = cm_fut_info            
-            print('차월물요청...')
+            print('차월물({}월물) 요청...'.format(month+1))
         else:
-            print('근월물요청...')
+            print('근월물({}월물) 요청...'.format(month))
 
         if os.path.exists('SkyBot.exe'):
 
