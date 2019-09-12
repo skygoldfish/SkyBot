@@ -12058,7 +12058,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass 
 
-        new_oloh = repr(call_ol.count(True)) + '/' + repr(call_oh.count(True))
+        new_oloh = repr(call_ol.count(True)) + ':' + repr(call_oh.count(True))
 
         if new_oloh != self.tableWidget_call.horizontalHeaderItem(2).text():
 
@@ -12245,7 +12245,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        new_oloh = repr(call_ol.count(True)) + '/' + repr(call_oh.count(True))
+        new_oloh = repr(call_ol.count(True)) + ':' + repr(call_oh.count(True))
 
         if new_oloh != self.tableWidget_call.horizontalHeaderItem(2).text():
             item = QTableWidgetItem(new_oloh)
@@ -13063,7 +13063,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        new_oloh = repr(put_ol.count(True)) + '/' + repr(put_oh.count(True))
+        new_oloh = repr(put_ol.count(True)) + ':' + repr(put_oh.count(True))
 
         if new_oloh != self.tableWidget_put.horizontalHeaderItem(2).text():
 
@@ -13248,7 +13248,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        new_oloh = repr(put_ol.count(True)) + '/' + repr(put_oh.count(True))
+        new_oloh = repr(put_ol.count(True)) + ':' + repr(put_oh.count(True))
 
         if new_oloh != self.tableWidget_put.horizontalHeaderItem(2).text():
             item = QTableWidgetItem(new_oloh)
