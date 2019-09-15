@@ -87,10 +87,11 @@ UI_DIR = "UI\\"
 # 만기일 야간옵션은 month_info.txt에서 월물 만 변경
 current_month_info = ''
 next_month_info = ''
-month_firstday = '20190809'
+month_firstday = ''
 
 current_month = 0
 next_month = 0
+next_month_select = 'NO'
 
 today = datetime.date.today()
 today_str = today.strftime('%Y%m%d')
@@ -2326,7 +2327,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.parent = parent
 
-        global current_month, next_month
+        global current_month, next_month, next_month_select, month_firstday
         global cm_option_title, current_month_info, next_month_info, SP500, DOW, NASDAQ, fut_code
 
         dt = datetime.datetime.now()
@@ -2336,6 +2337,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         with open('month_info.txt', mode='r') as monthfile:
             current_month_info = monthfile.readline().strip()
+            month_firstday = monthfile.readline().strip() 
             next_month_info = monthfile.readline().strip()
             next_month_select = monthfile.readline().strip()
             SP500 = monthfile.readline().strip()
@@ -7658,6 +7660,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             df = result[0]
 
+            if next_month_select:
+
+                pass
+            else:
+                pass
+
             fut_realdata['현재가'] = df['현재가']
             fut_realdata['KP200'] = df['KOSPI200지수']
 
@@ -7863,6 +7871,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         elif szTrCode == 't2301':
 
             block, df, df1 = result
+
+            if next_month_select:
+
+                pass
+            else:
+                pass
 
             global 옵션잔존일
 
@@ -8889,7 +8903,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif szTrCode == 't2801':
 
-            df = result[0]            
+            df = result[0]  
+
+            if next_month_select:
+
+                pass
+            else:
+                pass          
 
             # 주간 데이타를 가져옴            
             item = QTableWidgetItem("{0:0.2f}".format(df['KOSPI200지수']))
@@ -9109,6 +9129,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         elif szTrCode == 't2835':
 
             block, df, df1 = result
+
+            if next_month_select:
+
+                pass
+            else:
+                pass
 
             if not refresh_flag:
 
@@ -9886,6 +9912,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             block, df = result
 
+            if next_month_select:
+
+                pass
+            else:
+                pass
+
             if block['단축코드'][0:3] == '101':
 
                 print('\r')
@@ -9938,6 +9970,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         elif szTrCode == 't8416':
 
             block, df = result
+
+            if next_month_select:
+
+                pass
+            else:
+                pass
 
             global cm_call_t8416_count, cm_put_t8416_count
             global new_actval_count, actval_increased
