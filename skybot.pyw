@@ -94,6 +94,7 @@ next_month = 0
 next_month_select = 'NO'
 
 today = datetime.date.today()
+now_Month = today.strftime('%Y%m')
 today_str = today.strftime('%Y%m%d')
 today_str_title = today.strftime('%Y-%m-%d')
 
@@ -2333,7 +2334,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         dt = datetime.datetime.now()
         
         nowDate = now.strftime('%Y-%m-%d')
-        current_str = dt.strftime('%H:%M:%S')        
+        current_str = dt.strftime('%H:%M:%S')
 
         with open('month_info.txt', mode='r') as monthfile:
             current_month_info = monthfile.readline().strip()
@@ -10518,12 +10519,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             gmshcode = 근월물선물코드
             cmshcode = 차월물선물코드
 
+            if next_month_select == 'YES': 
+
+                fut_code = cmshcode
+                #print('차월물선물코드 요청', fut_code)
+                str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, next_month, fut_code)
+                self.textBrowser.append(str)
+            else:
+                fut_code = gmshcode
+                #print('근월물선물코드 요청', fut_code)
+                str = '[{0:02d}:{1:02d}:{2:02d}] 근월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month, fut_code)
+                self.textBrowser.append(str)
+
+            '''
             if fut_code == '':
                 fut_code = gmshcode
                 print('근월물선물코드 요청', fut_code)
             else:
                 fut_code = cmshcode
                 print('차월물선물코드 요청', fut_code)
+            '''
 
             fut_realdata['전저'] = df.iloc[0]['전일저가']
             item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일저가']))
@@ -15928,12 +15943,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 옵션 전광판
                 XQ = t2301(parent=self)
-                XQ.Query(월물=current_month_info, 미니구분='G')
+
+                if next_month_select == 'YES':
+                    XQ.Query(월물=next_month_info, 미니구분='G')
+                else:
+                    XQ.Query(월물=current_month_info, 미니구분='G')
 
                 domestic_start_hour = 9
 
                 print('근월물 주간 선물/옵션 실시간요청...')
 
+                '''
                 if next_month_select == 'YES':
 
                     time.sleep(0.5)
@@ -15943,7 +15963,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     print('차월물 주간 선물/옵션 실시간요청...')
                 else:
-                    pass  
+                    pass
+                '''  
                 
                 # 시작시간 X축 표시(index 60은 시가)
                 time_line_fut_start.setValue(해외선물_시간차)
@@ -15953,12 +15974,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 옵션 전광판
                 XQ = t2301(parent=self)
-                XQ.Query(월물=current_month_info, 미니구분='G')
+
+                if next_month_select == 'YES':
+                    XQ.Query(월물=next_month_info, 미니구분='G')
+                else:
+                    XQ.Query(월물=current_month_info, 미니구분='G')
 
                 domestic_start_hour = 18
 
                 print('근월물 야간 선물/옵션 실시간요청...')
 
+                '''
                 if next_month_select == 'YES':
 
                     time.sleep(0.5)
@@ -15968,7 +15994,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     print('차월물 야간 선물/옵션 실시간요청...')
                 else:
-                    pass                
+                    pass     
+                '''           
 
                 # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
                 time_line_fut_start.setValue(1)
