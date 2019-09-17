@@ -15934,7 +15934,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # 주야간 선물/옵션요청 선택(주간=FC0/OC0, 야간=NC0/EC0)
             if 4 < int(current_str[0:2]) < 17:
 
-                if int(current_str[0:2]) == 8 and int(current_str[3:5]) <= 59:
+                if int(current_str[0:2]) == 7 and int(current_str[3:5]) > 10:
+                    pre_start = True
+                elif int(current_str[0:2]) == 8 and int(current_str[3:5]) <= 59:
                     pre_start = True
                 elif 9 <= int(current_str[0:2]) <= 16:
                     service_time_start = True
