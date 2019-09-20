@@ -16197,8 +16197,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.MyLogin()
 
         if _action == "actionLogout":
-            self.connection.logout()
-            self.statusbar.showMessage("로그아웃 되었습니다.")
+            #self.connection.logout()
+            self.connection.disconnect()
+            self.statusbar.showMessage("접속종료 되었습니다.")
 
         # 일별가격정보 백업
         if _action == "actionPriceBackupDay":

@@ -216,7 +216,7 @@
      <normaloff>PNG/로그아웃.png</normaloff>PNG/로그아웃.png</iconset>
    </property>
    <property name="text">
-    <string>로그아웃</string>
+    <string>접속종료</string>
    </property>
    <property name="statusTip">
     <string/>
