@@ -2114,8 +2114,11 @@ class update_worker(QThread):
 
                 if not overnight:
 
-                    df_plotdata_cm_call_oi.iloc[0][opt_x_idx] = df_cm_call['수정미결'].sum() - call_oi_init_value
-                    df_plotdata_cm_put_oi.iloc[0][opt_x_idx] = df_cm_put['수정미결'].sum() - put_oi_init_value
+                    #df_plotdata_cm_call_oi.iloc[0][opt_x_idx] = df_cm_call['수정미결'].sum() - call_oi_init_value
+                    #df_plotdata_cm_put_oi.iloc[0][opt_x_idx] = df_cm_put['수정미결'].sum() - put_oi_init_value
+
+                    df_plotdata_cm_call_oi.iloc[0][opt_x_idx] = df_cm_call['수정미결'].sum()
+                    df_plotdata_cm_put_oi.iloc[0][opt_x_idx] = df_cm_put['수정미결'].sum()
                 else:
                     pass
             else:
@@ -8702,12 +8705,37 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setBackground(QBrush(옅은회색))
             self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
 
+            # kp200 coreval 리스트 만듬
+            atm_str = self.find_ATM(kp200_realdata['종가'])
+            atm_index = opt_actval.index(atm_str)
+
+            if atm_str[-1] == '2' or atm_str[-1] == '7':
+
+                atm_val = float(atm_str) + 0.5
+            else:
+                atm_val = float(atm_str)                     
+
+            # kp200 맥점 10개를 리스트로 만듬
+            global kp200_coreval
+
+            for i in range(6):
+
+                kp200_coreval.append(atm_val - 2.5 * i + 1.25) 
+
+            for i in range(1, 5):
+
+                kp200_coreval.append(atm_val + 2.5 * i + 1.25)
+
+            kp200_coreval.sort()
+            print('t2801 kp200_coreval', kp200_coreval)
+
             if overnight:
 
                 #fut_realdata['KP200'] = df['KOSPI200지수']
                 kp200_realdata['종가'] = df['KOSPI200지수']
 
-                atm_str = self.find_ATM(fut_realdata['KP200'])
+                #atm_str = self.find_ATM(fut_realdata['KP200'])
+                atm_str = self.find_ATM(kp200_realdata['종가'])
 
                 if atm_str[-1] == '2' or atm_str[-1] == '7':
 
@@ -15873,7 +15901,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         file.write(text)
         file.close()      
         
-        self.image_grab()  
+        self.image_grab() 
+
+        global refresh_flag
+
+        refresh_flag = False 
+
+        print('RemoveCode')
+
+    def closeEvent(self,event):
+
+        pass
+        '''
+        result = QMessageBox.question(self,"옵션전광판 종료","정말 종료하시겠습니까 ?", QMessageBox.Yes| QMessageBox.No)
+
+        if result == QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
+        '''
 
 '''
 ########################################################################################################################
