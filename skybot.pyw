@@ -15718,7 +15718,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     int(result['체결시간_한국'][0:2]),
                                     int(result['체결시간_한국'][2:4]),
                                     int(result['체결시간_한국'][4:6]))                                
-                        self.textBrowser.append(str)
+                        #self.textBrowser.append(str)
                     else:
                         pass
             else:
