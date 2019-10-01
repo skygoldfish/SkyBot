@@ -91,7 +91,8 @@ month_firstday = ''
 
 current_month = 0
 next_month = 0
-next_month_select = 'NO'
+next_month_only = 'NO'
+cnm_select = 'NO'
 
 today = datetime.date.today()
 now_Month = today.strftime('%Y%m')
@@ -2331,7 +2332,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.parent = parent
 
-        global current_month, next_month, next_month_select, month_firstday
+        global current_month, next_month, next_month_only, month_firstday, cnm_select
         global cm_option_title, current_month_info, next_month_info, SP500, DOW, NASDAQ, fut_code
 
         dt = datetime.datetime.now()
@@ -2343,7 +2344,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             current_month_info = monthfile.readline().strip()
             month_firstday = monthfile.readline().strip() 
             next_month_info = monthfile.readline().strip()
-            next_month_select = monthfile.readline().strip()
+            next_month_only = monthfile.readline().strip()
+            cnm_select = monthfile.readline().strip()
             SP500 = monthfile.readline().strip()
             DOW = monthfile.readline().strip()
             NASDAQ = monthfile.readline().strip()            
@@ -2361,7 +2363,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if 4 < int(current_str[0:2]) < 17:
 
-            if next_month_select == 'YES':          
+            if next_month_only == 'YES':          
                 print('차월물({}월물) 데이타 요청...'.format(next_month))
                 cm_option_title = repr(next_month) + '월물 주간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
             else:
@@ -2369,7 +2371,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 cm_option_title = repr(current_month) + '월물 주간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
         else:
 
-            if next_month_select == 'YES': 
+            if next_month_only == 'YES': 
                 print('차월물({}월물) 데이타 요청...'.format(next_month))
                 cm_option_title = repr(next_month) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
             else:
@@ -3113,8 +3115,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.XingAdminCheck()
 
-        if next_month_select == 'YES':
-            #fut_code = next_month_select
+        if next_month_only == 'YES':
+            #fut_code = next_month_only
             str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3:02d}월물) 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, next_month)
             self.textBrowser.append(str)
         else:
@@ -7448,7 +7450,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             df = result[0]
 
-            if next_month_select:
+            if cnm_select:
 
                 pass
             else:
@@ -7660,7 +7662,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             block, df, df1 = result
 
-            if next_month_select:
+            if cnm_select:
 
                 pass
             else:
@@ -8693,7 +8695,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             df = result[0]  
 
-            if next_month_select:
+            if cnm_select:
 
                 pass
             else:
@@ -8943,7 +8945,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             block, df, df1 = result
 
-            if next_month_select:
+            if cnm_select:
 
                 pass
             else:
@@ -9725,7 +9727,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             block, df = result
 
-            if next_month_select:
+            if cnm_select:
 
                 pass
             else:
@@ -9784,7 +9786,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             block, df = result
 
-            if next_month_select:
+            if cnm_select:
 
                 pass
             else:
@@ -10331,7 +10333,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             gmshcode = 근월물선물코드
             cmshcode = 차월물선물코드
 
-            if next_month_select == 'YES': 
+            if next_month_only == 'YES': 
 
                 fut_code = cmshcode
                 #print('차월물선물코드 요청', fut_code)
@@ -15761,7 +15763,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 옵션 전광판
                 XQ = t2301(parent=self)
 
-                if next_month_select == 'YES':
+                if next_month_only == 'YES':
                     XQ.Query(월물=next_month_info, 미니구분='G')
                 else:
                     XQ.Query(월물=current_month_info, 미니구분='G')
@@ -15771,7 +15773,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 print('근월물 주간 선물/옵션 실시간요청...')
 
                 '''
-                if next_month_select == 'YES':
+                if next_month_only == 'YES':
 
                     time.sleep(0.5)
 
@@ -15792,7 +15794,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 옵션 전광판
                 XQ = t2301(parent=self)
 
-                if next_month_select == 'YES':
+                if next_month_only == 'YES':
                     XQ.Query(월물=next_month_info, 미니구분='G')
                 else:
                     XQ.Query(월물=current_month_info, 미니구분='G')
@@ -15802,7 +15804,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 print('근월물 야간 선물/옵션 실시간요청...')
 
                 '''
-                if next_month_select == 'YES':
+                if next_month_only == 'YES':
 
                     time.sleep(0.5)
 
