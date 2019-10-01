@@ -2341,16 +2341,40 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         current_str = dt.strftime('%H:%M:%S')
 
         with open('month_info.txt', mode='r') as monthfile:
-            current_month_info = monthfile.readline().strip()
-            month_firstday = monthfile.readline().strip() 
-            next_month_info = monthfile.readline().strip()
-            next_month_only = monthfile.readline().strip()
-            cnm_select = monthfile.readline().strip()
-            SP500 = monthfile.readline().strip()
-            DOW = monthfile.readline().strip()
-            NASDAQ = monthfile.readline().strip()            
+            tmp = monthfile.readline().strip()
+            temp = tmp.split()
+            current_month_info = temp[3]
 
-        print('SP500 = %s, DOW = %s, NASDAQ = %s' % (SP500, DOW, NASDAQ))
+            tmp = monthfile.readline().strip()
+            temp = tmp.split()
+            month_firstday = temp[5]
+
+            tmp = monthfile.readline().strip()
+            temp = tmp.split()
+            next_month_info = temp[3]
+
+            tmp = monthfile.readline().strip()
+            temp = tmp.split()
+            next_month_only = temp[4]
+
+            tmp = monthfile.readline().strip()
+            temp = tmp.split()
+            cnm_select = temp[6]
+
+            tmp = monthfile.readline().strip()
+            temp = tmp.split()
+            SP500 = temp[3]
+
+            tmp = monthfile.readline().strip()
+            temp = tmp.split()
+            DOW = temp[2]
+
+            tmp = monthfile.readline().strip()
+            temp = tmp.split()
+            NASDAQ = temp[2]           
+
+        print('current month = %s, month firstday = %s, next month = %s, next month only = %s, cnm select = %s, SP500 = %s, DOW = %s, NASDAQ = %s' \
+            % (current_month_info, month_firstday, next_month_info, next_month_only, cnm_select, SP500, DOW, NASDAQ))
 
         current_month = int(current_month_info[4:6])
         next_month = int(next_month_info[4:6])

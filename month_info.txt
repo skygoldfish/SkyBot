@@ -1,8 +1,8 @@
-201910
-20190916
-201911
-NO
-NO
-ESZ19
-YMZ19
-NQZ19
+current month = 201910
+current month first day = 20190916
+next month = 201911
+next month only = NO
+current month + next month = NO
+S&P 500 = ESZ19
+DOW = YMZ19
+NASDAQ = NQZ19
