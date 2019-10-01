@@ -15741,7 +15741,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.all_node_set()         
 
-        if self.checkBox_realtime.isChecked():
+        if self.checkBox_next_month.isChecked():
+
+            pass
+        else:
 
             # 주야간 선물/옵션요청 선택(주간=FC0/OC0, 야간=NC0/EC0)
             if 4 < int(current_str[0:2]) < 17:
@@ -15826,13 +15829,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 XQ.Query(종목코드=fut_code)
             else:
                 pass
-        else:
-
-            # 옵션 전광판
-            XQ = t2301(parent=self)
-            XQ.Query(월물=current_month_info, 미니구분='G')
-
-            print('주간 선물/옵션 로그요청...')
 
     def SaveResult(self):
 

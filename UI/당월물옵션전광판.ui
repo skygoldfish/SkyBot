@@ -195,7 +195,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_realtime">
+        <widget class="QCheckBox" name="checkBox_next_month">
          <property name="font">
           <font>
            <family>Consolas</family>
@@ -207,10 +207,7 @@
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="text">
-          <string>RTE</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
+          <string>NM</string>
          </property>
         </widget>
        </item>
