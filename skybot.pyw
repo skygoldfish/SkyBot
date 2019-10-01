@@ -150,7 +150,7 @@ SP500 = ''
 DOW = ''
 NASDAQ = ''
 
-price_threshold = 0.30
+price_threshold = 0.20
 center_val_threshold = 0.60
 
 콜매수 = ''
