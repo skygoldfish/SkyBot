@@ -15597,12 +15597,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     dow_저가 =  result['저가']
                     dow_고가 =  result['고가']
 
-                    진폭 = result['고가'] - result['저가']
+                    진폭 = int(result['고가'] - result['저가'])
+                    체결가격 = int(result['체결가격'])
+                    전일대비 = int(result['전일대비'])
 
-                    if result['체결가격'] != dow_price:
+                    if 체결가격 != dow_price:
                         
                         dow_delta_old = dow_delta
-                        dow_delta = result['체결가격']
+                        dow_delta = 체결가격
                         dow_직전대비.extend([dow_delta - dow_delta_old])
                         temp = list(dow_직전대비)
                         
@@ -15611,7 +15613,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        if result['체결가격'] > dow_price:
+                        if 체결가격 > dow_price:
 
                             if result['전일대비기호'] == '5':
 
@@ -15625,10 +15627,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 if min(temp) > 0:
                                     jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬈". \
-                                    format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'], format(진폭, ','))                                    
+                                    format(format(체결가격, ','), format(-전일대비, ','), result['등락율'], format(진폭, ','))                                    
                                 else:
                                     jisu_str = "DOW: {0} ▲ ({1}, {2:0.2f}%, {3})". \
-                                    format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'], format(진폭, ','))
+                                    format(format(체결가격, ','), format(-전일대비, ','), result['등락율'], format(진폭, ','))
 
                                 self.label_2nd_co.setText(jisu_str)
                                 self.label_2nd_co.setStyleSheet('background-color: pink ; color: blue')
@@ -15646,10 +15648,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 if min(temp) > 0:
                                     jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬈". \
-                                    format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'], format(진폭, ','))                                    
+                                    format(format(체결가격, ','), format(전일대비, ','), result['등락율'], format(진폭, ','))                                    
                                 else:
                                     jisu_str = "DOW: {0} ▲ ({1}, {2:0.2f}%, {3})". \
-                                    format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'], format(진폭, ','))
+                                    format(format(체결가격, ','), format(전일대비, ','), result['등락율'], format(진폭, ','))
 
                                 self.label_2nd_co.setText(jisu_str)
                                 self.label_2nd_co.setStyleSheet('background-color: pink ; color: red')
@@ -15657,7 +15659,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             else:
                                 pass
 
-                        elif result['체결가격'] < dow_price:
+                        elif 체결가격 < dow_price:
 
                             if result['전일대비기호'] == '5':
 
@@ -15671,10 +15673,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 if max(temp) < 0:
                                     jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬊". \
-                                    format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'], format(진폭, ','))                                    
+                                    format(format(체결가격, ','), format(-전일대비, ','), result['등락율'], format(진폭, ','))                                    
                                 else:
                                     jisu_str = "DOW: {0} ▼ ({1}, {2:0.2f}%, {3})". \
-                                    format(format(result['체결가격'], ','), format(-result['전일대비'], ','), result['등락율'], format(진폭, ','))
+                                    format(format(체결가격, ','), format(-전일대비, ','), result['등락율'], format(진폭, ','))
 
                                 self.label_2nd_co.setText(jisu_str)
                                 self.label_2nd_co.setStyleSheet('background-color: lightskyblue ; color: blue')
@@ -15692,10 +15694,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 if max(temp) < 0:
                                     jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬊". \
-                                    format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'], format(진폭, ','))                                    
+                                    format(format(체결가격, ','), format(전일대비, ','), result['등락율'], format(진폭, ','))                                    
                                 else:
                                     jisu_str = "DOW: {0} ▼ ({1}, {2:0.2f}%, {3})". \
-                                    format(format(result['체결가격'], ','), format(result['전일대비'], ','), result['등락율'], format(진폭, ','))
+                                    format(format(체결가격, ','), format(전일대비, ','), result['등락율'], format(진폭, ','))
 
                                 self.label_2nd_co.setText(jisu_str)
                                 self.label_2nd_co.setStyleSheet('background-color: lightskyblue ; color: red')
@@ -15705,7 +15707,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        dow_price = result['체결가격']
+                        dow_price = 체결가격
                     else:
                         pass                    
                 else:
