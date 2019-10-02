@@ -4303,7 +4303,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-            self.check_oneway()
+            self.alternate_flag = not self.alternate_flag 
+
+            self.check_oneway(self.alternate_flag)
             
             self.label_clear()
                         
@@ -4398,7 +4400,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.put_db_update()
                         self.oi_sum_display()                                   
                     
-                    self.alternate_flag = not self.alternate_flag 
+                    #self.alternate_flag = not self.alternate_flag 
 
                     # 진성 의미가인 경우 blinking
                     self.call_coreval_color_blink(self.alternate_flag) 
@@ -4887,7 +4889,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return
 
-    def check_oneway(self):
+    def check_oneway(self, blink):
 
         dt = datetime.datetime.now()
         
@@ -4926,7 +4928,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if call_oi_delta < put_oi_delta \
                     and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0:
 
-                    self.label_msg.setStyleSheet('background-color: blue; color: white')
+                    if blink:
+                        self.label_msg.setStyleSheet('background-color: blue; color: white')
+                    else:
+                        self.label_msg.setStyleSheet('background-color: white; color: blue')
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] ★★★★ 풋 OneWay 가능성 레벨 4...\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
@@ -4953,7 +4958,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if call_oi_delta > put_oi_delta \
                     and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0:
 
-                    self.label_msg.setStyleSheet('background-color: red; color: white')
+                    if blink:
+                        self.label_msg.setStyleSheet('background-color: red; color: white')
+                    else:
+                        self.label_msg.setStyleSheet('background-color: white; color: red')
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] ★★★★ 콜 OneWay 가능성 레벨 4...\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
