@@ -271,6 +271,11 @@ nasdaq_직전대비 = collections.deque([0, 0, 0], 5)
 
 actval_increased = False
 
+call_low_coreval = False
+call_high_coreval = False
+put_low_coreval = False
+put_high_coreval = False
+
 fut_code = ''
 gmshcode = ''
 cmshcode = ''
@@ -4403,8 +4408,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     #self.alternate_flag = not self.alternate_flag 
 
                     # 진성 의미가인 경우 blinking
-                    self.call_coreval_color_blink(self.alternate_flag) 
-                    self.put_coreval_color_blink(self.alternate_flag)      
+                    if call_low_coreval:
+                        self.call_low_coreval_color_blink(self.alternate_flag)
+                    else: 
+                        pass
+
+                    if call_high_coreval:
+                        self.call_high_coreval_color_blink(self.alternate_flag)
+                    else: 
+                        pass
+
+                    if put_low_coreval:
+                        self.put_low_coreval_color_blink(self.alternate_flag)
+                    else:
+                        pass  
+
+                    if put_high_coreval:
+                        self.put_high_coreval_color_blink(self.alternate_flag)
+                    else:
+                        pass      
 
                     '''
                     str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간2 : {3:0.2f} ms...\r'.format(\
@@ -5210,7 +5232,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-    def call_coreval_color_blink(self, blink):
+    def call_low_coreval_color_blink(self, blink):
 
         if call_scroll_end_position <= nCount_cm_option_pairs:            
 
@@ -5234,7 +5256,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
                     else:
-                        pass
+                        pass          
+                else:
+                    pass
+        else:
+            pass
+
+    def call_high_coreval_color_blink(self, blink):
+
+        if call_scroll_end_position <= nCount_cm_option_pairs:            
+
+            for i in range(call_scroll_begin_position, call_scroll_end_position):
+
+                if call_open[i]:
 
                     if df_cm_call.iloc[i]['고가'] in coreval:                        
 
@@ -5260,6 +5294,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def call_coreval_color_update(self):
 
+        global call_low_coreval, call_high_coreval
+
         if call_scroll_end_position <= nCount_cm_option_pairs:            
 
             for i in range(call_scroll_begin_position, call_scroll_end_position):
@@ -5275,6 +5311,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             or df_cm_call.iloc[i]['저가'] == 5.1 or df_cm_call.iloc[i]['저가'] == 5.5 or df_cm_call.iloc[i]['저가'] == 6.85 or df_cm_call.iloc[i]['저가'] == 7.1 \
                                 or df_cm_call.iloc[i]['저가'] == 8.1:
 
+                            call_low_coreval = True
+
                             if fut_code == cmshcode:
 
                                 txt = '차월물 콜 저까 가 {} 입니다'.format(df_cm_call.iloc[i]['저가'])
@@ -5283,7 +5321,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             Speak(txt)
                         else:
-                            pass
+                            call_low_coreval = False
                     else:
                         pass
 
@@ -5296,6 +5334,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             or df_cm_call.iloc[i]['고가'] == 5.1 or df_cm_call.iloc[i]['고가'] == 5.5 or df_cm_call.iloc[i]['고가'] == 6.85 or df_cm_call.iloc[i]['고가'] == 7.1 \
                                 or df_cm_call.iloc[i]['고가'] == 8.1:
 
+                            call_high_coreval = True
+
                             if fut_code == cmshcode:
 
                                 txt = '차월물 콜 고까 가 {} 입니다'.format(df_cm_call.iloc[i]['고가'])
@@ -5304,7 +5344,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             Speak(txt)
                         else:
-                            pass
+                            call_high_coreval = False
                     else:
                         pass
                 else:
@@ -6175,7 +6215,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-    def put_coreval_color_blink(self, blink):
+    def put_low_coreval_color_blink(self, blink):
 
         if put_scroll_end_position <= nCount_cm_option_pairs:            
 
@@ -6199,7 +6239,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
                     else:
-                        pass
+                        pass          
+                else:
+                    pass
+        else:
+            pass
+
+    def put_high_coreval_color_blink(self, blink):
+
+        if put_scroll_end_position <= nCount_cm_option_pairs:            
+
+            for i in range(put_scroll_begin_position, put_scroll_end_position):
+
+                if put_open[i]:
 
                     if df_cm_put.iloc[i]['고가'] in coreval:                        
 
@@ -6221,9 +6273,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
         else:
-            pass      
+            pass            
     
     def put_coreval_color_update(self):
+
+        global put_low_coreval, put_high_coreval
 
         if put_scroll_end_position <= nCount_cm_option_pairs:            
 
@@ -6240,6 +6294,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             or df_cm_put.iloc[i]['저가'] == 5.1 or df_cm_put.iloc[i]['저가'] == 5.5 or df_cm_put.iloc[i]['저가'] == 6.85 or df_cm_put.iloc[i]['저가'] == 7.1 \
                                 or df_cm_put.iloc[i]['저가'] == 8.1:
 
+                            put_low_coreval = True
+
                             if fut_code == cmshcode:
 
                                 txt = '차월물 풋 저까 가 {} 입니다'.format(df_cm_put.iloc[i]['저가'])
@@ -6248,7 +6304,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             Speak(txt)
                         else:
-                            pass
+                            put_low_coreval = False
                     else:
                         pass
 
@@ -6261,6 +6317,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             or df_cm_put.iloc[i]['고가'] == 5.1 or df_cm_put.iloc[i]['고가'] == 5.5 or df_cm_put.iloc[i]['고가'] == 6.85 or df_cm_put.iloc[i]['고가'] == 7.1 \
                                 or df_cm_put.iloc[i]['고가'] == 8.1:
 
+                            put_high_coreval = True
+
                             if fut_code == cmshcode:
 
                                 txt = '차월물 풋 고까 가 {} 입니다'.format(df_cm_put.iloc[i]['고가'])
@@ -6269,7 +6327,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             Speak(txt)
                         else:
-                            pass
+                            put_high_coreval = False
                     else:
                         pass
                 else:
