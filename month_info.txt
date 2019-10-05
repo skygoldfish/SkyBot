@@ -1,5 +1,5 @@
 current month = 201910
-current month first day = 20190916
+first day of the current month = 20190916
 next month = 201911
 next month only = NO
 current month + next month = NO
