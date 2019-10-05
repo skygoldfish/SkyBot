@@ -2447,7 +2447,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.label_kosdaq.setText("KOSDAQ: 가격 (전일대비, 등락율)")
         self.label_kosdaq.setStyleSheet('background-color: black ; color: yellow')
 
-        self.label_1st_co.setText("S&P500: 가격 (전일대비, 등락율)")
+        self.label_1st_co.setText("S&P 500: 가격 (전일대비, 등락율)")
         self.label_1st_co.setStyleSheet('background-color: black ; color: yellow')
         self.label_2nd_co.setText("DOW: 가격 (전일대비, 등락율, 진폭)")
         self.label_2nd_co.setStyleSheet('background-color: black ; color: yellow')
@@ -2580,10 +2580,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_supply.verticalHeader().setStretchLastSection(True)
         self.tableWidget_supply.clearContents()
 
-        self.comboBox1.addItems(['1. FV-Plot', '2. OO-Plot', '3. OV-Plot', '4. HC-Plot', '5. FP-Plot', '6. S&P500', '7. DOW', '8. NASDAQ'])
+        self.comboBox1.addItems(['1. FV-Plot', '2. OO-Plot', '3. OV-Plot', '4. HC-Plot', '5. FP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['1. OO-Plot', '2. OV-Plot', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P500', '7. DOW', '8. NASDAQ'])
+        self.comboBox2.addItems(['1. OO-Plot', '2. OV-Plot', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         self.상태그림 = ['▼', '▲']
@@ -4309,10 +4309,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
 
             self.alternate_flag = not self.alternate_flag 
-
-            self.check_oneway(self.alternate_flag)
             
             self.label_clear()
+
+            self.check_oneway(self.alternate_flag)
                         
             if receive_real_ovc:     
                                 
@@ -4330,22 +4330,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.fut_cv_color_clear()
                     self.call_cv_color_clear()                    
                     self.put_cv_color_clear()
-
-                    '''
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간- : {3:0.2f} ms...\r'.format(\
-                            dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
-                    print(str)                              
-                    '''
-
-                    # 수정미결 갱신
-                    #self.call_oi_update() 
-                    #self.put_oi_update() 
-
-                    '''
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간0 : {3:0.2f} ms...\r'.format(\
-                        dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
-                    print(str)
-                    '''
 
                     if call_max_actval:
 
@@ -4377,12 +4361,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
 
-                    '''
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간1 : {3:0.2f} ms...\r'.format(\
-                        dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
-                    print(str)
-                    '''
-
                     if self.alternate_flag:
                         
                         self.call_oi_update()                  
@@ -4405,8 +4383,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.put_db_update()
                         self.oi_sum_display()                                   
                     
-                    #self.alternate_flag = not self.alternate_flag 
-
                     # 진성 의미가인 경우 blinking
                     if call_low_coreval:
                         self.call_low_coreval_color_blink(self.alternate_flag)
@@ -4427,12 +4403,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.put_high_coreval_color_blink(self.alternate_flag)
                     else:
                         pass      
-
-                    '''
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간2 : {3:0.2f} ms...\r'.format(\
-                        dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
-                    print(str)
-                    '''
 
                     # 시작 1분 이후부터 연산
                     # if opt_x_idx > 해외선물_시간차 + 1:
@@ -4544,23 +4514,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
                     else:
-                        pass
-                        '''
-                        self.call_node_color_clear()
-                        self.put_node_color_clear()
-                        self.call_coreval_color_update()
-                        self.put_coreval_color_update()
-                        '''                
+                        pass                                    
                 else:
-                    pass
-
-                '''
-                str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간3 : {3:0.2f} ms...\r'.format(\
-                    dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
-                print(str)
-                '''
-                
-                #print('해외선물_시간차', 해외선물_시간차, x_idx, opt_x_idx)                             
+                    pass                                          
                 
                 # X축 세로선 데이타처리
                 time_line_fut_start.setValue(해외선물_시간차)
@@ -4769,11 +4725,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass                                                       
             else:
                 pass                                 
-            '''
+            
             str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간 : {3:0.2f} ms...\r'.format(\
                 dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
             print(str)
-            '''
+            
         except:
             pass
 
@@ -8445,7 +8401,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 장운영정보 요청
                 self.JIF.AdviseRealData('0')
 
-                # S&P500, DOW, NASDAQ 요청
+                # S&P 500, DOW, NASDAQ 요청
                 self.OVC.AdviseRealData(종목코드=SP500)
                 self.OVC.AdviseRealData(종목코드=DOW)
                 self.OVC.AdviseRealData(종목코드=NASDAQ)
@@ -10399,7 +10355,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             str = '[{0:02d}:{1:02d}:{2:02d}] Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
                             
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 잔존일은 {3}일 남았습니다.\r'.format(dt.hour, dt.minute, dt.second, 옵션잔존일)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 만기일은 {3}일 남았습니다.\r'.format(dt.hour, dt.minute, dt.second, 옵션잔존일)
                             self.textBrowser.append(str)
 
                             refresh_flag = True
@@ -15563,9 +15519,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 전일대비 = locale.format('%.2f', -result['전일대비'], 1)                                
 
                                 if min(temp) > 0:
-                                    jisu_str = "S&P500: {0} ({1}, {2:0.2f}%)⬈".format(체결가격, 전일대비, result['등락율'])                                    
+                                    jisu_str = "S&P 500: {0} ({1}, {2:0.2f}%)⬈".format(체결가격, 전일대비, result['등락율'])                                    
                                 else:
-                                    jisu_str = "S&P500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
+                                    jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
 
                                 self.label_1st_co.setText(jisu_str)
                                 self.label_1st_co.setStyleSheet('background-color: pink; color: blue')
@@ -15584,9 +15540,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 전일대비 = locale.format('%.2f', result['전일대비'], 1)                                
 
                                 if min(temp) > 0:
-                                    jisu_str = "S&P500: {0} ▲ ({1}, {2:0.2f}%)⬈".format(체결가격, 전일대비, result['등락율'])                                    
+                                    jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)⬈".format(체결가격, 전일대비, result['등락율'])                                    
                                 else:
-                                    jisu_str = "S&P500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
+                                    jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
 
                                 self.label_1st_co.setText(jisu_str)
                                 self.label_1st_co.setStyleSheet('background-color: pink; color: red')
@@ -15611,9 +15567,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 전일대비 = locale.format('%.2f', -result['전일대비'], 1)                                
 
                                 if max(temp) < 0:
-                                    jisu_str = "S&P500: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, 전일대비, result['등락율'])                                    
+                                    jisu_str = "S&P 500: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, 전일대비, result['등락율'])                                    
                                 else:
-                                    jisu_str = "S&P500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
+                                    jisu_str = "S&P 500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
 
                                 self.label_1st_co.setText(jisu_str)
                                 self.label_1st_co.setStyleSheet('background-color: lightskyblue; color: blue')
@@ -15632,9 +15588,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 전일대비 = locale.format('%.2f', result['전일대비'], 1)
                                 
                                 if max(temp) < 0:
-                                    jisu_str = "S&P500: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, 전일대비, result['등락율'])                                    
+                                    jisu_str = "S&P 500: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, 전일대비, result['등락율'])                                    
                                 else:
-                                    jisu_str = "S&P500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
+                                    jisu_str = "S&P 500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
 
                                 self.label_1st_co.setText(jisu_str)
                                 self.label_1st_co.setStyleSheet('background-color: lightskyblue; color: red')
@@ -15782,7 +15738,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if nasdaq_text_color != '':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] S&P500, DOW, NASDAQ의 극성이 상이합니다... \r'.format(
+                        str = '[{0:02d}:{1:02d}:{2:02d}] S&P 500, DOW, NASDAQ의 극성이 상이합니다... \r'.format(
                                     int(result['체결시간_한국'][0:2]),
                                     int(result['체결시간_한국'][2:4]),
                                     int(result['체결시간_한국'][4:6]))                                
