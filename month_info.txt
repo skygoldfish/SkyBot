@@ -1,6 +1,6 @@
-current month = 201910
-first day of the current month = 20190916
-next month = 201911
+current month = 201911
+first day of the current month = 20191011
+next month = 201912
 next month only = NO
 current month + next month = NO
 S&P 500 = ESZ19
