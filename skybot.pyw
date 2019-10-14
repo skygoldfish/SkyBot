@@ -8720,7 +8720,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     '''
                     # EUREX 야간옵션 시세전광판
                     XQ = t2835(parent=self)
-                    XQ.Query(월물=current_month_info)
+
+                    if next_month_only == 'YES':
+                        XQ.Query(월물=next_month_info)
+                    else:
+                        XQ.Query(월물=current_month_info)
             
             self.tableWidget_call.resizeColumnsToContents()
             self.tableWidget_put.resizeColumnsToContents()
@@ -8978,6 +8982,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         elif szTrCode == 't2835':
 
             block, df, df1 = result
+
+            print('t2835 block', block)
+            print('t2835 df', df)
+            print('t2835 df1', df1)
 
             if cnm_select:
 
@@ -10275,10 +10283,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         # EUREX 야간옵션 시세전광판
                         XQ = t2835(parent=self)
-                        XQ.Query(월물=current_month_info)
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] EUREX 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
+                        if next_month_only == 'YES':
+                            XQ.Query(월물=next_month_info)
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] EUREX 차월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            self.textBrowser.append(str)
+                        else:
+                            XQ.Query(월물=current_month_info)
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] EUREX 근월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            self.textBrowser.append(str)                        
                     else:
                         if pre_start:
 
