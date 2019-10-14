@@ -8983,10 +8983,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             block, df, df1 = result
 
-            print('t2835 block', block)
-            print('t2835 df', df)
-            print('t2835 df1', df1)
-
             if cnm_select:
 
                 pass
