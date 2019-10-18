@@ -8489,6 +8489,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         # 콜 데이타 획득
                         현재가 = df['현재가'][i]
 
+                        df_cm_call.loc[i, '현재가'] = 현재가
+
+                        item = QTableWidgetItem("{0:0.2f}".format(현재가))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(i, Option_column.현재가.value, item)
+
                         if df['전일대비구분'][i] == '2':
 
                             종가 = round((현재가 - df['전일대비'][i]), 2)
@@ -8566,6 +8572,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         # 풋 데이타 획득
                         현재가 = df1['현재가'][i]
+
+                        df_cm_put.loc[i, '현재가'] = 현재가
+
+                        item = QTableWidgetItem("{0:0.2f}".format(현재가))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(i, Option_column.현재가.value, item)
 
                         if df1['전일대비구분'][i] == '2':
 
