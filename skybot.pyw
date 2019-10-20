@@ -9574,6 +9574,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         시가갭 = 0
                         df_cm_call.loc[i, '시가갭'] = 시가갭
+
+                    현재가 = df['현재가'][i]
+                    df_cm_call.loc[i, '현재가'] = 현재가
+
+                    item = QTableWidgetItem("{0:0.2f}".format(현재가))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(i, Option_column.현재가.value, item)
+
                     '''
                     if df['현재가'][i] <= 시가갭:
 
@@ -9584,6 +9592,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     df_cm_call.loc[i, '수정거래량'] = 수정거래량                   
                     '''
+
                     저가 = df['저가'][i]
                     df_cm_call.loc[i, '저가'] = df['저가'][i]
 
@@ -9622,6 +9631,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         시가갭 = 0
                         df_cm_put.loc[i, '시가갭'] = 시가갭
+
+                    현재가 = df1['현재가'][i]
+                    df_cm_put.loc[i, '현재가'] = 현재가
+
+                    item = QTableWidgetItem("{0:0.2f}".format(현재가))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(i, Option_column.현재가.value, item)
+
                     '''
                     if df1['현재가'][i] <= 시가갭:
 
@@ -9632,6 +9649,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     df_cm_put.loc[i, '수정거래량'] = 수정거래량                     
                     '''
+                    
                     저가 = df1['저가'][i]
                     df_cm_put.loc[i, '저가'] = df1['저가'][i]
 
