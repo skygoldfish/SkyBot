@@ -5244,7 +5244,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global call_low_coreval, call_high_coreval
 
-        if call_scroll_end_position <= nCount_cm_option_pairs:            
+        if call_scroll_end_position <= nCount_cm_option_pairs: 
+
+            call_low_coreval = False
+            call_high_coreval = False           
 
             for i in range(call_scroll_begin_position, call_scroll_end_position):
 
@@ -5270,7 +5273,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             Speak(txt)
                             '''
                         else:
-                            call_low_coreval = False
+                            #call_low_coreval = False
+                            pass
                     else:
                         pass
 
@@ -5294,7 +5298,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             Speak(txt)
                             '''
                         else:
-                            call_high_coreval = False
+                            #call_high_coreval = False
+                            pass
                     else:
                         pass
                 else:
@@ -6221,7 +6226,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global put_low_coreval, put_high_coreval
 
-        if put_scroll_end_position <= nCount_cm_option_pairs:            
+        if put_scroll_end_position <= nCount_cm_option_pairs:  
+
+            put_low_coreval = False
+            put_high_coreval = False          
 
             for i in range(put_scroll_begin_position, put_scroll_end_position):
 
@@ -6247,7 +6255,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             Speak(txt)
                             '''
                         else:
-                            put_low_coreval = False
+                            #put_low_coreval = False
+                            pass
                     else:
                         pass
 
@@ -6271,7 +6280,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             Speak(txt)
                             '''
                         else:
-                            put_high_coreval = False
+                            #put_high_coreval = False
+                            pass
                     else:
                         pass
                 else:
