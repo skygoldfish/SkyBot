@@ -11955,7 +11955,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if fut_code == cmshcode:
 
                 txt = '차월물 콜 오엘 {}개, 오에이치 {}개'.format(call_ol.count(True), call_oh.count(True))
-                Speak(txt)
+                #Speak(txt)
             else:
                 pass           
         else:
@@ -12889,7 +12889,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if fut_code == cmshcode:
 
                 txt = '차월물 풋 오엘 {}개, 오에이치 {}개'.format(put_ol.count(True), put_oh.count(True))
-                Speak(txt)
+                #Speak(txt)
             else:
                 pass           
         else:
@@ -15684,7 +15684,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(str)
 
-            Speak("전광판을 갱신합니다.")
+            #Speak("전광판을 갱신합니다.")
 
             self.all_node_set()         
 
