@@ -11878,13 +11878,32 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def check_call_oloh(self, index):
 
-        global call_ol, call_oh
+        global call_ol, call_oh        
 
         if df_cm_call.iloc[index]['시가'] >= price_threshold:
 
+            if df_cm_call.iloc[index]['시가'] < 1.0:
+
+                oloh_threshold = 1
+
+            elif df_cm_call.iloc[index]['시가'] >= 1.0 and df_cm_call.iloc[index]['시가'] < 2.0:
+
+                oloh_threshold = 2
+
+            elif df_cm_call.iloc[index]['시가'] >= 2.0 and df_cm_call.iloc[index]['시가'] < 3.0:
+
+                oloh_threshold = 3
+
+            elif df_cm_call.iloc[index]['시가'] >= 3.0 and df_cm_call.iloc[index]['시가'] < 4.0:
+
+                oloh_threshold = 4
+
+            else:
+                oloh_threshold = 5   
+
             # call OL/OH count
-            if self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['저가'], 2) \
-                    and not self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['고가'], 2):
+            if self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['저가'], oloh_threshold) \
+                    and not self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['고가'], oloh_threshold):
 
                 oloh_str = '▲'
 
@@ -11896,8 +11915,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 call_ol[index] = True
 
-            elif self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['고가'], 2) \
-                    and not self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['저가'], 2):
+            elif self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['고가'], oloh_threshold) \
+                    and not self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['저가'], oloh_threshold):
 
                 oloh_str = '▼'
 
@@ -12062,9 +12081,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if df_cm_call.iloc[index]['시가'] >= price_threshold:
 
+                    if df_cm_call.iloc[index]['시가'] < 1.0:
+
+                        oloh_threshold = 1
+
+                    elif df_cm_call.iloc[index]['시가'] >= 1.0 and df_cm_call.iloc[index]['시가'] < 2.0:
+
+                        oloh_threshold = 2
+
+                    elif df_cm_call.iloc[index]['시가'] >= 2.0 and df_cm_call.iloc[index]['시가'] < 3.0:
+
+                        oloh_threshold = 3
+
+                    elif df_cm_call.iloc[index]['시가'] >= 3.0 and df_cm_call.iloc[index]['시가'] < 4.0:
+
+                        oloh_threshold = 4
+
+                    else:
+                        oloh_threshold = 5   
+
                     # call OL/OH count
-                    if self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['저가'], 2) \
-                            and not self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['고가'], 2):
+                    if self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['저가'], oloh_threshold) \
+                            and not self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['고가'], oloh_threshold):
 
                         oloh_str = '▲'
 
@@ -12079,8 +12117,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         call_ol[index] = True
 
-                    elif self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['고가'], 2) \
-                            and not self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['저가'], 2):
+                    elif self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['고가'], oloh_threshold) \
+                            and not self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['저가'], oloh_threshold):
 
                         oloh_str = '▼'
 
@@ -12812,13 +12850,32 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def check_put_oloh(self, index):
 
-        global put_ol, put_oh
+        global put_ol, put_oh        
 
-        if df_cm_put.iloc[index]['시가'] >= price_threshold:
+        if df_cm_put.iloc[index]['시가'] >= oloh_threshold:
+
+            if df_cm_put.iloc[index]['시가'] < 1.0:
+
+                oloh_threshold = 1
+
+            elif df_cm_put.iloc[index]['시가'] >= 1.0 and df_cm_put.iloc[index]['시가'] < 2.0:
+
+                oloh_threshold = 2
+
+            elif df_cm_put.iloc[index]['시가'] >= 2.0 and df_cm_put.iloc[index]['시가'] < 3.0:
+
+                oloh_threshold = 3
+
+            elif df_cm_put.iloc[index]['시가'] >= 3.0 and df_cm_put.iloc[index]['시가'] < 4.0:
+
+                oloh_threshold = 4
+
+            else:
+                oloh_threshold = 5   
 
             # put OL/OH count
-            if self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['저가'], 2) \
-                    and not self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['고가'], 2):
+            if self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['저가'], oloh_threshold) \
+                    and not self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['고가'], oloh_threshold):
 
                 oloh_str = '▲'
 
@@ -12830,8 +12887,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 put_ol[index] = True
 
-            elif self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['고가'], 2) \
-                    and not self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['저가'], 2):
+            elif self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['고가'], oloh_threshold) \
+                    and not self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['저가'], oloh_threshold):
 
                 oloh_str = '▼'
 
@@ -12994,9 +13051,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if df_cm_put.iloc[index]['시가'] >= price_threshold:
 
+                    if df_cm_put.iloc[index]['시가'] < 1.0:
+
+                        oloh_threshold = 1
+
+                    elif df_cm_put.iloc[index]['시가'] >= 1.0 and df_cm_put.iloc[index]['시가'] < 2.0:
+
+                        oloh_threshold = 2
+
+                    elif df_cm_put.iloc[index]['시가'] >= 2.0 and df_cm_put.iloc[index]['시가'] < 3.0:
+
+                        oloh_threshold = 3
+
+                    elif df_cm_put.iloc[index]['시가'] >= 3.0 and df_cm_put.iloc[index]['시가'] < 4.0:
+
+                        oloh_threshold = 4
+
+                    else:
+                        oloh_threshold = 5   
+
                     # put OL/OH count
-                    if self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['저가'], 2) \
-                            and not self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['고가'], 2):
+                    if self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['저가'], oloh_threshold) \
+                            and not self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['고가'], oloh_threshold):
 
                         oloh_str = '▲'
 
@@ -13011,8 +13087,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         put_ol[index] = True
 
-                    elif self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['고가'], 2) \
-                            and not self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['저가'], 2):
+                    elif self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['고가'], oloh_threshold) \
+                            and not self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['저가'], oloh_threshold):
 
                         oloh_str = '▼'
 
