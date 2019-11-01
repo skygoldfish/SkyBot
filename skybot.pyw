@@ -11472,7 +11472,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if  float(self.tableWidget_call.item(index, Option_column.저가.value).text()) > float(현재가):
+                if float(self.tableWidget_call.item(index, Option_column.저가.value).text()) > float(현재가):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 콜 저가갱신 문제발생 !!!\r'.format(int(result['체결시간'][0:2]), \
                         int(result['체결시간'][2:4]), int(result['체결시간'][4:6]))
@@ -11521,7 +11521,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if  float(self.tableWidget_call.item(index, Option_column.고가.value).text()) < float(현재가):
+                if float(self.tableWidget_call.item(index, Option_column.고가.value).text()) < float(현재가):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 콜 고가갱신 문제발생 !!!\r'.format(int(result['체결시간'][0:2]), \
                         int(result['체결시간'][2:4]), int(result['체결시간'][4:6]))
@@ -12485,7 +12485,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if  float(self.tableWidget_put.item(index, Option_column.저가.value).text()) > float(현재가):
+                if float(self.tableWidget_put.item(index, Option_column.저가.value).text()) > float(현재가):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 풋 저가갱신 문제발생 !!!\r'.format(int(result['체결시간'][0:2]), \
                         int(result['체결시간'][2:4]), int(result['체결시간'][4:6]))
@@ -12534,7 +12534,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if  float(self.tableWidget_put.item(index, Option_column.고가.value).text()) < float(현재가):
+                if float(self.tableWidget_put.item(index, Option_column.고가.value).text()) < float(현재가):
                     
                     str = '[{0:02d}:{1:02d}:{2:02d}] 풋 고가갱신 문제발생 !!!\r'.format(int(result['체결시간'][0:2]), \
                         int(result['체결시간'][2:4]), int(result['체결시간'][4:6]))
