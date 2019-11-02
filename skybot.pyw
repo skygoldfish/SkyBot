@@ -11453,7 +11453,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     '''
                     item = QTableWidgetItem(저가)
                     item.setTextAlignment(Qt.AlignCenter)             
-                    self.tableWidget_call.setItem(index, Option_column.저가.value, item)                    
+                    self.tableWidget_call.setItem(index, Option_column.저가.value, item)
+                    
+                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(index, Option_column.진폭.value, item)                    
 
                     df_cm_call.loc[index, '저가'] = round(float(저가), 2)
 
@@ -11465,10 +11469,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 저가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
                         int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 저가)
                     self.textBrowser.append(str)
-
-                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
                 else:
                     pass
 
@@ -11503,6 +11503,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(고가)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(index, Option_column.고가.value, item)
+                    
+                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
 
                     df_cm_call.loc[index, '고가'] = round(float(고가), 2)
 
@@ -11514,10 +11518,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 고가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
                         int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 고가)
                     self.textBrowser.append(str)
-
-                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
                 else:
                     pass
 
@@ -12467,6 +12467,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(저가)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.저가.value, item)
+                    
+                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
                     df_cm_put.loc[index, '저가'] = round(float(저가), 2)
 
@@ -12478,10 +12482,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 저가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
                         int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 저가)
                     self.textBrowser.append(str)
-
-                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
                 else:
                     pass
 
@@ -12516,6 +12516,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(고가)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.고가.value, item)
+                    
+                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
                     df_cm_put.loc[index, '고가'] = round(float(고가), 2)
 
@@ -12527,10 +12531,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 고가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
                         int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 고가)
                     self.textBrowser.append(str)
-
-                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
                 else:
                     pass
 
