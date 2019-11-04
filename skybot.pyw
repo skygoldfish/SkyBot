@@ -334,7 +334,7 @@ start_time1 = 0
 count = 0
 global_blink = True
 
-의미가 = [1.20, 2.50, 3.50, 4.85, 5.10, 5.50, 6.85, 7.10, 8.10]
+진성의미가 = [1.20, 2.50, 3.50, 4.85, 5.10, 5.50, 6.85, 7.10, 8.10]
 coreval = []
 kp200_coreval = []
 
@@ -3070,21 +3070,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         list_high4 = []
         list_high5 = []
 
-        for i in range(len(의미가)):
+        for i in range(len(진성의미가)):
 
-            list_low5.append(round(의미가[i] - 0.05, 2))
-            list_low4.append(round(의미가[i] - 0.04, 2))
-            list_low3.append(round(의미가[i] - 0.03, 2))
-            list_low2.append(round(의미가[i] - 0.02, 2))
-            list_low1.append(round(의미가[i] - 0.01, 2))
+            list_low5.append(round(진성의미가[i] - 0.05, 2))
+            list_low4.append(round(진성의미가[i] - 0.04, 2))
+            list_low3.append(round(진성의미가[i] - 0.03, 2))
+            list_low2.append(round(진성의미가[i] - 0.02, 2))
+            list_low1.append(round(진성의미가[i] - 0.01, 2))
 
-            list_high1.append(round(의미가[i] + 0.01, 2))
-            list_high2.append(round(의미가[i] + 0.02, 2))
-            list_high3.append(round(의미가[i] + 0.03, 2))
-            list_high4.append(round(의미가[i] + 0.04, 2))
-            list_high5.append(round(의미가[i] + 0.05, 2))
+            list_high1.append(round(진성의미가[i] + 0.01, 2))
+            list_high2.append(round(진성의미가[i] + 0.02, 2))
+            list_high3.append(round(진성의미가[i] + 0.03, 2))
+            list_high4.append(round(진성의미가[i] + 0.04, 2))
+            list_high5.append(round(진성의미가[i] + 0.05, 2))
 
-        coreval = 의미가 + list_low1 + list_low2 + list_low3 + list_low4 + list_low5 + list_high1 + list_high2 + list_high3 + list_high4 + list_high5
+        coreval = 진성의미가 + list_low1 + list_low2 + list_low3 + list_low4 + list_low5 + list_high1 + list_high2 + list_high3 + list_high4 + list_high5
         coreval.sort()
 
         # 컬럼 헤더 click시 Event 처리용.
@@ -5196,7 +5196,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if call_open[i]:
 
-                    if df_cm_call.iloc[i]['저가'] in 의미가:
+                    if df_cm_call.iloc[i]['저가'] in 진성의미가:
 
                         if blink:
 
@@ -5220,7 +5220,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if call_open[i]:
 
-                    if df_cm_call.iloc[i]['고가'] in 의미가:
+                    if df_cm_call.iloc[i]['고가'] in 진성의미가:
 
                         if blink:
 
@@ -5249,7 +5249,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if call_open[i]:
 
-                    if df_cm_call.iloc[i]['시가'] in 의미가:
+                    if df_cm_call.iloc[i]['시가'] in 진성의미가:
 
                         self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                         self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -5261,7 +5261,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                         self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
 
-                        if df_cm_call.iloc[i]['저가'] in 의미가:
+                        if df_cm_call.iloc[i]['저가'] in 진성의미가:
 
                             call_low_coreval = True
                             '''
@@ -5284,7 +5284,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                         self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
 
-                        if df_cm_call.iloc[i]['고가'] in 의미가:
+                        if df_cm_call.iloc[i]['고가'] in 진성의미가:
 
                             call_high_coreval = True
                             '''
@@ -6177,7 +6177,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if put_open[i]:
 
-                    if df_cm_put.iloc[i]['저가'] in 의미가:
+                    if df_cm_put.iloc[i]['저가'] in 진성의미가:
 
                         if blink:
 
@@ -6201,7 +6201,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if put_open[i]:
 
-                    if df_cm_put.iloc[i]['고가'] in 의미가:
+                    if df_cm_put.iloc[i]['고가'] in 진성의미가:
 
                         if blink:
 
@@ -6230,7 +6230,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if put_open[i]:
 
-                    if df_cm_put.iloc[i]['시가'] in 의미가:
+                    if df_cm_put.iloc[i]['시가'] in 진성의미가:
 
                         self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                         self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -6242,7 +6242,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                         self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
 
-                        if df_cm_put.iloc[i]['저가'] in 의미가:
+                        if df_cm_put.iloc[i]['저가'] in 진성의미가:
 
                             put_low_coreval = True
                             '''
@@ -6265,7 +6265,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                         self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
 
-                        if df_cm_put.iloc[i]['고가'] in 의미가:
+                        if df_cm_put.iloc[i]['고가'] in 진성의미가:
 
                             put_high_coreval = True
                             '''
