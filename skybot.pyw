@@ -5196,9 +5196,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if call_open[i]:
 
-                    if df_cm_call.iloc[i]['저가'] == 1.2 or df_cm_call.iloc[i]['저가'] == 2.5 or df_cm_call.iloc[i]['저가'] == 3.5 or df_cm_call.iloc[i]['저가'] == 4.85 \
-                        or df_cm_call.iloc[i]['저가'] == 5.1 or df_cm_call.iloc[i]['저가'] == 5.5 or df_cm_call.iloc[i]['저가'] == 6.85 or df_cm_call.iloc[i]['저가'] == 7.1 \
-                            or df_cm_call.iloc[i]['저가'] == 8.1:
+                    if df_cm_call.iloc[i]['저가'] in 의미가:
 
                         if blink:
 
@@ -5222,9 +5220,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if call_open[i]:
 
-                    if df_cm_call.iloc[i]['고가'] == 1.2 or df_cm_call.iloc[i]['고가'] == 2.5 or df_cm_call.iloc[i]['고가'] == 3.5 or df_cm_call.iloc[i]['고가'] == 4.85 \
-                        or df_cm_call.iloc[i]['고가'] == 5.1 or df_cm_call.iloc[i]['고가'] == 5.5 or df_cm_call.iloc[i]['고가'] == 6.85 or df_cm_call.iloc[i]['고가'] == 7.1 \
-                            or df_cm_call.iloc[i]['고가'] == 8.1:
+                    if df_cm_call.iloc[i]['고가'] in 의미가:
 
                         if blink:
 
@@ -5253,14 +5249,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if call_open[i]:
 
+                    if df_cm_call.iloc[i]['시가'] in 의미가:
+
+                        self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                        self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+                    else:
+                        pass
+
                     if df_cm_call.iloc[i]['저가'] in coreval:
 
                         self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                         self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
 
-                        if df_cm_call.iloc[i]['저가'] == 1.2 or df_cm_call.iloc[i]['저가'] == 2.5 or df_cm_call.iloc[i]['저가'] == 3.5 or df_cm_call.iloc[i]['저가'] == 4.85 \
-                            or df_cm_call.iloc[i]['저가'] == 5.1 or df_cm_call.iloc[i]['저가'] == 5.5 or df_cm_call.iloc[i]['저가'] == 6.85 or df_cm_call.iloc[i]['저가'] == 7.1 \
-                                or df_cm_call.iloc[i]['저가'] == 8.1:
+                        if df_cm_call.iloc[i]['저가'] in 의미가:
 
                             call_low_coreval = True
                             '''
@@ -5283,9 +5284,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                         self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
 
-                        if df_cm_call.iloc[i]['고가'] == 1.2 or df_cm_call.iloc[i]['고가'] == 2.5 or df_cm_call.iloc[i]['고가'] == 3.5 or df_cm_call.iloc[i]['고가'] == 4.85 \
-                            or df_cm_call.iloc[i]['고가'] == 5.1 or df_cm_call.iloc[i]['고가'] == 5.5 or df_cm_call.iloc[i]['고가'] == 6.85 or df_cm_call.iloc[i]['고가'] == 7.1 \
-                                or df_cm_call.iloc[i]['고가'] == 8.1:
+                        if df_cm_call.iloc[i]['고가'] in 의미가:
 
                             call_high_coreval = True
                             '''
@@ -6178,9 +6177,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if put_open[i]:
 
-                    if df_cm_put.iloc[i]['저가'] == 1.2 or df_cm_put.iloc[i]['저가'] == 2.5 or df_cm_put.iloc[i]['저가'] == 3.5 or df_cm_put.iloc[i]['저가'] == 4.85 \
-                        or df_cm_put.iloc[i]['저가'] == 5.1 or df_cm_put.iloc[i]['저가'] == 5.5 or df_cm_put.iloc[i]['저가'] == 6.85 or df_cm_put.iloc[i]['저가'] == 7.1 \
-                            or df_cm_put.iloc[i]['저가'] == 8.1:
+                    if df_cm_put.iloc[i]['저가'] in 의미가:
 
                         if blink:
 
@@ -6204,9 +6201,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if put_open[i]:
 
-                    if df_cm_put.iloc[i]['고가'] == 1.2 or df_cm_put.iloc[i]['고가'] == 2.5 or df_cm_put.iloc[i]['고가'] == 3.5 or df_cm_put.iloc[i]['고가'] == 4.85 \
-                        or df_cm_put.iloc[i]['고가'] == 5.1 or df_cm_put.iloc[i]['고가'] == 5.5 or df_cm_put.iloc[i]['고가'] == 6.85 or df_cm_put.iloc[i]['고가'] == 7.1 \
-                            or df_cm_put.iloc[i]['고가'] == 8.1:
+                    if df_cm_put.iloc[i]['고가'] in 의미가:
 
                         if blink:
 
@@ -6235,14 +6230,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if put_open[i]:
 
+                    if df_cm_put.iloc[i]['시가'] in 의미가:
+
+                        self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                        self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+                    else:
+                        pass
+
                     if df_cm_put.iloc[i]['저가'] in coreval:
 
                         self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                         self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
 
-                        if df_cm_put.iloc[i]['저가'] == 1.2 or df_cm_put.iloc[i]['저가'] == 2.5 or df_cm_put.iloc[i]['저가'] == 3.5 or df_cm_put.iloc[i]['저가'] == 4.85 \
-                            or df_cm_put.iloc[i]['저가'] == 5.1 or df_cm_put.iloc[i]['저가'] == 5.5 or df_cm_put.iloc[i]['저가'] == 6.85 or df_cm_put.iloc[i]['저가'] == 7.1 \
-                                or df_cm_put.iloc[i]['저가'] == 8.1:
+                        if df_cm_put.iloc[i]['저가'] in 의미가:
 
                             put_low_coreval = True
                             '''
@@ -6265,9 +6265,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                         self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
 
-                        if df_cm_put.iloc[i]['고가'] == 1.2 or df_cm_put.iloc[i]['고가'] == 2.5 or df_cm_put.iloc[i]['고가'] == 3.5 or df_cm_put.iloc[i]['고가'] == 4.85 \
-                            or df_cm_put.iloc[i]['고가'] == 5.1 or df_cm_put.iloc[i]['고가'] == 5.5 or df_cm_put.iloc[i]['고가'] == 6.85 or df_cm_put.iloc[i]['고가'] == 7.1 \
-                                or df_cm_put.iloc[i]['고가'] == 8.1:
+                        if df_cm_put.iloc[i]['고가'] in 의미가:
 
                             put_high_coreval = True
                             '''
