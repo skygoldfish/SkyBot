@@ -12942,7 +12942,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global put_ol, put_oh        
 
-        if df_cm_put.iloc[index]['시가'] >= oloh_threshold:
+        if df_cm_put.iloc[index]['시가'] >= price_threshold:
 
             if df_cm_put.iloc[index]['시가'] < 1.0:
 
