@@ -11454,17 +11454,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(저가)
                     item.setTextAlignment(Qt.AlignCenter)             
                     self.tableWidget_call.setItem(index, Option_column.저가.value, item)
+                    
+                    df_cm_call.loc[index, '저가'] = round(float(저가), 2)
+                    
+                    self.check_call_oloh(index)
                                         
                     item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(index, Option_column.진폭.value, item)                    
 
-                    df_cm_call.loc[index, '저가'] = round(float(저가), 2)
-
                     cm_call_저가 = df_cm_call['저가'].values.tolist()
                     cm_call_저가_node_list = self.make_node_list(cm_call_저가)
                     
-                    self.check_call_oloh(index)
                     '''
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 저가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
                         int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 저가)
@@ -11504,17 +11505,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(고가)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(index, Option_column.고가.value, item)
+                    
+                    df_cm_call.loc[index, '고가'] = round(float(고가), 2)
+                    
+                    self.check_call_oloh(index)
                                         
                     item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
 
-                    df_cm_call.loc[index, '고가'] = round(float(고가), 2)
-
                     cm_call_고가 = df_cm_call['고가'].values.tolist()
                     cm_call_고가_node_list = self.make_node_list(cm_call_고가)
                     
-                    self.check_call_oloh(index)
                     '''
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 고가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
                         int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 고가)
@@ -12469,17 +12471,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(저가)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.저가.value, item)
+                    
+                    df_cm_put.loc[index, '저가'] = round(float(저가), 2)
+                    
+                    self.check_put_oloh(index)
                                         
                     item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
-                    df_cm_put.loc[index, '저가'] = round(float(저가), 2)
-
                     cm_put_저가 = df_cm_put['저가'].values.tolist()
                     cm_put_저가_node_list = self.make_node_list(cm_put_저가)
                     
-                    self.check_put_oloh(index)
                     '''
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 저가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
                         int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 저가)
@@ -12519,17 +12522,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(고가)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.고가.value, item)
+                    
+                    df_cm_put.loc[index, '고가'] = round(float(고가), 2)
+                    
+                    self.check_put_oloh(index)
                                         
                     item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
-                    df_cm_put.loc[index, '고가'] = round(float(고가), 2)
-
                     cm_put_고가 = df_cm_put['고가'].values.tolist()
                     cm_put_고가_node_list = self.make_node_list(cm_put_고가)
                     
-                    self.check_put_oloh(index)
                     '''
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 고가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
                         int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 고가)
