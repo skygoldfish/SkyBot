@@ -9874,6 +9874,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
             self.label_msg.setText(str)
 
+            if new_actval_count == 0:
+
+                item_str = '{0:d}'.format(nCount_cm_option_pairs)
+                item = QTableWidgetItem(item_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setHorizontalHeaderItem(0, item)
+
+                item_str = '{0:d}'.format(nCount_cm_option_pairs)
+                item = QTableWidgetItem(item_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setHorizontalHeaderItem(0, item) 
+            else:
+                pass
+
             if block['단축코드'] == '':
 
                 actval_increased = True                
@@ -9888,12 +9902,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     new_actval_count += 1 
 
                     # 추가된 행사가 갯수 표시
-                    item_str = '{0:+02d}'.format(new_actval_count)
+                    item_str = '{0:d}'.format(new_actval_count) + '\n' + '({0:d})'.format(nCount_cm_option_pairs)
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setHorizontalHeaderItem(0, item)
 
-                    item_str = '{0:+02d}'.format(new_actval_count)
+                    item_str = '{0:d}'.format(new_actval_count) + '\n' + '({0:d})'.format(nCount_cm_option_pairs)
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setHorizontalHeaderItem(0, item)               
@@ -11766,9 +11780,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         call_db_percent_local.sort()
 
         if call_db_percent_local:
-
+            
             sumc = round(df_cm_call['대비'].sum(), 2)
 
+            '''
             if sumc >= 0:
 
                 direction = '▲'
@@ -11781,7 +11796,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(0, item)
             else:
                 pass
-
+            '''
+            
             tmp = np.array(call_db_percent_local)            
             meanc = int(round(np.mean(tmp), 2))
             call_str = repr(sumc) + '\n (' + repr(meanc) + '%' + ') '
@@ -12783,9 +12799,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         put_db_percent_local.sort()
 
         if put_db_percent_local:
-
-            sump = round(df_cm_put['대비'].sum(), 2)
             
+            sump = round(df_cm_put['대비'].sum(), 2)
+
+            '''
             if sump >= 0:
 
                 direction = '▲'
@@ -12798,6 +12815,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(0, item)
             else:
                 pass   
+            '''
 
             tmp = np.array(put_db_percent_local)            
             meanp = int(round(np.mean(tmp), 2))
