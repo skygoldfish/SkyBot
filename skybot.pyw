@@ -9876,21 +9876,46 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if block['단축코드'] == '':
 
+                actval_increased = True                
+
+                if cm_call_t8416_count == nCount_cm_option_pairs:
+                    cm_put_t8416_count += 1
+                    #print('cm_put_t8416_count = ', cm_put_t8416_count)
+                else:
+                    cm_call_t8416_count += 1
+                    #print('cm_call_t8416_count = ', cm_call_t8416_count)
+
+                    new_actval_count += 1 
+
+                    # 추가된 행사가 갯수 표시
+                    item_str = '{0:+02d}'.format(new_actval_count)
+                    item = QTableWidgetItem(item_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setHorizontalHeaderItem(0, item)
+
+                    item_str = '{0:+02d}'.format(new_actval_count)
+                    item = QTableWidgetItem(item_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setHorizontalHeaderItem(0, item)               
+            else:
+                pass
+
+            '''
+            if block['단축코드'] == '' and cm_call_t8416_count > 0:
+
                 if self.t8416_callworker.isRunning():
 
-                    '''
-                    if today_str != month_firstday:
+                    #if today_str != month_firstday:
 
-                        cm_call_기준가 = df_cm_call['기준가'].values.tolist()
-                        cm_call_월저 = df_cm_call['월저'].values.tolist()
-                        cm_call_월고 = df_cm_call['월고'].values.tolist()
+                        #cm_call_기준가 = df_cm_call['기준가'].values.tolist()
+                        #cm_call_월저 = df_cm_call['월저'].values.tolist()
+                        #cm_call_월고 = df_cm_call['월고'].values.tolist()
 
-                        cm_call_기준가_node_list = self.make_node_list(cm_call_기준가)
-                        cm_call_월저_node_list = self.make_node_list(cm_call_월저)
-                        cm_call_월고_node_list = self.make_node_list(cm_call_월고)  
-                    else:
-                        pass
-                    ''' 
+                        #cm_call_기준가_node_list = self.make_node_list(cm_call_기준가)
+                        #cm_call_월저_node_list = self.make_node_list(cm_call_월저)
+                        #cm_call_월고_node_list = self.make_node_list(cm_call_월고)  
+                    #else:
+                        #pass                        
 
                     cm_call_기준가 = df_cm_call['기준가'].values.tolist()
                     cm_call_월저 = df_cm_call['월저'].values.tolist()
@@ -9949,9 +9974,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_count)
                 self.textBrowser.append(str)
+
+            elif block['단축코드'] == '' and cm_call_t8416_count == 0:
+
+                actval_increased = True
+                cm_call_t8416_count += 1
+                print('new_actval_count...', new_actval_count)
             else:
                 pass
-            
+            '''
             if block['단축코드'][0:3] == '101':
 
                 if not overnight:
@@ -9973,6 +10004,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
 
             elif block['단축코드'][0:3] == '201':
+
+                if new_actval_count > 0:
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_count)
+                    self.textBrowser.append(str)
+                else:
+                    pass
 
                 if today_str != month_firstday:
 
@@ -10089,9 +10127,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 cm_call_t8416_count += 1
 
-                print('nCount_cm_option_pairs, cm_call_t8416_count', nCount_cm_option_pairs, cm_call_t8416_count)
+                print('Call 과거데이타 %d 개중 %d개 수신...' % (nCount_cm_option_pairs, cm_call_t8416_count))
                 
-                if cm_call_t8416_count == nCount_cm_option_pairs - new_actval_count:
+                #if cm_call_t8416_count == nCount_cm_option_pairs - new_actval_count:
+                if cm_call_t8416_count == nCount_cm_option_pairs:
 
                     '''
                     if today_str != month_firstday:
@@ -10135,7 +10174,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.t8416_callworker.terminate()
                         str = '[{0:02d}:{1:02d}:{2:02d}] Call 과거데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
+                        self.textBrowser.append(str)                        
 
                         self.tableWidget_call.resizeColumnsToContents()
 
@@ -10251,9 +10290,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 cm_put_t8416_count += 1
 
-                print('nCount_cm_option_pairs, cm_put_t8416_count', nCount_cm_option_pairs, cm_put_t8416_count)
+                print('Put 과거데이타 %d 개중 %d개 수신...' % (nCount_cm_option_pairs, cm_put_t8416_count))
 
-                if cm_put_t8416_count == nCount_cm_option_pairs - new_actval_count:
+                #if cm_put_t8416_count == nCount_cm_option_pairs - new_actval_count:
+                if cm_put_t8416_count == nCount_cm_option_pairs:
 
                     '''
                     if today_str != month_firstday:
