@@ -4386,23 +4386,63 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 진성 의미가인 경우 blinking
                     if call_low_coreval:
                         self.call_low_coreval_color_blink(self.alternate_flag)
+
+                        if self.tableWidget_call.horizontalHeaderItem(Option_column.저가.value).text() != '저가▲':
+                            item = QTableWidgetItem('저가▲')
+                            self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+                        else:
+                            pass
                     else: 
-                        pass
+                        if self.tableWidget_call.horizontalHeaderItem(Option_column.저가.value).text() != '저가':
+                            item = QTableWidgetItem('저가')
+                            self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+                        else:
+                            pass
 
                     if call_high_coreval:
                         self.call_high_coreval_color_blink(self.alternate_flag)
+
+                        if self.tableWidget_call.horizontalHeaderItem(Option_column.고가.value).text() != '고가▼':
+                            item = QTableWidgetItem('고가▼')
+                            self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+                        else:
+                            pass
                     else: 
-                        pass
+                        if self.tableWidget_call.horizontalHeaderItem(Option_column.고가.value).text() != '고가':
+                            item = QTableWidgetItem('고가')
+                            self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+                        else:
+                            pass
 
                     if put_low_coreval:
                         self.put_low_coreval_color_blink(self.alternate_flag)
+
+                        if self.tableWidget_put.horizontalHeaderItem(Option_column.저가.value).text() != '저가▲':
+                            item = QTableWidgetItem('저가▲')
+                            self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+                        else:
+                            pass
                     else:
-                        pass  
+                        if self.tableWidget_put.horizontalHeaderItem(Option_column.저가.value).text() != '저가':
+                            item = QTableWidgetItem('저가')
+                            self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+                        else:
+                            pass
 
                     if put_high_coreval:
                         self.put_high_coreval_color_blink(self.alternate_flag)
+                        
+                        if self.tableWidget_put.horizontalHeaderItem(Option_column.고가.value).text() != '고가▼':
+                            item = QTableWidgetItem('고가▼')
+                            self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+                        else:
+                            pass 
                     else:
-                        pass      
+                        if self.tableWidget_put.horizontalHeaderItem(Option_column.고가.value).text() != '고가':
+                            item = QTableWidgetItem('고가')
+                            self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+                        else:
+                            pass    
 
                     # 시작 1분 이후부터 연산
                     # if opt_x_idx > 해외선물_시간차 + 1:
