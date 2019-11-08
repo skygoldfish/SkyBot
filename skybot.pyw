@@ -4461,6 +4461,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 콜저가리스트 = copy.deepcopy(cm_call_저가)
                                 color_update = True
 
+                                newlist = [value for value in 콜저가리스트 if value in 진성의미가]
+
+                                if newlist:    
+
+                                    item = QTableWidgetItem('저가 ▲')
+                                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+                                else:
+                                    item = QTableWidgetItem('저가')
+                                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+                                '''
                                 if 1.2 in 콜저가리스트 or 2.5 in 콜저가리스트 or 3.5 in 콜저가리스트 or 4.85 in 콜저가리스트 or 5.1 in 콜저가리스트 or \
                                     5.5 in 콜저가리스트 or 6.85 in 콜저가리스트 or 7.1 in 콜저가리스트 or 8.1 in 콜저가리스트:
 
@@ -4469,6 +4480,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 else:
                                     item = QTableWidgetItem('저가')
                                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+                                '''
 
                                 str = '[{0:02d}:{1:02d}:{2:02d}] 콜 저가리스트 갱신됨 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                                 self.textBrowser.append(str)
@@ -4480,6 +4492,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 콜고가리스트 = copy.deepcopy(cm_call_고가)
                                 color_update = True
 
+                                newlist = [value for value in 콜고가리스트 if value in 진성의미가]
+
+                                if newlist:    
+
+                                    item = QTableWidgetItem('고가 ▼')
+                                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+                                else:
+                                    item = QTableWidgetItem('고가')
+                                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+                                '''
                                 if 1.2 in 콜고가리스트 or 2.5 in 콜고가리스트 or 3.5 in 콜고가리스트 or 4.85 in 콜고가리스트 or 5.1 in 콜고가리스트 or \
                                     5.5 in 콜고가리스트 or 6.85 in 콜고가리스트 or 7.1 in 콜고가리스트 or 8.1 in 콜고가리스트:
 
@@ -4488,6 +4511,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 else:
                                     item = QTableWidgetItem('고가')
                                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+                                '''
 
                                 str = '[{0:02d}:{1:02d}:{2:02d}] 콜 고가리스트 갱신됨 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                                 self.textBrowser.append(str)
@@ -4499,6 +4523,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 풋저가리스트 = copy.deepcopy(cm_put_저가)
                                 color_update = True
 
+                                newlist = [value for value in 풋저가리스트 if value in 진성의미가]
+
+                                if newlist:    
+
+                                    item = QTableWidgetItem('저가 ▲')
+                                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+                                else:
+                                    item = QTableWidgetItem('저가')
+                                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+                                '''
                                 if 1.2 in 풋저가리스트 or 2.5 in 풋저가리스트 or 3.5 in 풋저가리스트 or 4.85 in 풋저가리스트 or 5.1 in 풋저가리스트 or \
                                     5.5 in 풋저가리스트 or 6.85 in 풋저가리스트 or 7.1 in 풋저가리스트 or 8.1 in 풋저가리스트:
 
@@ -4507,6 +4542,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 else:
                                     item = QTableWidgetItem('저가')
                                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+                                '''
 
                                 str = '[{0:02d}:{1:02d}:{2:02d}] 풋 저가리스트 갱신됨 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                                 self.textBrowser.append(str)
@@ -4518,6 +4554,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 풋고가리스트 = copy.deepcopy(cm_put_고가)
                                 color_update = True
 
+                                newlist = [value for value in 풋고가리스트 if value in 진성의미가]
+
+                                if newlist:    
+
+                                    item = QTableWidgetItem('고가 ▼')
+                                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+                                else:
+                                    item = QTableWidgetItem('고가')
+                                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+                                '''
                                 if 1.2 in 풋고가리스트 or 2.5 in 풋고가리스트 or 3.5 in 풋고가리스트 or 4.85 in 풋고가리스트 or 5.1 in 풋고가리스트 or \
                                     5.5 in 풋고가리스트 or 6.85 in 풋고가리스트 or 7.1 in 풋고가리스트 or 8.1 in 풋고가리스트:
 
@@ -4526,6 +4573,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 else:
                                     item = QTableWidgetItem('고가')
                                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+                                '''
 
                                 str = '[{0:02d}:{1:02d}:{2:02d}] 풋 고가리스트 갱신됨 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                                 self.textBrowser.append(str)
