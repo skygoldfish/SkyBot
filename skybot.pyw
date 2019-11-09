@@ -4418,8 +4418,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             new_list = [x for x in cm_call_시가 if x not in old_list_set]
                             len_new_list = len(new_list)
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 콜 시가리스트 : {3} !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), new_list)
-                            self.textBrowser.append(str)
+                            #str = '[{0:02d}:{1:02d}:{2:02d}] 콜 시가리스트 : {3} !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), new_list)
+                            #self.textBrowser.append(str)
                             
                             for i in range(len_new_list):
                                 self.call_open_update_by_index(cm_call_시가.index(new_list[i]))
@@ -4438,8 +4438,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             new_list = [x for x in cm_put_시가 if x not in old_list_set]
                             len_new_list = len(new_list)
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 풋 시가리스트 : {3} !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), new_list)
-                            self.textBrowser.append(str)
+                            #str = '[{0:02d}:{1:02d}:{2:02d}] 풋 시가리스트 : {3} !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), new_list)
+                            #self.textBrowser.append(str)
                             
                             for i in range(len_new_list):
                                 self.put_open_update_by_index(cm_put_시가.index(new_list[i]))
