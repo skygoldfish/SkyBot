@@ -4311,8 +4311,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.alternate_flag = not self.alternate_flag 
             
             self.label_clear()
-
-            self.check_oneway(self.alternate_flag)
                         
             if receive_real_ovc:     
                                 
@@ -4381,7 +4379,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     
                         self.put_state_update()
                         self.put_db_update()
-                        self.oi_sum_display()                                   
+                        self.oi_sum_display()    
+
+                    # 원웨이장 표시
+                    self.check_oneway(self.alternate_flag)                               
                     
                     # 진성 의미가인 경우 blinking
                     if call_low_coreval:
