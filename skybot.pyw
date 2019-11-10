@@ -16053,9 +16053,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         text = self.textBrowser.toPlainText()
         file.write(text)
         file.close()
-        
-        # self.image_grab()
 
+        '''
         if df_fut.empty:
 
             pass
@@ -16099,7 +16098,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             put_volume_csv = "Put Volume {}{}".format(times, '.csv')
             df_plotdata_cm_put_volume.to_csv(put_volume_csv, encoding='ms949')
-
+        '''
+        
         return
 
     def RemoveCode(self):
