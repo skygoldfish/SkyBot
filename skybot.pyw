@@ -4379,32 +4379,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     
                         self.put_state_update()
                         self.put_db_update()
-                        self.oi_sum_display()    
-
-                    # 원웨이장 표시
-                    self.check_oneway(self.alternate_flag)                               
+                        self.oi_sum_display()                            
                     
-                    # 진성 의미가인 경우 blinking
-                    if call_low_coreval:
-                        self.call_low_coreval_color_blink(self.alternate_flag)
-                    else:                        
-                        pass
-
-                    if call_high_coreval:
-                        self.call_high_coreval_color_blink(self.alternate_flag)
-                    else:
-                        pass
-
-                    if put_low_coreval:
-                        self.put_low_coreval_color_blink(self.alternate_flag)
-                    else:
-                        pass
-
-                    if put_high_coreval:
-                        self.put_high_coreval_color_blink(self.alternate_flag)                        
-                    else:
-                        pass    
-
                     # 시작 1분 이후부터 연산
                     # if opt_x_idx > 해외선물_시간차 + 1:
 
@@ -4599,7 +4575,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
                     else:
-                        pass                                    
+                        pass
+                    
+                    # 진성 의미가인 경우 blinking
+                    if call_low_coreval:
+                        self.call_low_coreval_color_blink(self.alternate_flag)
+                    else:                        
+                        pass
+
+                    if call_high_coreval:
+                        self.call_high_coreval_color_blink(self.alternate_flag)
+                    else:
+                        pass
+
+                    if put_low_coreval:
+                        self.put_low_coreval_color_blink(self.alternate_flag)
+                    else:
+                        pass
+
+                    if put_high_coreval:
+                        self.put_high_coreval_color_blink(self.alternate_flag)                        
+                    else:
+                        pass    
+                    
+                    # 원웨이장 표시
+                    self.check_oneway(self.alternate_flag)                                    
                 else:
                     pass                                          
                 
@@ -11572,22 +11572,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 저가 갱신
                 if 저가 != self.tableWidget_call.item(index, Option_column.저가.value).text():
-                    '''
-                    if float(저가) >= price_threshold:
-
-                        df_cm_call.loc[index, '저가'] = round(float(저가), 2)
-
-                        cm_call_저가 = df_cm_call['저가'].values.tolist()
-                        cm_call_저가_node_list = self.make_node_list(cm_call_저가)
-
-                        self.check_call_oloh(index)
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 저가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
-                            int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 저가)
-                        self.textBrowser.append(str)
-                    else:
-                        pass
-                    '''
+                    
                     item = QTableWidgetItem(저가)
                     item.setTextAlignment(Qt.AlignCenter)             
                     self.tableWidget_call.setItem(index, Option_column.저가.value, item)
@@ -11623,22 +11608,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 고가 갱신
                 if 고가 != self.tableWidget_call.item(index, Option_column.고가.value).text():
-                    '''
-                    if float(고가) >= price_threshold:
-
-                        df_cm_call.loc[index, '고가'] = round(float(고가), 2)
-
-                        cm_call_고가 = df_cm_call['고가'].values.tolist()
-                        cm_call_고가_node_list = self.make_node_list(cm_call_고가)
-
-                        self.check_call_oloh(index)
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 고가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
-                            int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 고가)
-                        self.textBrowser.append(str)
-                    else:
-                        pass
-                    '''
+                    
                     item = QTableWidgetItem(고가)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(index, Option_column.고가.value, item)
@@ -11753,6 +11723,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if round(float(저가), 2) != df_cm_call.iloc[index]['저가']:
                     df_cm_call.loc[index, '저가'] = round(float(저가), 2)
+
                     self.check_call_oloh(index)
 
                     cm_call_저가 = df_cm_call['저가'].values.tolist()
@@ -11762,6 +11733,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if round(float(고가), 2) != df_cm_call.iloc[index]['고가']:
                     df_cm_call.loc[index, '고가'] = round(float(고가), 2)
+
                     self.check_call_oloh(index)
 
                     cm_call_고가 = df_cm_call['고가'].values.tolist()
@@ -12597,22 +12569,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 저가 갱신
                 if 저가 != self.tableWidget_put.item(index, Option_column.저가.value).text():
-                    '''
-                    if float(저가) >= price_threshold:
-
-                        df_cm_put.loc[index, '저가'] = round(float(저가), 2)
-
-                        cm_put_저가 = df_cm_put['저가'].values.tolist()
-                        cm_put_저가_node_list = self.make_node_list(cm_put_저가)
-
-                        self.check_put_oloh(index)
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 저가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
-                            int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 저가)
-                        self.textBrowser.append(str)
-                    else:
-                        pass
-                    '''
+                    
                     item = QTableWidgetItem(저가)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.저가.value, item)
@@ -12648,22 +12605,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 고가 갱신
                 if 고가 != self.tableWidget_put.item(index, Option_column.고가.value).text():
-                    '''
-                    if float(고가) >= price_threshold:
-
-                        df_cm_put.loc[index, '고가'] = round(float(고가), 2)
-
-                        cm_put_고가 = df_cm_put['고가'].values.tolist()
-                        cm_put_고가_node_list = self.make_node_list(cm_put_고가)
-
-                        self.check_put_oloh(index)
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 고가 {4} 갱신됨 !!!\r'.format(int(result['체결시간'][0:2]), \
-                            int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), index+1, 고가)
-                        self.textBrowser.append(str)
-                    else:
-                        pass
-                    '''
+                    
                     item = QTableWidgetItem(고가)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.고가.value, item)
@@ -12778,6 +12720,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if round(float(저가), 2) != df_cm_put.iloc[index]['저가']:
                     df_cm_put.loc[index, '저가'] = round(float(저가), 2)
+
                     self.check_put_oloh(index)
                     
                     cm_put_저가 = df_cm_put['저가'].values.tolist()
@@ -12787,6 +12730,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if round(float(고가), 2) != df_cm_put.iloc[index]['고가']:
                     df_cm_put.loc[index, '고가'] = round(float(고가), 2)
+                    
                     self.check_put_oloh(index)
                     
                     cm_put_고가 = df_cm_put['고가'].values.tolist()
