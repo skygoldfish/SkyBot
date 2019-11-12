@@ -4289,6 +4289,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             global call_max_actval, put_max_actval
             global offline
+        
+            # 로컬타임 표시
+            str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
+            self.label_msg.setText(str)
 
             if service_terminate:
 
@@ -4953,12 +4957,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         return
 
     def check_oneway(self, blink):
-
-        dt = datetime.datetime.now()
-        
-        # 로컬타임 표시
-        str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
-        self.label_msg.setText(str)
 
         if overnight:
 
