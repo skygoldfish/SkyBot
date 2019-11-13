@@ -4958,6 +4958,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def check_oneway(self, blink):
 
+        dt = datetime.datetime.now()
+
         if overnight:
 
             self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
