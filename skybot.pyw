@@ -105,8 +105,9 @@ nowDate = now.strftime('%Y-%m-%d')
 yesterday = today - datetime.timedelta(1)
 yesterday_str = yesterday.strftime('%Y%m%d')
 
-ovc_start_hour = 8
 domestic_start_hour = 9
+ovc_start_hour = domestic_start_hour - 1
+
 start_time_str = ''
 end_time_str = ''
 
@@ -2340,12 +2341,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global current_month, next_month, next_month_only, month_firstday, cnm_select
         global cm_option_title, current_month_info, next_month_info, SP500, DOW, NASDAQ, fut_code
 
+        global domestic_start_hour, ovc_start_hour
+
         dt = datetime.datetime.now()
         
         nowDate = now.strftime('%Y-%m-%d')
         current_str = dt.strftime('%H:%M:%S')
 
         with open('month_info.txt', mode='r') as monthfile:
+            tmp = monthfile.readline().strip()
+            temp = tmp.split()
+            domestic_start_hour = int(temp[3])
+            ovc_start_hour = domestic_start_hour - 1            
+
             tmp = monthfile.readline().strip()
             temp = tmp.split()
             current_month_info = temp[3]
@@ -2378,6 +2386,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             temp = tmp.split()
             NASDAQ = temp[2]           
 
+        print('장 시작시간 = ', domestic_start_hour)
         print('current month = %s, month firstday = %s, next month = %s, next month only = %s, cnm select = %s, SP500 = %s, DOW = %s, NASDAQ = %s' \
             % (current_month_info, month_firstday, next_month_info, next_month_only, cnm_select, SP500, DOW, NASDAQ))
 
@@ -7566,7 +7575,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global 콜시가리스트, 콜저가리스트, 콜고가리스트, 풋시가리스트, 풋저가리스트, 풋고가리스트
 
         global df_plotdata_cm_two_sum, df_plotdata_cm_two_cha
-        global domestic_start_hour, start_time_str, end_time_str
+        global domestic_start_hour, ovc_start_hour, start_time_str, end_time_str
 
         global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq
         global view_actval
@@ -10144,7 +10153,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem("{0:0.2f}".format(df_cm_call.iloc[cm_call_t8416_count]['종가']))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setItem(cm_call_t8416_count, Option_column.종가.value, item)
-
+                '''
                 if not overnight:
 
                     if start_time_str == '':
@@ -10153,6 +10162,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         end_time_str = block['장종료시간']
 
                         domestic_start_hour = int(start_time_str[0:2])
+                        ovc_start_hour = domestic_start_hour - 1
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 장시작시간 {3}시를 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second, domestic_start_hour)
                         self.textBrowser.append(str)
@@ -10160,7 +10170,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         pass
                 else:
                     pass                
-
+                '''
                 if not pre_start:
 
                     if df_cm_call.iloc[cm_call_t8416_count]['시가'] > 0 and \
@@ -15530,7 +15540,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         ovc_x_idx = 1
                 else:
-                    # 해외선물 개장시간은 오전 8시
+                    # 해외선물 개장시간은 국내시장의 1시간 전
                     if result['체결시간_한국'] != '':
                         ovc_x_idx = (int(result['체결시간_한국'][0:2]) - ovc_start_hour) * 60 + int(result['체결시간_한국'][2:4]) + 1
                     else:
@@ -15978,7 +15988,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     XQ.Query(월물=current_month_info, 미니구분='G')
 
-                domestic_start_hour = 9
+                # domestic_start_hour = 9
 
                 print('근월물 주간 선물/옵션 실시간요청...')
 
@@ -16009,7 +16019,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     XQ.Query(월물=current_month_info, 미니구분='G')
 
-                domestic_start_hour = 18
+                domestic_start_hour = domestic_start_hour + 9
 
                 print('근월물 야간 선물/옵션 실시간요청...')
 
