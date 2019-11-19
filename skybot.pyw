@@ -473,6 +473,9 @@ comboindex2 = 0
 콜_순매수_체결량 = 0
 풋_순매수_체결량 = 0
 
+콜시가갭합 = 0
+풋시가갭합 = 0
+
 blueviolet = QColor(138, 43, 226)
 darkviolet = QColor(0x94, 0x00, 0xD3)
 lightyellow = QColor(255, 255, 153)
@@ -2579,7 +2582,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_supply.horizontalHeader().setStyleSheet(stylesheet)
         self.tableWidget_supply.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.tableWidget_supply.setHorizontalHeaderLabels(['외인선물', '프로그램', '외인현물', '개인선물', '기관선물', '∑선물/∑현물'])
+        self.tableWidget_supply.setHorizontalHeaderLabels(['외인선물', '프로그램', '외인현물', '개인선물', '기관선물', '∑선물/∑현물(시가갭)'])
         self.tableWidget_supply.verticalHeader().setVisible(False)
         #self.tableWidget_supply.setFocusPolicy(Qt.NoFocus)
 
@@ -12131,12 +12134,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             call_gap_percent_local = [value for value in temp if not math.isnan(value)]
             call_gap_percent_local.sort()
 
+            global 콜시가갭합
+
             if call_gap_percent_local:
 
-                sumc = round(df_cm_call['시가갭'].sum(), 2)
+                콜시가갭합 = round(df_cm_call['시가갭'].sum(), 2)
                 tmp = np.array(call_gap_percent_local)            
                 meanc = int(round(np.mean(tmp), 2))
-                call_str = repr(sumc) + '\n (' + repr(meanc) + '%' + ') '
+                call_str = repr(콜시가갭합) + '\n (' + repr(meanc) + '%' + ') '
 
                 item = QTableWidgetItem(call_str)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -12305,12 +12310,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         call_gap_percent_local = [value for value in temp if not math.isnan(value)]
         call_gap_percent_local.sort()
 
+        global 콜시가갭합
+
         if call_gap_percent_local:
 
-            sumc = round(df_cm_call['시가갭'].sum(), 2)
+            콜시가갭합 = round(df_cm_call['시가갭'].sum(), 2)
             tmp = np.array(call_gap_percent_local)            
             meanc = int(round(np.mean(tmp), 2))
-            call_str = repr(sumc) + '\n (' + repr(meanc) + '%' + ') '
+            call_str = repr(콜시가갭합) + '\n (' + repr(meanc) + '%' + ') '
 
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.시가갭.value).text():
                 item = QTableWidgetItem(call_str)
@@ -13127,12 +13134,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             put_gap_percent_local = [value for value in temp if not math.isnan(value)]
             put_gap_percent_local.sort()
 
+            global 풋시가갭합
+
             if put_gap_percent_local:
 
-                sumc = round(df_cm_put['시가갭'].sum(), 2)
+                풋시가갭합 = round(df_cm_put['시가갭'].sum(), 2)
                 tmp = np.array(put_gap_percent_local)            
                 meanc = int(round(np.mean(tmp), 2))
-                put_str = repr(sumc) + '\n (' + repr(meanc) + '%' + ') '
+                put_str = repr(풋시가갭합) + '\n (' + repr(meanc) + '%' + ') '
 
                 item = QTableWidgetItem(put_str)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -13301,12 +13310,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         put_gap_percent_local = [value for value in temp if not math.isnan(value)]
         put_gap_percent_local.sort()
 
+        global 풋시가갭합
+
         if put_gap_percent_local:
 
-            sumc = round(df_cm_put['시가갭'].sum(), 2)
+            풋시가갭합 = round(df_cm_put['시가갭'].sum(), 2)
             tmp = np.array(put_gap_percent_local)            
             meanc = int(round(np.mean(tmp), 2))
-            put_str = repr(sumc) + '\n (' + repr(meanc) + '%' + ') '
+            put_str = repr(풋시가갭합) + '\n (' + repr(meanc) + '%' + ') '
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.시가갭.value).text():
                 item = QTableWidgetItem(put_str)
@@ -14935,7 +14946,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     temp1 = format(선물_거래대금순매수, ',')
                     temp2 = format(현물_거래대금순매수, ',')
 
-                    item_str = "{0}({1})\n{2}({3})".format(temp1, 선물_거래대금순매수_직전대비, temp2, 현물_거래대금순매수_직전대비)
+                    item_str = "{0}({1})/{2}({3})\n({4} : {5})".format(temp1, 선물_거래대금순매수_직전대비, temp2, 현물_거래대금순매수_직전대비, \
+                        repr(콜시가갭합), repr(풋시가갭합))
 
                     if item_str != self.tableWidget_supply.item(0, 5).text():
                         item = QTableWidgetItem(item_str)
