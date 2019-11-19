@@ -4780,6 +4780,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
         except:
             pass
+        
 
     def label_atm_display(self):
 
