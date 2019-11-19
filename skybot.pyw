@@ -8872,6 +8872,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # kp200 맥점 10개를 리스트로 만듬
             global kp200_coreval
 
+            # kp200_coreval 리스트 기존데이타 삭제(초기화)
+            del kp200_coreval[:]
+
             for i in range(6):
 
                 kp200_coreval.append(atm_val - 2.5 * i + 1.25) 
@@ -11729,6 +11732,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass                   
                 else:
+                    pass                       
+            else:
+                pass
+
+            if 저가 != 고가:
+
+                if not call_open[index]:
+
+                    call_open[index] = True
+
+                    if index > atm_index:
+                        call_below_atm_count += 1
+                    else:
+                        pass
+                else:
                     pass
 
                 if round(float(저가), 2) != df_cm_call.iloc[index]['저가']:
@@ -11749,22 +11767,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_call_고가 = df_cm_call['고가'].values.tolist()
                     cm_call_고가_node_list = self.make_node_list(cm_call_고가)
                 else:
-                    pass                
-            else:
-                pass
-
-            if 저가 != 고가:
-
-                if not call_open[index]:
-
-                    call_open[index] = True
-
-                    if index > atm_index:
-                        call_below_atm_count += 1
-                    else:
-                        pass
-                else:
-                    pass
+                    pass         
             else:
                 pass         
 
@@ -12726,6 +12729,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass                                     
                 else:
+                    pass               
+            else:
+                pass
+            
+            if 저가 != 고가:
+
+                if not put_open[index]:
+
+                    put_open[index] = True
+
+                    if index < atm_index:
+                        put_above_atm_count += 1
+                    else:
+                        pass
+                else:
                     pass
 
                 if round(float(저가), 2) != df_cm_put.iloc[index]['저가']:
@@ -12745,21 +12763,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     
                     cm_put_고가 = df_cm_put['고가'].values.tolist()
                     cm_put_고가_node_list = self.make_node_list(cm_put_고가)
-                else:
-                    pass
-            else:
-                pass
-            
-            if 저가 != 고가:
-
-                if not put_open[index]:
-
-                    put_open[index] = True
-
-                    if index < atm_index:
-                        put_above_atm_count += 1
-                    else:
-                        pass
                 else:
                     pass
             else:
@@ -14490,6 +14493,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         # kp200 맥점 10개를 리스트로 만듬
                         global kp200_coreval
+
+                        # kp200_coreval 리스트 기존데이타 삭제(초기화)
+                        del kp200_coreval[:]
 
                         for i in range(6):
 
