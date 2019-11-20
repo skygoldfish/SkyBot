@@ -15030,8 +15030,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 temp1 = format(선물_거래대금순매수, ',')
                 temp2 = format(현물_거래대금순매수, ',')
-
-                item_str = "{0}({1})\n{2}({3})".format(temp1, 선물_거래대금순매수_직전대비, temp2, 현물_거래대금순매수_직전대비)
+                
+                item_str = "{0}({1})/{2}({3})\n({4} : {5})".format(temp1, 선물_거래대금순매수_직전대비, temp2, 현물_거래대금순매수_직전대비, \
+                        repr(콜시가갭합), repr(풋시가갭합))
 
                 if item_str != self.tableWidget_supply.item(0, 5).text():
                     item = QTableWidgetItem(item_str)
