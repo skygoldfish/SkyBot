@@ -13769,6 +13769,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global dow_delta, dow_delta_old, dow_직전대비
             global nasdaq_delta, nasdaq_delta_old, nasdaq_직전대비
             global receive_real_ovc
+            global ovc_x_idx
 
             start_time = timeit.default_timer()
 
@@ -15649,7 +15650,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if result['체결시간_한국'] != '':
                         ovc_x_idx = (int(result['체결시간_한국'][0:2]) - ovc_start_hour) * 60 + int(result['체결시간_한국'][2:4]) + 1
                     else:
-                        ovc_x_idx = 1                
+                        ovc_x_idx = 1    
+
+                # 해외선물 시작시간과 동기를 맞춤
+                # ovc_x_idx = ovc_x_idx + 해외선물_시간차 
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] ovc_x_idx = {3} \r'.format(
+                            int(result['체결시간_한국'][0:2]),
+                            int(result['체결시간_한국'][2:4]),
+                            int(result['체결시간_한국'][4:6]),
+                            ovc_x_idx)
+                 
+                if overnight:
+
+                    self.textBrowser.append(str)
+                else:
+                    print(str)                            
 
                 if result['종목코드'] == NASDAQ:
 
