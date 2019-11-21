@@ -4776,7 +4776,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     
                     # 원웨이장 표시(주간만)
                     if not overnight:
-                        self.check_oneway(self.alternate_flag)
+
+                        if not service_terminate:
+                            self.check_oneway(self.alternate_flag)
+                        else:
+                            pass
                     else:
                         pass                                    
                 else:
@@ -13990,6 +13994,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.SaveResult()  
 
                     market_service = False
+                    service_terminate = True
                     
                     # 해외선물 지수 요청취소                    
                     self.OVC.UnadviseRealData()
@@ -14010,14 +14015,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.SaveResult() 
 
                         market_service = False
+                        service_terminate = True
                     
                         # 해외선물 지수 요청취소                    
                         self.OVC.UnadviseRealData()
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
-
-                        service_terminate = True
+                        self.textBrowser.append(str)                        
 
                         self.image_grab()      
                     else:
