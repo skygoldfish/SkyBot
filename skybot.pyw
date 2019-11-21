@@ -2582,7 +2582,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_supply.horizontalHeader().setStyleSheet(stylesheet)
         self.tableWidget_supply.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.tableWidget_supply.setHorizontalHeaderLabels(['외인선물', '프로그램', '외인현물', '개인선물', '기관선물', '∑선물/∑현물(시가갭)'])
+        self.tableWidget_supply.setHorizontalHeaderLabels(['외인선물', '프로그램', '외인현물', '개인선물', '기관선물', '∑선물/∑현물(P시가갭)'])
         self.tableWidget_supply.verticalHeader().setVisible(False)
         #self.tableWidget_supply.setFocusPolicy(Qt.NoFocus)
 
@@ -4560,7 +4560,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.call_open_check()
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 콜 최대 시작가 {3:.2f} 오픈되었습니다.\r'.format(\
-                            int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), df_cm_call.iloc[nCount_cm_option_pairs - 1]['시가'])
+                            dt.hour, dt.minute, dt.second, df_cm_call.iloc[nCount_cm_option_pairs - 1]['시가'])
                         self.textBrowser.append(str)
                         
                         #txt = '콜 최대가 오픈'
@@ -4575,7 +4575,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.put_open_check()
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 풋 최대 시작가 {3:.2f} 오픈되었습니다.\r'.format(\
-                            int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), df_cm_put.iloc[0]['시가'])
+                            dt.hour, dt.minute, dt.second, df_cm_put.iloc[0]['시가'])
                         self.textBrowser.append(str)
 
                         #txt = '풋 최대가 오픈'
@@ -4611,6 +4611,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 시작과 동시에 컬러링 갱신
                     if opt_x_idx > 해외선물_시간차 + 0:
 
+                        '''
                         # 콜 시가 갱신
                         if cm_call_시가 != 콜시가리스트:
                             
@@ -4623,7 +4624,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             콜시가리스트 = copy.deepcopy(cm_call_시가)
 
-                            #str = '[{0:02d}:{1:02d}:{2:02d}] 콜 시가리스트 {3} 갱신됨 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), 콜시가리스트)
+                            #str = '[{0:02d}:{1:02d}:{2:02d}] 콜 시가리스트 {3} 갱신됨 !!!\r'.format(dt.hour, dt.minute, dt.second, 콜시가리스트)
                             #self.textBrowser.append(str)
                         else:
                             pass
@@ -4640,10 +4641,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             풋시가리스트 = copy.deepcopy(cm_put_시가)
                             
-                            #str = '[{0:02d}:{1:02d}:{2:02d}] 풋 시가리스트 {3} 갱신됨 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), 풋시가리스트)
+                            #str = '[{0:02d}:{1:02d}:{2:02d}] 풋 시가리스트 {3} 갱신됨 !!!\r'.format(dt.hour, dt.minute, dt.second, 풋시가리스트)
                             #self.textBrowser.append(str)
                         else:
                             pass
+                        '''
 
                         # 매 1초마다 한번씩 맥점 컬러링 채크
                         # if int(호가시간[4:6]) in every_2sec and self.alternate_flag:
@@ -11394,6 +11396,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_result, call_open, call_below_atm_count
         global df_cm_call, df_plotdata_cm_call, df_plotdata_cm_call_oi
         global call_atm_value, call_db_percent
+        global cm_call_시가, cm_call_시가_node_list, 콜시가리스트
         global cm_call_저가, cm_call_저가_node_list, cm_call_고가, cm_call_고가_node_list
         global call_gap_percent
         global opt_callreal_update_counter
@@ -11513,7 +11516,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                pass            
+                pass  
+
+            # pre open check
+            if round(float(시가), 2) != df_cm_call.iloc[index]['시가']:
+
+                df_cm_call.loc[index, '시가'] = round(float(시가), 2)
+
+                cm_call_시가 = df_cm_call['시가'].values.tolist()
+                cm_call_시가_node_list = self.make_node_list(cm_call_시가)
+
+                # 콜 시가 갱신
+                if cm_call_시가 != 콜시가리스트:
+                    
+                    old_list_set = set(콜시가리스트)
+                    new_list = [x for x in cm_call_시가 if x not in old_list_set]
+                    len_new_list = len(new_list)
+
+                    for i in range(len_new_list):
+                        self.call_open_update_by_index(cm_call_시가.index(new_list[i]))
+
+                    콜시가리스트 = copy.deepcopy(cm_call_시가)
+                else:
+                    pass
+            else:
+                pass
 
             if 저가 != 고가:
 
@@ -11599,7 +11626,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass            
                        
             opt_callreal_update_counter += 1
-        else:            
+        else:
+
+            # pre open check
+            if round(float(시가), 2) != df_cm_call.iloc[index]['시가']:
+
+                df_cm_call.loc[index, '시가'] = round(float(시가), 2)
+
+                cm_call_시가 = df_cm_call['시가'].values.tolist()
+                cm_call_시가_node_list = self.make_node_list(cm_call_시가)
+
+                # 콜 시가 갱신
+                if cm_call_시가 != 콜시가리스트:
+                    
+                    old_list_set = set(콜시가리스트)
+                    new_list = [x for x in cm_call_시가 if x not in old_list_set]
+                    len_new_list = len(new_list)
+
+                    for i in range(len_new_list):
+                        self.call_open_update_by_index(cm_call_시가.index(new_list[i]))
+
+                    콜시가리스트 = copy.deepcopy(cm_call_시가)
+                else:
+                    pass
+            else:
+                pass            
 
             if 저가 != 고가:
 
@@ -11695,7 +11746,73 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass         
 
         return
-     
+
+    def call_pre_open_update(self):
+
+        global call_open, call_below_atm_count
+        global df_cm_call, call_gap_percent, df_plotdata_cm_call
+        global cm_call_시가, cm_call_시가_node_list, cm_call_피봇, cm_call_피봇_node_list
+        global call_max_actval 
+
+        index = cm_call_행사가.index(call_result['단축코드'][5:8])
+
+        df_cm_call.loc[index, '시가'] = round(float(call_result['시가']), 2)
+        df_cm_call.loc[index, '시가갭'] = float(call_result['시가']) - df_cm_call.iloc[index]['종가']
+        df_plotdata_cm_call.iloc[index][해외선물_시간차] = float(call_result['시가'])
+
+        item = QTableWidgetItem(call_result['시가'])
+        item.setTextAlignment(Qt.AlignCenter)
+
+        if float(call_result['시가']) > df_cm_call.iloc[index]['종가']:
+            item.setForeground(QBrush(적색))
+        elif float(call_result['시가']) < df_cm_call.iloc[index]['종가']:
+            item.setForeground(QBrush(청색))
+        else:
+            item.setForeground(QBrush(검정색))
+
+        self.tableWidget_call.setItem(index, Option_column.시가.value, item)  
+
+        if float(call_result['시가']) >= price_threshold:     
+        
+            call_gap_percent[index] = (float(call_result['시가']) / df_cm_call.iloc[index]['종가'] - 1) * 100
+            gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(df_cm_call.iloc[index]['시가갭'], call_gap_percent[index])
+        else:
+            call_gap_percent[index] = 0.0
+            gap_str = "{0:0.2f}".format(df_cm_call.iloc[index]['시가갭'])
+
+        item = QTableWidgetItem(gap_str)
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
+        
+        cm_call_시가 = df_cm_call['시가'].values.tolist()
+        cm_call_시가_node_list = self.make_node_list(cm_call_시가)
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}] 시가 {4} Pre Open됨 !!!\r'.format(int(call_result['체결시간'][0:2]), \
+                        int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), index+1, call_result['시가'])
+        self.textBrowser.append(str)
+        
+        if df_cm_call.iloc[index]['전저'] > 0 and df_cm_call.iloc[index]['전고'] > 0:
+
+            피봇 = self.calc_pivot(df_cm_call.iloc[index]['전저'], df_cm_call.iloc[index]['전고'],
+                                df_cm_call.iloc[index]['종가'], df_cm_call.iloc[index]['시가'])
+
+            df_cm_call.loc[index, '피봇'] = 피봇
+
+            item = QTableWidgetItem("{0:0.2f}".format(피봇))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_call.setItem(index, Option_column.피봇.value, item)                
+
+            cm_call_피봇 = df_cm_call['피봇'].values.tolist()
+            cm_call_피봇_node_list = self.make_node_list(cm_call_피봇)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call 피봇 리스트 갱신 !!!\r'.format(int(call_result['체결시간'][0:2]), \
+                        int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
+            self.textBrowser.append(str)
+        else:
+            pass
+
+        return
+         
     def call_open_update(self):
 
         global call_open, call_below_atm_count
@@ -12128,8 +12245,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}, {4:0.2f}] 시가 갱신 !!!\r'.format(int(호가시간[0:2]), \
-                    int(호가시간[2:4]), int(호가시간[4:6]), index, df_cm_call.iloc[index]['시가'])
+                str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}, {4:0.2f}] pre 시가 갱신 !!!\r'.format(dt.hour, dt.minute, dt.second, index, df_cm_call.iloc[index]['시가'])
                 self.textBrowser.append(str)
 
                 self.tableWidget_call.resizeColumnsToContents()
@@ -12291,7 +12407,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         call_gap_percent_local = [value for value in temp if not math.isnan(value)]
         call_gap_percent_local.sort()
 
-        global 콜시가갭합
+        # global 콜시가갭합
 
         if call_gap_percent_local:
 
@@ -12369,6 +12485,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global put_result, put_open, put_above_atm_count
         global df_cm_put, df_plotdata_cm_put, df_plotdata_cm_put_oi
         global put_atm_value, put_db_percent
+        global cm_put_시가, cm_put_시가_node_list, 풋시가리스트
         global cm_put_저가, cm_put_저가_node_list, cm_put_고가, cm_put_고가_node_list
         global put_gap_percent
         global opt_putreal_update_counter
@@ -12489,7 +12606,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass              
             else:
-                pass           
+                pass   
+
+            # pre open check
+            if round(float(시가), 2) != df_cm_put.iloc[index]['시가']:
+
+                df_cm_put.loc[index, '시가'] = round(float(시가), 2)
+
+                cm_put_시가 = df_cm_put['시가'].values.tolist()
+                cm_put_시가_node_list = self.make_node_list(cm_put_시가)
+
+                # 콜 시가 갱신
+                if cm_put_시가 != 풋시가리스트:
+                    
+                    old_list_set = set(풋시가리스트)
+                    new_list = [x for x in cm_put_시가 if x not in old_list_set]
+                    len_new_list = len(new_list)
+
+                    for i in range(len_new_list):
+                        self.put_open_update_by_index(cm_put_시가.index(new_list[i]))
+
+                    풋시가리스트 = copy.deepcopy(cm_put_시가)
+                else:
+                    pass
+            else:
+                pass        
 
             if 저가 != 고가:
 
@@ -12575,7 +12716,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
                         
             opt_putreal_update_counter += 1
-        else:            
+        else:  
+
+            # pre open check
+            if round(float(시가), 2) != df_cm_put.iloc[index]['시가']:
+
+                df_cm_put.loc[index, '시가'] = round(float(시가), 2)
+
+                cm_put_시가 = df_cm_put['시가'].values.tolist()
+                cm_put_시가_node_list = self.make_node_list(cm_put_시가)
+
+                # 콜 시가 갱신
+                if cm_put_시가 != 풋시가리스트:
+                    
+                    old_list_set = set(풋시가리스트)
+                    new_list = [x for x in cm_put_시가 if x not in old_list_set]
+                    len_new_list = len(new_list)
+
+                    for i in range(len_new_list):
+                        self.put_open_update_by_index(cm_put_시가.index(new_list[i]))
+
+                    풋시가리스트 = copy.deepcopy(cm_put_시가)
+                else:
+                    pass
+            else:
+                pass                  
             
             if 저가 != 고가:
 
@@ -13073,6 +13238,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def put_open_update_by_index(self, index):
 
         global df_cm_put, put_gap_percent
+
+        dt = datetime.datetime.now()
         
         if df_cm_put.iloc[index]['종가'] > 0:
 
@@ -13103,8 +13270,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}, {4:0.2f}] 시가 갱신 !!!\r'.format(int(호가시간[0:2]), \
-                    int(호가시간[2:4]), int(호가시간[4:6]), index, df_cm_put.iloc[index]['시가'])
+                str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}, {4:0.2f}] pre 시가 갱신 !!!\r'.format(dt.hour, dt.minute, dt.second, index, df_cm_put.iloc[index]['시가'])
                 self.textBrowser.append(str)
                 
                 self.tableWidget_put.resizeColumnsToContents()
@@ -13266,7 +13432,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         put_gap_percent_local = [value for value in temp if not math.isnan(value)]
         put_gap_percent_local.sort()
 
-        global 풋시가갭합
+        # global 풋시가갭합
 
         if put_gap_percent_local:
 
@@ -15060,7 +15226,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         x_idx = 1
 
-                # 주간은 해외선물 시작시간과 동기를 맞춤
+                # 해외선물 시작시간과 동기를 맞춤
                 x_idx = x_idx + 해외선물_시간차
                 
                 #print('x_idx', x_idx)
@@ -15148,10 +15314,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         opt_x_idx = 1
 
-                # 주간은 해외선물 시작시간과 동기를 맞춤
-                opt_x_idx = opt_x_idx + 해외선물_시간차
+                # 해외선물 시작시간과 동기를 맞춤
+                opt_x_idx = opt_x_idx + 해외선물_시간차                
                 
-                #print('opt_x_idx', opt_x_idx)
+                if overnight:
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] opt_x_idx = {3} \r'.format(
+                            int(result['체결시간'][0:2]),
+                            int(result['체결시간'][2:4]),
+                            int(result['체결시간'][4:6]),
+                            opt_x_idx)
+                    self.textBrowser.append(str)
+                else:
+                    pass
 
                 # 서버시간과 동기를 위한 delta time 계산
                 time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - \
