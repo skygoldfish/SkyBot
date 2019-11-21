@@ -15320,18 +15320,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         opt_x_idx = 1
 
                 # 해외선물 시작시간과 동기를 맞춤
-                opt_x_idx = opt_x_idx + 해외선물_시간차                
-                
-                if overnight:
+                opt_x_idx = opt_x_idx + 해외선물_시간차  
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] opt_x_idx = {3} \r'.format(
+                str = '[{0:02d}:{1:02d}:{2:02d}] opt_x_idx = {3} \r'.format(
                             int(result['체결시간'][0:2]),
                             int(result['체결시간'][2:4]),
                             int(result['체결시간'][4:6]),
-                            opt_x_idx)
+                            opt_x_idx)              
+                
+                if overnight:                    
                     self.textBrowser.append(str)
                 else:
-                    pass
+                    print(str)
 
                 # 서버시간과 동기를 위한 delta time 계산
                 time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - \
