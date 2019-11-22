@@ -12437,7 +12437,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         call_gap_percent_local = [value for value in temp if not math.isnan(value)]
         call_gap_percent_local.sort()
 
-        # global 콜시가갭합
+        global 콜시가갭합
 
         if call_gap_percent_local:
 
@@ -13484,7 +13484,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         put_gap_percent_local = [value for value in temp if not math.isnan(value)]
         put_gap_percent_local.sort()
 
-        # global 풋시가갭합
+        global 풋시가갭합
 
         if put_gap_percent_local:
 
