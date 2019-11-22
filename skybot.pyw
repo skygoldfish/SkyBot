@@ -121,6 +121,8 @@ oneway_threshold = 2500
 OVC_체결시간 = '000000'
 호가시간 = '000000'
 
+night_time = 0
+
 # 업종코드
 KOSPI = '001'
 KOSPI200 = '101'
@@ -15639,18 +15641,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # X축 시간좌표 계산
                 if overnight:
 
+                    global night_time
+
                     if result['체결시간_한국'] != '':
 
-                        nighttime = int(result['체결시간_한국'][0:2])
+                        night_time = int(result['체결시간_한국'][0:2])
 
-                        if 0 <= nighttime <= 5:
-                            nighttime = nighttime + 24
+                        if 0 <= night_time <= 5:
+                            night_time = night_time + 24
                         else:
                             pass
 
-                        ovc_x_idx = (nighttime - (domestic_start_hour - 1)) * 60 + int(result['체결시간_한국'][2:4]) + 1
+                        ovc_x_idx = (night_time - (domestic_start_hour - 1)) * 60 + int(result['체결시간_한국'][2:4]) + 1
                     else:
                         ovc_x_idx = 1
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] domestic_start_hour = {3}, night_time = {4} \r'.format(
+                            int(result['체결시간_한국'][0:2]),
+                            int(result['체결시간_한국'][2:4]),
+                            int(result['체결시간_한국'][4:6]),
+                            domestic_start_hour, night_time)
+
+                    self.textBrowser.append(str)        
                 else:
                     # 해외선물 개장시간은 국내시장의 1시간 전
                     if result['체결시간_한국'] != '':
@@ -15661,17 +15673,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 해외선물 시작시간과 동기를 맞춤
                 # ovc_x_idx = ovc_x_idx + 해외선물_시간차 
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] ovc_x_idx = {3} \r'.format(
+                '''
+                str = '[{0:02d}:{1:02d}:{2:02d}] domestic_start_hour = {3}, night_time = {4} \r'.format(
                             int(result['체결시간_한국'][0:2]),
                             int(result['체결시간_한국'][2:4]),
                             int(result['체결시간_한국'][4:6]),
-                            ovc_x_idx)
-                ''' 
+                            domestic_start_hour, night_time)
+                 
                 if overnight:
 
                     self.textBrowser.append(str)
                 else:
-                    print(str)   
+                    pass   
                 '''                         
 
                 if result['종목코드'] == NASDAQ:
