@@ -2450,7 +2450,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
         self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_atm.setText("Basis/양합:양차")
+        self.label_atm.setText("Basis(양합:양차)")
         self.label_atm.setStyleSheet('background-color: yellow; color: black')
         self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
         
@@ -4303,7 +4303,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global offline
         
             # 로컬타임 표시
-            str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
+            if overnight:
+                str = '{0:02d}:{1:02d}:{2:02d} ({3})'.format(dt.hour, dt.minute, dt.second, ovc_x_idx)
+            else:
+                str = '{0:02d}:{1:02d}:{2:02d} ({3})'.format(dt.hour, dt.minute, dt.second, opt_x_idx)
+
             self.label_msg.setText(str)
 
             if service_terminate:
@@ -4811,7 +4815,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             self.label_atm.setStyleSheet('background-color: yellow; color: black')
 
-        str = '{0:0.2f}/{1:0.2f}:{2:0.2f}'.format(basis, call_atm_value + put_atm_value,
+        str = '{0:0.2f}({1:0.2f}:{2:0.2f})'.format(basis, call_atm_value + put_atm_value,
             abs(call_atm_value - put_atm_value))
 
         self.label_atm.setText(str)
@@ -7607,7 +7611,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_plotdata_cm_two_sum[0][해외선물_시간차] = call_atm_value + put_atm_value
                 df_plotdata_cm_two_cha[0][해외선물_시간차] = call_atm_value - put_atm_value
 
-                str = '{0:0.2f}/{1:0.2f}:{2:0.2f}'.format(
+                str = '{0:0.2f}({1:0.2f}:{2:0.2f})'.format(
                     fut_realdata['현재가'] - fut_realdata['KP200'],
                     call_atm_value + put_atm_value,
                     abs(call_atm_value - put_atm_value))
@@ -8889,7 +8893,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     call_atm_value = df_cm_call.iloc[atm_index]['현재가']
                     put_atm_value = df_cm_put.iloc[atm_index]['현재가']
 
-                    str = '{0:0.2f}/{1:0.2f}:{2:0.2f}'.format(
+                    str = '{0:0.2f}({1:0.2f}:{2:0.2f})'.format(
                         fut_realdata['현재가'] - fut_realdata['KP200'],
                         call_atm_value + put_atm_value,
                         abs(call_atm_value - put_atm_value))
@@ -9564,7 +9568,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 call_atm_value = df_cm_call.iloc[atm_index]['현재가']
                 put_atm_value = df_cm_put.iloc[atm_index]['현재가']
 
-                str = '{0:0.2f}/{1:0.2f}:{2:0.2f}'.format(
+                str = '{0:0.2f}({1:0.2f}:{2:0.2f})'.format(
                     fut_realdata['현재가'] - fut_realdata['KP200'],
                     call_atm_value + put_atm_value,
                     abs(call_atm_value - put_atm_value))
@@ -12381,7 +12385,29 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                pass
+                if df_cm_call.iloc[index]['시가'] > 0 and df_cm_call.iloc[index]['종가'] > 0:
+
+                    df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
+                    gap_str = "{0:0.2f}".format(df_cm_call.iloc[index]['시가갭'])
+
+                    '''
+                    if df_cm_call.iloc[index]['시가'] >= price_threshold:
+
+                        call_gap_percent[index] = (df_cm_call.iloc[index]['시가'] / df_cm_call.iloc[index]['종가'] - 1) * 100
+                        gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(df_cm_call.iloc[index]['시가갭'], call_gap_percent[index])
+                    else:
+                        call_gap_percent[index] = 0.0
+                        gap_str = "{0:0.2f}".format(df_cm_call.iloc[index]['시가갭'])
+                    '''
+
+                    if gap_str != self.tableWidget_call.item(index, Option_column.시가갭.value).text():
+                        item = QTableWidgetItem(gap_str)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
+                    else:
+                        pass
+                else:
+                    pass
 
         # Call Open Count 및 OLOH 표시
         if call_open[nCount_cm_option_pairs - 1]:
@@ -13406,7 +13432,29 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                pass
+                if df_cm_put.iloc[index]['시가'] > 0 and df_cm_put.iloc[index]['종가'] > 0:
+
+                    df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']  
+                    gap_str = "{0:0.2f}".format(df_cm_put.iloc[index]['시가갭'])                  
+
+                    '''
+                    if df_cm_put.iloc[index]['시가'] >= price_threshold:
+
+                        put_gap_percent[index] = (df_cm_put.iloc[index]['시가'] / df_cm_put.iloc[index]['종가'] - 1) * 100
+                        gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(df_cm_put.iloc[index]['시가갭'], put_gap_percent[index])
+                    else:
+                        put_gap_percent[index] = 0.0
+                        gap_str = "{0:0.2f}".format(df_cm_put.iloc[index]['시가갭'])
+                    '''
+
+                    if gap_str != self.tableWidget_put.item(index, Option_column.시가갭.value).text():
+                        item = QTableWidgetItem(gap_str)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
+                    else:
+                        pass
+                else:
+                    pass
 
         # Put Open Count 및 OLOH 표시
         if put_open[0]:
@@ -15327,11 +15375,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             int(result['체결시간'][2:4]),
                             int(result['체결시간'][4:6]),
                             opt_x_idx)              
-                
+                '''
                 if overnight:                    
                     self.textBrowser.append(str)
                 else:
                     print(str)
+                '''
 
                 # 서버시간과 동기를 위한 delta time 계산
                 time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - \
@@ -15660,12 +15709,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             int(result['체결시간_한국'][2:4]),
                             int(result['체결시간_한국'][4:6]),
                             ovc_x_idx)
-                 
+                ''' 
                 if overnight:
 
                     self.textBrowser.append(str)
                 else:
-                    print(str)                            
+                    print(str)   
+                '''                         
 
                 if result['종목코드'] == NASDAQ:
 
