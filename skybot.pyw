@@ -421,12 +421,14 @@ yoc_put_gap_percent = [NaN] * nRowCount
 call_open = [False] * nRowCount
 call_ol = [False] * nRowCount
 call_oh = [False] * nRowCount
+call_gap = [0] * nRowCount
 call_gap_percent = [NaN] * nRowCount
 call_db_percent = [NaN] * nRowCount
 
 put_open = [False] * nRowCount
 put_ol = [False] * nRowCount
 put_oh = [False] * nRowCount
+put_gap = [0] * nRowCount
 put_gap_percent = [NaN] * nRowCount
 put_db_percent = [NaN] * nRowCount
 
@@ -11755,72 +11757,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return
 
-    def call_pre_open_update(self):
-
-        global call_open, call_below_atm_count
-        global df_cm_call, call_gap_percent, df_plotdata_cm_call
-        global cm_call_시가, cm_call_시가_node_list, cm_call_피봇, cm_call_피봇_node_list
-        global call_max_actval 
-
-        index = cm_call_행사가.index(call_result['단축코드'][5:8])
-
-        df_cm_call.loc[index, '시가'] = round(float(call_result['시가']), 2)
-        df_cm_call.loc[index, '시가갭'] = float(call_result['시가']) - df_cm_call.iloc[index]['종가']
-        df_plotdata_cm_call.iloc[index][해외선물_시간차] = float(call_result['시가'])
-
-        item = QTableWidgetItem(call_result['시가'])
-        item.setTextAlignment(Qt.AlignCenter)
-
-        if float(call_result['시가']) > df_cm_call.iloc[index]['종가']:
-            item.setForeground(QBrush(적색))
-        elif float(call_result['시가']) < df_cm_call.iloc[index]['종가']:
-            item.setForeground(QBrush(청색))
-        else:
-            item.setForeground(QBrush(검정색))
-
-        self.tableWidget_call.setItem(index, Option_column.시가.value, item)  
-
-        if float(call_result['시가']) >= price_threshold:     
-        
-            call_gap_percent[index] = (float(call_result['시가']) / df_cm_call.iloc[index]['종가'] - 1) * 100
-            gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(df_cm_call.iloc[index]['시가갭'], call_gap_percent[index])
-        else:
-            call_gap_percent[index] = 0.0
-            gap_str = "{0:0.2f}".format(df_cm_call.iloc[index]['시가갭'])
-
-        item = QTableWidgetItem(gap_str)
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
-        
-        cm_call_시가 = df_cm_call['시가'].values.tolist()
-        cm_call_시가_node_list = self.make_node_list(cm_call_시가)
-
-        str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}] 시가 {4} Pre Open됨 !!!\r'.format(int(call_result['체결시간'][0:2]), \
-                        int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), index+1, call_result['시가'])
-        self.textBrowser.append(str)
-        
-        if df_cm_call.iloc[index]['전저'] > 0 and df_cm_call.iloc[index]['전고'] > 0:
-
-            피봇 = self.calc_pivot(df_cm_call.iloc[index]['전저'], df_cm_call.iloc[index]['전고'],
-                                df_cm_call.iloc[index]['종가'], df_cm_call.iloc[index]['시가'])
-
-            df_cm_call.loc[index, '피봇'] = 피봇
-
-            item = QTableWidgetItem("{0:0.2f}".format(피봇))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_call.setItem(index, Option_column.피봇.value, item)                
-
-            cm_call_피봇 = df_cm_call['피봇'].values.tolist()
-            cm_call_피봇_node_list = self.make_node_list(cm_call_피봇)
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call 피봇 리스트 갱신 !!!\r'.format(int(call_result['체결시간'][0:2]), \
-                        int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
-            self.textBrowser.append(str)
-        else:
-            pass
-
-        return
-         
     def call_open_update(self):
 
         global call_open, call_below_atm_count
@@ -12267,13 +12203,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def call_open_check(self):
 
         global call_below_atm_count
-        global df_cm_call, call_open, call_ol, call_oh
+        global df_cm_call, call_open, call_ol, call_oh, call_gap
         global call_gap_percent
         global cm_call_시가, cm_call_시가_node_list, cm_call_피봇, cm_call_피봇_node_list        
 
         call_open = [False] * nCount_cm_option_pairs
         call_ol = [False] * nCount_cm_option_pairs
         call_oh = [False] * nCount_cm_option_pairs
+        call_gap = [0] * nCount_cm_option_pairs
 
         call_below_atm_count = 0
 
@@ -12298,6 +12235,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if df_cm_call.iloc[index]['종가'] > 0:
 
                     df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
+                    call_gap[index] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
 
                     if df_cm_call.iloc[index]['시가'] >= price_threshold:
 
@@ -12439,12 +12377,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global 콜시가갭합
 
+        콜시가갭합 = round(df_cm_call['시가갭'].sum(), 2)
+
         if call_gap_percent_local:
 
-            콜시가갭합 = round(df_cm_call['시가갭'].sum(), 2)
             tmp = np.array(call_gap_percent_local)            
             meanc = int(round(np.mean(tmp), 2))
-            call_str = repr(콜시가갭합) + '\n (' + repr(meanc) + '%' + ') '
+            call_str = repr(round(sum(call_gap), 2)) + '\n (' + repr(meanc) + '%' + ') '
 
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.시가갭.value).text():
                 item = QTableWidgetItem(call_str)
@@ -13314,13 +13253,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def put_open_check(self):
 
         global put_above_atm_count
-        global df_cm_put, put_open, put_ol, put_oh
+        global df_cm_put, put_open, put_ol, put_oh, put_gap
         global put_gap_percent
         global cm_put_시가, cm_put_시가_node_list, cm_put_피봇, cm_put_피봇_node_list
 
         put_open = [False] * nCount_cm_option_pairs
         put_ol = [False] * nCount_cm_option_pairs
         put_oh = [False] * nCount_cm_option_pairs
+        put_gap = [0] * nCount_cm_option_pairs
 
         put_above_atm_count = 0
         
@@ -13344,7 +13284,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if df_cm_put.iloc[index]['종가'] > 0:
 
-                    df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']                    
+                    df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']
+                    put_gap[index] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']                    
 
                     if df_cm_put.iloc[index]['시가'] >= price_threshold:
 
@@ -13486,12 +13427,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global 풋시가갭합
 
+        풋시가갭합 = round(df_cm_put['시가갭'].sum(), 2)
+
         if put_gap_percent_local:
 
-            풋시가갭합 = round(df_cm_put['시가갭'].sum(), 2)
+            #풋시가갭합 = round(df_cm_put['시가갭'].sum(), 2)
             tmp = np.array(put_gap_percent_local)            
             meanc = int(round(np.mean(tmp), 2))
-            put_str = repr(풋시가갭합) + '\n (' + repr(meanc) + '%' + ') '
+            put_str = repr(round(sum(put_gap), 2)) + '\n (' + repr(meanc) + '%' + ') '
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.시가갭.value).text():
                 item = QTableWidgetItem(put_str)
