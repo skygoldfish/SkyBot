@@ -15656,13 +15656,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         ovc_x_idx = 1
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] domestic_start_hour = {3}, night_time = {4} \r'.format(
-                            int(result['체결시간_한국'][0:2]),
-                            int(result['체결시간_한국'][2:4]),
-                            int(result['체결시간_한국'][4:6]),
-                            domestic_start_hour, night_time)
+                    if ovc_x_idx < 0:
 
-                    self.textBrowser.append(str)        
+                        str = '{0}--{1}'.format(night_time, domestic_start_hour)
+
+                        self.label_atm.setText(str)
+                    else:
+                        pass      
                 else:
                     # 해외선물 개장시간은 국내시장의 1시간 전
                     if result['체결시간_한국'] != '':
@@ -16160,7 +16160,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     XQ.Query(월물=current_month_info, 미니구분='G')
 
-                domestic_start_hour = domestic_start_hour + 9
+                if not refresh_flag:
+                    domestic_start_hour = domestic_start_hour + 9                    
+                else:
+                    pass
 
                 print('근월물 야간 선물/옵션 실시간요청...')
 
