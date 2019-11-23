@@ -2348,7 +2348,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global current_month, next_month, next_month_only, month_firstday, cnm_select
         global cm_option_title, current_month_info, next_month_info, SP500, DOW, NASDAQ, fut_code
 
-        global domestic_start_hour, ovc_start_hour
+        global overnight, domestic_start_hour, ovc_start_hour
 
         dt = datetime.datetime.now()
         
@@ -2358,8 +2358,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         with open('month_info.txt', mode='r') as monthfile:
             tmp = monthfile.readline().strip()
             temp = tmp.split()
-            domestic_start_hour = int(temp[3])
-            ovc_start_hour = domestic_start_hour - 1            
+            domestic_start_hour = int(temp[3])           
 
             tmp = monthfile.readline().strip()
             temp = tmp.split()
@@ -2393,7 +2392,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             temp = tmp.split()
             NASDAQ = temp[2]           
 
-        print('장 시작시간 = ', domestic_start_hour)
         print('current month = %s, month firstday = %s, next month = %s, next month only = %s, cnm select = %s, SP500 = %s, DOW = %s, NASDAQ = %s' \
             % (current_month_info, month_firstday, next_month_info, next_month_only, cnm_select, SP500, DOW, NASDAQ))
 
@@ -2409,20 +2407,27 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if 4 < int(current_str[0:2]) < 17:
 
             if next_month_only == 'YES':          
-                print('차월물({}월물) 데이타 요청...'.format(next_month))
+                #print('차월물({}월물) 데이타 요청...'.format(next_month))
                 cm_option_title = repr(next_month) + '월물 주간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
             else:
-                print('근월물({}월물) 데이타 요청...'.format(current_month))
+                #print('근월물({}월물) 데이타 요청...'.format(current_month))
                 cm_option_title = repr(current_month) + '월물 주간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
         else:
+            overnight = True
+
+            domestic_start_hour = domestic_start_hour + 9
 
             if next_month_only == 'YES': 
-                print('차월물({}월물) 데이타 요청...'.format(next_month))
+                #print('차월물({}월물) 데이타 요청...'.format(next_month))
                 cm_option_title = repr(next_month) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
             else:
-                print('근월물({}월물) 데이타 요청...'.format(current_month))
+                #print('근월물({}월물) 데이타 요청...'.format(current_month))
                 cm_option_title = repr(current_month) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
         
+        ovc_start_hour = domestic_start_hour - 1 
+
+        print('장 시작시간 = ', domestic_start_hour)
+
         self.setWindowTitle(cm_option_title)
 
         '''
@@ -7549,7 +7554,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global 콜시가리스트, 콜저가리스트, 콜고가리스트, 풋시가리스트, 풋저가리스트, 풋고가리스트
 
         global df_plotdata_cm_two_sum, df_plotdata_cm_two_cha
-        global domestic_start_hour, ovc_start_hour, start_time_str, end_time_str
+        global start_time_str, end_time_str
 
         global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq
         global view_actval
@@ -16080,7 +16085,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def AddCode(self):
 
-        global overnight, domestic_start_hour
         global pre_start, service_time_start
         global START_ON
 
@@ -16129,28 +16133,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     XQ.Query(월물=current_month_info, 미니구분='G')
 
-                # domestic_start_hour = 9
-
                 print('근월물 주간 선물/옵션 실시간요청...')
-
-                '''
-                if next_month_only == 'YES':
-
-                    time.sleep(0.5)
-
-                    XQ = t2301(parent=self)
-                    XQ.Query(월물=next_month_info, 미니구분='G')
-
-                    print('차월물 주간 선물/옵션 실시간요청...')
-                else:
-                    pass
-                '''  
                 
                 # 시작시간 X축 표시(index 60은 시가)
                 time_line_fut_start.setValue(해외선물_시간차)
                 time_line_opt_start.setValue(해외선물_시간차)
             else:
-                overnight = True
+                #overnight = True
 
                 # 옵션 전광판
                 XQ = t2301(parent=self)
@@ -16158,27 +16147,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if next_month_only == 'YES':
                     XQ.Query(월물=next_month_info, 미니구분='G')
                 else:
-                    XQ.Query(월물=current_month_info, 미니구분='G')
-
-                if not refresh_flag:
-                    domestic_start_hour = domestic_start_hour + 9                    
-                else:
-                    pass
-
-                print('근월물 야간 선물/옵션 실시간요청...')
-
-                '''
-                if next_month_only == 'YES':
-
-                    time.sleep(0.5)
-
-                    XQ = t2301(parent=self)
-                    XQ.Query(월물=next_month_info, 미니구분='G')
-
-                    print('차월물 야간 선물/옵션 실시간요청...')
-                else:
-                    pass     
-                '''           
+                    XQ.Query(월물=current_month_info, 미니구분='G') 
 
                 # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
                 time_line_fut_start.setValue(1)
