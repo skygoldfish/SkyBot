@@ -189,6 +189,8 @@ put_volume_total = 0
 opt_x_idx = 0
 opt_x_idx_old = 0
 
+ovc_x_idx = 0
+
 call_below_atm_count = 0
 put_above_atm_count = 0
 
@@ -4312,11 +4314,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global offline
         
             # 로컬타임 표시
+            '''
             if overnight:
                 str = '{0:02d}:{1:02d}:{2:02d} ({3})'.format(dt.hour, dt.minute, dt.second, ovc_x_idx)
             else:
-                str = '{0:02d}:{1:02d}:{2:02d} ({3})'.format(dt.hour, dt.minute, dt.second, opt_x_idx)
-
+                str = '{0:02d}:{1:02d}:{2:02d} ({3})'.format(dt.hour, dt.minute, dt.second, opt_x_idx) 
+            '''
+            str = '{0:02d}:{1:02d}:{2:02d} ({3})'.format(dt.hour, dt.minute, dt.second, ovc_x_idx)           
+           
             self.label_msg.setText(str)
 
             if service_terminate:
