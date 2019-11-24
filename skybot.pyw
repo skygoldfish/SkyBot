@@ -12202,7 +12202,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         for index in range(nCount_cm_option_pairs):
 
-            if df_cm_call.iloc[index]['시가'] > 0:
+            if df_cm_call.iloc[index]['시가'] > 0.01:
 
                 if df_cm_call.iloc[index]['저가'] < df_cm_call.iloc[index]['고가']:
 
@@ -13223,7 +13223,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         for index in range(nCount_cm_option_pairs):
 
-            if df_cm_put.iloc[index]['시가'] > 0:
+            if df_cm_put.iloc[index]['시가'] > 0.01:
 
                 if df_cm_put.iloc[index]['저가'] < df_cm_put.iloc[index]['고가']:
 
