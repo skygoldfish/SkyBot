@@ -6131,7 +6131,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 			
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Call Table Color Check : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        str = '[{0:02d}:{1:02d}:{2:02d}] Call Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
         self.textBrowser.append(str)
 
         return
@@ -7112,7 +7112,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 			
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Put Table Color Check : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        str = '[{0:02d}:{1:02d}:{2:02d}] Put Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
         self.textBrowser.append(str)
 
         return
