@@ -2111,13 +2111,14 @@ class update_worker(QThread):
     finished = pyqtSignal(dict)
     
     def run(self):
+
+        global df_plotdata_cm_call_volume, df_plotdata_cm_put_volume, df_plotdata_cm_volume_cha
+        global df_plotdata_cm_call_oi, df_plotdata_cm_put_oi 
+        global call_volume_total, put_volume_total
         
         while True:
             data = {}            
-            '''
-            dt = datetime.datetime.now()
-            start_time = timeit.default_timer()  
-            '''
+            
             if opt_x_idx >= 해외선물_시간차 + 1:
 
                 call_volume_total = df_cm_call_che['매수누적체결량'].sum() - df_cm_call_che['매도누적체결량'].sum()
@@ -2129,9 +2130,6 @@ class update_worker(QThread):
                 df_plotdata_cm_volume_cha.iloc[0][opt_x_idx] = call_volume_total - put_volume_total
 
                 if not overnight:
-
-                    #df_plotdata_cm_call_oi.iloc[0][opt_x_idx] = df_cm_call['수정미결'].sum() - call_oi_init_value
-                    #df_plotdata_cm_put_oi.iloc[0][opt_x_idx] = df_cm_put['수정미결'].sum() - put_oi_init_value
 
                     df_plotdata_cm_call_oi.iloc[0][opt_x_idx] = df_cm_call['수정미결'].sum()
                     df_plotdata_cm_put_oi.iloc[0][opt_x_idx] = df_cm_put['수정미결'].sum()
@@ -2150,11 +2148,7 @@ class update_worker(QThread):
             for actval in opt_actval[nCount_cm_option_pairs - 1:nCount_cm_option_pairs]:
 
                 data[actval] = self.get_data_infos(actval)
-            '''
-            str = '[{0:02d}:{1:02d}:{2:02d}] update_worker 처리시간 : {3:0.2f} ms...\r'.format(\
-                dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
-            print(str)            
-            '''
+            
             self.finished.emit(data)    
             self.msleep(500)
 
@@ -12142,6 +12136,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def call_pre_open_update(self, index):
 
         global df_cm_call, call_gap_percent
+        global df_plotdata_cm_call
+        global cm_call_피봇, cm_call_피봇_node_list
 
         dt = datetime.datetime.now()
 
@@ -13161,6 +13157,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def put_pre_open_update(self, index):
 
         global df_cm_put, put_gap_percent
+        global df_plotdata_cm_put
+        global cm_put_피봇, cm_put_피봇_node_list
 
         dt = datetime.datetime.now()
 
