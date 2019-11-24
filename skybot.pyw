@@ -3160,7 +3160,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.textBrowser.append(str)
 
         self.XingAdminCheck()
-
+        '''
         if next_month_only == 'YES':
             #fut_code = next_month_only
             str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3:02d}월물) 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, next_month)
@@ -3168,6 +3168,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             str = '[{0:02d}:{1:02d}:{2:02d}] 근월물({3:02d}월물) 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month)
             self.textBrowser.append(str)
+        '''
             
     # Xing 관리자모드 실행 체크함수
     def XingAdminCheck(self):
