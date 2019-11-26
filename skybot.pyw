@@ -2131,8 +2131,8 @@ class update_worker(QThread):
 
                 if not overnight:
 
-                    df_plotdata_cm_call_oi.iloc[0][opt_x_idx] = df_cm_call['수정미결'].sum()
-                    df_plotdata_cm_put_oi.iloc[0][opt_x_idx] = df_cm_put['수정미결'].sum()
+                    df_plotdata_cm_call_oi.iloc[0][opt_x_idx] = df_cm_call['수정미결'].sum() - call_oi_init_value
+                    df_plotdata_cm_put_oi.iloc[0][opt_x_idx] = df_cm_put['수정미결'].sum() - put_oi_init_value
                 else:
                     pass
             else:
@@ -4310,7 +4310,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
             # 로컬타임 표시            
 
-            if receive_real_ovc:
+            if not service_terminate:
                 str = '{0:02d}:{1:02d}:{2:02d} ({3})'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), ovc_x_idx)
             else:
                 str = '{0:02d}:{1:02d}:{2:02d} ({3})'.format(dt.hour, dt.minute, dt.second)           
@@ -13934,7 +13934,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     market_service = False
                     service_terminate = True
-                    receive_real_ovc = False
+                    #receive_real_ovc = False
                     
                     self.image_grab()
                     
@@ -13956,7 +13956,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         
                         market_service = False
                         service_terminate = True
-                        receive_real_ovc = False
+                        #receive_real_ovc = False
 
                         self.image_grab()  
                         
