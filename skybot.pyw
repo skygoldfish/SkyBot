@@ -4313,11 +4313,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if not service_terminate:
                 str = '{0:02d}:{1:02d}:{2:02d} ({3})'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), ovc_x_idx)
             else:
-                str = '{0:02d}:{1:02d}:{2:02d} ({3})'.format(dt.hour, dt.minute, dt.second)           
-           
-            self.label_msg.setText(str)
-
-            if service_terminate:
 
                 if self.parent.connection.IsConnected():
 
@@ -4331,9 +4326,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.parent.statusbar.showMessage("오프라인") 
                         offline = True 
                     else:
-                        pass              
-            else:
-                pass
+                        pass   
+
+                str = '{0:02d}:{1:02d}:{2:02d} ({3})'.format(dt.hour, dt.minute, dt.second)           
+           
+            self.label_msg.setText(str)
 
             self.alternate_flag = not self.alternate_flag 
             
