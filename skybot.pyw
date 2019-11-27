@@ -4317,19 +4317,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 str = '{0:02d}:{1:02d}:{2:02d} ({3})'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), ovc_x_idx)
             else:
 
-                if self.parent.connection.IsConnected():
+                if overnight:
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)  
+                    if self.parent.connection.IsConnected():
 
-                    self.parent.connection.disconnect()
-                else:
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)  
 
-                    if not offline:
-                        self.parent.statusbar.showMessage("오프라인") 
-                        offline = True 
+                        self.parent.connection.disconnect()
                     else:
-                        pass   
+                        
+                        if not offline:
+                            self.parent.statusbar.showMessage("오프라인") 
+                            offline = True 
+                        else:
+                            pass   
+                else:
+                    pass                
 
                 str = '{0:02d}:{1:02d}:{2:02d} ({3})'.format(dt.hour, dt.minute, dt.second)           
            
@@ -13933,7 +13937,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.SaveResult()  
 
                     market_service = False
-                    #service_terminate = True
+                    service_terminate = True
                     jugan_service_terminate = True
                     #receive_real_ovc = False
                     
