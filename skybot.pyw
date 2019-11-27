@@ -4326,7 +4326,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.parent.connection.disconnect()
                     else:
-                        
+
                         if not offline:
                             self.parent.statusbar.showMessage("오프라인") 
                             offline = True 
@@ -5322,14 +5322,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             for i in range(call_scroll_begin_position, call_scroll_end_position):
 
-                if call_open[i]:
+                if df_cm_call.iloc[i]['시가'] in 진성의미가:
 
-                    if df_cm_call.iloc[i]['시가'] in 진성의미가:
+                    self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
 
-                        self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
-                        self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
+                if call_open[i]:                   
 
                     if df_cm_call.iloc[i]['저가'] in coreval:
 
@@ -6302,15 +6302,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             put_high_coreval = False          
 
             for i in range(put_scroll_begin_position, put_scroll_end_position):
+                
+                if df_cm_put.iloc[i]['시가'] in 진성의미가:
+
+                    self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
 
                 if put_open[i]:
-
-                    if df_cm_put.iloc[i]['시가'] in 진성의미가:
-
-                        self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
-                        self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
 
                     if df_cm_put.iloc[i]['저가'] in coreval:
 
