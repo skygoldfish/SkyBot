@@ -112,6 +112,9 @@ start_time_str = ''
 end_time_str = ''
 
 service_terminate = False
+jugan_service_terminate = False
+yagan_service_terminate = False
+
 offline = False
 
 옵션잔존일 = 0
@@ -13694,7 +13697,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global put_atm_value, put_db_percent
             global cm_put_피봇, cm_put_피봇_node_list, cm_put_시가, cm_put_시가_node_list
             global cm_put_저가, cm_put_저가_node_list, cm_put_고가, cm_put_고가_node_list
-            global market_service, service_terminate
+            global market_service, service_terminate, jugan_service_terminate, yagan_service_terminate
 
             global yoc_stop
             global OVC_체결시간, 호가시간
@@ -13930,7 +13933,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.SaveResult()  
 
                     market_service = False
-                    service_terminate = True
+                    #service_terminate = True
+                    jugan_service_terminate = True
                     #receive_real_ovc = False
                     
                     self.image_grab()
@@ -13946,24 +13950,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
-                    
-                    if not service_terminate:
 
-                        self.SaveResult() 
+                    self.SaveResult() 
                         
-                        market_service = False
-                        service_terminate = True
-                        #receive_real_ovc = False
+                    market_service = False
+                    service_terminate = True
+                    yagan_service_terminate = True
+                    #receive_real_ovc = False
 
-                        self.image_grab()  
-                        
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)  
+                    self.image_grab()  
                     
-                        # 해외선물 지수 요청취소                    
-                        self.OVC.UnadviseRealData()
-                    else:
-                        pass                      
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)  
+                    
+                    # 해외선물 지수 요청취소                    
+                    self.OVC.UnadviseRealData()
 
                 # 야간 옵션장 종료
                 elif result['장구분'] == '8' and result['장상태'] == '41':
