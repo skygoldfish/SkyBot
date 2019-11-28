@@ -4333,9 +4333,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass   
                 else:
-                    pass                
+                    pass 
 
-                str = '{0:02d}:{1:02d}:{2:02d} ({3})'.format(dt.hour, dt.minute, dt.second)           
+                str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
            
             self.label_msg.setText(str)
 
