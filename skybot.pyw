@@ -4944,27 +4944,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
         else:
             # oneway check
-            if call_oi_delta > put_oi_delta \
-                and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 \
-                and FUT_RETAIL_거래대금순매수 < 0 and FUT_INSTITUTIONAL_거래대금순매수 < 0 and fut_realdata['거래량'] > 0:
-
-                self.label_msg.setStyleSheet('background-color: orange; color: black')
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] ★ 콜 OneWay 가능성 레벨 1...\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
-
-            elif call_oi_delta < put_oi_delta \
-                and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 \
-                and FUT_RETAIL_거래대금순매수 > 0 and FUT_INSTITUTIONAL_거래대금순매수 > 0 and fut_realdata['거래량'] < 0:
-
-                self.label_msg.setStyleSheet('background-color: royalblue; color: white')
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] ★ 풋 OneWay 가능성 레벨 1...\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
-
-            else:
-                self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
-
             if FUT_INSTITUTIONAL_거래대금순매수 > oneway_threshold or FUT_RETAIL_거래대금순매수 > oneway_threshold:
 
                 if call_oi_delta < put_oi_delta \
@@ -4994,8 +4973,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.textBrowser.append(str)
                 else:
                     self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
+            else:
 
-            elif FUT_INSTITUTIONAL_거래대금순매수 < -oneway_threshold or FUT_RETAIL_거래대금순매수 < -oneway_threshold:
+                if call_oi_delta < put_oi_delta \
+                    and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 \
+                    and FUT_RETAIL_거래대금순매수 > 0 and FUT_INSTITUTIONAL_거래대금순매수 > 0 and fut_realdata['거래량'] < 0:
+
+                    self.label_msg.setStyleSheet('background-color: royalblue; color: white')
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] ★ 풋 OneWay 가능성 레벨 1...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+                else:
+                    self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
+
+
+            if FUT_INSTITUTIONAL_거래대금순매수 < -oneway_threshold or FUT_RETAIL_거래대금순매수 < -oneway_threshold:
 
                 if call_oi_delta > put_oi_delta \
                     and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0:
@@ -5027,7 +5019,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
 
             else:
-                pass
+
+                if call_oi_delta > put_oi_delta \
+                    and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 \
+                    and FUT_RETAIL_거래대금순매수 < 0 and FUT_INSTITUTIONAL_거래대금순매수 < 0 and fut_realdata['거래량'] > 0:
+
+                    self.label_msg.setStyleSheet('background-color: orange; color: black')
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] ★ 콜 OneWay 가능성 레벨 1...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+                else:
+                    self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
 
             # 예상 중심가 표시
             if call_atm_value > put_atm_value:
