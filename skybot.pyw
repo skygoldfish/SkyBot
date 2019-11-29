@@ -2606,8 +2606,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.comboBox1.addItems(['1. FV-Plot', '2. OO-Plot', '3. OV-Plot', '4. HC-Plot', '5. FP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['1. OO-Plot', '2. OV-Plot', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
-        self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
+        if overnight:
+
+            self.comboBox2.addItems(['1. None', '2. OV-Plot', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
+        else:
+            self.comboBox2.addItems(['1. OO-Plot', '2. OV-Plot', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         self.상태그림 = ['▼', '▲']
         self.상태문자 = ['매도', '대기', '매수']
@@ -3491,30 +3496,34 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if comboindex2 == 0:
 
-            cm_call_volume_right_curve.clear()
-            cm_put_volume_right_curve.clear()
-            cm_volume_cha_right_curve.clear()
+            if not overnight:
 
-            fut_che_right_curve.clear()
+                cm_call_volume_right_curve.clear()
+                cm_put_volume_right_curve.clear()
+                cm_volume_cha_right_curve.clear()
 
-            cm_two_sum_right_curve.clear()
-            cm_two_cha_right_curve.clear()
-            
-            for i in range(29):
-                call_curve[i].clear()
-                put_curve[i].clear() 
-            
-            sp500_right_curve.clear()
-            dow_right_curve.clear()
-            nasdaq_right_curve.clear()
+                fut_che_right_curve.clear()
 
-            for i in range(9):
-                mv_line[i].setValue(0)
+                cm_two_sum_right_curve.clear()
+                cm_two_cha_right_curve.clear()
+                
+                for i in range(29):
+                    call_curve[i].clear()
+                    put_curve[i].clear() 
+                
+                sp500_right_curve.clear()
+                dow_right_curve.clear()
+                nasdaq_right_curve.clear()
 
-            opt_base_line.setValue(0)
+                for i in range(9):
+                    mv_line[i].setValue(0)
 
-            hc_opt_upper_line.setValue(0)
-            hc_opt_lower_line.setValue(0)
+                opt_base_line.setValue(0)
+
+                hc_opt_upper_line.setValue(0)
+                hc_opt_lower_line.setValue(0)
+            else:
+                pass            
 
         elif comboindex2 == 1:
             
@@ -4505,8 +4514,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 선택된 오른쪽 그래프 그리기
                 if comboindex2 == 0:
 
-                    cm_call_oi_right_curve.setData(curve4_data)
-                    cm_put_oi_right_curve.setData(curve5_data)
+                    if not overnight:
+                        cm_call_oi_right_curve.setData(curve4_data)
+                        cm_put_oi_right_curve.setData(curve5_data)
+                    else:
+                        pass
 
                 elif comboindex2 == 1:
                                         
