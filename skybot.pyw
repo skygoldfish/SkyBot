@@ -2702,8 +2702,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         atm_upper_line = self.Plot_Fut.addLine(x=None, pen=atm_upper_pen)
         atm_lower_line = self.Plot_Fut.addLine(x=None, pen=atm_lower_pen)
 
-        for i in range(29):
+        for i in range(9):
             mv_line.append(self.Plot_Opt.addLine(x=None, pen=mvpen))
+
+        for i in range(29):
+            #mv_line.append(self.Plot_Opt.addLine(x=None, pen=mvpen))
             call_curve.append(self.Plot_Opt.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
             put_curve.append(self.Plot_Opt.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))
 
