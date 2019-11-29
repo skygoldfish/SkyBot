@@ -115,8 +115,6 @@ service_terminate = False
 jugan_service_terminate = False
 yagan_service_terminate = False
 
-offline = False
-
 옵션잔존일 = 0
 
 oneway_threshold = 2500
@@ -2142,7 +2140,7 @@ class update_worker(QThread):
                 pass 
 
             # atm index 중심으로 위,아래 5개 요청(총 11개)
-            for actval in opt_actval[atm_index - 5:atm_index + 6]:
+            for actval in opt_actval[atm_index - 15:atm_index + 16]:
             #for actval in opt_actval:
 
                 data[actval] = self.get_data_infos(actval)
@@ -2699,7 +2697,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         atm_upper_line = self.Plot_Fut.addLine(x=None, pen=atm_upper_pen)
         atm_lower_line = self.Plot_Fut.addLine(x=None, pen=atm_lower_pen)
 
-        for i in range(9):
+        for i in range(29):
             mv_line.append(self.Plot_Opt.addLine(x=None, pen=mvpen))
             call_curve.append(self.Plot_Opt.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
             put_curve.append(self.Plot_Opt.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))
@@ -3494,7 +3492,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_two_sum_right_curve.clear()
             cm_two_cha_right_curve.clear()
             
-            for i in range(9):
+            for i in range(29):
                 call_curve[i].clear()
                 put_curve[i].clear() 
             
@@ -3520,7 +3518,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_two_sum_right_curve.clear()
             cm_two_cha_right_curve.clear()
                         
-            for i in range(9):
+            for i in range(29):
                 call_curve[i].clear()
                 put_curve[i].clear()
             
@@ -3548,7 +3546,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_two_sum_right_curve.clear()
             cm_two_cha_right_curve.clear()
             
-            for i in range(9):
+            for i in range(29):
                 call_curve[i].clear()
                 put_curve[i].clear()
 
@@ -3575,7 +3573,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             fut_che_right_curve.clear()
             
-            for i in range(9):
+            for i in range(29):
                 call_curve[i].clear()
                 put_curve[i].clear() 
 
@@ -3634,7 +3632,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_two_sum_right_curve.clear()
             cm_two_cha_right_curve.clear()
             
-            for i in range(9):
+            for i in range(29):
                 call_curve[i].clear()
                 put_curve[i].clear() 
 
@@ -3667,7 +3665,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_two_sum_right_curve.clear()
             cm_two_cha_right_curve.clear()
             
-            for i in range(9):
+            for i in range(29):
                 call_curve[i].clear()
                 put_curve[i].clear()
 
@@ -3700,7 +3698,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_two_sum_right_curve.clear()
             cm_two_cha_right_curve.clear()
             
-            for i in range(9):
+            for i in range(29):
                 call_curve[i].clear()
                 put_curve[i].clear()
                 
@@ -4309,7 +4307,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             dt = datetime.datetime.now()
 
             global call_max_actval, put_max_actval
-            global offline
         
             # 로컬타임 표시            
 
@@ -4317,23 +4314,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 str = '{0:02d}:{1:02d}:{2:02d} ({3})'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), ovc_x_idx)
             else:
 
-                if overnight:
+                if self.parent.connection.IsConnected():
 
-                    if self.parent.connection.IsConnected():
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)  
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)  
-
-                        self.parent.connection.disconnect()
-                    else:
-
-                        if not offline:
-                            self.parent.statusbar.showMessage("오프라인") 
-                            offline = True 
-                        else:
-                            pass   
+                    self.parent.connection.disconnect()
                 else:
-                    pass 
+
+                    self.parent.statusbar.showMessage("오프라인") 
 
                 str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
            
@@ -4376,7 +4365,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 옵션그래프 초기화
                 if comboindex2 == 4:
 
-                    for i in range(9):
+                    for i in range(29):
                         call_curve[i].clear()
                         put_curve[i].clear()
 
@@ -4405,9 +4394,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     call_idx = []
                     put_idx = []
 
-                    # atm index 중심으로 위,아래 5개 만 탐색
+                    # atm index 중심으로 위,아래 15개 만 탐색
                     #for i in range(nCount_cm_option_pairs):
-                    for i in range(atm_index - 5, atm_index + 6):
+                    for i in range(atm_index - 15, atm_index + 16):
 
                         if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
                             call_idx.append(i)
@@ -11647,6 +11636,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             opt_callreal_update_counter += 1
         else:
 
+            # 현재가 갱신
+            df_cm_call.loc[index, '현재가'] = round(float(현재가), 2)
+            df_plotdata_cm_call.iloc[index][opt_x_idx] = float(현재가)
+
             # pre open check
             if round(float(시가), 2) != df_cm_call.iloc[index]['시가']:
 
@@ -12666,6 +12659,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         
             opt_putreal_update_counter += 1
         else:  
+
+             # 현재가 갱신
+            df_cm_put.loc[index, '현재가'] = round(float(현재가), 2)
+            df_plotdata_cm_put.iloc[index][opt_x_idx] = float(현재가)
 
             # pre open check
             if round(float(시가), 2) != df_cm_put.iloc[index]['시가']:
@@ -13691,13 +13688,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global time_delta
 
             global opt_callreal_update_counter
-            global df_cm_call, df_plotdata_cm_call
             global call_atm_value, call_db_percent
             global cm_call_피봇, cm_call_피봇_node_list, cm_call_시가, cm_call_시가_node_list
             global cm_call_저가, cm_call_저가_node_list, cm_call_고가, cm_call_고가_node_list
 
             global opt_putreal_update_counter
-            global df_cm_put, df_plotdata_cm_put
             global put_atm_value, put_db_percent
             global cm_put_피봇, cm_put_피봇_node_list, cm_put_시가, cm_put_시가_node_list
             global cm_put_저가, cm_put_저가_node_list, cm_put_고가, cm_put_고가_node_list
