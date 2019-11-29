@@ -11927,8 +11927,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if float(call_result['시가']) > df_cm_call.iloc[index]['종가']:
             item.setBackground(QBrush(콜기준가색))
+            item.setForeground(QBrush(검정색))
         elif float(call_result['시가']) < df_cm_call.iloc[index]['종가']:
             item.setBackground(QBrush(풋기준가색))
+            item.setForeground(QBrush(흰색))
         else:
             item.setBackground(QBrush(흰색))
 
@@ -12275,8 +12277,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if df_cm_call.iloc[index]['시가'] > df_cm_call.iloc[index]['종가']:
                 item.setBackground(QBrush(콜기준가색))
+                item.setForeground(QBrush(검정색))
             elif df_cm_call.iloc[index]['시가'] < df_cm_call.iloc[index]['종가']:
                 item.setBackground(QBrush(풋기준가색))
+                item.setForeground(QBrush(흰색))
             else:
                 item.setBackground(QBrush(흰색))
 
@@ -12365,8 +12369,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_call.iloc[index]['시가'] > df_cm_call.iloc[index]['종가']:
                             item.setBackground(QBrush(콜기준가색))
+                            item.setForeground(QBrush(검정색))
                         elif df_cm_call.iloc[index]['시가'] < df_cm_call.iloc[index]['종가']:
                             item.setBackground(QBrush(풋기준가색))
+                            item.setForeground(QBrush(흰색))
                         else:
                             item.setBackground(QBrush(흰색))
 
@@ -12453,8 +12459,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_call.iloc[index]['시가'] > df_cm_call.iloc[index]['종가']:
                             item.setBackground(QBrush(콜기준가색))
+                            item.setForeground(QBrush(검정색))
                         elif df_cm_call.iloc[index]['시가'] < df_cm_call.iloc[index]['종가']:
                             item.setBackground(QBrush(풋기준가색))
+                            item.setForeground(QBrush(흰색))
                         else:
                             item.setBackground(QBrush(흰색))
 
@@ -13050,8 +13058,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if float(put_result['시가']) > df_cm_put.iloc[index]['종가']:
             item.setBackground(QBrush(콜기준가색))
+            item.setForeground(QBrush(검정색))
         elif float(put_result['시가']) < df_cm_put.iloc[index]['종가']:
             item.setBackground(QBrush(풋기준가색))
+            item.setForeground(QBrush(흰색))
         else:
             item.setBackground(QBrush(흰색))
 
@@ -13399,8 +13409,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if df_cm_put.iloc[index]['시가'] > df_cm_put.iloc[index]['종가']:
                 item.setBackground(QBrush(콜기준가색))
+                item.setForeground(QBrush(검정색))
             elif df_cm_put.iloc[index]['시가'] < df_cm_put.iloc[index]['종가']:
                 item.setBackground(QBrush(풋기준가색))
+                item.setForeground(QBrush(흰색))
             else:
                 item.setBackground(QBrush(흰색))
 
@@ -13489,8 +13501,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_put.iloc[index]['시가'] > df_cm_put.iloc[index]['종가']:
                             item.setBackground(QBrush(콜기준가색))
+                            item.setForeground(QBrush(검정색))
                         elif df_cm_put.iloc[index]['시가'] < df_cm_put.iloc[index]['종가']:
                             item.setBackground(QBrush(풋기준가색))
+                            item.setForeground(QBrush(흰색))
                         else:
                             item.setBackground(QBrush(흰색))
 
@@ -13577,8 +13591,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_put.iloc[index]['시가'] > df_cm_put.iloc[index]['종가']:
                             item.setBackground(QBrush(콜기준가색))
+                            item.setForeground(QBrush(검정색))
                         elif df_cm_put.iloc[index]['시가'] < df_cm_put.iloc[index]['종가']:
                             item.setBackground(QBrush(풋기준가색))
+                            item.setForeground(QBrush(흰색))
                         else:
                             item.setBackground(QBrush(흰색))
 
