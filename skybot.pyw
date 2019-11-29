@@ -127,6 +127,8 @@ OVC_체결시간 = '000000'
 
 night_time = 0
 
+야간선물_기준시간 = 17
+
 # 업종코드
 KOSPI = '001'
 KOSPI200 = '101'
@@ -2404,7 +2406,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             buildtime = time.ctime(os.path.getmtime(__file__))
 
-        if 4 < int(current_str[0:2]) < 17:
+        if 4 < int(current_str[0:2]) < 야간선물_기준시간:
 
             if next_month_only == 'YES':          
                 #print('차월물({}월물) 데이타 요청...'.format(next_month))
@@ -11834,6 +11836,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         item = QTableWidgetItem(gap_str)
         item.setTextAlignment(Qt.AlignCenter)
+
+        if float(call_result['시가']) > df_cm_call.iloc[index]['종가']:
+            item.setBackground(QBrush(콜기준가색))
+        elif float(call_result['시가']) < df_cm_call.iloc[index]['종가']:
+            item.setBackground(QBrush(풋기준가색))
+        else:
+            item.setBackground(QBrush(흰색))
+
         self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
         
         str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}] 시가 {4} Open됨 !!!\r'.format(int(call_result['체결시간'][0:2]), \
@@ -12174,6 +12184,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             item = QTableWidgetItem(gap_str)
             item.setTextAlignment(Qt.AlignCenter)
+
+            if df_cm_call.iloc[index]['시가'] > df_cm_call.iloc[index]['종가']:
+                item.setBackground(QBrush(콜기준가색))
+            elif df_cm_call.iloc[index]['시가'] < df_cm_call.iloc[index]['종가']:
+                item.setBackground(QBrush(풋기준가색))
+            else:
+                item.setBackground(QBrush(흰색))
+
             self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
             
             global 콜시가갭합
@@ -12254,12 +12272,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             call_gap_percent[index] = 0.0
                             gap_str = "{0:0.2f}".format(df_cm_call.iloc[index]['시가갭'])
 
-                        if gap_str != self.tableWidget_call.item(index, Option_column.시가갭.value).text():
-                            item = QTableWidgetItem(gap_str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
+                        item = QTableWidgetItem(gap_str)
+                        item.setTextAlignment(Qt.AlignCenter)
+
+                        if df_cm_call.iloc[index]['시가'] > df_cm_call.iloc[index]['종가']:
+                            item.setBackground(QBrush(콜기준가색))
+                        elif df_cm_call.iloc[index]['시가'] < df_cm_call.iloc[index]['종가']:
+                            item.setBackground(QBrush(풋기준가색))
                         else:
-                            pass
+                            item.setBackground(QBrush(흰색))
+
+                        self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
                     else:
                         pass
 
@@ -12337,12 +12360,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
                         gap_str = "{0:0.2f}".format(df_cm_call.iloc[index]['시가갭'])
 
-                        if gap_str != self.tableWidget_call.item(index, Option_column.시가갭.value).text():
-                            item = QTableWidgetItem(gap_str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
+                        item = QTableWidgetItem(gap_str)
+                        item.setTextAlignment(Qt.AlignCenter)
+
+                        if df_cm_call.iloc[index]['시가'] > df_cm_call.iloc[index]['종가']:
+                            item.setBackground(QBrush(콜기준가색))
+                        elif df_cm_call.iloc[index]['시가'] < df_cm_call.iloc[index]['종가']:
+                            item.setBackground(QBrush(풋기준가색))
                         else:
-                            pass
+                            item.setBackground(QBrush(흰색))
+
+                        self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
                     else:
                         pass
             else:
@@ -12858,6 +12886,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         item = QTableWidgetItem(gap_str)
         item.setTextAlignment(Qt.AlignCenter)
+
+        if float(put_result['시가']) > df_cm_put.iloc[index]['종가']:
+            item.setBackground(QBrush(콜기준가색))
+        elif float(put_result['시가']) < df_cm_put.iloc[index]['종가']:
+            item.setBackground(QBrush(풋기준가색))
+        else:
+            item.setBackground(QBrush(흰색))
+
         self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
         
         str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}] 시가 {4} Open됨 !!!\r'.format(int(put_result['체결시간'][0:2]), \
@@ -13199,6 +13235,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             item = QTableWidgetItem(gap_str)
             item.setTextAlignment(Qt.AlignCenter)
+
+            if df_cm_put.iloc[index]['시가'] > df_cm_put.iloc[index]['종가']:
+                item.setBackground(QBrush(콜기준가색))
+            elif df_cm_put.iloc[index]['시가'] < df_cm_put.iloc[index]['종가']:
+                item.setBackground(QBrush(풋기준가색))
+            else:
+                item.setBackground(QBrush(흰색))
+
             self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
             
             global 풋시가갭합
@@ -13279,12 +13323,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             put_gap_percent[index] = 0.0
                             gap_str = "{0:0.2f}".format(df_cm_put.iloc[index]['시가갭'])
 
-                        if gap_str != self.tableWidget_put.item(index, Option_column.시가갭.value).text():
-                            item = QTableWidgetItem(gap_str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
+                        item = QTableWidgetItem(gap_str)
+                        item.setTextAlignment(Qt.AlignCenter)
+
+                        if df_cm_put.iloc[index]['시가'] > df_cm_put.iloc[index]['종가']:
+                            item.setBackground(QBrush(콜기준가색))
+                        elif df_cm_put.iloc[index]['시가'] < df_cm_put.iloc[index]['종가']:
+                            item.setBackground(QBrush(풋기준가색))
                         else:
-                            pass
+                            item.setBackground(QBrush(흰색))
+
+                        self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
                     else:
                         pass
 
@@ -13362,12 +13411,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']  
                         gap_str = "{0:0.2f}".format(df_cm_put.iloc[index]['시가갭'])                  
 
-                        if gap_str != self.tableWidget_put.item(index, Option_column.시가갭.value).text():
-                            item = QTableWidgetItem(gap_str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
+                        item = QTableWidgetItem(gap_str)
+                        item.setTextAlignment(Qt.AlignCenter)
+
+                        if df_cm_put.iloc[index]['시가'] > df_cm_put.iloc[index]['종가']:
+                            item.setBackground(QBrush(콜기준가색))
+                        elif df_cm_put.iloc[index]['시가'] < df_cm_put.iloc[index]['종가']:
+                            item.setBackground(QBrush(풋기준가색))
                         else:
-                            pass
+                            item.setBackground(QBrush(흰색))
+
+                        self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
                     else:
                         pass
             else:
@@ -16067,7 +16121,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
 
             # 주야간 선물/옵션요청 선택(주간=FC0/OC0, 야간=NC0/EC0)
-            if 4 < int(current_str[0:2]) < 17:
+            if 4 < int(current_str[0:2]) < 야간선물_기준시간:
 
                 if int(current_str[0:2]) == 7 and int(current_str[3:5]) > 10:
                     pre_start = True
