@@ -3506,11 +3506,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 cm_two_sum_right_curve.clear()
                 cm_two_cha_right_curve.clear()
-                
+
                 for i in range(29):
                     call_curve[i].clear()
                     put_curve[i].clear() 
-                
+
                 sp500_right_curve.clear()
                 dow_right_curve.clear()
                 nasdaq_right_curve.clear()
@@ -11619,12 +11619,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 저가 갱신
                 if 저가 != self.tableWidget_call.item(index, Option_column.저가.value).text():
                     
+                    df_cm_call.loc[index, '저가'] = round(float(저가), 2)
+
                     item = QTableWidgetItem(저가)
                     item.setTextAlignment(Qt.AlignCenter)             
                     self.tableWidget_call.setItem(index, Option_column.저가.value, item)
-                    
-                    df_cm_call.loc[index, '저가'] = round(float(저가), 2)
-                    
+                                        
                     self.check_call_oloh(index)
                                         
                     item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
@@ -11655,12 +11655,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 고가 갱신
                 if 고가 != self.tableWidget_call.item(index, Option_column.고가.value).text():
                     
+                    df_cm_call.loc[index, '고가'] = round(float(고가), 2)
+
                     item = QTableWidgetItem(고가)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(index, Option_column.고가.value, item)
-                    
-                    df_cm_call.loc[index, '고가'] = round(float(고가), 2)
-                    
+                                        
                     self.check_call_oloh(index)
                                         
                     item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
@@ -11694,8 +11694,37 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
 
             # 현재가 갱신
-            df_cm_call.loc[index, '현재가'] = round(float(현재가), 2)
-            df_plotdata_cm_call.iloc[index][opt_x_idx] = float(현재가)
+            if 현재가 != self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]:
+
+                df_cm_call.loc[index, '현재가'] = round(float(현재가), 2)
+                df_plotdata_cm_call.iloc[index][opt_x_idx] = float(현재가)
+
+                if float(현재가) < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
+                elif float(현재가) > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
+                else:    
+                    item = QTableWidgetItem(현재가)
+
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if float(현재가) < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+                    item.setBackground(QBrush(lightskyblue))
+                elif float(현재가) > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+                    item.setBackground(QBrush(pink))
+                else:
+                    item.setBackground(QBrush(옅은회색))
+
+                if float(시가) < float(현재가):
+                    item.setForeground(QBrush(적색))
+                elif float(시가) > float(현재가):
+                    item.setForeground(QBrush(청색))
+                else:
+                    item.setForeground(QBrush(검정색))
+
+                self.tableWidget_call.setItem(index, Option_column.현재가.value, item)
+            else:
+                pass
 
             # pre open check
             if round(float(시가), 2) != df_cm_call.iloc[index]['시가']:
@@ -11804,20 +11833,40 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if round(float(저가), 2) != df_cm_call.iloc[index]['저가']:
+                #if round(float(저가), 2) != df_cm_call.iloc[index]['저가']:
+                if 저가 != self.tableWidget_call.item(index, Option_column.저가.value).text():
+
                     df_cm_call.loc[index, '저가'] = round(float(저가), 2)
 
+                    item = QTableWidgetItem(저가)
+                    item.setTextAlignment(Qt.AlignCenter)             
+                    self.tableWidget_call.setItem(index, Option_column.저가.value, item)
+                                        
                     self.check_call_oloh(index)
+                                        
+                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
 
                     cm_call_저가 = df_cm_call['저가'].values.tolist()
                     cm_call_저가_node_list = self.make_node_list(cm_call_저가)
                 else:
                     pass
 
-                if round(float(고가), 2) != df_cm_call.iloc[index]['고가']:
+                #if round(float(고가), 2) != df_cm_call.iloc[index]['고가']:
+                if 고가 != self.tableWidget_call.item(index, Option_column.고가.value).text():
+
                     df_cm_call.loc[index, '고가'] = round(float(고가), 2)
 
+                    item = QTableWidgetItem(고가)
+                    item.setTextAlignment(Qt.AlignCenter)             
+                    self.tableWidget_call.setItem(index, Option_column.고가.value, item)
+                                        
                     self.check_call_oloh(index)
+                                        
+                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
 
                     cm_call_고가 = df_cm_call['고가'].values.tolist()
                     cm_call_고가_node_list = self.make_node_list(cm_call_고가)
@@ -12693,12 +12742,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 저가 갱신
                 if 저가 != self.tableWidget_put.item(index, Option_column.저가.value).text():
                     
+                    df_cm_put.loc[index, '저가'] = round(float(저가), 2)
+
                     item = QTableWidgetItem(저가)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.저가.value, item)
-                    
-                    df_cm_put.loc[index, '저가'] = round(float(저가), 2)
-                    
+                                        
                     self.check_put_oloh(index)
                                         
                     item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
@@ -12729,12 +12778,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 고가 갱신
                 if 고가 != self.tableWidget_put.item(index, Option_column.고가.value).text():
                     
+                    df_cm_put.loc[index, '고가'] = round(float(고가), 2)
+
                     item = QTableWidgetItem(고가)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.고가.value, item)
-                    
-                    df_cm_put.loc[index, '고가'] = round(float(고가), 2)
-                    
+                                        
                     self.check_put_oloh(index)
                                         
                     item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
@@ -12767,9 +12816,38 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             opt_putreal_update_counter += 1
         else:  
 
-             # 현재가 갱신
-            df_cm_put.loc[index, '현재가'] = round(float(현재가), 2)
-            df_plotdata_cm_put.iloc[index][opt_x_idx] = float(현재가)
+            # 현재가 갱신
+            if 현재가 != self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]:
+
+                df_cm_put.loc[index, '현재가'] = round(float(현재가), 2)
+                df_plotdata_cm_put.iloc[index][opt_x_idx] = float(현재가)
+
+                if float(현재가) < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
+                elif float(현재가) > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
+                else:    
+                    item = QTableWidgetItem(현재가)
+
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if float(현재가) < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+                    item.setBackground(QBrush(lightskyblue))
+                elif float(현재가) > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+                    item.setBackground(QBrush(pink))
+                else:
+                    item.setBackground(QBrush(옅은회색))
+
+                if float(시가) < float(현재가):
+                    item.setForeground(QBrush(적색))
+                elif float(시가) > float(현재가):
+                    item.setForeground(QBrush(청색))
+                else:
+                    item.setForeground(QBrush(검정색))
+
+                self.tableWidget_put.setItem(index, Option_column.현재가.value, item)
+            else:
+                pass
 
             # pre open check
             if round(float(시가), 2) != df_cm_put.iloc[index]['시가']:
@@ -12878,20 +12956,40 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if round(float(저가), 2) != df_cm_put.iloc[index]['저가']:
+                #if round(float(저가), 2) != df_cm_put.iloc[index]['저가']:
+                if 저가 != self.tableWidget_put.item(index, Option_column.저가.value).text():
+
                     df_cm_put.loc[index, '저가'] = round(float(저가), 2)
 
+                    item = QTableWidgetItem(저가)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(index, Option_column.저가.value, item)
+                    
                     self.check_put_oloh(index)
+                                        
+                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
                     
                     cm_put_저가 = df_cm_put['저가'].values.tolist()
                     cm_put_저가_node_list = self.make_node_list(cm_put_저가)
                 else:
                     pass
 
-                if round(float(고가), 2) != df_cm_put.iloc[index]['고가']:
+                #if round(float(고가), 2) != df_cm_put.iloc[index]['고가']:
+                if 고가 != self.tableWidget_put.item(index, Option_column.고가.value).text():
+
                     df_cm_put.loc[index, '고가'] = round(float(고가), 2)
+
+                    item = QTableWidgetItem(고가)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(index, Option_column.고가.value, item)
                     
                     self.check_put_oloh(index)
+                                        
+                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
                     
                     cm_put_고가 = df_cm_put['고가'].values.tolist()
                     cm_put_고가_node_list = self.make_node_list(cm_put_고가)
