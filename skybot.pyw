@@ -11563,7 +11563,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if round(float(시가), 2) != df_cm_call.iloc[index]['시가']:
 
                 df_cm_call.loc[index, '시가'] = round(float(시가), 2)
+                
+                item = QTableWidgetItem(시가)
+                item.setTextAlignment(Qt.AlignCenter)
 
+                if df_cm_call.iloc[index]['시가'] > df_cm_call.iloc[index]['종가']:
+                    item.setForeground(QBrush(적색))
+                elif df_cm_call.iloc[index]['시가'] < df_cm_call.iloc[index]['종가']:
+                    item.setForeground(QBrush(청색))
+                else:
+                    item.setForeground(QBrush(검정색))
+
+                self.tableWidget_call.setItem(index, Option_column.시가.value, item)
+                
                 cm_call_시가 = df_cm_call['시가'].values.tolist()
                 cm_call_시가_node_list = self.make_node_list(cm_call_시가)
 
@@ -11677,6 +11689,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if round(float(시가), 2) != df_cm_call.iloc[index]['시가']:
 
                 df_cm_call.loc[index, '시가'] = round(float(시가), 2)
+
+                item = QTableWidgetItem(시가)
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if df_cm_call.iloc[index]['시가'] > df_cm_call.iloc[index]['종가']:
+                    item.setForeground(QBrush(적색))
+                elif df_cm_call.iloc[index]['시가'] < df_cm_call.iloc[index]['종가']:
+                    item.setForeground(QBrush(청색))
+                else:
+                    item.setForeground(QBrush(검정색))
+
+                self.tableWidget_call.setItem(index, Option_column.시가.value, item)
 
                 cm_call_시가 = df_cm_call['시가'].values.tolist()
                 cm_call_시가_node_list = self.make_node_list(cm_call_시가)
@@ -12614,6 +12638,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 df_cm_put.loc[index, '시가'] = round(float(시가), 2)
 
+                item = QTableWidgetItem(시가)
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if df_cm_put.iloc[index]['시가'] > df_cm_put.iloc[index]['종가']:
+                    item.setForeground(QBrush(적색))
+                elif df_cm_put.iloc[index]['시가'] < df_cm_put.iloc[index]['종가']:
+                    item.setForeground(QBrush(청색))
+                else:
+                    item.setForeground(QBrush(검정색))
+
+                self.tableWidget_put.setItem(index, Option_column.시가.value, item)
+
                 cm_put_시가 = df_cm_put['시가'].values.tolist()
                 cm_put_시가_node_list = self.make_node_list(cm_put_시가)
 
@@ -12727,6 +12763,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if round(float(시가), 2) != df_cm_put.iloc[index]['시가']:
 
                 df_cm_put.loc[index, '시가'] = round(float(시가), 2)
+
+                item = QTableWidgetItem(시가)
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if df_cm_put.iloc[index]['시가'] > df_cm_put.iloc[index]['종가']:
+                    item.setForeground(QBrush(적색))
+                elif df_cm_put.iloc[index]['시가'] < df_cm_put.iloc[index]['종가']:
+                    item.setForeground(QBrush(청색))
+                else:
+                    item.setForeground(QBrush(검정색))
+
+                self.tableWidget_put.setItem(index, Option_column.시가.value, item)
 
                 cm_put_시가 = df_cm_put['시가'].values.tolist()
                 cm_put_시가_node_list = self.make_node_list(cm_put_시가)
