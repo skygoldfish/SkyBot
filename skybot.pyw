@@ -11574,7 +11574,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # pre open check
             if round(float(시가), 2) != df_cm_call.iloc[index]['시가']:
 
-                df_cm_call.loc[index, '시가'] = round(float(시가), 2)
+                df_cm_call.loc[index, '시가'] = round(float(시가), 2)                
+                df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
                 
                 item = QTableWidgetItem(시가)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -11730,6 +11731,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if round(float(시가), 2) != df_cm_call.iloc[index]['시가']:
 
                 df_cm_call.loc[index, '시가'] = round(float(시가), 2)
+                df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
 
                 item = QTableWidgetItem(시가)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -12706,6 +12708,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if round(float(시가), 2) != df_cm_put.iloc[index]['시가']:
 
                 df_cm_put.loc[index, '시가'] = round(float(시가), 2)
+                df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']
 
                 item = QTableWidgetItem(시가)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -12861,6 +12864,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if round(float(시가), 2) != df_cm_put.iloc[index]['시가']:
 
                 df_cm_put.loc[index, '시가'] = round(float(시가), 2)
+                df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']
 
                 item = QTableWidgetItem(시가)
                 item.setTextAlignment(Qt.AlignCenter)
