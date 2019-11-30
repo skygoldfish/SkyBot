@@ -4588,6 +4588,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.fut_cv_color_clear()
                     self.call_cv_color_clear()                    
                     self.put_cv_color_clear()
+                    
+                    # 선물 컬러링
+                    self.fut_node_color_clear()
+                    self.fut_node_coloring()
 
                     if call_max_actval:
 
@@ -15037,16 +15041,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 해외선물 시작시간과 동기를 맞춤
                 x_idx = x_idx + 해외선물_시간차
-                
-                #print('x_idx', x_idx)
 
                 if result['현재가'] != 선물현재가:
                        
                     선물현재가 = result['현재가']
 
                     self.futures_display(result)
-                    self.fut_node_color_clear()
-                    self.fut_node_coloring()
 
                     if szTrCode == 'FC0':
 
