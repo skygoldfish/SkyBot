@@ -4336,7 +4336,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # 로컬타임 표시            
 
             if not service_terminate:
-                str = '{0:02d}:{1:02d}:{2:02d} ({3})'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), ovc_x_idx)
+
+                if ovc_x_idx > 0:
+                    str = '{0:02d}:{1:02d}:{2:02d} ({3})'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), ovc_x_idx)
+                else:
+                    str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
             else:
 
                 if self.parent.connection.IsConnected():
