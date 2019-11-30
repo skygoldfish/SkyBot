@@ -2439,17 +2439,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         print('장 시작시간 = ', domestic_start_hour)
 
         self.setWindowTitle(cm_option_title)
-
-        '''
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.timeout)
-
-        self.t8415_callworker = t8415_Call_Worker()
-        self.t8415_callworker.finished.connect(self.t8415_call_request)
-
-        self.t8415_putworker = t8415_Put_Worker()
-        self.t8415_putworker.finished.connect(self.t8415_put_request)
-        '''
+        
         self.t8416_callworker = t8416_Call_Worker()
         self.t8416_callworker.finished.connect(self.t8416_call_request)
 
@@ -2719,7 +2709,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             mv_line.append(self.Plot_Opt.addLine(x=None, pen=mvpen))
 
         for i in range(29):
-            #mv_line.append(self.Plot_Opt.addLine(x=None, pen=mvpen))
             call_curve.append(self.Plot_Opt.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
             put_curve.append(self.Plot_Opt.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))
 
@@ -3166,15 +3155,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.FUT_REAL = FC0(parent=self)
         self.FUT_HO = FH0(parent=self)
 
-        dt = datetime.datetime.now()
-        current_str = dt.strftime('%H:%M:%S')
-
-        if 4 < int(current_str[0:2]) < 16:
-            pass
-        else:
-            #self.timer.start(1000)
-            pass
-
         if int(current_str[0:2]) < 12:
             str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Morning! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
         else:
@@ -3182,15 +3162,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.textBrowser.append(str)
 
         self.XingAdminCheck()
-        '''
-        if next_month_only == 'YES':
-            #fut_code = next_month_only
-            str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3:02d}월물) 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, next_month)
-            self.textBrowser.append(str)
-        else:
-            str = '[{0:02d}:{1:02d}:{2:02d}] 근월물({3:02d}월물) 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month)
-            self.textBrowser.append(str)
-        '''
+        
             
     # Xing 관리자모드 실행 체크함수
     def XingAdminCheck(self):
