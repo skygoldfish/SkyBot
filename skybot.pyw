@@ -159,7 +159,7 @@ SP500 = ''
 DOW = ''
 NASDAQ = ''
 
-price_threshold = 0.20
+oloh_cutoff = 0.10
 center_val_threshold = 0.60
 
 콜매수 = ''
@@ -8016,7 +8016,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         시가갭 = 시가 - 종가
                         대비 = int(round((현재가 - 시가) * 1, 2))
 
-                        if 시가 >= price_threshold and 저가 < 고가:
+                        if 시가 >= oloh_cutoff and 저가 < 고가:
 
                             call_gap_percent[i] = (시가 / 종가 - 1) * 100
 
@@ -8276,7 +8276,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         시가갭 = 시가 - 종가
                         대비 = int(round((현재가 - 시가) * 1, 2))
 
-                        if 시가 >= price_threshold and 저가 < 고가:
+                        if 시가 >= oloh_cutoff and 저가 < 고가:
 
                             put_gap_percent[i] = (시가 / 종가 - 1) * 100
 
@@ -9312,7 +9312,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         대비 = round((현재가 - 시가), 2)
                         df_cm_call.loc[i, '대비'] = 대비
 
-                        if 시가 >= price_threshold and 저가 < 고가:
+                        if 시가 >= oloh_cutoff and 저가 < 고가:
 
                             call_gap_percent[i] = (시가 / 종가 - 1) * 100
 
@@ -9521,7 +9521,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         대비 = round((현재가 - 시가), 2)
                         df_cm_put.loc[i, '대비'] = 대비
 
-                        if 시가 >= price_threshold and 저가 < 고가:
+                        if 시가 >= oloh_cutoff and 저가 < 고가:
 
                             put_gap_percent[i] = (시가 / 종가 - 1) * 100
 
@@ -11813,7 +11813,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if float(시가) >= price_threshold:
+                if float(시가) >= oloh_cutoff:
 
                     if round(float(현재가), 2) != df_cm_call.iloc[index]['현재가']:
 
@@ -12221,7 +12221,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global call_ol, call_oh        
 
-        if df_cm_call.iloc[index]['시가'] >= price_threshold:
+        if df_cm_call.iloc[index]['시가'] >= oloh_cutoff:
 
             if df_cm_call.iloc[index]['시가'] < 1.0:
 
@@ -12440,7 +12440,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
 
-                    if df_cm_call.iloc[index]['시가'] >= price_threshold:
+                    if df_cm_call.iloc[index]['시가'] >= oloh_cutoff:
 
                         if df_cm_call.iloc[index]['시가'] < 1.0:
 
@@ -12593,7 +12593,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         for index in range(nCount_cm_option_pairs):
 
-            if df_cm_call.iloc[index]['시가'] >= price_threshold and df_cm_call.iloc[index]['저가'] < df_cm_call.iloc[index]['고가']:
+            if df_cm_call.iloc[index]['시가'] >= oloh_cutoff and df_cm_call.iloc[index]['저가'] < df_cm_call.iloc[index]['고가']:
 
                 df_cm_call.loc[index, '대비'] = \
                     round((df_cm_call.iloc[index]['현재가'] - df_cm_call.iloc[index]['시가']), 2)
@@ -12965,7 +12965,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if float(시가) >= price_threshold:
+                if float(시가) >= oloh_cutoff:
 
                     if round(float(현재가), 2) != df_cm_put.iloc[index]['현재가']:
 
@@ -13374,7 +13374,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global put_ol, put_oh        
 
-        if df_cm_put.iloc[index]['시가'] >= price_threshold:
+        if df_cm_put.iloc[index]['시가'] >= oloh_cutoff:
 
             if df_cm_put.iloc[index]['시가'] < 1.0:
 
@@ -13593,7 +13593,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
 
-                    if df_cm_put.iloc[index]['시가'] >= price_threshold:
+                    if df_cm_put.iloc[index]['시가'] >= oloh_cutoff:
 
                         if df_cm_put.iloc[index]['시가'] < 1.0:
 
@@ -13746,7 +13746,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         for index in range(nCount_cm_option_pairs):
 
-            if df_cm_put.iloc[index]['시가'] >= price_threshold and df_cm_put.iloc[index]['저가'] < df_cm_put.iloc[index]['고가']:
+            if df_cm_put.iloc[index]['시가'] >= oloh_cutoff and df_cm_put.iloc[index]['저가'] < df_cm_put.iloc[index]['고가']:
 
                 df_cm_put.loc[index, '대비'] = \
                     round((df_cm_put.iloc[index]['현재가'] - df_cm_put.iloc[index]['시가']), 2)
@@ -14498,7 +14498,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_call.setItem(index, Option_column.피봇.value, item)
 
-                            if float(result['예상체결가격']) >= price_threshold and df_cm_call.iloc[index]['종가'] > 0:
+                            if float(result['예상체결가격']) >= oloh_cutoff and df_cm_call.iloc[index]['종가'] > 0:
 
                                 시가갭 = float(result['예상체결가격']) - df_cm_call.iloc[index]['종가']
                                 df_cm_call.loc[index, '시가갭'] = 시가갭
@@ -14582,7 +14582,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
 
-                            if float(result['예상체결가격']) >= price_threshold and df_cm_put.iloc[index]['종가'] > 0:
+                            if float(result['예상체결가격']) >= oloh_cutoff and df_cm_put.iloc[index]['종가'] > 0:
 
                                 시가갭 = float(result['예상체결가격']) - df_cm_put.iloc[index]['종가']
                                 df_cm_put.loc[index, '시가갭'] = 시가갭
