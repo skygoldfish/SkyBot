@@ -165,7 +165,10 @@ DOW = ''
 NASDAQ = ''
 
 oloh_cutoff = 0.10
-center_val_threshold = 0.60
+nodelist_low_cutoff = 0.10
+nodelist_high_cutoff = 20.0
+
+centerval_threshold = 0.60
 
 콜매수 = ''
 콜매도 = ''
@@ -4894,8 +4897,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         temp = list(set(input_list))
         temp.sort()
 
-        index1 = bisect(temp, 0.29)
-        index2 = bisect(temp, 10)
+        # 컬러링 탐색구간 설정(0.1 ~ 20)
+        index1 = bisect(temp, nodelist_low_cutoff)
+        index2 = bisect(temp, nodelist_high_cutoff)
 
         list_singleval = temp[index1:index2]
 
@@ -5144,7 +5148,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
 
-            if abs(call_atm_value - put_atm_value) <= center_val_threshold:
+            if abs(call_atm_value - put_atm_value) <= centerval_threshold:
                             
                 if self.centerval_flag:
 
