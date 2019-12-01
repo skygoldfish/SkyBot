@@ -129,6 +129,10 @@ night_time = 0
 
 야간선물_기준시간 = 17
 
+선물_전저 = 0
+선물_전고 = 0
+선물_종가 = 0
+
 선물_시가 = 0
 선물_현재가 = 0
 선물_저가 = 0
@@ -7244,6 +7248,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq
         global view_actval
+        
+        global 선물_전저, 선물_전고, 선물_종가
 
         dt = datetime.datetime.now()
 
@@ -8619,16 +8625,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
 
                 cme_realdata['전저'] = fut_realdata['저가']
+                선물_전저 = fut_realdata['저가']
+
                 item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['전저']))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(0, Futures_column.전저.value, item)
 
                 cme_realdata['전고'] = fut_realdata['고가']
+                선물_전고 = fut_realdata['고가']
+
                 item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['전고']))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(0, Futures_column.전고.value, item)
 
                 cme_realdata['종가'] = fut_realdata['현재가']
+                선물_종가 = fut_realdata['현재가']
+
                 item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['종가']))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(0, Futures_column.종가.value, item) 
@@ -10267,19 +10279,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 fut_code = cmshcode
                 print('차월물선물코드 요청', fut_code)
-            '''
+            '''            
 
             fut_realdata['전저'] = df.iloc[0]['전일저가']
+            선물_전저 = df.iloc[0]['전일저가']
+
             item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일저가']))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(1, Futures_column.전저.value, item)
 
             fut_realdata['전고'] = df.iloc[0]['전일고가']
+            선물_전고 = df.iloc[0]['전일고가']
+
             item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일고가']))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(1, Futures_column.전고.value, item)
 
             fut_realdata['종가'] = df.iloc[0]['전일종가']
+            선물_종가 = df.iloc[0]['전일종가']
+
             item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일종가']))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
@@ -10301,18 +10319,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def fut_node_coloring(self):
 
         global fut_ol, fut_oh        
-
-        if overnight:
-
-            전저 = cme_realdata['전저']
-            전고 = cme_realdata['전고']
-            종가 = cme_realdata['종가']
-            피봇 = cme_realdata['피봇']
-        else:
-            전저 = fut_realdata['전저']
-            전고 = fut_realdata['전고']
-            종가 = fut_realdata['종가']
-            피봇 = fut_realdata['피봇']
 
         # FUT OL/OH
         if self.within_n_tick(선물_시가, 선물_저가, 10) and not self.within_n_tick(선물_시가, 선물_고가, 10):
@@ -10388,7 +10394,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        if self.within_n_tick(전저, 선물_저가, 10):
+        if self.within_n_tick(선물_전저, 선물_저가, 10):
 
             if overnight:
 
@@ -10404,7 +10410,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        if self.within_n_tick(전저, 선물_고가, 10):
+        if self.within_n_tick(선물_전저, 선물_고가, 10):
 
             if overnight:
 
@@ -10420,7 +10426,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        if self.within_n_tick(전고, 선물_저가, 10):
+        if self.within_n_tick(선물_전고, 선물_저가, 10):
 
             if overnight:
 
@@ -10436,7 +10442,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        if self.within_n_tick(전고, 선물_고가, 10):
+        if self.within_n_tick(선물_전고, 선물_고가, 10):
 
             if overnight:
 
@@ -10452,7 +10458,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        if self.within_n_tick(종가, 선물_저가, 10):
+        if self.within_n_tick(선물_종가, 선물_저가, 10):
 
             if overnight:
 
@@ -10468,7 +10474,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        if self.within_n_tick(종가, 선물_고가, 10):
+        if self.within_n_tick(선물_종가, 선물_고가, 10):
 
             if overnight:
 
@@ -10484,7 +10490,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        if self.within_n_tick(피봇, 선물_저가, 10):
+        if self.within_n_tick(선물_피봇, 선물_저가, 10):
 
             if overnight:
 
@@ -10500,7 +10506,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        if self.within_n_tick(피봇, 선물_고가, 10):
+        if self.within_n_tick(선물_피봇, 선물_고가, 10):
 
             if overnight:
 
@@ -10548,9 +10554,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global atm_str, atm_val, atm_index, atm_index_old
         global fut_ol, fut_oh
         global fut_tick_list, fut_value_list, df_fut_ohlc
-        global 선물_시가, 선물_현재가, 선물_저가, 선물_고가
+        global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
 
         체결시간 = result['체결시간']
+
         시가 = result['시가']
         현재가 = result['현재가']
         저가 = result['저가']
@@ -10559,7 +10566,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         선물_시가 = round(float(시가), 2)
         선물_현재가 = round(float(현재가), 2)
         선물_저가 = round(float(저가), 2)
-        선물_고가 = round(float(고가), 2)
+        선물_고가 = round(float(고가), 2)        
         
         # 선물 OHLC 데이타프레임 생성
         '''
@@ -10582,18 +10589,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         df_plotdata_fut.iloc[0][x_idx] = 선물_현재가
         df_plotdata_kp200.iloc[0][x_idx] = round(float(result['KOSPI200지수']), 2)
-
-        if overnight:
-
-            전저 = cme_realdata['전저']
-            전고 = cme_realdata['전고']
-            종가 = cme_realdata['종가']
-            피봇 = cme_realdata['피봇']
-        else:
-            전저 = fut_realdata['전저']
-            전고 = fut_realdata['전고']
-            종가 = fut_realdata['종가']
-            피봇 = fut_realdata['피봇']       
 
         # 현재가 갱신
         if overnight:
@@ -10726,15 +10721,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_fut.iloc[0]['시가'] = 선물_시가
                 cme_realdata['시가'] = 선물_시가
 
-                cme_realdata['피봇'] = self.calc_pivot(전저, 전고, 종가, cme_realdata['시가'])
+                cme_realdata['피봇'] = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, cme_realdata['시가'])
 
                 item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['피봇']))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 self.tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
-                df_fut.iloc[0]['피봇'] = cme_realdata['피봇']
 
-                cme_realdata['시가갭'] = cme_realdata['시가'] - 종가
+                df_fut.iloc[0]['피봇'] = cme_realdata['피봇']
+                선물_피봇 = cme_realdata['피봇']
+
+                cme_realdata['시가갭'] = cme_realdata['시가'] - 선물_종가
                 df_fut.iloc[0]['시가갭'] = cme_realdata['시가갭']
 
                 item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['시가갭']))
@@ -10747,15 +10744,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_fut.iloc[1]['시가'] = 선물_시가
                 fut_realdata['시가'] = 선물_시가
 
-                fut_realdata['피봇'] = self.calc_pivot(전저, 전고, 종가, fut_realdata['시가'])
+                fut_realdata['피봇'] = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, fut_realdata['시가'])
 
                 item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['피봇']))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
-                df_fut.iloc[1]['피봇'] = fut_realdata['피봇']                    
 
-                fut_realdata['시가갭'] = fut_realdata['시가'] - 종가
+                df_fut.iloc[1]['피봇'] = fut_realdata['피봇']    
+                선물_피봇 = fut_realdata['피봇']                   
+
+                fut_realdata['시가갭'] = fut_realdata['시가'] - 선물_종가
                 df_fut.iloc[1]['시가갭'] = fut_realdata['시가갭']                   
 
                 item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['시가갭']))
@@ -10769,7 +10768,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if fut_pivot == '0.00':
 
-                피봇 = self.calc_pivot(전저, 전고, 종가, 선물_시가)
+                피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
+                선물_피봇 = 피봇
 
                 item = QTableWidgetItem("{0:0.2f}".format(피봇))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -10783,7 +10783,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_fut.iloc[1]['피봇'] = 피봇
                     fut_realdata['피봇'] = 피봇
 
-                시가갭 = 선물_시가 - 종가
+                시가갭 = 선물_시가 - 선물_종가
 
                 item = QTableWidgetItem("{0:0.2f}".format(시가갭))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -10861,9 +10861,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if overnight:
                 self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
                 df_fut.iloc[0]['진폭'] = 진폭
+                cme_realdata['진폭'] = 진폭
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
-                df_fut.iloc[1]['진폭'] = 진폭            
+                df_fut.iloc[1]['진폭'] = 진폭  
+                fut_realdata['진폭'] = 진폭          
         else:
             pass
 
@@ -10905,11 +10907,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         item = QTableWidgetItem(temp)
         item.setTextAlignment(Qt.AlignCenter)
 
-        if overnight:
-            pass
-        else:
+        if not overnight:
             self.tableWidget_fut.setItem(1, Futures_column.OI.value, item)
             df_fut.iloc[1]['미결'] = fut_realdata['미결']
+        else:
+            pass
 
         # 미결증감 갱신
         fut_realdata['미결증감'] = result['미결제약정증감']
@@ -10923,11 +10925,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             item.setBackground(QBrush(기본바탕색))
 
-        if overnight:
-            pass
-        else:
+        if not overnight:
             self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)
             df_fut.iloc[1]['미결증감'] = fut_realdata['미결증감']   
+        else:
+            pass
 
         # KOSPI200지수 갱신
         if result['KOSPI200지수'] != self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]:
