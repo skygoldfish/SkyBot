@@ -14331,10 +14331,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # IJ 데이타표시
                 if result['업종코드'] == KOSPI200:
 
+                    # kp200 현재가는 선물갱신시 같이 처리
+                    if result['지수'] != float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()):
+
+                        pass
+                    else:
+                        pass
+
                     if result['시가지수'] != float(self.tableWidget_fut.item(2, Futures_column.시가.value).text()):
 
                         kp200_realdata['시가'] = result['시가지수']
-                        #df_fut.iloc[2]['시가'] = result['시가지수']
                         df_plotdata_kp200.iloc[0][해외선물_시간차] = result['시가지수']
 
                         item = QTableWidgetItem("{0:0.2f}".format(result['시가지수']))
