@@ -4624,43 +4624,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # if opt_x_idx > 해외선물_시간차 + 1:
 
                     # 시작과 동시에 컬러링 갱신
-                    if opt_x_idx > 해외선물_시간차 + 0:
-
-                        '''
-                        # 콜 시가 갱신
-                        if cm_call_시가 != 콜시가리스트:
-                            
-                            old_list_set = set(콜시가리스트)
-                            new_list = [x for x in cm_call_시가 if x not in old_list_set]
-                            len_new_list = len(new_list)
-
-                            for i in range(len_new_list):
-                                self.call_pre_open_update(cm_call_시가.index(new_list[i]))
-
-                            콜시가리스트 = copy.deepcopy(cm_call_시가)
-
-                            #str = '[{0:02d}:{1:02d}:{2:02d}] 콜 시가리스트 {3} 갱신됨 !!!\r'.format(dt.hour, dt.minute, dt.second, 콜시가리스트)
-                            #self.textBrowser.append(str)
-                        else:
-                            pass
-
-                        # 풋 시가 갱신
-                        if cm_put_시가 != 풋시가리스트:
-                            
-                            old_list_set = set(풋시가리스트)
-                            new_list = [x for x in cm_put_시가 if x not in old_list_set]
-                            len_new_list = len(new_list)
-                            
-                            for i in range(len_new_list):
-                                self.put_pre_open_update(cm_put_시가.index(new_list[i]))
-
-                            풋시가리스트 = copy.deepcopy(cm_put_시가)
-                            
-                            #str = '[{0:02d}:{1:02d}:{2:02d}] 풋 시가리스트 {3} 갱신됨 !!!\r'.format(dt.hour, dt.minute, dt.second, 풋시가리스트)
-                            #self.textBrowser.append(str)
-                        else:
-                            pass
-                        '''
+                    if opt_x_idx > 해외선물_시간차 + 0:                        
 
                         # 매 1초마다 한번씩 맥점 컬러링 채크
                         # if int(호가시간[4:6]) in every_2sec and self.alternate_flag:
@@ -4683,8 +4647,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     item = QTableWidgetItem('저가')
                                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
 
-                                #str = '[{0:02d}:{1:02d}:{2:02d}] 콜 저가리스트 갱신됨 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
-                                #self.textBrowser.append(str)
                             else:
                                 pass
 
@@ -4703,8 +4665,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     item = QTableWidgetItem('고가')
                                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                                #str = '[{0:02d}:{1:02d}:{2:02d}] 콜 고가리스트 갱신됨 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
-                                #self.textBrowser.append(str)
                             else:
                                 pass
 
@@ -4723,8 +4683,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     item = QTableWidgetItem('저가')
                                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
 
-                                #str = '[{0:02d}:{1:02d}:{2:02d}] 풋 저가리스트 갱신됨 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
-                                #self.textBrowser.append(str)
                             else:
                                 pass
 
@@ -4743,8 +4701,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     item = QTableWidgetItem('고가')
                                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                                #str = '[{0:02d}:{1:02d}:{2:02d}] 풋 고가리스트 갱신됨 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
-                                #self.textBrowser.append(str)
                             else:
                                 pass
 
@@ -4803,7 +4759,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass                                 
             
-            str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 처리시간 : {3:0.2f} ms...\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update Time : {3:0.2f} ms...\r'.format(\
                 dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
             print(str)
             
@@ -4814,9 +4770,36 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def label_atm_display(self):
 
         global df_plotdata_cm_two_sum, df_plotdata_cm_two_cha, basis
+        global atm_str, atm_val, atm_index, atm_index_old
         
         df_plotdata_cm_two_sum[opt_x_idx] = call_atm_value + put_atm_value
         df_plotdata_cm_two_cha[opt_x_idx] = call_atm_value - put_atm_value
+        
+        # 등가 check & coloring
+        atm_str = self.find_ATM(fut_realdata['KP200'])
+        atm_index = opt_actval.index(atm_str)
+
+        if atm_str[-1] == '2' or atm_str[-1] == '7':
+
+            atm_val = float(atm_str) + 0.5
+        else:
+            atm_val = float(atm_str)
+
+        if atm_index != atm_index_old:
+
+            self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(
+                QBrush(노란색))
+            self.tableWidget_call.item(atm_index_old, Option_column.행사가.value).setBackground(
+                QBrush(라임))
+
+            self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(
+                QBrush(노란색))
+            self.tableWidget_put.item(atm_index_old, Option_column.행사가.value).setBackground(
+                QBrush(라임))
+
+            atm_index_old = atm_index
+        else:
+            pass
 
         basis = fut_realdata['현재가'] - fut_realdata['KP200']
 
@@ -10610,38 +10593,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             전저 = fut_realdata['전저']
             전고 = fut_realdata['전고']
             종가 = fut_realdata['종가']
-            피봇 = fut_realdata['피봇']
-        
-        # 장중 거래량 갱신, 장중 거래량은 누적거래량이 아닌 수정거래량 임
-
-        거래량 = result['매수누적체결량'] - result['매도누적체결량']
-        df_plotdata_fut_che.iloc[0][x_idx] = 거래량
-
-        temp = format(거래량, ',')
-
-        item = QTableWidgetItem(temp)
-        item.setTextAlignment(Qt.AlignCenter)
-
-        if 거래량 > 0:
-
-            item.setBackground(QBrush(적색))
-            item.setForeground(QBrush(흰색))
-        elif 거래량 < 0:
-
-            item.setBackground(QBrush(청색))
-            item.setForeground(QBrush(흰색))
-        else:
-            item.setBackground(QBrush(기본바탕색))
-            item.setForeground(QBrush(검정색))
-
-        if overnight:
-            self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
-            df_fut.iloc[0]['거래량'] = 거래량
-            cme_realdata['거래량'] = 거래량
-        else:
-            self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
-            df_fut.iloc[1]['거래량'] = 거래량
-            fut_realdata['거래량'] = 거래량        
+            피봇 = fut_realdata['피봇']       
 
         # 현재가 갱신
         if overnight:
@@ -10913,68 +10865,39 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
                 df_fut.iloc[1]['진폭'] = 진폭            
         else:
-            pass        
-
-        # KOSPI200지수 갱신
-        if result['KOSPI200지수'] != self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]:
-
-            fut_realdata['KP200'] = round(float(result['KOSPI200지수']), 2)
-            kp200_realdata['현재가'] = round(float(result['KOSPI200지수']), 2)
-
-            if float(result['KOSPI200지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
-                item = QTableWidgetItem(result['KOSPI200지수'] + ' ' + self.상태그림[0])
-            elif float(result['KOSPI200지수']) > float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
-                item = QTableWidgetItem(result['KOSPI200지수'] + ' ' + self.상태그림[1])
-            else:    
-                item = QTableWidgetItem(result['KOSPI200지수'])
-
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if float(result['KOSPI200지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
-                item.setBackground(QBrush(lightskyblue))
-            elif float(result['KOSPI200지수']) > float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
-                item.setBackground(QBrush(pink))
-            else:
-                item.setBackground(QBrush(옅은회색)) 
-
-            if kp200_realdata['현재가'] > kp200_realdata['시가']:
-                item.setForeground(QBrush(적색))
-            elif kp200_realdata['현재가'] < kp200_realdata['시가']:
-                item.setForeground(QBrush(청색))
-            else:
-                item.setForeground(QBrush(검정색))
-
-            self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
-            df_fut.iloc[2]['현재가'] = kp200_realdata['현재가']
-
-            # 등가 check & coloring
-            atm_str = self.find_ATM(fut_realdata['KP200'])
-            atm_index = opt_actval.index(atm_str)
-
-            if atm_str[-1] == '2' or atm_str[-1] == '7':
-
-                atm_val = float(atm_str) + 0.5
-            else:
-                atm_val = float(atm_str)
-
-            if atm_index != atm_index_old:
-
-                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(
-                    QBrush(노란색))
-                self.tableWidget_call.item(atm_index_old, Option_column.행사가.value).setBackground(
-                    QBrush(라임))
-
-                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(
-                    QBrush(노란색))
-                self.tableWidget_put.item(atm_index_old, Option_column.행사가.value).setBackground(
-                    QBrush(라임))
-
-                atm_index_old = atm_index
-            else:
-                pass
-        else:
             pass
 
+        # 장중 거래량 갱신, 장중 거래량은 누적거래량이 아닌 수정거래량 임
+
+        거래량 = result['매수누적체결량'] - result['매도누적체결량']
+        df_plotdata_fut_che.iloc[0][x_idx] = 거래량
+
+        temp = format(거래량, ',')
+
+        item = QTableWidgetItem(temp)
+        item.setTextAlignment(Qt.AlignCenter)
+
+        if 거래량 > 0:
+
+            item.setBackground(QBrush(적색))
+            item.setForeground(QBrush(흰색))
+        elif 거래량 < 0:
+
+            item.setBackground(QBrush(청색))
+            item.setForeground(QBrush(흰색))
+        else:
+            item.setBackground(QBrush(기본바탕색))
+            item.setForeground(QBrush(검정색))
+
+        if overnight:
+            self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
+            df_fut.iloc[0]['거래량'] = 거래량
+            cme_realdata['거래량'] = 거래량
+        else:
+            self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
+            df_fut.iloc[1]['거래량'] = 거래량
+            fut_realdata['거래량'] = 거래량        
+        
         # 미결 갱신
         fut_realdata['미결'] = result['미결제약정수량']  
         temp = format(fut_realdata['미결'], ',')                     
@@ -11004,9 +10927,71 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
         else:
             self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)
-            df_fut.iloc[1]['미결증감'] = fut_realdata['미결증감']
+            df_fut.iloc[1]['미결증감'] = fut_realdata['미결증감']   
 
-        self.tableWidget_fut.resizeColumnsToContents()
+        # KOSPI200지수 갱신
+        if result['KOSPI200지수'] != self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]:
+
+            fut_realdata['KP200'] = round(float(result['KOSPI200지수']), 2)
+            kp200_realdata['현재가'] = round(float(result['KOSPI200지수']), 2)
+            df_fut.iloc[2]['현재가'] = round(float(result['KOSPI200지수']), 2)
+
+            if float(result['KOSPI200지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
+                item = QTableWidgetItem(result['KOSPI200지수'] + ' ' + self.상태그림[0])
+            elif float(result['KOSPI200지수']) > float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
+                item = QTableWidgetItem(result['KOSPI200지수'] + ' ' + self.상태그림[1])
+            else:    
+                item = QTableWidgetItem(result['KOSPI200지수'])
+
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if float(result['KOSPI200지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
+                item.setBackground(QBrush(lightskyblue))
+            elif float(result['KOSPI200지수']) > float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
+                item.setBackground(QBrush(pink))
+            else:
+                item.setBackground(QBrush(옅은회색)) 
+
+            if kp200_realdata['현재가'] > kp200_realdata['시가']:
+                item.setForeground(QBrush(적색))
+            elif kp200_realdata['현재가'] < kp200_realdata['시가']:
+                item.setForeground(QBrush(청색))
+            else:
+                item.setForeground(QBrush(검정색))
+
+            self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
+
+            '''
+            # 등가 check & coloring
+            atm_str = self.find_ATM(fut_realdata['KP200'])
+            atm_index = opt_actval.index(atm_str)
+
+            if atm_str[-1] == '2' or atm_str[-1] == '7':
+
+                atm_val = float(atm_str) + 0.5
+            else:
+                atm_val = float(atm_str)
+
+            if atm_index != atm_index_old:
+
+                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(
+                    QBrush(노란색))
+                self.tableWidget_call.item(atm_index_old, Option_column.행사가.value).setBackground(
+                    QBrush(라임))
+
+                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(
+                    QBrush(노란색))
+                self.tableWidget_put.item(atm_index_old, Option_column.행사가.value).setBackground(
+                    QBrush(라임))
+
+                atm_index_old = atm_index
+            else:
+                pass
+            '''
+        else:
+            pass
+        
+        self.tableWidget_fut.resizeColumnsToContents() 
 
         return
 
