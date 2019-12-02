@@ -11149,43 +11149,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                pass  
-
-            # pre open check
-            if round(float(시가), 2) != df_cm_call.iloc[index]['시가']:
-
-                df_cm_call.loc[index, '시가'] = round(float(시가), 2)                
-                df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
-                
-                item = QTableWidgetItem(시가)
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if df_cm_call.iloc[index]['시가'] > df_cm_call.iloc[index]['종가']:
-                    item.setForeground(QBrush(적색))
-                elif df_cm_call.iloc[index]['시가'] < df_cm_call.iloc[index]['종가']:
-                    item.setForeground(QBrush(청색))
-                else:
-                    item.setForeground(QBrush(검정색))
-
-                self.tableWidget_call.setItem(index, Option_column.시가.value, item)
-                
-                cm_call_시가 = df_cm_call['시가'].values.tolist()
-                cm_call_시가_node_list = self.make_node_list(cm_call_시가)
-
-                # 콜 시가 갱신
-                if cm_call_시가 != 콜시가리스트:
-                    
-                    old_list_set = set(콜시가리스트)
-                    new_list = [x for x in cm_call_시가 if x not in old_list_set]
-                    len_new_list = len(new_list)
-
-                    for i in range(len_new_list):
-                        self.call_pre_open_update(cm_call_시가.index(new_list[i]))
-
-                    콜시가리스트 = copy.deepcopy(cm_call_시가)
-                else:
-                    pass
-            else:
                 pass
 
             if 저가 != 고가:
@@ -11269,7 +11232,43 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                pass            
+                
+                # pre open check
+                if round(float(시가), 2) != df_cm_call.iloc[index]['시가']:
+
+                    df_cm_call.loc[index, '시가'] = round(float(시가), 2)                
+                    df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
+
+                    item = QTableWidgetItem(시가)
+                    item.setTextAlignment(Qt.AlignCenter)
+
+                    if df_cm_call.iloc[index]['시가'] > df_cm_call.iloc[index]['종가']:
+                        item.setForeground(QBrush(적색))
+                    elif df_cm_call.iloc[index]['시가'] < df_cm_call.iloc[index]['종가']:
+                        item.setForeground(QBrush(청색))
+                    else:
+                        item.setForeground(QBrush(검정색))
+
+                    self.tableWidget_call.setItem(index, Option_column.시가.value, item)
+
+                    cm_call_시가 = df_cm_call['시가'].values.tolist()
+                    cm_call_시가_node_list = self.make_node_list(cm_call_시가)
+
+                    # 콜 시가 갱신
+                    if cm_call_시가 != 콜시가리스트:
+
+                        old_list_set = set(콜시가리스트)
+                        new_list = [x for x in cm_call_시가 if x not in old_list_set]
+                        len_new_list = len(new_list)
+
+                        for i in range(len_new_list):
+                            self.call_pre_open_update(cm_call_시가.index(new_list[i]))
+
+                        콜시가리스트 = copy.deepcopy(cm_call_시가)
+                    else:
+                        pass
+                else:
+                    pass            
                        
             opt_callreal_update_counter += 1
         else:
@@ -11305,44 +11304,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 self.tableWidget_call.setItem(index, Option_column.현재가.value, item)
             else:
-                pass
-
-            # pre open check
-            if round(float(시가), 2) != df_cm_call.iloc[index]['시가']:
-
-                df_cm_call.loc[index, '시가'] = round(float(시가), 2)
-                df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
-
-                item = QTableWidgetItem(시가)
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if df_cm_call.iloc[index]['시가'] > df_cm_call.iloc[index]['종가']:
-                    item.setForeground(QBrush(적색))
-                elif df_cm_call.iloc[index]['시가'] < df_cm_call.iloc[index]['종가']:
-                    item.setForeground(QBrush(청색))
-                else:
-                    item.setForeground(QBrush(검정색))
-
-                self.tableWidget_call.setItem(index, Option_column.시가.value, item)
-
-                cm_call_시가 = df_cm_call['시가'].values.tolist()
-                cm_call_시가_node_list = self.make_node_list(cm_call_시가)
-
-                # 콜 시가 갱신
-                if cm_call_시가 != 콜시가리스트:
-                    
-                    old_list_set = set(콜시가리스트)
-                    new_list = [x for x in cm_call_시가 if x not in old_list_set]
-                    len_new_list = len(new_list)
-
-                    for i in range(len_new_list):
-                        self.call_pre_open_update(cm_call_시가.index(new_list[i]))
-
-                    콜시가리스트 = copy.deepcopy(cm_call_시가)
-                else:
-                    pass
-            else:
-                pass            
+                pass      
 
             if 저가 != 고가:
 
@@ -11455,7 +11417,43 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass         
             else:
-                pass         
+                
+                # pre open check
+                if round(float(시가), 2) != df_cm_call.iloc[index]['시가']:
+
+                    df_cm_call.loc[index, '시가'] = round(float(시가), 2)
+                    df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
+
+                    item = QTableWidgetItem(시가)
+                    item.setTextAlignment(Qt.AlignCenter)
+
+                    if df_cm_call.iloc[index]['시가'] > df_cm_call.iloc[index]['종가']:
+                        item.setForeground(QBrush(적색))
+                    elif df_cm_call.iloc[index]['시가'] < df_cm_call.iloc[index]['종가']:
+                        item.setForeground(QBrush(청색))
+                    else:
+                        item.setForeground(QBrush(검정색))
+
+                    self.tableWidget_call.setItem(index, Option_column.시가.value, item)
+
+                    cm_call_시가 = df_cm_call['시가'].values.tolist()
+                    cm_call_시가_node_list = self.make_node_list(cm_call_시가)
+
+                    # 콜 시가 갱신
+                    if cm_call_시가 != 콜시가리스트:
+
+                        old_list_set = set(콜시가리스트)
+                        new_list = [x for x in cm_call_시가 if x not in old_list_set]
+                        len_new_list = len(new_list)
+
+                        for i in range(len_new_list):
+                            self.call_pre_open_update(cm_call_시가.index(new_list[i]))
+
+                        콜시가리스트 = copy.deepcopy(cm_call_시가)
+                    else:
+                        pass
+                else:
+                    pass               
 
         return
 
@@ -12303,44 +12301,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass              
             else:
-                pass   
-
-            # pre open check
-            if round(float(시가), 2) != df_cm_put.iloc[index]['시가']:
-
-                df_cm_put.loc[index, '시가'] = round(float(시가), 2)
-                df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']
-
-                item = QTableWidgetItem(시가)
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if df_cm_put.iloc[index]['시가'] > df_cm_put.iloc[index]['종가']:
-                    item.setForeground(QBrush(적색))
-                elif df_cm_put.iloc[index]['시가'] < df_cm_put.iloc[index]['종가']:
-                    item.setForeground(QBrush(청색))
-                else:
-                    item.setForeground(QBrush(검정색))
-
-                self.tableWidget_put.setItem(index, Option_column.시가.value, item)
-
-                cm_put_시가 = df_cm_put['시가'].values.tolist()
-                cm_put_시가_node_list = self.make_node_list(cm_put_시가)
-
-                # 콜 시가 갱신
-                if cm_put_시가 != 풋시가리스트:
-                    
-                    old_list_set = set(풋시가리스트)
-                    new_list = [x for x in cm_put_시가 if x not in old_list_set]
-                    len_new_list = len(new_list)
-
-                    for i in range(len_new_list):
-                        self.put_pre_open_update(cm_put_시가.index(new_list[i]))
-
-                    풋시가리스트 = copy.deepcopy(cm_put_시가)
-                else:
-                    pass
-            else:
-                pass        
+                pass                  
 
             if 저가 != 고가:
 
@@ -12423,7 +12384,42 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                pass
+                # pre open check
+                if round(float(시가), 2) != df_cm_put.iloc[index]['시가']:
+
+                    df_cm_put.loc[index, '시가'] = round(float(시가), 2)
+                    df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']
+
+                    item = QTableWidgetItem(시가)
+                    item.setTextAlignment(Qt.AlignCenter)
+
+                    if df_cm_put.iloc[index]['시가'] > df_cm_put.iloc[index]['종가']:
+                        item.setForeground(QBrush(적색))
+                    elif df_cm_put.iloc[index]['시가'] < df_cm_put.iloc[index]['종가']:
+                        item.setForeground(QBrush(청색))
+                    else:
+                        item.setForeground(QBrush(검정색))
+
+                    self.tableWidget_put.setItem(index, Option_column.시가.value, item)
+
+                    cm_put_시가 = df_cm_put['시가'].values.tolist()
+                    cm_put_시가_node_list = self.make_node_list(cm_put_시가)
+
+                    # 콜 시가 갱신
+                    if cm_put_시가 != 풋시가리스트:
+
+                        old_list_set = set(풋시가리스트)
+                        new_list = [x for x in cm_put_시가 if x not in old_list_set]
+                        len_new_list = len(new_list)
+
+                        for i in range(len_new_list):
+                            self.put_pre_open_update(cm_put_시가.index(new_list[i]))
+
+                        풋시가리스트 = copy.deepcopy(cm_put_시가)
+                    else:
+                        pass
+                else:
+                    pass  
                         
             opt_putreal_update_counter += 1
         else:  
@@ -12459,44 +12455,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 self.tableWidget_put.setItem(index, Option_column.현재가.value, item)
             else:
-                pass
-
-            # pre open check
-            if round(float(시가), 2) != df_cm_put.iloc[index]['시가']:
-
-                df_cm_put.loc[index, '시가'] = round(float(시가), 2)
-                df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']
-
-                item = QTableWidgetItem(시가)
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if df_cm_put.iloc[index]['시가'] > df_cm_put.iloc[index]['종가']:
-                    item.setForeground(QBrush(적색))
-                elif df_cm_put.iloc[index]['시가'] < df_cm_put.iloc[index]['종가']:
-                    item.setForeground(QBrush(청색))
-                else:
-                    item.setForeground(QBrush(검정색))
-
-                self.tableWidget_put.setItem(index, Option_column.시가.value, item)
-
-                cm_put_시가 = df_cm_put['시가'].values.tolist()
-                cm_put_시가_node_list = self.make_node_list(cm_put_시가)
-
-                # 콜 시가 갱신
-                if cm_put_시가 != 풋시가리스트:
-                    
-                    old_list_set = set(풋시가리스트)
-                    new_list = [x for x in cm_put_시가 if x not in old_list_set]
-                    len_new_list = len(new_list)
-
-                    for i in range(len_new_list):
-                        self.put_pre_open_update(cm_put_시가.index(new_list[i]))
-
-                    풋시가리스트 = copy.deepcopy(cm_put_시가)
-                else:
-                    pass
-            else:
-                pass                  
+                pass              
             
             if 저가 != 고가:
 
@@ -12609,7 +12568,43 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                pass        
+                
+                # pre open check
+                if round(float(시가), 2) != df_cm_put.iloc[index]['시가']:
+
+                    df_cm_put.loc[index, '시가'] = round(float(시가), 2)
+                    df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']
+
+                    item = QTableWidgetItem(시가)
+                    item.setTextAlignment(Qt.AlignCenter)
+
+                    if df_cm_put.iloc[index]['시가'] > df_cm_put.iloc[index]['종가']:
+                        item.setForeground(QBrush(적색))
+                    elif df_cm_put.iloc[index]['시가'] < df_cm_put.iloc[index]['종가']:
+                        item.setForeground(QBrush(청색))
+                    else:
+                        item.setForeground(QBrush(검정색))
+
+                    self.tableWidget_put.setItem(index, Option_column.시가.value, item)
+
+                    cm_put_시가 = df_cm_put['시가'].values.tolist()
+                    cm_put_시가_node_list = self.make_node_list(cm_put_시가)
+
+                    # 콜 시가 갱신
+                    if cm_put_시가 != 풋시가리스트:
+                        
+                        old_list_set = set(풋시가리스트)
+                        new_list = [x for x in cm_put_시가 if x not in old_list_set]
+                        len_new_list = len(new_list)
+
+                        for i in range(len_new_list):
+                            self.put_pre_open_update(cm_put_시가.index(new_list[i]))
+
+                        풋시가리스트 = copy.deepcopy(cm_put_시가)
+                    else:
+                        pass
+                else:
+                    pass           
 
         return
     
