@@ -4778,6 +4778,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 self.call_node_color_clear()
                                 self.put_node_color_clear()
 
+                                '''
                                 if flag_call_low_node:
 
                                     self.call_low_node_color_update()
@@ -4797,7 +4798,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     self.put_low_node_color_update()
                                     flag_put_low_node = False
                                 else:
-                                    pass
+                                    passput
 
                                 if flag_put_high_node:
 
@@ -4806,9 +4807,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 else:
                                     pass
                                 '''
+                                
                                 self.call_node_color_update()
                                 self.put_node_color_update()
-                                '''
+                                
                                 self.call_center_color_update()
                                 self.put_center_color_update()
 
