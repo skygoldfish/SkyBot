@@ -4590,9 +4590,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.fut_oloh_check()
                     
                     # 선물 컬러링
+                    '''
                     if flag_fut_low:
 
-                        self.fut_node_color_clear()
+                        self.fut_low_node_color_clear()
                         self.fut_node_coloring(flag_fut_low, False)
 
                         flag_fut_low = False
@@ -4601,12 +4602,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if flag_fut_high:
 
-                        self.fut_node_color_clear()
+                        self.fut_high_node_color_clear()
                         self.fut_node_coloring(False, flag_fut_high)
 
                         flag_fut_high = False
                     else:
                         pass
+                    '''
+                    self.fut_node_color_clear()
+                    self.fut_node_coloring(True, True)
 
                     if not overnight:
 
@@ -8941,6 +8945,53 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return
 
+    def fut_low_node_color_clear(self):
+
+        for i in range(3):
+
+            self.tableWidget_fut.item(i, Futures_column.전저.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_fut.item(i, Futures_column.전저.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_fut.item(i, Futures_column.전고.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_fut.item(i, Futures_column.전고.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_fut.item(i, Futures_column.종가.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_fut.item(i, Futures_column.종가.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_fut.item(i, Futures_column.피봇.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_fut.item(i, Futures_column.피봇.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_fut.item(i, Futures_column.시가.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_fut.item(i, Futures_column.시가.value).setForeground(QBrush(검정색))
+            
+            self.tableWidget_fut.item(i, Futures_column.저가.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_fut.item(i, Futures_column.저가.value).setForeground(QBrush(검정색))  
+
+        return
+
+    def fut_high_node_color_clear(self):
+
+        for i in range(3):
+
+            self.tableWidget_fut.item(i, Futures_column.전저.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_fut.item(i, Futures_column.전저.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_fut.item(i, Futures_column.전고.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_fut.item(i, Futures_column.전고.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_fut.item(i, Futures_column.종가.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_fut.item(i, Futures_column.종가.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_fut.item(i, Futures_column.피봇.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_fut.item(i, Futures_column.피봇.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_fut.item(i, Futures_column.시가.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_fut.item(i, Futures_column.시가.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_fut.item(i, Futures_column.고가.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_fut.item(i, Futures_column.고가.value).setForeground(QBrush(검정색))        
+
+        return
 
     def fut_node_color_clear(self):
 
