@@ -118,6 +118,9 @@ yagan_service_terminate = False
 call_oneway = False
 put_oneway = False
 
+flag_fut_low = False
+flag_fut_high = False
+
 옵션잔존일 = 0
 
 oneway_threshold = 2500
@@ -4312,6 +4315,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             dt = datetime.datetime.now()
 
             global call_max_actval, put_max_actval
+            global flag_fut_low, flag_fut_high
         
             # 로컬타임 표시            
 
@@ -4570,8 +4574,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.put_cv_color_clear()
                     
                     # 선물 컬러링
-                    self.fut_node_color_clear()
-                    self.fut_node_coloring()
+                    if flag_fut_low:
+
+                        self.fut_node_color_clear()
+                        self.fut_node_coloring()
+
+                        flag_fut_low = False
+                    else:
+                        pass
+
+                    if flag_fut_high:
+
+                        self.fut_node_color_clear()
+                        self.fut_node_coloring()
+
+                        flag_fut_high = False
+                    else:
+                        pass
 
                     if call_max_actval:
 
@@ -10557,6 +10576,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global fut_ol, fut_oh
         global fut_tick_list, fut_value_list, df_fut_ohlc
         global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
+        global flag_fut_low, flag_fut_high
 
         체결시간 = result['체결시간']
 
@@ -10809,6 +10829,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if 저가 != fut_low:
 
+            flag_fut_low = True
+
             item = QTableWidgetItem("{0}".format(저가))
             item.setTextAlignment(Qt.AlignCenter)            
 
@@ -10835,7 +10857,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_fut.iloc[1]['진폭'] = 진폭
                 fut_realdata['진폭'] = 진폭            
         else:
-            pass
+            flag_fut_low = False
 
         # 고가 갱신
         if overnight:
@@ -10844,6 +10866,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fut_high = self.tableWidget_fut.item(1, Futures_column.고가.value).text()
 
         if 고가 != fut_high:
+
+            flag_fut_high = True
 
             item = QTableWidgetItem("{0}".format(고가))
             item.setTextAlignment(Qt.AlignCenter)            
@@ -10869,7 +10893,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_fut.iloc[1]['진폭'] = 진폭  
                 fut_realdata['진폭'] = 진폭          
         else:
-            pass
+            flag_fut_high = False
 
         # 장중 거래량 갱신, 장중 거래량은 누적거래량이 아닌 수정거래량 임
 
@@ -11474,6 +11498,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if df_cm_call.iloc[index]['종가'] > 0:     
         
+            df_cm_call.loc[index, '시가갭'] = float(call_result['시가']) - df_cm_call.iloc[index]['종가']
+
             call_gap_percent[index] = (float(call_result['시가']) / df_cm_call.iloc[index]['종가'] - 1) * 100
             gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(df_cm_call.iloc[index]['시가갭'], call_gap_percent[index])
         else:
@@ -12626,6 +12652,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if df_cm_put.iloc[index]['종가'] > 0:
             
+            df_cm_put.loc[index, '시가갭'] = float(put_result['시가']) - df_cm_call.iloc[index]['종가']
+
             put_gap_percent[index] = (float(put_result['시가']) / df_cm_put.iloc[index]['종가'] - 1) * 100
             gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(df_cm_put.iloc[index]['시가갭'], put_gap_percent[index])
         else:
