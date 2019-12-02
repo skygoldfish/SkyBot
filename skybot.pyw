@@ -4586,8 +4586,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.fut_cv_color_clear()
                     self.call_cv_color_clear()                    
                     self.put_cv_color_clear()
-
-                    self.fut_oloh_check()
                     
                     # 선물 컬러링
                     '''
@@ -4609,7 +4607,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
                     '''
-                    self.fut_node_color_clear()
+                    self.fut_node_color_clear()                    
+                    self.fut_oloh_check()
                     self.fut_node_coloring(True, True)
 
                     if not overnight:
