@@ -4807,7 +4807,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 else:
                                     pass
                                 '''
-                                
+
                                 self.call_node_color_update()
                                 self.put_node_color_update()
                                 
@@ -12650,7 +12650,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_fut.iloc[1]['진폭'] = 진폭
                 fut_realdata['진폭'] = 진폭            
         else:
-            flag_fut_low = False
+            pass
 
         # 고가 갱신
         if overnight:
@@ -12686,7 +12686,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_fut.iloc[1]['진폭'] = 진폭  
                 fut_realdata['진폭'] = 진폭          
         else:
-            flag_fut_high = False
+            pass
 
         # 장중 거래량 갱신, 장중 거래량은 누적거래량이 아닌 수정거래량 임
 
