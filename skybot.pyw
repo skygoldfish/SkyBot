@@ -132,6 +132,7 @@ night_time = 0
 선물_전저 = 0
 선물_전고 = 0
 선물_종가 = 0
+선물_피봇 = 0
 
 선물_시가 = 0
 선물_현재가 = 0
@@ -10394,6 +10395,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
+        
         if self.within_n_tick(선물_전저, 선물_저가, 10):
 
             if overnight:
@@ -10457,7 +10459,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.고가.value).setForeground(QBrush(검정색))
         else:
             pass
-
+        
         if self.within_n_tick(선물_종가, 선물_저가, 10):
 
             if overnight:
@@ -10488,7 +10490,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.고가.value).setBackground(QBrush(콜종가색))
                 self.tableWidget_fut.item(1, Futures_column.고가.value).setForeground(QBrush(검정색))
         else:
-            pass
+            pass        
 
         if self.within_n_tick(선물_피봇, 선물_저가, 10):
 
@@ -10521,7 +10523,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.고가.value).setForeground(QBrush(검정색))
         else:
             pass
-
+        
         # kp200 맥점 컬러링
         self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(흰색))
         self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))
