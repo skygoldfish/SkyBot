@@ -4327,15 +4327,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
             else:
 
-                if self.parent.connection.IsConnected():
+                if overnight:
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)  
+                    if self.parent.connection.IsConnected():
 
-                    self.parent.connection.disconnect()
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)  
+
+                        self.parent.connection.disconnect()
+                    else:
+
+                        self.parent.statusbar.showMessage("오프라인") 
                 else:
-
-                    self.parent.statusbar.showMessage("오프라인") 
+                    pass
 
                 str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
            
@@ -12592,7 +12596,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # 콜 시가 갱신
                     if cm_put_시가 != 풋시가리스트:
-                        
+
                         old_list_set = set(풋시가리스트)
                         new_list = [x for x in cm_put_시가 if x not in old_list_set]
                         len_new_list = len(new_list)
