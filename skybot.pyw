@@ -5400,6 +5400,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def call_low_coreval_color_blink(self, blink):
 
+        dt = datetime.datetime.now()
+
         if call_scroll_end_position <= nCount_cm_option_pairs:            
 
             for i in range(call_scroll_begin_position, call_scroll_end_position):
@@ -5412,6 +5414,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                             self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+                            
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 콜저가 {3:0.2f} 에서 진성의미가 발생 !!!\r'.format(\
+                                dt.hour, dt.minute, dt.second, df_cm_call.iloc[i]['저가'])
+                            self.textBrowser.append(str)
                         else:
                             self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
                             self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
@@ -5424,6 +5430,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def call_high_coreval_color_blink(self, blink):
 
+        dt = datetime.datetime.now()
+
         if call_scroll_end_position <= nCount_cm_option_pairs:            
 
             for i in range(call_scroll_begin_position, call_scroll_end_position):
@@ -5431,11 +5439,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if call_open[i]:
 
                     if df_cm_call.iloc[i]['고가'] in 진성의미가:
-
+                        
                         if blink:
 
                             self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                             self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 콜고가 {3:0.2f} 에서 진성의미가 발생 !!!\r'.format(\
+                                dt.hour, dt.minute, dt.second, df_cm_call.iloc[i]['고가'])
+                            self.textBrowser.append(str)
                         else:
                             self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
                             self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
@@ -7228,6 +7240,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def put_low_coreval_color_blink(self, blink):
 
+        dt = datetime.datetime.now()
+
         if put_scroll_end_position <= nCount_cm_option_pairs:            
 
             for i in range(put_scroll_begin_position, put_scroll_end_position):
@@ -7239,10 +7253,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if blink:
 
                             self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
-                            self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+                            self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))                                                    
                         else:
                             self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
                             self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
+                            
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 풋저가 {3:0.2f} 에서 진성의미가 발생 !!!\r'.format(\
+                                dt.hour, dt.minute, dt.second, df_cm_put.iloc[i]['저가'])
+                            self.textBrowser.append(str)    
                     else:
                         pass          
                 else:
@@ -7251,6 +7269,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
     def put_high_coreval_color_blink(self, blink):
+
+        dt = datetime.datetime.now()
 
         if put_scroll_end_position <= nCount_cm_option_pairs:            
 
@@ -7263,10 +7283,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if blink:
 
                             self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
-                            self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+                            self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))                            
                         else:
                             self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
                             self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
+                            
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 풋고가 {3:0.2f} 에서 진성의미가 발생 !!!\r'.format(\
+                                dt.hour, dt.minute, dt.second, df_cm_put.iloc[i]['고가'])
+                            self.textBrowser.append(str)
                     else:
                         pass                    
                 else:
