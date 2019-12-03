@@ -4588,11 +4588,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.put_cv_color_clear()
                     
                     # 선물 컬러링
-                    '''
+                    
                     if flag_fut_low:
 
-                        self.fut_low_node_color_clear()
-                        self.fut_node_coloring(flag_fut_low, False)
+                        self.fut_node_color_clear()                    
+                        self.fut_oloh_check()
+                        self.fut_node_coloring(True, True)
+
+                        # print('flag_fut_low..............')
 
                         flag_fut_low = False
                     else:
@@ -4600,16 +4603,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if flag_fut_high:
 
-                        self.fut_high_node_color_clear()
-                        self.fut_node_coloring(False, flag_fut_high)
+                        self.fut_node_color_clear()                    
+                        self.fut_oloh_check()
+                        self.fut_node_coloring(True, True)
+
+                        # print('flag_fut_high..............')
 
                         flag_fut_high = False
                     else:
-                        pass
-                    '''
-                    self.fut_node_color_clear()                    
-                    self.fut_oloh_check()
-                    self.fut_node_coloring(True, True)
+                        pass                    
 
                     if not overnight:
 
@@ -12270,7 +12272,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         return
 
     def fut_node_coloring(self, low_flag, high_flag):
-        
+                
         # 전저, 전고, 종가, 피봇 컬러링
         if low_flag:
 
@@ -12390,7 +12392,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass        
 
-            if self.within_n_tick(선물_피봇, 선물_고가, 10):
+            if self.within_n_tick(선물_피봇, 선물_고가, 10):                
 
                 if overnight:
 
@@ -12586,7 +12588,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_fut.iloc[0]['시가'] = 선물_시가
                 cme_realdata['시가'] = 선물_시가
 
-                cme_realdata['피봇'] = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, cme_realdata['시가'])
+                cme_realdata['피봇'] = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
 
                 item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['피봇']))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -12596,7 +12598,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_fut.iloc[0]['피봇'] = cme_realdata['피봇']
                 선물_피봇 = cme_realdata['피봇']
 
-                cme_realdata['시가갭'] = cme_realdata['시가'] - 선물_종가
+                cme_realdata['시가갭'] = 선물_시가 - 선물_종가
                 df_fut.iloc[0]['시가갭'] = cme_realdata['시가갭']
 
                 item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['시가갭']))
@@ -12609,7 +12611,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_fut.iloc[1]['시가'] = 선물_시가
                 fut_realdata['시가'] = 선물_시가
 
-                fut_realdata['피봇'] = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, fut_realdata['시가'])
+                fut_realdata['피봇'] = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
 
                 item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['피봇']))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -12619,19 +12621,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_fut.iloc[1]['피봇'] = fut_realdata['피봇']    
                 선물_피봇 = fut_realdata['피봇']                   
 
-                fut_realdata['시가갭'] = fut_realdata['시가'] - 선물_종가
+                fut_realdata['시가갭'] = 선물_시가 - 선물_종가
                 df_fut.iloc[1]['시가갭'] = fut_realdata['시가갭']                   
 
                 item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['시가갭']))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)            
         else:
+            '''
             if overnight:
                 fut_pivot = self.tableWidget_fut.item(0, Futures_column.피봇.value).text()
             else:
                 fut_pivot = self.tableWidget_fut.item(1, Futures_column.피봇.value).text()
+            '''
 
-            if fut_pivot == '0.00':
+            if 선물_피봇 == 0:
 
                 피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
                 선물_피봇 = 피봇
@@ -13093,9 +13097,29 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item.setForeground(QBrush(검정색))
 
                     self.tableWidget_call.setItem(index, Option_column.시가.value, item)
-
+                    
                     cm_call_시가 = df_cm_call['시가'].values.tolist()
                     cm_call_시가_node_list = self.make_node_list(cm_call_시가)
+
+                    if df_cm_call.iloc[index]['전저'] > 0 and df_cm_call.iloc[index]['전고'] > 0:
+
+                        피봇 = self.calc_pivot(df_cm_call.iloc[index]['전저'], df_cm_call.iloc[index]['전고'],
+                                            df_cm_call.iloc[index]['종가'], df_cm_call.iloc[index]['시가'])
+
+                        df_cm_call.loc[index, '피봇'] = 피봇
+
+                        item = QTableWidgetItem("{0:0.2f}".format(피봇))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(index, Option_column.피봇.value, item)                
+
+                        cm_call_피봇 = df_cm_call['피봇'].values.tolist()
+                        cm_call_피봇_node_list = self.make_node_list(cm_call_피봇)
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Call 피봇 리스트 갱신 !!!\r'.format(int(call_result['체결시간'][0:2]), \
+                                    int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
+                        self.textBrowser.append(str)
+                    else:
+                        pass
 
                     # 콜 시가 갱신
                     if cm_call_시가 != 콜시가리스트:
@@ -13277,10 +13301,30 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         item.setForeground(QBrush(검정색))
 
-                    self.tableWidget_call.setItem(index, Option_column.시가.value, item)
+                    self.tableWidget_call.setItem(index, Option_column.시가.value, item)                    
 
                     cm_call_시가 = df_cm_call['시가'].values.tolist()
                     cm_call_시가_node_list = self.make_node_list(cm_call_시가)
+
+                    if df_cm_call.iloc[index]['전저'] > 0 and df_cm_call.iloc[index]['전고'] > 0:
+
+                        피봇 = self.calc_pivot(df_cm_call.iloc[index]['전저'], df_cm_call.iloc[index]['전고'],
+                                            df_cm_call.iloc[index]['종가'], df_cm_call.iloc[index]['시가'])
+
+                        df_cm_call.loc[index, '피봇'] = 피봇
+
+                        item = QTableWidgetItem("{0:0.2f}".format(피봇))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(index, Option_column.피봇.value, item)                
+
+                        cm_call_피봇 = df_cm_call['피봇'].values.tolist()
+                        cm_call_피봇_node_list = self.make_node_list(cm_call_피봇)
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Call 피봇 리스트 갱신 !!!\r'.format(int(call_result['체결시간'][0:2]), \
+                                    int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
+                        self.textBrowser.append(str)
+                    else:
+                        pass
 
                     # 콜 시가 갱신
                     if cm_call_시가 != 콜시가리스트:
@@ -13740,27 +13784,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pre_콜시가갭합 = round(df_cm_call['시가갭'].sum(), 2)
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}, {4:0.2f}] pre 시가 갱신 !!!\r'.format(dt.hour, dt.minute, dt.second, index, df_cm_call.iloc[index]['시가'])
-            self.textBrowser.append(str)
-            
-            if df_cm_call.iloc[index]['전저'] > 0 and df_cm_call.iloc[index]['전고'] > 0:
-
-                피봇 = self.calc_pivot(df_cm_call.iloc[index]['전저'], df_cm_call.iloc[index]['전고'],
-                                    df_cm_call.iloc[index]['종가'], df_cm_call.iloc[index]['시가'])
-
-                df_cm_call.loc[index, '피봇'] = 피봇
-
-                item = QTableWidgetItem("{0:0.2f}".format(피봇))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(index, Option_column.피봇.value, item)                
-
-                cm_call_피봇 = df_cm_call['피봇'].values.tolist()
-                cm_call_피봇_node_list = self.make_node_list(cm_call_피봇)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] Call 피봇 리스트 갱신 !!!\r'.format(int(call_result['체결시간'][0:2]), \
-                            int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
-                self.textBrowser.append(str)
-            else:
-                pass
+            self.textBrowser.append(str)            
         else:
             pass       
 
@@ -14244,9 +14268,29 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item.setForeground(QBrush(검정색))
 
                     self.tableWidget_put.setItem(index, Option_column.시가.value, item)
-
+                    
                     cm_put_시가 = df_cm_put['시가'].values.tolist()
                     cm_put_시가_node_list = self.make_node_list(cm_put_시가)
+                    
+                    if df_cm_put.iloc[index]['전저'] > 0 and df_cm_put.iloc[index]['전고'] > 0:
+
+                        피봇 = self.calc_pivot(df_cm_put.iloc[index]['전저'], df_cm_put.iloc[index]['전고'],
+                                            df_cm_put.iloc[index]['종가'], df_cm_put.iloc[index]['시가'])
+
+                        df_cm_put.loc[index, '피봇'] = 피봇
+
+                        item = QTableWidgetItem("{0:0.2f}".format(피봇))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
+
+                        cm_put_피봇 = df_cm_put['피봇'].values.tolist()
+                        cm_put_피봇_node_list = self.make_node_list(cm_put_피봇)
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Put 피봇 리스트 갱신 !!!\r'.format(int(put_result['체결시간'][0:2]), \
+                                    int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
+                        self.textBrowser.append(str)
+                    else:
+                        pass
 
                     # 콜 시가 갱신
                     if cm_put_시가 != 풋시가리스트:
@@ -14428,10 +14472,30 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         item.setForeground(QBrush(검정색))
 
-                    self.tableWidget_put.setItem(index, Option_column.시가.value, item)
+                    self.tableWidget_put.setItem(index, Option_column.시가.value, item)                    
 
                     cm_put_시가 = df_cm_put['시가'].values.tolist()
                     cm_put_시가_node_list = self.make_node_list(cm_put_시가)
+
+                    if df_cm_put.iloc[index]['전저'] > 0 and df_cm_put.iloc[index]['전고'] > 0:
+
+                        피봇 = self.calc_pivot(df_cm_put.iloc[index]['전저'], df_cm_put.iloc[index]['전고'],
+                                            df_cm_put.iloc[index]['종가'], df_cm_put.iloc[index]['시가'])
+
+                        df_cm_put.loc[index, '피봇'] = 피봇
+
+                        item = QTableWidgetItem("{0:0.2f}".format(피봇))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
+
+                        cm_put_피봇 = df_cm_put['피봇'].values.tolist()
+                        cm_put_피봇_node_list = self.make_node_list(cm_put_피봇)
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Put 피봇 리스트 갱신 !!!\r'.format(int(put_result['체결시간'][0:2]), \
+                                    int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
+                        self.textBrowser.append(str)
+                    else:
+                        pass
 
                     # 콜 시가 갱신
                     if cm_put_시가 != 풋시가리스트:
@@ -14893,26 +14957,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}, {4:0.2f}] pre 시가 갱신 !!!\r'.format(dt.hour, dt.minute, dt.second, index, df_cm_put.iloc[index]['시가'])
             self.textBrowser.append(str)
-
-            if df_cm_put.iloc[index]['전저'] > 0 and df_cm_put.iloc[index]['전고'] > 0:
-
-                피봇 = self.calc_pivot(df_cm_put.iloc[index]['전저'], df_cm_put.iloc[index]['전고'],
-                                    df_cm_put.iloc[index]['종가'], df_cm_put.iloc[index]['시가'])
-
-                df_cm_put.loc[index, '피봇'] = 피봇
-
-                item = QTableWidgetItem("{0:0.2f}".format(피봇))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
-
-                cm_put_피봇 = df_cm_put['피봇'].values.tolist()
-                cm_put_피봇_node_list = self.make_node_list(cm_put_피봇)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] Put 피봇 리스트 갱신 !!!\r'.format(int(put_result['체결시간'][0:2]), \
-                            int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
-                self.textBrowser.append(str)
-            else:
-                pass
         else:
             pass           
 
