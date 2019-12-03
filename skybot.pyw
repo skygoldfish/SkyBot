@@ -10519,22 +10519,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cme_realdata['피봇'] = self.calc_pivot(cme_realdata['전저'], cme_realdata['전고'], 
                                             df['전일종가'], cme_realdata['시가'])
 
-                    #선물_피봇 = cme_realdata['피봇']
-
                     item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['피봇']))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
                 else:
                     pass
             else:
-                pass 
-
-            if overnight:
-                cme_realdata['저가'] = df['저가']
-            else:
-                pass
-
-            #선물_저가 = df['저가']
+                pass      
 
             item = QTableWidgetItem("{0:0.2f}".format(df['저가']))
             item.setTextAlignment(Qt.AlignCenter)
@@ -10569,11 +10560,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
 
             if overnight:
-                cme_realdata['고가'] = df['고가']
-            else:
-                pass
 
-            #선물_고가 = df['고가']
+                선물_피봇 = cme_realdata['피봇']
+
+                cme_realdata['저가'] = df['저가']
+                선물_저가 = df['저가']
+                
+                cme_realdata['고가'] = df['고가']
+                선물_고가 = df['고가']
+
+            else:
+                pass            
 
             item = QTableWidgetItem("{0:0.2f}".format(df['고가']))
             item.setTextAlignment(Qt.AlignCenter)
