@@ -9259,6 +9259,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['시가갭']))
                 item.setTextAlignment(Qt.AlignCenter)
+
+                if fut_realdata['시가'] > fut_realdata['종가']:
+                    item.setBackground(QBrush(콜기준가색))
+                    item.setForeground(QBrush(검정색))
+                elif fut_realdata['시가'] < fut_realdata['종가']:
+                    item.setBackground(QBrush(풋기준가색))
+                    item.setForeground(QBrush(흰색))
+                else:
+                    item.setBackground(QBrush(흰색))  
+
                 self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
             else:
                 pass
@@ -10559,6 +10569,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 item = QTableWidgetItem("{0:0.2f}".format(df['시가'] - df['전일종가']))
                 item.setTextAlignment(Qt.AlignCenter)
+
+                if df['시가'] > df['전일종가']:
+                    item.setBackground(QBrush(콜기준가색))
+                    item.setForeground(QBrush(검정색))
+                elif df['시가'] < df['전일종가']:
+                    item.setBackground(QBrush(풋기준가색))
+                    item.setForeground(QBrush(흰색))
+                else:
+                    item.setBackground(QBrush(흰색))  
+
                 self.tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
 
                 if cme_realdata['전저'] > 0 and cme_realdata['전고'] > 0:
@@ -12668,15 +12688,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['시가갭']))
                 item.setTextAlignment(Qt.AlignCenter)
-                
-                item.setBackground(QBrush(기본바탕색))        
 
                 if 선물_시가 > 선물_종가:
-                    item.setForeground(QBrush(적색))
+                    item.setBackground(QBrush(콜기준가색))
+                    item.setForeground(QBrush(검정색))
                 elif 선물_시가 < 선물_종가:
-                    item.setForeground(QBrush(청색))
+                    item.setBackground(QBrush(풋기준가색))
+                    item.setForeground(QBrush(흰색))
                 else:
-                    item.setForeground(QBrush(검정색))  
+                    item.setBackground(QBrush(흰색))  
 
                 self.tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
             else:
@@ -12702,14 +12722,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['시가갭']))
                 item.setTextAlignment(Qt.AlignCenter)
 
-                item.setBackground(QBrush(기본바탕색))        
-
                 if 선물_시가 > 선물_종가:
-                    item.setForeground(QBrush(적색))
-                elif 선물_시가 < 선물_종가:
-                    item.setForeground(QBrush(청색))
-                else:
+                    item.setBackground(QBrush(콜기준가색))
                     item.setForeground(QBrush(검정색))
+                elif 선물_시가 < 선물_종가:
+                    item.setBackground(QBrush(풋기준가색))
+                    item.setForeground(QBrush(흰색))
+                else:
+                    item.setBackground(QBrush(흰색))  
 
                 self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)            
         else:
