@@ -111,6 +111,8 @@ ovc_start_hour = domestic_start_hour - 1
 start_time_str = ''
 end_time_str = ''
 
+first_shot = True
+
 service_terminate = False
 jugan_service_terminate = False
 yagan_service_terminate = False
@@ -12455,6 +12457,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global fut_tick_list, fut_value_list, df_fut_ohlc
         global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
         global flag_fut_low, flag_fut_high
+        #global first_shot
 
         체결시간 = result['체결시간']
 
@@ -12592,16 +12595,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass        
         else:
             pass 
+        '''
+        # 최초 선물데이타 수신 안되는 문제 임시해결책
+        if first_shot and 선물_시가 > 0:             
 
+            first_shot = False
+        else:
+            pass
+        '''
         # 시가 및 피봇 갱신
         if overnight:
             fut_open = self.tableWidget_fut.item(0, Futures_column.시가.value).text()
         else:
             fut_open = self.tableWidget_fut.item(1, Futures_column.시가.value).text()
+        
+        print('선물시가, fut_open', 시가, fut_open)             
 
-        print('선물시가, fut_open', 시가, fut_open)
-
-        if (시가 != fut_open or float(fut_open) == 0) and 선물_시가 > 0:
+        if 시가 != fut_open:
 
             df_plotdata_fut.iloc[0][해외선물_시간차] = 선물_시가
 
@@ -12664,7 +12674,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)            
         else:
 
-            if 선물_피봇 == 0:
+            if overnight:
+                fut_pivot = self.tableWidget_fut.item(0, Futures_column.피봇.value).text()
+            else:
+                fut_pivot = self.tableWidget_fut.item(1, Futures_column.피봇.value).text()
+
+            if float(fut_pivot) == 0 and 선물_시가 > 0:
 
                 피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
                 선물_피봇 = 피봇
@@ -12703,9 +12718,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             fut_low = self.tableWidget_fut.item(1, Futures_column.저가.value).text()
 
-        print('선물저가, fut_low', 저가, fut_low)
+        #print('선물저가, fut_low', 저가, fut_low)
 
-        if (저가 != fut_low or float(fut_low) == 0) and 선물_저가 > 0:
+        if 저가 != fut_low:
 
             flag_fut_low = True
 
@@ -12743,9 +12758,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             fut_high = self.tableWidget_fut.item(1, Futures_column.고가.value).text()
 
-        print('선물고가, fut_high', 고가, fut_high)
+        #print('선물고가, fut_high', 고가, fut_high)
 
-        if (고가 != fut_high or float(fut_high) == 0) and 선물_고가 > 0:
+        if 고가 != fut_high:
 
             flag_fut_high = True
 
