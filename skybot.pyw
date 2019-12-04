@@ -12493,6 +12493,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         df_plotdata_fut.iloc[0][x_idx] = 선물_현재가
         df_plotdata_kp200.iloc[0][x_idx] = round(float(result['KOSPI200지수']), 2)
 
+        self.fut_oloh_check()
+
         # 현재가 갱신
         if overnight:
             fut_price = self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]
@@ -12615,7 +12617,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             df_plotdata_fut.iloc[0][해외선물_시간차] = 선물_시가
 
-            item = QTableWidgetItem("{0}".format(시가))
+            item = QTableWidgetItem(시가)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(기본바탕색))        
 
@@ -12681,10 +12683,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if float(fut_pivot) == 0 and 선물_시가 > 0:
 
-                피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
-                선물_피봇 = 피봇
+                선물_피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
 
-                item = QTableWidgetItem("{0:0.2f}".format(피봇))
+                item = QTableWidgetItem("{0:0.2f}".format(선물_피봇))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 if overnight:
@@ -12718,13 +12719,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             fut_low = self.tableWidget_fut.item(1, Futures_column.저가.value).text()
 
-        #print('선물저가, fut_low', 저가, fut_low)
+        print('선물저가, fut_low', 저가, fut_low)
 
         if 저가 != fut_low:
 
             flag_fut_low = True
 
-            item = QTableWidgetItem("{0}".format(저가))
+            item = QTableWidgetItem(저가)
             item.setTextAlignment(Qt.AlignCenter)            
 
             if overnight:
@@ -12758,13 +12759,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             fut_high = self.tableWidget_fut.item(1, Futures_column.고가.value).text()
 
-        #print('선물고가, fut_high', 고가, fut_high)
+        print('선물고가, fut_high', 고가, fut_high)
 
         if 고가 != fut_high:
 
             flag_fut_high = True
 
-            item = QTableWidgetItem("{0}".format(고가))
+            item = QTableWidgetItem(고가)
             item.setTextAlignment(Qt.AlignCenter)            
 
             if overnight:
