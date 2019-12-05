@@ -7737,7 +7737,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if df_cm_put.iloc[i]['저가'] in cm_put_전저_node_list:
 
                             self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(풋전저색))
-                            self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+                            self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(흰색))
                         else:
                             pass
                     else:
@@ -8159,7 +8159,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if df_cm_put.iloc[i]['고가'] in cm_put_전저_node_list:
 
                             self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(풋전저색))
-                            self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+                            self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(흰색))
                         else:
                             pass
                     else:
@@ -8825,14 +8825,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if df_cm_put.iloc[i]['저가'] in cm_put_전저_node_list:
 
                             self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(풋전저색))
-                            self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+                            self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(흰색))
                         else:
                             pass
 
                         if df_cm_put.iloc[i]['고가'] in cm_put_전저_node_list:
 
                             self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(풋전저색))
-                            self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+                            self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(흰색))
                         else:
                             pass
                     else:
