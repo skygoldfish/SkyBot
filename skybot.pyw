@@ -2163,7 +2163,9 @@ class update_worker(QThread):
         global flag_first_oi, call_first_oi, put_first_oi
         
         while True:
-            data = {}            
+            data = {} 
+
+            dt = datetime.datetime.now()           
             
             if opt_x_idx >= 해외선물_시간차 + 1:
 
@@ -2180,7 +2182,7 @@ class update_worker(QThread):
                     #df_plotdata_cm_call_oi.iloc[0][opt_x_idx] = df_cm_call['수정미결'].sum() - call_oi_init_value
                     #df_plotdata_cm_put_oi.iloc[0][opt_x_idx] = df_cm_put['수정미결'].sum() - put_oi_init_value
 
-                    if flag_first_oi:
+                    if flag_first_oi and opt_x_idx == 해외선물_시간차 + 1:
 
                         call_first_oi = df_cm_call['수정미결'].sum()
                         put_first_oi = df_cm_put['수정미결'].sum()
@@ -4861,7 +4863,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass                                                      
             else:
-                pass                                 
+                pass
+            
+            str = '[{0:02d}:{1:02d}:{2:02d}] call_first_oi = {3}, put_first_oi = {4}\r'.format(dt.hour, \
+                dt.minute, dt.second, call_first_oi, put_first_oi)
+            print(str)                               
             
             str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update Time : {3:0.2f} ms...\r'.format(\
                 dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
@@ -15402,8 +15408,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 풋_수정미결퍼센트 = 100 - 콜_수정미결퍼센트
                 #call_oi_delta = 콜_수정미결합 - call_oi_init_value
                 #put_oi_delta = 풋_수정미결합 - put_oi_init_value
-                call_oi_delta = 콜_수정미결합
-                put_oi_delta = 풋_수정미결합
+                call_oi_delta = 콜_수정미결합 - call_first_oi
+                put_oi_delta = 풋_수정미결합 - put_first_oi
 
                 oi_delta = call_oi_delta - put_oi_delta
                 수정미결_직전대비.extend([oi_delta - oi_delta_old])
