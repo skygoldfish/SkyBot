@@ -113,6 +113,10 @@ end_time_str = ''
 
 first_shot = True
 
+flag_first_oi = True
+call_first_oi = 0
+put_first_oi = 0
+
 service_terminate = False
 jugan_service_terminate = False
 yagan_service_terminate = False
@@ -2155,7 +2159,8 @@ class update_worker(QThread):
         global df_plotdata_cm_call_volume, df_plotdata_cm_put_volume, df_plotdata_cm_volume_cha
         global df_plotdata_cm_call_oi, df_plotdata_cm_put_oi 
         global call_volume_total, put_volume_total
-        global 콜_수정미결합, 풋_수정미결합
+        global 콜_수정미결합, 풋_수정미결합 
+        global flag_first_oi, call_first_oi, put_first_oi
         
         while True:
             data = {}            
@@ -2175,8 +2180,17 @@ class update_worker(QThread):
                     #df_plotdata_cm_call_oi.iloc[0][opt_x_idx] = df_cm_call['수정미결'].sum() - call_oi_init_value
                     #df_plotdata_cm_put_oi.iloc[0][opt_x_idx] = df_cm_put['수정미결'].sum() - put_oi_init_value
 
-                    콜_수정미결합 = df_cm_call['수정미결'].sum()
-                    풋_수정미결합 = df_cm_put['수정미결'].sum()
+                    if flag_first_oi:
+
+                        call_first_oi = df_cm_call['수정미결'].sum()
+                        put_first_oi = df_cm_put['수정미결'].sum()
+
+                        flag_first_oi = False
+                    else:
+                        pass
+
+                    콜_수정미결합 = df_cm_call['수정미결'].sum() - call_first_oi
+                    풋_수정미결합 = df_cm_put['수정미결'].sum() - put_first_oi
 
                     df_plotdata_cm_call_oi.iloc[0][opt_x_idx] = 콜_수정미결합
                     df_plotdata_cm_put_oi.iloc[0][opt_x_idx] = 풋_수정미결합
