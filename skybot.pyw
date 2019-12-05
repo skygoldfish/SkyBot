@@ -4714,7 +4714,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             color_update = False
 
                             if flag_call_low_update:
-
+                                '''
                                 #콜저가리스트 = copy.deepcopy(cm_call_저가)
                                 #flag_call_low_node = True
                                 
@@ -4727,14 +4727,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 else:
                                     item = QTableWidgetItem('저가')
                                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-
+                                '''
                                 flag_call_low_update = False
                                 color_update = True
                             else:
                                 pass
 
                             if flag_call_high_update:
-
+                                '''
                                 #콜고가리스트 = copy.deepcopy(cm_call_고가)
                                 #flag_call_high_node = True
 
@@ -4747,14 +4747,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 else:
                                     item = QTableWidgetItem('고가')
                                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-
+                                '''
                                 flag_call_high_update = False
                                 color_update = True
                             else:
                                 pass
 
                             if flag_put_low_update:
-
+                                '''
                                 #풋저가리스트 = copy.deepcopy(cm_put_저가)
                                 #flag_put_low_node = True
 
@@ -4767,14 +4767,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 else:
                                     item = QTableWidgetItem('저가')
                                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-
+                                '''
                                 flag_put_low_update = False
                                 color_update = True
                             else:
                                 pass
 
                             if flag_put_high_update:
-
+                                '''
                                 #풋고가리스트 = copy.deepcopy(cm_put_고가)
                                 #flag_put_high_node = True
 
@@ -4787,7 +4787,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 else:
                                     item = QTableWidgetItem('고가')
                                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-
+                                '''
                                 flag_put_high_update = False
                                 color_update = True
                             else:
@@ -5472,6 +5472,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if df_cm_call.iloc[i]['저가'] in 진성의미가:
 
                             call_low_coreval = True
+
+                            item = QTableWidgetItem('저가 ▲')
+                            self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+                            self.tableWidget_call.resizeColumnsToContents()
+                                    
                             '''
                             if fut_code == cmshcode:
 
@@ -5482,8 +5487,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             Speak(txt)
                             '''
                         else:
-                            #call_low_coreval = False
-                            pass
+                            item = QTableWidgetItem('저가')
+                            self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+                            self.tableWidget_call.resizeColumnsToContents()
                     else:
                         pass
 
@@ -5495,6 +5501,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if df_cm_call.iloc[i]['고가'] in 진성의미가:
 
                             call_high_coreval = True
+
+                            item = QTableWidgetItem('고가 ▼')
+                            self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+                            self.tableWidget_call.resizeColumnsToContents()
+
                             '''
                             if fut_code == cmshcode:
 
@@ -5505,8 +5516,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             Speak(txt)
                             '''
                         else:
-                            #call_high_coreval = False
-                            pass
+                            item = QTableWidgetItem('고가')
+                            self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+                            self.tableWidget_call.resizeColumnsToContents()
                     else:
                         pass
                 else:
@@ -7312,6 +7324,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if df_cm_put.iloc[i]['저가'] in 진성의미가:
 
                             put_low_coreval = True
+
+                            item = QTableWidgetItem('저가 ▲')
+                            self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+                            self.tableWidget_put.resizeColumnsToContents()
+
                             '''
                             if fut_code == cmshcode:
 
@@ -7322,8 +7339,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             Speak(txt)
                             '''
                         else:
-                            #put_low_coreval = False
-                            pass
+                            item = QTableWidgetItem('저가')
+                            self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+                            self.tableWidget_put.resizeColumnsToContents()
                     else:
                         pass
 
@@ -7335,6 +7353,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if df_cm_put.iloc[i]['고가'] in 진성의미가:
 
                             put_high_coreval = True
+
+                            item = QTableWidgetItem('고가 ▼')
+                            self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+                            self.tableWidget_put.resizeColumnsToContents()
+
                             '''
                             if fut_code == cmshcode:
 
@@ -7345,8 +7368,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             Speak(txt)
                             '''
                         else:
-                            #put_high_coreval = False
-                            pass
+                            item = QTableWidgetItem('고가')
+                            self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+                            self.tableWidget_put.resizeColumnsToContents()
                     else:
                         pass
                 else:
@@ -12431,7 +12455,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global fut_ol, fut_oh
         global fut_tick_list, fut_value_list, df_fut_ohlc
         global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
-        global flag_fut_low, flag_fut_high
+        global flag_fut_low, flag_fut_high, first_shot
 
         체결시간 = result['체결시간']
 
@@ -12466,6 +12490,36 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         df_plotdata_fut.iloc[0][x_idx] = 선물_현재가
         df_plotdata_kp200.iloc[0][x_idx] = round(float(result['KOSPI200지수']), 2)
+
+        if first_shot:
+
+            print('first_shot...............')
+
+            self.fut_node_color_clear()                    
+            self.fut_oloh_check()
+            self.fut_node_coloring()
+
+            self.call_open_check()
+            self.call_db_check()
+
+            self.put_open_check()
+            self.put_db_check()
+
+            self.call_node_color_clear()
+            self.put_node_color_clear()
+
+            self.call_node_color_update()
+            self.put_node_color_update()
+
+            self.call_center_color_update()
+            self.put_center_color_update()
+            
+            self.call_coreval_color_update()
+            self.put_coreval_color_update()
+
+            first_shot = False
+        else:
+            pass
 
         # 현재가 갱신
         if overnight:
