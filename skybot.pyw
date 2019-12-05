@@ -12997,16 +12997,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_cm_call_che.loc[index, '매도누적체결량'] = int(매도누적체결량)
                 df_cm_call_che.loc[index, '매수누적체결량'] = int(매수누적체결량)
 
-                if not overnight:
-
-                    df_cm_call_che.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
-                    df_cm_call_che.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
-                else:
-                    pass
-
                 df_cm_call.loc[index, '거래량'] = result['누적거래량']
 
                 if not overnight:
+                    
+                    df_cm_call_che.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
+                    df_cm_call_che.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
 
                     if float(현재가) <= df_cm_call.iloc[index]['시가갭']:
 
@@ -13230,16 +13226,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_cm_call_che.loc[index, '매도누적체결량'] = int(매도누적체결량)
                 df_cm_call_che.loc[index, '매수누적체결량'] = int(매수누적체결량)
 
-                if not overnight:
-
-                    df_cm_call_che.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
-                    df_cm_call_che.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
-                else:
-                    pass
-
                 df_cm_call.loc[index, '거래량'] = result['누적거래량']
 
                 if not overnight:
+                    
+                    df_cm_call_che.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
+                    df_cm_call_che.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
 
                     if float(현재가) <= df_cm_call.iloc[index]['시가갭']:
 
@@ -14157,16 +14149,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_cm_put_che.loc[index, '매도누적체결량'] = int(매도누적체결량)
                 df_cm_put_che.loc[index, '매수누적체결량'] = int(매수누적체결량)
 
-                if not overnight:
-
-                    df_cm_put_che.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
-                    df_cm_put_che.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
-                else:
-                    pass
-
                 df_cm_put.loc[index, '거래량'] = result['누적거래량']
 
                 if not overnight:
+                    
+                    df_cm_put_che.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
+                    df_cm_put_che.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
 
                     if float(현재가) <= df_cm_put.iloc[index]['시가갭']:
 
@@ -14389,16 +14377,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_cm_put_che.loc[index, '매도누적체결량'] = int(매도누적체결량)
                 df_cm_put_che.loc[index, '매수누적체결량'] = int(매수누적체결량)
 
-                if not overnight:
+                df_cm_put.loc[index, '거래량'] = result['누적거래량']
+
+                if not overnight:                    
 
                     df_cm_put_che.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
                     df_cm_put_che.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
-                else:
-                    pass
-
-                df_cm_put.loc[index, '거래량'] = result['누적거래량']
-
-                if not overnight:
 
                     if float(현재가) <= df_cm_put.iloc[index]['시가갭']:
 
