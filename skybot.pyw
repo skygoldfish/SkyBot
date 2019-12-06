@@ -4713,80 +4713,40 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             color_update = False
 
                             if flag_call_low_update:
-                                '''
-                                #콜저가리스트 = copy.deepcopy(cm_call_저가)
-                                #flag_call_low_node = True
                                 
-                                newlist = [value for value in cm_call_저가 if value in 진성의미가]
+                                str = '[{0:02d}:{1:02d}:{2:02d}] Call Low Update...\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)
 
-                                if newlist:    
-
-                                    item = QTableWidgetItem('저가 ▲')
-                                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-                                else:
-                                    item = QTableWidgetItem('저가')
-                                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-                                '''
                                 flag_call_low_update = False
                                 color_update = True
                             else:
                                 pass
 
                             if flag_call_high_update:
-                                '''
-                                #콜고가리스트 = copy.deepcopy(cm_call_고가)
-                                #flag_call_high_node = True
 
-                                newlist = [value for value in cm_call_고가 if value in 진성의미가]
+                                str = '[{0:02d}:{1:02d}:{2:02d}] Call High Update...\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)
 
-                                if newlist:    
-
-                                    item = QTableWidgetItem('고가 ▼')
-                                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-                                else:
-                                    item = QTableWidgetItem('고가')
-                                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-                                '''
                                 flag_call_high_update = False
                                 color_update = True
                             else:
                                 pass
 
                             if flag_put_low_update:
-                                '''
-                                #풋저가리스트 = copy.deepcopy(cm_put_저가)
-                                #flag_put_low_node = True
 
-                                newlist = [value for value in cm_put_저가 if value in 진성의미가]
+                                str = '[{0:02d}:{1:02d}:{2:02d}] Put Low Update...\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)
 
-                                if newlist:    
-
-                                    item = QTableWidgetItem('저가 ▲')
-                                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-                                else:
-                                    item = QTableWidgetItem('저가')
-                                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-                                '''
                                 flag_put_low_update = False
                                 color_update = True
                             else:
                                 pass
 
                             if flag_put_high_update:
-                                '''
-                                #풋고가리스트 = copy.deepcopy(cm_put_고가)
-                                #flag_put_high_node = True
 
-                                newlist = [value for value in cm_put_고가 if value in 진성의미가]
+                                str = '[{0:02d}:{1:02d}:{2:02d}] Put High Update...\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)
 
-                                if newlist:    
-
-                                    item = QTableWidgetItem('고가 ▼')
-                                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-                                else:
-                                    item = QTableWidgetItem('고가')
-                                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-                                '''
                                 flag_put_high_update = False
                                 color_update = True
                             else:
@@ -4806,6 +4766,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 self.call_coreval_color_update()
                                 self.put_coreval_color_update()
+
+                                str = '[{0:02d}:{1:02d}:{2:02d}] Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)
                             else:
                                 pass
                         else:
