@@ -111,7 +111,7 @@ ovc_start_hour = domestic_start_hour - 1
 start_time_str = ''
 end_time_str = ''
 
-first_shot = True
+first_refresh = True
 
 service_terminate = False
 jugan_service_terminate = False
@@ -2213,17 +2213,17 @@ class update_worker(QThread):
                 curve2_data = None
                 curve3_data = None
 
-            elif comboindex1 == 1:
+            elif comboindex1 == 1:                             
                 
-                curve1_data = df_plotdata_cm_call_oi.iloc[0].values.tolist()
-                curve2_data = df_plotdata_cm_put_oi.iloc[0].values.tolist() 
-                curve3_data = None              
-
-            elif comboindex1 == 2:
-
                 curve1_data = df_plotdata_cm_call_volume.iloc[0].values.tolist()
                 curve2_data = df_plotdata_cm_put_volume.iloc[0].values.tolist()
                 curve3_data = df_plotdata_cm_volume_cha.iloc[0].values.tolist()
+
+            elif comboindex1 == 2:
+                
+                curve1_data = df_plotdata_cm_call_oi.iloc[0].values.tolist()
+                curve2_data = df_plotdata_cm_put_oi.iloc[0].values.tolist() 
+                curve3_data = None 
 
             elif comboindex1 == 3:
 
@@ -2260,15 +2260,15 @@ class update_worker(QThread):
             # COMBO 2
             if comboindex2 == 0:
                 
-                curve4_data = df_plotdata_cm_call_oi.iloc[0].values.tolist()
-                curve5_data = df_plotdata_cm_put_oi.iloc[0].values.tolist()
-                curve6_data = None 
-            
-            elif comboindex2 == 1:
-                
                 curve4_data = df_plotdata_cm_call_volume.iloc[0].values.tolist()
                 curve5_data = df_plotdata_cm_put_volume.iloc[0].values.tolist()
                 curve6_data = df_plotdata_cm_volume_cha.iloc[0].values.tolist()
+            
+            elif comboindex2 == 1:                
+                
+                curve4_data = df_plotdata_cm_call_oi.iloc[0].values.tolist()
+                curve5_data = df_plotdata_cm_put_oi.iloc[0].values.tolist()
+                curve6_data = None 
             
             elif comboindex2 == 2:
 
@@ -2633,15 +2633,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_supply.verticalHeader().setStretchLastSection(True)
         self.tableWidget_supply.clearContents()
 
-        self.comboBox1.addItems(['1. FV-Plot', '2. OO-Plot', '3. OV-Plot', '4. HC-Plot', '5. FP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
-        self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
-
         if overnight:
 
-            self.comboBox2.addItems(['1. None', '2. OV-Plot', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            self.comboBox1.addItems(['1. FV-Plot', '2. OV-Plot', '3. None', '4. HC-Plot', '5. FP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
+            
+            self.comboBox2.addItems(['1. OV-Plot', '2. None', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
             self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
         else:
-            self.comboBox2.addItems(['1. OO-Plot', '2. OV-Plot', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            self.comboBox1.addItems(['1. FV-Plot', '2. OV-Plot', '3. OO-Plot', '4. HC-Plot', '5. FP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
+            
+            self.comboBox2.addItems(['1. OV-Plot', '2. OO-Plot', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
             self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         self.상태그림 = ['▼', '▲']
@@ -3257,7 +3260,36 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fut_jh_line.setValue(0)
             fut_pivot_line.setValue(0)
 
-        elif comboindex1 == 1:
+        elif comboindex1 == 1:            
+            
+            fut_che_left_curve.clear()
+
+            cm_call_oi_left_curve.clear()
+            cm_put_oi_left_curve.clear()
+
+            cm_two_sum_left_curve.clear()
+            cm_two_cha_left_curve.clear() 
+
+            kp200_curve.clear()
+            fut_curve.clear()
+            
+            sp500_left_curve.clear()
+            dow_left_curve.clear()
+            nasdaq_left_curve.clear()     
+            
+            atm_upper_line.setValue(0)
+            atm_lower_line.setValue(0)
+            
+            volume_base_line.setValue(0)
+
+            hc_fut_upper_line.setValue(0)
+            hc_fut_lower_line.setValue(0)
+            
+            fut_jl_line.setValue(0)
+            fut_jh_line.setValue(0)
+            fut_pivot_line.setValue(0) 
+
+        elif comboindex1 == 2:
             
             fut_che_left_curve.clear() 
 
@@ -3286,35 +3318,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fut_jl_line.setValue(0)
             fut_jh_line.setValue(0)
             fut_pivot_line.setValue(0)     
-
-        elif comboindex1 == 2:
-
-            fut_che_left_curve.clear()
-
-            cm_call_oi_left_curve.clear()
-            cm_put_oi_left_curve.clear()
-
-            cm_two_sum_left_curve.clear()
-            cm_two_cha_left_curve.clear() 
-
-            kp200_curve.clear()
-            fut_curve.clear()
-            
-            sp500_left_curve.clear()
-            dow_left_curve.clear()
-            nasdaq_left_curve.clear()     
-            
-            atm_upper_line.setValue(0)
-            atm_lower_line.setValue(0)
-            
-            volume_base_line.setValue(0)
-
-            hc_fut_upper_line.setValue(0)
-            hc_fut_lower_line.setValue(0)
-            
-            fut_jl_line.setValue(0)
-            fut_jh_line.setValue(0)
-            fut_pivot_line.setValue(0) 
         
         elif comboindex1 == 3:
 
@@ -3507,7 +3510,33 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         comboindex2 = self.comboBox2.currentIndex()
 
         if comboindex2 == 0:
+            
+            cm_call_oi_right_curve.clear()
+            cm_put_oi_right_curve.clear()
 
+            fut_che_right_curve.clear()
+
+            cm_two_sum_right_curve.clear()
+            cm_two_cha_right_curve.clear()
+                        
+            for i in range(29):
+                call_curve[i].clear()
+                put_curve[i].clear()
+            
+            sp500_right_curve.clear()
+            dow_right_curve.clear()
+            nasdaq_right_curve.clear()
+
+            for i in range(9):
+                mv_line[i].setValue(0)
+
+            opt_base_line.setValue(0)
+
+            hc_opt_upper_line.setValue(0)
+            hc_opt_lower_line.setValue(0)
+
+        elif comboindex2 == 1:
+                        
             if not overnight:
 
                 cm_call_volume_right_curve.clear()
@@ -3536,32 +3565,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 hc_opt_lower_line.setValue(0)
             else:
                 pass            
-
-        elif comboindex2 == 1:
-            
-            cm_call_oi_right_curve.clear()
-            cm_put_oi_right_curve.clear()
-
-            fut_che_right_curve.clear()
-
-            cm_two_sum_right_curve.clear()
-            cm_two_cha_right_curve.clear()
-                        
-            for i in range(29):
-                call_curve[i].clear()
-                put_curve[i].clear()
-            
-            sp500_right_curve.clear()
-            dow_right_curve.clear()
-            nasdaq_right_curve.clear()
-
-            for i in range(9):
-                mv_line[i].setValue(0)
-
-            opt_base_line.setValue(0)
-
-            hc_opt_upper_line.setValue(0)
-            hc_opt_lower_line.setValue(0)
 
         elif comboindex2 == 2:
 
@@ -4491,16 +4494,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     fut_che_left_curve.setData(curve1_data)
 
-                elif comboindex1 == 1: 
-                                        
-                    cm_call_oi_left_curve.setData(curve1_data)
-                    cm_put_oi_left_curve.setData(curve2_data)
-
-                elif comboindex1 == 2:
-
+                elif comboindex1 == 1:                      
+                    
                     cm_call_volume_left_curve.setData(curve1_data)
                     cm_put_volume_left_curve.setData(curve2_data)
                     cm_volume_cha_left_curve.setData(curve3_data)
+
+                elif comboindex1 == 2:
+                                       
+                    if not overnight:
+                        cm_call_oi_left_curve.setData(curve1_data)
+                        cm_put_oi_left_curve.setData(curve2_data)
+                    else:
+                        pass
 
                 elif comboindex1 == 3:
 
@@ -4537,18 +4543,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 선택된 오른쪽 그래프 그리기
                 if comboindex2 == 0:
+                                        
+                    cm_call_volume_right_curve.setData(curve4_data)
+                    cm_put_volume_right_curve.setData(curve5_data)  
+                    cm_volume_cha_right_curve.setData(curve6_data) 
 
+                elif comboindex2 == 1:
+                                        
                     if not overnight:
                         cm_call_oi_right_curve.setData(curve4_data)
                         cm_put_oi_right_curve.setData(curve5_data)
                     else:
-                        pass
-
-                elif comboindex2 == 1:
-                                        
-                    cm_call_volume_right_curve.setData(curve4_data)
-                    cm_put_volume_right_curve.setData(curve5_data)  
-                    cm_volume_cha_right_curve.setData(curve6_data)          
+                        pass         
 
                 elif comboindex2 == 2:
 
@@ -4609,7 +4615,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.fut_oloh_check()
                         self.fut_node_coloring()
 
-                        # print('flag_fut_low..............')
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 선물 저가 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
 
                         flag_fut_low = False
                     else:
@@ -4621,7 +4628,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.fut_oloh_check()
                         self.fut_node_coloring()
 
-                        # print('flag_fut_high..............')
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 선물 고가 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
 
                         flag_fut_high = False
                     else:
@@ -4767,7 +4775,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 self.call_coreval_color_update()
                                 self.put_coreval_color_update()
 
-                                str = '[{0:02d}:{1:02d}:{2:02d}] Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
                                 self.textBrowser.append(str)
                             else:
                                 pass
@@ -12417,7 +12425,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global fut_ol, fut_oh
         global fut_tick_list, fut_value_list, df_fut_ohlc
         global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
-        global flag_fut_low, flag_fut_high, first_shot
+        global flag_fut_low, flag_fut_high, first_refresh
+
+        dt = datetime.datetime.now()
+        current_str = dt.strftime('%H:%M:%S')
 
         체결시간 = result['체결시간']
 
@@ -12451,11 +12462,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         '''
 
         df_plotdata_fut.iloc[0][x_idx] = 선물_현재가
-        df_plotdata_kp200.iloc[0][x_idx] = round(float(result['KOSPI200지수']), 2)
+        df_plotdata_kp200.iloc[0][x_idx] = round(float(result['KOSPI200지수']), 2)        
 
-        if first_shot:
+        # 장시작후 20초에 컬러링 작업수행
+        if first_refresh and \
+            int(current_str[0:2]) == domestic_start_hour and int(current_str[3:5]) == 0 and int(current_str[6:8]) == 20:
 
-            print('first_shot...............')
+            print('first_refresh...............')
 
             self.fut_node_color_clear()                    
             self.fut_oloh_check()
@@ -12479,7 +12492,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.call_coreval_color_update()
             self.put_coreval_color_update()
 
-            first_shot = False
+            first_refresh = False
         else:
             pass
 
