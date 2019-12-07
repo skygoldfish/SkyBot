@@ -10378,7 +10378,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     '''
                     call_volume_total = df_cm_call['수정거래량'].sum()
                     put_volume_total = df_cm_put['수정거래량'].sum()
-                    '''
+                    
                     self.call_open_check()
                     self.call_db_check()
 
@@ -10396,7 +10396,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     
                     self.call_coreval_color_update()
                     self.put_coreval_color_update()
-                    '''
+                    
                     XQ = t2101(parent=self)
                     XQ.Query(종목코드=fut_code)
                     print('t2101 요청')
@@ -11397,7 +11397,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 cm_put_저가_node_list = self.make_node_list(cm_put_저가)
 
                 cm_put_고가 = df_cm_put['고가'].values.tolist()
-                cm_put_고가_node_list = self.make_node_list(cm_put_고가)                
+                cm_put_고가_node_list = self.make_node_list(cm_put_고가)  
+
                 
                 self.call_open_check()
                 self.call_db_check()
@@ -11416,6 +11417,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 
                 self.call_coreval_color_update()
                 self.put_coreval_color_update()
+
+                self.tableWidget_call.resizeColumnsToContents()
+                self.tableWidget_put.resizeColumnsToContents()                
 
                 '''
                 call_volume_total = df_cm_call['수정거래량'].sum()
@@ -12096,7 +12100,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             XQ.Query(월물=current_month_info)
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] EUREX 근월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)                        
+                            self.textBrowser.append(str)
+
+                        # 맥점 컬러링
+                        self.call_open_check()
+                        self.call_db_check()
+
+                        self.put_open_check()
+                        self.put_db_check()
+
+                        self.call_node_color_clear()
+                        self.put_node_color_clear()
+
+                        self.call_node_color_update()
+                        self.put_node_color_update()
+
+                        self.call_center_color_update()
+                        self.put_center_color_update()
+
+                        self.call_coreval_color_update()
+                        self.put_coreval_color_update()                            
                     else:
                         if pre_start:
 
@@ -12135,23 +12158,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             str = '[{0:02d}:{1:02d}:{2:02d}] 수정거래량 및 수정미결을 초기화합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
                         else:                      
-                            self.call_open_check()
-                            self.call_db_check()
-
-                            self.put_open_check()
-                            self.put_db_check()
-
-                            self.call_node_color_clear()
-                            self.put_node_color_clear()
-
-                            self.call_node_color_update()
-                            self.put_node_color_update()
-
-                            self.call_center_color_update()
-                            self.put_center_color_update()
-
-                            self.call_coreval_color_update()
-                            self.put_coreval_color_update()                            
+                            pass                        
 
                         if not refresh_flag:
 
@@ -12169,7 +12176,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             self.pushButton_add.setStyleSheet("background-color: lawngreen")
                             self.pushButton_add.setText('Refresh')
                         else:
-                            pass                                             
+                            pass                                                                
                 else:
                     pass
             else:
