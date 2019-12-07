@@ -9140,7 +9140,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq
         global view_actval
         
-        global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_저가, 선물_고가
+        global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_고가
 
         dt = datetime.datetime.now()
 
@@ -9322,14 +9322,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
             
             fut_realdata['저가'] = df['저가']
-            선물_저가 = df['저가']
 
             item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['저가']))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(1, Futures_column.저가.value, item)
 
             fut_realdata['고가'] = df['고가']
-            선물_고가 = df['고가']
 
             item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['고가']))
             item.setTextAlignment(Qt.AlignCenter)
@@ -9368,6 +9366,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)
 
+            if not overnight:
+
+                선물_전저 = fut_realdata['전저']
+                선물_전고 = fut_realdata['전고']
+                선물_종가 = fut_realdata['종가']
+                선물_피봇 = fut_realdata['피봇']
+                선물_시가 = df['시가']
+                선물_저가 = df['저가']
+                선물_고가 = df['고가']
+            else:
+                pass
+
             self.tableWidget_fut.resizeColumnsToContents()
 
         elif szTrCode == 't2301':
@@ -9389,7 +9399,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 옵션 잔존일
                 옵션잔존일 = block['옵션잔존일']
-                
+
                 # 옵션 행사가 갯수
                 nCount_cm_option_pairs = len(df)
 
@@ -10530,21 +10540,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
 
                 cme_realdata['전저'] = fut_realdata['저가']
-                선물_전저 = fut_realdata['저가']
 
                 item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['전저']))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(0, Futures_column.전저.value, item)
 
                 cme_realdata['전고'] = fut_realdata['고가']
-                선물_전고 = fut_realdata['고가']
 
                 item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['전고']))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(0, Futures_column.전고.value, item)
 
                 cme_realdata['종가'] = fut_realdata['현재가']
-                선물_종가 = fut_realdata['현재가']
 
                 item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['종가']))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -10596,7 +10603,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                pass      
+                pass   
+
+            cme_realdata['저가'] = df['저가']   
 
             item = QTableWidgetItem("{0:0.2f}".format(df['저가']))
             item.setTextAlignment(Qt.AlignCenter)
@@ -10632,16 +10641,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if overnight:
 
+                선물_전저 = cme_realdata['전저']
+                선물_전고 = cme_realdata['전고']
+                선물_종가 = cme_realdata['종가']
                 선물_피봇 = cme_realdata['피봇']
-
-                cme_realdata['저가'] = df['저가']
+                선물_시가 = df['시가']
                 선물_저가 = df['저가']
-
-                cme_realdata['고가'] = df['고가']
                 선물_고가 = df['고가']
-
             else:
-                pass            
+                pass 
+
+            cme_realdata['고가'] = df['고가']           
 
             item = QTableWidgetItem("{0:0.2f}".format(df['고가']))
             item.setTextAlignment(Qt.AlignCenter)
@@ -10683,13 +10693,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             print('df_fut', df_fut)
             
-            if refresh_flag:
-
-                self.fut_node_color_clear()
-                self.fut_oloh_check()
-                self.fut_node_coloring()
-            else:
-                pass
+            self.fut_node_color_clear()
+            self.fut_oloh_check()
+            self.fut_node_coloring()
 
         elif szTrCode == 't2830':
 
@@ -12272,7 +12278,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def fut_oloh_check(self):
 
-        global fut_ol, fut_oh        
+        global fut_ol, fut_oh
 
         # FUT OL/OH
         if self.within_n_tick(선물_시가, 선물_저가, 10) and not self.within_n_tick(선물_시가, 선물_고가, 10):
