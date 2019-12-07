@@ -9388,8 +9388,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if not refresh_flag:
 
                 # 옵션 잔존일
-                옵션잔존일 = block['옵션잔존일']                
-
+                옵션잔존일 = block['옵션잔존일']
+                
                 # 옵션 행사가 갯수
                 nCount_cm_option_pairs = len(df)
 
@@ -17910,10 +17910,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if next_month_only == 'YES':
                     XQ.Query(월물=next_month_info, 미니구분='G')
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 차월물 옵션전광판 주간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str) 
                 else:
                     XQ.Query(월물=current_month_info, 미니구분='G')
 
-                print('근월물 주간 선물/옵션 실시간요청...')
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 본월물 옵션전광판 주간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
                 
                 # 시작시간 X축 표시(index 60은 시가)
                 time_line_fut_start.setValue(선물장간_시간차)
@@ -17926,8 +17930,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if next_month_only == 'YES':
                     XQ.Query(월물=next_month_info, 미니구분='G')
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 차월물 옵션전광판 야간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str) 
                 else:
                     XQ.Query(월물=current_month_info, 미니구분='G') 
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 본월물 옵션전광판 야간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str) 
 
                 # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
                 time_line_fut_start.setValue(1)
