@@ -4605,56 +4605,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 선물, 콜, 풋 현재가 클리어
                     self.fut_cv_color_clear()
                     self.call_cv_color_clear()                    
-                    self.put_cv_color_clear()
-                    
-                    # 선물 컬러링
-                    
-                    if flag_fut_low:
-
-                        self.fut_node_color_clear()                    
-                        self.fut_oloh_check()
-                        self.fut_node_coloring()
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 선물 저가 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
-
-                        flag_fut_low = False
-                    else:
-                        pass
-
-                    if flag_fut_high:
-
-                        self.fut_node_color_clear()                    
-                        self.fut_oloh_check()
-                        self.fut_node_coloring()
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 선물 고가 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
-
-                        flag_fut_high = False
-                    else:
-                        pass                    
-
-                    if not overnight:
-
-                        # kp200 컬러링
-                        if flag_kp200_low:
-
-                            self.kp200_low_node_coloring()
-
-                            flag_kp200_low = False
-                        else:
-                            pass
-
-                        if flag_kp200_high:
-
-                            self.kp200_high_node_coloring()
-
-                            flag_kp200_high = False
-                        else:
-                            pass
-                    else:
-                        pass                    
+                    self.put_cv_color_clear()                    
 
                     if call_max_actval:
 
@@ -4718,6 +4669,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         # if int(호가시간[4:6]) in every_2sec and self.alternate_flag:
                         if self.alternate_flag:
 
+                            # 옵션 맥점 컬러링
                             color_update = False
 
                             if flag_call_low_update:
@@ -4780,7 +4732,53 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             else:
                                 pass
                         else:
-                            pass
+                            # 선물 맥점 컬러링                    
+                            if flag_fut_low:
+
+                                self.fut_node_color_clear()                    
+                                self.fut_oloh_check()
+                                self.fut_node_coloring()
+
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 선물 저가 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)
+
+                                flag_fut_low = False
+                            else:
+                                pass
+
+                            if flag_fut_high:
+
+                                self.fut_node_color_clear()                    
+                                self.fut_oloh_check()
+                                self.fut_node_coloring()
+
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 선물 고가 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)
+
+                                flag_fut_high = False
+                            else:
+                                pass                    
+
+                            if not overnight:
+
+                                # kp200 컬러링
+                                if flag_kp200_low:
+
+                                    self.kp200_low_node_coloring()
+
+                                    flag_kp200_low = False
+                                else:
+                                    pass
+
+                                if flag_kp200_high:
+
+                                    self.kp200_high_node_coloring()
+
+                                    flag_kp200_high = False
+                                else:
+                                    pass
+                            else:
+                                pass                    
                     else:
                         pass
                     
