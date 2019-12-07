@@ -157,6 +157,8 @@ night_time = 0
 선물_저가 = 0
 선물_고가 = 0
 
+선물_누적거래량 = 0
+
 # 업종코드
 KOSPI = '001'
 KOSPI200 = '101'
@@ -610,6 +612,7 @@ atm_upper_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DashLine)
 atm_lower_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DashLine)
 
 aqua_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
+aqua_pen1 = pg.mkPen(aqua, width=2, style=QtCore.Qt.SolidLine)
 magenta_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 magenta_pen1 = pg.mkPen(magenta, width=2, style=QtCore.Qt.SolidLine)
 green_pen = pg.mkPen('g', width=2, style=QtCore.Qt.SolidLine)
@@ -649,8 +652,15 @@ time_line_opt_dow_start = None
 time_line_fut_dow_start = None
 
 fut_curve = None
+
 fut_che_left_curve = None
+fut_che_left_plus_curve = None
+fut_che_left_minus_curve = None
+
 fut_che_right_curve = None
+fut_che_right_plus_curve = None
+fut_che_right_minus_curve = None
+
 fut_pivot_line = None
 fut_jl_line = None
 fut_jh_line = None
@@ -2669,7 +2679,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global time_line_fut_start, time_line_fut_dow_start, time_line_fut, fut_curve, kp200_curve
         global fut_jl_line, fut_jh_line, fut_pivot_line, volume_base_line
 
-        global fut_che_left_curve, fut_che_right_curve
+        global fut_che_left_curve, fut_che_left_plus_curve, fut_che_left_minus_curve
+        global fut_che_right_curve, fut_che_right_plus_curve, fut_che_right_minus_curve
         
         global cm_call_oi_left_curve, cm_put_oi_left_curve, cm_call_oi_right_curve, cm_put_oi_right_curve
 
@@ -2689,6 +2700,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         fut_pivot_line = self.Plot_Fut.addLine(x=None, pen=fut_pvt_pen)
         
         fut_che_left_curve = self.Plot_Fut.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        fut_che_left_plus_curve = self.Plot_Fut.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        fut_che_left_minus_curve = self.Plot_Fut.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
 
         cm_call_volume_left_curve = self.Plot_Fut.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         cm_put_volume_left_curve = self.Plot_Fut.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -2711,6 +2724,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         cm_volume_cha_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         fut_che_right_curve = self.Plot_Opt.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        fut_che_right_plus_curve = self.Plot_Opt.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        fut_che_right_minus_curve = self.Plot_Opt.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
 
         cm_two_sum_right_curve = self.Plot_Opt.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         cm_two_cha_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
@@ -4493,7 +4508,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 선택된 왼쪽 그래프 그리기
                 if comboindex1 == 0:
 
-                    fut_che_left_curve.setData(curve1_data)
+                    if 선물_누적거래량 > 0:
+                        fut_che_left_plus_curve.setData(curve1_data)
+                    else:
+                        fut_che_left_minus_curve.setData(curve1_data)
 
                 elif comboindex1 == 1:                      
                     
@@ -4559,7 +4577,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif comboindex2 == 2:
 
-                    fut_che_right_curve.setData(curve4_data)
+                    if 선물_누적거래량 > 0:
+                        fut_che_right_plus_curve.setData(curve4_data)
+                    else:
+                        fut_che_right_minus_curve.setData(curve4_data)
 
                 elif comboindex2 == 3:
 
@@ -12452,6 +12473,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global fut_tick_list, fut_value_list, df_fut_ohlc
         global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
         global flag_fut_low, flag_fut_high, first_refresh
+        global 선물_누적거래량
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -12827,19 +12849,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         # 장중 거래량 갱신, 장중 거래량은 누적거래량이 아닌 수정거래량 임
 
-        거래량 = result['매수누적체결량'] - result['매도누적체결량']
-        df_plotdata_fut_che.iloc[0][x_idx] = 거래량
+        선물_누적거래량 = result['매수누적체결량'] - result['매도누적체결량']
+        df_plotdata_fut_che.iloc[0][x_idx] = 선물_누적거래량
 
-        temp = format(거래량, ',')
+        temp = format(선물_누적거래량, ',')
 
         item = QTableWidgetItem(temp)
         item.setTextAlignment(Qt.AlignCenter)
 
-        if 거래량 > 0:
+        if 선물_누적거래량 > 0:
 
             item.setBackground(QBrush(적색))
             item.setForeground(QBrush(흰색))
-        elif 거래량 < 0:
+        elif 선물_누적거래량 < 0:
 
             item.setBackground(QBrush(청색))
             item.setForeground(QBrush(흰색))
@@ -12849,12 +12871,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if overnight:
             self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
-            df_fut.iloc[0]['거래량'] = 거래량
-            cme_realdata['거래량'] = 거래량
+            df_fut.iloc[0]['거래량'] = 선물_누적거래량
+            cme_realdata['거래량'] = 선물_누적거래량
         else:
             self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
-            df_fut.iloc[1]['거래량'] = 거래량
-            fut_realdata['거래량'] = 거래량        
+            df_fut.iloc[1]['거래량'] = 선물_누적거래량
+            fut_realdata['거래량'] = 선물_누적거래량        
         
         # 미결 갱신
         fut_realdata['미결'] = result['미결제약정수량']  
