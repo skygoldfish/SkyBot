@@ -3237,7 +3237,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def cb1_selectionChanged(self):
 
         global comboindex1
-        global fut_curve, kp200_curve, fut_che_left_curve
+        global fut_curve, kp200_curve, fut_che_left_curve, fut_che_left_plus_curve, fut_che_left_minus_curve
         global cm_call_volume_left_curve, cm_put_volume_left_curve
         global cm_call_oi_left_curve, cm_put_oi_left_curve
         global cm_two_sum_left_curve, cm_two_cha_left_curve
@@ -3278,7 +3278,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif comboindex1 == 1:            
             
-            fut_che_left_curve.clear()
+            #fut_che_left_curve.clear()
+            fut_che_left_plus_curve.clear()
+            fut_che_left_minus_curve.clear()
 
             cm_call_oi_left_curve.clear()
             cm_put_oi_left_curve.clear()
@@ -3307,7 +3309,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif comboindex1 == 2:
             
-            fut_che_left_curve.clear() 
+            #fut_che_left_curve.clear()
+            fut_che_left_plus_curve.clear()
+            fut_che_left_minus_curve.clear()
 
             cm_call_volume_left_curve.clear()
             cm_put_volume_left_curve.clear()
@@ -3337,7 +3341,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         elif comboindex1 == 3:
 
-            fut_che_left_curve.clear()
+            #fut_che_left_curve.clear()
+            fut_che_left_plus_curve.clear()
+            fut_che_left_minus_curve.clear()
 
             cm_call_volume_left_curve.clear()
             cm_put_volume_left_curve.clear()
@@ -3367,7 +3373,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif comboindex1 == 4:
             
-            fut_che_left_curve.clear()
+            #fut_che_left_curve.clear()
+            fut_che_left_plus_curve.clear()
+            fut_che_left_minus_curve.clear()
 
             cm_call_oi_left_curve.clear()
             cm_put_oi_left_curve.clear()
@@ -3406,7 +3414,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif comboindex1 == 5:
 
-            fut_che_left_curve.clear()
+            #fut_che_left_curve.clear()
+            fut_che_left_plus_curve.clear()
+            fut_che_left_minus_curve.clear()
 
             cm_call_oi_left_curve.clear()
             cm_put_oi_left_curve.clear()
@@ -3442,7 +3452,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif comboindex1 == 6:
 
-            fut_che_left_curve.clear()
+            #fut_che_left_curve.clear()
+            fut_che_left_plus_curve.clear()
+            fut_che_left_minus_curve.clear()
 
             cm_call_oi_left_curve.clear()
             cm_put_oi_left_curve.clear()
@@ -3478,7 +3490,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif comboindex1 == 7:
 
-            fut_che_left_curve.clear()
+            #fut_che_left_curve.clear()
+            fut_che_left_plus_curve.clear()
+            fut_che_left_minus_curve.clear()
 
             cm_call_oi_left_curve.clear()
             cm_put_oi_left_curve.clear()
@@ -3517,7 +3531,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def cb2_selectionChanged(self):
 
         global comboindex2
-        global call_curve, put_curve, fut_che_right_curve
+        global call_curve, put_curve, fut_che_right_curve, fut_che_right_plus_curve, fut_che_right_minus_curve
         global cm_call_volume_right_curve, cm_put_volume_right_curve
         global cm_call_oi_right_curve, cm_put_oi_right_curve
         global cm_two_sum_right_curve, cm_two_cha_right_curve
@@ -3530,7 +3544,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_call_oi_right_curve.clear()
             cm_put_oi_right_curve.clear()
 
-            fut_che_right_curve.clear()
+            #fut_che_right_curve.clear()
+            fut_che_right_plus_curve.clear()
+            fut_che_right_minus_curve.clear()
 
             cm_two_sum_right_curve.clear()
             cm_two_cha_right_curve.clear()
@@ -3559,7 +3575,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 cm_put_volume_right_curve.clear()
                 cm_volume_cha_right_curve.clear()
 
-                fut_che_right_curve.clear()
+                #fut_che_right_curve.clear()
+                fut_che_right_plus_curve.clear()
+                fut_che_right_minus_curve.clear()
 
                 cm_two_sum_right_curve.clear()
                 cm_two_cha_right_curve.clear()
@@ -3619,7 +3637,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_put_volume_right_curve.clear()
             cm_volume_cha_right_curve.clear()
 
-            fut_che_right_curve.clear()
+            #fut_che_right_curve.clear()
+            fut_che_right_plus_curve.clear()
+            fut_che_right_minus_curve.clear()
             
             for i in range(29):
                 call_curve[i].clear()
@@ -3646,7 +3666,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_put_volume_right_curve.clear()
             cm_volume_cha_right_curve.clear()
 
-            fut_che_right_curve.clear()
+            #fut_che_right_curve.clear()
+            fut_che_right_plus_curve.clear()
+            fut_che_right_minus_curve.clear()
 
             cm_two_sum_right_curve.clear()
             cm_two_cha_right_curve.clear()
@@ -3675,7 +3697,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_put_volume_right_curve.clear()
             cm_volume_cha_right_curve.clear()
 
-            fut_che_right_curve.clear()
+            #fut_che_right_curve.clear()
+            fut_che_right_plus_curve.clear()
+            fut_che_right_minus_curve.clear()
 
             cm_two_sum_right_curve.clear()
             cm_two_cha_right_curve.clear()
@@ -3708,7 +3732,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_put_volume_right_curve.clear()
             cm_volume_cha_right_curve.clear()
 
-            fut_che_right_curve.clear()
+            #fut_che_right_curve.clear()
+            fut_che_right_plus_curve.clear()
+            fut_che_right_minus_curve.clear()
 
             cm_two_sum_right_curve.clear()
             cm_two_cha_right_curve.clear()
@@ -3741,7 +3767,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             cm_put_volume_right_curve.clear()
             cm_volume_cha_right_curve.clear()
 
-            fut_che_right_curve.clear()
+            #fut_che_right_curve.clear()
+            fut_che_right_plus_curve.clear()
+            fut_che_right_minus_curve.clear()
 
             cm_two_sum_right_curve.clear()
             cm_two_cha_right_curve.clear()
@@ -10051,9 +10079,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 XQ.Query(종목코드=fut_code)
 
                 if fut_code == gmshcode:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 근뭘 주간선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] t2101 근월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 elif fut_code == cmshcode:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 차뭘 주간선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] t2101 차월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 else:
                     str = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
 
@@ -10065,9 +10093,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 XQ.Query(종목코드=fut_code)
 
                 if fut_code == gmshcode:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 근뭘 야간선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] t2801 근월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 elif fut_code == cmshcode:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 차뭘 야간선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] t2801 차월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 else:
                     str = '[{0:02d}:{1:02d}:{2:02d}] 잘못된 선물코드({3})입니다.\r'.format(dt.hour, dt.minute, dt.second, fut_code)
 
