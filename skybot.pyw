@@ -10673,7 +10673,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if first_refresh and \
             int(current_str[0:2]) == domestic_start_hour and int(current_str[3:5]) == 0 and int(current_str[6:8]) == 20:
 
-            print('first_refresh...............')
+            #print('first_refresh...............')
 
             self.fut_node_color_clear()                    
             self.fut_oloh_check()
@@ -10700,6 +10700,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.put_coreval_color_update()
 
             first_refresh = False
+            
+            str = '[{0:02d}:{1:02d}:{2:02d}] First Color Refreshing Done !!!\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
         else:
             pass
 
