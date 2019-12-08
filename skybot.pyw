@@ -9891,7 +9891,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     df_plotdata_cm_call.iloc[cm_call_t8416_count][0] = round(block['전일종가'], 2)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] t2301과 t8416의 콜[{3}] 종가가 상이합니다. !!!\r'.format(dt.hour, dt.minute, dt.second, cm_call_t8416_count)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] t2301과 t8416의 콜[{3}] 종가가 상이합니다. !!!\r'.format(dt.hour, dt.minute, dt.second, cm_call_t8416_count + 1)
                     self.textBrowser.append(str)
                 else:
                     pass
@@ -10050,7 +10050,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     df_plotdata_cm_put.iloc[cm_put_t8416_count][0] = round(block['전일종가'], 2)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] t2301과 t8416의 풋[{3}] 종가가 상이합니다. !!!\r'.format(dt.hour, dt.minute, dt.second, cm_put_t8416_count)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] t2301과 t8416의 풋[{3}] 종가가 상이합니다. !!!\r'.format(dt.hour, dt.minute, dt.second, cm_put_t8416_count + 1)
                     self.textBrowser.append(str)
                 else:
                     pass
