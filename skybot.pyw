@@ -3873,6 +3873,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             self.call_node_color_update()
             self.put_node_color_update()
+            
+            self.call_open_check()
+            self.call_db_check()
+
+            self.put_open_check()
+            self.put_db_check()
 
             self.call_center_color_update()
             self.put_center_color_update()
@@ -3950,6 +3956,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.call_node_color_update()
             self.put_node_color_update()
+            
+            self.call_open_check()
+            self.call_db_check()
+
+            self.put_open_check()
+            self.put_db_check()
 
             self.call_center_color_update()
             self.put_center_color_update()
@@ -4276,6 +4288,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.call_node_color_clear()
             self.call_node_color_update()
+            
+            self.call_open_check()
+            self.call_db_check()
+            
             self.call_center_color_update()
             self.call_coreval_color_update()
         return
@@ -4304,8 +4320,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             print('put scroll position -----> from %d to %d' % (put_scroll_begin_position, put_scroll_end_position))
 
-            self.put_node_color_clear()
+            self.put_node_color_clear()            
             self.put_node_color_update()
+            
+            self.put_open_check()
+            self.put_db_check()
+
             self.put_center_color_update()
             self.put_coreval_color_update()
         return
@@ -6814,37 +6834,37 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
 
                 # 콜 node 컬러링
-                if call_node_state['기준가']:
-
-                    if df_cm_call.iloc[i]['기준가'] in cm_put_저가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(콜기준가색))
-                        self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_call.iloc[i]['기준가'] in cm_put_고가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(콜기준가색))
-                        self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_call.iloc[i]['기준가'] in cm_call_저가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(콜기준가색))
-                        self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_call.iloc[i]['기준가'] in cm_call_고가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(콜기준가색))
-                        self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
+                if call_node_state['기준가']:                    
 
                     if call_open[i]:
+
+                        if df_cm_call.iloc[i]['기준가'] in cm_put_저가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(콜기준가색))
+                            self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[i]['기준가'] in cm_put_고가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(콜기준가색))
+                            self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[i]['기준가'] in cm_call_저가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(콜기준가색))
+                            self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[i]['기준가'] in cm_call_고가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(콜기준가색))
+                            self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
 
                         if df_cm_call.iloc[i]['저가'] in cm_call_기준가_node_list:
 
@@ -6866,35 +6886,35 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if call_node_state['월저']:
 
-                    if df_cm_call.iloc[i]['월저'] in cm_put_저가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.월저.value).setBackground(QBrush(콜월저색))
-                        self.tableWidget_call.item(i, Option_column.월저.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
-                    if df_cm_call.iloc[i]['월저'] in cm_put_고가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.월저.value).setBackground(QBrush(콜월저색))
-                        self.tableWidget_call.item(i, Option_column.월저.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
-                    if df_cm_call.iloc[i]['월저'] in cm_call_저가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.월저.value).setBackground(QBrush(콜월저색))
-                        self.tableWidget_call.item(i, Option_column.월저.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
-                    if df_cm_call.iloc[i]['월저'] in cm_call_고가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.월저.value).setBackground(QBrush(콜월저색))
-                        self.tableWidget_call.item(i, Option_column.월저.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
                     if call_open[i]:
+                        
+                        if df_cm_call.iloc[i]['월저'] in cm_put_저가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.월저.value).setBackground(QBrush(콜월저색))
+                            self.tableWidget_call.item(i, Option_column.월저.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[i]['월저'] in cm_put_고가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.월저.value).setBackground(QBrush(콜월저색))
+                            self.tableWidget_call.item(i, Option_column.월저.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[i]['월저'] in cm_call_저가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.월저.value).setBackground(QBrush(콜월저색))
+                            self.tableWidget_call.item(i, Option_column.월저.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[i]['월저'] in cm_call_고가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.월저.value).setBackground(QBrush(콜월저색))
+                            self.tableWidget_call.item(i, Option_column.월저.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
 
                         if df_cm_call.iloc[i]['저가'] in cm_call_월저_node_list:
 
@@ -6916,35 +6936,35 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if call_node_state['월고']:
 
-                    if df_cm_call.iloc[i]['월고'] in cm_put_저가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.월고.value).setBackground(QBrush(콜월고색))
-                        self.tableWidget_call.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_call.iloc[i]['월고'] in cm_put_고가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.월고.value).setBackground(QBrush(콜월고색))
-                        self.tableWidget_call.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_call.iloc[i]['월고'] in cm_call_저가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.월고.value).setBackground(QBrush(콜월고색))
-                        self.tableWidget_call.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_call.iloc[i]['월고'] in cm_call_고가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.월고.value).setBackground(QBrush(콜월고색))
-                        self.tableWidget_call.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
                     if call_open[i]:
+                        
+                        if df_cm_call.iloc[i]['월고'] in cm_put_저가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.월고.value).setBackground(QBrush(콜월고색))
+                            self.tableWidget_call.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[i]['월고'] in cm_put_고가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.월고.value).setBackground(QBrush(콜월고색))
+                            self.tableWidget_call.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[i]['월고'] in cm_call_저가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.월고.value).setBackground(QBrush(콜월고색))
+                            self.tableWidget_call.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[i]['월고'] in cm_call_고가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.월고.value).setBackground(QBrush(콜월고색))
+                            self.tableWidget_call.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
 
                         if df_cm_call.iloc[i]['저가'] in cm_call_월고_node_list:
 
@@ -6966,35 +6986,35 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if call_node_state['전저']:
 
-                    if df_cm_call.iloc[i]['전저'] in cm_put_저가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.전저.value).setBackground(QBrush(콜전저색))
-                        self.tableWidget_call.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_call.iloc[i]['전저'] in cm_put_고가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.전저.value).setBackground(QBrush(콜전저색))
-                        self.tableWidget_call.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_call.iloc[i]['전저'] in cm_call_저가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.전저.value).setBackground(QBrush(콜전저색))
-                        self.tableWidget_call.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_call.iloc[i]['전저'] in cm_call_고가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.전저.value).setBackground(QBrush(콜전저색))
-                        self.tableWidget_call.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
                     if call_open[i]:
+                        
+                        if df_cm_call.iloc[i]['전저'] in cm_put_저가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.전저.value).setBackground(QBrush(콜전저색))
+                            self.tableWidget_call.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[i]['전저'] in cm_put_고가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.전저.value).setBackground(QBrush(콜전저색))
+                            self.tableWidget_call.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[i]['전저'] in cm_call_저가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.전저.value).setBackground(QBrush(콜전저색))
+                            self.tableWidget_call.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[i]['전저'] in cm_call_고가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.전저.value).setBackground(QBrush(콜전저색))
+                            self.tableWidget_call.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
 
                         if df_cm_call.iloc[i]['저가'] in cm_call_전저_node_list:
 
@@ -7016,35 +7036,35 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if call_node_state['전고']:
 
-                    if df_cm_call.iloc[i]['전고'] in cm_put_저가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.전고.value).setBackground(QBrush(콜전고색))
-                        self.tableWidget_call.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_call.iloc[i]['전고'] in cm_put_고가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.전고.value).setBackground(QBrush(콜전고색))
-                        self.tableWidget_call.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_call.iloc[i]['전고'] in cm_call_저가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.전고.value).setBackground(QBrush(콜전고색))
-                        self.tableWidget_call.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_call.iloc[i]['전고'] in cm_call_고가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.전고.value).setBackground(QBrush(콜전고색))
-                        self.tableWidget_call.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
                     if call_open[i]:
+                        
+                        if df_cm_call.iloc[i]['전고'] in cm_put_저가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.전고.value).setBackground(QBrush(콜전고색))
+                            self.tableWidget_call.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[i]['전고'] in cm_put_고가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.전고.value).setBackground(QBrush(콜전고색))
+                            self.tableWidget_call.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[i]['전고'] in cm_call_저가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.전고.value).setBackground(QBrush(콜전고색))
+                            self.tableWidget_call.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[i]['전고'] in cm_call_고가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.전고.value).setBackground(QBrush(콜전고색))
+                            self.tableWidget_call.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
 
                         if df_cm_call.iloc[i]['저가'] in cm_call_전고_node_list:
 
@@ -7066,35 +7086,35 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if call_node_state['종가']:
 
-                    if df_cm_call.iloc[i]['종가'] in cm_put_저가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(콜종가색))
-                        self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_call.iloc[i]['종가'] in cm_put_고가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(콜종가색))
-                        self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_call.iloc[i]['종가'] in cm_call_저가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(콜종가색))
-                        self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_call.iloc[i]['종가'] in cm_call_고가_node_list:
-
-                        self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(콜종가색))
-                        self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
                     if call_open[i]:
+                        
+                        if df_cm_call.iloc[i]['종가'] in cm_put_저가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(콜종가색))
+                            self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[i]['종가'] in cm_put_고가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(콜종가색))
+                            self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[i]['종가'] in cm_call_저가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(콜종가색))
+                            self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[i]['종가'] in cm_call_고가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(콜종가색))
+                            self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
 
                         if df_cm_call.iloc[i]['저가'] in cm_call_종가_node_list:
 
@@ -8667,35 +8687,35 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 풋 node 컬러링
                 if put_node_state['기준가']:
 
-                    if df_cm_put.iloc[i]['기준가'] in cm_call_저가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.기준가.value).setBackground(QBrush(풋기준가색))
-                        self.tableWidget_put.item(i, Option_column.기준가.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
-                    if df_cm_put.iloc[i]['기준가'] in cm_call_고가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.기준가.value).setBackground(QBrush(풋기준가색))
-                        self.tableWidget_put.item(i, Option_column.기준가.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
-                    if df_cm_put.iloc[i]['기준가'] in cm_put_저가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.기준가.value).setBackground(QBrush(풋기준가색))
-                        self.tableWidget_put.item(i, Option_column.기준가.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
-                    if df_cm_put.iloc[i]['기준가'] in cm_put_고가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.기준가.value).setBackground(QBrush(풋기준가색))
-                        self.tableWidget_put.item(i, Option_column.기준가.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
                     if put_open[i]:
+                        
+                        if df_cm_put.iloc[i]['기준가'] in cm_call_저가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.기준가.value).setBackground(QBrush(풋기준가색))
+                            self.tableWidget_put.item(i, Option_column.기준가.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[i]['기준가'] in cm_call_고가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.기준가.value).setBackground(QBrush(풋기준가색))
+                            self.tableWidget_put.item(i, Option_column.기준가.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[i]['기준가'] in cm_put_저가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.기준가.value).setBackground(QBrush(풋기준가색))
+                            self.tableWidget_put.item(i, Option_column.기준가.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[i]['기준가'] in cm_put_고가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.기준가.value).setBackground(QBrush(풋기준가색))
+                            self.tableWidget_put.item(i, Option_column.기준가.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
 
                         if df_cm_put.iloc[i]['저가'] in cm_put_기준가_node_list:
 
@@ -8717,35 +8737,35 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if put_node_state['월저']:
 
-                    if df_cm_put.iloc[i]['월저'] in cm_call_저가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.월저.value).setBackground(QBrush(풋월저색))
-                        self.tableWidget_put.item(i, Option_column.월저.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
-                    if df_cm_put.iloc[i]['월저'] in cm_call_고가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.월저.value).setBackground(QBrush(풋월저색))
-                        self.tableWidget_put.item(i, Option_column.월저.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
-                    if df_cm_put.iloc[i]['월저'] in cm_put_저가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.월저.value).setBackground(QBrush(풋월저색))
-                        self.tableWidget_put.item(i, Option_column.월저.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
-                    if df_cm_put.iloc[i]['월저'] in cm_put_고가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.월저.value).setBackground(QBrush(풋월저색))
-                        self.tableWidget_put.item(i, Option_column.월저.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
                     if put_open[i]:
+                        
+                        if df_cm_put.iloc[i]['월저'] in cm_call_저가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.월저.value).setBackground(QBrush(풋월저색))
+                            self.tableWidget_put.item(i, Option_column.월저.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[i]['월저'] in cm_call_고가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.월저.value).setBackground(QBrush(풋월저색))
+                            self.tableWidget_put.item(i, Option_column.월저.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[i]['월저'] in cm_put_저가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.월저.value).setBackground(QBrush(풋월저색))
+                            self.tableWidget_put.item(i, Option_column.월저.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[i]['월저'] in cm_put_고가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.월저.value).setBackground(QBrush(풋월저색))
+                            self.tableWidget_put.item(i, Option_column.월저.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
 
                         if df_cm_put.iloc[i]['저가'] in cm_put_월저_node_list:
 
@@ -8767,35 +8787,35 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if put_node_state['월고']:
 
-                    if df_cm_put.iloc[i]['월고'] in cm_call_저가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.월고.value).setBackground(QBrush(풋월고색))
-                        self.tableWidget_put.item(i, Option_column.월고.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
-                    if df_cm_put.iloc[i]['월고'] in cm_call_고가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.월고.value).setBackground(QBrush(풋월고색))
-                        self.tableWidget_put.item(i, Option_column.월고.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
-                    if df_cm_put.iloc[i]['월고'] in cm_put_저가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.월고.value).setBackground(QBrush(풋월고색))
-                        self.tableWidget_put.item(i, Option_column.월고.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
-                    if df_cm_put.iloc[i]['월고'] in cm_put_고가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.월고.value).setBackground(QBrush(풋월고색))
-                        self.tableWidget_put.item(i, Option_column.월고.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
                     if put_open[i]:
+                        
+                        if df_cm_put.iloc[i]['월고'] in cm_call_저가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.월고.value).setBackground(QBrush(풋월고색))
+                            self.tableWidget_put.item(i, Option_column.월고.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[i]['월고'] in cm_call_고가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.월고.value).setBackground(QBrush(풋월고색))
+                            self.tableWidget_put.item(i, Option_column.월고.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[i]['월고'] in cm_put_저가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.월고.value).setBackground(QBrush(풋월고색))
+                            self.tableWidget_put.item(i, Option_column.월고.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[i]['월고'] in cm_put_고가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.월고.value).setBackground(QBrush(풋월고색))
+                            self.tableWidget_put.item(i, Option_column.월고.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
 
                         if df_cm_put.iloc[i]['저가'] in cm_put_월고_node_list:
 
@@ -8817,35 +8837,35 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if put_node_state['전저']:
 
-                    if df_cm_put.iloc[i]['전저'] in cm_call_저가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.전저.value).setBackground(QBrush(풋전저색))
-                        self.tableWidget_put.item(i, Option_column.전저.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
-                    if df_cm_put.iloc[i]['전저'] in cm_call_고가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.전저.value).setBackground(QBrush(풋전저색))
-                        self.tableWidget_put.item(i, Option_column.전저.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
-                    if df_cm_put.iloc[i]['전저'] in cm_put_저가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.전저.value).setBackground(QBrush(풋전저색))
-                        self.tableWidget_put.item(i, Option_column.전저.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
-                    if df_cm_put.iloc[i]['전저'] in cm_put_고가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.전저.value).setBackground(QBrush(풋전저색))
-                        self.tableWidget_put.item(i, Option_column.전저.value).setForeground(QBrush(흰색))
-                    else:
-                        pass
-
                     if put_open[i]:
+                        
+                        if df_cm_put.iloc[i]['전저'] in cm_call_저가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.전저.value).setBackground(QBrush(풋전저색))
+                            self.tableWidget_put.item(i, Option_column.전저.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[i]['전저'] in cm_call_고가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.전저.value).setBackground(QBrush(풋전저색))
+                            self.tableWidget_put.item(i, Option_column.전저.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[i]['전저'] in cm_put_저가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.전저.value).setBackground(QBrush(풋전저색))
+                            self.tableWidget_put.item(i, Option_column.전저.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[i]['전저'] in cm_put_고가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.전저.value).setBackground(QBrush(풋전저색))
+                            self.tableWidget_put.item(i, Option_column.전저.value).setForeground(QBrush(흰색))
+                        else:
+                            pass
 
                         if df_cm_put.iloc[i]['저가'] in cm_put_전저_node_list:
 
@@ -8867,35 +8887,35 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if put_node_state['전고']:
 
-                    if df_cm_put.iloc[i]['전고'] in cm_call_저가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.전고.value).setBackground(QBrush(풋전고색))
-                        self.tableWidget_put.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_put.iloc[i]['전고'] in cm_call_고가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.전고.value).setBackground(QBrush(풋전고색))
-                        self.tableWidget_put.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_put.iloc[i]['전고'] in cm_put_저가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.전고.value).setBackground(QBrush(풋전고색))
-                        self.tableWidget_put.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_put.iloc[i]['전고'] in cm_put_고가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.전고.value).setBackground(QBrush(풋전고색))
-                        self.tableWidget_put.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
                     if put_open[i]:
+                        
+                        if df_cm_put.iloc[i]['전고'] in cm_call_저가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.전고.value).setBackground(QBrush(풋전고색))
+                            self.tableWidget_put.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[i]['전고'] in cm_call_고가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.전고.value).setBackground(QBrush(풋전고색))
+                            self.tableWidget_put.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[i]['전고'] in cm_put_저가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.전고.value).setBackground(QBrush(풋전고색))
+                            self.tableWidget_put.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[i]['전고'] in cm_put_고가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.전고.value).setBackground(QBrush(풋전고색))
+                            self.tableWidget_put.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
 
                         if df_cm_put.iloc[i]['저가'] in cm_put_전고_node_list:
 
@@ -8917,35 +8937,35 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if put_node_state['종가']:
 
-                    if df_cm_put.iloc[i]['종가'] in cm_call_저가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(풋종가색))
-                        self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_put.iloc[i]['종가'] in cm_call_고가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(풋종가색))
-                        self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_put.iloc[i]['종가'] in cm_put_저가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(풋종가색))
-                        self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if df_cm_put.iloc[i]['종가'] in cm_put_고가_node_list:
-
-                        self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(풋종가색))
-                        self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
                     if put_open[i]:
+                        
+                        if df_cm_put.iloc[i]['종가'] in cm_call_저가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(풋종가색))
+                            self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[i]['종가'] in cm_call_고가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(풋종가색))
+                            self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[i]['종가'] in cm_put_저가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(풋종가색))
+                            self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[i]['종가'] in cm_put_고가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(풋종가색))
+                            self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
 
                         if df_cm_put.iloc[i]['저가'] in cm_put_종가_node_list:
 
@@ -9140,7 +9160,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq
         global view_actval
         
-        global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_고가
+        global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_현재가, 선물_고가
 
         dt = datetime.datetime.now()
 
@@ -9374,6 +9394,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 선물_피봇 = fut_realdata['피봇']
                 선물_시가 = df['시가']
                 선물_저가 = df['저가']
+                선물_현재가 = df['현재가']
                 선물_고가 = df['고가']
             else:
                 pass
@@ -10193,6 +10214,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_call.setItem(i, Option_column.시가.value, item)
 
+                        '''
                         if df['전일대비구분'][i] == '2':
 
                             종가 = round((현재가 - df['전일대비'][i]), 2)
@@ -10209,10 +10231,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem("{0:0.2f}".format(종가))
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_call.setItem(i, Option_column.종가.value, item)
+                        '''
 
                         if 시가 > 0:
 
-                            시가갭 = 시가 - 종가
+                            시가갭 = 시가 - df_cm_call.iloc[i]['종가']
                             df_cm_call.loc[i, '시가갭'] = 시가갭
 
                             if df_cm_call.iloc[i]['종가'] > 0:
@@ -10227,7 +10250,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_call.setItem(i, Option_column.시가갭.value, item)
 
-                            피봇 = self.calc_pivot(df_cm_call.iloc[i]['전저'], df_cm_call.iloc[i]['전고'], 종가, 시가)
+                            피봇 = self.calc_pivot(df_cm_call.iloc[i]['전저'], df_cm_call.iloc[i]['전고'], df_cm_call.iloc[i]['종가'], 시가)
 
                             df_cm_call.loc[i, '피봇'] = 피봇
 
@@ -10277,6 +10300,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_put.setItem(i, Option_column.시가.value, item)
 
+                        '''
                         if df1['전일대비구분'][i] == '2':
 
                             종가 = round((현재가 - df1['전일대비'][i]), 2)
@@ -10293,10 +10317,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem("{0:0.2f}".format(종가))
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_put.setItem(i, Option_column.종가.value, item)
+                        '''
 
                         if 시가 > 0:
 
-                            시가갭 = 시가 - 종가
+                            시가갭 = 시가 - df_cm_put.iloc[i]['종가']
                             df_cm_put.loc[i, '시가갭'] = 시가갭
 
                             if df_cm_put.iloc[i]['종가'] > 0:
@@ -10311,7 +10336,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_put.setItem(i, Option_column.시가갭.value, item)
 
-                            피봇 = self.calc_pivot(df_cm_put.iloc[i]['전저'], df_cm_put.iloc[i]['전고'], 종가, 시가)
+                            피봇 = self.calc_pivot(df_cm_put.iloc[i]['전저'], df_cm_put.iloc[i]['전고'], df_cm_put.iloc[i]['종가'], 시가)
 
                             df_cm_put.loc[i, '피봇'] = 피봇                                         
 
@@ -10375,21 +10400,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     cm_put_고가 = df_cm_put['고가'].values.tolist()
                     cm_put_고가_node_list = self.make_node_list(cm_put_고가)
-                    '''
-                    call_volume_total = df_cm_call['수정거래량'].sum()
-                    put_volume_total = df_cm_put['수정거래량'].sum()
+
+                    # 옵션 맥점 컬러링
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
                     
+                    self.call_node_color_clear()
+                    self.put_node_color_clear()
+                    
+                    self.call_node_color_update()
+                    self.put_node_color_update()
+
                     self.call_open_check()
                     self.call_db_check()
 
                     self.put_open_check()
                     self.put_db_check()
-
-                    self.call_node_color_clear()
-                    self.put_node_color_clear()
-
-                    self.call_node_color_update()
-                    self.put_node_color_update()
 
                     self.call_center_color_update()
                     self.put_center_color_update()
@@ -10406,21 +10432,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     XQ = t2801(parent=self)
                     XQ.Query(종목코드=fut_code)
                     print('t2801 요청')
-                    '''
+                    
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                 else:
-                    '''
-                    XQ = t2101(parent=self)
-                    XQ.Query(종목코드=fut_code)
-                    print('t2101 요청')
-
-                    time.sleep(0.1)
                     
-                    XQ = t2801(parent=self)
-                    XQ.Query(종목코드=fut_code)
-                    print('t2801 요청')
-                    '''
                     # EUREX 야간옵션 시세전광판
                     XQ = t2835(parent=self)
 
@@ -10647,6 +10663,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 선물_피봇 = cme_realdata['피봇']
                 선물_시가 = df['시가']
                 선물_저가 = df['저가']
+                선물_현재가 = df['현재가']
                 선물_고가 = df['고가']
             else:
                 pass 
@@ -10693,9 +10710,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             print('df_fut', df_fut)
             
+            # 선물 맥점 컬러링
+            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
+
             self.fut_node_color_clear()
             self.fut_oloh_check()
             self.fut_node_coloring()
+
+            # 실시간에서만 표시됨
+            self.kp200_low_node_coloring()
+            self.kp200_high_node_coloring()
 
         elif szTrCode == 't2830':
 
@@ -11292,17 +11317,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.현재가.value, item)
 
-                    '''
-                    if df['현재가'][i] <= 시가갭:
-
-                        수정거래량 = int((df['매수잔량'][i] - df['매도잔량'][i]) * df['현재가'][i])
-                    else:
-
-                        수정거래량 = int((df['매수잔량'][i] - df['매도잔량'][i]) * (df['현재가'][i] - 시가갭))
-
-                    df_cm_call.loc[i, '수정거래량'] = 수정거래량                   
-                    '''
-
                     저가 = df['저가'][i]
                     df_cm_call.loc[i, '저가'] = df['저가'][i]
 
@@ -11348,17 +11362,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem("{0:0.2f}".format(현재가))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.현재가.value, item)
-
-                    '''
-                    if df1['현재가'][i] <= 시가갭:
-
-                        수정거래량 = int((df1['매수잔량'][i] - df1['매도잔량'][i]) * df1['현재가'][i])
-                    else:
-
-                        수정거래량 = int((df1['매수잔량'][i] - df1['매도잔량'][i]) * (df1['현재가'][i] - 시가갭))
-
-                    df_cm_put.loc[i, '수정거래량'] = 수정거래량                     
-                    '''
                     
                     저가 = df1['저가'][i]
                     df_cm_put.loc[i, '저가'] = df1['저가'][i]
@@ -11399,32 +11402,30 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 cm_put_고가 = df_cm_put['고가'].values.tolist()
                 cm_put_고가_node_list = self.make_node_list(cm_put_고가)  
 
+                # 옵션 맥점 컬러링
+                str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
                 
+                self.call_node_color_clear()
+                self.put_node_color_clear()
+                
+                self.call_node_color_update()
+                self.put_node_color_update()
+                                 
                 self.call_open_check()
                 self.call_db_check()
 
                 self.put_open_check()
                 self.put_db_check()
 
-                self.call_node_color_clear()
-                self.put_node_color_clear()
-
-                self.call_node_color_update()
-                self.put_node_color_update()
-
                 self.call_center_color_update()
                 self.put_center_color_update()
                 
                 self.call_coreval_color_update()
-                self.put_coreval_color_update()
+                self.put_coreval_color_update()                
 
                 self.tableWidget_call.resizeColumnsToContents()
                 self.tableWidget_put.resizeColumnsToContents()                
-
-                '''
-                call_volume_total = df_cm_call['수정거래량'].sum()
-                put_volume_total = df_cm_put['수정거래량'].sum()
-                '''
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
@@ -11622,90 +11623,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_put.setHorizontalHeaderItem(0, item)               
             else:
                 pass
-
-            '''
-            if block['단축코드'] == '' and cm_call_t8416_count > 0:
-
-                if self.t8416_callworker.isRunning():
-
-                    #if today_str != month_firstday:
-
-                        #cm_call_기준가 = df_cm_call['기준가'].values.tolist()
-                        #cm_call_월저 = df_cm_call['월저'].values.tolist()
-                        #cm_call_월고 = df_cm_call['월고'].values.tolist()
-
-                        #cm_call_기준가_node_list = self.make_node_list(cm_call_기준가)
-                        #cm_call_월저_node_list = self.make_node_list(cm_call_월저)
-                        #cm_call_월고_node_list = self.make_node_list(cm_call_월고)  
-                    #else:
-                        #pass                        
-
-                    cm_call_기준가 = df_cm_call['기준가'].values.tolist()
-                    cm_call_월저 = df_cm_call['월저'].values.tolist()
-                    cm_call_월고 = df_cm_call['월고'].values.tolist()
-                    cm_call_전저 = df_cm_call['전저'].values.tolist()
-                    cm_call_전고 = df_cm_call['전고'].values.tolist()
-                    cm_call_종가 = df_cm_call['종가'].values.tolist()
-                    cm_call_피봇 = df_cm_call['피봇'].values.tolist()
-                    cm_call_시가 = df_cm_call['시가'].values.tolist()
-                    cm_call_저가 = df_cm_call['저가'].values.tolist()
-                    cm_call_고가 = df_cm_call['고가'].values.tolist()
-
-                    cm_call_기준가_node_list = self.make_node_list(cm_call_기준가)
-                    cm_call_월저_node_list = self.make_node_list(cm_call_월저)
-                    cm_call_월고_node_list = self.make_node_list(cm_call_월고)
-                    cm_call_전저_node_list = self.make_node_list(cm_call_전저)
-                    cm_call_전고_node_list = self.make_node_list(cm_call_전고)
-                    cm_call_종가_node_list = self.make_node_list(cm_call_종가)
-                    cm_call_피봇_node_list = self.make_node_list(cm_call_피봇)
-                    cm_call_시가_node_list = self.make_node_list(cm_call_시가)
-                    cm_call_저가_node_list = self.make_node_list(cm_call_저가)
-                    cm_call_고가_node_list = self.make_node_list(cm_call_고가)
-
-                    print('Call 과거데이타 수신완료')
-
-                    self.t8416_callworker.terminate()
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call 과거데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
-
-                    call_positionCell = self.tableWidget_call.item(atm_index + 4, 1)
-                    self.tableWidget_call.scrollToItem(call_positionCell)
-
-                    time.sleep(1.1)
-
-                    self.t8416_putworker.start()
-                    self.t8416_putworker.daemon = True
-                else:
-                    pass
-
-                actval_increased = True
-                new_actval_count = nCount_cm_option_pairs - cm_call_t8416_count
-
-                # 추가된 행사가 갯수 표시
-                item_str = '{0:+02d}'.format(new_actval_count)
-                item = QTableWidgetItem(item_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setHorizontalHeaderItem(0, item)
-
-                item_str = '{0:+02d}'.format(new_actval_count)
-                item = QTableWidgetItem(item_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setHorizontalHeaderItem(0, item)
-
-                print('new_actval_count', new_actval_count)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_count)
-                self.textBrowser.append(str)
-
-            elif block['단축코드'] == '' and cm_call_t8416_count == 0:
-
-                actval_increased = True
-                cm_call_t8416_count += 1
-                print('new_actval_count...', new_actval_count)
-            else:
-                pass
-            '''
+            
             if block['단축코드'][0:3] == '101':
 
                 if not overnight:
@@ -11767,31 +11685,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setItem(cm_call_t8416_count, Option_column.전고.value, item)
 
-                if int(current_str[0:2]) == 8 and int(current_str[3:5]) <= 59:
+                if round(block['전일종가'], 2) != df_cm_call.iloc[cm_call_t8416_count]['종가']:
+
                     df_cm_call.loc[cm_call_t8416_count, '종가'] = round(block['전일종가'], 2)
                     item = QTableWidgetItem("{0:0.2f}".format(df_cm_call.iloc[cm_call_t8416_count]['종가']))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(cm_call_t8416_count, Option_column.종가.value, item)
+
+                    df_plotdata_cm_call.iloc[cm_call_t8416_count][0] = round(block['전일종가'], 2)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] t2301과 t8416의 콜[{3}] 종가가 상이합니다. !!!\r'.format(dt.hour, dt.minute, dt.second, cm_call_t8416_count)
+                    self.textBrowser.append(str)
                 else:
                     pass
-                '''
-                if not overnight:
 
-                    if start_time_str == '':
-                
-                        start_time_str = block['장시작시간']
-                        end_time_str = block['장종료시간']
-
-                        domestic_start_hour = int(start_time_str[0:2])
-                        ovc_start_hour = domestic_start_hour - 1
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 장시작시간 {3}시를 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second, domestic_start_hour)
-                        self.textBrowser.append(str)
-                    else:
-                        pass
-                else:
-                    pass                
-                '''
                 if not pre_start:
 
                     if df_cm_call.iloc[cm_call_t8416_count]['시가'] > 0 and \
@@ -11861,20 +11768,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 
                 #if cm_call_t8416_count == nCount_cm_option_pairs - new_actval_count:
                 if cm_call_t8416_count == nCount_cm_option_pairs:
-
-                    '''
-                    if today_str != month_firstday:
-
-                        cm_call_기준가 = df_cm_call['기준가'].values.tolist()
-                        cm_call_월저 = df_cm_call['월저'].values.tolist()
-                        cm_call_월고 = df_cm_call['월고'].values.tolist()
-
-                        cm_call_기준가_node_list = self.make_node_list(cm_call_기준가)
-                        cm_call_월저_node_list = self.make_node_list(cm_call_월저)
-                        cm_call_월고_node_list = self.make_node_list(cm_call_월고)  
-                    else:
-                        pass 
-                    '''
 
                     if self.t8416_callworker.isRunning():
 
@@ -11951,14 +11844,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setItem(cm_put_t8416_count, Option_column.전고.value, item)
 
-                if int(current_str[0:2]) == 8 and int(current_str[3:5]) <= 59:
+                if round(block['전일종가'], 2) != df_cm_put.iloc[cm_put_t8416_count]['종가']:
+
                     df_cm_put.loc[cm_put_t8416_count, '종가'] = round(block['전일종가'], 2)
                     item = QTableWidgetItem("{0:0.2f}".format(df_cm_put.iloc[cm_put_t8416_count]['종가']))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(cm_put_t8416_count, Option_column.종가.value, item)
+
+                    df_plotdata_cm_put.iloc[cm_put_t8416_count][0] = round(block['전일종가'], 2)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] t2301과 t8416의 풋[{3}] 종가가 상이합니다. !!!\r'.format(dt.hour, dt.minute, dt.second, cm_put_t8416_count)
+                    self.textBrowser.append(str)
                 else:
                     pass
-
+                
                 if not pre_start:
 
                     if df_cm_put.iloc[cm_put_t8416_count]['시가'] > 0 and \
@@ -12028,20 +11927,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 #if cm_put_t8416_count == nCount_cm_option_pairs - new_actval_count:
                 if cm_put_t8416_count == nCount_cm_option_pairs:
 
-                    '''
-                    if today_str != month_firstday:
-
-                        cm_put_기준가 = df_cm_put['기준가'].values.tolist()
-                        cm_put_월저 = df_cm_put['월저'].values.tolist()
-                        cm_put_월고 = df_cm_put['월고'].values.tolist()
-
-                        cm_put_기준가_node_list = self.make_node_list(cm_put_기준가)
-                        cm_put_월저_node_list = self.make_node_list(cm_put_월저)
-                        cm_put_월고_node_list = self.make_node_list(cm_put_월고)
-                    else:
-                        pass
-                    '''
-
                     print('\r')
                     print('t8416 Call 전광판\r')
                     print(df_cm_call)
@@ -12100,26 +11985,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             XQ.Query(월물=current_month_info)
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] EUREX 근월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)
-
-                        # 맥점 컬러링
-                        self.call_open_check()
-                        self.call_db_check()
-
-                        self.put_open_check()
-                        self.put_db_check()
-
-                        self.call_node_color_clear()
-                        self.put_node_color_clear()
-
-                        self.call_node_color_update()
-                        self.put_node_color_update()
-
-                        self.call_center_color_update()
-                        self.put_center_color_update()
-
-                        self.call_coreval_color_update()
-                        self.put_coreval_color_update()                            
+                            self.textBrowser.append(str)                                  
                     else:
                         if pre_start:
 
@@ -12168,15 +12034,37 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             str = '[{0:02d}:{1:02d}:{2:02d}] Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
                             
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 만기일은 {3}일 남았습니다.\r'.format(dt.hour, dt.minute, dt.second, 옵션잔존일)
-                            self.textBrowser.append(str)
-
                             refresh_flag = True
 
                             self.pushButton_add.setStyleSheet("background-color: lawngreen")
                             self.pushButton_add.setText('Refresh')
                         else:
-                            pass                                                                
+                            pass 
+
+                    # 옵션 맥점 컬러링
+                    str = '[{0:02d}:{1:02d}:{2:02d}] t8416 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+                    
+                    self.call_node_color_clear()
+                    self.put_node_color_clear()
+                    
+                    self.call_node_color_update()
+                    self.put_node_color_update()
+                    
+                    self.call_open_check()
+                    self.call_db_check()
+
+                    self.put_open_check()
+                    self.put_db_check()
+
+                    self.call_center_color_update()
+                    self.put_center_color_update()
+
+                    self.call_coreval_color_update()
+                    self.put_coreval_color_update()
+                    
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 만기일은 {3}일 남았습니다.\r'.format(dt.hour, dt.minute, dt.second, 옵션잔존일)
+                    self.textBrowser.append(str)                                                               
                 else:
                     pass
             else:
@@ -12372,6 +12260,37 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def fut_node_coloring(self):
 
         #print('선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_저가, 선물_고가', 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_저가, 선물_고가)
+
+        if 선물_현재가 > 선물_시가:
+
+            if overnight:
+
+                self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
+                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+            else:
+                self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
+                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+
+        elif 선물_현재가 < 선물_시가:
+
+            if overnight:
+
+                self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
+                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+            else:
+                self.tableWidget_fut.item(1, 0).setBackground(QBrush(청색))
+                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+
+        else:
+
+            if overnight:
+
+                self.tableWidget_fut.item(0, 0).setBackground(QBrush(검정색))
+                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+            else:
+                self.tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
+                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+        
                 
         # 전저, 전고, 종가, 피봇 컬러링
         if self.within_n_tick(선물_전저, 선물_저가, 10):
@@ -12562,18 +12481,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.fut_node_color_clear()                    
             self.fut_oloh_check()
             self.fut_node_coloring()
+            self.kp200_low_node_coloring()
+            self.kp200_high_node_coloring()            
+
+            self.call_node_color_clear()
+            self.put_node_color_clear()
+            
+            self.call_node_color_update()
+            self.put_node_color_update()
 
             self.call_open_check()
             self.call_db_check()
 
             self.put_open_check()
             self.put_db_check()
-
-            self.call_node_color_clear()
-            self.put_node_color_clear()
-
-            self.call_node_color_update()
-            self.put_node_color_update()
 
             self.call_center_color_update()
             self.put_center_color_update()
@@ -12665,7 +12586,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
 
-            if 대비 >= 0:
+            if 대비 > 0:
 
                 direction = '▲'
 
@@ -12675,7 +12596,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_fut.setHorizontalHeaderItem(0, item)
                 else:
                     pass
-            else:
+
+                if overnight:
+
+                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
+                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+                else:
+                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
+                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+
+            elif 대비 < 0:
 
                 direction = '▼'
 
@@ -12684,7 +12614,34 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_fut.setHorizontalHeaderItem(0, item)
                 else:
-                    pass        
+                    pass  
+
+                if overnight:
+
+                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
+                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+                else:
+                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(청색))
+                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색)) 
+
+            else:
+
+                direction = ''
+
+                if direction != self.tableWidget_fut.horizontalHeaderItem(0).text():
+                    item = QTableWidgetItem(direction)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_fut.setHorizontalHeaderItem(0, item)
+                else:
+                    pass  
+
+                if overnight:
+
+                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+                else:
+                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))     
         else:
             pass 
 
@@ -14001,15 +13958,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             oloh_str = '▲'
 
+                            item = QTableWidgetItem(oloh_str)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(적색))
+                            item.setForeground(QBrush(흰색))
+                            self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
+
+                            self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(적색))
+                            self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(흰색))  
+
+                            self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(적색))
+                            self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
+                            '''
                             if oloh_str != self.tableWidget_call.item(index, Option_column.OLOH.value).text():
-                                item = QTableWidgetItem(oloh_str)
-                                item.setTextAlignment(Qt.AlignCenter)
-                                item.setBackground(QBrush(적색))
-                                item.setForeground(QBrush(흰색))
-                                self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
+                                pass   
                             else:
                                 pass
-
+                            '''
                             call_ol[index] = True
 
                         elif self.within_n_tick(df_cm_call.iloc[index]['시가'], df_cm_call.iloc[index]['고가'], oloh_threshold) \
@@ -14017,15 +13982,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             oloh_str = '▼'
 
+                            item = QTableWidgetItem(oloh_str)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(청색))
+                            item.setForeground(QBrush(흰색))
+                            self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
+
+                            self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(청색))
+                            self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(흰색))  
+
+                            self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(청색))
+                            self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색)) 
+                            '''
                             if oloh_str != self.tableWidget_call.item(index, Option_column.OLOH.value).text():
-                                item = QTableWidgetItem(oloh_str)
-                                item.setTextAlignment(Qt.AlignCenter)
-                                item.setBackground(QBrush(청색))
-                                item.setForeground(QBrush(흰색))
-                                self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
+                                pass
                             else:
                                 pass
-
+                            '''
                             call_oh[index] = True
                         else:
                             oloh_str = ''
@@ -15153,15 +15126,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             oloh_str = '▲'
 
+                            item = QTableWidgetItem(oloh_str)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(청색))
+                            item.setForeground(QBrush(흰색))
+                            self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
+
+                            self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(청색))
+                            self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(흰색))
+
+                            self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(청색))
+                            self.tableWidget_put.item(index, Option_column.저가.value).setForeground(QBrush(흰색)) 
+                            '''
                             if oloh_str != self.tableWidget_put.item(index, Option_column.OLOH.value).text():
-                                item = QTableWidgetItem(oloh_str)
-                                item.setTextAlignment(Qt.AlignCenter)
-                                item.setBackground(QBrush(청색))
-                                item.setForeground(QBrush(흰색))
-                                self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
+                                pass
                             else:
                                 pass
-
+                            '''
                             put_ol[index] = True
 
                         elif self.within_n_tick(df_cm_put.iloc[index]['시가'], df_cm_put.iloc[index]['고가'], oloh_threshold) \
@@ -15169,15 +15150,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             oloh_str = '▼'
 
+                            item = QTableWidgetItem(oloh_str)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(적색))
+                            item.setForeground(QBrush(흰색))
+                            self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
+
+                            self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(적색))
+                            self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(흰색))
+
+                            self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(적색))
+                            self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
+                            '''
                             if oloh_str != self.tableWidget_put.item(index, Option_column.OLOH.value).text():
-                                item = QTableWidgetItem(oloh_str)
-                                item.setTextAlignment(Qt.AlignCenter)
-                                item.setBackground(QBrush(적색))
-                                item.setForeground(QBrush(흰색))
-                                self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
+                                pass 
                             else:
                                 pass
-
+                            '''
                             put_oh[index] = True
                         else:
                             oloh_str = ''
@@ -15186,7 +15175,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 item = QTableWidgetItem(oloh_str)
                                 item.setBackground(QBrush(기본바탕색))
                                 item.setForeground(QBrush(검정색))
-                                self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
+                                self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)                                
                             else:
                                 pass
 
