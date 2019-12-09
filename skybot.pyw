@@ -4710,6 +4710,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
+                        # 진성 의미가인 경우 blinking
+                        if call_low_coreval:
+                            self.call_low_coreval_color_blink(self.alternate_flag)
+                        else:                        
+                            pass
+
+                        if call_high_coreval:
+                            self.call_high_coreval_color_blink(self.alternate_flag)
+                        else:
+                            pass
+
+                        if put_low_coreval:
+                            self.put_low_coreval_color_blink(self.alternate_flag)
+                        else:
+                            pass
+
+                        if put_high_coreval:
+                            self.put_high_coreval_color_blink(self.alternate_flag)                        
+                        else:
+                            pass    
+
+                        # 테이블 데이타 갱신
                         if self.alternate_flag:
 
                             self.call_oi_update()                  
@@ -4809,30 +4831,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 flag_call_high_update = False
                                 color_update = True
                             else:
-                                pass
-
-                            if color_update:
-
-                                self.call_node_color_clear()
-                                self.put_node_color_clear()                                
-
-                                # 콜, 풋 저가/고가가 하나라도 바뀌면 전체 컬러링로직 수행
-                                self.call_node_color_update()
-                                self.put_node_color_update()
-                                
-                                self.call_center_color_update()
-                                self.put_center_color_update()
-
-                                self.call_coreval_color_update()
-                                self.put_coreval_color_update()
-                                
-                                color_update = False
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(str)
-                            else:
-                                pass
-                        else:                           
+                                pass 
 
                             # 옵션 풋 맥점 컬러링
                             if flag_put_low_update:
@@ -4854,7 +4853,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 color_update = True
                             else:
                                 pass
-
+                            '''
                             if color_update:
 
                                 self.call_node_color_clear()
@@ -4863,42 +4862,44 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 # 콜, 풋 저가/고가가 하나라도 바뀌면 전체 컬러링로직 수행
                                 self.call_node_color_update()
                                 self.put_node_color_update()
-                                
+
                                 self.call_center_color_update()
                                 self.put_center_color_update()
 
                                 self.call_coreval_color_update()
                                 self.put_coreval_color_update()
-                                
+
                                 color_update = False
 
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 풋 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
                                 self.textBrowser.append(str)
                             else:
-                                pass                    
-                    else:
-                        pass
-                    
-                    # 진성 의미가인 경우 blinking
-                    if call_low_coreval:
-                        self.call_low_coreval_color_blink(self.alternate_flag)
-                    else:                        
-                        pass
+                                pass
+                            '''
+                        else:                           
+                            if color_update:
 
-                    if call_high_coreval:
-                        self.call_high_coreval_color_blink(self.alternate_flag)
-                    else:
-                        pass
+                                self.call_node_color_clear()
+                                self.put_node_color_clear()                                
 
-                    if put_low_coreval:
-                        self.put_low_coreval_color_blink(self.alternate_flag)
-                    else:
-                        pass
+                                # 콜, 풋 저가/고가가 하나라도 바뀌면 전체 컬러링로직 수행
+                                self.call_node_color_update()
+                                self.put_node_color_update()
 
-                    if put_high_coreval:
-                        self.put_high_coreval_color_blink(self.alternate_flag)                        
+                                self.call_center_color_update()
+                                self.put_center_color_update()
+
+                                self.call_coreval_color_update()
+                                self.put_coreval_color_update()
+
+                                color_update = False
+
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)
+                            else:
+                                pass     
                     else:
-                        pass    
+                        pass                    
                     
                     # 원웨이장 표시(주간만)
                     if not overnight:
