@@ -4756,7 +4756,71 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         # 매 1초마다 한번씩 맥점 컬러링 채크
                         # if int(호가시간[4:6]) in every_2sec and self.alternate_flag:
-                        if self.alternate_flag:
+                        if self.alternate_flag:                            
+
+                            # 옵션 콜 맥점 컬러링
+                            if flag_call_low_update:
+                                
+                                str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 Update...\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)
+
+                                flag_call_low_update = False
+                                color_update = True
+                            else:
+                                pass
+
+                            if flag_call_high_update:
+
+                                str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 Update...\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)
+
+                                flag_call_high_update = False
+                                color_update = True
+                            else:
+                                pass 
+
+                            # 옵션 풋 맥점 컬러링
+                            if flag_put_low_update:
+
+                                str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 Update...\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)
+
+                                flag_put_low_update = False
+                                color_update = True
+                            else:
+                                pass
+
+                            if flag_put_high_update:
+
+                                str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 Update...\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)
+
+                                flag_put_high_update = False
+                                color_update = True
+                            else:
+                                pass
+                        else:                           
+                            if color_update:
+
+                                self.call_node_color_clear()
+                                self.put_node_color_clear()                                
+
+                                # 콜, 풋 저가/고가가 하나라도 바뀌면 전체 컬러링로직 수행
+                                self.call_node_color_update()
+                                self.put_node_color_update()
+
+                                self.call_center_color_update()
+                                self.put_center_color_update()
+
+                                self.call_coreval_color_update()
+                                self.put_coreval_color_update()
+
+                                color_update = False
+
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)
+                            else:
+                                pass
 
                             # 선물 맥점 컬러링                    
                             if flag_fut_low:
@@ -4809,93 +4873,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     self.textBrowser.append(str)
                                 else:
                                     pass
-                            else:
-                                pass
-
-                            # 옵션 콜 맥점 컬러링
-                            if flag_call_low_update:
-                                
-                                str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 Update...\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(str)
-
-                                flag_call_low_update = False
-                                color_update = True
-                            else:
-                                pass
-
-                            if flag_call_high_update:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 Update...\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(str)
-
-                                flag_call_high_update = False
-                                color_update = True
-                            else:
-                                pass 
-
-                            # 옵션 풋 맥점 컬러링
-                            if flag_put_low_update:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 Update...\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(str)
-
-                                flag_put_low_update = False
-                                color_update = True
-                            else:
-                                pass
-
-                            if flag_put_high_update:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 Update...\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(str)
-
-                                flag_put_high_update = False
-                                color_update = True
-                            else:
-                                pass
-                            '''
-                            if color_update:
-
-                                self.call_node_color_clear()
-                                self.put_node_color_clear()                                
-
-                                # 콜, 풋 저가/고가가 하나라도 바뀌면 전체 컬러링로직 수행
-                                self.call_node_color_update()
-                                self.put_node_color_update()
-
-                                self.call_center_color_update()
-                                self.put_center_color_update()
-
-                                self.call_coreval_color_update()
-                                self.put_coreval_color_update()
-
-                                color_update = False
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(str)
-                            else:
-                                pass
-                            '''
-                        else:                           
-                            if color_update:
-
-                                self.call_node_color_clear()
-                                self.put_node_color_clear()                                
-
-                                # 콜, 풋 저가/고가가 하나라도 바뀌면 전체 컬러링로직 수행
-                                self.call_node_color_update()
-                                self.put_node_color_update()
-
-                                self.call_center_color_update()
-                                self.put_center_color_update()
-
-                                self.call_coreval_color_update()
-                                self.put_coreval_color_update()
-
-                                color_update = False
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(str)
                             else:
                                 pass     
                     else:
