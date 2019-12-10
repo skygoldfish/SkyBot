@@ -12733,7 +12733,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_put_고가 = df_cm_put['고가'].values.tolist()
                     cm_put_고가_node_list = self.make_node_list(cm_put_고가)
 
-                    flag_put_low_update = True
+                    flag_put_high_update = True
                 else:
                     pass
             else:
