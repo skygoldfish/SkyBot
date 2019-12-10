@@ -10703,9 +10703,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         # 서비스 시작후 30초후에 첫번째 컬러링 작업수행
         if service_start and \
-            (fut_time == fut_first_arrive + 21 or fut_time == fut_first_arrive + 22 or fut_time == fut_first_arrive + 23 or 
-            fut_time == fut_first_arrive + 24 or fut_time == fut_first_arrive + 25 or fut_time == fut_first_arrive + 26 or 
-            fut_time == fut_first_arrive + 27 or fut_time == fut_first_arrive + 28 or fut_time == fut_first_arrive + 29):
+            (fut_time == fut_first_arrive + 31 or fut_time == fut_first_arrive + 32 or fut_time == fut_first_arrive + 33 or 
+            fut_time == fut_first_arrive + 34 or fut_time == fut_first_arrive + 35 or fut_time == fut_first_arrive + 36 or 
+            fut_time == fut_first_arrive + 37 or fut_time == fut_first_arrive + 38 or fut_time == fut_first_arrive + 39):
             
             service_start = False
 
@@ -10716,7 +10716,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.fut_node_coloring()
             self.kp200_low_node_coloring()
             self.kp200_high_node_coloring()            
-
+            '''
             self.call_node_color_clear()
             self.put_node_color_clear()
             
@@ -10734,7 +10734,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             self.call_coreval_color_update()
             self.put_coreval_color_update()
-            
+            '''
             str = '[{0:02d}:{1:02d}:{2:02d}] First Color Refreshing Done !!!\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(str)
         else:
