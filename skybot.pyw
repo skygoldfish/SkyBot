@@ -4281,13 +4281,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             print('call scroll position -----> from %d to %d' % (call_scroll_begin_position, call_scroll_end_position))
 
             self.call_node_color_clear()
+            self.put_node_color_clear()
+
             self.call_node_color_update()
+            self.put_node_color_update()
             
             self.call_open_check()
             self.call_db_check()
-            
+
+            self.put_open_check()
+            self.put_db_check()
+
             self.call_center_color_update()
+            self.put_center_color_update()
+
             self.call_coreval_color_update()
+            self.put_coreval_color_update()
         return
 
     @pyqtSlot(int)
@@ -4314,13 +4323,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             print('put scroll position -----> from %d to %d' % (put_scroll_begin_position, put_scroll_end_position))
 
-            self.put_node_color_clear()            
+            self.call_node_color_clear()
+            self.put_node_color_clear()
+
+            self.call_node_color_update()
             self.put_node_color_update()
             
+            self.call_open_check()
+            self.call_db_check()
+
             self.put_open_check()
             self.put_db_check()
 
+            self.call_center_color_update()
             self.put_center_color_update()
+
+            self.call_coreval_color_update()
             self.put_coreval_color_update()
         return
 
