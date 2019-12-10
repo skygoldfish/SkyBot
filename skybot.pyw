@@ -11220,6 +11220,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global df_cm_call_che, call_volume_total, df_plotdata_cm_call_volume
         global flag_call_low_update, flag_call_high_update
 
+        dt = datetime.datetime.now()
+
         #call_result = copy.deepcopy(result)
 
         index = cm_call_행사가.index(result['단축코드'][5:8])
@@ -12405,6 +12407,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global opt_putreal_update_counter
         global df_cm_put_che, put_volume_total, df_plotdata_cm_put_volume, df_plotdata_cm_volume_cha
         global flag_put_low_update, flag_put_high_update
+
+        dt = datetime.datetime.now()
         
         #put_result = copy.deepcopy(result)  
 
