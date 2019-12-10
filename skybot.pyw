@@ -112,6 +112,7 @@ start_time_str = ''
 end_time_str = ''
 
 first_refresh = True
+fut_first_arrive = 0
 
 service_terminate = False
 jugan_service_terminate = False
@@ -125,11 +126,6 @@ flag_fut_high = False
 
 flag_kp200_low = False
 flag_kp200_high = False
-
-flag_call_low_node = False
-flag_call_high_node = False
-flag_put_low_node = False
-flag_put_high_node = False
 
 flag_call_low_update = False
 flag_call_high_update = False
@@ -206,7 +202,6 @@ basis = 0
 
 time_delta = 0
 START_ON = False
-service_time_start = False
 nRowCount = 99
 
 Option_column = Enum('Option_column', '행사가 OLOH 기준가 월저 월고 전저 전고 종가 피봇 시가 시가갭 저가 현재가 고가 대비 진폭 VP OI OID')
@@ -320,6 +315,7 @@ call_low_coreval = False
 call_high_coreval = False
 put_low_coreval = False
 put_high_coreval = False
+service_start = False
 
 fut_code = ''
 gmshcode = ''
@@ -483,9 +479,6 @@ refresh_flag = False
 
 oi_delta = 0
 oi_delta_old = 0
-
-call_oi_delta = 0
-put_oi_delta = 0
 
 volume_delta = 0
 volume_delta_old = 0
@@ -2206,7 +2199,8 @@ class update_worker(QThread):
 
                 data[actval] = self.get_data_infos(actval)
             
-            self.finished.emit(data)    
+            self.finished.emit(data)
+            # 0.5초마다 동작하기 위해선 500이 아닌 250으로 설정해야함(???)    
             self.msleep(500)
 
     def get_data_infos(self, actval):
@@ -4405,7 +4399,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global call_max_actval, put_max_actval
             global flag_fut_low, flag_fut_high
             global flag_kp200_low, flag_kp200_high
-            global flag_call_low_node, flag_call_high_node, flag_put_low_node, flag_put_high_node
             global flag_call_low_update, flag_call_high_update, flag_put_low_update, flag_put_high_update
 
             # 장종료시 처리
@@ -4445,16 +4438,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 그래프 그리기
                  
                 # X축 세로선 데이타처리
-                time_line_fut_start.setValue(선물장간_시간차)
-                time_line_opt_start.setValue(선물장간_시간차)
+                #time_line_fut_start.setValue(선물장간_시간차)
+                #time_line_opt_start.setValue(선물장간_시간차)
 
+                '''
                 if overnight:
 
                     time_line_fut_dow_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
                     time_line_opt_dow_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
                 else:
                     pass
-                
+                '''
+
                 if x_idx > 선물장간_시간차 + 10 and opt_x_idx > 선물장간_시간차 + 10:
 
                     if comboindex1 == 0 or comboindex1 == 4:
@@ -4752,6 +4747,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             self.put_state_update()
                             self.put_db_update()
+
                             self.oi_sum_display()                                
 
                         # 매 1초마다 한번씩 맥점 컬러링 채크
@@ -5076,7 +5072,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # oneway check
             if FUT_INSTITUTIONAL_거래대금순매수 > oneway_threshold or FUT_RETAIL_거래대금순매수 > oneway_threshold:
 
-                if call_oi_delta < put_oi_delta \
+                if 콜_수정미결합 < 풋_수정미결합 \
                     and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0:
 
                     if blink:
@@ -5100,7 +5096,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 ★★★★\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)                    
 
-                elif call_oi_delta < put_oi_delta \
+                elif 콜_수정미결합 < 풋_수정미결합 \
                     and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] < 0:
 
                     self.label_msg.setStyleSheet('background-color: blue; color: white')
@@ -5110,7 +5106,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 ★★★\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
-                elif call_oi_delta < put_oi_delta \
+                elif 콜_수정미결합 < 풋_수정미결합 \
                     and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0:
 
                     self.label_msg.setStyleSheet('background-color: blue; color: white')
@@ -5123,7 +5119,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
             else:
 
-                if call_oi_delta < put_oi_delta \
+                if 콜_수정미결합 < 풋_수정미결합 \
                     and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 \
                     and FUT_RETAIL_거래대금순매수 > 0 and FUT_INSTITUTIONAL_거래대금순매수 > 0 and fut_realdata['거래량'] < 0:
 
@@ -5138,7 +5134,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if FUT_INSTITUTIONAL_거래대금순매수 < -oneway_threshold or FUT_RETAIL_거래대금순매수 < -oneway_threshold:
 
-                if call_oi_delta > put_oi_delta \
+                if 콜_수정미결합 > 풋_수정미결합 \
                     and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0:
 
                     if blink:
@@ -5162,7 +5158,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 ★★★★\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)                    
 
-                elif call_oi_delta > put_oi_delta \
+                elif 콜_수정미결합 > 풋_수정미결합 \
                     and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] > 0:
 
                     self.label_msg.setStyleSheet('background-color: red; color: white')
@@ -5172,7 +5168,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 ★★★\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
-                elif call_oi_delta > put_oi_delta \
+                elif 콜_수정미결합 > 풋_수정미결합 \
                     and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0:
 
                     self.label_msg.setStyleSheet('background-color: red; color: white')
@@ -5186,7 +5182,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             else:
 
-                if call_oi_delta > put_oi_delta \
+                if 콜_수정미결합 > 풋_수정미결합 \
                     and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 \
                     and FUT_RETAIL_거래대금순매수 < 0 and FUT_INSTITUTIONAL_거래대금순매수 < 0 and fut_realdata['거래량'] > 0:
 
@@ -7309,6 +7305,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global view_actval
         
         global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_현재가, 선물_고가
+        global service_start
 
         dt = datetime.datetime.now()
 
@@ -10226,6 +10223,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     self.call_coreval_color_update()
                     self.put_coreval_color_update()
+
+                    if not pre_start:
+
+                        service_start = True
+                    else:
+                        pass
                     
                     str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 만기일은 {3}일 남았습니다.\r'.format(dt.hour, dt.minute, dt.second, 옵션잔존일)
                     self.textBrowser.append(str)                                                               
@@ -10602,13 +10605,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def futures_display(self, result):        
 
         global cme_realdata, fut_realdata
+        global df_fut
         global df_plotdata_fut, df_plotdata_kp200, df_plotdata_fut_che
         global atm_str, atm_val, atm_index, atm_index_old
         global fut_ol, fut_oh
         global fut_tick_list, fut_value_list, df_fut_ohlc
         global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
-        global flag_fut_low, flag_fut_high, first_refresh
+        global flag_fut_low, flag_fut_high 
         global 선물_누적거래량
+        global first_refresh, fut_first_arrive, service_start
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -10643,15 +10648,30 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         df_fut_ohlc = df.resample('1T').ohlc()
         #print('\r선물 틱 데이타 {}\r 선물 OHLC {}\r'.format(df, df_fut_ohlc))
         '''
-
+        
         df_plotdata_fut.iloc[0][x_idx] = 선물_현재가
-        df_plotdata_kp200.iloc[0][x_idx] = round(float(result['KOSPI200지수']), 2)        
+        df_plotdata_kp200.iloc[0][x_idx] = round(float(result['KOSPI200지수']), 2)
 
-        # 장시작후 20초에 컬러링 작업수행
-        if first_refresh and \
-            int(current_str[0:2]) == domestic_start_hour and int(current_str[3:5]) == 0 and int(current_str[6:8]) == 20:
+        #print('fut_first_arrive = {0}, first_refresh = {1}, service_start = {2}\r'.format(fut_first_arrive, first_refresh, service_start))
 
-            #print('first_refresh...............')
+        fut_time = int(current_str[0:2]) * 3600 + int(current_str[3:5]) * 60 + int(current_str[6:8])
+
+        if service_start and first_refresh:
+
+            fut_first_arrive = fut_time
+            first_refresh = False            
+        else:
+            pass
+
+        # 서비스 시작후 30초후에 첫번째 컬러링 작업수행
+        if service_start and \
+            (fut_time == fut_first_arrive + 21 or fut_time == fut_first_arrive + 22 or fut_time == fut_first_arrive + 23 or 
+            fut_time == fut_first_arrive + 24 or fut_time == fut_first_arrive + 25 or fut_time == fut_first_arrive + 26 or 
+            fut_time == fut_first_arrive + 27 or fut_time == fut_first_arrive + 28 or fut_time == fut_first_arrive + 29):
+            
+            service_start = False
+
+            print('First Refresh...............')
 
             self.fut_node_color_clear()                    
             self.fut_oloh_check()
@@ -10676,8 +10696,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             self.call_coreval_color_update()
             self.put_coreval_color_update()
-
-            first_refresh = False
             
             str = '[{0:02d}:{1:02d}:{2:02d}] First Color Refreshing Done !!!\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(str)
@@ -13604,7 +13622,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             global 콜_수정미결합, 풋_수정미결합
             global oi_delta, oi_delta_old, 수정미결_직전대비
-            global call_oi_delta, put_oi_delta            
 
             콜_수정미결합 = df_cm_call['수정미결'].sum() - call_oi_init_value
             풋_수정미결합 = df_cm_put['수정미결'].sum() - put_oi_init_value
@@ -13618,9 +13635,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 콜_수정미결퍼센트 = (콜_수정미결합 / 수정미결합) * 100
                 풋_수정미결퍼센트 = 100 - 콜_수정미결퍼센트
 
-                call_oi_delta = 콜_수정미결합
-                put_oi_delta = 풋_수정미결합
-
                 oi_delta = 콜_수정미결합 - 풋_수정미결합
                 수정미결_직전대비.extend([oi_delta - oi_delta_old])
                 temp = list(수정미결_직전대비)
@@ -13631,25 +13645,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if min(temp) > 0:
 
-                    item_str = '{0}\n{1}⬈'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                    item_str = '{0}\n{1}⬈'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
 
                 elif max(temp) < 0:
 
-                    item_str = '{0}\n{1}⬊'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                    item_str = '{0}\n{1}⬊'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
                 else:
-                    item_str = '{0}\n{1}'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                    item_str = '{0}\n{1}'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
 
             elif oi_delta < 0:
 
                 if min(temp) > 0:
 
-                    item_str = '{0}\n{1}⬊'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                    item_str = '{0}\n{1}⬊'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
 
                 elif max(temp) < 0:
 
-                    item_str = '{0}\n{1}⬈'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                    item_str = '{0}\n{1}⬈'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
                 else:
-                    item_str = '{0}\n{1}'.format(format(call_oi_delta, ','), format(put_oi_delta, ','))
+                    item_str = '{0}\n{1}'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
 
             else:
                 item_str = '{0:0.1f}%\n{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
@@ -13749,6 +13763,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global receive_real_ovc
             global ovc_x_idx
             global call_result, put_result
+            
+            global service_start
 
             start_time = timeit.default_timer()
 
@@ -13860,6 +13876,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
 
+                    service_start = True
+
                     str = '[{0:02d}:{1:02d}:{2:02d}] Time Delta = {3}초\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), time_delta)
                     self.textBrowser.append(str)
 
@@ -13884,6 +13902,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간과 서버시간이 같습니다.\r'.format(dt.hour, dt.minute,
                                                                                 dt.second)
                         self.textBrowser.append(str)
+
+                    service_start = True
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
@@ -15311,14 +15331,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if result['현재가'] != 콜현재가:
                         
                         콜현재가 = result['현재가']
-
+                        '''
                         str = '[{0:02d}:{1:02d}:{2:02d}] Call {3} 수신\r'.format(
                             int(result['체결시간'][0:2]),
                             int(result['체결시간'][2:4]),
                             int(result['체결시간'][4:6]),
                             result['현재가'])
                         self.textBrowser.append(str)
-
+                        '''
                         call_result = copy.deepcopy(result)
                         
                         self.call_display(result)                      
@@ -15334,20 +15354,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if opt_callreal_update_counter >= opt_putreal_update_counter:
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] C({3}/{4}) 처리시간 : {5:0.2f} ms... \r'.format(
+                            str = '[{0:02d}:{1:02d}:{2:02d}] Call {3} 수신, C({4}/{5}) : {6:0.2f} ms... \r'.format(
                                 int(result['체결시간'][0:2]),
                                 int(result['체결시간'][2:4]),
                                 int(result['체결시간'][4:6]),
+                                result['현재가'],
                                 opt_callreal_update_counter,
                                 opt_putreal_update_counter,
                                 process_time)
                             self.textBrowser.append(str)
                         else:
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] P({3}/{4}) 처리시간 : {5:0.2f} ms... \r'.format(
+                            str = '[{0:02d}:{1:02d}:{2:02d}] Call {3} 수신, P({4}/{5}) : {6:0.2f} ms... \r'.format(
                                 int(result['체결시간'][0:2]),
                                 int(result['체결시간'][2:4]),
                                 int(result['체결시간'][4:6]),
+                                result['현재가'],
                                 opt_callreal_update_counter,
                                 opt_putreal_update_counter,
                                 process_time)
@@ -15360,14 +15382,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if result['현재가'] != 풋현재가:
 
                         풋현재가 = result['현재가']
-
+                        '''
                         str = '[{0:02d}:{1:02d}:{2:02d}] Put {3} 수신\r'.format(
                             int(result['체결시간'][0:2]),
                             int(result['체결시간'][2:4]),
                             int(result['체결시간'][4:6]),
                             result['현재가'])
                         self.textBrowser.append(str)
-
+                        '''
                         put_result = copy.deepcopy(result)
 
                         self.put_display(result)                      
@@ -15383,24 +15405,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if opt_callreal_update_counter >= opt_putreal_update_counter:
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] C({3}/{4}) 처리시간 : {5:0.2f} ms... \r'.format(
+                            str = '[{0:02d}:{1:02d}:{2:02d}] Put {3} 수신, C({4}/{5}) : {6:0.2f} ms... \r'.format(
                                 int(result['체결시간'][0:2]),
                                 int(result['체결시간'][2:4]),
                                 int(result['체결시간'][4:6]),
+                                result['현재가'],
                                 opt_callreal_update_counter,
                                 opt_putreal_update_counter,
                                 process_time)
                             self.textBrowser.append(str)
                         else:
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] P({3}/{4}) 처리시간 : {5:0.2f} ms... \r'.format(
+                            str = '[{0:02d}:{1:02d}:{2:02d}] Put {3} 수신, P({4}/{5}) : {6:0.2f} ms... \r'.format(
                                 int(result['체결시간'][0:2]),
                                 int(result['체결시간'][2:4]),
                                 int(result['체결시간'][4:6]),
+                                result['현재가'],
                                 opt_callreal_update_counter,
                                 opt_putreal_update_counter,
                                 process_time)
-                            self.textBrowser.append(str)    
+                            self.textBrowser.append(str)   
                     else:
                         pass 
                 else:
@@ -16045,7 +16069,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def AddCode(self):
 
-        global pre_start, service_time_start
+        global pre_start
         global START_ON
 
         global kp200_realdata, fut_realdata
@@ -16081,7 +16105,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 elif int(current_str[0:2]) == 8 and int(current_str[3:5]) <= 59:
                     pre_start = True
                 elif 9 <= int(current_str[0:2]) <= 16:
-                    service_time_start = True
+                    pass
                 else:
                     pass
 
@@ -16122,6 +16146,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
                 time_line_fut_start.setValue(1)
                 time_line_opt_start.setValue(1)
+                time_line_fut_dow_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+                time_line_opt_dow_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
 
             if refresh_flag:
 
