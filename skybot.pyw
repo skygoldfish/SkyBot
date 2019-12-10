@@ -4454,19 +4454,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.label_clear() 
 
                 # 그래프 그리기
-                 
-                # X축 세로선 데이타처리
-                #time_line_fut_start.setValue(선물장간_시간차)
-                #time_line_opt_start.setValue(선물장간_시간차)
-
-                '''
-                if overnight:
-
-                    time_line_fut_dow_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-                    time_line_opt_dow_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-                else:
-                    pass
-                '''
 
                 if x_idx > 선물장간_시간차 + 10 and opt_x_idx > 선물장간_시간차 + 10:
 
@@ -4826,6 +4813,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             else:
                                 pass                               
 
+                            '''
                             # 콜 맥점 플래그 체크
                             if flag_call_low_update:
                                 
@@ -4867,7 +4855,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 color_update = True
                             else:
                                 pass
-                        else:     
+                            '''
+                        else:
+                            pass
+                            '''     
                             # 옵션 맥점 컬러링                      
                             if color_update:
 
@@ -4890,6 +4881,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 self.textBrowser.append(str)
                             else:
                                 pass
+                            '''
                     else:
                         pass                    
                     
@@ -4913,6 +4905,34 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
         except:
             pass
+
+
+    def opt_node_coloring(self):
+
+        dt = datetime.datetime.now()
+
+        self.call_node_color_clear()
+        self.put_node_color_clear()
+
+        self.call_node_color_update()
+        self.put_node_color_update()
+        
+        self.call_open_check()
+        self.call_db_check()
+
+        self.put_open_check()
+        self.put_db_check()
+
+        self.call_center_color_update()
+        self.put_center_color_update()
+
+        self.call_coreval_color_update()
+        self.put_coreval_color_update()
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(str)
+
+        return
         
 
     def label_atm_display(self):
@@ -11336,7 +11356,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_call_저가_node_list = self.make_node_list(cm_call_저가)
 
                     flag_call_low_update = True
-                    
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 Update...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+
+                    self.opt_node_coloring()                     
                 else:
                     pass
                 '''
@@ -11370,7 +11394,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_call_고가_node_list = self.make_node_list(cm_call_고가)
 
                     flag_call_high_update = True
-                    
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 Update...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+
+                    self.opt_node_coloring()                    
                 else:
                     pass
                 '''
@@ -11564,6 +11592,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_call_저가_node_list = self.make_node_list(cm_call_저가)
 
                     flag_call_low_update = True
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 Update...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+
+                    self.opt_node_coloring()  
                 else:
                     pass
 
@@ -11585,6 +11618,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_call_고가_node_list = self.make_node_list(cm_call_고가)
 
                     flag_call_high_update = True
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 Update...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+
+                    self.opt_node_coloring()  
                 else:
                     pass         
             else:
@@ -12504,7 +12542,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_put_저가_node_list = self.make_node_list(cm_put_저가)
 
                     flag_put_low_update = True
-                    
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 Update...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+
+                    self.opt_node_coloring()                    
                 else:
                     pass
                 '''
@@ -12538,6 +12580,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_put_고가_node_list = self.make_node_list(cm_put_고가)
 
                     flag_put_high_update = True
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 Update...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+
+                    self.opt_node_coloring()
                     
                 else:
                     pass
@@ -12731,6 +12778,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_put_저가_node_list = self.make_node_list(cm_put_저가)
 
                     flag_put_low_update = True
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 Update...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+
+                    self.opt_node_coloring()
                 else:
                     pass
 
@@ -12752,6 +12804,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_put_고가_node_list = self.make_node_list(cm_put_고가)
 
                     flag_put_high_update = True
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 Update...\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+
+                    self.opt_node_coloring()
                 else:
                     pass
             else:
