@@ -3862,23 +3862,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 elif idx == 10:
                     call_node_state['시가'] = False
             
-            self.call_node_color_clear()
-            self.put_node_color_clear() 
-            
-            self.call_node_color_update()
-            self.put_node_color_update()
-            
-            self.call_open_check()
-            self.call_db_check()
-
-            self.put_open_check()
-            self.put_db_check()
-
-            self.call_center_color_update()
-            self.put_center_color_update()
-
-            self.call_coreval_color_update()
-            self.put_coreval_color_update()
+            self.opt_node_coloring()
         else:
             if idx == 11:
                 self.call_open_check()
@@ -3945,23 +3929,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 elif idx == 10:
                     put_node_state['시가'] = False
             
-            self.call_node_color_clear()
-            self.put_node_color_clear()
-
-            self.call_node_color_update()
-            self.put_node_color_update()
-            
-            self.call_open_check()
-            self.call_db_check()
-
-            self.put_open_check()
-            self.put_db_check()
-
-            self.call_center_color_update()
-            self.put_center_color_update()
-
-            self.call_coreval_color_update()
-            self.put_coreval_color_update()
+            self.opt_node_coloring()
         else:
             if idx == 11:
                 self.put_open_check()
@@ -4280,23 +4248,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             print('call scroll position -----> from %d to %d' % (call_scroll_begin_position, call_scroll_end_position))
 
-            self.call_node_color_clear()
-            self.put_node_color_clear()
-
-            self.call_node_color_update()
-            self.put_node_color_update()
-            
-            self.call_open_check()
-            self.call_db_check()
-
-            self.put_open_check()
-            self.put_db_check()
-
-            self.call_center_color_update()
-            self.put_center_color_update()
-
-            self.call_coreval_color_update()
-            self.put_coreval_color_update()
+            self.opt_node_coloring()
         return
 
     @pyqtSlot(int)
@@ -4323,23 +4275,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             print('put scroll position -----> from %d to %d' % (put_scroll_begin_position, put_scroll_end_position))
 
-            self.call_node_color_clear()
-            self.put_node_color_clear()
-
-            self.call_node_color_update()
-            self.put_node_color_update()
-            
-            self.call_open_check()
-            self.call_db_check()
-
-            self.put_open_check()
-            self.put_db_check()
-
-            self.call_center_color_update()
-            self.put_center_color_update()
-
-            self.call_coreval_color_update()
-            self.put_coreval_color_update()
+            self.opt_node_coloring()
         return
 
     @pyqtSlot(object)
@@ -4664,7 +4600,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 호가 갱신
                 if receive_quote:
-                    self.quote_display()
+
+                    if self.alternate_flag:
+
+                        self.quote_display()
+                    else:
+                        pass
                 else:
                     pass
 
@@ -4676,9 +4617,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if opt_x_idx > 선물장간_시간차:
 
                         # 선물, 콜, 풋 현재가 클리어
-                        self.fut_cv_color_clear()
-                        self.call_cv_color_clear()                    
-                        self.put_cv_color_clear()
+                        self.cv_color_clear()
                         
                         # 진성 의미가인 경우 blinking(매우 중요!!!)
                         if call_low_coreval:
@@ -4705,7 +4644,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             call_max_actval = False
 
-                            self.call_open_check()
+                            #self.call_open_check()
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] 콜 최대 시작가 {3:.2f} 오픈되었습니다.\r'.format(\
                                 dt.hour, dt.minute, dt.second, df_cm_call.iloc[nCount_cm_option_pairs - 1]['시가'])
@@ -4720,7 +4659,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             put_max_actval = False
 
-                            self.put_open_check()
+                            #self.put_open_check()
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] 풋 최대 시작가 {3:.2f} 오픈되었습니다.\r'.format(\
                                 dt.hour, dt.minute, dt.second, df_cm_put.iloc[0]['시가'])
@@ -4730,10 +4669,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             #Speak(txt)
                         else:
                             pass
-
-                        # 테이블 데이타 갱신
+                        
                         if self.alternate_flag:
 
+                            # 콜 테이블 데이타 갱신
                             self.call_oi_update()                  
                             self.call_volume_power_update()
 
@@ -4744,144 +4683,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 self.label_atm_display()
                             else:
-                                pass                                              
+                                pass                                                               
                         else:
-
+                            # 풋 테이블 데이타 갱신
                             self.put_oi_update()
                             self.put_volume_power_update()
 
                             self.put_state_update()
                             self.put_db_update()
 
-                            self.oi_sum_display()                                
-
-                        # 매 1초마다 한번씩 맥점 컬러링 채크
-                        # if int(호가시간[4:6]) in every_2sec and self.alternate_flag:
-                        if self.alternate_flag:
-                            
-                            # 선물 맥점 컬러링                    
-                            if flag_fut_low:
-
-                                self.fut_node_color_clear()                    
-                                self.fut_oloh_check()
-                                self.fut_node_coloring()
-
-                                flag_fut_low = False
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 선물 저가 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(str)
-                            else:
-                                pass
-
-                            if flag_fut_high:
-
-                                self.fut_node_color_clear()                    
-                                self.fut_oloh_check()
-                                self.fut_node_coloring()
-                                
-                                flag_fut_high = False
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 선물 고가 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(str)
-                            else:
-                                pass                    
-
                             if not overnight:
 
-                                # kp200 컬러링
-                                if flag_kp200_low:
-
-                                    self.kp200_low_node_coloring()
-
-                                    flag_kp200_low = False
-
-                                    str = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
-                                    self.textBrowser.append(str)
-                                else:
-                                    pass
-
-                                if flag_kp200_high:
-
-                                    self.kp200_high_node_coloring()
-
-                                    flag_kp200_high = False
-
-                                    str = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
-                                    self.textBrowser.append(str)
-                                else:
-                                    pass
+                                self.oi_sum_display()
                             else:
-                                pass                               
-
-                            '''
-                            # 콜 맥점 플래그 체크
-                            if flag_call_low_update:
-                                
-                                str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 Update...\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(str)
-
-                                flag_call_low_update = False
-                                color_update = True
-                            else:
-                                pass
-
-                            if flag_call_high_update:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 Update...\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(str)
-
-                                flag_call_high_update = False
-                                color_update = True
-                            else:
-                                pass 
-
-                            # 풋 맥점 플래그 체크
-                            if flag_put_low_update:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 Update...\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(str)
-
-                                flag_put_low_update = False
-                                color_update = True
-                            else:
-                                pass
-
-                            if flag_put_high_update:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 Update...\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(str)
-
-                                flag_put_high_update = False
-                                color_update = True
-                            else:
-                                pass
-                            '''
-                        else:
-                            pass
-                            '''     
-                            # 옵션 맥점 컬러링                      
-                            if color_update:
-
-                                self.call_node_color_clear()
-                                self.put_node_color_clear()                                
-
-                                # 콜, 풋 저가/고가가 하나라도 바뀌면 전체 컬러링로직 수행
-                                self.call_node_color_update()
-                                self.put_node_color_update()
-
-                                self.call_center_color_update()
-                                self.put_center_color_update()
-
-                                self.call_coreval_color_update()
-                                self.put_coreval_color_update()
-
-                                color_update = False
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(str)
-                            else:
-                                pass
-                            '''
+                                pass                        
                     else:
                         pass                    
                     
@@ -5060,6 +4875,29 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         return
 
+    # 현재가 클리어
+    def cv_color_clear(self):
+
+        if overnight:
+            self.tableWidget_fut.item(0, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
+        else:
+            self.tableWidget_fut.item(1, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
+            self.tableWidget_fut.item(2, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
+
+        if call_scroll_end_position <= nCount_cm_option_pairs:
+
+            for i in range(call_scroll_begin_position, call_scroll_end_position):
+
+                self.tableWidget_call.item(i, Option_column.현재가.value).setBackground(QBrush(옅은회색))
+
+            for i in range(put_scroll_begin_position, put_scroll_end_position):
+
+                self.tableWidget_put.item(i, Option_column.현재가.value).setBackground(QBrush(옅은회색))
+        else:
+            pass
+
+        return
+    '''
     # 선물 현재가 클리어
     def fut_cv_color_clear(self):
 
@@ -5096,7 +4934,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         return
-
+    '''
     def check_oneway(self, blink):
 
         dt = datetime.datetime.now()
@@ -8210,9 +8048,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Put 전광판 데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
-                                
-                #콜시가리스트 = [0.0] * nCount_cm_option_pairs
-                #풋시가리스트 = [0.0] * nCount_cm_option_pairs
 
                 if not pre_start:
 
@@ -8596,23 +8431,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                     
-                    self.call_node_color_clear()
-                    self.put_node_color_clear()
-                    
-                    self.call_node_color_update()
-                    self.put_node_color_update()
-
-                    self.call_open_check()
-                    self.call_db_check()
-
-                    self.put_open_check()
-                    self.put_db_check()
-
-                    self.call_center_color_update()
-                    self.put_center_color_update()
-                    
-                    self.call_coreval_color_update()
-                    self.put_coreval_color_update()
+                    self.opt_node_coloring()
                     
                     XQ = t2101(parent=self)
                     XQ.Query(종목코드=fut_code)
@@ -9605,23 +9424,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(str)
             
-            self.call_node_color_clear()
-            self.put_node_color_clear()
-            
-            self.call_node_color_update()
-            self.put_node_color_update()
-                             
-            self.call_open_check()
-            self.call_db_check()
-
-            self.put_open_check()
-            self.put_db_check()
-
-            self.call_center_color_update()
-            self.put_center_color_update()
-            
-            self.call_coreval_color_update()
-            self.put_coreval_color_update()                
+            self.opt_node_coloring()               
 
             self.tableWidget_call.resizeColumnsToContents()
             self.tableWidget_put.resizeColumnsToContents()                
@@ -10244,23 +10047,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] t8416 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                     
-                    self.call_node_color_clear()
-                    self.put_node_color_clear()
-                    
-                    self.call_node_color_update()
-                    self.put_node_color_update()
-                    
-                    self.call_open_check()
-                    self.call_db_check()
-
-                    self.put_open_check()
-                    self.put_db_check()
-
-                    self.call_center_color_update()
-                    self.put_center_color_update()
-
-                    self.call_coreval_color_update()
-                    self.put_coreval_color_update()
+                    self.opt_node_coloring()
 
                     if not pre_start:
 
@@ -10700,7 +10487,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             first_refresh = False            
         else:
             pass
-
+        '''
         # 서비스 시작후 30초후에 첫번째 컬러링 작업수행
         if service_start and \
             (fut_time == fut_first_arrive + 31 or fut_time == fut_first_arrive + 32 or fut_time == fut_first_arrive + 33 or 
@@ -10716,30 +10503,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.fut_node_coloring()
             self.kp200_low_node_coloring()
             self.kp200_high_node_coloring()            
-            '''
-            self.call_node_color_clear()
-            self.put_node_color_clear()
             
-            self.call_node_color_update()
-            self.put_node_color_update()
-
-            self.call_open_check()
-            self.call_db_check()
-
-            self.put_open_check()
-            self.put_db_check()
-
-            self.call_center_color_update()
-            self.put_center_color_update()
-            
-            self.call_coreval_color_update()
-            self.put_coreval_color_update()
-            '''
             str = '[{0:02d}:{1:02d}:{2:02d}] First Color Refreshing Done !!!\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(str)
         else:
             pass
-
+        '''
         # 현재가 갱신
         if overnight:
             fut_price = self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]
@@ -11026,6 +10795,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.저가.value, item)
                 df_fut.iloc[1]['저가'] = 선물_저가
                 fut_realdata['저가'] = 선물_저가
+
+            self.fut_node_color_clear()                    
+            self.fut_oloh_check()
+            self.fut_node_coloring()
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 저가 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
             
             진폭 = 선물_고가 - 선물_저가
 
@@ -11062,6 +10838,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.고가.value, item)
                 df_fut.iloc[1]['고가'] = 선물_고가
+
+            self.fut_node_color_clear()                    
+            self.fut_oloh_check()
+            self.fut_node_coloring()
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 고가 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
             
             진폭 = 선물_고가 - 선물_저가
 
@@ -11080,7 +10863,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         # 장중 거래량 갱신, 장중 거래량은 누적거래량이 아닌 수정거래량 임
-
         선물_누적거래량 = result['매수누적체결량'] - result['매도누적체결량']
         df_plotdata_fut_che.iloc[0][x_idx] = 선물_누적거래량
 
@@ -11172,34 +10954,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setForeground(QBrush(검정색))
 
             self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
-
-            '''
-            # 등가 check & coloring
-            atm_str = self.find_ATM(fut_realdata['KP200'])
-            atm_index = opt_actval.index(atm_str)
-
-            if atm_str[-1] == '2' or atm_str[-1] == '7':
-
-                atm_val = float(atm_str) + 0.5
-            else:
-                atm_val = float(atm_str)
-
-            if atm_index != atm_index_old:
-
-                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(
-                    QBrush(노란색))
-                self.tableWidget_call.item(atm_index_old, Option_column.행사가.value).setBackground(
-                    QBrush(라임))
-
-                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(
-                    QBrush(노란색))
-                self.tableWidget_put.item(atm_index_old, Option_column.행사가.value).setBackground(
-                    QBrush(라임))
-
-                atm_index_old = atm_index
-            else:
-                pass
-            '''
         else:
             pass
         
@@ -11221,8 +10975,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global flag_call_low_update, flag_call_high_update
 
         dt = datetime.datetime.now()
-
-        #call_result = copy.deepcopy(result)
 
         index = cm_call_행사가.index(result['단축코드'][5:8])
         
@@ -11348,7 +11100,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)             
                     self.tableWidget_call.setItem(index, Option_column.저가.value, item)
                                         
-                    self.check_call_oloh(index)
+                    #self.check_call_oloh(index)
                                         
                     item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -11365,17 +11117,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.opt_node_coloring()                     
                 else:
                     pass
-                '''
-                if float(self.tableWidget_call.item(index, Option_column.저가.value).text()) > float(현재가):
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜 저가갱신 문제발생 !!!\r'.format(int(result['체결시간'][0:2]), \
-                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]))
-                    self.textBrowser.append(str)
-
-                    #self.AddCode()
-                else:
-                    pass
-                '''
 
                 # 고가 갱신
                 if 고가 != self.tableWidget_call.item(index, Option_column.고가.value).text():
@@ -11386,7 +11127,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(index, Option_column.고가.value, item)
                                         
-                    self.check_call_oloh(index)
+                    #self.check_call_oloh(index)
                                         
                     item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -11403,17 +11144,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.opt_node_coloring()                    
                 else:
                     pass
-                '''
-                if float(self.tableWidget_call.item(index, Option_column.고가.value).text()) < float(현재가):
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜 고가갱신 문제발생 !!!\r'.format(int(result['체결시간'][0:2]), \
-                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]))
-                    self.textBrowser.append(str)
-
-                    #self.AddCode()
-                else:
-                    pass
-                '''
             else:
                 
                 # pre open check
@@ -11455,20 +11185,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # 콜 시가 갱신
                     self.call_pre_open_update(index)
-                    '''
-                    if cm_call_시가 != 콜시가리스트:
-
-                        old_list_set = set(콜시가리스트)
-                        new_list = [x for x in cm_call_시가 if x not in old_list_set]
-                        len_new_list = len(new_list)
-
-                        for i in range(len_new_list):
-                            self.call_pre_open_update(cm_call_시가.index(new_list[i]))
-
-                        콜시가리스트 = copy.deepcopy(cm_call_시가)
-                    else:
-                        pass
-                    '''
                 else:
                     pass            
                        
@@ -11584,7 +11300,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)             
                     self.tableWidget_call.setItem(index, Option_column.저가.value, item)
                                         
-                    self.check_call_oloh(index)
+                    #self.check_call_oloh(index)
                                         
                     item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -11610,7 +11326,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)             
                     self.tableWidget_call.setItem(index, Option_column.고가.value, item)
                                         
-                    self.check_call_oloh(index)
+                    #self.check_call_oloh(index)
                                         
                     item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -11668,20 +11384,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # 콜 시가 갱신
                     self.call_pre_open_update(index)
-                    '''
-                    if cm_call_시가 != 콜시가리스트:
-
-                        old_list_set = set(콜시가리스트)
-                        new_list = [x for x in cm_call_시가 if x not in old_list_set]
-                        len_new_list = len(new_list)
-
-                        for i in range(len_new_list):
-                            self.call_pre_open_update(cm_call_시가.index(new_list[i]))
-
-                        콜시가리스트 = copy.deepcopy(cm_call_시가)
-                    else:
-                        pass
-                    '''
                 else:
                     pass               
 
@@ -12409,8 +12111,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global flag_put_low_update, flag_put_high_update
 
         dt = datetime.datetime.now()
-        
-        #put_result = copy.deepcopy(result)  
 
         index = cm_put_행사가.index(result['단축코드'][5:8])
         
@@ -12536,7 +12236,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.저가.value, item)
                                         
-                    self.check_put_oloh(index)
+                    #self.check_put_oloh(index)
                                         
                     item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -12553,17 +12253,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.opt_node_coloring()                    
                 else:
                     pass
-                '''
-                if float(self.tableWidget_put.item(index, Option_column.저가.value).text()) > float(현재가):
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋 저가갱신 문제발생 !!!\r'.format(int(result['체결시간'][0:2]), \
-                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]))
-                    self.textBrowser.append(str)
-
-                    #self.AddCode()
-                else:
-                    pass
-                '''
 
                 # 고가 갱신
                 if 고가 != self.tableWidget_put.item(index, Option_column.고가.value).text():
@@ -12574,7 +12263,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.고가.value, item)
                                         
-                    self.check_put_oloh(index)
+                    #self.check_put_oloh(index)
                                         
                     item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -12592,17 +12281,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     
                 else:
                     pass
-                '''
-                if float(self.tableWidget_put.item(index, Option_column.고가.value).text()) < float(현재가):
-                    
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋 고가갱신 문제발생 !!!\r'.format(int(result['체결시간'][0:2]), \
-                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]))
-                    self.textBrowser.append(str)
-
-                    #self.AddCode()
-                else:
-                    pass
-                '''
             else:
                 # pre open check
                 if round(float(시가), 2) != df_cm_put.iloc[index]['시가']:
@@ -12643,20 +12321,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # 풋 시가 갱신
                     self.put_pre_open_update(index)
-                    '''
-                    if cm_put_시가 != 풋시가리스트:
-
-                        old_list_set = set(풋시가리스트)
-                        new_list = [x for x in cm_put_시가 if x not in old_list_set]
-                        len_new_list = len(new_list)
-
-                        for i in range(len_new_list):
-                            self.put_pre_open_update(cm_put_시가.index(new_list[i]))
-
-                        풋시가리스트 = copy.deepcopy(cm_put_시가)
-                    else:
-                        pass
-                    '''
                 else:
                     pass  
                         
@@ -12772,7 +12436,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.저가.value, item)
                     
-                    self.check_put_oloh(index)
+                    #self.check_put_oloh(index)
                                         
                     item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -12798,7 +12462,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.고가.value, item)
                     
-                    self.check_put_oloh(index)
+                    #self.check_put_oloh(index)
                                         
                     item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -12856,20 +12520,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # 풋 시가 갱신
                     self.put_pre_open_update(index)
-                    '''
-                    if cm_put_시가 != 풋시가리스트:
-
-                        old_list_set = set(풋시가리스트)
-                        new_list = [x for x in cm_put_시가 if x not in old_list_set]
-                        len_new_list = len(new_list)
-
-                        for i in range(len_new_list):
-                            self.put_pre_open_update(cm_put_시가.index(new_list[i]))
-
-                        풋시가리스트 = copy.deepcopy(cm_put_시가)
-                    else:
-                        pass
-                    ''' 
                 else:
                     pass 
 
@@ -13697,80 +13347,79 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def oi_sum_display(self):
         
-        if not overnight:
+        global 콜_수정미결합, 풋_수정미결합
+        global oi_delta, oi_delta_old, 수정미결_직전대비
 
-            global 콜_수정미결합, 풋_수정미결합
-            global oi_delta, oi_delta_old, 수정미결_직전대비
+        콜_수정미결합 = df_cm_call['수정미결'].sum() - call_oi_init_value
+        풋_수정미결합 = df_cm_put['수정미결'].sum() - put_oi_init_value
 
-            콜_수정미결합 = df_cm_call['수정미결'].sum() - call_oi_init_value
-            풋_수정미결합 = df_cm_put['수정미결'].sum() - put_oi_init_value
+        oi_delta_old = oi_delta
+        oi_delta = 콜_수정미결합 - 풋_수정미결합
+        
+        수정미결합 = 콜_수정미결합 + 풋_수정미결합
+        
+        수정미결_직전대비.extend([oi_delta - oi_delta_old])
+        temp = list(수정미결_직전대비)
 
-            수정미결합 = 콜_수정미결합 + 풋_수정미결합
+        if 수정미결합 > 0:
 
-            oi_delta_old = oi_delta
+            콜_수정미결퍼센트 = (콜_수정미결합 / 수정미결합) * 100
+            풋_수정미결퍼센트 = 100 - 콜_수정미결퍼센트
+        else:
+            콜_수정미결퍼센트 = 0
+            풋_수정미결퍼센트 = 0
 
-            if 수정미결합 > 0:
+        if oi_delta > 0:
 
-                콜_수정미결퍼센트 = (콜_수정미결합 / 수정미결합) * 100
-                풋_수정미결퍼센트 = 100 - 콜_수정미결퍼센트
+            if min(temp) > 0:
 
-                oi_delta = 콜_수정미결합 - 풋_수정미결합
-                수정미결_직전대비.extend([oi_delta - oi_delta_old])
-                temp = list(수정미결_직전대비)
+                item_str = '{0}\n{1}⬈'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
+
+            elif max(temp) < 0:
+
+                item_str = '{0}\n{1}⬊'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
             else:
-                pass
+                item_str = '{0}\n{1}'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
+
+        elif oi_delta < 0:
+
+            if min(temp) > 0:
+
+                item_str = '{0}\n{1}⬊'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
+
+            elif max(temp) < 0:
+
+                item_str = '{0}\n{1}⬈'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
+            else:
+                item_str = '{0}\n{1}'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
+
+        else:
+            item_str = '{0:0.1f}%\n{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+
+        if item_str != self.tableWidget_quote.item(0, 13).text():
+
+            item = QTableWidgetItem(item_str)
+            item.setTextAlignment(Qt.AlignCenter)
 
             if oi_delta > 0:
 
-                if min(temp) > 0:
-
-                    item_str = '{0}\n{1}⬈'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
-
-                elif max(temp) < 0:
-
-                    item_str = '{0}\n{1}⬊'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
-                else:
-                    item_str = '{0}\n{1}'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
+                item.setBackground(QBrush(적색))
+                item.setForeground(QBrush(흰색))
 
             elif oi_delta < 0:
 
-                if min(temp) > 0:
-
-                    item_str = '{0}\n{1}⬊'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
-
-                elif max(temp) < 0:
-
-                    item_str = '{0}\n{1}⬈'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
-                else:
-                    item_str = '{0}\n{1}'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
+                item.setBackground(QBrush(청색))
+                item.setForeground(QBrush(흰색))
 
             else:
-                item_str = '{0:0.1f}%\n{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                item.setBackground(QBrush(기본바탕색))
+                item.setForeground(QBrush(검정색))
 
-            if item_str != self.tableWidget_quote.item(0, 13).text():
-
-                item = QTableWidgetItem(item_str)
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if oi_delta > 0:
-
-                    item.setBackground(QBrush(적색))
-                    item.setForeground(QBrush(흰색))
-
-                elif oi_delta < 0:
-
-                    item.setBackground(QBrush(청색))
-                    item.setForeground(QBrush(흰색))
-
-                else:
-                    item.setBackground(QBrush(기본바탕색))
-                    item.setForeground(QBrush(검정색))
-
-                self.tableWidget_quote.setItem(0, 13, item)
-            else:
-                pass
+            self.tableWidget_quote.setItem(0, 13, item)
         else:
             pass
+
+        return
 
     def OnReceiveRealData(self, szTrCode, result):
         try:
@@ -14711,6 +14360,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem("{0:0.2f}".format(result['저가지수']))
                         item.setTextAlignment(Qt.AlignCenter)                        
                         self.tableWidget_fut.setItem(2, Futures_column.저가.value, item)
+
+                        self.kp200_low_node_coloring()
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
                     else:
                         pass
 
@@ -14723,6 +14377,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem("{0:0.2f}".format(result['고가지수']))
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_fut.setItem(2, Futures_column.고가.value, item)
+
+                        self.kp200_high_node_coloring()
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
                     else:
                         pass
 
