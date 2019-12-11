@@ -5367,7 +5367,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if call_scroll_end_position <= nCount_cm_option_pairs: 
 
             call_low_coreval = False
-            call_high_coreval = False           
+            call_high_coreval = False
+
+            item = QTableWidgetItem('저가')
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+            item = QTableWidgetItem('고가')
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)           
 
             for i in range(call_scroll_begin_position, call_scroll_end_position):
 
@@ -5403,9 +5409,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             Speak(txt)
                             '''
                         else:
-                            item = QTableWidgetItem('저가')
-                            self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-                            self.tableWidget_call.resizeColumnsToContents()
+                            pass
                     else:
                         pass
 
@@ -5432,13 +5436,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             Speak(txt)
                             '''
                         else:
-                            item = QTableWidgetItem('고가')
-                            self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-                            self.tableWidget_call.resizeColumnsToContents()
+                            pass
                     else:
                         pass
                 else:
                     pass
+
+            self.tableWidget_call.resizeColumnsToContents()
         else:
             pass
 
@@ -6303,7 +6307,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if put_scroll_end_position <= nCount_cm_option_pairs:  
 
             put_low_coreval = False
-            put_high_coreval = False          
+            put_high_coreval = False 
+
+            item = QTableWidgetItem('저가')
+            self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+            item = QTableWidgetItem('고가')
+            self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)         
 
             for i in range(put_scroll_begin_position, put_scroll_end_position):
                 
@@ -6339,9 +6349,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             Speak(txt)
                             '''
                         else:
-                            item = QTableWidgetItem('저가')
-                            self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-                            self.tableWidget_put.resizeColumnsToContents()
+                            pass
                     else:
                         pass
 
@@ -6368,13 +6376,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             Speak(txt)
                             '''
                         else:
-                            item = QTableWidgetItem('고가')
-                            self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-                            self.tableWidget_put.resizeColumnsToContents()
+                            pass
                     else:
                         pass
                 else:
                     pass
+
+            self.tableWidget_put.resizeColumnsToContents()
         else:
             pass
     
