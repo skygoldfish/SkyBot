@@ -14331,8 +14331,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         kp200_coreval.sort()
 
-                        print('kp200_coreval', kp200_coreval)
-                        
+                        str = '[{0:02d}:{1:02d}:{2:02d}] KP200 맥점리스트 = {3}\r'.format(
+                            int(result['시간'][0:2]),
+                            int(result['시간'][2:4]),
+                            int(result['시간'][4:6]),
+                            kp200_coreval)
+                        self.textBrowser.append(str)                         
                     else:
                         pass
 
