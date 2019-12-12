@@ -10930,40 +10930,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             df_fut.loc[1, '미결증감'] = fut_realdata['미결증감']   
         else:
             pass
-
-        # KOSPI200 현재가 지수 갱신(저가, 고가는 IJ_패킷처리부에서...)
-        if result['KOSPI200지수'] != self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]:
-
-            fut_realdata['KP200'] = round(float(result['KOSPI200지수']), 2)
-            kp200_realdata['현재가'] = round(float(result['KOSPI200지수']), 2)
-            df_fut.loc[2, '현재가'] = round(float(result['KOSPI200지수']), 2)
-
-            if float(result['KOSPI200지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
-                item = QTableWidgetItem(result['KOSPI200지수'] + ' ' + self.상태그림[0])
-            elif float(result['KOSPI200지수']) > float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
-                item = QTableWidgetItem(result['KOSPI200지수'] + ' ' + self.상태그림[1])
-            else:    
-                item = QTableWidgetItem(result['KOSPI200지수'])
-
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if float(result['KOSPI200지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
-                item.setBackground(QBrush(lightskyblue))
-            elif float(result['KOSPI200지수']) > float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
-                item.setBackground(QBrush(pink))
-            else:
-                item.setBackground(QBrush(옅은회색)) 
-
-            if kp200_realdata['현재가'] > kp200_realdata['시가']:
-                item.setForeground(QBrush(적색))
-            elif kp200_realdata['현재가'] < kp200_realdata['시가']:
-                item.setForeground(QBrush(청색))
-            else:
-                item.setForeground(QBrush(검정색))
-
-            self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
-        else:
-            pass
         
         self.tableWidget_fut.resizeColumnsToContents() 
 
@@ -14276,19 +14242,46 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # IJ 데이타표시
                 if result['업종코드'] == KOSPI200:
 
-                    # kp200 현재가는 선물갱신시 같이 처리
-                    if result['지수'] != float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()):
+                    # kp200 현재가
+                    if result['지수'] != self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]:
 
-                        pass
+                        fut_realdata['KP200'] = round(float(result['지수']), 2)
+                        kp200_realdata['현재가'] = round(float(result['지수']), 2)
+                        df_fut.loc[2, '현재가'] = round(float(result['지수']), 2)
+
+                        if float(result['지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
+                            item = QTableWidgetItem(result['지수'] + ' ' + self.상태그림[0])
+                        elif float(result['지수']) > float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
+                            item = QTableWidgetItem(result['지수'] + ' ' + self.상태그림[1])
+                        else:    
+                            item = QTableWidgetItem(result['지수'])
+
+                        item.setTextAlignment(Qt.AlignCenter)
+
+                        if float(result['지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
+                            item.setBackground(QBrush(lightskyblue))
+                        elif float(result['지수']) > float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
+                            item.setBackground(QBrush(pink))
+                        else:
+                            item.setBackground(QBrush(옅은회색)) 
+
+                        if kp200_realdata['현재가'] > kp200_realdata['시가']:
+                            item.setForeground(QBrush(적색))
+                        elif kp200_realdata['현재가'] < kp200_realdata['시가']:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+
+                        self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
                     else:
                         pass
 
-                    if result['시가지수'] != float(self.tableWidget_fut.item(2, Futures_column.시가.value).text()):
+                    if result['시가지수'] != self.tableWidget_fut.item(2, Futures_column.시가.value).text():
 
-                        kp200_realdata['시가'] = result['시가지수']
-                        df_plotdata_kp200.iloc[0][선물장간_시간차] = result['시가지수']
+                        kp200_realdata['시가'] = round(float(result['시가지수']), 2)
+                        df_plotdata_kp200.iloc[0][선물장간_시간차] = round(float(result['시가지수']), 2)
 
-                        item = QTableWidgetItem("{0:0.2f}".format(result['시가지수']))
+                        item = QTableWidgetItem(result['시가지수'])
                         item.setTextAlignment(Qt.AlignCenter)
 
                         if kp200_realdata['시가'] > kp200_realdata['종가']:
@@ -14313,12 +14306,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             kp200_realdata['시가'])
                         self.textBrowser.append(str)                        
                         
-                        '''
-                        # 전일 등가중심 호가요청 취소
-                        for i in range(15):
-                            self.OPT_HO.UnadviseRealDataWithKey(cm_call_code[(atm_index_old - 7) + i])
-                            self.OPT_HO.UnadviseRealDataWithKey(cm_put_code[(atm_index_old - 7) + i])
-                        '''
                         atm_str = self.find_ATM(kp200_realdata['시가'])
                         atm_index = opt_actval.index(atm_str)
 
@@ -14346,26 +14333,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         print('kp200_coreval', kp200_coreval)
                         
-                        '''
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 전일호가 취소 및 당일호가(등가:{3})를 요청합니다.\r'.format(
-                            int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), atm_str)
-                        self.textBrowser.append(str)
-                        
-                        # 당일 호가요청
-                        for i in range(15):
-                            self.OPT_HO.AdviseRealData(cm_call_code[(atm_index - 7) + i])
-                            self.OPT_HO.AdviseRealData(cm_put_code[(atm_index - 7) + i])
-                        '''
                     else:
                         pass
 
-                    if result['저가지수'] != float(self.tableWidget_fut.item(2, Futures_column.저가.value).text()):
+                    if result['저가지수'] != self.tableWidget_fut.item(2, Futures_column.저가.value).text():
 
                         flag_kp200_low = True
 
-                        kp200_realdata['저가'] = result['저가지수']
+                        kp200_realdata['저가'] = round(float(result['저가지수']), 2)
 
-                        item = QTableWidgetItem("{0:0.2f}".format(result['저가지수']))
+                        item = QTableWidgetItem(result['저가지수'])
                         item.setTextAlignment(Qt.AlignCenter)                        
                         self.tableWidget_fut.setItem(2, Futures_column.저가.value, item)
 
@@ -14376,13 +14353,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
 
-                    if result['고가지수'] != float(self.tableWidget_fut.item(2, Futures_column.고가.value).text()):
+                    if result['고가지수'] != self.tableWidget_fut.item(2, Futures_column.고가.value).text():
 
                         flag_kp200_high = True
 
-                        kp200_realdata['고가'] = result['고가지수']
+                        kp200_realdata['고가'] = round(float(result['고가지수']), 2)
 
-                        item = QTableWidgetItem("{0:0.2f}".format(result['고가지수']))
+                        item = QTableWidgetItem(result['고가지수'])
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_fut.setItem(2, Futures_column.고가.value, item)
 
@@ -14395,11 +14372,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif result['업종코드'] == KOSPI:                                     
 
-                    if result['지수'] != kospi_price:
+                    if round(float(result['지수']), 2) != kospi_price:
 
-                        if result['지수'] > kospi_price:
+                        if round(float(result['지수']), 2) > kospi_price:
 
-                            temp_str = format(result['지수'], ',')
+                            temp_str = format(round(float(result['지수']), 2), ',')
 
                             if result['전일대비구분'] == '5':
 
@@ -14417,9 +14394,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             else:
                                 pass
 
-                        elif result['지수'] < kospi_price:
+                        elif round(float(result['지수']), 2) < kospi_price:
 
-                            temp_str = format(result['지수'], ',')
+                            temp_str = format(round(float(result['지수']), 2), ',')
 
                             if result['전일대비구분'] == '5':
 
@@ -14439,7 +14416,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        kospi_price = result['지수']
+                        kospi_price = round(float(result['지수']), 2)
 
                         if kospi_text_color != kosdaq_text_color:
 
@@ -14455,11 +14432,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif result['업종코드'] == KOSDAQ:                                       
 
-                    if result['지수'] != kosdaq_price:
+                    if round(float(result['지수']), 2) != kosdaq_price:
 
-                        if result['지수'] > kosdaq_price:
+                        if round(float(result['지수']), 2) > kosdaq_price:
 
-                            temp_str = format(result['지수'], ',')
+                            temp_str = format(round(float(result['지수']), 2), ',')
 
                             if result['전일대비구분'] == '5':
 
@@ -14477,9 +14454,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             else:
                                 pass
 
-                        elif result['지수'] < kosdaq_price:
+                        elif round(float(result['지수']), 2) < kosdaq_price:
 
-                            temp_str = format(result['지수'], ',')
+                            temp_str = format(round(float(result['지수']), 2), ',')
 
                             if result['전일대비구분'] == '5':
 
@@ -14499,7 +14476,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        kosdaq_price = result['지수']
+                        kosdaq_price = round(float(result['지수']), 2)
                     else:
                         pass                    
                 else:
