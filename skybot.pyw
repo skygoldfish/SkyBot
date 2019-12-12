@@ -87,7 +87,7 @@ UI_DIR = "UI\\"
 # 만기일 야간옵션은 month_info.txt에서 next month only를 NO -> YES로 변경
 current_month_info = ''
 next_month_info = ''
-next_next_month_info = ''
+month_after_next_info = ''
 month_firstday = ''
 
 current_month = 0
@@ -95,7 +95,7 @@ next_month = 0
 next_month_only = 'NO'
 cnm_select = 'NO'
 
-mangiil_yagan = False
+mangi_yagan = False
 
 today = datetime.date.today()
 now_Month = today.strftime('%Y%m')
@@ -216,7 +216,7 @@ Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수�
 Option_che_column = Enum('Option_che_column', '매도누적체결량 매도누적체결건수 매수누적체결량 매수누적체결건수')
 Supply_column = Enum('Supply_column', '외인선옵 개인선옵 기관선옵 외인현물 프로그램')
 Quote_column = Enum('Quote_column', 'C-MSCC C-MDCC C-MSCR C-MDCR P-MSCC P-MDCC P-MSCR P-MDCR 콜건수비 콜잔량비 풋건수비 풋잔량비 호가종합 미결종합')
-nCount_cm_option_pairs = 0
+nCount_option_pairs = 0
 
 call_result = dict()
 put_result = dict()
@@ -2202,7 +2202,7 @@ class update_worker(QThread):
                 data[actval] = self.get_data_infos(actval)
 
             # dummy 요청(안하면 screen update로 못들어감 ?)
-            for actval in opt_actval[nCount_cm_option_pairs - 1:nCount_cm_option_pairs]:
+            for actval in opt_actval[nCount_option_pairs - 1:nCount_option_pairs]:
 
                 data[actval] = self.get_data_infos(actval)
             
@@ -2399,8 +2399,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.parent = parent
 
-        global mangiil_yagan, current_month, next_month, next_month_only, month_firstday, cnm_select
-        global cm_option_title, current_month_info, next_month_info, next_next_month_info, SP500, DOW, NASDAQ, fut_code
+        global mangi_yagan, current_month, next_month, next_month_only, month_firstday, cnm_select
+        global cm_option_title, current_month_info, next_month_info, month_after_next_info, SP500, DOW, NASDAQ, fut_code
 
         global overnight, domestic_start_hour, ovc_start_hour
 
@@ -2416,7 +2416,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             tmp = monthfile.readline().strip()
             temp = tmp.split()
-            mangiil_yagan = temp[3]            
+            mangi_yagan = temp[3]            
 
             tmp = monthfile.readline().strip()
             temp = tmp.split()
@@ -2432,7 +2432,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             tmp = monthfile.readline().strip()
             temp = tmp.split()
-            next_next_month_info = temp[4]
+            month_after_next_info = temp[4]
 
             tmp = monthfile.readline().strip()
             temp = tmp.split()
@@ -2455,9 +2455,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             NASDAQ = temp[2]           
 
         print('mangi yagan = %s, current month = %s, month firstday = %s, next month = %s, next next month = %s, next month only = %s, cnm select = %s, SP500 = %s, DOW = %s, NASDAQ = %s' \
-            % (mangiil_yagan, current_month_info, month_firstday, next_month_info, next_next_month_info, next_month_only, cnm_select, SP500, DOW, NASDAQ))
+            % (mangi_yagan, current_month_info, month_firstday, next_month_info, month_after_next_info, next_month_only, cnm_select, SP500, DOW, NASDAQ))
 
-        if mangiil_yagan:
+        if mangi_yagan:
 
             current_month = int(current_month_info[4:6]) + 1
 
@@ -4257,17 +4257,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         call_scroll_begin_position = row
 
-        if nCount_cm_option_pairs == 0:
+        if nCount_option_pairs == 0:
 
-            if nCount_cm_option_pairs - 9 < call_scroll_begin_position < 100:
+            if nCount_option_pairs - 9 < call_scroll_begin_position < 100:
 
-                call_scroll_end_position = nCount_cm_option_pairs
+                call_scroll_end_position = nCount_option_pairs
             else:
                 call_scroll_end_position = call_scroll_begin_position + 9
         else:
-            if nCount_cm_option_pairs - 9 < call_scroll_begin_position < nCount_cm_option_pairs:
+            if nCount_option_pairs - 9 < call_scroll_begin_position < nCount_option_pairs:
 
-                call_scroll_end_position = nCount_cm_option_pairs
+                call_scroll_end_position = nCount_option_pairs
             else:
                 call_scroll_end_position = call_scroll_begin_position + 9
 
@@ -4284,17 +4284,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global put_scroll_begin_position, put_scroll_end_position
         put_scroll_begin_position = row
 
-        if nCount_cm_option_pairs == 0:
+        if nCount_option_pairs == 0:
 
-            if nCount_cm_option_pairs - 9 < put_scroll_begin_position < 100:
+            if nCount_option_pairs - 9 < put_scroll_begin_position < 100:
 
-                put_scroll_end_position = nCount_cm_option_pairs
+                put_scroll_end_position = nCount_option_pairs
             else:
                 put_scroll_end_position = put_scroll_begin_position + 9
         else:
-            if nCount_cm_option_pairs - 9 < put_scroll_begin_position < nCount_cm_option_pairs:
+            if nCount_option_pairs - 9 < put_scroll_begin_position < nCount_option_pairs:
 
-                put_scroll_end_position = nCount_cm_option_pairs
+                put_scroll_end_position = nCount_option_pairs
             else:
                 put_scroll_end_position = put_scroll_begin_position + 9
 
@@ -4466,7 +4466,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     put_idx = []
 
                     # atm index 중심으로 위,아래 15개 만 탐색
-                    #for i in range(nCount_cm_option_pairs):
+                    #for i in range(nCount_option_pairs):
                     for i in range(atm_index - 15, atm_index + 16):
 
                         if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
@@ -4506,7 +4506,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass           
 
-                    if index == nCount_cm_option_pairs - 1:
+                    if index == nCount_option_pairs - 1:
                         curve1_data = infos[2]
                         curve2_data = infos[3] 
                         curve3_data = infos[4]
@@ -4674,7 +4674,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             #self.call_open_check()
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] 콜 최대 시작가 {3:.2f} 오픈되었습니다.\r'.format(\
-                                dt.hour, dt.minute, dt.second, df_cm_call.iloc[nCount_cm_option_pairs - 1]['시가'])
+                                dt.hour, dt.minute, dt.second, df_cm_call.iloc[nCount_option_pairs - 1]['시가'])
                             self.textBrowser.append(str)
 
                             #txt = '콜 최대가 오픈'
@@ -4928,7 +4928,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.item(1, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_fut.item(2, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
 
-        if call_scroll_end_position <= nCount_cm_option_pairs:
+        if call_scroll_end_position <= nCount_option_pairs:
 
             for i in range(call_scroll_begin_position, call_scroll_end_position):
 
@@ -4956,7 +4956,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     # Call 컬러처리
     def call_cv_color_clear(self):
 
-        if call_scroll_end_position <= nCount_cm_option_pairs:
+        if call_scroll_end_position <= nCount_option_pairs:
 
             for i in range(call_scroll_begin_position, call_scroll_end_position):
 
@@ -4969,7 +4969,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     # Put 컬러처리
     def put_cv_color_clear(self):
 
-        if put_scroll_end_position <= nCount_cm_option_pairs:
+        if put_scroll_end_position <= nCount_option_pairs:
 
             for i in range(put_scroll_begin_position, put_scroll_end_position):
 
@@ -5241,52 +5241,48 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def call_node_color_clear(self):
 
-        if call_scroll_end_position <= nCount_cm_option_pairs:
+        for i in range(call_scroll_begin_position, call_scroll_end_position):
 
-            for i in range(call_scroll_begin_position, call_scroll_end_position):
+            self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
 
-                self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(기본바탕색))
-                self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
+            self.tableWidget_call.item(i, Option_column.월저.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_call.item(i, Option_column.월저.value).setForeground(QBrush(검정색))
 
-                self.tableWidget_call.item(i, Option_column.월저.value).setBackground(QBrush(기본바탕색))
-                self.tableWidget_call.item(i, Option_column.월저.value).setForeground(QBrush(검정색))
+            self.tableWidget_call.item(i, Option_column.월고.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_call.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
 
-                self.tableWidget_call.item(i, Option_column.월고.value).setBackground(QBrush(기본바탕색))
-                self.tableWidget_call.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
+            self.tableWidget_call.item(i, Option_column.전저.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_call.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
 
-                self.tableWidget_call.item(i, Option_column.전저.value).setBackground(QBrush(기본바탕색))
-                self.tableWidget_call.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
+            self.tableWidget_call.item(i, Option_column.전고.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_call.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
 
-                self.tableWidget_call.item(i, Option_column.전고.value).setBackground(QBrush(기본바탕색))
-                self.tableWidget_call.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
+            self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
 
-                self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(기본바탕색))
-                self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+            self.tableWidget_call.item(i, Option_column.피봇.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_call.item(i, Option_column.피봇.value).setForeground(QBrush(검정색))
 
-                self.tableWidget_call.item(i, Option_column.피봇.value).setBackground(QBrush(기본바탕색))
-                self.tableWidget_call.item(i, Option_column.피봇.value).setForeground(QBrush(검정색))
+            self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(기본바탕색))
 
-                self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(기본바탕색))
+            if df_cm_call.iloc[i]['시가'] > df_cm_call.iloc[i]['종가']:
+                self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(적색))
+            elif df_cm_call.iloc[i]['시가'] < df_cm_call.iloc[i]['종가']:
+                self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(청색))
+            else:
+                self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
 
-                if df_cm_call.iloc[i]['시가'] > df_cm_call.iloc[i]['종가']:
-                    self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(적색))
-                elif df_cm_call.iloc[i]['시가'] < df_cm_call.iloc[i]['종가']:
-                    self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(청색))
-                else:
-                    self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+            if df_cm_call.iloc[i]['시가'] == 0.0:
+                self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+            else:
+                pass
 
-                if df_cm_call.iloc[i]['시가'] == 0.0:
-                    self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
-                else:
-                    pass
+            self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
 
-                self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(기본바탕색))
-                self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
-
-                self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(기본바탕색))
-                self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
-        else:
-            pass
+            self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
 
         return
 
@@ -5344,7 +5340,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if call_scroll_end_position <= nCount_cm_option_pairs:            
+        if call_scroll_end_position <= nCount_option_pairs:            
 
             for i in range(call_scroll_begin_position, call_scroll_end_position):
 
@@ -5374,7 +5370,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if call_scroll_end_position <= nCount_cm_option_pairs:            
+        if call_scroll_end_position <= nCount_option_pairs:            
 
             for i in range(call_scroll_begin_position, call_scroll_end_position):
 
@@ -5413,7 +5409,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         item = QTableWidgetItem('고가')
         self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-        for i in range(nCount_cm_option_pairs):
+        for i in range(nCount_option_pairs):
 
             if call_open[i] and 0.5 < df_cm_call.iloc[i]['시가'] < 10.0:
 
@@ -5491,7 +5487,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if put_scroll_end_position <= nCount_cm_option_pairs:
+        if put_scroll_end_position <= nCount_option_pairs:
 
             for i in range(put_scroll_begin_position, put_scroll_end_position):
 
@@ -5642,7 +5638,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        if call_scroll_end_position <= nCount_cm_option_pairs:            
+        if call_scroll_end_position <= nCount_option_pairs:            
 
             for i in range(call_scroll_begin_position, call_scroll_end_position):
 
@@ -6173,53 +6169,49 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def put_node_color_clear(self):
 
-        if put_scroll_end_position <= nCount_cm_option_pairs:
+        for i in range(put_scroll_begin_position, put_scroll_end_position):
 
-            for i in range(put_scroll_begin_position, put_scroll_end_position):
+            # Clear Color
+            self.tableWidget_put.item(i, Option_column.기준가.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_put.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
 
-                # Clear Color
-                self.tableWidget_put.item(i, Option_column.기준가.value).setBackground(QBrush(기본바탕색))
-                self.tableWidget_put.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
+            self.tableWidget_put.item(i, Option_column.월저.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_put.item(i, Option_column.월저.value).setForeground(QBrush(검정색))
 
-                self.tableWidget_put.item(i, Option_column.월저.value).setBackground(QBrush(기본바탕색))
-                self.tableWidget_put.item(i, Option_column.월저.value).setForeground(QBrush(검정색))
+            self.tableWidget_put.item(i, Option_column.월고.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_put.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
 
-                self.tableWidget_put.item(i, Option_column.월고.value).setBackground(QBrush(기본바탕색))
-                self.tableWidget_put.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
+            self.tableWidget_put.item(i, Option_column.전저.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_put.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
 
-                self.tableWidget_put.item(i, Option_column.전저.value).setBackground(QBrush(기본바탕색))
-                self.tableWidget_put.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
+            self.tableWidget_put.item(i, Option_column.전고.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_put.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
 
-                self.tableWidget_put.item(i, Option_column.전고.value).setBackground(QBrush(기본바탕색))
-                self.tableWidget_put.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
+            self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
 
-                self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(기본바탕색))
-                self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+            self.tableWidget_put.item(i, Option_column.피봇.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_put.item(i, Option_column.피봇.value).setForeground(QBrush(검정색))
 
-                self.tableWidget_put.item(i, Option_column.피봇.value).setBackground(QBrush(기본바탕색))
-                self.tableWidget_put.item(i, Option_column.피봇.value).setForeground(QBrush(검정색))
+            self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(기본바탕색))
 
-                self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(기본바탕색))
+            if df_cm_put.iloc[i]['시가'] > df_cm_put.iloc[i]['종가']:
+                self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(적색))
+            elif df_cm_put.iloc[i]['시가'] < df_cm_put.iloc[i]['종가']:
+                self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(청색))
+            else:
+                self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
 
-                if df_cm_put.iloc[i]['시가'] > df_cm_put.iloc[i]['종가']:
-                    self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(적색))
-                elif df_cm_put.iloc[i]['시가'] < df_cm_put.iloc[i]['종가']:
-                    self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(청색))
-                else:
-                    self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+            if df_cm_put.iloc[i]['시가'] == 0.0:
+                self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+            else:
+                pass
 
-                if df_cm_put.iloc[i]['시가'] == 0.0:
-                    self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
-                else:
-                    pass
+            self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
 
-                self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(기본바탕색))
-                self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
-
-                self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(기본바탕색))
-                self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
-        else:
-            pass
+            self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(기본바탕색))
+            self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
 
         return
 
@@ -6278,7 +6270,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if put_scroll_end_position <= nCount_cm_option_pairs:            
+        if put_scroll_end_position <= nCount_option_pairs:            
 
             for i in range(put_scroll_begin_position, put_scroll_end_position):
 
@@ -6308,7 +6300,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if put_scroll_end_position <= nCount_cm_option_pairs:            
+        if put_scroll_end_position <= nCount_option_pairs:            
 
             for i in range(put_scroll_begin_position, put_scroll_end_position):
 
@@ -6347,7 +6339,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         item = QTableWidgetItem('고가')
         self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-        for i in range(nCount_cm_option_pairs):
+        for i in range(nCount_option_pairs):
 
             if put_open[i] and 0.5 < df_cm_put.iloc[i]['시가'] < 10.0:
 
@@ -6425,7 +6417,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if call_scroll_end_position <= nCount_cm_option_pairs:
+        if call_scroll_end_position <= nCount_option_pairs:
 
             for i in range(call_scroll_begin_position, call_scroll_end_position):
 
@@ -6576,7 +6568,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        if put_scroll_end_position <= nCount_cm_option_pairs:            
+        if put_scroll_end_position <= nCount_option_pairs:            
 
             for i in range(put_scroll_begin_position, put_scroll_end_position):
 
@@ -7188,7 +7180,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global cm_put_기준가_node_list, cm_put_월저_node_list, cm_put_월고_node_list, cm_put_전저_node_list, cm_put_전고_node_list, \
             cm_put_종가_node_list, cm_put_피봇_node_list, cm_put_시가_node_list, cm_put_저가_node_list, cm_put_고가_node_list
 
-        global nCount_cm_option_pairs
+        global nCount_option_pairs
 
         global df_plotdata_fut, df_plotdata_kp200, df_plotdata_fut_che
         global 콜_순미결합, 풋_순미결합, 콜_순미결퍼센트, 풋_순미결퍼센트
@@ -7481,28 +7473,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 '''
                 # open, ol/oh 초기화
-                call_open = [False] * nCount_cm_option_pairs
-                call_ol = [False] * nCount_cm_option_pairs
-                call_oh = [False] * nCount_cm_option_pairs
+                call_open = [False] * nCount_option_pairs
+                call_ol = [False] * nCount_option_pairs
+                call_oh = [False] * nCount_option_pairs
 
-                put_open = [False] * nCount_cm_option_pairs
-                put_ol = [False] * nCount_cm_option_pairs
-                put_oh = [False] * nCount_cm_option_pairs
+                put_open = [False] * nCount_option_pairs
+                put_ol = [False] * nCount_option_pairs
+                put_oh = [False] * nCount_option_pairs
 
                 # gap percent 초기화
-                call_gap_percent = [NaN] * nCount_cm_option_pairs
-                put_gap_percent = [NaN] * nCount_cm_option_pairs
+                call_gap_percent = [NaN] * nCount_option_pairs
+                put_gap_percent = [NaN] * nCount_option_pairs
 
                 # db percent 초기화
-                call_db_percent = [NaN] * nCount_cm_option_pairs
-                put_db_percent = [NaN] * nCount_cm_option_pairs
+                call_db_percent = [NaN] * nCount_option_pairs
+                put_db_percent = [NaN] * nCount_option_pairs
                 '''
 
                 # 옵션 잔존일
                 옵션잔존일 = block['옵션잔존일']
 
                 # 옵션 행사가 갯수
-                nCount_cm_option_pairs = len(df)
+                nCount_option_pairs = len(df)
 
                 t2301_call = []
                 callho_result = []
@@ -7520,8 +7512,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.Plot_Fut.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
                     time_line_fut.setValue(선물장간_시간차 + 395 + 9)
 
-                    df_plotdata_cm_call = DataFrame(index=range(0, nCount_cm_option_pairs), columns=range(0, 선물장간_시간차 + 395 + 10))
-                    df_plotdata_cm_put = DataFrame(index=range(0, nCount_cm_option_pairs), columns=range(0, 선물장간_시간차 + 395 + 10))
+                    df_plotdata_cm_call = DataFrame(index=range(0, nCount_option_pairs), columns=range(0, 선물장간_시간차 + 395 + 10))
+                    df_plotdata_cm_put = DataFrame(index=range(0, nCount_option_pairs), columns=range(0, 선물장간_시간차 + 395 + 10))
 
                     df_plotdata_cm_call_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
                     df_plotdata_cm_put_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
@@ -7548,8 +7540,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.Plot_Fut.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
                     time_line_fut.setValue(선물장간_시간차 + 660 + 60 + 9)
 
-                    df_plotdata_cm_call = DataFrame(index=range(0, nCount_cm_option_pairs), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
-                    df_plotdata_cm_put = DataFrame(index=range(0, nCount_cm_option_pairs), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
+                    df_plotdata_cm_call = DataFrame(index=range(0, nCount_option_pairs), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
+                    df_plotdata_cm_put = DataFrame(index=range(0, nCount_option_pairs), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
 
                     df_plotdata_cm_call_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
                     df_plotdata_cm_put_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
@@ -7570,7 +7562,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
 
                 # 콜처리
-                for i in range(nCount_cm_option_pairs):
+                for i in range(nCount_option_pairs):
 
                     행사가 = df['행사가'][i]
                     item = QTableWidgetItem("{0:0.2f}".format(df['float_행사가'][i]))
@@ -7830,7 +7822,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.textBrowser.append(str)
 
                 # 풋처리
-                for i in range(nCount_cm_option_pairs):
+                for i in range(nCount_option_pairs):
 
                     행사가 = df1['행사가'][i]
                     item = QTableWidgetItem("{0:0.2f}".format(df1['float_행사가'][i]))
@@ -8227,19 +8219,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         #self.YS3.AdviseRealData(Celltrion)
 
                         # 지수옵션예상체결 요청
-                        for i in range(nCount_cm_option_pairs):
+                        for i in range(nCount_option_pairs):
                             self.YOC.AdviseRealData(cm_call_code[i])
                             self.YOC.AdviseRealData(cm_put_code[i])
                     else:
                         pass
 
                     # 옵션 실시간테이타 요청
-                    for i in range(nCount_cm_option_pairs):
+                    for i in range(nCount_option_pairs):
                         self.OPT_REAL.AdviseRealData(cm_call_code[i])
                         self.OPT_REAL.AdviseRealData(cm_put_code[i])
 
                     # 전일등가 중심 9개 행사가 호가요청
-                    for i in range(nCount_cm_option_pairs):
+                    for i in range(nCount_option_pairs):
                         self.OPT_HO.AdviseRealData(cm_call_code[i])
                         self.OPT_HO.AdviseRealData(cm_put_code[i])
 
@@ -8274,7 +8266,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 if not overnight:
 
-                    for i in range(nCount_cm_option_pairs):
+                    for i in range(nCount_option_pairs):
 
                         # 콜 데이타 획득
                         현재가 = df['현재가'][i]
@@ -8490,10 +8482,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # EUREX 야간옵션 시세전광판
                     XQ = t2835(parent=self)
 
-                    if mangiil_yagan:
+                    if mangi_yagan:
 
                         if next_month_only == 'YES':
-                            XQ.Query(월물=next_next_month_info)
+                            XQ.Query(월물=month_after_next_info)
                         else:
                             XQ.Query(월물=next_month_info)
                     else:
@@ -8796,21 +8788,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if not refresh_flag:
 
                 # open, ol/oh 초기화
-                call_open = [False] * nCount_cm_option_pairs
-                call_ol = [False] * nCount_cm_option_pairs
-                call_oh = [False] * nCount_cm_option_pairs
+                call_open = [False] * nCount_option_pairs
+                call_ol = [False] * nCount_option_pairs
+                call_oh = [False] * nCount_option_pairs
 
-                put_open = [False] * nCount_cm_option_pairs
-                put_ol = [False] * nCount_cm_option_pairs
-                put_oh = [False] * nCount_cm_option_pairs
+                put_open = [False] * nCount_option_pairs
+                put_ol = [False] * nCount_option_pairs
+                put_oh = [False] * nCount_option_pairs
 
                 # gap percent 초기화
-                call_gap_percent = [NaN] * nCount_cm_option_pairs
-                put_gap_percent = [NaN] * nCount_cm_option_pairs
+                call_gap_percent = [NaN] * nCount_option_pairs
+                put_gap_percent = [NaN] * nCount_option_pairs
 
                 # db percent 초기화
-                call_db_percent = [NaN] * nCount_cm_option_pairs
-                put_db_percent = [NaN] * nCount_cm_option_pairs
+                call_db_percent = [NaN] * nCount_option_pairs
+                put_db_percent = [NaN] * nCount_option_pairs
 
                 item = QTableWidgetItem('행사가')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.행사가.value, item)
@@ -8848,7 +8840,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem('∑OI')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
 
-                for i in range(nCount_cm_option_pairs):
+                for i in range(nCount_option_pairs):
 
                     # 수정거래량 초기화
                     df_cm_call.loc[i, '수정거래량'] = 0
@@ -9348,7 +9340,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.put_db_check()
                 '''                
             else:
-                for i in range(nCount_cm_option_pairs):
+                for i in range(nCount_option_pairs):
 
                     # 콜 데이타 획득
                     종가 = df_cm_call.iloc[i]['종가']
@@ -9484,13 +9476,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 실시간테이타 요청
                 self.OPT_REAL = EC0(parent=self)
 
-                for i in range(nCount_cm_option_pairs):
+                for i in range(nCount_option_pairs):
                     self.OPT_REAL.AdviseRealData(cm_call_code[i])
                     self.OPT_REAL.AdviseRealData(cm_put_code[i]) 
 
                 self.OPT_HO = EH0(parent=self)
 
-                for i in range(nCount_cm_option_pairs):
+                for i in range(nCount_option_pairs):
                     self.OPT_HO.AdviseRealData(cm_call_code[i])
                     self.OPT_HO.AdviseRealData(cm_put_code[i]) 
 
@@ -9635,12 +9627,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if new_actval_count == 0:
 
-                item_str = '{0:d}'.format(nCount_cm_option_pairs)
+                item_str = '{0:d}'.format(nCount_option_pairs)
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setHorizontalHeaderItem(0, item)
 
-                item_str = '{0:d}'.format(nCount_cm_option_pairs)
+                item_str = '{0:d}'.format(nCount_option_pairs)
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(0, item) 
@@ -9651,7 +9643,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 actval_increased = True                
 
-                if cm_call_t8416_count == nCount_cm_option_pairs:
+                if cm_call_t8416_count == nCount_option_pairs:
                     cm_put_t8416_count += 1
                     #print('cm_put_t8416_count = ', cm_put_t8416_count)
                 else:
@@ -9661,12 +9653,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     new_actval_count += 1 
 
                     # 추가된 행사가 갯수 표시
-                    item_str = '{0:d}'.format(new_actval_count) + '\n' + '({0:d})'.format(nCount_cm_option_pairs)
+                    item_str = '{0:d}'.format(new_actval_count) + '\n' + '({0:d})'.format(nCount_option_pairs)
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setHorizontalHeaderItem(0, item)
 
-                    item_str = '{0:d}'.format(new_actval_count) + '\n' + '({0:d})'.format(nCount_cm_option_pairs)
+                    item_str = '{0:d}'.format(new_actval_count) + '\n' + '({0:d})'.format(nCount_option_pairs)
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setHorizontalHeaderItem(0, item)               
@@ -9807,16 +9799,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Call 행사가 {3}개중 {4}번째 Packet을 수신했습니다.\r'.\
-                    format(dt.hour, dt.minute, dt.second, nCount_cm_option_pairs, cm_call_t8416_count + 1)
+                    format(dt.hour, dt.minute, dt.second, nCount_option_pairs, cm_call_t8416_count + 1)
 
                 self.textBrowser.append(str)
 
                 cm_call_t8416_count += 1
 
-                print('Call 과거데이타 %d 개중 %d개 수신...' % (nCount_cm_option_pairs, cm_call_t8416_count))
+                print('Call 과거데이타 %d 개중 %d개 수신...' % (nCount_option_pairs, cm_call_t8416_count))
                 
-                #if cm_call_t8416_count == nCount_cm_option_pairs - new_actval_count:
-                if cm_call_t8416_count == nCount_cm_option_pairs:
+                #if cm_call_t8416_count == nCount_option_pairs - new_actval_count:
+                if cm_call_t8416_count == nCount_option_pairs:
 
                     if self.t8416_callworker.isRunning():
 
@@ -9966,15 +9958,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Put 행사가 {3}개중 {4}번째 Packet을 수신했습니다.\r'.format(dt.hour, dt.minute, dt.second, 
-                    nCount_cm_option_pairs, cm_put_t8416_count + 1)
+                    nCount_option_pairs, cm_put_t8416_count + 1)
                 self.textBrowser.append(str)
 
                 cm_put_t8416_count += 1
 
-                print('Put 과거데이타 %d 개중 %d개 수신...' % (nCount_cm_option_pairs, cm_put_t8416_count))
+                print('Put 과거데이타 %d 개중 %d개 수신...' % (nCount_option_pairs, cm_put_t8416_count))
 
-                #if cm_put_t8416_count == nCount_cm_option_pairs - new_actval_count:
-                if cm_put_t8416_count == nCount_cm_option_pairs:
+                #if cm_put_t8416_count == nCount_option_pairs - new_actval_count:
+                if cm_put_t8416_count == nCount_option_pairs:
 
                     print('\r')
                     print('t8416 Call 전광판\r')
@@ -10027,15 +10019,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if next_month_only == 'YES':
 
-                            if mangiil_yagan:
-                                XQ.Query(월물=next_next_month_info)
+                            if mangi_yagan:
+                                XQ.Query(월물=month_after_next_info)
                             else:
                                 XQ.Query(월물=next_month_info)
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] EUREX 차월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
                         else:
-                            if mangiil_yagan:
+                            if mangi_yagan:
                                 XQ.Query(월물=next_month_info)
                             else:
                                 XQ.Query(월물=current_month_info)
@@ -10045,7 +10037,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         if pre_start:
 
-                            for i in range(nCount_cm_option_pairs):
+                            for i in range(nCount_option_pairs):
 
                                 수정거래량 = 0
 
@@ -10124,7 +10116,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             차월물선물코드 = df.iloc[1]['단축코드']
             차차월물선물코드 = df.iloc[2]['단축코드']
 
-            if mangiil_yagan:
+            if mangi_yagan:
 
                 gmshcode = 차월물선물코드
                 cmshcode = 차차월물선물코드
@@ -11557,7 +11549,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), index+1, call_result['시가'])
         self.textBrowser.append(str)
         
-        if index == nCount_cm_option_pairs - 1:
+        if index == nCount_option_pairs - 1:
 
             call_max_actval = True
         else:
@@ -11837,7 +11829,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if call_open[nCount_cm_option_pairs - 1]:
+        if call_open[nCount_option_pairs - 1]:
             new_actval = repr(call_below_atm_count) + '/' + repr(call_open.count(True)) + '*'
         else:
             new_actval = repr(call_below_atm_count) + '/' + repr(call_open.count(True))
@@ -11916,18 +11908,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_gap_percent
         global cm_call_시가, cm_call_시가_node_list, cm_call_피봇, cm_call_피봇_node_list        
 
-        call_open = [False] * nCount_cm_option_pairs
-        call_ol = [False] * nCount_cm_option_pairs
-        call_oh = [False] * nCount_cm_option_pairs
-        call_gap_percent = [NaN] * nCount_cm_option_pairs
+        call_open = [False] * nCount_option_pairs
+        call_ol = [False] * nCount_option_pairs
+        call_oh = [False] * nCount_option_pairs
+        call_gap_percent = [NaN] * nCount_option_pairs
 
         call_below_atm_count = 0
 
         dt = datetime.datetime.now()
 
-        for index in range(nCount_cm_option_pairs):
+        for index in range(nCount_option_pairs):
 
-            if df_cm_call.iloc[index]['시가'] > 0.01:
+            if df_cm_call.iloc[index]['시가'] > 0.1:
 
                 if df_cm_call.iloc[index]['저가'] < df_cm_call.iloc[index]['고가']:
 
@@ -12075,7 +12067,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass            
 
         # Call Open Count 및 OLOH 표시
-        if call_open[nCount_cm_option_pairs - 1]:
+        if call_open[nCount_option_pairs - 1]:
 
             new_actval = repr(call_below_atm_count) + '/' + repr(call_open.count(True)) + '*'
         else:
@@ -12133,9 +12125,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global df_cm_call, call_db_percent
 
-        for index in range(nCount_cm_option_pairs):
+        for index in range(nCount_option_pairs):
 
-            if df_cm_call.iloc[index]['시가'] > 0.01:
+            if df_cm_call.iloc[index]['시가'] > 0.1:
 
                 if df_cm_call.iloc[index]['시가'] >= oloh_cutoff and df_cm_call.iloc[index]['저가'] < df_cm_call.iloc[index]['고가']:
 
@@ -13108,18 +13100,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global put_gap_percent
         global cm_put_시가, cm_put_시가_node_list, cm_put_피봇, cm_put_피봇_node_list
 
-        put_open = [False] * nCount_cm_option_pairs
-        put_ol = [False] * nCount_cm_option_pairs
-        put_oh = [False] * nCount_cm_option_pairs
-        put_gap_percent = [NaN] * nCount_cm_option_pairs
+        put_open = [False] * nCount_option_pairs
+        put_ol = [False] * nCount_option_pairs
+        put_oh = [False] * nCount_option_pairs
+        put_gap_percent = [NaN] * nCount_option_pairs
 
         put_above_atm_count = 0
         
         dt = datetime.datetime.now()
 
-        for index in range(nCount_cm_option_pairs):
+        for index in range(nCount_option_pairs):
 
-            if df_cm_put.iloc[index]['시가'] > 0.01:
+            if df_cm_put.iloc[index]['시가'] > 0.1:
 
                 if df_cm_put.iloc[index]['저가'] < df_cm_put.iloc[index]['고가']:
 
@@ -13325,9 +13317,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global df_cm_put, put_db_percent
 
-        for index in range(nCount_cm_option_pairs):
+        for index in range(nCount_option_pairs):
 
-            if df_cm_put.iloc[index]['시가'] > 0.01:
+            if df_cm_put.iloc[index]['시가'] > 0.1:
 
                 if df_cm_put.iloc[index]['시가'] >= oloh_cutoff and df_cm_put.iloc[index]['저가'] < df_cm_put.iloc[index]['고가']:
 
@@ -16026,8 +16018,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if next_month_only == 'YES':
 
-                    if mangiil_yagan:
-                        month_info = next_next_month_info
+                    if mangi_yagan:
+                        month_info = month_after_next_info
                     else:
                         month_info = next_month_info
 
@@ -16036,7 +16028,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션전광판 야간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, month_info)
                     self.textBrowser.append(str) 
                 else:
-                    if mangiil_yagan:
+                    if mangi_yagan:
                         month_info = next_month_info
                     else:
                         month_info = current_month_info
