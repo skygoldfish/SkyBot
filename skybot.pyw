@@ -87,12 +87,15 @@ UI_DIR = "UI\\"
 # 만기일 야간옵션은 month_info.txt에서 next month only를 NO -> YES로 변경
 current_month_info = ''
 next_month_info = ''
+next_next_month_info = ''
 month_firstday = ''
 
 current_month = 0
 next_month = 0
 next_month_only = 'NO'
 cnm_select = 'NO'
+
+mangiil_yagan = False
 
 today = datetime.date.today()
 now_Month = today.strftime('%Y%m')
@@ -2395,8 +2398,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.parent = parent
 
-        global current_month, next_month, next_month_only, month_firstday, cnm_select
-        global cm_option_title, current_month_info, next_month_info, SP500, DOW, NASDAQ, fut_code
+        global mangiil_yagan, current_month, next_month, next_month_only, month_firstday, cnm_select
+        global cm_option_title, current_month_info, next_month_info, next_next_month_info, SP500, DOW, NASDAQ, fut_code
 
         global overnight, domestic_start_hour, ovc_start_hour
 
@@ -2408,7 +2411,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         with open('month_info.txt', mode='r') as monthfile:
             tmp = monthfile.readline().strip()
             temp = tmp.split()
-            domestic_start_hour = int(temp[3])           
+            domestic_start_hour = int(temp[3])
+
+            tmp = monthfile.readline().strip()
+            temp = tmp.split()
+            mangiil_yagan = temp[3]            
 
             tmp = monthfile.readline().strip()
             temp = tmp.split()
@@ -2421,6 +2428,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             tmp = monthfile.readline().strip()
             temp = tmp.split()
             next_month_info = temp[3]
+
+            tmp = monthfile.readline().strip()
+            temp = tmp.split()
+            next_next_month_info = temp[4]
 
             tmp = monthfile.readline().strip()
             temp = tmp.split()
@@ -2442,11 +2453,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             temp = tmp.split()
             NASDAQ = temp[2]           
 
-        print('current month = %s, month firstday = %s, next month = %s, next month only = %s, cnm select = %s, SP500 = %s, DOW = %s, NASDAQ = %s' \
-            % (current_month_info, month_firstday, next_month_info, next_month_only, cnm_select, SP500, DOW, NASDAQ))
+        print('mangi yagan = %s, current month = %s, month firstday = %s, next month = %s, next next month = %s, next month only = %s, cnm select = %s, SP500 = %s, DOW = %s, NASDAQ = %s' \
+            % (mangiil_yagan, current_month_info, month_firstday, next_month_info, next_next_month_info, next_month_only, cnm_select, SP500, DOW, NASDAQ))
 
-        current_month = int(current_month_info[4:6])
-        next_month = int(next_month_info[4:6])
+        if mangiil_yagan:
+
+            current_month = int(current_month_info[4:6]) + 1
+
+            if current_month == 13:
+
+                current_month = 1
+            else:
+                pass
+
+            next_month = int(next_month_info[4:6]) + 1
+        else:    
+            current_month = int(current_month_info[4:6])
+            next_month = int(next_month_info[4:6])
 
         if os.path.exists('SkyBot.exe'):
 
@@ -8466,10 +8489,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # EUREX 야간옵션 시세전광판
                     XQ = t2835(parent=self)
 
-                    if next_month_only == 'YES':
-                        XQ.Query(월물=next_month_info)
+                    if mangiil_yagan:
+
+                        if next_month_only == 'YES':
+                            XQ.Query(월물=next_next_month_info)
+                        else:
+                            XQ.Query(월물=next_month_info)
                     else:
-                        XQ.Query(월물=current_month_info)
+                        if next_month_only == 'YES':
+                            XQ.Query(월물=next_month_info)
+                        else:
+                            XQ.Query(월물=current_month_info)
             
             self.tableWidget_call.resizeColumnsToContents()
             self.tableWidget_put.resizeColumnsToContents()
@@ -9995,12 +10025,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         XQ = t2835(parent=self)
 
                         if next_month_only == 'YES':
-                            XQ.Query(월물=next_month_info)
+
+                            if mangiil_yagan:
+                                XQ.Query(월물=next_next_month_info)
+                            else:
+                                XQ.Query(월물=next_month_info)
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] EUREX 차월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
                         else:
-                            XQ.Query(월물=current_month_info)
+                            if mangiil_yagan:
+                                XQ.Query(월물=next_month_info)
+                            else:
+                                XQ.Query(월물=current_month_info)
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] EUREX 근월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)                                  
@@ -10084,9 +10121,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             근월물선물코드 = df.iloc[0]['단축코드']
             차월물선물코드 = df.iloc[1]['단축코드']
+            차차월물선물코드 = df.iloc[2]['단축코드']
 
-            gmshcode = 근월물선물코드
-            cmshcode = 차월물선물코드
+            if mangiil_yagan:
+
+                gmshcode = 차월물선물코드
+                cmshcode = 차차월물선물코드
+            else:
+                gmshcode = 근월물선물코드
+                cmshcode = 차월물선물코드
 
             if next_month_only == 'YES': 
 
@@ -15908,7 +15951,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 차월물 옵션전광판 주간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str) 
                 else:
-                    XQ.Query(월물=current_month_info, 미니구분='G')
+
+                    XQ.Query(월물=current_month_info, 미니구분='G')                        
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 본월물 옵션전광판 주간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
@@ -15923,14 +15967,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 XQ = t2301(parent=self)
 
                 if next_month_only == 'YES':
-                    XQ.Query(월물=next_month_info, 미니구분='G')
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 차월물 옵션전광판 야간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    if mangiil_yagan:
+                        month_info = next_next_month_info
+                    else:
+                        month_info = next_month_info
+
+                    XQ.Query(월물=month_info, 미니구분='G')    
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션전광판 야간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, month_info)
                     self.textBrowser.append(str) 
                 else:
-                    XQ.Query(월물=current_month_info, 미니구분='G') 
+                    if mangiil_yagan:
+                        month_info = next_month_info
+                    else:
+                        month_info = current_month_info
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 본월물 옵션전광판 야간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    XQ.Query(월물=month_info, 미니구분='G')
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션전광판 야간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, month_info)
                     self.textBrowser.append(str) 
 
                 # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
