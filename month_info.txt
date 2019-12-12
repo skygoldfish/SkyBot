@@ -1,7 +1,7 @@
 start hour = 9
-current month = 202001
+current month = 201912
 first day of the current month = 20191115
-next month = 202002
+next month = 202001
 next month only = NO
 current month + next month = NO
 S&P 500 = ESZ19
