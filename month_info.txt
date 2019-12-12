@@ -1,6 +1,6 @@
 start hour = 9
 mangi yagan = False
-current month = 201912
+current month = 202001
 first day of the current month = 20201213
 next month = 202002
 month after next = 202003
