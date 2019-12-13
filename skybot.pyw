@@ -9743,7 +9743,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 '''                
             else:
                 # Refresh
-
                 del call_open_list[:]
                 del put_open_list[:]
 
