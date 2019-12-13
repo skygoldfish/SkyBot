@@ -4772,9 +4772,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         self.call_open_check()
         
-        self.call_node_color_update()
-
         self.call_center_color_update()
+        
+        self.call_node_color_update()
 
         self.call_coreval_color_update()
 
@@ -4802,9 +4802,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         self.put_open_check()
         
-        self.put_node_color_update()
-
         self.put_center_color_update()
+        
+        self.put_node_color_update()
 
         self.put_coreval_color_update()
 
@@ -4837,11 +4837,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.put_open_check()
         #self.put_db_check()
         
-        self.call_node_color_update()
-        self.put_node_color_update()
-
         self.call_center_color_update()
         self.put_center_color_update()
+        
+        self.call_node_color_update()
+        self.put_node_color_update()
 
         self.call_coreval_color_update()
         self.put_coreval_color_update()
@@ -5820,7 +5820,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
             '''
-            # 콜 저가,고가를 풋 node와 비교후 컬러링
+            # 콜 저가,고가를 풋 node와 비교후 컬러링                            
+            if put_node_state['시가']:
+
+                if df_cm_call.iloc[i]['저가'] in cm_put_시가_node_list:
+
+                    self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(풋시가색))
+                    self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(흰색))
+                else:
+                    pass
+
+                if df_cm_call.iloc[i]['고가'] in cm_put_시가_node_list:
+
+                    self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(풋시가색))
+                    self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(흰색))
+                else:
+                    pass                   
+            else:
+                pass
+
             if put_node_state['기준가']:
 
                 if df_cm_call.iloc[i]['저가'] in cm_put_기준가_node_list:
@@ -5946,26 +5964,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass                   
             else:
                 pass
-                            
-            if put_node_state['시가']:
+            
+            # 콜 저가,고가를 콜 node와 비교후 컬러링            
+            if call_node_state['시가']:
 
-                if df_cm_call.iloc[i]['저가'] in cm_put_시가_node_list:
+                if df_cm_call.iloc[i]['저가'] in cm_call_시가_node_list:
 
-                    self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(풋시가색))
+                    self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(콜시가색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(흰색))
                 else:
                     pass
 
-                if df_cm_call.iloc[i]['고가'] in cm_put_시가_node_list:
+                if df_cm_call.iloc[i]['고가'] in cm_call_시가_node_list:
 
-                    self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(풋시가색))
+                    self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(콜시가색))
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(흰색))
                 else:
                     pass                   
             else:
                 pass
 
-            # 콜 저가,고가를 콜 node와 비교후 컬러링
             if call_node_state['기준가']:
 
                 if df_cm_call.iloc[i]['저가'] in cm_call_기준가_node_list:
@@ -6089,24 +6107,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
                 else:
                     pass                    
-            else:
-                pass
-
-            if call_node_state['시가']:
-
-                if df_cm_call.iloc[i]['저가'] in cm_call_시가_node_list:
-
-                    self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(콜시가색))
-                    self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(흰색))
-                else:
-                    pass
-
-                if df_cm_call.iloc[i]['고가'] in cm_call_시가_node_list:
-
-                    self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(콜시가색))
-                    self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(흰색))
-                else:
-                    pass                   
             else:
                 pass
 
@@ -6577,7 +6577,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
             '''
-            # 풋 저가,고가를 콜 node와 비교후 컬러링
+            # 풋 저가,고가를 콜 node와 비교후 컬러링            
+            if call_node_state['시가']:
+
+                if df_cm_put.iloc[i]['저가'] in cm_call_시가_node_list:
+
+                    self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(콜시가색))
+                    self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(흰색))
+                else:
+                    pass
+
+                if df_cm_put.iloc[i]['고가'] in cm_call_시가_node_list:
+
+                    self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(콜시가색))
+                    self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(흰색))
+                else:
+                    pass                    
+            else:
+                pass
+
             if call_node_state['기준가']:
 
                 if df_cm_put.iloc[i]['저가'] in cm_call_기준가_node_list:
@@ -6704,25 +6722,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-            if call_node_state['시가']:
+            # 풋 저가,고가를 풋 node와 비교후 컬러링            
+            if put_node_state['시가']:
 
-                if df_cm_put.iloc[i]['저가'] in cm_call_시가_node_list:
+                if df_cm_put.iloc[i]['저가'] in cm_put_시가_node_list:
 
-                    self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(콜시가색))
+                    self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(풋시가색))
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(흰색))
                 else:
                     pass
 
-                if df_cm_put.iloc[i]['고가'] in cm_call_시가_node_list:
+                if df_cm_put.iloc[i]['고가'] in cm_put_시가_node_list:
 
-                    self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(콜시가색))
+                    self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(풋시가색))
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(흰색))
                 else:
                     pass                    
             else:
-                pass
+                pass         
 
-            # 풋 저가,고가를 풋 node와 비교후 컬러링
             if put_node_state['기준가']:
 
                 if df_cm_put.iloc[i]['저가'] in cm_put_기준가_node_list:
@@ -6847,25 +6865,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass                    
             else:
-                pass
-
-            if put_node_state['시가']:
-
-                if df_cm_put.iloc[i]['저가'] in cm_put_시가_node_list:
-
-                    self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(풋시가색))
-                    self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(흰색))
-                else:
-                    pass
-
-                if df_cm_put.iloc[i]['고가'] in cm_put_시가_node_list:
-
-                    self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(풋시가색))
-                    self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(흰색))
-                else:
-                    pass                    
-            else:
-                pass                            
+                pass                  
 
             # 풋 맥점을 콜,풋의 저가,고가와 비교후 컬러링
             if put_node_state['기준가']:
