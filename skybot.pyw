@@ -321,6 +321,9 @@ sp500_직전대비 = collections.deque([0, 0, 0], 5)
 dow_직전대비 = collections.deque([0, 0, 0], 5)
 nasdaq_직전대비 = collections.deque([0, 0, 0], 5)
 
+call_open_list = []
+put_open_list = []
+
 actval_increased = False
 
 call_low_coreval = False
@@ -2459,7 +2462,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             temp = tmp.split()
             NASDAQ = temp[2]           
 
-        print('mangi yagan = %s, current month = %s, month firstday = %s, next month = %s, next next month = %s, next month only = %s, cnm select = %s, SP500 = %s, DOW = %s, NASDAQ = %s' \
+        print('mangi yagan = %s, current month = %s, month firstday = %s, next month = %s, month after next = %s, next month select = %s, cnm select = %s, SP500 = %s, DOW = %s, NASDAQ = %s' \
             % (mangi_yagan, current_month_info, month_firstday, next_month_info, month_after_next_info, next_month_only, cnm_select, SP500, DOW, NASDAQ))
 
         if mangi_yagan == 'YES':
@@ -11200,6 +11203,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global df_cm_call_che, call_volume_total, df_plotdata_cm_call_volume
         global flag_call_low_update, flag_call_high_update
         global node_coloring
+        global call_open_list
 
         dt = datetime.datetime.now()
 
@@ -11313,6 +11317,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 시가 갱신
                 if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
+
+                    call_open_list.append(index)
+                    call_open_list = list(set(call_open_list))
+                    print('call_open_list', call_open_list)
 
                     self.call_open_update()
                 else:
@@ -11437,6 +11445,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.textBrowser.append(str)
 
                     # 콜 시가 갱신
+
+                    call_open_list.append(index)
+                    call_open_list = list(set(call_open_list))
+                    print('call_open_list', call_open_list)
+
                     self.call_pre_open_update(index)
                 else:
                     pass            
@@ -11540,6 +11553,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 시가 갱신
                 if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
+
+                    call_open_list.append(index)
+                    call_open_list = list(set(call_open_list))
+                    print('call_open_list', call_open_list)
 
                     self.call_open_update()
                 else:
@@ -11662,6 +11679,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.textBrowser.append(str)
 
                     # 콜 시가 갱신
+
+                    call_open_list.append(index)
+                    call_open_list = list(set(call_open_list))
+                    print('call_open_list', call_open_list)
+
                     self.call_pre_open_update(index)
                 else:
                     pass               
@@ -12411,6 +12433,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global opt_putreal_update_counter
         global df_cm_put_che, put_volume_total, df_plotdata_cm_put_volume, df_plotdata_cm_volume_cha
         global flag_put_low_update, flag_put_high_update
+        global put_open_list
 
         dt = datetime.datetime.now()
 
@@ -12524,6 +12547,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                  # 시가 갱신
                 if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
+
+                    put_open_list.append(index)
+                    put_open_list = list(set(put_open_list))
+                    print('put_open_list', put_open_list)
 
                     self.put_open_update()
                 else:
@@ -12647,6 +12674,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.textBrowser.append(str)
 
                     # 풋 시가 갱신
+
+                    put_open_list.append(index)
+                    put_open_list = list(set(put_open_list))
+                    print('put_open_list', put_open_list)
+
                     self.put_pre_open_update(index)
                 else:
                     pass  
@@ -12750,6 +12782,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 시가 갱신
                 if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
+
+                    put_open_list.append(index)
+                    put_open_list = list(set(put_open_list))
+                    print('put_open_list', put_open_list)
 
                     self.put_open_update()
                 else:
@@ -12872,6 +12908,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.textBrowser.append(str)
 
                     # 풋 시가 갱신
+
+                    put_open_list.append(index)
+                    put_open_list = list(set(put_open_list))
+                    print('put_open_list', put_open_list)
+
                     self.put_pre_open_update(index)
                 else:
                     pass 
