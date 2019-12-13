@@ -4280,7 +4280,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             print('call scroll position -----> from %d to %d' % (call_scroll_begin_position, call_scroll_end_position))
 
-            self.opt_node_coloring()
+            self.opt_call_node_coloring()
         return
 
     @pyqtSlot(int)
@@ -4307,7 +4307,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             print('put scroll position -----> from %d to %d' % (put_scroll_begin_position, put_scroll_end_position))
 
-            self.opt_node_coloring()
+            self.opt_put_node_coloring()
         return
 
     @pyqtSlot(object)
@@ -4753,6 +4753,66 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         except:
             pass
 
+    
+    def opt_call_node_coloring(self):
+
+        global coloring_done_time
+        global node_coloring
+
+        dt = datetime.datetime.now()
+
+        start_time = timeit.default_timer()
+
+        node_coloring = True
+
+        self.call_node_color_clear()
+        
+        self.call_open_check()
+        
+        self.call_node_color_update()
+
+        self.call_center_color_update()
+
+        self.call_coreval_color_update()
+
+        node_coloring = False
+
+        process_time = (timeit.default_timer() - start_time) * 1000
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        self.textBrowser.append(str)
+
+        return        
+    
+    def opt_put_node_coloring(self):
+
+        global coloring_done_time
+        global node_coloring
+
+        dt = datetime.datetime.now()
+
+        start_time = timeit.default_timer()
+
+        node_coloring = True
+
+        self.put_node_color_clear()
+        
+        self.put_open_check()
+        
+        self.put_node_color_update()
+
+        self.put_center_color_update()
+
+        self.put_coreval_color_update()
+
+        node_coloring = False
+
+        process_time = (timeit.default_timer() - start_time) * 1000
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        self.textBrowser.append(str)
+
+        return
 
     def opt_node_coloring(self):
 
@@ -11292,7 +11352,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     '''
                     if not node_coloring:
 
-                        self.opt_node_coloring()
+                        self.opt_call_node_coloring()
                     else:
                         pass                     
                 else:
@@ -11332,7 +11392,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     '''
                     if not node_coloring:
 
-                        self.opt_node_coloring()
+                        self.opt_call_node_coloring()
                     else:
                         pass                    
                 else:
@@ -11518,7 +11578,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     '''
                     if not node_coloring:
 
-                        self.opt_node_coloring()
+                        self.opt_call_node_coloring()
                     else:
                         pass
                 else:
@@ -11557,7 +11617,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     '''
                     if not node_coloring:
 
-                        self.opt_node_coloring()
+                        self.opt_call_node_coloring()
                     else:
                         pass
                 else:
@@ -12503,7 +12563,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     '''
                     if not node_coloring:
 
-                        self.opt_node_coloring()
+                        self.opt_put_node_coloring()
                     else:
                         pass                    
                 else:
@@ -12543,7 +12603,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     '''
                     if not node_coloring:
 
-                        self.opt_node_coloring()
+                        self.opt_put_node_coloring()
                     else:
                         pass
                 else:
@@ -12728,7 +12788,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     '''
                     if not node_coloring:
 
-                        self.opt_node_coloring()
+                        self.opt_put_node_coloring()
                     else:
                         pass 
                 else:
@@ -12767,7 +12827,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     '''
                     if not node_coloring:
 
-                        self.opt_node_coloring()
+                        self.opt_put_node_coloring()
                     else:
                         pass
                 else:
