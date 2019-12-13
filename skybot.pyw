@@ -4768,14 +4768,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         node_coloring = True
 
-        self.call_node_color_clear()
-        
-        self.call_open_check()
-        
-        self.call_center_color_update()
-        
+        self.call_node_color_clear()        
+        self.call_open_check()        
+        self.call_center_color_update()        
         self.call_node_color_update()
-
         self.call_coreval_color_update()
 
         node_coloring = False
@@ -4798,14 +4794,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         node_coloring = True
 
-        self.put_node_color_clear()
-        
-        self.put_open_check()
-        
-        self.put_center_color_update()
-        
+        self.put_node_color_clear()        
+        self.put_open_check()        
+        self.put_center_color_update()        
         self.put_node_color_update()
-
         self.put_coreval_color_update()
 
         node_coloring = False
@@ -4831,18 +4823,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.call_node_color_clear()
         self.put_node_color_clear()
         
+        # 시가 OL/OH 탐색
         self.call_open_check()
-        #self.call_db_check()
-
         self.put_open_check()
-        #self.put_db_check()
         
+        # 고저간 교차가 탐색
         self.call_center_color_update()
         self.put_center_color_update()
         
+        # 맥점 탐색
         self.call_node_color_update()
         self.put_node_color_update()
 
+        # 의미가 탐색
         self.call_coreval_color_update()
         self.put_coreval_color_update()
 
