@@ -85,6 +85,7 @@ UI_DIR = "UI\\"
 ########################################################################################################################
 
 # 만기일 야간옵션은 month_info.txt에서 next month only를 NO -> YES로 변경
+t2301_month_info = ''
 current_month_info = ''
 next_month_info = ''
 month_after_next_info = ''
@@ -7818,7 +7819,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 self.tableWidget_call.resizeColumnsToContents()
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Call 전광판 데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
+                str = '[{0:02d}:{1:02d}:{2:02d}] {3} 월물 Call 전광판 데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                 self.textBrowser.append(str)
 
                 # 풋처리
@@ -8078,7 +8079,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 self.tableWidget_put.resizeColumnsToContents()
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Put 전광판 데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
+                str = '[{0:02d}:{1:02d}:{2:02d}] {3} 월물 Put 전광판 데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                 self.textBrowser.append(str)
 
                 if not pre_start:
@@ -8180,7 +8181,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 XQ.Query(종목코드=fut_code)
 
                 if fut_code == gmshcode:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] t2101 근월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] t2101 본월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 elif fut_code == cmshcode:
                     str = '[{0:02d}:{1:02d}:{2:02d}] t2101 차월물 주간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 else:
@@ -8194,7 +8195,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 XQ.Query(종목코드=fut_code)
 
                 if fut_code == gmshcode:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] t2801 근월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] t2801 본월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 elif fut_code == cmshcode:
                     str = '[{0:02d}:{1:02d}:{2:02d}] t2801 차월물 야간선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 else:
@@ -8759,10 +8760,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             print('df_fut', df_fut)
             
-            # 선물 맥점 컬러링
-            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)
-
             self.fut_node_color_clear()
             self.fut_oloh_check()
             self.fut_node_coloring()
@@ -10032,7 +10029,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             else:
                                 XQ.Query(월물=current_month_info)
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] EUREX 근월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] EUREX 본월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)                                  
                     else:
                         if pre_start:
@@ -10133,7 +10130,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 fut_code = gmshcode
                 #print('근월물선물코드 요청', fut_code)
-                str = '[{0:02d}:{1:02d}:{2:02d}] 근월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month, fut_code)
+                str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month, fut_code)
                 self.textBrowser.append(str)
 
             '''
@@ -10305,6 +10302,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         #print('선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_저가, 선물_고가', 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_저가, 선물_고가)
 
+        dt = datetime.datetime.now()
+
         if 선물_시가 > 0:
 
             if 선물_현재가 > 선물_시가:
@@ -10475,6 +10474,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass  
         else:
             pass
+
+        # 선물 맥점 컬러링
+        str = '[{0:02d}:{1:02d}:{2:02d}] 선물 맥점 컬러링을 완료했습니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(str)
         
         return
 
@@ -15956,6 +15959,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global START_ON
 
         global kp200_realdata, fut_realdata
+        global t2301_month_info
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -15996,15 +16000,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 XQ = t2301(parent=self)
 
                 if next_month_only == 'YES':
-                    XQ.Query(월물=next_month_info, 미니구분='G')
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 차월물 옵션전광판 주간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    t2301_month_info = next_month_info
+                    XQ.Query(월물=t2301_month_info, 미니구분='G')
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션전광판 주간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                     self.textBrowser.append(str) 
                 else:
+                    t2301_month_info = current_month_info
+                    XQ.Query(월물=t2301_month_info, 미니구분='G')                        
 
-                    XQ.Query(월물=current_month_info, 미니구분='G')                        
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 본월물 옵션전광판 주간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션전광판 주간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                     self.textBrowser.append(str)
                 
                 # 시작시간 X축 표시(index 60은 시가)
@@ -16019,23 +16025,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if next_month_only == 'YES':
 
                     if mangi_yagan == 'YES':
-                        month_info = month_after_next_info
+                        t2301_month_info = month_after_next_info
                     else:
-                        month_info = next_month_info
+                        t2301_month_info = next_month_info
 
-                    XQ.Query(월물=month_info, 미니구분='G')    
+                    XQ.Query(월물=t2301_month_info, 미니구분='G')    
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션전광판 야간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, month_info)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션전광판 야간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                     self.textBrowser.append(str) 
                 else:
                     if mangi_yagan == 'YES':
-                        month_info = next_month_info
+                        t2301_month_info = next_month_info
                     else:
-                        month_info = current_month_info
+                        t2301_month_info = current_month_info
 
-                    XQ.Query(월물=month_info, 미니구분='G')
+                    XQ.Query(월물=t2301_month_info, 미니구분='G')
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션전광판 야간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, month_info)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션전광판 야간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                     self.textBrowser.append(str) 
 
                 # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
