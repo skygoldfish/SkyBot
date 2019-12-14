@@ -8865,6 +8865,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.tableWidget_call.item(i, Option_column.행사가.value).setBackground(QBrush(기본바탕색))
                         self.tableWidget_call.item(i, Option_column.행사가.value).setForeground(QBrush(검정색))
 
+                    df_cm_call.loc[i, '피봇'] = 피봇
+
                     if 시가 > 0 and 저가 < 고가:
                         self.tableWidget_call.item(i, Option_column.행사가.value).setBackground(QBrush(라임))
                         self.tableWidget_call.item(i, Option_column.행사가.value).setForeground(QBrush(검정색))
@@ -9082,6 +9084,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.tableWidget_put.item(i, Option_column.행사가.value).setBackground(QBrush(기본바탕색))
                         self.tableWidget_put.item(i, Option_column.행사가.value).setForeground(QBrush(검정색))
+
+                    df_cm_put.loc[i, '피봇'] = 피봇
 
                     if 시가 > 0 and 저가 < 고가:
                         self.tableWidget_put.item(i, Option_column.행사가.value).setBackground(QBrush(라임))
