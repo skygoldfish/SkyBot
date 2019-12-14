@@ -7386,7 +7386,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if not overnight:
 
-                        if 시가 > 0:
+                        if 시가 > opt_search_start_value:
 
                             call_open_list.append(i)
                         else:
@@ -7656,7 +7656,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if not overnight:
 
-                        if 시가 > 0:
+                        if 시가 > opt_search_start_value:
 
                             put_open_list.append(i)
                         else:
@@ -8113,7 +8113,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         시가 = df['시가'][i]
                         df_cm_call.loc[i, '시가'] = 시가
 
-                        if 시가 > 0:
+                        if 시가 > opt_search_start_value:
 
                             call_open_list.append(i)
                         else:
@@ -8199,7 +8199,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         시가 = df1['시가'][i]
                         df_cm_put.loc[i, '시가'] = 시가
 
-                        if 시가 > 0:
+                        if 시가 > opt_search_start_value:
 
                             put_open_list.append(i)
                         else:
@@ -8720,7 +8720,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     df_cm_call.loc[i, '시가'] = 시가
 
-                    if 시가 > 0:
+                    if 시가 > opt_search_start_value:
 
                         call_open_list.append(i)
                     else:
@@ -8940,7 +8940,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     df_cm_put.loc[i, '시가'] = 시가
 
-                    if 시가 > 0:
+                    if 시가 > opt_search_start_value:
 
                         put_open_list.append(i)
                     else:
@@ -10992,8 +10992,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 시가 갱신
                 if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
-                    call_open_list.append(index)
-                    call_open_list = list(set(call_open_list))
+                    if round(float(시가), 2) > opt_search_start_value:
+                        call_open_list.append(index)
+                        call_open_list = list(set(call_open_list))
+                    else:
+                        pass
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
                                 int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
@@ -11124,9 +11127,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.textBrowser.append(str)
 
                     # 콜 시가 갱신
-
-                    call_open_list.append(index)
-                    call_open_list = list(set(call_open_list))
+                    if round(float(시가), 2) > opt_search_start_value:
+                        call_open_list.append(index)
+                        call_open_list = list(set(call_open_list))
+                    else:
+                        pass
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] Call Pre Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
                                 int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
@@ -11236,8 +11241,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 시가 갱신
                 if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
-                    call_open_list.append(index)
-                    call_open_list = list(set(call_open_list))
+                    if round(float(시가), 2) > opt_search_start_value:
+                        call_open_list.append(index)
+                        call_open_list = list(set(call_open_list))
+                    else:
+                        pass
                     
                     str = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
                                 int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
@@ -11366,10 +11374,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.textBrowser.append(str)
 
                     # 콜 시가 갱신
-
-                    call_open_list.append(index)
-                    call_open_list = list(set(call_open_list))
-                    print('call_open_list', call_open_list)
+                    if round(float(시가), 2) > opt_search_start_value:
+                        call_open_list.append(index)
+                        call_open_list = list(set(call_open_list))
+                    else:
+                        pass
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] Call Pre Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
                                 int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
@@ -11842,6 +11851,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if call_open_list:
 
             loop_list = call_open_list
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format(dt.hour, dt.minute, dt.second, call_open_list)
+            self.textBrowser.append(str)
         else:
             loop_list = opt_total_list
 
@@ -12245,8 +12257,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                  # 시가 갱신
                 if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
 
-                    put_open_list.append(index)
-                    put_open_list = list(set(put_open_list))
+                    if round(float(시가), 2) > opt_search_start_value:
+                        put_open_list.append(index)
+                        put_open_list = list(set(put_open_list))
+                    else:
+                        pass
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
                                 int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
@@ -12376,9 +12391,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.textBrowser.append(str)
 
                     # 풋 시가 갱신
-
-                    put_open_list.append(index)
-                    put_open_list = list(set(put_open_list))
+                    if round(float(시가), 2) > opt_search_start_value:
+                        put_open_list.append(index)
+                        put_open_list = list(set(put_open_list))
+                    else:
+                        pass
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put Pre Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
                                 int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
@@ -12488,8 +12505,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 시가 갱신
                 if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
 
-                    put_open_list.append(index)
-                    put_open_list = list(set(put_open_list))
+                    if round(float(시가), 2) > opt_search_start_value:
+                        put_open_list.append(index)
+                        put_open_list = list(set(put_open_list))
+                    else:
+                        pass
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
                                 int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
@@ -12618,9 +12638,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.textBrowser.append(str)
 
                     # 풋 시가 갱신
-
-                    put_open_list.append(index)
-                    put_open_list = list(set(put_open_list))
+                    if round(float(시가), 2) > opt_search_start_value:
+                        put_open_list.append(index)
+                        put_open_list = list(set(put_open_list))
+                    else:
+                        pass
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put Pre Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
                                 int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
@@ -13094,6 +13116,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if put_open_list:
 
             loop_list = put_open_list
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format(dt.hour, dt.minute, dt.second, put_open_list)
+            self.textBrowser.append(str)
         else:
             loop_list = opt_total_list
 
