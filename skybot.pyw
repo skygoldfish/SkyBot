@@ -151,8 +151,8 @@ oneway_threshold = 2500
 OVC_체결시간 = '000000'
 호가시간 = '000000'
 
-call_in_time = 0
-put_in_time = 0
+call_update_time = 0
+put_update_time = 0
 
 night_time = 0
 
@@ -10790,7 +10790,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global df_cm_call_che, call_volume_total, df_plotdata_cm_call_volume
         global flag_call_low_update, flag_call_high_update
         global node_coloring
-        global call_open_list, call_in_time
+        global call_open_list, call_update_time
 
         dt = datetime.datetime.now()
 
@@ -10939,13 +10939,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     flag_call_low_update = True
                     
-                    call_in_time = int(call_result['체결시간'][0:2]) * 3600 + int(call_result['체결시간'][2:4]) * 60 + int(call_result['체결시간'][4:6])
+                    call_update_time = int(call_result['체결시간'][0:2]) * 3600 + int(call_result['체결시간'][2:4]) * 60 + int(call_result['체결시간'][4:6])
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가({3}) Update {4}...\r'.format(\
-                        int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), round(float(저가), 2), call_in_time)
+                        int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), round(float(저가), 2), call_update_time)
                     self.textBrowser.append(str)
                     '''
-                    if abs(call_in_time - coloring_done_time) > coloring_interval:
+                    if abs(call_update_time - coloring_done_time) > coloring_interval:
 
                         self.opt_node_coloring()
                     else:
@@ -10979,13 +10979,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     flag_call_high_update = True
                     
-                    call_in_time = int(call_result['체결시간'][0:2]) * 3600 + int(call_result['체결시간'][2:4]) * 60 + int(call_result['체결시간'][4:6])
+                    call_update_time = int(call_result['체결시간'][0:2]) * 3600 + int(call_result['체결시간'][2:4]) * 60 + int(call_result['체결시간'][4:6])
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가({3}) Update {4}...\r'.format(\
-                        int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), round(float(고가), 2), call_in_time)
+                        int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), round(float(고가), 2), call_update_time)
                     self.textBrowser.append(str)
                     '''
-                    if abs(call_in_time - coloring_done_time) > coloring_interval:
+                    if abs(call_update_time - coloring_done_time) > coloring_interval:
 
                         self.opt_node_coloring()
                     else:
@@ -11185,13 +11185,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     flag_call_low_update = True
                     
-                    call_in_time = int(call_result['체결시간'][0:2]) * 3600 + int(call_result['체결시간'][2:4]) * 60 + int(call_result['체결시간'][4:6])
+                    call_update_time = int(call_result['체결시간'][0:2]) * 3600 + int(call_result['체결시간'][2:4]) * 60 + int(call_result['체결시간'][4:6])
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가({3}) Update {4}...\r'.format(\
-                        int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), round(float(저가), 2), call_in_time)
+                        int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), round(float(저가), 2), call_update_time)
                     self.textBrowser.append(str)
                     '''
-                    if abs(call_in_time - coloring_done_time) > coloring_interval:
+                    if abs(call_update_time - coloring_done_time) > coloring_interval:
 
                         self.opt_node_coloring()
                     else:
@@ -11224,13 +11224,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     flag_call_high_update = True
                     
-                    call_in_time = int(call_result['체결시간'][0:2]) * 3600 + int(call_result['체결시간'][2:4]) * 60 + int(call_result['체결시간'][4:6])
+                    call_update_time = int(call_result['체결시간'][0:2]) * 3600 + int(call_result['체결시간'][2:4]) * 60 + int(call_result['체결시간'][4:6])
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가({3}) Update {4}...\r'.format(\
-                        int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), round(float(고가), 2), call_in_time)
+                        int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), round(float(고가), 2), call_update_time)
                     self.textBrowser.append(str)
                     '''
-                    if abs(call_in_time - coloring_done_time) > coloring_interval:
+                    if abs(call_update_time - coloring_done_time) > coloring_interval:
 
                         self.opt_node_coloring()
                     else:
@@ -12051,7 +12051,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global opt_putreal_update_counter
         global df_cm_put_che, put_volume_total, df_plotdata_cm_put_volume, df_plotdata_cm_volume_cha
         global flag_put_low_update, flag_put_high_update
-        global put_open_list, put_in_time
+        global put_open_list, put_update_time
 
         dt = datetime.datetime.now()
 
@@ -12200,13 +12200,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     flag_put_low_update = True
                     
-                    put_in_time = int(put_result['체결시간'][0:2]) * 3600 + int(put_result['체결시간'][2:4]) * 60 + int(put_result['체결시간'][4:6])
+                    put_update_time = int(put_result['체결시간'][0:2]) * 3600 + int(put_result['체결시간'][2:4]) * 60 + int(put_result['체결시간'][4:6])
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가({3}) Update {4}...\r'.format(\
-                        int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), round(float(저가), 2), put_in_time)
+                        int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), round(float(저가), 2), put_update_time)
                     self.textBrowser.append(str)
                     '''
-                    if abs(put_in_time - coloring_done_time) > coloring_interval:
+                    if abs(put_update_time - coloring_done_time) > coloring_interval:
 
                         self.opt_node_coloring()
                     else:
@@ -12240,13 +12240,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     flag_put_high_update = True
                     
-                    put_in_time = int(put_result['체결시간'][0:2]) * 3600 + int(put_result['체결시간'][2:4]) * 60 + int(put_result['체결시간'][4:6])
+                    put_update_time = int(put_result['체결시간'][0:2]) * 3600 + int(put_result['체결시간'][2:4]) * 60 + int(put_result['체결시간'][4:6])
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가({3}) Update {4}...\r'.format(\
-                        int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), round(float(고가), 2), put_in_time)
+                        int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), round(float(고가), 2), put_update_time)
                     self.textBrowser.append(str)
                     '''
-                    if abs(put_in_time - coloring_done_time) > coloring_interval:
+                    if abs(put_update_time - coloring_done_time) > coloring_interval:
 
                         self.opt_node_coloring()
                     else:
@@ -12445,13 +12445,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     flag_put_low_update = True
                     
-                    put_in_time = int(put_result['체결시간'][0:2]) * 3600 + int(put_result['체결시간'][2:4]) * 60 + int(put_result['체결시간'][4:6])
+                    put_update_time = int(put_result['체결시간'][0:2]) * 3600 + int(put_result['체결시간'][2:4]) * 60 + int(put_result['체결시간'][4:6])
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가({3}) Update {4}...\r'.format(\
-                        int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), round(float(저가), 2), put_in_time)
+                        int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), round(float(저가), 2), put_update_time)
                     self.textBrowser.append(str)
                     '''
-                    if abs(put_in_time - coloring_done_time) > coloring_interval:
+                    if abs(put_update_time - coloring_done_time) > coloring_interval:
 
                         self.opt_node_coloring()
                     else:
@@ -12484,13 +12484,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     flag_put_high_update = True
                     
-                    put_in_time = int(put_result['체결시간'][0:2]) * 3600 + int(put_result['체결시간'][2:4]) * 60 + int(put_result['체결시간'][4:6])
+                    put_update_time = int(put_result['체결시간'][0:2]) * 3600 + int(put_result['체결시간'][2:4]) * 60 + int(put_result['체결시간'][4:6])
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가({3}) Update {4}...\r'.format(\
-                        int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), round(float(고가), 2), put_in_time)
+                        int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), round(float(고가), 2), put_update_time)
                     self.textBrowser.append(str)
                     '''
-                    if abs(put_in_time - coloring_done_time) > coloring_interval:
+                    if abs(put_update_time - coloring_done_time) > coloring_interval:
 
                         self.opt_node_coloring()
                     else:
