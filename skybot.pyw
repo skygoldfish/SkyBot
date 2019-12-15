@@ -7384,16 +7384,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     시가 = round(df['시가'][i], 2)
 
-                    if not overnight:
-
-                        if 시가 > opt_search_start_value:
-
-                            call_open_list.append(i)
-                        else:
-                            pass
-                    else:
-                        pass
-
                     현재가 = df['현재가'][i]
                     item = QTableWidgetItem("{0:0.2f}".format(현재가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -7447,6 +7437,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem("{0:0.2f}".format(진폭))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.진폭.value, item)
+                    
+                    if not overnight:
+
+                        if 시가 > opt_search_start_value and 저가 < 고가:
+
+                            call_open_list.append(i)
+                        else:
+                            pass
+                    else:
+                        pass
 
                     if 시가 > 0:
 
@@ -7629,7 +7629,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 cm_call_행사가 = df_cm_call['행사가'].values.tolist()
 
-                print(df_cm_call)
+                print('t2301 주간 전광판 콜 데이타 = \r', df_cm_call)
 
                 self.tableWidget_call.resizeColumnsToContents()
 
@@ -7645,7 +7645,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_put.setItem(i, Option_column.행사가.value, item)
 
                     cm_put_code.append(df1['풋옵션코드'][i])
-                    #cm_put_actval.append(df1['풋옵션코드'][i][5:8])
 
                     OLOH = ''
                     item = QTableWidgetItem(OLOH)
@@ -7653,16 +7652,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_put.setItem(i, Option_column.OLOH.value, item)
 
                     시가 = round(df1['시가'][i], 2)
-
-                    if not overnight:
-
-                        if 시가 > opt_search_start_value:
-
-                            put_open_list.append(i)
-                        else:
-                            pass
-                    else:
-                        pass
 
                     현재가 = df1['현재가'][i]
                     item = QTableWidgetItem("{0:0.2f}".format(현재가))
@@ -7717,6 +7706,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem("{0:0.2f}".format(진폭))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.진폭.value, item)
+                    
+                    if not overnight:
+
+                        if 시가 > opt_search_start_value and 저가 < 고가:
+
+                            put_open_list.append(i)
+                        else:
+                            pass
+                    else:
+                        pass
 
                     if 시가 > 0:
 
@@ -7798,15 +7797,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         전저 = 0.0
                         전고 = 0.0
-
-                        '''
-                        if 시가 > 0 and round(저가, 2) < round(고가, 2):
-                            self.tableWidget_put.item(i, Option_column.행사가.value).setBackground(QBrush(라임))
-                            self.tableWidget_put.item(i, Option_column.행사가.value).setForeground(QBrush(검정색))
-                            pass
-                        else:
-                            pass
-                        '''
 
                     if df1['현재가'][i] <= 시가갭:
 
@@ -7899,7 +7889,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 cm_put_행사가 = df_cm_put['행사가'].values.tolist()
                 
-                print(df_cm_put)
+                print('t2301 주간 전광판 풋 데이타 = \r', df_cm_put)
 
                 self.tableWidget_put.resizeColumnsToContents()
 
@@ -7985,14 +7975,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     put_oi_init_value = 풋_수정미결합
                 else:
                     pass
-                '''
-                # open 체크를 먼저 해야 맥점 컬러링이 정상동작함
-                self.call_open_check()
-                self.call_db_check()
-
-                self.put_open_check()
-                self.put_db_check()
-                '''
+                
                 # 장운영정보 요청
                 self.JIF.AdviseRealData('0')
 
@@ -8030,9 +8013,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if not overnight:        
 
                     print('\r')
-                    print('t2835 call open list = ', call_open_list)
+                    print('t2301 call open list = ', call_open_list, len(call_open_list))
                     print('\r')
-                    print('t2835 put open list = ', put_open_list)
+                    print('t2301 put open list = ', put_open_list, len(put_open_list))
                     print('\r')            
 
                     if pre_start:
@@ -8113,34 +8096,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         시가 = df['시가'][i]
                         df_cm_call.loc[i, '시가'] = 시가
 
-                        if 시가 > opt_search_start_value:
-
-                            call_open_list.append(i)
-                        else:
-                            pass
-
                         item = QTableWidgetItem("{0:0.2f}".format(시가))
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_call.setItem(i, Option_column.시가.value, item)
-
-                        '''
-                        if df['전일대비구분'][i] == '2':
-
-                            종가 = round((현재가 - df['전일대비'][i]), 2)
-
-                        elif df['전일대비구분'][i] == '5':
-
-                            종가 = round((현재가 + df['전일대비'][i]), 2)
-
-                        else:
-                            종가 = round(현재가, 2)
-
-                        df_cm_call.loc[i, '종가'] = 종가
-
-                        item = QTableWidgetItem("{0:0.2f}".format(종가))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_call.setItem(i, Option_column.종가.value, item)
-                        '''
 
                         if 시가 > 0:
 
@@ -8187,6 +8145,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem("{0:0.2f}".format(고가))
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_call.setItem(i, Option_column.고가.value, item)
+                        
+                        if 시가 > opt_search_start_value and 저가 < 고가:
+
+                            call_open_list.append(i)
+                        else:
+                            pass
 
                         # 풋 데이타 획득
                         현재가 = df1['현재가'][i]
@@ -8199,34 +8163,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         시가 = df1['시가'][i]
                         df_cm_put.loc[i, '시가'] = 시가
 
-                        if 시가 > opt_search_start_value:
-
-                            put_open_list.append(i)
-                        else:
-                            pass
-
                         item = QTableWidgetItem("{0:0.2f}".format(시가))
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_put.setItem(i, Option_column.시가.value, item)
-
-                        '''
-                        if df1['전일대비구분'][i] == '2':
-
-                            종가 = round((현재가 - df1['전일대비'][i]), 2)
-
-                        elif df1['전일대비구분'][i] == '5':
-
-                            종가 = round((현재가 + df1['전일대비'][i]), 2)
-
-                        else:
-                            종가 = round(현재가, 2)
-
-                        df_cm_put.loc[i, '종가'] = 종가
-
-                        item = QTableWidgetItem("{0:0.2f}".format(종가))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_put.setItem(i, Option_column.종가.value, item)
-                        '''
 
                         if 시가 > 0:
 
@@ -8273,10 +8212,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem("{0:0.2f}".format(고가))
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_put.setItem(i, Option_column.고가.value, item)
+                        
+                        if 시가 > opt_search_start_value and 저가 < 고가:
 
-                    # Node 리스트 갱신                    
-                    #cm_call_종가 = df_cm_call['종가'].values.tolist()
-                    #cm_call_종가_node_list = self.make_node_list(cm_call_종가)
+                            put_open_list.append(i)
+                        else:
+                            pass
 
                     cm_call_시가 = df_cm_call['시가'].values.tolist()
                     cm_call_시가_node_list = self.make_node_list(cm_call_시가)
@@ -8289,9 +8230,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     cm_call_고가 = df_cm_call['고가'].values.tolist()
                     cm_call_고가_node_list = self.make_node_list(cm_call_고가)
-
-                    #cm_put_종가 = df_cm_put['종가'].values.tolist()
-                    #cm_put_종가_node_list = self.make_node_list(cm_put_종가)
 
                     cm_put_시가 = df_cm_put['시가'].values.tolist()
                     cm_put_시가_node_list = self.make_node_list(cm_put_시가)
@@ -8720,12 +8658,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     df_cm_call.loc[i, '시가'] = 시가
 
-                    if 시가 > opt_search_start_value:
-
-                        call_open_list.append(i)
-                    else:
-                        pass
-
                     item = QTableWidgetItem("{0:0.2f}".format(시가))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.시가.value, item)
@@ -8777,6 +8709,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem("{0:0.2f}".format(진폭))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.진폭.value, item)
+                    
+                    if 시가 > opt_search_start_value and 저가 < 고가:
+
+                        call_open_list.append(i)
+                    else:
+                        pass
 
                     if 시가 > 0:
 
@@ -8940,12 +8878,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     df_cm_put.loc[i, '시가'] = 시가
 
-                    if 시가 > opt_search_start_value:
-
-                        put_open_list.append(i)
-                    else:
-                        pass
-
                     item = QTableWidgetItem("{0:0.2f}".format(시가))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.시가.value, item)
@@ -8997,6 +8929,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem("{0:0.2f}".format(진폭))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.진폭.value, item)
+                    
+                    if 시가 > opt_search_start_value and 저가 < 고가:
+
+                        put_open_list.append(i)
+                    else:
+                        pass
 
                     if 시가 > 0:
 
@@ -9130,13 +9068,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_plotdata_cm_volume_cha.iloc[0][선물장간_시간차] = 0
                 
                 print('\r')
-                print('t2835 call', df_cm_call)
+                print('t2835 야간 전광판 콜 데이타 = ', df_cm_call)
                 print('\r')
-                print('t2835 put', df_cm_put)
+                print('t2835 야간 전광판 풋 데이타 = ', df_cm_put)
                 print('\r')
-                print('t2835 call open list = ', call_open_list)
+                print('t2835 call open list = ', call_open_list, len(call_open_list))
                 print('\r')
-                print('t2835 put open list = ', put_open_list)
+                print('t2835 put open list = ', put_open_list, len(put_open_list))
                 print('\r')
 
                 self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
@@ -9194,14 +9132,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 cm_put_고가 = df_cm_put['고가'].values.tolist()
                 cm_put_고가_node_list = self.make_node_list(cm_put_고가)
-                '''
-                # open 체크를 먼저 해야 맥점 컬러링이 정상동작함
-                self.call_open_check()
-                self.call_db_check()
 
-                self.put_open_check()
-                self.put_db_check()
-                '''                
             else:
                 # Refresh
                 del call_open_list[:]
@@ -9214,12 +9145,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     시가 = df['시가'][i]
                     df_cm_call.loc[i, '시가'] = df['시가'][i]
-
-                    if 시가 > 0:
-
-                        call_open_list.append(i)
-                    else:
-                        pass
 
                     item = QTableWidgetItem("{0:0.2f}".format(시가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -9260,18 +9185,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem("{0:0.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.고가.value, item)
+                    
+                    if 시가 > 0 and 저가 < 고가:
+
+                        call_open_list.append(i)
+                    else:
+                        pass
 
                     # 풋 데이타 획득
                     종가 = df_cm_put.iloc[i]['종가']
 
                     시가 = df1['시가'][i]
                     df_cm_put.loc[i, '시가'] = df1['시가'][i]
-
-                    if 시가 > 0:
-
-                        put_open_list.append(i)
-                    else:
-                        pass
 
                     item = QTableWidgetItem("{0:0.2f}".format(시가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -9312,6 +9237,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem("{0:0.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.고가.value, item)
+                    
+                    if 시가 > 0 and 저가 < 고가:
+
+                        put_open_list.append(i)
+                    else:
+                        pass
 
                 # Node 리스트 갱신
                 cm_call_시가 = df_cm_call['시가'].values.tolist()
@@ -9374,12 +9305,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 업종별 투자자별 매매현황 요청
                 self.BM.AdviseRealData(CME)
 
-                '''
-                for i in range(15):
-                    self.OPT_HO.AdviseRealData(cm_call_code[(atm_index_old - 7) + i])
-                    self.OPT_HO.AdviseRealData(cm_put_code[(atm_index_old - 7) + i])
-                '''                                   
-
                 str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
                 
@@ -9413,15 +9338,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             temp.reverse()
             temp1 = copy.deepcopy(temp)
 
-            #print(temp1)
-
             CME_전일종가 = temp1[1::2]
             
-            print('[CME_전일종가]')
+            print('[CME_전일종가] = \r', CME_전일종가)
             print('\r')
-
-            print(CME_전일종가)
-            print('\r') 
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 야간선물 전일데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(str)           
@@ -9457,8 +9377,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 temp = df['종가'].values.tolist()
                 선물_전일종가 = temp[440:]
-
-                # print(len(선물_전일종가), 선물_전일종가)
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 선물 전일데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
@@ -10015,15 +9933,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month, fut_code)
                 self.textBrowser.append(str)
 
-            '''
-            if fut_code == '':
-                fut_code = gmshcode
-                print('근월물선물코드 요청', fut_code)
-            else:
-                fut_code = cmshcode
-                print('차월물선물코드 요청', fut_code)
-            '''            
-
             fut_realdata['전저'] = df.iloc[0]['전일저가']
             선물_전저 = df.iloc[0]['전일저가']
 
@@ -10046,12 +9955,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
 
             self.tableWidget_fut.resizeColumnsToContents()
-
+            '''
             if overnight:
 
                 self.t8415_fut_request()
             else:
                 self.t8408_cme_request()
+            '''
 
         elif szTrCode == 't8433':
 
@@ -11125,7 +11035,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Pre Open Update !!!\r'.format(int(call_result['체결시간'][0:2]), \
                                 int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), df_cm_call.iloc[index]['시가'])
                     self.textBrowser.append(str)
-
+                    '''
                     # 콜 시가 갱신
                     if round(float(시가), 2) > opt_search_start_value:
                         call_open_list.append(index)
@@ -11136,7 +11046,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Call Pre Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
                                 int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
                     self.textBrowser.append(str)
-
+                    '''
                     self.call_pre_open_update(index)
                 else:
                     pass            
@@ -11372,7 +11282,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Pre Open Update !!!\r'.format(int(call_result['체결시간'][0:2]), \
                                 int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), df_cm_call.iloc[index]['시가'])
                     self.textBrowser.append(str)
-
+                    '''
                     # 콜 시가 갱신
                     if round(float(시가), 2) > opt_search_start_value:
                         call_open_list.append(index)
@@ -11383,7 +11293,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Call Pre Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
                                 int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
                     self.textBrowser.append(str)
-
+                    '''
                     self.call_pre_open_update(index)
                 else:
                     pass               
@@ -12389,7 +12299,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Pre Open Update !!!\r'.format(int(put_result['체결시간'][0:2]), \
                                 int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), df_cm_put.iloc[index]['시가'])
                     self.textBrowser.append(str)
-
+                    '''
                     # 풋 시가 갱신
                     if round(float(시가), 2) > opt_search_start_value:
                         put_open_list.append(index)
@@ -12400,7 +12310,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put Pre Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
                                 int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
                     self.textBrowser.append(str)
-
+                    '''
                     self.put_pre_open_update(index)
                 else:
                     pass  
@@ -12636,7 +12546,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Pre Open Update !!!\r'.format(int(put_result['체결시간'][0:2]), \
                                 int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), df_cm_put.iloc[index]['시가'])
                     self.textBrowser.append(str)
-
+                    '''
                     # 풋 시가 갱신
                     if round(float(시가), 2) > opt_search_start_value:
                         put_open_list.append(index)
@@ -12647,7 +12557,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put Pre Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
                                 int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
                     self.textBrowser.append(str)
-
+                    '''
                     self.put_pre_open_update(index)
                 else:
                     pass 
