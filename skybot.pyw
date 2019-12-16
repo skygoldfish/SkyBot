@@ -12613,6 +12613,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass 
 
         return
+        
     
     def put_open_update(self):
 
