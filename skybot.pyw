@@ -11078,7 +11078,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Pre Open Update !!!\r'.format(int(call_result['체결시간'][0:2]), \
                                 int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), df_cm_call.iloc[index]['시가'])
                     self.textBrowser.append(str)
-                    '''
+                    
                     # 콜 시가 갱신
                     if round(float(시가), 2) > opt_search_start_value:
                         call_open_list.append(index)
@@ -11089,7 +11089,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Call Pre Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
                                 int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
                     self.textBrowser.append(str)
-                    '''
+                    
                     self.call_pre_open_update(index)
                 else:
                     pass            
@@ -11339,7 +11339,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Pre Open Update !!!\r'.format(int(call_result['체결시간'][0:2]), \
                                 int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), df_cm_call.iloc[index]['시가'])
                     self.textBrowser.append(str)
-                    '''
+                    
                     # 콜 시가 갱신
                     if round(float(시가), 2) > opt_search_start_value:
                         call_open_list.append(index)
@@ -11350,7 +11350,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Call Pre Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
                                 int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
                     self.textBrowser.append(str)
-                    '''
+                    
                     self.call_pre_open_update(index)
                 else:
                     pass               
@@ -12337,7 +12337,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Pre Open Update !!!\r'.format(int(put_result['체결시간'][0:2]), \
                                 int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), df_cm_put.iloc[index]['시가'])
                     self.textBrowser.append(str)
-                    '''
+                    
                     # 풋 시가 갱신
                     if round(float(시가), 2) > opt_search_start_value:
                         put_open_list.append(index)
@@ -12348,7 +12348,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put Pre Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
                                 int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
                     self.textBrowser.append(str)
-                    '''
+                    
                     self.put_pre_open_update(index)
                 else:
                     pass  
@@ -12598,7 +12598,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Pre Open Update !!!\r'.format(int(put_result['체결시간'][0:2]), \
                                 int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), df_cm_put.iloc[index]['시가'])
                     self.textBrowser.append(str)
-                    '''
+                    
                     # 풋 시가 갱신
                     if round(float(시가), 2) > opt_search_start_value:
                         put_open_list.append(index)
@@ -12609,13 +12609,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put Pre Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
                                 int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
                     self.textBrowser.append(str)
-                    '''
+                    
                     self.put_pre_open_update(index)
                 else:
                     pass 
 
-        return
-        
+        return        
     
     def put_open_update(self):
 
