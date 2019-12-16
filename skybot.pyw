@@ -201,7 +201,7 @@ DOW = ''
 NASDAQ = ''
 
 oloh_cutoff = 0.10
-nodelist_low_cutoff = 0.10
+nodelist_low_cutoff = 0.09
 nodelist_high_cutoff = 20.0
 
 centerval_threshold = 0.60
@@ -9493,12 +9493,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     new_actval_count += 1 
 
                     # 추가된 행사가 갯수 표시
-                    item_str = '{0:d}'.format(new_actval_count) + '\n' + '({0:d})'.format(nCount_option_pairs)
+                    item_str = '+' + '{0:d}'.format(new_actval_count) + '\n' + '({0:d})'.format(nCount_option_pairs)
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setHorizontalHeaderItem(0, item)
 
-                    item_str = '{0:d}'.format(new_actval_count) + '\n' + '({0:d})'.format(nCount_option_pairs)
+                    item_str = '+' + '{0:d}'.format(new_actval_count) + '\n' + '({0:d})'.format(nCount_option_pairs)
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setHorizontalHeaderItem(0, item)               
@@ -9582,57 +9582,50 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if not pre_start:
 
-                    if df_cm_call.iloc[cm_call_t8416_count]['시가'] > 0 and \
-                            df_cm_call.iloc[cm_call_t8416_count]['저가'] < df_cm_call.iloc[cm_call_t8416_count]['고가']:
+                    if df_cm_call.iloc[cm_call_t8416_count]['시가'] > 0: 
 
-                        temp = self.calc_pivot(df_cm_call.iloc[cm_call_t8416_count]['전저'],
+                        피봇 = self.calc_pivot(df_cm_call.iloc[cm_call_t8416_count]['전저'],
                             df_cm_call.iloc[cm_call_t8416_count]['전고'],
                             df_cm_call.iloc[cm_call_t8416_count]['종가'],
                             df_cm_call.iloc[cm_call_t8416_count]['시가'])
 
-                        df_cm_call.loc[cm_call_t8416_count, '피봇'] = round(temp, 2)
+                        df_cm_call.loc[cm_call_t8416_count, '피봇'] = round(피봇, 2)
 
                         item = QTableWidgetItem("{0:0.2f}".format(df_cm_call.iloc[cm_call_t8416_count]['피봇']))
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_call.setItem(cm_call_t8416_count, Option_column.피봇.value, item)
 
-                        if df_cm_call.iloc[cm_call_t8416_count]['시가'] > 0:
+                        temp = df_cm_call.iloc[cm_call_t8416_count]['시가'] - df_cm_call.iloc[cm_call_t8416_count]['종가']
 
-                            temp = df_cm_call.iloc[cm_call_t8416_count]['시가'] - df_cm_call.iloc[cm_call_t8416_count]['종가']
+                        df_cm_call.loc[cm_call_t8416_count, '시가갭'] = round(temp, 2)
 
-                            if temp != 0:
+                        if df_cm_call.iloc[cm_call_t8416_count]['종가'] > 0:
 
-                                df_cm_call.loc[cm_call_t8416_count, '시가갭'] = round(temp, 2)
+                            gap_percent = int((df_cm_call.iloc[cm_call_t8416_count]['시가'] /
+                                               df_cm_call.iloc[cm_call_t8416_count]['종가'] - 1) * 100)
 
-                                if df_cm_call.iloc[cm_call_t8416_count]['종가'] > 0:
-
-                                    gap_percent = int((df_cm_call.iloc[cm_call_t8416_count]['시가'] /
-                                                       df_cm_call.iloc[cm_call_t8416_count]['종가'] - 1) * 100)
-
-                                    item = QTableWidgetItem(
-                                        "{0:0.2f}\n ({1}%) ".format(df_cm_call.iloc[cm_call_t8416_count]['시가갭'], gap_percent))
-                                    item.setTextAlignment(Qt.AlignCenter)
-                                    self.tableWidget_call.setItem(cm_call_t8416_count, Option_column.시가갭.value, item)
-                                else:
-                                    pass
-
-                            temp = round((df_cm_call.iloc[cm_call_t8416_count]['현재가'] -
-                                          df_cm_call.iloc[cm_call_t8416_count]['시가']), 2) * 1
-
-                            df_cm_call.loc[cm_call_t8416_count, '대비'] = int(temp)
-
-                            item = QTableWidgetItem("{0:0.2f}".format(df_cm_call.iloc[cm_call_t8416_count]['대비']))
+                            item = QTableWidgetItem(
+                                "{0:0.2f}\n ({1}%) ".format(df_cm_call.iloc[cm_call_t8416_count]['시가갭'], gap_percent))
                             item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_call.setItem(cm_call_t8416_count, Option_column.대비.value, item)
-
-                            df_cm_call.loc[cm_call_t8416_count, '진폭'] = df_cm_call.iloc[cm_call_t8416_count]['고가'] - \
-                                                                        df_cm_call.iloc[cm_call_t8416_count]['저가']
-
-                            item = QTableWidgetItem("{0:0.2f}".format(df_cm_call.iloc[cm_call_t8416_count]['진폭']))
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_call.setItem(cm_call_t8416_count, Option_column.진폭.value, item)
+                            self.tableWidget_call.setItem(cm_call_t8416_count, Option_column.시가갭.value, item)
                         else:
                             pass
+
+                        temp = round((df_cm_call.iloc[cm_call_t8416_count]['현재가'] -
+                                      df_cm_call.iloc[cm_call_t8416_count]['시가']), 2) * 1
+
+                        df_cm_call.loc[cm_call_t8416_count, '대비'] = int(temp)
+
+                        item = QTableWidgetItem("{0:0.2f}".format(df_cm_call.iloc[cm_call_t8416_count]['대비']))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(cm_call_t8416_count, Option_column.대비.value, item)
+
+                        df_cm_call.loc[cm_call_t8416_count, '진폭'] = df_cm_call.iloc[cm_call_t8416_count]['고가'] - \
+                                                                    df_cm_call.iloc[cm_call_t8416_count]['저가']
+
+                        item = QTableWidgetItem("{0:0.2f}".format(df_cm_call.iloc[cm_call_t8416_count]['진폭']))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(cm_call_t8416_count, Option_column.진폭.value, item)
                     else:
                         pass
                 else:
@@ -9741,57 +9734,50 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 
                 if not pre_start:
 
-                    if df_cm_put.iloc[cm_put_t8416_count]['시가'] > 0 and \
-                            df_cm_put.iloc[cm_put_t8416_count]['저가'] < df_cm_put.iloc[cm_put_t8416_count]['고가']:
+                    if df_cm_put.iloc[cm_put_t8416_count]['시가'] > 0:
 
-                        temp = self.calc_pivot(df_cm_put.iloc[cm_put_t8416_count]['전저'],
+                        피봇 = self.calc_pivot(df_cm_put.iloc[cm_put_t8416_count]['전저'],
                             df_cm_put.iloc[cm_put_t8416_count]['전고'],
                             df_cm_put.iloc[cm_put_t8416_count]['종가'],
                             df_cm_put.iloc[cm_put_t8416_count]['시가'])
 
-                        df_cm_put.loc[cm_put_t8416_count, '피봇'] = round(temp, 2)
+                        df_cm_put.loc[cm_put_t8416_count, '피봇'] = round(피봇, 2)
 
                         item = QTableWidgetItem("{0:0.2f}".format(df_cm_put.iloc[cm_put_t8416_count]['피봇']))
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_put.setItem(cm_put_t8416_count, Option_column.피봇.value, item)
 
-                        if df_cm_put.iloc[cm_put_t8416_count]['시가'] > 0:
+                        temp = df_cm_put.iloc[cm_put_t8416_count]['시가'] - df_cm_put.iloc[cm_put_t8416_count]['종가']
 
-                            temp = df_cm_put.iloc[cm_put_t8416_count]['시가'] - df_cm_put.iloc[cm_put_t8416_count]['종가']
+                        df_cm_put.loc[cm_put_t8416_count, '시가갭'] = round(temp, 2)
 
-                            if temp != 0:
+                        if df_cm_put.iloc[cm_put_t8416_count]['종가'] > 0:
 
-                                df_cm_put.loc[cm_put_t8416_count, '시가갭'] = round(temp, 2)
+                            gap_percent = int((df_cm_put.iloc[cm_put_t8416_count]['시가'] /
+                                               df_cm_put.iloc[cm_put_t8416_count]['종가'] - 1) * 100)
 
-                                if df_cm_put.iloc[cm_put_t8416_count]['종가'] > 0:
-
-                                    gap_percent = int((df_cm_put.iloc[cm_put_t8416_count]['시가'] /
-                                                       df_cm_put.iloc[cm_put_t8416_count]['종가'] - 1) * 100)
-
-                                    item = QTableWidgetItem(
-                                        "{0:0.2f}\n ({1}%) ".format(df_cm_put.iloc[cm_put_t8416_count]['시가갭'], gap_percent))
-                                    item.setTextAlignment(Qt.AlignCenter)
-                                    self.tableWidget_put.setItem(cm_put_t8416_count, Option_column.시가갭.value, item)
-                                else:
-                                    pass
-
-                            temp = round((df_cm_put.iloc[cm_put_t8416_count]['현재가'] -
-                                          df_cm_put.iloc[cm_put_t8416_count]['시가']), 2) * 1
-
-                            df_cm_put.loc[cm_put_t8416_count, '대비'] = int(temp)
-
-                            item = QTableWidgetItem("{0:0.2f}".format(df_cm_put.iloc[cm_put_t8416_count]['대비']))
+                            item = QTableWidgetItem(
+                                "{0:0.2f}\n ({1}%) ".format(df_cm_put.iloc[cm_put_t8416_count]['시가갭'], gap_percent))
                             item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_put.setItem(cm_put_t8416_count, Option_column.대비.value, item)
-
-                            df_cm_put.loc[cm_put_t8416_count, '진폭'] = df_cm_put.iloc[cm_put_t8416_count]['고가'] - \
-                                                                      df_cm_put.iloc[cm_put_t8416_count]['저가']
-
-                            item = QTableWidgetItem("{0:0.2f}".format(df_cm_put.iloc[cm_put_t8416_count]['진폭']))
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_put.setItem(cm_put_t8416_count, Option_column.진폭.value, item)
+                            self.tableWidget_put.setItem(cm_put_t8416_count, Option_column.시가갭.value, item)
                         else:
                             pass
+
+                        temp = round((df_cm_put.iloc[cm_put_t8416_count]['현재가'] -
+                                      df_cm_put.iloc[cm_put_t8416_count]['시가']), 2) * 1
+
+                        df_cm_put.loc[cm_put_t8416_count, '대비'] = int(temp)
+
+                        item = QTableWidgetItem("{0:0.2f}".format(df_cm_put.iloc[cm_put_t8416_count]['대비']))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(cm_put_t8416_count, Option_column.대비.value, item)
+
+                        df_cm_put.loc[cm_put_t8416_count, '진폭'] = df_cm_put.iloc[cm_put_t8416_count]['고가'] - \
+                                                                  df_cm_put.iloc[cm_put_t8416_count]['저가']
+
+                        item = QTableWidgetItem("{0:0.2f}".format(df_cm_put.iloc[cm_put_t8416_count]['진폭']))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(cm_put_t8416_count, Option_column.진폭.value, item)
                     else:
                         pass
                 else:
@@ -10955,17 +10941,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
                     self.textBrowser.append(str)
 
-                    피봇 = self.calc_pivot(df_cm_call.iloc[index]['전저'], df_cm_call.iloc[index]['전고'],
-                                            df_cm_call.iloc[index]['종가'], df_cm_call.iloc[index]['시가'])
+                    if self.tableWidget_call.item(index, Option_column.피봇.value).text() == '0.00':
 
-                    df_cm_call.loc[index, '피봇'] = 피봇
+                        피봇 = self.calc_pivot(df_cm_call.iloc[index]['전저'], df_cm_call.iloc[index]['전고'],
+                                                df_cm_call.iloc[index]['종가'], df_cm_call.iloc[index]['시가'])
 
-                    item = QTableWidgetItem("{0:0.2f}".format(피봇))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(index, Option_column.피봇.value, item)                
+                        df_cm_call.loc[index, '피봇'] = 피봇
 
-                    cm_call_피봇 = df_cm_call['피봇'].values.tolist()
-                    cm_call_피봇_node_list = self.make_node_list(cm_call_피봇)
+                        item = QTableWidgetItem("{0:0.2f}".format(피봇))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(index, Option_column.피봇.value, item)                
+
+                        cm_call_피봇 = df_cm_call['피봇'].values.tolist()
+                        cm_call_피봇_node_list = self.make_node_list(cm_call_피봇)
+                    else:
+                        pass
 
                     self.call_open_update()
                 else:
@@ -11214,17 +11204,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
                     self.textBrowser.append(str)
 
-                    피봇 = self.calc_pivot(df_cm_call.iloc[index]['전저'], df_cm_call.iloc[index]['전고'],
-                                            df_cm_call.iloc[index]['종가'], df_cm_call.iloc[index]['시가'])
+                    if self.tableWidget_call.item(index, Option_column.피봇.value).text() == '0.00':
 
-                    df_cm_call.loc[index, '피봇'] = 피봇
+                        피봇 = self.calc_pivot(df_cm_call.iloc[index]['전저'], df_cm_call.iloc[index]['전고'],
+                                                df_cm_call.iloc[index]['종가'], df_cm_call.iloc[index]['시가'])
 
-                    item = QTableWidgetItem("{0:0.2f}".format(피봇))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(index, Option_column.피봇.value, item)                
+                        df_cm_call.loc[index, '피봇'] = 피봇
 
-                    cm_call_피봇 = df_cm_call['피봇'].values.tolist()
-                    cm_call_피봇_node_list = self.make_node_list(cm_call_피봇)
+                        item = QTableWidgetItem("{0:0.2f}".format(피봇))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(index, Option_column.피봇.value, item)                
+
+                        cm_call_피봇 = df_cm_call['피봇'].values.tolist()
+                        cm_call_피봇_node_list = self.make_node_list(cm_call_피봇)
+                    else:
+                        pass
 
                     self.call_open_update()
                 else:
@@ -12207,17 +12201,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
                     self.textBrowser.append(str)
 
-                    피봇 = self.calc_pivot(df_cm_put.iloc[index]['전저'], df_cm_put.iloc[index]['전고'],
-                                            df_cm_put.iloc[index]['종가'], df_cm_put.iloc[index]['시가'])
+                    if self.tableWidget_put.item(index, Option_column.피봇.value).text() == '0.00':
 
-                    df_cm_put.loc[index, '피봇'] = 피봇
+                        피봇 = self.calc_pivot(df_cm_put.iloc[index]['전저'], df_cm_put.iloc[index]['전고'],
+                                                df_cm_put.iloc[index]['종가'], df_cm_put.iloc[index]['시가'])
 
-                    item = QTableWidgetItem("{0:0.2f}".format(피봇))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
+                        df_cm_put.loc[index, '피봇'] = 피봇
 
-                    cm_put_피봇 = df_cm_put['피봇'].values.tolist()
-                    cm_put_피봇_node_list = self.make_node_list(cm_put_피봇)
+                        item = QTableWidgetItem("{0:0.2f}".format(피봇))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
+
+                        cm_put_피봇 = df_cm_put['피봇'].values.tolist()
+                        cm_put_피봇_node_list = self.make_node_list(cm_put_피봇)
+                    else:
+                        pass
 
                     self.put_open_update()
                 else:
@@ -12465,17 +12463,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
                     self.textBrowser.append(str)
 
-                    피봇 = self.calc_pivot(df_cm_put.iloc[index]['전저'], df_cm_put.iloc[index]['전고'],
-                                            df_cm_put.iloc[index]['종가'], df_cm_put.iloc[index]['시가'])
+                    if self.tableWidget_put.item(index, Option_column.피봇.value).text() == '0.00':
 
-                    df_cm_put.loc[index, '피봇'] = 피봇
+                        피봇 = self.calc_pivot(df_cm_put.iloc[index]['전저'], df_cm_put.iloc[index]['전고'],
+                                                df_cm_put.iloc[index]['종가'], df_cm_put.iloc[index]['시가'])
 
-                    item = QTableWidgetItem("{0:0.2f}".format(피봇))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
+                        df_cm_put.loc[index, '피봇'] = 피봇
 
-                    cm_put_피봇 = df_cm_put['피봇'].values.tolist()
-                    cm_put_피봇_node_list = self.make_node_list(cm_put_피봇)
+                        item = QTableWidgetItem("{0:0.2f}".format(피봇))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
+
+                        cm_put_피봇 = df_cm_put['피봇'].values.tolist()
+                        cm_put_피봇_node_list = self.make_node_list(cm_put_피봇)
+                    else:
+                        pass
 
                     self.put_open_update()
                 else:
