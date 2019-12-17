@@ -5308,62 +5308,38 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         for i in range(call_scroll_begin_position, call_scroll_end_position):
 
-            if call_node_state['기준가']:
-                self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(흰색))
-                self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
-            else:
-                pass
+            self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(흰색))
+            self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
 
-            if call_node_state['월저']:
-                self.tableWidget_call.item(i, Option_column.월저.value).setBackground(QBrush(흰색))
-                self.tableWidget_call.item(i, Option_column.월저.value).setForeground(QBrush(검정색))
-            else:
-                pass
+            self.tableWidget_call.item(i, Option_column.월저.value).setBackground(QBrush(흰색))
+            self.tableWidget_call.item(i, Option_column.월저.value).setForeground(QBrush(검정색))
 
-            if call_node_state['월고']:
-                self.tableWidget_call.item(i, Option_column.월고.value).setBackground(QBrush(흰색))
-                self.tableWidget_call.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
-            else:
-                pass
+            self.tableWidget_call.item(i, Option_column.월고.value).setBackground(QBrush(흰색))
+            self.tableWidget_call.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
 
-            if call_node_state['전저']:
-                self.tableWidget_call.item(i, Option_column.전저.value).setBackground(QBrush(흰색))
-                self.tableWidget_call.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
-            else:
-                pass
+            self.tableWidget_call.item(i, Option_column.전저.value).setBackground(QBrush(흰색))
+            self.tableWidget_call.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
 
-            if call_node_state['전고']:
-                self.tableWidget_call.item(i, Option_column.전고.value).setBackground(QBrush(흰색))
-                self.tableWidget_call.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
-            else:
-                pass
+            self.tableWidget_call.item(i, Option_column.전고.value).setBackground(QBrush(흰색))
+            self.tableWidget_call.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
            
-            if call_node_state['종가']:
-                self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(흰색))
-                self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+            self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(흰색))
+            self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_call.item(i, Option_column.피봇.value).setBackground(QBrush(흰색))
+            self.tableWidget_call.item(i, Option_column.피봇.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(흰색))
+
+            if df_cm_call.iloc[i]['시가'] > df_cm_call.iloc[i]['종가']:
+                self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(적색))
+            elif df_cm_call.iloc[i]['시가'] < df_cm_call.iloc[i]['종가']:
+                self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(청색))
             else:
-                pass
+                self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
 
-            if call_node_state['피봇']:
-                self.tableWidget_call.item(i, Option_column.피봇.value).setBackground(QBrush(흰색))
-                self.tableWidget_call.item(i, Option_column.피봇.value).setForeground(QBrush(검정색))
-            else:
-                pass
-
-            if call_node_state['시가']:
-                self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(흰색))
-
-                if df_cm_call.iloc[i]['시가'] > df_cm_call.iloc[i]['종가']:
-                    self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(적색))
-                elif df_cm_call.iloc[i]['시가'] < df_cm_call.iloc[i]['종가']:
-                    self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(청색))
-                else:
-                    self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
-
-                if df_cm_call.iloc[i]['시가'] == 0.0:
-                    self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
-                else:
-                    pass
+            if df_cm_call.iloc[i]['시가'] == 0.0:
+                self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
             else:
                 pass
 
@@ -5425,61 +5401,77 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if call_scroll_end_position <= nCount_option_pairs:            
+        if call_open_list:
 
-            for i in range(call_scroll_begin_position, call_scroll_end_position):
-
-                if call_open[i]:
-
-                    if df_cm_call.iloc[i]['저가'] in 진성의미가:
-
-                        if blink:
-
-                            self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
-                            self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
-                            
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 콜저가 {3:0.2f} 에서 진성의미가 발생 !!!\r'.format(\
-                                dt.hour, dt.minute, dt.second, df_cm_call.iloc[i]['저가'])
-                            self.textBrowser.append(str)
-                        else:
-                            self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
-                            self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
-                    else:
-                        pass        
-                else:
-                    pass
+            loop_list = call_open_list
         else:
-            pass
+            loop_list = opt_total_list            
+
+        for i in loop_list:
+
+            if df_cm_call.iloc[i]['저가'] in 진성의미가:
+
+                if blink:
+
+                    self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+                    
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜저가 {3:0.2f} 에서 진성의미가 발생 !!!\r'.format(\
+                        dt.hour, dt.minute, dt.second, df_cm_call.iloc[i]['저가'])
+                    self.textBrowser.append(str)
+
+                    item = QTableWidgetItem('저가 ▲')
+                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+                else:
+                    self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
+
+                    item = QTableWidgetItem('저가  ')
+                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+            else:
+                pass      
+
+        self.tableWidget_call.resizeColumnsToContents()
+
+        return
 
     def call_high_coreval_color_blink(self, blink):
 
         dt = datetime.datetime.now()
 
-        if call_scroll_end_position <= nCount_option_pairs:            
+        if call_open_list:
 
-            for i in range(call_scroll_begin_position, call_scroll_end_position):
-
-                if call_open[i]:
-
-                    if df_cm_call.iloc[i]['고가'] in 진성의미가:
-                        
-                        if blink:
-
-                            self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
-                            self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
-
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 콜고가 {3:0.2f} 에서 진성의미가 발생 !!!\r'.format(\
-                                dt.hour, dt.minute, dt.second, df_cm_call.iloc[i]['고가'])
-                            self.textBrowser.append(str)
-                        else:
-                            self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
-                            self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
-                    else:
-                        pass                   
-                else:
-                    pass
+            loop_list = call_open_list
         else:
-            pass      
+            loop_list = opt_total_list            
+
+        for i in loop_list:
+
+            if df_cm_call.iloc[i]['고가'] in 진성의미가:
+                    
+                if blink:
+
+                    self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜고가 {3:0.2f} 에서 진성의미가 발생 !!!\r'.format(\
+                        dt.hour, dt.minute, dt.second, df_cm_call.iloc[i]['고가'])
+                    self.textBrowser.append(str)
+
+                    item = QTableWidgetItem('고가 ▼')
+                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+                else:
+                    self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
+
+                    item = QTableWidgetItem('고가  ')
+                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+            else:
+                pass   
+
+        self.tableWidget_call.resizeColumnsToContents() 
+
+        return    
 
     def call_coreval_color_update(self):
 
@@ -6697,62 +6689,38 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         for i in range(put_scroll_begin_position, put_scroll_end_position):
 
-            if put_node_state['기준가']:
-                self.tableWidget_put.item(i, Option_column.기준가.value).setBackground(QBrush(흰색))
-                self.tableWidget_put.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
+            self.tableWidget_put.item(i, Option_column.기준가.value).setBackground(QBrush(흰색))
+            self.tableWidget_put.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_put.item(i, Option_column.월저.value).setBackground(QBrush(흰색))
+            self.tableWidget_put.item(i, Option_column.월저.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_put.item(i, Option_column.월고.value).setBackground(QBrush(흰색))
+            self.tableWidget_put.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_put.item(i, Option_column.전저.value).setBackground(QBrush(흰색))
+            self.tableWidget_put.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_put.item(i, Option_column.전고.value).setBackground(QBrush(흰색))
+            self.tableWidget_put.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(흰색))
+            self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_put.item(i, Option_column.피봇.value).setBackground(QBrush(흰색))
+            self.tableWidget_put.item(i, Option_column.피봇.value).setForeground(QBrush(검정색))
+
+            self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(흰색))
+
+            if df_cm_put.iloc[i]['시가'] > df_cm_put.iloc[i]['종가']:
+                self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(적색))
+            elif df_cm_put.iloc[i]['시가'] < df_cm_put.iloc[i]['종가']:
+                self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(청색))
             else:
-                pass
+                self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
 
-            if put_node_state['월저']:
-                self.tableWidget_put.item(i, Option_column.월저.value).setBackground(QBrush(흰색))
-                self.tableWidget_put.item(i, Option_column.월저.value).setForeground(QBrush(검정색))
-            else:
-                pass
-
-            if put_node_state['월고']:
-                self.tableWidget_put.item(i, Option_column.월고.value).setBackground(QBrush(흰색))
-                self.tableWidget_put.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
-            else:
-                pass
-
-            if put_node_state['전저']:
-                self.tableWidget_put.item(i, Option_column.전저.value).setBackground(QBrush(흰색))
-                self.tableWidget_put.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
-            else:
-                pass
-
-            if put_node_state['전고']:
-                self.tableWidget_put.item(i, Option_column.전고.value).setBackground(QBrush(흰색))
-                self.tableWidget_put.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
-            else:
-                pass
-
-            if put_node_state['종가']:
-                self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(흰색))
-                self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
-            else:
-                pass
-
-            if put_node_state['피봇']:
-                self.tableWidget_put.item(i, Option_column.피봇.value).setBackground(QBrush(흰색))
-                self.tableWidget_put.item(i, Option_column.피봇.value).setForeground(QBrush(검정색))
-            else:
-                pass
-
-            if put_node_state['시가']:
-                self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(흰색))
-
-                if df_cm_put.iloc[i]['시가'] > df_cm_put.iloc[i]['종가']:
-                    self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(적색))
-                elif df_cm_put.iloc[i]['시가'] < df_cm_put.iloc[i]['종가']:
-                    self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(청색))
-                else:
-                    self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
-
-                if df_cm_put.iloc[i]['시가'] == 0.0:
-                    self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
-                else:
-                    pass
+            if df_cm_put.iloc[i]['시가'] == 0.0:
+                self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
             else:
                 pass
 
@@ -6814,61 +6782,77 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if put_scroll_end_position <= nCount_option_pairs:            
+        if put_open_list:
 
-            for i in range(put_scroll_begin_position, put_scroll_end_position):
-
-                if put_open[i]:
-
-                    if df_cm_put.iloc[i]['저가'] in 진성의미가:
-
-                        if blink:
-
-                            self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
-                            self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))                                                    
-                        else:
-                            self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
-                            self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
-                            
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 풋저가 {3:0.2f} 에서 진성의미가 발생 !!!\r'.format(\
-                                dt.hour, dt.minute, dt.second, df_cm_put.iloc[i]['저가'])
-                            self.textBrowser.append(str)    
-                    else:
-                        pass          
-                else:
-                    pass
+            loop_list = put_open_list
         else:
-            pass
+            loop_list = opt_total_list       
+
+        for i in loop_list:
+
+            if df_cm_put.iloc[i]['저가'] in 진성의미가:
+
+                if blink:
+
+                    self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+                    
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋저가 {3:0.2f} 에서 진성의미가 발생 !!!\r'.format(\
+                        dt.hour, dt.minute, dt.second, df_cm_put.iloc[i]['저가'])
+                    self.textBrowser.append(str)    
+
+                    item = QTableWidgetItem('저가 ▲')
+                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)                                                    
+                else:
+                    self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
+                    
+                    item = QTableWidgetItem('저가  ')
+                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+            else:
+                pass 
+
+        self.tableWidget_put.resizeColumnsToContents()
+
+        return
 
     def put_high_coreval_color_blink(self, blink):
 
         dt = datetime.datetime.now()
 
-        if put_scroll_end_position <= nCount_option_pairs:            
+        if put_open_list:
 
-            for i in range(put_scroll_begin_position, put_scroll_end_position):
-
-                if put_open[i]:
-
-                    if df_cm_put.iloc[i]['고가'] in 진성의미가:
-
-                        if blink:
-
-                            self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
-                            self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))                            
-                        else:
-                            self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
-                            self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
-                            
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 풋고가 {3:0.2f} 에서 진성의미가 발생 !!!\r'.format(\
-                                dt.hour, dt.minute, dt.second, df_cm_put.iloc[i]['고가'])
-                            self.textBrowser.append(str)
-                    else:
-                        pass                    
-                else:
-                    pass
+            loop_list = put_open_list
         else:
-            pass            
+            loop_list = opt_total_list             
+
+        for i in loop_list:
+
+            if df_cm_put.iloc[i]['고가'] in 진성의미가:
+
+                if blink:
+
+                    self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))  
+                    
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋고가 {3:0.2f} 에서 진성의미가 발생 !!!\r'.format(\
+                        dt.hour, dt.minute, dt.second, df_cm_put.iloc[i]['고가'])
+                    self.textBrowser.append(str)
+
+                    item = QTableWidgetItem('고가 ▼')
+                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+                else:
+                    self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
+
+                    item = QTableWidgetItem('고가  ')
+                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)                            
+            else:
+                pass   
+
+        self.tableWidget_put.resizeColumnsToContents() 
+
+        return           
     
     def put_coreval_color_update(self):
 
@@ -6910,7 +6894,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         put_low_coreval = True
 
                         item = QTableWidgetItem('저가 ▲')
-                        self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+                        self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)   
                                 
                         '''
                         if fut_code == cmshcode:
@@ -10937,7 +10921,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Call 시가 갱신 Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
                                 int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
                     self.textBrowser.append(str)
 
@@ -11200,7 +11184,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Call 시가 갱신 Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
                                 int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
                     self.textBrowser.append(str)
 
@@ -12197,7 +12181,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Put 시가 갱신 Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
                                 int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
                     self.textBrowser.append(str)
 
@@ -12459,7 +12443,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Put 시가 갱신 Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
                                 int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
                     self.textBrowser.append(str)
 
