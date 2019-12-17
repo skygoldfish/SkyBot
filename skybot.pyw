@@ -13824,9 +13824,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
-                    if next_month_only == 'NO':
-                    
-                        self.SaveResult()  
+                    self.SaveResult()  
+
+                    if next_month_only == 'NO':                        
 
                         market_service = False
                         service_terminate = True
@@ -13849,9 +13849,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
-                    if next_month_only == 'NO':
+                    self.SaveResult()  
 
-                        self.SaveResult() 
+                    if next_month_only == 'NO':
 
                         market_service = False
                         service_terminate = True
