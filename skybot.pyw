@@ -13850,6 +13850,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.textBrowser.append(str)
 
                     self.SaveResult()  
+                    
+                    self.image_grab()  
 
                     if next_month_only == 'NO':
 
@@ -13857,8 +13859,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         service_terminate = True
                         yagan_service_terminate = True
                         #receive_real_ovc = False
-
-                        self.image_grab()  
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)  
