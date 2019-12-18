@@ -13848,14 +13848,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
-                    self.SaveResult() 
-
-                    if next_month_only != 'YES':               
-                        self.image_grab()
-                    else:
-                        pass
+                    self.SaveResult()
 
                     if next_month_only != 'YES':
+
+                        self.image_grab()
 
                         market_service = False
                         service_terminate = True
