@@ -4823,6 +4823,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global node_coloring
         global 풋_체결_초
 
+        dt = datetime.datetime.now()
+
         if service_start:
 
             if int(put_result['체결시간'][4:6]) == 풋_체결_초:
