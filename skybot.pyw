@@ -2454,7 +2454,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             tmp = monthfile.readline().strip()
             temp = tmp.split()
-            cnm_select = temp[6]
+            cnm_select = temp[5]
 
             tmp = monthfile.readline().strip()
             temp = tmp.split()
