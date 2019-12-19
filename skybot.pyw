@@ -4781,8 +4781,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
-        self.textBrowser.append(str)
+        if service_start:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(\
+                int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
+            self.textBrowser.append(str)
+        else:
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+            self.textBrowser.append(str)
 
         return        
     
@@ -4807,8 +4813,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
-        self.textBrowser.append(str)
+        if service_start:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(\
+                int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
+            self.textBrowser.append(str)
+        else:
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+            self.textBrowser.append(str)
 
         return
 
@@ -6118,8 +6130,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Call Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
-        self.textBrowser.append(str)
+        if service_start:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call Node Color Check Time : {3:0.2f} ms\r'.format(\
+                int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
+            self.textBrowser.append(str)
+        else:
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+            self.textBrowser.append(str)        
         
         return
     
@@ -6680,8 +6698,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Put Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
-        self.textBrowser.append(str)
+        if service_start:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put Node Color Check Time : {3:0.2f} ms\r'.format(\
+                int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
+            self.textBrowser.append(str)
+        else:
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+            self.textBrowser.append(str)
         
         return
 
@@ -9904,13 +9928,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.textBrowser.append(str)
                     
                     self.opt_node_coloring()
-
+                    '''
                     if not pre_start:
 
                         service_start = True
                     else:
                         pass
-                    
+                    '''
                     str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 만기일은 {3}일 남았습니다.\r'.format(dt.hour, dt.minute, dt.second, 옵션잔존일)
                     self.textBrowser.append(str)                                                               
                 else:
@@ -11810,8 +11834,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             loop_list = call_open_list
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call Open Check List = {3}\r'.format(dt.hour, dt.minute, dt.second, call_open_list)
-            self.textBrowser.append(str)
+            if service_start:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] Call Open Check List = {3}\r'.format(\
+                    int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
+                self.textBrowser.append(str)
+            else:
+                str = '[{0:02d}:{1:02d}:{2:02d}] Call Open Check List = {3}\r'.format(dt.hour, dt.minute, dt.second, call_open_list)
+                self.textBrowser.append(str)
         else:
             loop_list = opt_total_list
 
@@ -11991,10 +12021,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
             else:
                 pass
-
+            '''
             str = '[{0:02d}:{1:02d}:{2:02d}] Call Open Check 콜시가갭합 = {3}, 퍼센트 = {4}\r'.\
                 format(dt.hour, dt.minute, dt.second, 콜시가갭합, 콜시가갭합_퍼센트)
             self.textBrowser.append(str)
+            '''
         else:
             print('call_gap_percent_local is empty...')        
 
@@ -13075,8 +13106,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             loop_list = put_open_list
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put Open Check List = {3}\r'.format(dt.hour, dt.minute, dt.second, put_open_list)
-            self.textBrowser.append(str)
+            if service_start:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] Put Open Check List = {3}\r'.format(\
+                    int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
+                self.textBrowser.append(str)
+            else:
+                str = '[{0:02d}:{1:02d}:{2:02d}] Put Open Check List = {3}\r'.format(dt.hour, dt.minute, dt.second, put_open_list)
+                self.textBrowser.append(str)
         else:
             loop_list = opt_total_list
 
@@ -13256,10 +13293,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
             else:
                 pass
-
+            '''
             str = '[{0:02d}:{1:02d}:{2:02d}] Put Open Check 풋시가갭합 = {3}, 퍼센트 = {4}\r'.\
                 format(dt.hour, dt.minute, dt.second, 풋시가갭합, 풋시가갭합_퍼센트)
             self.textBrowser.append(str)
+            '''
         else:
             print('put_gap_percent_local is empty...')
 
@@ -15040,6 +15078,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if not market_service: 
 
                         market_service = True
+                        service_start = True
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 주간 선물 데이타를 수신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                         self.textBrowser.append(str)
@@ -15065,7 +15104,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if szTrCode == 'NC0':    
 
                     if not receive_realdata:
+
                         receive_realdata = True
+                        service_start = True
+
                         str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 야간 선물 데이타를 수신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                         self.textBrowser.append(str)
                     else:
