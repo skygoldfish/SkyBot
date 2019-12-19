@@ -16122,8 +16122,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.textBrowser.append(str) 
 
                 # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
-                time_line_fut_start.setValue(1)
-                time_line_opt_start.setValue(1)
+                time_line_fut_start.setValue(선물장간_시간차 + 1)
+                time_line_opt_start.setValue(선물장간_시간차 + 1)
                 time_line_fut_dow_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
                 time_line_opt_dow_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
 
