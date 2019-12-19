@@ -119,6 +119,9 @@ opt_search_end_value = 10
 start_time_str = ''
 end_time_str = ''
 
+콜_체결_초 = 0
+풋_체결_초 = 0
+
 coloring_done_time = 0
 coloring_interval = 1
 node_coloring = False
@@ -4764,29 +4767,51 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global coloring_done_time
         global node_coloring
+        global 콜_체결_초
 
         dt = datetime.datetime.now()
 
-        start_time = timeit.default_timer()
-
-        node_coloring = True
-
-        self.call_node_color_clear()        
-        self.call_open_check()        
-        self.call_center_color_update()        
-        self.call_node_color_update()
-        self.call_coreval_color_update()
-
-        node_coloring = False
-
-        process_time = (timeit.default_timer() - start_time) * 1000
-
         if service_start:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(\
-                int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
-            self.textBrowser.append(str)
+            if int(call_result['체결시간'][4:6]) == 콜_체결_초:
+
+                print('콜_체결_초', 콜_체결_초)
+            else:
+
+                start_time = timeit.default_timer()
+
+                node_coloring = True
+
+                self.call_node_color_clear()        
+                self.call_open_check()        
+                self.call_center_color_update()        
+                self.call_node_color_update()
+                self.call_coreval_color_update()
+
+                node_coloring = False
+
+                process_time = (timeit.default_timer() - start_time) * 1000
+
+                콜_체결_초 = int(call_result['체결시간'][4:6])
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(\
+                    int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
+                self.textBrowser.append(str)                    
         else:
+            start_time = timeit.default_timer()
+
+            node_coloring = True
+
+            self.call_node_color_clear()        
+            self.call_open_check()        
+            self.call_center_color_update()        
+            self.call_node_color_update()
+            self.call_coreval_color_update()
+
+            node_coloring = False
+
+            process_time = (timeit.default_timer() - start_time) * 1000
+
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
             self.textBrowser.append(str)
 
@@ -4796,29 +4821,49 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global coloring_done_time
         global node_coloring
-
-        dt = datetime.datetime.now()
-
-        start_time = timeit.default_timer()
-
-        node_coloring = True
-
-        self.put_node_color_clear()        
-        self.put_open_check()        
-        self.put_center_color_update()        
-        self.put_node_color_update()
-        self.put_coreval_color_update()
-
-        node_coloring = False
-
-        process_time = (timeit.default_timer() - start_time) * 1000
+        global 풋_체결_초
 
         if service_start:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(\
-                int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
-            self.textBrowser.append(str)
+            if int(put_result['체결시간'][4:6]) == 풋_체결_초:
+
+                print('풋_체결_초', 풋_체결_초)
+            else:
+
+                start_time = timeit.default_timer()
+
+                node_coloring = True
+
+                self.put_node_color_clear()        
+                self.put_open_check()        
+                self.put_center_color_update()        
+                self.put_node_color_update()
+                self.put_coreval_color_update()
+
+                node_coloring = False
+
+                process_time = (timeit.default_timer() - start_time) * 1000
+
+                풋_체결_초 = int(put_result['체결시간'][4:6])
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(\
+                    int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
+                self.textBrowser.append(str)                    
         else:
+            start_time = timeit.default_timer()
+
+            node_coloring = True
+
+            self.put_node_color_clear()        
+            self.put_open_check()        
+            self.put_center_color_update()        
+            self.put_node_color_update()
+            self.put_coreval_color_update()
+
+            node_coloring = False
+
+            process_time = (timeit.default_timer() - start_time) * 1000
+
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
             self.textBrowser.append(str)
 
@@ -6127,9 +6172,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass          
             else:
                 pass
-        
+        '''
         process_time = (timeit.default_timer() - start_time) * 1000
-
+        
         if service_start:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call Node Color Check Time : {3:0.2f} ms\r'.format(\
@@ -6138,7 +6183,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             str = '[{0:02d}:{1:02d}:{2:02d}] Call Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
             self.textBrowser.append(str)        
-        
+        '''
         return
     
     def put_node_color_update(self):
@@ -6695,9 +6740,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass           
             else:
                 pass  
-        
+        '''
         process_time = (timeit.default_timer() - start_time) * 1000
-
+        
         if service_start:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put Node Color Check Time : {3:0.2f} ms\r'.format(\
@@ -6706,7 +6751,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             str = '[{0:02d}:{1:02d}:{2:02d}] Put Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
             self.textBrowser.append(str)
-        
+        '''
         return
 
     def put_node_color_clear(self):
