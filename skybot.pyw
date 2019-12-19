@@ -15227,6 +15227,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if not market_service: 
 
                     market_service = True
+                    service_start = True
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 옵션 데이타를 수신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
