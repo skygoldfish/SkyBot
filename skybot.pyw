@@ -11992,10 +11992,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item.setForeground(QBrush(흰색))
                         self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
 
-                        self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(청색))
+                        self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(적색))
                         self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(흰색))  
 
-                        self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(청색))
+                        self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(적색))
                         self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(흰색)) 
                         
                         call_oh[index] = True
@@ -13264,10 +13264,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item.setForeground(QBrush(흰색))
                         self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
 
-                        self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(적색))
+                        self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(청색))
                         self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(흰색))
 
-                        self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(적색))
+                        self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(청색))
                         self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
                         
                         put_oh[index] = True
