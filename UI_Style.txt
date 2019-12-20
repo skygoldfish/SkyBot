@@ -1,2 +1,2 @@
-# UI = vertical or horizontal
-UI = horizontal
+# UI Select = Horizontal_view.ui  or  Vertical_view.ui
+UI =  Vertical_view.ui

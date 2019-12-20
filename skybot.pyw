@@ -80,7 +80,13 @@ locale.setlocale(locale.LC_ALL, '')
 
 DATABASE = 'DATA\\mymoneybot.sqlite'
 UI_DIR = "UI\\"
-UI_STYLE = ''
+
+with open('UI_Style.txt', mode='r') as uifile:
+
+    tmp = uifile.readline().strip()
+    tmp = uifile.readline().strip()
+    temp = tmp.split()
+    UI_STYLE = temp[2]
 
 # 전역변수
 ########################################################################################################################
@@ -2402,7 +2408,9 @@ class t8416_Put_Worker(QThread):
 ########################################################################################################################
 # 당월물 옵션전광판 class
 ########################################################################################################################
-Ui_당월물옵션전광판, QtBaseClass_당월물옵션전광판 = uic.loadUiType(UI_DIR+"당월물옵션전광판.ui")
+#Ui_당월물옵션전광판, QtBaseClass_당월물옵션전광판 = uic.loadUiType(UI_DIR+"당월물옵션전광판.ui")
+
+Ui_당월물옵션전광판, QtBaseClass_당월물옵션전광판 = uic.loadUiType(UI_DIR + UI_STYLE)
 
 class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
@@ -16962,20 +16970,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # 당월물 옵션전광판
         if _action == "actionCMOptionPrice":
-
-            global UI_STYLE
-
-            with open('UI_Style.txt', mode='r') as uifile:
-
-                tmp = uifile.readline().strip()
-                tmp = uifile.readline().strip()
-                temp = tmp.split()
-
-                UI_STYLE = temp[2]
-
-                print('UI_STYLE = ', UI_STYLE)
-
+            
             if self.dialog.get('당월물옵션전광판') is not None:
+
                 try:
                     self.dialog['당월물옵션전광판'].show()
                 except Exception as e:
@@ -16984,19 +16981,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.dialog['당월물옵션전광판'] = 화면_당월물옵션전광판(parent=self)
                 self.dialog['당월물옵션전광판'].show()
-        '''
-        # 차월물 옵션전광판
-        if _action == "actionNMOptionPrice":
-            if self.dialog.get('차월물옵션전광판') is not None:
-                try:
-                    self.dialog['차월물옵션전광판'].show()
-                except Exception as e:
-                    self.dialog['차월물옵션전광판'] = 화면_차월물옵션전광판(parent=self)
-                    self.dialog['차월물옵션전광판'].show()
-            else:
-                self.dialog['차월물옵션전광판'] = 화면_차월물옵션전광판(parent=self)
-                self.dialog['차월물옵션전광판'].show()
-        '''
 
     # ------------------------------------------------------------
 
