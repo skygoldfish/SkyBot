@@ -80,6 +80,7 @@ locale.setlocale(locale.LC_ALL, '')
 
 DATABASE = 'DATA\\mymoneybot.sqlite'
 UI_DIR = "UI\\"
+UI_STYLE = ''
 
 # 전역변수
 ########################################################################################################################
@@ -16961,6 +16962,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # 당월물 옵션전광판
         if _action == "actionCMOptionPrice":
+
+            global UI_STYLE
+
+            with open('UI_Style.txt', mode='r') as uifile:
+
+                tmp = uifile.readline().strip()
+                tmp = uifile.readline().strip()
+                temp = tmp.split()
+
+                UI_STYLE = temp[2]
+
+                print('UI_STYLE = ', UI_STYLE)
+
             if self.dialog.get('당월물옵션전광판') is not None:
                 try:
                     self.dialog['당월물옵션전광판'].show()
