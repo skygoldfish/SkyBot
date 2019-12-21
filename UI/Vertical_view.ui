@@ -408,10 +408,10 @@
     <enum>QFrame::Raised</enum>
    </property>
   </widget>
-  <widget class="QWidget" name="layoutWidget">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>11</x>
      <y>831</y>
      <width>941</width>
      <height>171</height>
@@ -421,6 +421,26 @@
     <property name="spacing">
      <number>10</number>
     </property>
+    <item>
+     <widget class="QTableWidget" name="tableWidget_quote">
+      <property name="font">
+       <font>
+        <family>Consolas</family>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+    </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
@@ -462,26 +482,6 @@
        </widget>
       </item>
      </layout>
-    </item>
-    <item>
-     <widget class="QTableWidget" name="tableWidget_quote">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::WinPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-     </widget>
     </item>
    </layout>
   </widget>
