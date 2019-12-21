@@ -6183,6 +6183,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass          
             else:
                 pass
+
+            # 저가, 고가가 같은 경우는 컬러 무효화
+            if df_cm_call.iloc[i]['저가'] == df_cm_call.iloc[i]['고가']:
+
+                self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(흰색))
+                self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+
+                self.tableWidget_call.item(i, Option_column.피봇.value).setBackground(QBrush(흰색))
+                self.tableWidget_call.item(i, Option_column.피봇.value).setForeground(QBrush(검정색))
+
+                self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(흰색))
+                self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+
+                self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(흰색))
+                self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+
+                self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(흰색))
+                self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+            else:
+                pass
         '''
         process_time = (timeit.default_timer() - start_time) * 1000
         
@@ -6751,6 +6771,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass           
             else:
                 pass  
+
+            # 저가, 고가가 같은 경우는 컬러 무효화
+            if df_cm_put.iloc[i]['저가'] == df_cm_put.iloc[i]['고가']:
+
+                self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(흰색))
+                self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+
+                self.tableWidget_put.item(i, Option_column.피봇.value).setBackground(QBrush(흰색))
+                self.tableWidget_put.item(i, Option_column.피봇.value).setForeground(QBrush(검정색))
+
+                self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(흰색))
+                self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+
+                self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(흰색))
+                self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+
+                self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(흰색))
+                self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+            else:
+                pass
         '''
         process_time = (timeit.default_timer() - start_time) * 1000
         
