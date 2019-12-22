@@ -11097,7 +11097,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_call.iloc[index]['전저'] < df_cm_call.iloc[index]['저가'] < df_cm_call.iloc[index]['전저'] + 탐색폭:
 
-                            str = repr(df_cm_call.iloc[index]['전저']) + ' ★'
+                            str = repr(df_cm_call.iloc[index]['전저']) + ' ⬇'
                             item = QTableWidgetItem(str)
                             item.setTextAlignment(Qt.AlignCenter)             
                             self.tableWidget_call.setItem(index, Option_column.전저.value, item)
@@ -11107,7 +11107,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_call.iloc[index]['월저'] < df_cm_call.iloc[index]['저가'] < df_cm_call.iloc[index]['월저'] + 탐색폭:
 
-                            str = repr(df_cm_call.iloc[index]['월저']) + ' ★'
+                            str = repr(df_cm_call.iloc[index]['월저']) + ' ⬇'
                             item = QTableWidgetItem(str)
                             item.setTextAlignment(Qt.AlignCenter)             
                             self.tableWidget_call.setItem(index, Option_column.월저.value, item)
@@ -11156,7 +11156,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_call.iloc[index]['전고'] - 탐색폭 < df_cm_call.iloc[index]['고가'] < df_cm_call.iloc[index]['전고']:
 
-                            str = repr(df_cm_call.iloc[index]['전고']) + ' ☆'
+                            str = repr(df_cm_call.iloc[index]['전고']) + ' ⬆'
                             item = QTableWidgetItem(str)
                             item.setTextAlignment(Qt.AlignCenter)             
                             self.tableWidget_call.setItem(index, Option_column.전고.value, item)
@@ -11166,7 +11166,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_call.iloc[index]['월고'] - 탐색폭 < df_cm_call.iloc[index]['고가'] < df_cm_call.iloc[index]['월고']:
 
-                            str = repr(df_cm_call.iloc[index]['월고']) + ' ☆'
+                            str = repr(df_cm_call.iloc[index]['월고']) + ' ⬆'
                             item = QTableWidgetItem(str)
                             item.setTextAlignment(Qt.AlignCenter)             
                             self.tableWidget_call.setItem(index, Option_column.월고.value, item)
@@ -11412,7 +11412,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_call.iloc[index]['전저'] < df_cm_call.iloc[index]['저가'] < df_cm_call.iloc[index]['전저'] + 탐색폭:
 
-                            str = repr(df_cm_call.iloc[index]['전저']) + ' ★'
+                            str = repr(df_cm_call.iloc[index]['전저']) + ' ⬇'
                             item = QTableWidgetItem(str)
                             item.setTextAlignment(Qt.AlignCenter)             
                             self.tableWidget_call.setItem(index, Option_column.전저.value, item)
@@ -11422,7 +11422,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_call.iloc[index]['월저'] < df_cm_call.iloc[index]['저가'] < df_cm_call.iloc[index]['월저'] + 탐색폭:
 
-                            str = repr(df_cm_call.iloc[index]['월저']) + ' ★'
+                            str = repr(df_cm_call.iloc[index]['월저']) + ' ⬇'
                             item = QTableWidgetItem(str)
                             item.setTextAlignment(Qt.AlignCenter)             
                             self.tableWidget_call.setItem(index, Option_column.월저.value, item)
@@ -11470,7 +11470,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_call.iloc[index]['전고'] - 탐색폭 < df_cm_call.iloc[index]['고가'] < df_cm_call.iloc[index]['전고']:
 
-                            str = repr(df_cm_call.iloc[index]['전고']) + ' ☆'
+                            str = repr(df_cm_call.iloc[index]['전고']) + ' ⬆'
                             item = QTableWidgetItem(str)
                             item.setTextAlignment(Qt.AlignCenter)             
                             self.tableWidget_call.setItem(index, Option_column.전고.value, item)
@@ -11480,7 +11480,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_call.iloc[index]['월고'] - 탐색폭 < df_cm_call.iloc[index]['고가'] < df_cm_call.iloc[index]['월고']:
 
-                            str = repr(df_cm_call.iloc[index]['월고']) + ' ☆'
+                            str = repr(df_cm_call.iloc[index]['월고']) + ' ⬆'
                             item = QTableWidgetItem(str)
                             item.setTextAlignment(Qt.AlignCenter)             
                             self.tableWidget_call.setItem(index, Option_column.월고.value, item)
@@ -12469,7 +12469,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_put.iloc[index]['전저'] < df_cm_put.iloc[index]['저가'] < df_cm_put.iloc[index]['전저'] + 탐색폭:
 
-                            str = repr(df_cm_put.iloc[index]['전저']) + ' ★'
+                            str = repr(df_cm_put.iloc[index]['전저']) + ' ⬇'
                             item = QTableWidgetItem(str)
                             item.setTextAlignment(Qt.AlignCenter)             
                             self.tableWidget_put.setItem(index, Option_column.전저.value, item)
@@ -12479,7 +12479,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_put.iloc[index]['월저'] < df_cm_put.iloc[index]['저가'] < df_cm_put.iloc[index]['월저'] + 탐색폭:
 
-                            str = repr(df_cm_put.iloc[index]['월저']) + ' ★'
+                            str = repr(df_cm_put.iloc[index]['월저']) + ' ⬇'
                             item = QTableWidgetItem(str)
                             item.setTextAlignment(Qt.AlignCenter)             
                             self.tableWidget_put.setItem(index, Option_column.월저.value, item)
@@ -12528,7 +12528,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_put.iloc[index]['전고'] - 탐색폭 < df_cm_put.iloc[index]['고가'] < df_cm_put.iloc[index]['전고']:
 
-                            str = repr(df_cm_put.iloc[index]['전고']) + ' ☆'
+                            str = repr(df_cm_put.iloc[index]['전고']) + ' ⬆'
                             item = QTableWidgetItem(str)
                             item.setTextAlignment(Qt.AlignCenter)             
                             self.tableWidget_put.setItem(index, Option_column.전고.value, item)
@@ -12538,7 +12538,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_put.iloc[index]['월고'] - 탐색폭 < df_cm_put.iloc[index]['고가'] < df_cm_put.iloc[index]['월고']:
 
-                            str = repr(df_cm_put.iloc[index]['월고']) + ' ☆'
+                            str = repr(df_cm_put.iloc[index]['월고']) + ' ⬆'
                             item = QTableWidgetItem(str)
                             item.setTextAlignment(Qt.AlignCenter)             
                             self.tableWidget_put.setItem(index, Option_column.월고.value, item)
@@ -12783,7 +12783,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_put.iloc[index]['전저'] < df_cm_put.iloc[index]['저가'] < df_cm_put.iloc[index]['전저'] + 탐색폭:
 
-                            str = repr(df_cm_put.iloc[index]['전저']) + ' ★'
+                            str = repr(df_cm_put.iloc[index]['전저']) + ' ⬇'
                             item = QTableWidgetItem(str)
                             item.setTextAlignment(Qt.AlignCenter)             
                             self.tableWidget_put.setItem(index, Option_column.전저.value, item)
@@ -12793,7 +12793,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_put.iloc[index]['월저'] < df_cm_put.iloc[index]['저가'] < df_cm_put.iloc[index]['월저'] + 탐색폭:
 
-                            str = repr(df_cm_put.iloc[index]['월저']) + ' ★'
+                            str = repr(df_cm_put.iloc[index]['월저']) + ' ⬇'
                             item = QTableWidgetItem(str)
                             item.setTextAlignment(Qt.AlignCenter)             
                             self.tableWidget_put.setItem(index, Option_column.월저.value, item)
@@ -12841,7 +12841,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_put.iloc[index]['전고'] - 탐색폭 < df_cm_put.iloc[index]['고가'] < df_cm_put.iloc[index]['전고']:
 
-                            str = repr(df_cm_put.iloc[index]['전고']) + ' ☆'
+                            str = repr(df_cm_put.iloc[index]['전고']) + ' ⬆'
                             item = QTableWidgetItem(str)
                             item.setTextAlignment(Qt.AlignCenter)             
                             self.tableWidget_put.setItem(index, Option_column.전고.value, item)
@@ -12851,7 +12851,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if df_cm_put.iloc[index]['월고'] - 탐색폭 < df_cm_put.iloc[index]['고가'] < df_cm_put.iloc[index]['월고']:
 
-                            str = repr(df_cm_put.iloc[index]['월고']) + ' ☆'
+                            str = repr(df_cm_put.iloc[index]['월고']) + ' ⬆'
                             item = QTableWidgetItem(str)
                             item.setTextAlignment(Qt.AlignCenter)             
                             self.tableWidget_put.setItem(index, Option_column.월고.value, item)
