@@ -395,7 +395,7 @@
      <x>959</x>
      <y>456</y>
      <width>941</width>
-     <height>541</height>
+     <height>546</height>
     </rect>
    </property>
    <property name="font">
@@ -445,10 +445,10 @@
   <widget class="PlotWidget" name="Plot_Fut">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>9</x>
      <y>597</y>
      <width>943</width>
-     <height>400</height>
+     <height>405</height>
     </rect>
    </property>
    <property name="font">
