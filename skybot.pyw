@@ -10916,10 +10916,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global call_result, call_open, call_below_atm_count
         global df_cm_call, df_plotdata_cm_call, df_plotdata_cm_call_oi
-        global call_atm_value, call_db_percent
+        global call_atm_value
         global cm_call_시가, cm_call_시가_node_list, cm_call_피봇, cm_call_피봇_node_list, 콜시가리스트
         global cm_call_저가, cm_call_저가_node_list, cm_call_고가, cm_call_고가_node_list
-        global call_gap_percent
+        global call_gap_percent, call_db_percent
         global opt_callreal_update_counter
         global df_cm_call_che, call_volume_total, df_plotdata_cm_call_volume
         global flag_call_low_update, flag_call_high_update
@@ -11237,7 +11237,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 
                 # pre open check
-                #if round(float(시가), 2) != df_cm_call.iloc[index]['시가']:
                 if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
                     df_cm_call.loc[index, '시가'] = round(float(시가), 2)                
@@ -11291,7 +11290,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                        
             opt_callreal_update_counter += 1
         else:
-
             # 현재가 갱신
             if 현재가 != self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]:
 
@@ -11578,7 +11576,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 
                 # pre open check
-                #if round(float(시가), 2) != df_cm_call.iloc[index]['시가']:
                 if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
                     df_cm_call.loc[index, '시가'] = round(float(시가), 2)
@@ -12372,10 +12369,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global put_result, put_open, put_above_atm_count
         global df_cm_put, df_plotdata_cm_put, df_plotdata_cm_put_oi
-        global put_atm_value, put_db_percent
+        global put_atm_value
         global cm_put_시가, cm_put_시가_node_list, cm_put_피봇, cm_put_피봇_node_list, 풋시가리스트
         global cm_put_저가, cm_put_저가_node_list, cm_put_고가, cm_put_고가_node_list
-        global put_gap_percent
+        global put_gap_percent, put_db_percent
         global opt_putreal_update_counter
         global df_cm_put_che, put_volume_total, df_plotdata_cm_put_volume, df_plotdata_cm_volume_cha
         global flag_put_low_update, flag_put_high_update
@@ -12691,7 +12688,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
             else:
                 # pre open check
-                #if round(float(시가), 2) != df_cm_put.iloc[index]['시가']:
                 if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
 
                     df_cm_put.loc[index, '시가'] = round(float(시가), 2)
@@ -12744,8 +12740,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass  
                         
             opt_putreal_update_counter += 1
-        else:  
-
+        else:
             # 현재가 갱신
             if 현재가 != self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]:
 
@@ -13032,7 +13027,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 
                 # pre open check
-                #if round(float(시가), 2) != df_cm_put.iloc[index]['시가']:
                 if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
 
                     df_cm_put.loc[index, '시가'] = round(float(시가), 2)
@@ -13084,7 +13078,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass 
 
-        return        
+        return
     
     def put_open_update(self):
 
