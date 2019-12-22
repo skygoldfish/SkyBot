@@ -12227,7 +12227,27 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.textBrowser.append(str)
             '''
         else:
-            print('call_gap_percent_local is empty...')        
+            print('call_gap_percent_local is empty...')
+
+        temp = call_db_percent[:]
+        call_db_percent_local = [value for value in temp if not math.isnan(value)]
+        call_db_percent_local.sort()
+
+        if call_db_percent_local:
+
+            대비합 = round(df_cm_call['대비'].sum(), 2)
+            tmp = np.array(call_db_percent_local)            
+            대비평균 = int(round(np.mean(tmp), 2))
+            call_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
+
+            if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
+                item = QTableWidgetItem(call_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
+            else:
+                pass
+        else:
+            print('call_db_percent_local is empty...')        
 
         self.tableWidget_call.resizeColumnsToContents()
 
@@ -13607,16 +13627,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if put_db_percent_local:
 
-            sump = round(df_cm_put['대비'].sum(), 2)
+            대비합 = round(df_cm_put['대비'].sum(), 2)
             tmp = np.array(put_db_percent_local)            
-            meanp = int(round(np.mean(tmp), 2))
-            put_str = repr(sump) + '\n (' + repr(meanp) + '%' + ') '
+            대비평균 = int(round(np.mean(tmp), 2))
+            put_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(put_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
-                self.tableWidget_put.resizeColumnsToContents()
             else:
                 pass
         else:
