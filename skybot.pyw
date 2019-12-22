@@ -10925,6 +10925,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global flag_call_low_update, flag_call_high_update
         global node_coloring
         global call_open_list, call_update_time
+        global call_max_actval
 
         dt = datetime.datetime.now()
 
@@ -10937,6 +10938,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if index == atm_index:
             call_atm_value = float(현재가)
+        else:
+            pass
+
+        if index == nCount_option_pairs - 1:
+
+            call_max_actval = True
         else:
             pass
 
@@ -10982,6 +10989,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem(gap_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setItem(index, Option_column.대비.value, item)
+
+                temp = call_db_percent[:]
+                call_db_percent_local = [value for value in temp if not math.isnan(value)]
+                call_db_percent_local.sort()
+
+                if call_db_percent_local:
+
+                    대비합 = round(df_cm_call['대비'].sum(), 2)
+                    tmp = np.array(call_db_percent_local)            
+                    대비평균 = int(round(np.mean(tmp), 2))
+                    call_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
+
+                    item = QTableWidgetItem(call_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
+                    self.tableWidget_call.resizeColumnsToContents()
+                else:
+                    pass
 
                 # 수정거래량 및 미결 계산
                 if float(현재가) <= df_cm_call.iloc[index]['시가갭']:
@@ -11036,6 +11061,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if 저가 != 고가:
 
+                if index != atm_index:
+                    self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
+                else:
+                    self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
+
                 # 시가 갱신
                 if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
@@ -11079,7 +11109,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
                     self.textBrowser.append(str)
 
-                    self.call_open_update()
+                    #self.call_open_update()
                 else:
                     pass
 
@@ -11303,6 +11333,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setItem(index, Option_column.대비.value, item)
 
+                temp = call_db_percent[:]
+                call_db_percent_local = [value for value in temp if not math.isnan(value)]
+                call_db_percent_local.sort()
+
+                if call_db_percent_local:
+
+                    대비합 = round(df_cm_call['대비'].sum(), 2)
+                    tmp = np.array(call_db_percent_local)            
+                    대비평균 = int(round(np.mean(tmp), 2))
+                    call_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
+
+                    item = QTableWidgetItem(call_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
+                    self.tableWidget_call.resizeColumnsToContents()
+                else:
+                    pass
+
                 # 수정거래량 및 미결 계산
                 if float(현재가) <= df_cm_call.iloc[index]['시가갭']:
 
@@ -11356,6 +11404,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if 저가 != 고가:
 
+                if index != atm_index:
+                    self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
+                else:
+                    self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
+
                 # 시가 갱신
                 if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
@@ -11399,7 +11452,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
                     self.textBrowser.append(str)
 
-                    self.call_open_update()
+                    #self.call_open_update()
                 else:
                     pass
                 
@@ -11598,12 +11651,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
         else:
             pass
-
+        '''
         if index != atm_index:
             self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
         else:
             self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
-
+        '''
         item = QTableWidgetItem(call_result['시가'])
         item.setTextAlignment(Qt.AlignCenter)
 
@@ -12063,12 +12116,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     call_below_atm_count += 1
                 else:
                     pass
-
+                '''
                 if index != atm_index:
                     self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
                 else:
                     self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
-
+                '''
                 if df_cm_call.iloc[index]['종가'] > 0:
 
                     df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
@@ -12211,6 +12264,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         # 시가갭 갱신
+        global 콜시가갭합, 콜시가갭합_퍼센트
+
         temp = call_gap_percent[:]
         call_gap_percent_local = [value for value in temp if not math.isnan(value)]
         call_gap_percent_local.sort()
@@ -12325,6 +12380,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global df_cm_put_che, put_volume_total, df_plotdata_cm_put_volume, df_plotdata_cm_volume_cha
         global flag_put_low_update, flag_put_high_update
         global put_open_list, put_update_time
+        global put_max_actval
 
         dt = datetime.datetime.now()
 
@@ -12337,6 +12393,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         if index == atm_index:
             put_atm_value = float(현재가)
+        else:
+            pass
+
+        if index == 0:
+
+            put_max_actval = True
         else:
             pass
 
@@ -12382,6 +12444,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem(gap_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setItem(index, Option_column.대비.value, item)
+
+                temp = put_db_percent[:]
+                put_db_percent_local = [value for value in temp if not math.isnan(value)]
+                put_db_percent_local.sort()
+
+                if put_db_percent_local:
+
+                    대비합 = round(df_cm_put['대비'].sum(), 2)
+                    tmp = np.array(put_db_percent_local)            
+                    대비평균 = int(round(np.mean(tmp), 2))
+                    put_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
+
+                    item = QTableWidgetItem(put_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
+                    self.tableWidget_put.resizeColumnsToContents()
+                else:
+                    pass
 
                 # 수정거래량 및 미결 계산
                 if float(현재가) <= df_cm_put.iloc[index]['시가갭']:
@@ -12436,6 +12516,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if 저가 != 고가:
 
+                if index != atm_index:
+                    self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
+                else:
+                    self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
+
                  # 시가 갱신
                 if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
 
@@ -12479,7 +12564,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
                     self.textBrowser.append(str)
 
-                    self.put_open_update()
+                    #self.put_open_update()
                 else:
                     pass
 
@@ -12702,6 +12787,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setItem(index, Option_column.대비.value, item)
 
+                temp = put_db_percent[:]
+                put_db_percent_local = [value for value in temp if not math.isnan(value)]
+                put_db_percent_local.sort()
+
+                if put_db_percent_local:
+
+                    대비합 = round(df_cm_put['대비'].sum(), 2)
+                    tmp = np.array(put_db_percent_local)            
+                    대비평균 = int(round(np.mean(tmp), 2))
+                    put_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
+
+                    item = QTableWidgetItem(put_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
+                    self.tableWidget_put.resizeColumnsToContents()
+                else:
+                    pass
+
                 # 수정거래량 및 미결 계산
                 if float(현재가) <= df_cm_put.iloc[index]['시가갭']:
 
@@ -12755,6 +12858,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             if 저가 != 고가:
 
+                if index != atm_index:
+                    self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
+                else:
+                    self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
+
                 # 시가 갱신
                 if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
 
@@ -12798,7 +12906,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
                     self.textBrowser.append(str)
 
-                    self.put_open_update()
+                    #self.put_open_update()
                 else:
                     pass                
 
@@ -12997,12 +13105,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
         else:
             pass
-
+        '''
         if index != atm_index:
             self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
         else:
             self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
-
+        '''
         item = QTableWidgetItem(put_result['시가'])
         item.setTextAlignment(Qt.AlignCenter)
 
@@ -13463,12 +13571,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     put_above_atm_count += 1
                 else:
                     pass
-
+                '''
                 if index != atm_index:
                     self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
                 else:
                     self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
-
+                '''
                 if df_cm_put.iloc[index]['종가'] > 0:
 
                     df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']   
@@ -13611,6 +13719,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         # 시가갭 갱신
+        global 풋시가갭합, 풋시가갭합_퍼센트
+
         temp = put_gap_percent[:]
         put_gap_percent_local = [value for value in temp if not math.isnan(value)]
         put_gap_percent_local.sort()
