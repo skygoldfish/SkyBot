@@ -123,6 +123,10 @@ opt_search_start_value = 0.09
 opt_coreval_search_start_value = 0.5
 opt_search_end_value = 10
 
+저가_고가_갱신_탐색치1 = 0.99
+저가_고가_갱신_탐색치2 = 6.0
+탐색폭 = 0.2
+
 start_time_str = ''
 end_time_str = ''
 
@@ -11087,6 +11091,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(저가)
                     item.setTextAlignment(Qt.AlignCenter)             
                     self.tableWidget_call.setItem(index, Option_column.저가.value, item)
+
+                    # 시가 1.x ~ 5.x 탐색
+                    if 저가_고가_갱신_탐색치1 < df_cm_call.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
+
+                        if df_cm_call.iloc[index]['전저'] < df_cm_call.iloc[index]['저가'] < df_cm_call.iloc[index]['전저'] + 탐색폭:
+
+                            str = repr(df_cm_call.iloc[index]['전저']) + ' ★'
+                            item = QTableWidgetItem(str)
+                            item.setTextAlignment(Qt.AlignCenter)             
+                            self.tableWidget_call.setItem(index, Option_column.전저.value, item)
+                            self.tableWidget_call.resizeColumnsToContents()
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[index]['월저'] < df_cm_call.iloc[index]['저가'] < df_cm_call.iloc[index]['월저'] + 탐색폭:
+
+                            str = repr(df_cm_call.iloc[index]['월저']) + ' ★'
+                            item = QTableWidgetItem(str)
+                            item.setTextAlignment(Qt.AlignCenter)             
+                            self.tableWidget_call.setItem(index, Option_column.월저.value, item)
+                            self.tableWidget_call.resizeColumnsToContents()
+                        else:
+                            pass
+                    else:
+                        pass
                                         
                     #self.check_call_oloh(index)
                                         
@@ -11121,6 +11150,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(고가)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(index, Option_column.고가.value, item)
+
+                    # 시가 1.x ~ 5.x 탐색
+                    if 저가_고가_갱신_탐색치1 < df_cm_call.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
+
+                        if df_cm_call.iloc[index]['전고'] - 탐색폭 < df_cm_call.iloc[index]['고가'] < df_cm_call.iloc[index]['전고']:
+
+                            str = repr(df_cm_call.iloc[index]['전고']) + ' ☆'
+                            item = QTableWidgetItem(str)
+                            item.setTextAlignment(Qt.AlignCenter)             
+                            self.tableWidget_call.setItem(index, Option_column.전고.value, item)
+                            self.tableWidget_call.resizeColumnsToContents()
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[index]['월고'] - 탐색폭 < df_cm_call.iloc[index]['고가'] < df_cm_call.iloc[index]['월고']:
+
+                            str = repr(df_cm_call.iloc[index]['월고']) + ' ☆'
+                            item = QTableWidgetItem(str)
+                            item.setTextAlignment(Qt.AlignCenter)             
+                            self.tableWidget_call.setItem(index, Option_column.월고.value, item)
+                            self.tableWidget_call.resizeColumnsToContents()
+                        else:
+                            pass
+                    else:
+                        pass
                                         
                     #self.check_call_oloh(index)
                                         
@@ -11352,6 +11406,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(저가)
                     item.setTextAlignment(Qt.AlignCenter)             
                     self.tableWidget_call.setItem(index, Option_column.저가.value, item)
+
+                    # 시가 1.x ~ 5.x 탐색
+                    if 저가_고가_갱신_탐색치1 < df_cm_call.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
+
+                        if df_cm_call.iloc[index]['전저'] < df_cm_call.iloc[index]['저가'] < df_cm_call.iloc[index]['전저'] + 탐색폭:
+
+                            str = repr(df_cm_call.iloc[index]['전저']) + ' ★'
+                            item = QTableWidgetItem(str)
+                            item.setTextAlignment(Qt.AlignCenter)             
+                            self.tableWidget_call.setItem(index, Option_column.전저.value, item)
+                            self.tableWidget_call.resizeColumnsToContents()
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[index]['월저'] < df_cm_call.iloc[index]['저가'] < df_cm_call.iloc[index]['월저'] + 탐색폭:
+
+                            str = repr(df_cm_call.iloc[index]['월저']) + ' ★'
+                            item = QTableWidgetItem(str)
+                            item.setTextAlignment(Qt.AlignCenter)             
+                            self.tableWidget_call.setItem(index, Option_column.월저.value, item)
+                            self.tableWidget_call.resizeColumnsToContents()
+                        else:
+                            pass
+                    else:
+                        pass
                                         
                     #self.check_call_oloh(index)
                                         
@@ -11385,6 +11464,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(고가)
                     item.setTextAlignment(Qt.AlignCenter)             
                     self.tableWidget_call.setItem(index, Option_column.고가.value, item)
+
+                    # 시가 1.x ~ 5.x 탐색
+                    if 저가_고가_갱신_탐색치1 < df_cm_call.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
+
+                        if df_cm_call.iloc[index]['전고'] - 탐색폭 < df_cm_call.iloc[index]['고가'] < df_cm_call.iloc[index]['전고']:
+
+                            str = repr(df_cm_call.iloc[index]['전고']) + ' ☆'
+                            item = QTableWidgetItem(str)
+                            item.setTextAlignment(Qt.AlignCenter)             
+                            self.tableWidget_call.setItem(index, Option_column.전고.value, item)
+                            self.tableWidget_call.resizeColumnsToContents()
+                        else:
+                            pass
+
+                        if df_cm_call.iloc[index]['월고'] - 탐색폭 < df_cm_call.iloc[index]['고가'] < df_cm_call.iloc[index]['월고']:
+
+                            str = repr(df_cm_call.iloc[index]['월고']) + ' ☆'
+                            item = QTableWidgetItem(str)
+                            item.setTextAlignment(Qt.AlignCenter)             
+                            self.tableWidget_call.setItem(index, Option_column.월고.value, item)
+                            self.tableWidget_call.resizeColumnsToContents()
+                        else:
+                            pass
+                    else:
+                        pass
                                         
                     #self.check_call_oloh(index)
                                         
@@ -12359,6 +12463,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(저가)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.저가.value, item)
+
+                    # 시가 1.x ~ 5.x 탐색
+                    if 저가_고가_갱신_탐색치1 < df_cm_put.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
+
+                        if df_cm_put.iloc[index]['전저'] < df_cm_put.iloc[index]['저가'] < df_cm_put.iloc[index]['전저'] + 탐색폭:
+
+                            str = repr(df_cm_put.iloc[index]['전저']) + ' ★'
+                            item = QTableWidgetItem(str)
+                            item.setTextAlignment(Qt.AlignCenter)             
+                            self.tableWidget_put.setItem(index, Option_column.전저.value, item)
+                            self.tableWidget_put.resizeColumnsToContents()
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[index]['월저'] < df_cm_put.iloc[index]['저가'] < df_cm_put.iloc[index]['월저'] + 탐색폭:
+
+                            str = repr(df_cm_put.iloc[index]['월저']) + ' ★'
+                            item = QTableWidgetItem(str)
+                            item.setTextAlignment(Qt.AlignCenter)             
+                            self.tableWidget_put.setItem(index, Option_column.월저.value, item)
+                            self.tableWidget_put.resizeColumnsToContents()
+                        else:
+                            pass
+                    else:
+                        pass
                                         
                     #self.check_put_oloh(index)
                                         
@@ -12393,6 +12522,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(고가)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.고가.value, item)
+
+                    # 시가 1.x ~ 5.x 탐색
+                    if 저가_고가_갱신_탐색치1 < df_cm_put.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
+
+                        if df_cm_put.iloc[index]['전고'] - 탐색폭 < df_cm_put.iloc[index]['고가'] < df_cm_put.iloc[index]['전고']:
+
+                            str = repr(df_cm_put.iloc[index]['전고']) + ' ☆'
+                            item = QTableWidgetItem(str)
+                            item.setTextAlignment(Qt.AlignCenter)             
+                            self.tableWidget_put.setItem(index, Option_column.전고.value, item)
+                            self.tableWidget_put.resizeColumnsToContents()
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[index]['월고'] - 탐색폭 < df_cm_put.iloc[index]['고가'] < df_cm_put.iloc[index]['월고']:
+
+                            str = repr(df_cm_put.iloc[index]['월고']) + ' ☆'
+                            item = QTableWidgetItem(str)
+                            item.setTextAlignment(Qt.AlignCenter)             
+                            self.tableWidget_put.setItem(index, Option_column.월고.value, item)
+                            self.tableWidget_put.resizeColumnsToContents()
+                        else:
+                            pass
+                    else:
+                        pass
                                         
                     #self.check_put_oloh(index)
                                         
@@ -12623,6 +12777,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(저가)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.저가.value, item)
+
+                    # 시가 1.x ~ 5.x 탐색
+                    if 저가_고가_갱신_탐색치1 < df_cm_put.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
+
+                        if df_cm_put.iloc[index]['전저'] < df_cm_put.iloc[index]['저가'] < df_cm_put.iloc[index]['전저'] + 탐색폭:
+
+                            str = repr(df_cm_put.iloc[index]['전저']) + ' ★'
+                            item = QTableWidgetItem(str)
+                            item.setTextAlignment(Qt.AlignCenter)             
+                            self.tableWidget_put.setItem(index, Option_column.전저.value, item)
+                            self.tableWidget_put.resizeColumnsToContents()
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[index]['월저'] < df_cm_put.iloc[index]['저가'] < df_cm_put.iloc[index]['월저'] + 탐색폭:
+
+                            str = repr(df_cm_put.iloc[index]['월저']) + ' ★'
+                            item = QTableWidgetItem(str)
+                            item.setTextAlignment(Qt.AlignCenter)             
+                            self.tableWidget_put.setItem(index, Option_column.월저.value, item)
+                            self.tableWidget_put.resizeColumnsToContents()
+                        else:
+                            pass
+                    else:
+                        pass
                     
                     #self.check_put_oloh(index)
                                         
@@ -12656,6 +12835,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(고가)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(index, Option_column.고가.value, item)
+
+                    # 시가 1.x ~ 5.x 탐색
+                    if 저가_고가_갱신_탐색치1 < df_cm_put.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
+
+                        if df_cm_put.iloc[index]['전고'] - 탐색폭 < df_cm_put.iloc[index]['고가'] < df_cm_put.iloc[index]['전고']:
+
+                            str = repr(df_cm_put.iloc[index]['전고']) + ' ☆'
+                            item = QTableWidgetItem(str)
+                            item.setTextAlignment(Qt.AlignCenter)             
+                            self.tableWidget_put.setItem(index, Option_column.전고.value, item)
+                            self.tableWidget_put.resizeColumnsToContents()
+                        else:
+                            pass
+
+                        if df_cm_put.iloc[index]['월고'] - 탐색폭 < df_cm_put.iloc[index]['고가'] < df_cm_put.iloc[index]['월고']:
+
+                            str = repr(df_cm_put.iloc[index]['월고']) + ' ☆'
+                            item = QTableWidgetItem(str)
+                            item.setTextAlignment(Qt.AlignCenter)             
+                            self.tableWidget_put.setItem(index, Option_column.월고.value, item)
+                            self.tableWidget_put.resizeColumnsToContents()
+                        else:
+                            pass
+                    else:
+                        pass
                     
                     #self.check_put_oloh(index)
                                         
