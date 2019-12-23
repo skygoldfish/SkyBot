@@ -5383,17 +5383,29 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(흰색))
             self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
 
-            self.tableWidget_call.item(i, Option_column.월저.value).setBackground(QBrush(흰색))
-            self.tableWidget_call.item(i, Option_column.월저.value).setForeground(QBrush(검정색))
+            if call_node_state['월저']:
+                self.tableWidget_call.item(i, Option_column.월저.value).setBackground(QBrush(흰색))
+                self.tableWidget_call.item(i, Option_column.월저.value).setForeground(QBrush(검정색))
+            else:
+                pass
 
-            self.tableWidget_call.item(i, Option_column.월고.value).setBackground(QBrush(흰색))
-            self.tableWidget_call.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
+            if call_node_state['월고']:
+                self.tableWidget_call.item(i, Option_column.월고.value).setBackground(QBrush(흰색))
+                self.tableWidget_call.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
+            else:
+                pass
 
-            self.tableWidget_call.item(i, Option_column.전저.value).setBackground(QBrush(흰색))
-            self.tableWidget_call.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
+            if call_node_state['전저']:
+                self.tableWidget_call.item(i, Option_column.전저.value).setBackground(QBrush(흰색))
+                self.tableWidget_call.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
+            else:
+                pass
 
-            self.tableWidget_call.item(i, Option_column.전고.value).setBackground(QBrush(흰색))
-            self.tableWidget_call.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
+            if call_node_state['전고']:
+                self.tableWidget_call.item(i, Option_column.전고.value).setBackground(QBrush(흰색))
+                self.tableWidget_call.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
+            else:
+                pass
            
             self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(흰색))
             self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
@@ -6816,17 +6828,29 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_put.item(i, Option_column.기준가.value).setBackground(QBrush(흰색))
             self.tableWidget_put.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
 
-            self.tableWidget_put.item(i, Option_column.월저.value).setBackground(QBrush(흰색))
-            self.tableWidget_put.item(i, Option_column.월저.value).setForeground(QBrush(검정색))
+            if put_node_state['월저']:
+                self.tableWidget_put.item(i, Option_column.월저.value).setBackground(QBrush(흰색))
+                self.tableWidget_put.item(i, Option_column.월저.value).setForeground(QBrush(검정색))
+            else:
+                pass
 
-            self.tableWidget_put.item(i, Option_column.월고.value).setBackground(QBrush(흰색))
-            self.tableWidget_put.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
+            if put_node_state['월고']:
+                self.tableWidget_put.item(i, Option_column.월고.value).setBackground(QBrush(흰색))
+                self.tableWidget_put.item(i, Option_column.월고.value).setForeground(QBrush(검정색))
+            else:
+                pass
 
-            self.tableWidget_put.item(i, Option_column.전저.value).setBackground(QBrush(흰색))
-            self.tableWidget_put.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
+            if put_node_state['전저']:
+                self.tableWidget_put.item(i, Option_column.전저.value).setBackground(QBrush(흰색))
+                self.tableWidget_put.item(i, Option_column.전저.value).setForeground(QBrush(검정색))
+            else:
+                pass
 
-            self.tableWidget_put.item(i, Option_column.전고.value).setBackground(QBrush(흰색))
-            self.tableWidget_put.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
+            if put_node_state['전고']:
+                self.tableWidget_put.item(i, Option_column.전고.value).setBackground(QBrush(흰색))
+                self.tableWidget_put.item(i, Option_column.전고.value).setForeground(QBrush(검정색))
+            else:
+                pass
 
             self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(흰색))
             self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
