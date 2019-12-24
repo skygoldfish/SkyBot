@@ -12446,6 +12446,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             print('call_gap_percent_local is empty...')
 
+        # 대비 갱신
         temp = call_db_percent[:]
         call_db_percent_local = [value for value in temp if not math.isnan(value)]
         call_db_percent_local.sort()
@@ -13677,7 +13678,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}, {4:0.2f}] pre 시가 갱신 !!!\r'.format(dt.hour, dt.minute, dt.second, index, df_cm_put.iloc[index]['시가'])
         self.textBrowser.append(str)           
 
-        return  
+        return
 
     def put_open_check(self):
 
@@ -13898,6 +13899,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             print('put_gap_percent_local is empty...')
 
+        # 대비 갱신
         temp = put_db_percent[:]
         put_db_percent_local = [value for value in temp if not math.isnan(value)]
         put_db_percent_local.sort()
