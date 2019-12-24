@@ -265,7 +265,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>371</y>
+     <y>370</y>
      <width>1891</width>
      <height>75</height>
     </rect>
@@ -342,7 +342,7 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <property name="spacing">
-     <number>7</number>
+     <number>8</number>
     </property>
     <item>
      <widget class="QTableWidget" name="tableWidget_call">
@@ -395,10 +395,10 @@
   <widget class="PlotWidget" name="Plot_Opt">
    <property name="geometry">
     <rect>
-     <x>958</x>
-     <y>456</y>
+     <x>959</x>
+     <y>455</y>
      <width>943</width>
-     <height>546</height>
+     <height>547</height>
     </rect>
    </property>
    <property name="font">
@@ -423,9 +423,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>457</y>
+     <y>456</y>
      <width>942</width>
-     <height>130</height>
+     <height>133</height>
     </rect>
    </property>
    <property name="font">
@@ -449,9 +449,9 @@
    <property name="geometry">
     <rect>
      <x>9</x>
-     <y>597</y>
+     <y>599</y>
      <width>943</width>
-     <height>405</height>
+     <height>403</height>
     </rect>
    </property>
    <property name="font">
