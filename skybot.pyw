@@ -3972,7 +3972,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
             
             # cell focus 이동
-            self.tableWidget_call.setCurrentCell(atm_index, 19)
+            self.tableWidget_call.setCurrentCell(atm_index, Option_column.OID.value)
             self.opt_node_coloring()
 
         else:
@@ -4097,7 +4097,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
             
             # cell focus 이동
-            self.tableWidget_put.setCurrentCell(atm_index, 19)
+            self.tableWidget_put.setCurrentCell(atm_index, Option_column.OID.value)
             self.opt_node_coloring()
         else:
             if idx == 11:
