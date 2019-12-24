@@ -357,7 +357,7 @@
   <widget class="PlotWidget" name="Plot_Opt">
    <property name="geometry">
     <rect>
-     <x>960</x>
+     <x>962</x>
      <y>532</y>
      <width>941</width>
      <height>470</height>
@@ -384,7 +384,7 @@
   <widget class="PlotWidget" name="Plot_Fut">
    <property name="geometry">
     <rect>
-     <x>960</x>
+     <x>962</x>
      <y>54</y>
      <width>941</width>
      <height>470</height>
