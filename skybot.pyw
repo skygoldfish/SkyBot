@@ -3240,8 +3240,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_call.cellClicked.connect(self._calltable_cell_clicked)
         self.tableWidget_put.cellClicked.connect(self._puttable_cell_clicked)
-
         self.tableWidget_fut.cellClicked.connect(self._futtable_cell_clicked)
+
+        self.tableWidget_supply.cellClicked.connect(self._supplytable_cell_clicked)
+        self.tableWidget_quote.cellClicked.connect(self._quotetable_cell_clicked)
         
         self.tableWidget_call.verticalScrollBar().valueChanged.connect(self._calltable_vertical_scroll_position)
         self.tableWidget_put.verticalScrollBar().valueChanged.connect(self._puttable_vertical_scroll_position)        
@@ -4260,6 +4262,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             else:
                 pass
+
+            # cell focus 이동
+            self.tableWidget_call.setCurrentCell(100, Option_column.OID.value)
         else:
             txt = "call table cell clicked = ({0},{1}) ==>None type<==".format(row, col)
 
@@ -4286,6 +4291,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_put.scrollToItem(put_positionCell)
             else:
                 pass
+
+            # cell focus 이동
+            self.tableWidget_put.setCurrentCell(100, Option_column.OID.value)
         else:
             txt = "put table cell clicked = ({0},{1}) ==>None type<==".format(row, col)
 
@@ -4418,6 +4426,40 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass  
             
         self.tableWidget_fut.resizeColumnsToContents()      
+
+        return
+
+    @pyqtSlot(int, int)
+    def _supplytable_cell_clicked(self, row, col):
+
+        cell = self.tableWidget_supply.currentItem()
+
+        if cell is not None:
+
+            print(cell.text())
+
+            # cell focus 이동
+            self.tableWidget_supply.setCurrentCell(1, 5)
+
+        else:
+            pass  
+
+        return
+
+    @pyqtSlot(int, int)
+    def _quotetable_cell_clicked(self, row, col):
+
+        cell = self.tableWidget_quote.currentItem()
+
+        if cell is not None:
+
+            print(cell.text())
+
+            # cell focus 이동
+            self.tableWidget_quote.setCurrentCell(1, 13)
+
+        else:
+            pass
 
         return
     
@@ -15739,7 +15781,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if not receive_realdata:
 
                         receive_realdata = True
-                        service_start = True
+                        #service_start = True
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 야간 선물 데이타를 수신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                         self.textBrowser.append(str)
@@ -16641,8 +16683,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.textBrowser.append(str)
 
             #Speak("전광판을 갱신합니다.")
-
-            self.all_node_set()         
+            #self.all_node_set()         
 
         if self.checkBox_next_month.isChecked():
 
