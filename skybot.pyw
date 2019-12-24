@@ -3220,6 +3220,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         put_h_header = self.tableWidget_put.horizontalHeader()
         put_h_header.sectionClicked.connect(self._put_horizontal_header_clicked)
+
+        fut_h_header = self.tableWidget_fut.horizontalHeader()
+        fut_h_header.sectionClicked.connect(self._fut_horizontal_header_clicked)
+
+        supply_h_header = self.tableWidget_supply.horizontalHeader()
+        supply_h_header.sectionClicked.connect(self._supply_horizontal_header_clicked)
+
+        quote_h_header = self.tableWidget_quote.horizontalHeader()
+        quote_h_header.sectionClicked.connect(self._quote_horizontal_header_clicked)
+
         '''
         call_v_header = self.tableWidget_call.verticalHeader()
         call_v_header.sectionClicked.connect(self._call_vertical_header_clicked)
@@ -3227,6 +3237,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         put_v_header = self.tableWidget_put.verticalHeader()
         put_v_header.sectionClicked.connect(self._put_vertical_header_clicked)
         '''
+
         self.tableWidget_call.cellClicked.connect(self._calltable_cell_clicked)
         self.tableWidget_put.cellClicked.connect(self._puttable_cell_clicked)
 
@@ -3974,7 +3985,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
             
             # cell focus 이동
-            self.tableWidget_call.setCurrentCell(call_scroll_begin_position + 4, Option_column.OID.value)
+            self.tableWidget_call.setCurrentCell(100, Option_column.OID.value)
             self.opt_node_coloring()
 
         else:
@@ -4096,13 +4107,37 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
             
             # cell focus 이동
-            self.tableWidget_put.setCurrentCell(put_scroll_begin_position + 4, Option_column.OID.value)
+            self.tableWidget_put.setCurrentCell(100, Option_column.OID.value)
             self.opt_node_coloring()
         else:
             pass
 
         self.tableWidget_put.resizeColumnsToContents()
         
+        return
+
+    @pyqtSlot(int)
+    def _fut_horizontal_header_clicked(self, idx):
+
+        # cell focus 이동
+        self.tableWidget_fut.setCurrentCell(3, Futures_column.OID.value)
+
+        return
+
+    @pyqtSlot(int)
+    def _supply_horizontal_header_clicked(self, idx):
+
+        # cell focus 이동
+        self.tableWidget_supply.setCurrentCell(1, 5)
+
+        return
+
+    @pyqtSlot(int)
+    def _quote_horizontal_header_clicked(self, idx):
+
+        # cell focus 이동
+        self.tableWidget_quote.setCurrentCell(1, 13)
+
         return
 
     def all_node_set(self):
