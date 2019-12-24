@@ -123,7 +123,7 @@ opt_search_start_value = 0.09
 opt_coreval_search_start_value = 0.5
 opt_search_end_value = 10
 
-저가_고가_갱신_탐색치1 = 0.5
+저가_고가_갱신_탐색치1 = 0.09
 저가_고가_갱신_탐색치2 = 10.0
 탐색폭 = 0.2
 
