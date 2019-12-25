@@ -24,9 +24,9 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>12</x>
+     <x>14</x>
      <y>16</y>
-     <width>1888</width>
+     <width>1892</width>
      <height>25</height>
     </rect>
    </property>
@@ -273,7 +273,7 @@
   <widget class="QTableWidget" name="tableWidget_put">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>12</x>
      <y>695</y>
      <width>941</width>
      <height>307</height>
@@ -302,7 +302,7 @@
   <widget class="QTableWidget" name="tableWidget_fut">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>12</x>
      <y>371</y>
      <width>941</width>
      <height>133</height>
@@ -328,7 +328,7 @@
   <widget class="QTableWidget" name="tableWidget_call">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>12</x>
      <y>55</y>
      <width>941</width>
      <height>307</height>
@@ -357,7 +357,7 @@
   <widget class="PlotWidget" name="Plot_Opt">
    <property name="geometry">
     <rect>
-     <x>962</x>
+     <x>965</x>
      <y>532</y>
      <width>941</width>
      <height>470</height>
@@ -384,7 +384,7 @@
   <widget class="PlotWidget" name="Plot_Fut">
    <property name="geometry">
     <rect>
-     <x>962</x>
+     <x>965</x>
      <y>54</y>
      <width>941</width>
      <height>470</height>
@@ -411,7 +411,7 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>12</x>
      <y>514</y>
      <width>941</width>
      <height>171</height>

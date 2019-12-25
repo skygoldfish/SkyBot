@@ -2426,6 +2426,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.parent = parent
 
+        self.showMaximized()
+
         global mangi_yagan, current_month, next_month, next_month_only, month_firstday, cnm_select
         global cm_option_title, current_month_info, next_month_info, month_after_next_info, SP500, DOW, NASDAQ, fut_code
 
