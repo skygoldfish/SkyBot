@@ -2434,7 +2434,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         '''
         
         # WQHD 해상도를 위한 Setting
-        self.setGeometry(0, 30, 1920, 1020)        
+        rscreen = QtWidgets.QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
+        screen = QtGui.QDesktopWidget().screenGeometry(rscreen)
+        self.setGeometry(screen.left(), screen.top() + 30, screen.width(), screen.height() - 60)
 
         self.showMaximized()
 
