@@ -90,6 +90,7 @@ with open('UI_Style.txt', mode='r') as uifile:
 
 # 전역변수
 ########################################################################################################################
+모니터번호 = 0
 
 # 만기일 야간옵션은 month_info.txt에서 next month only를 NO -> YES로 변경
 t2301_month_info = ''
@@ -2425,6 +2426,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.setupUi(self)
 
         self.parent = parent
+
+        global 모니터번호
         
         # 다중모니터와 WQHD 해상도에서 초기화면 표시를 위한 Setting
         모니터번호 = QtWidgets.QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
@@ -5252,18 +5255,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def image_grab(self):
 
-        now = time.localtime()
-        times = "%04d-%02d-%02d-%02d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+        if 모니터번호 == 0:
+            now = time.localtime()
+            times = "%04d-%02d-%02d-%02d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
 
-        hwnd = win32gui.FindWindow(None, cm_option_title)
-        win32gui.SetForegroundWindow(hwnd)
-        dimensions = win32gui.GetWindowRect(hwnd)
-        img = ImageGrab.grab(dimensions)
-        saveas = "Screenshot {}{}".format(times, '.png')
-        img.save(saveas)
+            hwnd = win32gui.FindWindow(None, cm_option_title)
+            win32gui.SetForegroundWindow(hwnd)
+            dimensions = win32gui.GetWindowRect(hwnd)
+            img = ImageGrab.grab(dimensions)
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
-        self.textBrowser.append(str)
+            print('ImageGrab dimensions = ', dimensions)
+
+            saveas = "Screenshot {}{}".format(times, '.png')
+            img.save(saveas)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
+            self.textBrowser.append(str)
+        else:
+            pass
         
         return
 
@@ -14564,8 +14573,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     self.SaveResult()     
 
-                    if next_month_only != 'YES':               
-                        self.image_grab()
+                    if next_month_only != 'YES': 
+
+                        self.image_grab() 
                     else:
                         pass
 
@@ -16856,9 +16866,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         file = open('skybot.log', 'w')
         text = self.textBrowser.toPlainText()
         file.write(text)
-        file.close()      
-        
-        self.image_grab() 
+        file.close()
+
+        self.image_grab()
 
         global refresh_flag
 
