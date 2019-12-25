@@ -2433,7 +2433,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         print('screen.width() = {0}, screen.height() = {1}\r'.format(screen.width(), screen.height()))
         '''
         
-        # WQHD 해상도를 위한 세팅
+        # WQHD 해상도를 위한 Setting
         self.setGeometry(0, 30, 1920, 1020)  
         
         self.showMaximized()
