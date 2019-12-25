@@ -2425,7 +2425,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.setupUi(self)
 
         self.parent = parent
-
+        
         '''
         screen = QtGui.QDesktopWidget().screenGeometry()
         self.setGeometry(0, 0, screen.width(), screen.height())  
@@ -2434,8 +2434,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         '''
         
         # WQHD 해상도를 위한 Setting
-        self.setGeometry(0, 30, 1920, 1020)  
-        
+        self.setGeometry(0, 30, 1920, 1020)        
+
         self.showMaximized()
 
         global mangi_yagan, current_month, next_month, next_month_only, month_firstday, cnm_select
