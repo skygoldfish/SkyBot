@@ -2427,10 +2427,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.parent = parent
         
         # 다중모니터와 WQHD 해상도에서 초기화면 표시를 위한 Setting
-        rscreen = QtWidgets.QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
-        screen = QtGui.QDesktopWidget().screenGeometry(rscreen)
+        모니터번호 = QtWidgets.QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
+        screen = QtGui.QDesktopWidget().screenGeometry(모니터번호)
 
-        print('스크린 번호 = ', rscreen)
+        print('모니터화면 번호 = ', 모니터번호)
 
         left = screen.left()
         top = screen.top()
