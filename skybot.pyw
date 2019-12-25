@@ -2426,16 +2426,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.parent = parent
         
-        '''
-        screen = QtGui.QDesktopWidget().screenGeometry()
-        self.setGeometry(0, 0, screen.width(), screen.height())  
-
-        print('screen.width() = {0}, screen.height() = {1}\r'.format(screen.width(), screen.height()))
-        '''
-        
-        # WQHD 해상도를 위한 Setting
+        # 다중모니터와 WQHD 해상도에서 초기화면 표시를 위한 Setting
         rscreen = QtWidgets.QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
         screen = QtGui.QDesktopWidget().screenGeometry(rscreen)
+
+        print('스크린 번호 = ', rscreen)
+
+        left = screen.left()
+        top = screen.top()
 
         if screen.width() > 1920:
 
@@ -2449,7 +2447,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             height = screen.height()
 
-        self.setGeometry(screen.left(), screen.top() + 30, width, height - 60)
+        self.setGeometry(left, top + 30, width, height - 60)
 
         self.showMaximized()
 
