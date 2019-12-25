@@ -5255,24 +5255,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def image_grab(self):
 
-        if 모니터번호 == 0:
-            now = time.localtime()
-            times = "%04d-%02d-%02d-%02d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+        now = time.localtime()
+        times = "%04d-%02d-%02d-%02d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
 
-            hwnd = win32gui.FindWindow(None, cm_option_title)
-            win32gui.SetForegroundWindow(hwnd)
-            dimensions = win32gui.GetWindowRect(hwnd)
-            img = ImageGrab.grab(dimensions)
+        hwnd = win32gui.FindWindow(None, cm_option_title)
+        win32gui.SetForegroundWindow(hwnd)
+        dimensions = win32gui.GetWindowRect(hwnd)
+        img = ImageGrab.grab(dimensions)
 
-            print('ImageGrab dimensions = ', dimensions)
+        print('ImageGrab dimensions = ', dimensions)
 
-            saveas = "Screenshot {}{}".format(times, '.png')
-            img.save(saveas)
+        saveas = "Screenshot {}{}".format(times, '.png')
+        img.save(saveas)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
-            self.textBrowser.append(str)
-        else:
-            pass
+        str = '[{0:02d}:{1:02d}:{2:02d}] 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
+        self.textBrowser.append(str)
         
         return
 
