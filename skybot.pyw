@@ -12332,8 +12332,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global df_cm_call, call_below_atm_count
         global call_open, call_ol, call_oh
-        global call_gap_percent, call_db_percent
-        #global cm_call_시가, cm_call_시가_node_list, cm_call_피봇, cm_call_피봇_node_list        
+        global call_gap_percent, call_db_percent      
         global 콜시가갭합, 콜시가갭합_퍼센트
 
         call_open = [False] * nCount_option_pairs
@@ -12371,12 +12370,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     call_below_atm_count += 1
                 else:
                     pass
-                '''
-                if index != atm_index:
-                    self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
+                
+                if not service_start:
+
+                    if index != atm_index:
+                        self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
+                    else:
+                        self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
                 else:
-                    self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
-                '''
+                    pass
+
                 if df_cm_call.iloc[index]['종가'] > 0:
 
                     df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
@@ -13785,8 +13788,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global df_cm_put, put_above_atm_count
         global put_open, put_ol, put_oh
-        global put_gap_percent, put_db_percent
-        #global cm_put_시가, cm_put_시가_node_list, cm_put_피봇, cm_put_피봇_node_list         
+        global put_gap_percent, put_db_percent     
         global 풋시가갭합, 풋시가갭합_퍼센트
 
         put_open = [False] * nCount_option_pairs
@@ -13824,12 +13826,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     put_above_atm_count += 1
                 else:
                     pass
-                '''
-                if index != atm_index:
-                    self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
+                
+                if not service_start:
+
+                    if index != atm_index:
+                        self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
+                    else:
+                        self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
                 else:
-                    self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
-                '''
+                    pass
+
                 if df_cm_put.iloc[index]['종가'] > 0:
 
                     df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']   
