@@ -10494,8 +10494,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def fut_node_coloring(self):
 
-        #print('선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_저가, 선물_고가', 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_저가, 선물_고가)
-
         dt = datetime.datetime.now()
 
         if 선물_시가 > 0:
@@ -11000,12 +10998,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if overnight:
                     self.tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
-                    df_fut.loc[0, '피봇'] = 피봇
-                    cme_realdata['피봇'] = 피봇
+                    df_fut.loc[0, '피봇'] = 선물_피봇
+                    cme_realdata['피봇'] = 선물_피봇
                 else:
                     self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
-                    df_fut.loc[1, '피봇'] = 피봇
-                    fut_realdata['피봇'] = 피봇
+                    df_fut.loc[1, '피봇'] = 선물_피봇
+                    fut_realdata['피봇'] = 선물_피봇
 
                 시가갭 = 선물_시가 - 선물_종가
 
