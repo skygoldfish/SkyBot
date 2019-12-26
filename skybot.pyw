@@ -10984,12 +10984,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)            
         else:
 
-            if overnight:
-                fut_pivot = self.tableWidget_fut.item(0, Futures_column.피봇.value).text()
-            else:
-                fut_pivot = self.tableWidget_fut.item(1, Futures_column.피봇.value).text()
-
-            if float(fut_pivot) == 0 and 선물_시가 > 0:
+            if 선물_피봇 == 0 and 선물_시가 > 0:
 
                 선물_피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
 
