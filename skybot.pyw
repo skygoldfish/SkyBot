@@ -5006,7 +5006,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 
                 self.call_coreval_color_update()
                 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Coreval Color Check !!!\r'.format(dt.hour, dt.minute, dt.second)
+                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Coreval Color Check !!!\r'.format(\
+                    int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
                 self.textBrowser.append(str)    
             else:
 
@@ -5065,7 +5066,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 self.put_coreval_color_update()
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Coreval Color Check !!!\r'.format(dt.hour, dt.minute, dt.second)
+                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Coreval Color Check !!!\r'.format(\
+                    int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
                 self.textBrowser.append(str)
             else:
 
