@@ -53,6 +53,13 @@
     </item>
     <item>
      <widget class="QLabel" name="label_atm">
+	 <property name="font">
+       <font>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="frameShape">
        <enum>QFrame::WinPanel</enum>
       </property>
