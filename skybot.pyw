@@ -5003,6 +5003,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if int(call_result['체결시간'][4:6]) == 콜_체결_초:
 
                 print('콜_체결_초', 콜_체결_초)
+                
+                self.call_coreval_color_update()
+                
+                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Coreval Color Check !!!\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)    
             else:
 
                 start_time = timeit.default_timer()
@@ -5057,6 +5062,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if int(put_result['체결시간'][4:6]) == 풋_체결_초:
 
                 print('풋_체결_초', 풋_체결_초)
+
+                self.put_coreval_color_update()
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Coreval Color Check !!!\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
             else:
 
                 start_time = timeit.default_timer()
@@ -5868,7 +5878,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                pass             
+                pass
 
         self.tableWidget_call.resizeColumnsToContents()
 
