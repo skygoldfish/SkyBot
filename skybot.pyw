@@ -671,10 +671,14 @@ mv_line = []
 time_line_opt = None
 time_line_fut = None
 time_line_dow = None
+time_line_fv = None
 
 time_line_opt_start = None
 time_line_fut_start = None
 time_line_dow_start = None
+time_line_fv_start = None
+
+fut_base_line = None
 
 time_line_opt_dow_start = None
 time_line_fut_dow_start = None
@@ -2769,8 +2773,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global time_line_fut_start, time_line_fut_dow_start, time_line_fut, fut_curve, kp200_curve
         global fut_jl_line, fut_jh_line, fut_pivot_line, volume_base_line
-        global time_line_dow_start, time_line_dow_dow_start, time_line_dow
-
+        
         global fut_che_left_curve, fut_che_left_plus_curve, fut_che_left_minus_curve
         global fut_che_right_curve, fut_che_right_plus_curve, fut_che_right_minus_curve
         
@@ -2781,22 +2784,36 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         global cm_two_sum_left_curve, cm_two_cha_left_curve, cm_two_sum_right_curve, cm_two_cha_right_curve
         global sp500_left_curve, dow_left_curve, nasdaq_left_curve, sp500_right_curve, dow_right_curve, nasdaq_right_curve
+        
+        global time_line_opt_start, time_line_opt_dow_start, time_line_opt, mv_line, opt_base_line, call_curve, put_curve
+        global hc_fut_upper_line, hc_fut_lower_line, hc_opt_upper_line, hc_opt_lower_line
+        global atm_upper_line, atm_lower_line
 
+        global time_line_dow_start, time_line_dow_dow_start, time_line_dow
+        global time_line_fv, time_line_fv_start, fut_base_line
+        
         time_line_fut_start = self.Plot_1.addLine(x=0, y=None, pen=tpen)
         time_line_fut_dow_start = self.Plot_1.addLine(x=0, y=None, pen=tpen)
         time_line_fut = self.Plot_1.addLine(x=0, y=None, pen=tpen)
-
+        
+        fut_jl_line = self.Plot_1.addLine(x=None, pen=fut_jl_pen)
+        fut_jh_line = self.Plot_1.addLine(x=None, pen=fut_jh_pen)
+        volume_base_line = self.Plot_1.addLine(x=None, pen=ypen1)
+        fut_pivot_line = self.Plot_1.addLine(x=None, pen=fut_pvt_pen)
+        
+        hc_fut_upper_line = self.Plot_1.addLine(x=None, pen=fut_hc_pen)
+        hc_fut_lower_line = self.Plot_1.addLine(x=None, pen=fut_hc_pen)
+        
+        atm_upper_line = self.Plot_1.addLine(x=None, pen=atm_upper_pen)
+        atm_lower_line = self.Plot_1.addLine(x=None, pen=atm_lower_pen)
+        
         if UI_STYLE == 'Vertical_view.ui':
+
             time_line_dow_start = self.Plot_3.addLine(x=0, y=None, pen=tpen)
             time_line_dow_dow_start = self.Plot_3.addLine(x=0, y=None, pen=tpen)
             time_line_dow = self.Plot_3.addLine(x=0, y=None, pen=tpen)
         else:
             pass
-
-        fut_jl_line = self.Plot_1.addLine(x=None, pen=fut_jl_pen)
-        fut_jh_line = self.Plot_1.addLine(x=None, pen=fut_jh_pen)
-        volume_base_line = self.Plot_1.addLine(x=None, pen=ypen1)
-        fut_pivot_line = self.Plot_1.addLine(x=None, pen=fut_pvt_pen)
         
         fut_che_left_curve = self.Plot_1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         fut_che_left_plus_curve = self.Plot_1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
@@ -2814,6 +2831,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         kp200_curve = self.Plot_1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         fut_curve = self.Plot_1.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        
+        time_line_opt_start = self.Plot_2.addLine(x=0, y=None, pen=tpen)
+        time_line_opt_dow_start = self.Plot_2.addLine(x=0, y=None, pen=tpen)
+        time_line_opt = self.Plot_2.addLine(x=0, y=None, pen=tpen)
+        opt_base_line = self.Plot_2.addLine(x=None, pen=yellow_pen)
+
+        hc_opt_upper_line = self.Plot_2.addLine(x=None, pen=opt_hc_pen)
+        hc_opt_lower_line = self.Plot_2.addLine(x=None, pen=opt_hc_pen)
+
+        for i in range(9):
+            mv_line.append(self.Plot_2.addLine(x=None, pen=mvpen))
+
+        if UI_STYLE == 'Vertical_view.ui':
+
+            time_line_fv_start = self.Plot_4.addLine(x=0, y=None, pen=tpen)
+            time_line_fv = self.Plot_4.addLine(x=0, y=None, pen=tpen)
+
+            fut_base_line = self.Plot_4.addLine(x=None, pen=yellow_pen)
+        else:
+            pass
         
         cm_call_oi_right_curve = self.Plot_2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         cm_put_oi_right_curve = self.Plot_2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -2836,27 +2873,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         sp500_right_curve = self.Plot_2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         dow_right_curve = self.Plot_2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         nasdaq_right_curve = self.Plot_2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)   
-
-        global time_line_opt_start, time_line_opt_dow_start, time_line_opt, mv_line, opt_base_line, call_curve, put_curve
-        global hc_fut_upper_line, hc_fut_lower_line, hc_opt_upper_line, hc_opt_lower_line
-        global atm_upper_line, atm_lower_line
-
-        time_line_opt_start = self.Plot_2.addLine(x=0, y=None, pen=tpen)
-        time_line_opt_dow_start = self.Plot_2.addLine(x=0, y=None, pen=tpen)
-        time_line_opt = self.Plot_2.addLine(x=0, y=None, pen=tpen)
-        opt_base_line = self.Plot_2.addLine(x=None, pen=yellow_pen)
-
-        hc_fut_upper_line = self.Plot_1.addLine(x=None, pen=fut_hc_pen)
-        hc_fut_lower_line = self.Plot_1.addLine(x=None, pen=fut_hc_pen)
-
-        hc_opt_upper_line = self.Plot_2.addLine(x=None, pen=opt_hc_pen)
-        hc_opt_lower_line = self.Plot_2.addLine(x=None, pen=opt_hc_pen)
-
-        atm_upper_line = self.Plot_1.addLine(x=None, pen=atm_upper_pen)
-        atm_lower_line = self.Plot_1.addLine(x=None, pen=atm_lower_pen)
-
-        for i in range(9):
-            mv_line.append(self.Plot_2.addLine(x=None, pen=mvpen))
 
         for i in range(29):
             call_curve.append(self.Plot_2.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
@@ -7771,8 +7787,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     time_line_fut.setValue(선물장간_시간차 + 395 + 9)
 
                     if UI_STYLE == 'Vertical_view.ui':
+
                         self.Plot_3.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
                         time_line_dow.setValue(선물장간_시간차 + 395 + 9)
+
+                        self.Plot_4.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+                        time_line_fut.setValue(선물장간_시간차 + 395 + 9)
                     else:
                         pass
 
@@ -7805,8 +7825,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     time_line_fut.setValue(선물장간_시간차 + 660 + 60 + 9)
 
                     if UI_STYLE == 'Vertical_view.ui':
+
                         self.Plot_3.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
                         time_line_dow.setValue(선물장간_시간차 + 660 + 60 + 9)
+
+                        self.Plot_4.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+                        time_line_fut.setValue(선물장간_시간차 + 395 + 9)
                     else:
                         pass
 
