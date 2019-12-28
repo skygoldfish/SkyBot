@@ -11269,7 +11269,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
             self.textBrowser.append(str)
             
-            self.call_pre_open_update(index)
+            self.call_open_gap_update(index)
         else:
             pass
 
@@ -11911,7 +11911,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return
 
-    def call_pre_open_update(self, index):
+    def call_open_gap_update(self, index):
 
         global df_cm_call, call_gap_percent
         global df_plotdata_cm_call
@@ -12336,7 +12336,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
             self.textBrowser.append(str)
             
-            self.put_pre_open_update(index)
+            self.put_open_gap_update(index)
         else:
             pass
 
@@ -12979,7 +12979,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return
 
-    def put_pre_open_update(self, index):
+    def put_open_gap_update(self, index):
 
         global df_cm_put, put_gap_percent
         global df_plotdata_cm_put
