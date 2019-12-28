@@ -5004,6 +5004,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 print('콜_체결_초', 콜_체결_초)
                 
+                # 진성의미가 발생여부는 저,고 갱신시 반드시 수행
                 self.call_coreval_color_update()
                 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Coreval Color Check !!!\r'.format(\
@@ -5064,6 +5065,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 print('풋_체결_초', 풋_체결_초)
 
+                # 진성의미가 발생여부는 저,고 갱신시 반드시 수행
                 self.put_coreval_color_update()
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Coreval Color Check !!!\r'.format(\
