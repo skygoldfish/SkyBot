@@ -365,9 +365,9 @@
    <property name="geometry">
     <rect>
      <x>965</x>
-     <y>535</y>
+     <y>534</y>
      <width>941</width>
-     <height>470</height>
+     <height>471</height>
     </rect>
    </property>
    <property name="font">
@@ -394,7 +394,7 @@
      <x>965</x>
      <y>54</y>
      <width>941</width>
-     <height>470</height>
+     <height>471</height>
     </rect>
    </property>
    <property name="font">
