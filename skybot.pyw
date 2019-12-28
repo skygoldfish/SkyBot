@@ -11209,9 +11209,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         고가 = result['고가']
 
         if index == atm_index:
+
             call_atm_value = float(현재가)
+            self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색)) 
         else:
-            pass
+            self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))           
 
         if index == nCount_option_pairs - 1:
 
@@ -11219,686 +11221,288 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        if call_scroll_begin_position <= index < call_scroll_end_position:
+        # 시가 갱신
+        if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
-            # 현재가 갱신
-            if 현재가 != self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]:
+            df_cm_call.loc[index, '시가'] = round(float(시가), 2)                
+            df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
 
-                df_cm_call.loc[index, '현재가'] = round(float(현재가), 2)
-                df_plotdata_cm_call.iloc[index][opt_x_idx] = float(현재가)
+            item = QTableWidgetItem(시가)
+            item.setTextAlignment(Qt.AlignCenter)
 
-                if float(현재가) < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
-                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
-                elif float(현재가) > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
-                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
-                else:    
-                    item = QTableWidgetItem(현재가)
-                
+            if df_cm_call.iloc[index]['시가'] > df_cm_call.iloc[index]['종가']:
+                item.setForeground(QBrush(적색))
+            elif df_cm_call.iloc[index]['시가'] < df_cm_call.iloc[index]['종가']:
+                item.setForeground(QBrush(청색))
+            else:
+                item.setForeground(QBrush(검정색))
+
+            self.tableWidget_call.setItem(index, Option_column.시가.value, item)
+            
+            cm_call_시가 = df_cm_call['시가'].values.tolist()
+            cm_call_시가_node_list = self.make_node_list(cm_call_시가)
+
+            피봇 = self.calc_pivot(df_cm_call.iloc[index]['전저'], df_cm_call.iloc[index]['전고'],
+                                    df_cm_call.iloc[index]['종가'], df_cm_call.iloc[index]['시가'])
+
+            df_cm_call.loc[index, '피봇'] = 피봇
+
+            item = QTableWidgetItem("{0:0.2f}".format(피봇))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_call.setItem(index, Option_column.피봇.value, item)                
+
+            cm_call_피봇 = df_cm_call['피봇'].values.tolist()
+            cm_call_피봇_node_list = self.make_node_list(cm_call_피봇)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Open Update !!!\r'.format(int(call_result['체결시간'][0:2]), \
+                        int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), df_cm_call.iloc[index]['시가'])
+            self.textBrowser.append(str)
+            
+            # 콜 시가 갱신
+            if round(float(시가), 2) > opt_search_start_value:
+                call_open_list.append(index)
+                call_open_list = list(set(call_open_list))
+            else:
+                pass
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
+                        int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
+            self.textBrowser.append(str)
+            
+            self.call_pre_open_update(index)
+        else:
+            pass
+
+        # 현재가 갱신
+        if 현재가 != self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]:
+
+            df_cm_call.loc[index, '현재가'] = round(float(현재가), 2)
+            df_plotdata_cm_call.iloc[index][opt_x_idx] = float(현재가)
+
+            if float(현재가) < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+                item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
+            elif float(현재가) > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+                item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
+            else:    
+                item = QTableWidgetItem(현재가)
+            
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if float(현재가) < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+                item.setBackground(QBrush(lightskyblue))
+            elif float(현재가) > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+                item.setBackground(QBrush(pink))
+            else:
+                item.setBackground(QBrush(옅은회색))
+
+            if float(시가) < float(현재가):
+                item.setForeground(QBrush(적색))
+            elif float(시가) > float(현재가):
+                item.setForeground(QBrush(청색))
+            else:
+                item.setForeground(QBrush(검정색))
+
+            self.tableWidget_call.setItem(index, Option_column.현재가.value, item)
+            
+            대비 = round((float(현재가) - float(시가)), 2)
+            df_cm_call.loc[index, '대비'] = 대비
+
+            call_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
+            gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(대비, call_db_percent[index])
+
+            item = QTableWidgetItem(gap_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_call.setItem(index, Option_column.대비.value, item)
+
+            temp = call_db_percent[:]
+            call_db_percent_local = [value for value in temp if not math.isnan(value)]
+            call_db_percent_local.sort()
+
+            if call_db_percent_local:
+
+                대비합 = round(df_cm_call['대비'].sum(), 2)
+                tmp = np.array(call_db_percent_local)            
+                대비평균 = int(round(np.mean(tmp), 2))
+                call_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
+
+                item = QTableWidgetItem(call_str)
                 item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
+                self.tableWidget_call.resizeColumnsToContents()
+            else:
+                pass
 
-                if float(현재가) < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
-                    item.setBackground(QBrush(lightskyblue))
-                elif float(현재가) > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
-                    item.setBackground(QBrush(pink))
+            # 수정거래량 및 미결 계산
+            if float(현재가) <= df_cm_call.iloc[index]['시가갭']:
+
+                수정거래량 = (result['매수누적체결량'] - result['매도누적체결량']) * float(현재가)
+                매도누적체결량 = result['매도누적체결량'] * float(현재가)
+                매수누적체결량 = result['매수누적체결량'] * float(현재가)
+
+                if not overnight:
+
+                    매도누적체결건수 = result['매도누적체결건수'] * float(현재가)
+                    매수누적체결건수 = result['매수누적체결건수'] * float(현재가)
                 else:
-                    item.setBackground(QBrush(옅은회색))
+                    pass
+            else:
+                수정거래량 = (result['매수누적체결량'] - result['매도누적체결량']) * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
+                매도누적체결량 = result['매도누적체결량'] * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
+                매수누적체결량 = result['매수누적체결량'] * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
 
-                if float(시가) < float(현재가):
-                    item.setForeground(QBrush(적색))
-                elif float(시가) > float(현재가):
-                    item.setForeground(QBrush(청색))
+                if not overnight:
+
+                    매도누적체결건수 = result['매도누적체결건수'] * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
+                    매수누적체결건수 = result['매수누적체결건수'] * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
                 else:
-                    item.setForeground(QBrush(검정색))
+                    pass
 
-                self.tableWidget_call.setItem(index, Option_column.현재가.value, item)
+            df_cm_call.loc[index, '수정거래량'] = int(수정거래량)
+            df_cm_call_che.loc[index, '매도누적체결량'] = int(매도누적체결량)
+            df_cm_call_che.loc[index, '매수누적체결량'] = int(매수누적체결량)
+
+            df_cm_call.loc[index, '거래량'] = result['누적거래량']
+
+            if not overnight:
                 
-                대비 = round((float(현재가) - float(시가)), 2)
-                df_cm_call.loc[index, '대비'] = 대비
+                df_cm_call_che.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
+                df_cm_call_che.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
 
-                call_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
-                gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(대비, call_db_percent[index])
+                if float(현재가) <= df_cm_call.iloc[index]['시가갭']:
 
-                item = QTableWidgetItem(gap_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(index, Option_column.대비.value, item)
+                    수정미결 = result['미결제약정수량'] * float(현재가)
+                    수정미결증감 = result['미결제약정증감'] * float(현재가)
+                else:
+                    수정미결 = result['미결제약정수량'] * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
+                    수정미결증감 = result['미결제약정증감'] * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
 
-                temp = call_db_percent[:]
-                call_db_percent_local = [value for value in temp if not math.isnan(value)]
-                call_db_percent_local.sort()
+                df_cm_call.loc[index, '수정미결'] = int(수정미결)
+                df_cm_call.loc[index, '수정미결증감'] = int(수정미결증감)
+            else:
+                pass
+        else:
+            pass
 
-                if call_db_percent_local:
+        # 저가 갱신
+        if 저가 != self.tableWidget_call.item(index, Option_column.저가.value).text():
+            
+            df_cm_call.loc[index, '저가'] = round(float(저가), 2)
 
-                    대비합 = round(df_cm_call['대비'].sum(), 2)
-                    tmp = np.array(call_db_percent_local)            
-                    대비평균 = int(round(np.mean(tmp), 2))
-                    call_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
+            item = QTableWidgetItem(저가)
+            item.setTextAlignment(Qt.AlignCenter)             
+            self.tableWidget_call.setItem(index, Option_column.저가.value, item)
 
-                    item = QTableWidgetItem(call_str)
+            # 시가 0.5 ~ 9.x 탐색
+            if 저가_고가_갱신_탐색치1 < df_cm_call.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
+
+                if df_cm_call.iloc[index]['전저'] >= df_cm_call.iloc[index]['저가']:
+
+                    str = repr(df_cm_call.iloc[index]['전저']) + ' ▼'
+                    item = QTableWidgetItem(str)
                     item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
+                    item.setForeground(QBrush(청색))             
+                    self.tableWidget_call.setItem(index, Option_column.전저.value, item)
                     self.tableWidget_call.resizeColumnsToContents()
                 else:
                     pass
 
-                # 수정거래량 및 미결 계산
-                if float(현재가) <= df_cm_call.iloc[index]['시가갭']:
+                if df_cm_call.iloc[index]['월저'] >= df_cm_call.iloc[index]['저가']:
 
-                    수정거래량 = (result['매수누적체결량'] - result['매도누적체결량']) * float(현재가)
-                    매도누적체결량 = result['매도누적체결량'] * float(현재가)
-                    매수누적체결량 = result['매수누적체결량'] * float(현재가)
-
-                    if not overnight:
-
-                        매도누적체결건수 = result['매도누적체결건수'] * float(현재가)
-                        매수누적체결건수 = result['매수누적체결건수'] * float(현재가)
-                    else:
-                        pass
-                else:
-                    수정거래량 = (result['매수누적체결량'] - result['매도누적체결량']) * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
-                    매도누적체결량 = result['매도누적체결량'] * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
-                    매수누적체결량 = result['매수누적체결량'] * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
-
-                    if not overnight:
-
-                        매도누적체결건수 = result['매도누적체결건수'] * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
-                        매수누적체결건수 = result['매수누적체결건수'] * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
-                    else:
-                        pass
-
-                df_cm_call.loc[index, '수정거래량'] = int(수정거래량)
-                df_cm_call_che.loc[index, '매도누적체결량'] = int(매도누적체결량)
-                df_cm_call_che.loc[index, '매수누적체결량'] = int(매수누적체결량)
-
-                df_cm_call.loc[index, '거래량'] = result['누적거래량']
-
-                if not overnight:
-                    
-                    df_cm_call_che.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
-                    df_cm_call_che.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
-
-                    if float(현재가) <= df_cm_call.iloc[index]['시가갭']:
-
-                        수정미결 = result['미결제약정수량'] * float(현재가)
-                        수정미결증감 = result['미결제약정증감'] * float(현재가)
-                    else:
-                        수정미결 = result['미결제약정수량'] * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
-                        수정미결증감 = result['미결제약정증감'] * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
-
-                    df_cm_call.loc[index, '수정미결'] = int(수정미결)
-                    df_cm_call.loc[index, '수정미결증감'] = int(수정미결증감)
+                    str = repr(df_cm_call.iloc[index]['월저']) + ' ▼'
+                    item = QTableWidgetItem(str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setForeground(QBrush(청색))             
+                    self.tableWidget_call.setItem(index, Option_column.월저.value, item)
+                    self.tableWidget_call.resizeColumnsToContents()
                 else:
                     pass
             else:
                 pass
+                                
+            item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_call.setItem(index, Option_column.진폭.value, item)                    
 
-            if 저가 != 고가:
+            cm_call_저가 = df_cm_call['저가'].values.tolist()
+            cm_call_저가_node_list = self.make_node_list(cm_call_저가)
 
-                if index != atm_index:
-                    self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
-                else:
-                    self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
+            flag_call_low_update = True
+            
+            call_update_time = int(call_result['체결시간'][0:2]) * 3600 + int(call_result['체결시간'][2:4]) * 60 + int(call_result['체결시간'][4:6])
 
-                # 시가 갱신
-                if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가({3}) Update...\r'.format(\
+                int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), round(float(저가), 2))
+            self.textBrowser.append(str)
 
-                    df_cm_call.loc[index, '시가'] = round(float(시가), 2)                
-                    df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
+            if not node_coloring:
 
-                    item = QTableWidgetItem(시가)
-                    item.setTextAlignment(Qt.AlignCenter)
-
-                    if df_cm_call.iloc[index]['시가'] > df_cm_call.iloc[index]['종가']:
-                        item.setForeground(QBrush(적색))
-                    elif df_cm_call.iloc[index]['시가'] < df_cm_call.iloc[index]['종가']:
-                        item.setForeground(QBrush(청색))
-                    else:
-                        item.setForeground(QBrush(검정색))
-
-                    self.tableWidget_call.setItem(index, Option_column.시가.value, item)
-                    
-                    cm_call_시가 = df_cm_call['시가'].values.tolist()
-                    cm_call_시가_node_list = self.make_node_list(cm_call_시가)
-
-                    피봇 = self.calc_pivot(df_cm_call.iloc[index]['전저'], df_cm_call.iloc[index]['전고'],
-                                            df_cm_call.iloc[index]['종가'], df_cm_call.iloc[index]['시가'])
-
-                    df_cm_call.loc[index, '피봇'] = 피봇
-
-                    item = QTableWidgetItem("{0:0.2f}".format(피봇))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(index, Option_column.피봇.value, item)                
-
-                    cm_call_피봇 = df_cm_call['피봇'].values.tolist()
-                    cm_call_피봇_node_list = self.make_node_list(cm_call_피봇)
-
-                    if round(float(시가), 2) > opt_search_start_value:
-                        call_open_list.append(index)
-                        call_open_list = list(set(call_open_list))
-                    else:
-                        pass
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call 시가 갱신 Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
-                                int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
-                    self.textBrowser.append(str)
-
-                    #self.call_open_update()
-                else:
-                    pass
-
-                # 저가 갱신
-                if 저가 != self.tableWidget_call.item(index, Option_column.저가.value).text():
-                    
-                    df_cm_call.loc[index, '저가'] = round(float(저가), 2)
-
-                    item = QTableWidgetItem(저가)
-                    item.setTextAlignment(Qt.AlignCenter)             
-                    self.tableWidget_call.setItem(index, Option_column.저가.value, item)
-
-                    # 시가 0.5 ~ 9.x 탐색
-                    if 저가_고가_갱신_탐색치1 < df_cm_call.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
-
-                        if df_cm_call.iloc[index]['전저'] >= df_cm_call.iloc[index]['저가']:
-
-                            str = repr(df_cm_call.iloc[index]['전저']) + ' ▼'
-                            item = QTableWidgetItem(str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setForeground(QBrush(청색))             
-                            self.tableWidget_call.setItem(index, Option_column.전저.value, item)
-                            self.tableWidget_call.resizeColumnsToContents()
-                        else:
-                            pass
-
-                        if df_cm_call.iloc[index]['월저'] >= df_cm_call.iloc[index]['저가']:
-
-                            str = repr(df_cm_call.iloc[index]['월저']) + ' ▼'
-                            item = QTableWidgetItem(str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setForeground(QBrush(청색))             
-                            self.tableWidget_call.setItem(index, Option_column.월저.value, item)
-                            self.tableWidget_call.resizeColumnsToContents()
-                        else:
-                            pass
-                    else:
-                        pass
-                                        
-                    #self.check_call_oloh(index)
-                                        
-                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(index, Option_column.진폭.value, item)                    
-
-                    cm_call_저가 = df_cm_call['저가'].values.tolist()
-                    cm_call_저가_node_list = self.make_node_list(cm_call_저가)
-
-                    flag_call_low_update = True
-                    
-                    call_update_time = int(call_result['체결시간'][0:2]) * 3600 + int(call_result['체결시간'][2:4]) * 60 + int(call_result['체결시간'][4:6])
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가({3}) Update...\r'.format(\
-                        int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), round(float(저가), 2))
-                    self.textBrowser.append(str)
-
-                    if not node_coloring:
-
-                        self.opt_call_node_coloring()
-                    else:
-                        pass                     
-                else:
-                    pass
-
-                # 고가 갱신
-                if 고가 != self.tableWidget_call.item(index, Option_column.고가.value).text():
-                    
-                    df_cm_call.loc[index, '고가'] = round(float(고가), 2)
-
-                    item = QTableWidgetItem(고가)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(index, Option_column.고가.value, item)
-
-                    # 시가 0.5 ~ 9.x 탐색
-                    if 저가_고가_갱신_탐색치1 < df_cm_call.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
-
-                        if df_cm_call.iloc[index]['전고'] <= df_cm_call.iloc[index]['고가']:
-
-                            str = repr(df_cm_call.iloc[index]['전고']) + ' ▲'
-                            item = QTableWidgetItem(str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setForeground(QBrush(적색))             
-                            self.tableWidget_call.setItem(index, Option_column.전고.value, item)
-                            self.tableWidget_call.resizeColumnsToContents()
-                        else:
-                            pass
-
-                        if df_cm_call.iloc[index]['월고'] <= df_cm_call.iloc[index]['고가']:
-
-                            str = repr(df_cm_call.iloc[index]['월고']) + ' ▲'
-                            item = QTableWidgetItem(str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setForeground(QBrush(적색))             
-                            self.tableWidget_call.setItem(index, Option_column.월고.value, item)
-                            self.tableWidget_call.resizeColumnsToContents()
-                        else:
-                            pass
-                    else:
-                        pass
-                                        
-                    #self.check_call_oloh(index)
-                                        
-                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
-
-                    cm_call_고가 = df_cm_call['고가'].values.tolist()
-                    cm_call_고가_node_list = self.make_node_list(cm_call_고가)
-
-                    flag_call_high_update = True
-                    
-                    call_update_time = int(call_result['체결시간'][0:2]) * 3600 + int(call_result['체결시간'][2:4]) * 60 + int(call_result['체결시간'][4:6])
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가({3}) Update...\r'.format(\
-                        int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), round(float(고가), 2))
-                    self.textBrowser.append(str)
-
-                    if not node_coloring:
-
-                        self.opt_call_node_coloring()
-                    else:
-                        pass                    
-                else:
-                    pass
+                self.opt_call_node_coloring()
             else:
-                
-                # pre open check
-                if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
-
-                    df_cm_call.loc[index, '시가'] = round(float(시가), 2)                
-                    df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
-
-                    item = QTableWidgetItem(시가)
-                    item.setTextAlignment(Qt.AlignCenter)
-
-                    if df_cm_call.iloc[index]['시가'] > df_cm_call.iloc[index]['종가']:
-                        item.setForeground(QBrush(적색))
-                    elif df_cm_call.iloc[index]['시가'] < df_cm_call.iloc[index]['종가']:
-                        item.setForeground(QBrush(청색))
-                    else:
-                        item.setForeground(QBrush(검정색))
-
-                    self.tableWidget_call.setItem(index, Option_column.시가.value, item)
-                    
-                    cm_call_시가 = df_cm_call['시가'].values.tolist()
-                    cm_call_시가_node_list = self.make_node_list(cm_call_시가)
-
-                    피봇 = self.calc_pivot(df_cm_call.iloc[index]['전저'], df_cm_call.iloc[index]['전고'],
-                                            df_cm_call.iloc[index]['종가'], df_cm_call.iloc[index]['시가'])
-
-                    df_cm_call.loc[index, '피봇'] = 피봇
-
-                    item = QTableWidgetItem("{0:0.2f}".format(피봇))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(index, Option_column.피봇.value, item)                
-
-                    cm_call_피봇 = df_cm_call['피봇'].values.tolist()
-                    cm_call_피봇_node_list = self.make_node_list(cm_call_피봇)
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Pre Open Update !!!\r'.format(int(call_result['체결시간'][0:2]), \
-                                int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), df_cm_call.iloc[index]['시가'])
-                    self.textBrowser.append(str)
-                    
-                    # 콜 시가 갱신
-                    if round(float(시가), 2) > opt_search_start_value:
-                        call_open_list.append(index)
-                        call_open_list = list(set(call_open_list))
-                    else:
-                        pass
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call Pre Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
-                                int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
-                    self.textBrowser.append(str)
-                    
-                    self.call_pre_open_update(index)
-                else:
-                    pass            
-                       
-            opt_callreal_update_counter += 1
+                pass                     
         else:
-            # 현재가 갱신
-            if 현재가 != self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]:
+            pass
 
-                df_cm_call.loc[index, '현재가'] = round(float(현재가), 2)
-                df_plotdata_cm_call.iloc[index][opt_x_idx] = float(현재가)
+        # 고가 갱신
+        if 고가 != self.tableWidget_call.item(index, Option_column.고가.value).text():
+            
+            df_cm_call.loc[index, '고가'] = round(float(고가), 2)
 
-                if float(현재가) < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
-                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
-                elif float(현재가) > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
-                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
-                else:    
-                    item = QTableWidgetItem(현재가)
+            item = QTableWidgetItem(고가)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_call.setItem(index, Option_column.고가.value, item)
 
-                item.setTextAlignment(Qt.AlignCenter)
+            # 시가 0.5 ~ 9.x 탐색
+            if 저가_고가_갱신_탐색치1 < df_cm_call.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
 
-                if float(현재가) < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
-                    item.setBackground(QBrush(lightskyblue))
-                elif float(현재가) > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
-                    item.setBackground(QBrush(pink))
-                else:
-                    item.setBackground(QBrush(옅은회색))
+                if df_cm_call.iloc[index]['전고'] <= df_cm_call.iloc[index]['고가']:
 
-                if float(시가) < float(현재가):
-                    item.setForeground(QBrush(적색))
-                elif float(시가) > float(현재가):
-                    item.setForeground(QBrush(청색))
-                else:
-                    item.setForeground(QBrush(검정색))
-
-                self.tableWidget_call.setItem(index, Option_column.현재가.value, item)
-
-                대비 = round((float(현재가) - float(시가)), 2)
-                df_cm_call.loc[index, '대비'] = 대비
-
-                call_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
-                gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(대비, call_db_percent[index])
-
-                item = QTableWidgetItem(gap_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(index, Option_column.대비.value, item)
-
-                temp = call_db_percent[:]
-                call_db_percent_local = [value for value in temp if not math.isnan(value)]
-                call_db_percent_local.sort()
-
-                if call_db_percent_local:
-
-                    대비합 = round(df_cm_call['대비'].sum(), 2)
-                    tmp = np.array(call_db_percent_local)            
-                    대비평균 = int(round(np.mean(tmp), 2))
-                    call_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
-
-                    item = QTableWidgetItem(call_str)
+                    str = repr(df_cm_call.iloc[index]['전고']) + ' ▲'
+                    item = QTableWidgetItem(str)
                     item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
+                    item.setForeground(QBrush(적색))             
+                    self.tableWidget_call.setItem(index, Option_column.전고.value, item)
                     self.tableWidget_call.resizeColumnsToContents()
                 else:
                     pass
 
-                # 수정거래량 및 미결 계산
-                if float(현재가) <= df_cm_call.iloc[index]['시가갭']:
+                if df_cm_call.iloc[index]['월고'] <= df_cm_call.iloc[index]['고가']:
 
-                    수정거래량 = (result['매수누적체결량'] - result['매도누적체결량']) * float(현재가)
-                    매도누적체결량 = result['매도누적체결량'] * float(현재가)
-                    매수누적체결량 = result['매수누적체결량'] * float(현재가)
-
-                    if not overnight:
-
-                        매도누적체결건수 = result['매도누적체결건수'] * float(현재가)
-                        매수누적체결건수 = result['매수누적체결건수'] * float(현재가)
-                    else:
-                        pass
-                else:
-                    수정거래량 = (result['매수누적체결량'] - result['매도누적체결량']) * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
-                    매도누적체결량 = result['매도누적체결량'] * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
-                    매수누적체결량 = result['매수누적체결량'] * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
-
-                    if not overnight:
-
-                        매도누적체결건수 = result['매도누적체결건수'] * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
-                        매수누적체결건수 = result['매수누적체결건수'] * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
-                    else:
-                        pass
-
-                df_cm_call.loc[index, '수정거래량'] = int(수정거래량)
-                df_cm_call_che.loc[index, '매도누적체결량'] = int(매도누적체결량)
-                df_cm_call_che.loc[index, '매수누적체결량'] = int(매수누적체결량)
-
-                df_cm_call.loc[index, '거래량'] = result['누적거래량']
-
-                if not overnight:
-                    
-                    df_cm_call_che.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
-                    df_cm_call_che.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
-
-                    if float(현재가) <= df_cm_call.iloc[index]['시가갭']:
-
-                        수정미결 = result['미결제약정수량'] * float(현재가)
-                        수정미결증감 = result['미결제약정증감'] * float(현재가)
-                    else:
-                        수정미결 = result['미결제약정수량'] * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
-                        수정미결증감 = result['미결제약정증감'] * (float(현재가) - df_cm_call.iloc[index]['시가갭'])
-
-                    df_cm_call.loc[index, '수정미결'] = int(수정미결)
-                    df_cm_call.loc[index, '수정미결증감'] = int(수정미결증감)
+                    str = repr(df_cm_call.iloc[index]['월고']) + ' ▲'
+                    item = QTableWidgetItem(str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setForeground(QBrush(적색))             
+                    self.tableWidget_call.setItem(index, Option_column.월고.value, item)
+                    self.tableWidget_call.resizeColumnsToContents()
                 else:
                     pass
             else:
-                pass      
+                pass
+                                
+            item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
 
-            if 저가 != 고가:
+            cm_call_고가 = df_cm_call['고가'].values.tolist()
+            cm_call_고가_node_list = self.make_node_list(cm_call_고가)
 
-                if index != atm_index:
-                    self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
-                else:
-                    self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
+            flag_call_high_update = True
+            
+            call_update_time = int(call_result['체결시간'][0:2]) * 3600 + int(call_result['체결시간'][2:4]) * 60 + int(call_result['체결시간'][4:6])
 
-                # 시가 갱신
-                if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가({3}) Update...\r'.format(\
+                int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), round(float(고가), 2))
+            self.textBrowser.append(str)
 
-                    df_cm_call.loc[index, '시가'] = round(float(시가), 2)                
-                    df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
+            if not node_coloring:
 
-                    item = QTableWidgetItem(시가)
-                    item.setTextAlignment(Qt.AlignCenter)
-
-                    if df_cm_call.iloc[index]['시가'] > df_cm_call.iloc[index]['종가']:
-                        item.setForeground(QBrush(적색))
-                    elif df_cm_call.iloc[index]['시가'] < df_cm_call.iloc[index]['종가']:
-                        item.setForeground(QBrush(청색))
-                    else:
-                        item.setForeground(QBrush(검정색))
-
-                    self.tableWidget_call.setItem(index, Option_column.시가.value, item)
-                    
-                    cm_call_시가 = df_cm_call['시가'].values.tolist()
-                    cm_call_시가_node_list = self.make_node_list(cm_call_시가)
-
-                    피봇 = self.calc_pivot(df_cm_call.iloc[index]['전저'], df_cm_call.iloc[index]['전고'],
-                                            df_cm_call.iloc[index]['종가'], df_cm_call.iloc[index]['시가'])
-
-                    df_cm_call.loc[index, '피봇'] = 피봇
-
-                    item = QTableWidgetItem("{0:0.2f}".format(피봇))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(index, Option_column.피봇.value, item)                
-
-                    cm_call_피봇 = df_cm_call['피봇'].values.tolist()
-                    cm_call_피봇_node_list = self.make_node_list(cm_call_피봇)
-
-                    if round(float(시가), 2) > opt_search_start_value:
-                        call_open_list.append(index)
-                        call_open_list = list(set(call_open_list))
-                    else:
-                        pass
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call 시가 갱신 Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
-                                int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
-                    self.textBrowser.append(str)
-
-                    #self.call_open_update()
-                else:
-                    pass
-                
-                if 저가 != self.tableWidget_call.item(index, Option_column.저가.value).text():
-
-                    df_cm_call.loc[index, '저가'] = round(float(저가), 2)
-
-                    item = QTableWidgetItem(저가)
-                    item.setTextAlignment(Qt.AlignCenter)             
-                    self.tableWidget_call.setItem(index, Option_column.저가.value, item)
-
-                    # 시가 0.5 ~ 9.x 탐색
-                    if 저가_고가_갱신_탐색치1 < df_cm_call.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
-
-                        if df_cm_call.iloc[index]['전저'] >= df_cm_call.iloc[index]['저가']:
-
-                            str = repr(df_cm_call.iloc[index]['전저']) + ' ▼'
-                            item = QTableWidgetItem(str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setForeground(QBrush(청색))             
-                            self.tableWidget_call.setItem(index, Option_column.전저.value, item)
-                            self.tableWidget_call.resizeColumnsToContents()
-                        else:
-                            pass
-
-                        if df_cm_call.iloc[index]['월저'] >= df_cm_call.iloc[index]['저가']:
-
-                            str = repr(df_cm_call.iloc[index]['월저']) + ' ▼'
-                            item = QTableWidgetItem(str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setForeground(QBrush(청색))             
-                            self.tableWidget_call.setItem(index, Option_column.월저.value, item)
-                            self.tableWidget_call.resizeColumnsToContents()
-                        else:
-                            pass
-                    else:
-                        pass
-                                        
-                    #self.check_call_oloh(index)
-                                        
-                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
-
-                    cm_call_저가 = df_cm_call['저가'].values.tolist()
-                    cm_call_저가_node_list = self.make_node_list(cm_call_저가)
-
-                    flag_call_low_update = True
-                    
-                    call_update_time = int(call_result['체결시간'][0:2]) * 3600 + int(call_result['체결시간'][2:4]) * 60 + int(call_result['체결시간'][4:6])
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가({3}) Update...\r'.format(\
-                        int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), round(float(저가), 2))
-                    self.textBrowser.append(str)
-
-                    if not node_coloring:
-
-                        self.opt_call_node_coloring()
-                    else:
-                        pass
-                else:
-                    pass
-
-                if 고가 != self.tableWidget_call.item(index, Option_column.고가.value).text():
-
-                    df_cm_call.loc[index, '고가'] = round(float(고가), 2)
-
-                    item = QTableWidgetItem(고가)
-                    item.setTextAlignment(Qt.AlignCenter)             
-                    self.tableWidget_call.setItem(index, Option_column.고가.value, item)
-
-                    # 시가 0.5 ~ 9.x 탐색
-                    if 저가_고가_갱신_탐색치1 < df_cm_call.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
-
-                        if df_cm_call.iloc[index]['전고'] <= df_cm_call.iloc[index]['고가']:
-
-                            str = repr(df_cm_call.iloc[index]['전고']) + ' ▲'
-                            item = QTableWidgetItem(str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setForeground(QBrush(적색))             
-                            self.tableWidget_call.setItem(index, Option_column.전고.value, item)
-                            self.tableWidget_call.resizeColumnsToContents()
-                        else:
-                            pass
-
-                        if df_cm_call.iloc[index]['월고'] <= df_cm_call.iloc[index]['고가']:
-
-                            str = repr(df_cm_call.iloc[index]['월고']) + ' ▲'
-                            item = QTableWidgetItem(str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setForeground(QBrush(적색))             
-                            self.tableWidget_call.setItem(index, Option_column.월고.value, item)
-                            self.tableWidget_call.resizeColumnsToContents()
-                        else:
-                            pass
-                    else:
-                        pass
-                                        
-                    #self.check_call_oloh(index)
-                                        
-                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
-
-                    cm_call_고가 = df_cm_call['고가'].values.tolist()
-                    cm_call_고가_node_list = self.make_node_list(cm_call_고가)
-
-                    flag_call_high_update = True
-                    
-                    call_update_time = int(call_result['체결시간'][0:2]) * 3600 + int(call_result['체결시간'][2:4]) * 60 + int(call_result['체결시간'][4:6])
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가({3}) Update...\r'.format(\
-                        int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), round(float(고가), 2))
-                    self.textBrowser.append(str)
-
-                    if not node_coloring:
-
-                        self.opt_call_node_coloring()
-                    else:
-                        pass
-                else:
-                    pass         
+                self.opt_call_node_coloring()
             else:
-                
-                # pre open check
-                if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
-
-                    df_cm_call.loc[index, '시가'] = round(float(시가), 2)
-                    df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
-
-                    item = QTableWidgetItem(시가)
-                    item.setTextAlignment(Qt.AlignCenter)
-
-                    if df_cm_call.iloc[index]['시가'] > df_cm_call.iloc[index]['종가']:
-                        item.setForeground(QBrush(적색))
-                    elif df_cm_call.iloc[index]['시가'] < df_cm_call.iloc[index]['종가']:
-                        item.setForeground(QBrush(청색))
-                    else:
-                        item.setForeground(QBrush(검정색))
-
-                    self.tableWidget_call.setItem(index, Option_column.시가.value, item)                    
-
-                    cm_call_시가 = df_cm_call['시가'].values.tolist()
-                    cm_call_시가_node_list = self.make_node_list(cm_call_시가)
-
-                    피봇 = self.calc_pivot(df_cm_call.iloc[index]['전저'], df_cm_call.iloc[index]['전고'],
-                                            df_cm_call.iloc[index]['종가'], df_cm_call.iloc[index]['시가'])
-
-                    df_cm_call.loc[index, '피봇'] = 피봇
-
-                    item = QTableWidgetItem("{0:0.2f}".format(피봇))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(index, Option_column.피봇.value, item)                
-
-                    cm_call_피봇 = df_cm_call['피봇'].values.tolist()
-                    cm_call_피봇_node_list = self.make_node_list(cm_call_피봇)
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Pre Open Update !!!\r'.format(int(call_result['체결시간'][0:2]), \
-                                int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), df_cm_call.iloc[index]['시가'])
-                    self.textBrowser.append(str)
-                    
-                    # 콜 시가 갱신
-                    if round(float(시가), 2) > opt_search_start_value:
-                        call_open_list.append(index)
-                        call_open_list = list(set(call_open_list))
-                    else:
-                        pass
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call Pre Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
-                                int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
-                    self.textBrowser.append(str)
-                    
-                    self.call_pre_open_update(index)
-                else:
-                    pass               
-
+                pass                    
+        else:
+            pass               
+                   
+        opt_callreal_update_counter += 1
+        
         return
 
     def call_open_update(self):
@@ -12674,693 +12278,297 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         if index == atm_index:
             put_atm_value = float(현재가)
+            self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
         else:
-            pass
+            self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
 
         if index == 0:
 
             put_max_actval = True
         else:
             pass
+        
+        # 시가 갱신
+        if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
 
-        if put_scroll_begin_position <= index < put_scroll_end_position:
+            df_cm_put.loc[index, '시가'] = round(float(시가), 2)
+            df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']
 
-            # 현재가 갱신
-            if 현재가 != self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]:
+            item = QTableWidgetItem(시가)
+            item.setTextAlignment(Qt.AlignCenter)
 
-                df_cm_put.loc[index, '현재가'] = round(float(현재가), 2)
-                df_plotdata_cm_put.iloc[index][opt_x_idx] = float(현재가)
+            if df_cm_put.iloc[index]['시가'] > df_cm_put.iloc[index]['종가']:
+                item.setForeground(QBrush(적색))
+            elif df_cm_put.iloc[index]['시가'] < df_cm_put.iloc[index]['종가']:
+                item.setForeground(QBrush(청색))
+            else:
+                item.setForeground(QBrush(검정색))
 
-                if float(현재가) < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
-                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
-                elif float(현재가) > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
-                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
-                else:    
-                    item = QTableWidgetItem(현재가)
+            self.tableWidget_put.setItem(index, Option_column.시가.value, item)
+            
+            cm_put_시가 = df_cm_put['시가'].values.tolist()
+            cm_put_시가_node_list = self.make_node_list(cm_put_시가)
+            
+            피봇 = self.calc_pivot(df_cm_put.iloc[index]['전저'], df_cm_put.iloc[index]['전고'],
+                                    df_cm_put.iloc[index]['종가'], df_cm_put.iloc[index]['시가'])
 
+            df_cm_put.loc[index, '피봇'] = 피봇
+
+            item = QTableWidgetItem("{0:0.2f}".format(피봇))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
+
+            cm_put_피봇 = df_cm_put['피봇'].values.tolist()
+            cm_put_피봇_node_list = self.make_node_list(cm_put_피봇)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Open Update !!!\r'.format(int(put_result['체결시간'][0:2]), \
+                        int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), df_cm_put.iloc[index]['시가'])
+            self.textBrowser.append(str)
+            
+            # 풋 시가 갱신
+            if round(float(시가), 2) > opt_search_start_value:
+                put_open_list.append(index)
+                put_open_list = list(set(put_open_list))
+            else:
+                pass
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
+                        int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
+            self.textBrowser.append(str)
+            
+            self.put_pre_open_update(index)
+        else:
+            pass
+
+        # 현재가 갱신
+        if 현재가 != self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]:
+
+            df_cm_put.loc[index, '현재가'] = round(float(현재가), 2)
+            df_plotdata_cm_put.iloc[index][opt_x_idx] = float(현재가)
+
+            if float(현재가) < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+                item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
+            elif float(현재가) > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+                item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
+            else:    
+                item = QTableWidgetItem(현재가)
+
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if float(현재가) < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+                item.setBackground(QBrush(lightskyblue))
+            elif float(현재가) > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+                item.setBackground(QBrush(pink))
+            else:
+                item.setBackground(QBrush(옅은회색))
+
+            if float(시가) < float(현재가):
+                item.setForeground(QBrush(적색))
+            elif float(시가) > float(현재가):
+                item.setForeground(QBrush(청색))
+            else:
+                item.setForeground(QBrush(검정색))
+
+            self.tableWidget_put.setItem(index, Option_column.현재가.value, item)
+            
+            대비 = round((float(현재가) - float(시가)), 2)
+            df_cm_put.loc[index, '대비'] = 대비
+
+            put_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
+            gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(대비, put_db_percent[index])  
+
+            item = QTableWidgetItem(gap_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_put.setItem(index, Option_column.대비.value, item)
+
+            temp = put_db_percent[:]
+            put_db_percent_local = [value for value in temp if not math.isnan(value)]
+            put_db_percent_local.sort()
+
+            if put_db_percent_local:
+
+                대비합 = round(df_cm_put['대비'].sum(), 2)
+                tmp = np.array(put_db_percent_local)            
+                대비평균 = int(round(np.mean(tmp), 2))
+                put_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
+
+                item = QTableWidgetItem(put_str)
                 item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
+                self.tableWidget_put.resizeColumnsToContents()
+            else:
+                pass
 
-                if float(현재가) < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
-                    item.setBackground(QBrush(lightskyblue))
-                elif float(현재가) > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
-                    item.setBackground(QBrush(pink))
-                else:
-                    item.setBackground(QBrush(옅은회색))
+            # 수정거래량 및 미결 계산
+            if float(현재가) <= df_cm_put.iloc[index]['시가갭']:
 
-                if float(시가) < float(현재가):
-                    item.setForeground(QBrush(적색))
-                elif float(시가) > float(현재가):
-                    item.setForeground(QBrush(청색))
-                else:
-                    item.setForeground(QBrush(검정색))
-
-                self.tableWidget_put.setItem(index, Option_column.현재가.value, item)
-                
-                대비 = round((float(현재가) - float(시가)), 2)
-                df_cm_put.loc[index, '대비'] = 대비
-
-                put_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
-                gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(대비, put_db_percent[index])  
-
-                item = QTableWidgetItem(gap_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(index, Option_column.대비.value, item)
-
-                temp = put_db_percent[:]
-                put_db_percent_local = [value for value in temp if not math.isnan(value)]
-                put_db_percent_local.sort()
-
-                if put_db_percent_local:
-
-                    대비합 = round(df_cm_put['대비'].sum(), 2)
-                    tmp = np.array(put_db_percent_local)            
-                    대비평균 = int(round(np.mean(tmp), 2))
-                    put_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
-
-                    item = QTableWidgetItem(put_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
-                    self.tableWidget_put.resizeColumnsToContents()
-                else:
-                    pass
-
-                # 수정거래량 및 미결 계산
-                if float(현재가) <= df_cm_put.iloc[index]['시가갭']:
-
-                    수정거래량 = (result['매수누적체결량'] - result['매도누적체결량']) * float(현재가)
-                    매도누적체결량 = result['매도누적체결량'] * float(현재가)
-                    매수누적체결량 = result['매수누적체결량'] * float(현재가)
-
-                    if not overnight:
-
-                        매도누적체결건수 = result['매도누적체결건수'] * float(현재가)
-                        매수누적체결건수 = result['매수누적체결건수'] * float(현재가)
-                    else:
-                        pass
-                else:
-                    수정거래량 = (result['매수누적체결량'] - result['매도누적체결량']) * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
-                    매도누적체결량 = result['매도누적체결량'] * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
-                    매수누적체결량 = result['매수누적체결량'] * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
-
-                    if not overnight:
-
-                        매도누적체결건수 = result['매도누적체결건수'] * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
-                        매수누적체결건수 = result['매수누적체결건수'] * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
-                    else:
-                        pass
-
-                df_cm_put.loc[index, '수정거래량'] = int(수정거래량)
-                df_cm_put_che.loc[index, '매도누적체결량'] = int(매도누적체결량)
-                df_cm_put_che.loc[index, '매수누적체결량'] = int(매수누적체결량)
-
-                df_cm_put.loc[index, '거래량'] = result['누적거래량']
+                수정거래량 = (result['매수누적체결량'] - result['매도누적체결량']) * float(현재가)
+                매도누적체결량 = result['매도누적체결량'] * float(현재가)
+                매수누적체결량 = result['매수누적체결량'] * float(현재가)
 
                 if not overnight:
-                    
-                    df_cm_put_che.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
-                    df_cm_put_che.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
 
-                    if float(현재가) <= df_cm_put.iloc[index]['시가갭']:
-
-                        수정미결 = result['미결제약정수량'] * float(현재가)
-                        수정미결증감 = result['미결제약정증감'] * float(현재가)
-                    else:
-                        수정미결 = result['미결제약정수량'] * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
-                        수정미결증감 = result['미결제약정증감'] * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
-
-                    df_cm_put.loc[index, '수정미결'] = int(수정미결)
-                    df_cm_put.loc[index, '수정미결증감'] = int(수정미결증감)
-                else:
-                    pass              
-            else:
-                pass                  
-
-            if 저가 != 고가:
-
-                if index != atm_index:
-                    self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
-                else:
-                    self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
-
-                 # 시가 갱신
-                if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
-
-                    df_cm_put.loc[index, '시가'] = round(float(시가), 2)
-                    df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']
-
-                    item = QTableWidgetItem(시가)
-                    item.setTextAlignment(Qt.AlignCenter)
-
-                    if df_cm_put.iloc[index]['시가'] > df_cm_put.iloc[index]['종가']:
-                        item.setForeground(QBrush(적색))
-                    elif df_cm_put.iloc[index]['시가'] < df_cm_put.iloc[index]['종가']:
-                        item.setForeground(QBrush(청색))
-                    else:
-                        item.setForeground(QBrush(검정색))
-
-                    self.tableWidget_put.setItem(index, Option_column.시가.value, item)
-                    
-                    cm_put_시가 = df_cm_put['시가'].values.tolist()
-                    cm_put_시가_node_list = self.make_node_list(cm_put_시가)
-                    
-                    피봇 = self.calc_pivot(df_cm_put.iloc[index]['전저'], df_cm_put.iloc[index]['전고'],
-                                            df_cm_put.iloc[index]['종가'], df_cm_put.iloc[index]['시가'])
-
-                    df_cm_put.loc[index, '피봇'] = 피봇
-
-                    item = QTableWidgetItem("{0:0.2f}".format(피봇))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
-
-                    cm_put_피봇 = df_cm_put['피봇'].values.tolist()
-                    cm_put_피봇_node_list = self.make_node_list(cm_put_피봇)
-
-                    if round(float(시가), 2) > opt_search_start_value:
-                        put_open_list.append(index)
-                        put_open_list = list(set(put_open_list))
-                    else:
-                        pass
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put 시가 갱신 Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
-                                int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
-                    self.textBrowser.append(str)
-
-                    #self.put_open_update()
-                else:
-                    pass
-
-                # 저가 갱신
-                if 저가 != self.tableWidget_put.item(index, Option_column.저가.value).text():
-                    
-                    df_cm_put.loc[index, '저가'] = round(float(저가), 2)
-
-                    item = QTableWidgetItem(저가)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(index, Option_column.저가.value, item)
-
-                    # 시가 0.5 ~ 9.x 탐색
-                    if 저가_고가_갱신_탐색치1 < df_cm_put.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
-
-                        if df_cm_put.iloc[index]['전저'] >= df_cm_put.iloc[index]['저가']:
-
-                            str = repr(df_cm_put.iloc[index]['전저']) + ' ▼'
-                            item = QTableWidgetItem(str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setForeground(QBrush(청색))             
-                            self.tableWidget_put.setItem(index, Option_column.전저.value, item)
-                            self.tableWidget_put.resizeColumnsToContents()
-                        else:
-                            pass
-
-                        if df_cm_put.iloc[index]['월저'] >= df_cm_put.iloc[index]['저가']:
-
-                            str = repr(df_cm_put.iloc[index]['월저']) + ' ▼'
-                            item = QTableWidgetItem(str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setForeground(QBrush(청색))             
-                            self.tableWidget_put.setItem(index, Option_column.월저.value, item)
-                            self.tableWidget_put.resizeColumnsToContents()
-                        else:
-                            pass
-                    else:
-                        pass
-                                        
-                    #self.check_put_oloh(index)
-                                        
-                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
-
-                    cm_put_저가 = df_cm_put['저가'].values.tolist()
-                    cm_put_저가_node_list = self.make_node_list(cm_put_저가)
-
-                    flag_put_low_update = True
-                    
-                    put_update_time = int(put_result['체결시간'][0:2]) * 3600 + int(put_result['체결시간'][2:4]) * 60 + int(put_result['체결시간'][4:6])
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가({3}) Update...\r'.format(\
-                        int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), round(float(저가), 2))
-                    self.textBrowser.append(str)
-
-                    if not node_coloring:
-
-                        self.opt_put_node_coloring()
-                    else:
-                        pass                    
-                else:
-                    pass
-
-                # 고가 갱신
-                if 고가 != self.tableWidget_put.item(index, Option_column.고가.value).text():
-                    
-                    df_cm_put.loc[index, '고가'] = round(float(고가), 2)
-
-                    item = QTableWidgetItem(고가)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(index, Option_column.고가.value, item)
-
-                    # 시가 0.5 ~ 9.x 탐색
-                    if 저가_고가_갱신_탐색치1 < df_cm_put.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
-
-                        if df_cm_put.iloc[index]['전고'] <= df_cm_put.iloc[index]['고가']:
-
-                            str = repr(df_cm_put.iloc[index]['전고']) + ' ▲'
-                            item = QTableWidgetItem(str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setForeground(QBrush(적색))             
-                            self.tableWidget_put.setItem(index, Option_column.전고.value, item)
-                            self.tableWidget_put.resizeColumnsToContents()
-                        else:
-                            pass
-
-                        if df_cm_put.iloc[index]['월고'] <= df_cm_put.iloc[index]['고가']:
-
-                            str = repr(df_cm_put.iloc[index]['월고']) + ' ▲'
-                            item = QTableWidgetItem(str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setForeground(QBrush(적색))             
-                            self.tableWidget_put.setItem(index, Option_column.월고.value, item)
-                            self.tableWidget_put.resizeColumnsToContents()
-                        else:
-                            pass
-                    else:
-                        pass
-                                        
-                    #self.check_put_oloh(index)
-                                        
-                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
-
-                    cm_put_고가 = df_cm_put['고가'].values.tolist()
-                    cm_put_고가_node_list = self.make_node_list(cm_put_고가)
-
-                    flag_put_high_update = True
-                    
-                    put_update_time = int(put_result['체결시간'][0:2]) * 3600 + int(put_result['체결시간'][2:4]) * 60 + int(put_result['체결시간'][4:6])
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가({3}) Update...\r'.format(\
-                        int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), round(float(고가), 2))
-                    self.textBrowser.append(str)
-
-                    if not node_coloring:
-
-                        self.opt_put_node_coloring()
-                    else:
-                        pass
+                    매도누적체결건수 = result['매도누적체결건수'] * float(현재가)
+                    매수누적체결건수 = result['매수누적체결건수'] * float(현재가)
                 else:
                     pass
             else:
-                # pre open check
-                if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
+                수정거래량 = (result['매수누적체결량'] - result['매도누적체결량']) * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
+                매도누적체결량 = result['매도누적체결량'] * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
+                매수누적체결량 = result['매수누적체결량'] * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
 
-                    df_cm_put.loc[index, '시가'] = round(float(시가), 2)
-                    df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']
+                if not overnight:
 
-                    item = QTableWidgetItem(시가)
-                    item.setTextAlignment(Qt.AlignCenter)
-
-                    if df_cm_put.iloc[index]['시가'] > df_cm_put.iloc[index]['종가']:
-                        item.setForeground(QBrush(적색))
-                    elif df_cm_put.iloc[index]['시가'] < df_cm_put.iloc[index]['종가']:
-                        item.setForeground(QBrush(청색))
-                    else:
-                        item.setForeground(QBrush(검정색))
-
-                    self.tableWidget_put.setItem(index, Option_column.시가.value, item)
-                    
-                    cm_put_시가 = df_cm_put['시가'].values.tolist()
-                    cm_put_시가_node_list = self.make_node_list(cm_put_시가)
-                    
-                    피봇 = self.calc_pivot(df_cm_put.iloc[index]['전저'], df_cm_put.iloc[index]['전고'],
-                                            df_cm_put.iloc[index]['종가'], df_cm_put.iloc[index]['시가'])
-
-                    df_cm_put.loc[index, '피봇'] = 피봇
-
-                    item = QTableWidgetItem("{0:0.2f}".format(피봇))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
-
-                    cm_put_피봇 = df_cm_put['피봇'].values.tolist()
-                    cm_put_피봇_node_list = self.make_node_list(cm_put_피봇)
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Pre Open Update !!!\r'.format(int(put_result['체결시간'][0:2]), \
-                                int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), df_cm_put.iloc[index]['시가'])
-                    self.textBrowser.append(str)
-                    
-                    # 풋 시가 갱신
-                    if round(float(시가), 2) > opt_search_start_value:
-                        put_open_list.append(index)
-                        put_open_list = list(set(put_open_list))
-                    else:
-                        pass
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put Pre Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
-                                int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
-                    self.textBrowser.append(str)
-                    
-                    self.put_pre_open_update(index)
+                    매도누적체결건수 = result['매도누적체결건수'] * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
+                    매수누적체결건수 = result['매수누적체결건수'] * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
                 else:
-                    pass  
-                        
-            opt_putreal_update_counter += 1
+                    pass
+
+            df_cm_put.loc[index, '수정거래량'] = int(수정거래량)
+            df_cm_put_che.loc[index, '매도누적체결량'] = int(매도누적체결량)
+            df_cm_put_che.loc[index, '매수누적체결량'] = int(매수누적체결량)
+
+            df_cm_put.loc[index, '거래량'] = result['누적거래량']
+
+            if not overnight:
+                
+                df_cm_put_che.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
+                df_cm_put_che.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
+
+                if float(현재가) <= df_cm_put.iloc[index]['시가갭']:
+
+                    수정미결 = result['미결제약정수량'] * float(현재가)
+                    수정미결증감 = result['미결제약정증감'] * float(현재가)
+                else:
+                    수정미결 = result['미결제약정수량'] * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
+                    수정미결증감 = result['미결제약정증감'] * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
+
+                df_cm_put.loc[index, '수정미결'] = int(수정미결)
+                df_cm_put.loc[index, '수정미결증감'] = int(수정미결증감)
+            else:
+                pass              
         else:
-            # 현재가 갱신
-            if 현재가 != self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]:
+            pass
 
-                df_cm_put.loc[index, '현재가'] = round(float(현재가), 2)
-                df_plotdata_cm_put.iloc[index][opt_x_idx] = float(현재가)
+        # 저가 갱신
+        if 저가 != self.tableWidget_put.item(index, Option_column.저가.value).text():
+            
+            df_cm_put.loc[index, '저가'] = round(float(저가), 2)
 
-                if float(현재가) < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
-                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
-                elif float(현재가) > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
-                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
-                else:    
-                    item = QTableWidgetItem(현재가)
+            item = QTableWidgetItem(저가)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_put.setItem(index, Option_column.저가.value, item)
 
-                item.setTextAlignment(Qt.AlignCenter)
+            # 시가 0.5 ~ 9.x 탐색
+            if 저가_고가_갱신_탐색치1 < df_cm_put.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
 
-                if float(현재가) < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
-                    item.setBackground(QBrush(lightskyblue))
-                elif float(현재가) > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
-                    item.setBackground(QBrush(pink))
-                else:
-                    item.setBackground(QBrush(옅은회색))
+                if df_cm_put.iloc[index]['전저'] >= df_cm_put.iloc[index]['저가']:
 
-                if float(시가) < float(현재가):
-                    item.setForeground(QBrush(적색))
-                elif float(시가) > float(현재가):
-                    item.setForeground(QBrush(청색))
-                else:
-                    item.setForeground(QBrush(검정색))
-
-                self.tableWidget_put.setItem(index, Option_column.현재가.value, item)
-
-                대비 = round((float(현재가) - float(시가)), 2)
-                df_cm_put.loc[index, '대비'] = 대비
-
-                put_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
-                gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(대비, put_db_percent[index])  
-
-                item = QTableWidgetItem(gap_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(index, Option_column.대비.value, item)
-
-                temp = put_db_percent[:]
-                put_db_percent_local = [value for value in temp if not math.isnan(value)]
-                put_db_percent_local.sort()
-
-                if put_db_percent_local:
-
-                    대비합 = round(df_cm_put['대비'].sum(), 2)
-                    tmp = np.array(put_db_percent_local)            
-                    대비평균 = int(round(np.mean(tmp), 2))
-                    put_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
-
-                    item = QTableWidgetItem(put_str)
+                    str = repr(df_cm_put.iloc[index]['전저']) + ' ▼'
+                    item = QTableWidgetItem(str)
                     item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
+                    item.setForeground(QBrush(청색))             
+                    self.tableWidget_put.setItem(index, Option_column.전저.value, item)
                     self.tableWidget_put.resizeColumnsToContents()
                 else:
                     pass
 
-                # 수정거래량 및 미결 계산
-                if float(현재가) <= df_cm_put.iloc[index]['시가갭']:
+                if df_cm_put.iloc[index]['월저'] >= df_cm_put.iloc[index]['저가']:
 
-                    수정거래량 = (result['매수누적체결량'] - result['매도누적체결량']) * float(현재가)
-                    매도누적체결량 = result['매도누적체결량'] * float(현재가)
-                    매수누적체결량 = result['매수누적체결량'] * float(현재가)
-
-                    if not overnight:
-
-                        매도누적체결건수 = result['매도누적체결건수'] * float(현재가)
-                        매수누적체결건수 = result['매수누적체결건수'] * float(현재가)
-                    else:
-                        pass
+                    str = repr(df_cm_put.iloc[index]['월저']) + ' ▼'
+                    item = QTableWidgetItem(str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setForeground(QBrush(청색))             
+                    self.tableWidget_put.setItem(index, Option_column.월저.value, item)
+                    self.tableWidget_put.resizeColumnsToContents()
                 else:
-                    수정거래량 = (result['매수누적체결량'] - result['매도누적체결량']) * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
-                    매도누적체결량 = result['매도누적체결량'] * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
-                    매수누적체결량 = result['매수누적체결량'] * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
-
-                    if not overnight:
-
-                        매도누적체결건수 = result['매도누적체결건수'] * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
-                        매수누적체결건수 = result['매수누적체결건수'] * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
-                    else:
-                        pass
-
-                df_cm_put.loc[index, '수정거래량'] = int(수정거래량)
-                df_cm_put_che.loc[index, '매도누적체결량'] = int(매도누적체결량)
-                df_cm_put_che.loc[index, '매수누적체결량'] = int(매수누적체결량)
-
-                df_cm_put.loc[index, '거래량'] = result['누적거래량']
-
-                if not overnight:                    
-
-                    df_cm_put_che.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
-                    df_cm_put_che.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
-
-                    if float(현재가) <= df_cm_put.iloc[index]['시가갭']:
-
-                        수정미결 = result['미결제약정수량'] * float(현재가)
-                        수정미결증감 = result['미결제약정증감'] * float(현재가)
-                    else:
-                        수정미결 = result['미결제약정수량'] * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
-                        수정미결증감 = result['미결제약정증감'] * (float(현재가) - df_cm_put.iloc[index]['시가갭'])
-
-                    df_cm_put.loc[index, '수정미결'] = int(수정미결)
-                    df_cm_put.loc[index, '수정미결증감'] = int(수정미결증감)
-                else:
-                    pass              
+                    pass
             else:
-                pass              
+                pass
+                                
+            item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
+
+            cm_put_저가 = df_cm_put['저가'].values.tolist()
+            cm_put_저가_node_list = self.make_node_list(cm_put_저가)
+
+            flag_put_low_update = True
             
-            if 저가 != 고가:
+            put_update_time = int(put_result['체결시간'][0:2]) * 3600 + int(put_result['체결시간'][2:4]) * 60 + int(put_result['체결시간'][4:6])
 
-                if index != atm_index:
-                    self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
-                else:
-                    self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가({3}) Update...\r'.format(\
+                int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), round(float(저가), 2))
+            self.textBrowser.append(str)
 
-                # 시가 갱신
-                if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
+            if not node_coloring:
 
-                    df_cm_put.loc[index, '시가'] = round(float(시가), 2)
-                    df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']
+                self.opt_put_node_coloring()
+            else:
+                pass                    
+        else:
+            pass
 
-                    item = QTableWidgetItem(시가)
+        # 고가 갱신
+        if 고가 != self.tableWidget_put.item(index, Option_column.고가.value).text():
+            
+            df_cm_put.loc[index, '고가'] = round(float(고가), 2)
+
+            item = QTableWidgetItem(고가)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_put.setItem(index, Option_column.고가.value, item)
+
+            # 시가 0.5 ~ 9.x 탐색
+            if 저가_고가_갱신_탐색치1 < df_cm_put.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
+
+                if df_cm_put.iloc[index]['전고'] <= df_cm_put.iloc[index]['고가']:
+
+                    str = repr(df_cm_put.iloc[index]['전고']) + ' ▲'
+                    item = QTableWidgetItem(str)
                     item.setTextAlignment(Qt.AlignCenter)
-
-                    if df_cm_put.iloc[index]['시가'] > df_cm_put.iloc[index]['종가']:
-                        item.setForeground(QBrush(적색))
-                    elif df_cm_put.iloc[index]['시가'] < df_cm_put.iloc[index]['종가']:
-                        item.setForeground(QBrush(청색))
-                    else:
-                        item.setForeground(QBrush(검정색))
-
-                    self.tableWidget_put.setItem(index, Option_column.시가.value, item)
-                    
-                    cm_put_시가 = df_cm_put['시가'].values.tolist()
-                    cm_put_시가_node_list = self.make_node_list(cm_put_시가)
-                    
-                    피봇 = self.calc_pivot(df_cm_put.iloc[index]['전저'], df_cm_put.iloc[index]['전고'],
-                                            df_cm_put.iloc[index]['종가'], df_cm_put.iloc[index]['시가'])
-
-                    df_cm_put.loc[index, '피봇'] = 피봇
-
-                    item = QTableWidgetItem("{0:0.2f}".format(피봇))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
-
-                    cm_put_피봇 = df_cm_put['피봇'].values.tolist()
-                    cm_put_피봇_node_list = self.make_node_list(cm_put_피봇)
-
-                    if round(float(시가), 2) > opt_search_start_value:
-                        put_open_list.append(index)
-                        put_open_list = list(set(put_open_list))
-                    else:
-                        pass
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put 시가 갱신 Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
-                                int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
-                    self.textBrowser.append(str)
-
-                    #self.put_open_update()
-                else:
-                    pass                
-
-                if 저가 != self.tableWidget_put.item(index, Option_column.저가.value).text():
-
-                    df_cm_put.loc[index, '저가'] = round(float(저가), 2)
-
-                    item = QTableWidgetItem(저가)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(index, Option_column.저가.value, item)
-
-                    # 시가 0.5 ~ 9.x 탐색
-                    if 저가_고가_갱신_탐색치1 < df_cm_put.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
-
-                        if df_cm_put.iloc[index]['전저'] >= df_cm_put.iloc[index]['저가']:
-
-                            str = repr(df_cm_put.iloc[index]['전저']) + ' ▼'
-                            item = QTableWidgetItem(str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setForeground(QBrush(청색))             
-                            self.tableWidget_put.setItem(index, Option_column.전저.value, item)
-                            self.tableWidget_put.resizeColumnsToContents()
-                        else:
-                            pass
-
-                        if df_cm_put.iloc[index]['월저'] >= df_cm_put.iloc[index]['저가']:
-
-                            str = repr(df_cm_put.iloc[index]['월저']) + ' ▼'
-                            item = QTableWidgetItem(str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setForeground(QBrush(청색))             
-                            self.tableWidget_put.setItem(index, Option_column.월저.value, item)
-                            self.tableWidget_put.resizeColumnsToContents()
-                        else:
-                            pass
-                    else:
-                        pass
-                    
-                    #self.check_put_oloh(index)
-                                        
-                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
-                    
-                    cm_put_저가 = df_cm_put['저가'].values.tolist()
-                    cm_put_저가_node_list = self.make_node_list(cm_put_저가)
-
-                    flag_put_low_update = True
-                    
-                    put_update_time = int(put_result['체결시간'][0:2]) * 3600 + int(put_result['체결시간'][2:4]) * 60 + int(put_result['체결시간'][4:6])
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가({3}) Update...\r'.format(\
-                        int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), round(float(저가), 2))
-                    self.textBrowser.append(str)
-
-                    if not node_coloring:
-
-                        self.opt_put_node_coloring()
-                    else:
-                        pass 
+                    item.setForeground(QBrush(적색))             
+                    self.tableWidget_put.setItem(index, Option_column.전고.value, item)
+                    self.tableWidget_put.resizeColumnsToContents()
                 else:
                     pass
 
-                if 고가 != self.tableWidget_put.item(index, Option_column.고가.value).text():
+                if df_cm_put.iloc[index]['월고'] <= df_cm_put.iloc[index]['고가']:
 
-                    df_cm_put.loc[index, '고가'] = round(float(고가), 2)
-
-                    item = QTableWidgetItem(고가)
+                    str = repr(df_cm_put.iloc[index]['월고']) + ' ▲'
+                    item = QTableWidgetItem(str)
                     item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(index, Option_column.고가.value, item)
-
-                    # 시가 0.5 ~ 9.x 탐색
-                    if 저가_고가_갱신_탐색치1 < df_cm_put.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
-
-                        if df_cm_put.iloc[index]['전고'] <= df_cm_put.iloc[index]['고가']:
-
-                            str = repr(df_cm_put.iloc[index]['전고']) + ' ▲'
-                            item = QTableWidgetItem(str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setForeground(QBrush(적색))             
-                            self.tableWidget_put.setItem(index, Option_column.전고.value, item)
-                            self.tableWidget_put.resizeColumnsToContents()
-                        else:
-                            pass
-
-                        if df_cm_put.iloc[index]['월고'] <= df_cm_put.iloc[index]['고가']:
-
-                            str = repr(df_cm_put.iloc[index]['월고']) + ' ▲'
-                            item = QTableWidgetItem(str)
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setForeground(QBrush(적색))             
-                            self.tableWidget_put.setItem(index, Option_column.월고.value, item)
-                            self.tableWidget_put.resizeColumnsToContents()
-                        else:
-                            pass
-                    else:
-                        pass
-                    
-                    #self.check_put_oloh(index)
-                                        
-                    item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
-                    
-                    cm_put_고가 = df_cm_put['고가'].values.tolist()
-                    cm_put_고가_node_list = self.make_node_list(cm_put_고가)
-
-                    flag_put_high_update = True
-                    
-                    put_update_time = int(put_result['체결시간'][0:2]) * 3600 + int(put_result['체결시간'][2:4]) * 60 + int(put_result['체결시간'][4:6])
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가({3}) Update...\r'.format(\
-                        int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), round(float(고가), 2))
-                    self.textBrowser.append(str)
-                    
-                    if not node_coloring:
-
-                        self.opt_put_node_coloring()
-                    else:
-                        pass
+                    item.setForeground(QBrush(적색))             
+                    self.tableWidget_put.setItem(index, Option_column.월고.value, item)
+                    self.tableWidget_put.resizeColumnsToContents()
                 else:
                     pass
             else:
-                
-                # pre open check
-                if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
+                pass
+                                
+            item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
-                    df_cm_put.loc[index, '시가'] = round(float(시가), 2)
-                    df_cm_put.loc[index, '시가갭'] = df_cm_put.iloc[index]['시가'] - df_cm_put.iloc[index]['종가']
+            cm_put_고가 = df_cm_put['고가'].values.tolist()
+            cm_put_고가_node_list = self.make_node_list(cm_put_고가)
 
-                    item = QTableWidgetItem(시가)
-                    item.setTextAlignment(Qt.AlignCenter)
+            flag_put_high_update = True
+            
+            put_update_time = int(put_result['체결시간'][0:2]) * 3600 + int(put_result['체결시간'][2:4]) * 60 + int(put_result['체결시간'][4:6])
 
-                    if df_cm_put.iloc[index]['시가'] > df_cm_put.iloc[index]['종가']:
-                        item.setForeground(QBrush(적색))
-                    elif df_cm_put.iloc[index]['시가'] < df_cm_put.iloc[index]['종가']:
-                        item.setForeground(QBrush(청색))
-                    else:
-                        item.setForeground(QBrush(검정색))
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가({3}) Update...\r'.format(\
+                int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), round(float(고가), 2))
+            self.textBrowser.append(str)
 
-                    self.tableWidget_put.setItem(index, Option_column.시가.value, item)                    
+            if not node_coloring:
 
-                    cm_put_시가 = df_cm_put['시가'].values.tolist()
-                    cm_put_시가_node_list = self.make_node_list(cm_put_시가)
-
-                    피봇 = self.calc_pivot(df_cm_put.iloc[index]['전저'], df_cm_put.iloc[index]['전고'],
-                                            df_cm_put.iloc[index]['종가'], df_cm_put.iloc[index]['시가'])
-
-                    df_cm_put.loc[index, '피봇'] = 피봇
-
-                    item = QTableWidgetItem("{0:0.2f}".format(피봇))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
-
-                    cm_put_피봇 = df_cm_put['피봇'].values.tolist()
-                    cm_put_피봇_node_list = self.make_node_list(cm_put_피봇)
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Pre Open Update !!!\r'.format(int(put_result['체결시간'][0:2]), \
-                                int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), df_cm_put.iloc[index]['시가'])
-                    self.textBrowser.append(str)
+                self.opt_put_node_coloring()
+            else:
+                pass
+        else:
+            pass                
                     
-                    # 풋 시가 갱신
-                    if round(float(시가), 2) > opt_search_start_value:
-                        put_open_list.append(index)
-                        put_open_list = list(set(put_open_list))
-                    else:
-                        pass
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put Pre Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
-                                int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
-                    self.textBrowser.append(str)
-                    
-                    self.put_pre_open_update(index)
-                else:
-                    pass 
+        opt_putreal_update_counter += 1            
 
         return
     
