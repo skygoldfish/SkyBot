@@ -670,12 +670,15 @@ mv_curve = []
 mv_line = []
 time_line_opt = None
 time_line_fut = None
+time_line_dow = None
 
 time_line_opt_start = None
 time_line_fut_start = None
+time_line_dow_start = None
 
 time_line_opt_dow_start = None
 time_line_fut_dow_start = None
+time_line_dow_dow_start = None
 
 fut_curve = None
 
@@ -2752,8 +2755,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.Plot_2.plotItem.showGrid(True, True, 0.5)
         self.Plot_2.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
 
+        if UI_STYLE == 'Vertical_view.ui':
+
+            self.Plot_3.enableAutoRange('y', True)
+            self.Plot_3.plotItem.showGrid(True, True, 0.5)
+            self.Plot_3.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+
+            self.Plot_4.enableAutoRange('y', True)
+            self.Plot_4.plotItem.showGrid(True, True, 0.5)
+            self.Plot_4.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+        else:
+            pass
+
         global time_line_fut_start, time_line_fut_dow_start, time_line_fut, fut_curve, kp200_curve
         global fut_jl_line, fut_jh_line, fut_pivot_line, volume_base_line
+        global time_line_dow_start, time_line_dow_dow_start, time_line_dow
 
         global fut_che_left_curve, fut_che_left_plus_curve, fut_che_left_minus_curve
         global fut_che_right_curve, fut_che_right_plus_curve, fut_che_right_minus_curve
@@ -2769,6 +2785,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         time_line_fut_start = self.Plot_1.addLine(x=0, y=None, pen=tpen)
         time_line_fut_dow_start = self.Plot_1.addLine(x=0, y=None, pen=tpen)
         time_line_fut = self.Plot_1.addLine(x=0, y=None, pen=tpen)
+
+        if UI_STYLE == 'Vertical_view.ui':
+            time_line_dow_start = self.Plot_3.addLine(x=0, y=None, pen=tpen)
+            time_line_dow_dow_start = self.Plot_3.addLine(x=0, y=None, pen=tpen)
+            time_line_dow = self.Plot_3.addLine(x=0, y=None, pen=tpen)
+        else:
+            pass
 
         fut_jl_line = self.Plot_1.addLine(x=None, pen=fut_jl_pen)
         fut_jh_line = self.Plot_1.addLine(x=None, pen=fut_jh_pen)
@@ -7747,6 +7770,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.Plot_1.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
                     time_line_fut.setValue(선물장간_시간차 + 395 + 9)
 
+                    if UI_STYLE == 'Vertical_view.ui':
+                        self.Plot_3.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+                        time_line_dow.setValue(선물장간_시간차 + 395 + 9)
+                    else:
+                        pass
+
                     df_plotdata_cm_call = DataFrame(index=range(0, nCount_option_pairs), columns=range(0, 선물장간_시간차 + 395 + 10))
                     df_plotdata_cm_put = DataFrame(index=range(0, nCount_option_pairs), columns=range(0, 선물장간_시간차 + 395 + 10))
 
@@ -7774,6 +7803,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     self.Plot_1.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
                     time_line_fut.setValue(선물장간_시간차 + 660 + 60 + 9)
+
+                    if UI_STYLE == 'Vertical_view.ui':
+                        self.Plot_3.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
+                        time_line_dow.setValue(선물장간_시간차 + 660 + 60 + 9)
+                    else:
+                        pass
 
                     df_plotdata_cm_call = DataFrame(index=range(0, nCount_option_pairs), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
                     df_plotdata_cm_put = DataFrame(index=range(0, nCount_option_pairs), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
