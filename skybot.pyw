@@ -2744,13 +2744,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
 
-        self.Plot_Fut.enableAutoRange('y', True)
-        self.Plot_Fut.plotItem.showGrid(True, True, 0.5)
-        self.Plot_Fut.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)        
+        self.Plot_1.enableAutoRange('y', True)
+        self.Plot_1.plotItem.showGrid(True, True, 0.5)
+        self.Plot_1.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)        
 
-        self.Plot_Opt.enableAutoRange('y', True)
-        self.Plot_Opt.plotItem.showGrid(True, True, 0.5)
-        self.Plot_Opt.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+        self.Plot_2.enableAutoRange('y', True)
+        self.Plot_2.plotItem.showGrid(True, True, 0.5)
+        self.Plot_2.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
 
         global time_line_fut_start, time_line_fut_dow_start, time_line_fut, fut_curve, kp200_curve
         global fut_jl_line, fut_jh_line, fut_pivot_line, volume_base_line
@@ -2766,78 +2766,78 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global cm_two_sum_left_curve, cm_two_cha_left_curve, cm_two_sum_right_curve, cm_two_cha_right_curve
         global sp500_left_curve, dow_left_curve, nasdaq_left_curve, sp500_right_curve, dow_right_curve, nasdaq_right_curve
 
-        time_line_fut_start = self.Plot_Fut.addLine(x=0, y=None, pen=tpen)
-        time_line_fut_dow_start = self.Plot_Fut.addLine(x=0, y=None, pen=tpen)
-        time_line_fut = self.Plot_Fut.addLine(x=0, y=None, pen=tpen)
+        time_line_fut_start = self.Plot_1.addLine(x=0, y=None, pen=tpen)
+        time_line_fut_dow_start = self.Plot_1.addLine(x=0, y=None, pen=tpen)
+        time_line_fut = self.Plot_1.addLine(x=0, y=None, pen=tpen)
 
-        fut_jl_line = self.Plot_Fut.addLine(x=None, pen=fut_jl_pen)
-        fut_jh_line = self.Plot_Fut.addLine(x=None, pen=fut_jh_pen)
-        volume_base_line = self.Plot_Fut.addLine(x=None, pen=ypen1)
-        fut_pivot_line = self.Plot_Fut.addLine(x=None, pen=fut_pvt_pen)
+        fut_jl_line = self.Plot_1.addLine(x=None, pen=fut_jl_pen)
+        fut_jh_line = self.Plot_1.addLine(x=None, pen=fut_jh_pen)
+        volume_base_line = self.Plot_1.addLine(x=None, pen=ypen1)
+        fut_pivot_line = self.Plot_1.addLine(x=None, pen=fut_pvt_pen)
         
-        fut_che_left_curve = self.Plot_Fut.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        fut_che_left_plus_curve = self.Plot_Fut.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        fut_che_left_minus_curve = self.Plot_Fut.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        fut_che_left_curve = self.Plot_1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        fut_che_left_plus_curve = self.Plot_1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        fut_che_left_minus_curve = self.Plot_1.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
 
-        cm_call_volume_left_curve = self.Plot_Fut.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_put_volume_left_curve = self.Plot_Fut.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-        cm_volume_cha_left_curve = self.Plot_Fut.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        cm_call_volume_left_curve = self.Plot_1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        cm_put_volume_left_curve = self.Plot_1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        cm_volume_cha_left_curve = self.Plot_1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
-        cm_call_oi_left_curve = self.Plot_Fut.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_put_oi_left_curve = self.Plot_Fut.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        cm_call_oi_left_curve = self.Plot_1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        cm_put_oi_left_curve = self.Plot_1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        cm_two_sum_left_curve = self.Plot_Fut.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_two_cha_left_curve = self.Plot_Fut.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
+        cm_two_sum_left_curve = self.Plot_1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        cm_two_cha_left_curve = self.Plot_1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         
-        kp200_curve = self.Plot_Fut.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
-        fut_curve = self.Plot_Fut.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        kp200_curve = self.Plot_1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
+        fut_curve = self.Plot_1.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         
-        cm_call_oi_right_curve = self.Plot_Opt.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_put_oi_right_curve = self.Plot_Opt.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        cm_call_oi_right_curve = self.Plot_2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        cm_put_oi_right_curve = self.Plot_2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        cm_call_volume_right_curve = self.Plot_Opt.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_put_volume_right_curve = self.Plot_Opt.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-        cm_volume_cha_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        cm_call_volume_right_curve = self.Plot_2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        cm_put_volume_right_curve = self.Plot_2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        cm_volume_cha_right_curve = self.Plot_2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
-        fut_che_right_curve = self.Plot_Opt.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
-        fut_che_right_plus_curve = self.Plot_Opt.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
-        fut_che_right_minus_curve = self.Plot_Opt.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        fut_che_right_curve = self.Plot_2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        fut_che_right_plus_curve = self.Plot_2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        fut_che_right_minus_curve = self.Plot_2.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
 
-        cm_two_sum_right_curve = self.Plot_Opt.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_two_cha_right_curve = self.Plot_Opt.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
+        cm_two_sum_right_curve = self.Plot_2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        cm_two_cha_right_curve = self.Plot_2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
 
-        sp500_left_curve = self.Plot_Fut.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        dow_left_curve = self.Plot_Fut.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        nasdaq_left_curve = self.Plot_Fut.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)   
+        sp500_left_curve = self.Plot_1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        dow_left_curve = self.Plot_1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        nasdaq_left_curve = self.Plot_1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)   
 
-        sp500_right_curve = self.Plot_Opt.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        dow_right_curve = self.Plot_Opt.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        nasdaq_right_curve = self.Plot_Opt.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)   
+        sp500_right_curve = self.Plot_2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        dow_right_curve = self.Plot_2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        nasdaq_right_curve = self.Plot_2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)   
 
         global time_line_opt_start, time_line_opt_dow_start, time_line_opt, mv_line, opt_base_line, call_curve, put_curve
         global hc_fut_upper_line, hc_fut_lower_line, hc_opt_upper_line, hc_opt_lower_line
         global atm_upper_line, atm_lower_line
 
-        time_line_opt_start = self.Plot_Opt.addLine(x=0, y=None, pen=tpen)
-        time_line_opt_dow_start = self.Plot_Opt.addLine(x=0, y=None, pen=tpen)
-        time_line_opt = self.Plot_Opt.addLine(x=0, y=None, pen=tpen)
-        opt_base_line = self.Plot_Opt.addLine(x=None, pen=yellow_pen)
+        time_line_opt_start = self.Plot_2.addLine(x=0, y=None, pen=tpen)
+        time_line_opt_dow_start = self.Plot_2.addLine(x=0, y=None, pen=tpen)
+        time_line_opt = self.Plot_2.addLine(x=0, y=None, pen=tpen)
+        opt_base_line = self.Plot_2.addLine(x=None, pen=yellow_pen)
 
-        hc_fut_upper_line = self.Plot_Fut.addLine(x=None, pen=fut_hc_pen)
-        hc_fut_lower_line = self.Plot_Fut.addLine(x=None, pen=fut_hc_pen)
+        hc_fut_upper_line = self.Plot_1.addLine(x=None, pen=fut_hc_pen)
+        hc_fut_lower_line = self.Plot_1.addLine(x=None, pen=fut_hc_pen)
 
-        hc_opt_upper_line = self.Plot_Opt.addLine(x=None, pen=opt_hc_pen)
-        hc_opt_lower_line = self.Plot_Opt.addLine(x=None, pen=opt_hc_pen)
+        hc_opt_upper_line = self.Plot_2.addLine(x=None, pen=opt_hc_pen)
+        hc_opt_lower_line = self.Plot_2.addLine(x=None, pen=opt_hc_pen)
 
-        atm_upper_line = self.Plot_Fut.addLine(x=None, pen=atm_upper_pen)
-        atm_lower_line = self.Plot_Fut.addLine(x=None, pen=atm_lower_pen)
+        atm_upper_line = self.Plot_1.addLine(x=None, pen=atm_upper_pen)
+        atm_lower_line = self.Plot_1.addLine(x=None, pen=atm_lower_pen)
 
         for i in range(9):
-            mv_line.append(self.Plot_Opt.addLine(x=None, pen=mvpen))
+            mv_line.append(self.Plot_2.addLine(x=None, pen=mvpen))
 
         for i in range(29):
-            call_curve.append(self.Plot_Opt.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
-            put_curve.append(self.Plot_Opt.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))
+            call_curve.append(self.Plot_2.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
+            put_curve.append(self.Plot_2.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))
 
         # init value & clear color
         item = QTableWidgetItem('0')
@@ -4682,7 +4682,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         put_curve[i].clear()
 
                     # 옵션 Y축 최대값 구하기
-                    axY = self.Plot_Opt.getAxis('left')
+                    axY = self.Plot_2.getAxis('left')
                     #print('옵션 y axis range: {}'.format(axY.range[1]))
 
                     if 6.0 <= axY.range[1] < 7.1:
@@ -7741,10 +7741,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if not overnight:
 
-                    self.Plot_Opt.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+                    self.Plot_2.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
                     time_line_opt.setValue(선물장간_시간차 + 395 + 9)
 
-                    self.Plot_Fut.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+                    self.Plot_1.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
                     time_line_fut.setValue(선물장간_시간차 + 395 + 9)
 
                     df_plotdata_cm_call = DataFrame(index=range(0, nCount_option_pairs), columns=range(0, 선물장간_시간차 + 395 + 10))
@@ -7769,10 +7769,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
                 else:
                     # 야간옵션은 4시, 야간선물은 5시 장마감됨
-                    self.Plot_Opt.setRange(xRange=[0, 선물장간_시간차 + 660 + 60 + 10], padding=0)
+                    self.Plot_2.setRange(xRange=[0, 선물장간_시간차 + 660 + 60 + 10], padding=0)
                     time_line_opt.setValue(선물장간_시간차 + 660 + 60 + 9)
 
-                    self.Plot_Fut.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
+                    self.Plot_1.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
                     time_line_fut.setValue(선물장간_시간차 + 660 + 60 + 9)
 
                     df_plotdata_cm_call = DataFrame(index=range(0, nCount_option_pairs), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
