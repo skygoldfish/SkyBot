@@ -2259,6 +2259,12 @@ class update_worker(QThread):
             call_curve_data = df_plotdata_cm_call.iloc[index].values.tolist()
             put_curve_data = df_plotdata_cm_put.iloc[index].values.tolist()
 
+            if UI_STYLE == 'Vertical_view.ui':
+                dow_curve_data = df_plotdata_dow.iloc[0].values.tolist()
+                fv_curve_data = df_plotdata_fut_che.iloc[0].values.tolist()
+            else:
+                pass
+
             # COMBO 1
             if comboindex1 == 0:
 
@@ -2361,11 +2367,19 @@ class update_worker(QThread):
             else:
                 pass
             
-            return call_curve_data, put_curve_data, curve1_data, curve2_data, curve3_data, curve4_data, curve5_data, curve6_data
+            if UI_STYLE == 'Vertical_view.ui':
+                return call_curve_data, put_curve_data, curve1_data, curve2_data, curve3_data, curve4_data, \
+                    curve5_data, curve6_data, dow_curve_data, fv_curve_data
+            else:
+                return call_curve_data, put_curve_data, curve1_data, curve2_data, curve3_data, curve4_data, \
+                    curve5_data, curve6_data
 
         except:
 
-            return None, None, None, None, None, None, None, None
+            if UI_STYLE == 'Vertical_view.ui':
+                return None, None, None, None, None, None, None, None, None, None
+            else:
+                return None, None, None, None, None, None, None, None
 
 ########################################################################################################################
 
@@ -4731,6 +4745,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
+                if UI_STYLE == 'Vertical_view.ui':
+
+                    time_line_dow.setValue(x_idx)
+                    time_line_fv.setValue(x_idx)
+                else:
+                    pass
+
                 # 옵션그래프 초기화
                 if comboindex2 == 4:
 
@@ -4811,8 +4832,27 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         curve4_data = infos[5]
                         curve5_data = infos[6]
                         curve6_data = infos[7]
+
+                        if UI_STYLE == 'Vertical_view.ui':
+
+                            dow_data = infos[8]
+                            fv_data = infos[9]
+                        else:
+                            pass
                     else:
                         pass
+
+                # Plot 3, Plot4 그리기
+                if UI_STYLE == 'Vertical_view.ui':
+
+                    dow_curve.setData(dow_data)
+
+                    if 선물_누적거래량 > 0:
+                        fv_plus_curve.setData(fv_data)
+                    else:
+                        fv_minus_curve.setData(fv_data)
+                else:
+                    pass
 
                 # 선택된 왼쪽 그래프 그리기
                 if comboindex1 == 0:
@@ -7797,12 +7837,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 putche_result = []
 
                 if not overnight:
+                    
+                    self.Plot_1.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+                    time_line_fut.setValue(선물장간_시간차 + 395 + 9)
 
                     self.Plot_2.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
                     time_line_opt.setValue(선물장간_시간차 + 395 + 9)
-
-                    self.Plot_1.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
-                    time_line_fut.setValue(선물장간_시간차 + 395 + 9)
 
                     if UI_STYLE == 'Vertical_view.ui':
 
@@ -7835,12 +7875,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
                     df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
                 else:
-                    # 야간옵션은 4시, 야간선물은 5시 장마감됨
-                    self.Plot_2.setRange(xRange=[0, 선물장간_시간차 + 660 + 60 + 10], padding=0)
-                    time_line_opt.setValue(선물장간_시간차 + 660 + 60 + 9)
-
+                    # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
                     self.Plot_1.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
                     time_line_fut.setValue(선물장간_시간차 + 660 + 60 + 9)
+
+                    self.Plot_2.setRange(xRange=[0, 선물장간_시간차 + 660 + 60 + 10], padding=0)
+                    time_line_opt.setValue(선물장간_시간차 + 660 + 60 + 9)
 
                     if UI_STYLE == 'Vertical_view.ui':
 
@@ -16082,6 +16122,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 시작시간 X축 표시(index 60은 시가)
                 time_line_fut_start.setValue(선물장간_시간차)
                 time_line_opt_start.setValue(선물장간_시간차)
+
+                if UI_STYLE == 'Vertical_view.ui':
+
+                    time_line_dow_start.setValue(선물장간_시간차)
+                    time_line_fv_start.setValue(선물장간_시간차)
+                else:
+                    pass
             else:
 
                 # 야간옵션 전광판
