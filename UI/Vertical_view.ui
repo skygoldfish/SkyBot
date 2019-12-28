@@ -361,13 +361,13 @@
     <number>1</number>
    </property>
   </widget>
-  <widget class="PlotWidget" name="Plot_2">
+  <widget class="PlotWidget" name="Plot_4">
    <property name="geometry">
     <rect>
      <x>965</x>
-     <y>534</y>
+     <y>535</y>
      <width>941</width>
-     <height>471</height>
+     <height>230</height>
     </rect>
    </property>
    <property name="font">
@@ -388,13 +388,13 @@
     <enum>QFrame::Raised</enum>
    </property>
   </widget>
-  <widget class="PlotWidget" name="Plot_1">
+  <widget class="PlotWidget" name="Plot_3">
    <property name="geometry">
     <rect>
      <x>965</x>
      <y>54</y>
      <width>941</width>
-     <height>471</height>
+     <height>230</height>
     </rect>
    </property>
    <property name="font">
@@ -491,6 +491,60 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="PlotWidget" name="Plot_1">
+   <property name="geometry">
+    <rect>
+     <x>965</x>
+     <y>294</y>
+     <width>941</width>
+     <height>230</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Consolas</family>
+     <weight>75</weight>
+     <italic>true</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::WinPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+  </widget>
+  <widget class="PlotWidget" name="Plot_2">
+   <property name="geometry">
+    <rect>
+     <x>965</x>
+     <y>775</y>
+     <width>941</width>
+     <height>230</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Consolas</family>
+     <weight>75</weight>
+     <italic>true</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::WinPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
   </widget>
  </widget>
  <customwidgets>
