@@ -8507,7 +8507,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.t8416_callworker.daemon = True
 
             else:
-                # Refresh
+                # Refresh                
+                str = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+
                 if not overnight:
 
                     del call_open_list[:]
@@ -8673,11 +8676,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_put_고가 = df_cm_put['고가'].values.tolist()
                     cm_put_고가_node_list = self.make_node_list(cm_put_고가)
 
-                    # 옵션 맥점 컬러링
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
-                    
+                    # 옵션 맥점 컬러링                    
                     self.opt_node_coloring()
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간 옵션 맥점 컬러링을 완료했습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
                     
                     XQ = t2101(parent=self)
                     XQ.Query(종목코드=fut_code)
@@ -8689,8 +8692,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     XQ.Query(종목코드=fut_code)
                     print('t2801 요청')
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
                 else:
                     
                     # EUREX 야간옵션 시세전광판
@@ -8972,14 +8973,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             df_fut = DataFrame(data=[cme_realdata, fut_realdata, kp200_realdata], columns=columns)
 
             print('df_fut', df_fut)
-            
-            self.fut_node_color_clear()
-            self.fut_oloh_check()
-            self.fut_node_coloring()
 
-            # 실시간에서만 표시됨
-            self.kp200_low_node_coloring()
-            self.kp200_high_node_coloring()
+            if refresh_flag:
+            
+                self.fut_node_color_clear()
+                self.fut_oloh_check()
+                self.fut_node_coloring()
+
+                # 실시간에서만 표시됨
+                self.kp200_low_node_coloring()
+                self.kp200_high_node_coloring()
+            else:
+                pass
 
         elif szTrCode == 't2830':
 
@@ -15948,11 +15953,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             XQ = t8432(parent=self)
             XQ.Query(구분='F')
         else:
-            str = '[{0:02d}:{1:02d}:{2:02d}] 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)
+            pass
+            #str = '[{0:02d}:{1:02d}:{2:02d}] 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            #self.textBrowser.append(str)
 
             #Speak("전광판을 갱신합니다.")
-            #self.all_node_set()         
+            #self.all_node_set()
+            '''
+            XQ = t2101(parent=self)
+            XQ.Query(종목코드=fut_code)
+
+            time.sleep(0.1)
+
+            XQ = t2801(parent=self)
+            XQ.Query(종목코드=fut_code)
+            '''     
 
         if self.checkBox_next_month.isChecked():
 
@@ -16023,17 +16038,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 time_line_fut_dow_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
                 time_line_opt_dow_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
 
-            if refresh_flag:
-
-                XQ = t2101(parent=self)
-                XQ.Query(종목코드=fut_code)
-
-                time.sleep(0.1)
-
-                XQ = t2801(parent=self)
-                XQ.Query(종목코드=fut_code)
-            else:
-                pass
+        return
 
     def SaveResult(self):
 
