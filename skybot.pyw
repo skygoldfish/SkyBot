@@ -4016,7 +4016,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             # cell focus 이동
             self.tableWidget_call.setCurrentCell(100, Option_column.OID.value)
-            self.opt_node_coloring()
+            self.opt_call_node_coloring()
 
         else:
             pass
@@ -4138,7 +4138,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             # cell focus 이동
             self.tableWidget_put.setCurrentCell(100, Option_column.OID.value)
-            self.opt_node_coloring()
+            self.opt_put_node_coloring()
         else:
             pass
 
