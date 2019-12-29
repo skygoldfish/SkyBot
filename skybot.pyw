@@ -736,27 +736,31 @@ time_line_fut = None
 time_line_opt_dow_yagan_start = None
 time_line_fut_dow_yagan_start = None
 
-# Plot 3, Plot4 관련 변수
-ovc_close_val_line = None
-ovc_open_val_line = None
-fv_base_line = None
+if UI_STYLE == 'Vertical_view.ui':
 
-time_line_ovc = None
-time_line_fv = None
+    # Plot 3, Plot4 관련 전역변수
+    ovc_close_val_line = None
+    ovc_open_val_line = None
+    fv_base_line = None
 
-time_line_dow_start = None
-time_line_fv_start = None
-time_line_dow_yagan_start = None
-time_line_fv_dow_yagan_start = None
+    time_line_ovc = None
+    time_line_fv = None
 
-plot3_curve = None
-plot4_fv_plus_curve = None
-plot4_fv_minus_curve = None
-plot4_price_curve = None
-plot4_kp200_curve = None
+    time_line_dow_start = None
+    time_line_fv_start = None
+    time_line_dow_yagan_start = None
+    time_line_fv_dow_yagan_start = None
 
-ovc_upper_line = None
-ovc_lower_line = None
+    plot3_curve = None
+    plot4_fv_plus_curve = None
+    plot4_fv_minus_curve = None
+    plot4_price_curve = None
+    plot4_kp200_curve = None
+
+    ovc_upper_line = None
+    ovc_lower_line = None
+else:
+    pass
 
 yoc_stop = False
 
