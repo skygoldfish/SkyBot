@@ -643,7 +643,7 @@ aqua_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 aqua_pen1 = pg.mkPen(aqua, width=2, style=QtCore.Qt.SolidLine)
 magenta_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 magenta_pen1 = pg.mkPen(magenta, width=2, style=QtCore.Qt.SolidLine)
-green_pen = pg.mkPen('g', width=2, style=QtCore.Qt.SolidLine)
+green_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DotLine)
 gold_pen = pg.mkPen(gold, width=2, style=QtCore.Qt.DotLine)
 yellow_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
 
@@ -737,7 +737,8 @@ time_line_opt_dow_yagan_start = None
 time_line_fut_dow_yagan_start = None
 
 # Plot 3, Plot4 관련 변수
-ovc_base_line = None
+ovc_close_val_line = None
+ovc_open_val_line = None
 fv_base_line = None
 
 time_line_ovc = None
@@ -754,8 +755,8 @@ plot4_fv_minus_curve = None
 plot4_price_curve = None
 plot4_kp200_curve = None
 
-ovc_fut_upper_line = None
-ovc_fut_lower_line = None
+ovc_upper_line = None
+ovc_lower_line = None
 
 yoc_stop = False
 
@@ -2869,7 +2870,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global time_line_dow_start, time_line_dow_yagan_start, time_line_ovc, time_line_fv_dow_yagan_start
         global time_line_fv, time_line_fv_start, fv_base_line
         global plot3_curve, plot4_fv_plus_curve, plot4_fv_minus_curve, plot4_price_curve, plot4_kp200_curve
-        global ovc_fut_upper_line, ovc_fut_lower_line, ovc_base_line
+        global ovc_upper_line, ovc_lower_line, ovc_close_val_line, ovc_open_val_line
         
         time_line_fut_start = self.Plot_1.addLine(x=0, y=None, pen=tpen)
         time_line_fut_dow_yagan_start = self.Plot_1.addLine(x=0, y=None, pen=tpen)
@@ -2942,14 +2943,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if UI_STYLE == 'Vertical_view.ui':
 
-            ovc_base_line = self.Plot_3.addLine(x=None, pen=yellow_pen)
+            ovc_close_val_line = self.Plot_3.addLine(x=None, pen=green_pen)
+            ovc_open_val_line = self.Plot_3.addLine(x=None, pen=yellow_pen)
 
             time_line_dow_start = self.Plot_3.addLine(x=0, y=None, pen=tpen)
             time_line_dow_yagan_start = self.Plot_3.addLine(x=0, y=None, pen=tpen)
             time_line_ovc = self.Plot_3.addLine(x=0, y=None, pen=tpen)
 
-            ovc_fut_upper_line = self.Plot_3.addLine(x=None, pen=yellow_pen)
-            ovc_fut_lower_line = self.Plot_3.addLine(x=None, pen=yellow_pen)
+            ovc_upper_line = self.Plot_3.addLine(x=None, pen=yellow_pen)
+            ovc_lower_line = self.Plot_3.addLine(x=None, pen=yellow_pen)
 
             plot3_curve = self.Plot_3.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
 
@@ -4025,9 +4027,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if dow_전일종가 > 0:
 
-                    ovc_base_line.setValue(dow_시가)
-                    ovc_fut_upper_line.setValue(dow_고가)
-                    ovc_fut_lower_line.setValue(dow_저가)
+                    ovc_close_val_line.setValue(dow_전일종가)
+                    ovc_open_val_line.setValue(dow_시가)
+                    ovc_upper_line.setValue(dow_고가)
+                    ovc_lower_line.setValue(dow_저가)
                 else:
                     pass
 
@@ -4037,9 +4040,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if sp500_전일종가 > 0:
                     
-                    ovc_base_line.setValue(sp500_시가)
-                    ovc_fut_upper_line.setValue(sp500_고가)
-                    ovc_fut_lower_line.setValue(sp500_저가)                
+                    ovc_close_val_line.setValue(sp500_전일종가)
+                    ovc_open_val_line.setValue(sp500_시가)
+                    ovc_upper_line.setValue(sp500_고가)
+                    ovc_lower_line.setValue(sp500_저가)                
                 else:
                     pass
 
@@ -4049,9 +4053,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if nasdaq_전일종가 > 0:
                     
-                    ovc_base_line.setValue(nasdaq_시가)
-                    ovc_fut_upper_line.setValue(nasdaq_고가)
-                    ovc_fut_lower_line.setValue(nasdaq_저가)                
+                    ovc_close_val_line.setValue(nasdaq_전일종가)
+                    ovc_open_val_line.setValue(nasdaq_시가)
+                    ovc_upper_line.setValue(nasdaq_고가)
+                    ovc_lower_line.setValue(nasdaq_저가)                
                 else:
                     pass
             else:
@@ -4984,22 +4989,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         plot3_curve.setData(plot3_data)
 
-                        ovc_fut_upper_line.setValue(dow_고가)
-                        ovc_fut_lower_line.setValue(dow_저가)
+                        ovc_upper_line.setValue(dow_고가)
+                        ovc_lower_line.setValue(dow_저가)
 
                     elif comboindex3 == 1:
 
                         plot3_curve.setData(plot3_data)
 
-                        ovc_fut_upper_line.setValue(sp500_고가)
-                        ovc_fut_lower_line.setValue(sp500_저가)
+                        ovc_upper_line.setValue(sp500_고가)
+                        ovc_lower_line.setValue(sp500_저가)
 
                     elif comboindex3 == 2:
 
                         plot3_curve.setData(plot3_data)
 
-                        ovc_fut_upper_line.setValue(nasdaq_고가)
-                        ovc_fut_lower_line.setValue(nasdaq_저가)
+                        ovc_upper_line.setValue(nasdaq_고가)
+                        ovc_lower_line.setValue(nasdaq_저가)
                     else:
                         pass
 
