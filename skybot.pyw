@@ -2756,12 +2756,32 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             self.comboBox2.addItems(['1. OV-Plot', '2. None', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
             self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
+
+            if UI_STYLE == 'Vertical_view.ui':
+
+                self.comboBox3.addItems(['1. DOW', '2. S&P 500', '3. NASDAQ'])
+                self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
+
+                self.comboBox4.addItems(['1. FV-Plot', '2. FP-Plot', '3. HC-Plot'])
+                self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged) 
+            else:
+                pass   
         else:
             self.comboBox1.addItems(['1. FV-Plot', '2. OV-Plot', '3. OO-Plot', '4. HC-Plot', '5. FP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
             self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
             
             self.comboBox2.addItems(['1. OV-Plot', '2. OO-Plot', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
-            self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
+            self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)    
+
+            if UI_STYLE == 'Vertical_view.ui':
+
+                self.comboBox3.addItems(['1. DOW', '2. S&P 500', '3. NASDAQ'])
+                self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
+
+                self.comboBox4.addItems(['1. FV-Plot', '2. FP-Plot', '3. HC-Plot'])
+                self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged) 
+            else:
+                pass    
 
         self.상태그림 = ['▼', '▲']
         self.상태문자 = ['매도', '대기', '매수']
@@ -3954,6 +3974,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
         else:
             pass
+
+    if UI_STYLE == 'Vertical_view.ui':
+        
+        def cb3_selectionChanged(self):
+
+
+            return
+
+        def cb4_selectionChanged(self):
+
+
+            return
+    else:
+        pass
 
     def timeout(self):
         dt = datetime.datetime.now()
