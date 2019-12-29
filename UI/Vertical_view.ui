@@ -105,7 +105,7 @@
     <number>1</number>
    </property>
   </widget>
-  <widget class="PlotWidget" name="Plot_1">
+  <widget class="PlotWidget" name="Plot1">
    <property name="geometry">
     <rect>
      <x>966</x>
@@ -132,7 +132,7 @@
     <enum>QFrame::Raised</enum>
    </property>
   </widget>
-  <widget class="PlotWidget" name="Plot_3">
+  <widget class="PlotWidget" name="Plot3">
    <property name="geometry">
     <rect>
      <x>966</x>
@@ -236,7 +236,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="PlotWidget" name="Plot_4">
+  <widget class="PlotWidget" name="Plot4">
    <property name="geometry">
     <rect>
      <x>966</x>
@@ -263,7 +263,7 @@
     <enum>QFrame::Raised</enum>
    </property>
   </widget>
-  <widget class="PlotWidget" name="Plot_2">
+  <widget class="PlotWidget" name="Plot2">
    <property name="geometry">
     <rect>
      <x>966</x>

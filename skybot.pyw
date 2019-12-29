@@ -2834,23 +2834,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
 
-        self.Plot_1.enableAutoRange('y', True)
-        self.Plot_1.plotItem.showGrid(True, True, 0.5)
-        self.Plot_1.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)        
+        self.Plot1.enableAutoRange('y', True)
+        self.Plot1.plotItem.showGrid(True, True, 0.5)
+        self.Plot1.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)        
 
-        self.Plot_2.enableAutoRange('y', True)
-        self.Plot_2.plotItem.showGrid(True, True, 0.5)
-        self.Plot_2.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+        self.Plot2.enableAutoRange('y', True)
+        self.Plot2.plotItem.showGrid(True, True, 0.5)
+        self.Plot2.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
 
         if UI_STYLE == 'Vertical_view.ui':
 
-            self.Plot_3.enableAutoRange('y', True)
-            self.Plot_3.plotItem.showGrid(True, True, 0.5)
-            self.Plot_3.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+            self.Plot3.enableAutoRange('y', True)
+            self.Plot3.plotItem.showGrid(True, True, 0.5)
+            self.Plot3.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
 
-            self.Plot_4.enableAutoRange('y', True)
-            self.Plot_4.plotItem.showGrid(True, True, 0.5)
-            self.Plot_4.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+            self.Plot4.enableAutoRange('y', True)
+            self.Plot4.plotItem.showGrid(True, True, 0.5)
+            self.Plot4.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
         else:
             pass
 
@@ -2877,99 +2877,99 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global plot3_curve, plot4_fv_plus_curve, plot4_fv_minus_curve, plot4_price_curve, plot4_kp200_curve
         global ovc_upper_line, ovc_lower_line, ovc_close_val_line, ovc_open_val_line
         
-        time_line_fut_start = self.Plot_1.addLine(x=0, y=None, pen=tpen)
-        time_line_fut_dow_yagan_start = self.Plot_1.addLine(x=0, y=None, pen=tpen)
-        time_line_fut = self.Plot_1.addLine(x=0, y=None, pen=tpen)
+        time_line_fut_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
+        time_line_fut_dow_yagan_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
+        time_line_fut = self.Plot1.addLine(x=0, y=None, pen=tpen)
         
-        fut_jl_line = self.Plot_1.addLine(x=None, pen=fut_jl_pen)
-        fut_jh_line = self.Plot_1.addLine(x=None, pen=fut_jh_pen)
-        volume_base_line = self.Plot_1.addLine(x=None, pen=ypen1)
-        fut_pivot_line = self.Plot_1.addLine(x=None, pen=fut_pvt_pen)
+        fut_jl_line = self.Plot1.addLine(x=None, pen=fut_jl_pen)
+        fut_jh_line = self.Plot1.addLine(x=None, pen=fut_jh_pen)
+        volume_base_line = self.Plot1.addLine(x=None, pen=ypen1)
+        fut_pivot_line = self.Plot1.addLine(x=None, pen=fut_pvt_pen)
         
-        hc_fut_upper_line = self.Plot_1.addLine(x=None, pen=fut_hc_pen)
-        hc_fut_lower_line = self.Plot_1.addLine(x=None, pen=fut_hc_pen)
+        hc_fut_upper_line = self.Plot1.addLine(x=None, pen=fut_hc_pen)
+        hc_fut_lower_line = self.Plot1.addLine(x=None, pen=fut_hc_pen)
         
-        atm_upper_line = self.Plot_1.addLine(x=None, pen=atm_upper_pen)
-        atm_lower_line = self.Plot_1.addLine(x=None, pen=atm_lower_pen)
+        atm_upper_line = self.Plot1.addLine(x=None, pen=atm_upper_pen)
+        atm_lower_line = self.Plot1.addLine(x=None, pen=atm_lower_pen)
                 
-        fut_che_left_curve = self.Plot_1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        fut_che_left_plus_curve = self.Plot_1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        fut_che_left_minus_curve = self.Plot_1.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        fut_che_left_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        fut_che_left_plus_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        fut_che_left_minus_curve = self.Plot1.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
 
-        cm_call_volume_left_curve = self.Plot_1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_put_volume_left_curve = self.Plot_1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-        cm_volume_cha_left_curve = self.Plot_1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        cm_call_volume_left_curve = self.Plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        cm_put_volume_left_curve = self.Plot1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        cm_volume_cha_left_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
-        cm_call_oi_left_curve = self.Plot_1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_put_oi_left_curve = self.Plot_1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        cm_call_oi_left_curve = self.Plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        cm_put_oi_left_curve = self.Plot1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        cm_two_sum_left_curve = self.Plot_1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_two_cha_left_curve = self.Plot_1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)        
+        cm_two_sum_left_curve = self.Plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        cm_two_cha_left_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)        
         
-        fut_curve = self.Plot_1.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        kp200_curve = self.Plot_1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
+        fut_curve = self.Plot1.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        kp200_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         
-        time_line_opt_start = self.Plot_2.addLine(x=0, y=None, pen=tpen)
-        time_line_opt_dow_yagan_start = self.Plot_2.addLine(x=0, y=None, pen=tpen)
-        time_line_opt = self.Plot_2.addLine(x=0, y=None, pen=tpen)
-        opt_base_line = self.Plot_2.addLine(x=None, pen=yellow_pen)
+        time_line_opt_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
+        time_line_opt_dow_yagan_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
+        time_line_opt = self.Plot2.addLine(x=0, y=None, pen=tpen)
+        opt_base_line = self.Plot2.addLine(x=None, pen=yellow_pen)
 
-        hc_opt_upper_line = self.Plot_2.addLine(x=None, pen=opt_hc_pen)
-        hc_opt_lower_line = self.Plot_2.addLine(x=None, pen=opt_hc_pen)
+        hc_opt_upper_line = self.Plot2.addLine(x=None, pen=opt_hc_pen)
+        hc_opt_lower_line = self.Plot2.addLine(x=None, pen=opt_hc_pen)
 
         for i in range(9):
-            mv_line.append(self.Plot_2.addLine(x=None, pen=mvpen))
+            mv_line.append(self.Plot2.addLine(x=None, pen=mvpen))
         
-        cm_call_oi_right_curve = self.Plot_2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_put_oi_right_curve = self.Plot_2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        cm_call_oi_right_curve = self.Plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        cm_put_oi_right_curve = self.Plot2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        cm_call_volume_right_curve = self.Plot_2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_put_volume_right_curve = self.Plot_2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-        cm_volume_cha_right_curve = self.Plot_2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        cm_call_volume_right_curve = self.Plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        cm_put_volume_right_curve = self.Plot2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        cm_volume_cha_right_curve = self.Plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
-        fut_che_right_curve = self.Plot_2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
-        fut_che_right_plus_curve = self.Plot_2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
-        fut_che_right_minus_curve = self.Plot_2.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        fut_che_right_curve = self.Plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        fut_che_right_plus_curve = self.Plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        fut_che_right_minus_curve = self.Plot2.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
 
-        cm_two_sum_right_curve = self.Plot_2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_two_cha_right_curve = self.Plot_2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
+        cm_two_sum_right_curve = self.Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        cm_two_cha_right_curve = self.Plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
 
-        sp500_left_curve = self.Plot_1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        dow_left_curve = self.Plot_1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        nasdaq_left_curve = self.Plot_1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)   
+        sp500_left_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        dow_left_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        nasdaq_left_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)   
 
-        sp500_right_curve = self.Plot_2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        dow_right_curve = self.Plot_2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        nasdaq_right_curve = self.Plot_2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)   
+        sp500_right_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        dow_right_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        nasdaq_right_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)   
 
         for i in range(29):
-            call_curve.append(self.Plot_2.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
-            put_curve.append(self.Plot_2.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))
+            call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
+            put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))
 
         if UI_STYLE == 'Vertical_view.ui':
 
-            ovc_close_val_line = self.Plot_3.addLine(x=None, pen=green_pen)
-            ovc_open_val_line = self.Plot_3.addLine(x=None, pen=yellow_pen)
+            ovc_close_val_line = self.Plot3.addLine(x=None, pen=green_pen)
+            ovc_open_val_line = self.Plot3.addLine(x=None, pen=yellow_pen)
 
-            time_line_ovc_start = self.Plot_3.addLine(x=0, y=None, pen=tpen)
-            time_line_ovc_yagan_start = self.Plot_3.addLine(x=0, y=None, pen=tpen)
-            time_line_ovc = self.Plot_3.addLine(x=0, y=None, pen=tpen)
+            time_line_ovc_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
+            time_line_ovc_yagan_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
+            time_line_ovc = self.Plot3.addLine(x=0, y=None, pen=tpen)
 
-            ovc_upper_line = self.Plot_3.addLine(x=None, pen=yellow_pen)
-            ovc_lower_line = self.Plot_3.addLine(x=None, pen=yellow_pen)
+            ovc_upper_line = self.Plot3.addLine(x=None, pen=yellow_pen)
+            ovc_lower_line = self.Plot3.addLine(x=None, pen=yellow_pen)
 
-            plot3_curve = self.Plot_3.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+            plot3_curve = self.Plot3.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
 
-            fv_base_line = self.Plot_4.addLine(x=None, pen=yellow_pen)
+            fv_base_line = self.Plot4.addLine(x=None, pen=yellow_pen)
 
-            time_line_fv_start = self.Plot_4.addLine(x=0, y=None, pen=tpen)
-            time_line_fv = self.Plot_4.addLine(x=0, y=None, pen=tpen)
-            time_line_fv_yagan_start = self.Plot_4.addLine(x=0, y=None, pen=tpen)            
+            time_line_fv_start = self.Plot4.addLine(x=0, y=None, pen=tpen)
+            time_line_fv = self.Plot4.addLine(x=0, y=None, pen=tpen)
+            time_line_fv_yagan_start = self.Plot4.addLine(x=0, y=None, pen=tpen)            
 
-            plot4_fv_plus_curve = self.Plot_4.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
-            plot4_fv_minus_curve = self.Plot_4.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-            plot4_price_curve = self.Plot_4.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)             
-            plot4_kp200_curve = self.Plot_4.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
+            plot4_fv_plus_curve = self.Plot4.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+            plot4_fv_minus_curve = self.Plot4.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+            plot4_price_curve = self.Plot4.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)             
+            plot4_kp200_curve = self.Plot4.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         else:
             pass
 
@@ -4904,7 +4904,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         put_curve[i].clear()
 
                     # 옵션 Y축 최대값 구하기
-                    axY = self.Plot_2.getAxis('left')
+                    axY = self.Plot2.getAxis('left')
                     #print('옵션 y axis range: {}'.format(axY.range[1]))
 
                     if 6.0 <= axY.range[1] < 7.1:
@@ -8014,18 +8014,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if not overnight:
                     
-                    self.Plot_1.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+                    self.Plot1.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
                     time_line_fut.setValue(선물장간_시간차 + 395 + 9)
 
-                    self.Plot_2.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+                    self.Plot2.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
                     time_line_opt.setValue(선물장간_시간차 + 395 + 9)
 
                     if UI_STYLE == 'Vertical_view.ui':
 
-                        self.Plot_3.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+                        self.Plot3.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
                         time_line_ovc.setValue(선물장간_시간차 + 395 + 9)
 
-                        self.Plot_4.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+                        self.Plot4.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
                         time_line_fv.setValue(선물장간_시간차 + 395 + 9)
                     else:
                         pass
@@ -8052,18 +8052,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
                 else:
                     # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
-                    self.Plot_1.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
+                    self.Plot1.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
                     time_line_fut.setValue(선물장간_시간차 + 660 + 60 + 9)
 
-                    self.Plot_2.setRange(xRange=[0, 선물장간_시간차 + 660 + 60 + 10], padding=0)
+                    self.Plot2.setRange(xRange=[0, 선물장간_시간차 + 660 + 60 + 10], padding=0)
                     time_line_opt.setValue(선물장간_시간차 + 660 + 60 + 9)
 
                     if UI_STYLE == 'Vertical_view.ui':
 
-                        self.Plot_3.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
+                        self.Plot3.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
                         time_line_ovc.setValue(선물장간_시간차 + 660 + 60 + 9)
 
-                        self.Plot_4.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
+                        self.Plot4.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
                         time_line_fv.setValue(선물장간_시간차 + 660 + 60 + 9)
                     else:
                         pass
