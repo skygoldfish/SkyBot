@@ -2458,6 +2458,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global 모니터번호
         
+        self.상태그림 = ['▼', '▲']
+        self.상태문자 = ['매도', '대기', '매수']
+        self.특수문자 = \
+        ['☆', '★', '※', '○', '●', '◎', '√', '↗', '⬈', '↘', '⬊', '↑', '⬆', '↓', '⬇', '↕', '♣', '♠', '♥', '◆', 'Δ', '【', '】', '🕘', '✔', '⬍', '⌛', '⬀ ⬁ ⬂ ⬃']
+
+        self.특수문자_숫자 = ['⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼ ⑽ ⓵ ⓶ ⓷ ⓸ ⓹ ⓺ ⓻ ⓼ ⓽ ⓾']
+        
         # 다중모니터와 WQHD 해상도에서 초기화면 표시를 위한 Setting
         모니터번호 = QtWidgets.QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
         screen = QtGui.QDesktopWidget().screenGeometry(모니터번호)
@@ -2599,6 +2606,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.comboBox1.setStyleSheet("background-color: white")
         self.comboBox2.setStyleSheet("background-color: white")
+
+        if UI_STYLE == 'Vertical_view.ui':
+
+            self.comboBox3.setStyleSheet("background-color: white")
+            self.comboBox4.setStyleSheet("background-color: white")
+        else:
+            pass
         
         self.pushButton_add.setStyleSheet("background-color: lightGray")
         self.pushButton_remove.setStyleSheet("background-color: lightGray")
@@ -2782,13 +2796,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged) 
             else:
                 pass    
-
-        self.상태그림 = ['▼', '▲']
-        self.상태문자 = ['매도', '대기', '매수']
-        self.특수문자 = \
-        ['☆', '★', '※', '○', '●', '◎', '√', '↗', '⬈', '↘', '⬊', '↑', '⬆', '↓', '⬇', '↕', '♣', '♠', '♥', '◆', 'Δ', '【', '】', '🕘', '✔', '⬍', '⌛', '⬀ ⬁ ⬂ ⬃']
-
-        self.특수문자_숫자 = ['⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼ ⑽ ⓵ ⓶ ⓷ ⓸ ⓹ ⓺ ⓻ ⓼ ⓽ ⓾']
 
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
@@ -3976,7 +3983,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
     if UI_STYLE == 'Vertical_view.ui':
-        
+
         def cb3_selectionChanged(self):
 
 
