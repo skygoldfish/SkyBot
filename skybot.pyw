@@ -94,27 +94,28 @@ with open('UI_Style.txt', mode='r') as uifile:
 
 if UI_STYLE == 'Vertical_view.ui':
 
-    # Plot 3, Plot4 관련 전역변수
+    # Plot 3 관련 전역변수
     ovc_close_val_line = None
     ovc_open_val_line = None
-    fv_base_line = None
+    ovc_upper_line = None
+    ovc_lower_line = None
 
     time_line_ovc = None
-    time_line_fv = None
-
-    time_line_dow_start = None
-    time_line_fv_start = None
-    time_line_dow_yagan_start = None
-    time_line_fv_dow_yagan_start = None
+    time_line_ovc_start = None
+    time_line_ovc_yagan_start = None
 
     plot3_curve = None
+
+    # Plot4 관련 전역변수
+    fv_base_line = None
+    time_line_fv = None    
+    time_line_fv_start = None    
+    time_line_fv_yagan_start = None
+    
     plot4_fv_plus_curve = None
     plot4_fv_minus_curve = None
     plot4_price_curve = None
     plot4_kp200_curve = None
-
-    ovc_upper_line = None
-    ovc_lower_line = None
 else:
     pass
 
@@ -2871,7 +2872,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global hc_fut_upper_line, hc_fut_lower_line, hc_opt_upper_line, hc_opt_lower_line
         global atm_upper_line, atm_lower_line
 
-        global time_line_dow_start, time_line_dow_yagan_start, time_line_ovc, time_line_fv_dow_yagan_start
+        global time_line_ovc_start, time_line_ovc_yagan_start, time_line_ovc, time_line_fv_yagan_start
         global time_line_fv, time_line_fv_start, fv_base_line
         global plot3_curve, plot4_fv_plus_curve, plot4_fv_minus_curve, plot4_price_curve, plot4_kp200_curve
         global ovc_upper_line, ovc_lower_line, ovc_close_val_line, ovc_open_val_line
@@ -2950,8 +2951,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             ovc_close_val_line = self.Plot_3.addLine(x=None, pen=green_pen)
             ovc_open_val_line = self.Plot_3.addLine(x=None, pen=yellow_pen)
 
-            time_line_dow_start = self.Plot_3.addLine(x=0, y=None, pen=tpen)
-            time_line_dow_yagan_start = self.Plot_3.addLine(x=0, y=None, pen=tpen)
+            time_line_ovc_start = self.Plot_3.addLine(x=0, y=None, pen=tpen)
+            time_line_ovc_yagan_start = self.Plot_3.addLine(x=0, y=None, pen=tpen)
             time_line_ovc = self.Plot_3.addLine(x=0, y=None, pen=tpen)
 
             ovc_upper_line = self.Plot_3.addLine(x=None, pen=yellow_pen)
@@ -2963,7 +2964,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             time_line_fv_start = self.Plot_4.addLine(x=0, y=None, pen=tpen)
             time_line_fv = self.Plot_4.addLine(x=0, y=None, pen=tpen)
-            time_line_fv_dow_yagan_start = self.Plot_4.addLine(x=0, y=None, pen=tpen)            
+            time_line_fv_yagan_start = self.Plot_4.addLine(x=0, y=None, pen=tpen)            
 
             plot4_fv_plus_curve = self.Plot_4.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
             plot4_fv_minus_curve = self.Plot_4.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
@@ -16301,7 +16302,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if UI_STYLE == 'Vertical_view.ui':
 
-                    time_line_dow_start.setValue(선물장간_시간차)
+                    time_line_ovc_start.setValue(선물장간_시간차)
                     time_line_fv_start.setValue(선물장간_시간차)
                 else:
                     pass
@@ -16340,10 +16341,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if UI_STYLE == 'Vertical_view.ui':
 
-                    time_line_dow_start.setValue(선물장간_시간차 + 1)
+                    time_line_ovc_start.setValue(선물장간_시간차 + 1)
                     time_line_fv_start.setValue(선물장간_시간차 + 1)
-                    time_line_dow_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-                    time_line_fv_dow_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+                    time_line_ovc_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+                    time_line_fv_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
                 else:
                     pass
 
