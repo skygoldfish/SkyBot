@@ -8837,7 +8837,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 옵션 맥점 컬러링                    
                     self.opt_node_coloring()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간 옵션 맥점 컬러링을 완료했습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 맥점 컬러링을 완료했습니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                     
                     XQ = t2101(parent=self)
