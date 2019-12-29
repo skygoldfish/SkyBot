@@ -107,7 +107,8 @@ if UI_STYLE == 'Vertical_view.ui':
     plot3_curve = None
 
     # Plot4 관련 전역변수
-    fv_base_line = None
+    fv_open_val_line = None
+    fv_pivot_line = None
     time_line_fv = None    
     time_line_fv_start = None    
     time_line_fv_yagan_start = None
@@ -2872,10 +2873,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global hc_fut_upper_line, hc_fut_lower_line, hc_opt_upper_line, hc_opt_lower_line
         global atm_upper_line, atm_lower_line
 
-        global time_line_ovc_start, time_line_ovc_yagan_start, time_line_ovc, time_line_fv_yagan_start
-        global time_line_fv, time_line_fv_start, fv_base_line
-        global plot3_curve, plot4_fv_plus_curve, plot4_fv_minus_curve, plot4_price_curve, plot4_kp200_curve
-        global ovc_upper_line, ovc_lower_line, ovc_close_val_line, ovc_open_val_line
+        if UI_STYLE == 'Vertical_view.ui':
+
+            global time_line_ovc_start, time_line_ovc_yagan_start, time_line_ovc, time_line_fv_yagan_start
+            global time_line_fv, time_line_fv_start, fv_open_val_line, fv_pivot_line
+            global plot3_curve, plot4_fv_plus_curve, plot4_fv_minus_curve, plot4_price_curve, plot4_kp200_curve
+            global ovc_upper_line, ovc_lower_line, ovc_close_val_line, ovc_open_val_line
+        else:
+            pass
         
         time_line_fut_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
         time_line_fut_dow_yagan_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
@@ -2960,7 +2965,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             plot3_curve = self.Plot3.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
 
-            fv_base_line = self.Plot4.addLine(x=None, pen=yellow_pen)
+            fv_open_val_line = self.Plot4.addLine(x=None, pen=yellow_pen)
+            fv_pivot_line = self.Plot4.addLine(x=None, pen=fut_pvt_pen)
 
             time_line_fv_start = self.Plot4.addLine(x=0, y=None, pen=tpen)
             time_line_fv = self.Plot4.addLine(x=0, y=None, pen=tpen)
@@ -4080,7 +4086,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 plot4_price_curve.clear()
                 plot4_kp200_curve.clear()
 
-                fv_base_line.setValue(0)
+                fv_open_val_line.setValue(0)
 
             elif comboindex4 == 1:
 
@@ -4089,9 +4095,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if overnight:
 
-                    fv_base_line.setValue(cme_realdata['시가'])
+                    fv_open_val_line.setValue(cme_realdata['시가'])
+                    fv_pivot_line.setValue(cme_realdata['피봇'])
                 else:
-                    fv_base_line.setValue(fut_realdata['시가'])
+                    fv_open_val_line.setValue(fut_realdata['시가'])
+                    fv_pivot_line.setValue(fut_realdata['피봇'])
             else:
                 pass
 
