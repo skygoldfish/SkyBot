@@ -92,6 +92,32 @@ with open('UI_Style.txt', mode='r') as uifile:
 ########################################################################################################################
 모니터번호 = 0
 
+if UI_STYLE == 'Vertical_view.ui':
+
+    # Plot 3, Plot4 관련 전역변수
+    ovc_close_val_line = None
+    ovc_open_val_line = None
+    fv_base_line = None
+
+    time_line_ovc = None
+    time_line_fv = None
+
+    time_line_dow_start = None
+    time_line_fv_start = None
+    time_line_dow_yagan_start = None
+    time_line_fv_dow_yagan_start = None
+
+    plot3_curve = None
+    plot4_fv_plus_curve = None
+    plot4_fv_minus_curve = None
+    plot4_price_curve = None
+    plot4_kp200_curve = None
+
+    ovc_upper_line = None
+    ovc_lower_line = None
+else:
+    pass
+
 # 만기일 야간옵션은 month_info.txt에서 next month only를 NO -> YES로 변경
 t2301_month_info = ''
 current_month_info = ''
@@ -735,32 +761,6 @@ time_line_fut = None
 
 time_line_opt_dow_yagan_start = None
 time_line_fut_dow_yagan_start = None
-
-if UI_STYLE == 'Vertical_view.ui':
-
-    # Plot 3, Plot4 관련 전역변수
-    ovc_close_val_line = None
-    ovc_open_val_line = None
-    fv_base_line = None
-
-    time_line_ovc = None
-    time_line_fv = None
-
-    time_line_dow_start = None
-    time_line_fv_start = None
-    time_line_dow_yagan_start = None
-    time_line_fv_dow_yagan_start = None
-
-    plot3_curve = None
-    plot4_fv_plus_curve = None
-    plot4_fv_minus_curve = None
-    plot4_price_curve = None
-    plot4_kp200_curve = None
-
-    ovc_upper_line = None
-    ovc_lower_line = None
-else:
-    pass
 
 yoc_stop = False
 
