@@ -24,7 +24,7 @@
   <widget class="QTableWidget" name="tableWidget_put">
    <property name="geometry">
     <rect>
-     <x>12</x>
+     <x>13</x>
      <y>698</y>
      <width>941</width>
      <height>307</height>
@@ -53,7 +53,7 @@
   <widget class="QTableWidget" name="tableWidget_fut">
    <property name="geometry">
     <rect>
-     <x>12</x>
+     <x>13</x>
      <y>373</y>
      <width>941</width>
      <height>133</height>
@@ -79,7 +79,7 @@
   <widget class="QTableWidget" name="tableWidget_call">
    <property name="geometry">
     <rect>
-     <x>12</x>
+     <x>13</x>
      <y>55</y>
      <width>941</width>
      <height>307</height>
@@ -108,7 +108,7 @@
   <widget class="PlotWidget" name="Plot_1">
    <property name="geometry">
     <rect>
-     <x>965</x>
+     <x>966</x>
      <y>535</y>
      <width>941</width>
      <height>230</height>
@@ -135,7 +135,7 @@
   <widget class="PlotWidget" name="Plot_3">
    <property name="geometry">
     <rect>
-     <x>965</x>
+     <x>966</x>
      <y>54</y>
      <width>941</width>
      <height>230</height>
@@ -162,7 +162,7 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>12</x>
+     <x>13</x>
      <y>516</y>
      <width>941</width>
      <height>171</height>
@@ -239,7 +239,7 @@
   <widget class="PlotWidget" name="Plot_4">
    <property name="geometry">
     <rect>
-     <x>965</x>
+     <x>966</x>
      <y>294</y>
      <width>941</width>
      <height>230</height>
@@ -266,7 +266,7 @@
   <widget class="PlotWidget" name="Plot_2">
    <property name="geometry">
     <rect>
-     <x>965</x>
+     <x>966</x>
      <y>775</y>
      <width>941</width>
      <height>230</height>
@@ -293,7 +293,7 @@
   <widget class="QComboBox" name="comboBox4">
    <property name="geometry">
     <rect>
-     <x>1810</x>
+     <x>1811</x>
      <y>295</y>
      <width>95</width>
      <height>20</height>
@@ -306,7 +306,7 @@
   <widget class="QComboBox" name="comboBox3">
    <property name="geometry">
     <rect>
-     <x>1810</x>
+     <x>1811</x>
      <y>55</y>
      <width>95</width>
      <height>20</height>
@@ -319,7 +319,7 @@
   <widget class="QComboBox" name="comboBox2">
    <property name="geometry">
     <rect>
-     <x>1810</x>
+     <x>1811</x>
      <y>776</y>
      <width>95</width>
      <height>20</height>
@@ -332,7 +332,7 @@
   <widget class="QComboBox" name="comboBox1">
    <property name="geometry">
     <rect>
-     <x>1810</x>
+     <x>1811</x>
      <y>536</y>
      <width>95</width>
      <height>20</height>
@@ -345,7 +345,7 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>14</x>
+     <x>15</x>
      <y>17</y>
      <width>1892</width>
      <height>25</height>
