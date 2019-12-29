@@ -2629,13 +2629,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.label_kospi.setStyleSheet('background-color: black ; color: yellow')
         self.label_kosdaq.setText("KOSDAQ: 가격 (전일대비, 등락율)")
         self.label_kosdaq.setStyleSheet('background-color: black ; color: yellow')
+        self.label_samsung.setText("SAMSUNG: 가격 (전일대비, 등락율)")
+        self.label_samsung.setStyleSheet('background-color: black ; color: yellow')
 
-        self.label_1st_co.setText("S&P 500: 가격 (전일대비, 등락율)")
-        self.label_1st_co.setStyleSheet('background-color: black ; color: yellow')
-        self.label_2nd_co.setText("DOW: 가격 (전일대비, 등락율, 진폭)")
-        self.label_2nd_co.setStyleSheet('background-color: black ; color: yellow')
-        self.label_3rd_co.setText("NASDAQ: 가격 (전일대비, 등락율)")
-        self.label_3rd_co.setStyleSheet('background-color: black ; color: yellow')
+        self.label_1st.setText("S&P 500: 가격 (전일대비, 등락율)")
+        self.label_1st.setStyleSheet('background-color: black ; color: yellow')
+        self.label_2nd.setText("DOW: 가격 (전일대비, 등락율, 진폭)")
+        self.label_2nd.setStyleSheet('background-color: black ; color: yellow')
+        self.label_3rd.setText("NASDAQ: 가격 (전일대비, 등락율)")
+        self.label_3rd.setStyleSheet('background-color: black ; color: yellow')
 
         stylesheet = "::section{Background-color: lightGray}"
 
@@ -5713,33 +5715,33 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if sp500_text_color != '':
 
             if sp500_text_color == 'red':
-                self.label_1st_co.setStyleSheet('background-color: black; color: magenta')
+                self.label_1st.setStyleSheet('background-color: black; color: magenta')
             elif sp500_text_color == 'blue':
-                self.label_1st_co.setStyleSheet('background-color: black; color: cyan')
+                self.label_1st.setStyleSheet('background-color: black; color: cyan')
             else:
-                self.label_1st_co.setStyleSheet('background-color: black; color: yellow')
+                self.label_1st.setStyleSheet('background-color: black; color: yellow')
         else:
             pass        
 
         if dow_text_color != '':
 
             if dow_text_color == 'red':
-                self.label_2nd_co.setStyleSheet('background-color: black; color: magenta')
+                self.label_2nd.setStyleSheet('background-color: black; color: magenta')
             elif dow_text_color == 'blue':
-                self.label_2nd_co.setStyleSheet('background-color: black; color: cyan')
+                self.label_2nd.setStyleSheet('background-color: black; color: cyan')
             else:
-                self.label_2nd_co.setStyleSheet('background-color: black; color: yellow')
+                self.label_2nd.setStyleSheet('background-color: black; color: yellow')
         else:
             pass        
 
         if nasdaq_text_color != '':
 
             if nasdaq_text_color == 'red':
-                self.label_3rd_co.setStyleSheet('background-color: black; color: magenta')
+                self.label_3rd.setStyleSheet('background-color: black; color: magenta')
             elif nasdaq_text_color == 'blue':
-                self.label_3rd_co.setStyleSheet('background-color: black; color: cyan')
+                self.label_3rd.setStyleSheet('background-color: black; color: cyan')
             else:
-                self.label_3rd_co.setStyleSheet('background-color: black; color: yellow')
+                self.label_3rd.setStyleSheet('background-color: black; color: yellow')
         else:
             pass        
 
@@ -14092,20 +14094,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             jisu_str = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(-result['예상체결가전일종가대비'], ','),
                                                                                 result['예상체결가전일종가등락율'])
-                            self.label_kosdaq.setText(jisu_str)
-                            self.label_kosdaq.setStyleSheet('background-color: blue ; color: white')
+                            self.label_samsung.setText(jisu_str)
+                            self.label_samsung.setStyleSheet('background-color: blue ; color: white')
 
                         elif result['예상체결가전일종가대비구분'] == '2':
 
                             jisu_str = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(result['예상체결가전일종가대비'], ','),
                                                                                 result['예상체결가전일종가등락율'])
-                            self.label_kosdaq.setText(jisu_str)
-                            self.label_kosdaq.setStyleSheet('background-color: red ; color: white')
+                            self.label_samsung.setText(jisu_str)
+                            self.label_samsung.setStyleSheet('background-color: red ; color: white')
 
                         else:
                             jisu_str = "SAMSUNG: {0}({1})".format(현재가, format(result['예상체결가전일종가대비'], ','))
-                            self.label_kosdaq.setText(jisu_str)
-                            self.label_kosdaq.setStyleSheet('background-color: yellow ; color: black')
+                            self.label_samsung.setText(jisu_str)
+                            self.label_samsung.setStyleSheet('background-color: yellow ; color: black')
                     
                     elif result['단축코드'] == HYUNDAI:
 
@@ -14113,20 +14115,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             jisu_str = "HYUNDAI: {0}({1}, {2:0.1f}%)".format(현재가, format(-result['예상체결가전일종가대비'], ','),
                                                                               result['예상체결가전일종가등락율'])
-                            self.label_kospi.setText(jisu_str)
-                            self.label_kospi.setStyleSheet('background-color: blue ; color: white')
+                            self.label_kosdaq.setText(jisu_str)
+                            self.label_kosdaq.setStyleSheet('background-color: blue ; color: white')
 
                         elif result['예상체결가전일종가대비구분'] == '2':
 
                             jisu_str = "HYUNDAI: {0}({1}, {2:0.1f}%)".format(현재가, format(result['예상체결가전일종가대비'], ','),
                                                                               result['예상체결가전일종가등락율'])
-                            self.label_kospi.setText(jisu_str)
-                            self.label_kospi.setStyleSheet('background-color: red ; color: white')
+                            self.label_kosdaq.setText(jisu_str)
+                            self.label_kosdaq.setStyleSheet('background-color: red ; color: white')
 
                         else:
                             jisu_str = "HYUNDAI: {0}({1})".format(현재가, format(result['예상체결가전일종가대비'], ','))
-                            self.label_kospi.setText(jisu_str)
-                            self.label_kospi.setStyleSheet('background-color: yellow ; color: black')
+                            self.label_kosdaq.setText(jisu_str)
+                            self.label_kosdaq.setStyleSheet('background-color: yellow ; color: black')
                     else:
                         pass
 
@@ -14137,20 +14139,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             jisu_str = "CTRO : {0}({1}, {2:0.1f}%)".format(현재가, format(-result['예상체결가전일종가대비'], ','),
                                                                               result['예상체결가전일종가등락율'])
-                            self.label_3rd_co.setText(jisu_str)
-                            self.label_3rd_co.setStyleSheet('background-color: blue ; color: white')
+                            self.label_3rd.setText(jisu_str)
+                            self.label_3rd.setStyleSheet('background-color: blue ; color: white')
 
                         elif result['예상체결가전일종가대비구분'] == '2':
 
                             jisu_str = "CTRO : {0}({1}, {2:0.1f}%)".format(현재가, format(result['예상체결가전일종가대비'], ','),
                                                                               result['예상체결가전일종가등락율'])
-                            self.label_3rd_co.setText(jisu_str)
-                            self.label_3rd_co.setStyleSheet('background-color: red ; color: white')
+                            self.label_3rd.setText(jisu_str)
+                            self.label_3rd.setStyleSheet('background-color: red ; color: white')
 
                         else:
                             jisu_str = "CTRO : {0}({1})".format(현재가, format(result['예상체결가전일종가대비'], ','))
-                            self.label_3rd_co.setText(jisu_str)
-                            self.label_3rd_co.setStyleSheet('background-color: yellow ; color: black')                        
+                            self.label_3rd.setText(jisu_str)
+                            self.label_3rd.setStyleSheet('background-color: yellow ; color: black')                        
                     else:
                         #print('단축코드', result['단축코드'])
                         pass
@@ -14408,19 +14410,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if result['전일대비구분'] == '5':
 
                         jisu_str = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(-result['전일대비'], ','), result['등락율'])
-                        self.label_kosdaq.setText(jisu_str)
-                        self.label_kosdaq.setStyleSheet('background-color: blue ; color: white')
+                        self.label_samsung.setText(jisu_str)
+                        self.label_samsung.setStyleSheet('background-color: blue ; color: white')
 
                     elif result['전일대비구분'] == '2':
 
                         jisu_str = "SAMSUNG: {0}({1}, {2:0.1f}%)".format(현재가, format(result['전일대비'], ','), result['등락율'])
-                        self.label_kosdaq.setText(jisu_str)
-                        self.label_kosdaq.setStyleSheet('background-color: red ; color: white')
+                        self.label_samsung.setText(jisu_str)
+                        self.label_samsung.setStyleSheet('background-color: red ; color: white')
 
                     else:
                         jisu_str = "SAMSUNG: {0}({1})".format(현재가, format(result['전일대비'], ','))
-                        self.label_kosdaq.setText(jisu_str)
-                        self.label_kosdaq.setStyleSheet('background-color: yellow ; color: black')
+                        self.label_samsung.setText(jisu_str)
+                        self.label_samsung.setStyleSheet('background-color: yellow ; color: black')
                     '''
                     global samsung_price, samsung_text_color                    
 
@@ -14433,15 +14435,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             if result['전일대비구분'] == '5':
 
                                 jisu_str = "SAMSUNG: {0} ▲ ({1}, {2:0.1f}%)".format(temp_str, format(-result['전일대비'], ','), result['등락율'])
-                                self.label_kosdaq.setText(jisu_str)
-                                self.label_kosdaq.setStyleSheet('background-color: pink ; color: blue')
+                                self.label_samsung.setText(jisu_str)
+                                self.label_samsung.setStyleSheet('background-color: pink ; color: blue')
                                 samsung_text_color = 'blue'
 
                             elif result['전일대비구분'] == '2':
 
                                 jisu_str = "SAMSUNG: {0} ▲ ({1}, {2:0.1f}%)".format(temp_str, format(result['전일대비'], ','), result['등락율'])
-                                self.label_kosdaq.setText(jisu_str)
-                                self.label_kosdaq.setStyleSheet('background-color: pink ; color: red')
+                                self.label_samsung.setText(jisu_str)
+                                self.label_samsung.setStyleSheet('background-color: pink ; color: red')
                                 samsung_text_color = 'red'
                             else:
                                 pass
@@ -14453,15 +14455,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             if result['전일대비구분'] == '5':
 
                                 jisu_str = "SAMSUNG: {0} ▼ ({1}, {2:0.1f}%)".format(temp_str, format(-result['전일대비'], ','), result['등락율'])
-                                self.label_kosdaq.setText(jisu_str)
-                                self.label_kosdaq.setStyleSheet('background-color: lightskyblue ; color: blue')
+                                self.label_samsung.setText(jisu_str)
+                                self.label_samsung.setStyleSheet('background-color: lightskyblue ; color: blue')
                                 samsung_text_color = 'blue'
 
                             elif result['전일대비구분'] == '2':
 
                                 jisu_str = "SAMSUNG: {0} ▼ ({1}, {2:0.1f}%)".format(temp_str, format(result['전일대비'], ','), result['등락율'])
-                                self.label_kosdaq.setText(jisu_str)
-                                self.label_kosdaq.setStyleSheet('background-color: lightskyblue ; color: red')
+                                self.label_samsung.setText(jisu_str)
+                                self.label_samsung.setStyleSheet('background-color: lightskyblue ; color: red')
                                 samsung_text_color = 'red'
                             else:
                                 pass
@@ -14471,6 +14473,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         samsung_price = result['현재가']
                     else:
                         pass
+                    
                 else:
                     pass
                 
@@ -14480,38 +14483,38 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if result['전일대비구분'] == '5':
 
                         jisu_str = "HD : {0}({1}, {2:0.1f}%)".format(현재가, format(-result['전일대비'], ','), result['등락율'])
-                        self.label_2nd_co.setText(jisu_str)
-                        self.label_2nd_co.setStyleSheet('background-color: blue ; color: white')
+                        self.label_2nd.setText(jisu_str)
+                        self.label_2nd.setStyleSheet('background-color: blue ; color: white')
 
                     elif result['전일대비구분'] == '2':
 
                         jisu_str = "HD : {0}({1}, {2:0.1f}%)".format(현재가, format(result['전일대비'], ','), result['등락율'])
-                        self.label_2nd_co.setText(jisu_str)
-                        self.label_2nd_co.setStyleSheet('background-color: red ; color: white')
+                        self.label_2nd.setText(jisu_str)
+                        self.label_2nd.setStyleSheet('background-color: red ; color: white')
 
                     else:
                         jisu_str = "HD : {0}({1})".format(현재가, format(result['전일대비'], ','))
-                        self.label_2nd_co.setText(jisu_str)
-                        self.label_2nd_co.setStyleSheet('background-color: yellow ; color: black')
+                        self.label_2nd.setText(jisu_str)
+                        self.label_2nd.setStyleSheet('background-color: yellow ; color: black')
 
                 elif result['단축코드'] == Celltrion:                    
                     
                     if result['전일대비구분'] == '5':
 
                         jisu_str = "CTRO : {0}({1}, {2:0.1f}%)".format(현재가, format(-result['전일대비'], ','), result['등락율'])
-                        self.label_3rd_co.setText(jisu_str)
-                        self.label_3rd_co.setStyleSheet('background-color: blue ; color: white')
+                        self.label_3rd.setText(jisu_str)
+                        self.label_3rd.setStyleSheet('background-color: blue ; color: white')
 
                     elif result['전일대비구분'] == '2':
 
                         jisu_str = "CTRO : {0}({1}, {2:0.1f}%)".format(현재가, format(result['전일대비'], ','), result['등락율'])
-                        self.label_3rd_co.setText(jisu_str)
-                        self.label_3rd_co.setStyleSheet('background-color: red ; color: white')
+                        self.label_3rd.setText(jisu_str)
+                        self.label_3rd.setStyleSheet('background-color: red ; color: white')
 
                     else:
                         jisu_str = "CTRO : {0}({1})".format(현재가, format(result['전일대비'], ','))
-                        self.label_3rd_co.setText(jisu_str)
-                        self.label_3rd_co.setStyleSheet('background-color: yellow ; color: black')                    
+                        self.label_3rd.setText(jisu_str)
+                        self.label_3rd.setStyleSheet('background-color: yellow ; color: black')                    
                 else:
                     pass
                 '''
@@ -15737,8 +15740,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 else:
                                     jisu_str = "NASDAQ: {0:.2f} ▲ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
 
-                                self.label_3rd_co.setText(jisu_str)
-                                self.label_3rd_co.setStyleSheet('background-color: pink ; color: blue')
+                                self.label_3rd.setText(jisu_str)
+                                self.label_3rd.setStyleSheet('background-color: pink ; color: blue')
                                 nasdaq_text_color = 'blue'
 
                             elif result['전일대비기호'] == '2':
@@ -15756,8 +15759,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 else:
                                     jisu_str = "NASDAQ: {0:.2f} ▲ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
 
-                                self.label_3rd_co.setText(jisu_str)
-                                self.label_3rd_co.setStyleSheet('background-color: pink ; color: red')
+                                self.label_3rd.setText(jisu_str)
+                                self.label_3rd.setStyleSheet('background-color: pink ; color: red')
                                 nasdaq_text_color = 'red'
                             else:
                                 pass
@@ -15779,8 +15782,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 else:
                                     jisu_str = "NASDAQ: {0:.2f} ▼ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
 
-                                self.label_3rd_co.setText(jisu_str)
-                                self.label_3rd_co.setStyleSheet('background-color: lightskyblue ; color: blue')
+                                self.label_3rd.setText(jisu_str)
+                                self.label_3rd.setStyleSheet('background-color: lightskyblue ; color: blue')
                                 nasdaq_text_color = 'blue'
 
                             elif result['전일대비기호'] == '2':
@@ -15798,8 +15801,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 else:
                                     jisu_str = "NASDAQ: {0:.2f} ▼ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
 
-                                self.label_3rd_co.setText(jisu_str)
-                                self.label_3rd_co.setStyleSheet('background-color: lightskyblue ; color: red')
+                                self.label_3rd.setText(jisu_str)
+                                self.label_3rd.setStyleSheet('background-color: lightskyblue ; color: red')
                                 nasdaq_text_color = 'red'
                             else:
                                 pass
@@ -15850,8 +15853,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 else:
                                     jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
 
-                                self.label_1st_co.setText(jisu_str)
-                                self.label_1st_co.setStyleSheet('background-color: pink; color: blue')
+                                self.label_1st.setText(jisu_str)
+                                self.label_1st.setStyleSheet('background-color: pink; color: blue')
                                 sp500_text_color = 'blue'
 
                             elif result['전일대비기호'] == '2':
@@ -15871,8 +15874,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 else:
                                     jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
 
-                                self.label_1st_co.setText(jisu_str)
-                                self.label_1st_co.setStyleSheet('background-color: pink; color: red')
+                                self.label_1st.setText(jisu_str)
+                                self.label_1st.setStyleSheet('background-color: pink; color: red')
                                 sp500_text_color = 'red'
                             else:
                                 pass
@@ -15898,8 +15901,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 else:
                                     jisu_str = "S&P 500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
 
-                                self.label_1st_co.setText(jisu_str)
-                                self.label_1st_co.setStyleSheet('background-color: lightskyblue; color: blue')
+                                self.label_1st.setText(jisu_str)
+                                self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
                                 sp500_text_color = 'blue'
 
                             elif result['전일대비기호'] == '2':
@@ -15919,8 +15922,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 else:
                                     jisu_str = "S&P 500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, result['등락율'])
 
-                                self.label_1st_co.setText(jisu_str)
-                                self.label_1st_co.setStyleSheet('background-color: lightskyblue; color: red')
+                                self.label_1st.setText(jisu_str)
+                                self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
                                 sp500_text_color = 'red'
                             else:
                                 pass                            
@@ -15973,8 +15976,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     jisu_str = "DOW: {0} ▲ ({1}, {2:0.2f}%, {3})". \
                                     format(format(체결가격, ','), format(-전일대비, ','), result['등락율'], format(진폭, ','))
 
-                                self.label_2nd_co.setText(jisu_str)
-                                self.label_2nd_co.setStyleSheet('background-color: pink ; color: blue')
+                                self.label_2nd.setText(jisu_str)
+                                self.label_2nd.setStyleSheet('background-color: pink ; color: blue')
                                 dow_text_color = 'blue'
 
                             elif result['전일대비기호'] == '2':
@@ -15994,8 +15997,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     jisu_str = "DOW: {0} ▲ ({1}, {2:0.2f}%, {3})". \
                                     format(format(체결가격, ','), format(전일대비, ','), result['등락율'], format(진폭, ','))
 
-                                self.label_2nd_co.setText(jisu_str)
-                                self.label_2nd_co.setStyleSheet('background-color: pink ; color: red')
+                                self.label_2nd.setText(jisu_str)
+                                self.label_2nd.setStyleSheet('background-color: pink ; color: red')
                                 dow_text_color = 'red'
                             else:
                                 pass
@@ -16019,8 +16022,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     jisu_str = "DOW: {0} ▼ ({1}, {2:0.2f}%, {3})". \
                                     format(format(체결가격, ','), format(-전일대비, ','), result['등락율'], format(진폭, ','))
 
-                                self.label_2nd_co.setText(jisu_str)
-                                self.label_2nd_co.setStyleSheet('background-color: lightskyblue ; color: blue')
+                                self.label_2nd.setText(jisu_str)
+                                self.label_2nd.setStyleSheet('background-color: lightskyblue ; color: blue')
                                 dow_text_color = 'blue'
 
                             elif result['전일대비기호'] == '2':
@@ -16040,8 +16043,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     jisu_str = "DOW: {0} ▼ ({1}, {2:0.2f}%, {3})". \
                                     format(format(체결가격, ','), format(전일대비, ','), result['등락율'], format(진폭, ','))
 
-                                self.label_2nd_co.setText(jisu_str)
-                                self.label_2nd_co.setStyleSheet('background-color: lightskyblue ; color: red')
+                                self.label_2nd.setText(jisu_str)
+                                self.label_2nd.setStyleSheet('background-color: lightskyblue ; color: red')
                                 dow_text_color = 'red'
                             else:
                                 pass
