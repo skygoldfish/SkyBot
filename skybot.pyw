@@ -2872,15 +2872,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global time_line_opt_start, time_line_opt_dow_yagan_start, time_line_opt, mv_line, opt_base_line, call_curve, put_curve
         global hc_fut_upper_line, hc_fut_lower_line, hc_opt_upper_line, hc_opt_lower_line
         global atm_upper_line, atm_lower_line
-
-        if UI_STYLE == 'Vertical_view.ui':
-
-            global time_line_ovc_start, time_line_ovc_yagan_start, time_line_ovc, time_line_fv_yagan_start
-            global time_line_fv, time_line_fv_start, fv_open_val_line, fv_pivot_line
-            global plot3_curve, plot4_fv_plus_curve, plot4_fv_minus_curve, plot4_price_curve, plot4_kp200_curve
-            global ovc_upper_line, ovc_lower_line, ovc_close_val_line, ovc_open_val_line
-        else:
-            pass
         
         time_line_fut_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
         time_line_fut_dow_yagan_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
@@ -2951,7 +2942,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
             put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))
 
+        # Plot 3, 4 관련 설정
         if UI_STYLE == 'Vertical_view.ui':
+
+            global time_line_ovc_start, time_line_ovc_yagan_start, time_line_ovc, time_line_fv_yagan_start
+            global time_line_fv, time_line_fv_start, fv_open_val_line, fv_pivot_line
+            global plot3_curve, plot4_fv_plus_curve, plot4_fv_minus_curve, plot4_price_curve, plot4_kp200_curve
+            global ovc_upper_line, ovc_lower_line, ovc_close_val_line, ovc_open_val_line
 
             ovc_close_val_line = self.Plot3.addLine(x=None, pen=green_pen)
             ovc_open_val_line = self.Plot3.addLine(x=None, pen=yellow_pen)
