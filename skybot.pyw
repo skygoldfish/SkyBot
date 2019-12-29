@@ -94,7 +94,7 @@ with open('UI_Style.txt', mode='r') as uifile:
 
 if UI_STYLE == 'Vertical_view.ui':
 
-    # Plot 3 관련 전역변수
+    # Plot3 관련 전역변수
     ovc_close_val_line = None
     ovc_open_val_line = None
     ovc_upper_line = None
