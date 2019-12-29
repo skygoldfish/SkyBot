@@ -528,6 +528,8 @@ nasdaq_delta_old = 0
 
 comboindex1 = 0
 comboindex2 = 0
+comboindex3 = 0
+comboindex4 = 0
 
 콜현재가 = ''
 풋현재가 = ''
@@ -744,9 +746,11 @@ time_line_fv_start = None
 time_line_dow_yagan_start = None
 time_line_fv_dow_yagan_start = None
 
-dow_curve = None
-fv_plus_curve = None
-fv_minus_curve = None
+plot3_curve = None
+plot4_fv_plus_curve = None
+plot4_fv_minus_curve = None
+plot4_price_curve = None
+plot4_kp200_curve = None
 
 yoc_stop = False
 
@@ -2247,8 +2251,7 @@ class update_worker(QThread):
 
                 data[actval] = self.get_data_infos(actval)
             
-            self.finished.emit(data)
-            # 0.5초마다 동작하기 위해선 500이 아닌 250으로 설정해야함(???)    
+            self.finished.emit(data)  
             self.msleep(500)
 
     def get_data_infos(self, actval):
@@ -2258,12 +2261,6 @@ class update_worker(QThread):
 
             call_curve_data = df_plotdata_cm_call.iloc[index].values.tolist()
             put_curve_data = df_plotdata_cm_put.iloc[index].values.tolist()
-
-            if UI_STYLE == 'Vertical_view.ui':
-                dow_curve_data = df_plotdata_dow.iloc[0].values.tolist()
-                fv_curve_data = df_plotdata_fut_che.iloc[0].values.tolist()
-            else:
-                pass
 
             # COMBO 1
             if comboindex1 == 0:
@@ -2368,8 +2365,41 @@ class update_worker(QThread):
                 pass
             
             if UI_STYLE == 'Vertical_view.ui':
+
+                # COMBO 3
+                if comboindex3 == 0:
+
+                    plot3_data = df_plotdata_dow.iloc[0].values.tolist()
+
+                elif comboindex3 == 1:                             
+
+                    plot3_data = df_plotdata_sp500.iloc[0].values.tolist()
+
+                elif comboindex3 == 2:
+
+                    plot3_data = df_plotdata_nasdaq.iloc[0].values.tolist()
+                else:
+                    pass
+
+                # COMBO 4
+                if comboindex4 == 0:
+
+                    plot4_1_data = df_plotdata_fut_che.iloc[0].values.tolist()
+                    plot4_2_data = None
+
+                elif comboindex4 == 1:                             
+
+                    plot4_1_data = df_plotdata_fut.iloc[0].values.tolist()
+                    plot4_2_data = df_plotdata_kp200.iloc[0].values.tolist()
+                else:
+                    pass  
+            else:
+                pass
+            
+            if UI_STYLE == 'Vertical_view.ui':
+
                 return call_curve_data, put_curve_data, curve1_data, curve2_data, curve3_data, curve4_data, \
-                    curve5_data, curve6_data, dow_curve_data, fv_curve_data
+                    curve5_data, curve6_data, plot3_data, plot4_1_data, plot4_2_data
             else:
                 return call_curve_data, put_curve_data, curve1_data, curve2_data, curve3_data, curve4_data, \
                     curve5_data, curve6_data
@@ -2377,7 +2407,7 @@ class update_worker(QThread):
         except:
 
             if UI_STYLE == 'Vertical_view.ui':
-                return None, None, None, None, None, None, None, None, None, None
+                return None, None, None, None, None, None, None, None, None, None, None 
             else:
                 return None, None, None, None, None, None, None, None
 
@@ -2778,7 +2808,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.comboBox3.addItems(['1. DOW', '2. S&P 500', '3. NASDAQ'])
                 self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
 
-                self.comboBox4.addItems(['1. FV-Plot', '2. FP-Plot', '3. HC-Plot'])
+                self.comboBox4.addItems(['1. FV-Plot', '2. FP-Plot'])
                 self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged) 
             else:
                 pass   
@@ -2794,7 +2824,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.comboBox3.addItems(['1. DOW', '2. S&P 500', '3. NASDAQ'])
                 self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
 
-                self.comboBox4.addItems(['1. FV-Plot', '2. FP-Plot', '3. HC-Plot'])
+                self.comboBox4.addItems(['1. FV-Plot', '2. FP-Plot'])
                 self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged) 
             else:
                 pass    
@@ -2842,7 +2872,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global time_line_dow_start, time_line_dow_yagan_start, time_line_dow, time_line_fv_dow_yagan_start
         global time_line_fv, time_line_fv_start, fv_base_line
-        global dow_curve, fv_plus_curve, fv_minus_curve
+        global plot3_curve, plot4_fv_plus_curve, plot4_fv_minus_curve, plot4_price_curve, plot4_kp200_curve
         
         time_line_fut_start = self.Plot_1.addLine(x=0, y=None, pen=tpen)
         time_line_fut_dow_yagan_start = self.Plot_1.addLine(x=0, y=None, pen=tpen)
@@ -2933,9 +2963,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if UI_STYLE == 'Vertical_view.ui':
 
-            dow_curve = self.Plot_3.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-            fv_plus_curve = self.Plot_4.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
-            fv_minus_curve = self.Plot_4.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+            plot3_curve = self.Plot_3.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+            plot4_fv_plus_curve = self.Plot_4.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+            plot4_fv_minus_curve = self.Plot_4.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+            plot4_price_curve = self.Plot_4.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)             
+            plot4_kp200_curve = self.Plot_4.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         else:
             pass
 
@@ -3988,11 +4020,43 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         def cb3_selectionChanged(self):
 
+            global comboindex3
+
+            comboindex3 = self.comboBox3.currentIndex()
+
+            if comboindex3 == 0:
+
+                plot3_curve.clear()
+
+            elif comboindex3 == 1:
+
+                plot3_curve.clear()
+
+            elif comboindex3 == 2:
+
+                plot3_curve.clear()
+            else:
+                pass
 
             return
 
         def cb4_selectionChanged(self):
 
+            global comboindex4
+
+            comboindex4 = self.comboBox4.currentIndex()
+
+            if comboindex4 == 0:
+
+                plot4_price_curve.clear()
+                plot4_kp200_curve.clear()
+
+            elif comboindex4 == 1:
+
+                plot4_fv_plus_curve.clear()
+                plot4_fv_minus_curve.clear()
+            else:
+                pass
 
             return
     else:
@@ -4878,8 +4942,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if UI_STYLE == 'Vertical_view.ui':
 
-                            dow_data = infos[8]
-                            fv_data = infos[9]
+                            plot3_data = infos[8]
+                            plot4_1_data = infos[9]
+                            plot4_2_data = infos[10]
                         else:
                             pass
                     else:
@@ -4888,12 +4953,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # Plot 3, Plot4 그리기
                 if UI_STYLE == 'Vertical_view.ui':
 
-                    dow_curve.setData(dow_data)
+                    plot3_curve.setData(plot3_data)
 
-                    if 선물_누적거래량 > 0:
-                        fv_plus_curve.setData(fv_data)
+                    if comboindex4 == 0:
+
+                        if 선물_누적거래량 > 0:
+                            plot4_fv_plus_curve.setData(plot4_1_data)
+                        else:
+                            plot4_fv_minus_curve.setData(plot4_1_data)
+
+                    elif comboindex4 == 1:
+
+                        plot4_price_curve.setData(plot4_1_data)
+                        plot4_kp200_curve.setData(plot4_2_data)
                     else:
-                        fv_minus_curve.setData(fv_data)
+                        pass
                 else:
                     pass
 
