@@ -12394,17 +12394,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         for index in loop_list:
 
             if df_cm_call.iloc[index]['시가'] > opt_search_start_value:
-
-                if df_cm_call.iloc[index]['저가'] < df_cm_call.iloc[index]['고가']:
-
-                    call_open[index] = True
-                    
-                    if index > atm_index:
-                        call_below_atm_count += 1
-                    else:
-                        pass
-                else:
-                    pass
                 
                 if not service_start:
 
@@ -12414,7 +12403,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
                 else:
                     pass
-
+                
                 if df_cm_call.iloc[index]['종가'] > 0:
 
                     df_cm_call.loc[index, '시가갭'] = df_cm_call.iloc[index]['시가'] - df_cm_call.iloc[index]['종가']
@@ -12438,8 +12427,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if df_cm_call.iloc[index]['저가'] < df_cm_call.iloc[index]['고가']:                    
+                if df_cm_call.iloc[index]['저가'] < df_cm_call.iloc[index]['고가']:
+
+                    call_open[index] = True
                     
+                    if index > atm_index:
+                        call_below_atm_count += 1
+                    else:
+                        pass
+
                     if df_cm_call.iloc[index]['시가'] >= oloh_cutoff:
 
                         if df_cm_call.iloc[index]['시가'] < 1.0:
@@ -13483,17 +13479,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         for index in loop_list:
 
             if df_cm_put.iloc[index]['시가'] > opt_search_start_value:
-
-                if df_cm_put.iloc[index]['저가'] < df_cm_put.iloc[index]['고가']:
-
-                    put_open[index] = True
-
-                    if index < atm_index:
-                        put_above_atm_count += 1
-                    else:
-                        pass
-                else:
-                    pass                
                 
                 if not service_start:
 
@@ -13527,8 +13512,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if df_cm_put.iloc[index]['저가'] < df_cm_put.iloc[index]['고가']:                    
-                    
+                if df_cm_put.iloc[index]['저가'] < df_cm_put.iloc[index]['고가']:
+
+                    put_open[index] = True
+
+                    if index < atm_index:
+                        put_above_atm_count += 1
+                    else:
+                        pass
+
                     if df_cm_put.iloc[index]['시가'] >= oloh_cutoff:
 
                         if df_cm_put.iloc[index]['시가'] < 1.0:
