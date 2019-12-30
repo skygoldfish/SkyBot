@@ -5983,6 +5983,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
 
             if call_node_state['시가']:
+
                 self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(흰색))
 
                 if df_cm_call.iloc[i]['시가'] > df_cm_call.iloc[i]['종가']:
@@ -5993,6 +5994,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
 
                 if df_cm_call.iloc[i]['시가'] == 0.0:
+                    self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
+
+                if df_cm_call.iloc[i]['시가'] in 진성의미가:
+
+                    self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
                 else:
                     pass
@@ -7440,6 +7448,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
 
             if put_node_state['시가']:
+
                 self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(흰색))
 
                 if df_cm_put.iloc[i]['시가'] > df_cm_put.iloc[i]['종가']:
@@ -7450,6 +7459,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
 
                 if df_cm_put.iloc[i]['시가'] == 0.0:
+                    self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
+
+                if df_cm_put.iloc[i]['시가'] in 진성의미가:
+
+                    self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
                 else:
                     pass
@@ -8241,6 +8257,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.tableWidget_call.setItem(i, Option_column.시가.value, item)
 
+                        if 시가 in 진성의미가:
+
+                            self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                            self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
                         if not overnight:
                             df_plotdata_cm_call.iloc[i][선물장간_시간차] = 시가
                         else:
@@ -8509,6 +8532,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             item.setForeground(QBrush(검정색))
 
                         self.tableWidget_put.setItem(i, Option_column.시가.value, item)
+
+                        if 시가 in 진성의미가:
+
+                            self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                            self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
 
                         if not overnight:
                             df_plotdata_cm_put.iloc[i][선물장간_시간차] = 시가
@@ -9442,10 +9472,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     df_cm_call.loc[i, '시가'] = 시가
 
-                    item = QTableWidgetItem("{0:0.2f}".format(시가))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(i, Option_column.시가.value, item)
-
                     종가 = df_cm_call.iloc[i]['현재가']
                     df_cm_call.loc[i, '종가'] = 종가
 
@@ -9513,6 +9539,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             item.setForeground(QBrush(검정색))
 
                         self.tableWidget_call.setItem(i, Option_column.시가.value, item)
+
+                        if 시가 in 진성의미가:
+
+                            self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                            self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
 
                         df_plotdata_cm_call.iloc[i][선물장간_시간차] = 시가
 
@@ -9662,10 +9695,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     df_cm_put.loc[i, '시가'] = 시가
 
-                    item = QTableWidgetItem("{0:0.2f}".format(시가))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(i, Option_column.시가.value, item)
-
                     종가 = df_cm_put.iloc[i]['현재가']
                     df_cm_put.loc[i, '종가'] = 종가
 
@@ -9733,6 +9762,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             item.setForeground(QBrush(검정색))
 
                         self.tableWidget_put.setItem(i, Option_column.시가.value, item)
+
+                        if 시가 in 진성의미가:
+
+                            self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                            self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
 
                         df_plotdata_cm_put.iloc[i][선물장간_시간차] = 시가
 
@@ -10778,6 +10814,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global fut_ol, fut_oh
 
+        #print('선물_시가, 선물_저가, 선물_고가', 선물_시가, 선물_저가, 선물_고가)
+
         # FUT OL/OH
         if self.within_n_tick(선물_시가, 선물_저가, 10) and not self.within_n_tick(선물_시가, 선물_고가, 10):
 
@@ -11551,7 +11589,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global flag_call_low_update, flag_call_high_update
         global node_coloring
         global call_open_list, call_update_time
-        global call_max_actval
+        global call_max_actval, call_open, call_below_atm_count
 
         dt = datetime.datetime.now()
 
@@ -11562,18 +11600,32 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         저가 = result['저가']
         고가 = result['고가']
 
-        if index == atm_index:
+        if 저가 != 고가:
 
-            call_atm_value = float(현재가)
-            self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색)) 
+            if not call_open[index]:
+
+                call_open[index] = True
+
+                if index > atm_index:
+                    call_below_atm_count += 1
+                else:
+                    pass
+                
+                if index == nCount_option_pairs - 1:
+                    call_max_actval = True
+                else:
+                    pass
+            else:
+                pass
+
+            if index == atm_index:
+
+                call_atm_value = float(현재가)
+                self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색)) 
+            else:
+                self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
         else:
-            self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))           
-
-        if index == nCount_option_pairs - 1:
-
-            call_max_actval = True
-        else:
-            pass
+            pass        
 
         # 시가 갱신
         if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
@@ -11592,6 +11644,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setForeground(QBrush(검정색))
 
             self.tableWidget_call.setItem(index, Option_column.시가.value, item)
+
+            if df_cm_call.iloc[index]['시가'] in 진성의미가:
+
+                self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
+            else:
+                pass
             
             cm_call_시가 = df_cm_call['시가'].values.tolist()
             cm_call_시가_node_list = self.make_node_list(cm_call_시가)
@@ -12619,7 +12678,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global df_cm_put_che, put_volume_total, df_plotdata_cm_put_volume, df_plotdata_cm_volume_cha
         global flag_put_low_update, flag_put_high_update
         global put_open_list, put_update_time
-        global put_max_actval
+        global put_max_actval, put_open, put_above_atm_count
 
         dt = datetime.datetime.now()
 
@@ -12629,18 +12688,32 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         현재가 = result['현재가']
         저가 = result['저가']
         고가 = result['고가']
-        
-        if index == atm_index:
-            put_atm_value = float(현재가)
-            self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
-        else:
-            self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
 
-        if index == 0:
+        if 저가 != 고가:
 
-            put_max_actval = True
+            if not put_open[index]:
+
+                put_open[index] = True
+
+                if index < atm_index:
+                    put_above_atm_count += 1
+                else:
+                    pass
+
+                if index == 0:
+                    put_max_actval = True
+                else:
+                    pass
+            else:
+                pass
+
+            if index == atm_index:
+                put_atm_value = float(현재가)
+                self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
+            else:
+                self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))            
         else:
-            pass
+            pass        
         
         # 시가 갱신
         if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
@@ -12659,6 +12732,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setForeground(QBrush(검정색))
 
             self.tableWidget_put.setItem(index, Option_column.시가.value, item)
+
+            if df_cm_put.iloc[index]['시가'] in 진성의미가:
+
+                self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
+            else:
+                pass
             
             cm_put_시가 = df_cm_put['시가'].values.tolist()
             cm_put_시가_node_list = self.make_node_list(cm_put_시가)
@@ -16309,7 +16389,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             #Speak("전광판을 갱신합니다.")
             #self.all_node_set()
-            '''
+            
             XQ = t2101(parent=self)
             XQ.Query(종목코드=fut_code)
 
@@ -16317,7 +16397,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             XQ = t2801(parent=self)
             XQ.Query(종목코드=fut_code)
-            '''     
+
+            time.sleep(0.1)                
 
         if self.checkBox_next_month.isChecked():
 
