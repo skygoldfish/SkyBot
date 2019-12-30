@@ -649,13 +649,13 @@ lightskyblue = QColor(0x87, 0xCE, 0xFA)
 
 대맥점색 = lawngreen
 
-futpen = pg.mkPen(magenta, width=2, style=QtCore.Qt.SolidLine)
+futpen = pg.mkPen('r', width=2, style=QtCore.Qt.SolidLine)
 rpen = pg.mkPen('r', width=2, style=QtCore.Qt.SolidLine)
 bpen = pg.mkPen('b', width=2, style=QtCore.Qt.SolidLine)
 gpen = pg.mkPen('g', width=2, style=QtCore.Qt.SolidLine)
 ypen1 = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
 ypen = pg.mkPen('y', width=2, style=QtCore.Qt.SolidLine)
-mvpen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DotLine)
+mvpen = pg.mkPen('g', width=2, style=QtCore.Qt.DotLine)
 tpen = pg.mkPen(lightyellow, width=1, style=QtCore.Qt.DotLine)
 
 fut_jl_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
@@ -2882,11 +2882,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         volume_base_line = self.Plot1.addLine(x=None, pen=ypen1)
         fut_pivot_line = self.Plot1.addLine(x=None, pen=fut_pvt_pen)
         
-        hc_fut_upper_line = self.Plot1.addLine(x=None, pen=fut_hc_pen)
-        hc_fut_lower_line = self.Plot1.addLine(x=None, pen=fut_hc_pen)
+        hc_fut_upper_line = self.Plot1.addLine(x=None, pen=magenta_pen)
+        hc_fut_lower_line = self.Plot1.addLine(x=None, pen=aqua_pen)
         
-        atm_upper_line = self.Plot1.addLine(x=None, pen=atm_upper_pen)
-        atm_lower_line = self.Plot1.addLine(x=None, pen=atm_lower_pen)
+        atm_upper_line = self.Plot1.addLine(x=None, pen=green_pen)
+        atm_lower_line = self.Plot1.addLine(x=None, pen=green_pen)
                 
         fut_che_left_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         fut_che_left_plus_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
@@ -2910,8 +2910,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         time_line_opt = self.Plot2.addLine(x=0, y=None, pen=tpen)
         opt_base_line = self.Plot2.addLine(x=None, pen=yellow_pen)
 
-        hc_opt_upper_line = self.Plot2.addLine(x=None, pen=opt_hc_pen)
-        hc_opt_lower_line = self.Plot2.addLine(x=None, pen=opt_hc_pen)
+        hc_opt_upper_line = self.Plot2.addLine(x=None, pen=magenta_pen)
+        hc_opt_lower_line = self.Plot2.addLine(x=None, pen=aqua_pen)
 
         for i in range(9):
             mv_line.append(self.Plot2.addLine(x=None, pen=mvpen))
@@ -2951,10 +2951,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global ovc_close_val_line, ovc_open_val_line, ovc_upper_line, ovc_lower_line 
             
             ovc_close_val_line = self.Plot3.addLine(x=None, pen=green_pen)
-            ovc_open_val_line = self.Plot3.addLine(x=None, pen=yellow_pen)
-            
-            ovc_upper_line = self.Plot3.addLine(x=None, pen=yellow_pen)
-            ovc_lower_line = self.Plot3.addLine(x=None, pen=yellow_pen)
+            ovc_open_val_line = self.Plot3.addLine(x=None, pen=yellow_pen)            
+
+            ovc_upper_line = self.Plot3.addLine(x=None, pen=magenta_pen)
+            ovc_lower_line = self.Plot3.addLine(x=None, pen=aqua_pen)
             
             time_line_ovc_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
             time_line_ovc_yagan_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
