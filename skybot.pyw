@@ -2948,17 +2948,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global time_line_ovc_start, time_line_ovc_yagan_start, time_line_ovc, time_line_fv_yagan_start
             global time_line_fv, time_line_fv_start, fv_open_val_line, fv_pivot_line
             global plot3_curve, plot4_fv_plus_curve, plot4_fv_minus_curve, plot4_price_curve, plot4_kp200_curve
-            global ovc_upper_line, ovc_lower_line, ovc_close_val_line, ovc_open_val_line
-
+            global ovc_close_val_line, ovc_open_val_line, ovc_upper_line, ovc_lower_line 
+            
             ovc_close_val_line = self.Plot3.addLine(x=None, pen=green_pen)
             ovc_open_val_line = self.Plot3.addLine(x=None, pen=yellow_pen)
-
+            
+            ovc_upper_line = self.Plot3.addLine(x=None, pen=yellow_pen)
+            ovc_lower_line = self.Plot3.addLine(x=None, pen=yellow_pen)
+            
             time_line_ovc_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
             time_line_ovc_yagan_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
             time_line_ovc = self.Plot3.addLine(x=0, y=None, pen=tpen)
-
-            ovc_upper_line = self.Plot3.addLine(x=None, pen=yellow_pen)
-            ovc_lower_line = self.Plot3.addLine(x=None, pen=yellow_pen)
 
             plot3_curve = self.Plot3.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
 
@@ -4996,25 +4996,76 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if UI_STYLE == 'Vertical_view.ui':
 
                     if comboindex3 == 0:
+                        
+                        if dow_시가 > 0:
+                            ovc_open_val_line.setValue(dow_시가)
+                        else:
+                            pass
 
+                        if dow_전일종가 > 0:
+                            ovc_close_val_line.setValue(dow_전일종가)
+                        else:
+                            pass             
+
+                        if dow_고가 > 0:
+                            ovc_upper_line.setValue(dow_고가)
+                        else:
+                            pass
+
+                        if dow_저가 > 0:
+                            ovc_lower_line.setValue(dow_저가)
+                        else:
+                            pass
+                        
                         plot3_curve.setData(plot3_data)
-
-                        ovc_upper_line.setValue(dow_고가)
-                        ovc_lower_line.setValue(dow_저가)
 
                     elif comboindex3 == 1:
 
-                        plot3_curve.setData(plot3_data)
+                        if sp500_시가 > 0:
+                            ovc_open_val_line.setValue(sp500_시가)
+                        else:
+                            pass
 
-                        ovc_upper_line.setValue(sp500_고가)
-                        ovc_lower_line.setValue(sp500_저가)
+                        if sp500_전일종가 > 0:
+                            ovc_close_val_line.setValue(sp500_전일종가)
+                        else:
+                            pass             
+
+                        if sp500_고가 > 0:
+                            ovc_upper_line.setValue(sp500_고가)
+                        else:
+                            pass
+
+                        if sp500_저가 > 0:
+                            ovc_lower_line.setValue(sp500_저가)
+                        else:
+                            pass
+                        
+                        plot3_curve.setData(plot3_data)
 
                     elif comboindex3 == 2:
 
-                        plot3_curve.setData(plot3_data)
+                        if nasdaq_시가 > 0:
+                            ovc_open_val_line.setValue(nasdaq_시가)
+                        else:
+                            pass
 
-                        ovc_upper_line.setValue(nasdaq_고가)
-                        ovc_lower_line.setValue(nasdaq_저가)
+                        if nasdaq_전일종가 > 0:
+                            ovc_close_val_line.setValue(nasdaq_전일종가)
+                        else:
+                            pass             
+
+                        if nasdaq_고가 > 0:
+                            ovc_upper_line.setValue(nasdaq_고가)
+                        else:
+                            pass
+
+                        if nasdaq_저가 > 0:
+                            ovc_lower_line.setValue(nasdaq_저가)
+                        else:
+                            pass
+                        
+                        plot3_curve.setData(plot3_data)
                     else:
                         pass
 
