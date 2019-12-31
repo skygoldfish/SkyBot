@@ -657,6 +657,7 @@ ypen1 = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
 ypen = pg.mkPen('y', width=2, style=QtCore.Qt.SolidLine)
 mvpen = pg.mkPen('g', width=2, style=QtCore.Qt.DotLine)
 tpen = pg.mkPen(lightyellow, width=1, style=QtCore.Qt.DotLine)
+tpen1 = pg.mkPen('w', width=1, style=QtCore.Qt.DotLine)
 
 fut_jl_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 fut_jh_pen = pg.mkPen(orangered, width=2, style=QtCore.Qt.DotLine)
@@ -674,6 +675,8 @@ magenta_pen1 = pg.mkPen(magenta, width=2, style=QtCore.Qt.SolidLine)
 green_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DotLine)
 gold_pen = pg.mkPen(gold, width=2, style=QtCore.Qt.DotLine)
 yellow_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
+orange_pen = pg.mkPen(orange, width=2, style=QtCore.Qt.DotLine)
+skyblue_pen = pg.mkPen(skyblue, width=2, style=QtCore.Qt.DotLine)
 
 df_plotdata_cm_call = pd.DataFrame()
 df_plotdata_cm_put = pd.DataFrame()
@@ -2875,7 +2878,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         time_line_fut_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
         time_line_fut_dow_yagan_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
-        time_line_fut = self.Plot1.addLine(x=0, y=None, pen=tpen)
+        time_line_fut = self.Plot1.addLine(x=0, y=None, pen=tpen1)
         
         fut_jl_line = self.Plot1.addLine(x=None, pen=fut_jl_pen)
         fut_jh_line = self.Plot1.addLine(x=None, pen=fut_jh_pen)
@@ -2885,8 +2888,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         hc_fut_upper_line = self.Plot1.addLine(x=None, pen=magenta_pen)
         hc_fut_lower_line = self.Plot1.addLine(x=None, pen=aqua_pen)
         
-        atm_upper_line = self.Plot1.addLine(x=None, pen=green_pen)
-        atm_lower_line = self.Plot1.addLine(x=None, pen=green_pen)
+        atm_upper_line = self.Plot1.addLine(x=None, pen=yellow_pen)
+        atm_lower_line = self.Plot1.addLine(x=None, pen=yellow_pen)
                 
         fut_che_left_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         fut_che_left_plus_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
@@ -2907,7 +2910,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         time_line_opt_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
         time_line_opt_dow_yagan_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
-        time_line_opt = self.Plot2.addLine(x=0, y=None, pen=tpen)
+        time_line_opt = self.Plot2.addLine(x=0, y=None, pen=tpen1)
+
         opt_base_line = self.Plot2.addLine(x=None, pen=yellow_pen)
 
         hc_opt_upper_line = self.Plot2.addLine(x=None, pen=magenta_pen)
@@ -2951,14 +2955,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global ovc_close_val_line, ovc_open_val_line, ovc_upper_line, ovc_lower_line 
             
             ovc_close_val_line = self.Plot3.addLine(x=None, pen=green_pen)
-            ovc_open_val_line = self.Plot3.addLine(x=None, pen=yellow_pen)            
-
-            ovc_upper_line = self.Plot3.addLine(x=None, pen=magenta_pen)
-            ovc_lower_line = self.Plot3.addLine(x=None, pen=aqua_pen)
+            ovc_open_val_line = self.Plot3.addLine(x=None, pen=yellow_pen)
+            
+            ovc_lower_line = self.Plot3.addLine(x=None, pen=skyblue_pen)
+            ovc_upper_line = self.Plot3.addLine(x=None, pen=orange_pen)
             
             time_line_ovc_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
             time_line_ovc_yagan_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
-            time_line_ovc = self.Plot3.addLine(x=0, y=None, pen=tpen)
+            time_line_ovc = self.Plot3.addLine(x=0, y=None, pen=tpen1)
 
             plot3_curve = self.Plot3.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
 
@@ -2966,8 +2970,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             fv_pivot_line = self.Plot4.addLine(x=None, pen=fut_pvt_pen)
 
             time_line_fv_start = self.Plot4.addLine(x=0, y=None, pen=tpen)
-            time_line_fv = self.Plot4.addLine(x=0, y=None, pen=tpen)
             time_line_fv_yagan_start = self.Plot4.addLine(x=0, y=None, pen=tpen)            
+            time_line_fv = self.Plot4.addLine(x=0, y=None, pen=tpen1)           
 
             plot4_fv_plus_curve = self.Plot4.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
             plot4_fv_minus_curve = self.Plot4.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
@@ -4878,14 +4882,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.label_clear() 
 
                 # 그래프 그리기
-
+                '''
                 if x_idx > 선물장간_시간차 + 10 and opt_x_idx > 선물장간_시간차 + 10:
 
-                    if comboindex1 == 0 or comboindex1 == 4:
-
-                        time_line_fut.setValue(x_idx)
-                    else:
-                        time_line_fut.setValue(opt_x_idx)
+                    
                 else:
                     pass
 
@@ -4893,10 +4893,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     time_line_opt.setValue(opt_x_idx)
                 else:
                     pass
+                '''
+
+                # Plot 1 x축 타임라인
+                if comboindex1 == 0 or comboindex1 == 4:
+
+                    time_line_fut.setValue(x_idx)
+                else:
+                    time_line_fut.setValue(opt_x_idx)
+
+                # Plot 2 x축 타임라인
+                time_line_opt.setValue(opt_x_idx)
 
                 if UI_STYLE == 'Vertical_view.ui':
 
-                    time_line_ovc.setValue(x_idx)
+                    # Plot 3 x축 타임라인
+                    time_line_ovc.setValue(ovc_x_idx)
+
+                    # Plot 4 x축 타임라인
                     time_line_fv.setValue(x_idx)
                 else:
                     pass
@@ -12371,10 +12385,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         call_gap_percent = [NaN] * nCount_option_pairs
         call_db_percent = [NaN] * nCount_option_pairs
 
-        call_below_atm_count = 0
-
         if not service_start:
             call_open = [False] * nCount_option_pairs
+            call_below_atm_count = 0
         else:
             pass
 
@@ -13464,10 +13477,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         put_gap_percent = [NaN] * nCount_option_pairs
         put_db_percent = [NaN] * nCount_option_pairs
 
-        put_above_atm_count = 0
-
         if not service_start:
             put_open = [False] * nCount_option_pairs
+            put_above_atm_count = 0
         else:
             pass
         
