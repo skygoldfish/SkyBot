@@ -100,18 +100,18 @@ if UI_STYLE == 'Vertical_view.ui':
     plot3_upper_line = None
     plot3_lower_line = None
 
-    time_line_plot3 = None
-    time_line_plot3_start = None
-    time_line_plot3_yagan_start = None
+    plot3_time_line = None
+    plot3_time_line_start = None
+    plot3_time_line_yagan_start = None
 
     plot3_curve = None
 
     # Plot4 관련 전역변수
     plot4_open_val_line = None
     plot4_pivot_line = None
-    time_line_plot4 = None    
-    time_line_plot4_start = None    
-    time_line_plot4_yagan_start = None
+    plot4_time_line = None    
+    plot4_time_line_start = None    
+    plot4_time_line_yagan_start = None
     
     plot4_fv_plus_curve = None
     plot4_fv_minus_curve = None
@@ -699,73 +699,76 @@ df_plotdata_sp500 = pd.DataFrame()
 df_plotdata_dow = pd.DataFrame()
 df_plotdata_nasdaq = pd.DataFrame()
 
+# Plot1
+plot1_time_line = None
+plot1_time_line_start = None
+plot1_time_line_yagan_start = None
+
+plot1_fut_price_curve = None
+
+plot1_fut_che_curve = None
+plot1_fut_che_plus_curve = None
+plot1_fut_che_minus_curve = None
+
+plot1_fut_pivot_line = None
+plot1_fut_jl_line = None
+plot1_fut_jh_line = None
+plot1_kp200_curve = None
+
+plot1_volume_base_line = None
+
+plot1_hc_fut_upper_line = None
+plot1_hc_fut_lower_line = None
+
+plot1_atm_upper_line = None
+plot1_atm_lower_line = None
+
+plot1_cm_call_volume_curve = None
+plot1_cm_put_volume_curve = None
+plot1_cm_volume_cha_curve = None
+
+plot1_cm_call_oi_curve = None
+plot1_cm_put_oi_curve = None
+
+plot1_cm_two_sum_curve = None
+plot1_cm_two_cha_curve = None
+
+plot1_sp500_curve = None
+plot1_dow_curve = None
+plot1_nasdaq_curve = None
+
+# Plot2
+plot2_time_line = None
+plot2_time_line_start = None
+plot2_time_line_yagan_start = None
+
+plot2_base_line = None
+
+plot2_fut_che_curve = None
+plot2_fut_che_plus_curve = None
+plot2_fut_che_minus_curve = None
+plot2_cm_call_volume_curve = None
+plot2_cm_put_volume_curve = None
+plot2_cm_volume_cha_curve = None
+
+plot2_hc_opt_upper_line = None
+plot2_hc_opt_lower_line = None
+
+plot2_cm_call_oi_curve = None
+plot2_cm_put_oi_curve = None
+
+plot2_cm_two_sum_curve = None
+plot2_cm_two_cha_curve = None
+
+plot2_sp500_curve = None
+plot2_dow_curve = None
+plot2_nasdaq_curve = None
+
 mv_curve = []
 mv_line = []
-time_line_opt = None
 
-time_line_plot2_start = None
-time_line_plot1_start = None
-
-fut_curve = None
-
-fut_che_left_curve = None
-fut_che_left_plus_curve = None
-fut_che_left_minus_curve = None
-
-fut_che_right_curve = None
-fut_che_right_plus_curve = None
-fut_che_right_minus_curve = None
-
-fut_pivot_line = None
-fut_jl_line = None
-fut_jh_line = None
-opt_base_line = None
-kp200_curve = None
 call_curve = []
 put_curve = []
-
-volume_base_line = None
-
-hc_fut_upper_line = None
-hc_fut_lower_line = None
-hc_opt_upper_line = None
-hc_opt_lower_line = None
-
-atm_upper_line = None
-atm_lower_line = None
-
-cm_call_volume_left_curve = None
-cm_put_volume_left_curve = None
-cm_volume_cha_left_curve = None
-
-cm_call_oi_left_curve = None
-cm_put_oi_left_curve = None
-
-cm_call_volume_right_curve = None
-cm_put_volume_right_curve = None
-cm_volume_cha_right_curve = None
-
-cm_call_oi_right_curve = None
-cm_put_oi_right_curve = None
-
-cm_two_sum_left_curve = None
-cm_two_cha_left_curve = None
-
-cm_two_sum_right_curve = None
-cm_two_cha_right_curve = None
-
-sp500_left_curve = None
-dow_left_curve = None
-nasdaq_left_curve = None
-
-sp500_right_curve = None
-dow_right_curve = None
-nasdaq_right_curve = None
-
-time_line_fut = None
-
-time_line_plot2_yagan_start = None
-time_line_plot1_yagan_start = None
 
 yoc_stop = False
 
@@ -2858,89 +2861,91 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        global time_line_plot1_start, time_line_plot1_yagan_start, time_line_fut, fut_curve, kp200_curve
-        global fut_jl_line, fut_jh_line, fut_pivot_line, volume_base_line
+        global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
+        global plot1_fut_jl_line, plot1_fut_jh_line, plot1_fut_pivot_line, plot1_volume_base_line
         
-        global fut_che_left_curve, fut_che_left_plus_curve, fut_che_left_minus_curve
-        global fut_che_right_curve, fut_che_right_plus_curve, fut_che_right_minus_curve
+        global plot1_fut_che_curve, plot1_fut_che_plus_curve, plot1_fut_che_minus_curve
+        global plot2_fut_che_curve, plot2_fut_che_plus_curve, plot2_fut_che_minus_curve
         
-        global cm_call_oi_left_curve, cm_put_oi_left_curve, cm_call_oi_right_curve, cm_put_oi_right_curve
+        global plot1_cm_call_oi_curve, plot1_cm_put_oi_curve, plot2_cm_call_oi_curve, plot2_cm_put_oi_curve
 
-        global cm_call_volume_left_curve, cm_put_volume_left_curve, cm_volume_cha_left_curve
-        global cm_call_volume_right_curve, cm_put_volume_right_curve, cm_volume_cha_right_curve
+        global plot1_cm_call_volume_curve, plot1_cm_put_volume_curve, plot1_cm_volume_cha_curve
+        global plot2_cm_call_volume_curve, plot2_cm_put_volume_curve, plot2_cm_volume_cha_curve
         
-        global cm_two_sum_left_curve, cm_two_cha_left_curve, cm_two_sum_right_curve, cm_two_cha_right_curve
-        global sp500_left_curve, dow_left_curve, nasdaq_left_curve, sp500_right_curve, dow_right_curve, nasdaq_right_curve
+        global plot1_cm_two_sum_curve, plot1_cm_two_cha_curve, plot2_cm_two_sum_curve, plot2_cm_two_cha_curve
+        global plot1_sp500_curve, plot1_dow_curve, plot1_nasdaq_curve, plot2_sp500_curve, plot2_dow_curve, plot2_nasdaq_curve
         
-        global time_line_plot2_start, time_line_plot2_yagan_start, time_line_opt, mv_line, opt_base_line, call_curve, put_curve
-        global hc_fut_upper_line, hc_fut_lower_line, hc_opt_upper_line, hc_opt_lower_line
-        global atm_upper_line, atm_lower_line
+        global plot2_time_line_start, plot2_time_line_yagan_start, plot2_time_line, mv_line, plot2_base_line, call_curve, put_curve
+        global plot1_hc_fut_upper_line, plot1_hc_fut_lower_line, plot2_hc_opt_upper_line, plot2_hc_opt_lower_line
+        global plot1_atm_upper_line, plot1_atm_lower_line
         
-        time_line_plot1_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
-        time_line_plot1_yagan_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
-        time_line_fut = self.Plot1.addLine(x=0, y=None, pen=tpen1)
+        # Plot1
+        plot1_time_line_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
+        plot1_time_line_yagan_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
+        plot1_time_line = self.Plot1.addLine(x=0, y=None, pen=tpen1)
         
-        fut_jl_line = self.Plot1.addLine(x=None, pen=fut_jl_pen)
-        fut_jh_line = self.Plot1.addLine(x=None, pen=fut_jh_pen)
-        volume_base_line = self.Plot1.addLine(x=None, pen=ypen1)
-        fut_pivot_line = self.Plot1.addLine(x=None, pen=fut_pvt_pen)
+        plot1_fut_jl_line = self.Plot1.addLine(x=None, pen=fut_jl_pen)
+        plot1_fut_jh_line = self.Plot1.addLine(x=None, pen=fut_jh_pen)
+        plot1_volume_base_line = self.Plot1.addLine(x=None, pen=ypen1)
+        plot1_fut_pivot_line = self.Plot1.addLine(x=None, pen=fut_pvt_pen)
         
-        hc_fut_upper_line = self.Plot1.addLine(x=None, pen=magenta_pen)
-        hc_fut_lower_line = self.Plot1.addLine(x=None, pen=aqua_pen)
+        plot1_hc_fut_upper_line = self.Plot1.addLine(x=None, pen=magenta_pen)
+        plot1_hc_fut_lower_line = self.Plot1.addLine(x=None, pen=aqua_pen)
         
-        atm_upper_line = self.Plot1.addLine(x=None, pen=yellow_pen)
-        atm_lower_line = self.Plot1.addLine(x=None, pen=yellow_pen)
+        plot1_atm_upper_line = self.Plot1.addLine(x=None, pen=yellow_pen)
+        plot1_atm_lower_line = self.Plot1.addLine(x=None, pen=yellow_pen)
                 
-        fut_che_left_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        fut_che_left_plus_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        fut_che_left_minus_curve = self.Plot1.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        plot1_fut_che_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        plot1_fut_che_plus_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        plot1_fut_che_minus_curve = self.Plot1.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
 
-        cm_call_volume_left_curve = self.Plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_put_volume_left_curve = self.Plot1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-        cm_volume_cha_left_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        plot1_cm_call_volume_curve = self.Plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        plot1_cm_put_volume_curve = self.Plot1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        plot1_cm_volume_cha_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
-        cm_call_oi_left_curve = self.Plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_put_oi_left_curve = self.Plot1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        plot1_cm_call_oi_curve = self.Plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        plot1_cm_put_oi_curve = self.Plot1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
-        cm_two_sum_left_curve = self.Plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_two_cha_left_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)        
+        plot1_cm_two_sum_curve = self.Plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        plot1_cm_two_cha_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)        
         
-        fut_curve = self.Plot1.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        kp200_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
+        plot1_fut_price_curve = self.Plot1.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        plot1_kp200_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         
-        time_line_plot2_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
-        time_line_plot2_yagan_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
-        time_line_opt = self.Plot2.addLine(x=0, y=None, pen=tpen1)
+        plot1_sp500_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        plot1_dow_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        plot1_nasdaq_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)   
+        
+        # Plot2
+        plot2_time_line_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
+        plot2_time_line_yagan_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
+        plot2_time_line = self.Plot2.addLine(x=0, y=None, pen=tpen1)
 
-        opt_base_line = self.Plot2.addLine(x=None, pen=yellow_pen)
+        plot2_base_line = self.Plot2.addLine(x=None, pen=yellow_pen)
 
-        hc_opt_upper_line = self.Plot2.addLine(x=None, pen=magenta_pen)
-        hc_opt_lower_line = self.Plot2.addLine(x=None, pen=aqua_pen)
+        plot2_hc_opt_upper_line = self.Plot2.addLine(x=None, pen=magenta_pen)
+        plot2_hc_opt_lower_line = self.Plot2.addLine(x=None, pen=aqua_pen)
+        
+        plot2_cm_call_oi_curve = self.Plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        plot2_cm_put_oi_curve = self.Plot2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
+        plot2_cm_call_volume_curve = self.Plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        plot2_cm_put_volume_curve = self.Plot2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+        plot2_cm_volume_cha_curve = self.Plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+
+        plot2_fut_che_curve = self.Plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        plot2_fut_che_plus_curve = self.Plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        plot2_fut_che_minus_curve = self.Plot2.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+
+        plot2_cm_two_sum_curve = self.Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        plot2_cm_two_cha_curve = self.Plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
+
+        plot2_sp500_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        plot2_dow_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        plot2_nasdaq_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        
         for i in range(9):
-            mv_line.append(self.Plot2.addLine(x=None, pen=mvpen))
-        
-        cm_call_oi_right_curve = self.Plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_put_oi_right_curve = self.Plot2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-
-        cm_call_volume_right_curve = self.Plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_put_volume_right_curve = self.Plot2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-        cm_volume_cha_right_curve = self.Plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-
-        fut_che_right_curve = self.Plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
-        fut_che_right_plus_curve = self.Plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
-        fut_che_right_minus_curve = self.Plot2.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
-
-        cm_two_sum_right_curve = self.Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        cm_two_cha_right_curve = self.Plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
-
-        sp500_left_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        dow_left_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        nasdaq_left_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)   
-
-        sp500_right_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        dow_right_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        nasdaq_right_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)   
+            mv_line.append(self.Plot2.addLine(x=None, pen=mvpen)) 
 
         for i in range(29):
             call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
@@ -2949,8 +2954,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # Plot 3, 4 관련 설정
         if UI_STYLE == 'Vertical_view.ui':
 
-            global time_line_plot3_start, time_line_plot3_yagan_start, time_line_plot3, time_line_plot4_yagan_start
-            global time_line_plot4, time_line_plot4_start, plot4_open_val_line, plot4_pivot_line
+            global plot3_time_line_start, plot3_time_line_yagan_start, plot3_time_line, plot4_time_line_yagan_start
+            global plot4_time_line, plot4_time_line_start, plot4_open_val_line, plot4_pivot_line
             global plot3_curve, plot4_fv_plus_curve, plot4_fv_minus_curve, plot4_price_curve, plot4_kp200_curve
             global plot3_close_val_line, plot3_open_val_line, plot3_upper_line, plot3_lower_line 
             
@@ -2960,21 +2965,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot3_lower_line = self.Plot3.addLine(x=None, pen=skyblue_pen)
             plot3_upper_line = self.Plot3.addLine(x=None, pen=orange_pen)
             
-            time_line_plot3_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
-            time_line_plot3_yagan_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
-            time_line_plot3 = self.Plot3.addLine(x=0, y=None, pen=tpen1)
+            plot3_time_line_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
+            plot3_time_line_yagan_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
+            plot3_time_line = self.Plot3.addLine(x=0, y=None, pen=tpen1)
 
             plot3_curve = self.Plot3.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
 
             plot4_open_val_line = self.Plot4.addLine(x=None, pen=yellow_pen)
             plot4_pivot_line = self.Plot4.addLine(x=None, pen=fut_pvt_pen)
 
-            time_line_plot4_start = self.Plot4.addLine(x=0, y=None, pen=tpen)
-            time_line_plot4_yagan_start = self.Plot4.addLine(x=0, y=None, pen=tpen)            
-            time_line_plot4 = self.Plot4.addLine(x=0, y=None, pen=tpen1)           
+            plot4_time_line_start = self.Plot4.addLine(x=0, y=None, pen=tpen)
+            plot4_time_line_yagan_start = self.Plot4.addLine(x=0, y=None, pen=tpen)            
+            plot4_time_line = self.Plot4.addLine(x=0, y=None, pen=tpen1)           
 
             plot4_fv_plus_curve = self.Plot4.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
             plot4_fv_minus_curve = self.Plot4.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+
             plot4_price_curve = self.Plot4.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)             
             plot4_kp200_curve = self.Plot4.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         else:
@@ -3467,292 +3473,285 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def cb1_selectionChanged(self):
 
         global comboindex1
-        global fut_curve, kp200_curve, fut_che_left_curve, fut_che_left_plus_curve, fut_che_left_minus_curve
-        global cm_call_volume_left_curve, cm_put_volume_left_curve
-        global cm_call_oi_left_curve, cm_put_oi_left_curve
-        global cm_two_sum_left_curve, cm_two_cha_left_curve
+        global plot1_fut_price_curve, plot1_kp200_curve, plot1_fut_che_curve, plot1_fut_che_plus_curve, plot1_fut_che_minus_curve
+        global plot1_cm_call_volume_curve, plot1_cm_put_volume_curve
+        global plot1_cm_call_oi_curve, plot1_cm_put_oi_curve
+        global plot1_cm_two_sum_curve, plot1_cm_two_cha_curve
 
         txt = self.comboBox1.currentText()
         comboindex1 = self.comboBox1.currentIndex()        
 
         if comboindex1 == 0:
 
-            cm_call_oi_left_curve.clear()
-            cm_put_oi_left_curve.clear()
+            plot1_cm_call_oi_curve.clear()
+            plot1_cm_put_oi_curve.clear()
 
-            cm_call_volume_left_curve.clear()
-            cm_put_volume_left_curve.clear()
-            cm_volume_cha_left_curve.clear() 
+            plot1_cm_call_volume_curve.clear()
+            plot1_cm_put_volume_curve.clear()
+            plot1_cm_volume_cha_curve.clear() 
 
-            cm_two_sum_left_curve.clear()
-            cm_two_cha_left_curve.clear()           
+            plot1_cm_two_sum_curve.clear()
+            plot1_cm_two_cha_curve.clear()           
             
-            kp200_curve.clear()
-            fut_curve.clear()
+            plot1_kp200_curve.clear()
+            plot1_fut_price_curve.clear()
             
-            sp500_left_curve.clear()
-            dow_left_curve.clear()
-            nasdaq_left_curve.clear()
+            plot1_sp500_curve.clear()
+            plot1_dow_curve.clear()
+            plot1_nasdaq_curve.clear()
             
-            atm_upper_line.setValue(0)
-            atm_lower_line.setValue(0)            
+            plot1_atm_upper_line.setValue(0)
+            plot1_atm_lower_line.setValue(0)            
 
-            volume_base_line.setValue(0)
+            plot1_volume_base_line.setValue(0)
 
-            hc_fut_upper_line.setValue(0)
-            hc_fut_lower_line.setValue(0)
+            plot1_hc_fut_upper_line.setValue(0)
+            plot1_hc_fut_lower_line.setValue(0)
 
-            fut_jl_line.setValue(0)
-            fut_jh_line.setValue(0)
-            fut_pivot_line.setValue(0)
+            plot1_fut_jl_line.setValue(0)
+            plot1_fut_jh_line.setValue(0)
+            plot1_fut_pivot_line.setValue(0)
 
         elif comboindex1 == 1:            
             
-            #fut_che_left_curve.clear()
-            fut_che_left_plus_curve.clear()
-            fut_che_left_minus_curve.clear()
+            plot1_fut_che_plus_curve.clear()
+            plot1_fut_che_minus_curve.clear()
 
-            cm_call_oi_left_curve.clear()
-            cm_put_oi_left_curve.clear()
+            plot1_cm_call_oi_curve.clear()
+            plot1_cm_put_oi_curve.clear()
 
-            cm_two_sum_left_curve.clear()
-            cm_two_cha_left_curve.clear() 
+            plot1_cm_two_sum_curve.clear()
+            plot1_cm_two_cha_curve.clear() 
 
-            kp200_curve.clear()
-            fut_curve.clear()
+            plot1_kp200_curve.clear()
+            plot1_fut_price_curve.clear()
             
-            sp500_left_curve.clear()
-            dow_left_curve.clear()
-            nasdaq_left_curve.clear()     
+            plot1_sp500_curve.clear()
+            plot1_dow_curve.clear()
+            plot1_nasdaq_curve.clear()     
             
-            atm_upper_line.setValue(0)
-            atm_lower_line.setValue(0)
+            plot1_atm_upper_line.setValue(0)
+            plot1_atm_lower_line.setValue(0)
             
-            volume_base_line.setValue(0)
+            plot1_volume_base_line.setValue(0)
 
-            hc_fut_upper_line.setValue(0)
-            hc_fut_lower_line.setValue(0)
+            plot1_hc_fut_upper_line.setValue(0)
+            plot1_hc_fut_lower_line.setValue(0)
             
-            fut_jl_line.setValue(0)
-            fut_jh_line.setValue(0)
-            fut_pivot_line.setValue(0) 
+            plot1_fut_jl_line.setValue(0)
+            plot1_fut_jh_line.setValue(0)
+            plot1_fut_pivot_line.setValue(0) 
 
         elif comboindex1 == 2:
             
-            #fut_che_left_curve.clear()
-            fut_che_left_plus_curve.clear()
-            fut_che_left_minus_curve.clear()
+            plot1_fut_che_plus_curve.clear()
+            plot1_fut_che_minus_curve.clear()
 
-            cm_call_volume_left_curve.clear()
-            cm_put_volume_left_curve.clear()
-            cm_volume_cha_left_curve.clear()
+            plot1_cm_call_volume_curve.clear()
+            plot1_cm_put_volume_curve.clear()
+            plot1_cm_volume_cha_curve.clear()
 
-            cm_two_sum_left_curve.clear()
-            cm_two_cha_left_curve.clear()
+            plot1_cm_two_sum_curve.clear()
+            plot1_cm_two_cha_curve.clear()
 
-            kp200_curve.clear()
-            fut_curve.clear()
+            plot1_kp200_curve.clear()
+            plot1_fut_price_curve.clear()
             
-            sp500_left_curve.clear()
-            dow_left_curve.clear()
-            nasdaq_left_curve.clear()   
+            plot1_sp500_curve.clear()
+            plot1_dow_curve.clear()
+            plot1_nasdaq_curve.clear()   
 
-            atm_upper_line.setValue(0)
-            atm_lower_line.setValue(0)
+            plot1_atm_upper_line.setValue(0)
+            plot1_atm_lower_line.setValue(0)
             
-            volume_base_line.setValue(0)
+            plot1_volume_base_line.setValue(0)
 
-            hc_fut_upper_line.setValue(0)
-            hc_fut_lower_line.setValue(0)
+            plot1_hc_fut_upper_line.setValue(0)
+            plot1_hc_fut_lower_line.setValue(0)
             
-            fut_jl_line.setValue(0)
-            fut_jh_line.setValue(0)
-            fut_pivot_line.setValue(0)     
+            plot1_fut_jl_line.setValue(0)
+            plot1_fut_jh_line.setValue(0)
+            plot1_fut_pivot_line.setValue(0)     
         
         elif comboindex1 == 3:
 
-            #fut_che_left_curve.clear()
-            fut_che_left_plus_curve.clear()
-            fut_che_left_minus_curve.clear()
+            plot1_fut_che_plus_curve.clear()
+            plot1_fut_che_minus_curve.clear()
 
-            cm_call_volume_left_curve.clear()
-            cm_put_volume_left_curve.clear()
-            cm_volume_cha_left_curve.clear()
+            plot1_cm_call_volume_curve.clear()
+            plot1_cm_put_volume_curve.clear()
+            plot1_cm_volume_cha_curve.clear()
 
-            cm_call_oi_left_curve.clear()
-            cm_put_oi_left_curve.clear()
+            plot1_cm_call_oi_curve.clear()
+            plot1_cm_put_oi_curve.clear()
 
-            kp200_curve.clear()
-            fut_curve.clear() 
+            plot1_kp200_curve.clear()
+            plot1_fut_price_curve.clear() 
             
-            sp500_left_curve.clear()
-            dow_left_curve.clear()
-            nasdaq_left_curve.clear()
+            plot1_sp500_curve.clear()
+            plot1_dow_curve.clear()
+            plot1_nasdaq_curve.clear()
             
-            atm_upper_line.setValue(0)
-            atm_lower_line.setValue(0) 
+            plot1_atm_upper_line.setValue(0)
+            plot1_atm_lower_line.setValue(0) 
 
-            volume_base_line.setValue(0)
+            plot1_volume_base_line.setValue(0)
             
-            fut_jl_line.setValue(0)
-            fut_jh_line.setValue(0)
-            fut_pivot_line.setValue(0)            
+            plot1_fut_jl_line.setValue(0)
+            plot1_fut_jh_line.setValue(0)
+            plot1_fut_pivot_line.setValue(0)            
 
-            hc_fut_upper_line.setValue(1.5)
-            hc_fut_lower_line.setValue(-1.5)
+            plot1_hc_fut_upper_line.setValue(1.5)
+            plot1_hc_fut_lower_line.setValue(-1.5)
 
         elif comboindex1 == 4:
             
-            #fut_che_left_curve.clear()
-            fut_che_left_plus_curve.clear()
-            fut_che_left_minus_curve.clear()
+            plot1_fut_che_plus_curve.clear()
+            plot1_fut_che_minus_curve.clear()
 
-            cm_call_oi_left_curve.clear()
-            cm_put_oi_left_curve.clear()
+            plot1_cm_call_oi_curve.clear()
+            plot1_cm_put_oi_curve.clear()
 
-            cm_call_volume_left_curve.clear()
-            cm_put_volume_left_curve.clear()
-            cm_volume_cha_left_curve.clear()
+            plot1_cm_call_volume_curve.clear()
+            plot1_cm_put_volume_curve.clear()
+            plot1_cm_volume_cha_curve.clear()
 
-            cm_two_sum_left_curve.clear()
-            cm_two_cha_left_curve.clear()
+            plot1_cm_two_sum_curve.clear()
+            plot1_cm_two_cha_curve.clear()
             
-            sp500_left_curve.clear()
-            dow_left_curve.clear()
-            nasdaq_left_curve.clear()
+            plot1_sp500_curve.clear()
+            plot1_dow_curve.clear()
+            plot1_nasdaq_curve.clear()
 
             if overnight:
 
-                volume_base_line.setValue(cme_realdata['전저'])
-                hc_fut_upper_line.setValue(cme_realdata['전저'])
-                hc_fut_lower_line.setValue(cme_realdata['전저'])
+                plot1_volume_base_line.setValue(cme_realdata['전저'])
+                plot1_hc_fut_upper_line.setValue(cme_realdata['전저'])
+                plot1_hc_fut_lower_line.setValue(cme_realdata['전저'])
 
-                fut_jl_line.setValue(cme_realdata['전저'])
-                fut_jh_line.setValue(cme_realdata['전고'])
-                fut_pivot_line.setValue(cme_realdata['피봇']) 
+                plot1_fut_jl_line.setValue(cme_realdata['전저'])
+                plot1_fut_jh_line.setValue(cme_realdata['전고'])
+                plot1_fut_pivot_line.setValue(cme_realdata['피봇']) 
             else:
-                volume_base_line.setValue(fut_realdata['전저'])
-                hc_fut_upper_line.setValue(fut_realdata['전저'])
-                hc_fut_lower_line.setValue(fut_realdata['전저'])
+                plot1_volume_base_line.setValue(fut_realdata['전저'])
+                plot1_hc_fut_upper_line.setValue(fut_realdata['전저'])
+                plot1_hc_fut_lower_line.setValue(fut_realdata['전저'])
 
-                fut_jl_line.setValue(fut_realdata['전저'])
-                fut_jh_line.setValue(fut_realdata['전고'])
-                fut_pivot_line.setValue(fut_realdata['피봇'])            
+                plot1_fut_jl_line.setValue(fut_realdata['전저'])
+                plot1_fut_jh_line.setValue(fut_realdata['전고'])
+                plot1_fut_pivot_line.setValue(fut_realdata['피봇'])            
 
-            atm_upper_line.setValue(atm_val + 1.25)
-            atm_lower_line.setValue(atm_val - 1.25)
+            plot1_atm_upper_line.setValue(atm_val + 1.25)
+            plot1_atm_lower_line.setValue(atm_val - 1.25)
 
         elif comboindex1 == 5:
 
-            #fut_che_left_curve.clear()
-            fut_che_left_plus_curve.clear()
-            fut_che_left_minus_curve.clear()
+            plot1_fut_che_plus_curve.clear()
+            plot1_fut_che_minus_curve.clear()
 
-            cm_call_oi_left_curve.clear()
-            cm_put_oi_left_curve.clear()
+            plot1_cm_call_oi_curve.clear()
+            plot1_cm_put_oi_curve.clear()
 
-            cm_call_volume_left_curve.clear()
-            cm_put_volume_left_curve.clear()
-            cm_volume_cha_left_curve.clear()
+            plot1_cm_call_volume_curve.clear()
+            plot1_cm_put_volume_curve.clear()
+            plot1_cm_volume_cha_curve.clear()
 
-            cm_two_sum_left_curve.clear()
-            cm_two_cha_left_curve.clear()
+            plot1_cm_two_sum_curve.clear()
+            plot1_cm_two_cha_curve.clear()
 
-            kp200_curve.clear()
-            fut_curve.clear()  
+            plot1_kp200_curve.clear()
+            plot1_fut_price_curve.clear()  
             
-            dow_left_curve.clear()
-            nasdaq_left_curve.clear()
+            plot1_dow_curve.clear()
+            plot1_nasdaq_curve.clear()
 
             if sp500_전일종가 > 0:
 
-                atm_upper_line.setValue(sp500_전일종가)
-                atm_lower_line.setValue(sp500_전일종가)
+                plot1_atm_upper_line.setValue(sp500_전일종가)
+                plot1_atm_lower_line.setValue(sp500_전일종가)
                 
-                fut_jl_line.setValue(sp500_전일종가)
-                fut_jh_line.setValue(sp500_전일종가)
-                fut_pivot_line.setValue(sp500_전일종가)
+                plot1_fut_jl_line.setValue(sp500_전일종가)
+                plot1_fut_jh_line.setValue(sp500_전일종가)
+                plot1_fut_pivot_line.setValue(sp500_전일종가)
 
-                hc_fut_upper_line.setValue(sp500_고가)
-                hc_fut_lower_line.setValue(sp500_저가)
+                plot1_hc_fut_upper_line.setValue(sp500_고가)
+                plot1_hc_fut_lower_line.setValue(sp500_저가)
                 
-                volume_base_line.setValue(sp500_시가)                
+                plot1_volume_base_line.setValue(sp500_시가)                
             else:
                 pass
 
         elif comboindex1 == 6:
 
-            #fut_che_left_curve.clear()
-            fut_che_left_plus_curve.clear()
-            fut_che_left_minus_curve.clear()
+            plot1_fut_che_plus_curve.clear()
+            plot1_fut_che_minus_curve.clear()
 
-            cm_call_oi_left_curve.clear()
-            cm_put_oi_left_curve.clear()
+            plot1_cm_call_oi_curve.clear()
+            plot1_cm_put_oi_curve.clear()
 
-            cm_call_volume_left_curve.clear()
-            cm_put_volume_left_curve.clear()
-            cm_volume_cha_left_curve.clear()
+            plot1_cm_call_volume_curve.clear()
+            plot1_cm_put_volume_curve.clear()
+            plot1_cm_volume_cha_curve.clear()
 
-            cm_two_sum_left_curve.clear()
-            cm_two_cha_left_curve.clear()
+            plot1_cm_two_sum_curve.clear()
+            plot1_cm_two_cha_curve.clear()
 
-            kp200_curve.clear()
-            fut_curve.clear()
+            plot1_kp200_curve.clear()
+            plot1_fut_price_curve.clear()
             
-            sp500_left_curve.clear()
-            nasdaq_left_curve.clear()  
+            plot1_sp500_curve.clear()
+            plot1_nasdaq_curve.clear()  
 
             if dow_전일종가 > 0:
 
-                atm_upper_line.setValue(dow_전일종가)
-                atm_lower_line.setValue(dow_전일종가)
+                plot1_atm_upper_line.setValue(dow_전일종가)
+                plot1_atm_lower_line.setValue(dow_전일종가)
                 
-                fut_jl_line.setValue(dow_전일종가)
-                fut_jh_line.setValue(dow_전일종가)
-                fut_pivot_line.setValue(dow_전일종가)
+                plot1_fut_jl_line.setValue(dow_전일종가)
+                plot1_fut_jh_line.setValue(dow_전일종가)
+                plot1_fut_pivot_line.setValue(dow_전일종가)
 
-                hc_fut_upper_line.setValue(dow_고가)
-                hc_fut_lower_line.setValue(dow_저가)
+                plot1_hc_fut_upper_line.setValue(dow_고가)
+                plot1_hc_fut_lower_line.setValue(dow_저가)
                 
-                volume_base_line.setValue(dow_시가) 
+                plot1_volume_base_line.setValue(dow_시가) 
             else:
                 pass             
 
         elif comboindex1 == 7:
 
-            #fut_che_left_curve.clear()
-            fut_che_left_plus_curve.clear()
-            fut_che_left_minus_curve.clear()
+            plot1_fut_che_plus_curve.clear()
+            plot1_fut_che_minus_curve.clear()
 
-            cm_call_oi_left_curve.clear()
-            cm_put_oi_left_curve.clear()
+            plot1_cm_call_oi_curve.clear()
+            plot1_cm_put_oi_curve.clear()
 
-            cm_call_volume_left_curve.clear()
-            cm_put_volume_left_curve.clear()
-            cm_volume_cha_left_curve.clear()
+            plot1_cm_call_volume_curve.clear()
+            plot1_cm_put_volume_curve.clear()
+            plot1_cm_volume_cha_curve.clear()
 
-            cm_two_sum_left_curve.clear()
-            cm_two_cha_left_curve.clear()
+            plot1_cm_two_sum_curve.clear()
+            plot1_cm_two_cha_curve.clear()
 
-            kp200_curve.clear()
-            fut_curve.clear()
+            plot1_kp200_curve.clear()
+            plot1_fut_price_curve.clear()
             
-            sp500_left_curve.clear()
-            dow_left_curve.clear()  
+            plot1_sp500_curve.clear()
+            plot1_dow_curve.clear()  
 
             if nasdaq_전일종가 > 0:
 
-                atm_upper_line.setValue(nasdaq_전일종가)
-                atm_lower_line.setValue(nasdaq_전일종가)
+                plot1_atm_upper_line.setValue(nasdaq_전일종가)
+                plot1_atm_lower_line.setValue(nasdaq_전일종가)
                 
-                fut_jl_line.setValue(nasdaq_전일종가)
-                fut_jh_line.setValue(nasdaq_전일종가)
-                fut_pivot_line.setValue(nasdaq_전일종가)
+                plot1_fut_jl_line.setValue(nasdaq_전일종가)
+                plot1_fut_jh_line.setValue(nasdaq_전일종가)
+                plot1_fut_pivot_line.setValue(nasdaq_전일종가)
 
-                hc_fut_upper_line.setValue(nasdaq_고가)
-                hc_fut_lower_line.setValue(nasdaq_저가)
+                plot1_hc_fut_upper_line.setValue(nasdaq_고가)
+                plot1_hc_fut_lower_line.setValue(nasdaq_저가)
                 
-                volume_base_line.setValue(nasdaq_시가) 
+                plot1_volume_base_line.setValue(nasdaq_시가) 
             else:
                 pass
         else:
@@ -3761,154 +3760,150 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def cb2_selectionChanged(self):
 
         global comboindex2
-        global call_curve, put_curve, fut_che_right_curve, fut_che_right_plus_curve, fut_che_right_minus_curve
-        global cm_call_volume_right_curve, cm_put_volume_right_curve
-        global cm_call_oi_right_curve, cm_put_oi_right_curve
-        global cm_two_sum_right_curve, cm_two_cha_right_curve
+        global call_curve, put_curve, plot2_fut_che_curve, plot2_fut_che_plus_curve, plot2_fut_che_minus_curve
+        global plot2_cm_call_volume_curve, plot2_cm_put_volume_curve
+        global plot2_cm_call_oi_curve, plot2_cm_put_oi_curve
+        global plot2_cm_two_sum_curve, plot2_cm_two_cha_curve
 
         txt = self.comboBox2.currentText()
         comboindex2 = self.comboBox2.currentIndex()
 
         if comboindex2 == 0:
             
-            cm_call_oi_right_curve.clear()
-            cm_put_oi_right_curve.clear()
+            plot2_cm_call_oi_curve.clear()
+            plot2_cm_put_oi_curve.clear()
 
-            #fut_che_right_curve.clear()
-            fut_che_right_plus_curve.clear()
-            fut_che_right_minus_curve.clear()
+            plot2_fut_che_plus_curve.clear()
+            plot2_fut_che_minus_curve.clear()
 
-            cm_two_sum_right_curve.clear()
-            cm_two_cha_right_curve.clear()
+            plot2_cm_two_sum_curve.clear()
+            plot2_cm_two_cha_curve.clear()
                         
             for i in range(29):
                 call_curve[i].clear()
                 put_curve[i].clear()
             
-            sp500_right_curve.clear()
-            dow_right_curve.clear()
-            nasdaq_right_curve.clear()
+            plot2_sp500_curve.clear()
+            plot2_dow_curve.clear()
+            plot2_nasdaq_curve.clear()
 
             for i in range(9):
                 mv_line[i].setValue(0)
 
-            opt_base_line.setValue(0)
+            plot2_base_line.setValue(0)
 
-            hc_opt_upper_line.setValue(0)
-            hc_opt_lower_line.setValue(0)
+            plot2_hc_opt_upper_line.setValue(0)
+            plot2_hc_opt_lower_line.setValue(0)
 
         elif comboindex2 == 1:
                         
             if not overnight:
 
-                cm_call_volume_right_curve.clear()
-                cm_put_volume_right_curve.clear()
-                cm_volume_cha_right_curve.clear()
+                plot2_cm_call_volume_curve.clear()
+                plot2_cm_put_volume_curve.clear()
+                plot2_cm_volume_cha_curve.clear()
 
-                #fut_che_right_curve.clear()
-                fut_che_right_plus_curve.clear()
-                fut_che_right_minus_curve.clear()
+                plot2_fut_che_plus_curve.clear()
+                plot2_fut_che_minus_curve.clear()
 
-                cm_two_sum_right_curve.clear()
-                cm_two_cha_right_curve.clear()
+                plot2_cm_two_sum_curve.clear()
+                plot2_cm_two_cha_curve.clear()
 
                 for i in range(29):
                     call_curve[i].clear()
                     put_curve[i].clear() 
 
-                sp500_right_curve.clear()
-                dow_right_curve.clear()
-                nasdaq_right_curve.clear()
+                plot2_sp500_curve.clear()
+                plot2_dow_curve.clear()
+                plot2_nasdaq_curve.clear()
 
                 for i in range(9):
                     mv_line[i].setValue(0)
 
-                opt_base_line.setValue(0)
+                plot2_base_line.setValue(0)
 
-                hc_opt_upper_line.setValue(0)
-                hc_opt_lower_line.setValue(0)
+                plot2_hc_opt_upper_line.setValue(0)
+                plot2_hc_opt_lower_line.setValue(0)
             else:
                 pass            
 
         elif comboindex2 == 2:
 
-            cm_call_oi_right_curve.clear()
-            cm_put_oi_right_curve.clear()
+            plot2_cm_call_oi_curve.clear()
+            plot2_cm_put_oi_curve.clear()
 
-            cm_call_volume_right_curve.clear()
-            cm_put_volume_right_curve.clear()
-            cm_volume_cha_right_curve.clear()
+            plot2_cm_call_volume_curve.clear()
+            plot2_cm_put_volume_curve.clear()
+            plot2_cm_volume_cha_curve.clear()
 
-            cm_two_sum_right_curve.clear()
-            cm_two_cha_right_curve.clear()
+            plot2_cm_two_sum_curve.clear()
+            plot2_cm_two_cha_curve.clear()
             
             for i in range(29):
                 call_curve[i].clear()
                 put_curve[i].clear()
 
-            sp500_right_curve.clear()
-            dow_right_curve.clear()
-            nasdaq_right_curve.clear() 
+            plot2_sp500_curve.clear()
+            plot2_dow_curve.clear()
+            plot2_nasdaq_curve.clear() 
 
             for i in range(9):
                 mv_line[i].setValue(0)
 
-            opt_base_line.setValue(0)
+            plot2_base_line.setValue(0)
 
-            hc_opt_upper_line.setValue(0)
-            hc_opt_lower_line.setValue(0)
+            plot2_hc_opt_upper_line.setValue(0)
+            plot2_hc_opt_lower_line.setValue(0)
         
         elif comboindex2 == 3:
 
-            cm_call_oi_right_curve.clear()
-            cm_put_oi_right_curve.clear()   
+            plot2_cm_call_oi_curve.clear()
+            plot2_cm_put_oi_curve.clear()   
 
-            cm_call_volume_right_curve.clear()
-            cm_put_volume_right_curve.clear()
-            cm_volume_cha_right_curve.clear()
+            plot2_cm_call_volume_curve.clear()
+            plot2_cm_put_volume_curve.clear()
+            plot2_cm_volume_cha_curve.clear()
 
-            #fut_che_right_curve.clear()
-            fut_che_right_plus_curve.clear()
-            fut_che_right_minus_curve.clear()
+            plot2_fut_che_plus_curve.clear()
+            plot2_fut_che_minus_curve.clear()
             
             for i in range(29):
                 call_curve[i].clear()
                 put_curve[i].clear() 
 
-            sp500_right_curve.clear()
-            dow_right_curve.clear()
-            nasdaq_right_curve.clear()
+            plot2_sp500_curve.clear()
+            plot2_dow_curve.clear()
+            plot2_nasdaq_curve.clear()
 
             for i in range(9):
                 mv_line[i].setValue(0)
 
-            opt_base_line.setValue(0)
+            plot2_base_line.setValue(0)
 
-            hc_opt_upper_line.setValue(1.5)
-            hc_opt_lower_line.setValue(-1.5)
+            plot2_hc_opt_upper_line.setValue(1.5)
+            plot2_hc_opt_lower_line.setValue(-1.5)
 
         elif comboindex2 == 4:
 
-            cm_call_oi_right_curve.clear()
-            cm_put_oi_right_curve.clear()   
+            plot2_cm_call_oi_curve.clear()
+            plot2_cm_put_oi_curve.clear()   
 
-            cm_call_volume_right_curve.clear()
-            cm_put_volume_right_curve.clear()
-            cm_volume_cha_right_curve.clear()
+            plot2_cm_call_volume_curve.clear()
+            plot2_cm_put_volume_curve.clear()
+            plot2_cm_volume_cha_curve.clear()
 
-            #fut_che_right_curve.clear()
-            fut_che_right_plus_curve.clear()
-            fut_che_right_minus_curve.clear()
+            plot2_fut_che_plus_curve.clear()
+            plot2_fut_che_minus_curve.clear()
 
-            cm_two_sum_right_curve.clear()
-            cm_two_cha_right_curve.clear()
+            plot2_cm_two_sum_curve.clear()
+            plot2_cm_two_cha_curve.clear()
             
-            sp500_right_curve.clear()
-            dow_right_curve.clear()
-            nasdaq_right_curve.clear()
+            plot2_sp500_curve.clear()
+            plot2_dow_curve.clear()
+            plot2_nasdaq_curve.clear()
 
-            hc_opt_upper_line.setValue(0)
-            hc_opt_lower_line.setValue(0)
+            plot2_hc_opt_upper_line.setValue(0)
+            plot2_hc_opt_lower_line.setValue(0)
 
             # 대맥점 표시
             mv_line[0].setValue(1.2)
@@ -3920,106 +3915,103 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif comboindex2 == 5:
 
-            cm_call_oi_right_curve.clear()
-            cm_put_oi_right_curve.clear()   
+            plot2_cm_call_oi_curve.clear()
+            plot2_cm_put_oi_curve.clear()   
 
-            cm_call_volume_right_curve.clear()
-            cm_put_volume_right_curve.clear()
-            cm_volume_cha_right_curve.clear()
+            plot2_cm_call_volume_curve.clear()
+            plot2_cm_put_volume_curve.clear()
+            plot2_cm_volume_cha_curve.clear()
 
-            #fut_che_right_curve.clear()
-            fut_che_right_plus_curve.clear()
-            fut_che_right_minus_curve.clear()
+            plot2_fut_che_plus_curve.clear()
+            plot2_fut_che_minus_curve.clear()
 
-            cm_two_sum_right_curve.clear()
-            cm_two_cha_right_curve.clear()
+            plot2_cm_two_sum_curve.clear()
+            plot2_cm_two_cha_curve.clear()
             
             for i in range(29):
                 call_curve[i].clear()
                 put_curve[i].clear() 
 
-            dow_right_curve.clear()
-            nasdaq_right_curve.clear()
+            plot2_dow_curve.clear()
+            plot2_nasdaq_curve.clear()
 
             if sp500_전일종가 > 0:
 
                 for i in range(9):
                     mv_line[i].setValue(sp500_전일종가)
 
-                hc_opt_upper_line.setValue(sp500_고가)
-                hc_opt_lower_line.setValue(sp500_저가)
+                plot2_hc_opt_upper_line.setValue(sp500_고가)
+                plot2_hc_opt_lower_line.setValue(sp500_저가)
                 
-                opt_base_line.setValue(sp500_시가)
+                plot2_base_line.setValue(sp500_시가)
             else:
                 pass            
 
         elif comboindex2 == 6:
 
-            cm_call_oi_right_curve.clear()
-            cm_put_oi_right_curve.clear()   
+            plot2_cm_call_oi_curve.clear()
+            plot2_cm_put_oi_curve.clear()   
 
-            cm_call_volume_right_curve.clear()
-            cm_put_volume_right_curve.clear()
-            cm_volume_cha_right_curve.clear()
+            plot2_cm_call_volume_curve.clear()
+            plot2_cm_put_volume_curve.clear()
+            plot2_cm_volume_cha_curve.clear()
 
-            #fut_che_right_curve.clear()
-            fut_che_right_plus_curve.clear()
-            fut_che_right_minus_curve.clear()
+            plot2_fut_che_plus_curve.clear()
+            plot2_fut_che_minus_curve.clear()
 
-            cm_two_sum_right_curve.clear()
-            cm_two_cha_right_curve.clear()
+            plot2_cm_two_sum_curve.clear()
+            plot2_cm_two_cha_curve.clear()
             
             for i in range(29):
                 call_curve[i].clear()
                 put_curve[i].clear()
 
-            sp500_right_curve.clear()
-            nasdaq_right_curve.clear()
+            plot2_sp500_curve.clear()
+            plot2_nasdaq_curve.clear()
 
             if dow_전일종가 > 0:
 
                 for i in range(9):
                     mv_line[i].setValue(dow_전일종가)
 
-                hc_opt_upper_line.setValue(dow_고가)
-                hc_opt_lower_line.setValue(dow_저가)
+                plot2_hc_opt_upper_line.setValue(dow_고가)
+                plot2_hc_opt_lower_line.setValue(dow_저가)
                 
-                opt_base_line.setValue(dow_시가)
+                plot2_base_line.setValue(dow_시가)
             else:
                 pass
 
         elif comboindex2 == 7:
 
-            cm_call_oi_right_curve.clear()
-            cm_put_oi_right_curve.clear()   
+            plot2_cm_call_oi_curve.clear()
+            plot2_cm_put_oi_curve.clear()   
 
-            cm_call_volume_right_curve.clear()
-            cm_put_volume_right_curve.clear()
-            cm_volume_cha_right_curve.clear()
+            plot2_cm_call_volume_curve.clear()
+            plot2_cm_put_volume_curve.clear()
+            plot2_cm_volume_cha_curve.clear()
 
-            #fut_che_right_curve.clear()
-            fut_che_right_plus_curve.clear()
-            fut_che_right_minus_curve.clear()
+            plot2_fut_che_plus_curve.clear()
+            plot2_fut_che_minus_curve.clear()
 
-            cm_two_sum_right_curve.clear()
-            cm_two_cha_right_curve.clear()
+            plot2_cm_two_sum_curve.clear()
+            plot2_cm_two_cha_curve.clear()
             
             for i in range(29):
                 call_curve[i].clear()
                 put_curve[i].clear()
                 
-            sp500_right_curve.clear()
-            dow_right_curve.clear() 
+            plot2_sp500_curve.clear()
+            plot2_dow_curve.clear() 
 
             if nasdaq_전일종가 > 0:
 
                 for i in range(9):
                     mv_line[i].setValue(nasdaq_전일종가)
 
-                hc_opt_upper_line.setValue(nasdaq_고가)
-                hc_opt_lower_line.setValue(nasdaq_저가)
+                plot2_hc_opt_upper_line.setValue(nasdaq_고가)
+                plot2_hc_opt_lower_line.setValue(nasdaq_저가)
                 
-                opt_base_line.setValue(nasdaq_시가)
+                plot2_base_line.setValue(nasdaq_시가)
             else:
                 pass
         else:
@@ -4890,7 +4882,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
 
                 if opt_x_idx > 선물장간_시간차 + 10:
-                    time_line_opt.setValue(opt_x_idx)
+                    plot2_time_line.setValue(opt_x_idx)
                 else:
                     pass
                 '''
@@ -4898,20 +4890,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # Plot 1 x축 타임라인
                 if comboindex1 == 0 or comboindex1 == 4:
 
-                    time_line_fut.setValue(x_idx)
+                    plot1_time_line.setValue(x_idx)
                 else:
-                    time_line_fut.setValue(opt_x_idx)
+                    plot1_time_line.setValue(opt_x_idx)
 
                 # Plot 2 x축 타임라인
-                time_line_opt.setValue(opt_x_idx)
+                plot2_time_line.setValue(opt_x_idx)
 
                 if UI_STYLE == 'Vertical_view.ui':
 
                     # Plot 3 x축 타임라인
-                    time_line_plot3.setValue(ovc_x_idx)
+                    plot3_time_line.setValue(ovc_x_idx)
 
                     # Plot 4 x축 타임라인
-                    time_line_plot4.setValue(x_idx)
+                    plot4_time_line.setValue(x_idx)
                 else:
                     pass
 
@@ -5104,83 +5096,83 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if comboindex1 == 0:
 
                     if 선물_누적거래량 > 0:
-                        fut_che_left_plus_curve.setData(curve1_data)
+                        plot1_fut_che_plus_curve.setData(curve1_data)
                     else:
-                        fut_che_left_minus_curve.setData(curve1_data)
+                        plot1_fut_che_minus_curve.setData(curve1_data)
 
                 elif comboindex1 == 1:                      
                     
-                    cm_call_volume_left_curve.setData(curve1_data)
-                    cm_put_volume_left_curve.setData(curve2_data)
-                    cm_volume_cha_left_curve.setData(curve3_data)
+                    plot1_cm_call_volume_curve.setData(curve1_data)
+                    plot1_cm_put_volume_curve.setData(curve2_data)
+                    plot1_cm_volume_cha_curve.setData(curve3_data)
 
                 elif comboindex1 == 2:
                                        
                     if not overnight:
-                        cm_call_oi_left_curve.setData(curve1_data)
-                        cm_put_oi_left_curve.setData(curve2_data)
+                        plot1_cm_call_oi_curve.setData(curve1_data)
+                        plot1_cm_put_oi_curve.setData(curve2_data)
                     else:
                         pass
 
                 elif comboindex1 == 3:
 
-                    cm_two_sum_left_curve.setData(curve1_data)
-                    cm_two_cha_left_curve.setData(curve2_data)
+                    plot1_cm_two_sum_curve.setData(curve1_data)
+                    plot1_cm_two_cha_curve.setData(curve2_data)
 
                 elif comboindex1 == 4:
                 
-                    kp200_curve.setData(curve1_data)
-                    fut_curve.setData(curve2_data)
+                    plot1_kp200_curve.setData(curve1_data)
+                    plot1_fut_price_curve.setData(curve2_data)
 
                 elif comboindex1 == 5:
 
-                    sp500_left_curve.setData(curve1_data)
+                    plot1_sp500_curve.setData(curve1_data)
 
-                    hc_fut_upper_line.setValue(sp500_고가)
-                    hc_fut_lower_line.setValue(sp500_저가)
+                    plot1_hc_fut_upper_line.setValue(sp500_고가)
+                    plot1_hc_fut_lower_line.setValue(sp500_저가)
 
                 elif comboindex1 == 6:
 
-                    dow_left_curve.setData(curve1_data)
+                    plot1_dow_curve.setData(curve1_data)
 
-                    hc_fut_upper_line.setValue(dow_고가)
-                    hc_fut_lower_line.setValue(dow_저가)
+                    plot1_hc_fut_upper_line.setValue(dow_고가)
+                    plot1_hc_fut_lower_line.setValue(dow_저가)
 
                 elif comboindex1 == 7:
 
-                    nasdaq_left_curve.setData(curve1_data)
+                    plot1_nasdaq_curve.setData(curve1_data)
 
-                    hc_fut_upper_line.setValue(nasdaq_고가)
-                    hc_fut_lower_line.setValue(nasdaq_저가)
+                    plot1_hc_fut_upper_line.setValue(nasdaq_고가)
+                    plot1_hc_fut_lower_line.setValue(nasdaq_저가)
                 else:
                     pass   
 
                 # 선택된 오른쪽 그래프 그리기
                 if comboindex2 == 0:
                                         
-                    cm_call_volume_right_curve.setData(curve4_data)
-                    cm_put_volume_right_curve.setData(curve5_data)  
-                    cm_volume_cha_right_curve.setData(curve6_data) 
+                    plot2_cm_call_volume_curve.setData(curve4_data)
+                    plot2_cm_put_volume_curve.setData(curve5_data)  
+                    plot2_cm_volume_cha_curve.setData(curve6_data) 
 
                 elif comboindex2 == 1:
                                         
                     if not overnight:
-                        cm_call_oi_right_curve.setData(curve4_data)
-                        cm_put_oi_right_curve.setData(curve5_data)
+                        plot2_cm_call_oi_curve.setData(curve4_data)
+                        plot2_cm_put_oi_curve.setData(curve5_data)
                     else:
                         pass         
 
                 elif comboindex2 == 2:
 
                     if 선물_누적거래량 > 0:
-                        fut_che_right_plus_curve.setData(curve4_data)
+                        plot2_fut_che_plus_curve.setData(curve4_data)
                     else:
-                        fut_che_right_minus_curve.setData(curve4_data)
+                        plot2_fut_che_minus_curve.setData(curve4_data)
 
                 elif comboindex2 == 3:
 
-                    cm_two_sum_right_curve.setData(curve4_data)
-                    cm_two_cha_right_curve.setData(curve5_data)
+                    plot2_cm_two_sum_curve.setData(curve4_data)
+                    plot2_cm_two_cha_curve.setData(curve5_data)
 
                 elif comboindex2 == 4:
 
@@ -5188,24 +5180,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif comboindex2 == 5:
 
-                    sp500_right_curve.setData(curve4_data) 
+                    plot2_sp500_curve.setData(curve4_data) 
 
-                    hc_opt_upper_line.setValue(sp500_고가)
-                    hc_opt_lower_line.setValue(sp500_저가)
+                    plot2_hc_opt_upper_line.setValue(sp500_고가)
+                    plot2_hc_opt_lower_line.setValue(sp500_저가)
 
                 elif comboindex2 == 6: 
 
-                    dow_right_curve.setData(curve4_data) 
+                    plot2_dow_curve.setData(curve4_data) 
 
-                    hc_opt_upper_line.setValue(dow_고가)
-                    hc_opt_lower_line.setValue(dow_저가)
+                    plot2_hc_opt_upper_line.setValue(dow_고가)
+                    plot2_hc_opt_lower_line.setValue(dow_저가)
 
                 elif comboindex2 == 7: 
 
-                    nasdaq_right_curve.setData(curve4_data)
+                    plot2_nasdaq_curve.setData(curve4_data)
 
-                    hc_opt_upper_line.setValue(nasdaq_고가)
-                    hc_opt_lower_line.setValue(nasdaq_저가)
+                    plot2_hc_opt_upper_line.setValue(nasdaq_고가)
+                    plot2_hc_opt_lower_line.setValue(nasdaq_저가)
                 else:
                     pass                 
 
@@ -8091,18 +8083,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if not overnight:
                     
                     self.Plot1.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
-                    time_line_fut.setValue(선물장간_시간차 + 395 + 9)
+                    plot1_time_line.setValue(선물장간_시간차 + 395 + 9)
 
                     self.Plot2.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
-                    time_line_opt.setValue(선물장간_시간차 + 395 + 9)
+                    plot2_time_line.setValue(선물장간_시간차 + 395 + 9)
 
                     if UI_STYLE == 'Vertical_view.ui':
 
                         self.Plot3.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
-                        time_line_plot3.setValue(선물장간_시간차 + 395 + 9)
+                        plot3_time_line.setValue(선물장간_시간차 + 395 + 9)
 
                         self.Plot4.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
-                        time_line_plot4.setValue(선물장간_시간차 + 395 + 9)
+                        plot4_time_line.setValue(선물장간_시간차 + 395 + 9)
                     else:
                         pass
 
@@ -8129,18 +8121,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
                     self.Plot1.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
-                    time_line_fut.setValue(선물장간_시간차 + 660 + 60 + 9)
+                    plot1_time_line.setValue(선물장간_시간차 + 660 + 60 + 9)
 
                     self.Plot2.setRange(xRange=[0, 선물장간_시간차 + 660 + 60 + 10], padding=0)
-                    time_line_opt.setValue(선물장간_시간차 + 660 + 60 + 9)
+                    plot2_time_line.setValue(선물장간_시간차 + 660 + 60 + 9)
 
                     if UI_STYLE == 'Vertical_view.ui':
 
                         self.Plot3.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
-                        time_line_plot3.setValue(선물장간_시간차 + 660 + 60 + 9)
+                        plot3_time_line.setValue(선물장간_시간차 + 660 + 60 + 9)
 
                         self.Plot4.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
-                        time_line_plot4.setValue(선물장간_시간차 + 660 + 60 + 9)
+                        plot4_time_line.setValue(선물장간_시간차 + 660 + 60 + 9)
                     else:
                         pass
 
@@ -16440,13 +16432,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.textBrowser.append(str)
                 
                 # 시작시간 X축 표시(index 60은 시가)
-                time_line_plot1_start.setValue(선물장간_시간차)
-                time_line_plot2_start.setValue(선물장간_시간차)
+                plot1_time_line_start.setValue(선물장간_시간차)
+                plot2_time_line_start.setValue(선물장간_시간차)
 
                 if UI_STYLE == 'Vertical_view.ui':
 
-                    time_line_plot3_start.setValue(선물장간_시간차)
-                    time_line_plot4_start.setValue(선물장간_시간차)
+                    plot3_time_line_start.setValue(선물장간_시간차)
+                    plot4_time_line_start.setValue(선물장간_시간차)
                 else:
                     pass
             else:
@@ -16477,17 +16469,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.textBrowser.append(str) 
 
                 # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
-                time_line_plot1_start.setValue(선물장간_시간차 + 1)
-                time_line_plot2_start.setValue(선물장간_시간차 + 1)
-                time_line_plot1_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-                time_line_plot2_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+                plot1_time_line_start.setValue(선물장간_시간차 + 1)
+                plot2_time_line_start.setValue(선물장간_시간차 + 1)
+                plot1_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+                plot2_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
 
                 if UI_STYLE == 'Vertical_view.ui':
 
-                    time_line_plot3_start.setValue(선물장간_시간차 + 1)
-                    time_line_plot4_start.setValue(선물장간_시간차 + 1)
-                    time_line_plot3_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-                    time_line_plot4_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+                    plot3_time_line_start.setValue(선물장간_시간차 + 1)
+                    plot4_time_line_start.setValue(선물장간_시간차 + 1)
+                    plot3_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+                    plot4_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
                 else:
                     pass
 
