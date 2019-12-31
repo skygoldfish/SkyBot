@@ -11589,7 +11589,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global flag_call_low_update, flag_call_high_update
         global node_coloring
         global call_open_list, call_update_time
-        global call_max_actval, call_open, call_below_atm_count
+        global call_max_actval, call_open
 
         dt = datetime.datetime.now()
 
@@ -11605,6 +11605,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if not call_open[index]:
 
                 call_open[index] = True
+                
+                # 콜 시가 갱신
+                if round(float(시가), 2) > opt_search_start_value:
+                    call_open_list.append(index)
+                    call_open_list = list(set(call_open_list))
+                else:
+                    pass
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
+                            int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
+                self.textBrowser.append(str)
 
                 if index > atm_index:
                     call_below_atm_count += 1
@@ -11670,18 +11681,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Open Update !!!\r'.format(int(call_result['체결시간'][0:2]), \
                         int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), df_cm_call.iloc[index]['시가'])
             self.textBrowser.append(str)
-            
-            # 콜 시가 갱신
-            if round(float(시가), 2) > opt_search_start_value:
-                call_open_list.append(index)
-                call_open_list = list(set(call_open_list))
-            else:
-                pass
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
-                        int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
-            self.textBrowser.append(str)
-            
+                        
             self.call_open_gap_update(index)
         else:
             pass
@@ -12365,14 +12365,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_open, call_ol, call_oh
         global call_gap_percent, call_db_percent      
         global 콜시가갭합, 콜시가갭합_퍼센트
-
-        call_open = [False] * nCount_option_pairs
+        
         call_ol = [False] * nCount_option_pairs
         call_oh = [False] * nCount_option_pairs
         call_gap_percent = [NaN] * nCount_option_pairs
         call_db_percent = [NaN] * nCount_option_pairs
 
         call_below_atm_count = 0
+
+        if not service_start:
+            call_open = [False] * nCount_option_pairs
+        else:
+            pass
 
         dt = datetime.datetime.now()
 
@@ -12429,12 +12433,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if df_cm_call.iloc[index]['저가'] < df_cm_call.iloc[index]['고가']:
 
-                    call_open[index] = True
-                    
-                    if index > atm_index:
-                        call_below_atm_count += 1
+                    if not service_start:
+
+                        call_open[index] = True
+
+                        if index > atm_index:
+                            call_below_atm_count += 1
+                        else:
+                            pass
                     else:
-                        pass
+                        pass                    
 
                     if df_cm_call.iloc[index]['시가'] >= oloh_cutoff:
 
@@ -12674,7 +12682,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global df_cm_put_che, put_volume_total, df_plotdata_cm_put_volume, df_plotdata_cm_volume_cha
         global flag_put_low_update, flag_put_high_update
         global put_open_list, put_update_time
-        global put_max_actval, put_open, put_above_atm_count
+        global put_max_actval, put_open
 
         dt = datetime.datetime.now()
 
@@ -12690,6 +12698,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if not put_open[index]:
 
                 put_open[index] = True
+                
+                # 풋 시가 갱신
+                if round(float(시가), 2) > opt_search_start_value:
+                    put_open_list.append(index)
+                    put_open_list = list(set(put_open_list))
+                else:
+                    pass
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
+                            int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
+                self.textBrowser.append(str)
 
                 if index < atm_index:
                     put_above_atm_count += 1
@@ -12754,18 +12773,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Open Update !!!\r'.format(int(put_result['체결시간'][0:2]), \
                         int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), df_cm_put.iloc[index]['시가'])
             self.textBrowser.append(str)
-            
-            # 풋 시가 갱신
-            if round(float(시가), 2) > opt_search_start_value:
-                put_open_list.append(index)
-                put_open_list = list(set(put_open_list))
-            else:
-                pass
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
-                        int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
-            self.textBrowser.append(str)
-            
+                        
             self.put_open_gap_update(index)
         else:
             pass
@@ -13450,14 +13458,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global put_open, put_ol, put_oh
         global put_gap_percent, put_db_percent     
         global 풋시가갭합, 풋시가갭합_퍼센트
-
-        put_open = [False] * nCount_option_pairs
+        
         put_ol = [False] * nCount_option_pairs
         put_oh = [False] * nCount_option_pairs
         put_gap_percent = [NaN] * nCount_option_pairs
         put_db_percent = [NaN] * nCount_option_pairs
 
         put_above_atm_count = 0
+
+        if not service_start:
+            put_open = [False] * nCount_option_pairs
+        else:
+            pass
         
         dt = datetime.datetime.now()
 
@@ -13514,12 +13526,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if df_cm_put.iloc[index]['저가'] < df_cm_put.iloc[index]['고가']:
 
-                    put_open[index] = True
+                    if not service_start:
 
-                    if index < atm_index:
-                        put_above_atm_count += 1
+                        put_open[index] = True
+
+                        if index < atm_index:
+                            put_above_atm_count += 1
+                        else:
+                            pass
                     else:
-                        pass
+                        pass                    
 
                     if df_cm_put.iloc[index]['시가'] >= oloh_cutoff:
 
