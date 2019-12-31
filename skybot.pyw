@@ -9357,18 +9357,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             print('df_fut', df_fut)
 
-            if refresh_flag:
+            # 선물 맥점 컬러 체크
+            self.fut_node_color_clear()
+            self.fut_oloh_check()
+            self.fut_node_coloring()
+
+            # 실시간에서만 표시됨
+            self.kp200_low_node_coloring()
+            self.kp200_high_node_coloring()
             
-                self.fut_node_color_clear()
-                self.fut_oloh_check()
-                self.fut_node_coloring()
-
-                # 실시간에서만 표시됨
-                self.kp200_low_node_coloring()
-                self.kp200_high_node_coloring()
-            else:
-                pass
-
         elif szTrCode == 't2830':
 
             pass
@@ -10778,7 +10775,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
         else:
             pass
-
     
     def kp200_low_node_coloring(self):       
         
