@@ -95,23 +95,23 @@ with open('UI_Style.txt', mode='r') as uifile:
 if UI_STYLE == 'Vertical_view.ui':
 
     # Plot3 관련 전역변수
-    ovc_close_val_line = None
-    ovc_open_val_line = None
-    ovc_upper_line = None
-    ovc_lower_line = None
+    plot3_close_val_line = None
+    plot3_open_val_line = None
+    plot3_upper_line = None
+    plot3_lower_line = None
 
-    time_line_ovc = None
-    time_line_ovc_start = None
-    time_line_ovc_yagan_start = None
+    time_line_plot3 = None
+    time_line_plot3_start = None
+    time_line_plot3_yagan_start = None
 
     plot3_curve = None
 
     # Plot4 관련 전역변수
-    fv_open_val_line = None
-    fv_pivot_line = None
-    time_line_fv = None    
-    time_line_fv_start = None    
-    time_line_fv_yagan_start = None
+    plot4_open_val_line = None
+    plot4_pivot_line = None
+    time_line_plot4 = None    
+    time_line_plot4_start = None    
+    time_line_plot4_yagan_start = None
     
     plot4_fv_plus_curve = None
     plot4_fv_minus_curve = None
@@ -703,8 +703,8 @@ mv_curve = []
 mv_line = []
 time_line_opt = None
 
-time_line_opt_start = None
-time_line_fut_start = None
+time_line_plot2_start = None
+time_line_plot1_start = None
 
 fut_curve = None
 
@@ -764,8 +764,8 @@ nasdaq_right_curve = None
 
 time_line_fut = None
 
-time_line_opt_dow_yagan_start = None
-time_line_fut_dow_yagan_start = None
+time_line_plot2_yagan_start = None
+time_line_plot1_yagan_start = None
 
 yoc_stop = False
 
@@ -2858,7 +2858,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        global time_line_fut_start, time_line_fut_dow_yagan_start, time_line_fut, fut_curve, kp200_curve
+        global time_line_plot1_start, time_line_plot1_yagan_start, time_line_fut, fut_curve, kp200_curve
         global fut_jl_line, fut_jh_line, fut_pivot_line, volume_base_line
         
         global fut_che_left_curve, fut_che_left_plus_curve, fut_che_left_minus_curve
@@ -2872,12 +2872,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global cm_two_sum_left_curve, cm_two_cha_left_curve, cm_two_sum_right_curve, cm_two_cha_right_curve
         global sp500_left_curve, dow_left_curve, nasdaq_left_curve, sp500_right_curve, dow_right_curve, nasdaq_right_curve
         
-        global time_line_opt_start, time_line_opt_dow_yagan_start, time_line_opt, mv_line, opt_base_line, call_curve, put_curve
+        global time_line_plot2_start, time_line_plot2_yagan_start, time_line_opt, mv_line, opt_base_line, call_curve, put_curve
         global hc_fut_upper_line, hc_fut_lower_line, hc_opt_upper_line, hc_opt_lower_line
         global atm_upper_line, atm_lower_line
         
-        time_line_fut_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
-        time_line_fut_dow_yagan_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
+        time_line_plot1_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
+        time_line_plot1_yagan_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
         time_line_fut = self.Plot1.addLine(x=0, y=None, pen=tpen1)
         
         fut_jl_line = self.Plot1.addLine(x=None, pen=fut_jl_pen)
@@ -2908,8 +2908,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         fut_curve = self.Plot1.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         kp200_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
         
-        time_line_opt_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
-        time_line_opt_dow_yagan_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
+        time_line_plot2_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
+        time_line_plot2_yagan_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
         time_line_opt = self.Plot2.addLine(x=0, y=None, pen=tpen1)
 
         opt_base_line = self.Plot2.addLine(x=None, pen=yellow_pen)
@@ -2949,29 +2949,29 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # Plot 3, 4 관련 설정
         if UI_STYLE == 'Vertical_view.ui':
 
-            global time_line_ovc_start, time_line_ovc_yagan_start, time_line_ovc, time_line_fv_yagan_start
-            global time_line_fv, time_line_fv_start, fv_open_val_line, fv_pivot_line
+            global time_line_plot3_start, time_line_plot3_yagan_start, time_line_plot3, time_line_plot4_yagan_start
+            global time_line_plot4, time_line_plot4_start, plot4_open_val_line, plot4_pivot_line
             global plot3_curve, plot4_fv_plus_curve, plot4_fv_minus_curve, plot4_price_curve, plot4_kp200_curve
-            global ovc_close_val_line, ovc_open_val_line, ovc_upper_line, ovc_lower_line 
+            global plot3_close_val_line, plot3_open_val_line, plot3_upper_line, plot3_lower_line 
             
-            ovc_close_val_line = self.Plot3.addLine(x=None, pen=green_pen)
-            ovc_open_val_line = self.Plot3.addLine(x=None, pen=yellow_pen)
+            plot3_close_val_line = self.Plot3.addLine(x=None, pen=green_pen)
+            plot3_open_val_line = self.Plot3.addLine(x=None, pen=yellow_pen)
             
-            ovc_lower_line = self.Plot3.addLine(x=None, pen=skyblue_pen)
-            ovc_upper_line = self.Plot3.addLine(x=None, pen=orange_pen)
+            plot3_lower_line = self.Plot3.addLine(x=None, pen=skyblue_pen)
+            plot3_upper_line = self.Plot3.addLine(x=None, pen=orange_pen)
             
-            time_line_ovc_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
-            time_line_ovc_yagan_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
-            time_line_ovc = self.Plot3.addLine(x=0, y=None, pen=tpen1)
+            time_line_plot3_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
+            time_line_plot3_yagan_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
+            time_line_plot3 = self.Plot3.addLine(x=0, y=None, pen=tpen1)
 
             plot3_curve = self.Plot3.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
 
-            fv_open_val_line = self.Plot4.addLine(x=None, pen=yellow_pen)
-            fv_pivot_line = self.Plot4.addLine(x=None, pen=fut_pvt_pen)
+            plot4_open_val_line = self.Plot4.addLine(x=None, pen=yellow_pen)
+            plot4_pivot_line = self.Plot4.addLine(x=None, pen=fut_pvt_pen)
 
-            time_line_fv_start = self.Plot4.addLine(x=0, y=None, pen=tpen)
-            time_line_fv_yagan_start = self.Plot4.addLine(x=0, y=None, pen=tpen)            
-            time_line_fv = self.Plot4.addLine(x=0, y=None, pen=tpen1)           
+            time_line_plot4_start = self.Plot4.addLine(x=0, y=None, pen=tpen)
+            time_line_plot4_yagan_start = self.Plot4.addLine(x=0, y=None, pen=tpen)            
+            time_line_plot4 = self.Plot4.addLine(x=0, y=None, pen=tpen1)           
 
             plot4_fv_plus_curve = self.Plot4.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
             plot4_fv_minus_curve = self.Plot4.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
@@ -4039,10 +4039,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if dow_전일종가 > 0:
 
-                    ovc_close_val_line.setValue(dow_전일종가)
-                    ovc_open_val_line.setValue(dow_시가)
-                    ovc_upper_line.setValue(dow_고가)
-                    ovc_lower_line.setValue(dow_저가)
+                    plot3_close_val_line.setValue(dow_전일종가)
+                    plot3_open_val_line.setValue(dow_시가)
+                    plot3_upper_line.setValue(dow_고가)
+                    plot3_lower_line.setValue(dow_저가)
                 else:
                     pass
 
@@ -4052,10 +4052,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if sp500_전일종가 > 0:
                     
-                    ovc_close_val_line.setValue(sp500_전일종가)
-                    ovc_open_val_line.setValue(sp500_시가)
-                    ovc_upper_line.setValue(sp500_고가)
-                    ovc_lower_line.setValue(sp500_저가)                
+                    plot3_close_val_line.setValue(sp500_전일종가)
+                    plot3_open_val_line.setValue(sp500_시가)
+                    plot3_upper_line.setValue(sp500_고가)
+                    plot3_lower_line.setValue(sp500_저가)                
                 else:
                     pass
 
@@ -4065,10 +4065,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if nasdaq_전일종가 > 0:
                     
-                    ovc_close_val_line.setValue(nasdaq_전일종가)
-                    ovc_open_val_line.setValue(nasdaq_시가)
-                    ovc_upper_line.setValue(nasdaq_고가)
-                    ovc_lower_line.setValue(nasdaq_저가)                
+                    plot3_close_val_line.setValue(nasdaq_전일종가)
+                    plot3_open_val_line.setValue(nasdaq_시가)
+                    plot3_upper_line.setValue(nasdaq_고가)
+                    plot3_lower_line.setValue(nasdaq_저가)                
                 else:
                     pass
             else:
@@ -4087,7 +4087,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 plot4_price_curve.clear()
                 plot4_kp200_curve.clear()
 
-                fv_open_val_line.setValue(0)
+                plot4_open_val_line.setValue(0)
 
             elif comboindex4 == 1:
 
@@ -4096,11 +4096,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if overnight:
 
-                    fv_open_val_line.setValue(cme_realdata['시가'])
-                    fv_pivot_line.setValue(cme_realdata['피봇'])
+                    plot4_open_val_line.setValue(cme_realdata['시가'])
+                    plot4_pivot_line.setValue(cme_realdata['피봇'])
                 else:
-                    fv_open_val_line.setValue(fut_realdata['시가'])
-                    fv_pivot_line.setValue(fut_realdata['피봇'])
+                    plot4_open_val_line.setValue(fut_realdata['시가'])
+                    plot4_pivot_line.setValue(fut_realdata['피봇'])
             else:
                 pass
 
@@ -4908,10 +4908,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if UI_STYLE == 'Vertical_view.ui':
 
                     # Plot 3 x축 타임라인
-                    time_line_ovc.setValue(ovc_x_idx)
+                    time_line_plot3.setValue(ovc_x_idx)
 
                     # Plot 4 x축 타임라인
-                    time_line_fv.setValue(x_idx)
+                    time_line_plot4.setValue(x_idx)
                 else:
                     pass
 
@@ -5012,22 +5012,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if comboindex3 == 0:
                         
                         if dow_시가 > 0:
-                            ovc_open_val_line.setValue(dow_시가)
+                            plot3_open_val_line.setValue(dow_시가)
                         else:
                             pass
 
                         if dow_전일종가 > 0:
-                            ovc_close_val_line.setValue(dow_전일종가)
+                            plot3_close_val_line.setValue(dow_전일종가)
                         else:
                             pass             
 
                         if dow_고가 > 0:
-                            ovc_upper_line.setValue(dow_고가)
+                            plot3_upper_line.setValue(dow_고가)
                         else:
                             pass
 
                         if dow_저가 > 0:
-                            ovc_lower_line.setValue(dow_저가)
+                            plot3_lower_line.setValue(dow_저가)
                         else:
                             pass
                         
@@ -5036,22 +5036,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     elif comboindex3 == 1:
 
                         if sp500_시가 > 0:
-                            ovc_open_val_line.setValue(sp500_시가)
+                            plot3_open_val_line.setValue(sp500_시가)
                         else:
                             pass
 
                         if sp500_전일종가 > 0:
-                            ovc_close_val_line.setValue(sp500_전일종가)
+                            plot3_close_val_line.setValue(sp500_전일종가)
                         else:
                             pass             
 
                         if sp500_고가 > 0:
-                            ovc_upper_line.setValue(sp500_고가)
+                            plot3_upper_line.setValue(sp500_고가)
                         else:
                             pass
 
                         if sp500_저가 > 0:
-                            ovc_lower_line.setValue(sp500_저가)
+                            plot3_lower_line.setValue(sp500_저가)
                         else:
                             pass
                         
@@ -5060,22 +5060,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     elif comboindex3 == 2:
 
                         if nasdaq_시가 > 0:
-                            ovc_open_val_line.setValue(nasdaq_시가)
+                            plot3_open_val_line.setValue(nasdaq_시가)
                         else:
                             pass
 
                         if nasdaq_전일종가 > 0:
-                            ovc_close_val_line.setValue(nasdaq_전일종가)
+                            plot3_close_val_line.setValue(nasdaq_전일종가)
                         else:
                             pass             
 
                         if nasdaq_고가 > 0:
-                            ovc_upper_line.setValue(nasdaq_고가)
+                            plot3_upper_line.setValue(nasdaq_고가)
                         else:
                             pass
 
                         if nasdaq_저가 > 0:
-                            ovc_lower_line.setValue(nasdaq_저가)
+                            plot3_lower_line.setValue(nasdaq_저가)
                         else:
                             pass
                         
@@ -8099,10 +8099,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if UI_STYLE == 'Vertical_view.ui':
 
                         self.Plot3.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
-                        time_line_ovc.setValue(선물장간_시간차 + 395 + 9)
+                        time_line_plot3.setValue(선물장간_시간차 + 395 + 9)
 
                         self.Plot4.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
-                        time_line_fv.setValue(선물장간_시간차 + 395 + 9)
+                        time_line_plot4.setValue(선물장간_시간차 + 395 + 9)
                     else:
                         pass
 
@@ -8137,10 +8137,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if UI_STYLE == 'Vertical_view.ui':
 
                         self.Plot3.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
-                        time_line_ovc.setValue(선물장간_시간차 + 660 + 60 + 9)
+                        time_line_plot3.setValue(선물장간_시간차 + 660 + 60 + 9)
 
                         self.Plot4.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
-                        time_line_fv.setValue(선물장간_시간차 + 660 + 60 + 9)
+                        time_line_plot4.setValue(선물장간_시간차 + 660 + 60 + 9)
                     else:
                         pass
 
@@ -9365,7 +9365,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # 실시간에서만 표시됨
             self.kp200_low_node_coloring()
             self.kp200_high_node_coloring()
-            
+
         elif szTrCode == 't2830':
 
             pass
@@ -16440,13 +16440,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.textBrowser.append(str)
                 
                 # 시작시간 X축 표시(index 60은 시가)
-                time_line_fut_start.setValue(선물장간_시간차)
-                time_line_opt_start.setValue(선물장간_시간차)
+                time_line_plot1_start.setValue(선물장간_시간차)
+                time_line_plot2_start.setValue(선물장간_시간차)
 
                 if UI_STYLE == 'Vertical_view.ui':
 
-                    time_line_ovc_start.setValue(선물장간_시간차)
-                    time_line_fv_start.setValue(선물장간_시간차)
+                    time_line_plot3_start.setValue(선물장간_시간차)
+                    time_line_plot4_start.setValue(선물장간_시간차)
                 else:
                     pass
             else:
@@ -16477,17 +16477,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.textBrowser.append(str) 
 
                 # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
-                time_line_fut_start.setValue(선물장간_시간차 + 1)
-                time_line_opt_start.setValue(선물장간_시간차 + 1)
-                time_line_fut_dow_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-                time_line_opt_dow_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+                time_line_plot1_start.setValue(선물장간_시간차 + 1)
+                time_line_plot2_start.setValue(선물장간_시간차 + 1)
+                time_line_plot1_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+                time_line_plot2_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
 
                 if UI_STYLE == 'Vertical_view.ui':
 
-                    time_line_ovc_start.setValue(선물장간_시간차 + 1)
-                    time_line_fv_start.setValue(선물장간_시간차 + 1)
-                    time_line_ovc_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-                    time_line_fv_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+                    time_line_plot3_start.setValue(선물장간_시간차 + 1)
+                    time_line_plot4_start.setValue(선물장간_시간차 + 1)
+                    time_line_plot3_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+                    time_line_plot4_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
                 else:
                     pass
 
