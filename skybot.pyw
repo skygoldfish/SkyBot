@@ -6006,13 +6006,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(청색))
                 else:
                     self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
-
-                if df_cm_call.iloc[i]['시가'] in 진성의미가:
-
-                    self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
-                    self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
-                else:
-                    pass
             else:
                 pass
 
@@ -7480,13 +7473,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(청색))
                 else:
                     self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
-
-                if df_cm_put.iloc[i]['시가'] in 진성의미가:
-
-                    self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
-                    self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
-                else:
-                    pass
             else:
                 pass
 
