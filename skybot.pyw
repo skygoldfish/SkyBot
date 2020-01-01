@@ -2940,29 +2940,30 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # Plot 3, 4 관련 설정
         if UI_STYLE == 'Vertical_view.ui':
 
-            global plot3_time_line_start, plot3_time_line_yagan_start, plot3_time_line, plot4_time_line_yagan_start
-            global plot4_time_line, plot4_time_line_start, plot4_open_val_line, plot4_pivot_line
-            global plot3_curve, plot4_fv_plus_curve, plot4_fv_minus_curve, plot4_price_curve, plot4_kp200_curve
-            global plot3_close_val_line, plot3_open_val_line, plot3_upper_line, plot3_lower_line 
+            global plot3_time_line, plot3_time_line_start, plot3_time_line_yagan_start 
+            global plot3_close_val_line, plot3_open_val_line, plot3_upper_line, plot3_lower_line, plot3_curve 
+
+            global plot4_time_line, plot4_time_line_start, plot4_time_line_yagan_start 
+            global plot4_open_val_line, plot4_pivot_line
+            global plot4_fv_plus_curve, plot4_fv_minus_curve, plot4_price_curve, plot4_kp200_curve            
             
+            plot3_time_line = self.Plot3.addLine(x=0, y=None, pen=tpen1)
+            plot3_time_line_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
+            plot3_time_line_yagan_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
+
             plot3_close_val_line = self.Plot3.addLine(x=None, pen=green_pen)
-            plot3_open_val_line = self.Plot3.addLine(x=None, pen=yellow_pen)
-            
+            plot3_open_val_line = self.Plot3.addLine(x=None, pen=yellow_pen)            
             plot3_lower_line = self.Plot3.addLine(x=None, pen=skyblue_pen)
             plot3_upper_line = self.Plot3.addLine(x=None, pen=orange_pen)
             
-            plot3_time_line_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
-            plot3_time_line_yagan_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
-            plot3_time_line = self.Plot3.addLine(x=0, y=None, pen=tpen1)
-
             plot3_curve = self.Plot3.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+            
+            plot4_time_line = self.Plot4.addLine(x=0, y=None, pen=tpen1)  
+            plot4_time_line_start = self.Plot4.addLine(x=0, y=None, pen=tpen)
+            plot4_time_line_yagan_start = self.Plot4.addLine(x=0, y=None, pen=tpen)
 
             plot4_open_val_line = self.Plot4.addLine(x=None, pen=yellow_pen)
-            plot4_pivot_line = self.Plot4.addLine(x=None, pen=fut_pvt_pen)
-
-            plot4_time_line_start = self.Plot4.addLine(x=0, y=None, pen=tpen)
-            plot4_time_line_yagan_start = self.Plot4.addLine(x=0, y=None, pen=tpen)            
-            plot4_time_line = self.Plot4.addLine(x=0, y=None, pen=tpen1)           
+            plot4_pivot_line = self.Plot4.addLine(x=None, pen=fut_pvt_pen)                   
 
             plot4_fv_plus_curve = self.Plot4.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
             plot4_fv_minus_curve = self.Plot4.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
