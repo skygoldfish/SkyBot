@@ -707,9 +707,9 @@ plot1_time_line_yagan_start = None
 
 plot1_fut_price_curve = None
 
-plot1_fut_che_curve = None
-plot1_fut_che_plus_curve = None
-plot1_fut_che_minus_curve = None
+plot1_fut_volume_curve = None
+plot1_fut_volume_plus_curve = None
+plot1_fut_volume_minus_curve = None
 
 plot1_fut_pivot_line = None
 plot1_fut_jl_line = None
@@ -2849,7 +2849,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
         global plot1_fut_jl_line, plot1_fut_jh_line, plot1_fut_pivot_line, plot1_volume_base_line        
-        global plot1_fut_che_curve, plot1_fut_che_plus_curve, plot1_fut_che_minus_curve
+        global plot1_fut_volume_curve, plot1_fut_volume_plus_curve, plot1_fut_volume_minus_curve
         global plot1_cm_call_oi_curve, plot1_cm_put_oi_curve
         global plot1_cm_call_volume_curve, plot1_cm_put_volume_curve, plot1_cm_volume_cha_curve
         global plot1_cm_two_sum_curve, plot1_cm_two_cha_curve
@@ -2885,9 +2885,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         plot1_atm_upper_line = self.Plot1.addLine(x=None, pen=yellow_pen)
         plot1_atm_lower_line = self.Plot1.addLine(x=None, pen=yellow_pen)
                 
-        plot1_fut_che_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        plot1_fut_che_plus_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        plot1_fut_che_minus_curve = self.Plot1.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        plot1_fut_volume_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        plot1_fut_volume_plus_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        plot1_fut_volume_minus_curve = self.Plot1.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
 
         plot1_cm_call_volume_curve = self.Plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         plot1_cm_put_volume_curve = self.Plot1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -3461,7 +3461,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def cb1_selectionChanged(self):
 
         global comboindex1
-        global plot1_fut_price_curve, plot1_kp200_curve, plot1_fut_che_curve, plot1_fut_che_plus_curve, plot1_fut_che_minus_curve
+        global plot1_fut_price_curve, plot1_kp200_curve, plot1_fut_volume_curve, plot1_fut_volume_plus_curve, plot1_fut_volume_minus_curve
         global plot1_cm_call_volume_curve, plot1_cm_put_volume_curve
         global plot1_cm_call_oi_curve, plot1_cm_put_oi_curve
         global plot1_cm_two_sum_curve, plot1_cm_two_cha_curve
@@ -3502,8 +3502,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif comboindex1 == 1:            
             
-            plot1_fut_che_plus_curve.clear()
-            plot1_fut_che_minus_curve.clear()
+            plot1_fut_volume_plus_curve.clear()
+            plot1_fut_volume_minus_curve.clear()
 
             plot1_cm_call_oi_curve.clear()
             plot1_cm_put_oi_curve.clear()
@@ -3532,8 +3532,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif comboindex1 == 2:
             
-            plot1_fut_che_plus_curve.clear()
-            plot1_fut_che_minus_curve.clear()
+            plot1_fut_volume_plus_curve.clear()
+            plot1_fut_volume_minus_curve.clear()
 
             plot1_cm_call_volume_curve.clear()
             plot1_cm_put_volume_curve.clear()
@@ -3563,8 +3563,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         elif comboindex1 == 3:
 
-            plot1_fut_che_plus_curve.clear()
-            plot1_fut_che_minus_curve.clear()
+            plot1_fut_volume_plus_curve.clear()
+            plot1_fut_volume_minus_curve.clear()
 
             plot1_cm_call_volume_curve.clear()
             plot1_cm_put_volume_curve.clear()
@@ -3594,8 +3594,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif comboindex1 == 4:
             
-            plot1_fut_che_plus_curve.clear()
-            plot1_fut_che_minus_curve.clear()
+            plot1_fut_volume_plus_curve.clear()
+            plot1_fut_volume_minus_curve.clear()
 
             plot1_cm_call_oi_curve.clear()
             plot1_cm_put_oi_curve.clear()
@@ -3634,8 +3634,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif comboindex1 == 5:
 
-            plot1_fut_che_plus_curve.clear()
-            plot1_fut_che_minus_curve.clear()
+            plot1_fut_volume_plus_curve.clear()
+            plot1_fut_volume_minus_curve.clear()
 
             plot1_cm_call_oi_curve.clear()
             plot1_cm_put_oi_curve.clear()
@@ -3671,8 +3671,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif comboindex1 == 6:
 
-            plot1_fut_che_plus_curve.clear()
-            plot1_fut_che_minus_curve.clear()
+            plot1_fut_volume_plus_curve.clear()
+            plot1_fut_volume_minus_curve.clear()
 
             plot1_cm_call_oi_curve.clear()
             plot1_cm_put_oi_curve.clear()
@@ -3708,8 +3708,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif comboindex1 == 7:
 
-            plot1_fut_che_plus_curve.clear()
-            plot1_fut_che_minus_curve.clear()
+            plot1_fut_volume_plus_curve.clear()
+            plot1_fut_volume_minus_curve.clear()
 
             plot1_cm_call_oi_curve.clear()
             plot1_cm_put_oi_curve.clear()
@@ -5084,9 +5084,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if comboindex1 == 0:
 
                     if 선물_누적거래량 > 0:
-                        plot1_fut_che_plus_curve.setData(curve1_data)
+                        plot1_fut_volume_plus_curve.setData(curve1_data)
                     else:
-                        plot1_fut_che_minus_curve.setData(curve1_data)
+                        plot1_fut_volume_minus_curve.setData(curve1_data)
 
                 elif comboindex1 == 1:                      
                     
