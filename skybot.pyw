@@ -673,10 +673,11 @@ aqua_pen1 = pg.mkPen(aqua, width=2, style=QtCore.Qt.SolidLine)
 magenta_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 magenta_pen1 = pg.mkPen(magenta, width=2, style=QtCore.Qt.SolidLine)
 green_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DotLine)
-gold_pen = pg.mkPen(gold, width=2, style=QtCore.Qt.DotLine)
 yellow_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
 orange_pen = pg.mkPen(orange, width=2, style=QtCore.Qt.DotLine)
 skyblue_pen = pg.mkPen(skyblue, width=2, style=QtCore.Qt.DotLine)
+goldenrod_pen = pg.mkPen(goldenrod, width=2, style=QtCore.Qt.DotLine)
+gold_pen = pg.mkPen(gold, width=2, style=QtCore.Qt.DotLine)
 
 df_plotdata_cm_call = pd.DataFrame()
 df_plotdata_cm_put = pd.DataFrame()
@@ -2870,8 +2871,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         plot1_time_line_yagan_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
         plot1_time_line = self.Plot1.addLine(x=0, y=None, pen=tpen1)
         
-        plot1_fut_jl_line = self.Plot1.addLine(x=None, pen=fut_jl_pen)
-        plot1_fut_jh_line = self.Plot1.addLine(x=None, pen=fut_jh_pen)
+        plot1_fut_jl_line = self.Plot1.addLine(x=None, pen=goldenrod_pen)
+        plot1_fut_jh_line = self.Plot1.addLine(x=None, pen=gold_pen)
         plot1_volume_base_line = self.Plot1.addLine(x=None, pen=ypen1)
         plot1_fut_pivot_line = self.Plot1.addLine(x=None, pen=fut_pvt_pen)        
         
