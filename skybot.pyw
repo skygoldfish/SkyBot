@@ -7801,6 +7801,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_현재가, 선물_고가
         global service_start
         global call_open_list, put_open_list, opt_total_list
+        global call_below_atm_count, call_max_actval
+        global put_above_atm_count, put_max_actval
 
         dt = datetime.datetime.now()
 
@@ -8064,6 +8066,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 옵션 행사가 갯수
                 nCount_option_pairs = len(df)
 
+                if not overnight:
+
+                    call_open = [False] * nCount_option_pairs
+                    put_open = [False] * nCount_option_pairs
+                else:
+                    pass
+
                 for i in range(nCount_option_pairs):
 
                     opt_total_list.append(i)
@@ -8220,6 +8229,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.고가.value, item)
 
+                    if not overnight:
+
+                        if 저가 < 고가:
+
+                            call_open[i] = True
+                            self.tableWidget_call.item(i, Option_column.행사가.value).setBackground(QBrush(라임))
+                        else:
+                            pass
+                    else:
+                        pass
+
                     진폭 = 고가 - 저가
                     item = QTableWidgetItem("{0:0.2f}".format(진폭))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -8322,15 +8342,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         전저 = 0.0
                         전고 = 0.0
-
-                        '''
-                        if 시가 > 0 and round(저가, 2) < round(고가, 2):
-                            self.tableWidget_call.item(i, Option_column.행사가.value).setBackground(QBrush(라임))
-                            self.tableWidget_call.item(i, Option_column.행사가.value).setForeground(QBrush(검정색))
-                            pass
-                        else:
-                            pass
-                        '''
 
                     if df['현재가'][i] <= 시가갭:
 
@@ -8495,6 +8506,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem("{0:0.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.고가.value, item)
+
+                    if not overnight:
+
+                        if 저가 < 고가:
+
+                            put_open[i] = True
+                            self.tableWidget_put.item(i, Option_column.행사가.value).setBackground(QBrush(라임))
+                        else:
+                            pass
+                    else:
+                        pass
 
                     진폭 = 고가 - 저가
                     item = QTableWidgetItem("{0:0.2f}".format(진폭))
@@ -9107,7 +9129,39 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 atm_val = float(atm_str) + 0.5
             else:
-                atm_val = float(atm_str)                     
+                atm_val = float(atm_str)
+
+            if call_open_list:
+
+                for index in call_open_list:
+
+                    if index > atm_index:
+                        call_below_atm_count += 1
+                    else:
+                        pass
+                    
+                    if index == nCount_option_pairs - 1:
+                        call_max_actval = True
+                    else:
+                        pass
+            else:
+                pass                
+
+            if put_open_list:
+
+                for index in put_open_list:
+
+                    if index > atm_index:
+                        put_above_atm_count += 1
+                    else:
+                        pass
+                    
+                    if index == nCount_option_pairs - 1:
+                        put_max_actval = True
+                    else:
+                        pass
+            else:
+                pass                    
 
             # kp200 맥점 10개를 리스트로 만듬
             global kp200_coreval
@@ -9128,10 +9182,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if overnight:
 
-                #fut_realdata['KP200'] = df['KOSPI200지수']
                 kp200_realdata['종가'] = df['KOSPI200지수']
 
-                #atm_str = self.find_ATM(fut_realdata['KP200'])
                 atm_str = self.find_ATM(kp200_realdata['종가'])
 
                 if atm_str[-1] == '2' or atm_str[-1] == '7':
@@ -9140,42 +9192,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     atm_val = float(atm_str)
 
-                if atm_str in opt_actval:
+                self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                self.tableWidget_call.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
 
-                    atm_index = opt_actval.index(atm_str)
-                    '''
-                    self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
-                    self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-                    self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
-                    self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-                    '''
-                    self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                    self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                    self.tableWidget_call.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                self.tableWidget_put.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                self.tableWidget_put.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
 
-                    self.tableWidget_put.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                    self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                    self.tableWidget_put.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                selected_call = [atm_index - 1, atm_index, atm_index + 1]
+                selected_put = [atm_index - 1, atm_index, atm_index + 1]
 
-                    selected_call = [atm_index - 1, atm_index, atm_index + 1]
-                    selected_put = [atm_index - 1, atm_index, atm_index + 1]
+                call_atm_value = df_cm_call.iloc[atm_index]['현재가']
+                put_atm_value = df_cm_put.iloc[atm_index]['현재가']
 
-                    call_atm_value = df_cm_call.iloc[atm_index]['현재가']
-                    put_atm_value = df_cm_put.iloc[atm_index]['현재가']
+                str = '{0:0.2f}({1:0.2f}:{2:0.2f})'.format(
+                    fut_realdata['현재가'] - fut_realdata['KP200'],
+                    call_atm_value + put_atm_value,
+                    abs(call_atm_value - put_atm_value))
+                self.label_atm.setText(str)
 
-                    str = '{0:0.2f}({1:0.2f}:{2:0.2f})'.format(
-                        fut_realdata['현재가'] - fut_realdata['KP200'],
-                        call_atm_value + put_atm_value,
-                        abs(call_atm_value - put_atm_value))
-                    self.label_atm.setText(str)
+                item_str = '{0:0.2f}%\n{1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
-                    item_str = '{0:0.2f}%\n{1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
-
-                    item = QTableWidgetItem(item_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_quote.setItem(0, 13, item)
-                else:
-                    print("atm_str이 리스트에 없습니다.", atm_str)
+                item = QTableWidgetItem(item_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_quote.setItem(0, 13, item)
 
                 df_plotdata_kp200.iloc[0][0] = kp200_realdata['종가']
 
@@ -9371,13 +9412,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if not refresh_flag:
 
                 # open, ol/oh 초기화
-                call_open = [False] * nCount_option_pairs
-                call_ol = [False] * nCount_option_pairs
-                call_oh = [False] * nCount_option_pairs
+                if overnight:
 
-                put_open = [False] * nCount_option_pairs
-                put_ol = [False] * nCount_option_pairs
-                put_oh = [False] * nCount_option_pairs
+                    call_open = [False] * nCount_option_pairs
+                    put_open = [False] * nCount_option_pairs
+                else:
+                    pass
 
                 # gap percent 초기화
                 call_gap_percent = [NaN] * nCount_option_pairs
@@ -9503,6 +9543,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem("{0:0.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.고가.value, item)
+
+                    if overnight:
+
+                        if 저가 < 고가:
+
+                            call_open[i] = True
+                            self.tableWidget_call.item(i, Option_column.행사가.value).setBackground(QBrush(라임))
+                        else:
+                            pass
+                    else:
+                        pass
 
                     진폭 = 고가 - 저가
                     item = QTableWidgetItem("{0:0.2f}".format(진폭))
@@ -9726,6 +9777,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem("{0:0.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.고가.value, item)
+
+                    if overnight:
+
+                        if 저가 < 고가:
+
+                            put_open[i] = True
+                            self.tableWidget_put.item(i, Option_column.행사가.value).setBackground(QBrush(라임))
+                        else:
+                            pass
+                    else:
+                        pass
 
                     진폭 = 고가 - 저가
                     item = QTableWidgetItem("{0:0.2f}".format(진폭))
@@ -12391,7 +12453,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if index != atm_index:
                         self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
                     else:
-                        self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
+                        self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))                    
                 else:
                     pass
                 
@@ -13477,7 +13539,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         for index in loop_list:
 
             if df_cm_put.iloc[index]['시가'] > opt_search_start_value:
-                
+
                 if not service_start:
 
                     if index != atm_index:
