@@ -148,7 +148,7 @@ yesterday_str = yesterday.strftime('%Y%m%d')
 domestic_start_hour = 9
 ovc_start_hour = domestic_start_hour - 1
 
-opt_search_start_value = 0.09
+opt_search_start_value = 0.0
 opt_coreval_search_start_value = 0.5
 opt_search_end_value = 10
 
