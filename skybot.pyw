@@ -9342,7 +9342,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 선물_현재가 = df['현재가']
                 선물_고가 = df['고가']
             else:
-                pass 
+                pass
+            
+            if overnight:
+
+                df_plotdata_kp200.iloc[0][0] = fut_realdata['KP200']
+                df_plotdata_fut.iloc[0][0] = cme_realdata['종가']
+                df_plotdata_fut.iloc[0][선물장간_시간차] = cme_realdata['시가']
+                df_plotdata_fut_che.iloc[0][0] = 0
+                df_plotdata_fut_che.iloc[0][선물장간_시간차] = 0
+            else:
+                pass
 
             cme_realdata['고가'] = df['고가']           
 
