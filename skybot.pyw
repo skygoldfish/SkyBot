@@ -3411,7 +3411,35 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_quote.cellClicked.connect(self._quotetable_cell_clicked)
         
         self.tableWidget_call.verticalScrollBar().valueChanged.connect(self._calltable_vertical_scroll_position)
-        self.tableWidget_put.verticalScrollBar().valueChanged.connect(self._puttable_vertical_scroll_position)        
+        self.tableWidget_put.verticalScrollBar().valueChanged.connect(self._puttable_vertical_scroll_position)
+
+        if overnight:
+
+            # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
+            plot1_time_line_start.setValue(선물장간_시간차 + 1)
+            plot2_time_line_start.setValue(선물장간_시간차 + 1)
+            plot1_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+            plot2_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+
+            if UI_STYLE == 'Vertical_view.ui':
+
+                plot3_time_line_start.setValue(선물장간_시간차 + 1)
+                plot4_time_line_start.setValue(선물장간_시간차 + 1)
+                plot3_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+                plot4_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+            else:
+                pass
+        else:
+            # 시작시간 X축 표시(index 60은 시가)
+            plot1_time_line_start.setValue(선물장간_시간차)
+            plot2_time_line_start.setValue(선물장간_시간차)
+
+            if UI_STYLE == 'Vertical_view.ui':
+
+                plot3_time_line_start.setValue(선물장간_시간차)
+                plot4_time_line_start.setValue(선물장간_시간차)
+            else:
+                pass
         
         self.JIF = JIF(parent=self)
 
@@ -16470,8 +16498,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if not self.checkBox_next_month.isChecked():
 
-            # 주야간 선물/옵션요청 선택(주간=FC0/OC0, 야간=NC0/EC0)
-            if 4 < int(current_str[0:2]) < 야간선물_기준시간:
+            # 옵션 전광판 요청(주간=FC0/OC0, 야간=NC0/EC0)
+            if not overnight:
 
                 if int(current_str[0:2]) == 7 and int(current_str[3:5]) > 10:
                     pre_start = True
@@ -16482,7 +16510,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                # 주간옵션 전광판
+                # 주간옵션 전광판 요청
                 XQ = t2301(parent=self)
 
                 if next_month_only == 'YES':
@@ -16498,20 +16526,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션전광판 주간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                     self.textBrowser.append(str)
-                
-                # 시작시간 X축 표시(index 60은 시가)
-                plot1_time_line_start.setValue(선물장간_시간차)
-                plot2_time_line_start.setValue(선물장간_시간차)
-
-                if UI_STYLE == 'Vertical_view.ui':
-
-                    plot3_time_line_start.setValue(선물장간_시간차)
-                    plot4_time_line_start.setValue(선물장간_시간차)
-                else:
-                    pass
             else:
-
-                # 야간옵션 전광판
+                # 야간옵션 전광판 요청
                 XQ = t2301(parent=self)
 
                 if next_month_only == 'YES':
@@ -16534,22 +16550,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     XQ.Query(월물=t2301_month_info, 미니구분='G')
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션전광판 야간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
-                    self.textBrowser.append(str) 
-
-                # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
-                plot1_time_line_start.setValue(선물장간_시간차 + 1)
-                plot2_time_line_start.setValue(선물장간_시간차 + 1)
-                plot1_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-                plot2_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-
-                if UI_STYLE == 'Vertical_view.ui':
-
-                    plot3_time_line_start.setValue(선물장간_시간차 + 1)
-                    plot4_time_line_start.setValue(선물장간_시간차 + 1)
-                    plot3_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-                    plot4_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-                else:
-                    pass
+                    self.textBrowser.append(str)
         else:
             pass
 
