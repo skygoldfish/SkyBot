@@ -9078,12 +9078,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     cm_put_고가 = df_cm_put['고가'].values.tolist()
                     cm_put_고가_node_list = self.make_node_list(cm_put_고가)
-
-                    # 옵션 맥점 컬러링                    
-                    self.opt_node_coloring()
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 맥점 컬러링을 완료했습니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
                     
                     XQ = t2101(parent=self)
                     XQ.Query(종목코드=fut_code)
@@ -9094,9 +9088,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     XQ = t2801(parent=self)
                     XQ.Query(종목코드=fut_code)
                     print('t2801 요청')
+
+                    time.sleep(0.1)
                     
-                else:
-                    
+                else:                    
                     # EUREX 야간옵션 시세전광판
                     XQ = t2835(parent=self)
 
@@ -9414,6 +9409,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # 실시간에서만 표시됨
             self.kp200_low_node_coloring()
             self.kp200_high_node_coloring()
+
+            if refresh_flag:
+
+                # 옵션 맥점 컬러링                    
+                self.opt_node_coloring()
+                
+                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 맥점 컬러링을 완료했습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+            else:
+                pass
 
         elif szTrCode == 't2830':
 
@@ -16461,27 +16466,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             XQ = t8432(parent=self)
             XQ.Query(구분='F')
         else:
-            pass
-            #str = '[{0:02d}:{1:02d}:{2:02d}] 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            #self.textBrowser.append(str)
+            pass            
 
-            #Speak("전광판을 갱신합니다.")
-            #self.all_node_set()
-            
-            XQ = t2101(parent=self)
-            XQ.Query(종목코드=fut_code)
+        if not self.checkBox_next_month.isChecked():
 
-            time.sleep(0.1)
-
-            XQ = t2801(parent=self)
-            XQ.Query(종목코드=fut_code)
-
-            time.sleep(0.1)                
-
-        if self.checkBox_next_month.isChecked():
-
-            pass
-        else:
             # 주야간 선물/옵션요청 선택(주간=FC0/OC0, 야간=NC0/EC0)
             if 4 < int(current_str[0:2]) < 야간선물_기준시간:
 
@@ -16562,6 +16550,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     plot4_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
                 else:
                     pass
+        else:
+            pass
 
         return
 
