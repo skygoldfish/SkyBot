@@ -12434,10 +12434,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         call_oh = [False] * nCount_option_pairs
         call_gap_percent = [NaN] * nCount_option_pairs
         call_db_percent = [NaN] * nCount_option_pairs
+        call_below_atm_count = 0
 
         if not service_start:
             call_open = [False] * nCount_option_pairs
-            call_below_atm_count = 0
         else:
             pass
 
@@ -12495,15 +12495,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
 
                 if df_cm_call.iloc[index]['저가'] < df_cm_call.iloc[index]['고가']:
+                    
+                    if index > atm_index:
+                        call_below_atm_count += 1
+                    else:
+                        pass
 
                     if not service_start:
 
                         call_open[index] = True
-
-                        if index > atm_index:
-                            call_below_atm_count += 1
-                        else:
-                            pass
                     else:
                         pass                    
 
@@ -13526,10 +13526,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         put_oh = [False] * nCount_option_pairs
         put_gap_percent = [NaN] * nCount_option_pairs
         put_db_percent = [NaN] * nCount_option_pairs
+        put_above_atm_count = 0
 
         if not service_start:
             put_open = [False] * nCount_option_pairs
-            put_above_atm_count = 0
         else:
             pass
         
@@ -13588,14 +13588,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if df_cm_put.iloc[index]['저가'] < df_cm_put.iloc[index]['고가']:
 
+                    if index < atm_index:
+                        put_above_atm_count += 1
+                    else:
+                        pass
+
                     if not service_start:
 
-                        put_open[index] = True
-
-                        if index < atm_index:
-                            put_above_atm_count += 1
-                        else:
-                            pass
+                        put_open[index] = True                        
                     else:
                         pass                    
 
@@ -14775,14 +14775,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             if result['전일대비구분'] == '5':
 
-                                jisu_str = "SAMSUNG: {0} ▲ ({1}, {2:0.1f}%)".format(temp_str, format(-result['전일대비'], ','), result['등락율'])
+                                jisu_str = "SS: {0} ▲ ({1}, {2:0.1f}%)".format(temp_str, format(-result['전일대비'], ','), result['등락율'])
                                 self.label_samsung.setText(jisu_str)
                                 self.label_samsung.setStyleSheet('background-color: pink ; color: blue')
                                 samsung_text_color = 'blue'
 
                             elif result['전일대비구분'] == '2':
 
-                                jisu_str = "SAMSUNG: {0} ▲ ({1}, {2:0.1f}%)".format(temp_str, format(result['전일대비'], ','), result['등락율'])
+                                jisu_str = "SS: {0} ▲ ({1}, {2:0.1f}%)".format(temp_str, format(result['전일대비'], ','), result['등락율'])
                                 self.label_samsung.setText(jisu_str)
                                 self.label_samsung.setStyleSheet('background-color: pink ; color: red')
                                 samsung_text_color = 'red'
@@ -14795,14 +14795,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             if result['전일대비구분'] == '5':
 
-                                jisu_str = "SAMSUNG: {0} ▼ ({1}, {2:0.1f}%)".format(temp_str, format(-result['전일대비'], ','), result['등락율'])
+                                jisu_str = "SS: {0} ▼ ({1}, {2:0.1f}%)".format(temp_str, format(-result['전일대비'], ','), result['등락율'])
                                 self.label_samsung.setText(jisu_str)
                                 self.label_samsung.setStyleSheet('background-color: lightskyblue ; color: blue')
                                 samsung_text_color = 'blue'
 
                             elif result['전일대비구분'] == '2':
 
-                                jisu_str = "SAMSUNG: {0} ▼ ({1}, {2:0.1f}%)".format(temp_str, format(result['전일대비'], ','), result['등락율'])
+                                jisu_str = "SS: {0} ▼ ({1}, {2:0.1f}%)".format(temp_str, format(result['전일대비'], ','), result['등락율'])
                                 self.label_samsung.setText(jisu_str)
                                 self.label_samsung.setStyleSheet('background-color: lightskyblue ; color: red')
                                 samsung_text_color = 'red'
