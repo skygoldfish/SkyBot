@@ -16494,62 +16494,54 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             XQ = t8432(parent=self)
             XQ.Query(구분='F')
         else:
+            pass
+
+        if not overnight:
+
+            if int(current_str[0:2]) == 7 and int(current_str[3:5]) > 10:
+                pre_start = True
+            elif int(current_str[0:2]) == 8 and int(current_str[3:5]) <= 59:
+                pre_start = True
+            elif 9 <= int(current_str[0:2]) <= 16:
+                pass
+            else:
+                pass
+        else:
             pass            
 
         if not self.checkBox_next_month.isChecked():
 
             # 옵션 전광판 요청(주간=FC0/OC0, 야간=NC0/EC0)
-            if not overnight:
+            XQ = t2301(parent=self)
 
-                if int(current_str[0:2]) == 7 and int(current_str[3:5]) > 10:
-                    pre_start = True
-                elif int(current_str[0:2]) == 8 and int(current_str[3:5]) <= 59:
-                    pre_start = True
-                elif 9 <= int(current_str[0:2]) <= 16:
-                    pass
+            if next_month_only == 'YES':
+
+                if mangi_yagan == 'YES':
+                    t2301_month_info = month_after_next_info
                 else:
-                    pass
-
-                # 주간옵션 전광판 요청
-                XQ = t2301(parent=self)
-
-                if next_month_only == 'YES':
-
                     t2301_month_info = next_month_info
-                    XQ.Query(월물=t2301_month_info, 미니구분='G')
 
+                XQ.Query(월물=t2301_month_info, 미니구분='G')    
+
+                if overnight:
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션전광판 야간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
+                    self.textBrowser.append(str)
+                else:
                     str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션전광판 주간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                     self.textBrowser.append(str) 
+            else:
+                if mangi_yagan == 'YES':
+                    t2301_month_info = next_month_info
                 else:
                     t2301_month_info = current_month_info
-                    XQ.Query(월물=t2301_month_info, 미니구분='G')                        
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션전광판 주간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
-                    self.textBrowser.append(str)
-            else:
-                # 야간옵션 전광판 요청
-                XQ = t2301(parent=self)
+                XQ.Query(월물=t2301_month_info, 미니구분='G')
 
-                if next_month_only == 'YES':
-
-                    if mangi_yagan == 'YES':
-                        t2301_month_info = month_after_next_info
-                    else:
-                        t2301_month_info = next_month_info
-
-                    XQ.Query(월물=t2301_month_info, 미니구분='G')    
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션전광판 야간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
-                    self.textBrowser.append(str) 
-                else:
-                    if mangi_yagan == 'YES':
-                        t2301_month_info = next_month_info
-                    else:
-                        t2301_month_info = current_month_info
-
-                    XQ.Query(월물=t2301_month_info, 미니구분='G')
-
+                if overnight:
                     str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션전광판 야간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
+                    self.textBrowser.append(str)
+                else:
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션전광판 주간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                     self.textBrowser.append(str)
         else:
             pass
