@@ -108,6 +108,7 @@ if UI_STYLE == 'Vertical_view.ui':
 
     # Plot4 관련 전역변수
     plot4_open_val_line = None
+    plot4_close_val_line = None
     plot4_pivot_line = None
     plot4_time_line = None    
     plot4_time_line_start = None    
@@ -2945,7 +2946,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global plot3_close_val_line, plot3_open_val_line, plot3_upper_line, plot3_lower_line, plot3_curve 
 
             global plot4_time_line, plot4_time_line_start, plot4_time_line_yagan_start 
-            global plot4_open_val_line, plot4_pivot_line
+            global plot4_open_val_line, plot4_close_val_line, plot4_pivot_line
             global plot4_fv_plus_curve, plot4_fv_minus_curve, plot4_price_curve, plot4_kp200_curve            
             
             plot3_time_line = self.Plot3.addLine(x=0, y=None, pen=tpen1)
@@ -2964,6 +2965,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot4_time_line_yagan_start = self.Plot4.addLine(x=0, y=None, pen=tpen)
 
             plot4_open_val_line = self.Plot4.addLine(x=None, pen=yellow_pen)
+            plot4_close_val_line = self.Plot4.addLine(x=None, pen=green_pen)
             plot4_pivot_line = self.Plot4.addLine(x=None, pen=fut_pvt_pen)                   
 
             plot4_fv_plus_curve = self.Plot4.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
@@ -4067,6 +4069,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 plot4_price_curve.clear()
                 plot4_kp200_curve.clear()
 
+                plot4_pivot_line.setValue(0)
+                plot4_close_val_line.setValue(0)
                 plot4_open_val_line.setValue(0)
 
             elif comboindex4 == 1:
@@ -4076,9 +4080,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if overnight:
 
+                    plot4_close_val_line.setValue(cme_realdata['종가'])
                     plot4_open_val_line.setValue(cme_realdata['시가'])
                     plot4_pivot_line.setValue(cme_realdata['피봇'])
                 else:
+                    plot4_close_val_line.setValue(fut_realdata['종가'])
                     plot4_open_val_line.setValue(fut_realdata['시가'])
                     plot4_pivot_line.setValue(fut_realdata['피봇'])
             else:
