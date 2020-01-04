@@ -9124,6 +9124,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_put_고가 = df_put['고가'].values.tolist()
                     cm_put_고가_node_list = self.make_node_list(cm_put_고가)
                     
+                    # 주야간 선물전광판 데이타 요청
                     XQ = t2101(parent=self)
                     XQ.Query(종목코드=fut_code)
                     print('t2101 요청')
@@ -10074,8 +10075,47 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 cm_put_고가 = df_put['고가'].values.tolist()
                 cm_put_고가_node_list = self.make_node_list(cm_put_고가)
 
+                # 실시간테이타 요청
+                self.OPT_REAL = EC0(parent=self)
+
+                for i in range(nCount_option_pairs):
+                    self.OPT_REAL.AdviseRealData(call_code[i])
+                    self.OPT_REAL.AdviseRealData(put_code[i]) 
+
+                self.OPT_HO = EH0(parent=self)
+
+                for i in range(nCount_option_pairs):
+                    self.OPT_HO.AdviseRealData(call_code[i])
+                    self.OPT_HO.AdviseRealData(put_code[i]) 
+
+                self.FUT_REAL = NC0(parent=self)
+                self.FUT_REAL.AdviseRealData(fut_code)
+
+                self.FUT_HO = NH0(parent=self)                
+                self.FUT_HO.AdviseRealData(fut_code)
+
+                # 업종별 투자자별 매매현황 요청
+                self.BM.AdviseRealData(CME)
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+                
+                self.update_worker.start()
+                self.update_worker.daemon = True
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+
+                refresh_flag = True
+                
+                self.pushButton_add.setStyleSheet("background-color: lawngreen")
+                self.pushButton_add.setText('Refresh')        
+
             else:
                 # Refresh
+                str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+
                 del call_open_list[:]
                 del put_open_list[:]
 
@@ -10209,61 +10249,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 cm_put_고가 = df_put['고가'].values.tolist()
                 cm_put_고가_node_list = self.make_node_list(cm_put_고가)  
-
-            # 옵션 맥점 컬러링
-            str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)
-            
-            self.opt_node_coloring()               
-
-            self.tableWidget_call.resizeColumnsToContents()
-            self.tableWidget_put.resizeColumnsToContents()                
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)
-            
-            if not refresh_flag:
-
-                # 실시간테이타 요청
-                self.OPT_REAL = EC0(parent=self)
-
-                for i in range(nCount_option_pairs):
-                    self.OPT_REAL.AdviseRealData(call_code[i])
-                    self.OPT_REAL.AdviseRealData(put_code[i]) 
-
-                self.OPT_HO = EH0(parent=self)
-
-                for i in range(nCount_option_pairs):
-                    self.OPT_HO.AdviseRealData(call_code[i])
-                    self.OPT_HO.AdviseRealData(put_code[i]) 
-
-                self.FUT_REAL = NC0(parent=self)
-                self.FUT_REAL.AdviseRealData(fut_code)
-
-                self.FUT_HO = NH0(parent=self)                
-                self.FUT_HO.AdviseRealData(fut_code)
-
-                # 업종별 투자자별 매매현황 요청
-                self.BM.AdviseRealData(CME)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
-                
-                self.update_worker.start()
-                self.update_worker.daemon = True
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
-
-                refresh_flag = True
-                
-                self.pushButton_add.setStyleSheet("background-color: lawngreen")
-                self.pushButton_add.setText('Refresh')                
-            else:
-                pass
-            
+                        
             self.tableWidget_call.resizeColumnsToContents()
             self.tableWidget_put.resizeColumnsToContents()
+
+            # 주야간 선물전광판 데이타 요청
+            XQ = t2101(parent=self)
+            XQ.Query(종목코드=fut_code)
+            print('t2101 요청')
+
+            time.sleep(0.1)
+
+            XQ = t2801(parent=self)
+            XQ.Query(종목코드=fut_code)
+            print('t2801 요청')
+
+            time.sleep(0.1)
 
         elif szTrCode == 't8408':
 
