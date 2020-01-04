@@ -16497,8 +16497,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global pre_start
         global START_ON
-
-        global kp200_realdata, fut_realdata
         global t2301_month_info
 
         dt = datetime.datetime.now()
