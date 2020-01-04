@@ -1,0 +1,2 @@
+option actval count : 100
+option coreval = 1.20 2.50 3.50 4.85 5.10 5.50 6.85 7.10 8.10
