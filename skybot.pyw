@@ -291,7 +291,7 @@ Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수�
 Option_volume_column = Enum('Option_volume_column', '매도누적체결량 매도누적체결건수 매수누적체결량 매수누적체결건수')
 Supply_column = Enum('Supply_column', '외인선옵 개인선옵 기관선옵 외인현물 프로그램')
 Quote_column = Enum('Quote_column', 'C-MSCC C-MDCC C-MSCR C-MDCR P-MSCC P-MDCC P-MSCR P-MDCR 콜건수비 콜잔량비 풋건수비 풋잔량비 호가종합 미결종합')
-nCount_option_pairs = 0
+option_pairs_count = 0
 
 call_result = dict()
 put_result = dict()
@@ -2288,7 +2288,7 @@ class update_worker(QThread):
                 data[actval] = self.get_data_infos(actval)
 
             # dummy 요청(안하면 screen update로 못들어감 ?)
-            for actval in opt_actval[nCount_option_pairs - 1:nCount_option_pairs]:
+            for actval in opt_actval[option_pairs_count - 1:option_pairs_count]:
 
                 data[actval] = self.get_data_infos(actval)
             
@@ -4746,17 +4746,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         call_scroll_begin_position = row
 
-        if nCount_option_pairs == 0:
+        if option_pairs_count == 0:
 
-            if nCount_option_pairs - 9 < call_scroll_begin_position < 100:
+            if option_pairs_count - 9 < call_scroll_begin_position < 100:
 
-                call_scroll_end_position = nCount_option_pairs
+                call_scroll_end_position = option_pairs_count
             else:
                 call_scroll_end_position = call_scroll_begin_position + 9
         else:
-            if nCount_option_pairs - 9 < call_scroll_begin_position < nCount_option_pairs:
+            if option_pairs_count - 9 < call_scroll_begin_position < option_pairs_count:
 
-                call_scroll_end_position = nCount_option_pairs
+                call_scroll_end_position = option_pairs_count
             else:
                 call_scroll_end_position = call_scroll_begin_position + 9
 
@@ -4773,17 +4773,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global put_scroll_begin_position, put_scroll_end_position
         put_scroll_begin_position = row
 
-        if nCount_option_pairs == 0:
+        if option_pairs_count == 0:
 
-            if nCount_option_pairs - 9 < put_scroll_begin_position < 100:
+            if option_pairs_count - 9 < put_scroll_begin_position < 100:
 
-                put_scroll_end_position = nCount_option_pairs
+                put_scroll_end_position = option_pairs_count
             else:
                 put_scroll_end_position = put_scroll_begin_position + 9
         else:
-            if nCount_option_pairs - 9 < put_scroll_begin_position < nCount_option_pairs:
+            if option_pairs_count - 9 < put_scroll_begin_position < option_pairs_count:
 
-                put_scroll_end_position = nCount_option_pairs
+                put_scroll_end_position = option_pairs_count
             else:
                 put_scroll_end_position = put_scroll_begin_position + 9
 
@@ -4972,7 +4972,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     put_idx = []
 
                     # atm index 중심으로 위,아래 15개 만 탐색
-                    #for i in range(nCount_option_pairs):
+                    #for i in range(option_pairs_count):
                     for i in range(atm_index - 15, atm_index + 16):
 
                         if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
@@ -5012,7 +5012,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass           
 
-                    if index == nCount_option_pairs - 1:
+                    if index == option_pairs_count - 1:
                         curve1_data = infos[2]
                         curve2_data = infos[3] 
                         curve3_data = infos[4]
@@ -5311,7 +5311,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             #self.call_open_check()
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] 콜 최대 시작가 {3:.2f} 오픈되었습니다.\r'.format(\
-                                dt.hour, dt.minute, dt.second, df_call.iloc[nCount_option_pairs - 1]['시가'])
+                                dt.hour, dt.minute, dt.second, df_call.iloc[option_pairs_count - 1]['시가'])
                             self.textBrowser.append(str)
 
                             #txt = '콜 최대가 오픈'
@@ -5692,7 +5692,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.item(1, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_fut.item(2, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
 
-        if call_scroll_end_position <= nCount_option_pairs:
+        if call_scroll_end_position <= option_pairs_count:
 
             for i in range(call_scroll_begin_position, call_scroll_end_position):
 
@@ -5720,7 +5720,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     # Call 컬러처리
     def call_cv_color_clear(self):
 
-        if call_scroll_end_position <= nCount_option_pairs:
+        if call_scroll_end_position <= option_pairs_count:
 
             for i in range(call_scroll_begin_position, call_scroll_end_position):
 
@@ -5733,7 +5733,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     # Put 컬러처리
     def put_cv_color_clear(self):
 
-        if put_scroll_end_position <= nCount_option_pairs:
+        if put_scroll_end_position <= option_pairs_count:
 
             for i in range(put_scroll_begin_position, put_scroll_end_position):
 
@@ -7839,7 +7839,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global put_기준가_node_list, put_월저_node_list, put_월고_node_list, put_전저_node_list, put_전고_node_list, \
             put_종가_node_list, put_피봇_node_list, put_시가_node_list, put_저가_node_list, put_고가_node_list
 
-        global nCount_option_pairs
+        global option_pairs_count
 
         global df_plotdata_fut, df_plotdata_kp200, df_plotdata_fut_volume
         global 콜_순미결합, 풋_순미결합, 콜_순미결퍼센트, 풋_순미결퍼센트
@@ -8137,16 +8137,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 옵션잔존일 = block['옵션잔존일']
 
                 # 옵션 행사가 갯수
-                nCount_option_pairs = len(df)
+                option_pairs_count = len(df)
 
                 if not overnight:
 
-                    call_open = [False] * nCount_option_pairs
-                    put_open = [False] * nCount_option_pairs
+                    call_open = [False] * option_pairs_count
+                    put_open = [False] * option_pairs_count
                 else:
                     pass
 
-                for i in range(nCount_option_pairs):
+                for i in range(option_pairs_count):
 
                     opt_total_list.append(i)
 
@@ -8176,8 +8176,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
 
-                    df_plotdata_call = DataFrame(index=range(0, nCount_option_pairs), columns=range(0, 선물장간_시간차 + 395 + 10))
-                    df_plotdata_put = DataFrame(index=range(0, nCount_option_pairs), columns=range(0, 선물장간_시간차 + 395 + 10))
+                    df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + 395 + 10))
+                    df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + 395 + 10))
 
                     df_plotdata_call_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
                     df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
@@ -8214,8 +8214,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
 
-                    df_plotdata_call = DataFrame(index=range(0, nCount_option_pairs), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
-                    df_plotdata_put = DataFrame(index=range(0, nCount_option_pairs), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
+                    df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
+                    df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
 
                     df_plotdata_call_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
                     df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
@@ -8236,7 +8236,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
 
                 # 콜처리
-                for i in range(nCount_option_pairs):
+                for i in range(option_pairs_count):
 
                     행사가 = df['행사가'][i]
                     item = QTableWidgetItem("{0:0.2f}".format(df['float_행사가'][i]))
@@ -8515,7 +8515,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.textBrowser.append(str)
 
                 # 풋처리
-                for i in range(nCount_option_pairs):
+                for i in range(option_pairs_count):
 
                     행사가 = df1['행사가'][i]
                     item = QTableWidgetItem("{0:0.2f}".format(df1['float_행사가'][i]))
@@ -8929,19 +8929,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         #self.YS3.AdviseRealData(Celltrion)
 
                         # 지수옵션예상체결 요청
-                        for i in range(nCount_option_pairs):
+                        for i in range(option_pairs_count):
                             self.YOC.AdviseRealData(call_code[i])
                             self.YOC.AdviseRealData(put_code[i])
                     else:
                         pass
 
                     # 옵션 실시간테이타 요청
-                    for i in range(nCount_option_pairs):
+                    for i in range(option_pairs_count):
                         self.OPT_REAL.AdviseRealData(call_code[i])
                         self.OPT_REAL.AdviseRealData(put_code[i])
 
                     # 전일등가 중심 9개 행사가 호가요청
-                    for i in range(nCount_option_pairs):
+                    for i in range(option_pairs_count):
                         self.OPT_HO.AdviseRealData(call_code[i])
                         self.OPT_HO.AdviseRealData(put_code[i])
 
@@ -8982,7 +8982,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     del call_open_list[:]
                     del put_open_list[:]
 
-                    for i in range(nCount_option_pairs):
+                    for i in range(option_pairs_count):
 
                         # 콜 데이타 획득
                         현재가 = df['현재가'][i]
@@ -9209,7 +9209,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
                     
-                    if index == nCount_option_pairs - 1:
+                    if index == option_pairs_count - 1:
                         call_max_actval = True
                     else:
                         pass
@@ -9225,7 +9225,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
                     
-                    if index == nCount_option_pairs - 1:
+                    if index == option_pairs_count - 1:
                         put_max_actval = True
                     else:
                         pass
@@ -9503,18 +9503,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # open, ol/oh 초기화
                 if overnight:
 
-                    call_open = [False] * nCount_option_pairs
-                    put_open = [False] * nCount_option_pairs
+                    call_open = [False] * option_pairs_count
+                    put_open = [False] * option_pairs_count
                 else:
                     pass
 
                 # gap percent 초기화
-                call_gap_percent = [NaN] * nCount_option_pairs
-                put_gap_percent = [NaN] * nCount_option_pairs
+                call_gap_percent = [NaN] * option_pairs_count
+                put_gap_percent = [NaN] * option_pairs_count
 
                 # db percent 초기화
-                call_db_percent = [NaN] * nCount_option_pairs
-                put_db_percent = [NaN] * nCount_option_pairs
+                call_db_percent = [NaN] * option_pairs_count
+                put_db_percent = [NaN] * option_pairs_count
 
                 item = QTableWidgetItem('행사가')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.행사가.value, item)
@@ -9552,7 +9552,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem('∑OI')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
 
-                for i in range(nCount_option_pairs):
+                for i in range(option_pairs_count):
 
                     # 수정거래량 초기화
                     df_call.loc[i, '수정거래량'] = 0
@@ -10096,13 +10096,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 실시간테이타 요청
                 self.OPT_REAL = EC0(parent=self)
 
-                for i in range(nCount_option_pairs):
+                for i in range(option_pairs_count):
                     self.OPT_REAL.AdviseRealData(call_code[i])
                     self.OPT_REAL.AdviseRealData(put_code[i]) 
 
                 self.OPT_HO = EH0(parent=self)
 
-                for i in range(nCount_option_pairs):
+                for i in range(option_pairs_count):
                     self.OPT_HO.AdviseRealData(call_code[i])
                     self.OPT_HO.AdviseRealData(put_code[i]) 
 
@@ -10137,7 +10137,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 del call_open_list[:]
                 del put_open_list[:]
 
-                for i in range(nCount_option_pairs):
+                for i in range(option_pairs_count):
 
                     # 콜 데이타 획득
                     종가 = df_call.iloc[i]['종가']
@@ -10384,12 +10384,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if new_actval_count == 0:
 
-                item_str = '{0:d}'.format(nCount_option_pairs)
+                item_str = '{0:d}'.format(option_pairs_count)
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setHorizontalHeaderItem(0, item)
 
-                item_str = '{0:d}'.format(nCount_option_pairs)
+                item_str = '{0:d}'.format(option_pairs_count)
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(0, item) 
@@ -10400,7 +10400,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 actval_increased = True                
 
-                if call_t8416_count == nCount_option_pairs:
+                if call_t8416_count == option_pairs_count:
                     put_t8416_count += 1
                     #print('put_t8416_count = ', put_t8416_count)
                 else:
@@ -10410,12 +10410,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     new_actval_count += 1 
 
                     # 추가된 행사가 갯수 표시
-                    item_str = '+' + '{0:d}'.format(new_actval_count) + '\n' + '({0:d})'.format(nCount_option_pairs)
+                    item_str = '+' + '{0:d}'.format(new_actval_count) + '\n' + '({0:d})'.format(option_pairs_count)
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setHorizontalHeaderItem(0, item)
 
-                    item_str = '+' + '{0:d}'.format(new_actval_count) + '\n' + '({0:d})'.format(nCount_option_pairs)
+                    item_str = '+' + '{0:d}'.format(new_actval_count) + '\n' + '({0:d})'.format(option_pairs_count)
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setHorizontalHeaderItem(0, item)               
@@ -10549,16 +10549,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Call 행사가 {3}개중 {4}번째 Packet을 수신했습니다.\r'.\
-                    format(dt.hour, dt.minute, dt.second, nCount_option_pairs, call_t8416_count + 1)
+                    format(dt.hour, dt.minute, dt.second, option_pairs_count, call_t8416_count + 1)
 
                 self.textBrowser.append(str)
 
                 call_t8416_count += 1
 
-                print('Call 과거데이타 %d 개중 %d개 수신...' % (nCount_option_pairs, call_t8416_count))
+                print('Call 과거데이타 %d 개중 %d개 수신...' % (option_pairs_count, call_t8416_count))
                 
-                #if call_t8416_count == nCount_option_pairs - new_actval_count:
-                if call_t8416_count == nCount_option_pairs:
+                #if call_t8416_count == option_pairs_count - new_actval_count:
+                if call_t8416_count == option_pairs_count:
 
                     if self.t8416_callworker.isRunning():
 
@@ -10701,15 +10701,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Put 행사가 {3}개중 {4}번째 Packet을 수신했습니다.\r'.format(dt.hour, dt.minute, dt.second, 
-                    nCount_option_pairs, put_t8416_count + 1)
+                    option_pairs_count, put_t8416_count + 1)
                 self.textBrowser.append(str)
 
                 put_t8416_count += 1
 
-                print('Put 과거데이타 %d 개중 %d개 수신...' % (nCount_option_pairs, put_t8416_count))
+                print('Put 과거데이타 %d 개중 %d개 수신...' % (option_pairs_count, put_t8416_count))
 
-                #if put_t8416_count == nCount_option_pairs - new_actval_count:
-                if put_t8416_count == nCount_option_pairs:
+                #if put_t8416_count == option_pairs_count - new_actval_count:
+                if put_t8416_count == option_pairs_count:
 
                     print('\r')
                     print('t8416 Call 전광판\r')
@@ -10780,7 +10780,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         if pre_start:
 
-                            for i in range(nCount_option_pairs):
+                            for i in range(option_pairs_count):
 
                                 수정거래량 = 0
 
@@ -11789,7 +11789,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
                 
-                if index == nCount_option_pairs - 1:
+                if index == option_pairs_count - 1:
                     call_max_actval = True
                 else:
                     pass
@@ -12174,7 +12174,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), index+1, call_result['시가'])
         self.textBrowser.append(str)
         
-        if index == nCount_option_pairs - 1:
+        if index == option_pairs_count - 1:
 
             call_max_actval = True
         else:
@@ -12454,7 +12454,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if call_open[nCount_option_pairs - 1]:
+        if call_open[option_pairs_count - 1]:
             new_actval = repr(call_below_atm_count) + '/' + repr(call_open.count(True)) + '*'
         else:
             new_actval = repr(call_below_atm_count) + '/' + repr(call_open.count(True))
@@ -12533,14 +12533,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_gap_percent, call_db_percent      
         global 콜시가갭합, 콜시가갭합_퍼센트
         
-        call_ol = [False] * nCount_option_pairs
-        call_oh = [False] * nCount_option_pairs
-        call_gap_percent = [NaN] * nCount_option_pairs
-        call_db_percent = [NaN] * nCount_option_pairs
+        call_ol = [False] * option_pairs_count
+        call_oh = [False] * option_pairs_count
+        call_gap_percent = [NaN] * option_pairs_count
+        call_db_percent = [NaN] * option_pairs_count
         call_below_atm_count = 0
 
         if not service_start:
-            call_open = [False] * nCount_option_pairs
+            call_open = [False] * option_pairs_count
         else:
             pass
 
@@ -12708,7 +12708,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
 
         # Call Open Count 및 OLOH 표시
-        if call_open[nCount_option_pairs - 1]:
+        if call_open[option_pairs_count - 1]:
 
             new_actval = repr(call_below_atm_count) + '/' + repr(call_open.count(True)) + '*'
         else:
@@ -12788,7 +12788,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global df_call, call_db_percent
 
-        for index in range(nCount_option_pairs):
+        for index in range(option_pairs_count):
 
             if df_call.iloc[index]['시가'] > opt_search_start_value:
 
@@ -13625,14 +13625,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global put_gap_percent, put_db_percent     
         global 풋시가갭합, 풋시가갭합_퍼센트
         
-        put_ol = [False] * nCount_option_pairs
-        put_oh = [False] * nCount_option_pairs
-        put_gap_percent = [NaN] * nCount_option_pairs
-        put_db_percent = [NaN] * nCount_option_pairs
+        put_ol = [False] * option_pairs_count
+        put_oh = [False] * option_pairs_count
+        put_gap_percent = [NaN] * option_pairs_count
+        put_db_percent = [NaN] * option_pairs_count
         put_above_atm_count = 0
 
         if not service_start:
-            put_open = [False] * nCount_option_pairs
+            put_open = [False] * option_pairs_count
         else:
             pass
         
@@ -13880,7 +13880,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global df_put, put_db_percent
 
-        for index in range(nCount_option_pairs):
+        for index in range(option_pairs_count):
 
             if df_put.iloc[index]['시가'] > opt_search_start_value:
 
