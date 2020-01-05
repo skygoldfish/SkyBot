@@ -5521,22 +5521,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         node_coloring = True
 
         self.call_node_color_clear()
-        self.put_node_color_clear()
-        
-        # 시가 OL/OH 탐색
         self.call_open_check()
-        self.put_open_check()
-        
-        # 교차가 탐색
         self.call_center_color_update()
-        self.put_center_color_update()
-        
-        # 주요맥점 탐색
         self.call_node_color_update()
-        self.put_node_color_update()
-
-        # 의미가 탐색
         self.call_coreval_color_update()
+
+        self.put_node_color_clear()
+        self.put_open_check()
+        self.put_center_color_update()
+        self.put_node_color_update()
         self.put_coreval_color_update()
 
         node_coloring = False
@@ -5552,8 +5545,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
         self.textBrowser.append(str)
 
-        return
-        
+        return        
 
     def label_atm_display(self):
 
@@ -8984,14 +8976,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     for i in range(option_pairs_count):
 
-                        # 콜 데이타 획득
-                        현재가 = df['현재가'][i]
-                        df_call.loc[i, '현재가'] = 현재가
-
-                        item = QTableWidgetItem("{0:0.2f}".format(현재가))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_call.setItem(i, Option_column.현재가.value, item)
-                        
+                        # 콜 데이타 획득                        
                         시가 = df['시가'][i]
                         df_call.loc[i, '시가'] = 시가
 
@@ -9030,6 +9015,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             시가갭 = 0
                             df_call.loc[i, '시가갭'] = 시가갭
+
+                        현재가 = df['현재가'][i]
+                        df_call.loc[i, '현재가'] = 현재가
+
+                        item = QTableWidgetItem("{0:0.2f}".format(현재가))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(옅은회색))
+
+                        if 시가 > 0:
+
+                            if 현재가 > 시가:
+                                item.setForeground(QBrush(적색))
+                            elif 현재가 < 시가:
+                                item.setForeground(QBrush(청색))
+                            else:
+                                item.setForeground(QBrush(검정색))
+                        else:
+                            pass
+                        
+                        self.tableWidget_call.setItem(i, Option_column.현재가.value, item)
                         
                         저가 = df['저가'][i]
                         df_call.loc[i, '저가'] = 저가
@@ -9051,14 +9056,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        # 풋 데이타 획득
-                        현재가 = df1['현재가'][i]
-                        df_put.loc[i, '현재가'] = 현재가
-
-                        item = QTableWidgetItem("{0:0.2f}".format(현재가))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_put.setItem(i, Option_column.현재가.value, item)
-                        
+                        # 풋 데이타 획득                        
                         시가 = df1['시가'][i]
                         df_put.loc[i, '시가'] = 시가
 
@@ -9097,6 +9095,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             시가갭 = 0
                             df_put.loc[i, '시가갭'] = 시가갭
+
+                        현재가 = df1['현재가'][i]
+                        df_put.loc[i, '현재가'] = 현재가
+
+                        item = QTableWidgetItem("{0:0.2f}".format(현재가))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(옅은회색))
+
+                        if 시가 > 0:
+
+                            if 현재가 > 시가:
+                                item.setForeground(QBrush(적색))
+                            elif 현재가 < 시가:
+                                item.setForeground(QBrush(청색))
+                            else:
+                                item.setForeground(QBrush(검정색))
+                        else:
+                            pass
+                        
+                        self.tableWidget_put.setItem(i, Option_column.현재가.value, item)
                         
                         저가 = df1['저가'][i]
                         df_put.loc[i, '저가'] = 저가
@@ -9603,7 +9621,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_call.loc[i, '현재가'] = 현재가
 
                     item = QTableWidgetItem("{0:0.2f}".format(현재가))
-                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setTextAlignment(Qt.AlignCenter)                    
+                    item.setBackground(QBrush(옅은회색))
 
                     if 시가 > 0:
 
@@ -9616,7 +9635,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         item.setForeground(QBrush(검정색))
 
-                    item.setBackground(QBrush(옅은회색))
                     self.tableWidget_call.setItem(i, Option_column.현재가.value, item)
 
                     저가 = df['저가'][i]
@@ -9837,7 +9855,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_put.loc[i, '현재가'] = 현재가
 
                     item = QTableWidgetItem("{0:0.2f}".format(현재가))
-                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setTextAlignment(Qt.AlignCenter)                    
+                    item.setBackground(QBrush(옅은회색))
 
                     if 시가 > 0:
 
@@ -9850,7 +9869,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         item.setForeground(QBrush(검정색))
 
-                    item.setBackground(QBrush(옅은회색))
                     self.tableWidget_put.setItem(i, Option_column.현재가.value, item)
 
                     저가 = df1['저가'][i]
@@ -10168,7 +10186,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_call.loc[i, '현재가'] = 현재가
 
                     item = QTableWidgetItem("{0:0.2f}".format(현재가))
-                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setTextAlignment(Qt.AlignCenter)                    
+                    item.setBackground(QBrush(옅은회색))
+
+                    if 시가 > 0:
+
+                        if 시가 < 현재가:
+                            item.setForeground(QBrush(적색))
+                        elif 시가 > 현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+                    else:
+                        item.setForeground(QBrush(검정색))
+
                     self.tableWidget_call.setItem(i, Option_column.현재가.value, item)
 
                     저가 = df['저가'][i]
@@ -10220,7 +10251,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_put.loc[i, '현재가'] = 현재가
 
                     item = QTableWidgetItem("{0:0.2f}".format(현재가))
-                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setTextAlignment(Qt.AlignCenter)                    
+                    item.setBackground(QBrush(옅은회색))
+
+                    if 시가 > 0:
+
+                        if 시가 < 현재가:
+                            item.setForeground(QBrush(적색))
+                        elif 시가 > 현재가:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
+                    else:
+                        item.setForeground(QBrush(검정색))
+
                     self.tableWidget_put.setItem(i, Option_column.현재가.value, item)
                     
                     저가 = df1['저가'][i]
