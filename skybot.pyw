@@ -5998,13 +5998,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def call_node_color_clear(self):
 
         for i in range(call_scroll_begin_position, call_scroll_end_position):
-            '''
+            
             oloh_str = ''                           
             item = QTableWidgetItem(oloh_str)
             item.setBackground(QBrush(흰색))
             item.setForeground(QBrush(검정색))
             self.tableWidget_call.setItem(i, Option_column.OLOH.value, item)
-            '''
+            
             if call_node_state['기준가']:
                 self.tableWidget_call.item(i, Option_column.기준가.value).setBackground(QBrush(흰색))
                 self.tableWidget_call.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
@@ -7479,13 +7479,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def put_node_color_clear(self):
 
         for i in range(put_scroll_begin_position, put_scroll_end_position):
-            '''
+            
             oloh_str = ''                           
             item = QTableWidgetItem(oloh_str)
             item.setBackground(QBrush(흰색))
             item.setForeground(QBrush(검정색))
             self.tableWidget_put.setItem(i, Option_column.OLOH.value, item)
-            '''
+            
             if put_node_state['기준가']:
                 self.tableWidget_put.item(i, Option_column.기준가.value).setBackground(QBrush(흰색))
                 self.tableWidget_put.item(i, Option_column.기준가.value).setForeground(QBrush(검정색))
@@ -16727,7 +16727,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         return
 
     def RemoveCode(self):
-
+        
         file = open('skybot.log', 'w')
         text = self.textBrowser.toPlainText()
         file.write(text)
@@ -16735,11 +16735,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.image_grab()
 
-        global refresh_flag
-
-        refresh_flag = False 
-
-        print('RemoveCode')
+        return
 
     def closeEvent(self,event):
 
