@@ -2425,13 +2425,13 @@ class update_worker(QThread):
                 # COMBO 4
                 if comboindex4 == 0:
 
-                    plot4_1_data = df_plotdata_fut_volume.iloc[0].values.tolist()
-                    plot4_2_data = None
+                    plot4_1_data = df_plotdata_fut.iloc[0].values.tolist()
+                    plot4_2_data = df_plotdata_kp200.iloc[0].values.tolist()
 
                 elif comboindex4 == 1:                             
 
-                    plot4_1_data = df_plotdata_fut.iloc[0].values.tolist()
-                    plot4_2_data = df_plotdata_kp200.iloc[0].values.tolist()
+                    plot4_1_data = df_plotdata_fut_volume.iloc[0].values.tolist()
+                    plot4_2_data = None
                 else:
                     pass  
             else:
@@ -4122,6 +4122,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 plot4_price_curve.clear()
                 plot4_kp200_curve.clear()
 
+                plot4_fut_jl_line.setValue(0)
+                plot4_fut_jh_line.setValue(0)
                 plot4_fut_pivot_line.setValue(0)
                 plot4_fut_close_line.setValue(0)
                 plot4_fut_open_line.setValue(0)
@@ -4908,7 +4910,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 그래프 그리기
                 '''
                 if x_idx > 선물장간_시간차 + 10 and opt_x_idx > 선물장간_시간차 + 10:
-
                     
                 else:
                     pass
@@ -5029,7 +5030,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             pass
                     else:
                         pass
-
+                
                 # Plot 3, Plot4 그리기
                 if UI_STYLE == 'Vertical_view.ui':
 
@@ -5106,9 +5107,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         plot3_curve.setData(plot3_data)
                     else:
                         pass
-
+                    
                     if comboindex4 == 0:
-
+                        
                         if 선물_전저 > 0:
                             plot4_fut_jl_line.setValue(선물_전저)
                         else:
@@ -5133,10 +5134,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             plot4_fut_open_line.setValue(선물_시가)
                         else:
                             pass                  
-
+                        
                         plot4_price_curve.setData(plot4_1_data)
                         plot4_kp200_curve.setData(plot4_2_data)
-
+                        
                     elif comboindex4 == 1:                        
                         
                         if 선물_누적거래량 > 0:
@@ -5145,7 +5146,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             plot4_fv_minus_curve.setData(plot4_1_data)
                     else:
-                        pass
+                        pass                    
                 else:
                     pass
 
@@ -5256,7 +5257,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     plot2_hc_high_line.setValue(nasdaq_고가)
                     plot2_hc_low_line.setValue(nasdaq_저가)
                 else:
-                    pass                 
+                    pass          
 
                 # 호가 갱신
                 if receive_quote:
@@ -16727,7 +16728,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         return
 
     def RemoveCode(self):
-        
+
         file = open('skybot.log', 'w')
         text = self.textBrowser.toPlainText()
         file.write(text)
