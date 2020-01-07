@@ -14542,7 +14542,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             fut_realdata['KP200'] = result['예상지수']
 
                             #df_plotdata_kp200.iloc[0][선물장간_시간차] = result['예상지수']
-                            df_plotdata_kp200.iloc[0][x_yj_idx] = result['예상지수']
+
+                            if x_yj_idx > 0:
+                                df_plotdata_kp200.iloc[0][x_yj_idx] = result['예상지수']
+                            else:
+                                pass
 
                             item = QTableWidgetItem("{0:0.2f}".format(result['예상지수']))
                             item.setTextAlignment(Qt.AlignCenter)
@@ -14880,7 +14884,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             fut_realdata['시가'] = result['예상체결가격']
 
                             #df_plotdata_fut.iloc[0][선물장간_시간차] = result['예상체결가격']
-                            df_plotdata_fut.iloc[0][x_yfc_idx] = result['예상체결가격']
+
+                            if x_yfc_idx > 0:
+                                df_plotdata_fut.iloc[0][x_yfc_idx] = result['예상체결가격']
+                            else:
+                                pass
 
                             item = QTableWidgetItem("{0:0.2f}".format(result['예상체결가격']))
                             item.setTextAlignment(Qt.AlignCenter)
