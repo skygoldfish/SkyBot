@@ -11951,24 +11951,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setItem(index, Option_column.대비.value, item)
 
-            temp = call_db_percent[:]
-            call_db_percent_local = [value for value in temp if not math.isnan(value)]
-            call_db_percent_local.sort()
-
-            if call_db_percent_local:
-
-                대비합 = round(df_call['대비'].sum(), 2)
-                tmp = np.array(call_db_percent_local)            
-                대비평균 = int(round(np.mean(tmp), 2))
-                call_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
-
-                item = QTableWidgetItem(call_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
-                self.tableWidget_call.resizeColumnsToContents()
-            else:
-                pass
-
             # 수정거래량 및 미결 계산
             if float(현재가) <= df_call.iloc[index]['시가갭']:
 
@@ -12247,26 +12229,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if call_db_percent_local:
             
-            sumc = round(df_call['대비'].sum(), 2)
-
-            '''
-            if sumc >= 0:
-
-                direction = '▲'
-            else:
-                direction = '▼'
-            
-            if direction != self.tableWidget_call.horizontalHeaderItem(0).text():
-                item = QTableWidgetItem(direction)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setHorizontalHeaderItem(0, item)
-            else:
-                pass
-            '''
+            대비합 = round(df_call['대비'].sum(), 2)
 
             tmp = np.array(call_db_percent_local)            
-            meanc = int(round(np.mean(tmp), 2))
-            call_str = repr(sumc) + '\n (' + repr(meanc) + '%' + ') '
+            대비평균 = int(round(np.mean(tmp), 2))
+            call_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
 
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(call_str)
@@ -13042,24 +13009,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setItem(index, Option_column.대비.value, item)
 
-            temp = put_db_percent[:]
-            put_db_percent_local = [value for value in temp if not math.isnan(value)]
-            put_db_percent_local.sort()
-
-            if put_db_percent_local:
-
-                대비합 = round(df_put['대비'].sum(), 2)
-                tmp = np.array(put_db_percent_local)            
-                대비평균 = int(round(np.mean(tmp), 2))
-                put_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
-
-                item = QTableWidgetItem(put_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
-                self.tableWidget_put.resizeColumnsToContents()
-            else:
-                pass
-
             # 수정거래량 및 미결 계산
             if float(현재가) <= df_put.iloc[index]['시가갭']:
 
@@ -13338,26 +13287,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if put_db_percent_local:
             
-            sump = round(df_put['대비'].sum(), 2)
-
-            '''
-            if sump >= 0:
-
-                direction = '▲'
-            else:
-                direction = '▼'
-            
-            if direction != self.tableWidget_put.horizontalHeaderItem(0).text():
-                item = QTableWidgetItem(direction)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setHorizontalHeaderItem(0, item)
-            else:
-                pass   
-            '''
+            대비합 = round(df_put['대비'].sum(), 2)
 
             tmp = np.array(put_db_percent_local)            
-            meanp = int(round(np.mean(tmp), 2))
-            put_str = repr(sump) + '\n (' + repr(meanp) + '%' + ') '
+            대비평균 = int(round(np.mean(tmp), 2))
+            put_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(put_str)
