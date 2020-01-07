@@ -14530,11 +14530,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if result['업종코드'] == KOSPI200:
 
+                        if result['시간'] != '':
+                            x_yj_idx = (int(result['시간'][0:2]) - domestic_start_hour - 1) * 60 + int(result['시간'][2:4]) + 1
+                        else:
+                            pass
+                            #x_idx = 1
+
                         if result['예상지수'] != float(self.tableWidget_fut.item(2, Futures_column.시가.value).text()):
 
                             kp200_realdata['시가'] = result['예상지수']
                             fut_realdata['KP200'] = result['예상지수']
-                            df_plotdata_kp200.iloc[0][선물장간_시간차] = result['예상지수']
+
+                            #df_plotdata_kp200.iloc[0][선물장간_시간차] = result['예상지수']
+                            df_plotdata_kp200.iloc[0][x_yj_idx] = result['예상지수']
 
                             item = QTableWidgetItem("{0:0.2f}".format(result['예상지수']))
                             item.setTextAlignment(Qt.AlignCenter)
@@ -14861,10 +14869,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if result['단축코드'] == gmshcode:
 
+                        if result['예상체결시간'] != '':
+                            x_yfc_idx = (int(result['예상체결시간'][0:2]) - domestic_start_hour - 1) * 60 + int(result['예상체결시간'][2:4]) + 1
+                        else:
+                            pass
+                            #x_idx = 1
+
                         if result['예상체결가격'] != float(self.tableWidget_fut.item(1, Futures_column.시가.value).text()):
 
                             fut_realdata['시가'] = result['예상체결가격']
-                            df_plotdata_fut.iloc[0][선물장간_시간차] = result['예상체결가격']
+
+                            #df_plotdata_fut.iloc[0][선물장간_시간차] = result['예상체결가격']
+                            df_plotdata_fut.iloc[0][x_yfc_idx] = result['예상체결가격']
 
                             item = QTableWidgetItem("{0:0.2f}".format(result['예상체결가격']))
                             item.setTextAlignment(Qt.AlignCenter)
@@ -15035,6 +15051,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         fut_realdata['KP200'] = round(float(result['지수']), 2)
                         kp200_realdata['현재가'] = round(float(result['지수']), 2)
                         df_fut.loc[2, '현재가'] = round(float(result['지수']), 2)
+                        
+                        #df_plotdata_kp200.iloc[0][x_idx] = kp200_realdata['현재가']
 
                         if float(result['지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
                             item = QTableWidgetItem(result['지수'] + ' ' + self.상태그림[0])
