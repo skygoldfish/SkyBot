@@ -831,6 +831,18 @@ put_max_actval = False
 fut_ol = False
 fut_oh = False
 
+콜_인덱스 = 0
+콜_시가 = ''
+콜_현재가 = ''
+콜_저가 = ''
+콜_고가 = ''
+
+풋_인덱스 = 0
+풋_시가 = ''
+풋_현재가 = ''
+풋_저가 = ''
+풋_고가 = ''
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -11805,16 +11817,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global node_coloring
         global call_open_list, call_update_time
         global call_max_actval, call_open
+        global 콜_인덱스, 콜_시가, 콜_현재가, 콜_저가, 콜_고가
 
         dt = datetime.datetime.now()
 
         index = call_행사가.index(result['단축코드'][5:8])
+        #콜_인덱스 = index
         
         시가 = result['시가']
         현재가 = result['현재가']
         저가 = result['저가']
         고가 = result['고가']
-
+        '''
+        콜_시가 = result['시가']
+        콜_현재가 = result['현재가']
+        콜_저가 = result['저가']
+        콜_고가 = result['고가']
+        '''
         if 저가 != 고가:
 
             if not call_open[index]:
@@ -11828,8 +11847,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
-                            int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
+                str = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format(int(result['체결시간'][0:2]), \
+                            int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), call_open_list)
                 self.textBrowser.append(str)
 
                 if index > atm_index:
@@ -11893,8 +11912,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             call_피봇 = df_call['피봇'].values.tolist()
             call_피봇_node_list = self.make_node_list(call_피봇)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Open Update !!!\r'.format(int(call_result['체결시간'][0:2]), \
-                        int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), df_call.iloc[index]['시가'])
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Open Update !!!\r'.format(int(result['체결시간'][0:2]), \
+                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), df_call.iloc[index]['시가'])
             self.textBrowser.append(str)
                         
             self.call_open_gap_update(index)
@@ -12039,10 +12058,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             flag_call_low_update = True
             
-            call_update_time = int(call_result['체결시간'][0:2]) * 3600 + int(call_result['체결시간'][2:4]) * 60 + int(call_result['체결시간'][4:6])
+            call_update_time = int(call_result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6])
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가({3}) Update...\r'.format(\
-                int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), round(float(저가), 2))
+                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(저가), 2))
             self.textBrowser.append(str)
 
             if not node_coloring:
@@ -12098,10 +12117,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             flag_call_high_update = True
             
-            call_update_time = int(call_result['체결시간'][0:2]) * 3600 + int(call_result['체결시간'][2:4]) * 60 + int(call_result['체결시간'][4:6])
+            call_update_time = int(result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6])
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가({3}) Update...\r'.format(\
-                int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), round(float(고가), 2))
+                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(고가), 2))
             self.textBrowser.append(str)
 
             if not node_coloring:
@@ -12240,7 +12259,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def call_oi_update(self):
 	
-        global df_call, df_plotdata_call_oi
+        global df_call
 	
         index = call_행사가.index(call_result['단축코드'][5:8])
         
@@ -12914,16 +12933,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global flag_put_low_update, flag_put_high_update
         global put_open_list, put_update_time
         global put_max_actval, put_open
+        global 풋_인덱스, 풋_시가, 풋_현재가, 풋_저가, 풋_고가
 
         dt = datetime.datetime.now()
 
         index = put_행사가.index(result['단축코드'][5:8])
+        #풋_인덱스 = index
         
         시가 = result['시가']
         현재가 = result['현재가']
         저가 = result['저가']
         고가 = result['고가']
-
+        '''
+        풋_시가 = result['시가']
+        풋_현재가 = result['현재가']
+        풋_저가 = result['저가']
+        풋_고가 = result['고가']
+        '''
         if 저가 != 고가:
 
             if not put_open[index]:
@@ -12937,8 +12963,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
-                            int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
+                str = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format(int(result['체결시간'][0:2]), \
+                            int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), put_open_list)
                 self.textBrowser.append(str)
 
                 if index < atm_index:
@@ -13001,8 +13027,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             put_피봇 = df_put['피봇'].values.tolist()
             put_피봇_node_list = self.make_node_list(put_피봇)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Open Update !!!\r'.format(int(put_result['체결시간'][0:2]), \
-                        int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), df_put.iloc[index]['시가'])
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Open Update !!!\r'.format(int(result['체결시간'][0:2]), \
+                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), df_put.iloc[index]['시가'])
             self.textBrowser.append(str)
                         
             self.put_open_gap_update(index)
@@ -13147,10 +13173,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             flag_put_low_update = True
             
-            put_update_time = int(put_result['체결시간'][0:2]) * 3600 + int(put_result['체결시간'][2:4]) * 60 + int(put_result['체결시간'][4:6])
+            put_update_time = int(put_result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6])
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가({3}) Update...\r'.format(\
-                int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), round(float(저가), 2))
+                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(저가), 2))
             self.textBrowser.append(str)
 
             if not node_coloring:
@@ -13206,10 +13232,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             flag_put_high_update = True
             
-            put_update_time = int(put_result['체결시간'][0:2]) * 3600 + int(put_result['체결시간'][2:4]) * 60 + int(put_result['체결시간'][4:6])
+            put_update_time = int(put_result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6])
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가({3}) Update...\r'.format(\
-                int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), round(float(고가), 2))
+                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(고가), 2))
             self.textBrowser.append(str)
 
             if not node_coloring:
@@ -13349,7 +13375,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def put_oi_update(self):
 	
-        global df_put, df_plotdata_put_oi
+        global df_put
 		
         index = put_행사가.index(put_result['단축코드'][5:8])
         
