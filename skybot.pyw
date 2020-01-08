@@ -2248,40 +2248,12 @@ class update_worker(QThread):
     finished = pyqtSignal(dict)
     
     def run(self):
-
-        global df_plotdata_call_volume, df_plotdata_put_volume, df_plotdata_volume_cha
-        global df_plotdata_call_oi, df_plotdata_put_oi 
-        global call_volume_total, put_volume_total
-        global 콜_수정미결합, 풋_수정미결합 
         
         while True:
-            data = {} 
 
-            dt = datetime.datetime.now()           
-            
-            if opt_x_idx >= 선물장간_시간차 + 1:
+            data = {}
 
-                call_volume_total = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
-                df_plotdata_call_volume.iloc[0][opt_x_idx] = call_volume_total
-
-                put_volume_total = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
-                df_plotdata_put_volume.iloc[0][opt_x_idx] = put_volume_total
-
-                df_plotdata_volume_cha.iloc[0][opt_x_idx] = call_volume_total - put_volume_total
-
-                if not overnight:                    
-                    
-                    콜_수정미결합 = df_call['수정미결'].sum() - call_oi_init_value
-                    풋_수정미결합 = df_put['수정미결'].sum() - put_oi_init_value
-                    
-                    df_plotdata_call_oi.iloc[0][opt_x_idx] = 콜_수정미결합
-                    df_plotdata_put_oi.iloc[0][opt_x_idx] = 풋_수정미결합
-                else:
-                    pass
-            else:
-                pass 
-
-            # atm index 중심으로 위,아래 5개 요청(총 11개)
+            # atm index 중심으로 위,아래 15개 요청(총 31개)
             for actval in opt_actval[atm_index - 15:atm_index + 16]:
             #for actval in opt_actval:
 
@@ -4111,11 +4083,30 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 plot4_fv_plus_curve.clear()
                 plot4_fv_minus_curve.clear()
 
-                plot4_fut_jl_line.setValue(선물_전저)
-                plot4_fut_jh_line.setValue(선물_전고)
-                plot4_fut_close_line.setValue(선물_종가)                
-                plot4_fut_pivot_line.setValue(선물_피봇)
-                plot4_fut_open_line.setValue(선물_시가)
+                if 선물_전저 > 0:
+                    plot4_fut_jl_line.setValue(선물_전저)
+                else:
+                    pass
+
+                if 선물_전고 > 0:
+                    plot4_fut_jh_line.setValue(선물_전고)
+                else:
+                    pass
+
+                if 선물_종가 > 0:
+                    plot4_fut_close_line.setValue(선물_종가)
+                else:
+                    pass
+
+                if 선물_피봇 > 0:                
+                    plot4_fut_pivot_line.setValue(선물_피봇)
+                else:
+                    pass
+
+                if 선물_시가 > 0:
+                    plot4_fut_open_line.setValue(선물_시가)
+                else:
+                    pass
 
             elif comboindex4 == 1:
                 
@@ -12313,6 +12304,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         call_volume_total = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
+        df_plotdata_call_volume.iloc[0][opt_x_idx] = call_volume_total
 
         순매수누적체결량 = format(call_volume_total, ',')
 
@@ -13372,6 +13364,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         put_volume_total = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
+        df_plotdata_put_volume.iloc[0][opt_x_idx] = put_volume_total
+
+        df_plotdata_volume_cha.iloc[0][opt_x_idx] = call_volume_total - put_volume_total
 
         순매수누적체결량 = format(put_volume_total, ',')
 
@@ -14032,10 +14027,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def oi_sum_display(self):
         
         global 콜_수정미결합, 풋_수정미결합
-        global oi_delta, oi_delta_old, 수정미결_직전대비
+        global oi_delta, oi_delta_old, 수정미결_직전대비        
 
         콜_수정미결합 = df_call['수정미결'].sum() - call_oi_init_value
         풋_수정미결합 = df_put['수정미결'].sum() - put_oi_init_value
+                    
+        df_plotdata_call_oi.iloc[0][opt_x_idx] = 콜_수정미결합
+        df_plotdata_put_oi.iloc[0][opt_x_idx] = 풋_수정미결합
 
         oi_delta_old = oi_delta
         oi_delta = 콜_수정미결합 - 풋_수정미결합
