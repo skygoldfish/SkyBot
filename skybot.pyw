@@ -5136,7 +5136,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if 선물_시가 > 0:
                             plot4_fut_open_line.setValue(선물_시가)
                         else:
-                            pass                  
+                            pass
                         
                         plot4_price_curve.setData(plot4_1_data)
                         plot4_kp200_curve.setData(plot4_2_data)
@@ -7985,7 +7985,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 df_plotdata_kp200.iloc[0][0] = fut_realdata['KP200']
                 df_plotdata_fut.iloc[0][0] = fut_realdata['종가']
-                df_plotdata_fut.iloc[0][선물장간_시간차] = fut_realdata['시가']
+
+                if fut_realdata['시가'] > 0:
+                    df_plotdata_fut.iloc[0][선물장간_시간차] = fut_realdata['시가']
+                else:
+                    pass
+
                 df_plotdata_fut_volume.iloc[0][0] = 0
                 df_plotdata_fut_volume.iloc[0][선물장간_시간차] = 0
             else:
@@ -9326,6 +9331,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 주간 현재가가 야간 종가임 
                 df_plotdata_fut.iloc[0][0] = fut_realdata['현재가']
 
+                # 초기 plot화면 설정
+                plot4_fut_jl_line.setValue(fut_realdata['현재가'])
+                plot4_fut_jh_line.setValue(fut_realdata['현재가'])
+                plot4_fut_close_line.setValue(fut_realdata['현재가'])
+                plot4_fut_pivot_line.setValue(fut_realdata['현재가'])
+                plot4_fut_open_line.setValue(fut_realdata['현재가'])
+
                 df_plotdata_fut_volume.iloc[0][0] = 0
                 df_plotdata_fut_volume.iloc[0][선물장간_시간차] = 0
 
@@ -9451,7 +9463,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 df_plotdata_kp200.iloc[0][0] = fut_realdata['KP200']
                 df_plotdata_fut.iloc[0][0] = cme_realdata['종가']
-                df_plotdata_fut.iloc[0][선물장간_시간차] = cme_realdata['시가']
+
+                if cme_realdata['시가'] > 0:
+                    df_plotdata_fut.iloc[0][선물장간_시간차] = cme_realdata['시가']
+                else:
+                    pass
+
                 df_plotdata_fut_volume.iloc[0][0] = 0
                 df_plotdata_fut_volume.iloc[0][선물장간_시간차] = 0
             else:
