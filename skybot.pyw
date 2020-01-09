@@ -10938,8 +10938,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if mangi_yagan == 'YES':
 
-                gmshcode = 차월물선물코드
-                cmshcode = 차차월물선물코드
+                if current_month == 3 or current_month == 6 or current_month == 9 or current_month == 12:
+                    gmshcode = 차월물선물코드
+                    cmshcode = 차차월물선물코드
+                else:
+                    gmshcode = 근월물선물코드
+                    cmshcode = 차월물선물코드
             else:
                 gmshcode = 근월물선물코드
                 cmshcode = 차월물선물코드
