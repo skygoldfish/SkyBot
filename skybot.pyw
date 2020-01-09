@@ -12079,7 +12079,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             flag_call_low_update = True
             
-            call_update_time = int(call_result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6])
+            call_update_time = int(result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6])
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가({3}) Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(저가), 2))
@@ -13194,7 +13194,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             flag_put_low_update = True
             
-            put_update_time = int(put_result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6])
+            put_update_time = int(result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6])
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가({3}) Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(저가), 2))
@@ -13253,7 +13253,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             flag_put_high_update = True
             
-            put_update_time = int(put_result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6])
+            put_update_time = int(result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6])
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가({3}) Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(고가), 2))
@@ -15963,16 +15963,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if result['현재가'] != 콜현재가:
                         
                         콜현재가 = result['현재가']
-                        '''
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Call {3} 수신\r'.format(
-                            int(result['체결시간'][0:2]),
-                            int(result['체결시간'][2:4]),
-                            int(result['체결시간'][4:6]),
-                            result['현재가'])
-                        self.textBrowser.append(str)
-                        '''
-                        call_result = copy.deepcopy(result)
-                        
+
+                        call_result = copy.deepcopy(result)                        
                         self.call_display(result)                      
 
                         if opt_callreal_update_counter >= 500:
@@ -16014,16 +16006,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if result['현재가'] != 풋현재가:
 
                         풋현재가 = result['현재가']
-                        '''
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Put {3} 수신\r'.format(
-                            int(result['체결시간'][0:2]),
-                            int(result['체결시간'][2:4]),
-                            int(result['체결시간'][4:6]),
-                            result['현재가'])
-                        self.textBrowser.append(str)
-                        '''
-                        put_result = copy.deepcopy(result)
 
+                        put_result = copy.deepcopy(result)
                         self.put_display(result)                      
 
                         if opt_putreal_update_counter >= 500:
