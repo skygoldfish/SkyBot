@@ -1,5 +1,5 @@
 start hour = 9
-mangi yagan = NO
+mangi yagan = YES
 current month = 202001
 first day of the current month = 20191213
 next month = 202002
