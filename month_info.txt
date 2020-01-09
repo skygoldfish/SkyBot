@@ -1,9 +1,9 @@
 start hour = 9
 mangi yagan = NO
-current month = 202001
-first day of the current month = 20191213
-next month = 202002
-month after next = 202003
+current month = 202002
+first day of the current month = 20200110
+next month = 202003
+month after next = 202004
 next month select = NO
 current + next month = NO
 S&P 500 = ESH20
