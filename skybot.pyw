@@ -11666,7 +11666,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if 선물_전저 >= 선물_저가:
 
-                str = repr(선물_전저) + ' ▼'
+                #str = repr(선물_전저) + ' ▼'
+                str = '{0:0.2f}'.format(선물_전저) + ' ▼'
+
                 item = QTableWidgetItem(str)
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setForeground(QBrush(청색))  
@@ -11723,7 +11725,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if 선물_전고 <= 선물_고가:
 
-                str = repr(선물_전고) + ' ▲'
+                #str = repr(선물_전고) + ' ▲'
+                str = '{0:0.2f}'.format(선물_전고) + ' ▲'
+
                 item = QTableWidgetItem(str)
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setForeground(QBrush(적색))  
@@ -12048,7 +12052,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if df_call.iloc[index]['전저'] >= df_call.iloc[index]['저가']:
 
-                    str = repr(df_call.iloc[index]['전저']) + ' ▼'
+                    str = '{0:0.2f}'.format(df_call.iloc[index]['전저']) + ' ▼'
                     item = QTableWidgetItem(str)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setForeground(QBrush(청색))             
@@ -12059,7 +12063,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if df_call.iloc[index]['월저'] >= df_call.iloc[index]['저가']:
 
-                    str = repr(df_call.iloc[index]['월저']) + ' ▼'
+                    str = '{0:0.2f}'.format(df_call.iloc[index]['월저']) + ' ▼'
                     item = QTableWidgetItem(str)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setForeground(QBrush(청색))             
@@ -12107,7 +12111,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if df_call.iloc[index]['전고'] <= df_call.iloc[index]['고가']:
 
-                    str = repr(df_call.iloc[index]['전고']) + ' ▲'
+                    str = '{0:0.2f}'.format(df_call.iloc[index]['전고']) + ' ▲'
                     item = QTableWidgetItem(str)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setForeground(QBrush(적색))             
@@ -12118,7 +12122,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if df_call.iloc[index]['월고'] <= df_call.iloc[index]['고가']:
 
-                    str = repr(df_call.iloc[index]['월고']) + ' ▲'
+                    str = '{0:0.2f}'.format(df_call.iloc[index]['월고']) + ' ▲'
                     item = QTableWidgetItem(str)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setForeground(QBrush(적색))             
@@ -13163,7 +13167,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if df_put.iloc[index]['전저'] >= df_put.iloc[index]['저가']:
 
-                    str = repr(df_put.iloc[index]['전저']) + ' ▼'
+                    str = '{0:0.2f}'.format(df_put.iloc[index]['전저']) + ' ▼'
                     item = QTableWidgetItem(str)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setForeground(QBrush(청색))             
@@ -13174,7 +13178,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if df_put.iloc[index]['월저'] >= df_put.iloc[index]['저가']:
 
-                    str = repr(df_put.iloc[index]['월저']) + ' ▼'
+                    str = '{0:0.2f}'.format(df_put.iloc[index]['월저']) + ' ▼'
                     item = QTableWidgetItem(str)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setForeground(QBrush(청색))             
@@ -13222,7 +13226,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if df_put.iloc[index]['전고'] <= df_put.iloc[index]['고가']:
 
-                    str = repr(df_put.iloc[index]['전고']) + ' ▲'
+                    str = '{0:0.2f}'.format(df_put.iloc[index]['전고']) + ' ▲'
                     item = QTableWidgetItem(str)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setForeground(QBrush(적색))             
@@ -13233,7 +13237,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if df_put.iloc[index]['월고'] <= df_put.iloc[index]['고가']:
 
-                    str = repr(df_put.iloc[index]['월고']) + ' ▲'
+                    str = '{0:0.2f}'.format(df_put.iloc[index]['월고']) + ' ▲'
                     item = QTableWidgetItem(str)
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setForeground(QBrush(적색))             
