@@ -5344,7 +5344,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             self.call_oi_update()                  
                             self.call_volume_power_update()
 
-                            self.call_state_update() 
+                            #self.call_state_update() 
                             self.call_db_update()
 
                             if not overnight:
@@ -5357,7 +5357,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             self.put_oi_update()
                             self.put_volume_power_update()
 
-                            self.put_state_update()
+                            #self.put_state_update()
                             self.put_db_update()
 
                             if not overnight:
