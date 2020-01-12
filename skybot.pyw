@@ -9184,13 +9184,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 주야간 선물전광판 데이타 요청
                     XQ = t2101(parent=self)
                     XQ.Query(종목코드=fut_code)
-                    print('t2101 요청')
+                    print('t2101 주간 선물전광판 데이타 요청 요청')
 
                     time.sleep(0.1)
 
                     XQ = t2801(parent=self)
                     XQ.Query(종목코드=fut_code)
-                    print('t2801 요청')
+                    print('t2801 야간 선물전광판 데이타 요청 요청')
 
                     time.sleep(0.1)
                     
@@ -9209,6 +9209,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             XQ.Query(월물=next_month_info)
                         else:
                             XQ.Query(월물=current_month_info)
+
+                    print('t2835 야간옵션 시세전광판 요청')
             
             self.tableWidget_call.resizeColumnsToContents()
             self.tableWidget_put.resizeColumnsToContents()
@@ -16733,12 +16735,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 XQ.Query(월물=t2301_month_info, 미니구분='G')    
 
-                if overnight:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션전광판 야간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
-                    self.textBrowser.append(str)
-                else:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션전광판 주간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
-                    self.textBrowser.append(str) 
+                str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 주간옵션 시세전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
+                self.textBrowser.append(str)
+                     
             else:
                 if mangi_yagan == 'YES':
                     t2301_month_info = next_month_info
@@ -16747,12 +16746,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 XQ.Query(월물=t2301_month_info, 미니구분='G')
 
-                if overnight:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션전광판 야간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
-                    self.textBrowser.append(str)
-                else:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션전광판 주간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
-                    self.textBrowser.append(str)
+                str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 주간옵션 시세전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
+                self.textBrowser.append(str)                    
+
+            print('t2301 주간옵션 시세전광판 요청')
         else:
             pass
 
