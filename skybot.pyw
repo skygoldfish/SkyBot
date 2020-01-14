@@ -14794,6 +14794,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             self.tableWidget_call.setItem(index, Option_column.시가.value, item)
 
+                            if df_call.iloc[index]['시가'] in coreval:
+
+                                self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                                self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
+                            else:
+                                pass
+
                             df_call.loc[index, '피봇'] = self.calc_pivot(df_call.iloc[index]['전저'],
                                                                           df_call.iloc[index]['전고'],
                                                                           df_call.iloc[index]['종가'],
@@ -14877,6 +14884,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 item.setForeground(QBrush(검정색))
 
                             self.tableWidget_put.setItem(index, Option_column.시가.value, item)
+
+                            if df_put.iloc[index]['시가'] in coreval:
+
+                                self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                                self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
+                            else:
+                                pass
 
                             df_put.loc[index, '피봇'] = self.calc_pivot(df_put.iloc[index]['전저'],
                                                                           df_put.iloc[index]['전고'],
