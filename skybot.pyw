@@ -14614,17 +14614,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if result['업종코드'] == KOSPI200:
 
                         if result['시간'] != '':
-                            x_yj_idx = (int(result['시간'][0:2]) - domestic_start_hour - 1) * 60 + int(result['시간'][2:4]) + 1
+                            x_yj_idx = int(result['시간'][2:4]) + 1
                         else:
                             pass
-                            #x_idx = 1
+
+                        print('kp200 x_yj_idx = ', x_yj_idx)
 
                         if result['예상지수'] != float(self.tableWidget_fut.item(2, Futures_column.시가.value).text()):
 
                             kp200_realdata['시가'] = result['예상지수']
                             fut_realdata['KP200'] = result['예상지수']
-
-                            #df_plotdata_kp200.iloc[0][선물장간_시간차] = result['예상지수']
 
                             if x_yj_idx > 0:
                                 df_plotdata_kp200.iloc[0][x_yj_idx] = result['예상지수']
@@ -14782,6 +14781,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             df_plotdata_call.iloc[index][선물장간_시간차] = float(result['예상체결가격'])
 
                             df_call.loc[index, '시가'] = round(float(result['예상체결가격']), 2)
+
+                            self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(흰색))
+
                             item = QTableWidgetItem("{0}".format(result['예상체결가격']))
                             item.setTextAlignment(Qt.AlignCenter)
 
@@ -14873,6 +14875,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             df_plotdata_put.iloc[index][선물장간_시간차] = float(result['예상체결가격'])
 
                             df_put.loc[index, '시가'] = round(float(result['예상체결가격']), 2)
+
+                            self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(흰색))
+
                             item = QTableWidgetItem("{0}".format(result['예상체결가격']))
                             item.setTextAlignment(Qt.AlignCenter)
 
@@ -14971,16 +14976,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if result['단축코드'] == gmshcode:
 
                         if result['예상체결시간'] != '':
-                            x_yfc_idx = (int(result['예상체결시간'][0:2]) - domestic_start_hour - 1) * 60 + int(result['예상체결시간'][2:4]) + 1
+                            x_yfc_idx = int(result['예상체결시간'][2:4]) + 1
                         else:
                             pass
-                            #x_idx = 1
+
+                        print('선물 x_yfc_idx = ', x_yfc_idx)
 
                         if result['예상체결가격'] != float(self.tableWidget_fut.item(1, Futures_column.시가.value).text()):
 
                             fut_realdata['시가'] = result['예상체결가격']
-
-                            #df_plotdata_fut.iloc[0][선물장간_시간차] = result['예상체결가격']
 
                             if x_yfc_idx > 0:
                                 df_plotdata_fut.iloc[0][x_yfc_idx] = result['예상체결가격']
