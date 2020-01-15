@@ -14618,7 +14618,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        print('kp200 x_yj_idx = ', x_yj_idx)
+                        #print('kp200 x_yj_idx = ', x_yj_idx)
 
                         if result['예상지수'] != float(self.tableWidget_fut.item(2, Futures_column.시가.value).text()):
 
@@ -14980,7 +14980,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        print('선물 x_yfc_idx = ', x_yfc_idx)
+                        #print('선물 x_yfc_idx = ', x_yfc_idx)
 
                         if result['예상체결가격'] != float(self.tableWidget_fut.item(1, Futures_column.시가.value).text()):
 
