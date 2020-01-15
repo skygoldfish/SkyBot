@@ -9333,12 +9333,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 주간 현재가가 야간 종가임 
                 df_plotdata_fut.iloc[0][0] = fut_realdata['현재가']
 
-                # 초기 plot화면 설정
-                plot4_fut_jl_line.setValue(fut_realdata['현재가'])
-                plot4_fut_jh_line.setValue(fut_realdata['현재가'])
-                plot4_fut_close_line.setValue(fut_realdata['현재가'])
-                plot4_fut_pivot_line.setValue(fut_realdata['현재가'])
-                plot4_fut_open_line.setValue(fut_realdata['현재가'])
+                if UI_STYLE == 'Vertical_view.ui':
+
+                    # 초기 plot화면 설정
+                    plot4_fut_jl_line.setValue(fut_realdata['현재가'])
+                    plot4_fut_jh_line.setValue(fut_realdata['현재가'])
+                    plot4_fut_close_line.setValue(fut_realdata['현재가'])
+                    plot4_fut_pivot_line.setValue(fut_realdata['현재가'])
+                    plot4_fut_open_line.setValue(fut_realdata['현재가'])
+                else:
+                    pass
 
                 df_plotdata_fut_volume.iloc[0][0] = 0
                 df_plotdata_fut_volume.iloc[0][선물장간_시간차] = 0
@@ -9368,7 +9372,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 item = QTableWidgetItem("{0:0.2f}".format(df['전일종가']))
                 item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setItem(0, Futures_column.종가.value, item)             
+                self.tableWidget_fut.setItem(0, Futures_column.종가.value, item)
 
             if df['시가'] > 0:
 
@@ -10982,6 +10986,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일종가']))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
+            
+            if UI_STYLE == 'Vertical_view.ui' and not overnight:
+
+                # 초기 plot화면 설정
+                plot4_fut_jl_line.setValue(선물_종가)
+                plot4_fut_jh_line.setValue(선물_종가)
+                plot4_fut_close_line.setValue(선물_종가)
+                plot4_fut_pivot_line.setValue(선물_종가)
+                plot4_fut_open_line.setValue(선물_종가)
+            else:
+                pass
 
             self.tableWidget_fut.resizeColumnsToContents()
             '''
