@@ -9374,7 +9374,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(0, Futures_column.종가.value, item)
 
-                if UI_STYLE == 'Vertical_view.ui' and not overnight:
+                if UI_STYLE == 'Vertical_view.ui':
 
                     # 초기 plot화면 설정
                     plot4_fut_jl_line.setValue(df['현재가'])
