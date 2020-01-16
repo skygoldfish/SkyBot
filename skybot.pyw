@@ -14348,10 +14348,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global dow_delta, dow_delta_old, dow_직전대비
             global nasdaq_delta, nasdaq_delta_old, nasdaq_직전대비
             global receive_real_ovc
-            global ovc_x_idx
+            global x_idx, ovc_x_idx
             global call_result, put_result
             
             global service_start
+            global 선물현재가
 
             start_time = timeit.default_timer()
 
@@ -14643,8 +14644,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             x_yj_idx = int(result['시간'][2:4]) + 1
                         else:
                             pass
-
-                        #print('kp200 x_yj_idx = ', x_yj_idx)
 
                         if result['예상지수'] != float(self.tableWidget_fut.item(2, Futures_column.시가.value).text()):
 
@@ -15003,10 +15002,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if result['예상체결시간'] != '':
                             x_yfc_idx = int(result['예상체결시간'][2:4]) + 1
+                            x_idx = x_yfc_idx
                         else:
                             pass
-
-                        #print('선물 x_yfc_idx = ', x_yfc_idx)
 
                         if result['예상체결가격'] != float(self.tableWidget_fut.item(1, Futures_column.시가.value).text()):
 
@@ -15877,9 +15875,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
                 else:
-                    pass
-
-                global x_idx, 선물현재가
+                    pass                
 
                 # 세로축 시간 좌표값 계산
                 if overnight:
