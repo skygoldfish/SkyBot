@@ -9374,6 +9374,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(0, Futures_column.종가.value, item)
 
+                if UI_STYLE == 'Vertical_view.ui' and not overnight:
+
+                    # 초기 plot화면 설정
+                    plot4_fut_jl_line.setValue(df['현재가'])
+                    plot4_fut_jh_line.setValue(df['현재가'])
+                    plot4_fut_close_line.setValue(df['현재가'])
+                    plot4_fut_pivot_line.setValue(df['현재가'])
+                    plot4_fut_open_line.setValue(df['현재가'])
+                else:
+                    pass
+
             if df['시가'] > 0:
 
                 cme_realdata['시가'] = df['시가']
@@ -10986,7 +10997,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일종가']))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
-            
+            '''
             if UI_STYLE == 'Vertical_view.ui' and not overnight:
 
                 # 초기 plot화면 설정
@@ -10997,7 +11008,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 plot4_fut_open_line.setValue(선물_종가)
             else:
                 pass
-
+            '''
             self.tableWidget_fut.resizeColumnsToContents()
             '''
             if overnight:
