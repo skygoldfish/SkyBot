@@ -4871,7 +4871,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             start_time = timeit.default_timer()            
             dt = datetime.datetime.now()
 
-            global call_max_actval, put_max_actval
             global flag_fut_low, flag_fut_high
             global flag_kp200_low, flag_kp200_high
             global flag_call_low_update, flag_call_high_update, flag_put_low_update, flag_put_high_update
@@ -4911,17 +4910,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.label_clear() 
 
                 # 그래프 그리기
-                '''
-                if x_idx > 선물장간_시간차 + 10 and opt_x_idx > 선물장간_시간차 + 10:
-                    
-                else:
-                    pass
-
-                if opt_x_idx > 선물장간_시간차 + 10:
-                    plot2_time_line.setValue(opt_x_idx)
-                else:
-                    pass
-                '''
 
                 # Plot 1 x축 타임라인
                 if comboindex1 == 0 or comboindex1 == 4:
@@ -5017,6 +5005,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         pass           
 
                     if index == option_pairs_count - 1:
+
                         curve1_data = infos[2]
                         curve2_data = infos[3] 
                         curve3_data = infos[4]
@@ -5153,7 +5142,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                # 선택된 왼쪽 그래프 그리기
+                # 선택된 plot1 그래프 그리기
                 if comboindex1 == 0:
 
                     if 선물_누적거래량 > 0:
@@ -5208,7 +5197,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass   
 
-                # 선택된 오른쪽 그래프 그리기
+                # 선택된 plot2 그래프 그리기
                 if comboindex2 == 0:
                                         
                     plot2_call_volume_curve.setData(curve4_data)
@@ -5273,9 +5262,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if market_service:
-                    
-                    global 콜시가리스트, 콜저가리스트, 콜고가리스트, 풋시가리스트, 풋저가리스트, 풋고가리스트                                        
+                if market_service:                                      
                     
                     # 시작과 동시에 컬러링 갱신
                     if opt_x_idx > 선물장간_시간차:
@@ -5307,36 +5294,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 pass
                         else:
                             pass                       
-
-                        if call_max_actval:
-
-                            call_max_actval = False
-
-                            #self.call_open_check()
-
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 콜 최대 시작가 {3:.2f} 오픈되었습니다.\r'.format(\
-                                dt.hour, dt.minute, dt.second, df_call.iloc[option_pairs_count - 1]['시가'])
-                            self.textBrowser.append(str)
-
-                            #txt = '콜 최대가 오픈'
-                            #Speak(txt)
-                        else:
-                            pass
-
-                        if put_max_actval:
-
-                            put_max_actval = False
-
-                            #self.put_open_check()
-
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 풋 최대 시작가 {3:.2f} 오픈되었습니다.\r'.format(\
-                                dt.hour, dt.minute, dt.second, df_put.iloc[0]['시가'])
-                            self.textBrowser.append(str)
-
-                            #txt = '풋 최대가 오픈'
-                            #Speak(txt)
-                        else:
-                            pass
                         
                         if self.alternate_flag:
 
@@ -5369,12 +5326,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         pass                    
                     
                     # 원웨이장 표시(주간만)
-                    if not overnight:
+                    if not overnight and not service_terminate:
 
-                        if not service_terminate:
-                            self.check_oneway(self.alternate_flag)
-                        else:
-                            pass
+                        self.check_oneway(self.alternate_flag)
                     else:
                         pass                                    
                 else:
@@ -11910,7 +11864,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
                 
                 if index == option_pairs_count - 1:
-                    call_max_actval = True
+
+                    #call_max_actval = True
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜 최대 시작가 {3} 오픈되었습니다.\r'.format(\
+                        int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 시가)
+                    self.textBrowser.append(str)
                 else:
                     pass
             else:
@@ -12013,56 +11972,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem(gap_str)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setItem(index, Option_column.대비.value, item)
-            '''
-            # 수정거래량 및 미결 계산
-            if float(현재가) <= df_call.iloc[index]['시가갭']:
-
-                수정거래량 = (result['매수누적체결량'] - result['매도누적체결량']) * float(현재가)
-                매도누적체결량 = result['매도누적체결량'] * float(현재가)
-                매수누적체결량 = result['매수누적체결량'] * float(현재가)
-
-                if not overnight:
-
-                    매도누적체결건수 = result['매도누적체결건수'] * float(현재가)
-                    매수누적체결건수 = result['매수누적체결건수'] * float(현재가)
-                else:
-                    pass
-            else:
-                수정거래량 = (result['매수누적체결량'] - result['매도누적체결량']) * (float(현재가) - df_call.iloc[index]['시가갭'])
-                매도누적체결량 = result['매도누적체결량'] * (float(현재가) - df_call.iloc[index]['시가갭'])
-                매수누적체결량 = result['매수누적체결량'] * (float(현재가) - df_call.iloc[index]['시가갭'])
-
-                if not overnight:
-
-                    매도누적체결건수 = result['매도누적체결건수'] * (float(현재가) - df_call.iloc[index]['시가갭'])
-                    매수누적체결건수 = result['매수누적체결건수'] * (float(현재가) - df_call.iloc[index]['시가갭'])
-                else:
-                    pass
-
-            df_call.loc[index, '수정거래량'] = int(수정거래량)
-            df_call_volume.loc[index, '매도누적체결량'] = int(매도누적체결량)
-            df_call_volume.loc[index, '매수누적체결량'] = int(매수누적체결량)
-
-            df_call.loc[index, '거래량'] = result['누적거래량']
-
-            if not overnight:
-                
-                df_call_volume.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
-                df_call_volume.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
-
-                if float(현재가) <= df_call.iloc[index]['시가갭']:
-
-                    수정미결 = result['미결제약정수량'] * float(현재가)
-                    수정미결증감 = result['미결제약정증감'] * float(현재가)
-                else:
-                    수정미결 = result['미결제약정수량'] * (float(현재가) - df_call.iloc[index]['시가갭'])
-                    수정미결증감 = result['미결제약정증감'] * (float(현재가) - df_call.iloc[index]['시가갭'])
-
-                df_call.loc[index, '수정미결'] = int(수정미결)
-                df_call.loc[index, '수정미결증감'] = int(수정미결증감)
-            else:
-                pass
-            '''
         else:
             pass
 
@@ -13026,7 +12935,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
 
                 if index == 0:
-                    put_max_actval = True
+
+                    #put_max_actval = True
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋 최대 시작가 {3} 오픈되었습니다.\r'.format(\
+                        int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 시가)
+                    self.textBrowser.append(str)
                 else:
                     pass
             else:
@@ -13128,56 +13042,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem(gap_str)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setItem(index, Option_column.대비.value, item)
-            '''
-            # 수정거래량 및 미결 계산
-            if float(현재가) <= df_put.iloc[index]['시가갭']:
-
-                수정거래량 = (result['매수누적체결량'] - result['매도누적체결량']) * float(현재가)
-                매도누적체결량 = result['매도누적체결량'] * float(현재가)
-                매수누적체결량 = result['매수누적체결량'] * float(현재가)
-
-                if not overnight:
-
-                    매도누적체결건수 = result['매도누적체결건수'] * float(현재가)
-                    매수누적체결건수 = result['매수누적체결건수'] * float(현재가)
-                else:
-                    pass
-            else:
-                수정거래량 = (result['매수누적체결량'] - result['매도누적체결량']) * (float(현재가) - df_put.iloc[index]['시가갭'])
-                매도누적체결량 = result['매도누적체결량'] * (float(현재가) - df_put.iloc[index]['시가갭'])
-                매수누적체결량 = result['매수누적체결량'] * (float(현재가) - df_put.iloc[index]['시가갭'])
-
-                if not overnight:
-
-                    매도누적체결건수 = result['매도누적체결건수'] * (float(현재가) - df_put.iloc[index]['시가갭'])
-                    매수누적체결건수 = result['매수누적체결건수'] * (float(현재가) - df_put.iloc[index]['시가갭'])
-                else:
-                    pass
-
-            df_put.loc[index, '수정거래량'] = int(수정거래량)
-            df_put_volume.loc[index, '매도누적체결량'] = int(매도누적체결량)
-            df_put_volume.loc[index, '매수누적체결량'] = int(매수누적체결량)
-
-            df_put.loc[index, '거래량'] = result['누적거래량']
-
-            if not overnight:
-                
-                df_put_volume.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
-                df_put_volume.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
-
-                if float(현재가) <= df_put.iloc[index]['시가갭']:
-
-                    수정미결 = result['미결제약정수량'] * float(현재가)
-                    수정미결증감 = result['미결제약정증감'] * float(현재가)
-                else:
-                    수정미결 = result['미결제약정수량'] * (float(현재가) - df_put.iloc[index]['시가갭'])
-                    수정미결증감 = result['미결제약정증감'] * (float(현재가) - df_put.iloc[index]['시가갭'])
-
-                df_put.loc[index, '수정미결'] = int(수정미결)
-                df_put.loc[index, '수정미결증감'] = int(수정미결증감)
-            else:
-                pass
-            '''              
         else:
             pass
 
