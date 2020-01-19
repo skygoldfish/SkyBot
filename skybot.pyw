@@ -5356,7 +5356,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if int(call_result['체결시간'][4:6]) == 콜_체결_초:
 
-                print('콜_체결_초', 콜_체결_초)
+                print('콜_체결_초 = ', 콜_체결_초)
                 
                 # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
                 self.call_coreval_color_update()
@@ -5417,7 +5417,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if int(put_result['체결시간'][4:6]) == 풋_체결_초:
 
-                print('풋_체결_초', 풋_체결_초)
+                print('풋_체결_초 = ', 풋_체결_초)
 
                 # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
                 self.put_coreval_color_update()
@@ -14145,6 +14145,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         return
 
     def OnReceiveRealData(self, szTrCode, result):
+
         try:
             global pre_start
             global atm_str, atm_val, atm_index
@@ -14217,6 +14218,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             global service_start
             global 선물현재가
+            global opt_x_idx, 콜현재가, 풋현재가
 
             start_time = timeit.default_timer()
 
@@ -15824,8 +15826,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     '''
                 else:
                     pass
-
-                global opt_x_idx, 콜현재가, 풋현재가
 
                 # X축 시간좌표 계산
                 if overnight:
