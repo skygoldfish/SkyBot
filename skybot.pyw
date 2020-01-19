@@ -14545,13 +14545,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             atm_val = float(atm_str)
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 예상 등가지수 : {3}, 예상 Basis : {4:0.2f}\r'.format(
-                                        int(result['시간'][0:2]),
-                                        int(result['시간'][2:4]),
-                                        int(result['시간'][4:6]),
-                                        atm_str,
-                                        fut_realdata['시가'] - fut_realdata['KP200'])
-                        self.textBrowser.append(str)
+                        if fut_realdata['시가'] > 0 and fut_realdata['KP200'] > 0:
+
+                            예상_Basis = fut_realdata['시가'] - fut_realdata['KP200']
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 예상 등가지수 : {3}, 예상 Basis : {4:0.2f}\r'.format(
+                                            int(result['시간'][0:2]),
+                                            int(result['시간'][2:4]),
+                                            int(result['시간'][4:6]),
+                                            atm_str, 예상_Basis)
+                            self.textBrowser.append(str)
+                        else:
+                            pass
 
                         if atm_str in opt_actval:
                             atm_index_yj = opt_actval.index(atm_str)
