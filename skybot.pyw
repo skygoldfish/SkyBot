@@ -11513,6 +11513,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             df_plotdata_fut.iloc[0][선물장간_시간차] = 선물_시가
 
+            선물_피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
+
+            시가갭 = 선물_시가 - 선물_종가
+
             item = QTableWidgetItem(시가)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(흰색))        
@@ -11531,20 +11535,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_fut.loc[0, '시가'] = 선물_시가
                 cme_realdata['시가'] = 선물_시가
 
-                cme_realdata['피봇'] = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
-
-                item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['피봇']))
+                item = QTableWidgetItem("{0:0.2f}".format(선물_피봇))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 self.tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
 
-                df_fut.loc[0, '피봇'] = cme_realdata['피봇']
-                선물_피봇 = cme_realdata['피봇']
+                df_fut.loc[0, '피봇'] = 선물_피봇
+                cme_realdata['피봇'] = 선물_피봇
 
-                cme_realdata['시가갭'] = 선물_시가 - 선물_종가
-                df_fut.loc[0, '시가갭'] = cme_realdata['시가갭']
-
-                item = QTableWidgetItem("{0:0.2f}".format(cme_realdata['시가갭']))
+                item = QTableWidgetItem("{0:0.2f}".format(시가갭))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 if 선물_시가 > 선물_종가:
@@ -11557,6 +11556,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item.setBackground(QBrush(흰색))  
 
                 self.tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
+                
+                cme_realdata['시가갭'] = 시가갭
+                df_fut.loc[0, '시가갭'] = 시가갭
             else:
 
                 self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
@@ -11564,20 +11566,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_fut.loc[1, '시가'] = 선물_시가
                 fut_realdata['시가'] = 선물_시가
 
-                fut_realdata['피봇'] = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
-
-                item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['피봇']))
+                item = QTableWidgetItem("{0:0.2f}".format(선물_피봇))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
 
-                df_fut.loc[1, '피봇'] = fut_realdata['피봇']    
-                선물_피봇 = fut_realdata['피봇']                   
+                df_fut.loc[1, '피봇'] = 선물_피봇
+                fut_realdata['피봇'] = 선물_피봇             
 
-                fut_realdata['시가갭'] = 선물_시가 - 선물_종가
-                df_fut.loc[1, '시가갭'] = fut_realdata['시가갭']                   
-
-                item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['시가갭']))
+                item = QTableWidgetItem("{0:0.2f}".format(시가갭))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 if 선물_시가 > 선물_종가:
@@ -11589,12 +11586,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     item.setBackground(QBrush(흰색))  
 
-                self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)            
+                self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
+                
+                fut_realdata['시가갭'] = 시가갭
+                df_fut.loc[1, '시가갭'] = 시가갭                
         else:
 
             if 선물_피봇 == 0 and 선물_시가 > 0:
 
                 선물_피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
+                
+                시가갭 = 선물_시가 - 선물_종가
 
                 item = QTableWidgetItem("{0:0.2f}".format(선물_피봇))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -11607,8 +11609,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
                     df_fut.loc[1, '피봇'] = 선물_피봇
                     fut_realdata['피봇'] = 선물_피봇
-
-                시가갭 = 선물_시가 - 선물_종가
 
                 item = QTableWidgetItem("{0:0.2f}".format(시가갭))
                 item.setTextAlignment(Qt.AlignCenter)
