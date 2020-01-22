@@ -5372,7 +5372,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 self.call_node_color_clear()        
                 self.call_open_check()        
-                self.call_center_color_update()        
+                self.call_crossval_color_update()        
                 self.call_node_color_update()
                 self.call_coreval_color_update()
 
@@ -5392,7 +5392,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.call_node_color_clear()        
             self.call_open_check()        
-            self.call_center_color_update()        
+            self.call_crossval_color_update()        
             self.call_node_color_update()
             self.call_coreval_color_update()
 
@@ -5433,7 +5433,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 self.put_node_color_clear()        
                 self.put_open_check()        
-                self.put_center_color_update()        
+                self.put_crossval_color_update()        
                 self.put_node_color_update()
                 self.put_coreval_color_update()
 
@@ -5453,7 +5453,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.put_node_color_clear()        
             self.put_open_check()        
-            self.put_center_color_update()        
+            self.put_crossval_color_update()        
             self.put_node_color_update()
             self.put_coreval_color_update()
 
@@ -5480,13 +5480,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.call_node_color_clear()
         self.call_open_check()
-        self.call_center_color_update()
+        self.call_crossval_color_update()
         self.call_node_color_update()
         self.call_coreval_color_update()
 
         self.put_node_color_clear()
         self.put_open_check()
-        self.put_center_color_update()
+        self.put_crossval_color_update()
         self.put_node_color_update()
         self.put_coreval_color_update()
 
@@ -5544,8 +5544,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if basis < 0:
 
             self.label_atm.setStyleSheet('background-color: black; color: yellow')
+            self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
         else:
             self.label_atm.setStyleSheet('background-color: yellow; color: black')
+            self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
 
         str = '{0:0.2f}({1:0.2f}:{2:0.2f})'.format(basis, call_atm_value + put_atm_value,
             abs(call_atm_value - put_atm_value))
@@ -5711,8 +5713,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if blink:
                         self.label_msg.setStyleSheet('background-color: blue; color: white')
+                        self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
                     else:
                         self.label_msg.setStyleSheet('background-color: white; color: blue')
+                        self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     put_oneway = True
 
@@ -5721,8 +5725,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if blink:
                             self.label_msg.setStyleSheet('background-color: blue; color: white')
+                            self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
                         else:
                             self.label_msg.setStyleSheet('background-color: white; color: blue')
+                            self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음 ★★★★★\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
@@ -5734,6 +5740,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] < 0:
 
                     self.label_msg.setStyleSheet('background-color: blue; color: white')
+                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     put_oneway = True
 
@@ -5744,6 +5751,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0:
 
                     self.label_msg.setStyleSheet('background-color: blue; color: white')
+                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     put_oneway = True
 
@@ -5758,6 +5766,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     and FUT_RETAIL_거래대금순매수 > 0 and FUT_INSTITUTIONAL_거래대금순매수 > 0 and fut_realdata['거래량'] < 0:
 
                     self.label_msg.setStyleSheet('background-color: royalblue; color: white')
+                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     put_oneway = True
 
@@ -5773,8 +5782,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if blink:
                         self.label_msg.setStyleSheet('background-color: red; color: white')
+                        self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
                     else:
                         self.label_msg.setStyleSheet('background-color: white; color: red')
+                        self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     call_oneway = True
 
@@ -5783,8 +5794,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if blink:
                             self.label_msg.setStyleSheet('background-color: red; color: white')
+                            self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
                         else:
                             self.label_msg.setStyleSheet('background-color: white; color: red')
+                            self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음 ★★★★★\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
@@ -5796,6 +5809,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] > 0:
 
                     self.label_msg.setStyleSheet('background-color: red; color: white')
+                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     call_oneway = True
 
@@ -5806,6 +5820,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0:
 
                     self.label_msg.setStyleSheet('background-color: red; color: white')
+                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     call_oneway = True
 
@@ -5821,6 +5836,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     and FUT_RETAIL_거래대금순매수 < 0 and FUT_INSTITUTIONAL_거래대금순매수 < 0 and fut_realdata['거래량'] > 0:
 
                     self.label_msg.setStyleSheet('background-color: orange; color: black')
+                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     call_oneway = True
 
@@ -5832,6 +5848,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             if not call_oneway and not put_oneway:
                 self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
+                self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
             else:
                 pass
 
@@ -6026,7 +6043,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return
 
-    def call_center_color_update(self):
+    def call_crossval_color_update(self):
 
         for i in range(call_scroll_begin_position, call_scroll_end_position):
 
@@ -7509,7 +7526,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return
 
-    def put_center_color_update(self):
+    def put_crossval_color_update(self):
 
         for i in range(put_scroll_begin_position, put_scroll_end_position):
 
