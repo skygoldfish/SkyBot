@@ -617,8 +617,8 @@ comboindex4 = 0
 콜_순매수_체결량 = 0
 풋_순매수_체결량 = 0
 
-pre_콜시가갭합 = 0
-pre_풋시가갭합 = 0
+#pre_콜시가갭합 = 0
+#pre_풋시가갭합 = 0
 
 콜시가갭합 = 0
 풋시가갭합 = 0
@@ -2796,7 +2796,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_supply.horizontalHeader().setStyleSheet(stylesheet)
         self.tableWidget_supply.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.tableWidget_supply.setHorizontalHeaderLabels(['외인선물', '프로그램', '외인현물', '개인선물', '기관선물', '∑선물/∑현물(P시가갭)'])
+        self.tableWidget_supply.setHorizontalHeaderLabels(['외인선물', '프로그램', '외인현물', '개인선물', '기관선물', '∑선물/∑현물'])
         self.tableWidget_supply.verticalHeader().setVisible(False)
 
         header = self.tableWidget_supply.horizontalHeader()
@@ -12583,14 +12583,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setBackground(QBrush(흰색))
 
         self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
-        
+        '''
         global pre_콜시가갭합
 
         pre_콜시가갭합 = round(df_call['시가갭'].sum(), 2)
 
         str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}, {4:0.2f}] pre 시가 갱신 !!!\r'.format(dt.hour, dt.minute, dt.second, index, df_call.iloc[index]['시가'])
         self.textBrowser.append(str)          
-
+        '''
         return
 
     def call_open_check(self):
@@ -13656,14 +13656,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setBackground(QBrush(흰색))
 
         self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
-        
+        '''
         global pre_풋시가갭합
 
         pre_풋시가갭합 = round(df_put['시가갭'].sum(), 2)
 
         str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}, {4:0.2f}] pre 시가 갱신 !!!\r'.format(dt.hour, dt.minute, dt.second, index, df_put.iloc[index]['시가'])
         self.textBrowser.append(str)           
-
+        '''
         return
 
     def put_open_check(self):
@@ -15638,9 +15638,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     temp1 = format(선물_거래대금순매수, ',')
                     temp2 = format(현물_거래대금순매수, ',')
-
+                    '''
                     item_str = "{0}({1})/{2}({3})\n({4} : {5})".format(temp1, 선물_거래대금순매수_직전대비, temp2, 현물_거래대금순매수_직전대비, \
                         repr(pre_콜시가갭합), repr(pre_풋시가갭합))
+                    '''
+                    item_str = "{0}({1})/{2}({3})".format(temp1, 선물_거래대금순매수_직전대비, temp2, 현물_거래대금순매수_직전대비)
 
                     if item_str != self.tableWidget_supply.item(0, 5).text():
                         item = QTableWidgetItem(item_str)
@@ -15723,9 +15725,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 temp1 = format(선물_거래대금순매수, ',')
                 temp2 = format(현물_거래대금순매수, ',')
-                
+                '''
                 item_str = "{0}({1})/{2}({3})\n({4} : {5})".format(temp1, 선물_거래대금순매수_직전대비, temp2, 현물_거래대금순매수_직전대비, \
                         repr(pre_콜시가갭합), repr(pre_풋시가갭합))
+                '''
+                item_str = "{0}({1})/{2}({3})".format(temp1, 선물_거래대금순매수_직전대비, temp2, 현물_거래대금순매수_직전대비)
 
                 if item_str != self.tableWidget_supply.item(0, 5).text():
                     item = QTableWidgetItem(item_str)
