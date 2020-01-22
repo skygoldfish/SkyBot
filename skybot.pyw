@@ -11595,7 +11595,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if 선물_피봇 == 0 and 선물_시가 > 0:
 
                 선물_피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
-                
+
                 시가갭 = 선물_시가 - 선물_종가
 
                 item = QTableWidgetItem("{0:0.2f}".format(선물_피봇))
@@ -14902,6 +14902,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             item = QTableWidgetItem("{0:0.2f}".format(시가갭))
                             item.setTextAlignment(Qt.AlignCenter)
+
+                            if fut_realdata['시가'] > fut_realdata['종가']:
+                                item.setBackground(QBrush(콜기준가색))
+                                item.setForeground(QBrush(검정색))
+                            elif fut_realdata['시가'] < fut_realdata['종가']:
+                                item.setBackground(QBrush(풋기준가색))
+                                item.setForeground(QBrush(흰색))
+                            else:
+                                item.setBackground(QBrush(흰색))
 
                             self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
 
