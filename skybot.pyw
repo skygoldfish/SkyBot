@@ -11036,7 +11036,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def fut_oloh_check(self):
 
         global fut_ol, fut_oh
-
+        '''
         # 선물 시가갭 컬러링(주간 장시작시 표시안되는 오류 대응)
         if overnight:
 
@@ -11058,7 +11058,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(흰색))
             else:
                 self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(흰색))
-
+        '''
         # FUT OL/OH
         if self.within_n_tick(선물_시가, 선물_저가, 10) and not self.within_n_tick(선물_시가, 선물_고가, 10):
 
@@ -11380,7 +11380,29 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if service_start and first_refresh:
 
             fut_first_arrive = fut_time
-            first_refresh = False            
+            first_refresh = False   
+
+            # 선물 시가갭 컬러링(주간 장시작시 표시안되는 오류 대응)
+            if overnight:
+
+                if 선물_시가 > 선물_종가:
+                    self.tableWidget_fut.item(0, Futures_column.시가갭.value).setBackground(QBrush(콜기준가색))
+                    self.tableWidget_fut.item(0, Futures_column.시가갭.value).setForeground(QBrush(검정색))
+                elif 선물_시가 < 선물_종가:
+                    self.tableWidget_fut.item(0, Futures_column.시가갭.value).setBackground(QBrush(풋기준가색))
+                    self.tableWidget_fut.item(0, Futures_column.시가갭.value).setForeground(QBrush(흰색))
+                else:
+                    self.tableWidget_fut.item(0, Futures_column.시가갭.value).setBackground(QBrush(흰색))
+            else:
+
+                if 선물_시가 > 선물_종가:
+                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(콜기준가색))
+                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(검정색))
+                elif 선물_시가 < 선물_종가:
+                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(풋기준가색))
+                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(흰색))
+                else:
+                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(흰색))         
         else:
             pass
         '''
