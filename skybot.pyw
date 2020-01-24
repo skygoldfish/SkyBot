@@ -194,6 +194,9 @@ node_coloring = False
 first_refresh = True
 fut_first_arrive = 0
 
+flag_kp200_low_node = False
+flag_kp200_high_node = False
+
 service_terminate = False
 jugan_service_terminate = False
 yagan_service_terminate = False
@@ -2627,8 +2630,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if next_month_only == 'YES':
                 cm_option_title = repr(next_month) + '월물 주간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
+                ToTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
             else:
                 cm_option_title = repr(current_month) + '월물 주간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
+                ToTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
         else:
             overnight = True
 
@@ -2636,8 +2641,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if next_month_only == 'YES':
                 cm_option_title = repr(next_month) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
+                ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
             else:
                 cm_option_title = repr(current_month) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
+                ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
         
         ovc_start_hour = domestic_start_hour - 1 
 
@@ -10999,7 +11006,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
     
-    def kp200_low_node_coloring(self):       
+    def kp200_low_node_coloring(self):
+
+        global flag_kp200_low_node       
         
         # kp200 맥점 컬러링
         self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(흰색))
@@ -11011,12 +11020,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 
                 self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(대맥점색))
                 self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))
+
+                flag_kp200_low_node = True
             else:
-                pass
+                flag_kp200_low_node = False
 
         return
 
-    def kp200_high_node_coloring(self):       
+    def kp200_high_node_coloring(self):   
+
+        global flag_kp200_high_node    
         
         # kp200 맥점 컬러링
         self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(흰색))
@@ -11028,8 +11041,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 
                 self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(대맥점색))
                 self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(검정색))
+
+                flag_kp200_high_node = True
             else:
-                pass
+                flag_kp200_high_node = False
 
         return
 
@@ -17577,7 +17592,7 @@ if __name__ == "__main__":
     # Window 7은 한글을 못읽음
     # Speak("스카이봇이 시작됩니다.")
 
-    ToTelegram("SkyBot이 실행되었습니다.")
+    #ToTelegram("SkyBot이 실행되었습니다.")
 
     # 1.로그 인스턴스를 만든다.
     logger = logging.getLogger('mymoneybot')
