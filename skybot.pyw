@@ -88,6 +88,72 @@ with open('UI_Style.txt', mode='r') as uifile:
     temp = tmp.split()
     UI_STYLE = temp[2]
 
+global domestic_start_hour, mangi_yagan, current_month_info, month_firstday, next_month_info, month_after_next_info, next_month_only, cnm_select
+global SP500, DOW, NASDAQ
+
+# 만기일 야간옵션은 month_info.txt에서 next month only를 NO -> YES로 변경
+
+domestic_start_hour = 9
+mangi_yagan = 'NO'
+current_month_info = ''
+month_firstday = ''
+next_month_info = ''
+month_after_next_info = ''
+next_month_only = 'NO'
+cnm_select = 'NO'
+SP500 = ''
+DOW = ''
+NASDAQ = ''
+
+with open('month_info.txt', mode='r') as monthfile:
+
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    domestic_start_hour = int(temp[3])
+
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    mangi_yagan = temp[3]
+
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    current_month_info = temp[3]
+
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    month_firstday = temp[7]
+
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    next_month_info = temp[3]
+
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    month_after_next_info = temp[4]
+
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    next_month_only = temp[4]
+
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    cnm_select = temp[5]
+
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    SP500 = temp[3]
+
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    DOW = temp[2]
+
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    NASDAQ = temp[2]  
+
+print('current month = %s, month firstday = %s, next month = %s, month after next = %s, next month select = %s, cnm select = %s, SP500 = %s, DOW = %s, NASDAQ = %s' \
+    % (current_month_info, month_firstday, next_month_info, month_after_next_info, next_month_only, cnm_select, SP500, DOW, NASDAQ))
+
 with open('init_data.txt', mode='r') as initfile:
 
     tmp = initfile.readline().strip()
@@ -145,20 +211,6 @@ if UI_STYLE == 'Vertical_view.ui':
 else:
     pass
 
-# 만기일 야간옵션은 month_info.txt에서 next month only를 NO -> YES로 변경
-t2301_month_info = ''
-current_month_info = ''
-next_month_info = ''
-month_after_next_info = ''
-month_firstday = ''
-
-current_month = 0
-next_month = 0
-next_month_only = 'NO'
-cnm_select = 'NO'
-
-mangi_yagan = 'NO'
-
 today = datetime.date.today()
 now_Month = today.strftime('%Y%m')
 today_str = today.strftime('%Y%m%d')
@@ -170,7 +222,10 @@ nowDate = now.strftime('%Y-%m-%d')
 yesterday = today - datetime.timedelta(1)
 yesterday_str = yesterday.strftime('%Y%m%d')
 
-domestic_start_hour = 9
+current_month = 0
+next_month = 0
+
+t2301_month_info = ''
 ovc_start_hour = domestic_start_hour - 1
 
 opt_search_start_value = 0.0
@@ -2556,7 +2611,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         nowDate = now.strftime('%Y-%m-%d')
         current_str = dt.strftime('%H:%M:%S')
-
+        '''
         with open('month_info.txt', mode='r') as monthfile:
             tmp = monthfile.readline().strip()
             temp = tmp.split()
@@ -2604,7 +2659,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         print('current month = %s, month firstday = %s, next month = %s, month after next = %s, next month select = %s, cnm select = %s, SP500 = %s, DOW = %s, NASDAQ = %s' \
             % (current_month_info, month_firstday, next_month_info, month_after_next_info, next_month_only, cnm_select, SP500, DOW, NASDAQ))
-
+        '''
         if mangi_yagan == 'YES':
 
             current_month = int(current_month_info[4:6]) + 1
@@ -16899,8 +16954,10 @@ class 화면_차월물옵션전광판(QDialog, Ui_차월물옵션전광판):
 ########################################################################################################################
 # 메인
 ########################################################################################################################
-
-Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+"mymoneybot.ui")
+if next_month_only == 'YES':
+    Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+"mymoneybot_nm.ui")
+else:
+    Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+"mymoneybot_cm.ui")
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
