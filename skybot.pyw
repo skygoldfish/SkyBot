@@ -2620,12 +2620,45 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             current_month = int(current_month_info[4:6])
             next_month = int(next_month_info[4:6])
 
+        if 4 < int(current_str[0:2]) < 야간선물_기준시간:
+
+            if next_month_only == 'YES':
+
+                if os.path.exists('SkyBot_NM.exe'):
+
+                    buildtime = time.ctime(os.path.getmtime('SkyBot_NM.exe'))
+                else:
+                    buildtime = time.ctime(os.path.getmtime(__file__))
+            else:
+                if os.path.exists('SkyBot_CM.exe'):
+
+                    buildtime = time.ctime(os.path.getmtime('SkyBot_CM.exe'))
+                else:
+                    buildtime = time.ctime(os.path.getmtime(__file__))
+        else:
+
+            if next_month_only == 'YES':
+
+                if os.path.exists('SkyBot_NM.exe'):
+
+                    buildtime = time.ctime(os.path.getmtime('SkyBot_NM.exe'))
+                else:
+                    buildtime = time.ctime(os.path.getmtime(__file__))
+            else:
+                if os.path.exists('SkyBot_CM.exe'):
+
+                    buildtime = time.ctime(os.path.getmtime('SkyBot_CM.exe'))
+                else:
+                    buildtime = time.ctime(os.path.getmtime(__file__))
+
+        '''
         if os.path.exists('SkyBot.exe'):
 
             buildtime = time.ctime(os.path.getmtime('SkyBot.exe'))
         else:
             buildtime = time.ctime(os.path.getmtime(__file__))
-
+        '''
+        
         if 4 < int(current_str[0:2]) < 야간선물_기준시간:
 
             if next_month_only == 'YES':
