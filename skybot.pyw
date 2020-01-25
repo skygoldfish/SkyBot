@@ -15258,7 +15258,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.kp200_low_node_coloring()
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 Color Update Done...\r'.format(
+                            int(result['시간'][0:2]),
+                            int(result['시간'][2:4]),
+                            int(result['시간'][4:6]))
                         self.textBrowser.append(str)
                     else:
                         pass
@@ -15275,7 +15278,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.kp200_high_node_coloring()
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 Color Update Done...\r'.format(
+                            int(result['시간'][0:2]),
+                            int(result['시간'][2:4]),
+                            int(result['시간'][4:6]))
                         self.textBrowser.append(str)
                     else:
                         pass
