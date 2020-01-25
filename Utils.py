@@ -6,7 +6,7 @@ import win32com.client as wincl
 TELEGRAM_TOKEN = ''
 CHAT_ID = ''
 
-# pip install python-telegram-bot --upgrade
+# pip install python-telegram-bot or pip install python-telegram-bot --upgrade
 def ToTelegram(str):
     global TELEGRAM_TOKEN
     global CHAT_ID
