@@ -19,7 +19,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>당월물 선물옵션 전광판</string>
+   <string>선물옵션 전광판</string>
   </property>
   <widget class="QTableWidget" name="tableWidget_put">
    <property name="geometry">
