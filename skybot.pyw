@@ -83,6 +83,8 @@ UI_DIR = "UI\\"
 
 global domestic_start_hour
 
+domestic_start_hour = 9
+
 # 만기일 야간옵션은 month_info.txt에서 mangi_yagan을 NO -> YES & next month only를 NO -> YES로 변경
 
 with open('month_info.txt', mode='r') as monthfile:
