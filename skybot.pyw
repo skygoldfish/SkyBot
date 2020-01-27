@@ -86,7 +86,6 @@ global domestic_start_hour
 domestic_start_hour = 9
 
 # 만기일 야간옵션은 month_info.txt에서 mangi_yagan을 NO -> YES & next month only를 NO -> YES로 변경
-
 with open('month_info.txt', mode='r') as monthfile:
 
     tmp = monthfile.readline().strip()
@@ -132,11 +131,6 @@ with open('month_info.txt', mode='r') as monthfile:
     tmp = monthfile.readline().strip()
     temp = tmp.split()
     NASDAQ = temp[2]  
-
-'''
-print('current month = %s, month firstday = %s, next month = %s, month after next = %s, next month select = %s, cnm select = %s, SP500 = %s, DOW = %s, NASDAQ = %s' \
-    % (CURRENT_MONTH_INFO, MONTH_FIRSTDAY, NEXT_MONTH_INFO, MONTH_AFTER_NEXT_INFO, NEXT_MONTH_ONLY, CNM_SELECT, SP500, DOW, NASDAQ))
-'''
 
 with open('UI_Style.txt', mode='r') as uifile:
 
@@ -242,6 +236,8 @@ fut_first_arrive = 0
 
 flag_kp200_low_node = False
 flag_kp200_high_node = False
+kp200_low_node_time = 0
+kp200_high_node_time = 0
 
 service_terminate = False
 jugan_service_terminate = False
@@ -2602,6 +2598,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         nowDate = now.strftime('%Y-%m-%d')
         current_str = dt.strftime('%H:%M:%S')
+
         '''
         with open('month_info.txt', mode='r') as monthfile:
             tmp = monthfile.readline().strip()
@@ -2647,10 +2644,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             tmp = monthfile.readline().strip()
             temp = tmp.split()
             NASDAQ = temp[2]           
+        '''
 
         print('current month = %s, month firstday = %s, next month = %s, month after next = %s, next month select = %s, cnm select = %s, SP500 = %s, DOW = %s, NASDAQ = %s' \
             % (CURRENT_MONTH_INFO, MONTH_FIRSTDAY, NEXT_MONTH_INFO, MONTH_AFTER_NEXT_INFO, NEXT_MONTH_ONLY, CNM_SELECT, SP500, DOW, NASDAQ))
-        '''
+        
         if MANGI_YAGAN == 'YES':
 
             current_month = int(CURRENT_MONTH_INFO[4:6]) + 1
@@ -9600,8 +9598,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.fut_node_coloring()
 
             # 실시간에서만 표시됨
-            self.kp200_low_node_coloring()
-            self.kp200_high_node_coloring()
+            t = dt.hour * 3600 + dt.minute * 60 + dt.second
+            self.kp200_low_node_coloring(t)
+            self.kp200_high_node_coloring(t)
 
             if refresh_flag:
 
@@ -11085,9 +11084,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
     
-    def kp200_low_node_coloring(self):
+    def kp200_low_node_coloring(self, t):
 
-        global flag_kp200_low_node       
+        global flag_kp200_low_node, kp200_low_node_time       
         
         # kp200 맥점 컬러링
         self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(흰색))
@@ -11101,14 +11100,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))
 
                 flag_kp200_low_node = True
+                kp200_low_node_time = t
             else:
                 flag_kp200_low_node = False
 
         return
 
-    def kp200_high_node_coloring(self):   
+    def kp200_high_node_coloring(self, t):   
 
-        global flag_kp200_high_node    
+        global flag_kp200_high_node, kp200_high_node_time     
         
         # kp200 맥점 컬러링
         self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(흰색))
@@ -11122,6 +11122,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(검정색))
 
                 flag_kp200_high_node = True
+                kp200_high_node_time = t
             else:
                 flag_kp200_high_node = False
 
@@ -11513,8 +11514,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.fut_node_color_clear()                    
             self.fut_oloh_check()
             self.fut_node_coloring()
-            self.kp200_low_node_coloring()
-            self.kp200_high_node_coloring()            
+
+            t = dt.hour * 3600 + dt.minute * 60 + dt.second
+            self.kp200_low_node_coloring(t)
+            self.kp200_high_node_coloring(t)            
             
             str = '[{0:02d}:{1:02d}:{2:02d}] First Color Refreshing Done !!!\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(str)
@@ -15335,7 +15338,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item.setTextAlignment(Qt.AlignCenter)                        
                         self.tableWidget_fut.setItem(2, Futures_column.저가.value, item)
 
-                        self.kp200_low_node_coloring()
+                        t = int(result['시간'][0:2]) * 3600 + int(result['시간'][2:4]) * 60 + int(result['시간'][4:6])
+                        self.kp200_low_node_coloring(t)
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 Color Update Done...\r'.format(
                             int(result['시간'][0:2]),
@@ -15355,7 +15359,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_fut.setItem(2, Futures_column.고가.value, item)
 
-                        self.kp200_high_node_coloring()
+                        t = int(result['시간'][0:2]) * 3600 + int(result['시간'][2:4]) * 60 + int(result['시간'][4:6])
+                        self.kp200_high_node_coloring(t)
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 Color Update Done...\r'.format(
                             int(result['시간'][0:2]),

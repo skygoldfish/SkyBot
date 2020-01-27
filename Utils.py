@@ -2,7 +2,7 @@
 import os
 import win32com.client as wincl
 
-# TELEGRAM_TOKEN = '586824321:AAEvRbeyOzndEW6GuwmtNB_Pe5iUJoTDgLI'
+# TELEGRAM_TOKEN = '1036288207:AAHCTnfiEh2YgcHabXzt3fZ7mxOXzXf-Jxw'
 TELEGRAM_TOKEN = ''
 CHAT_ID = ''
 
