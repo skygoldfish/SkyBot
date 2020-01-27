@@ -17073,7 +17073,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.RobotView()
 
             if current_str[3:] in ['00:00', '30:00']:
-                ToTelegram("%s : 로봇 %s개가 실행중입니다. ([%s])" % (current_str, len(_temp), ','.join(_temp)))
+                #ToTelegram("%s : 로봇 %s개가 실행중입니다. ([%s])" % (current_str, len(_temp), ','.join(_temp)))
+                pass
 
             if current.minute % 10 == 0: # 매 10 분
                 pass
