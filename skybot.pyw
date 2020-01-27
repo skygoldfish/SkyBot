@@ -11100,7 +11100,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))
 
                 flag_kp200_low_node = True
-                kp200_low_node_time = t
+                #kp200_low_node_time = t
+
+                ToTelegram("kp200 저가맥점이 {0}에서 발생되었습니다.".format(repr(kp200_realdata['저가'])))
             else:
                 flag_kp200_low_node = False
 
@@ -11122,7 +11124,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(검정색))
 
                 flag_kp200_high_node = True
-                kp200_high_node_time = t
+                #kp200_high_node_time = t
+
+                ToTelegram("kp200 고가맥점이 {0}에서 발생되었습니다.".format(repr(kp200_realdata['고가'])))
             else:
                 flag_kp200_high_node = False
 
