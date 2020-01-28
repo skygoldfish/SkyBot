@@ -309,10 +309,6 @@ RETAIL = "0008"
 FOREIGNER = "0017"
 INSTITUTIONAL = "0018"
 
-SP500 = ''
-DOW = ''
-NASDAQ = ''
-
 oloh_cutoff = 0.10
 nodelist_low_cutoff = 0.09
 nodelist_high_cutoff = 20.0
@@ -4989,7 +4985,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.alternate_flag = not self.alternate_flag 
                                     
-            if receive_real_ovc:   
+            if receive_real_ovc:
                 
                 self.label_clear() 
 
