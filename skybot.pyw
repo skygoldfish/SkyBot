@@ -11106,7 +11106,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 flag_kp200_low_node = True
                 #kp200_low_node_time = t
 
-                ToTelegram("kp200 저가맥점이 {0}에서 발생되었습니다.".format(repr(kp200_realdata['저가'])))
+                if not NEXT_MONTH_ONLY:
+                    ToTelegram("kp200 저가맥점이 {0}에서 발생되었습니다.".format(repr(kp200_realdata['저가'])))
+                else:
+                    pass
             else:
                 flag_kp200_low_node = False
 
@@ -11130,7 +11133,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 flag_kp200_high_node = True
                 #kp200_high_node_time = t
 
-                ToTelegram("kp200 고가맥점이 {0}에서 발생되었습니다.".format(repr(kp200_realdata['고가'])))
+                if not NEXT_MONTH_ONLY:
+                    ToTelegram("kp200 고가맥점이 {0}에서 발생되었습니다.".format(repr(kp200_realdata['고가'])))
+                else:
+                    pass
             else:
                 flag_kp200_high_node = False
 
