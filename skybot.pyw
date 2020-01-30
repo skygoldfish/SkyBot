@@ -6289,7 +6289,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem('저가 ▲')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
 
-                        ToTelegram("콜 저가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_call.iloc[i]['저가']))
+                        if NEXT_MONTH_ONLY == 'YES':
+                            ToTelegram("차월물 콜 저가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_call.iloc[i]['저가']))
+                        else:
+                            ToTelegram("본월물 콜 저가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_call.iloc[i]['저가']))
                                 
                         '''
                         if fut_code == cmshcode:
@@ -6317,7 +6320,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem('고가 ▼')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                        ToTelegram("콜 고가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_call.iloc[i]['고가']))
+                        if NEXT_MONTH_ONLY == 'YES':
+                            ToTelegram("차월물 콜 고가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_call.iloc[i]['고가']))
+                        else:
+                            ToTelegram("본월물 콜 고가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_call.iloc[i]['고가']))
 
                         '''
                         if fut_code == cmshcode:
@@ -7776,7 +7782,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem('저가 ▲')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
 
-                        ToTelegram("풋 저가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_put.iloc[i]['저가']))   
+                        if NEXT_MONTH_ONLY == 'YES':
+                            ToTelegram("차월물 풋 저가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_put.iloc[i]['저가']))
+                        else:
+                            ToTelegram("본월물 풋 저가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_put.iloc[i]['저가']))   
                                 
                         '''
                         if fut_code == cmshcode:
@@ -7804,7 +7813,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem('고가 ▼')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                        ToTelegram("풋 고가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_put.iloc[i]['고가']))
+                        if NEXT_MONTH_ONLY == 'YES':
+                            ToTelegram("차월물 풋 고가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_put.iloc[i]['고가']))
+                        else:
+                            ToTelegram("본월물 풋 고가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_put.iloc[i]['고가']))
 
                         '''
                         if fut_code == cmshcode:
