@@ -6290,9 +6290,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
 
                         if NEXT_MONTH_ONLY == 'YES':
-                            ToTelegram("차월물 콜 저가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_call.iloc[i]['저가']))
+                            ToTelegram("차월물 콜 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['저가']))
                         else:
-                            ToTelegram("본월물 콜 저가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_call.iloc[i]['저가']))
+                            ToTelegram("본월물 콜 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['저가']))
                                 
                         '''
                         if fut_code == cmshcode:
@@ -6321,9 +6321,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
                         if NEXT_MONTH_ONLY == 'YES':
-                            ToTelegram("차월물 콜 고가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_call.iloc[i]['고가']))
+                            ToTelegram("차월물 콜 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['고가']))
                         else:
-                            ToTelegram("본월물 콜 고가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_call.iloc[i]['고가']))
+                            ToTelegram("본월물 콜 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['고가']))
 
                         '''
                         if fut_code == cmshcode:
@@ -7783,9 +7783,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
 
                         if NEXT_MONTH_ONLY == 'YES':
-                            ToTelegram("차월물 풋 저가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_put.iloc[i]['저가']))
+                            ToTelegram("차월물 풋 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['저가']))
                         else:
-                            ToTelegram("본월물 풋 저가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_put.iloc[i]['저가']))   
+                            ToTelegram("본월물 풋 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['저가']))   
                                 
                         '''
                         if fut_code == cmshcode:
@@ -7814,9 +7814,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
                         if NEXT_MONTH_ONLY == 'YES':
-                            ToTelegram("차월물 풋 고가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_put.iloc[i]['고가']))
+                            ToTelegram("차월물 풋 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['고가']))
                         else:
-                            ToTelegram("본월물 풋 고가 {0:.2f}에서 진성맥점이 발생했습니다.".format(df_put.iloc[i]['고가']))
+                            ToTelegram("본월물 풋 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['고가']))
 
                         '''
                         if fut_code == cmshcode:
@@ -11119,7 +11119,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 #kp200_low_node_time = t
 
                 if not NEXT_MONTH_ONLY:
-                    ToTelegram("kp200 저가맥점이 {0:.2f}에서 발생되었습니다.".format(kp200_realdata['저가']))
+                    ToTelegram("kp200 저가맥점이 {0:.2f}에서 발생 !!!".format(kp200_realdata['저가']))
                 else:
                     pass
             else:
@@ -11146,7 +11146,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 #kp200_high_node_time = t
 
                 if not NEXT_MONTH_ONLY:
-                    ToTelegram("kp200 고가맥점이 {0:.2f}에서 발생되었습니다.".format(kp200_realdata['고가']))
+                    ToTelegram("kp200 고가맥점이 {0:.2f}에서 발생 !!!".format(kp200_realdata['고가']))
                 else:
                     pass
             else:
