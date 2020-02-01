@@ -5806,15 +5806,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if blink:
                             self.label_msg.setStyleSheet('background-color: blue; color: white')
                             self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음(★★★★★)\r'.format(dt.hour, dt.minute, dt.second)
+                            self.textBrowser.append(str)
+
+                            ToTelegram("풋 OneWay 가능성 매우 높음(★★★★★)")
                         else:
                             self.label_msg.setStyleSheet('background-color: white; color: blue')
                             self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음 ★★★★★\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
+                        
                     else:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 ★★★★\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)                    
+                        if blink:
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 높음(★★★★)\r'.format(dt.hour, dt.minute, dt.second)
+                            self.textBrowser.append(str)   
+
+                            ToTelegram("풋 OneWay 가능성 높음(★★★★)")
+                        else:
+                            pass                 
 
                 elif 콜_수정미결합 < 풋_수정미결합 \
                     and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] < 0:
@@ -5824,7 +5832,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     put_oneway = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 ★★★\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성(★★★)\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                 elif 콜_수정미결합 < 풋_수정미결합 \
@@ -5835,7 +5843,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     put_oneway = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 ★★\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성(★★)\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                 else:
                     pass
@@ -5850,7 +5858,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     put_oneway = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 ★\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성(★)\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                 else:
                     put_oneway = False            
@@ -5875,15 +5883,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if blink:
                             self.label_msg.setStyleSheet('background-color: red; color: white')
                             self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음(★★★★★)\r'.format(dt.hour, dt.minute, dt.second)
+                            self.textBrowser.append(str)
+
+                            ToTelegram("콜 OneWay 가능성 매우 높음(★★★★★)")
                         else:
                             self.label_msg.setStyleSheet('background-color: white; color: red')
-                            self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음 ★★★★★\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
+                            self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))                        
                     else:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 ★★★★\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)                    
+                        if blink:
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 높음(★★★★)\r'.format(dt.hour, dt.minute, dt.second)
+                            self.textBrowser.append(str)   
+
+                            ToTelegram("콜 OneWay 가능성 높음(★★★★)")
+                        else:
+                            pass                 
 
                 elif 콜_수정미결합 > 풋_수정미결합 \
                     and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] > 0:
@@ -5893,7 +5908,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     call_oneway = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 ★★★\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성(★★★)\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                 elif 콜_수정미결합 > 풋_수정미결합 \
@@ -5904,7 +5919,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     call_oneway = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 ★★\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성(★★)\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                 else:
                     pass
@@ -5920,7 +5935,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     call_oneway = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 ★\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성(★)\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                 else:
                     call_oneway = False
@@ -10662,8 +10677,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     df_plotdata_call.iloc[call_t8416_count][0] = round(block['전일종가'], 2)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] t2301과 t8416의 콜[{3}] 종가가 상이합니다. !!!\r'.format(dt.hour, dt.minute, dt.second, call_t8416_count + 1)
-                    self.textBrowser.append(str)
+                    #str = '[{0:02d}:{1:02d}:{2:02d}] t2301과 t8416의 콜[{3}] 종가가 상이합니다. !!!\r'.format(dt.hour, dt.minute, dt.second, call_t8416_count + 1)
+                    #self.textBrowser.append(str)
                 else:
                     pass
 
@@ -10814,8 +10829,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     df_plotdata_put.iloc[put_t8416_count][0] = round(block['전일종가'], 2)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] t2301과 t8416의 풋[{3}] 종가가 상이합니다. !!!\r'.format(dt.hour, dt.minute, dt.second, put_t8416_count + 1)
-                    self.textBrowser.append(str)
+                    #str = '[{0:02d}:{1:02d}:{2:02d}] t2301과 t8416의 풋[{3}] 종가가 상이합니다. !!!\r'.format(dt.hour, dt.minute, dt.second, put_t8416_count + 1)
+                    #self.textBrowser.append(str)
                 else:
                     pass
                 

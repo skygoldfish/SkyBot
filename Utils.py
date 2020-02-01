@@ -47,6 +47,43 @@ def ToTelegram(str):
             except Exception as e:
                 pass
 
+def FromTelegram():
+
+    global TELEGRAM_TOKEN
+    global CHAT_ID
+
+    if TELEGRAM_TOKEN == '':
+        with open('secret/telegram_token.txt', mode='r') as tokenfile:
+            TELEGRAM_TOKEN = tokenfile.readline().strip()
+
+    if TELEGRAM_TOKEN is not "":
+        import telegram
+
+        bot = telegram.Bot(token=TELEGRAM_TOKEN)
+
+        if CHAT_ID == '':
+            if os.path.exists('secret/chatid.txt'):
+                with open('secret/chatid.txt', mode='r') as chatfile:
+                    try:
+                        CHAT_ID = int(chatfile.readline().strip())
+                    except Exception as e:
+                        pass
+
+        if CHAT_ID is not None:
+            try:
+                updates = bot.getUpdates()
+                last_message = None
+
+                for u in updates:
+                    if u is not None:
+                        last_message = u
+                
+                print(last_message.message.text)
+
+                return last_message.message.text
+
+            except Exception as e:
+                pass
 
 def Speak(str):
     speak = wincl.Dispatch("SAPI.SpVoice")
