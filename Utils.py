@@ -78,7 +78,7 @@ def FromTelegram():
                     if u is not None:
                         last_message = u
                 
-                print(last_message.message.text)
+                #print(last_message.message.text)
 
                 return last_message.message.text
 

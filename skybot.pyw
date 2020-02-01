@@ -5416,6 +5416,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
+            '''
+            if dt.second % 10 == 0:                
+
+                print('FromTelegram = ', FromTelegram())
+            else:
+                pass
+            '''
+            
             str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update Time : {3:0.2f} ms...\r'.format(\
                 dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
             print(str)
