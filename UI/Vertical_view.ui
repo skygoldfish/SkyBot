@@ -535,7 +535,7 @@
      </spacer>
     </item>
     <item>
-     <widget class="QCheckBox" name="checkBox_next_month">
+     <widget class="QCheckBox" name="checkBox_telegram">
       <property name="font">
        <font>
         <family>Consolas</family>
@@ -547,7 +547,10 @@
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="text">
-       <string>NM</string>
+       <string>R</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
       </property>
      </widget>
     </item>
@@ -590,7 +593,7 @@
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="text">
-       <string> ScrShot </string>
+       <string>Telegram</string>
       </property>
      </widget>
     </item>

@@ -3429,7 +3429,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.color_flag = True
         self.alternate_flag = True
         self.centerval_flag = True
-        self.telegram_flag = True
+
+        self.telegram_flag = True        
+        self.pushButton_remove.setStyleSheet("background-color: lawngreen")
 
         global call_node_state, put_node_state
 
@@ -4733,7 +4735,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송이 예약되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
-                    self.telegram_flag = not self.telegram_flag
+                    #self.telegram_flag = not self.telegram_flag
                 else:
                     item = QTableWidgetItem("{0}".format('T'))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -4780,7 +4782,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송예약이 취소되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
-                    self.telegram_flag = not self.telegram_flag
+                    #self.telegram_flag = not self.telegram_flag
             else:
                 pass             
         else:
@@ -5818,7 +5820,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음(★★★★★)\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
 
-                            ToTelegram("풋 OneWay 가능성 매우 높음(★★★★★)")
+                            if self.telegram_flag:
+
+                                ToTelegram("풋 OneWay 가능성 매우 높음(★★★★★)")
+                            else:
+                                pass
                         else:
                             self.label_msg.setStyleSheet('background-color: white; color: blue')
                             self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -5826,9 +5832,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         if blink:
                             str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 높음(★★★★)\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)   
+                            self.textBrowser.append(str) 
 
-                            ToTelegram("풋 OneWay 가능성 높음(★★★★)")
+                            if self.telegram_flag:
+
+                                ToTelegram("풋 OneWay 가능성 높음(★★★★)")
+                            else:
+                                pass                            
                         else:
                             pass                 
 
@@ -5895,7 +5905,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음(★★★★★)\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
 
-                            ToTelegram("콜 OneWay 가능성 매우 높음(★★★★★)")
+                            if self.telegram_flag:
+
+                                ToTelegram("콜 OneWay 가능성 매우 높음(★★★★★)")
+                            else:
+                                pass
                         else:
                             self.label_msg.setStyleSheet('background-color: white; color: red')
                             self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))                        
@@ -5904,7 +5918,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 높음(★★★★)\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)   
 
-                            ToTelegram("콜 OneWay 가능성 높음(★★★★)")
+                            if self.telegram_flag:
+
+                                ToTelegram("콜 OneWay 가능성 높음(★★★★)")
+                            else:
+                                pass
                         else:
                             pass                 
 
@@ -6312,10 +6330,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem('저가 ▲')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
 
-                        if NEXT_MONTH_ONLY == 'YES':
-                            ToTelegram("차월물 콜 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['저가']))
+                        if self.telegram_flag:
+
+                            if NEXT_MONTH_ONLY == 'YES':
+                                ToTelegram("차월물 콜 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['저가']))
+                            else:
+                                ToTelegram("본월물 콜 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['저가']))
                         else:
-                            ToTelegram("본월물 콜 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['저가']))
+                            pass
                                 
                         '''
                         if fut_code == cmshcode:
@@ -6343,10 +6365,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem('고가 ▼')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                        if NEXT_MONTH_ONLY == 'YES':
-                            ToTelegram("차월물 콜 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['고가']))
+                        if self.telegram_flag:
+
+                            if NEXT_MONTH_ONLY == 'YES':
+                                ToTelegram("차월물 콜 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['고가']))
+                            else:
+                                ToTelegram("본월물 콜 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['고가']))
                         else:
-                            ToTelegram("본월물 콜 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['고가']))
+                            pass
 
                         '''
                         if fut_code == cmshcode:
@@ -7805,10 +7831,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem('저가 ▲')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
 
-                        if NEXT_MONTH_ONLY == 'YES':
-                            ToTelegram("차월물 풋 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['저가']))
+                        if self.telegram_flag:
+
+                            if NEXT_MONTH_ONLY == 'YES':
+                                ToTelegram("차월물 풋 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['저가']))
+                            else:
+                                ToTelegram("본월물 풋 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['저가']))
                         else:
-                            ToTelegram("본월물 풋 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['저가']))   
+                            pass   
                                 
                         '''
                         if fut_code == cmshcode:
@@ -7836,10 +7866,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem('고가 ▼')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                        if NEXT_MONTH_ONLY == 'YES':
-                            ToTelegram("차월물 풋 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['고가']))
+                        if self.telegram_flag:
+
+                            if NEXT_MONTH_ONLY == 'YES':
+                                ToTelegram("차월물 풋 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['고가']))
+                            else:
+                                ToTelegram("본월물 풋 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['고가']))
                         else:
-                            ToTelegram("본월물 풋 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['고가']))
+                            pass
 
                         '''
                         if fut_code == cmshcode:
@@ -11141,8 +11175,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 flag_kp200_low_node = True
                 #kp200_low_node_time = t
 
-                if not NEXT_MONTH_ONLY:
-                    ToTelegram("{0:.2f}에서 kp200 저가맥점 발생 !!!".format(kp200_realdata['저가']))
+                if self.telegram_flag:
+
+                    if not NEXT_MONTH_ONLY:
+                        ToTelegram("{0:.2f}에서 kp200 저가맥점 발생 !!!".format(kp200_realdata['저가']))
+                    else:
+                        pass
                 else:
                     pass
             else:
@@ -11168,8 +11206,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 flag_kp200_high_node = True
                 #kp200_high_node_time = t
 
-                if not NEXT_MONTH_ONLY:
-                    ToTelegram("{0:.2f}에서 kp200 고가맥점 발생 !!!".format(kp200_realdata['고가']))
+                if self.telegram_flag:
+
+                    if not NEXT_MONTH_ONLY:
+                        ToTelegram("{0:.2f}에서 kp200 고가맥점 발생 !!!".format(kp200_realdata['고가']))
+                    else:
+                        pass
                 else:
                     pass
             else:
@@ -14663,6 +14705,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     jugan_service_terminate = True
                     #receive_real_ovc = False
 
+                    self.pushButton_add.setText('ScrShot')
+
                     str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str) 
 
@@ -14687,6 +14731,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     service_terminate = True
                     yagan_service_terminate = True
                     #receive_real_ovc = False
+
+                    self.pushButton_add.setText('ScrShot')
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)  
@@ -16837,31 +16883,38 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
 
-        if not refresh_flag:
+        if service_terminate:
 
-            START_ON = True
-            
-            # 지수선물 마스터조회 API용
-            XQ = t8432(parent=self)
-            XQ.Query(구분='F')
+            file = open('skybot.log', 'w')
+            text = self.textBrowser.toPlainText()
+            file.write(text)
+            file.close()
+
+            self.image_grab() 
         else:
-            pass
+            if not refresh_flag:
 
-        if not overnight:
+                START_ON = True
 
-            if int(current_str[0:2]) == 7 and int(current_str[3:5]) > 10:
-                pre_start = True
-            elif int(current_str[0:2]) == 8 and int(current_str[3:5]) <= 59:
-                pre_start = True
-            elif 9 <= int(current_str[0:2]) <= 16:
-                pass
+                # 지수선물 마스터조회 API용
+                XQ = t8432(parent=self)
+                XQ.Query(구분='F')
             else:
                 pass
-        else:
-            pass            
 
-        if not self.checkBox_next_month.isChecked():
+            if not overnight:
 
+                if int(current_str[0:2]) == 7 and int(current_str[3:5]) > 10:
+                    pre_start = True
+                elif int(current_str[0:2]) == 8 and int(current_str[3:5]) <= 59:
+                    pre_start = True
+                elif 9 <= int(current_str[0:2]) <= 16:
+                    pass
+                else:
+                    pass
+            else:
+                pass
+            
             # 옵션 전광판 요청(주간=FC0/OC0, 야간=NC0/EC0)
             XQ = t2301(parent=self)
 
@@ -16876,7 +16929,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 주간옵션 시세전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                 self.textBrowser.append(str)
-                     
+
             else:
                 if MANGI_YAGAN == 'YES':
                     t2301_month_info = NEXT_MONTH_INFO
@@ -16886,11 +16939,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 XQ.Query(월물=t2301_month_info, 미니구분='G')
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 주간옵션 시세전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
-                self.textBrowser.append(str)                    
-
-            print('t2301 주간옵션 시세전광판 요청')
-        else:
-            pass
+                self.textBrowser.append(str)
 
         return
 
@@ -16955,13 +17004,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         return
 
     def RemoveCode(self):
+        
+        self.telegram_flag = not self.telegram_flag       
 
-        file = open('skybot.log', 'w')
-        text = self.textBrowser.toPlainText()
-        file.write(text)
-        file.close()
+        if self.telegram_flag:
 
-        self.image_grab()
+            self.pushButton_remove.setStyleSheet("background-color: lawngreen")
+            print('telegram_flag', self.telegram_flag)
+        else:
+            self.pushButton_remove.setStyleSheet("background-color: lightGray")
+            print('telegram_flag', self.telegram_flag)
 
         return
 
