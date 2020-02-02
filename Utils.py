@@ -71,7 +71,7 @@ def FromTelegram():
 
         if CHAT_ID is not None:
             try:
-                updates = bot.getUpdates()
+                updates = bot.getUpdates(offset=-1)
                 last_message = None
 
                 for u in updates:
