@@ -4966,10 +4966,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def receive_telegram_message(self, str):
 
         try:
+            dt = datetime.datetime.now()
+
             global telegram_command
 
             telegram_command = str
-            print('<telegram command> =', telegram_command)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Command = {3}\r'.format(\
+                dt.hour, dt.minute, dt.second, telegram_command)
+            print(str)
 
         except:
             pass
