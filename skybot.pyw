@@ -11682,8 +11682,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if service_start and first_refresh:
 
             fut_first_arrive = fut_time
-            first_refresh = False   
+            first_refresh = False
+        else:
+            pass
 
+        if service_start and (fut_time == fut_first_arrive + 1 or fut_time == fut_first_arrive + 2):
+            
             # 선물 시가갭 컬러링(주간 장시작시 표시안되는 오류 대응)
             if overnight:
 
@@ -11704,9 +11708,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(풋기준가색))
                     self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(흰색))
                 else:
-                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(흰색))         
+                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(흰색))   
         else:
             pass
+
         '''
         # 서비스 시작후 30초후에 첫번째 컬러링 작업수행
         if service_start and \
