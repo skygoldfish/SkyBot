@@ -158,6 +158,20 @@ with open('init_data.txt', mode='r') as initfile:
         else:
             pass
 
+    tmp = initfile.readline().strip()
+    temp = tmp.split()
+    MY_COREVAL = float(temp[3])
+
+    진성맥점.append(MY_COREVAL)
+    진성맥점 = list(set(진성맥점))
+    진성맥점.sort()
+    #print(진성맥점)
+
+    tmp = initfile.readline().strip()
+    temp = tmp.split()
+    TELEGRAM_START_TIME = int(temp[4])
+    #print(TELEGRAM_START_TIME)
+
 # 전역변수
 ########################################################################################################################
 모니터번호 = 0
@@ -11727,7 +11741,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         # Update Thread 시작 10분후 Telegram Polling Thread 시작 !!!
-        if not flag_telegram_start and fut_time > telegram_standby_time + 60 * 10:
+        if not flag_telegram_start and fut_time > telegram_standby_time + 60 * TELEGRAM_START_TIME:
 
             flag_telegram_start = True
 
