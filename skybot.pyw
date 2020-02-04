@@ -14708,7 +14708,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 서버시간과 동기를 위한 delta time 계산
                     time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (domestic_start_hour * 3600 + 0 * 60 + 0)
 
-                    telegram_standby_time = 9 * 3600
+                    telegram_standby_time = domestic_start_hour * 3600
 
                     if not yoc_stop:
                         yoc_stop = True
