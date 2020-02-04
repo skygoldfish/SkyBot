@@ -214,6 +214,8 @@ t2301_month_info = ''
 ovc_start_hour = domestic_start_hour - 1
 
 telegram_command = 'Go'
+telegram_standby_time = 24 * 3600
+flag_telegram_start = False
 
 opt_search_start_value = 0.0
 opt_coreval_search_start_value = 0.5
@@ -2722,7 +2724,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             overnight = True
 
-            domestic_start_hour = domestic_start_hour + 9
+            domestic_start_hour = 18
 
             if NEXT_MONTH_ONLY == 'YES':
                 cm_option_title = repr(next_month) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
@@ -8108,8 +8110,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_open_list, put_open_list, opt_total_list
         global call_below_atm_count, call_max_actval
         global put_above_atm_count, put_max_actval
+        global telegram_standby_time
 
         dt = datetime.datetime.now()
+        current_str = dt.strftime('%H:%M:%S')
 
         if szTrCode == 't2101':
 
@@ -9783,6 +9787,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif szTrCode == 't2835':
 
+            # EUREX 야간옵션 시세전광판
+
             block, df, df1 = result
 
             if CNM_SELECT:
@@ -10414,8 +10420,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.update_worker.start()
                 self.update_worker.daemon = True
 
-                self.telegram_worker.start()
-                self.telegram_worker.daemon = True
+                #self.telegram_worker.start()
+                #self.telegram_worker.daemon = True
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
@@ -11144,8 +11150,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             self.update_worker.start()
                             self.update_worker.daemon = True
 
-                            self.telegram_worker.start()
-                            self.telegram_worker.daemon = True
+                            #self.telegram_worker.start()
+                            #self.telegram_worker.daemon = True
+
+                            if int(current_str[0:2]) >= domestic_start_hour:
+
+                                telegram_standby_time = int(current_str[0:2]) * 3600 + int(current_str[3:5]) * 60 + int(current_str[6:8])
+                                print('telegram_standby_time =', telegram_standby_time)
+                            else:
+                                pass
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
@@ -11637,6 +11650,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global flag_fut_low, flag_fut_high 
         global 선물_누적거래량
         global first_refresh, fut_first_arrive, service_start
+        global flag_telegram_start
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -11709,6 +11723,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(흰색))
                 else:
                     self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(흰색))   
+        else:
+            pass
+
+        # Update Thread 시작 10분후 Telegram Polling Thread 시작 !!!
+        if not flag_telegram_start and fut_time > telegram_standby_time + 60 * 10:
+
+            flag_telegram_start = True
+
+            self.telegram_worker.start()
+            self.telegram_worker.daemon = True
         else:
             pass
 
@@ -14591,6 +14615,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global service_start
             global 선물현재가
             global opt_x_idx, 콜현재가, 풋현재가
+            global telegram_standby_time
 
             start_time = timeit.default_timer()
 
@@ -14683,6 +14708,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 서버시간과 동기를 위한 delta time 계산
                     time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (domestic_start_hour * 3600 + 0 * 60 + 0)
 
+                    telegram_standby_time = 9 * 3600
+
                     if not yoc_stop:
                         yoc_stop = True
                     else:
@@ -14716,6 +14743,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # 서버시간과 동기를 위한 delta time 계산
                     time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (domestic_start_hour * 3600 + 0 * 60 + 0)
+
+                    telegram_standby_time = 18 * 3600
 
                     if time_delta > 0:
                         str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 빠릅니다.\r'.format(dt.hour, dt.minute,
