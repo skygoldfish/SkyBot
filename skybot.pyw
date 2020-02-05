@@ -139,7 +139,9 @@ with open('UI_Style.txt', mode='r') as uifile:
     temp = tmp.split()
     UI_STYLE = temp[2]
 
-with open('init_data.txt', mode='r') as initfile:
+with open('rules.txt', mode='r') as initfile:
+
+    tmp = initfile.readline().strip()
 
     tmp = initfile.readline().strip()
     temp = tmp.split()
@@ -165,12 +167,12 @@ with open('init_data.txt', mode='r') as initfile:
     진성맥점.append(MY_COREVAL)
     진성맥점 = list(set(진성맥점))
     진성맥점.sort()
-    #print(진성맥점)
+    print(진성맥점)
 
     tmp = initfile.readline().strip()
     temp = tmp.split()
-    TELEGRAM_START_TIME = int(temp[4])
-    #print(TELEGRAM_START_TIME)
+    TELEGRAM_START_TIME = int(temp[6])
+    print(TELEGRAM_START_TIME)
 
 # 전역변수
 ########################################################################################################################
