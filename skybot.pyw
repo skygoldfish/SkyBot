@@ -171,8 +171,13 @@ with open('rules.txt', mode='r') as initfile:
 
     tmp = initfile.readline().strip()
     temp = tmp.split()
-    TELEGRAM_START_TIME = int(temp[6])
+    TELEGRAM_START_TIME = int(temp[7])
     print(TELEGRAM_START_TIME)
+
+    tmp = initfile.readline().strip()
+    temp = tmp.split()
+    TELEGRAM_POLLING_INTERVAL = int(temp[4])
+    print(TELEGRAM_POLLING_INTERVAL)
 
 # 전역변수
 ########################################################################################################################
@@ -2564,7 +2569,7 @@ class telegram_worker(QThread):
             str = FromTelegram()
 
             self.finished.emit(str)
-            self.msleep(1000 * 10)
+            self.msleep(1000 * TELEGRAM_POLLING_INTERVAL)
 ########################################################################################################################
 # 당월물 옵션전광판 class
 ########################################################################################################################
