@@ -11749,6 +11749,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.telegram_worker.start()
             self.telegram_worker.daemon = True
+
+            ToTelegram("텔레그램 Polling 이 시작되었습니다.")
         else:
             pass
 
