@@ -11761,9 +11761,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.telegram_worker.daemon = True
 
             if NEXT_MONTH_SELECT == 'YES':
-                ToTelegram("차월물 텔레그램 Polling 이 시작되었습니다.")
+                ToTelegram("차월물 텔레그램 Polling이 시작되었습니다.")
             else:
-                ToTelegram("본월물 텔레그램 Polling 이 시작되었습니다.")
+                ToTelegram("본월물 텔레그램 Polling이 시작되었습니다.")
         else:
             pass
 
