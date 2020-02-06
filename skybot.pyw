@@ -5021,6 +5021,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         try:
             start_time = timeit.default_timer()            
             dt = datetime.datetime.now()
+            current_str = dt.strftime('%H:%M:%S')
 
             global flag_fut_low, flag_fut_high
             global flag_kp200_low, flag_kp200_high
@@ -5480,7 +5481,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if not overnight and not service_terminate:
 
                         if NEXT_MONTH_SELECT != 'YES':
-                            self.check_oneway(self.alternate_flag)
+
+                            if int(current_str[6:8]) % 10 == 0:
+                                self.check_oneway(self.alternate_flag)
+                            else:
+                                pass
                         else:
                             pass
                     else:
