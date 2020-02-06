@@ -114,7 +114,7 @@ with open('month_info.txt', mode='r') as monthfile:
 
     tmp = monthfile.readline().strip()
     temp = tmp.split()
-    NEXT_MONTH_ONLY = temp[4]
+    NEXT_MONTH_SELECT = temp[4]
 
     tmp = monthfile.readline().strip()
     temp = tmp.split()
@@ -2589,7 +2589,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global 모니터번호
         
-        global MANGI_YAGAN, current_month, next_month, NEXT_MONTH_ONLY, MONTH_FIRSTDAY, CNM_SELECT
+        global MANGI_YAGAN, current_month, next_month, NEXT_MONTH_SELECT, MONTH_FIRSTDAY, CNM_SELECT
         global cm_option_title, CURRENT_MONTH_INFO, NEXT_MONTH_INFO, MONTH_AFTER_NEXT_INFO, SP500, DOW, NASDAQ, fut_code
         global overnight, domestic_start_hour, ovc_start_hour
         
@@ -2658,7 +2658,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             tmp = monthfile.readline().strip()
             temp = tmp.split()
-            NEXT_MONTH_ONLY = temp[4]
+            NEXT_MONTH_SELECT = temp[4]
 
             tmp = monthfile.readline().strip()
             temp = tmp.split()
@@ -2678,7 +2678,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         '''
 
         print('current month = %s, month firstday = %s, next month = %s, month after next = %s, next month select = %s, cnm select = %s, SP500 = %s, DOW = %s, NASDAQ = %s' \
-            % (CURRENT_MONTH_INFO, MONTH_FIRSTDAY, NEXT_MONTH_INFO, MONTH_AFTER_NEXT_INFO, NEXT_MONTH_ONLY, CNM_SELECT, SP500, DOW, NASDAQ))
+            % (CURRENT_MONTH_INFO, MONTH_FIRSTDAY, NEXT_MONTH_INFO, MONTH_AFTER_NEXT_INFO, NEXT_MONTH_SELECT, CNM_SELECT, SP500, DOW, NASDAQ))
         
         if MANGI_YAGAN == 'YES':
 
@@ -2697,7 +2697,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if 4 < int(current_str[0:2]) < 야간선물_기준시간:
 
-            if NEXT_MONTH_ONLY == 'YES':
+            if NEXT_MONTH_SELECT == 'YES':
 
                 if os.path.exists('SkyBot_NM.exe'):
 
@@ -2712,7 +2712,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     buildtime = time.ctime(os.path.getmtime(__file__))
         else:
 
-            if NEXT_MONTH_ONLY == 'YES':
+            if NEXT_MONTH_SELECT == 'YES':
 
                 if os.path.exists('SkyBot_NM.exe'):
 
@@ -2736,7 +2736,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         if 4 < int(current_str[0:2]) < 야간선물_기준시간:
 
-            if NEXT_MONTH_ONLY == 'YES':
+            if NEXT_MONTH_SELECT == 'YES':
                 cm_option_title = repr(next_month) + '월물 주간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
                 ToTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
             else:
@@ -2747,7 +2747,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             domestic_start_hour = 18
 
-            if NEXT_MONTH_ONLY == 'YES':
+            if NEXT_MONTH_SELECT == 'YES':
                 cm_option_title = repr(next_month) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
                 ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
             else:
@@ -5465,7 +5465,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 원웨이장 표시(주간만)
                     if not overnight and not service_terminate:
 
-                        self.check_oneway(self.alternate_flag)
+                        if NEXT_MONTH_SELECT != 'YES':
+                            self.check_oneway(self.alternate_flag)
+                        else:
+                            pass
                     else:
                         pass                                    
                 else:
@@ -5501,14 +5504,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if int(call_result['체결시간'][4:6]) == 콜_체결_초:
 
-                print('콜_체결_초 = ', 콜_체결_초)
+                #print('콜_체결_초 = ', 콜_체결_초)
                 
                 # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
                 self.call_coreval_color_update()
                 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Coreval Color Check !!!\r'.format(\
                     int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
-                self.textBrowser.append(str)    
+                self.textBrowser.append(str)
+                print(str)    
             else:
 
                 start_time = timeit.default_timer()
@@ -5562,7 +5566,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if int(put_result['체결시간'][4:6]) == 풋_체결_초:
 
-                print('풋_체결_초 = ', 풋_체결_초)
+                #print('풋_체결_초 = ', 풋_체결_초)
 
                 # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
                 self.put_coreval_color_update()
@@ -5570,6 +5574,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Coreval Color Check !!!\r'.format(\
                     int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
                 self.textBrowser.append(str)
+                print(str)
             else:
 
                 start_time = timeit.default_timer()
@@ -6411,7 +6416,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         '''
                         if self.telegram_flag:
 
-                            if NEXT_MONTH_ONLY == 'YES':
+                            if NEXT_MONTH_SELECT == 'YES':
                                 ToTelegram("차월물 콜 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['저가']))
                             else:
                                 ToTelegram("본월물 콜 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['저가']))
@@ -6420,7 +6425,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         '''
                         if telegram_command == 'Go' or telegram_command == '/start':
 
-                            if NEXT_MONTH_ONLY == 'YES':
+                            if NEXT_MONTH_SELECT == 'YES':
                                 ToTelegram("차월물 콜 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['저가']))
                             else:
                                 ToTelegram("본월물 콜 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['저가']))
@@ -6455,7 +6460,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         '''
                         if self.telegram_flag:
 
-                            if NEXT_MONTH_ONLY == 'YES':
+                            if NEXT_MONTH_SELECT == 'YES':
                                 ToTelegram("차월물 콜 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['고가']))
                             else:
                                 ToTelegram("본월물 콜 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['고가']))
@@ -6464,7 +6469,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         '''
                         if telegram_command == 'Go' or telegram_command == '/start':
 
-                            if NEXT_MONTH_ONLY == 'YES':
+                            if NEXT_MONTH_SELECT == 'YES':
                                 ToTelegram("차월물 콜 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['고가']))
                             else:
                                 ToTelegram("본월물 콜 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['고가']))
@@ -7930,7 +7935,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         '''
                         if self.telegram_flag:
 
-                            if NEXT_MONTH_ONLY == 'YES':
+                            if NEXT_MONTH_SELECT == 'YES':
                                 ToTelegram("차월물 풋 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['저가']))
                             else:
                                 ToTelegram("본월물 풋 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['저가']))
@@ -7939,7 +7944,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         '''
                         if telegram_command == 'Go' or telegram_command == '/start':
 
-                            if NEXT_MONTH_ONLY == 'YES':
+                            if NEXT_MONTH_SELECT == 'YES':
                                 ToTelegram("차월물 풋 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['저가']))
                             else:
                                 ToTelegram("본월물 풋 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['저가']))
@@ -7974,7 +7979,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         '''
                         if self.telegram_flag:
 
-                            if NEXT_MONTH_ONLY == 'YES':
+                            if NEXT_MONTH_SELECT == 'YES':
                                 ToTelegram("차월물 풋 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['고가']))
                             else:
                                 ToTelegram("본월물 풋 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['고가']))
@@ -7983,7 +7988,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         '''
                         if telegram_command == 'Go' or telegram_command == '/start':
 
-                            if NEXT_MONTH_ONLY == 'YES':
+                            if NEXT_MONTH_SELECT == 'YES':
                                 ToTelegram("차월물 풋 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['고가']))
                             else:
                                 ToTelegram("본월물 풋 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['고가']))
@@ -9449,12 +9454,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if MANGI_YAGAN == 'YES':
 
-                        if NEXT_MONTH_ONLY == 'YES':
+                        if NEXT_MONTH_SELECT == 'YES':
                             XQ.Query(월물=MONTH_AFTER_NEXT_INFO)
                         else:
                             XQ.Query(월물=NEXT_MONTH_INFO)
                     else:
-                        if NEXT_MONTH_ONLY == 'YES':
+                        if NEXT_MONTH_SELECT == 'YES':
                             XQ.Query(월물=NEXT_MONTH_INFO)
                         else:
                             XQ.Query(월물=CURRENT_MONTH_INFO)
@@ -11109,7 +11114,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         # EUREX 야간옵션 시세전광판
                         XQ = t2835(parent=self)
 
-                        if NEXT_MONTH_ONLY == 'YES':
+                        if NEXT_MONTH_SELECT == 'YES':
 
                             if MANGI_YAGAN == 'YES':
                                 XQ.Query(월물=MONTH_AFTER_NEXT_INFO)
@@ -11230,7 +11235,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 gmshcode = 근월물선물코드
                 cmshcode = 차월물선물코드
 
-            if NEXT_MONTH_ONLY == 'YES': 
+            if NEXT_MONTH_SELECT == 'YES': 
 
                 fut_code = cmshcode
                 #print('차월물선물코드 요청', fut_code)
@@ -11309,7 +11314,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 '''
                 if self.telegram_flag:
 
-                    if not NEXT_MONTH_ONLY:
+                    if not NEXT_MONTH_SELECT:
                         ToTelegram("{0:.2f}에서 kp200 저가맥점 발생 !!!".format(kp200_realdata['저가']))
                     else:
                         pass
@@ -11318,7 +11323,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 '''
                 if telegram_command == 'Go' or telegram_command == '/start':
 
-                    if not NEXT_MONTH_ONLY:
+                    if not NEXT_MONTH_SELECT:
                         ToTelegram("{0:.2f}에서 kp200 저가맥점 발생 !!!".format(kp200_realdata['저가']))
                     else:
                         pass
@@ -11349,7 +11354,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 '''
                 if self.telegram_flag:
 
-                    if not NEXT_MONTH_ONLY:
+                    if not NEXT_MONTH_SELECT:
                         ToTelegram("{0:.2f}에서 kp200 고가맥점 발생 !!!".format(kp200_realdata['고가']))
                     else:
                         pass
@@ -11358,7 +11363,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 '''
                 if telegram_command == 'Go' or telegram_command == '/start':
 
-                    if not NEXT_MONTH_ONLY:
+                    if not NEXT_MONTH_SELECT:
                         ToTelegram("{0:.2f}에서 kp200 고가맥점 발생 !!!".format(kp200_realdata['고가']))
                     else:
                         pass
@@ -11755,7 +11760,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.telegram_worker.start()
             self.telegram_worker.daemon = True
 
-            ToTelegram("텔레그램 Polling 이 시작되었습니다.")
+            if NEXT_MONTH_SELECT == 'YES':
+                ToTelegram("차월물 텔레그램 Polling 이 시작되었습니다.")
+            else:
+                ToTelegram("본월물 텔레그램 Polling 이 시작되었습니다.")
         else:
             pass
 
@@ -14886,7 +14894,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 해외선물 지수 요청취소                    
                     self.OVC.UnadviseRealData()
                     
-                    if NEXT_MONTH_ONLY != 'YES': 
+                    if NEXT_MONTH_SELECT != 'YES': 
 
                         self.image_grab() 
                     else:
@@ -14913,7 +14921,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 해외선물 지수 요청취소                    
                     self.OVC.UnadviseRealData()
                     
-                    if NEXT_MONTH_ONLY != 'YES':
+                    if NEXT_MONTH_SELECT != 'YES':
 
                         self.image_grab()
                     else:
@@ -17091,7 +17099,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # 옵션 전광판 요청(주간=FC0/OC0, 야간=NC0/EC0)
             XQ = t2301(parent=self)
 
-            if NEXT_MONTH_ONLY == 'YES':
+            if NEXT_MONTH_SELECT == 'YES':
 
                 if MANGI_YAGAN == 'YES':
                     t2301_month_info = MONTH_AFTER_NEXT_INFO
@@ -17224,7 +17232,7 @@ class 화면_차월물옵션전광판(QDialog, Ui_차월물옵션전광판):
 ########################################################################################################################
 # 메인
 ########################################################################################################################
-if NEXT_MONTH_ONLY == 'YES':
+if NEXT_MONTH_SELECT == 'YES':
     Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+"mymoneybot_nm.ui")
 else:
     Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+"mymoneybot_cm.ui")
