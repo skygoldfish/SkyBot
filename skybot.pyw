@@ -5481,11 +5481,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if not overnight and not service_terminate:
 
                         if NEXT_MONTH_SELECT != 'YES':
-
-                            if int(current_str[6:8]) % 10 == 0:
-                                self.check_oneway(self.alternate_flag)
-                            else:
-                                pass
+                            self.check_oneway(self.alternate_flag)
                         else:
                             pass
                     else:
@@ -5867,6 +5863,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def check_oneway(self, blink):
 
         dt = datetime.datetime.now()
+        current_str = dt.strftime('%H:%M:%S')
 
         global call_oneway, put_oneway
 
@@ -5907,7 +5904,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             '''
                             if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
-                                ToTelegram("풋 OneWay 가능성 매우 높음(★★★★★)")
+                                if int(current_str[6:8]) % 10 == 0:
+                                    ToTelegram("풋 OneWay 가능성 매우 높음(★★★★★)")
+                                else:
+                                    pass
                             else:
                                 pass
                         else:
@@ -5927,7 +5927,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             '''
                             if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
-                                ToTelegram("풋 OneWay 가능성 높음(★★★★)")
+                                if int(current_str[6:8]) % 10 == 0:
+                                    ToTelegram("풋 OneWay 가능성 높음(★★★★)")
+                                else:
+                                    pass
                             else:
                                 pass                            
                         else:
@@ -6004,7 +6007,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             '''
                             if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
-                                ToTelegram("콜 OneWay 가능성 매우 높음(★★★★★)")
+                                if int(current_str[6:8]) % 10 == 0:
+                                    ToTelegram("콜 OneWay 가능성 매우 높음(★★★★★)")
+                                else:
+                                    pass
                             else:
                                 pass
                         else:
@@ -6023,7 +6029,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             '''
                             if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
-                                ToTelegram("콜 OneWay 가능성 높음(★★★★)")
+                                if int(current_str[6:8]) % 10 == 0:
+                                    ToTelegram("콜 OneWay 가능성 높음(★★★★)")
+                                else:
+                                    pass
                             else:
                                 pass
                         else:
