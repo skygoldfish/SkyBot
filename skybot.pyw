@@ -5891,16 +5891,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음(★★★★★)\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
-                            '''
-                            if self.telegram_flag:
 
-                                ToTelegram("풋 OneWay 가능성 매우 높음(★★★★★)")
-                            else:
-                                pass
-                            '''
                             if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
-                                if int(current_str[6:8]) % 30 == 0:
+                                if int(current_str[6:8]) % 20 == 0:
                                     ToTelegram("풋 OneWay 가능성 매우 높음(★★★★★)")
                                 else:
                                     pass
@@ -5913,17 +5907,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         if blink:
                             str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 높음(★★★★)\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str) 
-                            '''
-                            if self.telegram_flag:
-
-                                ToTelegram("풋 OneWay 가능성 높음(★★★★)")
-                            else:
-                                pass
-                            '''
+                            self.textBrowser.append(str)
+                            
                             if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
-                                if int(current_str[6:8]) % 30 == 0:
+                                if int(current_str[6:8]) % 20 == 0:
                                     ToTelegram("풋 OneWay 가능성 높음(★★★★)")
                                 else:
                                     pass
@@ -5994,16 +5982,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음(★★★★★)\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
-                            '''
-                            if self.telegram_flag:
-
-                                ToTelegram("콜 OneWay 가능성 매우 높음(★★★★★)")
-                            else:
-                                pass
-                            '''
+                            
                             if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
-                                if int(current_str[6:8]) % 30 == 0:
+                                if int(current_str[6:8]) % 20 == 0:
                                     ToTelegram("콜 OneWay 가능성 매우 높음(★★★★★)")
                                 else:
                                     pass
@@ -6015,17 +5997,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         if blink:
                             str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 높음(★★★★)\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)   
-                            '''
-                            if self.telegram_flag:
-
-                                ToTelegram("콜 OneWay 가능성 높음(★★★★)")
-                            else:
-                                pass
-                            '''
+                            self.textBrowser.append(str)
+                            
                             if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
-                                if int(current_str[6:8]) % 30 == 0:
+                                if int(current_str[6:8]) % 20 == 0:
                                     ToTelegram("콜 OneWay 가능성 높음(★★★★)")
                                 else:
                                     pass
@@ -6437,16 +6413,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         item = QTableWidgetItem('저가 ▲')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-                        '''
-                        if self.telegram_flag:
-
-                            if NEXT_MONTH_SELECT == 'YES':
-                                ToTelegram("차월물 콜 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['저가']))
-                            else:
-                                ToTelegram("본월물 콜 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['저가']))
-                        else:
-                            pass
-                        '''
+                        
                         if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if NEXT_MONTH_SELECT == 'YES':
@@ -6481,16 +6448,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         item = QTableWidgetItem('고가 ▼')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-                        '''
-                        if self.telegram_flag:
-
-                            if NEXT_MONTH_SELECT == 'YES':
-                                ToTelegram("차월물 콜 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['고가']))
-                            else:
-                                ToTelegram("본월물 콜 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['고가']))
-                        else:
-                            pass
-                        '''
+                        
                         if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if NEXT_MONTH_SELECT == 'YES':
@@ -7956,16 +7914,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         item = QTableWidgetItem('저가 ▲')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-                        '''
-                        if self.telegram_flag:
-
-                            if NEXT_MONTH_SELECT == 'YES':
-                                ToTelegram("차월물 풋 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['저가']))
-                            else:
-                                ToTelegram("본월물 풋 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['저가']))
-                        else:
-                            pass
-                        '''
+                        
                         if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if NEXT_MONTH_SELECT == 'YES':
@@ -8000,16 +7949,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         item = QTableWidgetItem('고가 ▼')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-                        '''
-                        if self.telegram_flag:
 
-                            if NEXT_MONTH_SELECT == 'YES':
-                                ToTelegram("차월물 풋 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['고가']))
-                            else:
-                                ToTelegram("본월물 풋 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['고가']))
-                        else:
-                            pass
-                        '''
                         if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if NEXT_MONTH_SELECT == 'YES':
@@ -11334,17 +11274,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))
 
                 flag_kp200_low_node = True
-                #kp200_low_node_time = t
-                '''
-                if self.telegram_flag:
-
-                    if not NEXT_MONTH_SELECT:
-                        ToTelegram("{0:.2f}에서 kp200 저가맥점 발생 !!!".format(kp200_realdata['저가']))
-                    else:
-                        pass
-                else:
-                    pass
-                '''
+                
                 if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
                     if not NEXT_MONTH_SELECT:
@@ -11374,17 +11304,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(검정색))
 
                 flag_kp200_high_node = True
-                #kp200_high_node_time = t
-                '''
-                if self.telegram_flag:
-
-                    if not NEXT_MONTH_SELECT:
-                        ToTelegram("{0:.2f}에서 kp200 고가맥점 발생 !!!".format(kp200_realdata['고가']))
-                    else:
-                        pass
-                else:
-                    pass
-                '''
+                
                 if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
                     if not NEXT_MONTH_SELECT:
