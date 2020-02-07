@@ -2740,14 +2740,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     buildtime = time.ctime(os.path.getmtime(__file__))
 
-        '''
-        if os.path.exists('SkyBot.exe'):
-
-            buildtime = time.ctime(os.path.getmtime('SkyBot.exe'))
-        else:
-            buildtime = time.ctime(os.path.getmtime(__file__))
-        '''
+        if TELEGRAM_SERVICE == 'ON':
         
+            self.telegram_flag = True        
+            self.pushButton_remove.setStyleSheet("background-color: lawngreen")
+        else:
+            self.telegram_flag = False
+            self.pushButton_remove.setStyleSheet("background-color: lightGray")
+
         if 4 < int(current_str[0:2]) < 야간선물_기준시간:
 
             if NEXT_MONTH_SELECT == 'YES':
@@ -2797,7 +2797,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
         
         self.pushButton_add.setStyleSheet("background-color: lightGray")
-        self.pushButton_remove.setStyleSheet("background-color: lightGray")
         
         self.label_msg.setText("🕘")
         self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
@@ -3481,9 +3480,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.color_flag = True
         self.alternate_flag = True
         self.centerval_flag = True
-
-        self.telegram_flag = True        
-        self.pushButton_remove.setStyleSheet("background-color: lawngreen")
 
         global call_node_state, put_node_state
 
