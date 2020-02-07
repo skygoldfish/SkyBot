@@ -287,6 +287,18 @@ yagan_service_terminate = False
 call_oneway = False
 put_oneway = False
 
+call_oneway_level1 = False
+call_oneway_level2 = False
+call_oneway_level3 = False
+call_oneway_level4 = False
+call_oneway_level5 = False
+
+put_oneway_level1 = False
+put_oneway_level2 = False
+put_oneway_level3 = False
+put_oneway_level4 = False
+put_oneway_level5 = False
+
 flag_fut_low = False
 flag_fut_high = False
 
@@ -5009,6 +5021,42 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 dt.hour, dt.minute, dt.second, telegram_command)
             print(str)
 
+            if call_oneway_level4:
+
+                if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+
+                    ToTelegram("콜 OneWay 가능성 높음(★★★★)")
+                else:
+                    pass
+
+            elif call_oneway_level5:
+
+                if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+
+                    ToTelegram("콜 OneWay 가능성 매우 높음(★★★★★)")
+                else:
+                    pass
+            else:
+                pass
+
+            if put_oneway_level4:
+
+                if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+
+                    ToTelegram("풋 OneWay 가능성 높음(★★★★)")
+                else:
+                    pass
+
+            elif put_oneway_level5:
+
+                if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+
+                    ToTelegram("풋 OneWay 가능성 매우 높음(★★★★★)")
+                else:
+                    pass
+            else:
+                pass
+
         except:
             pass
 
@@ -5862,6 +5910,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         current_str = dt.strftime('%H:%M:%S')
 
         global call_oneway, put_oneway
+        global call_oneway_level1, call_oneway_level2, call_oneway_level3, call_oneway_level4, call_oneway_level5
+        global put_oneway_level1, put_oneway_level2, put_oneway_level3, put_oneway_level4, put_oneway_level5 
 
         if overnight:
 
@@ -5884,6 +5934,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # 시가갭 & 퍼센트로 oneway 판단
                     if 풋시가갭합 > 0 and 풋시가갭합_퍼센트 < 0:
+                        
+                        put_oneway_level4 = False
+                        put_oneway_level5 = True
 
                         if blink:
                             self.label_msg.setStyleSheet('background-color: blue; color: white')
@@ -5892,6 +5945,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음(★★★★★)\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
 
+                            '''
                             if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
                                 if int(current_str[6:8]) % 20 == 0:
@@ -5900,15 +5954,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     pass
                             else:
                                 pass
+                            '''
                         else:
                             self.label_msg.setStyleSheet('background-color: white; color: blue')
                             self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
                         
                     else:
+                        
+                        put_oneway_level4 = True
+                        put_oneway_level5 = False
+
                         if blink:
                             str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 높음(★★★★)\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
-                            
+
+                            '''
                             if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
                                 if int(current_str[6:8]) % 20 == 0:
@@ -5916,7 +5976,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 else:
                                     pass
                             else:
-                                pass                            
+                                pass 
+                            '''                           
                         else:
                             pass                 
 
@@ -5975,6 +6036,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # 시가갭 & 퍼센트로 oneway 판단
                     if 콜시가갭합 > 0 and 콜시가갭합_퍼센트 < 0:
+                        
+                        call_oneway_level4 = False
+                        call_oneway_level5 = True
 
                         if blink:
                             self.label_msg.setStyleSheet('background-color: red; color: white')
@@ -5982,7 +6046,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음(★★★★★)\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
-                            
+
+                            '''
                             if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
                                 if int(current_str[6:8]) % 20 == 0:
@@ -5991,14 +6056,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     pass
                             else:
                                 pass
+                            '''
                         else:
                             self.label_msg.setStyleSheet('background-color: white; color: red')
                             self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))                        
                     else:
+                        
+                        call_oneway_level4 = True
+                        call_oneway_level5 = False
+
                         if blink:
                             str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 높음(★★★★)\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
-                            
+
+                            '''
                             if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
                                 if int(current_str[6:8]) % 20 == 0:
@@ -6007,6 +6078,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     pass
                             else:
                                 pass
+                            '''
                         else:
                             pass                 
 
@@ -10410,17 +10482,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.update_worker.start()
                 self.update_worker.daemon = True
 
-                #self.telegram_worker.start()
-                #self.telegram_worker.daemon = True
+                telegram_standby_time = int(current_str[0:2]) * 3600 + int(current_str[3:5]) * 60 + int(current_str[6:8])
+                print('telegram_standby_time =', telegram_standby_time)
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
-
-                refresh_flag = True
+                print(str)
                 
-                self.pushButton_add.setStyleSheet("background-color: lawngreen")
-                self.pushButton_add.setText('Refresh')        
+                refresh_flag = True
 
+                self.pushButton_add.setStyleSheet("background-color: lawngreen")
+                self.pushButton_add.setText('Refresh')       
+                
             else:
                 # Refresh
                 str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -11140,9 +11213,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             self.update_worker.start()
                             self.update_worker.daemon = True
 
-                            #self.telegram_worker.start()
-                            #self.telegram_worker.daemon = True
-
                             if int(current_str[0:2]) >= domestic_start_hour:
 
                                 telegram_standby_time = int(current_str[0:2]) * 3600 + int(current_str[3:5]) * 60 + int(current_str[6:8])
@@ -11152,7 +11222,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
-                            
+                            print(str)
+
                             refresh_flag = True
 
                             self.pushButton_add.setStyleSheet("background-color: lawngreen")
