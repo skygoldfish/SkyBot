@@ -5904,7 +5904,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             '''
                             if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
-                                if int(current_str[6:8]) % 10 == 0:
+                                if int(current_str[6:8]) % 30 == 0:
                                     ToTelegram("풋 OneWay 가능성 매우 높음(★★★★★)")
                                 else:
                                     pass
@@ -5927,7 +5927,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             '''
                             if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
-                                if int(current_str[6:8]) % 10 == 0:
+                                if int(current_str[6:8]) % 30 == 0:
                                     ToTelegram("풋 OneWay 가능성 높음(★★★★)")
                                 else:
                                     pass
@@ -6007,7 +6007,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             '''
                             if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
-                                if int(current_str[6:8]) % 10 == 0:
+                                if int(current_str[6:8]) % 30 == 0:
                                     ToTelegram("콜 OneWay 가능성 매우 높음(★★★★★)")
                                 else:
                                     pass
@@ -6029,7 +6029,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             '''
                             if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
 
-                                if int(current_str[6:8]) % 10 == 0:
+                                if int(current_str[6:8]) % 30 == 0:
                                     ToTelegram("콜 OneWay 가능성 높음(★★★★)")
                                 else:
                                     pass
