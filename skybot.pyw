@@ -167,7 +167,7 @@ with open('rules.txt', mode='r') as initfile:
     진성맥점.append(MY_COREVAL)
     진성맥점 = list(set(진성맥점))
     진성맥점.sort()
-    print(진성맥점)
+    #print(진성맥점)
     
     tmp = initfile.readline().strip()
     tmp = initfile.readline().strip()
@@ -175,17 +175,17 @@ with open('rules.txt', mode='r') as initfile:
     tmp = initfile.readline().strip()
     temp = tmp.split()
     TELEGRAM_SERVICE = temp[3]
-    print(TELEGRAM_SERVICE)
+    #print(TELEGRAM_SERVICE)
 
     tmp = initfile.readline().strip()
     temp = tmp.split()
     TELEGRAM_START_TIME = int(temp[7])
-    print(TELEGRAM_START_TIME)
+    #print(TELEGRAM_START_TIME)
 
     tmp = initfile.readline().strip()
     temp = tmp.split()
     TELEGRAM_POLLING_INTERVAL = int(temp[4])
-    print(TELEGRAM_POLLING_INTERVAL)
+    #print(TELEGRAM_POLLING_INTERVAL)
 
     tmp = initfile.readline().strip()
     tmp = initfile.readline().strip()
@@ -193,7 +193,7 @@ with open('rules.txt', mode='r') as initfile:
     tmp = initfile.readline().strip()
     temp = tmp.split()
     ONEWAY_THRESHOLD = int(temp[8])
-    print(ONEWAY_THRESHOLD)
+    #print(ONEWAY_THRESHOLD)
 
 # 전역변수
 ########################################################################################################################
