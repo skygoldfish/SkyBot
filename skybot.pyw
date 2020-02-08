@@ -2595,7 +2595,7 @@ class telegram_worker(QThread):
             
             if call_oneway_level4:
 
-                if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
 
                     ToTelegram("콜 OneWay 가능성 높음(★★★★)")
                 else:
@@ -2603,7 +2603,7 @@ class telegram_worker(QThread):
 
             elif call_oneway_level5:
 
-                if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
 
                     ToTelegram("콜 OneWay 가능성 매우 높음(★★★★★)")
                 else:
@@ -2613,7 +2613,7 @@ class telegram_worker(QThread):
 
             if put_oneway_level4:
 
-                if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
 
                     ToTelegram("풋 OneWay 가능성 높음(★★★★)")
                 else:
@@ -2621,7 +2621,7 @@ class telegram_worker(QThread):
 
             elif put_oneway_level5:
 
-                if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
 
                     ToTelegram("풋 OneWay 가능성 매우 높음(★★★★★)")
                 else:
@@ -2741,14 +2741,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     buildtime = time.ctime(os.path.getmtime('SkyBot_CM.exe'))
                 else:
                     buildtime = time.ctime(os.path.getmtime(__file__))
-
-        if TELEGRAM_SERVICE == 'ON':
         
-            self.telegram_flag = True        
-            self.pushButton_remove.setStyleSheet("background-color: lawngreen")
-        else:
-            self.telegram_flag = False
-            self.pushButton_remove.setStyleSheet("background-color: lightGray")
+        self.telegram_flag = True
+        self.pushButton_remove.setStyleSheet("background-color: lightGray")
 
         if 4 < int(current_str[0:2]) < 야간선물_기준시간:
 
@@ -5011,6 +5006,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 dt.hour, dt.minute, dt.second, telegram_command)
             print(str)
 
+            if telegram_command == 'Go' or telegram_command == '/start':
+
+                if not self.telegram_flag:
+                    self.pushButton_remove.setStyleSheet("background-color: lawngreen")
+                    self.telegram_flag = True
+                else:
+                    pass
+            else:
+                if self.telegram_flag:
+                    self.pushButton_remove.setStyleSheet("background-color: lightGray")
+                    self.telegram_flag = False
+                else:
+                    pass
         except:
             pass
 
@@ -6440,7 +6448,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem('저가 ▲')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
                         
-                        if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+                        if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if NEXT_MONTH_SELECT == 'YES':
                                 ToTelegram("차월물 콜 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['저가']))
@@ -6475,7 +6483,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem('고가 ▼')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
                         
-                        if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+                        if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if NEXT_MONTH_SELECT == 'YES':
                                 ToTelegram("차월물 콜 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['고가']))
@@ -7941,7 +7949,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem('저가 ▲')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
                         
-                        if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+                        if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if NEXT_MONTH_SELECT == 'YES':
                                 ToTelegram("차월물 풋 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['저가']))
@@ -7976,7 +7984,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem('고가 ▼')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                        if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+                        if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if NEXT_MONTH_SELECT == 'YES':
                                 ToTelegram("차월물 풋 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['고가']))
@@ -11305,7 +11313,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 flag_kp200_low_node = True
                 
-                if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
 
                     if not NEXT_MONTH_SELECT:
                         ToTelegram("{0:.2f}에서 kp200 저가맥점 발생 !!!".format(kp200_realdata['저가']))
@@ -11335,7 +11343,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 flag_kp200_high_node = True
                 
-                if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
 
                     if not NEXT_MONTH_SELECT:
                         ToTelegram("{0:.2f}에서 kp200 고가맥점 발생 !!!".format(kp200_realdata['고가']))
@@ -11740,6 +11748,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     ToTelegram("차월물 텔레그램 Polling이 시작되었습니다.")
                 else:
                     ToTelegram("본월물 텔레그램 Polling이 시작되었습니다.")
+
+                self.pushButton_remove.setStyleSheet("background-color: lawngreen")
+                self.telegram_flag = True
             else:
                 pass            
         else:
@@ -17172,10 +17183,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if self.telegram_flag:
 
             self.pushButton_remove.setStyleSheet("background-color: lawngreen")
-            print('telegram_flag', self.telegram_flag)
+            print('telegram_flag =', self.telegram_flag)
         else:
             self.pushButton_remove.setStyleSheet("background-color: lightGray")
-            print('telegram_flag', self.telegram_flag)
+            print('telegram_flag =', self.telegram_flag)
 
         return
 
@@ -17190,25 +17201,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             event.ignore()
         '''
-
-'''
-########################################################################################################################
-
-########################################################################################################################
-Ui_차월물옵션전광판, QtBaseClass_차월물옵션전광판 = uic.loadUiType(UI_DIR + "차월물옵션전광판.ui")
-class 화면_차월물옵션전광판(QDialog, Ui_차월물옵션전광판):
-    def __init__(self, parent=None):
-        super(화면_차월물옵션전광판, self).__init__(parent,
-                            flags=Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint | Qt.WindowCloseButtonHint)
-        self.setAttribute(Qt.WA_DeleteOnClose)
-        self.setupUi(self)
-
-        title = '차월물 옵션전광판 ' + '(' + today_str_title + ')'
-        self.setWindowTitle(title)
-
-        self.parent = parent    
-########################################################################################################################
-'''
 
 ########################################################################################################################
 # 메인
