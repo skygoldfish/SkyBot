@@ -12029,6 +12029,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem("{0:0.2f}".format(시가갭))
                 item.setTextAlignment(Qt.AlignCenter)
 
+                if 선물_시가 > 선물_종가:
+                    item.setBackground(QBrush(콜기준가색))
+                    item.setForeground(QBrush(검정색))
+                elif 선물_시가 < 선물_종가:
+                    item.setBackground(QBrush(풋기준가색))
+                    item.setForeground(QBrush(흰색))
+                else:
+                    item.setBackground(QBrush(흰색)) 
+
                 if overnight:
                     self.tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
                     df_fut.loc[0, '시가갭'] = 시가갭
