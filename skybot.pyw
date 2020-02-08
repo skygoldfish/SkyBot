@@ -2590,7 +2590,43 @@ class telegram_worker(QThread):
     finished = pg.QtCore.Signal(object)
 
     def run(self):
-        while True:
+        while True:       
+            
+            if call_oneway_level4:
+
+                if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+
+                    ToTelegram("콜 OneWay 가능성 높음(★★★★)")
+                else:
+                    pass
+
+            elif call_oneway_level5:
+
+                if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+
+                    ToTelegram("콜 OneWay 가능성 매우 높음(★★★★★)")
+                else:
+                    pass
+            else:
+                pass
+
+            if put_oneway_level4:
+
+                if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+
+                    ToTelegram("풋 OneWay 가능성 높음(★★★★)")
+                else:
+                    pass
+
+            elif put_oneway_level5:
+
+                if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+
+                    ToTelegram("풋 OneWay 가능성 매우 높음(★★★★★)")
+                else:
+                    pass
+            else:
+                pass
 
             str = FromTelegram()
 
@@ -5020,42 +5056,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Command = {3}\r'.format(\
                 dt.hour, dt.minute, dt.second, telegram_command)
             print(str)
-
-            if call_oneway_level4:
-
-                if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
-
-                    ToTelegram("콜 OneWay 가능성 높음(★★★★)")
-                else:
-                    pass
-
-            elif call_oneway_level5:
-
-                if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
-
-                    ToTelegram("콜 OneWay 가능성 매우 높음(★★★★★)")
-                else:
-                    pass
-            else:
-                pass
-
-            if put_oneway_level4:
-
-                if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
-
-                    ToTelegram("풋 OneWay 가능성 높음(★★★★)")
-                else:
-                    pass
-
-            elif put_oneway_level5:
-
-                if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
-
-                    ToTelegram("풋 OneWay 가능성 매우 높음(★★★★★)")
-                else:
-                    pass
-            else:
-                pass
 
         except:
             pass
