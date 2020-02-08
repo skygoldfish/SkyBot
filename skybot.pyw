@@ -2585,6 +2585,7 @@ class t8416_Put_Worker(QThread):
             self.finished.emit(data)
             self.msleep(1100)
 ########################################################################################################################
+# 텔레그램 송수신시 약 1.2초 정도 전달지연 시간 발생함
 class telegram_worker(QThread):
 
     finished = pg.QtCore.Signal(object)
