@@ -2668,6 +2668,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         screen = QtGui.QDesktopWidget().screenGeometry(모니터번호)
 
         print('모니터화면 번호 = ', 모니터번호)
+        
+        print('current month = %s, month firstday = %s, next month = %s, month after next = %s, next month select = %s, cnm select = %s, SP500 = %s, DOW = %s, NASDAQ = %s' \
+            % (CURRENT_MONTH_INFO, MONTH_FIRSTDAY, NEXT_MONTH_INFO, MONTH_AFTER_NEXT_INFO, NEXT_MONTH_SELECT, CNM_SELECT, SP500, DOW, NASDAQ))
 
         left = screen.left()
         top = screen.top()
@@ -2692,56 +2695,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         nowDate = now.strftime('%Y-%m-%d')
         current_str = dt.strftime('%H:%M:%S')
-
-        '''
-        with open('month_info.txt', mode='r') as monthfile:
-            tmp = monthfile.readline().strip()
-            temp = tmp.split()
-            domestic_start_hour = int(temp[3])
-
-            tmp = monthfile.readline().strip()
-            temp = tmp.split()
-            MANGI_YAGAN = temp[3]            
-
-            tmp = monthfile.readline().strip()
-            temp = tmp.split()
-            CURRENT_MONTH_INFO = temp[3]
-
-            tmp = monthfile.readline().strip()
-            temp = tmp.split()
-            MONTH_FIRSTDAY = temp[7]
-
-            tmp = monthfile.readline().strip()
-            temp = tmp.split()
-            NEXT_MONTH_INFO = temp[3]
-
-            tmp = monthfile.readline().strip()
-            temp = tmp.split()
-            MONTH_AFTER_NEXT_INFO = temp[4]
-
-            tmp = monthfile.readline().strip()
-            temp = tmp.split()
-            NEXT_MONTH_SELECT = temp[4]
-
-            tmp = monthfile.readline().strip()
-            temp = tmp.split()
-            CNM_SELECT = temp[5]
-
-            tmp = monthfile.readline().strip()
-            temp = tmp.split()
-            SP500 = temp[3]
-
-            tmp = monthfile.readline().strip()
-            temp = tmp.split()
-            DOW = temp[2]
-
-            tmp = monthfile.readline().strip()
-            temp = tmp.split()
-            NASDAQ = temp[2]           
-        '''
-
-        print('current month = %s, month firstday = %s, next month = %s, month after next = %s, next month select = %s, cnm select = %s, SP500 = %s, DOW = %s, NASDAQ = %s' \
-            % (CURRENT_MONTH_INFO, MONTH_FIRSTDAY, NEXT_MONTH_INFO, MONTH_AFTER_NEXT_INFO, NEXT_MONTH_SELECT, CNM_SELECT, SP500, DOW, NASDAQ))
         
         if MANGI_YAGAN == 'YES':
 
@@ -10486,7 +10439,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 telegram_standby_time = int(current_str[0:2]) * 3600 + int(current_str[3:5]) * 60 + int(current_str[6:8])
                 print('telegram_standby_time =', telegram_standby_time)
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
                 print(str)
                 
@@ -11221,7 +11174,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             else:
                                 pass
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
                             print(str)
 
@@ -17083,6 +17036,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
+
+        self.pushButton_add.setStyleSheet("background-color: lawngreen")
 
         if service_terminate:
 
