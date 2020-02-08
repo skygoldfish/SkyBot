@@ -2347,7 +2347,7 @@ class 화면_버전(QDialog, Ui_버전):
 ########################################################################################################################
 # sky work !!!
 ########################################################################################################################
-class update_worker(QThread):
+class screen_update_worker(QThread):
 
     finished = pyqtSignal(dict)
     
@@ -2782,8 +2782,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.t8416_putworker = t8416_Put_Worker()
         self.t8416_putworker.finished.connect(self.t8416_put_request)
 
-        self.update_worker = update_worker()
-        self.update_worker.finished.connect(self.update_screen)
+        self.screen_update_worker = screen_update_worker()
+        self.screen_update_worker.finished.connect(self.update_screen)
 
         self.telegram_worker = telegram_worker()
         self.telegram_worker.finished.connect(self.receive_telegram_message)
@@ -4667,7 +4667,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if atm_str != '':
 
                 if row < atm_index:
-                    call_positionCell = self.tableWidget_call.item(atm_index + 4, 1)
+                    call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
                 else:
                     call_positionCell = self.tableWidget_call.item(atm_index - 4, 1)
 
@@ -4697,7 +4697,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if atm_str != '':
 
                 if row < atm_index:
-                    put_positionCell = self.tableWidget_put.item(atm_index + 4, 1)
+                    put_positionCell = self.tableWidget_put.item(atm_index + 3, 1)
                 else:
                     put_positionCell = self.tableWidget_put.item(atm_index - 4, 1)
 
@@ -8143,7 +8143,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             fut_realdata['현재가'] = df['현재가']
             fut_realdata['KP200'] = df['KOSPI200지수']
-
+            
             atm_str = self.find_ATM(fut_realdata['KP200'])
 
             if atm_str[-1] == '2' or atm_str[-1] == '7':
@@ -8157,11 +8157,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 atm_index = opt_actval.index(atm_str)
                 atm_index_old = atm_index
 
+                #print('t2101 atm_index = ', atm_index)
+                '''
                 self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
                 self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
                 self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
-                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-
+                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))                
+                
                 if not overnight:
                             
                     self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
@@ -8176,13 +8178,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     selected_put = [atm_index - 1, atm_index, atm_index + 1]
                 else:
                     pass
-
+                '''
                 view_actval = opt_actval[atm_index-5:atm_index+6]
 
-                # print('new list', view_actval)
-                
                 call_atm_value = df_call.iloc[atm_index]['현재가']
                 put_atm_value = df_put.iloc[atm_index]['현재가']
+                
+                str = '{0:0.2f}({1:0.2f}:{2:0.2f})'.format(
+                    fut_realdata['현재가'] - fut_realdata['KP200'],
+                    call_atm_value + put_atm_value,
+                    abs(call_atm_value - put_atm_value))
+                self.label_atm.setText(str)                
 
                 df_plotdata_two_sum[0][0] = call_atm_value + put_atm_value
                 df_plotdata_two_cha[0][0] = call_atm_value - put_atm_value
@@ -8190,19 +8196,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_plotdata_two_sum[0][선물장간_시간차] = call_atm_value + put_atm_value
                 df_plotdata_two_cha[0][선물장간_시간차] = call_atm_value - put_atm_value
 
-                str = '{0:0.2f}({1:0.2f}:{2:0.2f})'.format(
-                    fut_realdata['현재가'] - fut_realdata['KP200'],
-                    call_atm_value + put_atm_value,
-                    abs(call_atm_value - put_atm_value))
-                self.label_atm.setText(str)
-
                 item_str = '{0:0.2f}%\n{1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_quote.setItem(0, 13, item)
             else:
-                print("atm_str이 리스트에 없습니다.", atm_str)
+                print("atm_str이 리스트에 없습니다.", atm_str)            
 
             fut_realdata['종가'] = df['전일종가']
 
@@ -9476,6 +9476,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
 
             # kp200 coreval 리스트 만듬
+            kp200_realdata['종가'] = df['KOSPI200지수']
+            
             atm_str = self.find_ATM(kp200_realdata['종가'])
             atm_index = opt_actval.index(atm_str)
 
@@ -9534,38 +9536,45 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             kp200_coreval.sort()
             print('t2801 kp200_coreval', kp200_coreval)
 
+            atm_str = self.find_ATM(kp200_realdata['종가'])
+
+            if atm_str[-1] == '2' or atm_str[-1] == '7':
+
+                atm_val = float(atm_str) + 0.5
+            else:
+                atm_val = float(atm_str)
+
+            #print('t2801 atm_index = ', atm_index, atm_str, kp200_realdata['종가'])
+            
+            self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
+            self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
+            self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
+            self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))   
+            
+            self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+            self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+            self.tableWidget_call.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+
+            self.tableWidget_put.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+            self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+            self.tableWidget_put.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+            
+            selected_call = [atm_index - 1, atm_index, atm_index + 1]
+            selected_put = [atm_index - 1, atm_index, atm_index + 1]
+
+            view_actval = opt_actval[atm_index-5:atm_index+6]
+
+            call_atm_value = df_call.iloc[atm_index]['현재가']
+            put_atm_value = df_put.iloc[atm_index]['현재가']
+
+            str = '{0:0.2f}({1:0.2f}:{2:0.2f})'.format(
+                fut_realdata['현재가'] - fut_realdata['KP200'],
+                call_atm_value + put_atm_value,
+                abs(call_atm_value - put_atm_value))
+            self.label_atm.setText(str)
+            
             if overnight:
-
-                kp200_realdata['종가'] = df['KOSPI200지수']
-
-                atm_str = self.find_ATM(kp200_realdata['종가'])
-
-                if atm_str[-1] == '2' or atm_str[-1] == '7':
-
-                    atm_val = float(atm_str) + 0.5
-                else:
-                    atm_val = float(atm_str)
-
-                self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                self.tableWidget_call.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-
-                self.tableWidget_put.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                self.tableWidget_put.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-
-                selected_call = [atm_index - 1, atm_index, atm_index + 1]
-                selected_put = [atm_index - 1, atm_index, atm_index + 1]
-
-                call_atm_value = df_call.iloc[atm_index]['현재가']
-                put_atm_value = df_put.iloc[atm_index]['현재가']
-
-                str = '{0:0.2f}({1:0.2f}:{2:0.2f})'.format(
-                    fut_realdata['현재가'] - fut_realdata['KP200'],
-                    call_atm_value + put_atm_value,
-                    abs(call_atm_value - put_atm_value))
-                self.label_atm.setText(str)
-
+                
                 item_str = '{0:0.2f}%\n{1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
                 item = QTableWidgetItem(item_str)
@@ -10433,8 +10442,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
                 
-                self.update_worker.start()
-                self.update_worker.daemon = True
+                self.screen_update_worker.start()
+                self.screen_update_worker.daemon = True
 
                 telegram_standby_time = int(current_str[0:2]) * 3600 + int(current_str[3:5]) * 60 + int(current_str[6:8])
                 print('telegram_standby_time =', telegram_standby_time)
@@ -10747,10 +10756,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if call_t8416_count == option_pairs_count:
                     put_t8416_count += 1
-                    #print('put_t8416_count = ', put_t8416_count)
                 else:
                     call_t8416_count += 1
-                    #print('call_t8416_count = ', call_t8416_count)
 
                     new_actval_count += 1 
 
@@ -10902,7 +10909,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 print('Call 과거데이타 %d 개중 %d개 수신...' % (option_pairs_count, call_t8416_count))
                 
-                #if call_t8416_count == option_pairs_count - new_actval_count:
                 if call_t8416_count == option_pairs_count:
 
                     if self.t8416_callworker.isRunning():
@@ -10937,7 +10943,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.tableWidget_call.resizeColumnsToContents()
 
-                        call_positionCell = self.tableWidget_call.item(atm_index + 4, 1)
+                        call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
                         self.tableWidget_call.scrollToItem(call_positionCell)
 
                         time.sleep(1.1)
@@ -11053,7 +11059,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 print('Put 과거데이타 %d 개중 %d개 수신...' % (option_pairs_count, put_t8416_count))
 
-                #if put_t8416_count == option_pairs_count - new_actval_count:
                 if put_t8416_count == option_pairs_count:
 
                     print('\r')
@@ -11066,7 +11071,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     self.tableWidget_put.resizeColumnsToContents()
 
-                    put_positionCell = self.tableWidget_put.item(atm_index + 4, 1)
+                    put_positionCell = self.tableWidget_put.item(atm_index + 3, 1)
                     self.tableWidget_put.scrollToItem(put_positionCell)
 
                     if self.t8416_putworker.isRunning():
@@ -11164,8 +11169,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if not refresh_flag:
 
-                            self.update_worker.start()
-                            self.update_worker.daemon = True
+                            self.screen_update_worker.start()
+                            self.screen_update_worker.daemon = True
 
                             if int(current_str[0:2]) >= domestic_start_hour:
 
@@ -13016,7 +13021,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if index != atm_index:
                         self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
                     else:
-                        self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))                    
+                        self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
                 else:
                     pass
                 
@@ -17037,8 +17042,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
 
-        self.pushButton_add.setStyleSheet("background-color: lawngreen")
-
         if service_terminate:
 
             file = open('skybot.log', 'w')
@@ -17051,6 +17054,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if not refresh_flag:
 
                 START_ON = True
+                
+                self.pushButton_add.setStyleSheet("background-color: lawngreen")
+                self.pushButton_add.setText('Starting...')
 
                 # 지수선물 마스터조회 API용
                 XQ = t8432(parent=self)
