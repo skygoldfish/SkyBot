@@ -12,5 +12,5 @@ telegram polling interval(second) = 10
 threshold of the institutional party's supply & demand = 2500
 CALL OL Market : CALL OL = 5 CALL OH = 1
 CALL OH Market : CALL OL = 1 CALL OH = 5
-PUT OL Market : PUT OL = 5 PUT OH = 1
-PUT OH Market : PUT OL = 1 PUT OH = 5
+PUT OL Market : PUT OL = 6 PUT OH = 1
+PUT OH Market : PUT OL = 1 PUT OH = 6

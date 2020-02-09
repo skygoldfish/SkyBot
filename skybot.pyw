@@ -292,6 +292,11 @@ end_time_str = ''
 콜_체결_초 = 0
 풋_체결_초 = 0
 
+call_ol_count = 0
+call_oh_count = 0
+put_ol_count = 0
+put_oh_count = 0
+
 coloring_done_time = 0
 coloring_interval = 1
 node_coloring = False
@@ -2615,7 +2620,34 @@ class telegram_worker(QThread):
     finished = pg.QtCore.Signal(object)
 
     def run(self):
-        while True:       
+        while True:
+
+            # OL, OH 알람
+            if call_ol_count - call_oh_count >= COL_OL - COL_OH and put_oh_count - put_ol_count >= POH_OH - POH_OL:
+
+                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+
+                    if NEXT_MONTH_SELECT == 'YES':
+
+                        ToTelegram("차월물 Call 우세 !!!")
+                    else:
+                        ToTelegram("본월물 Call 우세 !!!")
+                else:
+                    pass
+
+            elif put_ol_count - put_oh_count >= POL_OL - POL_OH and call_oh_count - call_ol_count >= COH_OH - COH_OL:
+
+                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+
+                    if NEXT_MONTH_SELECT == 'YES':
+
+                        ToTelegram("차월물 Put 우세 !!!")
+                    else:
+                        ToTelegram("본월물 Put 우세 !!!")
+                else:
+                    pass
+            else:
+                pass       
             
             # 콜 원웨이 알람
             if call_oneway_level3:
@@ -13059,6 +13091,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_open, call_ol, call_oh
         global call_gap_percent, call_db_percent      
         global 콜시가갭합, 콜시가갭합_퍼센트
+        global call_ol_count, call_oh_count
         
         call_ol = [False] * option_pairs_count
         call_oh = [False] * option_pairs_count
@@ -13248,7 +13281,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        new_oloh = repr(call_ol.count(True)) + ':' + repr(call_oh.count(True))
+        call_ol_count = call_ol.count(True)
+        call_oh_count = call_oh.count(True)
+
+        new_oloh = repr(call_ol_count) + ':' + repr(call_oh_count)
 
         if new_oloh != self.tableWidget_call.horizontalHeaderItem(2).text():
             item = QTableWidgetItem(new_oloh)
@@ -14132,6 +14168,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global put_open, put_ol, put_oh
         global put_gap_percent, put_db_percent     
         global 풋시가갭합, 풋시가갭합_퍼센트
+        global put_ol_count, put_oh_count
         
         put_ol = [False] * option_pairs_count
         put_oh = [False] * option_pairs_count
@@ -14321,7 +14358,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        new_oloh = repr(put_ol.count(True)) + ':' + repr(put_oh.count(True))
+        put_ol_count = put_ol.count(True)
+        put_oh_count = put_oh.count(True)
+
+        new_oloh = repr(put_ol_count) + ':' + repr(put_oh_count)
 
         if new_oloh != self.tableWidget_put.horizontalHeaderItem(2).text():
             item = QTableWidgetItem(new_oloh)
