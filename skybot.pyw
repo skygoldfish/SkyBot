@@ -2647,12 +2647,16 @@ class telegram_start_worker(QThread):
             else:
                 pass
 
+            '''
             if TELEGRAM_SERVICE == 'ON' and self.telegram_flag:
 
                 # 텔레그램 메시지 수신
                 str = FromTelegram()
             else:
                 str = 'None'
+            '''
+
+            str = 'Go'
 
             self.finished.emit(str)
             self.msleep(1000 * TELEGRAM_POLLING_INTERVAL)
@@ -2876,7 +2880,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.screen_update_worker.finished.connect(self.update_screen)
 
         self.telegram_start_worker = telegram_start_worker()
-        self.telegram_start_worker.finished.connect(self.receive_telegram_message)
+        self.telegram_start_worker.finished.connect(self.receive_start_telegram_message)
 
         self.telegram_worker = telegram_worker()
         self.telegram_worker.finished.connect(self.receive_telegram_message)
@@ -5089,6 +5093,39 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def plot_data(self):
 
         pass 
+
+    @pyqtSlot(object)
+    def receive_start_telegram_message(self, str):
+
+        try:
+            dt = datetime.datetime.now()
+
+            global telegram_command
+
+            telegram_command = str
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Command = {3}\r'.format(\
+                dt.hour, dt.minute, dt.second, telegram_command)
+            print(str)
+
+            '''
+            if telegram_command == 'Go' or telegram_command == '/start':
+
+                if not self.telegram_flag:
+                    self.pushButton_remove.setStyleSheet("background-color: lawngreen")
+                    self.telegram_flag = True
+                else:
+                    pass
+            else:
+                if self.telegram_flag:
+                    self.pushButton_remove.setStyleSheet("background-color: lightGray")
+                    self.telegram_flag = False
+                else:
+                    pass
+            '''
+
+        except:
+            pass
 
     @pyqtSlot(object)
     def receive_telegram_message(self, str):
