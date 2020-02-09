@@ -2622,22 +2622,18 @@ class telegram_worker(QThread):
     def run(self):
         while True:
 
-            # OL, OH 알람
-            if call_ol_count - call_oh_count >= COL_OL - COL_OH and put_oh_count - put_ol_count >= POH_OH - POH_OL:
+            if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
 
-                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+                # OL, OH 알람
+                if call_ol_count - call_oh_count >= COL_OL - COL_OH and put_oh_count - put_ol_count >= POH_OH - POH_OL:
 
                     if NEXT_MONTH_SELECT == 'YES':
 
                         ToTelegram("차월물 Call 우세 !!!")
                     else:
                         ToTelegram("본월물 Call 우세 !!!")
-                else:
-                    pass
 
-            elif put_ol_count - put_oh_count >= POL_OL - POL_OH and call_oh_count - call_ol_count >= COH_OH - COH_OL:
-
-                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+                elif put_ol_count - put_oh_count >= POL_OL - POL_OH and call_oh_count - call_ol_count >= COH_OH - COH_OL:
 
                     if NEXT_MONTH_SELECT == 'YES':
 
@@ -2646,56 +2642,32 @@ class telegram_worker(QThread):
                         ToTelegram("본월물 Put 우세 !!!")
                 else:
                     pass
-            else:
-                pass       
-            
-            # 콜 원웨이 알람
-            if call_oneway_level3:
 
-                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+                # 콜 원웨이 알람
+                if call_oneway_level3:
 
                     ToTelegram("콜 OneWay 가능성 있음(★★★)")
-                else:
-                    pass
 
-            elif call_oneway_level4:
-
-                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+                elif call_oneway_level4:
 
                     ToTelegram("콜 OneWay 가능성 높음(★★★★)")
-                else:
-                    pass
 
-            elif call_oneway_level5:
-
-                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+                elif call_oneway_level5:
 
                     ToTelegram("콜 OneWay 가능성 매우 높음(★★★★★)")
                 else:
                     pass
-            else:
-                pass
 
-            # 풋 원웨이 알람
-            if put_oneway_level3:
-
-                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+                # 풋 원웨이 알람
+                if put_oneway_level3:
 
                     ToTelegram("풋 OneWay 가능성 있음(★★★)")
-                else:
-                    pass
 
-            elif put_oneway_level4:
-
-                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+                elif put_oneway_level4:
 
                     ToTelegram("풋 OneWay 가능성 높음(★★★★)")
-                else:
-                    pass
 
-            elif put_oneway_level5:
-
-                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+                elif put_oneway_level5:
 
                     ToTelegram("풋 OneWay 가능성 매우 높음(★★★★★)")
                 else:
@@ -2703,8 +2675,12 @@ class telegram_worker(QThread):
             else:
                 pass
 
-            # 텔레그램 메시지 수신
-            str = FromTelegram()
+            if TELEGRAM_SERVICE == 'ON' and self.telegram_flag:
+
+                # 텔레그램 메시지 수신
+                str = FromTelegram()
+            else:
+                str = 'None'
 
             self.finished.emit(str)
             self.msleep(1000 * TELEGRAM_POLLING_INTERVAL)
