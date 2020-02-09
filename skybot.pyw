@@ -2614,8 +2614,10 @@ class t8416_Put_Worker(QThread):
             self.finished.emit(data)
             self.msleep(1100)
 ########################################################################################################################
+
+########################################################################################################################
 # 텔레그램 송수신시 약 1.2초 정도 전달지연 시간 발생함
-class telegram_worker(QThread):
+class telegram_start_worker(QThread):
 
     finished = pg.QtCore.Signal(object)
 
@@ -2640,6 +2642,48 @@ class telegram_worker(QThread):
                         ToTelegram("차월물 Put 우세 !!!")
                     else:
                         ToTelegram("본월물 Put 우세 !!!")
+                else:
+                    pass
+            else:
+                pass
+
+            if TELEGRAM_SERVICE == 'ON' and self.telegram_flag:
+
+                # 텔레그램 메시지 수신
+                str = FromTelegram()
+            else:
+                str = 'None'
+
+            self.finished.emit(str)
+            self.msleep(1000 * TELEGRAM_POLLING_INTERVAL)
+########################################################################################################################
+
+########################################################################################################################
+class telegram_worker(QThread):
+
+    finished = pg.QtCore.Signal(object)
+
+    def run(self):
+        while True:
+
+            if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+
+                # OL, OH 알람
+                if call_ol_count - call_oh_count >= COL_OL - COL_OH and put_oh_count - put_ol_count >= POH_OH - POH_OL:
+
+                    if NEXT_MONTH_SELECT == 'YES':
+
+                        ToTelegram("차월물 Call 우세 ★")
+                    else:
+                        ToTelegram("본월물 Call 우세 ★")
+
+                elif put_ol_count - put_oh_count >= POL_OL - POL_OH and call_oh_count - call_ol_count >= COH_OH - COH_OL:
+
+                    if NEXT_MONTH_SELECT == 'YES':
+
+                        ToTelegram("차월물 Put 우세 ★")
+                    else:
+                        ToTelegram("본월물 Put 우세 ★")
                 else:
                     pass
 
@@ -2830,6 +2874,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.screen_update_worker = screen_update_worker()
         self.screen_update_worker.finished.connect(self.update_screen)
+
+        self.telegram_start_worker = telegram_start_worker()
+        self.telegram_start_worker.finished.connect(self.receive_telegram_message)
 
         self.telegram_worker = telegram_worker()
         self.telegram_worker.finished.connect(self.receive_telegram_message)
@@ -11805,6 +11852,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if TELEGRAM_SERVICE == 'ON':
 
+                self.telegram_start_worker.stop()
+
                 self.telegram_worker.start()
                 self.telegram_worker.daemon = True
 
@@ -14811,6 +14860,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     telegram_standby_time = domestic_start_hour * 3600
 
+                    self.telegram_start_worker.start()
+                    self.telegram_start_worker.daemon = True
+
                     if not yoc_stop:
                         yoc_stop = True
                     else:
@@ -14846,6 +14898,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (domestic_start_hour * 3600 + 0 * 60 + 0)
 
                     telegram_standby_time = 18 * 3600
+
+                    self.telegram_start_worker.start()
+                    self.telegram_start_worker.daemon = True
 
                     if time_delta > 0:
                         str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 빠릅니다.\r'.format(dt.hour, dt.minute,
