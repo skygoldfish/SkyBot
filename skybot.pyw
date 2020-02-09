@@ -2593,6 +2593,7 @@ class telegram_worker(QThread):
     def run(self):
         while True:       
             
+            # 콜 원웨이 알람
             if call_oneway_level3:
 
                 if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
@@ -2619,6 +2620,7 @@ class telegram_worker(QThread):
             else:
                 pass
 
+            # 풋 원웨이 알람
             if put_oneway_level3:
 
                 if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
@@ -2645,6 +2647,7 @@ class telegram_worker(QThread):
             else:
                 pass
 
+            # 텔레그램 메시지 수신
             str = FromTelegram()
 
             self.finished.emit(str)
@@ -5882,7 +5885,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return
     '''
-    
+
     def check_oneway(self, blink):
 
         dt = datetime.datetime.now()
