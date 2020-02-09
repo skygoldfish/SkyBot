@@ -2593,7 +2593,15 @@ class telegram_worker(QThread):
     def run(self):
         while True:       
             
-            if call_oneway_level4:
+            if call_oneway_level3:
+
+                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+
+                    ToTelegram("콜 OneWay 가능성 있음(★★★)")
+                else:
+                    pass
+
+            elif call_oneway_level4:
 
                 if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
 
@@ -2611,7 +2619,15 @@ class telegram_worker(QThread):
             else:
                 pass
 
-            if put_oneway_level4:
+            if put_oneway_level3:
+
+                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+
+                    ToTelegram("풋 OneWay 가능성 있음(★★★)")
+                else:
+                    pass
+
+            elif put_oneway_level4:
 
                 if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
 
@@ -5866,6 +5882,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return
     '''
+    
     def check_oneway(self, blink):
 
         dt = datetime.datetime.now()
@@ -5897,6 +5914,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 시가갭 & 퍼센트로 oneway 판단
                     if 풋시가갭합 > 0 and 풋시가갭합_퍼센트 < 0:
                         
+                        put_oneway_level3 = False
                         put_oneway_level4 = False
                         put_oneway_level5 = True
 
@@ -5923,6 +5941,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         
                     else:
                         
+                        put_oneway_level3 = False
                         put_oneway_level4 = True
                         put_oneway_level5 = False
 
@@ -5950,6 +5969,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     put_oneway = True
+
+                    put_oneway_level3 = True
+                    put_oneway_level4 = False
+                    put_oneway_level5 = False
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성(★★★)\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
@@ -5999,6 +6022,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 시가갭 & 퍼센트로 oneway 판단
                     if 콜시가갭합 > 0 and 콜시가갭합_퍼센트 < 0:
                         
+                        call_oneway_level3 = False
                         call_oneway_level4 = False
                         call_oneway_level5 = True
 
@@ -6024,6 +6048,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))                        
                     else:
                         
+                        call_oneway_level3 = False
                         call_oneway_level4 = True
                         call_oneway_level5 = False
 
@@ -6051,6 +6076,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     call_oneway = True
+
+                    call_oneway_level3 = True
+                    call_oneway_level4 = False
+                    call_oneway_level5 = False
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성(★★★)\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
