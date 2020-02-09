@@ -145,7 +145,7 @@ with open('rules.txt', mode='r') as initfile:
 
     tmp = initfile.readline().strip()
     temp = tmp.split()
-    행사가갯수 = temp[6]
+    행사가갯수 = temp[7]
     #print(행사가갯수)
 
     tmp = initfile.readline().strip()
@@ -192,7 +192,7 @@ with open('rules.txt', mode='r') as initfile:
 
     tmp = initfile.readline().strip()
     temp = tmp.split()
-    ONEWAY_THRESHOLD = int(temp[8])
+    ONEWAY_THRESHOLD = int(temp[9])
     #print(ONEWAY_THRESHOLD)
 
     tmp = initfile.readline().strip()

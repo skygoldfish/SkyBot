@@ -1,6 +1,6 @@
 #################### < initial value > #######################
-actval count of option pairs = 100
-basic coreval of the option = 1.20 2.50 3.50 4.85 5.10 5.50 6.85 7.10 8.10
+actval count of the option pairs = 100
+basic coreval of the options = 1.20 2.50 3.50 4.85 5.10 5.50 6.85 7.10 8.10
 my coreval = 3.50
 
 ###################### < telegram > ##########################
@@ -9,7 +9,7 @@ telegram polling start time(minute) after service = 10
 telegram polling interval(second) = 10
 
 ######################## < rules > ###########################
-threshold of institutional party supply & demand = 2500
+threshold of the institutional party's supply & demand = 2500
 CALL OL Market : CALL OL = 5 CALL OH = 1
 CALL OH Market : CALL OL = 1 CALL OH = 5
 PUT OL Market : PUT OL = 5 PUT OH = 1
