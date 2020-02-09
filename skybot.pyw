@@ -145,7 +145,7 @@ with open('rules.txt', mode='r') as initfile:
 
     tmp = initfile.readline().strip()
     temp = tmp.split()
-    행사가갯수 = temp[4]
+    행사가갯수 = temp[6]
     #print(행사가갯수)
 
     tmp = initfile.readline().strip()
@@ -155,7 +155,7 @@ with open('rules.txt', mode='r') as initfile:
 
     for i in range(len(temp)):
 
-        if i > 2:
+        if i > 5:
             진성맥점.append(float(temp[i]))
         else:
             pass
@@ -194,6 +194,30 @@ with open('rules.txt', mode='r') as initfile:
     temp = tmp.split()
     ONEWAY_THRESHOLD = int(temp[8])
     #print(ONEWAY_THRESHOLD)
+
+    tmp = initfile.readline().strip()
+    temp = tmp.split()
+    COL_OL = int(temp[7])
+    COL_OH = int(temp[11])    
+    #print(COL_OL, COL_OH)
+
+    tmp = initfile.readline().strip()
+    temp = tmp.split()
+    COH_OL = int(temp[7])
+    COH_OH = int(temp[11])    
+    #print(COH_OL, COH_OH)
+
+    tmp = initfile.readline().strip()
+    temp = tmp.split()
+    POL_OL = int(temp[7])
+    POL_OH = int(temp[11])    
+    #print(POL_OL, POL_OH)
+
+    tmp = initfile.readline().strip()
+    temp = tmp.split()
+    POH_OL = int(temp[7])
+    POH_OH = int(temp[11])    
+    #print(POH_OL, POH_OH)
 
 # 전역변수
 ########################################################################################################################
