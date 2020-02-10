@@ -14972,23 +14972,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.telegram_start_worker.start()
                     self.telegram_start_worker.daemon = True
 
-                    if time_delta > 0:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 빠릅니다.\r'.format(dt.hour, dt.minute,
-                                                                    dt.second, time_delta)
-                        self.textBrowser.append(str)
-                    elif time_delta < 0:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 느립니다.\r'.format(dt.hour, dt.minute,
-                                                                                dt.second, time_delta)
-                        self.textBrowser.append(str)
-                    else:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간과 서버시간이 같습니다.\r'.format(dt.hour, dt.minute,
-                                                                                dt.second)
-                        self.textBrowser.append(str)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] telegram start worker가 시작됩니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    self.textBrowser.append(str)
+                    print(str)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Time Delta = {3}초\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), time_delta)
+                    self.textBrowser.append(str)
 
                     service_start = True
                     market_service = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 시작됩니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
                     if not receive_realdata:
