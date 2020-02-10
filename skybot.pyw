@@ -274,9 +274,12 @@ next_month = 0
 t2301_month_info = ''
 ovc_start_hour = domestic_start_hour - 1
 
+flag_telegram_send_worker = False
+
 telegram_command = 'Go'
 telegram_standby_time = 24 * 3600
 flag_telegram_start = False
+flag_telegram_on = True
 
 telegram_call_check = False
 telegram_put_check = False
@@ -2620,14 +2623,14 @@ class t8416_Put_Worker(QThread):
 
 ########################################################################################################################
 # 텔레그램 송수신시 약 1.2초 정도 전달지연 시간 발생함
-class telegram_start_worker(QThread):
+class telegram_send_worker(QThread):
 
     finished = pg.QtCore.Signal(object)
 
     def run(self):
         while True:
 
-            if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+            if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                 # OL, OH 알람
                 if call_ol_count - call_oh_count >= COL_OL - COL_OH and put_oh_count - put_ol_count >= POH_OH - POH_OL:
@@ -2647,55 +2650,7 @@ class telegram_start_worker(QThread):
                         ToTelegram("본월물 Put 우세 !!!")
                 else:
                     pass
-            else:
-                pass
-
-            '''
-            if TELEGRAM_SERVICE == 'ON' and self.telegram_flag:
-
-                # 텔레그램 메시지 수신
-                str = FromTelegram()
-            else:
-                str = 'None'
-            '''
-
-            str = 'Go'
-
-            print('telegram_start_worker =', str)
-
-            self.finished.emit(str)
-            self.msleep(1000 * TELEGRAM_POLLING_INTERVAL)
-########################################################################################################################
-
-########################################################################################################################
-class telegram_worker(QThread):
-
-    finished = pg.QtCore.Signal(object)
-
-    def run(self):
-        while True:
-
-            if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
-
-                # OL, OH 알람
-                if call_ol_count - call_oh_count >= COL_OL - COL_OH and put_oh_count - put_ol_count >= POH_OH - POH_OL:
-
-                    if NEXT_MONTH_SELECT == 'YES':
-
-                        ToTelegram("차월물 Call 우세 ★")
-                    else:
-                        ToTelegram("본월물 Call 우세 ★")
-
-                elif put_ol_count - put_oh_count >= POL_OL - POL_OH and call_oh_count - call_ol_count >= COH_OH - COH_OL:
-
-                    if NEXT_MONTH_SELECT == 'YES':
-
-                        ToTelegram("차월물 Put 우세 ★")
-                    else:
-                        ToTelegram("본월물 Put 우세 ★")
-                else:
-                    pass
-
+                
                 # 콜 원웨이 알람
                 if call_oneway_level3:
 
@@ -2728,7 +2683,21 @@ class telegram_worker(QThread):
             else:
                 pass
 
-            if TELEGRAM_SERVICE == 'ON' and self.telegram_flag:
+            str = 'Go'
+
+            self.finished.emit(str)
+            self.msleep(1000 * TELEGRAM_POLLING_INTERVAL)
+########################################################################################################################
+
+########################################################################################################################
+class telegram_listen_worker(QThread):
+
+    finished = pg.QtCore.Signal(object)
+
+    def run(self):
+        while True:
+
+            if TELEGRAM_SERVICE == 'ON' and flag_telegram_on:
 
                 # 텔레그램 메시지 수신
                 str = FromTelegram()
@@ -2884,11 +2853,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.screen_update_worker = screen_update_worker()
         self.screen_update_worker.finished.connect(self.update_screen)
 
-        self.telegram_start_worker = telegram_start_worker()
-        self.telegram_start_worker.finished.connect(self.receive_start_telegram_message)
+        self.telegram_send_worker = telegram_send_worker()
+        self.telegram_send_worker.finished.connect(self.send_telegram_message)
 
-        self.telegram_worker = telegram_worker()
-        self.telegram_worker.finished.connect(self.receive_telegram_message)
+        self.telegram_listen_worker = telegram_listen_worker()
+        self.telegram_listen_worker.finished.connect(self.listen_telegram_message)
 
         self.comboBox1.setStyleSheet("background-color: white")
         self.comboBox2.setStyleSheet("background-color: white")
@@ -5100,40 +5069,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         pass 
 
     @pyqtSlot(object)
-    def receive_start_telegram_message(self, str):
+    def send_telegram_message(self, str):
 
         try:
             dt = datetime.datetime.now()
 
-            global telegram_command
-
-            telegram_command = str
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Command = {3}\r'.format(\
-                dt.hour, dt.minute, dt.second, telegram_command)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Send = {3}\r'.format(dt.hour, dt.minute, dt.second, str)
             print(str)
-
-            '''
-            if telegram_command == 'Go' or telegram_command == '/start':
-
-                if not self.telegram_flag:
-                    self.pushButton_remove.setStyleSheet("background-color: lawngreen")
-                    self.telegram_flag = True
-                else:
-                    pass
-            else:
-                if self.telegram_flag:
-                    self.pushButton_remove.setStyleSheet("background-color: lightGray")
-                    self.telegram_flag = False
-                else:
-                    pass
-            '''
 
         except:
             pass
 
     @pyqtSlot(object)
-    def receive_telegram_message(self, str):
+    def listen_telegram_message(self, str):
 
         try:
             dt = datetime.datetime.now()
@@ -6609,7 +6557,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem('저가 ▲')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
                         
-                        if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+                        if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if telegram_call_check:
 
@@ -6648,7 +6596,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem('고가 ▼')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
                         
-                        if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+                        if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if telegram_call_check:
 
@@ -8118,7 +8066,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem('저가 ▲')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
                         
-                        if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+                        if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if telegram_put_check:
 
@@ -8157,7 +8105,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem('고가 ▼')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                        if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+                        if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if telegram_put_check:
 
@@ -10629,14 +10577,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 
                 self.screen_update_worker.start()
                 self.screen_update_worker.daemon = True
-
+                '''
                 if int(current_str[0:2]) >= 18 or 0 <= int(current_str[0:2]) <= 5:
 
                     telegram_standby_time = int(current_str[0:2]) * 3600 + int(current_str[3:5]) * 60 + int(current_str[6:8])
                     print('telegram_standby_time =', telegram_standby_time)
                 else:
                     pass
-
+                '''
                 str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
                 print(str)
@@ -11360,14 +11308,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             self.screen_update_worker.start()
                             self.screen_update_worker.daemon = True
-
+                            '''
                             if int(current_str[0:2]) >= domestic_start_hour:
 
                                 telegram_standby_time = int(current_str[0:2]) * 3600 + int(current_str[3:5]) * 60 + int(current_str[6:8])
                                 print('telegram_standby_time =', telegram_standby_time)
                             else:
                                 pass
-
+                            '''
                             str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
                             print(str)
@@ -11494,7 +11442,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 flag_kp200_low_node = True
                 
-                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+                if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                     if not NEXT_MONTH_SELECT:
                         ToTelegram("{0:.2f}에서 kp200 저가맥점 발생 !!!".format(kp200_realdata['저가']))
@@ -11524,7 +11472,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 flag_kp200_high_node = True
                 
-                if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
+                if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                     if not NEXT_MONTH_SELECT:
                         ToTelegram("{0:.2f}에서 kp200 고가맥점 발생 !!!".format(kp200_realdata['고가']))
@@ -11839,7 +11787,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global flag_fut_low, flag_fut_high 
         global 선물_누적거래량
         global first_refresh, fut_first_arrive, service_start
-        global flag_telegram_start
+        global flag_telegram_start, telegram_standby_time
+        global flag_telegram_send_worker
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -11882,10 +11831,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         fut_time = int(current_str[0:2]) * 3600 + int(current_str[3:5]) * 60 + int(current_str[6:8])
 
+        if not flag_telegram_send_worker:            
+
+            self.telegram_send_worker.start()
+            self.telegram_send_worker.daemon = True
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
+            print(str)
+
+            telegram_standby_time = fut_time   
+
+            flag_telegram_send_worker = True             
+        else:
+            pass
+
         if service_start and first_refresh:
 
             fut_first_arrive = fut_time
-            first_refresh = False
+            first_refresh = False    
         else:
             pass
 
@@ -11916,16 +11880,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         # Update Thread 시작 10분후 Telegram Polling Thread 시작 !!!
+        # print('flag_telegram_start = {0}, fut_time = {1}, telegram_standby_time = {2}\r'.format(flag_telegram_start, fut_time, telegram_standby_time + 60 * 1))
         if not flag_telegram_start and fut_time > telegram_standby_time + 60 * TELEGRAM_START_TIME:
-
-            flag_telegram_start = True
 
             if TELEGRAM_SERVICE == 'ON':
 
-                self.telegram_start_worker.stop()
-
-                self.telegram_worker.start()
-                self.telegram_worker.daemon = True
+                self.telegram_listen_worker.start()
+                self.telegram_listen_worker.daemon = True
 
                 if NEXT_MONTH_SELECT == 'YES':
                     ToTelegram("차월물 텔레그램 Polling이 시작되었습니다.")
@@ -11934,6 +11895,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 self.pushButton_remove.setStyleSheet("background-color: lawngreen")
                 self.telegram_flag = True
+                
+                flag_telegram_start = True
             else:
                 pass            
         else:
@@ -14836,6 +14799,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global 선물현재가
             global opt_x_idx, 콜현재가, 풋현재가
             global telegram_standby_time
+            global flag_telegram_send_worker
 
             start_time = timeit.default_timer()
 
@@ -14928,14 +14892,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 서버시간과 동기를 위한 delta time 계산
                     time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (domestic_start_hour * 3600 + 0 * 60 + 0)
 
-                    telegram_standby_time = domestic_start_hour * 3600
+                    #telegram_standby_time = domestic_start_hour * 3600
+                    
+                    self.telegram_send_worker.start()
+                    self.telegram_send_worker.daemon = True
 
-                    self.telegram_start_worker.start()
-                    self.telegram_start_worker.daemon = True
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] telegram start worker가 시작됩니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
-                    print(str)
+                    print(str) 
+
+                    flag_telegram_send_worker = True                   
 
                     if not yoc_stop:
                         yoc_stop = True
@@ -14959,10 +14925,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     service_start = True
                     market_service = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Time Delta = {3}초\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), time_delta)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Time Delta = {3}초\r'.format(dt.hour, dt.minute, dt.second, time_delta)
                     self.textBrowser.append(str)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장이 시작됩니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                 # 야간 선물장 시작
@@ -14971,22 +14937,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 서버시간과 동기를 위한 delta time 계산
                     time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (domestic_start_hour * 3600 + 0 * 60 + 0)
 
-                    telegram_standby_time = 18 * 3600
+                    #telegram_standby_time = 18 * 3600
+                    
+                    self.telegram_send_worker.start()
+                    self.telegram_send_worker.daemon = True
 
-                    self.telegram_start_worker.start()
-                    self.telegram_start_worker.daemon = True
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] telegram start worker가 시작됩니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                     print(str)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Time Delta = {3}초\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), time_delta)
+                    flag_telegram_send_worker = True                    
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Time Delta = {3}초\r'.format(dt.hour, dt.minute, dt.second, time_delta)
                     self.textBrowser.append(str)
 
                     service_start = True
                     market_service = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 시작됩니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
                     if not receive_realdata:
@@ -17381,16 +17349,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         return
 
     def RemoveCode(self):
-        
-        self.telegram_flag = not self.telegram_flag       
 
-        if self.telegram_flag:
+        global flag_telegram_on
+        
+        flag_telegram_on = not flag_telegram_on       
+
+        if flag_telegram_on:
 
             self.pushButton_remove.setStyleSheet("background-color: lawngreen")
-            print('telegram_flag =', self.telegram_flag)
+            print('telegram_flag_on =', flag_telegram_on)
         else:
             self.pushButton_remove.setStyleSheet("background-color: lightGray")
-            print('telegram_flag =', self.telegram_flag)
+            print('flag_telegram_on =', flag_telegram_on)
 
         return
 
