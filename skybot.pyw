@@ -278,6 +278,9 @@ telegram_command = 'Go'
 telegram_standby_time = 24 * 3600
 flag_telegram_start = False
 
+telegram_call_check = False
+telegram_put_check = False
+
 opt_search_start_value = 0.0
 opt_coreval_search_start_value = 0.5
 opt_search_end_value = 10
@@ -2657,6 +2660,8 @@ class telegram_start_worker(QThread):
             '''
 
             str = 'Go'
+
+            print('telegram_start_worker =', str)
 
             self.finished.emit(str)
             self.msleep(1000 * TELEGRAM_POLLING_INTERVAL)
@@ -5653,6 +5658,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global coloring_done_time
         global node_coloring
         global 콜_체결_초
+        global telegram_call_check
 
         dt = datetime.datetime.now()
 
@@ -5660,7 +5666,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if int(call_result['체결시간'][4:6]) == 콜_체결_초:
 
-                #print('콜_체결_초 = ', 콜_체결_초)
+                telegram_call_check = False
                 
                 # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
                 self.call_coreval_color_update()
@@ -5679,6 +5685,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.call_open_check()        
                 self.call_crossval_color_update()        
                 self.call_node_color_update()
+
+                telegram_call_check = True
+
                 self.call_coreval_color_update()
 
                 node_coloring = False
@@ -5715,6 +5724,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global coloring_done_time
         global node_coloring
         global 풋_체결_초
+        global telegram_put_check
 
         dt = datetime.datetime.now()
 
@@ -5722,7 +5732,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if int(put_result['체결시간'][4:6]) == 풋_체결_초:
 
-                #print('풋_체결_초 = ', 풋_체결_초)
+                telegram_put_check = False
 
                 # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
                 self.put_coreval_color_update()
@@ -5741,6 +5751,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.put_open_check()        
                 self.put_crossval_color_update()        
                 self.put_node_color_update()
+
+                telegram_put_check = True
+
                 self.put_coreval_color_update()
 
                 node_coloring = False
@@ -6598,10 +6611,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         
                         if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
 
-                            if NEXT_MONTH_SELECT == 'YES':
-                                ToTelegram("차월물 콜 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['저가']))
+                            if telegram_call_check:
+
+                                if NEXT_MONTH_SELECT == 'YES':
+                                    ToTelegram("차월물 콜 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['저가']))
+                                else:
+                                    ToTelegram("본월물 콜 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['저가']))
                             else:
-                                ToTelegram("본월물 콜 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['저가']))
+                                pass
                         else:
                             pass
                                 
@@ -6633,10 +6650,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         
                         if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
 
-                            if NEXT_MONTH_SELECT == 'YES':
-                                ToTelegram("차월물 콜 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['고가']))
+                            if telegram_call_check:
+
+                                if NEXT_MONTH_SELECT == 'YES':
+                                    ToTelegram("차월물 콜 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['고가']))
+                                else:
+                                    ToTelegram("본월물 콜 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['고가']))
                             else:
-                                ToTelegram("본월물 콜 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['고가']))
+                                pass
                         else:
                             pass
 
@@ -8099,10 +8120,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         
                         if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
 
-                            if NEXT_MONTH_SELECT == 'YES':
-                                ToTelegram("차월물 풋 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['저가']))
+                            if telegram_put_check:
+
+                                if NEXT_MONTH_SELECT == 'YES':
+                                    ToTelegram("차월물 풋 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['저가']))
+                                else:
+                                    ToTelegram("본월물 풋 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['저가']))
                             else:
-                                ToTelegram("본월물 풋 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['저가']))
+                                pass
                         else:
                             pass      
                                 
@@ -8134,10 +8159,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if TELEGRAM_SERVICE == 'ON' and self.telegram_flag and (telegram_command == 'Go' or telegram_command == '/start'):
 
-                            if NEXT_MONTH_SELECT == 'YES':
-                                ToTelegram("차월물 풋 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['고가']))
+                            if telegram_put_check:
+
+                                if NEXT_MONTH_SELECT == 'YES':
+                                    ToTelegram("차월물 풋 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['고가']))
+                                else:
+                                    ToTelegram("본월물 풋 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['고가']))
                             else:
-                                ToTelegram("본월물 풋 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['고가']))
+                                pass
                         else:
                             pass
 
@@ -14899,6 +14928,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     self.telegram_start_worker.start()
                     self.telegram_start_worker.daemon = True
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] telegram start worker가 시작됩니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    self.textBrowser.append(str)
+                    print(str)
 
                     if not yoc_stop:
                         yoc_stop = True
