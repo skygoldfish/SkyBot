@@ -10630,8 +10630,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.screen_update_worker.start()
                 self.screen_update_worker.daemon = True
 
-                telegram_standby_time = int(current_str[0:2]) * 3600 + int(current_str[3:5]) * 60 + int(current_str[6:8])
-                print('telegram_standby_time =', telegram_standby_time)
+                if int(current_str[0:2]) >= 18 or 0 <= int(current_str[0:2]) <= 5:
+
+                    telegram_standby_time = int(current_str[0:2]) * 3600 + int(current_str[3:5]) * 60 + int(current_str[6:8])
+                    print('telegram_standby_time =', telegram_standby_time)
+                else:
+                    pass
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
