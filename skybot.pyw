@@ -5686,44 +5686,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if service_start:
+        if int(call_result['체결시간'][4:6]) == 콜_체결_초:
 
-            if int(call_result['체결시간'][4:6]) == 콜_체결_초:
-
-                telegram_call_check = False
-                
-                # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
-                self.call_low_coreval_color_update()
-                
-                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Coreval Color Check !!!\r'.format(\
-                    int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
-                self.textBrowser.append(str)
-                print(str)    
-            else:
-
-                start_time = timeit.default_timer()
-
-                node_coloring = True
-
-                self.call_node_color_clear()        
-                self.call_open_check()        
-                self.call_crossval_color_update()        
-                self.call_node_color_update()
-
-                telegram_call_check = True
-
-                self.call_low_coreval_color_update()
-
-                node_coloring = False
-
-                process_time = (timeit.default_timer() - start_time) * 1000
-
-                콜_체결_초 = int(call_result['체결시간'][4:6])
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(\
-                    int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
-                self.textBrowser.append(str)                    
+            telegram_call_check = False
+            
+            # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
+            self.call_low_coreval_color_update()
+            
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Coreval Color Check !!!\r'.format(\
+                int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
+            self.textBrowser.append(str)
+            print(str)    
         else:
+
             start_time = timeit.default_timer()
 
             node_coloring = True
@@ -5732,13 +5707,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.call_open_check()        
             self.call_crossval_color_update()        
             self.call_node_color_update()
-            self.call_coreval_color_update()
+
+            telegram_call_check = True
+
+            self.call_low_coreval_color_update()
 
             node_coloring = False
 
             process_time = (timeit.default_timer() - start_time) * 1000
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+            콜_체결_초 = int(call_result['체결시간'][4:6])
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(\
+                int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)
 
         return        
@@ -5752,44 +5733,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if service_start:
+        if int(call_result['체결시간'][4:6]) == 콜_체결_초:
 
-            if int(call_result['체결시간'][4:6]) == 콜_체결_초:
-
-                telegram_call_check = False
-                
-                # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
-                self.call_high_coreval_color_update()
-                
-                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Coreval Color Check !!!\r'.format(\
-                    int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
-                self.textBrowser.append(str)
-                print(str)    
-            else:
-
-                start_time = timeit.default_timer()
-
-                node_coloring = True
-
-                self.call_node_color_clear()        
-                self.call_open_check()        
-                self.call_crossval_color_update()        
-                self.call_node_color_update()
-
-                telegram_call_check = True
-
-                self.call_high_coreval_color_update()
-
-                node_coloring = False
-
-                process_time = (timeit.default_timer() - start_time) * 1000
-
-                콜_체결_초 = int(call_result['체결시간'][4:6])
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(\
-                    int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
-                self.textBrowser.append(str)                    
+            telegram_call_check = False
+            
+            # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
+            self.call_high_coreval_color_update()
+            
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Coreval Color Check !!!\r'.format(\
+                int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
+            self.textBrowser.append(str)
+            print(str)    
         else:
+
             start_time = timeit.default_timer()
 
             node_coloring = True
@@ -5798,13 +5754,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.call_open_check()        
             self.call_crossval_color_update()        
             self.call_node_color_update()
-            self.call_coreval_color_update()
+
+            telegram_call_check = True
+
+            self.call_high_coreval_color_update()
 
             node_coloring = False
 
             process_time = (timeit.default_timer() - start_time) * 1000
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+            콜_체결_초 = int(call_result['체결시간'][4:6])
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(\
+                int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)
 
         return                
@@ -5884,44 +5846,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if service_start:
+        if int(put_result['체결시간'][4:6]) == 풋_체결_초:
 
-            if int(put_result['체결시간'][4:6]) == 풋_체결_초:
+            telegram_put_check = False
 
-                telegram_put_check = False
+            # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
+            self.put_low_coreval_color_update()
 
-                # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
-                self.put_low_coreval_color_update()
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Coreval Color Check !!!\r'.format(\
-                    int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
-                self.textBrowser.append(str)
-                print(str)
-            else:
-
-                start_time = timeit.default_timer()
-
-                node_coloring = True
-
-                self.put_node_color_clear()        
-                self.put_open_check()        
-                self.put_crossval_color_update()        
-                self.put_node_color_update()
-
-                telegram_put_check = True
-
-                self.put_low_coreval_color_update()
-
-                node_coloring = False
-
-                process_time = (timeit.default_timer() - start_time) * 1000
-
-                풋_체결_초 = int(put_result['체결시간'][4:6])
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(\
-                    int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
-                self.textBrowser.append(str)                    
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Coreval Color Check !!!\r'.format(\
+                int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
+            self.textBrowser.append(str)
+            print(str)
         else:
+
             start_time = timeit.default_timer()
 
             node_coloring = True
@@ -5930,13 +5867,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.put_open_check()        
             self.put_crossval_color_update()        
             self.put_node_color_update()
-            self.put_coreval_color_update()
+
+            telegram_put_check = True
+
+            self.put_low_coreval_color_update()
 
             node_coloring = False
 
             process_time = (timeit.default_timer() - start_time) * 1000
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+            풋_체결_초 = int(put_result['체결시간'][4:6])
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(\
+                int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)
 
         return
@@ -5950,44 +5893,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if service_start:
+        if int(put_result['체결시간'][4:6]) == 풋_체결_초:
 
-            if int(put_result['체결시간'][4:6]) == 풋_체결_초:
+            telegram_put_check = False
 
-                telegram_put_check = False
+            # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
+            self.put_high_coreval_color_update()
 
-                # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
-                self.put_high_coreval_color_update()
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Coreval Color Check !!!\r'.format(\
-                    int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
-                self.textBrowser.append(str)
-                print(str)
-            else:
-
-                start_time = timeit.default_timer()
-
-                node_coloring = True
-
-                self.put_node_color_clear()        
-                self.put_open_check()        
-                self.put_crossval_color_update()        
-                self.put_node_color_update()
-
-                telegram_put_check = True
-
-                self.put_high_coreval_color_update()
-
-                node_coloring = False
-
-                process_time = (timeit.default_timer() - start_time) * 1000
-
-                풋_체결_초 = int(put_result['체결시간'][4:6])
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(\
-                    int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
-                self.textBrowser.append(str)                    
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Coreval Color Check !!!\r'.format(\
+                int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
+            self.textBrowser.append(str)
+            print(str)
         else:
+
             start_time = timeit.default_timer()
 
             node_coloring = True
@@ -5996,14 +5914,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.put_open_check()        
             self.put_crossval_color_update()        
             self.put_node_color_update()
-            self.put_coreval_color_update()
+
+            telegram_put_check = True
+
+            self.put_high_coreval_color_update()
 
             node_coloring = False
 
             process_time = (timeit.default_timer() - start_time) * 1000
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
-            self.textBrowser.append(str)
+            풋_체결_초 = int(put_result['체결시간'][4:6])
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(\
+                int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
+            self.textBrowser.append(str) 
 
         return
 
