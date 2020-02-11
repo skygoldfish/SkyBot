@@ -2627,11 +2627,17 @@ class telegram_send_worker(QThread):
 
     finished = pg.QtCore.Signal(object)
 
+    dt = datetime.datetime.now()
+    current_str = dt.strftime('%H:%M:%S')
+
     def run(self):
         while True:
 
+            str = 'None'
+
             if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
+                '''
                 # OL, OH 알람
                 if call_ol_count - call_oh_count >= COL_OL - COL_OH and put_oh_count - put_ol_count >= POH_OH - POH_OL:
 
@@ -2650,40 +2656,44 @@ class telegram_send_worker(QThread):
                         ToTelegram("본월물 Put 우세 !!!")
                 else:
                     pass
-                
+                '''
+
                 # 콜 원웨이 알람
                 if call_oneway_level3:
 
-                    ToTelegram("콜 OneWay 가능성 있음(★★★)")
+                    str = "콜 OneWay 가능성 있음(★★★)"
 
                 elif call_oneway_level4:
 
-                    ToTelegram("콜 OneWay 가능성 높음(★★★★)")
+                    str = "콜 OneWay 가능성 높음(★★★★)"
 
                 elif call_oneway_level5:
 
-                    ToTelegram("콜 OneWay 가능성 매우 높음(★★★★★)")
+                    str = "콜 OneWay 가능성 매우 높음(★★★★★)"
                 else:
                     pass
 
                 # 풋 원웨이 알람
                 if put_oneway_level3:
 
-                    ToTelegram("풋 OneWay 가능성 있음(★★★)")
+                    str = "풋 OneWay 가능성 있음(★★★)"
 
                 elif put_oneway_level4:
 
-                    ToTelegram("풋 OneWay 가능성 높음(★★★★)")
+                    str = "풋 OneWay 가능성 높음(★★★★)"
 
                 elif put_oneway_level5:
 
-                    ToTelegram("풋 OneWay 가능성 매우 높음(★★★★★)")
+                    str = "풋 OneWay 가능성 매우 높음(★★★★★)"
+                else:
+                    pass
+
+                if str != 'None':
+                    ToTelegram(str)
                 else:
                     pass
             else:
                 pass
-
-            str = 'Go'
 
             self.finished.emit(str)
             self.msleep(1000 * TELEGRAM_POLLING_INTERVAL)
@@ -2702,7 +2712,7 @@ class telegram_listen_worker(QThread):
                 # 텔레그램 메시지 수신
                 str = FromTelegram()
             else:
-                str = 'None'
+                str = 'Stopped by Tool...'
 
             self.finished.emit(str)
             self.msleep(1000 * TELEGRAM_POLLING_INTERVAL)
@@ -2815,7 +2825,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     buildtime = time.ctime(os.path.getmtime(__file__))
         
-        self.telegram_flag = True
+        #self.telegram_flag = True
         self.pushButton_remove.setStyleSheet("background-color: lightGray")
 
         if 4 < int(current_str[0:2]) < 야간선물_기준시간:
@@ -5074,7 +5084,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         try:
             dt = datetime.datetime.now()
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Send = {3}\r'.format(dt.hour, dt.minute, dt.second, str)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Send Message = {3}\r'.format(dt.hour, dt.minute, dt.second, str)
             print(str)
 
         except:
@@ -5096,15 +5106,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if telegram_command == 'Go' or telegram_command == '/start':
 
-                if not self.telegram_flag:
+                if not flag_telegram_on:
                     self.pushButton_remove.setStyleSheet("background-color: lawngreen")
-                    self.telegram_flag = True
+                    #self.telegram_flag = True
                 else:
                     pass
             else:
-                if self.telegram_flag:
+                if flag_telegram_on:
                     self.pushButton_remove.setStyleSheet("background-color: lightGray")
-                    self.telegram_flag = False
+                    #self.telegram_flag = False
                 else:
                     pass
         except:
@@ -5665,7 +5675,139 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
             self.textBrowser.append(str)
 
+        return
+
+    def opt_call_low_node_coloring(self):
+
+        global coloring_done_time
+        global node_coloring
+        global 콜_체결_초
+        global telegram_call_check
+
+        dt = datetime.datetime.now()
+
+        if service_start:
+
+            if int(call_result['체결시간'][4:6]) == 콜_체결_초:
+
+                telegram_call_check = False
+                
+                # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
+                self.call_low_coreval_color_update()
+                
+                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Coreval Color Check !!!\r'.format(\
+                    int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
+                self.textBrowser.append(str)
+                print(str)    
+            else:
+
+                start_time = timeit.default_timer()
+
+                node_coloring = True
+
+                self.call_node_color_clear()        
+                self.call_open_check()        
+                self.call_crossval_color_update()        
+                self.call_node_color_update()
+
+                telegram_call_check = True
+
+                self.call_low_coreval_color_update()
+
+                node_coloring = False
+
+                process_time = (timeit.default_timer() - start_time) * 1000
+
+                콜_체결_초 = int(call_result['체결시간'][4:6])
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(\
+                    int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
+                self.textBrowser.append(str)                    
+        else:
+            start_time = timeit.default_timer()
+
+            node_coloring = True
+
+            self.call_node_color_clear()        
+            self.call_open_check()        
+            self.call_crossval_color_update()        
+            self.call_node_color_update()
+            self.call_coreval_color_update()
+
+            node_coloring = False
+
+            process_time = (timeit.default_timer() - start_time) * 1000
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+            self.textBrowser.append(str)
+
         return        
+
+    def opt_call_high_node_coloring(self):
+
+        global coloring_done_time
+        global node_coloring
+        global 콜_체결_초
+        global telegram_call_check
+
+        dt = datetime.datetime.now()
+
+        if service_start:
+
+            if int(call_result['체결시간'][4:6]) == 콜_체결_초:
+
+                telegram_call_check = False
+                
+                # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
+                self.call_high_coreval_color_update()
+                
+                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Coreval Color Check !!!\r'.format(\
+                    int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
+                self.textBrowser.append(str)
+                print(str)    
+            else:
+
+                start_time = timeit.default_timer()
+
+                node_coloring = True
+
+                self.call_node_color_clear()        
+                self.call_open_check()        
+                self.call_crossval_color_update()        
+                self.call_node_color_update()
+
+                telegram_call_check = True
+
+                self.call_high_coreval_color_update()
+
+                node_coloring = False
+
+                process_time = (timeit.default_timer() - start_time) * 1000
+
+                콜_체결_초 = int(call_result['체결시간'][4:6])
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(\
+                    int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
+                self.textBrowser.append(str)                    
+        else:
+            start_time = timeit.default_timer()
+
+            node_coloring = True
+
+            self.call_node_color_clear()        
+            self.call_open_check()        
+            self.call_crossval_color_update()        
+            self.call_node_color_update()
+            self.call_coreval_color_update()
+
+            node_coloring = False
+
+            process_time = (timeit.default_timer() - start_time) * 1000
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+            self.textBrowser.append(str)
+
+        return                
     
     def opt_put_node_coloring(self):
 
@@ -5703,6 +5845,138 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 telegram_put_check = True
 
                 self.put_coreval_color_update()
+
+                node_coloring = False
+
+                process_time = (timeit.default_timer() - start_time) * 1000
+
+                풋_체결_초 = int(put_result['체결시간'][4:6])
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(\
+                    int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
+                self.textBrowser.append(str)                    
+        else:
+            start_time = timeit.default_timer()
+
+            node_coloring = True
+
+            self.put_node_color_clear()        
+            self.put_open_check()        
+            self.put_crossval_color_update()        
+            self.put_node_color_update()
+            self.put_coreval_color_update()
+
+            node_coloring = False
+
+            process_time = (timeit.default_timer() - start_time) * 1000
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+            self.textBrowser.append(str)
+
+        return
+
+    def opt_put_low_node_coloring(self):
+
+        global coloring_done_time
+        global node_coloring
+        global 풋_체결_초
+        global telegram_put_check
+
+        dt = datetime.datetime.now()
+
+        if service_start:
+
+            if int(put_result['체결시간'][4:6]) == 풋_체결_초:
+
+                telegram_put_check = False
+
+                # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
+                self.put_low_coreval_color_update()
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Coreval Color Check !!!\r'.format(\
+                    int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
+                self.textBrowser.append(str)
+                print(str)
+            else:
+
+                start_time = timeit.default_timer()
+
+                node_coloring = True
+
+                self.put_node_color_clear()        
+                self.put_open_check()        
+                self.put_crossval_color_update()        
+                self.put_node_color_update()
+
+                telegram_put_check = True
+
+                self.put_low_coreval_color_update()
+
+                node_coloring = False
+
+                process_time = (timeit.default_timer() - start_time) * 1000
+
+                풋_체결_초 = int(put_result['체결시간'][4:6])
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(\
+                    int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
+                self.textBrowser.append(str)                    
+        else:
+            start_time = timeit.default_timer()
+
+            node_coloring = True
+
+            self.put_node_color_clear()        
+            self.put_open_check()        
+            self.put_crossval_color_update()        
+            self.put_node_color_update()
+            self.put_coreval_color_update()
+
+            node_coloring = False
+
+            process_time = (timeit.default_timer() - start_time) * 1000
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+            self.textBrowser.append(str)
+
+        return
+
+    def opt_put_high_node_coloring(self):
+
+        global coloring_done_time
+        global node_coloring
+        global 풋_체결_초
+        global telegram_put_check
+
+        dt = datetime.datetime.now()
+
+        if service_start:
+
+            if int(put_result['체결시간'][4:6]) == 풋_체결_초:
+
+                telegram_put_check = False
+
+                # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
+                self.put_high_coreval_color_update()
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Coreval Color Check !!!\r'.format(\
+                    int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
+                self.textBrowser.append(str)
+                print(str)
+            else:
+
+                start_time = timeit.default_timer()
+
+                node_coloring = True
+
+                self.put_node_color_clear()        
+                self.put_open_check()        
+                self.put_crossval_color_update()        
+                self.put_node_color_update()
+
+                telegram_put_check = True
+
+                self.put_high_coreval_color_update()
 
                 node_coloring = False
 
@@ -6583,6 +6857,156 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         pass
                 else:
                     pass
+
+                if df_call.iloc[i]['고가'] in coreval:
+
+                    self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+
+                    if df_call.iloc[i]['고가'] in 진성맥점:
+
+                        call_high_coreval = True
+
+                        item = QTableWidgetItem('고가 ▼')
+                        self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+                        
+                        if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
+
+                            if telegram_call_check:
+
+                                if NEXT_MONTH_SELECT == 'YES':
+                                    ToTelegram("차월물 콜 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['고가']))
+                                else:
+                                    ToTelegram("본월물 콜 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['고가']))
+                            else:
+                                pass
+                        else:
+                            pass
+
+                        '''
+                        if fut_code == cmshcode:
+
+                            txt = '차월물 콜 고까 가 {} 입니다'.format(df_call.iloc[i]['고가'])
+                        else:
+                            txt = '콜 고까 가 {} 입니다'.format(df_call.iloc[i]['고가'])
+
+                        Speak(txt)
+                        '''
+                    else:
+                        pass
+                else:
+                    pass
+            else:
+                pass
+
+        self.tableWidget_call.resizeColumnsToContents()
+
+        return
+
+    def call_low_coreval_color_update(self):
+
+        global call_low_coreval, call_high_coreval
+
+        call_low_coreval = False
+        call_high_coreval = False
+
+        item = QTableWidgetItem('저가')
+        self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+        item = QTableWidgetItem('고가')
+        self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+        if call_open_list:
+
+            loop_list = call_open_list
+        else:
+            loop_list = opt_total_list
+
+        for i in loop_list:
+
+            if opt_coreval_search_start_value < df_call.iloc[i]['시가'] < opt_search_end_value:
+
+                if df_call.iloc[i]['시가'] in 진성맥점:
+
+                    self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
+
+                if df_call.iloc[i]['저가'] in coreval:
+
+                    self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+
+                    if df_call.iloc[i]['저가'] in 진성맥점:
+
+                        call_low_coreval = True
+
+                        item = QTableWidgetItem('저가 ▲')
+                        self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+                        
+                        if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
+
+                            if telegram_call_check:
+
+                                if NEXT_MONTH_SELECT == 'YES':
+                                    ToTelegram("차월물 콜 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['저가']))
+                                else:
+                                    ToTelegram("본월물 콜 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_call.iloc[i]['저가']))
+                            else:
+                                pass
+                        else:
+                            pass
+                                
+                        '''
+                        if fut_code == cmshcode:
+
+                            txt = '차월물 콜 저까 가 {} 입니다'.format(df_call.iloc[i]['저가'])
+                        else:
+                            txt = '콜 저까 가 {} 입니다'.format(df_call.iloc[i]['저가'])
+
+                        Speak(txt)
+                        '''
+                    else:
+                        pass
+                else:
+                    pass                
+            else:
+                pass
+
+        self.tableWidget_call.resizeColumnsToContents()
+
+        return
+
+    def call_high_coreval_color_update(self):
+
+        global call_low_coreval, call_high_coreval
+
+        call_low_coreval = False
+        call_high_coreval = False
+
+        item = QTableWidgetItem('저가')
+        self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+        item = QTableWidgetItem('고가')
+        self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+        if call_open_list:
+
+            loop_list = call_open_list
+        else:
+            loop_list = opt_total_list
+
+        for i in loop_list:
+
+            if opt_coreval_search_start_value < df_call.iloc[i]['시가'] < opt_search_end_value:
+
+                if df_call.iloc[i]['시가'] in 진성맥점:
+
+                    self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+                else:
+                    pass                
 
                 if df_call.iloc[i]['고가'] in coreval:
 
@@ -8137,6 +8561,156 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_put.resizeColumnsToContents()
 
         return    
+
+    def put_low_coreval_color_update(self):
+
+        global put_low_coreval, put_high_coreval
+
+        put_low_coreval = False
+        put_high_coreval = False
+
+        item = QTableWidgetItem('저가')
+        self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+        item = QTableWidgetItem('고가')
+        self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+        if put_open_list:
+
+            loop_list = put_open_list
+        else:
+            loop_list = opt_total_list
+
+        for i in loop_list:
+
+            if opt_coreval_search_start_value < df_put.iloc[i]['시가'] < opt_search_end_value:
+
+                if df_put.iloc[i]['시가'] in 진성맥점:
+
+                    self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
+
+                if df_put.iloc[i]['저가'] in coreval:
+
+                    self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+
+                    if df_put.iloc[i]['저가'] in 진성맥점:
+
+                        put_low_coreval = True
+
+                        item = QTableWidgetItem('저가 ▲')
+                        self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+                        
+                        if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
+
+                            if telegram_put_check:
+
+                                if NEXT_MONTH_SELECT == 'YES':
+                                    ToTelegram("차월물 풋 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['저가']))
+                                else:
+                                    ToTelegram("본월물 풋 저가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['저가']))
+                            else:
+                                pass
+                        else:
+                            pass      
+                                
+                        '''
+                        if fut_code == cmshcode:
+
+                            txt = '차월물 풋 저까 가 {} 입니다'.format(df_put.iloc[i]['저가'])
+                        else:
+                            txt = '풋 저까 가 {} 입니다'.format(df_put.iloc[i]['저가'])
+
+                        Speak(txt)
+                        '''
+                    else:
+                        pass
+                else:
+                    pass                
+            else:
+                pass
+
+        self.tableWidget_put.resizeColumnsToContents()
+
+        return
+
+    def put_high_coreval_color_update(self):
+
+        global put_low_coreval, put_high_coreval
+
+        put_low_coreval = False
+        put_high_coreval = False
+
+        item = QTableWidgetItem('저가')
+        self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+        item = QTableWidgetItem('고가')
+        self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+        if put_open_list:
+
+            loop_list = put_open_list
+        else:
+            loop_list = opt_total_list
+
+        for i in loop_list:
+
+            if opt_coreval_search_start_value < df_put.iloc[i]['시가'] < opt_search_end_value:
+
+                if df_put.iloc[i]['시가'] in 진성맥점:
+
+                    self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
+                else:
+                    pass                
+
+                if df_put.iloc[i]['고가'] in coreval:
+
+                    self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
+                    self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+
+                    if df_put.iloc[i]['고가'] in 진성맥점:
+
+                        put_high_coreval = True
+
+                        item = QTableWidgetItem('고가 ▼')
+                        self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+                        if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
+
+                            if telegram_put_check:
+
+                                if NEXT_MONTH_SELECT == 'YES':
+                                    ToTelegram("차월물 풋 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['고가']))
+                                else:
+                                    ToTelegram("본월물 풋 고가 {0:.2f}에서 진성맥점 발생 !!!".format(df_put.iloc[i]['고가']))
+                            else:
+                                pass
+                        else:
+                            pass
+
+                        '''
+                        if fut_code == cmshcode:
+
+                            txt = '차월물 풋 고까 가 {} 입니다'.format(df_put.iloc[i]['고가'])
+                        else:
+                            txt = '풋 고까 가 {} 입니다'.format(df_put.iloc[i]['고가'])
+
+                        Speak(txt)
+                        '''
+                    else:
+                        pass
+                else:
+                    pass
+            else:
+                pass
+
+        self.tableWidget_put.resizeColumnsToContents()
+
+        return    
     
     def fut_node_color_clear(self):
 
@@ -8259,7 +8833,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_open_list, put_open_list, opt_total_list
         global call_below_atm_count, call_max_actval
         global put_above_atm_count, put_max_actval
-        global telegram_standby_time
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -10577,14 +11150,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 
                 self.screen_update_worker.start()
                 self.screen_update_worker.daemon = True
-                '''
-                if int(current_str[0:2]) >= 18 or 0 <= int(current_str[0:2]) <= 5:
 
-                    telegram_standby_time = int(current_str[0:2]) * 3600 + int(current_str[3:5]) * 60 + int(current_str[6:8])
-                    print('telegram_standby_time =', telegram_standby_time)
-                else:
-                    pass
-                '''
                 str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
                 print(str)
@@ -11308,14 +11874,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             self.screen_update_worker.start()
                             self.screen_update_worker.daemon = True
-                            '''
-                            if int(current_str[0:2]) >= domestic_start_hour:
 
-                                telegram_standby_time = int(current_str[0:2]) * 3600 + int(current_str[3:5]) * 60 + int(current_str[6:8])
-                                print('telegram_standby_time =', telegram_standby_time)
-                            else:
-                                pass
-                            '''
                             str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
                             print(str)
@@ -11894,7 +12453,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     ToTelegram("본월물 텔레그램 Polling이 시작되었습니다.")
 
                 self.pushButton_remove.setStyleSheet("background-color: lawngreen")
-                self.telegram_flag = True
+                #self.telegram_flag = True
                 
                 flag_telegram_start = True
             else:
@@ -12599,7 +13158,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if not node_coloring:
 
-                self.opt_call_node_coloring()
+                self.opt_call_low_node_coloring()
             else:
                 pass                     
         else:
@@ -12658,7 +13217,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if not node_coloring:
 
-                self.opt_call_node_coloring()
+                self.opt_call_high_node_coloring()
             else:
                 pass                    
         else:
@@ -13673,7 +14232,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if not node_coloring:
 
-                self.opt_put_node_coloring()
+                self.opt_put_low_node_coloring()
             else:
                 pass                    
         else:
@@ -13732,7 +14291,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if not node_coloring:
 
-                self.opt_put_node_coloring()
+                self.opt_put_high_node_coloring()
             else:
                 pass
         else:
@@ -14798,7 +15357,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global service_start
             global 선물현재가
             global opt_x_idx, 콜현재가, 풋현재가
-            global telegram_standby_time
             global flag_telegram_send_worker
 
             start_time = timeit.default_timer()
@@ -14891,8 +15449,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # 서버시간과 동기를 위한 delta time 계산
                     time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (domestic_start_hour * 3600 + 0 * 60 + 0)
-
-                    #telegram_standby_time = domestic_start_hour * 3600
                     
                     self.telegram_send_worker.start()
                     self.telegram_send_worker.daemon = True
@@ -14936,8 +15492,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # 서버시간과 동기를 위한 delta time 계산
                     time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (domestic_start_hour * 3600 + 0 * 60 + 0)
-
-                    #telegram_standby_time = 18 * 3600
                     
                     self.telegram_send_worker.start()
                     self.telegram_send_worker.daemon = True
@@ -17357,7 +17911,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if flag_telegram_on:
 
             self.pushButton_remove.setStyleSheet("background-color: lawngreen")
-            print('telegram_flag_on =', flag_telegram_on)
+            print('flag_telegram_on =', flag_telegram_on)
         else:
             self.pushButton_remove.setStyleSheet("background-color: lightGray")
             print('flag_telegram_on =', flag_telegram_on)
