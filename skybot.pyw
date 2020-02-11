@@ -277,7 +277,7 @@ ovc_start_hour = domestic_start_hour - 1
 flag_telegram_send_worker = False
 
 telegram_command = 'Go'
-telegram_standby_time = 24 * 3600
+telegram_send_worker_time = 0
 flag_telegram_start = False
 flag_telegram_on = True
 
@@ -12270,7 +12270,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global flag_fut_low, flag_fut_high 
         global 선물_누적거래량
         global first_refresh, fut_first_arrive, service_start
-        global flag_telegram_start, telegram_standby_time
+        global flag_telegram_start, telegram_send_worker_time
         global flag_telegram_send_worker
 
         dt = datetime.datetime.now()
@@ -12319,11 +12319,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.telegram_send_worker.start()
             self.telegram_send_worker.daemon = True
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+            telegram_send_worker_time = fut_time 
+            
+            str = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker({3})가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second, telegram_send_worker_time)
             self.textBrowser.append(str)
-            print(str)
-
-            telegram_standby_time = fut_time   
+            print(str)  
 
             flag_telegram_send_worker = True             
         else:
@@ -12363,8 +12363,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         # Update Thread 시작 10분후 Telegram Polling Thread 시작 !!!
-        # print('flag_telegram_start = {0}, fut_time = {1}, telegram_standby_time = {2}\r'.format(flag_telegram_start, fut_time, telegram_standby_time + 60 * 1))
-        if not flag_telegram_start and fut_time > telegram_standby_time + 60 * TELEGRAM_START_TIME:
+        # print('flag_telegram_start = {0}, fut_time = {1}, telegram_send_worker_time = {2}\r'.format(flag_telegram_start, fut_time, telegram_send_worker_time + 60 * 1))
+        if not flag_telegram_start and fut_time > telegram_send_worker_time + 60 * TELEGRAM_START_TIME:
 
             if TELEGRAM_SERVICE == 'ON':
 
@@ -15374,15 +15374,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 서버시간과 동기를 위한 delta time 계산
                     time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (domestic_start_hour * 3600 + 0 * 60 + 0)
                     
-                    self.telegram_send_worker.start()
-                    self.telegram_send_worker.daemon = True
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
-                    print(str) 
-
-                    flag_telegram_send_worker = True                   
-
                     if not yoc_stop:
                         yoc_stop = True
                     else:
@@ -15417,15 +15408,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 서버시간과 동기를 위한 delta time 계산
                     time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (domestic_start_hour * 3600 + 0 * 60 + 0)
                     
-                    self.telegram_send_worker.start()
-                    self.telegram_send_worker.daemon = True
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
-                    print(str)
-
-                    flag_telegram_send_worker = True                    
-
                     str = '[{0:02d}:{1:02d}:{2:02d}] Time Delta = {3}초\r'.format(dt.hour, dt.minute, dt.second, time_delta)
                     self.textBrowser.append(str)
 
