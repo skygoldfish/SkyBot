@@ -5100,7 +5100,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             telegram_command = str
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Command = {3}\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command = {3}\r'.format(\
                 dt.hour, dt.minute, dt.second, telegram_command)
             print(str)
 
