@@ -6829,10 +6829,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def call_low_coreval_color_update(self):
 
-        global call_low_coreval, call_high_coreval
+        global call_low_coreval
 
         call_low_coreval = False
-        call_high_coreval = False
 
         item = QTableWidgetItem('저가')
         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -6904,9 +6903,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def call_high_coreval_color_update(self):
 
-        global call_low_coreval, call_high_coreval
+        global call_high_coreval
 
-        call_low_coreval = False
         call_high_coreval = False
 
         item = QTableWidgetItem('저가')
@@ -8488,10 +8486,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def put_low_coreval_color_update(self):
 
-        global put_low_coreval, put_high_coreval
+        global put_low_coreval
 
         put_low_coreval = False
-        put_high_coreval = False
 
         item = QTableWidgetItem('저가')
         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -8563,9 +8560,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def put_high_coreval_color_update(self):
 
-        global put_low_coreval, put_high_coreval
+        global put_high_coreval
 
-        put_low_coreval = False
         put_high_coreval = False
 
         item = QTableWidgetItem('저가')
