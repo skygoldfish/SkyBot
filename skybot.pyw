@@ -274,6 +274,8 @@ next_month = 0
 t2301_month_info = ''
 ovc_start_hour = domestic_start_hour - 1
 
+dongsi_hoga = False
+
 flag_telegram_send_worker = False
 
 telegram_command = 'Go'
@@ -5527,7 +5529,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         # 선물, 콜, 풋 현재가 클리어
                         self.cv_color_clear()
 
-                        if not service_terminate:
+                        if not dongsi_hoga and not service_terminate:
                         
                             # 진성 의미가인 경우 blinking(매우 중요 !!!)
                             if call_low_coreval:
@@ -15279,6 +15281,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global 선물현재가
             global opt_x_idx, 콜현재가, 풋현재가
             global flag_telegram_send_worker
+            global dongsi_hoga
 
             start_time = timeit.default_timer()
 
@@ -15490,6 +15493,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 장후 동시호가가 시작되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
+
+                    dongsi_hoga = True
 
                 # 주간 선물/옵션장 종료
                 elif result['장구분'] == '5' and result['장상태'] == '41':
