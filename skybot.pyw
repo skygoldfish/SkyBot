@@ -5103,7 +5103,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command = {3}\r'.format(\
                 dt.hour, dt.minute, dt.second, telegram_command)
             print(str)
-
+            '''
             if telegram_command == 'Go' or telegram_command == '/start':
 
                 if not flag_telegram_on:
@@ -5117,6 +5117,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     #self.telegram_flag = False
                 else:
                     pass
+            '''
         except:
             pass
 
