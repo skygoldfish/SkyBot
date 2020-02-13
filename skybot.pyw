@@ -85,7 +85,7 @@ global domestic_start_hour
 
 domestic_start_hour = 9
 
-# 만기일 야간옵션은 month_info.txt에서 mangi_yagan을 NO -> YES & next month only를 NO -> YES로 변경
+# 만기일 야간옵션은 month_info.txt에서 mangi_yagan을 NO -> YES로 변경
 with open('month_info.txt', mode='r') as monthfile:
 
     tmp = monthfile.readline().strip()
@@ -2783,15 +2783,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         if MANGI_YAGAN == 'YES':
 
-            current_month = int(CURRENT_MONTH_INFO[4:6]) + 1
-
+            current_month = int(CURRENT_MONTH_INFO[4:6])
+            '''
             if current_month == 13:
 
                 current_month = 1
             else:
                 pass
-
-            next_month = int(NEXT_MONTH_INFO[4:6]) + 1
+            '''
+            next_month = int(NEXT_MONTH_INFO[4:6])
         else:    
             current_month = int(CURRENT_MONTH_INFO[4:6])
             next_month = int(NEXT_MONTH_INFO[4:6])
@@ -11851,14 +11851,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if NEXT_MONTH_SELECT == 'YES': 
 
                 fut_code = cmshcode
-                #print('차월물선물코드 요청', fut_code)
                 str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, next_month, fut_code)
                 self.textBrowser.append(str)
+                print(str)
             else:
                 fut_code = gmshcode
-                #print('근월물선물코드 요청', fut_code)
                 str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month, fut_code)
                 self.textBrowser.append(str)
+                print(str)
 
             fut_realdata['전저'] = df.iloc[0]['전일저가']
             선물_전저 = df.iloc[0]['전일저가']
