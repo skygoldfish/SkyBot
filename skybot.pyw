@@ -217,7 +217,7 @@ with open('rules.txt', mode='r') as initfile:
     temp = tmp.split()
     POH_OL = int(temp[7])
     POH_OH = int(temp[11])    
-    print(POH_OL, POH_OH)
+    #print(POH_OL, POH_OH)
 
 # 전역변수
 ########################################################################################################################
