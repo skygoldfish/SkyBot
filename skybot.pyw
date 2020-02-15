@@ -11756,10 +11756,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:                                        
 
                         if not refresh_flag:
+                            
+                            수정거래량 = 0
+                            수정미결 = 0
 
                             for i in range(option_pairs_count):
-
-                                수정거래량 = 0
 
                                 df_call.loc[i, '수정거래량'] = 수정거래량
                                 df_put.loc[i, '수정거래량'] = 수정거래량
@@ -11774,8 +11775,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 item.setTextAlignment(Qt.AlignCenter)
                                 self.tableWidget_put.setItem(i, Option_column.VP.value, item)
 
-                                수정미결 = 0
-
                                 df_call.loc[i, '수정미결'] = 수정미결
                                 df_put.loc[i, '수정미결'] = 수정미결
 
@@ -11789,7 +11788,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 item.setTextAlignment(Qt.AlignCenter)
                                 self.tableWidget_put.setItem(i, Option_column.OI.value, item)
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 수정거래량 및 수정미결을 초기화합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 수정거래량 및 수정미결 초기화...\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)       
 
                             self.screen_update_worker.start()
