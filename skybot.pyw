@@ -13332,59 +13332,63 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global 콜_순매수_체결량
 
         index = call_행사가.index(call_result['단축코드'][5:8])
-        
-        if df_call.iloc[index]['현재가'] <= df_call.iloc[index]['시가갭']:
 
-            수정거래량 = (call_result['매수누적체결량'] - call_result['매도누적체결량']) * df_call.iloc[index]['현재가']
-            매도누적체결량 = call_result['매도누적체결량'] * df_call.iloc[index]['현재가']
-            매수누적체결량 = call_result['매수누적체결량'] * df_call.iloc[index]['현재가']
+        if df_call.iloc[index]['시가'] > 0 and df_call.iloc[index]['저가'] < df_call.iloc[index]['고가']:
+
+            if df_call.iloc[index]['현재가'] <= df_call.iloc[index]['시가갭']:
+
+                수정거래량 = (call_result['매수누적체결량'] - call_result['매도누적체결량']) * df_call.iloc[index]['현재가']
+                매도누적체결량 = call_result['매도누적체결량'] * df_call.iloc[index]['현재가']
+                매수누적체결량 = call_result['매수누적체결량'] * df_call.iloc[index]['현재가']
+
+                if not overnight:
+
+                    매도누적체결건수 = call_result['매도누적체결건수'] * df_call.iloc[index]['현재가']
+                    매수누적체결건수 = call_result['매수누적체결건수'] * df_call.iloc[index]['현재가']
+                else:
+                    pass
+            else:
+                수정거래량 = (call_result['매수누적체결량'] - call_result['매도누적체결량']) * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
+                매도누적체결량 = call_result['매도누적체결량'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
+                매수누적체결량 = call_result['매수누적체결량'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
+
+                if not overnight:
+
+                    매도누적체결건수 = call_result['매도누적체결건수'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
+                    매수누적체결건수 = call_result['매수누적체결건수'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
+                else:
+                    pass
+
+            df_call.loc[index, '수정거래량'] = int(수정거래량)
+            df_call_volume.loc[index, '매도누적체결량'] = int(매도누적체결량)
+            df_call_volume.loc[index, '매수누적체결량'] = int(매수누적체결량)
+
+            df_call.loc[index, '거래량'] = call_result['누적거래량']
 
             if not overnight:
 
-                매도누적체결건수 = call_result['매도누적체결건수'] * df_call.iloc[index]['현재가']
-                매수누적체결건수 = call_result['매수누적체결건수'] * df_call.iloc[index]['현재가']
+                df_call_volume.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
+                df_call_volume.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
             else:
                 pass
-        else:
-            수정거래량 = (call_result['매수누적체결량'] - call_result['매도누적체결량']) * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
-            매도누적체결량 = call_result['매도누적체결량'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
-            매수누적체결량 = call_result['매수누적체결량'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
-
-            if not overnight:
-
-                매도누적체결건수 = call_result['매도누적체결건수'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
-                매수누적체결건수 = call_result['매수누적체결건수'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
-            else:
-                pass
-
-        df_call.loc[index, '수정거래량'] = int(수정거래량)
-        df_call_volume.loc[index, '매도누적체결량'] = int(매도누적체결량)
-        df_call_volume.loc[index, '매수누적체결량'] = int(매수누적체결량)
-
-        df_call.loc[index, '거래량'] = call_result['누적거래량']
-
-        if not overnight:
             
-            df_call_volume.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
-            df_call_volume.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
-        else:
-            pass
-        
-        수정거래량 = format(df_call.iloc[index]['수정거래량'], ',')
+            수정거래량 = format(df_call.iloc[index]['수정거래량'], ',')
 
-        if 수정거래량 != self.tableWidget_call.item(index, Option_column.VP.value).text():
+            if 수정거래량 != self.tableWidget_call.item(index, Option_column.VP.value).text():
 
-            item = QTableWidgetItem(수정거래량)
-            item.setTextAlignment(Qt.AlignCenter)
+                item = QTableWidgetItem(수정거래량)
+                item.setTextAlignment(Qt.AlignCenter)
 
-            if index == df_call['수정거래량'].idxmax():
-                item.setBackground(QBrush(라임))
+                if index == df_call['수정거래량'].idxmax():
+                    item.setBackground(QBrush(라임))
+                else:
+                    item.setBackground(QBrush(흰색))
+
+                self.tableWidget_call.setItem(index, Option_column.VP.value, item)
             else:
-                item.setBackground(QBrush(흰색))
-
-            self.tableWidget_call.setItem(index, Option_column.VP.value, item)
+                pass
         else:
-            pass
+            pass        
 
         call_volume_total = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
         df_plotdata_call_volume.iloc[0][opt_x_idx] = call_volume_total
@@ -14411,59 +14415,63 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global 풋_순매수_체결량
 
         index = put_행사가.index(put_result['단축코드'][5:8])
-        
-        if df_put.iloc[index]['현재가'] <= df_put.iloc[index]['시가갭']:
 
-            수정거래량 = (put_result['매수누적체결량'] - put_result['매도누적체결량']) * df_put.iloc[index]['현재가']
-            매도누적체결량 = put_result['매도누적체결량'] * df_put.iloc[index]['현재가']
-            매수누적체결량 = put_result['매수누적체결량'] * df_put.iloc[index]['현재가']
+        if df_put.iloc[index]['시가'] > 0 and df_put.iloc[index]['저가'] < df_put.iloc[index]['고가']:
+
+            if df_put.iloc[index]['현재가'] <= df_put.iloc[index]['시가갭']:
+
+                수정거래량 = (put_result['매수누적체결량'] - put_result['매도누적체결량']) * df_put.iloc[index]['현재가']
+                매도누적체결량 = put_result['매도누적체결량'] * df_put.iloc[index]['현재가']
+                매수누적체결량 = put_result['매수누적체결량'] * df_put.iloc[index]['현재가']
+
+                if not overnight:
+
+                    매도누적체결건수 = put_result['매도누적체결건수'] * df_put.iloc[index]['현재가']
+                    매수누적체결건수 = put_result['매수누적체결건수'] * df_put.iloc[index]['현재가']
+                else:
+                    pass
+            else:
+                수정거래량 = (put_result['매수누적체결량'] - put_result['매도누적체결량']) * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
+                매도누적체결량 = put_result['매도누적체결량'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
+                매수누적체결량 = put_result['매수누적체결량'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
+
+                if not overnight:
+
+                    매도누적체결건수 = put_result['매도누적체결건수'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
+                    매수누적체결건수 = put_result['매수누적체결건수'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
+                else:
+                    pass
+
+            df_put.loc[index, '수정거래량'] = int(수정거래량)
+            df_put_volume.loc[index, '매도누적체결량'] = int(매도누적체결량)
+            df_put_volume.loc[index, '매수누적체결량'] = int(매수누적체결량)
+
+            df_put.loc[index, '거래량'] = put_result['누적거래량']
 
             if not overnight:
-
-                매도누적체결건수 = put_result['매도누적체결건수'] * df_put.iloc[index]['현재가']
-                매수누적체결건수 = put_result['매수누적체결건수'] * df_put.iloc[index]['현재가']
+                
+                df_put_volume.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
+                df_put_volume.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
             else:
                 pass
-        else:
-            수정거래량 = (put_result['매수누적체결량'] - put_result['매도누적체결량']) * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
-            매도누적체결량 = put_result['매도누적체결량'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
-            매수누적체결량 = put_result['매수누적체결량'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
-
-            if not overnight:
-
-                매도누적체결건수 = put_result['매도누적체결건수'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
-                매수누적체결건수 = put_result['매수누적체결건수'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
-            else:
-                pass
-
-        df_put.loc[index, '수정거래량'] = int(수정거래량)
-        df_put_volume.loc[index, '매도누적체결량'] = int(매도누적체결량)
-        df_put_volume.loc[index, '매수누적체결량'] = int(매수누적체결량)
-
-        df_put.loc[index, '거래량'] = put_result['누적거래량']
-
-        if not overnight:
             
-            df_put_volume.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
-            df_put_volume.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
-        else:
-            pass
-        
-        수정거래량 = format(df_put.iloc[index]['수정거래량'], ',')
+            수정거래량 = format(df_put.iloc[index]['수정거래량'], ',')
 
-        if 수정거래량 != self.tableWidget_put.item(index, Option_column.VP.value).text():
+            if 수정거래량 != self.tableWidget_put.item(index, Option_column.VP.value).text():
 
-            item = QTableWidgetItem(수정거래량)
-            item.setTextAlignment(Qt.AlignCenter)
+                item = QTableWidgetItem(수정거래량)
+                item.setTextAlignment(Qt.AlignCenter)
 
-            if index == df_put['수정거래량'].idxmax():
-                item.setBackground(QBrush(라임))
+                if index == df_put['수정거래량'].idxmax():
+                    item.setBackground(QBrush(라임))
+                else:
+                    item.setBackground(QBrush(흰색))
+
+                self.tableWidget_put.setItem(index, Option_column.VP.value, item)
             else:
-                item.setBackground(QBrush(흰색))
-
-            self.tableWidget_put.setItem(index, Option_column.VP.value, item)
+                pass
         else:
-            pass
+            pass        
 
         put_volume_total = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
         df_plotdata_put_volume.iloc[0][opt_x_idx] = put_volume_total
