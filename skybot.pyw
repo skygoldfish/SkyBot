@@ -5696,7 +5696,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
             self.call_low_coreval_color_update()
             
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Coreval Color Check !!!\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Low Coreval Color Check !!!\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
             self.textBrowser.append(str)
             print(str)    
@@ -5721,7 +5721,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             콜_체결_초 = int(call_result['체결시간'][4:6])
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Low Node Color Check Time : {3:0.2f} ms\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)
 
@@ -5743,7 +5743,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
             self.call_high_coreval_color_update()
             
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Coreval Color Check !!!\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call High Coreval Color Check !!!\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
             self.textBrowser.append(str)
             print(str)    
@@ -5768,7 +5768,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             콜_체결_초 = int(call_result['체결시간'][4:6])
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call High Node Color Check Time : {3:0.2f} ms\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)
 
@@ -5856,7 +5856,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
             self.put_low_coreval_color_update()
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Coreval Color Check !!!\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Low Coreval Color Check !!!\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
             self.textBrowser.append(str)
             print(str)
@@ -5881,7 +5881,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             풋_체결_초 = int(put_result['체결시간'][4:6])
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Low Node Color Check Time : {3:0.2f} ms\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)
 
@@ -5903,7 +5903,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
             self.put_high_coreval_color_update()
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Coreval Color Check !!!\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put High Coreval Color Check !!!\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
             self.textBrowser.append(str)
             print(str)
@@ -5928,7 +5928,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             풋_체결_초 = int(put_result['체결시간'][4:6])
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put High Node Color Check Time : {3:0.2f} ms\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str) 
 
