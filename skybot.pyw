@@ -11753,8 +11753,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] EUREX 본월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)                                  
-                    else:
-                        if pre_start:
+                    else:                                        
+
+                        if not refresh_flag:
 
                             for i in range(option_pairs_count):
 
@@ -11789,11 +11790,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 self.tableWidget_put.setItem(i, Option_column.OI.value, item)
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] 수정거래량 및 수정미결을 초기화합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)
-                        else:                      
-                            pass                        
-
-                        if not refresh_flag:
+                            self.textBrowser.append(str)       
 
                             self.screen_update_worker.start()
                             self.screen_update_worker.daemon = True
@@ -13277,52 +13274,56 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global df_call
 	
         index = call_행사가.index(call_result['단축코드'][5:8])
-        
-        if df_call.iloc[index]['현재가'] <= df_call.iloc[index]['시가갭']:
 
-            수정미결 = call_result['미결제약정수량'] * df_call.iloc[index]['현재가']
-            수정미결증감 = call_result['미결제약정증감'] * df_call.iloc[index]['현재가']
-        else:
-            수정미결 = call_result['미결제약정수량'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
-            수정미결증감 = call_result['미결제약정증감'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
+        if df_call.iloc[index]['시가'] > 0 and df_call.iloc[index]['저가'] < df_call.iloc[index]['고가']:
 
-        df_call.loc[index, '수정미결'] = int(수정미결)
-        df_call.loc[index, '수정미결증감'] = int(수정미결증감)
-        
-        수정미결 = format(df_call.iloc[index]['수정미결'], ',')
+            if df_call.iloc[index]['현재가'] <= df_call.iloc[index]['시가갭']:
 
-        if 수정미결 != self.tableWidget_call.item(index, Option_column.OI.value).text():
-
-            item = QTableWidgetItem(수정미결)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_call.setItem(index, Option_column.OI.value, item)
-        else:
-            pass          
-
-        수정미결증감 = format(df_call.iloc[index]['수정미결증감'], ',')
-
-        if 수정미결증감 != self.tableWidget_call.item(index, Option_column.OID.value).text():
-
-            item = QTableWidgetItem(수정미결증감)
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if call_result['미결제약정증감'] < 0:
-                item.setBackground(QBrush(라임))
+                수정미결 = call_result['미결제약정수량'] * df_call.iloc[index]['현재가']
+                수정미결증감 = call_result['미결제약정증감'] * df_call.iloc[index]['현재가']
             else:
-                item.setBackground(QBrush(흰색))
+                수정미결 = call_result['미결제약정수량'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
+                수정미결증감 = call_result['미결제약정증감'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
 
-            self.tableWidget_call.setItem(index, Option_column.OID.value, item)
+            df_call.loc[index, '수정미결'] = int(수정미결)
+            df_call.loc[index, '수정미결증감'] = int(수정미결증감)
+
+            수정미결 = format(df_call.iloc[index]['수정미결'], ',')
+
+            if 수정미결 != self.tableWidget_call.item(index, Option_column.OI.value).text():
+
+                item = QTableWidgetItem(수정미결)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setItem(index, Option_column.OI.value, item)
+            else:
+                pass          
+
+            수정미결증감 = format(df_call.iloc[index]['수정미결증감'], ',')
+
+            if 수정미결증감 != self.tableWidget_call.item(index, Option_column.OID.value).text():
+
+                item = QTableWidgetItem(수정미결증감)
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if call_result['미결제약정증감'] < 0:
+                    item.setBackground(QBrush(라임))
+                else:
+                    item.setBackground(QBrush(흰색))
+
+                self.tableWidget_call.setItem(index, Option_column.OID.value, item)
+            else:
+                pass
+            
+            수정미결합 = '{0}k'.format(format(int(df_call['수정미결'].sum()/1000), ','))
+
+            if 수정미결합 != self.tableWidget_call.horizontalHeaderItem(Option_column.OI.value).text():
+                item = QTableWidgetItem(수정미결합)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
+            else:
+                pass     
         else:
             pass
-        
-        수정미결합 = '{0}k'.format(format(int(df_call['수정미결'].sum()/1000), ','))
-
-        if 수정미결합 != self.tableWidget_call.horizontalHeaderItem(Option_column.OI.value).text():
-            item = QTableWidgetItem(수정미결합)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
-        else:
-            pass     
 
         return
     
@@ -14352,50 +14353,54 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global df_put
 		
         index = put_행사가.index(put_result['단축코드'][5:8])
-        
-        if df_put.iloc[index]['현재가'] <= df_put.iloc[index]['시가갭']:
 
-            수정미결 = put_result['미결제약정수량'] * df_put.iloc[index]['현재가']
-            수정미결증감 = put_result['미결제약정증감'] * df_put.iloc[index]['현재가']
-        else:
-            수정미결 = put_result['미결제약정수량'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
-            수정미결증감 = put_result['미결제약정증감'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
+        if df_put.iloc[index]['시가'] > 0 and df_put.iloc[index]['저가'] < df_put.iloc[index]['고가']:
 
-        df_put.loc[index, '수정미결'] = int(수정미결)
-        df_put.loc[index, '수정미결증감'] = int(수정미결증감)
-        
-        수정미결 = format(df_put.iloc[index]['수정미결'], ',')
+            if df_put.iloc[index]['현재가'] <= df_put.iloc[index]['시가갭']:
 
-        if 수정미결 != self.tableWidget_put.item(index, Option_column.OI.value).text():
-
-            item = QTableWidgetItem(수정미결)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setItem(index, Option_column.OI.value, item)
-        else:
-            pass            
-
-        미결증감 = format(df_put.iloc[index]['수정미결증감'], ',')
-
-        if 미결증감 != self.tableWidget_put.item(index, Option_column.OID.value).text():
-
-            item = QTableWidgetItem(미결증감)
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if put_result['미결제약정증감'] < 0:
-                item.setBackground(QBrush(라임))
+                수정미결 = put_result['미결제약정수량'] * df_put.iloc[index]['현재가']
+                수정미결증감 = put_result['미결제약정증감'] * df_put.iloc[index]['현재가']
             else:
-                item.setBackground(QBrush(흰색))
+                수정미결 = put_result['미결제약정수량'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
+                수정미결증감 = put_result['미결제약정증감'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
 
-            self.tableWidget_put.setItem(index, Option_column.OID.value, item)
-        else:
-            pass
-            
-        수정미결합 = '{0}k'.format(format(int(df_put['수정미결'].sum()/1000), ','))
+            df_put.loc[index, '수정미결'] = int(수정미결)
+            df_put.loc[index, '수정미결증감'] = int(수정미결증감)
 
-        if 수정미결합 != self.tableWidget_put.horizontalHeaderItem(Option_column.OI.value).text():
-            item = QTableWidgetItem(수정미결합)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
+            수정미결 = format(df_put.iloc[index]['수정미결'], ',')
+
+            if 수정미결 != self.tableWidget_put.item(index, Option_column.OI.value).text():
+
+                item = QTableWidgetItem(수정미결)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setItem(index, Option_column.OI.value, item)
+            else:
+                pass            
+
+            미결증감 = format(df_put.iloc[index]['수정미결증감'], ',')
+
+            if 미결증감 != self.tableWidget_put.item(index, Option_column.OID.value).text():
+
+                item = QTableWidgetItem(미결증감)
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if put_result['미결제약정증감'] < 0:
+                    item.setBackground(QBrush(라임))
+                else:
+                    item.setBackground(QBrush(흰색))
+
+                self.tableWidget_put.setItem(index, Option_column.OID.value, item)
+            else:
+                pass
+
+            수정미결합 = '{0}k'.format(format(int(df_put['수정미결'].sum()/1000), ','))
+
+            if 수정미결합 != self.tableWidget_put.horizontalHeaderItem(Option_column.OI.value).text():
+                item = QTableWidgetItem(수정미결합)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
+            else:
+                pass
         else:
             pass
 
@@ -15131,8 +15136,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global 콜_수정미결합, 풋_수정미결합
         global oi_delta, oi_delta_old, 수정미결_직전대비        
 
-        콜_수정미결합 = df_call['수정미결'].sum() - call_oi_init_value
-        풋_수정미결합 = df_put['수정미결'].sum() - put_oi_init_value
+        #콜_수정미결합 = df_call['수정미결'].sum() - call_oi_init_value
+        #풋_수정미결합 = df_put['수정미결'].sum() - put_oi_init_value
+
+        콜_수정미결합 = df_call['수정미결'].sum()
+        풋_수정미결합 = df_put['수정미결'].sum()
                     
         df_plotdata_call_oi.iloc[0][opt_x_idx] = 콜_수정미결합
         df_plotdata_put_oi.iloc[0][opt_x_idx] = 풋_수정미결합
