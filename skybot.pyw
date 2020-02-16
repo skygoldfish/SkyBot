@@ -5696,7 +5696,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
             self.call_low_coreval_color_update()
             
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Coreval Color Check !!!\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Low Coreval Color Check !!!\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
             self.textBrowser.append(str)
             print(str)    
@@ -5721,7 +5721,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             콜_체결_초 = int(call_result['체결시간'][4:6])
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Low Node Color Check Time : {3:0.2f} ms\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)
 
@@ -5743,7 +5743,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
             self.call_high_coreval_color_update()
             
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Coreval Color Check !!!\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call High Coreval Color Check !!!\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
             self.textBrowser.append(str)
             print(str)    
@@ -5768,7 +5768,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             콜_체결_초 = int(call_result['체결시간'][4:6])
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call High Node Color Check Time : {3:0.2f} ms\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)
 
@@ -5856,7 +5856,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
             self.put_low_coreval_color_update()
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Coreval Color Check !!!\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Low Coreval Color Check !!!\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
             self.textBrowser.append(str)
             print(str)
@@ -5881,7 +5881,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             풋_체결_초 = int(put_result['체결시간'][4:6])
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Low Node Color Check Time : {3:0.2f} ms\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)
 
@@ -5903,7 +5903,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
             self.put_high_coreval_color_update()
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Coreval Color Check !!!\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put High Coreval Color Check !!!\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
             self.textBrowser.append(str)
             print(str)
@@ -5928,7 +5928,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             풋_체결_초 = int(put_result['체결시간'][4:6])
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put High Node Color Check Time : {3:0.2f} ms\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str) 
 
@@ -11754,73 +11754,73 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             str = '[{0:02d}:{1:02d}:{2:02d}] EUREX 본월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)                                  
                     else:
-                        if pre_start:
+                            
+                        수정거래량 = 0
+                        수정미결 = 0
+                        수정미결증감 = 0
 
-                            for i in range(option_pairs_count):
+                        for i in range(option_pairs_count):
 
-                                수정거래량 = 0
+                            df_call.loc[i, '수정거래량'] = 수정거래량
+                            df_put.loc[i, '수정거래량'] = 수정거래량
 
-                                df_call.loc[i, '수정거래량'] = 수정거래량
-                                df_put.loc[i, '수정거래량'] = 수정거래량
+                            temp = format(수정거래량, ',')
 
-                                temp = format(수정거래량, ',')
+                            item = QTableWidgetItem(temp)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_call.setItem(i, Option_column.VP.value, item)
 
-                                item = QTableWidgetItem(temp)
-                                item.setTextAlignment(Qt.AlignCenter)
-                                self.tableWidget_call.setItem(i, Option_column.VP.value, item)
+                            item = QTableWidgetItem(temp)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_put.setItem(i, Option_column.VP.value, item)
 
-                                item = QTableWidgetItem(temp)
-                                item.setTextAlignment(Qt.AlignCenter)
-                                self.tableWidget_put.setItem(i, Option_column.VP.value, item)
+                            df_call.loc[i, '수정미결'] = 수정미결
+                            df_put.loc[i, '수정미결'] = 수정미결
 
-                                수정미결 = 0
+                            temp = format(수정미결, ',')
 
-                                df_call.loc[i, '수정미결'] = 수정미결
-                                df_put.loc[i, '수정미결'] = 수정미결
+                            item = QTableWidgetItem(temp)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_call.setItem(i, Option_column.OI.value, item)
 
-                                temp = format(수정미결, ',')
+                            item = QTableWidgetItem(temp)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_put.setItem(i, Option_column.OI.value, item)
 
-                                item = QTableWidgetItem(temp)
-                                item.setTextAlignment(Qt.AlignCenter)
-                                self.tableWidget_call.setItem(i, Option_column.OI.value, item)
+                            df_call.loc[i, '수정미결증감'] = 수정미결증감
+                            df_put.loc[i, '수정미결증감'] = 수정미결증감
 
-                                item = QTableWidgetItem(temp)
-                                item.setTextAlignment(Qt.AlignCenter)
-                                self.tableWidget_put.setItem(i, Option_column.OI.value, item)
+                            temp = format(수정미결증감, ',')
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 수정거래량 및 수정미결을 초기화합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)
-                        else:                      
-                            pass                        
+                            item = QTableWidgetItem(temp)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_call.setItem(i, Option_column.OID.value, item)
 
-                        if not refresh_flag:
+                            item = QTableWidgetItem(temp)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_put.setItem(i, Option_column.OID.value, item)
 
-                            self.screen_update_worker.start()
-                            self.screen_update_worker.daemon = True
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 수정거래량 및 수정미결 초기화...\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)       
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)
-                            print(str)
+                        self.screen_update_worker.start()
+                        self.screen_update_worker.daemon = True
 
-                            refresh_flag = True
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
+                        print(str)
 
-                            self.pushButton_add.setStyleSheet("background-color: lawngreen")
-                            self.pushButton_add.setText('Refresh')
-                        else:
-                            pass 
+                        refresh_flag = True
+
+                        self.pushButton_add.setStyleSheet("background-color: lawngreen")
+                        self.pushButton_add.setText('Refresh')
 
                     # 옵션 맥점 컬러링
                     str = '[{0:02d}:{1:02d}:{2:02d}] t8416 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                     
                     self.opt_node_coloring()
-                    '''
-                    if not pre_start:
-
-                        service_start = True
-                    else:
-                        pass
-                    '''
+                    
                     str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 만기일은 {3}일 남았습니다.\r'.format(dt.hour, dt.minute, dt.second, 옵션잔존일)
                     self.textBrowser.append(str)                                                               
                 else:
@@ -13277,52 +13277,56 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global df_call
 	
         index = call_행사가.index(call_result['단축코드'][5:8])
-        
-        if df_call.iloc[index]['현재가'] <= df_call.iloc[index]['시가갭']:
 
-            수정미결 = call_result['미결제약정수량'] * df_call.iloc[index]['현재가']
-            수정미결증감 = call_result['미결제약정증감'] * df_call.iloc[index]['현재가']
-        else:
-            수정미결 = call_result['미결제약정수량'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
-            수정미결증감 = call_result['미결제약정증감'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
+        if df_call.iloc[index]['시가'] > 0 and df_call.iloc[index]['저가'] < df_call.iloc[index]['고가']:
 
-        df_call.loc[index, '수정미결'] = int(수정미결)
-        df_call.loc[index, '수정미결증감'] = int(수정미결증감)
-        
-        수정미결 = format(df_call.iloc[index]['수정미결'], ',')
+            if df_call.iloc[index]['현재가'] <= df_call.iloc[index]['시가갭']:
 
-        if 수정미결 != self.tableWidget_call.item(index, Option_column.OI.value).text():
-
-            item = QTableWidgetItem(수정미결)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_call.setItem(index, Option_column.OI.value, item)
-        else:
-            pass          
-
-        수정미결증감 = format(df_call.iloc[index]['수정미결증감'], ',')
-
-        if 수정미결증감 != self.tableWidget_call.item(index, Option_column.OID.value).text():
-
-            item = QTableWidgetItem(수정미결증감)
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if call_result['미결제약정증감'] < 0:
-                item.setBackground(QBrush(라임))
+                수정미결 = call_result['미결제약정수량'] * df_call.iloc[index]['현재가']
+                수정미결증감 = call_result['미결제약정증감'] * df_call.iloc[index]['현재가']
             else:
-                item.setBackground(QBrush(흰색))
+                수정미결 = call_result['미결제약정수량'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
+                수정미결증감 = call_result['미결제약정증감'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
 
-            self.tableWidget_call.setItem(index, Option_column.OID.value, item)
+            df_call.loc[index, '수정미결'] = int(수정미결)
+            df_call.loc[index, '수정미결증감'] = int(수정미결증감)
+
+            수정미결 = format(df_call.iloc[index]['수정미결'], ',')
+
+            if 수정미결 != self.tableWidget_call.item(index, Option_column.OI.value).text():
+
+                item = QTableWidgetItem(수정미결)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setItem(index, Option_column.OI.value, item)
+            else:
+                pass          
+
+            수정미결증감 = format(df_call.iloc[index]['수정미결증감'], ',')
+
+            if 수정미결증감 != self.tableWidget_call.item(index, Option_column.OID.value).text():
+
+                item = QTableWidgetItem(수정미결증감)
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if call_result['미결제약정증감'] < 0:
+                    item.setBackground(QBrush(라임))
+                else:
+                    item.setBackground(QBrush(흰색))
+
+                self.tableWidget_call.setItem(index, Option_column.OID.value, item)
+            else:
+                pass
+            
+            수정미결합 = '{0}k'.format(format(int(df_call['수정미결'].sum()/1000), ','))
+
+            if 수정미결합 != self.tableWidget_call.horizontalHeaderItem(Option_column.OI.value).text():
+                item = QTableWidgetItem(수정미결합)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
+            else:
+                pass     
         else:
             pass
-        
-        수정미결합 = '{0}k'.format(format(int(df_call['수정미결'].sum()/1000), ','))
-
-        if 수정미결합 != self.tableWidget_call.horizontalHeaderItem(Option_column.OI.value).text():
-            item = QTableWidgetItem(수정미결합)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
-        else:
-            pass     
 
         return
     
@@ -13332,59 +13336,63 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global 콜_순매수_체결량
 
         index = call_행사가.index(call_result['단축코드'][5:8])
-        
-        if df_call.iloc[index]['현재가'] <= df_call.iloc[index]['시가갭']:
 
-            수정거래량 = (call_result['매수누적체결량'] - call_result['매도누적체결량']) * df_call.iloc[index]['현재가']
-            매도누적체결량 = call_result['매도누적체결량'] * df_call.iloc[index]['현재가']
-            매수누적체결량 = call_result['매수누적체결량'] * df_call.iloc[index]['현재가']
+        if df_call.iloc[index]['시가'] > 0 and df_call.iloc[index]['저가'] < df_call.iloc[index]['고가']:
+
+            if df_call.iloc[index]['현재가'] <= df_call.iloc[index]['시가갭']:
+
+                수정거래량 = (call_result['매수누적체결량'] - call_result['매도누적체결량']) * df_call.iloc[index]['현재가']
+                매도누적체결량 = call_result['매도누적체결량'] * df_call.iloc[index]['현재가']
+                매수누적체결량 = call_result['매수누적체결량'] * df_call.iloc[index]['현재가']
+
+                if not overnight:
+
+                    매도누적체결건수 = call_result['매도누적체결건수'] * df_call.iloc[index]['현재가']
+                    매수누적체결건수 = call_result['매수누적체결건수'] * df_call.iloc[index]['현재가']
+                else:
+                    pass
+            else:
+                수정거래량 = (call_result['매수누적체결량'] - call_result['매도누적체결량']) * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
+                매도누적체결량 = call_result['매도누적체결량'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
+                매수누적체결량 = call_result['매수누적체결량'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
+
+                if not overnight:
+
+                    매도누적체결건수 = call_result['매도누적체결건수'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
+                    매수누적체결건수 = call_result['매수누적체결건수'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
+                else:
+                    pass
+
+            df_call.loc[index, '수정거래량'] = int(수정거래량)
+            df_call_volume.loc[index, '매도누적체결량'] = int(매도누적체결량)
+            df_call_volume.loc[index, '매수누적체결량'] = int(매수누적체결량)
+
+            df_call.loc[index, '거래량'] = call_result['누적거래량']
 
             if not overnight:
 
-                매도누적체결건수 = call_result['매도누적체결건수'] * df_call.iloc[index]['현재가']
-                매수누적체결건수 = call_result['매수누적체결건수'] * df_call.iloc[index]['현재가']
+                df_call_volume.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
+                df_call_volume.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
             else:
                 pass
-        else:
-            수정거래량 = (call_result['매수누적체결량'] - call_result['매도누적체결량']) * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
-            매도누적체결량 = call_result['매도누적체결량'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
-            매수누적체결량 = call_result['매수누적체결량'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
-
-            if not overnight:
-
-                매도누적체결건수 = call_result['매도누적체결건수'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
-                매수누적체결건수 = call_result['매수누적체결건수'] * (df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가갭'])
-            else:
-                pass
-
-        df_call.loc[index, '수정거래량'] = int(수정거래량)
-        df_call_volume.loc[index, '매도누적체결량'] = int(매도누적체결량)
-        df_call_volume.loc[index, '매수누적체결량'] = int(매수누적체결량)
-
-        df_call.loc[index, '거래량'] = call_result['누적거래량']
-
-        if not overnight:
             
-            df_call_volume.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
-            df_call_volume.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
-        else:
-            pass
-        
-        수정거래량 = format(df_call.iloc[index]['수정거래량'], ',')
+            수정거래량 = format(df_call.iloc[index]['수정거래량'], ',')
 
-        if 수정거래량 != self.tableWidget_call.item(index, Option_column.VP.value).text():
+            if 수정거래량 != self.tableWidget_call.item(index, Option_column.VP.value).text():
 
-            item = QTableWidgetItem(수정거래량)
-            item.setTextAlignment(Qt.AlignCenter)
+                item = QTableWidgetItem(수정거래량)
+                item.setTextAlignment(Qt.AlignCenter)
 
-            if index == df_call['수정거래량'].idxmax():
-                item.setBackground(QBrush(라임))
+                if index == df_call['수정거래량'].idxmax():
+                    item.setBackground(QBrush(라임))
+                else:
+                    item.setBackground(QBrush(흰색))
+
+                self.tableWidget_call.setItem(index, Option_column.VP.value, item)
             else:
-                item.setBackground(QBrush(흰색))
-
-            self.tableWidget_call.setItem(index, Option_column.VP.value, item)
+                pass
         else:
-            pass
+            pass        
 
         call_volume_total = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
         df_plotdata_call_volume.iloc[0][opt_x_idx] = call_volume_total
@@ -14352,50 +14360,54 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global df_put
 		
         index = put_행사가.index(put_result['단축코드'][5:8])
-        
-        if df_put.iloc[index]['현재가'] <= df_put.iloc[index]['시가갭']:
 
-            수정미결 = put_result['미결제약정수량'] * df_put.iloc[index]['현재가']
-            수정미결증감 = put_result['미결제약정증감'] * df_put.iloc[index]['현재가']
-        else:
-            수정미결 = put_result['미결제약정수량'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
-            수정미결증감 = put_result['미결제약정증감'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
+        if df_put.iloc[index]['시가'] > 0 and df_put.iloc[index]['저가'] < df_put.iloc[index]['고가']:
 
-        df_put.loc[index, '수정미결'] = int(수정미결)
-        df_put.loc[index, '수정미결증감'] = int(수정미결증감)
-        
-        수정미결 = format(df_put.iloc[index]['수정미결'], ',')
+            if df_put.iloc[index]['현재가'] <= df_put.iloc[index]['시가갭']:
 
-        if 수정미결 != self.tableWidget_put.item(index, Option_column.OI.value).text():
-
-            item = QTableWidgetItem(수정미결)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setItem(index, Option_column.OI.value, item)
-        else:
-            pass            
-
-        미결증감 = format(df_put.iloc[index]['수정미결증감'], ',')
-
-        if 미결증감 != self.tableWidget_put.item(index, Option_column.OID.value).text():
-
-            item = QTableWidgetItem(미결증감)
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if put_result['미결제약정증감'] < 0:
-                item.setBackground(QBrush(라임))
+                수정미결 = put_result['미결제약정수량'] * df_put.iloc[index]['현재가']
+                수정미결증감 = put_result['미결제약정증감'] * df_put.iloc[index]['현재가']
             else:
-                item.setBackground(QBrush(흰색))
+                수정미결 = put_result['미결제약정수량'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
+                수정미결증감 = put_result['미결제약정증감'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
 
-            self.tableWidget_put.setItem(index, Option_column.OID.value, item)
-        else:
-            pass
-            
-        수정미결합 = '{0}k'.format(format(int(df_put['수정미결'].sum()/1000), ','))
+            df_put.loc[index, '수정미결'] = int(수정미결)
+            df_put.loc[index, '수정미결증감'] = int(수정미결증감)
 
-        if 수정미결합 != self.tableWidget_put.horizontalHeaderItem(Option_column.OI.value).text():
-            item = QTableWidgetItem(수정미결합)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
+            수정미결 = format(df_put.iloc[index]['수정미결'], ',')
+
+            if 수정미결 != self.tableWidget_put.item(index, Option_column.OI.value).text():
+
+                item = QTableWidgetItem(수정미결)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setItem(index, Option_column.OI.value, item)
+            else:
+                pass            
+
+            미결증감 = format(df_put.iloc[index]['수정미결증감'], ',')
+
+            if 미결증감 != self.tableWidget_put.item(index, Option_column.OID.value).text():
+
+                item = QTableWidgetItem(미결증감)
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if put_result['미결제약정증감'] < 0:
+                    item.setBackground(QBrush(라임))
+                else:
+                    item.setBackground(QBrush(흰색))
+
+                self.tableWidget_put.setItem(index, Option_column.OID.value, item)
+            else:
+                pass
+
+            수정미결합 = '{0}k'.format(format(int(df_put['수정미결'].sum()/1000), ','))
+
+            if 수정미결합 != self.tableWidget_put.horizontalHeaderItem(Option_column.OI.value).text():
+                item = QTableWidgetItem(수정미결합)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
+            else:
+                pass
         else:
             pass
 
@@ -14407,59 +14419,63 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global 풋_순매수_체결량
 
         index = put_행사가.index(put_result['단축코드'][5:8])
-        
-        if df_put.iloc[index]['현재가'] <= df_put.iloc[index]['시가갭']:
 
-            수정거래량 = (put_result['매수누적체결량'] - put_result['매도누적체결량']) * df_put.iloc[index]['현재가']
-            매도누적체결량 = put_result['매도누적체결량'] * df_put.iloc[index]['현재가']
-            매수누적체결량 = put_result['매수누적체결량'] * df_put.iloc[index]['현재가']
+        if df_put.iloc[index]['시가'] > 0 and df_put.iloc[index]['저가'] < df_put.iloc[index]['고가']:
+
+            if df_put.iloc[index]['현재가'] <= df_put.iloc[index]['시가갭']:
+
+                수정거래량 = (put_result['매수누적체결량'] - put_result['매도누적체결량']) * df_put.iloc[index]['현재가']
+                매도누적체결량 = put_result['매도누적체결량'] * df_put.iloc[index]['현재가']
+                매수누적체결량 = put_result['매수누적체결량'] * df_put.iloc[index]['현재가']
+
+                if not overnight:
+
+                    매도누적체결건수 = put_result['매도누적체결건수'] * df_put.iloc[index]['현재가']
+                    매수누적체결건수 = put_result['매수누적체결건수'] * df_put.iloc[index]['현재가']
+                else:
+                    pass
+            else:
+                수정거래량 = (put_result['매수누적체결량'] - put_result['매도누적체결량']) * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
+                매도누적체결량 = put_result['매도누적체결량'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
+                매수누적체결량 = put_result['매수누적체결량'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
+
+                if not overnight:
+
+                    매도누적체결건수 = put_result['매도누적체결건수'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
+                    매수누적체결건수 = put_result['매수누적체결건수'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
+                else:
+                    pass
+
+            df_put.loc[index, '수정거래량'] = int(수정거래량)
+            df_put_volume.loc[index, '매도누적체결량'] = int(매도누적체결량)
+            df_put_volume.loc[index, '매수누적체결량'] = int(매수누적체결량)
+
+            df_put.loc[index, '거래량'] = put_result['누적거래량']
 
             if not overnight:
-
-                매도누적체결건수 = put_result['매도누적체결건수'] * df_put.iloc[index]['현재가']
-                매수누적체결건수 = put_result['매수누적체결건수'] * df_put.iloc[index]['현재가']
+                
+                df_put_volume.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
+                df_put_volume.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
             else:
                 pass
-        else:
-            수정거래량 = (put_result['매수누적체결량'] - put_result['매도누적체결량']) * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
-            매도누적체결량 = put_result['매도누적체결량'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
-            매수누적체결량 = put_result['매수누적체결량'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
-
-            if not overnight:
-
-                매도누적체결건수 = put_result['매도누적체결건수'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
-                매수누적체결건수 = put_result['매수누적체결건수'] * (df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가갭'])
-            else:
-                pass
-
-        df_put.loc[index, '수정거래량'] = int(수정거래량)
-        df_put_volume.loc[index, '매도누적체결량'] = int(매도누적체결량)
-        df_put_volume.loc[index, '매수누적체결량'] = int(매수누적체결량)
-
-        df_put.loc[index, '거래량'] = put_result['누적거래량']
-
-        if not overnight:
             
-            df_put_volume.loc[index, '매도누적체결건수'] = int(매도누적체결건수)
-            df_put_volume.loc[index, '매수누적체결건수'] = int(매수누적체결건수)
-        else:
-            pass
-        
-        수정거래량 = format(df_put.iloc[index]['수정거래량'], ',')
+            수정거래량 = format(df_put.iloc[index]['수정거래량'], ',')
 
-        if 수정거래량 != self.tableWidget_put.item(index, Option_column.VP.value).text():
+            if 수정거래량 != self.tableWidget_put.item(index, Option_column.VP.value).text():
 
-            item = QTableWidgetItem(수정거래량)
-            item.setTextAlignment(Qt.AlignCenter)
+                item = QTableWidgetItem(수정거래량)
+                item.setTextAlignment(Qt.AlignCenter)
 
-            if index == df_put['수정거래량'].idxmax():
-                item.setBackground(QBrush(라임))
+                if index == df_put['수정거래량'].idxmax():
+                    item.setBackground(QBrush(라임))
+                else:
+                    item.setBackground(QBrush(흰색))
+
+                self.tableWidget_put.setItem(index, Option_column.VP.value, item)
             else:
-                item.setBackground(QBrush(흰색))
-
-            self.tableWidget_put.setItem(index, Option_column.VP.value, item)
+                pass
         else:
-            pass
+            pass        
 
         put_volume_total = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
         df_plotdata_put_volume.iloc[0][opt_x_idx] = put_volume_total
@@ -15131,8 +15147,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global 콜_수정미결합, 풋_수정미결합
         global oi_delta, oi_delta_old, 수정미결_직전대비        
 
-        콜_수정미결합 = df_call['수정미결'].sum() - call_oi_init_value
-        풋_수정미결합 = df_put['수정미결'].sum() - put_oi_init_value
+        #콜_수정미결합 = df_call['수정미결'].sum() - call_oi_init_value
+        #풋_수정미결합 = df_put['수정미결'].sum() - put_oi_init_value
+
+        콜_수정미결합 = df_call['수정미결'].sum()
+        풋_수정미결합 = df_put['수정미결'].sum()
                     
         df_plotdata_call_oi.iloc[0][opt_x_idx] = 콜_수정미결합
         df_plotdata_put_oi.iloc[0][opt_x_idx] = 풋_수정미결합
