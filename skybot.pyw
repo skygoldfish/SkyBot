@@ -11753,70 +11753,74 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] EUREX 본월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)                                  
-                    else:                                        
-
-                        if not refresh_flag:
+                    else:
                             
-                            수정거래량 = 0
-                            수정미결 = 0
+                        수정거래량 = 0
+                        수정미결 = 0
+                        수정미결증감 = 0
 
-                            for i in range(option_pairs_count):
+                        for i in range(option_pairs_count):
 
-                                df_call.loc[i, '수정거래량'] = 수정거래량
-                                df_put.loc[i, '수정거래량'] = 수정거래량
+                            df_call.loc[i, '수정거래량'] = 수정거래량
+                            df_put.loc[i, '수정거래량'] = 수정거래량
 
-                                temp = format(수정거래량, ',')
+                            temp = format(수정거래량, ',')
 
-                                item = QTableWidgetItem(temp)
-                                item.setTextAlignment(Qt.AlignCenter)
-                                self.tableWidget_call.setItem(i, Option_column.VP.value, item)
+                            item = QTableWidgetItem(temp)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_call.setItem(i, Option_column.VP.value, item)
 
-                                item = QTableWidgetItem(temp)
-                                item.setTextAlignment(Qt.AlignCenter)
-                                self.tableWidget_put.setItem(i, Option_column.VP.value, item)
+                            item = QTableWidgetItem(temp)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_put.setItem(i, Option_column.VP.value, item)
 
-                                df_call.loc[i, '수정미결'] = 수정미결
-                                df_put.loc[i, '수정미결'] = 수정미결
+                            df_call.loc[i, '수정미결'] = 수정미결
+                            df_put.loc[i, '수정미결'] = 수정미결
 
-                                temp = format(수정미결, ',')
+                            temp = format(수정미결, ',')
 
-                                item = QTableWidgetItem(temp)
-                                item.setTextAlignment(Qt.AlignCenter)
-                                self.tableWidget_call.setItem(i, Option_column.OI.value, item)
+                            item = QTableWidgetItem(temp)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_call.setItem(i, Option_column.OI.value, item)
 
-                                item = QTableWidgetItem(temp)
-                                item.setTextAlignment(Qt.AlignCenter)
-                                self.tableWidget_put.setItem(i, Option_column.OI.value, item)
+                            item = QTableWidgetItem(temp)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_put.setItem(i, Option_column.OI.value, item)
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 수정거래량 및 수정미결 초기화...\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)       
+                            df_call.loc[i, '수정미결증감'] = 수정미결증감
+                            df_put.loc[i, '수정미결증감'] = 수정미결증감
 
-                            self.screen_update_worker.start()
-                            self.screen_update_worker.daemon = True
+                            temp = format(수정미결증감, ',')
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)
-                            print(str)
+                            item = QTableWidgetItem(temp)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_call.setItem(i, Option_column.OID.value, item)
 
-                            refresh_flag = True
+                            item = QTableWidgetItem(temp)
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_put.setItem(i, Option_column.OID.value, item)
 
-                            self.pushButton_add.setStyleSheet("background-color: lawngreen")
-                            self.pushButton_add.setText('Refresh')
-                        else:
-                            pass 
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 수정거래량 및 수정미결 초기화...\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)       
+
+                        self.screen_update_worker.start()
+                        self.screen_update_worker.daemon = True
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
+                        print(str)
+
+                        refresh_flag = True
+
+                        self.pushButton_add.setStyleSheet("background-color: lawngreen")
+                        self.pushButton_add.setText('Refresh')
 
                     # 옵션 맥점 컬러링
                     str = '[{0:02d}:{1:02d}:{2:02d}] t8416 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                     
                     self.opt_node_coloring()
-                    '''
-                    if not pre_start:
-
-                        service_start = True
-                    else:
-                        pass
-                    '''
+                    
                     str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 만기일은 {3}일 남았습니다.\r'.format(dt.hour, dt.minute, dt.second, 옵션잔존일)
                     self.textBrowser.append(str)                                                               
                 else:
