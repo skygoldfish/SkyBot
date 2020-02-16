@@ -283,6 +283,9 @@ telegram_command = 'Go'
 telegram_send_worker_on_time = 0
 flag_telegram_on = True
 
+telegram_send_interval = 10
+telegram_send_message = 'None'
+
 telegram_call_check = False
 telegram_put_check = False
 
@@ -2698,7 +2701,7 @@ class telegram_send_worker(QThread):
                 pass
 
             self.finished.emit(str)
-            self.msleep(1000 * TELEGRAM_POLLING_INTERVAL)
+            self.msleep(1000 * telegram_send_interval)
 ########################################################################################################################
 
 ########################################################################################################################
