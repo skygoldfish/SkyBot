@@ -277,10 +277,10 @@ ovc_start_hour = domestic_start_hour - 1
 dongsi_hoga = False
 
 flag_telegram_send_worker = False
+flag_telegram_listen_worker = False
 
 telegram_command = 'Go'
-telegram_send_worker_time = 0
-flag_telegram_start = False
+telegram_send_worker_on_time = 0
 flag_telegram_on = True
 
 telegram_call_check = False
@@ -10505,10 +10505,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem('∑OI')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
 
+                수정거래량 = 0
+
                 for i in range(option_pairs_count):
 
                     # 수정거래량 초기화
-                    df_call.loc[i, '수정거래량'] = 0
+                    #df_call.loc[i, '수정거래량'] = 0
                     df_call.loc[i, '시가갭'] = 0
                     df_call.loc[i, '대비'] = 0
 
@@ -10717,14 +10719,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         수정거래량 = int((df['매수잔량'][i] - df['매도잔량'][i]) * (df['현재가'][i] - 시가갭))
 
-                    df_call.loc[i, '수정거래량'] = 수정거래량
+                    # 수정거래량 초기화
+                    df_call.loc[i, '수정거래량'] = 0
 
                     # t2835에 미결항목이 없음                    
                     df_call.loc[i, '순미결'] = 0
                     df_call.loc[i, '수정미결'] = 0
                     df_call.loc[i, '수정미결증감'] = 0
 
-                    temp = format(수정거래량, ',')
+                    temp = format(0, ',')
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -10744,7 +10747,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_plotdata_call_volume.iloc[0][선물장간_시간차] = 0
 
                     # Put 처리
-                    df_put.loc[i, '수정거래량'] = 0
+                    #df_put.loc[i, '수정거래량'] = 0
                     df_put.loc[i, '시가갭'] = 0
                     df_put.loc[i, '대비'] = 0
 
@@ -10951,14 +10954,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         수정거래량 = int((df1['매수잔량'][i] - df1['매도잔량'][i]) * (df1['현재가'][i] - 시가갭))
 
-                    df_put.loc[i, '수정거래량'] = 수정거래량
+                    # 수정거래량 초기화
+                    df_put.loc[i, '수정거래량'] = 0
 
                     # t2835에 미결항목이 없음
                     df_put.loc[i, '순미결'] = 0
                     df_put.loc[i, '수정미결'] = 0
                     df_put.loc[i, '수정미결증감'] = 0
 
-                    temp = format(수정거래량, ',')
+                    temp = format(0, ',')
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -12269,7 +12273,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global flag_fut_low, flag_fut_high 
         global 선물_누적거래량
         global first_refresh, fut_first_arrive, service_start
-        global flag_telegram_start, telegram_send_worker_time
+        global flag_telegram_listen_worker, telegram_send_worker_on_time
         global flag_telegram_send_worker
 
         dt = datetime.datetime.now()
@@ -12318,9 +12322,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.telegram_send_worker.start()
             self.telegram_send_worker.daemon = True
 
-            telegram_send_worker_time = fut_time 
+            telegram_send_worker_on_time = fut_time 
             
-            str = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker({3})가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second, telegram_send_worker_time)
+            str = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker({3})가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second, telegram_send_worker_on_time)
             self.textBrowser.append(str)
             print(str)  
 
@@ -12361,9 +12365,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        # Update Thread 시작 10분후 Telegram Polling Thread 시작 !!!
-        # print('flag_telegram_start = {0}, fut_time = {1}, telegram_send_worker_time = {2}\r'.format(flag_telegram_start, fut_time, telegram_send_worker_time + 60 * 1))
-        if not flag_telegram_start and fut_time > telegram_send_worker_time + 60 * TELEGRAM_START_TIME:
+        # Telegram Send Worker 시작 후 TELEGRAM_START_TIME분에 Telegram Listen을 위한 Polling Thread 시작 !!!
+        if not flag_telegram_listen_worker and fut_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME:
 
             if TELEGRAM_SERVICE == 'ON':
 
@@ -12378,7 +12381,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.pushButton_remove.setStyleSheet("background-color: lawngreen")
                 #self.telegram_flag = True
                 
-                flag_telegram_start = True
+                flag_telegram_listen_worker = True
             else:
                 pass            
         else:
