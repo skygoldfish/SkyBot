@@ -5688,10 +5688,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global telegram_call_check
 
         dt = datetime.datetime.now()
+        
+        telegram_call_check = False
 
         if int(call_result['체결시간'][4:6]) == 콜_체결_초:
-
-            telegram_call_check = False
             
             # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
             self.call_low_coreval_color_update()
@@ -5735,10 +5735,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global telegram_call_check
 
         dt = datetime.datetime.now()
+        
+        telegram_call_check = False
 
         if int(call_result['체결시간'][4:6]) == 콜_체결_초:
-
-            telegram_call_check = False
             
             # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
             self.call_high_coreval_color_update()
@@ -5847,11 +5847,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global 풋_체결_초
         global telegram_put_check
 
-        dt = datetime.datetime.now()
+        dt = datetime.datetime.now()        
+
+        telegram_put_check = False
 
         if int(put_result['체결시간'][4:6]) == 풋_체결_초:
-
-            telegram_put_check = False
 
             # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
             self.put_low_coreval_color_update()
@@ -5895,10 +5895,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global telegram_put_check
 
         dt = datetime.datetime.now()
+        
+        telegram_put_check = False
 
         if int(put_result['체결시간'][4:6]) == 풋_체결_초:
-
-            telegram_put_check = False
 
             # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
             self.put_high_coreval_color_update()
