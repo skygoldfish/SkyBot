@@ -350,6 +350,8 @@ flag_call_high_update = False
 flag_put_low_update = False
 flag_put_high_update = False
 
+kp200_종가 = 0
+
 옵션잔존일 = 0
 
 OVC_체결시간 = '000000'
@@ -8759,6 +8761,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_open_list, put_open_list, opt_total_list
         global call_below_atm_count, call_max_actval
         global put_above_atm_count, put_max_actval
+        global kp200_종가
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -8916,7 +8919,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     kp200_realdata['종가'] = df['KOSPI200지수']
 
-            item = QTableWidgetItem("{0:0.2f}".format(kp200_realdata['종가']))
+            kp200_종가 = kp200_realdata['종가']
+
+            item = QTableWidgetItem("{0:0.2f}".format(kp200_종가))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
 
@@ -16186,10 +16191,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item = QTableWidgetItem(result['시가지수'])
                         item.setTextAlignment(Qt.AlignCenter)
 
-                        if kp200_realdata['시가'] > kp200_realdata['종가']:
+                        if kp200_realdata['시가'] > kp200_종가:
 
                             item.setForeground(QBrush(적색))
-                        elif kp200_realdata['시가'] < kp200_realdata['종가']:
+                        elif kp200_realdata['시가'] < kp200_종가:
 
                             item.setForeground(QBrush(청색))
                         else:
@@ -16197,13 +16202,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.tableWidget_fut.setItem(2, Futures_column.시가.value, item)
 
-                        item = QTableWidgetItem("{0:0.2f}".format(kp200_realdata['시가'] - kp200_realdata['종가']))
+                        item = QTableWidgetItem("{0:0.2f}".format(kp200_realdata['시가'] - kp200_종가))
                         item.setTextAlignment(Qt.AlignCenter)
 
-                        if kp200_realdata['시가'] > kp200_realdata['종가']:
+                        if kp200_realdata['시가'] > kp200_종가:
                             item.setBackground(QBrush(콜기준가색))
                             item.setForeground(QBrush(검정색))
-                        elif kp200_realdata['시가'] < kp200_realdata['종가']:
+                        elif kp200_realdata['시가'] < kp200_종가:
                             item.setBackground(QBrush(풋기준가색))
                             item.setForeground(QBrush(흰색))
                         else:
