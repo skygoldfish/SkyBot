@@ -2641,7 +2641,15 @@ class telegram_send_worker(QThread):
         while True:
 
             str = 'None'
+            '''
+            temp = telegram_command.split()
 
+            command = []
+
+            for i in range(len(temp)):
+
+                command.append(temp[i])
+            '''
             if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                 '''
