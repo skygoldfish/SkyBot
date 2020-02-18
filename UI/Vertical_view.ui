@@ -535,26 +535,6 @@
      </spacer>
     </item>
     <item>
-     <widget class="QCheckBox" name="checkBox_telegram">
-      <property name="font">
-       <font>
-        <family>Consolas</family>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="text">
-       <string>R</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="QPushButton" name="pushButton_add">
       <property name="maximumSize">
        <size>
