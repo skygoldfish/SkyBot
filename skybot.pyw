@@ -2676,13 +2676,15 @@ class telegram_send_worker(QThread):
                 # kp200 맥점 알람
                 if flag_kp200_low_node:
 
-                    ToTelegram("{0:.2f}에서 kp200 저가맥점 발생 !!!".format(kp200_realdata['저가']))
+                    str = "{0:.2f}에서 kp200 저가맥점 발생 !!!".format(kp200_realdata['저가'])
+                    ToTelegram(str)
                 else:
                     pass
 
                 if flag_kp200_high_node:
 
-                    ToTelegram("{0:.2f}에서 kp200 고가맥점 발생 !!!".format(kp200_realdata['고가']))
+                    str = "{0:.2f}에서 kp200 고가맥점 발생 !!!".format(kp200_realdata['고가'])
+                    ToTelegram(str)
                 else:
                     pass
 
@@ -2690,14 +2692,17 @@ class telegram_send_worker(QThread):
                 if call_oneway_level3:
 
                     str = "콜 OneWay 가능성 있음(★★★)"
+                    ToTelegram(str)
 
                 elif call_oneway_level4:
 
                     str = "콜 OneWay 가능성 높음(★★★★)"
+                    ToTelegram(str)
 
                 elif call_oneway_level5:
 
                     str = "콜 OneWay 가능성 매우 높음(★★★★★)"
+                    ToTelegram(str)
                 else:
                     pass
 
@@ -2705,18 +2710,16 @@ class telegram_send_worker(QThread):
                 if put_oneway_level3:
 
                     str = "풋 OneWay 가능성 있음(★★★)"
+                    ToTelegram(str)
 
                 elif put_oneway_level4:
 
                     str = "풋 OneWay 가능성 높음(★★★★)"
+                    ToTelegram(str)
 
                 elif put_oneway_level5:
 
                     str = "풋 OneWay 가능성 매우 높음(★★★★★)"
-                else:
-                    pass
-
-                if str != 'None':
                     ToTelegram(str)
                 else:
                     pass
