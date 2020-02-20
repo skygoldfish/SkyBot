@@ -2673,6 +2673,19 @@ class telegram_send_worker(QThread):
                     pass
                 '''
 
+                # kp200 맥점 알람
+                if flag_kp200_low_node:
+
+                    ToTelegram("{0:.2f}에서 kp200 저가맥점 발생 !!!".format(kp200_realdata['저가']))
+                else:
+                    pass
+
+                if flag_kp200_high_node:
+
+                    ToTelegram("{0:.2f}에서 kp200 고가맥점 발생 !!!".format(kp200_realdata['고가']))
+                else:
+                    pass
+
                 # 콜 원웨이 알람
                 if call_oneway_level3:
 
@@ -11941,12 +11954,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 
                 self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(대맥점색))
                 self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))
-
-                flag_kp200_low_node = True
                 
                 if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                     if not NEXT_MONTH_SELECT:
+                        
+                        flag_kp200_low_node = True
                         ToTelegram("{0:.2f}에서 kp200 저가맥점 발생 !!!".format(kp200_realdata['저가']))
                     else:
                         pass
@@ -11971,12 +11984,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 
                 self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(대맥점색))
                 self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(검정색))
-
-                flag_kp200_high_node = True
                 
                 if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                     if not NEXT_MONTH_SELECT:
+
+                        flag_kp200_high_node = True
                         ToTelegram("{0:.2f}에서 kp200 고가맥점 발생 !!!".format(kp200_realdata['고가']))
                     else:
                         pass
