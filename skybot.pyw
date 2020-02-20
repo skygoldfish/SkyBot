@@ -13294,7 +13294,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             tmp = np.array(call_db_percent_local)            
             대비평균 = int(round(np.mean(tmp), 2))
-            call_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ')'
+            call_str = repr(대비합) + '\n(' + repr(대비평균) + '%' + ')'
 
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(call_str)
@@ -14376,7 +14376,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             tmp = np.array(put_db_percent_local)            
             대비평균 = int(round(np.mean(tmp), 2))
-            put_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ')'
+            put_str = repr(대비합) + '\n(' + repr(대비평균) + '%' + ')'
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(put_str)
