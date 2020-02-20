@@ -9279,7 +9279,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             call_gap_percent[i] = (시가 / 종가 - 1) * 100
 
-                            gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(시가갭, call_gap_percent[i])
+                            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(시가갭, call_gap_percent[i])
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
@@ -9287,7 +9287,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             call_db_percent[i] = (현재가 / 시가 - 1) * 100
 
-                            gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(대비, call_db_percent[i])
+                            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(대비, call_db_percent[i])
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
@@ -9557,7 +9557,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             put_gap_percent[i] = (시가 / 종가 - 1) * 100
 
-                            gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(시가갭, put_gap_percent[i])
+                            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(시가갭, put_gap_percent[i])
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
@@ -9565,7 +9565,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             put_db_percent[i] = (현재가 / 시가 - 1) * 100
 
-                            gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(대비, put_db_percent[i])
+                            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(대비, put_db_percent[i])
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
@@ -9918,7 +9918,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             if df_call.iloc[i]['종가'] > 0:
 
                                 call_gap_percent[i] = (df_call.iloc[i]['시가'] / df_call.iloc[i]['종가'] - 1) * 100
-                                gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(df_call.iloc[i]['시가갭'], call_gap_percent[i])
+                                gap_str = "{0:0.2f}\n({1:0.0f}%)".format(df_call.iloc[i]['시가갭'], call_gap_percent[i])
                             else:
                                 call_gap_percent[i] = 0.0
                                 gap_str = "{0:0.2f}".format(df_call.iloc[i]['시가갭'])
@@ -9998,7 +9998,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             if df_put.iloc[i]['종가'] > 0:
 
                                 put_gap_percent[i] = (df_put.iloc[i]['시가'] / df_put.iloc[i]['종가'] - 1) * 100
-                                gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(df_put.iloc[i]['시가갭'], put_gap_percent[i])
+                                gap_str = "{0:0.2f}\n({1:0.0f}%)".format(df_put.iloc[i]['시가갭'], put_gap_percent[i])
                             else:
                                 put_gap_percent[i] = 0.0
                                 gap_str = "{0:0.2f}".format(df_put.iloc[i]['시가갭'])
@@ -10675,7 +10675,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             call_gap_percent[i] = (시가 / 종가 - 1) * 100
 
-                            gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(시가갭, call_gap_percent[i])
+                            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(시가갭, call_gap_percent[i])
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
@@ -10683,7 +10683,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             call_db_percent[i] = (현재가 / 시가 - 1) * 100
 
-                            gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(대비, call_db_percent[i])
+                            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(대비, call_db_percent[i])
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
@@ -10910,7 +10910,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             put_gap_percent[i] = (시가 / 종가 - 1) * 100
 
-                            gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(시가갭, put_gap_percent[i])
+                            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(시가갭, put_gap_percent[i])
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
@@ -10918,7 +10918,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             put_db_percent[i] = (현재가 / 시가 - 1) * 100
 
-                            gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(대비, put_db_percent[i])
+                            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(대비, put_db_percent[i])
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
@@ -13055,7 +13055,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             df_call.loc[index, '대비'] = 대비
 
             call_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
-            gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(대비, call_db_percent[index])
+            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(대비, call_db_percent[index])
 
             item = QTableWidgetItem(gap_str)
             item.setTextAlignment(Qt.AlignCenter)
@@ -13227,7 +13227,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             df_call.loc[index, '시가갭'] = float(call_result['시가']) - df_call.iloc[index]['종가']
 
             call_gap_percent[index] = (float(call_result['시가']) / df_call.iloc[index]['종가'] - 1) * 100
-            gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(df_call.iloc[index]['시가갭'], call_gap_percent[index])
+            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(df_call.iloc[index]['시가갭'], call_gap_percent[index])
         else:
             call_gap_percent[index] = 0.0
             gap_str = "{0:0.2f}".format(df_call.iloc[index]['시가갭'])
@@ -13722,7 +13722,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_call.loc[index, '시가갭'] = df_call.iloc[index]['시가'] - df_call.iloc[index]['종가']
 
                     call_gap_percent[index] = (df_call.iloc[index]['시가'] / df_call.iloc[index]['종가'] - 1) * 100
-                    gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(df_call.iloc[index]['시가갭'], call_gap_percent[index])
+                    gap_str = "{0:0.2f}\n({1:0.0f}%)".format(df_call.iloc[index]['시가갭'], call_gap_percent[index])
 
                     item = QTableWidgetItem(gap_str)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -13836,7 +13836,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         round((df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가']), 2)
                     call_db_percent[index] = (df_call.iloc[index]['현재가'] / df_call.iloc[index]['시가'] - 1) * 100
 
-                    gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(df_call.iloc[index]['대비'], call_db_percent[index])
+                    gap_str = "{0:0.2f}\n({1:0.0f}%)".format(df_call.iloc[index]['대비'], call_db_percent[index])
 
                     if gap_str != self.tableWidget_call.item(index, Option_column.대비.value).text():
 
@@ -13944,7 +13944,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         round((df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가']), 2)
                     call_db_percent[index] = (df_call.iloc[index]['현재가'] / df_call.iloc[index]['시가'] - 1) * 100
 
-                    gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(df_call.iloc[index]['대비'], call_db_percent[index])
+                    gap_str = "{0:0.2f}\n({1:0.0f}%)".format(df_call.iloc[index]['대비'], call_db_percent[index])
 
                     if gap_str != self.tableWidget_call.item(index, Option_column.대비.value).text():
 
@@ -14137,7 +14137,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             df_put.loc[index, '대비'] = 대비
 
             put_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
-            gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(대비, put_db_percent[index])  
+            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(대비, put_db_percent[index])  
 
             item = QTableWidgetItem(gap_str)
             item.setTextAlignment(Qt.AlignCenter)
@@ -14309,7 +14309,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             df_put.loc[index, '시가갭'] = float(put_result['시가']) - df_call.iloc[index]['종가']
 
             put_gap_percent[index] = (float(put_result['시가']) / df_put.iloc[index]['종가'] - 1) * 100
-            gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(df_put.iloc[index]['시가갭'], put_gap_percent[index])
+            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(df_put.iloc[index]['시가갭'], put_gap_percent[index])
         else:
             put_gap_percent[index] = 0.0
             gap_str = "{0:0.2f}".format(df_put.iloc[index]['시가갭'])
@@ -14807,7 +14807,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_put.loc[index, '시가갭'] = df_put.iloc[index]['시가'] - df_put.iloc[index]['종가']   
 
                     put_gap_percent[index] = (df_put.iloc[index]['시가'] / df_put.iloc[index]['종가'] - 1) * 100
-                    gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(df_put.iloc[index]['시가갭'], put_gap_percent[index])
+                    gap_str = "{0:0.2f}\n({1:0.0f}%)".format(df_put.iloc[index]['시가갭'], put_gap_percent[index])
 
                     item = QTableWidgetItem(gap_str)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -14921,7 +14921,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         round((df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가']), 2)
                     put_db_percent[index] = (df_put.iloc[index]['현재가'] / df_put.iloc[index]['시가'] - 1) * 100
 
-                    gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(df_put.iloc[index]['대비'], put_db_percent[index])
+                    gap_str = "{0:0.2f}\n({1:0.0f}%)".format(df_put.iloc[index]['대비'], put_db_percent[index])
 
                     if gap_str != self.tableWidget_put.item(index, Option_column.대비.value).text():
 
@@ -15029,7 +15029,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         round((df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가']), 2)
                     put_db_percent[index] = (df_put.iloc[index]['현재가'] / df_put.iloc[index]['시가'] - 1) * 100
 
-                    gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(df_put.iloc[index]['대비'], put_db_percent[index])
+                    gap_str = "{0:0.2f}\n({1:0.0f}%)".format(df_put.iloc[index]['대비'], put_db_percent[index])
 
                     if gap_str != self.tableWidget_put.item(index, Option_column.대비.value).text():
 
@@ -15829,7 +15829,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 yoc_call_gap_percent[index] = (float(result['예상체결가격']) / df_call.iloc[index][
                                     '종가'] - 1) * 100
 
-                                gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(시가갭, yoc_call_gap_percent[index])
+                                gap_str = "{0:0.2f}\n({1:0.0f}%)".format(시가갭, yoc_call_gap_percent[index])
 
                                 if gap_str != self.tableWidget_call.item(index, Option_column.시가갭.value).text():
 
@@ -15923,7 +15923,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 yoc_put_gap_percent[index] = (float(result['예상체결가격']) / df_put.iloc[index][
                                     '종가'] - 1) * 100
 
-                                gap_str = "{0:0.2f}\n ({1:0.0f}%) ".format(시가갭, yoc_put_gap_percent[index])
+                                gap_str = "{0:0.2f}\n({1:0.0f}%)".format(시가갭, yoc_put_gap_percent[index])
 
                                 if gap_str != self.tableWidget_put.item(index, Option_column.시가갭.value).text():
 
