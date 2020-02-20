@@ -13259,7 +13259,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             tmp = np.array(call_gap_percent_local)            
             콜시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
-            call_str = repr(콜시가갭합) + '\n (' + repr(콜시가갭합_퍼센트) + '%' + ')'
+            call_str = repr(콜시가갭합) + '\n(' + repr(콜시가갭합_퍼센트) + '%' + ')'
 
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.시가갭.value).text():
                 item = QTableWidgetItem(call_str)
@@ -14341,7 +14341,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             tmp = np.array(put_gap_percent_local)            
             풋시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
-            put_str = repr(풋시가갭합) + '\n (' + repr(풋시가갭합_퍼센트) + '%' + ')'
+            put_str = repr(풋시가갭합) + '\n(' + repr(풋시가갭합_퍼센트) + '%' + ')'
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.시가갭.value).text():
                 item = QTableWidgetItem(put_str)
@@ -15864,7 +15864,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             tmp = np.array(call_gap_percent_local)                            
                             meanc = int(round(np.mean(tmp), 2))
-                            call_str = repr(콜시가갭합) + '\n (' + repr(meanc) + '%' + ')'
+                            call_str = repr(콜시가갭합) + '\n(' + repr(meanc) + '%' + ')'
 
                             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.시가갭.value).text():
                                 item = QTableWidgetItem(call_str)
@@ -15958,7 +15958,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             tmp = np.array(put_gap_percent_local)                            
                             meanp = int(round(np.mean(tmp), 2))
-                            put_str = repr(풋시가갭합) + '\n (' + repr(meanp) + '%' + ')'
+                            put_str = repr(풋시가갭합) + '\n(' + repr(meanp) + '%' + ')'
 
                             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.시가갭.value).text():
                                 item = QTableWidgetItem(put_str)
