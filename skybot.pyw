@@ -11536,7 +11536,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                                df_call.iloc[call_t8416_count]['종가'] - 1) * 100)
 
                             item = QTableWidgetItem(
-                                "{0:0.2f}\n ({1}%) ".format(df_call.iloc[call_t8416_count]['시가갭'], gap_percent))
+                                "{0:0.2f}\n({1}%)".format(df_call.iloc[call_t8416_count]['시가갭'], gap_percent))
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_call.setItem(call_t8416_count, Option_column.시가갭.value, item)
                         else:
@@ -11687,7 +11687,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                                df_put.iloc[put_t8416_count]['종가'] - 1) * 100)
 
                             item = QTableWidgetItem(
-                                "{0:0.2f}\n ({1}%) ".format(df_put.iloc[put_t8416_count]['시가갭'], gap_percent))
+                                "{0:0.2f}\n({1}%)".format(df_put.iloc[put_t8416_count]['시가갭'], gap_percent))
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_put.setItem(put_t8416_count, Option_column.시가갭.value, item)
                         else:
@@ -13259,7 +13259,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             tmp = np.array(call_gap_percent_local)            
             콜시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
-            call_str = repr(콜시가갭합) + '\n (' + repr(콜시가갭합_퍼센트) + '%' + ') '
+            call_str = repr(콜시가갭합) + '\n (' + repr(콜시가갭합_퍼센트) + '%' + ')'
 
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.시가갭.value).text():
                 item = QTableWidgetItem(call_str)
@@ -13294,7 +13294,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             tmp = np.array(call_db_percent_local)            
             대비평균 = int(round(np.mean(tmp), 2))
-            call_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
+            call_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ')'
 
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(call_str)
@@ -13889,7 +13889,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             tmp = np.array(call_gap_percent_local)            
             콜시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
-            call_str = repr(콜시가갭합) + '\n (' + repr(콜시가갭합_퍼센트) + '%' + ') '
+            call_str = repr(콜시가갭합) + '\n(' + repr(콜시가갭합_퍼센트) + '%' + ')'
 
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.시가갭.value).text():
                 item = QTableWidgetItem(call_str)
@@ -13915,7 +13915,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             대비합 = round(df_call['대비'].sum(), 2)
             tmp = np.array(call_db_percent_local)            
             대비평균 = int(round(np.mean(tmp), 2))
-            call_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
+            call_str = repr(대비합) + '\n(' + repr(대비평균) + '%' + ')'
 
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(call_str)
@@ -13967,7 +13967,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             sumc = round(df_call['대비'].sum(), 2)
             tmp = np.array(call_db_percent_local)            
             meanc = int(round(np.mean(tmp), 2))
-            call_str = repr(sumc) + '\n (' + repr(meanc) + '%' + ') '
+            call_str = repr(sumc) + '\n (' + repr(meanc) + '%' + ')'
 
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(call_str)
@@ -14341,7 +14341,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             tmp = np.array(put_gap_percent_local)            
             풋시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
-            put_str = repr(풋시가갭합) + '\n (' + repr(풋시가갭합_퍼센트) + '%' + ') '
+            put_str = repr(풋시가갭합) + '\n (' + repr(풋시가갭합_퍼센트) + '%' + ')'
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.시가갭.value).text():
                 item = QTableWidgetItem(put_str)
@@ -14376,7 +14376,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             tmp = np.array(put_db_percent_local)            
             대비평균 = int(round(np.mean(tmp), 2))
-            put_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
+            put_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ')'
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(put_str)
@@ -14974,7 +14974,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             tmp = np.array(put_gap_percent_local)            
             풋시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
-            put_str = repr(풋시가갭합) + '\n (' + repr(풋시가갭합_퍼센트) + '%' + ') '
+            put_str = repr(풋시가갭합) + '\n(' + repr(풋시가갭합_퍼센트) + '%' + ')'
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.시가갭.value).text():
                 item = QTableWidgetItem(put_str)
@@ -15000,7 +15000,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             대비합 = round(df_put['대비'].sum(), 2)
             tmp = np.array(put_db_percent_local)            
             대비평균 = int(round(np.mean(tmp), 2))
-            put_str = repr(대비합) + '\n (' + repr(대비평균) + '%' + ') '
+            put_str = repr(대비합) + '\n(' + repr(대비평균) + '%' + ')'
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(put_str)
@@ -15052,7 +15052,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             sump = round(df_put['대비'].sum(), 2)
             tmp = np.array(put_db_percent_local)            
             meanp = int(round(np.mean(tmp), 2))
-            put_str = repr(sump) + '\n (' + repr(meanp) + '%' + ') '
+            put_str = repr(sump) + '\n (' + repr(meanp) + '%' + ')'
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(put_str)
@@ -15864,7 +15864,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             tmp = np.array(call_gap_percent_local)                            
                             meanc = int(round(np.mean(tmp), 2))
-                            call_str = repr(콜시가갭합) + '\n (' + repr(meanc) + '%' + ') '
+                            call_str = repr(콜시가갭합) + '\n (' + repr(meanc) + '%' + ')'
 
                             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.시가갭.value).text():
                                 item = QTableWidgetItem(call_str)
@@ -15958,7 +15958,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             tmp = np.array(put_gap_percent_local)                            
                             meanp = int(round(np.mean(tmp), 2))
-                            put_str = repr(풋시가갭합) + '\n (' + repr(meanp) + '%' + ') '
+                            put_str = repr(풋시가갭합) + '\n (' + repr(meanp) + '%' + ')'
 
                             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.시가갭.value).text():
                                 item = QTableWidgetItem(put_str)
