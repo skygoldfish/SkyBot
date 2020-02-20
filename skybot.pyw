@@ -13929,7 +13929,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_call.resizeColumnsToContents()
 
         return
-
+    '''
     def call_db_check(self):
 
         global df_call, call_db_percent
@@ -13980,7 +13980,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             print('call_db_percent_local is empty...')
 
         return
-
+    '''
     # 풋 표시
     def put_display(self, result):
 
@@ -15014,7 +15014,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_put.resizeColumnsToContents()
 
         return
-
+    '''
     def put_db_check(self):
 
         global df_put, put_db_percent
@@ -15065,7 +15065,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             print('put_db_percent_local is empty...')
 
         return
-
+    '''
     # 호가표시
     def quote_display(self):
         
