@@ -540,10 +540,10 @@ put_open_list = []
 
 actval_increased = False
 
-call_low_coreval = False
-call_high_coreval = False
-put_low_coreval = False
-put_high_coreval = False
+flag_call_low_coreval = False
+flag_call_high_coreval = False
+flag_put_low_coreval = False
+flag_put_high_coreval = False
 service_start = False
 
 fut_code = ''
@@ -5601,22 +5601,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if not dongsi_hoga and not service_terminate:
                         
                             # 진성 의미가인 경우 blinking(매우 중요 !!!)
-                            if call_low_coreval:
+                            if flag_call_low_coreval:
                                 self.call_low_coreval_color_blink(self.alternate_flag)
                             else:                        
                                 pass
 
-                            if call_high_coreval:
+                            if flag_call_high_coreval:
                                 self.call_high_coreval_color_blink(self.alternate_flag)
                             else:
                                 pass
 
-                            if put_low_coreval:
+                            if flag_put_low_coreval:
                                 self.put_low_coreval_color_blink(self.alternate_flag)
                             else:
                                 pass
 
-                            if put_high_coreval:
+                            if flag_put_high_coreval:
                                 self.put_high_coreval_color_blink(self.alternate_flag)                        
                             else:
                                 pass
@@ -6835,10 +6835,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def call_coreval_color_update(self):
 
-        global call_low_coreval, call_high_coreval
+        global flag_call_low_coreval, flag_call_high_coreval
 
-        call_low_coreval = False
-        call_high_coreval = False
+        flag_call_low_coreval = False
+        flag_call_high_coreval = False
 
         item = QTableWidgetItem('저가')
         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -6870,7 +6870,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if df_call.iloc[i]['저가'] in 진성맥점:
 
-                        call_low_coreval = True
+                        flag_call_low_coreval = True
 
                         item = QTableWidgetItem('저가 ▲')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -6908,7 +6908,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if df_call.iloc[i]['고가'] in 진성맥점:
 
-                        call_high_coreval = True
+                        flag_call_high_coreval = True
 
                         item = QTableWidgetItem('고가 ▼')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
@@ -6947,9 +6947,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def call_low_coreval_color_update(self):
 
-        global call_low_coreval
+        global flag_call_low_coreval
 
-        call_low_coreval = False
+        flag_call_low_coreval = False
 
         item = QTableWidgetItem('저가')
         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -6981,7 +6981,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if df_call.iloc[i]['저가'] in 진성맥점:
 
-                        call_low_coreval = True
+                        flag_call_low_coreval = True
 
                         item = QTableWidgetItem('저가 ▲')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -7020,9 +7020,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def call_high_coreval_color_update(self):
 
-        global call_high_coreval
+        global flag_call_high_coreval
 
-        call_high_coreval = False
+        flag_call_high_coreval = False
 
         item = QTableWidgetItem('저가')
         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -7054,7 +7054,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if df_call.iloc[i]['고가'] in 진성맥점:
 
-                        call_high_coreval = True
+                        flag_call_high_coreval = True
 
                         item = QTableWidgetItem('고가 ▼')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
@@ -8500,10 +8500,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     
     def put_coreval_color_update(self):
 
-        global put_low_coreval, put_high_coreval
+        global flag_put_low_coreval, flag_put_high_coreval
 
-        put_low_coreval = False
-        put_high_coreval = False
+        flag_put_low_coreval = False
+        flag_put_high_coreval = False
 
         item = QTableWidgetItem('저가')
         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -8535,7 +8535,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if df_put.iloc[i]['저가'] in 진성맥점:
 
-                        put_low_coreval = True
+                        flag_put_low_coreval = True
 
                         item = QTableWidgetItem('저가 ▲')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -8573,7 +8573,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if df_put.iloc[i]['고가'] in 진성맥점:
 
-                        put_high_coreval = True
+                        flag_put_high_coreval = True
 
                         item = QTableWidgetItem('고가 ▼')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
@@ -8612,9 +8612,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def put_low_coreval_color_update(self):
 
-        global put_low_coreval
+        global flag_put_low_coreval
 
-        put_low_coreval = False
+        flag_put_low_coreval = False
 
         item = QTableWidgetItem('저가')
         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -8646,7 +8646,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if df_put.iloc[i]['저가'] in 진성맥점:
 
-                        put_low_coreval = True
+                        flag_put_low_coreval = True
 
                         item = QTableWidgetItem('저가 ▲')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -8685,9 +8685,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def put_high_coreval_color_update(self):
 
-        global put_high_coreval
+        global flag_put_high_coreval
 
-        put_high_coreval = False
+        flag_put_high_coreval = False
 
         item = QTableWidgetItem('저가')
         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -8719,7 +8719,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if df_put.iloc[i]['고가'] in 진성맥점:
 
-                        put_high_coreval = True
+                        flag_put_high_coreval = True
 
                         item = QTableWidgetItem('고가 ▼')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
