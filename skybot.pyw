@@ -188,6 +188,11 @@ with open('rules.txt', mode='r') as initfile:
     #print(TELEGRAM_POLLING_INTERVAL)
 
     tmp = initfile.readline().strip()
+    temp = tmp.split()
+    TELEGRAM_SEND_INTERVAL = int(temp[4])
+    #print(TELEGRAM_SEND_INTERVAL)
+
+    tmp = initfile.readline().strip()
     tmp = initfile.readline().strip()
 
     tmp = initfile.readline().strip()
@@ -283,11 +288,15 @@ telegram_command = 'Go'
 telegram_send_worker_on_time = 0
 flag_telegram_on = True
 
-telegram_send_interval = 10
 telegram_send_message = 'None'
 
 telegram_call_check = False
 telegram_put_check = False
+
+call_low_coreval_str = ''
+call_high_coreval_str = ''
+put_low_coreval_str = ''
+put_high_coreval_str = ''
 
 opt_search_start_value = 0.0
 opt_coreval_search_start_value = 0.5
@@ -2673,21 +2682,6 @@ class telegram_send_worker(QThread):
                     pass
                 '''
 
-                # kp200 맥점 알람
-                if flag_kp200_low_node:
-
-                    str = "{0:.2f}에서 kp200 저가맥점 발생 !!!".format(kp200_realdata['저가'])
-                    ToTelegram(str)
-                else:
-                    pass
-
-                if flag_kp200_high_node:
-
-                    str = "{0:.2f}에서 kp200 고가맥점 발생 !!!".format(kp200_realdata['고가'])
-                    ToTelegram(str)
-                else:
-                    pass
-
                 # 콜 원웨이 알람
                 if call_oneway_level3:
 
@@ -2723,11 +2717,57 @@ class telegram_send_worker(QThread):
                     ToTelegram(str)
                 else:
                     pass
+                
+                # 옵션 맥점 알림
+                if call_low_coreval_str != '':
+
+                    str = call_low_coreval_str
+                    ToTelegram(str)
+                else:
+                    pass
+
+                if call_high_coreval_str != '':
+
+                    str = call_high_coreval_str
+                    ToTelegram(str)
+                else:
+                    pass
+
+                if put_low_coreval_str != '':
+
+                    str = put_low_coreval_str
+                    ToTelegram(str)
+                else:
+                    pass
+
+                if put_high_coreval_str != '':
+
+                    str = put_high_coreval_str
+                    ToTelegram(str)
+                else:
+                    pass
+                
+                # kp200 맥점 알람
+                if flag_kp200_low_node:
+
+                    str = "[{0:02d}:{1:02d}:{2:02d}] kp200 저가 맥점이 {0:.2f}에서 발생 !!!".format(\
+                        dt.hour, dt.minute, dt.second, kp200_realdata['저가'])
+                    ToTelegram(str)
+                else:
+                    pass
+
+                if flag_kp200_high_node:
+
+                    str = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가 맥점이 {0:.2f}에서 발생 !!!".format(\
+                        dt.hour, dt.minute, dt.second, kp200_realdata['고가'])
+                    ToTelegram(str)
+                else:
+                    pass
             else:
                 pass
 
             self.finished.emit(str)
-            self.msleep(1000 * telegram_send_interval)
+            self.msleep(1000 * TELEGRAM_SEND_INTERVAL)
 ########################################################################################################################
 
 ########################################################################################################################
@@ -5580,6 +5620,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 self.put_high_coreval_color_blink(self.alternate_flag)                        
                             else:
                                 pass
+
+                            if flag_kp200_low_node:
+
+                                self.kp200_low_color_blink(self.alternate_flag)
+                            else:
+                                pass
+
+                            if flag_kp200_high_node:
+
+                                self.kp200_high_color_blink(self.alternate_flag)
+                            else:
+                                pass
                         else:
                             pass                       
                         
@@ -6669,9 +6721,37 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return
 
+    def kp200_low_color_blink(self, blink):
+
+        if blink:
+
+            self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(대맥점색))
+            self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))
+        else:
+            self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(검정색))
+            self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(대맥점색))
+
+        return
+
+    def kp200_high_color_blink(self, blink):
+
+        if blink:
+
+            self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(대맥점색))
+            self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(검정색))
+        else:
+            self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(검정색))
+            self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(대맥점색))
+
+        return
+
     def call_low_coreval_color_blink(self, blink):
 
         dt = datetime.datetime.now()
+
+        global call_low_coreval_str
+
+        call_low_coreval_str = ''
 
         if call_open_list:
 
@@ -6688,9 +6768,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜저가 {3:0.2f} 에서 진성맥점 발생 !!!\r'.format(\
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜저가 {3:0.2f}에서 진성맥점 발생 !!!\r'.format(\
                         dt.hour, dt.minute, dt.second, df_call.iloc[i]['저가'])
                     self.textBrowser.append(str)
+
+                    call_low_coreval_str = str
 
                     item = QTableWidgetItem('저가 ▲')
                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -6711,6 +6793,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
+        global call_high_coreval_str
+
+        call_high_coreval_str = ''
+
         if call_open_list:
 
             loop_list = call_open_list
@@ -6726,9 +6812,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜고가 {3:0.2f} 에서 진성맥점 발생 !!!\r'.format(\
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜고가 {3:0.2f}에서 진성맥점 발생 !!!\r'.format(\
                         dt.hour, dt.minute, dt.second, df_call.iloc[i]['고가'])
                     self.textBrowser.append(str)
+
+                    call_high_coreval_str = str
 
                     item = QTableWidgetItem('고가 ▼')
                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
@@ -6786,7 +6874,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         item = QTableWidgetItem('저가 ▲')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-                        
+                        '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if telegram_call_check:
@@ -6799,8 +6887,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 pass
                         else:
                             pass
-                                
-                        '''
+
                         if fut_code == cmshcode:
 
                             txt = '차월물 콜 저까 가 {} 입니다'.format(df_call.iloc[i]['저가'])
@@ -6825,7 +6912,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         item = QTableWidgetItem('고가 ▼')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-                        
+                        '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if telegram_call_check:
@@ -6838,8 +6925,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 pass
                         else:
                             pass
-
-                        '''
+                        
                         if fut_code == cmshcode:
 
                             txt = '차월물 콜 고까 가 {} 입니다'.format(df_call.iloc[i]['고가'])
@@ -6899,7 +6985,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         item = QTableWidgetItem('저가 ▲')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-                        
+                        '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if telegram_call_check:
@@ -6912,8 +6998,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 pass
                         else:
                             pass
-                                
-                        '''
+
                         if fut_code == cmshcode:
 
                             txt = '차월물 콜 저까 가 {} 입니다'.format(df_call.iloc[i]['저가'])
@@ -6973,7 +7058,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         item = QTableWidgetItem('고가 ▼')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-                        
+                        '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if telegram_call_check:
@@ -6987,7 +7072,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        '''
                         if fut_code == cmshcode:
 
                             txt = '차월물 콜 고까 가 {} 입니다'.format(df_call.iloc[i]['고가'])
@@ -8330,6 +8414,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
+        global put_low_coreval_str
+
+        put_low_coreval_str = ''
+
         if put_open_list:
 
             loop_list = put_open_list
@@ -8345,9 +8433,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋저가 {3:0.2f} 에서 진성맥점 발생 !!!\r'.format(\
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋저가 {3:0.2f}에서 진성맥점 발생 !!!\r'.format(\
                         dt.hour, dt.minute, dt.second, df_put.iloc[i]['저가'])
-                    self.textBrowser.append(str)    
+                    self.textBrowser.append(str) 
+
+                    put_low_coreval_str = str   
 
                     item = QTableWidgetItem('저가 ▲')
                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)                                                    
@@ -8368,6 +8458,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
+        global put_high_coreval_str
+
+        put_high_coreval_str = ''
+
         if put_open_list:
 
             loop_list = put_open_list
@@ -8383,9 +8477,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))  
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋고가 {3:0.2f} 에서 진성맥점 발생 !!!\r'.format(\
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋고가 {3:0.2f}에서 진성맥점 발생 !!!\r'.format(\
                         dt.hour, dt.minute, dt.second, df_put.iloc[i]['고가'])
                     self.textBrowser.append(str)
+
+                    put_high_coreval_str = str
 
                     item = QTableWidgetItem('고가 ▼')
                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
@@ -8443,7 +8539,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         item = QTableWidgetItem('저가 ▲')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-                        
+                        '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if telegram_put_check:
@@ -8456,8 +8552,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 pass
                         else:
                             pass      
-                                
-                        '''
+                        
                         if fut_code == cmshcode:
 
                             txt = '차월물 풋 저까 가 {} 입니다'.format(df_put.iloc[i]['저가'])
@@ -8482,7 +8577,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         item = QTableWidgetItem('고가 ▼')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-
+                        '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if telegram_put_check:
@@ -8496,7 +8591,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        '''
                         if fut_code == cmshcode:
 
                             txt = '차월물 풋 고까 가 {} 입니다'.format(df_put.iloc[i]['고가'])
@@ -8556,7 +8650,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         item = QTableWidgetItem('저가 ▲')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-                        
+                        '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if telegram_put_check:
@@ -8569,8 +8663,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 pass
                         else:
                             pass      
-                                
-                        '''
+                        
                         if fut_code == cmshcode:
 
                             txt = '차월물 풋 저까 가 {} 입니다'.format(df_put.iloc[i]['저가'])
@@ -8630,7 +8723,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         item = QTableWidgetItem('고가 ▼')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-
+                        '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                             if telegram_put_check:
@@ -8644,7 +8737,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        '''
                         if fut_code == cmshcode:
 
                             txt = '차월물 풋 고까 가 {} 입니다'.format(df_put.iloc[i]['고가'])
@@ -11957,17 +12049,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 
                 self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(대맥점색))
                 self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))
-                
+
+                flag_kp200_low_node = True
+                '''
                 if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                     if not NEXT_MONTH_SELECT:
                         
                         flag_kp200_low_node = True
-                        ToTelegram("{0:.2f}에서 kp200 저가맥점 발생 !!!".format(kp200_realdata['저가']))
+                        #ToTelegram("{0:.2f}에서 kp200 저가맥점 발생 !!!".format(kp200_realdata['저가']))
                     else:
                         pass
                 else:
                     pass
+                '''
             else:
                 flag_kp200_low_node = False
 
@@ -11987,17 +12082,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 
                 self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(대맥점색))
                 self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(검정색))
-                
+
+                flag_kp200_high_node = True
+                '''
                 if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                     if not NEXT_MONTH_SELECT:
 
                         flag_kp200_high_node = True
-                        ToTelegram("{0:.2f}에서 kp200 고가맥점 발생 !!!".format(kp200_realdata['고가']))
+                        #ToTelegram("{0:.2f}에서 kp200 고가맥점 발생 !!!".format(kp200_realdata['고가']))
                     else:
                         pass
                 else:
                     pass
+                '''
             else:
                 flag_kp200_high_node = False
 
