@@ -85,6 +85,8 @@ global domestic_start_hour
 
 domestic_start_hour = 9
 
+telegram_toggle = True
+
 # 만기일 야간옵션은 month_info.txt에서 mangi_yagan을 NO -> YES로 변경
 with open('month_info.txt', mode='r') as monthfile:
 
@@ -2587,6 +2589,7 @@ class t8415_Call_Worker(QThread):
     finished = pg.QtCore.Signal(object)
 
     def run(self):
+        
         while True:
 
             data = call_t8415_count
@@ -2601,6 +2604,7 @@ class t8415_Put_Worker(QThread):
     finished = pg.QtCore.Signal(object)
 
     def run(self):
+
         while True:
 
             data = put_t8415_count
@@ -2615,6 +2619,7 @@ class t8416_Call_Worker(QThread):
     finished = pg.QtCore.Signal(object)
 
     def run(self):
+
         while True:
 
             data = call_t8416_count
@@ -2629,6 +2634,7 @@ class t8416_Put_Worker(QThread):
     finished = pg.QtCore.Signal(object)
 
     def run(self):
+
         while True:
 
             data = put_t8416_count
@@ -2647,9 +2653,15 @@ class telegram_send_worker(QThread):
     current_str = dt.strftime('%H:%M:%S')
 
     def run(self):
+
         while True:
+            
+            global telegram_toggle
+
+            telegram_toggle = not telegram_toggle
 
             str = 'None'
+
             '''
             temp = telegram_command.split()
 
@@ -2659,6 +2671,7 @@ class telegram_send_worker(QThread):
 
                 command.append(temp[i])
             '''
+
             if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
                 '''
@@ -2682,43 +2695,47 @@ class telegram_send_worker(QThread):
                     pass
                 '''
 
-                # 콜 원웨이 알람
-                if call_oneway_level3:
+                if telegram_toggle:
 
-                    str = "콜 OneWay 가능성 있음(★★★)"
-                    ToTelegram(str)
+                    # 콜 원웨이 알람
+                    if call_oneway_level3:
 
-                elif call_oneway_level4:
+                        str = "콜 OneWay 가능성 있음(★★★)"
+                        ToTelegram(str)
 
-                    str = "콜 OneWay 가능성 높음(★★★★)"
-                    ToTelegram(str)
+                    elif call_oneway_level4:
 
-                elif call_oneway_level5:
+                        str = "콜 OneWay 가능성 높음(★★★★)"
+                        ToTelegram(str)
 
-                    str = "콜 OneWay 가능성 매우 높음(★★★★★)"
-                    ToTelegram(str)
+                    elif call_oneway_level5:
+
+                        str = "콜 OneWay 가능성 매우 높음(★★★★★)"
+                        ToTelegram(str)
+                    else:
+                        pass
+
+                    # 풋 원웨이 알람
+                    if put_oneway_level3:
+
+                        str = "풋 OneWay 가능성 있음(★★★)"
+                        ToTelegram(str)
+
+                    elif put_oneway_level4:
+
+                        str = "풋 OneWay 가능성 높음(★★★★)"
+                        ToTelegram(str)
+
+                    elif put_oneway_level5:
+
+                        str = "풋 OneWay 가능성 매우 높음(★★★★★)"
+                        ToTelegram(str)
+                    else:
+                        pass
                 else:
-                    pass
-
-                # 풋 원웨이 알람
-                if put_oneway_level3:
-
-                    str = "풋 OneWay 가능성 있음(★★★)"
-                    ToTelegram(str)
-
-                elif put_oneway_level4:
-
-                    str = "풋 OneWay 가능성 높음(★★★★)"
-                    ToTelegram(str)
-
-                elif put_oneway_level5:
-
-                    str = "풋 OneWay 가능성 매우 높음(★★★★★)"
-                    ToTelegram(str)
-                else:
-                    pass
+                    pass                
                 
-                # 옵션 맥점 알림
+                # 옵션 맥점 알람
                 if call_low_coreval_str != '':
 
                     str = call_low_coreval_str
@@ -2750,7 +2767,7 @@ class telegram_send_worker(QThread):
                 # kp200 맥점 알람
                 if flag_kp200_low_node:
 
-                    str = "[{0:02d}:{1:02d}:{2:02d}] kp200 저가 맥점이 {0:.2f}에서 발생 !!!".format(\
+                    str = "[{0:02d}:{1:02d}:{2:02d}] kp200 저가맥점이 {0:.2f}에서 발생 !!!".format(\
                         dt.hour, dt.minute, dt.second, kp200_realdata['저가'])
                     ToTelegram(str)
                 else:
@@ -2758,7 +2775,7 @@ class telegram_send_worker(QThread):
 
                 if flag_kp200_high_node:
 
-                    str = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가 맥점이 {0:.2f}에서 발생 !!!".format(\
+                    str = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가맥점이 {0:.2f}에서 발생 !!!".format(\
                         dt.hour, dt.minute, dt.second, kp200_realdata['고가'])
                     ToTelegram(str)
                 else:
@@ -15442,8 +15459,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if szTrCode == 'JIF':
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(dt.hour, \
-                    dt.minute, dt.second, result['장구분'], result['장상태'])
+                str = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(\
+                    dt.hour, dt.minute, dt.second, result['장구분'], result['장상태'])
                 self.textBrowser.append(str)
 
                 # 장시작 10분전
@@ -15453,16 +15470,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - ((domestic_start_hour - 1) * 3600 + 50 * 60 + 0)
 
                     if time_delta > 0:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 빠릅니다.\r'.format(dt.hour, dt.minute,
-                                                                    dt.second, time_delta)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 빠릅니다.\r'.format(\
+                            dt.hour, dt.minute, dt.second, time_delta)
                         self.textBrowser.append(str)
                     elif time_delta < 0:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 느립니다.\r'.format(dt.hour, dt.minute,
-                                                                                dt.second, time_delta)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 느립니다.\r'.format(\
+                            dt.hour, dt.minute, dt.second, time_delta)
                         self.textBrowser.append(str)
                     else:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간과 서버시간이 같습니다.\r'.format(dt.hour, dt.minute,
-                                                                                dt.second)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간과 서버시간이 같습니다.\r'.format(\
+                            dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 장시작 10분전입니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -15481,43 +15498,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 현물장 시작 10초전
                 elif result['장구분'] == '1' and result['장상태'] == '22':
 
-                    '''
-                    # 지수옵션 예상체결 요청취소(안하면 시작시 지연발생함)
-                    self.YOC.UnadviseRealData()
-
-                    yoc_stop = True
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
-                    self.textBrowser.append(str)
-                    '''
-
                     str = '[{0:02d}:{1:02d}:{2:02d}] 현물장 시작 10초전입니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
                 # 선물장 시작 10초전
                 elif result['장구분'] == '5' and result['장상태'] == '22':
                     
-                    '''
-                    # 지수옵션 예상체결 요청취소(안하면 시작시 지연발생함)
-                    self.YOC.UnadviseRealData()
-
-                    yoc_stop = True
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
-                    self.textBrowser.append(str)
-                    
-                    # 지수선물 예상체결 요청취소
-                    self.YFC.UnadviseRealData()
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수선물 예상체결 요청을 취소합니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
-                    self.textBrowser.append(str)
-
-                    # KOSPI 예상체결 요청취소
-                    self.YS3.UnadviseRealData()
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] KOSPI 예상체결 요청을 취소합니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
-                    self.textBrowser.append(str)
-                    '''
                     str = '[{0:02d}:{1:02d}:{2:02d}] 선물장 시작 10초전입니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
@@ -15526,7 +15512,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     # 서버시간과 동기를 위한 delta time 계산
                     time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (domestic_start_hour * 3600 + 0 * 60 + 0)
-                    
+
+                    yoc_stop = not yoc_stop
+                    pre_start = not pre_start
+
+                    '''
                     if not yoc_stop:
                         yoc_stop = True
                     else:
@@ -15535,17 +15525,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if pre_start:
 
                         pre_start = False
-                        '''
-                        # 장시작시 시가를 갱신하기 위해 t2301요청
-                        XQ = t2301(parent=self)
-                        XQ.Query(월물=CURRENT_MONTH_INFO, 미니구분='G')
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] t2301을 재요청 합니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
-                        self.textBrowser.append(str)
-                        '''
                     else:
                         pass
-
+                    '''
                     service_start = True
                     market_service = True
 
@@ -16939,6 +16921,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif szTrCode == 'FC0' or szTrCode == 'NC0':
 
+                pre_start = not pre_start
+
                 if szTrCode == 'FC0':
 
                     if not market_service: 
@@ -16951,21 +16935,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
                 else:
-                    pass                
+                    pass   
 
+                '''
                 if pre_start:
 
                     pre_start = False
-                    '''
-                    # 장시작시 시가를 갱신하기 위해 t2301요청
-                    XQ = t2301(parent=self)
-                    XQ.Query(월물=CURRENT_MONTH_INFO, 미니구분='G')
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] t2301을 재요청 합니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
-                    self.textBrowser.append(str)
-                    '''
                 else:
                     pass
+                '''
 
                 if szTrCode == 'NC0':    
 
@@ -17051,19 +17029,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
+                pre_start = not pre_start
+
+                '''
                 if pre_start:
 
                     pre_start = False
-                    '''
-                    # 장시작시 시가를 갱신하기 위해 t2301요청
-                    XQ = t2301(parent=self)
-                    XQ.Query(월물=CURRENT_MONTH_INFO, 미니구분='G')
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] t2301을 재요청 합니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
-                    self.textBrowser.append(str)
-                    '''
                 else:
                     pass
+                '''
 
                 # X축 시간좌표 계산
                 if overnight:
