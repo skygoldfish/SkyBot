@@ -5620,7 +5620,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         # 선물, 콜, 풋 현재가 클리어
                         #self.cv_color_clear()
-                        self.low_high_color_clear()
+                        self.price_color_clear()
 
                         if not dongsi_hoga and not service_terminate:
                         
@@ -6162,6 +6162,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         list_zero = []
         list_high = []
 
+        if 0 in input_list:
+            input_list.remove(0)
+        else:
+            pass
+
         temp = list(set(input_list))
         temp.sort()
 
@@ -6232,15 +6237,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         return
 
      # 저가, 고가 클리어
-    def low_high_color_clear(self):
+    def price_color_clear(self):
 
         if overnight:
             self.tableWidget_fut.item(0, Futures_column.저가.value).setBackground(QBrush(옅은회색))
+            self.tableWidget_fut.item(0, Futures_column.현재가.value).setBackground(QBrush(흰색))
             self.tableWidget_fut.item(0, Futures_column.고가.value).setBackground(QBrush(옅은회색))
         else:
             self.tableWidget_fut.item(1, Futures_column.저가.value).setBackground(QBrush(옅은회색))
+            self.tableWidget_fut.item(1, Futures_column.현재가.value).setBackground(QBrush(흰색))
             self.tableWidget_fut.item(1, Futures_column.고가.value).setBackground(QBrush(옅은회색))
-            self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(옅은회색))            
+
+            self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(옅은회색)) 
+            self.tableWidget_fut.item(2, Futures_column.현재가.value).setBackground(QBrush(흰색))           
             self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(옅은회색))
 
         if call_scroll_end_position <= option_pairs_count:
@@ -6248,11 +6257,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             for i in range(call_scroll_begin_position, call_scroll_end_position):
 
                 self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
+                self.tableWidget_call.item(i, Option_column.현재가.value).setBackground(QBrush(흰색))
                 self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
 
             for i in range(put_scroll_begin_position, put_scroll_end_position):
 
                 self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
+                self.tableWidget_put.item(i, Option_column.현재가.value).setBackground(QBrush(흰색))
                 self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
         else:
             pass
@@ -10860,16 +10871,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_call.setItem(i, Option_column.대비.value, item)
 
-                        if 전저 > 0 and 전고 > 0 and 종가 > 0 and 시가 > 0:
+                        피봇 = self.calc_pivot(전저, 전고, 종가, 시가)
+                        df_call.loc[i, '피봇'] = 피봇
 
-                            피봇 = self.calc_pivot(전저, 전고, 종가, 시가)
-                            df_call.loc[i, '피봇'] = 피봇
-
-                            item = QTableWidgetItem("{0:0.2f}".format(df_call.iloc[i]['피봇']))
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_call.setItem(i, Option_column.피봇.value, item)
-                        else:
-                            pass
+                        item = QTableWidgetItem("{0:0.2f}".format(피봇))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(i, Option_column.피봇.value, item)
                     else:
                         시가 = 0.0
                         피봇 = 0.0
@@ -11097,16 +11104,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_put.setItem(i, Option_column.대비.value, item)
 
-                        if 전저 > 0 and 전고 > 0 and 종가 > 0 and 시가 > 0:
+                        피봇 = self.calc_pivot(전저, 전고, 종가, 시가)
+                        df_put.loc[i, '피봇'] = 피봇
 
-                            피봇 = self.calc_pivot(전저, 전고, 종가, 시가)
-                            df_put.loc[i, '피봇'] = 피봇
-
-                            item = QTableWidgetItem("{0:0.2f}".format(df_put.iloc[i]['피봇']))
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_put.setItem(i, Option_column.피봇.value, item)
-                        else:
-                            pass
+                        item = QTableWidgetItem("{0:0.2f}".format(피봇))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(i, Option_column.피봇.value, item)
                     else:
                         시가 = 0.0
                         피봇 = 0.0
@@ -12642,8 +12645,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 elif float(현재가) > float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
                     item.setBackground(QBrush(pink))
                 else:
-                    #item.setBackground(QBrush(옅은회색))
-                    pass
+                    item.setBackground(QBrush(옅은회색))
 
                 self.tableWidget_fut.setItem(0, Futures_column.현재가.value, item)
             else:
@@ -13217,8 +13219,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             elif float(현재가) > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
                 item.setBackground(QBrush(pink))
             else:
-                #item.setBackground(QBrush(옅은회색))
-                pass
+                item.setBackground(QBrush(옅은회색))
 
             if float(시가) < float(현재가):
                 item.setForeground(QBrush(적색))
@@ -14302,8 +14303,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             elif float(현재가) > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
                 item.setBackground(QBrush(pink))
             else:
-                #item.setBackground(QBrush(옅은회색))
-                pass
+                item.setBackground(QBrush(옅은회색))
 
             if float(시가) < float(현재가):
                 item.setForeground(QBrush(적색))
