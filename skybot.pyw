@@ -6167,6 +6167,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
+        if 0.01 in input_list:
+            input_list.remove(0.01)
+        else:
+            pass
+
         temp = list(set(input_list))
         temp.sort()
 
@@ -6252,21 +6257,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.item(2, Futures_column.현재가.value).setBackground(QBrush(흰색))           
             self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(옅은회색))
 
-        if call_scroll_end_position <= option_pairs_count:
+        for i in range(call_scroll_begin_position, call_scroll_end_position):
 
-            for i in range(call_scroll_begin_position, call_scroll_end_position):
+            self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
+            self.tableWidget_call.item(i, Option_column.현재가.value).setBackground(QBrush(흰색))
+            self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
 
-                self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
-                self.tableWidget_call.item(i, Option_column.현재가.value).setBackground(QBrush(흰색))
-                self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
+        for i in range(put_scroll_begin_position, put_scroll_end_position):
 
-            for i in range(put_scroll_begin_position, put_scroll_end_position):
-
-                self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
-                self.tableWidget_put.item(i, Option_column.현재가.value).setBackground(QBrush(흰색))
-                self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
-        else:
-            pass
+            self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
+            self.tableWidget_put.item(i, Option_column.현재가.value).setBackground(QBrush(흰색))
+            self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
 
         return
 
