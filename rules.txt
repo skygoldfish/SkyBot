@@ -7,6 +7,7 @@ my coreval = 3.50
 telegram service = ON
 telegram polling start time(minute) after service = 10
 telegram polling interval(second) = 10
+telegram send interval(second) = 5
 
 ######################## < rules > ###########################
 threshold of the institutional party's supply & demand = 2500
