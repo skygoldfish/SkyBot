@@ -300,6 +300,9 @@ call_high_coreval_str = ''
 put_low_coreval_str = ''
 put_high_coreval_str = ''
 
+kp200_low_node_str = ''
+kp200_high_node_str = ''
+
 opt_search_start_value = 0.0
 opt_coreval_search_start_value = 0.5
 opt_search_end_value = 10
@@ -2649,8 +2652,8 @@ class telegram_send_worker(QThread):
 
     finished = pg.QtCore.Signal(object)
 
-    dt = datetime.datetime.now()
-    current_str = dt.strftime('%H:%M:%S')
+    #dt = datetime.datetime.now()
+    #current_str = dt.strftime('%H:%M:%S')
 
     def run(self):
 
@@ -2765,21 +2768,23 @@ class telegram_send_worker(QThread):
                     pass
                 
                 # kp200 맥점 알람
-                if flag_kp200_low_node:
+                if not NEXT_MONTH_SELECT:
 
-                    str = "[{0:02d}:{1:02d}:{2:02d}] kp200 저가맥점이 {0:.2f}에서 발생 !!!".format(\
-                        dt.hour, dt.minute, dt.second, kp200_realdata['저가'])
-                    ToTelegram(str)
+                    if kp200_low_node_str != '':
+
+                        str = kp200_low_node_str
+                        ToTelegram(str)
+                    else:
+                        pass
+
+                    if kp200_high_node_str != '':
+
+                        str = kp200_high_node_str
+                        ToTelegram(str)
+                    else:
+                        pass
                 else:
-                    pass
-
-                if flag_kp200_high_node:
-
-                    str = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가맥점이 {0:.2f}에서 발생 !!!".format(\
-                        dt.hour, dt.minute, dt.second, kp200_realdata['고가'])
-                    ToTelegram(str)
-                else:
-                    pass
+                    pass                
             else:
                 pass
 
@@ -6853,13 +6858,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜저가 {3:0.2f}에서 진성맥점 발생 !!!\r'.format(\
-                        dt.hour, dt.minute, dt.second, df_call.iloc[i]['저가'])
-                    self.textBrowser.append(str)
+                    if NEXT_MONTH_SELECT:
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 차월물 콜저가 {3:0.2f}에서 진성맥점 발생 !!!\r'.format(\
+                            dt.hour, dt.minute, dt.second, df_call.iloc[i]['저가'])
+                        self.textBrowser.append(str)
+                    else:
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 본월물 콜저가 {3:0.2f}에서 진성맥점 발생 !!!\r'.format(\
+                            dt.hour, dt.minute, dt.second, df_call.iloc[i]['저가'])
+                        self.textBrowser.append(str)
 
                     call_low_coreval_str = str
 
-                    item = QTableWidgetItem('저가 ▲')
+                    item = QTableWidgetItem('저가 ★')
                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
                 else:
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
@@ -6897,13 +6908,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜고가 {3:0.2f}에서 진성맥점 발생 !!!\r'.format(\
-                        dt.hour, dt.minute, dt.second, df_call.iloc[i]['고가'])
-                    self.textBrowser.append(str)
+                    if NEXT_MONTH_SELECT:
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 차월물 콜고가 {3:0.2f}에서 진성맥점 발생 !!!\r'.format(\
+                            dt.hour, dt.minute, dt.second, df_call.iloc[i]['고가'])
+                        self.textBrowser.append(str)
+                    else:
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 본월물 콜고가 {3:0.2f}에서 진성맥점 발생 !!!\r'.format(\
+                            dt.hour, dt.minute, dt.second, df_call.iloc[i]['고가'])
+                        self.textBrowser.append(str)
 
                     call_high_coreval_str = str
 
-                    item = QTableWidgetItem('고가 ▼')
+                    item = QTableWidgetItem('고가 ★')
                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
                 else:
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
@@ -8512,13 +8529,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋저가 {3:0.2f}에서 진성맥점 발생 !!!\r'.format(\
-                        dt.hour, dt.minute, dt.second, df_put.iloc[i]['저가'])
-                    self.textBrowser.append(str) 
+                    if NEXT_MONTH_SELECT:
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 차월물 풋저가 {3:0.2f}에서 진성맥점 발생 !!!\r'.format(\
+                            dt.hour, dt.minute, dt.second, df_put.iloc[i]['저가'])
+                        self.textBrowser.append(str)
+                    else:
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 본월물 풋저가 {3:0.2f}에서 진성맥점 발생 !!!\r'.format(\
+                            dt.hour, dt.minute, dt.second, df_put.iloc[i]['저가'])
+                        self.textBrowser.append(str)
 
                     put_low_coreval_str = str   
 
-                    item = QTableWidgetItem('저가 ▲')
+                    item = QTableWidgetItem('저가 ★')
                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)                                                    
                 else:
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
@@ -8556,13 +8579,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))  
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋고가 {3:0.2f}에서 진성맥점 발생 !!!\r'.format(\
-                        dt.hour, dt.minute, dt.second, df_put.iloc[i]['고가'])
-                    self.textBrowser.append(str)
+                    if NEXT_MONTH_SELECT:
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 차월물 풋고가 {3:0.2f}에서 진성맥점 발생 !!!\r'.format(\
+                            dt.hour, dt.minute, dt.second, df_put.iloc[i]['고가'])
+                        self.textBrowser.append(str)
+                    else:
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 본월물 풋고가 {3:0.2f}에서 진성맥점 발생 !!!\r'.format(\
+                            dt.hour, dt.minute, dt.second, df_put.iloc[i]['고가'])
+                        self.textBrowser.append(str)
 
                     put_high_coreval_str = str
 
-                    item = QTableWidgetItem('고가 ▼')
+                    item = QTableWidgetItem('고가 ★')
                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
                 else:
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
@@ -12122,7 +12151,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     
     def kp200_low_node_coloring(self, t):
 
-        global flag_kp200_low_node, kp200_low_node_time       
+        dt = datetime.datetime.now()
+
+        global flag_kp200_low_node, kp200_low_node_time, kp200_low_node_str  
+
+        kp200_low_node_str = ''     
         
         # kp200 맥점 컬러링
         self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(옅은회색))
@@ -12136,6 +12169,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))
 
                 flag_kp200_low_node = True
+
+                kp200_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] kp200 저가맥점이 {0:.2f}에서 발생 !!!".format(\
+                                        dt.hour, dt.minute, dt.second, kp200_realdata['저가'])
+
                 '''
                 if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
@@ -12153,9 +12190,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return
 
-    def kp200_high_node_coloring(self, t):   
+    def kp200_high_node_coloring(self, t):  
 
-        global flag_kp200_high_node, kp200_high_node_time     
+        dt = datetime.datetime.now() 
+
+        global flag_kp200_high_node, kp200_high_node_time, kp200_high_node_str 
+
+        kp200_high_node_str = ''    
         
         # kp200 맥점 컬러링
         self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(옅은회색))
@@ -12169,6 +12210,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(검정색))
 
                 flag_kp200_high_node = True
+
+                kp200_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가맥점이 {0:.2f}에서 발생 !!!".format(\
+                                        dt.hour, dt.minute, dt.second, kp200_realdata['고가'])
+
                 '''
                 if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
