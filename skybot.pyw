@@ -5804,7 +5804,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Low Coreval Color Check !!!\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
-            self.textBrowser.append(str)
+            #self.textBrowser.append(str)
             print(str)    
         else:
 
@@ -5851,7 +5851,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call High Coreval Color Check !!!\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
-            self.textBrowser.append(str)
+            #self.textBrowser.append(str)
             print(str)    
         else:
 
@@ -5964,7 +5964,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Low Coreval Color Check !!!\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
-            self.textBrowser.append(str)
+            #self.textBrowser.append(str)
             print(str)
         else:
 
@@ -6011,7 +6011,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put High Coreval Color Check !!!\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
-            self.textBrowser.append(str)
+            #self.textBrowser.append(str)
             print(str)
         else:
 
