@@ -2793,6 +2793,7 @@ class telegram_listen_worker(QThread):
     finished = pg.QtCore.Signal(object)
 
     def run(self):
+
         while True:
 
             if TELEGRAM_SERVICE == 'ON' and flag_telegram_on:
@@ -6241,9 +6242,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return
 
-     # 저가, 고가 클리어
+    # 저가, 현재가, 고가 클리어
     def price_color_clear(self):
 
+        # 선물
         if overnight:
             self.tableWidget_fut.item(0, Futures_column.저가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_fut.item(0, Futures_column.현재가.value).setBackground(QBrush(흰색))
@@ -6257,17 +6259,35 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.item(2, Futures_column.현재가.value).setBackground(QBrush(흰색))           
             self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(옅은회색))
 
+        # 콜
         for i in range(call_scroll_begin_position, call_scroll_end_position):
 
             self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_call.item(i, Option_column.현재가.value).setBackground(QBrush(흰색))
             self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
 
+        # 풋
         for i in range(put_scroll_begin_position, put_scroll_end_position):
 
             self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_put.item(i, Option_column.현재가.value).setBackground(QBrush(흰색))
             self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
+
+        # 저가, 고가 옵션헤더 클리어
+        item = QTableWidgetItem('저가')
+        self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+        item = QTableWidgetItem('고가')
+        self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+        item = QTableWidgetItem('저가')
+        self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+        item = QTableWidgetItem('고가')
+        self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+        self.tableWidget_call.resizeColumnsToContents()
+        self.tableWidget_put.resizeColumnsToContents()
 
         return
 
@@ -7016,11 +7036,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         flag_call_low_coreval = False
 
-        item = QTableWidgetItem('저가')
+        item = QTableWidgetItem('저가 ▼')
         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-
-        item = QTableWidgetItem('고가')
-        self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
         if call_open_list:
 
@@ -7048,7 +7065,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_call_low_coreval = True
 
-                        item = QTableWidgetItem('저가 ▲')
+                        item = QTableWidgetItem('저가 ★')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
                         '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
@@ -7089,10 +7106,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         flag_call_high_coreval = False
 
-        item = QTableWidgetItem('저가')
-        self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-
-        item = QTableWidgetItem('고가')
+        item = QTableWidgetItem('고가 ▲')
         self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
         if call_open_list:
@@ -7121,7 +7135,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_call_high_coreval = True
 
-                        item = QTableWidgetItem('고가 ▼')
+                        item = QTableWidgetItem('고가 ★')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
                         '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
@@ -8681,11 +8695,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         flag_put_low_coreval = False
 
-        item = QTableWidgetItem('저가')
+        item = QTableWidgetItem('저가 ▼')
         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-
-        item = QTableWidgetItem('고가')
-        self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
         if put_open_list:
 
@@ -8713,7 +8724,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_put_low_coreval = True
 
-                        item = QTableWidgetItem('저가 ▲')
+                        item = QTableWidgetItem('저가 ★')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
                         '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
@@ -8754,10 +8765,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         flag_put_high_coreval = False
 
-        item = QTableWidgetItem('저가')
-        self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-
-        item = QTableWidgetItem('고가')
+        item = QTableWidgetItem('고가 ▲')
         self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
         if put_open_list:
@@ -8786,7 +8794,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_put_high_coreval = True
 
-                        item = QTableWidgetItem('고가 ▼')
+                        item = QTableWidgetItem('고가 ★')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
                         '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
