@@ -4504,6 +4504,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(idx, item)
                 print("call header column.. ", idx, col_text)
 
+                global call_scroll_end_position
+
+                if call_scroll_end_position > option_pairs_count:
+
+                    call_scroll_end_position = option_pairs_count
+                else:
+                    pass
+
                 if idx == Option_column.기준가.value:
 
                     call_node_state['기준가'] = False
@@ -4625,6 +4633,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem(col_text.replace('\n✓', ''))
                 self.tableWidget_put.setHorizontalHeaderItem(idx, item)
                 print("put header column.. ", idx, col_text)
+
+                global put_scroll_end_position
+
+                if put_scroll_end_position > option_pairs_count:
+
+                    put_scroll_end_position = option_pairs_count
+                else:
+                    pass
 
                 if idx == Option_column.기준가.value:
 
@@ -6218,17 +6234,29 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.item(1, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_fut.item(2, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
 
-        if call_scroll_end_position <= option_pairs_count:
+        global call_scroll_end_position
 
-            for i in range(call_scroll_begin_position, call_scroll_end_position):
+        if call_scroll_end_position > option_pairs_count:
 
-                self.tableWidget_call.item(i, Option_column.현재가.value).setBackground(QBrush(옅은회색))
-
-            for i in range(put_scroll_begin_position, put_scroll_end_position):
-
-                self.tableWidget_put.item(i, Option_column.현재가.value).setBackground(QBrush(옅은회색))
+            call_scroll_end_position = option_pairs_count
         else:
             pass
+
+        for i in range(call_scroll_begin_position, call_scroll_end_position):
+
+            self.tableWidget_call.item(i, Option_column.현재가.value).setBackground(QBrush(옅은회색))
+
+        global put_scroll_end_position
+
+        if put_scroll_end_position > option_pairs_count:
+
+            put_scroll_end_position = option_pairs_count
+        else:
+            pass
+
+        for i in range(put_scroll_begin_position, put_scroll_end_position):
+
+            self.tableWidget_put.item(i, Option_column.현재가.value).setBackground(QBrush(옅은회색))
 
         return
 
@@ -6249,12 +6277,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.item(2, Futures_column.현재가.value).setBackground(QBrush(흰색))           
             self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(옅은회색))
 
+        global call_scroll_end_position
+
+        if call_scroll_end_position > option_pairs_count:
+
+            call_scroll_end_position = option_pairs_count
+        else:
+            pass
+
         # 콜
         for i in range(call_scroll_begin_position, call_scroll_end_position):
 
             self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_call.item(i, Option_column.현재가.value).setBackground(QBrush(흰색))
             self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
+
+        global put_scroll_end_position
+
+        if put_scroll_end_position > option_pairs_count:
+
+            put_scroll_end_position = option_pairs_count
+        else:
+            pass
 
         # 풋
         for i in range(put_scroll_begin_position, put_scroll_end_position):
@@ -6758,6 +6802,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def call_crossval_color_update(self):
 
+        global call_scroll_end_position
+
+        if call_scroll_end_position > option_pairs_count:
+
+            call_scroll_end_position = option_pairs_count
+        else:
+            pass
+
         for i in range(call_scroll_begin_position, call_scroll_end_position):
 
             if df_call.iloc[i]['저가'] in put_저가_node_list:
@@ -7185,6 +7237,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         start_time = timeit.default_timer()
 
         dt = datetime.datetime.now()
+
+        global call_scroll_end_position
+
+        if call_scroll_end_position > option_pairs_count:
+
+            call_scroll_end_position = option_pairs_count
+        else:
+            pass
 
         for i in range(call_scroll_begin_position, call_scroll_end_position):
             
@@ -7784,6 +7844,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         start_time = timeit.default_timer()
 
         dt = datetime.datetime.now()
+
+        global put_scroll_end_position
+
+        if put_scroll_end_position > option_pairs_count:
+
+            put_scroll_end_position = option_pairs_count
+        else:
+            pass
         
         for i in range(put_scroll_begin_position, put_scroll_end_position):
             
@@ -8460,6 +8528,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         return
 
     def put_crossval_color_update(self):
+
+        global put_scroll_end_position
+
+        if put_scroll_end_position > option_pairs_count:
+
+            put_scroll_end_position = option_pairs_count
+        else:
+            pass
 
         for i in range(put_scroll_begin_position, put_scroll_end_position):
 
