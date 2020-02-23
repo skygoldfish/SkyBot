@@ -2768,21 +2768,17 @@ class telegram_send_worker(QThread):
                     pass
                 
                 # kp200 맥점 알람
-                if NEXT_MONTH_SELECT != 'YES':
+                if kp200_low_node_str != '':
 
-                    if kp200_low_node_str != '':
+                    str = kp200_low_node_str
+                    ToTelegram(str)
+                else:
+                    pass
 
-                        str = kp200_low_node_str
-                        ToTelegram(str)
-                    else:
-                        pass
+                if kp200_high_node_str != '':
 
-                    if kp200_high_node_str != '':
-
-                        str = kp200_high_node_str
-                        ToTelegram(str)
-                    else:
-                        pass
+                    str = kp200_high_node_str
+                    ToTelegram(str)
                 else:
                     pass                
             else:
@@ -16495,8 +16491,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item.setBackground(QBrush(흰색))                     
                         self.tableWidget_fut.setItem(2, Futures_column.저가.value, item)
 
-                        t = int(result['시간'][0:2]) * 3600 + int(result['시간'][2:4]) * 60 + int(result['시간'][4:6])
-                        self.kp200_low_node_coloring(t)
+                        if NEXT_MONTH_SELECT != 'YES':
+
+                            t = int(result['시간'][0:2]) * 3600 + int(result['시간'][2:4]) * 60 + int(result['시간'][4:6])
+                            self.kp200_low_node_coloring(t)
+                        else:
+                            pass
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 Color Update Done...\r'.format(
                             int(result['시간'][0:2]),
@@ -16517,8 +16517,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item.setBackground(QBrush(흰색))
                         self.tableWidget_fut.setItem(2, Futures_column.고가.value, item)
 
-                        t = int(result['시간'][0:2]) * 3600 + int(result['시간'][2:4]) * 60 + int(result['시간'][4:6])
-                        self.kp200_high_node_coloring(t)
+                        if NEXT_MONTH_SELECT != 'YES':
+
+                            t = int(result['시간'][0:2]) * 3600 + int(result['시간'][2:4]) * 60 + int(result['시간'][4:6])
+                            self.kp200_high_node_coloring(t)
+                        else:
+                            pass
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 Color Update Done...\r'.format(
                             int(result['시간'][0:2]),
