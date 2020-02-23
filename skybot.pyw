@@ -5060,52 +5060,41 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         call_scroll_begin_position = row
 
-        if option_pairs_count == 0:
+        if call_scroll_begin_position <= option_pairs_count:
 
-            if option_pairs_count - 9 < call_scroll_begin_position < 100:
-
-                call_scroll_end_position = option_pairs_count
-            else:
-                call_scroll_end_position = call_scroll_begin_position + 9
-        else:
-            if option_pairs_count - 9 < call_scroll_begin_position < option_pairs_count:
-
-                call_scroll_end_position = option_pairs_count
-            else:
-                call_scroll_end_position = call_scroll_begin_position + 9
-
-            self.tableWidget_call.resizeColumnsToContents()
+            call_scroll_end_position = call_scroll_begin_position + 9
 
             print('call scroll position -----> from %d to %d' % (call_scroll_begin_position, call_scroll_end_position))
 
             self.opt_call_node_coloring()
+
+        elif call_scroll_begin_position > option_pairs_count:
+            pass
+
+        self.tableWidget_call.resizeColumnsToContents()
+
         return
 
     @pyqtSlot(int)
     def _puttable_vertical_scroll_position(self, row):
 
         global put_scroll_begin_position, put_scroll_end_position
+
         put_scroll_begin_position = row
 
-        if option_pairs_count == 0:
+        if put_scroll_begin_position <= option_pairs_count:
 
-            if option_pairs_count - 9 < put_scroll_begin_position < 100:
-
-                put_scroll_end_position = option_pairs_count
-            else:
-                put_scroll_end_position = put_scroll_begin_position + 9
-        else:
-            if option_pairs_count - 9 < put_scroll_begin_position < option_pairs_count:
-
-                put_scroll_end_position = option_pairs_count
-            else:
-                put_scroll_end_position = put_scroll_begin_position + 9
-
-            self.tableWidget_put.resizeColumnsToContents()
+            put_scroll_end_position = put_scroll_begin_position + 9
 
             print('put scroll position -----> from %d to %d' % (put_scroll_begin_position, put_scroll_end_position))
 
             self.opt_put_node_coloring()
+
+        elif put_scroll_begin_position > option_pairs_count:
+            pass
+
+        self.tableWidget_put.resizeColumnsToContents()
+
         return
 
     @pyqtSlot(object)
@@ -6688,6 +6677,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def call_node_color_clear(self):
 
+        global call_scroll_end_position
+
+        if call_scroll_end_position > option_pairs_count:
+
+            call_scroll_end_position = option_pairs_count
+        else:
+            pass
+
         for i in range(call_scroll_begin_position, call_scroll_end_position):
             
             oloh_str = ''                           
@@ -6970,7 +6967,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_call_low_coreval = True
 
-                        item = QTableWidgetItem('저가 ▲')
+                        item = QTableWidgetItem('저가 ★')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
                         '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
@@ -7008,7 +7005,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_call_high_coreval = True
 
-                        item = QTableWidgetItem('고가 ▼')
+                        item = QTableWidgetItem('고가 ★')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
                         '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
@@ -8383,6 +8380,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def put_node_color_clear(self):
 
+        global put_scroll_end_position
+
+        if put_scroll_end_position > option_pairs_count:
+
+            put_scroll_end_position = option_pairs_count
+        else:
+            pass
+
         for i in range(put_scroll_begin_position, put_scroll_end_position):
             
             oloh_str = ''                           
@@ -8641,7 +8646,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_put_low_coreval = True
 
-                        item = QTableWidgetItem('저가 ▲')
+                        item = QTableWidgetItem('저가 ★')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
                         '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
@@ -8679,7 +8684,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_put_high_coreval = True
 
-                        item = QTableWidgetItem('고가 ▼')
+                        item = QTableWidgetItem('고가 ★')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
                         '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
