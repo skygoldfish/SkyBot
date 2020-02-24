@@ -12251,7 +12251,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 flag_kp200_low_node = True
 
-                kp200_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] kp200 저가맥점 {0:.2f} 발생 !!!".format(\
+                kp200_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] kp200 저가맥점 {3:.2f} 발생 !!!".format(\
                                         dt.hour, dt.minute, dt.second, kp200_realdata['저가'])
 
                 '''
@@ -12292,7 +12292,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 flag_kp200_high_node = True
 
-                kp200_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가맥점 {0:.2f} 발생 !!!".format(\
+                kp200_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가맥점 {3:.2f} 발생 !!!".format(\
                                         dt.hour, dt.minute, dt.second, kp200_realdata['고가'])
 
                 '''
