@@ -6268,17 +6268,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         # 선물
         if overnight:
-            self.tableWidget_fut.item(0, Futures_column.저가.value).setBackground(QBrush(옅은회색))
+            #self.tableWidget_fut.item(0, Futures_column.저가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_fut.item(0, Futures_column.현재가.value).setBackground(QBrush(흰색))
-            self.tableWidget_fut.item(0, Futures_column.고가.value).setBackground(QBrush(옅은회색))
+            #self.tableWidget_fut.item(0, Futures_column.고가.value).setBackground(QBrush(옅은회색))
         else:
-            self.tableWidget_fut.item(1, Futures_column.저가.value).setBackground(QBrush(옅은회색))
+            #self.tableWidget_fut.item(1, Futures_column.저가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_fut.item(1, Futures_column.현재가.value).setBackground(QBrush(흰색))
-            self.tableWidget_fut.item(1, Futures_column.고가.value).setBackground(QBrush(옅은회색))
+            #self.tableWidget_fut.item(1, Futures_column.고가.value).setBackground(QBrush(옅은회색))
 
-            self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(옅은회색)) 
+            #self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(옅은회색)) 
             self.tableWidget_fut.item(2, Futures_column.현재가.value).setBackground(QBrush(흰색))           
-            self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(옅은회색))
+            #self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(옅은회색))
 
         global call_scroll_end_position
 
@@ -6291,9 +6291,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # 콜
         for i in range(call_scroll_begin_position, call_scroll_end_position):
 
-            self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
+            #self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_call.item(i, Option_column.현재가.value).setBackground(QBrush(흰색))
-            self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
+            #self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
 
         global put_scroll_end_position
 
@@ -6306,9 +6306,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # 풋
         for i in range(put_scroll_begin_position, put_scroll_end_position):
 
-            self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
+            #self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_put.item(i, Option_column.현재가.value).setBackground(QBrush(흰색))
-            self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
+            #self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
 
         # 저가, 고가 옵션헤더 클리어
         '''
@@ -6324,8 +6324,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         item = QTableWidgetItem('고가')
         self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
         '''
-        self.tableWidget_call.resizeColumnsToContents()
-        self.tableWidget_put.resizeColumnsToContents()
+        #self.tableWidget_call.resizeColumnsToContents()
+        #self.tableWidget_put.resizeColumnsToContents()
 
         return
 
