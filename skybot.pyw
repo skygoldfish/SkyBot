@@ -7152,15 +7152,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global flag_call_low_coreval, call_low_coreval_str
 
         flag_call_low_coreval = False
-
-        #item = QTableWidgetItem('저가 ▼')
-        #self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-        '''
-        if telegram_call_check:
-            call_low_coreval_str = ''
-        else:
-            pass
-        '''
         dt = datetime.datetime.now()
 
         if call_open_list:
@@ -7191,6 +7182,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         item = QTableWidgetItem('저가 ★')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+                        self.tableWidget_call.resizeColumnsToContents()
 
                         if telegram_call_check:
 
@@ -7209,19 +7201,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             pass
 
                         '''
-                        if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
-
-                            if telegram_call_check:
-
-                                if NEXT_MONTH_SELECT == 'YES':
-                                    ToTelegram("차월물 콜 저가 {0:.2f} 맥점 발생 !!!".format(df_call.iloc[i]['저가']))
-                                else:
-                                    ToTelegram("본월물 콜 저가 {0:.2f} 맥점 발생 !!!".format(df_call.iloc[i]['저가']))
-                            else:
-                                pass
-                        else:
-                            pass
-
                         if fut_code == cmshcode:
 
                             txt = '차월물 콜 저까 가 {} 입니다'.format(df_call.iloc[i]['저가'])
@@ -7236,15 +7215,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass                
             else:
                 pass
-        '''
-        if not flag_call_low_coreval:
-
-            item = QTableWidgetItem('저가')
-            self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-        else:
-            pass
-        '''
-        self.tableWidget_call.resizeColumnsToContents()
 
         return
 
@@ -7253,15 +7223,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global flag_call_high_coreval, call_high_coreval_str
 
         flag_call_high_coreval = False
-
-        #item = QTableWidgetItem('고가 ▲')
-        #self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-        '''
-        if telegram_call_check:
-            call_high_coreval_str = ''
-        else:
-            pass
-        '''
         dt = datetime.datetime.now()
 
         if call_open_list:
@@ -7292,6 +7253,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         item = QTableWidgetItem('고가 ★')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+                        self.tableWidget_call.resizeColumnsToContents()
 
                         if telegram_call_check:
 
@@ -7310,19 +7272,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             pass                        
 
                         '''
-                        if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
-
-                            if telegram_call_check:
-
-                                if NEXT_MONTH_SELECT == 'YES':
-                                    ToTelegram("차월물 콜 고가 {0:.2f} 맥점 발생 !!!".format(df_call.iloc[i]['고가']))
-                                else:
-                                    ToTelegram("본월물 콜 고가 {0:.2f} 맥점 발생 !!!".format(df_call.iloc[i]['고가']))
-                            else:
-                                pass
-                        else:
-                            pass
-
                         if fut_code == cmshcode:
 
                             txt = '차월물 콜 고까 가 {} 입니다'.format(df_call.iloc[i]['고가'])
@@ -7336,16 +7285,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                pass
-        '''
-        if not flag_call_high_coreval:
-
-            item = QTableWidgetItem('고가')
-            self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-        else:
-            pass
-        '''
-        self.tableWidget_call.resizeColumnsToContents()
+                pass        
 
         return
     
@@ -8915,15 +8855,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global flag_put_low_coreval, put_low_coreval_str
 
         flag_put_low_coreval = False
-
-        #item = QTableWidgetItem('저가 ▼')
-        #self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-        '''
-        if telegram_put_check:
-            put_low_coreval_str = ''
-        else:
-            pass
-        '''
         dt = datetime.datetime.now()
 
         if put_open_list:
@@ -8954,6 +8885,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         item = QTableWidgetItem('저가 ★')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+                        self.tableWidget_put.resizeColumnsToContents()
 
                         if telegram_put_check:
 
@@ -8971,20 +8903,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass                        
 
-                        '''
-                        if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
-
-                            if telegram_put_check:
-
-                                if NEXT_MONTH_SELECT == 'YES':
-                                    ToTelegram("차월물 풋 저가 {0:.2f} 맥점 발생 !!!".format(df_put.iloc[i]['저가']))
-                                else:
-                                    ToTelegram("본월물 풋 저가 {0:.2f} 맥점 발생 !!!".format(df_put.iloc[i]['저가']))
-                            else:
-                                pass
-                        else:
-                            pass      
-                        
+                        '''                        
                         if fut_code == cmshcode:
 
                             txt = '차월물 풋 저까 가 {} 입니다'.format(df_put.iloc[i]['저가'])
@@ -8998,16 +8917,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass                
             else:
-                pass
-        '''
-        if not flag_put_low_coreval:
-
-            item = QTableWidgetItem('저가')
-            self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-        else:
-            pass
-        '''
-        self.tableWidget_put.resizeColumnsToContents()
+                pass        
 
         return
 
@@ -9016,15 +8926,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global flag_put_high_coreval, put_high_coreval_str
 
         flag_put_high_coreval = False
-
-        #item = QTableWidgetItem('고가 ▲')
-        #self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-        '''
-        if telegram_put_check:
-            put_high_coreval_str = ''
-        else:
-            pass
-        '''
         dt = datetime.datetime.now()
 
         if put_open_list:
@@ -9055,6 +8956,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         item = QTableWidgetItem('고가 ★')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+                        self.tableWidget_put.resizeColumnsToContents()
 
                         if telegram_put_check:
 
@@ -9073,19 +8975,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             pass                        
 
                         '''
-                        if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
-
-                            if telegram_put_check:
-
-                                if NEXT_MONTH_SELECT == 'YES':
-                                    ToTelegram("차월물 풋 고가 {0:.2f} 맥점 발생 !!!".format(df_put.iloc[i]['고가']))
-                                else:
-                                    ToTelegram("본월물 풋 고가 {0:.2f} 맥점 발생 !!!".format(df_put.iloc[i]['고가']))
-                            else:
-                                pass
-                        else:
-                            pass
-
                         if fut_code == cmshcode:
 
                             txt = '차월물 풋 고까 가 {} 입니다'.format(df_put.iloc[i]['고가'])
@@ -9099,16 +8988,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                pass
-        '''
-        if not flag_put_high_coreval:
-
-            item = QTableWidgetItem('고가')
-            self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-        else:
-            pass
-        '''
-        self.tableWidget_put.resizeColumnsToContents()
+                pass        
 
         return    
     
