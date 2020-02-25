@@ -5666,45 +5666,49 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             # 옵션 저가, 고가 갱신시 방향화살표 OFF
                             global call_low_touch, call_high_touch, put_low_touch, put_high_touch
 
-                            if call_low_touch:
+                            if not self.alternate_flag:
+
+                                if call_low_touch:
                                 
-                                item = QTableWidgetItem('저가')
-                                self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-                                self.tableWidget_call.resizeColumnsToContents() 
+                                    item = QTableWidgetItem('저가')
+                                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+                                    self.tableWidget_call.resizeColumnsToContents() 
 
-                                call_low_touch = False
+                                    call_low_touch = False
+                                else:
+                                    pass
+
+                                if call_high_touch:
+                                    
+                                    item = QTableWidgetItem('고가')
+                                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+                                    self.tableWidget_call.resizeColumnsToContents()
+
+                                    call_high_touch = False
+                                else:
+                                    pass
+
+                                if put_low_touch:
+                                    
+                                    item = QTableWidgetItem('저가')
+                                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+                                    self.tableWidget_put.resizeColumnsToContents() 
+
+                                    put_low_touch = False
+                                else:
+                                    pass
+
+                                if put_high_touch:
+                                    
+                                    item = QTableWidgetItem('고가')
+                                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+                                    self.tableWidget_put.resizeColumnsToContents()
+
+                                    put_high_touch = False
+                                else:
+                                    pass
                             else:
-                                pass
-
-                            if call_high_touch:
-                                
-                                item = QTableWidgetItem('고가')
-                                self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-                                self.tableWidget_call.resizeColumnsToContents()
-
-                                call_high_touch = False
-                            else:
-                                pass
-
-                            if put_low_touch:
-                                
-                                item = QTableWidgetItem('저가')
-                                self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-                                self.tableWidget_put.resizeColumnsToContents() 
-
-                                put_low_touch = False
-                            else:
-                                pass
-
-                            if put_high_touch:
-                                
-                                item = QTableWidgetItem('고가')
-                                self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-                                self.tableWidget_put.resizeColumnsToContents()
-
-                                put_high_touch = False
-                            else:
-                                pass
+                                pass                            
 
                             global kp200_low_node_str, kp200_high_node_str                            
 
