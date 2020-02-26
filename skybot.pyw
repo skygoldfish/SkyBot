@@ -5672,7 +5672,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 
                                 item = QTableWidgetItem('저가')
                                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-                                self.tableWidget_call.resizeColumnsToContents() 
+                                #self.tableWidget_call.resizeColumnsToContents() 
 
                                 call_low_touch = False
                             else:
@@ -5682,7 +5682,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 item = QTableWidgetItem('고가')
                                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-                                self.tableWidget_call.resizeColumnsToContents()
+                                #self.tableWidget_call.resizeColumnsToContents()
 
                                 call_high_touch = False
                             else:
@@ -5692,7 +5692,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 item = QTableWidgetItem('저가')
                                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-                                self.tableWidget_put.resizeColumnsToContents() 
+                                #self.tableWidget_put.resizeColumnsToContents() 
 
                                 put_low_touch = False
                             else:
@@ -5702,7 +5702,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 item = QTableWidgetItem('고가')
                                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-                                self.tableWidget_put.resizeColumnsToContents()
+                                #self.tableWidget_put.resizeColumnsToContents()
 
                                 put_high_touch = False
                             else:
@@ -6321,17 +6321,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         # 선물
         if overnight:
-            #self.tableWidget_fut.item(0, Futures_column.저가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_fut.item(0, Futures_column.현재가.value).setBackground(QBrush(흰색))
-            #self.tableWidget_fut.item(0, Futures_column.고가.value).setBackground(QBrush(옅은회색))
         else:
-            #self.tableWidget_fut.item(1, Futures_column.저가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_fut.item(1, Futures_column.현재가.value).setBackground(QBrush(흰색))
-            #self.tableWidget_fut.item(1, Futures_column.고가.value).setBackground(QBrush(옅은회색))
-
-            #self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(옅은회색)) 
-            self.tableWidget_fut.item(2, Futures_column.현재가.value).setBackground(QBrush(흰색))           
-            #self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(옅은회색))
+            self.tableWidget_fut.item(2, Futures_column.현재가.value).setBackground(QBrush(흰색))
 
         global call_scroll_end_position
 
@@ -6344,9 +6337,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # 콜
         for i in range(call_scroll_begin_position, call_scroll_end_position):
 
-            #self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_call.item(i, Option_column.현재가.value).setBackground(QBrush(흰색))
-            #self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
 
         global put_scroll_end_position
 
@@ -6359,26 +6350,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # 풋
         for i in range(put_scroll_begin_position, put_scroll_end_position):
 
-            #self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_put.item(i, Option_column.현재가.value).setBackground(QBrush(흰색))
-            #self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
-
-        # 저가, 고가 옵션헤더 클리어
-        '''
-        item = QTableWidgetItem('저가')
-        self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-
-        item = QTableWidgetItem('고가')
-        self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-
-        item = QTableWidgetItem('저가')
-        self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-
-        item = QTableWidgetItem('고가')
-        self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-        '''
-        #self.tableWidget_call.resizeColumnsToContents()
-        #self.tableWidget_put.resizeColumnsToContents()
 
         return
 
@@ -6949,9 +6921,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if df_call.iloc[i]['저가'] in 진성맥점:
 
-                if self.tableWidget_call.horizontalHeaderItem(Option_column.저가.value).text() != '저가 ★':
+                if self.tableWidget_call.horizontalHeaderItem(Option_column.저가.value).text() != '★':
                 
-                    item = QTableWidgetItem('저가 ★')
+                    item = QTableWidgetItem('★')
                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
                     self.tableWidget_call.resizeColumnsToContents()
                 else:
@@ -6981,9 +6953,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if df_call.iloc[i]['고가'] in 진성맥점:
                 
-                if self.tableWidget_call.horizontalHeaderItem(Option_column.고가.value).text() != '고가 ★':
+                if self.tableWidget_call.horizontalHeaderItem(Option_column.고가.value).text() != '★':
 
-                    item = QTableWidgetItem('고가 ★')
+                    item = QTableWidgetItem('★')
                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
                     self.tableWidget_call.resizeColumnsToContents()
                 else:
@@ -7040,7 +7012,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_call_low_coreval = True
 
-                        item = QTableWidgetItem('저가 ★')
+                        item = QTableWidgetItem('★')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
                         '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
@@ -7078,7 +7050,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_call_high_coreval = True
 
-                        item = QTableWidgetItem('고가 ★')
+                        item = QTableWidgetItem('★')
                         self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
                         '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
@@ -8618,9 +8590,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if df_put.iloc[i]['저가'] in 진성맥점:
 
-                if self.tableWidget_put.horizontalHeaderItem(Option_column.저가.value).text() != '저가 ★':
+                if self.tableWidget_put.horizontalHeaderItem(Option_column.저가.value).text() != '★':
 
-                    item = QTableWidgetItem('저가 ★')
+                    item = QTableWidgetItem('★')
                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item) 
                     self.tableWidget_put.resizeColumnsToContents()
                 else:
@@ -8650,9 +8622,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if df_put.iloc[i]['고가'] in 진성맥점:
                 
-                if self.tableWidget_put.horizontalHeaderItem(Option_column.고가.value).text() != '고가 ★':
+                if self.tableWidget_put.horizontalHeaderItem(Option_column.고가.value).text() != '★':
 
-                    item = QTableWidgetItem('고가 ★')
+                    item = QTableWidgetItem('★')
                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
                     self.tableWidget_put.resizeColumnsToContents() 
                 else:
@@ -8709,7 +8681,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_put_low_coreval = True
 
-                        item = QTableWidgetItem('저가 ★')
+                        item = QTableWidgetItem('★')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
                         '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
@@ -8747,7 +8719,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_put_high_coreval = True
 
-                        item = QTableWidgetItem('고가 ★')
+                        item = QTableWidgetItem('★')
                         self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
                         '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
@@ -12221,7 +12193,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global flag_kp200_low_node, kp200_low_node_time, kp200_low_node_str  
 
-        #kp200_low_node_str = ''     
+        flag_kp200_low_node = False    
         
         # kp200 맥점 컬러링
         self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(옅은회색))
@@ -12238,21 +12210,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 kp200_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] kp200 저가맥점 {3:.2f} 발생 !!!".format(\
                                         dt.hour, dt.minute, dt.second, kp200_realdata['저가'])
-
-                '''
-                if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
-
-                    if NEXT_MONTH_SELECT != 'YES':
-                        
-                        flag_kp200_low_node = True
-                        #ToTelegram("{0:.2f}에서 kp200 저가맥점 발생 !!!".format(kp200_realdata['저가']))
-                    else:
-                        pass
-                else:
-                    pass
-                '''
             else:
-                flag_kp200_low_node = False
+                pass
 
         return
 
@@ -12262,7 +12221,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global flag_kp200_high_node, kp200_high_node_time, kp200_high_node_str 
 
-        #kp200_high_node_str = ''    
+        flag_kp200_high_node = False    
         
         # kp200 맥점 컬러링
         self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(옅은회색))
@@ -12279,21 +12238,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 kp200_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] kp200 고가맥점 {3:.2f} 발생 !!!".format(\
                                         dt.hour, dt.minute, dt.second, kp200_realdata['고가'])
-
-                '''
-                if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
-
-                    if NEXT_MONTH_SELECT != 'YES':
-
-                        flag_kp200_high_node = True
-                        #ToTelegram("{0:.2f}에서 kp200 고가맥점 발생 !!!".format(kp200_realdata['고가']))
-                    else:
-                        pass
-                else:
-                    pass
-                '''
             else:
-                flag_kp200_high_node = False
+                pass
 
         return
 
@@ -13368,7 +13314,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             call_low_touch = True
 
-            item = QTableWidgetItem('저가 ▼')
+            item = QTableWidgetItem('▼')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
             #self.tableWidget_call.resizeColumnsToContents()
             
@@ -13437,7 +13383,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             call_high_touch = True
 
-            item = QTableWidgetItem('고가 ▲')
+            item = QTableWidgetItem('▲')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
             #self.tableWidget_call.resizeColumnsToContents()
             
@@ -14471,7 +14417,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             put_low_touch = True
 
-            item = QTableWidgetItem('저가 ▼')
+            item = QTableWidgetItem('▼')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
             #self.tableWidget_put.resizeColumnsToContents()
             
@@ -14540,7 +14486,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             put_high_touch = True
 
-            item = QTableWidgetItem('고가 ▲')
+            item = QTableWidgetItem('▲')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
             #self.tableWidget_put.resizeColumnsToContents()
             
