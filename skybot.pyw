@@ -6748,6 +6748,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return
 
+    def call_low_color_clear(self, index):
+
+        self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(옅은회색))
+        self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))            
+
+        return
+
+    def call_high_color_clear(self, index):
+
+        self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(옅은회색))
+        self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))            
+
+        return
+
     def call_node_color_clear(self):
 
         global call_scroll_end_position
@@ -8439,6 +8453,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Put Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
             self.textBrowser.append(str)
         '''
+        return
+
+    def put_low_color_clear(self, index):
+
+        self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(옅은회색))
+        self.tableWidget_put.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
+
+        return
+
+    def put_high_color_clear(self, index):
+
+        self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(옅은회색))
+        self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
+
         return
 
     def put_node_color_clear(self):
