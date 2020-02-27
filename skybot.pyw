@@ -7163,19 +7163,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         count_low += 1
 
                         '''
-                        if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
-
-                            if telegram_call_check:
-
-                                if NEXT_MONTH_SELECT == 'YES':
-                                    ToTelegram("차월물 콜 저가 {0:.2f} 맥점 발생 !!!".format(df_call.iloc[i]['저가']))
-                                else:
-                                    ToTelegram("본월물 콜 저가 {0:.2f} 맥점 발생 !!!".format(df_call.iloc[i]['저가']))
-                            else:
-                                pass
-                        else:
-                            pass
-
                         if fut_code == cmshcode:
 
                             txt = '차월물 콜 저까 가 {} 입니다'.format(df_call.iloc[i]['저가'])
@@ -7200,20 +7187,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         count_high += 1
 
-                        '''
-                        if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
-
-                            if telegram_call_check:
-
-                                if NEXT_MONTH_SELECT == 'YES':
-                                    ToTelegram("차월물 콜 고가 {0:.2f} 맥점 발생 !!!".format(df_call.iloc[i]['고가']))
-                                else:
-                                    ToTelegram("본월물 콜 고가 {0:.2f} 맥점 발생 !!!".format(df_call.iloc[i]['고가']))
-                            else:
-                                pass
-                        else:
-                            pass
-                        
+                        '''                        
                         if fut_code == cmshcode:
 
                             txt = '차월물 콜 고까 가 {} 입니다'.format(df_call.iloc[i]['고가'])
@@ -8977,20 +8951,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         count_low += 1
 
-                        '''
-                        if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
-
-                            if telegram_put_check:
-
-                                if NEXT_MONTH_SELECT == 'YES':
-                                    ToTelegram("차월물 풋 저가 {0:.2f} 맥점 발생 !!!".format(df_put.iloc[i]['저가']))
-                                else:
-                                    ToTelegram("본월물 풋 저가 {0:.2f} 맥점 발생 !!!".format(df_put.iloc[i]['저가']))
-                            else:
-                                pass
-                        else:
-                            pass      
-                        
+                        '''                        
                         if fut_code == cmshcode:
 
                             txt = '차월물 풋 저까 가 {} 입니다'.format(df_put.iloc[i]['저가'])
@@ -9016,19 +8977,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         count_high += 1
 
                         '''
-                        if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
-
-                            if telegram_put_check:
-
-                                if NEXT_MONTH_SELECT == 'YES':
-                                    ToTelegram("차월물 풋 고가 {0:.2f} 맥점 발생 !!!".format(df_put.iloc[i]['고가']))
-                                else:
-                                    ToTelegram("본월물 풋 고가 {0:.2f} 맥점 발생 !!!".format(df_put.iloc[i]['고가']))
-                            else:
-                                pass
-                        else:
-                            pass
-
                         if fut_code == cmshcode:
 
                             txt = '차월물 풋 고까 가 {} 입니다'.format(df_put.iloc[i]['고가'])
