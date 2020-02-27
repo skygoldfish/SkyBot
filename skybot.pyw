@@ -7015,9 +7015,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif count == 2:
 
-            if self.tableWidget_call.horizontalHeaderItem(Option_column.저가.value).text() != '★2':
+            if self.tableWidget_call.horizontalHeaderItem(Option_column.저가.value).text() != '★ 2':
             
-                item = QTableWidgetItem('★2')
+                item = QTableWidgetItem('★ 2')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
                 self.tableWidget_call.resizeColumnsToContents()
             else:
@@ -7025,9 +7025,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif count == 3: 
 
-            if self.tableWidget_call.horizontalHeaderItem(Option_column.저가.value).text() != '★3':
+            if self.tableWidget_call.horizontalHeaderItem(Option_column.저가.value).text() != '★ 3':
             
-                item = QTableWidgetItem('★3')
+                item = QTableWidgetItem('★ 3')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
                 self.tableWidget_call.resizeColumnsToContents()
             else:
@@ -7035,9 +7035,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         else:
 
-            if self.tableWidget_call.horizontalHeaderItem(Option_column.저가.value).text() != '★+':
+            if self.tableWidget_call.horizontalHeaderItem(Option_column.저가.value).text() != '★ +':
             
-                item = QTableWidgetItem('★+')
+                item = QTableWidgetItem('★ +')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
                 self.tableWidget_call.resizeColumnsToContents()
             else:
@@ -7087,9 +7087,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif count == 2:
 
-            if self.tableWidget_call.horizontalHeaderItem(Option_column.고가.value).text() != '★2':
+            if self.tableWidget_call.horizontalHeaderItem(Option_column.고가.value).text() != '★ 2':
             
-                item = QTableWidgetItem('★2')
+                item = QTableWidgetItem('★ 2')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
                 self.tableWidget_call.resizeColumnsToContents()
             else:
@@ -7097,9 +7097,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif count == 3: 
 
-            if self.tableWidget_call.horizontalHeaderItem(Option_column.고가.value).text() != '★3':
+            if self.tableWidget_call.horizontalHeaderItem(Option_column.고가.value).text() != '★ 3':
             
-                item = QTableWidgetItem('★3')
+                item = QTableWidgetItem('★ 3')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
                 self.tableWidget_call.resizeColumnsToContents()
             else:
@@ -7107,9 +7107,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         else:
 
-            if self.tableWidget_call.horizontalHeaderItem(Option_column.고가.value).text() != '★+':
+            if self.tableWidget_call.horizontalHeaderItem(Option_column.고가.value).text() != '★ +':
             
-                item = QTableWidgetItem('★+')
+                item = QTableWidgetItem('★ +')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
                 self.tableWidget_call.resizeColumnsToContents()
             else:
@@ -7120,6 +7120,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def call_coreval_color_update(self):
 
         global flag_call_low_coreval, flag_call_high_coreval
+        global call_low_node_count, call_high_node_count
 
         flag_call_low_coreval = False
         flag_call_high_coreval = False
@@ -7228,6 +7229,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
+        call_low_node_count = count_low
+
         if count_low == 0:
 
             pass  
@@ -7239,16 +7242,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif count_low == 2:
 
-            item = QTableWidgetItem('★2')
+            item = QTableWidgetItem('★ 2')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
 
         elif count_low == 3:
 
-            item = QTableWidgetItem('★3')
+            item = QTableWidgetItem('★ 3')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
         else:
-            item = QTableWidgetItem('★+')
+            item = QTableWidgetItem('★ +')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+        call_high_node_count = count_high
 
         if count_high == 0:
 
@@ -7261,15 +7266,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif count_high == 2:
 
-            item = QTableWidgetItem('★2')
+            item = QTableWidgetItem('★ 2')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
         elif count_high == 3:
 
-            item = QTableWidgetItem('★3')
+            item = QTableWidgetItem('★ 3')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
         else:
-            item = QTableWidgetItem('★+')
+            item = QTableWidgetItem('★ +')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
         self.tableWidget_call.resizeColumnsToContents()
@@ -8825,9 +8830,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif count == 2:
 
-            if self.tableWidget_put.horizontalHeaderItem(Option_column.저가.value).text() != '★2':
+            if self.tableWidget_put.horizontalHeaderItem(Option_column.저가.value).text() != '★ 2':
             
-                item = QTableWidgetItem('★2')
+                item = QTableWidgetItem('★ 2')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
                 self.tableWidget_put.resizeColumnsToContents()
             else:
@@ -8835,9 +8840,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif count == 3: 
 
-            if self.tableWidget_put.horizontalHeaderItem(Option_column.저가.value).text() != '★3':
+            if self.tableWidget_put.horizontalHeaderItem(Option_column.저가.value).text() != '★ 3':
             
-                item = QTableWidgetItem('★3')
+                item = QTableWidgetItem('★ 3')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
                 self.tableWidget_put.resizeColumnsToContents()
             else:
@@ -8845,9 +8850,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         else:
 
-            if self.tableWidget_put.horizontalHeaderItem(Option_column.저가.value).text() != '★+':
+            if self.tableWidget_put.horizontalHeaderItem(Option_column.저가.value).text() != '★ +':
             
-                item = QTableWidgetItem('★+')
+                item = QTableWidgetItem('★ +')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
                 self.tableWidget_put.resizeColumnsToContents()
             else:
@@ -8897,9 +8902,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif count == 2:
 
-            if self.tableWidget_put.horizontalHeaderItem(Option_column.고가.value).text() != '★2':
+            if self.tableWidget_put.horizontalHeaderItem(Option_column.고가.value).text() != '★ 2':
             
-                item = QTableWidgetItem('★2')
+                item = QTableWidgetItem('★ 2')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
                 self.tableWidget_put.resizeColumnsToContents()
             else:
@@ -8907,9 +8912,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif count == 3: 
 
-            if self.tableWidget_put.horizontalHeaderItem(Option_column.고가.value).text() != '★3':
+            if self.tableWidget_put.horizontalHeaderItem(Option_column.고가.value).text() != '★ 3':
             
-                item = QTableWidgetItem('★3')
+                item = QTableWidgetItem('★ 3')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
                 self.tableWidget_put.resizeColumnsToContents()
             else:
@@ -8917,9 +8922,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         else:
 
-            if self.tableWidget_put.horizontalHeaderItem(Option_column.고가.value).text() != '★+':
+            if self.tableWidget_put.horizontalHeaderItem(Option_column.고가.value).text() != '★ +':
             
-                item = QTableWidgetItem('★+')
+                item = QTableWidgetItem('★ +')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
                 self.tableWidget_put.resizeColumnsToContents()
             else:
@@ -8930,6 +8935,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def put_coreval_color_update(self):
 
         global flag_put_low_coreval, flag_put_high_coreval
+        global put_low_node_count, put_high_node_count
 
         flag_put_low_coreval = False
         flag_put_high_coreval = False
@@ -9038,6 +9044,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
+        put_low_node_count = count_low
+
         if count_low == 0:
 
             pass  
@@ -9049,16 +9057,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif count_low == 2:
 
-            item = QTableWidgetItem('★2')
+            item = QTableWidgetItem('★ 2')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
 
         elif count_low == 3:
 
-            item = QTableWidgetItem('★3')
+            item = QTableWidgetItem('★ 3')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
         else:
-            item = QTableWidgetItem('★+')
+            item = QTableWidgetItem('★ +')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+        put_high_node_count = count_high
 
         if count_high == 0:
 
@@ -9071,15 +9081,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif count_high == 2:
 
-            item = QTableWidgetItem('★2')
+            item = QTableWidgetItem('★ 2')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
         elif count_high == 3:
 
-            item = QTableWidgetItem('★3')
+            item = QTableWidgetItem('★ 3')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
         else:
-            item = QTableWidgetItem('★+')
+            item = QTableWidgetItem('★ +')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
         self.tableWidget_put.resizeColumnsToContents()
