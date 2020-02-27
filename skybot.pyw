@@ -300,6 +300,11 @@ call_high_touch = False
 put_low_touch = False
 put_high_touch = False
 
+call_low_node_count = 0
+call_high_node_count = 0
+put_low_node_count = 0
+put_high_node_count = 0
+
 call_low_coreval_str = ''
 call_high_coreval_str = ''
 put_low_coreval_str = ''
@@ -2740,6 +2745,35 @@ class telegram_send_worker(QThread):
                     elif put_oneway_level5:
 
                         str = "풋 OneWay 가능성 매우 높음(★★★★★)"
+                        ToTelegram(str)
+                    else:
+                        pass
+
+                    # 맥점 복수개 발생 알람
+                    if call_low_node_count > 1:
+
+                        str = "콜저가 맥점 {0}개 발생 ★★★".format(repr(call_low_node_count))
+                        ToTelegram(str)
+                    else:
+                        pass
+
+                    if call_high_node_count > 1:
+
+                        str = "콜고가 맥점 {0}개 발생 ★★★".format(repr(call_high_node_count))
+                        ToTelegram(str)
+                    else:
+                        pass
+
+                    if put_low_node_count > 1:
+
+                        str = "풋저가 맥점 {0}개 발생 ★★★".format(repr(put_low_node_count))
+                        ToTelegram(str)
+                    else:
+                        pass
+
+                    if put_high_node_count > 1:
+
+                        str = "풋고가 맥점 {0}개 발생 ★★★".format(repr(put_high_node_count))
                         ToTelegram(str)
                     else:
                         pass
@@ -6924,6 +6958,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         return
 
     def call_low_coreval_color_blink(self, blink):
+
+        global call_low_node_count
         
         if call_open_list:
 
@@ -6948,6 +6984,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
             else:
                 pass
+
+        call_low_node_count = count
 
         if count == 1:
             
@@ -6992,6 +7030,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         return
 
     def call_high_coreval_color_blink(self, blink):
+
+        global call_high_node_count
         
         if call_open_list:
 
@@ -7015,7 +7055,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
             else:
-                pass    
+                pass
+
+        call_high_node_count = count    
 
         if count == 1:
             
@@ -8726,6 +8768,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         return
 
     def put_low_coreval_color_blink(self, blink):
+
+        global put_low_node_count
         
         if put_open_list:
 
@@ -8750,6 +8794,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
             else:
                 pass
+
+        put_low_node_count = count
 
         if count == 1:
             
@@ -8795,6 +8841,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def put_high_coreval_color_blink(self, blink):
 
+        global put_high_node_count
+
         if put_open_list:
 
             loop_list = put_open_list
@@ -8818,6 +8866,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))                 
             else:
                 pass
+
+        put_high_node_count = count
 
         if count == 1:
             
