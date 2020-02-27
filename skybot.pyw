@@ -2752,28 +2752,44 @@ class telegram_send_worker(QThread):
                     # 맥점 복수개 발생 알람
                     if call_low_node_count > 1:
 
-                        str = "콜저가 맥점 {0}개 발생 ★★★".format(repr(call_low_node_count))
+                        if NEXT_MONTH_SELECT == 'YES':
+                            str = "★ 차월물 콜저가 맥점 {0}개 발생 ★".format(repr(call_low_node_count))
+                        else:
+                            str = "★ 본월물 콜저가 맥점 {0}개 발생 ★".format(repr(call_low_node_count))
+
                         ToTelegram(str)
                     else:
                         pass
 
                     if call_high_node_count > 1:
 
-                        str = "콜고가 맥점 {0}개 발생 ★★★".format(repr(call_high_node_count))
+                        if NEXT_MONTH_SELECT == 'YES':
+                            str = "★ 차월물 콜고가 맥점 {0}개 발생 ★".format(repr(call_high_node_count))
+                        else:
+                            str = "★ 본월물 콜고가 맥점 {0}개 발생 ★".format(repr(call_high_node_count))
+
                         ToTelegram(str)
                     else:
                         pass
 
                     if put_low_node_count > 1:
 
-                        str = "풋저가 맥점 {0}개 발생 ★★★".format(repr(put_low_node_count))
+                        if NEXT_MONTH_SELECT == 'YES':
+                            str = "★ 차월물 풋저가 맥점 {0}개 발생 ★".format(repr(put_low_node_count))
+                        else:
+                            str = "★ 본월물 풋저가 맥점 {0}개 발생 ★".format(repr(put_low_node_count))
+
                         ToTelegram(str)
                     else:
                         pass
 
                     if put_high_node_count > 1:
 
-                        str = "풋고가 맥점 {0}개 발생 ★★★".format(repr(put_high_node_count))
+                        if NEXT_MONTH_SELECT == 'YES':
+                            str = "★ 차월물 풋고가 맥점 {0}개 발생 ★".format(repr(put_high_node_count))
+                        else:
+                            str = "★ 본월물 풋고가 맥점 {0}개 발생 ★".format(repr(put_high_node_count))
+
                         ToTelegram(str)
                     else:
                         pass
