@@ -6929,19 +6929,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             loop_list = call_open_list
         else:
-            loop_list = opt_total_list            
+            loop_list = opt_total_list
+
+        count = 0            
 
         for i in loop_list:
 
             if df_call.iloc[i]['저가'] in 진성맥점:
 
-                if self.tableWidget_call.horizontalHeaderItem(Option_column.저가.value).text() != '★':
-                
-                    item = QTableWidgetItem('★')
-                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-                    self.tableWidget_call.resizeColumnsToContents()
-                else:
-                    pass
+                count += 1
 
                 if blink:
 
@@ -6951,7 +6947,47 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
             else:
-                pass        
+                pass
+
+        if count == 1:
+            
+            if self.tableWidget_call.horizontalHeaderItem(Option_column.저가.value).text() != '★':
+            
+                item = QTableWidgetItem('★')
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+                self.tableWidget_call.resizeColumnsToContents()
+            else:
+                pass
+
+        elif count == 2:
+
+            if self.tableWidget_call.horizontalHeaderItem(Option_column.저가.value).text() != '★2':
+            
+                item = QTableWidgetItem('★2')
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+                self.tableWidget_call.resizeColumnsToContents()
+            else:
+                pass
+
+        elif count == 3: 
+
+            if self.tableWidget_call.horizontalHeaderItem(Option_column.저가.value).text() != '★3':
+            
+                item = QTableWidgetItem('★3')
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+                self.tableWidget_call.resizeColumnsToContents()
+            else:
+                pass
+
+        else:
+
+            if self.tableWidget_call.horizontalHeaderItem(Option_column.저가.value).text() != '★+':
+            
+                item = QTableWidgetItem('★+')
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+                self.tableWidget_call.resizeColumnsToContents()
+            else:
+                pass
 
         return
 
@@ -6961,19 +6997,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             loop_list = call_open_list
         else:
-            loop_list = opt_total_list            
+            loop_list = opt_total_list 
+
+        count = 0            
 
         for i in loop_list:
 
             if df_call.iloc[i]['고가'] in 진성맥점:
-                
-                if self.tableWidget_call.horizontalHeaderItem(Option_column.고가.value).text() != '★':
 
-                    item = QTableWidgetItem('★')
-                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-                    self.tableWidget_call.resizeColumnsToContents()
-                else:
-                    pass 
+                count += 1
                     
                 if blink:
 
@@ -6983,7 +7015,47 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
             else:
-                pass        
+                pass    
+
+        if count == 1:
+            
+            if self.tableWidget_call.horizontalHeaderItem(Option_column.고가.value).text() != '★':
+            
+                item = QTableWidgetItem('★')
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+                self.tableWidget_call.resizeColumnsToContents()
+            else:
+                pass
+
+        elif count == 2:
+
+            if self.tableWidget_call.horizontalHeaderItem(Option_column.고가.value).text() != '★2':
+            
+                item = QTableWidgetItem('★2')
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+                self.tableWidget_call.resizeColumnsToContents()
+            else:
+                pass
+
+        elif count == 3: 
+
+            if self.tableWidget_call.horizontalHeaderItem(Option_column.고가.value).text() != '★3':
+            
+                item = QTableWidgetItem('★3')
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+                self.tableWidget_call.resizeColumnsToContents()
+            else:
+                pass
+
+        else:
+
+            if self.tableWidget_call.horizontalHeaderItem(Option_column.고가.value).text() != '★+':
+            
+                item = QTableWidgetItem('★+')
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+                self.tableWidget_call.resizeColumnsToContents()
+            else:
+                pass
 
         return    
 
@@ -7006,6 +7078,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             loop_list = opt_total_list
 
+        count_low = 0
+        count_high = 0
+
         for i in loop_list:
 
             if opt_coreval_search_start_value < df_call.iloc[i]['시가'] < opt_search_end_value:
@@ -7026,8 +7101,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_call_low_coreval = True
 
-                        item = QTableWidgetItem('★')
-                        self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+                        count_low += 1
+
                         '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
@@ -7064,8 +7139,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_call_high_coreval = True
 
-                        item = QTableWidgetItem('★')
-                        self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+                        count_high += 1
+
                         '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
@@ -7094,6 +7169,50 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
             else:
                 pass
+
+        if count_low == 0:
+
+            pass  
+
+        elif count_low == 1:            
+
+            item = QTableWidgetItem('★')
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+        elif count_low == 2:
+
+            item = QTableWidgetItem('★2')
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+        elif count_low == 3:
+
+            item = QTableWidgetItem('★3')
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+        else:
+            item = QTableWidgetItem('★+')
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+        if count_high == 0:
+
+            pass  
+
+        elif count_high == 1:            
+
+            item = QTableWidgetItem('★')
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+        elif count_high == 2:
+
+            item = QTableWidgetItem('★2')
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+        elif count_high == 3:
+
+            item = QTableWidgetItem('★3')
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+        else:
+            item = QTableWidgetItem('★+')
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
         self.tableWidget_call.resizeColumnsToContents()
 
@@ -8612,19 +8731,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             loop_list = put_open_list
         else:
-            loop_list = opt_total_list       
+            loop_list = opt_total_list
+
+        count = 0       
 
         for i in loop_list:
 
             if df_put.iloc[i]['저가'] in 진성맥점:
 
-                if self.tableWidget_put.horizontalHeaderItem(Option_column.저가.value).text() != '★':
-
-                    item = QTableWidgetItem('★')
-                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item) 
-                    self.tableWidget_put.resizeColumnsToContents()
-                else:
-                    pass
+                count += 1
 
                 if blink:
 
@@ -8636,6 +8751,46 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
+        if count == 1:
+            
+            if self.tableWidget_put.horizontalHeaderItem(Option_column.저가.value).text() != '★':
+            
+                item = QTableWidgetItem('★')
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+                self.tableWidget_put.resizeColumnsToContents()
+            else:
+                pass
+
+        elif count == 2:
+
+            if self.tableWidget_put.horizontalHeaderItem(Option_column.저가.value).text() != '★2':
+            
+                item = QTableWidgetItem('★2')
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+                self.tableWidget_put.resizeColumnsToContents()
+            else:
+                pass
+
+        elif count == 3: 
+
+            if self.tableWidget_put.horizontalHeaderItem(Option_column.저가.value).text() != '★3':
+            
+                item = QTableWidgetItem('★3')
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+                self.tableWidget_put.resizeColumnsToContents()
+            else:
+                pass
+
+        else:
+
+            if self.tableWidget_put.horizontalHeaderItem(Option_column.저가.value).text() != '★+':
+            
+                item = QTableWidgetItem('★+')
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+                self.tableWidget_put.resizeColumnsToContents()
+            else:
+                pass 
+
         return
 
     def put_high_coreval_color_blink(self, blink):
@@ -8644,19 +8799,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             loop_list = put_open_list
         else:
-            loop_list = opt_total_list             
+            loop_list = opt_total_list
+
+        count = 0              
 
         for i in loop_list:
 
             if df_put.iloc[i]['고가'] in 진성맥점:
-                
-                if self.tableWidget_put.horizontalHeaderItem(Option_column.고가.value).text() != '★':
 
-                    item = QTableWidgetItem('★')
-                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-                    self.tableWidget_put.resizeColumnsToContents() 
-                else:
-                    pass
+                count += 1
 
                 if blink:
 
@@ -8667,6 +8818,46 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))                 
             else:
                 pass
+
+        if count == 1:
+            
+            if self.tableWidget_put.horizontalHeaderItem(Option_column.고가.value).text() != '★':
+            
+                item = QTableWidgetItem('★')
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+                self.tableWidget_put.resizeColumnsToContents()
+            else:
+                pass
+
+        elif count == 2:
+
+            if self.tableWidget_put.horizontalHeaderItem(Option_column.고가.value).text() != '★2':
+            
+                item = QTableWidgetItem('★2')
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+                self.tableWidget_put.resizeColumnsToContents()
+            else:
+                pass
+
+        elif count == 3: 
+
+            if self.tableWidget_put.horizontalHeaderItem(Option_column.고가.value).text() != '★3':
+            
+                item = QTableWidgetItem('★3')
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+                self.tableWidget_put.resizeColumnsToContents()
+            else:
+                pass
+
+        else:
+
+            if self.tableWidget_put.horizontalHeaderItem(Option_column.고가.value).text() != '★+':
+            
+                item = QTableWidgetItem('★+')
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+                self.tableWidget_put.resizeColumnsToContents()
+            else:
+                pass   
 
         return           
     
@@ -8689,6 +8880,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             loop_list = opt_total_list
 
+        count_low = 0
+        count_high = 0
+
         for i in loop_list:
 
             if opt_coreval_search_start_value < df_put.iloc[i]['시가'] < opt_search_end_value:
@@ -8709,8 +8903,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_put_low_coreval = True
 
-                        item = QTableWidgetItem('★')
-                        self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+                        count_low += 1
+
                         '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
@@ -8747,8 +8941,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_put_high_coreval = True
 
-                        item = QTableWidgetItem('★')
-                        self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+                        count_high += 1
+
                         '''
                         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
 
@@ -8777,6 +8971,50 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
             else:
                 pass
+
+        if count_low == 0:
+
+            pass  
+
+        elif count_low == 1:              
+
+            item = QTableWidgetItem('★')
+            self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+        elif count_low == 2:
+
+            item = QTableWidgetItem('★2')
+            self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+        elif count_low == 3:
+
+            item = QTableWidgetItem('★3')
+            self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+        else:
+            item = QTableWidgetItem('★+')
+            self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+        if count_high == 0:
+
+            pass  
+
+        elif count_high == 1:          
+
+            item = QTableWidgetItem('★')
+            self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+        elif count_high == 2:
+
+            item = QTableWidgetItem('★2')
+            self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+        elif count_high == 3:
+
+            item = QTableWidgetItem('★3')
+            self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+        else:
+            item = QTableWidgetItem('★+')
+            self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
         self.tableWidget_put.resizeColumnsToContents()
 
