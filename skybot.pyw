@@ -173,13 +173,13 @@ with open('rules.txt', mode='r') as initfile:
 
     tmp = initfile.readline().strip()
     temp = tmp.split()
-    DOW_INDEX = int(temp[3])
+    DOW_INDEX = int(temp[4])
     print('DOW_INDEX', DOW_INDEX)
 
     tmp = initfile.readline().strip()
     temp = tmp.split()
-    KOR_FUT_INDEX = float(temp[4])
-    print('KOR_FUT_INDEX', KOR_FUT_INDEX)
+    CME_INDEX = float(temp[5])
+    print('CME_INDEX', CME_INDEX)
     
     tmp = initfile.readline().strip()
     tmp = initfile.readline().strip()
@@ -15924,6 +15924,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global flag_telegram_send_worker
             global dongsi_hoga
 
+            global dow_price
+
             start_time = timeit.default_timer()
 
             dt = datetime.datetime.now()
@@ -16213,13 +16215,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if fut_realdata['시가'] > 0 and fut_realdata['KP200'] > 0:
 
                             예상_Basis = fut_realdata['시가'] - fut_realdata['KP200']
-
+                            '''
                             str = '[{0:02d}:{1:02d}:{2:02d}] 예상 등가지수 : {3}, 예상 Basis : {4:0.2f}\r'.format(
                                             int(result['시간'][0:2]),
                                             int(result['시간'][2:4]),
                                             int(result['시간'][4:6]),
                                             atm_str, 예상_Basis)
                             self.textBrowser.append(str)
+                            '''
                         else:
                             pass
 
@@ -16393,7 +16396,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     pass
                             else:
                                 pass
-
+                            '''
                             str = '[{0:02d}:{1:02d}:{2:02d}] [{3}] Call {4} 시작예상가 수신... \r'.format(
                                 int(result['예상체결시간'][0:2]),
                                 int(result['예상체결시간'][2:4]),
@@ -16401,6 +16404,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 szTrCode,
                                 result['예상체결가격'])
                             self.textBrowser.append(str)
+                            '''
                         else:
                             pass
 
@@ -16487,7 +16491,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     pass
                             else:
                                 pass
-
+                            '''
                             str = '[{0:02d}:{1:02d}:{2:02d}] [{3}] Put {4} 시작예상가 수신... \r'.format(
                                 int(result['예상체결시간'][0:2]),
                                 int(result['예상체결시간'][2:4]),
@@ -16495,6 +16499,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 szTrCode,
                                 result['예상체결가격'])
                             self.textBrowser.append(str)
+                            '''
                         else:
                             pass
 
@@ -16586,6 +16591,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['피봇']))
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
+
+                            예상시가 = (CME_INDEX * dow_price) / DOW_INDEX
+
+                            item = QTableWidgetItem("{0:0.2f}".format(예상시가))
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 예상시가 = {3:0.2f}\r'.format(\
+                                            int(result['예상체결시간'][0:2]),
+                                            int(result['예상체결시간'][2:4]),
+                                            int(result['예상체결시간'][4:6]),
+                                            예상시가)
+                            self.textBrowser.append(str)
 
                             self.tableWidget_fut.resizeColumnsToContents()
                         else:
@@ -18128,7 +18146,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif result['종목코드'] == DOW:
 
-                    global dow_price, dow_text_color, dow_시가, dow_전일종가, dow_저가, dow_고가 
+                    global dow_text_color, dow_시가, dow_전일종가, dow_저가, dow_고가 
 
                     dow_저가 =  result['저가']
                     dow_고가 =  result['고가']
