@@ -170,6 +170,16 @@ with open('rules.txt', mode='r') as initfile:
     진성맥점 = list(set(진성맥점))
     진성맥점.sort()
     #print(진성맥점)
+
+    tmp = initfile.readline().strip()
+    temp = tmp.split()
+    DOW_INDEX = int(temp[3])
+    print('DOW_INDEX', DOW_INDEX)
+
+    tmp = initfile.readline().strip()
+    temp = tmp.split()
+    KOR_FUT_INDEX = float(temp[4])
+    print('KOR_FUT_INDEX', KOR_FUT_INDEX)
     
     tmp = initfile.readline().strip()
     tmp = initfile.readline().strip()
