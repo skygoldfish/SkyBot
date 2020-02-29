@@ -18834,7 +18834,7 @@ if TARGET_MONTH_SELECT == 1:
 
     Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+"mymoneybot_cm.ui")
 
-if TARGET_MONTH_SELECT == 2:
+elif TARGET_MONTH_SELECT == 2:
 
     Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+"mymoneybot_nm.ui")
 
