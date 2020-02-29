@@ -11345,6 +11345,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         pass
 
                     진폭 = 고가 - 저가
+                    df_call.loc[i, '진폭'] = 진폭
+
                     item = QTableWidgetItem("{0:0.2f}".format(진폭))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.진폭.value, item)
@@ -11578,6 +11580,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         pass
 
                     진폭 = 고가 - 저가
+                    df_put.loc[i, '진폭'] = 진폭
+
                     item = QTableWidgetItem("{0:0.2f}".format(진폭))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.진폭.value, item)
@@ -11768,6 +11772,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 call_고가 = df_call['고가'].values.tolist()
                 call_고가_node_list = self.make_node_list(call_고가)
 
+                call_진폭 = df_call['진폭'].values.tolist()
+                진폭최대값 = max(call_진폭)
+                max_str = '{0:0.2f}'.format(진폭최대값)
+
+                item = QTableWidgetItem(max_str)
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.진폭.value, item)
+
                 put_전저 = df_put['전저'].values.tolist()
                 put_전저_node_list = self.make_node_list(put_전저)
 
@@ -11788,6 +11799,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 put_고가 = df_put['고가'].values.tolist()
                 put_고가_node_list = self.make_node_list(put_고가)
+
+                put_진폭 = df_put['진폭'].values.tolist()
+                진폭최대값 = max(put_진폭)
+                max_str = '{0:0.2f}'.format(진폭최대값)
+
+                item = QTableWidgetItem(max_str)
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.진폭.value, item)
 
                 # 실시간테이타 요청                
                 str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
