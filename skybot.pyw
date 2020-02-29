@@ -2804,12 +2804,7 @@ class telegram_send_worker(QThread):
 
                         else:
                             str = "★ 차차월물 콜저가 맥점 {0}개 발생 ★".format(repr(call_low_node_count))
-                        '''
-                        if TARGET_MONTH_SELECT == 'YES':
-                            str = "★ 차월물 콜저가 맥점 {0}개 발생 ★".format(repr(call_low_node_count))
-                        else:
-                            str = "★ 본월물 콜저가 맥점 {0}개 발생 ★".format(repr(call_low_node_count))
-                        '''
+                        
                         ToTelegram(str)
                     else:
                         pass
@@ -2826,12 +2821,7 @@ class telegram_send_worker(QThread):
 
                         else:
                             str = "★ 차차월물 콜고가 맥점 {0}개 발생 ★".format(repr(call_high_node_count))
-                        '''
-                        if TARGET_MONTH_SELECT == 'YES':
-                            str = "★ 차월물 콜고가 맥점 {0}개 발생 ★".format(repr(call_high_node_count))
-                        else:
-                            str = "★ 본월물 콜고가 맥점 {0}개 발생 ★".format(repr(call_high_node_count))
-                        '''
+                        
                         ToTelegram(str)
                     else:
                         pass
@@ -2848,12 +2838,7 @@ class telegram_send_worker(QThread):
 
                         else:
                             str = "★ 차차월물 풋저가 맥점 {0}개 발생 ★".format(repr(put_low_node_count))
-                        '''
-                        if TARGET_MONTH_SELECT == 'YES':
-                            str = "★ 차월물 풋저가 맥점 {0}개 발생 ★".format(repr(put_low_node_count))
-                        else:
-                            str = "★ 본월물 풋저가 맥점 {0}개 발생 ★".format(repr(put_low_node_count))
-                        '''
+                        
                         ToTelegram(str)
                     else:
                         pass
@@ -2870,12 +2855,7 @@ class telegram_send_worker(QThread):
 
                         else:
                             str = "★ 차차월물 풋고가 맥점 {0}개 발생 ★".format(repr(put_high_node_count))
-                        '''
-                        if TARGET_MONTH_SELECT == 'YES':
-                            str = "★ 차월물 풋고가 맥점 {0}개 발생 ★".format(repr(put_high_node_count))
-                        else:
-                            str = "★ 본월물 풋고가 맥점 {0}개 발생 ★".format(repr(put_high_node_count))
-                        '''
+                        
                         ToTelegram(str)
                     else:
                         pass
@@ -7467,10 +7447,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_call_low_coreval = True
 
-                        #item = QTableWidgetItem('저가 ★')
-                        #self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-                        #self.tableWidget_call.resizeColumnsToContents()
-
                         if telegram_call_check:
 
                             if TARGET_MONTH_SELECT == 1:
@@ -7489,17 +7465,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 str = '[{0:02d}:{1:02d}:{2:02d}] 차차월물 콜저가 {3:0.2f} 맥점 발생 !!!\r'.format(\
                                     dt.hour, dt.minute, dt.second, df_call.iloc[i]['저가'])
                                 self.textBrowser.append(str)
-                            '''
-                            if TARGET_MONTH_SELECT == 'YES':
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 차월물 콜저가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_call.iloc[i]['저가'])
-                                self.textBrowser.append(str)
-                            else:
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 본월물 콜저가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_call.iloc[i]['저가'])
-                                self.textBrowser.append(str)
-                            '''
+                            
                             call_low_coreval_str = str
                         else:
                             pass
@@ -7555,10 +7521,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_call_high_coreval = True
 
-                        #item = QTableWidgetItem('고가 ★')
-                        #self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-                        #self.tableWidget_call.resizeColumnsToContents()
-
                         if telegram_call_check:
 
                             if TARGET_MONTH_SELECT == 1:
@@ -7577,17 +7539,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 str = '[{0:02d}:{1:02d}:{2:02d}] 차차월물 콜고가 {3:0.2f} 맥점 발생 !!!\r'.format(\
                                     dt.hour, dt.minute, dt.second, df_call.iloc[i]['고가'])
                                 self.textBrowser.append(str)
-                            '''
-                            if TARGET_MONTH_SELECT == 'YES':
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 차월물 콜고가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_call.iloc[i]['고가'])
-                                self.textBrowser.append(str)
-                            else:
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 본월물 콜고가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_call.iloc[i]['고가'])
-                                self.textBrowser.append(str)
-                            '''
+                            
                             call_high_coreval_str = str
                         else:
                             pass                        
@@ -9290,10 +9242,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_put_low_coreval = True
 
-                        #item = QTableWidgetItem('저가 ★')
-                        #self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-                        #self.tableWidget_put.resizeColumnsToContents()
-
                         if telegram_put_check:
 
                             if TARGET_MONTH_SELECT == 1:
@@ -9312,17 +9260,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 str = '[{0:02d}:{1:02d}:{2:02d}] 차차월물 풋저가 {3:0.2f} 맥점 발생 !!!\r'.format(\
                                     dt.hour, dt.minute, dt.second, df_put.iloc[i]['저가'])
                                 self.textBrowser.append(str)
-                            '''
-                            if TARGET_MONTH_SELECT == 'YES':
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 차월물 풋저가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_put.iloc[i]['저가'])
-                                self.textBrowser.append(str)
-                            else:
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 본월물 풋저가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_put.iloc[i]['저가'])
-                                self.textBrowser.append(str)
-                            '''
+                            
                             put_low_coreval_str = str
                         else:
                             pass                        
@@ -9378,10 +9316,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         flag_put_high_coreval = True
 
-                        #item = QTableWidgetItem('고가 ★')
-                        #self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-                        #self.tableWidget_put.resizeColumnsToContents()
-
                         if telegram_put_check:
 
                             if TARGET_MONTH_SELECT == 1:
@@ -9400,17 +9334,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 str = '[{0:02d}:{1:02d}:{2:02d}] 차차월물 풋고가 {3:0.2f} 맥점 발생 !!!\r'.format(\
                                     dt.hour, dt.minute, dt.second, df_put.iloc[i]['고가'])
                                 self.textBrowser.append(str)
-                            '''
-                            if TARGET_MONTH_SELECT == 'YES':
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 차월물 풋고가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_put.iloc[i]['고가'])
-                                self.textBrowser.append(str)
-                            else:
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 본월물 풋고가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_put.iloc[i]['고가'])
-                                self.textBrowser.append(str)
-                            '''
+                            
                             put_high_coreval_str = str
                         else:
                             pass                        
