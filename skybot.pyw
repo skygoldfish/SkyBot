@@ -7317,6 +7317,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if df_call.iloc[i]['저가'] in 진성맥점:
 
+                        self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
+                        self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
+
                         flag_call_low_coreval = True
 
                         count_low += 1
@@ -7341,6 +7344,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
 
                     if df_call.iloc[i]['고가'] in 진성맥점:
+
+                        self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
+                        self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
 
                         flag_call_high_coreval = True
 
@@ -9112,6 +9118,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if df_put.iloc[i]['저가'] in 진성맥점:
 
+                        self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
+                        self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
+
                         flag_put_low_coreval = True
 
                         count_low += 1
@@ -9136,6 +9145,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
 
                     if df_put.iloc[i]['고가'] in 진성맥점:
+
+                        self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
+                        self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
 
                         flag_put_high_coreval = True
 
