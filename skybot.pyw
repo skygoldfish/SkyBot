@@ -11761,7 +11761,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 put_고가 = df_put['고가'].values.tolist()
                 put_고가_node_list = self.make_node_list(put_고가)
 
-                # 실시간테이타 요청
+                # 실시간테이타 요청                
+                str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+
                 self.OPT_REAL = EC0(parent=self)
 
                 for i in range(option_pairs_count):
@@ -11782,16 +11785,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 업종별 투자자별 매매현황 요청
                 self.BM.AdviseRealData(CME)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
                 
-                self.screen_update_worker.start()
-                self.screen_update_worker.daemon = True
-
                 str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
                 print(str)
+                
+                self.screen_update_worker.start()
+                self.screen_update_worker.daemon = True
                 
                 refresh_flag = True
 
@@ -12450,7 +12450,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             else:
                                 t2835_month_info = CURRENT_MONTH
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] EUREX 본월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] EUREX(t2835) 본월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str) 
 
                         elif TARGET_MONTH_SELECT == 2:
@@ -12460,7 +12460,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             else:
                                 t2835_month_info = NEXT_MONTH
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] EUREX 차월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] EUREX(t2835) 차월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
 
                         else:
@@ -12470,30 +12470,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             else:
                                 t2835_month_info = MONTH_AFTER_NEXT
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] EUREX 차차월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] EUREX(t2835) 차차월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
 
                         XQ.Query(월물=t2835_month_info)
 
-                        '''
-                        if TARGET_MONTH_SELECT == 'YES':
-
-                            if MANGI_YAGAN == 'YES':
-                                XQ.Query(월물=MONTH_AFTER_NEXT)
-                            else:
-                                XQ.Query(월물=NEXT_MONTH)
-
-                            str = '[{0:02d}:{1:02d}:{2:02d}] EUREX 차월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)
-                        else:
-                            if MANGI_YAGAN == 'YES':
-                                XQ.Query(월물=NEXT_MONTH)
-                            else:
-                                XQ.Query(월물=CURRENT_MONTH)
-
-                            str = '[{0:02d}:{1:02d}:{2:02d}] EUREX 본월물 야간옵션 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)   
-                        '''                               
                     else:
                             
                         수정거래량 = 0
