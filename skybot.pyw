@@ -683,6 +683,7 @@ call_피봇 = []
 call_시가 = []
 call_저가 = []
 call_고가 = []
+call_진폭 = []
 
 콜_순미결합 = 0
 콜_수정미결합 = 0
@@ -711,6 +712,7 @@ put_피봇 = []
 put_시가 = []
 put_저가 = []
 put_고가 = []
+put_진폭 = []
 
 풋_순미결합 = 0
 풋_순미결퍼센트 = 0
@@ -9444,12 +9446,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_행사가, put_행사가
 
         global call_기준가, call_월저, call_월고, call_전저, call_전고, call_종가, call_피봇, \
-            call_시가, call_저가, call_고가
+            call_시가, call_저가, call_고가, call_진폭
         global call_기준가_node_list, call_월저_node_list, call_월고_node_list, call_전저_node_list, call_전고_node_list, \
             call_종가_node_list, call_피봇_node_list, call_시가_node_list, call_저가_node_list, call_고가_node_list
 
         global put_기준가, put_월저, put_월고, put_전저, put_전고, put_종가, put_피봇, \
-            put_시가, put_저가, put_고가
+            put_시가, put_저가, put_고가, put_진폭
         global put_기준가_node_list, put_월저_node_list, put_월고_node_list, put_전저_node_list, put_전고_node_list, \
             put_종가_node_list, put_피봇_node_list, put_시가_node_list, put_저가_node_list, put_고가_node_list
 
@@ -10425,6 +10427,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     call_고가 = df_call['고가'].values.tolist()
                     call_고가_node_list = self.make_node_list(call_고가)
 
+                    call_진폭 = df_call['진폭'].values.tolist()
+                    진폭최대값 = max(call_진폭)
+                    max_str = '{0:0.2f}'.format(진폭최대값)
+
+                    item = QTableWidgetItem(max_str)
+                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.진폭.value, item)
+
                     # 풋 컬러링 리스트 작성
                     put_시가 = df_put['시가'].values.tolist()
                     put_시가_node_list = self.make_node_list(put_시가)
@@ -10437,6 +10446,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     put_고가 = df_put['고가'].values.tolist()
                     put_고가_node_list = self.make_node_list(put_고가)
+
+                    put_진폭 = df_put['진폭'].values.tolist()
+                    진폭최대값 = max(put_진폭)
+                    max_str = '{0:0.2f}'.format(진폭최대값)
+
+                    item = QTableWidgetItem(max_str)
+                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.진폭.value, item)
                 else:
                     pass
 
@@ -13801,8 +13817,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
             else:
                 pass
+
+            진폭 = float(고가) - float(저가)
+            df_call.loc[index, '진폭'] = 진폭
                                 
-            item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+            item = QTableWidgetItem("{0:0.2f}".format(진폭))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setItem(index, Option_column.진폭.value, item)                    
 
@@ -13863,8 +13882,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
             else:
                 pass
+
+            진폭 = float(고가) - float(저가)
+            df_call.loc[index, '진폭'] = 진폭
                                 
-            item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+            item = QTableWidgetItem("{0:0.2f}".format(진폭))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
 
@@ -13986,6 +14008,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     
     def call_db_update(self):
 
+        global call_진폭
+
         temp = call_db_percent[:]
         call_db_percent_local = [value for value in temp if not math.isnan(value)]
         call_db_percent_local.sort()
@@ -14006,6 +14030,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass                    
         else:
             print('call_db_percent_local is empty...')
+
+        call_진폭 = df_call['진폭'].values.tolist()
+        진폭최대값 = max(call_진폭)
+
+        max_str = '{0:0.2f}'.format(진폭최대값)
+
+        if max_str != self.tableWidget_call.horizontalHeaderItem(Option_column.진폭.value).text():
+            item = QTableWidgetItem(max_str)
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.진폭.value, item)
+            self.tableWidget_call.resizeColumnsToContents()
+        else:
+            pass 
 
         return
 
@@ -14888,8 +14924,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
             else:
                 pass
+
+            진폭 = float(고가) - float(저가)
+            df_put.loc[index, '진폭'] = 진폭
                                 
-            item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+            item = QTableWidgetItem("{0:0.2f}".format(진폭))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
@@ -14950,8 +14989,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
             else:
                 pass
+
+            진폭 = float(고가) - float(저가)
+            df_put.loc[index, '진폭'] = 진폭
                                 
-            item = QTableWidgetItem("{0:0.2f}".format(float(고가) - float(저가)))
+            item = QTableWidgetItem("{0:0.2f}".format(진폭))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
@@ -15073,6 +15115,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     
     def put_db_update(self):
 
+        global put_진폭
+
         temp = put_db_percent[:]
         put_db_percent_local = [value for value in temp if not math.isnan(value)]
         put_db_percent_local.sort()
@@ -15094,6 +15138,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
         else:
             print('put_db_percent_local is empty...')
+
+        put_진폭 = df_put['진폭'].values.tolist()
+        진폭최대값 = max(put_진폭)
+
+        max_str = '{0:0.2f}'.format(진폭최대값)
+
+        if max_str != self.tableWidget_put.horizontalHeaderItem(Option_column.진폭.value).text():
+            item = QTableWidgetItem(max_str)
+            self.tableWidget_put.setHorizontalHeaderItem(Option_column.진폭.value, item)
+            self.tableWidget_put.resizeColumnsToContents()
+        else:
+            pass 
 
         return
 
