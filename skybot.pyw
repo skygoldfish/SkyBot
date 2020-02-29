@@ -128,6 +128,7 @@ with open('month_info.txt', mode='r') as monthfile:
 
     tmp = monthfile.readline().strip()
     tmp = monthfile.readline().strip()
+    tmp = monthfile.readline().strip()
 
     tmp = monthfile.readline().strip()
     temp = tmp.split()

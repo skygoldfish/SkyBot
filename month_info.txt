@@ -1,13 +1,14 @@
-# basic market info
+######################### < Basic Market Info > #########################
 start hour = 9
 current month = 202003
 first day of the current month = 20200214
 mangi yagan = NO
 
-# target month select : current month = 1, next month = 2, month after next = 3
+###################### < Target Month Select > ##########################
+########  1 : current month, 2 : next month, 3 : month after next #######
 target month select = 1
 
-# CME Index
+########################## < CME Index Code > ###########################
 S&P 500 = ESH20
 DOW = YMH20
 NASDAQ = NQH20
