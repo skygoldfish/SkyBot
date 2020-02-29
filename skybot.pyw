@@ -18606,9 +18606,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global flag_telegram_on
         
-        flag_telegram_on = not flag_telegram_on       
+        flag_telegram_on = not flag_telegram_on   
 
         if flag_telegram_on:
+            
+            self.image_grab()  
 
             self.pushButton_remove.setStyleSheet("background-color: lawngreen")
             print('flag_telegram_on =', flag_telegram_on)
