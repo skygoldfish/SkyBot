@@ -10798,39 +10798,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:                    
                     # EUREX 야간옵션 시세전광판
                     XQ = t2835(parent=self)
-                    XQ.Query(월물=t2835_month_info)
+                    XQ.Query(월물=t2835_month_info)                    
 
-                    '''
-                    if MANGI_YAGAN == 'YES':
-
-                        if TARGET_MONTH_SELECT == 1:
-
-                            t2835_month_info = NEXT_MONTH
-
-                        elif TARGET_MONTH_SELECT == 2:
-
-                            t2835_month_info = MONTH_AFTER_NEXT
-
-                        else:
-                            # to be checked !!!
-                            pass
-                        
-                    else:
-                        if TARGET_MONTH_SELECT == 1:
-
-                            t2835_month_info = CURRENT_MONTH
-
-                        elif TARGET_MONTH_SELECT == 2:
-
-                            t2835_month_info = NEXT_MONTH
-
-                        else:
-                            t2835_month_info = MONTH_AFTER_NEXT
-
-                    XQ.Query(월물=t2835_month_info)
-                    '''
-
-                    print('t2835 야간옵션 시세전광판 요청 =', t2835_month_info)
+                    str = '{0} 야간옵션 시세전광판 재요청...'.format(t2835_month_info)
+                    print(str)
             
             self.tableWidget_call.resizeColumnsToContents()
             self.tableWidget_put.resizeColumnsToContents()
