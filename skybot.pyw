@@ -18816,8 +18816,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 if TARGET_MONTH_SELECT == 1:
 
     Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+"mymoneybot_cm.ui")
-else:
+
+if TARGET_MONTH_SELECT == 2:
+
     Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+"mymoneybot_nm.ui")
+
+else:
+    Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+"mymoneybot_man.ui")
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
