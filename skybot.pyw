@@ -10583,11 +10583,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.t8416_callworker.daemon = True
 
             else:
-                # Refresh                
-                str = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
-
+                # Refresh
                 if not overnight:
+                                    
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
 
                     del call_open_list[:]
                     del put_open_list[:]
@@ -10785,23 +10785,30 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 주야간 선물전광판 데이타 요청
                     XQ = t2101(parent=self)
                     XQ.Query(종목코드=fut_code)
-                    print('t2101 주간 선물전광판 데이타 요청 요청')
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
 
                     time.sleep(0.1)
 
                     XQ = t2801(parent=self)
                     XQ.Query(종목코드=fut_code)
-                    print('t2801 야간 선물전광판 데이타 요청 요청')
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
 
                     time.sleep(0.1)
                     
                 else:                    
                     # EUREX 야간옵션 시세전광판
                     XQ = t2835(parent=self)
-                    XQ.Query(월물=t2835_month_info)                    
+                    XQ.Query(월물=t2835_month_info)
 
-                    str = '{0} 야간옵션 시세전광판 재요청...'.format(t2835_month_info)
-                    print(str)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)                    
+
+                    #str = '{0} 야간옵션 시세전광판 재요청...'.format(t2835_month_info)
+                    #print(str)
             
             self.tableWidget_call.resizeColumnsToContents()
             self.tableWidget_put.resizeColumnsToContents()
@@ -13080,14 +13087,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             flag_telegram_send_worker = True             
         else:
             pass
-        '''
-        if service_start and first_refresh:
 
-            fut_first_arrive = fut_time
-            first_refresh = False    
-        else:
-            pass
-        '''
         #if service_start and (fut_time == fut_first_arrive + 1 or fut_time == fut_first_arrive + 2):
         if fut_time == telegram_send_worker_on_time + 1 or fut_time == telegram_send_worker_on_time + 2:
             
@@ -13133,12 +13133,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 else:
                     ToTelegram("차차월물 텔레그램 Polling이 시작되었습니다.")
-                '''
-                if TARGET_MONTH_SELECT == 'YES':
-                    ToTelegram("차월물 텔레그램 Polling이 시작되었습니다.")
-                else:
-                    ToTelegram("본월물 텔레그램 Polling이 시작되었습니다.")
-                '''
+                
                 self.pushButton_remove.setStyleSheet("background-color: lawngreen")
                 #self.telegram_flag = True
                 
@@ -13148,30 +13143,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        '''
-        # 서비스 시작후 30초후에 첫번째 컬러링 작업수행
-        if service_start and \
-            (fut_time == fut_first_arrive + 31 or fut_time == fut_first_arrive + 32 or fut_time == fut_first_arrive + 33 or 
-            fut_time == fut_first_arrive + 34 or fut_time == fut_first_arrive + 35 or fut_time == fut_first_arrive + 36 or 
-            fut_time == fut_first_arrive + 37 or fut_time == fut_first_arrive + 38 or fut_time == fut_first_arrive + 39):
-            
-            service_start = False
-
-            print('First Refresh...............')
-
-            self.fut_node_color_clear()                    
-            self.fut_oloh_check()
-            self.fut_node_coloring()
-
-            t = dt.hour * 3600 + dt.minute * 60 + dt.second
-            self.kp200_low_node_coloring(t)
-            self.kp200_high_node_coloring(t)            
-            
-            str = '[{0:02d}:{1:02d}:{2:02d}] First Color Refreshing Done !!!\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)
-        else:
-            pass
-        '''
         # 현재가 갱신
         if overnight:
             fut_price = self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]
@@ -13687,8 +13658,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 
                 if index == option_pairs_count - 1:
 
-                    #call_max_actval = True
-
                     str = '[{0:02d}:{1:02d}:{2:02d}] 콜 최대 시작가 {3} 오픈되었습니다.\r'.format(\
                         int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 시가)
                     self.textBrowser.append(str)
@@ -13851,18 +13820,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             call_update_time = int(result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6])
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가({3}) Update...\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(저가), 2))
             self.textBrowser.append(str)
 
             self.opt_call_low_node_coloring()
-            '''
-            if not node_coloring:
-
-                self.opt_call_low_node_coloring()
-            else:
-                pass
-            '''                     
         else:
             pass
 
@@ -13920,18 +13882,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             call_update_time = int(result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6])
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가({3}) Update...\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(고가), 2))
             self.textBrowser.append(str)
 
             self.opt_call_high_node_coloring()
-            '''
-            if not node_coloring:
-
-                self.opt_call_high_node_coloring()
-            else:
-                pass
-            '''                    
         else:
             pass               
                    
@@ -14791,8 +14746,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if index == 0:
 
-                    #put_max_actval = True
-
                     str = '[{0:02d}:{1:02d}:{2:02d}] 풋 최대 시작가 {3} 오픈되었습니다.\r'.format(\
                         int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 시가)
                     self.textBrowser.append(str)
@@ -14954,18 +14907,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             put_update_time = int(result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6])
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가({3}) Update...\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(저가), 2))
             self.textBrowser.append(str)
 
             self.opt_put_low_node_coloring()
-            '''
-            if not node_coloring:
-
-                self.opt_put_low_node_coloring()
-            else:
-                pass
-            '''                    
         else:
             pass
 
@@ -15023,18 +14969,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             put_update_time = int(result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6])
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가({3}) Update...\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(고가), 2))
             self.textBrowser.append(str)
 
             self.opt_put_high_node_coloring()
-            '''
-            if not node_coloring:
-
-                self.opt_put_high_node_coloring()
-            else:
-                pass
-            '''
         else:
             pass                
                     
@@ -17656,15 +17595,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
                 else:
-                    pass   
-
-                '''
-                if pre_start:
-
-                    pre_start = False
-                else:
                     pass
-                '''
 
                 if szTrCode == 'NC0':    
 
@@ -17809,7 +17740,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         call_result = copy.deepcopy(result)                        
                         self.call_display(result)                      
-
+                        '''
                         if opt_callreal_update_counter >= 500:
 
                             opt_callreal_update_counter = 0
@@ -17841,6 +17772,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 opt_putreal_update_counter,
                                 process_time)
                             self.textBrowser.append(str)
+                        '''
                     else:
                         pass 
 
@@ -17852,7 +17784,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         put_result = copy.deepcopy(result)
                         self.put_display(result)                      
-
+                        '''
                         if opt_putreal_update_counter >= 500:
 
                             opt_callreal_update_counter = 0
@@ -17883,7 +17815,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 opt_callreal_update_counter,
                                 opt_putreal_update_counter,
                                 process_time)
-                            self.textBrowser.append(str)   
+                            self.textBrowser.append(str)
+                        '''   
                     else:
                         pass 
                 else:
@@ -18554,6 +18487,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 지수선물 마스터조회 API용
                 XQ = t8432(parent=self)
                 XQ.Query(구분='F')
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] t8432 지수선물 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
             else:
                 pass
 
@@ -18580,9 +18516,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     t2301_month_info = CURRENT_MONTH
 
-                XQ.Query(월물=t2301_month_info, 미니구분='G')
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 주간옵션 시세전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
+                str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                 self.textBrowser.append(str)
 
             elif TARGET_MONTH_SELECT == 2:
@@ -18590,48 +18524,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if MANGI_YAGAN == 'YES':
                     t2301_month_info = MONTH_AFTER_NEXT
                 else:
-                    t2301_month_info = NEXT_MONTH
+                    t2301_month_info = NEXT_MONTH   
 
-                XQ.Query(월물=t2301_month_info, 미니구분='G')    
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 주간옵션 시세전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
+                str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                 self.textBrowser.append(str)
 
             else:
                 if MANGI_YAGAN == 'YES':
                     t2301_month_info = MONTH_AFTER_NEXT
                 else:
-                    t2301_month_info = MONTH_AFTER_NEXT
+                    t2301_month_info = MONTH_AFTER_NEXT   
 
-                XQ.Query(월물=t2301_month_info, 미니구분='G')    
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 차차월물({3}) 주간옵션 시세전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
+                str = '[{0:02d}:{1:02d}:{2:02d}] 차차월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                 self.textBrowser.append(str)
 
-            '''
-            if TARGET_MONTH_SELECT == 'YES':
+            XQ.Query(월물=t2301_month_info, 미니구분='G')
 
-                if MANGI_YAGAN == 'YES':
-                    t2301_month_info = MONTH_AFTER_NEXT
-                else:
-                    t2301_month_info = NEXT_MONTH
-
-                XQ.Query(월물=t2301_month_info, 미니구분='G')    
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 주간옵션 시세전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
-                self.textBrowser.append(str)
-
-            else:
-                if MANGI_YAGAN == 'YES':
-                    t2301_month_info = NEXT_MONTH
-                else:
-                    t2301_month_info = CURRENT_MONTH
-
-                XQ.Query(월물=t2301_month_info, 미니구분='G')
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 주간옵션 시세전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
-                self.textBrowser.append(str)
-            '''
         return
 
     def SaveResult(self):
