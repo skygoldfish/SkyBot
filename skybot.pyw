@@ -3044,10 +3044,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     buildtime = time.ctime(os.path.getmtime(__file__))
 
-            else:
+            elif TARGET_MONTH_SELECT == 2:
+
                 if os.path.exists('SkyBot_NM.exe'):
 
                     buildtime = time.ctime(os.path.getmtime('SkyBot_NM.exe'))
+                else:
+                    buildtime = time.ctime(os.path.getmtime(__file__))
+
+            else:
+                if os.path.exists('SkyBot_MAN.exe'):
+
+                    buildtime = time.ctime(os.path.getmtime('SkyBot_MAN.exe'))
                 else:
                     buildtime = time.ctime(os.path.getmtime(__file__))
             '''
@@ -3075,12 +3083,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     buildtime = time.ctime(os.path.getmtime(__file__))
 
-            else:
+            elif TARGET_MONTH_SELECT == 2:
+
                 if os.path.exists('SkyBot_NM.exe'):
 
                     buildtime = time.ctime(os.path.getmtime('SkyBot_NM.exe'))
                 else:
                     buildtime = time.ctime(os.path.getmtime(__file__))
+
+            else:
+                if os.path.exists('SkyBot_MAN.exe'):
+
+                    buildtime = time.ctime(os.path.getmtime('SkyBot_MAN.exe'))
+                else:
+                    buildtime = time.ctime(os.path.getmtime(__file__))
+
             '''
             if TARGET_MONTH_SELECT == 'YES':
 
