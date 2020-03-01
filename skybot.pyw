@@ -2794,7 +2794,7 @@ class telegram_send_worker(QThread):
                         pass
 
                     # 맥점 복수개 발생 알람
-                    if call_low_node_count > 1:
+                    if call_low_node_count >= 1:
 
                         if TARGET_MONTH_SELECT == 1:
 
@@ -2805,13 +2805,13 @@ class telegram_send_worker(QThread):
                             str = "★ 차월물 콜저가 맥점 {0}개 발생 ★".format(repr(call_low_node_count))
 
                         else:
-                            str = "★ 차차월물 콜저가 맥점 {0}개 발생 ★".format(repr(call_low_node_count))
+                            str = "★ MAN 콜저가 맥점 {0}개 발생 ★".format(repr(call_low_node_count))
                         
                         ToTelegram(str)
                     else:
                         pass
 
-                    if call_high_node_count > 1:
+                    if call_high_node_count >= 1:
 
                         if TARGET_MONTH_SELECT == 1:
 
@@ -2822,13 +2822,13 @@ class telegram_send_worker(QThread):
                             str = "★ 차월물 콜고가 맥점 {0}개 발생 ★".format(repr(call_high_node_count))
 
                         else:
-                            str = "★ 차차월물 콜고가 맥점 {0}개 발생 ★".format(repr(call_high_node_count))
+                            str = "★ MAN 콜고가 맥점 {0}개 발생 ★".format(repr(call_high_node_count))
                         
                         ToTelegram(str)
                     else:
                         pass
 
-                    if put_low_node_count > 1:
+                    if put_low_node_count >= 1:
 
                         if TARGET_MONTH_SELECT == 1:
 
@@ -2839,13 +2839,13 @@ class telegram_send_worker(QThread):
                             str = "★ 차월물 풋저가 맥점 {0}개 발생 ★".format(repr(put_low_node_count))
 
                         else:
-                            str = "★ 차차월물 풋저가 맥점 {0}개 발생 ★".format(repr(put_low_node_count))
+                            str = "★ MAN 풋저가 맥점 {0}개 발생 ★".format(repr(put_low_node_count))
                         
                         ToTelegram(str)
                     else:
                         pass
 
-                    if put_high_node_count > 1:
+                    if put_high_node_count >= 1:
 
                         if TARGET_MONTH_SELECT == 1:
 
@@ -2856,7 +2856,7 @@ class telegram_send_worker(QThread):
                             str = "★ 차월물 풋고가 맥점 {0}개 발생 ★".format(repr(put_high_node_count))
 
                         else:
-                            str = "★ 차차월물 풋고가 맥점 {0}개 발생 ★".format(repr(put_high_node_count))
+                            str = "★ MAN 풋고가 맥점 {0}개 발생 ★".format(repr(put_high_node_count))
                         
                         ToTelegram(str)
                     else:
@@ -2864,7 +2864,7 @@ class telegram_send_worker(QThread):
                 else:
                     pass                
                 
-                # 옵션 맥점 알람
+                # 옵션 맥점 알람                
                 if call_low_coreval_str != '':
 
                     str = call_low_coreval_str
@@ -2891,8 +2891,8 @@ class telegram_send_worker(QThread):
                     str = put_high_coreval_str
                     ToTelegram(str)
                 else:
-                    pass
-                
+                    pass                
+
                 # kp200 맥점 알람
                 if kp200_low_node_str != '':
 
@@ -7470,7 +7470,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 self.textBrowser.append(str)
 
                             else:
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 차차월물 콜저가 {3:0.2f} 맥점 발생 !!!\r'.format(\
+                                str = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 {3:0.2f} 맥점 발생 !!!\r'.format(\
                                     dt.hour, dt.minute, dt.second, df_call.iloc[i]['저가'])
                                 self.textBrowser.append(str)
                             
@@ -7544,7 +7544,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 self.textBrowser.append(str)
 
                             else:
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 차차월물 콜고가 {3:0.2f} 맥점 발생 !!!\r'.format(\
+                                str = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 {3:0.2f} 맥점 발생 !!!\r'.format(\
                                     dt.hour, dt.minute, dt.second, df_call.iloc[i]['고가'])
                                 self.textBrowser.append(str)
                             
@@ -9271,7 +9271,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 self.textBrowser.append(str)
 
                             else:
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 차차월물 풋저가 {3:0.2f} 맥점 발생 !!!\r'.format(\
+                                str = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 {3:0.2f} 맥점 발생 !!!\r'.format(\
                                     dt.hour, dt.minute, dt.second, df_put.iloc[i]['저가'])
                                 self.textBrowser.append(str)
                             
@@ -9345,7 +9345,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 self.textBrowser.append(str)
 
                             else:
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 차차월물 풋고가 {3:0.2f} 맥점 발생 !!!\r'.format(\
+                                str = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 {3:0.2f} 맥점 발생 !!!\r'.format(\
                                     dt.hour, dt.minute, dt.second, df_put.iloc[i]['고가'])
                                 self.textBrowser.append(str)
                             
@@ -12637,20 +12637,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] 차차월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, month_after_next, fut_code)
                 self.textBrowser.append(str)
                 print(str)
-
-            '''
-            if TARGET_MONTH_SELECT == 'YES': 
-
-                fut_code = cmshcode
-                str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, next_month, fut_code)
-                self.textBrowser.append(str)
-                print(str)
-            else:
-                fut_code = gmshcode
-                str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month, fut_code)
-                self.textBrowser.append(str)
-                print(str)
-            '''
+            
             fut_realdata['전저'] = df.iloc[0]['전일저가']
             선물_전저 = df.iloc[0]['전일저가']
 
@@ -13159,7 +13146,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     ToTelegram("차월물 텔레그램 Polling이 시작되었습니다.")
 
                 else:
-                    ToTelegram("차차월물 텔레그램 Polling이 시작되었습니다.")
+                    ToTelegram("MAN 텔레그램 Polling이 시작되었습니다.")
                 
                 self.pushButton_remove.setStyleSheet("background-color: lawngreen")
                 #self.telegram_flag = True
