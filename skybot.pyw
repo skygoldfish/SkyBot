@@ -2758,6 +2758,75 @@ class telegram_send_worker(QThread):
 
                 if telegram_toggle:
 
+                    # 옵션맥점 발생 알람
+                    if call_low_node_count >= 1:
+
+                        if TARGET_MONTH_SELECT == 1:
+
+                            str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 콜저가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
+
+                        elif TARGET_MONTH_SELECT == 2:
+
+                            str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 콜저가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
+
+                        else:
+                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
+
+                        ToTelegram(str)
+                    else:
+                        pass
+
+                    if call_high_node_count >= 1:
+
+                        if TARGET_MONTH_SELECT == 1:
+
+                            str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 콜고가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
+
+                        elif TARGET_MONTH_SELECT == 2:
+
+                            str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 콜고가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
+
+                        else:
+                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
+
+                        ToTelegram(str)
+                    else:
+                        pass
+
+                    if put_low_node_count >= 1:
+
+                        if TARGET_MONTH_SELECT == 1:
+
+                            str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 풋저가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, put_low_node_list)
+
+                        elif TARGET_MONTH_SELECT == 2:
+
+                            str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 풋저가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, put_low_node_list)
+
+                        else:
+                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, put_low_node_list)
+
+                        ToTelegram(str)
+                    else:
+                        pass
+
+                    if put_high_node_count >= 1:
+
+                        if TARGET_MONTH_SELECT == 1:
+
+                            str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 풋고가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, put_high_node_list)
+
+                        elif TARGET_MONTH_SELECT == 2:
+
+                            str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 풋고가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, put_high_node_list)
+
+                        else:
+                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, put_high_node_list)
+
+                        ToTelegram(str)
+                    else:
+                        pass
+
                     # 콜 원웨이 알람
                     if call_oneway_level3:
 
@@ -2792,78 +2861,10 @@ class telegram_send_worker(QThread):
                         str = "[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음(▼ ▼ ▼)".format(dt.hour, dt.minute, dt.second)
                         ToTelegram(str)
                     else:
-                        pass                    
+                        pass
+
                 else:
-                    pass
-
-                # 옵션맥점 발생 알람
-                if call_low_node_count >= 1:
-
-                    if TARGET_MONTH_SELECT == 1:
-
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 콜저가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
-
-                    elif TARGET_MONTH_SELECT == 2:
-
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 콜저가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
-
-                    else:
-                        str = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
-                    
-                    ToTelegram(str)
-                else:
-                    pass
-
-                if call_high_node_count >= 1:
-
-                    if TARGET_MONTH_SELECT == 1:
-
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 콜고가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
-
-                    elif TARGET_MONTH_SELECT == 2:
-
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 콜고가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
-
-                    else:
-                        str = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
-                    
-                    ToTelegram(str)
-                else:
-                    pass
-
-                if put_low_node_count >= 1:
-
-                    if TARGET_MONTH_SELECT == 1:
-
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 풋저가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, put_low_node_list)
-
-                    elif TARGET_MONTH_SELECT == 2:
-
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 풋저가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, put_low_node_list)
-
-                    else:
-                        str = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, put_low_node_list)
-                    
-                    ToTelegram(str)
-                else:
-                    pass
-
-                if put_high_node_count >= 1:
-
-                    if TARGET_MONTH_SELECT == 1:
-
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 풋고가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, put_high_node_list)
-
-                    elif TARGET_MONTH_SELECT == 2:
-
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 풋고가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, put_high_node_list)
-
-                    else:
-                        str = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, put_high_node_list)
-                    
-                    ToTelegram(str)
-                else:
-                    pass
+                    pass                
                 
                 # kp200 맥점 알람
                 if kp200_low_node_str != '':
@@ -2880,25 +2881,12 @@ class telegram_send_worker(QThread):
                 else:
                     pass                    
                 
-                # 월물별 옵션맥점 알람
+                # 월물별 옵션맥점 선택알람
                 if command_count == 2:
 
-                    if command[1] == 1 and TARGET_MONTH_SELECT == 1:
+                    if command[1] == 1 or command[1] == 2 or command[1] == 3 or command[1] == 123:
 
                         self.display_data()
-
-                    elif command[1] == 2 and TARGET_MONTH_SELECT == 2:
-
-                        self.display_data()
-
-                    elif command[1] == 3 and TARGET_MONTH_SELECT == 3:
-
-                        self.display_data()
-
-                    elif command[1] == 123:
-
-                        self.display_data()
-
                     else:
                         pass
                 else:
