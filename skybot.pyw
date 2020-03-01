@@ -334,6 +334,11 @@ call_high_node_count = 0
 put_low_node_count = 0
 put_high_node_count = 0
 
+call_low_node_list = []
+call_high_node_list = []
+put_low_node_list = []
+put_high_node_list = []
+
 call_low_coreval_str = ''
 call_high_coreval_str = ''
 put_low_coreval_str = ''
@@ -2697,12 +2702,11 @@ class telegram_send_worker(QThread):
 
     finished = pg.QtCore.Signal(object)
 
-    #dt = datetime.datetime.now()
-    #current_str = dt.strftime('%H:%M:%S')
-
     def run(self):
 
         while True:
+            
+            dt = datetime.datetime.now()
             
             global telegram_toggle
 
@@ -2728,29 +2732,27 @@ class telegram_send_worker(QThread):
 
                     if TARGET_MONTH_SELECT == 1:
 
+                        ToTelegram("본월물 Call 우세 !!!")
+
                     elif TARGET_MONTH_SELECT == 2:
 
-                    else:
-
-                    if TARGET_MONTH_SELECT == 'YES':
-
                         ToTelegram("차월물 Call 우세 !!!")
+
                     else:
-                        ToTelegram("본월물 Call 우세 !!!")
+                        pass                        
 
                 elif put_ol_count - put_oh_count >= POL_OL - POL_OH and call_oh_count - call_ol_count >= COH_OH - COH_OL:
 
                     if TARGET_MONTH_SELECT == 1:
 
+                        ToTelegram("본월물 Put 우세 !!!")
+
                     elif TARGET_MONTH_SELECT == 2:
 
-                    else:
+                         ToTelegram("차월물 Put 우세 !!!")
 
-                    if TARGET_MONTH_SELECT == 'YES':
-
-                        ToTelegram("차월물 Put 우세 !!!")
                     else:
-                        ToTelegram("본월물 Put 우세 !!!")
+                        pass                        
                 else:
                     pass
                 '''
@@ -2760,17 +2762,17 @@ class telegram_send_worker(QThread):
                     # 콜 원웨이 알람
                     if call_oneway_level3:
 
-                        str = "콜 OneWay 가능성 있음(★★★)"
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 있음(▲)".format(dt.hour, dt.minute, dt.second)
                         ToTelegram(str)
 
                     elif call_oneway_level4:
 
-                        str = "콜 OneWay 가능성 높음(★★★★)"
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 높음(▲ ▲)".format(dt.hour, dt.minute, dt.second)
                         ToTelegram(str)
 
                     elif call_oneway_level5:
 
-                        str = "콜 OneWay 가능성 매우 높음(★★★★★)"
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음(▲ ▲ ▲)".format(dt.hour, dt.minute, dt.second)
                         ToTelegram(str)
                     else:
                         pass
@@ -2778,93 +2780,94 @@ class telegram_send_worker(QThread):
                     # 풋 원웨이 알람
                     if put_oneway_level3:
 
-                        str = "풋 OneWay 가능성 있음(★★★)"
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 있음(▼)".format(dt.hour, dt.minute, dt.second)
                         ToTelegram(str)
 
                     elif put_oneway_level4:
 
-                        str = "풋 OneWay 가능성 높음(★★★★)"
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 높음(▼ ▼)".format(dt.hour, dt.minute, dt.second)
                         ToTelegram(str)
 
                     elif put_oneway_level5:
 
-                        str = "풋 OneWay 가능성 매우 높음(★★★★★)"
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음(▼ ▼ ▼)".format(dt.hour, dt.minute, dt.second)
                         ToTelegram(str)
                     else:
-                        pass
+                        pass                    
+                else:
+                    pass
 
-                    # 맥점 복수개 발생 알람
-                    if call_low_node_count >= 1:
+                # 옵션맥점 발생 알람
+                if call_low_node_count >= 1:
 
-                        if TARGET_MONTH_SELECT == 1:
+                    if TARGET_MONTH_SELECT == 1:
 
-                            str = "★ 본월물 콜저가 맥점 {0}개 발생 ★".format(repr(call_low_node_count))
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 콜저가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
 
-                        elif TARGET_MONTH_SELECT == 2:
+                    elif TARGET_MONTH_SELECT == 2:
 
-                            str = "★ 차월물 콜저가 맥점 {0}개 발생 ★".format(repr(call_low_node_count))
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 콜저가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
 
-                        else:
-                            str = "★ MAN 콜저가 맥점 {0}개 발생 ★".format(repr(call_low_node_count))
-                        
-                        ToTelegram(str)
                     else:
-                        pass
+                        str = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
+                    
+                    ToTelegram(str)
+                else:
+                    pass
 
-                    if call_high_node_count >= 1:
+                if call_high_node_count >= 1:
 
-                        if TARGET_MONTH_SELECT == 1:
+                    if TARGET_MONTH_SELECT == 1:
 
-                            str = "★ 본월물 콜고가 맥점 {0}개 발생 ★".format(repr(call_high_node_count))
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 콜고가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
 
-                        elif TARGET_MONTH_SELECT == 2:
+                    elif TARGET_MONTH_SELECT == 2:
 
-                            str = "★ 차월물 콜고가 맥점 {0}개 발생 ★".format(repr(call_high_node_count))
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 콜고가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
 
-                        else:
-                            str = "★ MAN 콜고가 맥점 {0}개 발생 ★".format(repr(call_high_node_count))
-                        
-                        ToTelegram(str)
                     else:
-                        pass
+                        str = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
+                    
+                    ToTelegram(str)
+                else:
+                    pass
 
-                    if put_low_node_count >= 1:
+                if put_low_node_count >= 1:
 
-                        if TARGET_MONTH_SELECT == 1:
+                    if TARGET_MONTH_SELECT == 1:
 
-                            str = "★ 본월물 풋저가 맥점 {0}개 발생 ★".format(repr(put_low_node_count))
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 풋저가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, put_low_node_list)
 
-                        elif TARGET_MONTH_SELECT == 2:
+                    elif TARGET_MONTH_SELECT == 2:
 
-                            str = "★ 차월물 풋저가 맥점 {0}개 발생 ★".format(repr(put_low_node_count))
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 풋저가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, put_low_node_list)
 
-                        else:
-                            str = "★ MAN 풋저가 맥점 {0}개 발생 ★".format(repr(put_low_node_count))
-                        
-                        ToTelegram(str)
                     else:
-                        pass
+                        str = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, put_low_node_list)
+                    
+                    ToTelegram(str)
+                else:
+                    pass
 
-                    if put_high_node_count >= 1:
+                if put_high_node_count >= 1:
 
-                        if TARGET_MONTH_SELECT == 1:
+                    if TARGET_MONTH_SELECT == 1:
 
-                            str = "★ 본월물 풋고가 맥점 {0}개 발생 ★".format(repr(put_high_node_count))
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 풋고가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, put_high_node_list)
 
-                        elif TARGET_MONTH_SELECT == 2:
+                    elif TARGET_MONTH_SELECT == 2:
 
-                            str = "★ 차월물 풋고가 맥점 {0}개 발생 ★".format(repr(put_high_node_count))
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 풋고가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, put_high_node_list)
 
-                        else:
-                            str = "★ MAN 풋고가 맥점 {0}개 발생 ★".format(repr(put_high_node_count))
-                        
-                        ToTelegram(str)
                     else:
-                        pass
+                        str = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, put_high_node_list)
+                    
+                    ToTelegram(str)
                 else:
                     pass                
                 
-                # 옵션 맥점 알람                
+                # 옵션 맥점 알람
+                '''                
                 if call_low_coreval_str != '':
 
                     str = call_low_coreval_str
@@ -2891,7 +2894,8 @@ class telegram_send_worker(QThread):
                     str = put_high_coreval_str
                     ToTelegram(str)
                 else:
-                    pass                
+                    pass
+                '''
 
                 # kp200 맥점 알람
                 if kp200_low_node_str != '':
@@ -2999,23 +3003,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         next_month = int(NEXT_MONTH[4:6])
         month_after_next = int(MONTH_AFTER_NEXT[4:6])
 
-        '''
-        if MANGI_YAGAN == 'YES':
-
-            current_month = int(CURRENT_MONTH[4:6])
-            
-            if current_month == 13:
-
-                current_month = 1
-            else:
-                pass
-            
-            next_month = int(NEXT_MONTH[4:6])
-        else:    
-            current_month = int(CURRENT_MONTH[4:6])
-            next_month = int(NEXT_MONTH[4:6])
-        '''
-
         if 4 < int(current_str[0:2]) < 야간선물_기준시간:
 
             if TARGET_MONTH_SELECT == 1:
@@ -3040,21 +3027,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     buildtime = time.ctime(os.path.getmtime('SkyBot_MAN.exe'))
                 else:
                     buildtime = time.ctime(os.path.getmtime(__file__))
-            '''
-            if TARGET_MONTH_SELECT == 'YES':
-
-                if os.path.exists('SkyBot_NM.exe'):
-
-                    buildtime = time.ctime(os.path.getmtime('SkyBot_NM.exe'))
-                else:
-                    buildtime = time.ctime(os.path.getmtime(__file__))
-            else:
-                if os.path.exists('SkyBot_CM.exe'):
-
-                    buildtime = time.ctime(os.path.getmtime('SkyBot_CM.exe'))
-                else:
-                    buildtime = time.ctime(os.path.getmtime(__file__))
-            '''
         else:
 
             if TARGET_MONTH_SELECT == 1:
@@ -3079,22 +3051,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     buildtime = time.ctime(os.path.getmtime('SkyBot_MAN.exe'))
                 else:
                     buildtime = time.ctime(os.path.getmtime(__file__))
-
-            '''
-            if TARGET_MONTH_SELECT == 'YES':
-
-                if os.path.exists('SkyBot_NM.exe'):
-
-                    buildtime = time.ctime(os.path.getmtime('SkyBot_NM.exe'))
-                else:
-                    buildtime = time.ctime(os.path.getmtime(__file__))
-            else:
-                if os.path.exists('SkyBot_CM.exe'):
-
-                    buildtime = time.ctime(os.path.getmtime('SkyBot_CM.exe'))
-                else:
-                    buildtime = time.ctime(os.path.getmtime(__file__))
-            '''
         
         #self.telegram_flag = True
         self.pushButton_remove.setStyleSheet("background-color: lightGray")
@@ -3114,14 +3070,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 cm_option_title = repr(month_after_next) + '월물 주간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
                 ToTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
-            '''
-            if TARGET_MONTH_SELECT == 'YES':
-                cm_option_title = repr(next_month) + '월물 주간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
-                ToTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
-            else:
-                cm_option_title = repr(current_month) + '월물 주간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
-                ToTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
-            '''
         else:
             overnight = True
 
@@ -3140,15 +3088,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 cm_option_title = repr(month_after_next) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
                 ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
-            '''
-            if TARGET_MONTH_SELECT == 'YES':
-                cm_option_title = repr(next_month) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
-                ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
-            else:
-                cm_option_title = repr(current_month) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
-                ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
-            '''
-        
+
         ovc_start_hour = domestic_start_hour - 1 
 
         print('장 시작시간 = ', domestic_start_hour)
@@ -5964,12 +5904,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         else:
                             pass
-                        '''
-                        if TARGET_MONTH_SELECT != 'YES':
-                            self.check_oneway(self.alternate_flag)
-                        else:
-                            pass
-                        '''
                     else:
                         pass                                    
                 else:
@@ -7136,7 +7070,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def call_low_coreval_color_blink(self, blink):
 
-        global call_low_node_count
+        global call_low_node_count, call_low_node_list
         
         if call_open_list:
 
@@ -7144,13 +7078,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             loop_list = opt_total_list
 
-        count = 0            
+        count = 0
+        call_low_node_list = []            
 
         for i in loop_list:
 
             if df_call.iloc[i]['저가'] in 진성맥점:
 
                 count += 1
+                call_low_node_list.append(df_call.iloc[i]['저가'])
 
                 if blink:
 
@@ -7208,7 +7144,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def call_high_coreval_color_blink(self, blink):
 
-        global call_high_node_count
+        global call_high_node_count, call_high_node_list
         
         if call_open_list:
 
@@ -7216,13 +7152,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             loop_list = opt_total_list 
 
-        count = 0            
+        count = 0
+        call_high_node_list = []            
 
         for i in loop_list:
 
             if df_call.iloc[i]['고가'] in 진성맥점:
 
                 count += 1
+                call_high_node_list.append(df_call.iloc[i]['고가'])
                     
                 if blink:
 
@@ -8937,7 +8875,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def put_low_coreval_color_blink(self, blink):
 
-        global put_low_node_count
+        global put_low_node_count, put_low_node_list
         
         if put_open_list:
 
@@ -8945,13 +8883,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             loop_list = opt_total_list
 
-        count = 0       
+        count = 0
+        put_low_node_list = []       
 
         for i in loop_list:
 
             if df_put.iloc[i]['저가'] in 진성맥점:
 
                 count += 1
+                put_low_node_list.append(df_put.iloc[i]['저가'])
 
                 if blink:
 
@@ -9009,7 +8949,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def put_high_coreval_color_blink(self, blink):
 
-        global put_high_node_count
+        global put_high_node_count, put_high_node_list
 
         if put_open_list:
 
@@ -9017,13 +8957,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             loop_list = opt_total_list
 
-        count = 0              
+        count = 0
+        put_high_node_list = []              
 
         for i in loop_list:
 
             if df_put.iloc[i]['고가'] in 진성맥점:
 
                 count += 1
+                put_high_node_list.append(df_put.iloc[i]['고가'])
 
                 if blink:
 
@@ -16311,14 +16253,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.image_grab()
 
                     else:
-                        pass
-                    '''
-                    if TARGET_MONTH_SELECT != 'YES': 
-
-                        self.image_grab() 
-                    else:
-                        pass 
-                    '''                                                        
+                        pass                                               
 
                 # 야간 선물장 종료
                 elif result['장구분'] == '7' and result['장상태'] == '41':
@@ -16347,13 +16282,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     else:
                         pass
-                    '''
-                    if TARGET_MONTH_SELECT != 'YES':
 
-                        self.image_grab()
-                    else:
-                        pass
-                    '''
                 # 야간 옵션장 종료
                 elif result['장구분'] == '8' and result['장상태'] == '41':
 
@@ -17068,14 +16997,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         else:
                             pass
-                        '''
-                        if TARGET_MONTH_SELECT != 'YES':
 
-                            t = int(result['시간'][0:2]) * 3600 + int(result['시간'][2:4]) * 60 + int(result['시간'][4:6])
-                            self.kp200_low_node_coloring(t)
-                        else:
-                            pass
-                        '''
                         str = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 Color Update Done...\r'.format(
                             int(result['시간'][0:2]),
                             int(result['시간'][2:4]),
@@ -17102,14 +17024,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         else:
                             pass
-                        '''
-                        if TARGET_MONTH_SELECT != 'YES':
 
-                            t = int(result['시간'][0:2]) * 3600 + int(result['시간'][2:4]) * 60 + int(result['시간'][4:6])
-                            self.kp200_high_node_coloring(t)
-                        else:
-                            pass
-                        '''
                         str = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 Color Update Done...\r'.format(
                             int(result['시간'][0:2]),
                             int(result['시간'][2:4]),
