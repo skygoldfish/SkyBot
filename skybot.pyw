@@ -2721,6 +2721,12 @@ class telegram_send_worker(QThread):
             element = telegram_command.split()
             
             command_count = len(element)
+            
+            command = []
+
+            for i in range(command_count):
+
+                command.append(element[i])   
 
             if command_count == 1:
 
@@ -2728,7 +2734,7 @@ class telegram_send_worker(QThread):
                 MONTH_2 = False
                 MONTH_3 = False
 
-            elif command_count == 2:
+            elif command_count == 2 and command[0] == 'Go':
 
                 if command[1] == 1:
 
@@ -2750,13 +2756,7 @@ class telegram_send_worker(QThread):
                 else:
                     pass
             else:
-                pass
-
-            command = []
-
-            for i in range(command_count):
-
-                command.append(element[i])              
+                pass           
 
             if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (command[0] == 'Go' or command[0] == '/start'):
 
