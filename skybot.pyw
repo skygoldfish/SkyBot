@@ -2713,18 +2713,17 @@ class telegram_send_worker(QThread):
             telegram_toggle = not telegram_toggle
 
             str = 'None'
-
-            '''
+            
             temp = telegram_command.split()
 
             command = []
+            command_count = len(temp)
 
-            for i in range(len(temp)):
+            for i in range(command_count):
 
-                command.append(temp[i])
-            '''
+                command.append(temp[i])            
 
-            if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (telegram_command == 'Go' or telegram_command == '/start'):
+            if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (command[0] == 'Go' or command[0] == '/start'):
 
                 '''
                 # OL, OH 알람
@@ -2864,39 +2863,8 @@ class telegram_send_worker(QThread):
                     
                     ToTelegram(str)
                 else:
-                    pass                
+                    pass
                 
-                # 옵션 맥점 알람
-                '''                
-                if call_low_coreval_str != '':
-
-                    str = call_low_coreval_str
-                    ToTelegram(str)
-                else:
-                    pass
-
-                if call_high_coreval_str != '':
-
-                    str = call_high_coreval_str
-                    ToTelegram(str)
-                else:
-                    pass
-
-                if put_low_coreval_str != '':
-
-                    str = put_low_coreval_str
-                    ToTelegram(str)
-                else:
-                    pass
-
-                if put_high_coreval_str != '':
-
-                    str = put_high_coreval_str
-                    ToTelegram(str)
-                else:
-                    pass
-                '''
-
                 # kp200 맥점 알람
                 if kp200_low_node_str != '':
 
@@ -2910,12 +2878,69 @@ class telegram_send_worker(QThread):
                     str = kp200_high_node_str
                     ToTelegram(str)
                 else:
-                    pass                
+                    pass                    
+                
+                # 월물별 옵션맥점 알람
+                if command_count == 2:
+
+                    if command[1] == 1 and TARGET_MONTH_SELECT == 1:
+
+                        self.display_data()
+
+                    elif command[1] == 2 and TARGET_MONTH_SELECT == 2:
+
+                        self.display_data()
+
+                    elif command[1] == 3 and TARGET_MONTH_SELECT == 3:
+
+                        self.display_data()
+
+                    elif command[1] == 123:
+
+                        self.display_data()
+
+                    else:
+                        pass
+                else:
+                    pass            
             else:
                 pass
 
             self.finished.emit(str)
             self.msleep(1000 * TELEGRAM_SEND_INTERVAL)
+
+    def display_data(self):
+
+        if call_low_coreval_str != '':
+
+            str = call_low_coreval_str
+            ToTelegram(str)
+        else:
+            pass
+
+        if call_high_coreval_str != '':
+
+            str = call_high_coreval_str
+            ToTelegram(str)
+        else:
+            pass
+
+        if put_low_coreval_str != '':
+
+            str = put_low_coreval_str
+            ToTelegram(str)
+        else:
+            pass
+
+        if put_high_coreval_str != '':
+
+            str = put_high_coreval_str
+            ToTelegram(str)
+        else:
+            pass
+
+        return
+
 ########################################################################################################################
 
 ########################################################################################################################
