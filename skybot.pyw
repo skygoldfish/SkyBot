@@ -5898,26 +5898,36 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             # 진성 의미가인 경우 blinking(매우 중요 !!!)      
 
                             global call_low_coreval_str, call_high_coreval_str, put_low_coreval_str, put_high_coreval_str
+                            global call_low_node_count, call_high_node_count, put_low_node_count, put_high_node_count
+                            global call_low_node_list, call_high_node_list, put_low_node_list, put_high_node_list
 
                             if flag_call_low_coreval:
                                 self.call_low_coreval_color_blink(self.alternate_flag)
                             else:                        
                                 call_low_coreval_str = ''
+                                call_low_node_count = 0
+                                call_low_node_list = []
 
                             if flag_call_high_coreval:
                                 self.call_high_coreval_color_blink(self.alternate_flag)
                             else:
                                 call_high_coreval_str = ''
+                                call_high_node_count = 0
+                                call_high_node_list = []
 
                             if flag_put_low_coreval:
                                 self.put_low_coreval_color_blink(self.alternate_flag)
                             else:
                                 put_low_coreval_str = ''
+                                put_low_node_count = 0
+                                put_low_node_list = []
 
                             if flag_put_high_coreval:
                                 self.put_high_coreval_color_blink(self.alternate_flag)                        
                             else:
-                                put_high_coreval_str = ''   
+                                put_high_coreval_str = '' 
+                                put_high_node_count = 0
+                                put_high_node_list = []  
 
                             global kp200_low_node_str, kp200_high_node_str                            
 
