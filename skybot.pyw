@@ -12125,11 +12125,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setHorizontalHeaderItem(0, item)
+                self.tableWidget_call.resizeColumnsToContents()
 
                 item_str = '{0:d}'.format(option_pairs_count)
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(0, item) 
+                self.tableWidget_put.resizeColumnsToContents()
             else:
                 pass
 
@@ -12143,6 +12145,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     call_t8416_count += 1
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
+                    self.textBrowser.append(str) 
                     print(str)
 
                     # 추가된 행사가 갯수 표시
@@ -12150,11 +12153,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setHorizontalHeaderItem(0, item)
+                    self.tableWidget_call.resizeColumnsToContents()
 
                     item_str = '+' + '{0:d}'.format(new_actval_up_count) + '\n' + '({0:d})'.format(option_pairs_count)
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setHorizontalHeaderItem(0, item)
+                    self.tableWidget_put.resizeColumnsToContents()
                 else:
                     pass
 
@@ -12163,6 +12168,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     new_actval_down_count += 1 
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
+                    self.textBrowser.append(str) 
                     print(str)  
 
                     # 추가된 행사가 갯수 표시
@@ -12170,13 +12176,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setHorizontalHeaderItem(0, item)
+                    self.tableWidget_call.resizeColumnsToContents()
 
                     item_str = '+' + '{0:d}'.format(new_actval_down_count) + '\n' + '({0:d})'.format(option_pairs_count)
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setHorizontalHeaderItem(0, item)                        
-
-                    self.tableWidget_call.resizeColumnsToContents()
+                    self.tableWidget_put.setHorizontalHeaderItem(0, item)                    
                     self.tableWidget_put.resizeColumnsToContents()                  
 
                     if call_t8416_count == option_pairs_count - new_actval_down_count:
