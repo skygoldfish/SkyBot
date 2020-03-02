@@ -751,7 +751,8 @@ x_idx = 0
 pre_start = False
 market_service = False
 
-new_actval_count = 0
+new_actval_up_count = 0
+new_actval_down_count = 0
 
 selected_call = []
 selected_put = []
@@ -12113,12 +12114,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             current_str = dt.strftime('%H:%M:%S')
 
             global call_t8416_count, put_t8416_count
-            global new_actval_count, actval_increased
+            global new_actval_up_count, new_actval_down_count, actval_increased
 
             str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
             self.label_msg.setText(str)
 
-            if new_actval_count == 0:
+            if new_actval_up_count == 0 and new_actval_down_count == 0:
 
                 item_str = '{0:d}'.format(option_pairs_count)
                 item = QTableWidgetItem(item_str)
@@ -12134,14 +12135,162 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if block['단축코드'] == '':
 
-                actval_increased = True                
+                actval_increased = True
 
+                if call_t8416_count == 0:
+
+                    new_actval_up_count += 1
+                    call_t8416_count += 1
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
+                    print(str)
+
+                    # 추가된 행사가 갯수 표시
+                    item_str = '+' + '{0:d}'.format(new_actval_up_count) + '\n' + '({0:d})'.format(option_pairs_count)
+                    item = QTableWidgetItem(item_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setHorizontalHeaderItem(0, item)
+
+                    item_str = '+' + '{0:d}'.format(new_actval_up_count) + '\n' + '({0:d})'.format(option_pairs_count)
+                    item = QTableWidgetItem(item_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setHorizontalHeaderItem(0, item)
+                else:
+                    pass
+
+                if new_actval_up_count == 0 and put_t8416_count == 0:
+
+                    new_actval_down_count += 1 
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
+                    print(str)  
+
+                    # 추가된 행사가 갯수 표시
+                    item_str = '+' + '{0:d}'.format(new_actval_down_count) + '\n' + '({0:d})'.format(option_pairs_count)
+                    item = QTableWidgetItem(item_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setHorizontalHeaderItem(0, item)
+
+                    item_str = '+' + '{0:d}'.format(new_actval_down_count) + '\n' + '({0:d})'.format(option_pairs_count)
+                    item = QTableWidgetItem(item_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setHorizontalHeaderItem(0, item)                        
+
+                    self.tableWidget_call.resizeColumnsToContents()
+                    self.tableWidget_put.resizeColumnsToContents()                  
+
+                    if call_t8416_count == option_pairs_count - new_actval_down_count:
+
+                        if self.t8416_callworker.isRunning():
+
+                            call_기준가 = df_call['기준가'].values.tolist()
+                            call_월저 = df_call['월저'].values.tolist()
+                            call_월고 = df_call['월고'].values.tolist()
+                            call_전저 = df_call['전저'].values.tolist()
+                            call_전고 = df_call['전고'].values.tolist()
+                            call_종가 = df_call['종가'].values.tolist()
+                            call_피봇 = df_call['피봇'].values.tolist()
+                            call_시가 = df_call['시가'].values.tolist()
+                            call_저가 = df_call['저가'].values.tolist()
+                            call_고가 = df_call['고가'].values.tolist()
+
+                            call_기준가_node_list = self.make_node_list(call_기준가)
+                            call_월저_node_list = self.make_node_list(call_월저)
+                            call_월고_node_list = self.make_node_list(call_월고)
+                            call_전저_node_list = self.make_node_list(call_전저)
+                            call_전고_node_list = self.make_node_list(call_전고)
+                            call_종가_node_list = self.make_node_list(call_종가)
+                            call_피봇_node_list = self.make_node_list(call_피봇)
+                            call_시가_node_list = self.make_node_list(call_시가)
+                            call_저가_node_list = self.make_node_list(call_저가)
+                            call_고가_node_list = self.make_node_list(call_고가)
+
+                            print('Call 과거데이타 수신완료')
+
+                            self.t8416_callworker.terminate()
+                            str = '[{0:02d}:{1:02d}:{2:02d}] Call 과거데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
+                            self.textBrowser.append(str)                            
+
+                            call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
+                            self.tableWidget_call.scrollToItem(call_positionCell)
+
+                            time.sleep(1.1)
+
+                            self.t8416_putworker.start()
+                            self.t8416_putworker.daemon = True
+                        else:
+                            pass
+                    else:
+                        pass                    
+                else:
+                    pass
+                 
+                '''
+                if not actval_increased:
+
+                    actval_increased = True
+
+                    call_t8416_count += 1                
+
+                    print('call_t8416_count =', call_t8416_count) 
+
+                    if call_t8416_count == option_pairs_count:
+
+                        if self.t8416_callworker.isRunning():
+
+                            call_기준가 = df_call['기준가'].values.tolist()
+                            call_월저 = df_call['월저'].values.tolist()
+                            call_월고 = df_call['월고'].values.tolist()
+                            call_전저 = df_call['전저'].values.tolist()
+                            call_전고 = df_call['전고'].values.tolist()
+                            call_종가 = df_call['종가'].values.tolist()
+                            call_피봇 = df_call['피봇'].values.tolist()
+                            call_시가 = df_call['시가'].values.tolist()
+                            call_저가 = df_call['저가'].values.tolist()
+                            call_고가 = df_call['고가'].values.tolist()
+
+                            call_기준가_node_list = self.make_node_list(call_기준가)
+                            call_월저_node_list = self.make_node_list(call_월저)
+                            call_월고_node_list = self.make_node_list(call_월고)
+                            call_전저_node_list = self.make_node_list(call_전저)
+                            call_전고_node_list = self.make_node_list(call_전고)
+                            call_종가_node_list = self.make_node_list(call_종가)
+                            call_피봇_node_list = self.make_node_list(call_피봇)
+                            call_시가_node_list = self.make_node_list(call_시가)
+                            call_저가_node_list = self.make_node_list(call_저가)
+                            call_고가_node_list = self.make_node_list(call_고가)
+
+                            print('Call 과거데이타 수신완료')
+
+                            self.t8416_callworker.terminate()
+                            str = '[{0:02d}:{1:02d}:{2:02d}] Call 과거데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
+                            self.textBrowser.append(str)                        
+
+                            self.tableWidget_call.resizeColumnsToContents()
+
+                            call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
+                            self.tableWidget_call.scrollToItem(call_positionCell)
+
+                            time.sleep(1.1)
+
+                            self.t8416_putworker.start()
+                            self.t8416_putworker.daemon = True
+                        else:
+                            pass
+                    else:
+                        pass           
+                else:
+                    pass                   
+                
                 if call_t8416_count == option_pairs_count:
                     put_t8416_count += 1
                 else:
                     call_t8416_count += 1
+                    #put_t8416_count += 1
 
                     new_actval_count += 1 
+
+                    print('new_actval_count =', new_actval_count)
 
                     # 추가된 행사가 갯수 표시
                     item_str = '+' + '{0:d}'.format(new_actval_count) + '\n' + '({0:d})'.format(option_pairs_count)
@@ -12152,7 +12301,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     item_str = '+' + '{0:d}'.format(new_actval_count) + '\n' + '({0:d})'.format(option_pairs_count)
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setHorizontalHeaderItem(0, item)               
+                    self.tableWidget_put.setHorizontalHeaderItem(0, item) 
+                '''              
             else:
                 pass
             
@@ -12181,9 +12331,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif block['단축코드'][0:3] == '201':
 
-                if new_actval_count > 0:
+                if new_actval_up_count > 0:
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_count)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
                     self.textBrowser.append(str)
                 else:
                     pass
@@ -12291,7 +12441,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 print('Call 과거데이타 %d 개중 %d개 수신...' % (option_pairs_count, call_t8416_count))
                 
-                if call_t8416_count == option_pairs_count:
+                if call_t8416_count == option_pairs_count - new_actval_up_count:
 
                     if self.t8416_callworker.isRunning():
 
@@ -12338,6 +12488,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
                 
             elif block['단축코드'][0:3] == '301':
+
+                if new_actval_down_count > 0:
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
+                    self.textBrowser.append(str)
+                else:
+                    pass
 
                 if today_str != MONTH_FIRSTDAY:
 
@@ -12441,7 +12598,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 print('Put 과거데이타 %d 개중 %d개 수신...' % (option_pairs_count, put_t8416_count))
 
-                if put_t8416_count == option_pairs_count:
+                if put_t8416_count == option_pairs_count - new_actval_down_count:
 
                     print('\r')
                     print('t8416 Call 전광판\r')
