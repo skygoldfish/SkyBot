@@ -12446,7 +12446,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 print('Call 과거데이타 %d 개중 %d개 수신...' % (option_pairs_count, call_t8416_count))
                 
-                if call_t8416_count == option_pairs_count - new_actval_up_count:
+                # to be checked !!!
+                if call_t8416_count == option_pairs_count:
 
                     if self.t8416_callworker.isRunning():
 
