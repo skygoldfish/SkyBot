@@ -315,7 +315,7 @@ dongsi_hoga = False
 flag_telegram_send_worker = False
 flag_telegram_listen_worker = False
 
-telegram_command = 'Go'
+telegram_command = '/start'
 telegram_send_worker_on_time = 0
 flag_telegram_on = True
 
