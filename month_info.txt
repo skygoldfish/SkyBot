@@ -5,7 +5,7 @@ first day of the current month = 20200214
 mangi yagan = NO
 
 ###################### < Target Month Select > ##########################
-########  1 : current month, 2 : next month, 3 : month after next #######
+################### 1 : current month, 2 : next month ###################
 target month select = 1
 
 ########################## < CME Index Code > ###########################

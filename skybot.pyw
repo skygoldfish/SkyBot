@@ -2719,6 +2719,7 @@ class telegram_send_worker(QThread):
 
             str = 'None'
             
+            # 텔레그램 명령어 파싱
             element = telegram_command.split()
             
             command_count = len(element)
@@ -2807,7 +2808,7 @@ class telegram_send_worker(QThread):
                 if telegram_toggle:
 
                     # 옵션맥점 발생 알람
-                    if call_low_node_count >= 1:
+                    if call_low_node_list:
 
                         if TARGET_MONTH_SELECT == 1 and MONTH_1:
 
@@ -2823,13 +2824,12 @@ class telegram_send_worker(QThread):
 
                             str = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
                             ToTelegram(str)
-
                         else:
                             pass                        
                     else:
                         pass
 
-                    if call_high_node_count >= 1:
+                    if call_high_node_list:
 
                         if TARGET_MONTH_SELECT == 1 and MONTH_1:
 
@@ -2845,13 +2845,12 @@ class telegram_send_worker(QThread):
 
                             str = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
                             ToTelegram(str)
-
                         else:
                             pass
                     else:
                         pass
 
-                    if put_low_node_count >= 1:
+                    if put_low_node_list:
 
                         if TARGET_MONTH_SELECT == 1 and MONTH_1:
 
@@ -2867,13 +2866,12 @@ class telegram_send_worker(QThread):
 
                             str = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, put_low_node_list)
                             ToTelegram(str)
-
                         else:
                             pass
                     else:
                         pass
 
-                    if put_high_node_count >= 1:
+                    if put_high_node_list:
 
                         if TARGET_MONTH_SELECT == 1 and MONTH_1:
 
@@ -2889,7 +2887,6 @@ class telegram_send_worker(QThread):
 
                             str = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, put_high_node_list)
                             ToTelegram(str)
-
                         else:
                             pass
                     else:
@@ -7304,9 +7301,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global flag_call_low_coreval, flag_call_high_coreval
         global call_low_node_count, call_high_node_count
+        global call_low_node_list, call_high_node_list
 
         flag_call_low_coreval = False
         flag_call_high_coreval = False
+
+        call_low_node_list = []
+        call_high_node_list = []
 
         item = QTableWidgetItem('저가')
         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -7447,9 +7448,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def call_low_coreval_color_update(self):
 
         global flag_call_low_coreval, call_low_coreval_str
+        global call_low_node_list
+
+        dt = datetime.datetime.now()
 
         flag_call_low_coreval = False
-        dt = datetime.datetime.now()
+        call_low_node_list = []        
 
         if call_open_list:
 
@@ -7527,9 +7531,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def call_high_coreval_color_update(self):
 
         global flag_call_high_coreval, call_high_coreval_str
+        global call_high_node_list
+
+        dt = datetime.datetime.now()
 
         flag_call_high_coreval = False
-        dt = datetime.datetime.now()
+        call_high_node_list = []
 
         if call_open_list:
 
@@ -9121,9 +9128,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global flag_put_low_coreval, flag_put_high_coreval
         global put_low_node_count, put_high_node_count
+        global put_low_node_list, put_high_node_list
 
         flag_put_low_coreval = False
         flag_put_high_coreval = False
+
+        put_low_node_list = []
+        put_high_node_list = []
 
         item = QTableWidgetItem('저가')
         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -9264,9 +9275,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def put_low_coreval_color_update(self):
 
         global flag_put_low_coreval, put_low_coreval_str
+        global put_low_node_list
+
+        dt = datetime.datetime.now()
 
         flag_put_low_coreval = False
-        dt = datetime.datetime.now()
+        put_low_node_list = []
 
         if put_open_list:
 
@@ -9344,9 +9358,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def put_high_coreval_color_update(self):
 
         global flag_put_high_coreval, put_high_coreval_str
+        global put_high_node_list
+
+        dt = datetime.datetime.now()
 
         flag_put_high_coreval = False
-        dt = datetime.datetime.now()
+        put_high_node_list = []
 
         if put_open_list:
 
