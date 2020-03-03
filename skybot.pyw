@@ -2762,6 +2762,12 @@ class telegram_send_worker(QThread):
                     MONTH_2 = False
                     MONTH_3 = True
 
+                elif command[1] == '12':
+
+                    MONTH_1 = True
+                    MONTH_2 = True
+                    MONTH_3 = False
+
                 elif command[1] == '123':
 
                     MONTH_1 = True
