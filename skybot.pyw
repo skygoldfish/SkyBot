@@ -574,6 +574,9 @@ KOSPI_JONGGEUM_거래대금순매수_직전대비 = 0
 KOSPI_GIGEUM_거래대금순매수_직전대비 = 0
 KOSPI_GITA_거래대금순매수_직전대비 = 0
 
+선물_거래대금순매수 = 0
+현물_거래대금순매수 = 0
+
 FUT_FOREIGNER_직전대비 = collections.deque([0, 0, 0], 3)
 FUT_RETAIL_직전대비 = collections.deque([0, 0, 0], 3)
 FUT_INSTITUTIONAL_직전대비 = collections.deque([0, 0, 0], 3)
@@ -6641,7 +6644,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # oneway check
             if FUT_INSTITUTIONAL_거래대금순매수 > ONEWAY_THRESHOLD or FUT_RETAIL_거래대금순매수 > ONEWAY_THRESHOLD:
 
-                if 콜_수정미결합 < 풋_수정미결합 \
+                if 선물_거래대금순매수 > 0 and 현물_거래대금순매수 < 0 \ 
                     and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0:
 
                     if blink:
@@ -6704,7 +6707,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass                 
 
-                elif 콜_수정미결합 < 풋_수정미결합 \
+                elif 선물_거래대금순매수 > 0 and 현물_거래대금순매수 < 0 \
                     and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] < 0:
 
                     self.label_msg.setStyleSheet('background-color: blue; color: white')
@@ -6719,7 +6722,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성(★★★)\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
-                elif 콜_수정미결합 < 풋_수정미결합 \
+                elif 선물_거래대금순매수 > 0 and 현물_거래대금순매수 < 0 \
                     and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0:
 
                     self.label_msg.setStyleSheet('background-color: blue; color: white')
@@ -6733,7 +6736,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
             else:
 
-                if 콜_수정미결합 < 풋_수정미결합 \
+                if 선물_거래대금순매수 > 0 and 현물_거래대금순매수 < 0 \
                     and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 \
                     and FUT_RETAIL_거래대금순매수 > 0 and FUT_INSTITUTIONAL_거래대금순매수 > 0 and fut_realdata['거래량'] < 0:
 
@@ -6749,7 +6752,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if FUT_INSTITUTIONAL_거래대금순매수 < -ONEWAY_THRESHOLD or FUT_RETAIL_거래대금순매수 < -ONEWAY_THRESHOLD:
 
-                if 콜_수정미결합 > 풋_수정미결합 \
+                if 선물_거래대금순매수 < 0 and 현물_거래대금순매수 > 0 \
                     and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0:
 
                     if blink:
@@ -6811,7 +6814,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass                 
 
-                elif 콜_수정미결합 > 풋_수정미결합 \
+                elif 선물_거래대금순매수 < 0 and 현물_거래대금순매수 > 0 \
                     and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] > 0:
 
                     self.label_msg.setStyleSheet('background-color: red; color: white')
@@ -6826,7 +6829,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성(★★★)\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
-                elif 콜_수정미결합 > 풋_수정미결합 \
+                elif 선물_거래대금순매수 < 0 and 현물_거래대금순매수 > 0 \
                     and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0:
 
                     self.label_msg.setStyleSheet('background-color: red; color: white')
@@ -6841,7 +6844,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             else:
 
-                if 콜_수정미결합 > 풋_수정미결합 \
+                if 선물_거래대금순매수 < 0 and 현물_거래대금순매수 > 0 \
                     and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 \
                     and FUT_RETAIL_거래대금순매수 < 0 and FUT_INSTITUTIONAL_거래대금순매수 < 0 and fut_realdata['거래량'] > 0:
 
@@ -16305,6 +16308,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 KOSPI_FOREIGNER_직전대비, PROGRAM_직전대비
 
             global 프로그램_전체순매수금액, 프로그램_전체순매수금액직전대비
+            global 선물_거래대금순매수, 현물_거래대금순매수
 
             global kp200_realdata
             global call_result, put_result
