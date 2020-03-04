@@ -6644,7 +6644,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # oneway check
             if FUT_INSTITUTIONAL_거래대금순매수 > ONEWAY_THRESHOLD or FUT_RETAIL_거래대금순매수 > ONEWAY_THRESHOLD:
 
-                if 선물_거래대금순매수 > 0 and 현물_거래대금순매수 < 0 \ 
+                if 선물_거래대금순매수 > 0 and 현물_거래대금순매수 < 0 \
                     and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0:
 
                     if blink:
