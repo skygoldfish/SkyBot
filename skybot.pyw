@@ -2821,17 +2821,17 @@ class telegram_send_worker(QThread):
 
                         if TARGET_MONTH_SELECT == 1 and MONTH_1:
 
-                            str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 콜저가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
+                            str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 콜저가 맥점 {3} 발생 C ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
                             ToTelegram(str)
 
                         elif TARGET_MONTH_SELECT == 2 and MONTH_2:
 
-                            str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 콜저가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
+                            str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 콜저가 맥점 {3} 발생 C ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
                             ToTelegram(str)
 
                         elif TARGET_MONTH_SELECT == 3 and MONTH_3:
 
-                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
+                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 {3} 발생 C ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
                             ToTelegram(str)
                         else:
                             pass                        
@@ -2842,17 +2842,17 @@ class telegram_send_worker(QThread):
 
                         if TARGET_MONTH_SELECT == 1 and MONTH_1:
 
-                            str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 콜고가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
+                            str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 콜고가 맥점 {3} 발생 C ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
                             ToTelegram(str)
 
                         elif TARGET_MONTH_SELECT == 2 and MONTH_2:
 
-                            str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 콜고가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
+                            str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 콜고가 맥점 {3} 발생 C ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
                             ToTelegram(str)
 
                         elif TARGET_MONTH_SELECT == 3 and MONTH_3:
 
-                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
+                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 {3} 발생 C ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
                             ToTelegram(str)
                         else:
                             pass
@@ -2863,17 +2863,17 @@ class telegram_send_worker(QThread):
 
                         if TARGET_MONTH_SELECT == 1 and MONTH_1:
 
-                            str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 풋저가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, put_low_node_list)
+                            str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 풋저가 맥점 {3} 발생 P ▲".format(dt.hour, dt.minute, dt.second, put_low_node_list)
                             ToTelegram(str)
 
                         elif TARGET_MONTH_SELECT == 2 and MONTH_2:
 
-                            str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 풋저가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, put_low_node_list)
+                            str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 풋저가 맥점 {3} 발생 P ▲".format(dt.hour, dt.minute, dt.second, put_low_node_list)
                             ToTelegram(str)
 
                         elif TARGET_MONTH_SELECT == 3 and MONTH_3:
 
-                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 {3} 발생 ▼".format(dt.hour, dt.minute, dt.second, put_low_node_list)
+                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 {3} 발생 P ▲".format(dt.hour, dt.minute, dt.second, put_low_node_list)
                             ToTelegram(str)
                         else:
                             pass
@@ -2884,17 +2884,17 @@ class telegram_send_worker(QThread):
 
                         if TARGET_MONTH_SELECT == 1 and MONTH_1:
 
-                            str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 풋고가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, put_high_node_list)
+                            str = "[{0:02d}:{1:02d}:{2:02d}] 본월물 풋고가 맥점 {3} 발생 P ▼".format(dt.hour, dt.minute, dt.second, put_high_node_list)
                             ToTelegram(str)
 
                         elif TARGET_MONTH_SELECT == 2 and MONTH_2:
 
-                            str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 풋고가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, put_high_node_list)
+                            str = "[{0:02d}:{1:02d}:{2:02d}] 차월물 풋고가 맥점 {3} 발생 P ▼".format(dt.hour, dt.minute, dt.second, put_high_node_list)
                             ToTelegram(str)
 
                         elif TARGET_MONTH_SELECT == 3 and MONTH_3:
 
-                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 {3} 발생 ▲".format(dt.hour, dt.minute, dt.second, put_high_node_list)
+                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 {3} 발생 P ▼".format(dt.hour, dt.minute, dt.second, put_high_node_list)
                             ToTelegram(str)
                         else:
                             pass
@@ -2904,17 +2904,17 @@ class telegram_send_worker(QThread):
                     # 콜 원웨이 알람
                     if call_oneway_level3:
 
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 있음(▲)".format(dt.hour, dt.minute, dt.second)
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 있음(C ▲)".format(dt.hour, dt.minute, dt.second)
                         ToTelegram(str)
 
                     elif call_oneway_level4:
 
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 높음(▲ ▲)".format(dt.hour, dt.minute, dt.second)
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 높음(C ▲▲)".format(dt.hour, dt.minute, dt.second)
                         ToTelegram(str)
 
                     elif call_oneway_level5:
 
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음(▲ ▲ ▲)".format(dt.hour, dt.minute, dt.second)
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음(C ▲▲▲)".format(dt.hour, dt.minute, dt.second)
                         ToTelegram(str)
                     else:
                         pass
@@ -2922,17 +2922,17 @@ class telegram_send_worker(QThread):
                     # 풋 원웨이 알람
                     if put_oneway_level3:
 
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 있음(▼)".format(dt.hour, dt.minute, dt.second)
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 있음(P ▲)".format(dt.hour, dt.minute, dt.second)
                         ToTelegram(str)
 
                     elif put_oneway_level4:
 
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 높음(▼ ▼)".format(dt.hour, dt.minute, dt.second)
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 높음(P ▲▲)".format(dt.hour, dt.minute, dt.second)
                         ToTelegram(str)
 
                     elif put_oneway_level5:
 
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음(▼ ▼ ▼)".format(dt.hour, dt.minute, dt.second)
+                        str = "[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음(P ▲▲▲)".format(dt.hour, dt.minute, dt.second)
                         ToTelegram(str)
                     else:
                         pass
