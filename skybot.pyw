@@ -13410,9 +13410,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 cme_realdata['현재가'] = 선물_현재가
 
                 if float(현재가) < float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
-                    item = QTableWidgetItem(현재가 + ' ' + self.상태그림[0])
+                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
                 elif float(현재가) > float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
-                    item = QTableWidgetItem(현재가 + ' ' + self.상태그림[1])
+                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
                 else:    
                     item = QTableWidgetItem(현재가)
 
@@ -13431,9 +13431,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 fut_realdata['현재가'] = 선물_현재가 
 
                 if float(현재가) < float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
-                    item = QTableWidgetItem(현재가 + ' ' + self.상태그림[0])
+                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
                 elif float(현재가) > float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
-                    item = QTableWidgetItem(현재가 + ' ' + self.상태그림[1])
+                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
                 else:    
                     item = QTableWidgetItem(현재가)
 
@@ -13695,7 +13695,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if 선물_전저 >= 선물_저가:
 
                 #str = repr(선물_전저) + ' ▼'
-                str = '{0:0.2f}'.format(선물_전저) + ' ▼'
+                str = '{0:0.2f}'.format(선물_전저) + '\n▼'
 
                 item = QTableWidgetItem(str)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -13755,7 +13755,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if 선물_전고 <= 선물_고가:
 
                 #str = repr(선물_전고) + ' ▲'
-                str = '{0:0.2f}'.format(선물_전고) + ' ▲'
+                str = '{0:0.2f}'.format(선물_전고) + '\n▲'
 
                 item = QTableWidgetItem(str)
                 item.setTextAlignment(Qt.AlignCenter)
