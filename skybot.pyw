@@ -17014,13 +17014,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
 
-                            예상시가 = (CME_INDEX * dow_price) / DOW_INDEX
+                            if TARGET_MONTH_SELECT == 1:
 
-                            item = QTableWidgetItem("{0:0.2f}".format(예상시가))
-                            item.setTextAlignment(Qt.AlignCenter)
-                            item.setBackground(QBrush(검정색))
-                            item.setForeground(QBrush(대맥점색))
-                            self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)
+                                예상시가 = (CME_INDEX * dow_price) / DOW_INDEX
+
+                                item = QTableWidgetItem("{0:0.2f}".format(예상시가))
+                                item.setTextAlignment(Qt.AlignCenter)
+                                item.setBackground(QBrush(검정색))
+                                item.setForeground(QBrush(대맥점색))
+                                self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)
+                            else:
+                                pass
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] 선물 예상시가 = {3:0.2f}\r'.format(\
                                             int(result['예상체결시간'][0:2]),
