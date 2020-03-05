@@ -483,7 +483,7 @@ time_delta = 0
 START_ON = False
 
 Option_column = Enum('Option_column', '행사가 OLOH 기준가 월저 월고 전저 전고 종가 피봇 시가 시가갭 저가 현재가 고가 대비 진폭 VP OI OID')
-Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수잔량 매도잔량 건수비 잔량비 전저 전고 종가 피봇 시가 시가갭 저가 현재가 고가 대비 진폭 거래량 VR OI OID')
+Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수잔량 매도잔량 건수비 잔량비 전저 전고 종가 피봇 시가 시가갭 저가 현재가 고가 대비 진폭 거래량 FR OI OID')
 Option_volume_column = Enum('Option_volume_column', '매도누적체결량 매도누적체결건수 매수누적체결량 매수누적체결건수')
 Supply_column = Enum('Supply_column', '외인선옵 개인선옵 기관선옵 외인현물 프로그램')
 Quote_column = Enum('Quote_column', 'C-MSCC C-MDCC C-MSCR C-MDCR P-MSCC P-MDCC P-MSCR P-MDCR 콜건수비 콜잔량비 풋건수비 풋잔량비 호가종합 미결종합')
@@ -3283,7 +3283,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_fut.setHorizontalHeaderLabels(
             ['F', '▲▼', 'MSC', 'MDC', 'MSR', 'MDR', 'CR', 'RR', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
-             '현재가', '고가', '대비', '진폭', 'PVP', 'VR', 'OI', 'OI↕'])
+             '현재가', '고가', '대비', '진폭', 'PVP', 'FR', 'OI', 'OI↕'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
 
         item = QTableWidgetItem("{0}".format('CME'))
@@ -3570,11 +3570,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         item = QTableWidgetItem('0.0')
         item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(0, Futures_column.VR.value, item)
+        self.tableWidget_fut.setItem(0, Futures_column.FR.value, item)
 
         item = QTableWidgetItem('0.0')
         item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_fut.setItem(1, Futures_column.VR.value, item)        
+        self.tableWidget_fut.setItem(1, Futures_column.FR.value, item)        
 
         item = QTableWidgetItem("{0}".format(0))
         item.setTextAlignment(Qt.AlignCenter)
@@ -3786,6 +3786,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         fut_realdata['현재가'] = 0.0
         fut_realdata['고가'] = 0.0
         fut_realdata['대비'] = 0
+        fut_realdata['등락율'] = 0.0
         fut_realdata['진폭'] = 0.0
         fut_realdata['거래량'] = 0
         fut_realdata['미결'] = 0
@@ -13477,6 +13478,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
 
+            등락율 = result['등락율']
+            item = QTableWidgetItem("{0:0.2f}%".format(등락율))
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if overnight:
+                self.tableWidget_fut.setItem(0, Futures_column.FR.value, item)
+            else:
+                self.tableWidget_fut.setItem(1, Futures_column.FR.value, item)
+
             if 대비 > 0:
 
                 direction = '▲'
@@ -17911,14 +17921,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     self.futures_display(result)
 
+                    '''
                     if szTrCode == 'FC0':
 
                         if result['전일동시간대거래량'] > 0:
 
                             if overnight:
-                                fut_vr = float(self.tableWidget_fut.item(0, Futures_column.VR.value).text())
+                                fut_vr = float(self.tableWidget_fut.item(0, Futures_column.FR.value).text())
                             else:
-                                fut_vr = float(self.tableWidget_fut.item(1, Futures_column.VR.value).text())
+                                fut_vr = float(self.tableWidget_fut.item(1, Futures_column.FR.value).text())
 
                             vr = result['누적거래량'] / result['전일동시간대거래량']
 
@@ -17927,15 +17938,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 item.setTextAlignment(Qt.AlignCenter)
 
                                 if overnight:
-                                    self.tableWidget_fut.setItem(0, Futures_column.VR.value, item)
+                                    self.tableWidget_fut.setItem(0, Futures_column.FR.value, item)
                                 else:
-                                    self.tableWidget_fut.setItem(1, Futures_column.VR.value, item)
+                                    self.tableWidget_fut.setItem(1, Futures_column.FR.value, item)
                             else:
                                 pass
                         else:
                             pass
                     else:
-                        pass                     
+                        pass
+                    '''                
                 else:
                     pass
 
