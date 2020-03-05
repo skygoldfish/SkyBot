@@ -17182,9 +17182,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         #df_plotdata_kp200.iloc[0][x_idx] = kp200_realdata['현재가']
 
                         if float(result['지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
-                            item = QTableWidgetItem(result['지수'] + ' ' + self.상태그림[0])
+                            item = QTableWidgetItem(result['지수'] + '\n' + self.상태그림[0])
                         elif float(result['지수']) > float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
-                            item = QTableWidgetItem(result['지수'] + ' ' + self.상태그림[1])
+                            item = QTableWidgetItem(result['지수'] + '\n' + self.상태그림[1])
                         else:    
                             item = QTableWidgetItem(result['지수'])
 
