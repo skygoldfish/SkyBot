@@ -13470,23 +13470,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_fut.item(1, Futures_column.현재가.value).setForeground(QBrush(검정색))
 
             대비 = 선물_현재가 - 선물_시가
-            item = QTableWidgetItem("{0:0.2f}".format(대비))
+            등락율 = result['등락율']
+
+            item = QTableWidgetItem("{0:0.2f}\n({1:0.2f}%)".format(대비, 등락율))
             item.setTextAlignment(Qt.AlignCenter)
 
             if overnight:
                 self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
-
-            등락율 = result['등락율']
-            item = QTableWidgetItem("{0:0.2f}%".format(등락율))
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if overnight:
-                self.tableWidget_fut.setItem(0, Futures_column.FR.value, item)
-            else:
-                self.tableWidget_fut.setItem(1, Futures_column.FR.value, item)
-
+            
             if 대비 > 0:
 
                 direction = '▲'
