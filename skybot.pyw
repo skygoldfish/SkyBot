@@ -311,6 +311,7 @@ t2835_month_info = ''
 ovc_start_hour = domestic_start_hour - 1
 
 dongsi_hoga = False
+flag_kp200_start_set = False
 
 flag_telegram_send_worker = False
 flag_telegram_listen_worker = False
@@ -5990,7 +5991,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         pass                    
                     
                     # 원웨이장 표시(주간만)
-                    if not overnight and not service_terminate:
+                    if not overnight and not dongsi_hoga:
 
                         if TARGET_MONTH_SELECT == 1:
 
@@ -17171,6 +17172,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 global kospi_price, kospi_text_color   
                 global kosdaq_price, kosdaq_text_color 
                 global flag_kp200_low, flag_kp200_high
+                global flag_kp200_start_set
 
                 # IJ 데이타표시
                 if result['업종코드'] == KOSPI200:
@@ -17212,7 +17214,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
 
-                    if result['시가지수'] != self.tableWidget_fut.item(2, Futures_column.시가.value).text():
+                    if result['시가지수'] != self.tableWidget_fut.item(2, Futures_column.시가.value).text() and not flag_kp200_start_set:
+
+                        flag_kp200_start_set = True
 
                         kp200_realdata['시가'] = round(float(result['시가지수']), 2)
                         df_plotdata_kp200.iloc[0][선물장간_시간차] = round(float(result['시가지수']), 2)
