@@ -3375,16 +3375,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.Plot2.enableAutoRange('y', True)
         self.Plot2.plotItem.showGrid(True, True, 0.5)
         self.Plot2.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+        self.Plot2.setXLink(self.Plot1) 
 
         if UI_STYLE == 'Vertical_view.ui':
 
             self.Plot3.enableAutoRange('y', True)
             self.Plot3.plotItem.showGrid(True, True, 0.5)
             self.Plot3.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+            self.Plot3.setXLink(self.Plot1)
 
             self.Plot4.enableAutoRange('y', True)
             self.Plot4.plotItem.showGrid(True, True, 0.5)
             self.Plot4.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+            self.Plot4.setXLink(self.Plot1)
         else:
             pass
 
