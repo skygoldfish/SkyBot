@@ -13378,14 +13378,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 1:
 
-                    ToTelegram("본월물 텔레그램 Polling이 시작되었습니다.")
+                    ToTelegram("본월물 텔레그램 Polling이 시작됩니다.")
 
                 elif TARGET_MONTH_SELECT == 2:
 
-                    ToTelegram("차월물 텔레그램 Polling이 시작되었습니다.")
+                    ToTelegram("차월물 텔레그램 Polling이 시작됩니다.")
 
                 else:
-                    ToTelegram("MAN 텔레그램 Polling이 시작되었습니다.")
+                    ToTelegram("MAN 텔레그램 Polling이 시작됩니다.")
                 
                 self.pushButton_remove.setStyleSheet("background-color: lawngreen")
                 #self.telegram_flag = True
@@ -18880,8 +18880,38 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def RemoveCode(self):
 
         global flag_telegram_on
+        global flag_telegram_listen_worker
+
+        dt = datetime.datetime.now()
+
+        flag_telegram_on = not flag_telegram_on
         
-        flag_telegram_on = not flag_telegram_on   
+        if TELEGRAM_SERVICE == 'ON' and not flag_telegram_listen_worker:
+
+            flag_telegram_on = True
+
+            self.telegram_listen_worker.start()
+            self.telegram_listen_worker.daemon = True
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Polling이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
+
+            if TARGET_MONTH_SELECT == 1:
+
+                ToTelegram("본월물 텔레그램 Polling이 시작됩니다.")
+
+            elif TARGET_MONTH_SELECT == 2:
+
+                ToTelegram("차월물 텔레그램 Polling이 시작됩니다.")
+
+            else:
+                ToTelegram("MAN 텔레그램 Polling이 시작됩니다.")
+            
+            self.pushButton_remove.setStyleSheet("background-color: lawngreen")
+            
+            flag_telegram_listen_worker = True            
+        else:
+            pass               
 
         if flag_telegram_on:
             
@@ -18892,7 +18922,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             self.pushButton_remove.setStyleSheet("background-color: lightGray")
             print('flag_telegram_on =', flag_telegram_on)
-
+        
         return
 
     def closeEvent(self,event):
