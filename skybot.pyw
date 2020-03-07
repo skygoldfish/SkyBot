@@ -156,12 +156,12 @@ with open('month_info.txt', mode='r') as monthfile:
     tmp = monthfile.readline().strip()
     temp = tmp.split()
     DOW_INDEX = int(temp[4])
-    print('DOW_INDEX', DOW_INDEX)
+    print('DOW_INDEX =', DOW_INDEX)
 
     tmp = monthfile.readline().strip()
     temp = tmp.split()
     CME_INDEX = float(temp[5])
-    print('CME_INDEX', CME_INDEX)
+    print('CME_INDEX =', CME_INDEX)
 
     tmp = monthfile.readline().strip()
     tmp = monthfile.readline().strip()
@@ -169,32 +169,32 @@ with open('month_info.txt', mode='r') as monthfile:
     tmp = monthfile.readline().strip()
     temp = tmp.split()
     SP500_LAST_LOW = float(temp[5])
-    print('SP500_LAST_LOW', SP500_LAST_LOW)
+    print('SP500_LAST_LOW =', SP500_LAST_LOW)
 
     tmp = monthfile.readline().strip()
     temp = tmp.split()
     SP500_LAST_HIGH = float(temp[5])
-    print('SP500_LAST_HIGH', SP500_LAST_HIGH)
+    print('SP500_LAST_HIGH =', SP500_LAST_HIGH)
 
     tmp = monthfile.readline().strip()
     temp = tmp.split()
     DOW_LAST_LOW = float(temp[4])
-    print('DOW_LAST_LOW', DOW_LAST_LOW)
+    print('DOW_LAST_LOW =', DOW_LAST_LOW)
 
     tmp = monthfile.readline().strip()
     temp = tmp.split()
     DOW_LAST_HIGH = float(temp[4])
-    print('DOW_LAST_HIGH', DOW_LAST_HIGH)
+    print('DOW_LAST_HIGH =', DOW_LAST_HIGH)
 
     tmp = monthfile.readline().strip()
     temp = tmp.split()
     NASDAQ_LAST_LOW = float(temp[4])
-    print('NASDAQ_LAST_LOW', NASDAQ_LAST_LOW)
+    print('NASDAQ_LAST_LOW =', NASDAQ_LAST_LOW)
 
     tmp = monthfile.readline().strip()
     temp = tmp.split()
     NASDAQ_LAST_HIGH = float(temp[4])
-    print('NASDAQ_LAST_HIGH', NASDAQ_LAST_HIGH)
+    print('NASDAQ_LAST_HIGH =', NASDAQ_LAST_HIGH)
 
 with open('UI_Style.txt', mode='r') as uifile:
 
@@ -1063,6 +1063,10 @@ nasdaq_전일종가 = 0.0
 sp500_시가 = 0.0
 dow_시가 = 0.0  
 nasdaq_시가 = 0.0
+
+sp500_피봇 = 0.0
+dow_피봇 = 0.0  
+nasdaq_피봇 = 0.0
 
 sp500_저가 = 0.0
 dow_저가 = 0.0  
@@ -3528,7 +3532,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if UI_STYLE == 'Vertical_view.ui':
 
             global plot3_time_line, plot3_time_line_start, plot3_time_line_yagan_start 
-            global plot3_ovc_close_line, plot3_ovc_open_line, plot3_ovc_high_line, plot3_ovc_low_line, plot3_curve 
+            global plot3_ovc_close_line, plot3_ovc_open_line, plot3_ovc_high_line, plot3_ovc_low_line, plot3_curve
+            global plot3_ovc_jl_line, plot3_ovc_jh_line, plot3_ovc_pivot_line 
 
             global plot4_time_line, plot4_time_line_start, plot4_time_line_yagan_start 
             global plot4_fut_open_line, plot4_fut_close_line, plot4_fut_pivot_line, plot4_fut_jl_line, plot4_fut_jh_line
@@ -3538,8 +3543,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot3_time_line_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
             plot3_time_line_yagan_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
 
+            plot3_ovc_jl_line = self.Plot3.addLine(x=None, pen=goldenrod_pen)
+            plot3_ovc_jh_line = self.Plot3.addLine(x=None, pen=gold_pen)  
             plot3_ovc_close_line = self.Plot3.addLine(x=None, pen=green_pen)
-            plot3_ovc_open_line = self.Plot3.addLine(x=None, pen=yellow_pen)            
+            plot3_ovc_open_line = self.Plot3.addLine(x=None, pen=yellow_pen)
+            plot3_ovc_pivot_line = self.Plot3.addLine(x=None, pen=fut_pvt_pen)
+
             plot3_ovc_low_line = self.Plot3.addLine(x=None, pen=skyblue_pen)
             plot3_ovc_high_line = self.Plot3.addLine(x=None, pen=orange_pen)
             
@@ -4631,39 +4640,96 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 plot3_curve.clear()
 
                 if dow_전일종가 > 0:
-
                     plot3_ovc_close_line.setValue(dow_전일종가)
-                    plot3_ovc_open_line.setValue(dow_시가)
-                    plot3_ovc_high_line.setValue(dow_고가)
-                    plot3_ovc_low_line.setValue(dow_저가)
                 else:
                     pass
+
+                if dow_시가 > 0:
+                    plot3_ovc_open_line.setValue(dow_시가)
+                else:
+                    pass
+
+                if DOW_LAST_LOW > 0:
+                    plot3_ovc_jl_line.setValue(DOW_LAST_LOW)
+                else:
+                    pass
+
+                if DOW_LAST_HIGH > 0:
+                    plot3_ovc_jh_line.setValue(DOW_LAST_HIGH)
+                else:
+                    pass
+
+                if dow_피봇 > 0:
+                    plot3_ovc_pivot_line.setValue(dow_피봇)
+                else:
+                    pass
+
+                #plot3_ovc_low_line.setValue(dow_저가)
+                #plot3_ovc_high_line.setValue(dow_고가)
 
             elif comboindex3 == 1:
 
                 plot3_curve.clear()
 
-                if sp500_전일종가 > 0:
-                    
+                if sp500_전일종가 > 0:                    
                     plot3_ovc_close_line.setValue(sp500_전일종가)
-                    plot3_ovc_open_line.setValue(sp500_시가)
-                    plot3_ovc_high_line.setValue(sp500_고가)
-                    plot3_ovc_low_line.setValue(sp500_저가)                
                 else:
                     pass
+
+                if sp500_시가 > 0:    
+                    plot3_ovc_open_line.setValue(sp500_시가)
+                else:
+                    pass
+
+                if SP500_LAST_LOW > 0:
+                    plot3_ovc_jl_line.setValue(SP500_LAST_LOW)
+                else:
+                    pass
+
+                if SP500_LAST_HIGH > 0:
+                    plot3_ovc_jh_line.setValue(SP500_LAST_HIGH)
+                else:
+                    pass
+
+                if sp500_피봇 > 0:
+                    plot3_ovc_pivot_line.setValue(sp500_피봇)
+                else:
+                    pass
+
+                #plot3_ovc_low_line.setValue(sp500_저가)
+                #plot3_ovc_high_line.setValue(sp500_고가)
 
             elif comboindex3 == 2:
 
                 plot3_curve.clear()
 
-                if nasdaq_전일종가 > 0:
-                    
+                if nasdaq_전일종가 > 0:                    
                     plot3_ovc_close_line.setValue(nasdaq_전일종가)
-                    plot3_ovc_open_line.setValue(nasdaq_시가)
-                    plot3_ovc_high_line.setValue(nasdaq_고가)
-                    plot3_ovc_low_line.setValue(nasdaq_저가)                
                 else:
                     pass
+
+                if nasdaq_시가 > 0: 
+                    plot3_ovc_open_line.setValue(nasdaq_시가)
+                else:
+                    pass
+
+                if NASDAQ_LAST_LOW > 0:
+                    plot3_ovc_jl_line.setValue(NASDAQ_LAST_LOW)
+                else:
+                    pass
+
+                if NASDAQ_LAST_HIGH > 0:
+                    plot3_ovc_jh_line.setValue(NASDAQ_LAST_HIGH)
+                else:
+                    pass
+
+                if nasdaq_피봇 > 0:
+                    plot3_ovc_pivot_line.setValue(nasdaq_피봇)
+                else:
+                    pass
+
+                #plot3_ovc_low_line.setValue(nasdaq_저가) 
+                #plot3_ovc_high_line.setValue(nasdaq_고가)
             else:
                 pass
 
@@ -5670,8 +5736,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if dow_전일종가 > 0:
                             plot3_ovc_close_line.setValue(dow_전일종가)
                         else:
-                            pass             
+                            pass
 
+                        if DOW_LAST_LOW > 0:
+                            plot3_ovc_jl_line.setValue(DOW_LAST_LOW)
+                        else:
+                            pass 
+
+                        if DOW_LAST_HIGH > 0:
+                            plot3_ovc_jh_line.setValue(DOW_LAST_HIGH)
+                        else:
+                            pass            
+
+                        '''
                         if dow_고가 > 0:
                             plot3_ovc_high_line.setValue(dow_고가)
                         else:
@@ -5681,6 +5758,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             plot3_ovc_low_line.setValue(dow_저가)
                         else:
                             pass
+                        '''
                         
                         plot3_curve.setData(plot3_data)
 
@@ -5694,8 +5772,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if sp500_전일종가 > 0:
                             plot3_ovc_close_line.setValue(sp500_전일종가)
                         else:
+                            pass 
+
+                        if SP500_LAST_LOW > 0:
+                            plot3_ovc_jl_line.setValue(SP500_LAST_LOW)
+                        else:
+                            pass 
+
+                        if SP500_LAST_HIGH > 0:
+                            plot3_ovc_jh_line.setValue(SP500_LAST_HIGH)
+                        else:
                             pass             
 
+                        '''
                         if sp500_고가 > 0:
                             plot3_ovc_high_line.setValue(sp500_고가)
                         else:
@@ -5705,6 +5794,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             plot3_ovc_low_line.setValue(sp500_저가)
                         else:
                             pass
+                        '''
                         
                         plot3_curve.setData(plot3_data)
 
@@ -5718,8 +5808,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if nasdaq_전일종가 > 0:
                             plot3_ovc_close_line.setValue(nasdaq_전일종가)
                         else:
-                            pass             
+                            pass   
 
+                        if NASDAQ_LAST_LOW > 0:
+                            plot3_ovc_jl_line.setValue(NASDAQ_LAST_LOW)
+                        else:
+                            pass 
+
+                        if NASDAQ_LAST_HIGH > 0:
+                            plot3_ovc_jh_line.setValue(NASDAQ_LAST_HIGH)
+                        else:
+                            pass            
+
+                        '''
                         if nasdaq_고가 > 0:
                             plot3_ovc_high_line.setValue(nasdaq_고가)
                         else:
@@ -5729,6 +5830,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             plot3_ovc_low_line.setValue(nasdaq_저가)
                         else:
                             pass
+                        '''
                         
                         plot3_curve.setData(plot3_data)
                     else:
@@ -18392,7 +18494,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if result['종목코드'] == NASDAQ:
 
-                    global nasdaq_price, nasdaq_text_color, nasdaq_시가, nasdaq_전일종가, nasdaq_저가, nasdaq_고가 
+                    global nasdaq_price, nasdaq_text_color, nasdaq_시가, nasdaq_전일종가, nasdaq_피봇, nasdaq_저가, nasdaq_고가 
 
                     nasdaq_저가 =  result['저가']
                     nasdaq_고가 =  result['고가']              
@@ -18418,6 +18520,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     df_plotdata_nasdaq.iloc[0][0] = nasdaq_전일종가
                                     df_plotdata_nasdaq.iloc[0][1] = result['시가']
                                     nasdaq_시가 = result['시가']
+
+                                    if NASDAQ_LAST_LOW > 0 and NASDAQ_LAST_HIGH > 0:
+
+                                        nasdaq_피봇 = self.calc_pivot(NASDAQ_LAST_LOW, NASDAQ_LAST_HIGH, nasdaq_전일종가, nasdaq_시가)
+                                    else:
+                                        pass
                                 else:
                                     pass                                
 
@@ -18437,6 +18545,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     df_plotdata_nasdaq.iloc[0][0] = nasdaq_전일종가
                                     df_plotdata_nasdaq.iloc[0][1] = result['시가']
                                     nasdaq_시가 = result['시가']
+
+                                    if NASDAQ_LAST_LOW > 0 and NASDAQ_LAST_HIGH > 0:
+
+                                        nasdaq_피봇 = self.calc_pivot(NASDAQ_LAST_LOW, NASDAQ_LAST_HIGH, nasdaq_전일종가, nasdaq_시가)
+                                    else:
+                                        pass
                                 else:
                                     pass                                
 
@@ -18460,6 +18574,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     df_plotdata_nasdaq.iloc[0][0] = nasdaq_전일종가
                                     df_plotdata_nasdaq.iloc[0][1] = result['시가']
                                     nasdaq_시가 = result['시가']
+
+                                    if NASDAQ_LAST_LOW > 0 and NASDAQ_LAST_HIGH > 0:
+
+                                        nasdaq_피봇 = self.calc_pivot(NASDAQ_LAST_LOW, NASDAQ_LAST_HIGH, nasdaq_전일종가, nasdaq_시가)
+                                    else:
+                                        pass
                                 else:
                                     pass                                
 
@@ -18479,6 +18599,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     df_plotdata_nasdaq.iloc[0][0] = nasdaq_전일종가
                                     df_plotdata_nasdaq.iloc[0][1] = result['시가']
                                     nasdaq_시가 = result['시가']
+
+                                    if NASDAQ_LAST_LOW > 0 and NASDAQ_LAST_HIGH > 0:
+
+                                        nasdaq_피봇 = self.calc_pivot(NASDAQ_LAST_LOW, NASDAQ_LAST_HIGH, nasdaq_전일종가, nasdaq_시가)
+                                    else:
+                                        pass
                                 else:
                                     pass                                
 
@@ -18501,7 +18627,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif result['종목코드'] == SP500:
 
-                    global sp500_price, sp500_text_color, sp500_시가, sp500_전일종가, sp500_저가, sp500_고가
+                    global sp500_price, sp500_text_color, sp500_시가, sp500_전일종가, sp500_피봇, sp500_저가, sp500_고가
 
                     sp500_저가 =  result['저가']
                     sp500_고가 =  result['고가']
@@ -18529,6 +18655,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     df_plotdata_sp500.iloc[0][0] = sp500_전일종가
                                     df_plotdata_sp500.iloc[0][1] = result['시가']
                                     sp500_시가 = result['시가']
+
+                                    if SP500_LAST_LOW > 0 and SP500_LAST_HIGH > 0:
+
+                                        sp500_피봇 = self.calc_pivot(SP500_LAST_LOW, SP500_LAST_HIGH, sp500_전일종가, sp500_시가)
+                                    else:
+                                        pass
                                 else:
                                     pass
 
@@ -18550,6 +18682,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     df_plotdata_sp500.iloc[0][0] = sp500_전일종가
                                     df_plotdata_sp500.iloc[0][1] = result['시가']
                                     sp500_시가 = result['시가']
+
+                                    if SP500_LAST_LOW > 0 and SP500_LAST_HIGH > 0:
+
+                                        sp500_피봇 = self.calc_pivot(SP500_LAST_LOW, SP500_LAST_HIGH, sp500_전일종가, sp500_시가)
+                                    else:
+                                        pass
                                 else:
                                     pass
 
@@ -18577,6 +18715,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     df_plotdata_sp500.iloc[0][0] = sp500_전일종가
                                     df_plotdata_sp500.iloc[0][1] = result['시가']
                                     sp500_시가 = result['시가']
+
+                                    if SP500_LAST_LOW > 0 and SP500_LAST_HIGH > 0:
+
+                                        sp500_피봇 = self.calc_pivot(SP500_LAST_LOW, SP500_LAST_HIGH, sp500_전일종가, sp500_시가)
+                                    else:
+                                        pass
                                 else:
                                     pass
 
@@ -18598,6 +18742,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     df_plotdata_sp500.iloc[0][0] = sp500_전일종가
                                     df_plotdata_sp500.iloc[0][1] = result['시가']
                                     sp500_시가 = result['시가']
+
+                                    if SP500_LAST_LOW > 0 and SP500_LAST_HIGH > 0:
+
+                                        sp500_피봇 = self.calc_pivot(SP500_LAST_LOW, SP500_LAST_HIGH, sp500_전일종가, sp500_시가)
+                                    else:
+                                        pass
                                 else:
                                     pass
 
@@ -18622,7 +18772,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif result['종목코드'] == DOW:
 
-                    global dow_text_color, dow_시가, dow_전일종가, dow_저가, dow_고가 
+                    global dow_text_color, dow_시가, dow_전일종가, dow_피봇, dow_저가, dow_고가 
 
                     dow_저가 =  result['저가']
                     dow_고가 =  result['고가']
@@ -18652,6 +18802,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     df_plotdata_dow.iloc[0][0] = dow_전일종가
                                     df_plotdata_dow.iloc[0][1] = result['시가']
                                     dow_시가 = result['시가']
+
+                                    if DOW_LAST_LOW > 0 and DOW_LAST_HIGH > 0:
+
+                                        dow_피봇 = self.calc_pivot(DOW_LAST_LOW, DOW_LAST_HIGH, dow_전일종가, dow_시가)
+                                    else:
+                                        pass
                                 else:
                                     pass                                
 
@@ -18673,6 +18829,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     df_plotdata_dow.iloc[0][0] = dow_전일종가
                                     df_plotdata_dow.iloc[0][1] = result['시가']
                                     dow_시가 = result['시가']
+
+                                    if DOW_LAST_LOW > 0 and DOW_LAST_HIGH > 0:
+
+                                        dow_피봇 = self.calc_pivot(DOW_LAST_LOW, DOW_LAST_HIGH, dow_전일종가, dow_시가)
+                                    else:
+                                        pass
                                 else:
                                     pass                                
 
@@ -18698,6 +18860,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     df_plotdata_dow.iloc[0][0] = dow_전일종가
                                     df_plotdata_dow.iloc[0][1] = result['시가']
                                     dow_시가 = result['시가']
+
+                                    if DOW_LAST_LOW > 0 and DOW_LAST_HIGH > 0:
+
+                                        dow_피봇 = self.calc_pivot(DOW_LAST_LOW, DOW_LAST_HIGH, dow_전일종가, dow_시가)
+                                    else:
+                                        pass
                                 else:
                                     pass                                
 
@@ -18719,6 +18887,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     df_plotdata_dow.iloc[0][0] = dow_전일종가
                                     df_plotdata_dow.iloc[0][1] = result['시가']
                                     dow_시가 = result['시가']
+
+                                    if DOW_LAST_LOW > 0 and DOW_LAST_HIGH > 0:
+
+                                        dow_피봇 = self.calc_pivot(DOW_LAST_LOW, DOW_LAST_HIGH, dow_전일종가, dow_시가)
+                                    else:
+                                        pass
                                 else:
                                     pass                                
 
