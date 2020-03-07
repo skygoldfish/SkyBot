@@ -4,7 +4,7 @@ Current Month = 202003
 First Day of the Current Month = 20200214
 Mangi Yagan = NO
 
-###################### < Target Month Select > ##########################
+####################### < Target Month Select > #########################
 ################### 1 : current month, 2 : next month ###################
 Target Month Select = 1
 
