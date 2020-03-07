@@ -18475,7 +18475,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         night_time = int(result['체결시간_한국'][0:2])
 
-                        if 0 <= night_time <= 5:
+                        if 0 <= night_time <= 6:
                             night_time = night_time + 24
                         else:
                             pass
