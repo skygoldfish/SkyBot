@@ -16508,7 +16508,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global flag_telegram_send_worker
             global dongsi_hoga
 
-            global dow_price
+            global nasdaq_price, nasdaq_text_color, nasdaq_시가, nasdaq_전일종가, nasdaq_피봇, nasdaq_저가, nasdaq_고가 
+            global sp500_price, sp500_text_color, sp500_시가, sp500_전일종가, sp500_피봇, sp500_저가, sp500_고가            
+            global dow_price, dow_text_color, dow_시가, dow_전일종가, dow_피봇, dow_저가, dow_고가 
 
             start_time = timeit.default_timer()
 
@@ -16694,6 +16696,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 DOW 지수 = {3}\r'.format(dt.hour, dt.minute, dt.second, dow_price)
+                    self.textBrowser.append(str)
+
                     self.SaveResult()     
 
                     market_service = False
@@ -16703,11 +16708,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     self.pushButton_add.setText('ScrShot')
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str) 
+                    #str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    #self.textBrowser.append(str) 
 
                     # 해외선물 지수 요청취소                    
-                    self.OVC.UnadviseRealData()
+                    #self.OVC.UnadviseRealData()
 
                     if TARGET_MONTH_SELECT == 1:
 
@@ -16722,6 +16727,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 DOW 지수 = {3}\r'.format(dt.hour, dt.minute, dt.second, dow_price)
+                    self.textBrowser.append(str)
+
                     self.SaveResult()
 
                     market_service = False
@@ -16731,11 +16739,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     self.pushButton_add.setText('ScrShot')
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)  
+                    #str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    #self.textBrowser.append(str)  
 
                     # 해외선물 지수 요청취소                    
-                    self.OVC.UnadviseRealData()
+                    #self.OVC.UnadviseRealData()
 
                     if TARGET_MONTH_SELECT == 1:
 
@@ -18482,7 +18490,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.label_atm.setText(str)
                     else:
-                        pass      
+                        pass   
+
+                    if int(result['체결시간_한국'][0:2]) == 6 and int(result['체결시간_한국'][2:4]) == 15:
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
+                            (int(result['체결시간_한국'][0:2]), 
+                            int(result['체결시간_한국'][2:4]), 
+                            int(result['체결시간_한국'][4:6]),
+                            dow_저가, dow_고가, dow_price)
+                        self.textBrowser.append(str)
+                    else:
+                        pass   
                 else:
                     # 해외선물 개장시간은 국내시장의 1시간 전
                     if result['체결시간_한국'] != '':
@@ -18507,9 +18526,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass   
                 '''                         
 
-                if result['종목코드'] == NASDAQ:
-
-                    global nasdaq_price, nasdaq_text_color, nasdaq_시가, nasdaq_전일종가, nasdaq_피봇, nasdaq_저가, nasdaq_고가 
+                if result['종목코드'] == NASDAQ:                    
 
                     nasdaq_저가 =  result['저가']
                     nasdaq_고가 =  result['고가']              
@@ -18640,9 +18657,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass                    
 
-                elif result['종목코드'] == SP500:
-
-                    global sp500_price, sp500_text_color, sp500_시가, sp500_전일종가, sp500_피봇, sp500_저가, sp500_고가
+                elif result['종목코드'] == SP500:                    
 
                     sp500_저가 =  result['저가']
                     sp500_고가 =  result['고가']
@@ -18786,8 +18801,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         pass                    
 
                 elif result['종목코드'] == DOW:
-
-                    global dow_text_color, dow_시가, dow_전일종가, dow_피봇, dow_저가, dow_고가 
 
                     dow_저가 =  result['저가']
                     dow_고가 =  result['고가']
