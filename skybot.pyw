@@ -293,6 +293,11 @@ with open('rules.txt', mode='r') as initfile:
 모니터번호 = 0
 nRowCount = int(행사가갯수)
 
+ovc_start_hour = domestic_start_hour - 1
+
+day_timespan = 395 + 10
+overnight_timespan = 660 + 60 + 10
+
 if UI_STYLE == 'Vertical_view.ui':
 
     # Plot3 관련 전역변수    
@@ -347,8 +352,6 @@ month_after_next = 0
 
 t2301_month_info = ''
 t2835_month_info = ''
-
-ovc_start_hour = domestic_start_hour - 1
 
 dongsi_hoga = False
 flag_kp200_start_set = False
@@ -3216,7 +3219,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         ovc_start_hour = domestic_start_hour - 1 
 
-        print('장 시작시간 = ', domestic_start_hour)
+        print('장시작 준비시간 =', ovc_start_hour)
 
         self.setWindowTitle(cm_option_title)
         
@@ -3415,23 +3418,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.Plot1.enableAutoRange('y', True)
         self.Plot1.plotItem.showGrid(True, True, 0.5)
-        self.Plot1.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)        
+        self.Plot1.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)        
 
         self.Plot2.enableAutoRange('y', True)
         self.Plot2.plotItem.showGrid(True, True, 0.5)
-        self.Plot2.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+        self.Plot2.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
         self.Plot2.setXLink(self.Plot1) 
 
         if UI_STYLE == 'Vertical_view.ui':
 
             self.Plot3.enableAutoRange('y', True)
             self.Plot3.plotItem.showGrid(True, True, 0.5)
-            self.Plot3.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+            self.Plot3.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
             self.Plot3.setXLink(self.Plot1)
 
             self.Plot4.enableAutoRange('y', True)
             self.Plot4.plotItem.showGrid(True, True, 0.5)
-            self.Plot4.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
+            self.Plot4.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
             self.Plot4.setXLink(self.Plot1)
         else:
             pass
@@ -5579,7 +5582,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if not service_terminate:
 
                 if ovc_x_idx > 0:
-                    str = '{0:02d}:{1:02d}:{2:02d} ({3})'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), ovc_x_idx)
+                    str = '{0:02d}:{1:02d}:{2:02d}'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                 else:
                     str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
             else:
@@ -10014,80 +10017,80 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if not overnight:
                     
-                    self.Plot1.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
-                    plot1_time_line.setValue(선물장간_시간차 + 395 + 9)
+                    self.Plot1.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+                    plot1_time_line.setValue(선물장간_시간차 + day_timespan - 1)
 
-                    self.Plot2.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
-                    plot2_time_line.setValue(선물장간_시간차 + 395 + 9)
+                    self.Plot2.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+                    plot2_time_line.setValue(선물장간_시간차 + day_timespan - 1)
 
                     if UI_STYLE == 'Vertical_view.ui':
 
-                        self.Plot3.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
-                        plot3_time_line.setValue(선물장간_시간차 + 395 + 9)
+                        self.Plot3.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+                        plot3_time_line.setValue(선물장간_시간차 + day_timespan - 1)
 
-                        self.Plot4.setRange(xRange=[0, 선물장간_시간차 + 395 + 10], padding=0)
-                        plot4_time_line.setValue(선물장간_시간차 + 395 + 9)
+                        self.Plot4.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+                        plot4_time_line.setValue(선물장간_시간차 + day_timespan - 1)
                     else:
                         pass
 
-                    df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + 395 + 10))
-                    df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + 395 + 10))
+                    df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + day_timespan))
 
-                    df_plotdata_call_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
-                    df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
-                    df_plotdata_volume_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
+                    df_plotdata_call_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_volume_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
 
-                    df_plotdata_call_oi = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
-                    df_plotdata_put_oi = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
+                    df_plotdata_call_oi = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_put_oi = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
 
-                    df_plotdata_two_sum = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
-                    df_plotdata_two_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
+                    df_plotdata_two_sum = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_two_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
 
-                    df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
-                    df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
-                    df_plotdata_fut_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
+                    df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_fut_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
 
-                    df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
-                    df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
-                    df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 395 + 10))
+                    df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                 else:
                     # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
-                    self.Plot1.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
-                    plot1_time_line.setValue(선물장간_시간차 + 660 + 60 + 9)
+                    self.Plot1.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
+                    plot1_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
 
-                    self.Plot2.setRange(xRange=[0, 선물장간_시간차 + 660 + 60 + 10], padding=0)
-                    plot2_time_line.setValue(선물장간_시간차 + 660 + 60 + 9)
+                    self.Plot2.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
+                    plot2_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
 
                     if UI_STYLE == 'Vertical_view.ui':
 
-                        self.Plot3.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
-                        plot3_time_line.setValue(선물장간_시간차 + 660 + 60 + 9)
+                        self.Plot3.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
+                        plot3_time_line.setValue(선물장간_시간차 +overnight_timespan - 1)
 
-                        self.Plot4.setRange(xRange=[0, 선물장간_시간차 + 660  + 60 + 10], padding=0)
-                        plot4_time_line.setValue(선물장간_시간차 + 660 + 60 + 9)
+                        self.Plot4.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
+                        plot4_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
                     else:
                         pass
 
-                    df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
-                    df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
+                    df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + overnight_timespan))
 
-                    df_plotdata_call_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
-                    df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
-                    df_plotdata_volume_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
+                    df_plotdata_call_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_volume_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
 
-                    df_plotdata_call_oi = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
-                    df_plotdata_put_oi = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
+                    df_plotdata_call_oi = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_put_oi = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
 
-                    df_plotdata_two_sum = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
-                    df_plotdata_two_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
+                    df_plotdata_two_sum = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_two_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
 
-                    df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
-                    df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
-                    df_plotdata_fut_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
+                    df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_fut_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
 
-                    df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
-                    df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
-                    df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + 660 + 60 + 10))
+                    df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
 
                 # 콜처리
                 for i in range(option_pairs_count):
@@ -18553,7 +18556,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         nasdaq_직전대비.extend([nasdaq_delta - nasdaq_delta_old])
                         temp = list(nasdaq_직전대비)
                         
-                        if 2 <= ovc_x_idx <= 789:
+                        if 2 <= ovc_x_idx <= overnight_timespan - 1:
                             df_plotdata_nasdaq.iloc[0][ovc_x_idx] = result['체결가격']
                         else:
                             pass
@@ -18684,7 +18687,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         sp500_직전대비.extend([sp500_delta - sp500_delta_old])
                         temp = list(sp500_직전대비)
                         
-                        if 2 <= ovc_x_idx <= 789:
+                        if 2 <= ovc_x_idx <= overnight_timespan - 1:
                             df_plotdata_sp500.iloc[0][ovc_x_idx] = result['체결가격']
                         else:
                             pass
@@ -18831,7 +18834,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         dow_직전대비.extend([dow_delta - dow_delta_old])
                         temp = list(dow_직전대비)
                         
-                        if 2 <= ovc_x_idx <= 789:
+                        if 2 <= ovc_x_idx <= overnight_timespan - 1:
                             df_plotdata_dow.iloc[0][ovc_x_idx] = result['체결가격']
                         else:
                             pass
