@@ -150,6 +150,52 @@ with open('month_info.txt', mode='r') as monthfile:
     temp = tmp.split()
     NASDAQ = temp[2]  
 
+    tmp = monthfile.readline().strip()
+    tmp = monthfile.readline().strip()
+    
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    DOW_INDEX = int(temp[4])
+    print('DOW_INDEX', DOW_INDEX)
+
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    CME_INDEX = float(temp[5])
+    print('CME_INDEX', CME_INDEX)
+
+    tmp = monthfile.readline().strip()
+    tmp = monthfile.readline().strip()
+
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    SP500_LAST_LOW = float(temp[5])
+    print('SP500_LAST_LOW', SP500_LAST_LOW)
+
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    SP500_LAST_HIGH = float(temp[5])
+    print('SP500_LAST_HIGH', SP500_LAST_HIGH)
+
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    DOW_LAST_LOW = float(temp[4])
+    print('DOW_LAST_LOW', DOW_LAST_LOW)
+
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    DOW_LAST_HIGH = float(temp[4])
+    print('DOW_LAST_HIGH', DOW_LAST_HIGH)
+
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    NASDAQ_LAST_LOW = float(temp[4])
+    print('NASDAQ_LAST_LOW', NASDAQ_LAST_LOW)
+
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    NASDAQ_LAST_HIGH = float(temp[4])
+    print('NASDAQ_LAST_HIGH', NASDAQ_LAST_HIGH)
+
 with open('UI_Style.txt', mode='r') as uifile:
 
     tmp = uifile.readline().strip()
@@ -186,16 +232,6 @@ with open('rules.txt', mode='r') as initfile:
     진성맥점 = list(set(진성맥점))
     진성맥점.sort()
     #print(진성맥점)
-
-    tmp = initfile.readline().strip()
-    temp = tmp.split()
-    DOW_INDEX = int(temp[4])
-    #print('DOW_INDEX', DOW_INDEX)
-
-    tmp = initfile.readline().strip()
-    temp = tmp.split()
-    CME_INDEX = float(temp[5])
-    #print('CME_INDEX', CME_INDEX)
     
     tmp = initfile.readline().strip()
     tmp = initfile.readline().strip()
@@ -264,10 +300,14 @@ if UI_STYLE == 'Vertical_view.ui':
     plot3_time_line_start = None
     plot3_time_line_yagan_start = None
 
+    plot3_ovc_jl_line = None
+    plot3_ovc_jh_line = None
     plot3_ovc_close_line = None
     plot3_ovc_open_line = None
-    plot3_ovc_high_line = None
+    plot3_ovc_pivot_line = None
+    
     plot3_ovc_low_line = None
+    plot3_ovc_high_line = None
 
     plot3_curve = None
 
@@ -279,11 +319,11 @@ if UI_STYLE == 'Vertical_view.ui':
     plot4_fv_plus_curve = None
     plot4_fv_minus_curve = None
 
-    plot4_fut_open_line = None
-    plot4_fut_close_line = None
-    plot4_fut_pivot_line = None
     plot4_fut_jl_line = None
     plot4_fut_jh_line = None
+    plot4_fut_close_line = None
+    plot4_fut_open_line = None    
+    plot4_fut_pivot_line = None    
     
     plot4_price_curve = None
     plot4_kp200_curve = None

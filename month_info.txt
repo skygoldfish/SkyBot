@@ -1,14 +1,26 @@
 ######################### < Basic Market Info > #########################
-start hour = 9
-current month = 202003
-first day of the current month = 20200214
-mangi yagan = NO
+Start Hour = 9
+Current Month = 202003
+First Day of the Current Month = 20200214
+Mangi Yagan = NO
 
 ###################### < Target Month Select > ##########################
 ################### 1 : current month, 2 : next month ###################
-target month select = 1
+Target Month Select = 1
 
-########################## < CME Index Code > ###########################
+########################### < US Index Code > ###########################
 S&P 500 = ESH20
 DOW = YMH20
 NASDAQ = NQH20
+
+################### < CME Info of the Last Night > ######################
+Overnight DOW Index = 25287
+Overnight CME FUT Index = 270.40
+
+################## < US Index Info of the Last Night > ##################
+S&P 500 Last Low = 2898.38
+S&P 500 Last High = 3036.88
+DOW Last Low = 25195.5
+DOW Last High = 26281.0
+NASDAQ Last Low = 8313.25
+NASDAQ Last High = 8725.12
