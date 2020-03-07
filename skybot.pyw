@@ -18553,7 +18553,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         nasdaq_직전대비.extend([nasdaq_delta - nasdaq_delta_old])
                         temp = list(nasdaq_직전대비)
                         
-                        if ovc_x_idx >= 2:
+                        if 2 <= ovc_x_idx <= 789:
                             df_plotdata_nasdaq.iloc[0][ovc_x_idx] = result['체결가격']
                         else:
                             pass
@@ -18684,7 +18684,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         sp500_직전대비.extend([sp500_delta - sp500_delta_old])
                         temp = list(sp500_직전대비)
                         
-                        if ovc_x_idx >= 2:
+                        if 2 <= ovc_x_idx <= 789:
                             df_plotdata_sp500.iloc[0][ovc_x_idx] = result['체결가격']
                         else:
                             pass
@@ -18831,7 +18831,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         dow_직전대비.extend([dow_delta - dow_delta_old])
                         temp = list(dow_직전대비)
                         
-                        if ovc_x_idx >= 2:
+                        if 2 <= ovc_x_idx <= 789:
                             df_plotdata_dow.iloc[0][ovc_x_idx] = result['체결가격']
                         else:
                             pass
