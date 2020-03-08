@@ -19230,8 +19230,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 self.capture_screenshot()
             else:
-                pass 
-
+                pass
+            
             print('화면을 캡처했습니다...')  
 
             self.pushButton_remove.setStyleSheet("background-color: lawngreen")
