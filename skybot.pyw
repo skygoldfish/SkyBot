@@ -64,6 +64,8 @@ from PIL import ImageGrab
 import win32gui
 import copy
 import locale
+from mss import mss
+from PIL import Image
 
 from XASessions import *
 from XAQueries import *
@@ -1096,6 +1098,15 @@ fut_oh = False
 풋_현재가 = ''
 풋_저가 = ''
 풋_고가 = ''
+
+def capture_screenshot():
+
+    # Capture entire screen
+    with mss() as sct:
+        monitor = sct.monitors[2]
+        sct_img = sct.grab(monitor)
+        # Convert to PIL/Pillow Image
+        return Image.frombytes('RGB', sct_img.size, sct_img.bgra, 'raw', 'BGRX')
 
 ########################################################################################################################
 
@@ -6665,13 +6676,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         now = time.localtime()
         times = "%04d-%02d-%02d-%02d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-
+        '''
         hwnd = win32gui.FindWindow(None, cm_option_title)
         win32gui.SetForegroundWindow(hwnd)
         dimensions = win32gui.GetWindowRect(hwnd)
         img = ImageGrab.grab(dimensions)
 
         print('ImageGrab dimensions = ', dimensions)
+        '''
+        img = capture_screenshot()
 
         saveas = "Screenshot {}{}".format(times, '.png')
         img.save(saveas)
@@ -19182,7 +19195,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if flag_telegram_on:
             
-            self.image_grab()  
+            self.image_grab()
+
+            print('화면을 캡처했습니다...')  
 
             self.pushButton_remove.setStyleSheet("background-color: lawngreen")
             print('flag_telegram_on =', flag_telegram_on)
