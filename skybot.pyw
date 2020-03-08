@@ -1099,15 +1099,6 @@ fut_oh = False
 풋_저가 = ''
 풋_고가 = ''
 
-def capture_screenshot():
-
-    # Capture entire screen
-    with mss() as sct:
-        monitor = sct.monitors[2]
-        sct_img = sct.grab(monitor)
-        # Convert to PIL/Pillow Image
-        return Image.frombytes('RGB', sct_img.size, sct_img.bgra, 'raw', 'BGRX')
-
 ########################################################################################################################
 
 def sqliteconn():
@@ -4082,8 +4073,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Afternoon! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
 
-        self.XingAdminCheck()
-        
+        self.XingAdminCheck()        
             
     # Xing 관리자모드 실행 체크함수
     def XingAdminCheck(self):
@@ -4103,6 +4093,41 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.textBrowser.append(str)
             '''
             return False
+
+    def capture_screenshot(self):
+
+        # Capture entire screen
+        with mss() as sct:
+            '''
+            monitor = sct.monitors[2]
+            sct_img = sct.grab(monitor)
+            # Convert to PIL/Pillow Image
+            return Image.frombytes('RGB', sct_img.size, sct_img.bgra, 'raw', 'BGRX')
+            '''
+            now = time.localtime()
+            times = "%04d-%02d-%02d-%02d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+
+            for num, monitor in enumerate(sct.monitors[1:], 1):
+                # Get raw pixels from the screen
+                sct_img = sct.grab(monitor)
+
+                # Create the Image
+                img = Image.frombytes("RGB", sct_img.size, sct_img.bgra, "raw", "BGRX")
+                # The same, but less efficient:
+                # img = Image.frombytes('RGB', sct_img.size, sct_img.rgb)
+
+                saveas = "Screenshot {}{}".format(times, '.png')
+
+                # And save it!
+                #output = "monitor-{}.png".format(num)
+                output = "Screenshot{} {}.png".format(num, times)
+                img.save(output)
+                print(output)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
+            self.textBrowser.append(str)
+
+            return
 
     def cb1_selectionChanged(self):
 
@@ -6672,27 +6697,29 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return str_atm
 
+    '''
     def image_grab(self):
-
+        
         now = time.localtime()
         times = "%04d-%02d-%02d-%02d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-        '''
+        
         hwnd = win32gui.FindWindow(None, cm_option_title)
         win32gui.SetForegroundWindow(hwnd)
         dimensions = win32gui.GetWindowRect(hwnd)
         img = ImageGrab.grab(dimensions)
 
         print('ImageGrab dimensions = ', dimensions)
-        '''
-        img = capture_screenshot()
+        
+        #img = self.capture_screenshot()
 
-        saveas = "Screenshot {}{}".format(times, '.png')
-        img.save(saveas)
+        #saveas = "Screenshot {}{}".format(times, '.png')
+        #img.save(saveas)
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
-        self.textBrowser.append(str)
+        #str = '[{0:02d}:{1:02d}:{2:02d}] 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
+        #self.textBrowser.append(str)
         
         return
+    '''
 
     # 현재가 클리어
     def cv_color_clear(self):
@@ -16732,7 +16759,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if TARGET_MONTH_SELECT == 1:
 
-                        self.image_grab()
+                        self.capture_screenshot()
 
                     else:
                         pass                                               
@@ -16763,7 +16790,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if TARGET_MONTH_SELECT == 1:
 
-                        self.image_grab()
+                        self.capture_screenshot()
 
                     else:
                         pass
@@ -19030,7 +19057,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             file.write(text)
             file.close()
 
-            self.image_grab() 
+            if TARGET_MONTH_SELECT == 1:
+
+                self.capture_screenshot()
+            else:
+                pass 
         else:
             if not refresh_flag:
 
@@ -19195,7 +19226,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if flag_telegram_on:
             
-            self.image_grab()
+            if TARGET_MONTH_SELECT == 1:
+
+                self.capture_screenshot()
+            else:
+                pass 
 
             print('화면을 캡처했습니다...')  
 
