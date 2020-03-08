@@ -17211,83 +17211,84 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif szTrCode == 'YFC':
 
-                if pre_start:
+                if result['단축코드'] == gmshcode:
 
-                    if result['단축코드'] == gmshcode:
+                    global 선물_시가, 선물_피봇
 
-                        if result['예상체결시간'] != '':
-                            x_yfc_idx = int(result['예상체결시간'][2:4]) + 1
-                            x_idx = x_yfc_idx
+                    if result['예상체결시간'] != '':
+                        x_yfc_idx = int(result['예상체결시간'][2:4]) + 1
+                        x_idx = x_yfc_idx
+                    else:
+                        pass
+
+                    if result['예상체결가격'] != float(self.tableWidget_fut.item(1, Futures_column.시가.value).text()):
+
+                        선물_시가 = result['예상체결가격']
+
+                        if x_yfc_idx > 0:
+                            df_plotdata_fut.iloc[0][x_yfc_idx] = 선물_시가
                         else:
                             pass
 
-                        if result['예상체결가격'] != float(self.tableWidget_fut.item(1, Futures_column.시가.value).text()):
+                        item = QTableWidgetItem("{0:0.2f}".format(선물_시가))
+                        item.setTextAlignment(Qt.AlignCenter)
 
-                            fut_realdata['시가'] = result['예상체결가격']
+                        if 선물_시가 > fut_realdata['종가']:
+                            item.setForeground(QBrush(적색))
+                        elif 선물_시가 < fut_realdata['종가']:
+                            item.setForeground(QBrush(청색))
+                        else:
+                            item.setForeground(QBrush(검정색))
 
-                            if x_yfc_idx > 0:
-                                df_plotdata_fut.iloc[0][x_yfc_idx] = result['예상체결가격']
-                            else:
-                                pass
+                        self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
 
-                            item = QTableWidgetItem("{0:0.2f}".format(result['예상체결가격']))
+                        시가갭 = 선물_시가 - fut_realdata['종가']
+
+                        item = QTableWidgetItem("{0:0.2f}".format(시가갭))
+                        item.setTextAlignment(Qt.AlignCenter)
+
+                        if 선물_시가 > fut_realdata['종가']:
+                            item.setBackground(QBrush(콜기준가색))
+                            item.setForeground(QBrush(검정색))
+                        elif 선물_시가 < fut_realdata['종가']:
+                            item.setBackground(QBrush(풋기준가색))
+                            item.setForeground(QBrush(흰색))
+                        else:
+                            item.setBackground(QBrush(흰색))
+
+                        self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
+
+                        fut_realdata['시가'] = 선물_시가
+
+                        선물_피봇 = self.calc_pivot(fut_realdata['전저'], fut_realdata['전고'],
+                                                             fut_realdata['종가'], 선물_시가)
+
+                        item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['피봇']))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
+
+                        fut_realdata['피봇'] = 선물_피봇
+
+                        if TARGET_MONTH_SELECT == 1:
+
+                            예상시가 = (CME_INDEX * dow_price) / DOW_INDEX
+
+                            item = QTableWidgetItem("{0:0.2f}".format(예상시가))
                             item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(검정색))
+                            item.setForeground(QBrush(대맥점색))
+                            self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)                            
 
-                            if result['예상체결가격'] > fut_realdata['종가']:
-                                item.setForeground(QBrush(적색))
-                            elif result['예상체결가격'] < fut_realdata['종가']:
-                                item.setForeground(QBrush(청색))
-                            else:
-                                item.setForeground(QBrush(검정색))
-
-                            self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
-
-                            시가갭 = fut_realdata['시가'] - fut_realdata['종가']
-
-                            item = QTableWidgetItem("{0:0.2f}".format(시가갭))
-                            item.setTextAlignment(Qt.AlignCenter)
-
-                            if fut_realdata['시가'] > fut_realdata['종가']:
-                                item.setBackground(QBrush(콜기준가색))
-                                item.setForeground(QBrush(검정색))
-                            elif fut_realdata['시가'] < fut_realdata['종가']:
-                                item.setBackground(QBrush(풋기준가색))
-                                item.setForeground(QBrush(흰색))
-                            else:
-                                item.setBackground(QBrush(흰색))
-
-                            self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
-
-                            fut_realdata['피봇'] = self.calc_pivot(fut_realdata['전저'], fut_realdata['전고'],
-                                                                 fut_realdata['종가'],
-                                                                 fut_realdata['시가'])
-
-                            item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['피봇']))
-                            item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
-
-                            if TARGET_MONTH_SELECT == 1:
-
-                                예상시가 = (CME_INDEX * dow_price) / DOW_INDEX
-
-                                item = QTableWidgetItem("{0:0.2f}".format(예상시가))
-                                item.setTextAlignment(Qt.AlignCenter)
-                                item.setBackground(QBrush(검정색))
-                                item.setForeground(QBrush(대맥점색))
-                                self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)                            
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 선물 예상시가 = {3:0.2f}\r'.format(\
-                                                int(result['예상체결시간'][0:2]),
-                                                int(result['예상체결시간'][2:4]),
-                                                int(result['예상체결시간'][4:6]),
-                                                예상시가)
-                                self.textBrowser.append(str)
-                            else:
-                                pass
-
-                            self.tableWidget_fut.resizeColumnsToContents()
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 예상시가 = {3:0.2f}\r'.format(\
+                                            int(result['예상체결시간'][0:2]),
+                                            int(result['예상체결시간'][2:4]),
+                                            int(result['예상체결시간'][4:6]),
+                                            예상시가)
+                            self.textBrowser.append(str)
                         else:
                             pass
+
+                        self.tableWidget_fut.resizeColumnsToContents()
                     else:
                         pass
                 else:
