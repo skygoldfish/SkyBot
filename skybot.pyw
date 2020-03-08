@@ -4101,26 +4101,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             times = "%04d-%02d-%02d-%02d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
 
             for num, monitor in enumerate(sct.monitors[1:], 1):
+
                 # Get raw pixels from the screen
                 sct_img = sct.grab(monitor)
 
                 # Create the Image
                 img = Image.frombytes("RGB", sct_img.size, sct_img.bgra, "raw", "BGRX")
+
                 # The same, but less efficient:
                 # img = Image.frombytes('RGB', sct_img.size, sct_img.rgb)
-
-                saveas = "Screenshot {}{}".format(times, '.png')
-
+                # saveas = "Screenshot {}{}".format(times, '.png')
                 # And save it!
-                #output = "monitor-{}.png".format(num)
+                # output = "monitor-{}.png".format(num)
+
                 output = "Monitor{} {}.png".format(num, times)
                 img.save(output)
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec, num)
                 self.textBrowser.append(str)
-                print(str)            
-
-            return
+                print(str)
 
     def cb1_selectionChanged(self):
 
