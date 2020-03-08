@@ -19122,6 +19122,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def SaveResult(self):
 
+        dt = datetime.datetime.now()
+
         now = time.localtime()
 
         times = "%04d-%02d-%02d-%02d-%02d-%02d" % \
@@ -19132,7 +19134,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         file.write(text)
         file.close()
 
+        str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장했습니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(str)
+
         self.high_low_list_save_to_file()
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 저장했습니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(str)
 
         '''
         if df_fut.empty:
