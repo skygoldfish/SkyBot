@@ -19132,6 +19132,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         file.write(text)
         file.close()
 
+        self.high_low_list_save_to_file()
+
         '''
         if df_fut.empty:
 
@@ -19223,6 +19225,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.capture_screenshot()
             else:
                 pass
+
+            #self.high_low_list_save_to_file()            
             
             #print('화면을 캡처했습니다...')  
 
@@ -19232,6 +19236,72 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.pushButton_remove.setStyleSheet("background-color: lightGray")
             print('flag_telegram_on =', flag_telegram_on)
         
+        return
+
+    def high_low_list_save_to_file(self):
+        
+        now = time.localtime()
+        times = "%04d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday)
+
+        call_low_list = []
+        call_high_list = []
+        put_low_list = []
+        put_high_list = []
+        list_final = []
+
+        for i in range(option_pairs_count):
+
+            if 1.0 <= df_call.iloc[i]['저가'] <= 9.99:
+                call_low_list.append(df_call.iloc[i]['저가'])
+            else:
+                pass
+
+            if 1.0 <= df_call.iloc[i]['고가'] <= 9.99:
+                call_high_list.append(df_call.iloc[i]['고가'])
+            else:
+                pass
+
+            if 1.0 <= df_put.iloc[i]['저가'] <= 9.99:
+                put_low_list.append(df_put.iloc[i]['저가'])
+            else:
+                pass
+
+            if 1.0 <= df_put.iloc[i]['고가'] <= 9.99:
+                put_high_list.append(df_put.iloc[i]['고가'])
+            else:
+                pass
+
+        print('call_low_list =', call_low_list)
+        print('call_high_list =', call_high_list)
+        print('put_low_list =', put_low_list)
+        print('put_high_list =', put_high_list)
+
+        list_final = call_low_list + call_high_list + put_low_list + put_high_list
+        list_final.sort()
+
+        print('list_final =', list_final)
+
+        file_name = "HL-list {}.txt".format(times)
+
+        self.list_to_file_write(list_final, file_name, sep = ', ')
+
+        return
+
+    def list_to_file_write(self, list, fname, sep):       
+
+        file = open(fname, 'w')
+        vstr = ''
+
+        for a in list:
+            vstr = vstr + str(a) + sep
+        
+        vstr = vstr.rstrip(sep)
+
+        file.writelines(vstr)
+        file.close()
+
+        print('파일쓰기 성공!!!')
+
         return
 
     def closeEvent(self,event):
