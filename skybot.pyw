@@ -4094,6 +4094,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             '''
             return False
 
+    # 다중모니터 스크린샷 함수
     def capture_screenshot(self):
 
         # Capture entire screen
