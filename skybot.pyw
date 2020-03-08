@@ -55,6 +55,7 @@ from enum import Enum
 from bisect import bisect
 from mss import mss
 from PIL import Image
+from collections import Counter
 #from PIL import ImageGrab
 
 from XASessions import *
@@ -203,7 +204,6 @@ with open('rules.txt', mode='r') as initfile:
     tmp = initfile.readline().strip()
     temp = tmp.split()
     행사가갯수 = temp[7]
-    #print(행사가갯수)
 
     tmp = initfile.readline().strip()
     temp = tmp.split()
@@ -19240,8 +19240,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def high_low_list_save_to_file(self):
         
-        now = time.localtime()
-        times = "%04d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday)
+        #now = time.localtime()
+        #times = "%04d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday)
 
         call_low_list = []
         call_high_list = []
@@ -19281,21 +19281,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         print('list_final =', list_final)
 
-        file_name = "HL-list {}.txt".format(times)
+        #file_name = "HL-List {}.txt".format(times)
+        file_name = "HL-List.txt"
 
-        self.list_to_file_write(list_final, file_name, sep = ', ')
+        self.list_to_file_write(list_final, file_name, sep = ' ')
 
         return
 
-    def list_to_file_write(self, list, fname, sep):       
-
-        file = open(fname, 'w')
+    def list_to_file_write(self, list, fname, sep):  
+        
+        if os.path.isfile('HL-List.txt'):
+            print("Yes. Here is the file...")
+            file = open(fname, 'a')
+        else:
+            print("Nothing...")
+            file = open(fname, 'w')        
+        
         vstr = ''
 
         for a in list:
             vstr = vstr + str(a) + sep
         
-        vstr = vstr.rstrip(sep)
+        #vstr = vstr.rstrip(sep)
 
         file.writelines(vstr)
         file.close()
@@ -19303,6 +19310,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         print('파일쓰기 성공!!!')
 
         return
+
+    def maximum_likelihood_list(self, src_list):
+
+        src_list.sort()
+
+        # 원소의 중복횟수 리스트 생성
+        result = list(Counter(src_list).values())
+        print('중복횟수 리스트 =', result)
+
+        # 중복횟수 최대값 인덱스 구함
+        max_index = result.index(max(result))
+        print('중복횟수 최대값 인덱스 =', max_index)
+
+        # 최대 중복값 산출
+        result = list(Counter(src_list).keys())
+        max_val = result[max_index]
+        print('최대 중복값 =', max_val)
+
+        return max_val
 
     def closeEvent(self,event):
 
