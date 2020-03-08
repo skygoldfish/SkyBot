@@ -26,50 +26,43 @@ import pickle
 import uuid
 import base64
 import subprocess
-from subprocess import Popen
 import webbrowser
+import numpy as np
+import pandas as pd
+import pandas.io.sql as pdsql
+import sqlite3
+import ctypes
+import logging
+import logging.handlers
+import timeit
+import pyqtgraph as pg
+import math
+import collections
+import win32gui
+import copy
+import locale
 
+from subprocess import Popen
 from PyQt5 import QtCore, QtGui, QtWidgets, QAxContainer, uic
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-
-import numpy as np
 from numpy import NaN, Inf, arange, isscalar, asarray, array
-
-import pandas as pd
-import pandas.io.sql as pdsql
 from pandas import DataFrame, Series
-
-import sqlite3
-
-import logging
-import logging.handlers
-
 from threading import Timer
 from multiprocessing import Pool, Process, Queue
-
-from FileWatcher import *
-from Utils import *
-
-import ctypes
-
 from enum import Enum
-import timeit
-import pyqtgraph as pg
-import math
 from bisect import bisect
-import collections
-from PIL import ImageGrab
-import win32gui
-import copy
-import locale
 from mss import mss
 from PIL import Image
+#from PIL import ImageGrab
 
 from XASessions import *
 from XAQueries import *
 from XAReals import *
+
+from FileWatcher import *
+from Utils import *
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.expand_frame_repr', False)
@@ -86,8 +79,6 @@ UI_DIR = "UI\\"
 global domestic_start_hour
 
 domestic_start_hour = 9
-
-telegram_toggle = True
 
 # 만기일 야간옵션은 month_info.txt에서 mangi_yagan을 NO -> YES로 변경
 with open('month_info.txt', mode='r') as monthfile:
@@ -294,6 +285,7 @@ with open('rules.txt', mode='r') as initfile:
 ########################################################################################################################
 모니터번호 = 0
 nRowCount = int(행사가갯수)
+telegram_toggle = True
 
 ovc_start_hour = domestic_start_hour - 1
 
@@ -4123,10 +4115,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 #output = "monitor-{}.png".format(num)
                 output = "Screenshot{} {}.png".format(num, times)
                 img.save(output)
-                print(output)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
-            self.textBrowser.append(str)
+                str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec, num)
+                self.textBrowser.append(str)
+                print(str)            
 
             return
 
@@ -19233,7 +19225,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
             
-            print('화면을 캡처했습니다...')  
+            #print('화면을 캡처했습니다...')  
 
             self.pushButton_remove.setStyleSheet("background-color: lawngreen")
             print('flag_telegram_on =', flag_telegram_on)
