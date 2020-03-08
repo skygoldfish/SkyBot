@@ -4113,7 +4113,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # And save it!
                 #output = "monitor-{}.png".format(num)
-                output = "Screenshot{} {}.png".format(num, times)
+                output = "Monitor{} {}.png".format(num, times)
                 img.save(output)
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec, num)
