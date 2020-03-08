@@ -225,6 +225,44 @@ with open('rules.txt', mode='r') as initfile:
     진성맥점 = list(set(진성맥점))
     진성맥점.sort()
     #print(진성맥점)
+
+    NEW_NODE_VAL = 0
+
+    if os.path.exists('HL-List.txt'):
+
+        with open('HL-List.txt', mode='r') as hlfile:
+
+            tmp = hlfile.readline().strip()
+            temp = tmp.split()
+
+            HIGH_LOW_LIST = []
+
+            for i in range(len(temp)):
+                
+                HIGH_LOW_LIST.append(float(temp[i]))
+
+            HIGH_LOW_LIST.sort()
+            #print('HIGH_LOW_LIST =', HIGH_LOW_LIST)
+
+            # 원소의 중복횟수 리스트 생성
+            result = list(Counter(HIGH_LOW_LIST).values())
+            #print('중복횟수 리스트 =', result)
+
+            # 중복횟수 최대값 인덱스 구함
+            max_index = result.index(max(result))
+            #print('중복횟수 최대값 인덱스 =', max_index)
+
+            # 최대 중복값 산출
+            result = list(Counter(HIGH_LOW_LIST).keys())
+            NEW_NODE_VAL = result[max_index]
+            print('새 진성맥점 =', NEW_NODE_VAL)
+
+            진성맥점.append(NEW_NODE_VAL)
+            진성맥점 = list(set(진성맥점))
+            진성맥점.sort()
+            print('진성맥점 리스트 =', 진성맥점)
+    else:
+        pass
     
     tmp = initfile.readline().strip()
     tmp = initfile.readline().strip()
@@ -4064,6 +4102,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Afternoon! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
+
+        if NEW_NODE_VAL > 0:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 진성맥점 {3}이 추가되었습니다.\r'.format(dt.hour, dt.minute, dt.second, NEW_NODE_VAL)
+            self.textBrowser.append(str)
+        else:
+            pass
 
         self.XingAdminCheck()        
             
@@ -19318,25 +19363,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         print('파일쓰기 성공!!!')
 
         return
-
-    def maximum_likelihood_list(self, src_list):
-
-        src_list.sort()
-
-        # 원소의 중복횟수 리스트 생성
-        result = list(Counter(src_list).values())
-        print('중복횟수 리스트 =', result)
-
-        # 중복횟수 최대값 인덱스 구함
-        max_index = result.index(max(result))
-        print('중복횟수 최대값 인덱스 =', max_index)
-
-        # 최대 중복값 산출
-        result = list(Counter(src_list).keys())
-        max_val = result[max_index]
-        print('최대 중복값 =', max_val)
-
-        return max_val
 
     def closeEvent(self,event):
 
