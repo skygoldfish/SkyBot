@@ -14969,10 +14969,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             loop_list = call_open_list
 
             if service_start:
-
+                '''
                 str = '[{0:02d}:{1:02d}:{2:02d}] Call Open Check List = {3}\r'.format(\
                     int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
                 self.textBrowser.append(str)
+                '''
+                pass
             else:
                 str = '[{0:02d}:{1:02d}:{2:02d}] Call Open Check List = {3}\r'.format(dt.hour, dt.minute, dt.second, call_open_list)
                 self.textBrowser.append(str)
@@ -16079,10 +16081,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             loop_list = put_open_list
 
             if service_start:
-
+                '''
                 str = '[{0:02d}:{1:02d}:{2:02d}] Put Open Check List = {3}\r'.format(\
                     int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
                 self.textBrowser.append(str)
+                '''
+                pass
             else:
                 str = '[{0:02d}:{1:02d}:{2:02d}] Put Open Check List = {3}\r'.format(dt.hour, dt.minute, dt.second, put_open_list)
                 self.textBrowser.append(str)
