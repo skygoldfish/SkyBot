@@ -247,21 +247,26 @@ with open('rules.txt', mode='r') as initfile:
 
             # 원소의 중복횟수 리스트 생성
             result = list(Counter(HIGH_LOW_LIST).values())
-            #print('중복횟수 리스트 =', result)
+            print('중복횟수 리스트 =', result)
+            print('중복횟수 리스트 최대값 =', max(result))
 
-            # 중복횟수 최대값 인덱스 구함
-            max_index = result.index(max(result))
-            #print('중복횟수 최대값 인덱스 =', max_index)
+            if max(result) > 2:
 
-            # 최대 중복값 산출
-            result = list(Counter(HIGH_LOW_LIST).keys())
-            NEW_NODE_VAL = result[max_index]
-            print('새 진성맥점 =', NEW_NODE_VAL)
+                # 중복횟수 최대값 인덱스 구함
+                max_index = result.index(max(result))            
+                print('중복횟수 최대값 인덱스 =', max_index)
 
-            진성맥점.append(NEW_NODE_VAL)
-            진성맥점 = list(set(진성맥점))
-            진성맥점.sort()
-            print('진성맥점 리스트 =', 진성맥점)
+                # 최대 중복값 산출
+                result = list(Counter(HIGH_LOW_LIST).keys())
+                NEW_NODE_VAL = result[max_index]
+                print('새 진성맥점 =', NEW_NODE_VAL)
+
+                진성맥점.append(NEW_NODE_VAL)
+                진성맥점 = list(set(진성맥점))
+                진성맥점.sort()
+                print('진성맥점 리스트 =', 진성맥점)
+            else:
+                pass
     else:
         pass
     
