@@ -4740,8 +4740,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                #plot3_ovc_low_line.setValue(dow_저가)
-                #plot3_ovc_high_line.setValue(dow_고가)
+                plot3_ovc_low_line.setValue(DOW_LAST_LOW)
+                plot3_ovc_high_line.setValue(DOW_LAST_LOW)
 
             elif comboindex3 == 1:
 
@@ -5808,7 +5808,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             plot3_ovc_jl_line.setValue(DOW_LAST_LOW)
                         else:
                             pass 
-
+                        
                         if DOW_LAST_HIGH > 0:
                             plot3_ovc_jh_line.setValue(DOW_LAST_HIGH)
                         else:
@@ -5827,9 +5827,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if dow_피봇 > 0:
                             plot3_ovc_pivot_line.setValue(dow_피봇)
                         else:
-                            pass            
-
-                        '''
+                            pass
+                        
                         if dow_고가 > 0:
                             plot3_ovc_high_line.setValue(dow_고가)
                         else:
@@ -5838,8 +5837,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if dow_저가 > 0:
                             plot3_ovc_low_line.setValue(dow_저가)
                         else:
-                            pass
-                        '''
+                            pass                        
                         
                         plot3_curve.setData(plot3_data)
 
@@ -5868,9 +5866,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if sp500_피봇 > 0:
                             plot3_ovc_pivot_line.setValue(sp500_피봇)
                         else:
-                            pass              
+                            pass
 
-                        '''
                         if sp500_고가 > 0:
                             plot3_ovc_high_line.setValue(sp500_고가)
                         else:
@@ -5880,7 +5877,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             plot3_ovc_low_line.setValue(sp500_저가)
                         else:
                             pass
-                        '''
                         
                         plot3_curve.setData(plot3_data)
 
@@ -5909,9 +5905,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if nasdaq_피봇 > 0:
                             plot3_ovc_pivot_line.setValue(nasdaq_피봇)
                         else:
-                            pass          
+                            pass
 
-                        '''
                         if nasdaq_고가 > 0:
                             plot3_ovc_high_line.setValue(nasdaq_고가)
                         else:
@@ -5921,7 +5916,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             plot3_ovc_low_line.setValue(nasdaq_저가)
                         else:
                             pass
-                        '''
                         
                         plot3_curve.setData(plot3_data)
                     else:
