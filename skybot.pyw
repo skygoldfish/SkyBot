@@ -242,6 +242,7 @@ with open('rules.txt', mode='r') as initfile:
                 HIGH_LOW_LIST.append(float(temp[i]))
 
             HIGH_LOW_LIST.sort()
+            HIGH_LOW_LIST.reverse()
             #print('HIGH_LOW_LIST =', HIGH_LOW_LIST)
 
             # 원소의 중복횟수 리스트 생성
@@ -5949,7 +5950,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             plot3_ovc_low_line.setValue(nasdaq_저가)
                         else:
                             pass
-                        
+
                         if nasdaq_고가 > 0:
                             plot3_ovc_high_line.setValue(nasdaq_고가)
                         else:
