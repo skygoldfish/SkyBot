@@ -12500,8 +12500,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     call_t8416_count += 1
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
-                    self.textBrowser.append(str) 
-                    print(str)
+                    #self.textBrowser.append(str)
+                    print(str) 
 
                     # 추가된 행사가 갯수 표시
                     item_str = '+' + '{0:d}'.format(new_actval_up_count) + '\n' + '({0:d})'.format(option_pairs_count)
@@ -12523,7 +12523,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     new_actval_down_count += 1 
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
-                    self.textBrowser.append(str) 
+                    #self.textBrowser.append(str) 
                     print(str)  
 
                     # 추가된 행사가 갯수 표시
@@ -12694,7 +12694,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if new_actval_up_count > 0:
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
-                    self.textBrowser.append(str)
+                    #self.textBrowser.append(str)
+                    print(str)
                 else:
                     pass
 
@@ -12853,7 +12854,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if new_actval_down_count > 0:
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
-                    self.textBrowser.append(str)
+                    #self.textBrowser.append(str)
+                    print(str)
                 else:
                     pass
 
@@ -13112,11 +13114,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     
                     str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 만기일은 {3}일 남았습니다.\r'.format(dt.hour, dt.minute, dt.second, 옵션잔존일)
                     self.textBrowser.append(str)
+
+                    if new_actval_up_count > 0:
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+
+                    if new_actval_down_count > 0:
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
                     
                     if NEW_NODE_VAL > 0:
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 동적맥점 {3} 추가되었습니다.\r'.format(dt.hour, dt.minute, dt.second, NEW_NODE_VAL)
                         self.textBrowser.append(str)
+                        print(str)
                     else:
                         pass                                                               
                 else:
