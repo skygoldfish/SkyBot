@@ -241,7 +241,7 @@ with open('rules.txt', mode='r') as initfile:
 
             HIGH_LOW_LIST.sort()
             HIGH_LOW_LIST.reverse()
-            #print('HIGH_LOW_LIST =', HIGH_LOW_LIST)
+            print('HIGH_LOW_LIST =', HIGH_LOW_LIST)
 
             # 원소의 중복횟수 리스트 생성
             result = list(Counter(HIGH_LOW_LIST).values())
