@@ -21,7 +21,6 @@ import datetime, time
 import win32com.client
 import pythoncom
 import inspect
-
 import pickle
 import uuid
 import base64
@@ -61,7 +60,6 @@ from collections import Counter
 from XASessions import *
 from XAQueries import *
 from XAReals import *
-
 from FileWatcher import *
 from Utils import *
 
@@ -336,6 +334,32 @@ ovc_start_hour = domestic_start_hour - 1
 day_timespan = 395 + 10
 overnight_timespan = 660 + 60 + 10
 
+# 업종코드
+KOSPI = '001'
+KOSPI200 = '101'
+KOSDAQ = '301'
+OPT_CALL = '700'
+OPT_PUT = '800'
+FUTURES = '900'
+CME = '950'
+
+SAMSUNG = '005930'
+HYUNDAI = '005380'
+Celltrion = '068270'
+MOBIS = '012330'
+NAVER = '035420'
+
+STOCK = "0001"
+BOHEOM = "0002"
+TOOSIN = "0003"
+BANK = "0004"
+JONGGEUM = "0005"
+GIGEUM = "0006"
+GITA = "0007"
+RETAIL = "0008"
+FOREIGNER = "0017"
+INSTITUTIONAL = "0018"
+
 if UI_STYLE == 'Vertical_view.ui':
 
     # Plot3 관련 전역변수    
@@ -513,41 +537,15 @@ night_time = 0
 
 선물_전저 = 0
 선물_전고 = 0
-선물_종가 = 0
+선물_종가 = CME_INDEX
 선물_피봇 = 0
 
 선물_시가 = 0
 선물_현재가 = 0
-선물_저가 = 0
-선물_고가 = 0
+선물_저가 = CME_INDEX
+선물_고가 = CME_INDEX
 
 선물_누적거래량 = 0
-
-# 업종코드
-KOSPI = '001'
-KOSPI200 = '101'
-KOSDAQ = '301'
-OPT_CALL = '700'
-OPT_PUT = '800'
-FUTURES = '900'
-CME = '950'
-
-SAMSUNG = '005930'
-HYUNDAI = '005380'
-Celltrion = '068270'
-MOBIS = '012330'
-NAVER = '035420'
-
-STOCK = "0001"
-BOHEOM = "0002"
-TOOSIN = "0003"
-BANK = "0004"
-JONGGEUM = "0005"
-GIGEUM = "0006"
-GITA = "0007"
-RETAIL = "0008"
-FOREIGNER = "0017"
-INSTITUTIONAL = "0018"
 
 oloh_cutoff = 0.10
 nodelist_low_cutoff = 0.09
@@ -4115,13 +4113,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Afternoon! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
-
-        if NEW_NODE_VAL > 0:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 진성맥점 {3}이 추가되었습니다.\r'.format(dt.hour, dt.minute, dt.second, NEW_NODE_VAL)
-            self.textBrowser.append(str)
-        else:
-            pass
 
         self.XingAdminCheck()        
             
@@ -13120,7 +13111,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.opt_node_coloring()
                     
                     str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 만기일은 {3}일 남았습니다.\r'.format(dt.hour, dt.minute, dt.second, 옵션잔존일)
-                    self.textBrowser.append(str)                                                               
+                    self.textBrowser.append(str)
+                    
+                    if NEW_NODE_VAL > 0:
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 동적맥점 {3} 추가되었습니다.\r'.format(dt.hour, dt.minute, dt.second, NEW_NODE_VAL)
+                        self.textBrowser.append(str)
+                    else:
+                        pass                                                               
                 else:
                     pass
             else:
