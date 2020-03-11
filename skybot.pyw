@@ -246,18 +246,18 @@ with open('rules.txt', mode='r') as initfile:
             # 원소의 중복횟수 리스트 생성
             result = list(Counter(HIGH_LOW_LIST).values())
             print('중복횟수 리스트 =', result)
-            print('중복횟수 리스트 최대값 =', max(result))
+            print('중복횟수 리스트 최대빈도수 =', max(result))
 
             if max(result) > 2:
 
                 # 중복횟수 최대값 인덱스 구함
                 max_index = result.index(max(result))            
-                print('중복횟수 최대값 인덱스 =', max_index)
+                print('중복횟수 최대빈도수 인덱스 =', max_index)
 
                 # 최대 중복값 산출
                 result = list(Counter(HIGH_LOW_LIST).keys())
                 NEW_NODE_VAL = result[max_index]
-                print('새 진성맥점 =', NEW_NODE_VAL)
+                print('새 동적맥점(최대빈도수의 값) =', NEW_NODE_VAL)
 
                 진성맥점.append(NEW_NODE_VAL)
                 진성맥점 = list(set(진성맥점))
@@ -442,6 +442,9 @@ call_high_touch = False
 put_low_touch = False
 put_high_touch = False
 
+oneway_first_touch = False
+oneway_str = ''
+
 call_low_node_count = 0
 call_high_node_count = 0
 put_low_node_count = 0
@@ -535,13 +538,13 @@ night_time = 0
 
 야간선물_기준시간 = 17
 
-선물_전저 = 0
-선물_전고 = 0
+선물_전저 = CME_INDEX
+선물_전고 = CME_INDEX
 선물_종가 = CME_INDEX
-선물_피봇 = 0
+선물_피봇 = CME_INDEX
 
-선물_시가 = 0
-선물_현재가 = 0
+선물_시가 = CME_INDEX
+선물_현재가 = CME_INDEX
 선물_저가 = CME_INDEX
 선물_고가 = CME_INDEX
 
@@ -2991,36 +2994,36 @@ class telegram_send_worker(QThread):
                     # 콜 원웨이 알람
                     if call_oneway_level3:
 
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 있음(C ▲)".format(dt.hour, dt.minute, dt.second)
-                        ToTelegram(str)
+                        #str = "[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 있음(C ▲)".format(dt.hour, dt.minute, dt.second)
+                        ToTelegram(oneway_str)
 
                     elif call_oneway_level4:
 
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 높음(C ▲▲)".format(dt.hour, dt.minute, dt.second)
-                        ToTelegram(str)
+                        #str = "[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 높음(C ▲▲)".format(dt.hour, dt.minute, dt.second)
+                        ToTelegram(oneway_str)
 
                     elif call_oneway_level5:
 
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음(C ▲▲▲)".format(dt.hour, dt.minute, dt.second)
-                        ToTelegram(str)
+                        #str = "[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음(C ▲▲▲)".format(dt.hour, dt.minute, dt.second)
+                        ToTelegram(oneway_str)
                     else:
                         pass
 
                     # 풋 원웨이 알람
                     if put_oneway_level3:
 
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 있음(P ▲)".format(dt.hour, dt.minute, dt.second)
-                        ToTelegram(str)
+                        #str = "[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 있음(P ▲)".format(dt.hour, dt.minute, dt.second)
+                        ToTelegram(oneway_str)
 
                     elif put_oneway_level4:
 
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 높음(P ▲▲)".format(dt.hour, dt.minute, dt.second)
-                        ToTelegram(str)
+                        #str = "[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 높음(P ▲▲)".format(dt.hour, dt.minute, dt.second)
+                        ToTelegram(oneway_str)
 
                     elif put_oneway_level5:
 
-                        str = "[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음(P ▲▲▲)".format(dt.hour, dt.minute, dt.second)
-                        ToTelegram(str)
+                        #str = "[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음(P ▲▲▲)".format(dt.hour, dt.minute, dt.second)
+                        ToTelegram(oneway_str)
                     else:
                         pass
 
@@ -6918,7 +6921,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global call_oneway, put_oneway
         global call_oneway_level1, call_oneway_level2, call_oneway_level3, call_oneway_level4, call_oneway_level5
-        global put_oneway_level1, put_oneway_level2, put_oneway_level3, put_oneway_level4, put_oneway_level5 
+        global put_oneway_level1, put_oneway_level2, put_oneway_level3, put_oneway_level4, put_oneway_level5
+        global oneway_first_touch, oneway_str 
 
         if overnight:
 
@@ -6953,20 +6957,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음(★★★★★)\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
 
-                            '''
-                            if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+                            if not oneway_first_touch:
 
-                                if int(current_str[6:8]) % 20 == 0:
-                                    ToTelegram("풋 OneWay 가능성 매우 높음(★★★★★)")
-                                else:
-                                    pass
+                                oneway_str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음 !!!\r'.format(dt.hour, dt.minute, dt.second)
+                                oneway_first_touch = True
                             else:
                                 pass
-                            '''
                         else:
                             self.label_msg.setStyleSheet('background-color: white; color: blue')
-                            self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
-                        
+                            self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))                        
                     else:
                         
                         put_oneway_level3 = False
@@ -6977,16 +6976,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 높음(★★★★)\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
 
-                            '''
-                            if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+                            if not oneway_first_touch:
 
-                                if int(current_str[6:8]) % 20 == 0:
-                                    ToTelegram("풋 OneWay 가능성 높음(★★★★)")
-                                else:
-                                    pass
+                                oneway_str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 높음 !!\r'.format(dt.hour, dt.minute, dt.second)
+                                oneway_first_touch = True
                             else:
-                                pass 
-                            '''                           
+                                pass                 
                         else:
                             pass                 
 
@@ -7005,6 +7000,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성(★★★)\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
+                    if not oneway_first_touch:
+
+                        oneway_str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 !\r'.format(dt.hour, dt.minute, dt.second)
+                        oneway_first_touch = True
+                    else:
+                        pass
+
                 elif 선물_거래대금순매수 > 0 and 현물_거래대금순매수 < 0 \
                     and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0:
 
@@ -7012,28 +7014,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     put_oneway = True
+                    oneway_str = ''
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성(★★)\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
+                    self.textBrowser.append(str)                    
                 else:
-                    pass
-            else:
+                    pass     
 
-                if 선물_거래대금순매수 > 0 and 현물_거래대금순매수 < 0 \
-                    and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 \
-                    and FUT_RETAIL_거래대금순매수 > 0 and FUT_INSTITUTIONAL_거래대금순매수 > 0 and fut_realdata['거래량'] < 0:
-
-                    self.label_msg.setStyleSheet('background-color: royalblue; color: white')
-                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                    put_oneway = True
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성(★)\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
-                else:
-                    put_oneway = False            
-
-            if FUT_INSTITUTIONAL_거래대금순매수 < -ONEWAY_THRESHOLD or FUT_RETAIL_거래대금순매수 < -ONEWAY_THRESHOLD:
+            elif FUT_INSTITUTIONAL_거래대금순매수 < -ONEWAY_THRESHOLD or FUT_RETAIL_거래대금순매수 < -ONEWAY_THRESHOLD:
 
                 if 선물_거래대금순매수 < 0 and 현물_거래대금순매수 > 0 \
                     and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0:
@@ -7061,16 +7049,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음(★★★★★)\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
 
-                            '''
-                            if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+                            if not oneway_first_touch:
 
-                                if int(current_str[6:8]) % 20 == 0:
-                                    ToTelegram("콜 OneWay 가능성 매우 높음(★★★★★)")
-                                else:
-                                    pass
+                                oneway_str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음 !!!\r'.format(dt.hour, dt.minute, dt.second)
+                                oneway_first_touch = True
                             else:
                                 pass
-                            '''
                         else:
                             self.label_msg.setStyleSheet('background-color: white; color: red')
                             self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))                        
@@ -7084,16 +7068,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 높음(★★★★)\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
 
-                            '''
-                            if TELEGRAM_SERVICE == 'ON' and (telegram_command == 'Go' or telegram_command == '/start'):
+                            if not oneway_first_touch:
 
-                                if int(current_str[6:8]) % 20 == 0:
-                                    ToTelegram("콜 OneWay 가능성 높음(★★★★)")
-                                else:
-                                    pass
+                                oneway_str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 높음 !!\r'.format(dt.hour, dt.minute, dt.second)
+                                oneway_first_touch = True
                             else:
                                 pass
-                            '''
                         else:
                             pass                 
 
@@ -7112,6 +7092,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성(★★★)\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
+                    if not oneway_first_touch:
+
+                        oneway_str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 !\r'.format(dt.hour, dt.minute, dt.second)
+                        oneway_first_touch = True
+                    else:
+                        pass
+
                 elif 선물_거래대금순매수 < 0 and 현물_거래대금순매수 > 0 \
                     and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0:
 
@@ -7119,28 +7106,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     call_oneway = True
+                    oneway_str = ''
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성(★★)\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                 else:
                     pass
-
             else:
+                oneway_str = ''
 
-                if 선물_거래대금순매수 < 0 and 현물_거래대금순매수 > 0 \
-                    and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 \
-                    and FUT_RETAIL_거래대금순매수 < 0 and FUT_INSTITUTIONAL_거래대금순매수 < 0 and fut_realdata['거래량'] > 0:
+                put_oneway_level3 = False
+                put_oneway_level4 = False
+                put_oneway_level5 = False
 
-                    self.label_msg.setStyleSheet('background-color: orange; color: black')
-                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                    call_oneway = True
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성(★)\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
-                else:
-                    call_oneway = False
-
+                call_oneway_level3 = False
+                call_oneway_level4 = False
+                call_oneway_level5 = False                 
             
             if not call_oneway and not put_oneway:
                 self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
