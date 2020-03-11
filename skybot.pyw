@@ -284,13 +284,13 @@ with open('rules.txt', mode='r') as initfile:
                     print('2nd keys list =', result)
                     NEW_NODE_VAL2 = result[max_index]
                     print('2nd 동적맥점(최대빈도수의 값) =', NEW_NODE_VAL2)
+                    
+                    진성맥점.append(NEW_NODE_VAL2)
+                    진성맥점 = list(set(진성맥점))
+                    진성맥점.sort()
+                    print('진성맥점 리스트 =', 진성맥점)
                 else:
                     pass
-
-                진성맥점.append(NEW_NODE_VAL2)
-                진성맥점 = list(set(진성맥점))
-                진성맥점.sort()
-                print('진성맥점 리스트 =', 진성맥점)
                 '''
             else:
                 pass
