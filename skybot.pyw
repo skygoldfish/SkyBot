@@ -594,15 +594,15 @@ night_time = 0
 
 야간선물_기준시간 = 17
 
-선물_전저 = CME_INDEX
-선물_전고 = CME_INDEX
-선물_종가 = CME_INDEX
-선물_피봇 = CME_INDEX
+선물_전저 = 0
+선물_전고 = 0
+선물_종가 = 0
+선물_피봇 = 0
 
-선물_시가 = CME_INDEX
-선물_현재가 = CME_INDEX
-선물_저가 = CME_INDEX
-선물_고가 = CME_INDEX
+선물_시가 = 0
+선물_현재가 = 0
+선물_저가 = 0
+선물_고가 = 0
 
 선물_누적거래량 = 0
 
@@ -4940,6 +4940,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     plot4_fut_high_line.setValue(선물_고가)
                 else:
                     pass
+
+                print('선물_전저 ', 선물_전저)
+                print('선물_전고 ', 선물_전고)
+                print('선물_종가 ', 선물_종가)
+                print('선물_피봇 ', 선물_피봇)
+                print('선물_시가 ', 선물_시가)
+                print('선물_저가 ', 선물_저가)
+                print('선물_고가 ', 선물_고가)
 
             elif comboindex4 == 1:
                 
@@ -11488,7 +11496,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem("{0:0.2f}".format(temp))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
-
+            '''
             if overnight:
 
                 선물_전저 = cme_realdata['전저']
@@ -11501,6 +11509,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 선물_고가 = df['고가']
             else:
                 pass
+            '''
+            선물_전저 = CME_INDEX
+            선물_전고 = CME_INDEX
+            선물_종가 = CME_INDEX
+            선물_피봇 = CME_INDEX
+
+            선물_시가 = CME_INDEX
+            선물_현재가 = CME_INDEX
+            선물_저가 = CME_INDEX
+            선물_고가 = CME_INDEX
             
             if overnight:
 
