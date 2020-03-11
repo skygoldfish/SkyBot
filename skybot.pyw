@@ -224,7 +224,8 @@ with open('rules.txt', mode='r') as initfile:
     진성맥점.sort()
     #print(진성맥점)
 
-    NEW_NODE_VAL = 0
+    NEW_NODE_VAL1 = 0
+    NEW_NODE_VAL2 = 0
 
     if os.path.exists('HL-List.txt'):
 
@@ -243,7 +244,7 @@ with open('rules.txt', mode='r') as initfile:
             HIGH_LOW_LIST.reverse()
             print('HIGH_LOW_LIST =', HIGH_LOW_LIST)
 
-            # 원소의 중복횟수 리스트 생성
+            # 첫번재 최대빈도 맥점탐색
             result = list(Counter(HIGH_LOW_LIST).values())
             print('중복횟수 리스트 =', result)
             print('중복횟수 리스트 최대빈도수 =', max(result))
@@ -256,13 +257,41 @@ with open('rules.txt', mode='r') as initfile:
 
                 # 최대 중복값 산출
                 result = list(Counter(HIGH_LOW_LIST).keys())
-                NEW_NODE_VAL = result[max_index]
-                print('새 동적맥점(최대빈도수의 값) =', NEW_NODE_VAL)
+                NEW_NODE_VAL1 = result[max_index]
+                print('1st 동적맥점(최대빈도수의 값) =', NEW_NODE_VAL1)
 
-                진성맥점.append(NEW_NODE_VAL)
+                진성맥점.append(NEW_NODE_VAL1)
                 진성맥점 = list(set(진성맥점))
                 진성맥점.sort()
                 print('진성맥점 리스트 =', 진성맥점)
+
+                '''
+                # 두번재 최대빈도 맥점탐색
+                second = list(filter((NEW_NODE_VAL1).__ne__, HIGH_LOW_LIST))
+                print('최대빈도 제거된 리스트 =', second)
+
+                result = list(Counter(second).values())
+                print('2nd 중복횟수 리스트 =', result)
+                print('2nd 중복횟수 리스트 최대빈도수 =', max(result))
+
+                if max(result) > 2:
+
+                    max_index = result.index(max(result))            
+                    print('2nd 중복횟수 최대빈도수 인덱스 =', max_index)
+
+                    # 최대 중복값 산출
+                    result = list(Counter(second).keys())
+                    print('2nd keys list =', result)
+                    NEW_NODE_VAL2 = result[max_index]
+                    print('2nd 동적맥점(최대빈도수의 값) =', NEW_NODE_VAL2)
+                else:
+                    pass
+
+                진성맥점.append(NEW_NODE_VAL2)
+                진성맥점 = list(set(진성맥점))
+                진성맥점.sort()
+                print('진성맥점 리스트 =', 진성맥점)
+                '''
             else:
                 pass
     else:
@@ -13110,9 +13139,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
                     
-                    if NEW_NODE_VAL > 0:
+                    if NEW_NODE_VAL1 > 0:
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 동적맥점 {3} 추가되었습니다.\r'.format(dt.hour, dt.minute, dt.second, NEW_NODE_VAL)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 동적맥점 {3} 추가되었습니다.\r'.format(dt.hour, dt.minute, dt.second, NEW_NODE_VAL1)
                         self.textBrowser.append(str)
                         print(str)
                     else:
