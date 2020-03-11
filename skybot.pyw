@@ -5761,18 +5761,46 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
             else:
-
                 if overnight:
 
-                    if self.parent.connection.IsConnected():
+                    if int(OVC_체결시간[0:2]) == 6 and int(OVC_체결시간[2:4]) == 15:
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)  
+                        if self.parent.connection.IsConnected():
 
-                        self.parent.connection.disconnect()
+                            # 다음날 해외선물 피봇계산을 위해 종료시(6시 15분) 마지막 값 저장
+                            str = '[{0:02d}:{1:02d}:{2:02d}] SP500 Low = {3:0.2f}, SP500 High = {4:0.2f}, SP500 Close = {5:0.2f}\r'.format \
+                                (int(OVC_체결시간[0:2]), 
+                                int(OVC_체결시간[2:4]), 
+                                int(OVC_체결시간[4:6]),
+                                sp500_저가, sp500_고가, sp500_price)
+                            self.textBrowser.append(str)
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
+                                (int(OVC_체결시간[0:2]), 
+                                int(OVC_체결시간[2:4]), 
+                                int(OVC_체결시간[4:6]),
+                                dow_저가, dow_고가, dow_price)
+                            self.textBrowser.append(str)
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ Low = {3:0.2f}, NASDAQ High = {4:0.2f}, NASDAQ Close = {5:0.2f}\r'.format \
+                                (int(OVC_체결시간[0:2]), 
+                                int(OVC_체결시간[2:4]), 
+                                int(OVC_체결시간[4:6]),
+                                nasdaq_저가, nasdaq_고가, nasdaq_price)
+                            self.textBrowser.append(str)
+
+                            if TARGET_MONTH_SELECT == 1:
+
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)  
+
+                                self.parent.connection.disconnect()
+                            else:
+                                pass
+                        else:
+                            self.parent.statusbar.showMessage("오프라인") 
                     else:
-
-                        self.parent.statusbar.showMessage("오프라인") 
+                        pass                    
                 else:
                     pass
 
@@ -18725,33 +18753,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.label_atm.setText(str)
                     else:
-                        pass   
-
-                    # 다음날 해외선물 피봇을 위해 종료시(6시 15분) 마지막 값 저장
-                    if int(result['체결시간_한국'][0:2]) == 6 and int(result['체결시간_한국'][2:4]) == 15:
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] SP500 Low = {3:0.2f}, SP500 High = {4:0.2f}, SP500 Close = {5:0.2f}\r'.format \
-                            (int(result['체결시간_한국'][0:2]), 
-                            int(result['체결시간_한국'][2:4]), 
-                            int(result['체결시간_한국'][4:6]),
-                            sp500_저가, sp500_고가, sp500_price)
-                        self.textBrowser.append(str)
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
-                            (int(result['체결시간_한국'][0:2]), 
-                            int(result['체결시간_한국'][2:4]), 
-                            int(result['체결시간_한국'][4:6]),
-                            dow_저가, dow_고가, dow_price)
-                        self.textBrowser.append(str)
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ Low = {3:0.2f}, NASDAQ High = {4:0.2f}, NASDAQ Close = {5:0.2f}\r'.format \
-                            (int(result['체결시간_한국'][0:2]), 
-                            int(result['체결시간_한국'][2:4]), 
-                            int(result['체결시간_한국'][4:6]),
-                            nasdaq_저가, nasdaq_고가, nasdaq_price)
-                        self.textBrowser.append(str)
-                    else:
-                        pass   
+                        pass                    
                 else:
                     # 해외선물 개장시간은 국내시장의 1시간 전
                     if result['체결시간_한국'] != '':
