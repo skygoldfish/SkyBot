@@ -3050,36 +3050,36 @@ class telegram_send_worker(QThread):
                     # 콜 원웨이 알람
                     if call_oneway_level3:
 
-                        #str = "[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 있음(C ▲)".format(dt.hour, dt.minute, dt.second)
-                        ToTelegram(oneway_str)
+                        str = oneway_str
+                        ToTelegram(str)
 
                     elif call_oneway_level4:
 
-                        #str = "[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 높음(C ▲▲)".format(dt.hour, dt.minute, dt.second)
-                        ToTelegram(oneway_str)
+                        str = oneway_str
+                        ToTelegram(str)
 
                     elif call_oneway_level5:
 
-                        #str = "[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음(C ▲▲▲)".format(dt.hour, dt.minute, dt.second)
-                        ToTelegram(oneway_str)
+                        str = oneway_str
+                        ToTelegram(str)
                     else:
                         pass
 
                     # 풋 원웨이 알람
                     if put_oneway_level3:
 
-                        #str = "[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 있음(P ▲)".format(dt.hour, dt.minute, dt.second)
-                        ToTelegram(oneway_str)
+                        str = oneway_str
+                        ToTelegram(str)
 
                     elif put_oneway_level4:
 
-                        #str = "[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 높음(P ▲▲)".format(dt.hour, dt.minute, dt.second)
-                        ToTelegram(oneway_str)
+                        str = oneway_str
+                        ToTelegram(str)
 
                     elif put_oneway_level5:
 
-                        #str = "[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음(P ▲▲▲)".format(dt.hour, dt.minute, dt.second)
-                        ToTelegram(oneway_str)
+                        str = oneway_str
+                        ToTelegram(str)
                     else:
                         pass
 
@@ -19395,11 +19395,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def RemoveCode(self):
 
         global flag_telegram_on
-        global flag_telegram_listen_worker
+        global flag_telegram_listen_worker, flag_telegram_send_worker
 
         dt = datetime.datetime.now()
 
         flag_telegram_on = not flag_telegram_on
+        
+        if not flag_telegram_send_worker:
+
+            # 가끔 send worker가 오동작함(쓰레드 재시작...)
+            self.telegram_send_worker.start()
+            self.telegram_send_worker.daemon = True
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Send Worker를 재시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
+
+            flag_telegram_send_worker = True
+        else:
+            pass
         
         if TELEGRAM_SERVICE == 'ON' and not flag_telegram_listen_worker:
 
@@ -19436,8 +19449,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-            #self.high_low_list_save_to_file()            
-            
+            #self.high_low_list_save_to_file()
             #print('화면을 캡처했습니다...')  
 
             self.pushButton_remove.setStyleSheet("background-color: lawngreen")
