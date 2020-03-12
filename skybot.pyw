@@ -390,6 +390,8 @@ ovc_start_hour = domestic_start_hour - 1
 day_timespan = 395 + 10
 overnight_timespan = 660 + 60 + 10
 
+flag_offline = False
+
 # 업종코드
 KOSPI = '001'
 KOSPI200 = '101'
@@ -5752,6 +5754,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global flag_fut_low, flag_fut_high
             global flag_kp200_low, flag_kp200_high
             global flag_call_low_update, flag_call_high_update, flag_put_low_update, flag_put_high_update
+            global flag_offline
 
             # 장종료시 처리
             if not service_terminate:
@@ -5774,6 +5777,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 int(OVC_체결시간[4:6]),
                                 sp500_저가, sp500_고가, sp500_price)
                             self.textBrowser.append(str)
+                            print(str)
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
                                 (int(OVC_체결시간[0:2]), 
@@ -5781,6 +5785,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 int(OVC_체결시간[4:6]),
                                 dow_저가, dow_고가, dow_price)
                             self.textBrowser.append(str)
+                            print(str)
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ Low = {3:0.2f}, NASDAQ High = {4:0.2f}, NASDAQ Close = {5:0.2f}\r'.format \
                                 (int(OVC_체결시간[0:2]), 
@@ -5788,11 +5793,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 int(OVC_체결시간[4:6]),
                                 nasdaq_저가, nasdaq_고가, nasdaq_price)
                             self.textBrowser.append(str)
+                            print(str)
 
                             if TARGET_MONTH_SELECT == 1:
 
                                 str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(str)  
+                                self.textBrowser.append(str)
+                                print(str)  
 
                                 self.parent.connection.disconnect()
                             else:
@@ -5800,7 +5807,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             self.parent.statusbar.showMessage("오프라인") 
                     else:
-                        pass                    
+                        pass                
                 else:
                     pass
 
@@ -6373,17 +6380,33 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-            '''
-            if dt.second % 10 == 0:                
+            if overnight:
 
-                print('FromTelegram = ', FromTelegram())
+                if dt.hour == 7 and dt.minute == 0:
+
+                    if self.parent.connection.IsConnected():
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
+                        print(str)
+
+                        flag_offline = True  
+
+                        self.parent.connection.disconnect()
+                    else:
+                        self.parent.statusbar.showMessage("오프라인")
+                else:
+                    pass
+            else:
+                pass    
+            
+            if not flag_offline:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update Time : {3:0.2f} ms...\r'.format(\
+                    dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
+                print(str)
             else:
                 pass
-            '''
-            
-            str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update Time : {3:0.2f} ms...\r'.format(\
-                dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
-            print(str)
             
         except:
             pass
