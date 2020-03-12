@@ -503,6 +503,11 @@ put_high_touch = False
 oneway_first_touch = False
 oneway_str = ''
 
+콜대비합 = 0
+풋대비합 = 0
+
+비대칭장 = ''
+
 call_low_node_count = 0
 call_high_node_count = 0
 put_low_node_count = 0
@@ -3085,6 +3090,12 @@ class telegram_send_worker(QThread):
                     else:
                         pass
 
+                    if 비대칭장 != '':
+
+                        str = 비대칭장
+                        ToTelegram(str)
+                    else:
+                        pass
                 else:
                     pass                
                 
@@ -7053,7 +7064,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_oneway, put_oneway
         global call_oneway_level1, call_oneway_level2, call_oneway_level3, call_oneway_level4, call_oneway_level5
         global put_oneway_level1, put_oneway_level2, put_oneway_level3, put_oneway_level4, put_oneway_level5
-        global oneway_first_touch, oneway_str 
+        global oneway_first_touch, oneway_str
+        global 비대칭장 
 
         if overnight:
 
@@ -7252,7 +7264,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 call_oneway_level3 = False
                 call_oneway_level4 = False
-                call_oneway_level5 = False                 
+                call_oneway_level5 = False
+
+            if 3 * abs(풋대비합) <= abs(콜대비합):
+
+                비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 콜 우세 비대칭장...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(비대칭장)
+
+            elif 3 * abs(콜대비합) <= abs(풋대비합):
+
+                비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 풋 우세 비대칭장...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(비대칭장)
+            else:
+                비대칭장 = ''
             
             if not call_oneway and not put_oneway:
                 self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
@@ -14711,7 +14735,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     
     def call_db_update(self):
 
-        global call_진폭
+        global call_진폭, 콜대비합
 
         temp = call_db_percent[:]
         call_db_percent_local = [value for value in temp if not math.isnan(value)]
@@ -14719,11 +14743,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if call_db_percent_local:
             
-            대비합 = round(df_call['대비'].sum(), 2)
+            콜대비합 = round(df_call['대비'].sum(), 2)
 
             tmp = np.array(call_db_percent_local)            
             대비평균 = int(round(np.mean(tmp), 2))
-            call_str = repr(대비합) + '\n(' + repr(대비평균) + '%' + ')'
+            call_str = repr(콜대비합) + '\n(' + repr(대비평균) + '%' + ')'
 
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(call_str)
@@ -15116,6 +15140,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_gap_percent, call_db_percent      
         global 콜시가갭합, 콜시가갭합_퍼센트
         global call_ol_count, call_oh_count
+        global 콜대비합
         
         call_ol = [False] * option_pairs_count
         call_oh = [False] * option_pairs_count
@@ -15355,10 +15380,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if call_db_percent_local:
 
-            대비합 = round(df_call['대비'].sum(), 2)
+            콜대비합 = round(df_call['대비'].sum(), 2)
             tmp = np.array(call_db_percent_local)            
             대비평균 = int(round(np.mean(tmp), 2))
-            call_str = repr(대비합) + '\n(' + repr(대비평균) + '%' + ')'
+            call_str = repr(콜대비합) + '\n(' + repr(대비평균) + '%' + ')'
 
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(call_str)
@@ -15820,7 +15845,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     
     def put_db_update(self):
 
-        global put_진폭
+        global put_진폭, 풋대비합
 
         temp = put_db_percent[:]
         put_db_percent_local = [value for value in temp if not math.isnan(value)]
@@ -15828,11 +15853,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if put_db_percent_local:
             
-            대비합 = round(df_put['대비'].sum(), 2)
+            풋대비합 = round(df_put['대비'].sum(), 2)
 
             tmp = np.array(put_db_percent_local)            
             대비평균 = int(round(np.mean(tmp), 2))
-            put_str = repr(대비합) + '\n(' + repr(대비평균) + '%' + ')'
+            put_str = repr(풋대비합) + '\n(' + repr(대비평균) + '%' + ')'
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(put_str)
@@ -16228,6 +16253,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global put_gap_percent, put_db_percent     
         global 풋시가갭합, 풋시가갭합_퍼센트
         global put_ol_count, put_oh_count
+        global 풋대비합
         
         put_ol = [False] * option_pairs_count
         put_oh = [False] * option_pairs_count
@@ -16467,10 +16493,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if put_db_percent_local:
 
-            대비합 = round(df_put['대비'].sum(), 2)
+            풋대비합 = round(df_put['대비'].sum(), 2)
             tmp = np.array(put_db_percent_local)            
             대비평균 = int(round(np.mean(tmp), 2))
-            put_str = repr(대비합) + '\n(' + repr(대비평균) + '%' + ')'
+            put_str = repr(풋대비합) + '\n(' + repr(대비평균) + '%' + ')'
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(put_str)
