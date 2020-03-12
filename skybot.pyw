@@ -3301,21 +3301,35 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             overnight = True
 
-            domestic_start_hour = 18
+            domestic_start_hour = 18            
 
-            if TARGET_MONTH_SELECT == 1:
+            if MANGI_YAGAN == 'YES':
 
-                cm_option_title = repr(current_month) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
-                ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
+                if TARGET_MONTH_SELECT == 1:
 
-            elif TARGET_MONTH_SELECT == 2:
+                    cm_option_title = repr(current_month) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
+                    ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
 
-                cm_option_title = repr(next_month) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
-                ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
+                elif TARGET_MONTH_SELECT == 2:
 
+                    cm_option_title = repr(next_month) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
+                    ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
+                else:
+                    pass
             else:
-                cm_option_title = repr(month_after_next) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
-                ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
+                if TARGET_MONTH_SELECT == 1:
+
+                    cm_option_title = repr(current_month) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
+                    ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
+
+                elif TARGET_MONTH_SELECT == 2:
+
+                    cm_option_title = repr(next_month) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
+                    ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
+
+                else:
+                    cm_option_title = repr(month_after_next) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
+                    ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
 
         ovc_start_hour = domestic_start_hour - 1 
 
