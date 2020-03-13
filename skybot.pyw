@@ -11390,24 +11390,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 atm_val = float(atm_str) + 0.5
             else:
                 atm_val = float(atm_str)
-
-            #print('t2801 atm_index = ', atm_index, atm_str, kp200_realdata['종가'])
             
             self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
             self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
             self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
             self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))   
             
-            self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-            self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-            self.tableWidget_call.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+            if not refresh_flag:
 
-            self.tableWidget_put.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-            self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-            self.tableWidget_put.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-            
-            selected_call = [atm_index - 1, atm_index, atm_index + 1]
-            selected_put = [atm_index - 1, atm_index, atm_index + 1]
+                self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                self.tableWidget_call.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+
+                self.tableWidget_put.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                self.tableWidget_put.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+
+                selected_call = [atm_index - 1, atm_index, atm_index + 1]
+                selected_put = [atm_index - 1, atm_index, atm_index + 1]
+            else:
+                pass
 
             view_actval = opt_actval[atm_index-5:atm_index+6]
 
