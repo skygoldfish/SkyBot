@@ -582,20 +582,12 @@ flag_fut_high = False
 flag_kp200_low = False
 flag_kp200_high = False
 
-flag_call_low_update = False
-flag_call_high_update = False
-flag_put_low_update = False
-flag_put_high_update = False
-
 kp200_종가 = 0
 
 옵션잔존일 = 0
 
 OVC_체결시간 = '000000'
 호가시간 = '000000'
-
-call_update_time = 0
-put_update_time = 0
 
 night_time = 0
 
@@ -5780,7 +5772,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             global flag_fut_low, flag_fut_high
             global flag_kp200_low, flag_kp200_high
-            global flag_call_low_update, flag_call_high_update, flag_put_low_update, flag_put_high_update
             global flag_offline
 
             # 장종료시 처리
@@ -14332,9 +14323,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_gap_percent, call_db_percent
         global opt_callreal_update_counter
         global df_call_volume, call_volume_total, df_plotdata_call_volume
-        global flag_call_low_update, flag_call_high_update
         global node_coloring
-        global call_open_list, call_update_time
+        global call_open_list
         global call_max_actval, call_open
         global 콜_인덱스, 콜_시가, 콜_현재가, 콜_저가, 콜_고가
         global call_low_touch, call_high_touch
@@ -14493,7 +14483,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             item = QTableWidgetItem('▼')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-            #self.tableWidget_call.resizeColumnsToContents()
             
             df_call.loc[index, '저가'] = round(float(저가), 2)
 
@@ -14539,10 +14528,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             call_저가 = df_call['저가'].values.tolist()
             call_저가_node_list = self.make_node_list(call_저가)
 
-            flag_call_low_update = True
-            
-            call_update_time = int(result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6])
-
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(저가), 2))
             self.textBrowser.append(str)
@@ -14562,7 +14547,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             item = QTableWidgetItem('▲')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-            #self.tableWidget_call.resizeColumnsToContents()
             
             df_call.loc[index, '고가'] = round(float(고가), 2)
 
@@ -14607,10 +14591,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             call_고가 = df_call['고가'].values.tolist()
             call_고가_node_list = self.make_node_list(call_고가)
-
-            flag_call_high_update = True
-            
-            call_update_time = int(result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6])
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(고가), 2))
@@ -15452,8 +15432,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global put_gap_percent, put_db_percent
         global opt_putreal_update_counter
         global df_put_volume, put_volume_total, df_plotdata_put_volume, df_plotdata_volume_cha
-        global flag_put_low_update, flag_put_high_update
-        global put_open_list, put_update_time
+        global put_open_list
         global put_max_actval, put_open
         global 풋_인덱스, 풋_시가, 풋_현재가, 풋_저가, 풋_고가
         global put_low_touch, put_high_touch
@@ -15611,7 +15590,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             item = QTableWidgetItem('▼')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-            #self.tableWidget_put.resizeColumnsToContents()
             
             df_put.loc[index, '저가'] = round(float(저가), 2)
 
@@ -15657,10 +15635,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             put_저가 = df_put['저가'].values.tolist()
             put_저가_node_list = self.make_node_list(put_저가)
 
-            flag_put_low_update = True
-            
-            put_update_time = int(result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6])
-
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(저가), 2))
             self.textBrowser.append(str)
@@ -15680,7 +15654,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             item = QTableWidgetItem('▲')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-            #self.tableWidget_put.resizeColumnsToContents()
             
             df_put.loc[index, '고가'] = round(float(고가), 2)
 
@@ -15725,10 +15698,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             put_고가 = df_put['고가'].values.tolist()
             put_고가_node_list = self.make_node_list(put_고가)
-
-            flag_put_high_update = True
-            
-            put_update_time = int(result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6])
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(고가), 2))
