@@ -19572,22 +19572,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         for i in range(option_pairs_count):
 
-            if 1.0 <= df_call.iloc[i]['저가'] <= 9.99:
+            if 1.2 < df_call.iloc[i]['저가'] <= 9.99:
                 call_low_list.append(df_call.iloc[i]['저가'])
             else:
                 pass
 
-            if 1.0 <= df_call.iloc[i]['고가'] <= 9.99:
+            if 1.2 < df_call.iloc[i]['고가'] <= 9.99:
                 call_high_list.append(df_call.iloc[i]['고가'])
             else:
                 pass
 
-            if 1.0 <= df_put.iloc[i]['저가'] <= 9.99:
+            if 1.2 < df_put.iloc[i]['저가'] <= 9.99:
                 put_low_list.append(df_put.iloc[i]['저가'])
             else:
                 pass
 
-            if 1.0 <= df_put.iloc[i]['고가'] <= 9.99:
+            if 1.2 < df_put.iloc[i]['고가'] <= 9.99:
                 put_high_list.append(df_put.iloc[i]['고가'])
             else:
                 pass
