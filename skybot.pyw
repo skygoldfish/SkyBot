@@ -7312,66 +7312,66 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if kospi_text_color != '':
 
             if kospi_text_color == 'red':
-                self.label_kospi.setStyleSheet('background-color: black; color: magenta')
+                self.label_kospi.setStyleSheet('background-color: white; color: magenta')
             elif kospi_text_color == 'blue':
-                self.label_kospi.setStyleSheet('background-color: black; color: cyan')
+                self.label_kospi.setStyleSheet('background-color: white; color: cyan')
             else:
-                self.label_kospi.setStyleSheet('background-color: black; color: yellow')
+                self.label_kospi.setStyleSheet('background-color: white; color: black')
         else:
             pass        
 
         if kosdaq_text_color != '':
 
             if kosdaq_text_color == 'red':
-                self.label_kosdaq.setStyleSheet('background-color: black; color: magenta')
+                self.label_kosdaq.setStyleSheet('background-color: white; color: magenta')
             elif kosdaq_text_color == 'blue':
-                self.label_kosdaq.setStyleSheet('background-color: black; color: cyan')
+                self.label_kosdaq.setStyleSheet('background-color: white; color: cyan')
             else:
-                self.label_kosdaq.setStyleSheet('background-color: black; color: yellow')
+                self.label_kosdaq.setStyleSheet('background-color: white; color: black')
         else:
             pass 
 
         if samsung_text_color != '':
 
             if samsung_text_color == 'red':
-                self.label_kosdaq.setStyleSheet('background-color: black; color: magenta')
+                self.label_kosdaq.setStyleSheet('background-color: white; color: magenta')
             elif samsung_text_color == 'blue':
-                self.label_kosdaq.setStyleSheet('background-color: black; color: cyan')
+                self.label_kosdaq.setStyleSheet('background-color: white; color: cyan')
             else:
-                self.label_kosdaq.setStyleSheet('background-color: black; color: yellow')
+                self.label_kosdaq.setStyleSheet('background-color: white; color: black')
         else:
             pass            
 
         if sp500_text_color != '':
 
             if sp500_text_color == 'red':
-                self.label_1st.setStyleSheet('background-color: black; color: magenta')
+                self.label_1st.setStyleSheet('background-color: white; color: magenta')
             elif sp500_text_color == 'blue':
-                self.label_1st.setStyleSheet('background-color: black; color: cyan')
+                self.label_1st.setStyleSheet('background-color: white; color: cyan')
             else:
-                self.label_1st.setStyleSheet('background-color: black; color: yellow')
+                self.label_1st.setStyleSheet('background-color: white; color: black')
         else:
             pass        
 
         if dow_text_color != '':
 
             if dow_text_color == 'red':
-                self.label_2nd.setStyleSheet('background-color: black; color: magenta')
+                self.label_2nd.setStyleSheet('background-color: white; color: magenta')
             elif dow_text_color == 'blue':
-                self.label_2nd.setStyleSheet('background-color: black; color: cyan')
+                self.label_2nd.setStyleSheet('background-color: white; color: cyan')
             else:
-                self.label_2nd.setStyleSheet('background-color: black; color: yellow')
+                self.label_2nd.setStyleSheet('background-color: white; color: black')
         else:
             pass        
 
         if nasdaq_text_color != '':
 
             if nasdaq_text_color == 'red':
-                self.label_3rd.setStyleSheet('background-color: black; color: magenta')
+                self.label_3rd.setStyleSheet('background-color: white; color: magenta')
             elif nasdaq_text_color == 'blue':
-                self.label_3rd.setStyleSheet('background-color: black; color: cyan')
+                self.label_3rd.setStyleSheet('background-color: white; color: cyan')
             else:
-                self.label_3rd.setStyleSheet('background-color: black; color: yellow')
+                self.label_3rd.setStyleSheet('background-color: white; color: black')
         else:
             pass        
 
