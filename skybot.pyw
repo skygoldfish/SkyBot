@@ -6411,7 +6411,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if dt.hour == 7 and dt.minute == 0:
 
-                    if self.parent.connection.IsConnected():
+                    if self.parent.connection.IsConnected() and not flag_offline:
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
