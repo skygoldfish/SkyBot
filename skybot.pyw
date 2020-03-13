@@ -14581,7 +14581,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(저가), 2))
             self.textBrowser.append(str)
 
-            self.opt_call_low_node_coloring()
+            if 1.0 < df_call.iloc[index]['저가'] < 10.0:
+
+                self.opt_call_low_node_coloring()
+            else:
+                pass
         else:
             pass
 
@@ -14646,7 +14650,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(고가), 2))
             self.textBrowser.append(str)
 
-            self.opt_call_high_node_coloring()
+            if 1.0 < df_call.iloc[index]['고가'] < 10.0:
+
+                self.opt_call_high_node_coloring()
+            else:
+                pass
         else:
             pass               
                    
@@ -15691,7 +15699,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(저가), 2))
             self.textBrowser.append(str)
 
-            self.opt_put_low_node_coloring()
+            if 1.0 < df_put.iloc[index]['저가'] < 10.0:
+
+                self.opt_put_low_node_coloring()
+            else:
+                pass
         else:
             pass
 
@@ -15756,7 +15768,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(고가), 2))
             self.textBrowser.append(str)
 
-            self.opt_put_high_node_coloring()
+            if 1.0 < df_put.iloc[index]['고가'] < 10.0:
+
+                self.opt_put_high_node_coloring()
+            else:
+                pass            
         else:
             pass                
                     
