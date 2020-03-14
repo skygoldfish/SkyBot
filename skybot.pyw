@@ -404,6 +404,7 @@ day_timespan = 395 + 10
 overnight_timespan = 660 + 60 + 10
 
 flag_offline = False
+flag_ovc_terminate = False
 
 # 업종코드
 KOSPI = '001'
@@ -5739,8 +5740,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         try:
             dt = datetime.datetime.now()
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Send Message = {3}\r'.format(dt.hour, dt.minute, dt.second, str)
-            print(str)
+            if not flag_ovc_terminate:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Send Message = {3}\r'.format(dt.hour, dt.minute, dt.second, str)
+                print(str)
+            else:
+                pass
 
         except:
             pass
@@ -5755,9 +5760,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             telegram_command = str
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command = {3}\r'.format(\
-                dt.hour, dt.minute, dt.second, telegram_command)
-            print(str)
+            if not flag_ovc_terminate:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command = {3}\r'.format(\
+                    dt.hour, dt.minute, dt.second, telegram_command)
+                print(str)
+            else:
+                pass
+
+
             '''
             if telegram_command == 'Go' or telegram_command == '/start':
 
@@ -5785,7 +5796,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             global flag_fut_low, flag_fut_high
             global flag_kp200_low, flag_kp200_high
-            global flag_offline
+            global flag_offline, flag_ovc_terminate
 
             # 장종료시 처리
             if not service_terminate:
@@ -5823,6 +5834,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             nasdaq_저가, nasdaq_고가, nasdaq_price)
                         self.textBrowser.append(str)
                         print(str)
+
+                        flag_ovc_terminate = True
                     else:
                         pass
 
@@ -13471,7 +13484,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem('▲')
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(적색))
-            item.setForeground(QBrush(흰색))
+            item.setForeground(QBrush(검정색))
 
             if overnight:
                 self.tableWidget_fut.setItem(0, Futures_column.OLOH.value, item)
@@ -14999,7 +15012,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem(oloh_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
                 self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
 
                 call_ol[index] = True
@@ -15224,7 +15237,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             item = QTableWidgetItem(oloh_str)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(적색))
-                            item.setForeground(QBrush(흰색))
+                            item.setForeground(QBrush(검정색))
                             self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
 
                             self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(적색))
@@ -16122,7 +16135,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item = QTableWidgetItem(oloh_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
                 self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
 
                 put_oh[index] = True
@@ -16353,7 +16366,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             item = QTableWidgetItem(oloh_str)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(적색))
-                            item.setForeground(QBrush(흰색))
+                            item.setForeground(QBrush(검정색))
                             self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
 
                             self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(청색))
