@@ -677,7 +677,6 @@ every_5min = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
 선물장간_시간차 = 60
 
 receive_real_ovc = False
-receive_realdata = False
 receive_quote = False
 
 cm_option_title = ''
@@ -755,7 +754,6 @@ flag_call_low_coreval = False
 flag_call_high_coreval = False
 flag_put_low_coreval = False
 flag_put_high_coreval = False
-service_start = False
 
 fut_code = ''
 gmshcode = ''
@@ -6428,7 +6426,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         dt = datetime.datetime.now()
         start_time = timeit.default_timer()
 
-        if service_start:
+        if market_service:
 
             node_coloring = True
 
@@ -6572,7 +6570,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         dt = datetime.datetime.now()
         start_time = timeit.default_timer()
 
-        if service_start:
+        if market_service:
 
             node_coloring = True
 
@@ -8599,7 +8597,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         '''
         process_time = (timeit.default_timer() - start_time) * 1000
         
-        if service_start:
+        if market_service:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call Node Color Check Time : {3:0.2f} ms\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
@@ -9206,7 +9204,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         '''
         process_time = (timeit.default_timer() - start_time) * 1000
         
-        if service_start:
+        if market_service:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put Node Color Check Time : {3:0.2f} ms\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
@@ -9947,7 +9945,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global view_actval
         
         global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_현재가, 선물_고가
-        global service_start
         global call_open_list, put_open_list, opt_total_list
         global call_below_atm_count, call_max_actval
         global put_above_atm_count, put_max_actval
@@ -13728,7 +13725,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
         global flag_fut_low, flag_fut_high 
         global 선물_누적거래량
-        global first_refresh, fut_first_arrive, service_start
+        global first_refresh, fut_first_arrive
         global flag_telegram_listen_worker, telegram_send_worker_on_time
         global flag_telegram_send_worker
 
@@ -13769,7 +13766,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         df_plotdata_fut.iloc[0][x_idx] = 선물_현재가
         df_plotdata_kp200.iloc[0][x_idx] = round(float(result['KOSPI200지수']), 2)
 
-        #print('fut_first_arrive = {0}, first_refresh = {1}, service_start = {2}\r'.format(fut_first_arrive, first_refresh, service_start))
+        #print('fut_first_arrive = {0}, first_refresh = {1}, market_service = {2}\r'.format(fut_first_arrive, first_refresh, market_service))
 
         fut_time = int(current_str[0:2]) * 3600 + int(current_str[3:5]) * 60 + int(current_str[6:8])
 
@@ -13788,7 +13785,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        #if service_start and (fut_time == fut_first_arrive + 1 or fut_time == fut_first_arrive + 2):
+        #if market_service and (fut_time == fut_first_arrive + 1 or fut_time == fut_first_arrive + 2):
         if fut_time == telegram_send_worker_on_time + 1 or fut_time == telegram_send_worker_on_time + 2:
             
             # 선물 시가갭 컬러링(주간 장시작시 표시안되는 오류 대응)
@@ -15111,7 +15108,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         call_db_percent = [NaN] * option_pairs_count
         call_below_atm_count = 0
 
-        if not service_start:
+        if not market_service:
             call_open = [False] * option_pairs_count
         else:
             pass
@@ -15122,7 +15119,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             loop_list = call_open_list
 
-            if service_start:
+            if market_service:
                 '''
                 str = '[{0:02d}:{1:02d}:{2:02d}] Call Open Check List = {3}\r'.format(\
                     int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
@@ -15139,7 +15136,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if df_call.iloc[index]['시가'] > opt_search_start_value:
                 
-                if not service_start:
+                if not market_service:
 
                     if index != atm_index:
                         self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
@@ -15178,7 +15175,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
 
-                    if not service_start:
+                    if not market_service:
 
                         call_open[index] = True
                     else:
@@ -16221,7 +16218,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         put_db_percent = [NaN] * option_pairs_count
         put_above_atm_count = 0
 
-        if not service_start:
+        if not market_service:
             put_open = [False] * option_pairs_count
         else:
             pass
@@ -16232,7 +16229,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             loop_list = put_open_list
 
-            if service_start:
+            if market_service:
                 '''
                 str = '[{0:02d}:{1:02d}:{2:02d}] Put Open Check List = {3}\r'.format(\
                     int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
@@ -16249,7 +16246,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if df_put.iloc[index]['시가'] > opt_search_start_value:
 
-                if not service_start:
+                if not market_service:
 
                     if index != atm_index:
                         self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
@@ -16288,7 +16285,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
 
-                    if not service_start:
+                    if not market_service:
 
                         put_open[index] = True                        
                     else:
@@ -16739,8 +16736,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global opt_callreal_update_counter, opt_putreal_update_counter
             global opt_call_ho_update_counter, opt_put_ho_update_counter
             global call_atm_value, put_atm_value
-            global atm_index_old
-            global receive_realdata            
+            global atm_index_old           
             global receive_quote
 
             global FUT_FOREIGNER_거래대금순매수, FUT_RETAIL_거래대금순매수, FUT_INSTITUTIONAL_거래대금순매수, FUT_STOCK_거래대금순매수, \
@@ -16795,7 +16791,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global x_idx, ovc_x_idx
             global call_result, put_result
             
-            global service_start
             global 선물현재가
             global opt_x_idx, 콜현재가, 풋현재가
             global flag_telegram_send_worker
@@ -16836,7 +16831,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 장시작 10분전입니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
-
+                    '''
                     if not START_ON:
 
                         self.AddCode()
@@ -16846,6 +16841,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         pre_start = True
                     else:
                         pass
+                    '''
 
                 # 현물장 시작 10초전
                 elif result['장구분'] == '1' and result['장상태'] == '22':
@@ -16866,21 +16862,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (kse_start_hour * 3600 + 0 * 60 + 0)
 
                     yoc_stop = not yoc_stop
-                    pre_start = not pre_start
+                    #pre_start = False
 
-                    '''
-                    if not yoc_stop:
-                        yoc_stop = True
-                    else:
-                        pass
-
-                    if pre_start:
-
-                        pre_start = False
-                    else:
-                        pass
-                    '''
-                    service_start = True
                     market_service = True
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] Time Delta = {3}초\r'.format(dt.hour, dt.minute, dt.second, time_delta)
@@ -16898,13 +16881,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] Time Delta = {3}초\r'.format(dt.hour, dt.minute, dt.second, time_delta)
                     self.textBrowser.append(str)
 
-                    service_start = True
                     market_service = True
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
-
-                    #receive_realdata = True
 
                 # 야간 옵션장 시작
                 elif result['장구분'] == '8' and result['장상태'] == '21':
@@ -16927,8 +16907,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
-
-                    #receive_realdata = True
 
                 # 현물 장마감 5분전
                 elif result['장구분'] == '1' and result['장상태'] == '44':
@@ -18314,14 +18292,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif szTrCode == 'FC0' or szTrCode == 'NC0':
 
-                pre_start = not pre_start
+                if pre_start:
+                    pre_start = False
+                else:
+                    pass
 
                 if szTrCode == 'FC0':
 
                     if not market_service: 
 
                         market_service = True
-                        service_start = True
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 주간 선물 데이타를 수신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                         self.textBrowser.append(str)
@@ -18332,9 +18312,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if szTrCode == 'NC0':    
 
-                    if not receive_realdata:
+                    if not market_service: 
 
-                        receive_realdata = True
+                        market_service = True
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 야간 선물 데이타를 수신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                         self.textBrowser.append(str)
@@ -18408,22 +18388,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if not market_service: 
 
                     market_service = True
-                    service_start = True
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 옵션 데이타를 수신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
                 else:
                     pass
 
-                pre_start = not pre_start
-
-                '''
                 if pre_start:
-
                     pre_start = False
                 else:
                     pass
-                '''
 
                 # X축 시간좌표 계산
                 if overnight:
