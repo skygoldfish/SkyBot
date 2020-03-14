@@ -75,9 +75,9 @@ locale.setlocale(locale.LC_ALL, '')
 DATABASE = 'DATA\\mymoneybot.sqlite'
 UI_DIR = "UI\\"
 
-global domestic_start_hour
+global kse_start_hour
 
-domestic_start_hour = 9
+kse_start_hour = 9
 
 # 만기일 야간옵션은 month_info.txt에서 mangi_yagan을 NO -> YES로 변경
 with open('month_info.txt', mode='r') as monthfile:
@@ -86,7 +86,8 @@ with open('month_info.txt', mode='r') as monthfile:
 
     tmp = monthfile.readline().strip()
     temp = tmp.split()
-    domestic_start_hour = int(temp[3])
+    kse_start_hour = int(temp[4])
+    #print('kse_start_hour =', kse_start_hour)
 
     tmp = monthfile.readline().strip()
     temp = tmp.split()
@@ -112,6 +113,18 @@ with open('month_info.txt', mode='r') as monthfile:
     tmp = monthfile.readline().strip()
     temp = tmp.split()
     MONTH_FIRSTDAY = temp[7]
+    
+    tmp = monthfile.readline().strip()
+    temp = tmp.split()
+    US_INDEX_END_TIME = temp[5]
+    #print('US_INDEX_END_TIME =', US_INDEX_END_TIME)
+
+    US_INDEX_END_HOUR = int(US_INDEX_END_TIME[0:2])
+    US_INDEX_END_MIN = int(US_INDEX_END_TIME[2:4])
+    US_INDEX_END_SEC = int(US_INDEX_END_TIME[4:6])
+    #print('US_INDEX_END_HOUR =', US_INDEX_END_HOUR)
+    #print('US_INDEX_END_MIN =', US_INDEX_END_MIN)
+    #print('US_INDEX_END_SEC =', US_INDEX_END_SEC)
     
     tmp = monthfile.readline().strip()
     temp = tmp.split()
@@ -385,7 +398,7 @@ with open('rules.txt', mode='r') as initfile:
 nRowCount = int(행사가갯수)
 telegram_toggle = True
 
-ovc_start_hour = domestic_start_hour - 1
+ovc_start_hour = kse_start_hour - 1
 
 day_timespan = 395 + 10
 overnight_timespan = 660 + 60 + 10
@@ -3188,7 +3201,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         global MANGI_YAGAN, current_month, next_month, month_after_next, TARGET_MONTH_SELECT, MONTH_FIRSTDAY
         global cm_option_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, fut_code
-        global overnight, domestic_start_hour, ovc_start_hour
+        global overnight, kse_start_hour, ovc_start_hour
         
         self.상태그림 = ['▼', '▲']
         self.상태문자 = ['매도', '대기', '매수']
@@ -3304,7 +3317,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             overnight = True
 
-            domestic_start_hour = 18            
+            kse_start_hour = 18            
 
             if MANGI_YAGAN == 'YES':
 
@@ -3336,7 +3349,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     cm_option_title = repr(month_after_next) + '월물 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
                     ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
 
-        ovc_start_hour = domestic_start_hour - 1 
+        ovc_start_hour = kse_start_hour - 1 
 
         print('장시작 준비시간 =', ovc_start_hour)
 
@@ -5784,52 +5797,38 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 if overnight:
 
-                    if int(OVC_체결시간[0:2]) == 6 and int(OVC_체결시간[2:4]) == 15:
+                    if int(OVC_체결시간[0:2]) == US_INDEX_END_HOUR and int(OVC_체결시간[2:4]) == US_INDEX_END_MIN and int(OVC_체결시간[4:6]) == US_INDEX_END_SEC:
 
-                        if self.parent.connection.IsConnected():
+                        # 다음날 해외선물 피봇계산을 위해 종료시(5시 59분 57초 ?) 마지막 값 저장
+                        str = '[{0:02d}:{1:02d}:{2:02d}] SP500 Low = {3:0.2f}, SP500 High = {4:0.2f}, SP500 Close = {5:0.2f}\r'.format \
+                            (int(OVC_체결시간[0:2]), 
+                            int(OVC_체결시간[2:4]), 
+                            int(OVC_체결시간[4:6]),
+                            sp500_저가, sp500_고가, sp500_price)
+                        self.textBrowser.append(str)
+                        print(str)
 
-                            # 다음날 해외선물 피봇계산을 위해 종료시(6시 15분) 마지막 값 저장
-                            str = '[{0:02d}:{1:02d}:{2:02d}] SP500 Low = {3:0.2f}, SP500 High = {4:0.2f}, SP500 Close = {5:0.2f}\r'.format \
-                                (int(OVC_체결시간[0:2]), 
-                                int(OVC_체결시간[2:4]), 
-                                int(OVC_체결시간[4:6]),
-                                sp500_저가, sp500_고가, sp500_price)
-                            self.textBrowser.append(str)
-                            print(str)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
+                            (int(OVC_체결시간[0:2]), 
+                            int(OVC_체결시간[2:4]), 
+                            int(OVC_체결시간[4:6]),
+                            dow_저가, dow_고가, dow_price)
+                        self.textBrowser.append(str)
+                        print(str)
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
-                                (int(OVC_체결시간[0:2]), 
-                                int(OVC_체결시간[2:4]), 
-                                int(OVC_체결시간[4:6]),
-                                dow_저가, dow_고가, dow_price)
-                            self.textBrowser.append(str)
-                            print(str)
-
-                            str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ Low = {3:0.2f}, NASDAQ High = {4:0.2f}, NASDAQ Close = {5:0.2f}\r'.format \
-                                (int(OVC_체결시간[0:2]), 
-                                int(OVC_체결시간[2:4]), 
-                                int(OVC_체결시간[4:6]),
-                                nasdaq_저가, nasdaq_고가, nasdaq_price)
-                            self.textBrowser.append(str)
-                            print(str)
-
-                            if TARGET_MONTH_SELECT == 1:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(str)
-                                print(str)  
-
-                                self.parent.connection.disconnect()
-                            else:
-                                pass
-                        else:
-                            self.parent.statusbar.showMessage("오프라인") 
+                        str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ Low = {3:0.2f}, NASDAQ High = {4:0.2f}, NASDAQ Close = {5:0.2f}\r'.format \
+                            (int(OVC_체결시간[0:2]), 
+                            int(OVC_체결시간[2:4]), 
+                            int(OVC_체결시간[4:6]),
+                            nasdaq_저가, nasdaq_고가, nasdaq_price)
+                        self.textBrowser.append(str)
+                        print(str)
                     else:
-                        pass                
-                else:
-                    pass
+                        pass
 
-                str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)           
+                    str = '{0:02d}:{1:02d}:{2:02d}'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))                
+                else:
+                    str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)                        
            
             # 로컬타임 표시      
             self.label_msg.setText(str)
@@ -16823,7 +16822,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if result['장구분'] == '5' and result['장상태'] == '25':
 
                     # 서버시간과 동기를 위한 delta time 계산
-                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - ((domestic_start_hour - 1) * 3600 + 50 * 60 + 0)
+                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - ((kse_start_hour - 1) * 3600 + 50 * 60 + 0)
 
                     if time_delta > 0:
                         str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 빠릅니다.\r'.format(\
@@ -16867,7 +16866,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 elif result['장구분'] == '5' and result['장상태'] == '21':
 
                     # 서버시간과 동기를 위한 delta time 계산
-                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (domestic_start_hour * 3600 + 0 * 60 + 0)
+                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (kse_start_hour * 3600 + 0 * 60 + 0)
 
                     yoc_stop = not yoc_stop
                     pre_start = not pre_start
@@ -16897,7 +16896,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 elif result['장구분'] == '7' and result['장상태'] == '21':
 
                     # 서버시간과 동기를 위한 delta time 계산
-                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (domestic_start_hour * 3600 + 0 * 60 + 0)
+                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (kse_start_hour * 3600 + 0 * 60 + 0)
                     
                     str = '[{0:02d}:{1:02d}:{2:02d}] Time Delta = {3}초\r'.format(dt.hour, dt.minute, dt.second, time_delta)
                     self.textBrowser.append(str)
@@ -16918,7 +16917,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 elif result['장구분'] == '8' and result['장상태'] == '21':
 
                     # 서버시간과 동기를 위한 delta time 계산
-                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (domestic_start_hour * 3600 + 0 * 60 + 0)
+                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (kse_start_hour * 3600 + 0 * 60 + 0)
 
                     if time_delta > 0:
                         str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 빠릅니다.\r'.format(dt.hour, dt.minute,
@@ -17217,7 +17216,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif szTrCode == 'YOC':
 
-                if int(result['예상체결시간'][0:2]) == (domestic_start_hour - 1) and int(result['예상체결시간'][2:4]) == 59 and \
+                if int(result['예상체결시간'][0:2]) == (kse_start_hour - 1) and int(result['예상체결시간'][2:4]) == 59 and \
                     (int(result['예상체결시간'][4:6]) == 58 or int(result['예상체결시간'][4:6]) == 59):
 
                     # 지수옵션 예상체결 요청취소(안하면 시작시 지연발생함)
@@ -18366,13 +18365,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        x_idx = (nighttime - domestic_start_hour) * 60 + int(result['체결시간'][2:4]) + 1
+                        x_idx = (nighttime - kse_start_hour) * 60 + int(result['체결시간'][2:4]) + 1
                     else:
                         x_idx = 1
                 else:
 
                     if result['체결시간'] != '':
-                        x_idx = (int(result['체결시간'][0:2]) - domestic_start_hour) * 60 + int(result['체결시간'][2:4]) + 1
+                        x_idx = (int(result['체결시간'][0:2]) - kse_start_hour) * 60 + int(result['체결시간'][2:4]) + 1
                     else:
                         x_idx = 1
 
@@ -18449,13 +18448,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        opt_x_idx = (nighttime - domestic_start_hour) * 60 + int(result['체결시간'][2:4]) + 1
+                        opt_x_idx = (nighttime - kse_start_hour) * 60 + int(result['체결시간'][2:4]) + 1
                     else:
                         opt_x_idx = 1
                 else:
 
                     if result['체결시간'] != '':
-                        opt_x_idx = (int(result['체결시간'][0:2]) - domestic_start_hour) * 60 + int(result['체결시간'][2:4]) + 1
+                        opt_x_idx = (int(result['체결시간'][0:2]) - kse_start_hour) * 60 + int(result['체결시간'][2:4]) + 1
                     else:
                         opt_x_idx = 1
 
@@ -18779,13 +18778,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        ovc_x_idx = (night_time - (domestic_start_hour - 1)) * 60 + int(result['체결시간_한국'][2:4]) + 1
+                        ovc_x_idx = (night_time - (kse_start_hour - 1)) * 60 + int(result['체결시간_한국'][2:4]) + 1
                     else:
                         ovc_x_idx = 1
 
                     if ovc_x_idx < 0:
 
-                        str = '{0}--{1}'.format(night_time, domestic_start_hour)
+                        str = '{0}--{1}'.format(night_time, kse_start_hour)
 
                         self.label_atm.setText(str)
                     else:
@@ -18801,11 +18800,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # ovc_x_idx = ovc_x_idx + 선물장간_시간차 
 
                 '''
-                str = '[{0:02d}:{1:02d}:{2:02d}] domestic_start_hour = {3}, night_time = {4} \r'.format(
+                str = '[{0:02d}:{1:02d}:{2:02d}] kse_start_hour = {3}, night_time = {4} \r'.format(
                             int(result['체결시간_한국'][0:2]),
                             int(result['체결시간_한국'][2:4]),
                             int(result['체결시간_한국'][4:6]),
-                            domestic_start_hour, night_time)
+                            kse_start_hour, night_time)
                  
                 if overnight:
 
