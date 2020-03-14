@@ -5802,10 +5802,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # 장종료시 처리
             if not service_terminate:
 
-                if ovc_x_idx > 0:
-                    str = '{0:02d}:{1:02d}:{2:02d}'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
-                else:
-                    str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
+                str = '{0:02d}:{1:02d}:{2:02d}'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
             else:
                 if overnight:
 
