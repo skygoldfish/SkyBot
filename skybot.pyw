@@ -5778,54 +5778,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             global flag_fut_low, flag_fut_high
             global flag_kp200_low, flag_kp200_high
-            global flag_offline, flag_ovc_terminate
-
-            # 장종료시 처리
-            if not service_terminate:
+            global flag_offline, flag_ovc_terminate, receive_real_ovc
+            
+            self.alternate_flag = not self.alternate_flag
+            
+            # 해외선물 한국시간 표시
+            if not flag_ovc_terminate:
 
                 str = '{0:02d}:{1:02d}:{2:02d}'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
+                self.label_msg.setText(str)
             else:
-                if overnight:
-
-                    if int(OVC_체결시간[0:2]) == US_INDEX_END_HOUR and int(OVC_체결시간[2:4]) == US_INDEX_END_MIN and int(OVC_체결시간[4:6]) == US_INDEX_END_SEC:
-
-                        # 다음날 해외선물 피봇계산을 위해 종료시(5시 59분 57초 ?) 마지막 값 저장
-                        str = '[{0:02d}:{1:02d}:{2:02d}] SP500 Low = {3:0.2f}, SP500 High = {4:0.2f}, SP500 Close = {5:0.2f}\r'.format \
-                            (int(OVC_체결시간[0:2]), 
-                            int(OVC_체결시간[2:4]), 
-                            int(OVC_체결시간[4:6]),
-                            sp500_저가, sp500_고가, sp500_price)
-                        self.textBrowser.append(str)
-                        print(str)
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
-                            (int(OVC_체결시간[0:2]), 
-                            int(OVC_체결시간[2:4]), 
-                            int(OVC_체결시간[4:6]),
-                            dow_저가, dow_고가, dow_price)
-                        self.textBrowser.append(str)
-                        print(str)
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ Low = {3:0.2f}, NASDAQ High = {4:0.2f}, NASDAQ Close = {5:0.2f}\r'.format \
-                            (int(OVC_체결시간[0:2]), 
-                            int(OVC_체결시간[2:4]), 
-                            int(OVC_체결시간[4:6]),
-                            nasdaq_저가, nasdaq_고가, nasdaq_price)
-                        self.textBrowser.append(str)
-                        print(str)
-
-                        flag_ovc_terminate = True
-                    else:
-                        pass
-
-                    str = '{0:02d}:{1:02d}:{2:02d}'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))                
-                else:
-                    str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)                        
-           
-            # 로컬타임 표시      
-            self.label_msg.setText(str)
-
-            self.alternate_flag = not self.alternate_flag 
+                pass
                                     
             if receive_real_ovc:
                 
@@ -6319,7 +6282,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             else:
                                 pass
 
-                        if not dongsi_hoga and not service_terminate:
+                        if not dongsi_hoga:
                         
                             # 진성 의미가인 경우 blinking(매우 중요 !!!)      
 
@@ -6385,10 +6348,47 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass                                    
                 else:
-                    pass                                                      
+                    pass
+
+                if overnight:
+
+                    if int(OVC_체결시간[0:2]) == US_INDEX_END_HOUR and int(OVC_체결시간[2:4]) == US_INDEX_END_MIN and int(OVC_체결시간[4:6]) == US_INDEX_END_SEC:
+
+                        # 다음날 해외선물 피봇계산을 위해 종료시(5시 59분 57초 ?) 마지막 값 저장
+                        str = '[{0:02d}:{1:02d}:{2:02d}] SP500 Low = {3:0.2f}, SP500 High = {4:0.2f}, SP500 Close = {5:0.2f}\r'.format \
+                            (int(OVC_체결시간[0:2]), 
+                            int(OVC_체결시간[2:4]), 
+                            int(OVC_체결시간[4:6]),
+                            sp500_저가, sp500_고가, sp500_price)
+                        self.textBrowser.append(str)
+                        print(str)
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
+                            (int(OVC_체결시간[0:2]), 
+                            int(OVC_체결시간[2:4]), 
+                            int(OVC_체결시간[4:6]),
+                            dow_저가, dow_고가, dow_price)
+                        self.textBrowser.append(str)
+                        print(str)
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ Low = {3:0.2f}, NASDAQ High = {4:0.2f}, NASDAQ Close = {5:0.2f}\r'.format \
+                            (int(OVC_체결시간[0:2]), 
+                            int(OVC_체결시간[2:4]), 
+                            int(OVC_체결시간[4:6]),
+                            nasdaq_저가, nasdaq_고가, nasdaq_price)
+                        self.textBrowser.append(str)
+                        print(str)
+
+                        flag_ovc_terminate = True
+                        receive_real_ovc = False
+                    else:
+                        pass
+                else:
+                    pass
             else:
                 pass
 
+            # 오전 7시 10분경 서버초기화시 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
             if overnight:
 
                 if dt.hour == 7 and dt.minute == 0:
@@ -16993,7 +16993,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 DOW 지수 = {3}\r'.format(dt.hour, dt.minute, dt.second, dow_price)
                     self.textBrowser.append(str)
 
-                    if not service_terminate:
+                    if market_service:
 
                         self.SaveResult()     
 
@@ -17027,7 +17027,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 DOW 지수 = {3}\r'.format(dt.hour, dt.minute, dt.second, dow_price)
                     self.textBrowser.append(str)
 
-                    if not service_terminate:
+                    if market_service:
 
                         self.SaveResult()
 
