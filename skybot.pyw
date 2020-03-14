@@ -5747,7 +5747,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 print(str)
             else:
                 pass
-
         except:
             pass
 
@@ -5763,28 +5762,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if not flag_ovc_terminate:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command = {3}\r'.format(\
-                    dt.hour, dt.minute, dt.second, telegram_command)
+                str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)
                 print(str)
             else:
                 pass
-
-
-            '''
-            if telegram_command == 'Go' or telegram_command == '/start':
-
-                if not flag_telegram_on:
-                    self.pushButton_remove.setStyleSheet("background-color: lawngreen")
-                    #self.telegram_flag = True
-                else:
-                    pass
-            else:
-                if flag_telegram_on:
-                    self.pushButton_remove.setStyleSheet("background-color: lightGray")
-                    #self.telegram_flag = False
-                else:
-                    pass
-            '''
         except:
             pass
 
