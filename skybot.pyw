@@ -983,6 +983,7 @@ comboindex4 = 0
 콜시가갭합_퍼센트 = 0
 풋시가갭합_퍼센트 = 0
 
+# 컬러정의
 blueviolet = QColor(138, 43, 226)
 darkviolet = QColor(0x94, 0x00, 0xD3)
 lightyellow = QColor(255, 255, 153)
@@ -4055,7 +4056,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         item = QTableWidgetItem('0')
         item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_quote.setItem(0, 13, item)
+        self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
 
         item = QTableWidgetItem('0')
         item.setTextAlignment(Qt.AlignCenter)
@@ -5299,7 +5300,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def _quote_horizontal_header_clicked(self, idx):
 
         # cell focus 이동
-        self.tableWidget_quote.setCurrentCell(1, 13)
+        self.tableWidget_quote.setCurrentCell(1, Quote_column.미결종합.value - 1)
 
         return
 
@@ -5617,7 +5618,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             print(cell.text())
 
             # cell focus 이동
-            self.tableWidget_quote.setCurrentCell(1, 13)
+            self.tableWidget_quote.setCurrentCell(1, Quote_column.미결종합.value - 1)
 
         else:
             pass
@@ -10043,7 +10044,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_quote.setItem(0, 13, item)
+                self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
             else:
                 print("atm_str이 리스트에 없습니다.", atm_str)            
 
@@ -11440,7 +11441,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_quote.setItem(0, 13, item)
+                self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
 
                 df_plotdata_kp200.iloc[0][0] = kp200_realdata['종가']
 
@@ -16717,7 +16718,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         item_str = '{0:0.1f}%\n{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
-        if item_str != self.tableWidget_quote.item(0, 13).text():
+        if item_str != self.tableWidget_quote.item(0, Quote_column.미결종합.value - 1).text():
 
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
@@ -16738,7 +16739,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setForeground(QBrush(검정색))
             '''
 
-            self.tableWidget_quote.setItem(0, 13, item)
+            self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
         else:
             pass
 
