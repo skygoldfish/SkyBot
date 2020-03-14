@@ -13494,14 +13494,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if overnight:
 
                 self.tableWidget_fut.item(0, Futures_column.시가.value).setBackground(QBrush(적색))
-                self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(흰색))
+                self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(검정색))
                 self.tableWidget_fut.item(0, Futures_column.저가.value).setBackground(QBrush(적색))
-                self.tableWidget_fut.item(0, Futures_column.저가.value).setForeground(QBrush(흰색))
+                self.tableWidget_fut.item(0, Futures_column.저가.value).setForeground(QBrush(검정색))
             else:
                 self.tableWidget_fut.item(1, Futures_column.시가.value).setBackground(QBrush(적색))
-                self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(흰색))
+                self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(검정색))
                 self.tableWidget_fut.item(1, Futures_column.저가.value).setBackground(QBrush(적색))
-                self.tableWidget_fut.item(1, Futures_column.저가.value).setForeground(QBrush(흰색))
+                self.tableWidget_fut.item(1, Futures_column.저가.value).setForeground(QBrush(검정색))
 
         elif not self.within_n_tick(선물_시가, 선물_저가, 10) and self.within_n_tick(선물_시가, 선물_고가, 10):
 
@@ -13569,10 +13569,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if overnight:
 
                     self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
-                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(검정색))
                 else:
                     self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
-                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(검정색))
 
             elif 선물_현재가 < 선물_시가:
 
@@ -16590,7 +16590,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if call_count_ratio > put_count_ratio and call_remainder_ratio > put_remainder_ratio:
                 item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
             elif call_count_ratio < put_count_ratio and call_remainder_ratio < put_remainder_ratio:
                 item.setBackground(QBrush(청색))
                 item.setForeground(QBrush(흰색))
@@ -16718,10 +16718,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
 
+            '''
             if oi_delta > 0:
 
                 item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(흰색))
+                item.setForeground(QBrush(검정색))
 
             elif oi_delta < 0:
 
@@ -16731,6 +16732,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 item.setBackground(QBrush(흰색))
                 item.setForeground(QBrush(검정색))
+            '''
 
             self.tableWidget_quote.setItem(0, 13, item)
         else:
@@ -18728,9 +18730,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if fut_cr > 1 and fut_cr > fut_rr:
 
                         self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(적색))
-                        self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(흰색))
+                        self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
                         self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(적색))
-                        self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(흰색))
+                        self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
 
                     elif fut_cr < 1 and fut_cr < fut_rr:
 
