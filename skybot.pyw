@@ -6348,43 +6348,41 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass                                    
                 else:
-                    pass
+                    if overnight:
 
-                if overnight:
+                        if int(OVC_체결시간[0:2]) == US_INDEX_END_HOUR and int(OVC_체결시간[2:4]) == US_INDEX_END_MIN and int(OVC_체결시간[4:6]) == US_INDEX_END_SEC:
 
-                    if int(OVC_체결시간[0:2]) == US_INDEX_END_HOUR and int(OVC_체결시간[2:4]) == US_INDEX_END_MIN and int(OVC_체결시간[4:6]) == US_INDEX_END_SEC:
+                            # 다음날 해외선물 피봇계산을 위해 종료시(5시 59분 57초 ?) 마지막 값 저장
+                            str = '[{0:02d}:{1:02d}:{2:02d}] SP500 Low = {3:0.2f}, SP500 High = {4:0.2f}, SP500 Close = {5:0.2f}\r'.format \
+                                (int(OVC_체결시간[0:2]), 
+                                int(OVC_체결시간[2:4]), 
+                                int(OVC_체결시간[4:6]),
+                                sp500_저가, sp500_고가, sp500_price)
+                            self.textBrowser.append(str)
+                            print(str)
 
-                        # 다음날 해외선물 피봇계산을 위해 종료시(5시 59분 57초 ?) 마지막 값 저장
-                        str = '[{0:02d}:{1:02d}:{2:02d}] SP500 Low = {3:0.2f}, SP500 High = {4:0.2f}, SP500 Close = {5:0.2f}\r'.format \
-                            (int(OVC_체결시간[0:2]), 
-                            int(OVC_체결시간[2:4]), 
-                            int(OVC_체결시간[4:6]),
-                            sp500_저가, sp500_고가, sp500_price)
-                        self.textBrowser.append(str)
-                        print(str)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
+                                (int(OVC_체결시간[0:2]), 
+                                int(OVC_체결시간[2:4]), 
+                                int(OVC_체결시간[4:6]),
+                                dow_저가, dow_고가, dow_price)
+                            self.textBrowser.append(str)
+                            print(str)
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
-                            (int(OVC_체결시간[0:2]), 
-                            int(OVC_체결시간[2:4]), 
-                            int(OVC_체결시간[4:6]),
-                            dow_저가, dow_고가, dow_price)
-                        self.textBrowser.append(str)
-                        print(str)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ Low = {3:0.2f}, NASDAQ High = {4:0.2f}, NASDAQ Close = {5:0.2f}\r'.format \
+                                (int(OVC_체결시간[0:2]), 
+                                int(OVC_체결시간[2:4]), 
+                                int(OVC_체결시간[4:6]),
+                                nasdaq_저가, nasdaq_고가, nasdaq_price)
+                            self.textBrowser.append(str)
+                            print(str)
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ Low = {3:0.2f}, NASDAQ High = {4:0.2f}, NASDAQ Close = {5:0.2f}\r'.format \
-                            (int(OVC_체결시간[0:2]), 
-                            int(OVC_체결시간[2:4]), 
-                            int(OVC_체결시간[4:6]),
-                            nasdaq_저가, nasdaq_고가, nasdaq_price)
-                        self.textBrowser.append(str)
-                        print(str)
-
-                        flag_ovc_terminate = True
-                        receive_real_ovc = False
+                            flag_ovc_terminate = True
+                            receive_real_ovc = False
+                        else:
+                            pass
                     else:
-                        pass
-                else:
-                    pass
+                        pass                
             else:
                 pass
 
@@ -16742,7 +16740,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global opt_call_ho_update_counter, opt_put_ho_update_counter
             global call_atm_value, put_atm_value
             global atm_index_old
-            global receive_realdata
+            global receive_realdata            
+            global receive_quote
 
             global FUT_FOREIGNER_거래대금순매수, FUT_RETAIL_거래대금순매수, FUT_INSTITUTIONAL_거래대금순매수, FUT_STOCK_거래대금순매수, \
                 FUT_BOHEOM_거래대금순매수, FUT_TOOSIN_거래대금순매수, FUT_BANK_거래대금순매수, FUT_JONGGEUM_거래대금순매수, \
@@ -16905,11 +16904,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
-                    if not receive_realdata:
-                        receive_realdata = True
-                        print('All Timer is stopped !!!')
-                    else:
-                        pass
+                    #receive_realdata = True
 
                 # 야간 옵션장 시작
                 elif result['장구분'] == '8' and result['장상태'] == '21':
@@ -16933,12 +16928,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
-                    if not receive_realdata:
-                        #self.timer.stop()
-                        receive_realdata = True
-                        print('All Timer is stopped !!!')
-                    else:
-                        pass
+                    #receive_realdata = True
 
                 # 현물 장마감 5분전
                 elif result['장구분'] == '1' and result['장상태'] == '44':
@@ -17000,7 +16990,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         market_service = False
                         service_terminate = True
                         jugan_service_terminate = True
-                        #receive_real_ovc = False
+
+                        receive_quote = False
 
                         self.pushButton_add.setText('ScrShot')
 
@@ -17034,7 +17025,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         market_service = False
                         service_terminate = True
                         yagan_service_terminate = True
-                        #receive_real_ovc = False
+
+                        receive_quote = False
 
                         self.pushButton_add.setText('ScrShot')
 
@@ -18343,7 +18335,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if not receive_realdata:
 
                         receive_realdata = True
-                        #service_start = True
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 야간 선물 데이타를 수신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                         self.textBrowser.append(str)
@@ -18566,13 +18557,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
 
             elif szTrCode == 'OH0' or szTrCode == 'EH0':
-
-                global receive_quote
-
-                if not receive_realdata:
-                    receive_realdata = True
-                else:
-                    pass
 
                 if not receive_quote:
                     receive_quote = True
