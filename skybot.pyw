@@ -10039,7 +10039,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 df_plotdata_two_sum[0][선물장간_시간차] = call_atm_value + put_atm_value
                 df_plotdata_two_cha[0][선물장간_시간차] = call_atm_value - put_atm_value
 
-                item_str = '{0:0.2f}%\n{1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                item_str = '{0:0.1f}%\n{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -11436,7 +11436,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             if overnight:
                 
-                item_str = '{0:0.2f}%\n{1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                item_str = '{0:0.1f}%\n{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -16686,6 +16686,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             콜_수정미결퍼센트 = 0
             풋_수정미결퍼센트 = 0
 
+        '''
         if oi_delta > 0:
 
             if min(temp) > 0:
@@ -16712,6 +16713,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         else:
             item_str = '{0:0.1f}%\n{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+        '''
+
+        item_str = '{0:0.1f}%\n{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
         if item_str != self.tableWidget_quote.item(0, 13).text():
 
