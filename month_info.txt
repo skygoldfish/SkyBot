@@ -9,7 +9,7 @@ Mangi Yagan = NO
 ################### 1 : current month, 2 : next month ###################
 Target Month Select = 1
 
-########################### < US Index Code > ###########################
+##################### < US Index Code(H/M/U/Z) > ########################
 S&P 500 = ESH20
 DOW = YMH20
 NASDAQ = NQH20
