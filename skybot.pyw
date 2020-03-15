@@ -508,6 +508,7 @@ telegram_put_check = False
 MONTH_1 = False
 MONTH_2 = False
 MONTH_3 = False
+OLOH = False 
 
 call_low_touch = False
 call_high_touch = False
@@ -1192,8 +1193,8 @@ nasdaq_고가 = 0.0
 call_max_actval = False
 put_max_actval = False
 
-fut_ol = False
-fut_oh = False
+flag_fut_ol = False
+flag_fut_oh = False
 
 콜_인덱스 = 0
 콜_시가 = ''
@@ -2870,7 +2871,7 @@ class telegram_send_worker(QThread):
             
             dt = datetime.datetime.now()
             
-            global telegram_toggle, MONTH_1, MONTH_2, MONTH_3 
+            global telegram_toggle, MONTH_1, MONTH_2, MONTH_3, OLOH 
 
             telegram_toggle = not telegram_toggle
 
@@ -2892,12 +2893,14 @@ class telegram_send_worker(QThread):
                 MONTH_1 = False
                 MONTH_2 = False
                 MONTH_3 = False
+                OLOH = False
 
             elif command_count == 1 and command[0] == '/start':
 
                 MONTH_1 = True
                 MONTH_2 = True
                 MONTH_3 = True
+                OLOH = True
 
             elif command_count == 2 and command[0] == 'Go':
 
@@ -2906,30 +2909,42 @@ class telegram_send_worker(QThread):
                     MONTH_1 = True
                     MONTH_2 = False
                     MONTH_3 = False
+                    OLOH = False
 
                 elif command[1] == '2':
 
                     MONTH_1 = False
                     MONTH_2 = True
                     MONTH_3 = False
+                    OLOH = False
 
                 elif command[1] == '3':
 
                     MONTH_1 = False
                     MONTH_2 = False
                     MONTH_3 = True
+                    OLOH = False
 
                 elif command[1] == '12':
 
                     MONTH_1 = True
                     MONTH_2 = True
                     MONTH_3 = False
+                    OLOH = False
 
                 elif command[1] == '123':
 
                     MONTH_1 = True
                     MONTH_2 = True
                     MONTH_3 = True
+                    OLOH = False
+                
+                elif command[1] == '1234':
+
+                    MONTH_1 = True
+                    MONTH_2 = True
+                    MONTH_3 = True
+                    OLOH = True
                 else:
                     pass
             else:
@@ -2969,6 +2984,37 @@ class telegram_send_worker(QThread):
                 '''
 
                 if telegram_toggle:
+
+                    # 선물 OL/OH 알람(NM, MAN인 경우만)
+                    if flag_fut_ol:
+
+                        if TARGET_MONTH_SELECT == 2 and OLOH:
+
+                            str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OL ▲".format(dt.hour, dt.minute, dt.second)
+                            ToTelegram(str)
+
+                        elif TARGET_MONTH_SELECT == 3 and OLOH:
+
+                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 선물 OL ▲".format(dt.hour, dt.minute, dt.second)
+                            ToTelegram(str)
+                        else:
+                            pass
+
+                    elif flag_fut_oh:
+
+                        if TARGET_MONTH_SELECT == 2 and OLOH:
+
+                            str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OH ▼".format(dt.hour, dt.minute, dt.second)
+                            ToTelegram(str)
+
+                        elif TARGET_MONTH_SELECT == 3 and OLOH:
+
+                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 선물 OH ▼".format(dt.hour, dt.minute, dt.second)
+                            ToTelegram(str)
+                        else:
+                            pass
+                    else:
+                        pass
 
                     # 옵션맥점 발생 알람
                     if call_low_node_list:
@@ -13414,34 +13460,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def fut_oloh_check(self):
 
-        global fut_ol, fut_oh
-        '''
-        # 선물 시가갭 컬러링(주간 장시작시 표시안되는 오류 대응)
-        if overnight:
+        global flag_fut_ol, flag_fut_oh
 
-            if 선물_시가 > 선물_종가:
-                self.tableWidget_fut.item(0, Futures_column.시가갭.value).setBackground(QBrush(콜기준가색))
-                self.tableWidget_fut.item(0, Futures_column.시가갭.value).setForeground(QBrush(검정색))
-            elif 선물_시가 < 선물_종가:
-                self.tableWidget_fut.item(0, Futures_column.시가갭.value).setBackground(QBrush(풋기준가색))
-                self.tableWidget_fut.item(0, Futures_column.시가갭.value).setForeground(QBrush(흰색))
-            else:
-                self.tableWidget_fut.item(0, Futures_column.시가갭.value).setBackground(QBrush(흰색))
-        else:
-
-            if 선물_시가 > 선물_종가:
-                self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(콜기준가색))
-                self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(검정색))
-            elif 선물_시가 < 선물_종가:
-                self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(풋기준가색))
-                self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(흰색))
-            else:
-                self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(흰색))
-        '''
         # FUT OL/OH
         if self.within_n_tick(선물_시가, 선물_저가, 10) and not self.within_n_tick(선물_시가, 선물_고가, 10):
 
-            fut_ol = True
+            flag_fut_ol = True
 
             item = QTableWidgetItem('▲')
             item.setTextAlignment(Qt.AlignCenter)
@@ -13467,7 +13491,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif not self.within_n_tick(선물_시가, 선물_저가, 10) and self.within_n_tick(선물_시가, 선물_고가, 10):
 
-            fut_oh = True
+            flag_fut_oh = True
 
             item = QTableWidgetItem('▼')
             item.setTextAlignment(Qt.AlignCenter)
@@ -13492,8 +13516,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.고가.value).setForeground(QBrush(흰색))
 
         else:
-            fut_ol = False
-            fut_oh = False
+            flag_fut_ol = False
+            flag_fut_oh = False
 
             item = QTableWidgetItem('')
 
@@ -13708,7 +13732,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global df_fut
         global df_plotdata_fut, df_plotdata_kp200, df_plotdata_fut_volume
         global atm_str, atm_val, atm_index, atm_index_old
-        global fut_ol, fut_oh
         global fut_tick_list, fut_value_list, df_fut_ohlc
         global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
         global flag_fut_low, flag_fut_high 
