@@ -2803,13 +2803,11 @@ class screen_update_worker(QThread):
 ########################################################################################################################
 class t8415_Call_Worker(QThread):
 
-    finished = pg.QtCore.Signal(object)
+    finished = pyqtSignal(int)
 
     def run(self):
         
         while True:
-
-            #index = call_t8415_count
 
             self.finished.emit(call_t8415_count)
             self.msleep(1100)
@@ -2818,13 +2816,11 @@ class t8415_Call_Worker(QThread):
 ########################################################################################################################
 class t8415_Put_Worker(QThread):
 
-    finished = pg.QtCore.Signal(object)
+    finished = pyqtSignal(int)
 
     def run(self):
 
         while True:
-
-            #index = put_t8415_count
 
             self.finished.emit(put_t8415_count)
             self.msleep(1100)
@@ -2833,7 +2829,7 @@ class t8415_Put_Worker(QThread):
 ########################################################################################################################
 class t8416_Call_Worker(QThread):
 
-    finished = pg.QtCore.Signal(object)
+    finished = pyqtSignal(int)
 
     def run(self):
 
@@ -2846,7 +2842,7 @@ class t8416_Call_Worker(QThread):
 ########################################################################################################################
 class t8416_Put_Worker(QThread):
 
-    finished = pg.QtCore.Signal(object)
+    finished = pyqtSignal(int)
 
     def run(self):
 
@@ -2860,7 +2856,7 @@ class t8416_Put_Worker(QThread):
 # 텔레그램 송수신시 약 1.2초 정도 전달지연 시간 발생함
 class telegram_send_worker(QThread):
 
-    finished = pg.QtCore.Signal(object)
+    finished = pyqtSignal(object)
 
     def run(self):
 
@@ -3204,7 +3200,7 @@ class telegram_send_worker(QThread):
 ########################################################################################################################
 class telegram_listen_worker(QThread):
 
-    finished = pg.QtCore.Signal(object)
+    finished = pyqtSignal(object)
 
     def run(self):
 
@@ -3219,6 +3215,7 @@ class telegram_listen_worker(QThread):
 
             self.finished.emit(str)
             self.msleep(1000 * TELEGRAM_POLLING_INTERVAL)
+            
 ########################################################################################################################
 # 당월물 옵션전광판 class
 ########################################################################################################################
@@ -5709,43 +5706,33 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return
 
-    @pyqtSlot(object)
-    def t8415_call_request(self, data):
+    @pyqtSlot(int)
+    def t8415_call_request(self, index):
         try:
             XQ = t8415(parent=self)
-            XQ.Query(단축코드=call_code[data], 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
+
+            if today_str == MONTH_FIRSTDAY:
+                XQ.Query(단축코드=call_code[index], 시작일자=yesterday_str, 종료일자=today_str)
+            else:
+                XQ.Query(단축코드=call_code[index], 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
 
         except:
             pass
 
-    @pyqtSlot(object)
-    def t8415_put_request(self, data):
+    @pyqtSlot(int)
+    def t8415_put_request(self, index):
         try:
             XQ = t8415(parent=self)
-            XQ.Query(단축코드=put_code[data], 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
+
+            if today_str == MONTH_FIRSTDAY:
+                XQ.Query(단축코드=put_code[index], 시작일자=yesterday_str, 종료일자=today_str)
+            else:
+                XQ.Query(단축코드=put_code[index], 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
 
         except:
             pass
 
-    @pyqtSlot(object)
-    def t8415_fut_request(self):
-        try:
-            XQ = t8415(parent=self)
-            XQ.Query(단축코드=gmshcode, 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
-
-        except:
-            pass
-
-    @pyqtSlot(object)
-    def t8408_cme_request(self):
-        try:
-            XQ = t8408(parent=self)
-            XQ.Query(단축코드=gmshcode)
-
-        except:
-            pass
-
-    @pyqtSlot(object)
+    @pyqtSlot(int)
     def t8416_call_request(self, index):
         try:
             XQ = t8416(parent=self)
@@ -5757,7 +5744,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         except:
             pass
 
-    @pyqtSlot(object)
+    @pyqtSlot(int)
     def t8416_put_request(self, index):
         try:
             XQ = t8416(parent=self)
@@ -13230,26 +13217,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일종가']))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
-            '''
-            if UI_STYLE == 'Vertical_view.ui' and not overnight:
-
-                # 초기 plot화면 설정
-                plot4_fut_jl_line.setValue(선물_종가)
-                plot4_fut_jh_line.setValue(선물_종가)
-                plot4_fut_close_line.setValue(선물_종가)
-                plot4_fut_pivot_line.setValue(선물_종가)
-                plot4_fut_open_line.setValue(선물_종가)
-            else:
-                pass
-            '''
             self.tableWidget_fut.resizeColumnsToContents()
-            '''
-            if overnight:
-
-                self.t8415_fut_request()
-            else:
-                self.t8408_cme_request()
-            '''
 
         elif szTrCode == 't8433':
 
