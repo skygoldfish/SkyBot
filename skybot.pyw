@@ -10177,9 +10177,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 item.setBackground(QBrush(흰색))
 
-            self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)
-            '''
-            # t2801에서 함께 처리
+            self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)            
+            
             if not overnight:
 
                 선물_전저 = fut_realdata['전저']
@@ -10192,7 +10191,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 선물_고가 = df['고가']
             else:
                 pass
-            '''
+            
             self.tableWidget_fut.resizeColumnsToContents()
 
         elif szTrCode == 't2301':
@@ -11585,23 +11584,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     선물_고가 = cme_realdata['종가']
             else:
-                선물_전저 = fut_realdata['전저']
-                선물_전고 = fut_realdata['전고']
-
                 if pre_start:
                     선물_종가 = CME_INDEX
+                    선물_피봇 = CME_INDEX 
+                    선물_시가 = CME_INDEX
+                    선물_저가 = CME_INDEX
+                    선물_현재가 = CME_INDEX
+                    선물_고가 = CME_INDEX 
                 else:
-                    선물_종가 = fut_realdata['종가']
-
-                if fut_realdata['피봇'] > 0:
-                    선물_피봇 = fut_realdata['피봇']
-                else:
-                    선물_피봇 = CME_INDEX
-
-                선물_시가 = CME_INDEX
-                선물_현재가 = CME_INDEX
-                선물_저가 = CME_INDEX
-                선물_고가 = CME_INDEX            
+                    pass           
             
             if overnight:
 
