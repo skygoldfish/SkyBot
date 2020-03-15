@@ -2841,8 +2841,6 @@ class t8416_Call_Worker(QThread):
 
         while True:
 
-            #index = call_t8416_count
-
             self.finished.emit(call_t8416_count)
             self.msleep(1100)
 ########################################################################################################################
@@ -2855,8 +2853,6 @@ class t8416_Put_Worker(QThread):
     def run(self):
 
         while True:
-
-            #index = put_t8416_count
 
             self.finished.emit(put_t8416_count)
             self.msleep(1100)
