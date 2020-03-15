@@ -508,7 +508,7 @@ telegram_put_check = False
 MONTH_1 = False
 MONTH_2 = False
 MONTH_3 = False
-OLOH = False 
+FLAG_OLOH = False 
 
 call_low_touch = False
 call_high_touch = False
@@ -2871,7 +2871,7 @@ class telegram_send_worker(QThread):
             
             dt = datetime.datetime.now()
             
-            global telegram_toggle, MONTH_1, MONTH_2, MONTH_3, OLOH 
+            global telegram_toggle, MONTH_1, MONTH_2, MONTH_3, FLAG_OLOH 
 
             telegram_toggle = not telegram_toggle
 
@@ -2893,14 +2893,14 @@ class telegram_send_worker(QThread):
                 MONTH_1 = False
                 MONTH_2 = False
                 MONTH_3 = False
-                OLOH = False
+                FLAG_OLOH = False
 
             elif command_count == 1 and command[0] == '/start':
 
                 MONTH_1 = True
                 MONTH_2 = True
                 MONTH_3 = True
-                OLOH = True
+                FLAG_OLOH = True
 
             elif command_count == 2 and command[0] == 'Go':
 
@@ -2909,42 +2909,42 @@ class telegram_send_worker(QThread):
                     MONTH_1 = True
                     MONTH_2 = False
                     MONTH_3 = False
-                    OLOH = False
+                    FLAG_OLOH = False
 
                 elif command[1] == '2':
 
                     MONTH_1 = False
                     MONTH_2 = True
                     MONTH_3 = False
-                    OLOH = False
+                    FLAG_OLOH = False
 
                 elif command[1] == '3':
 
                     MONTH_1 = False
                     MONTH_2 = False
                     MONTH_3 = True
-                    OLOH = False
+                    FLAG_OLOH = False
 
                 elif command[1] == '12':
 
                     MONTH_1 = True
                     MONTH_2 = True
                     MONTH_3 = False
-                    OLOH = False
+                    FLAG_OLOH = False
 
                 elif command[1] == '123':
 
                     MONTH_1 = True
                     MONTH_2 = True
                     MONTH_3 = True
-                    OLOH = False
+                    FLAG_OLOH = False
                 
                 elif command[1] == '1234':
 
                     MONTH_1 = True
                     MONTH_2 = True
                     MONTH_3 = True
-                    OLOH = True
+                    FLAG_OLOH = True
                 else:
                     pass
             else:
@@ -2988,12 +2988,12 @@ class telegram_send_worker(QThread):
                     # 선물 OL/OH 알람(NM, MAN인 경우만)
                     if flag_fut_ol:
 
-                        if TARGET_MONTH_SELECT == 2 and OLOH:
+                        if TARGET_MONTH_SELECT == 2 and FLAG_OLOH:
 
                             str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OL ▲".format(dt.hour, dt.minute, dt.second)
                             ToTelegram(str)
 
-                        elif TARGET_MONTH_SELECT == 3 and OLOH:
+                        elif TARGET_MONTH_SELECT == 3 and FLAG_OLOH:
 
                             str = "[{0:02d}:{1:02d}:{2:02d}] MAN 선물 OL ▲".format(dt.hour, dt.minute, dt.second)
                             ToTelegram(str)
@@ -3002,12 +3002,12 @@ class telegram_send_worker(QThread):
 
                     elif flag_fut_oh:
 
-                        if TARGET_MONTH_SELECT == 2 and OLOH:
+                        if TARGET_MONTH_SELECT == 2 and FLAG_OLOH:
 
                             str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OH ▼".format(dt.hour, dt.minute, dt.second)
                             ToTelegram(str)
 
-                        elif TARGET_MONTH_SELECT == 3 and OLOH:
+                        elif TARGET_MONTH_SELECT == 3 and FLAG_OLOH:
 
                             str = "[{0:02d}:{1:02d}:{2:02d}] MAN 선물 OH ▼".format(dt.hour, dt.minute, dt.second)
                             ToTelegram(str)
