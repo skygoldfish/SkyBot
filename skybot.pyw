@@ -2811,9 +2811,9 @@ class t8415_Call_Worker(QThread):
         
         while True:
 
-            data = call_t8415_count
+            #index = call_t8415_count
 
-            self.finished.emit(data)
+            self.finished.emit(call_t8415_count)
             self.msleep(1100)
 ########################################################################################################################
 
@@ -2826,9 +2826,9 @@ class t8415_Put_Worker(QThread):
 
         while True:
 
-            data = put_t8415_count
+            #index = put_t8415_count
 
-            self.finished.emit(data)
+            self.finished.emit(put_t8415_count)
             self.msleep(1100)
 ########################################################################################################################
 
@@ -2841,9 +2841,9 @@ class t8416_Call_Worker(QThread):
 
         while True:
 
-            data = call_t8416_count
+            #index = call_t8416_count
 
-            self.finished.emit(data)
+            self.finished.emit(call_t8416_count)
             self.msleep(1100)
 ########################################################################################################################
 
@@ -2856,9 +2856,9 @@ class t8416_Put_Worker(QThread):
 
         while True:
 
-            data = put_t8416_count
+            #index = put_t8416_count
 
-            self.finished.emit(data)
+            self.finished.emit(put_t8416_count)
             self.msleep(1100)
 ########################################################################################################################
 
@@ -3355,6 +3355,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.setWindowTitle(cm_option_title)
         
+        # 사용할 쓰레드 등록
+        # 쓰레드 시작은 start(), 종료는 terminate()
         self.t8416_callworker = t8416_Call_Worker()
         self.t8416_callworker.finished.connect(self.t8416_call_request)
 
@@ -3370,6 +3372,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.telegram_listen_worker = telegram_listen_worker()
         self.telegram_listen_worker.finished.connect(self.listen_telegram_message)
 
+        # 위젯 선언 및 초기화
         self.comboBox1.setStyleSheet("background-color: white")
         self.comboBox2.setStyleSheet("background-color: white")
 
@@ -5704,28 +5707,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
     @pyqtSlot(object)
-    def t8416_call_request(self, data):
+    def t8416_call_request(self, index):
         try:
             XQ = t8416(parent=self)
 
             if today_str == MONTH_FIRSTDAY:
-                XQ.Query(단축코드=call_code[data], 시작일자=yesterday_str, 종료일자=today_str)
+                XQ.Query(단축코드=call_code[index], 시작일자=yesterday_str, 종료일자=today_str)
             else:
-                XQ.Query(단축코드=call_code[data], 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
-
+                XQ.Query(단축코드=call_code[index], 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
         except:
             pass
 
     @pyqtSlot(object)
-    def t8416_put_request(self, data):
+    def t8416_put_request(self, index):
         try:
             XQ = t8416(parent=self)
 
             if today_str == MONTH_FIRSTDAY:
-                XQ.Query(단축코드=put_code[data], 시작일자=yesterday_str, 종료일자=today_str)
+                XQ.Query(단축코드=put_code[index], 시작일자=yesterday_str, 종료일자=today_str)
             else:
-                XQ.Query(단축코드=put_code[data], 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
-
+                XQ.Query(단축코드=put_code[index], 시작일자=MONTH_FIRSTDAY, 종료일자=today_str)
         except:
             pass
 
