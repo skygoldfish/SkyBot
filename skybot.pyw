@@ -14496,22 +14496,45 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if df_call.iloc[index]['전저'] >= df_call.iloc[index]['저가']:
 
                     str = '{0:0.2f}'.format(df_call.iloc[index]['전저']) + '\n' + '▼'
-                    item = QTableWidgetItem(str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setForeground(QBrush(청색))             
-                    self.tableWidget_call.setItem(index, Option_column.전저.value, item)
-                    self.tableWidget_call.resizeColumnsToContents()
+
+                    if str != self.tableWidget_call.item(index, Option_column.전저.value).text():
+                        item = QTableWidgetItem(str)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setForeground(QBrush(청색))             
+                        self.tableWidget_call.setItem(index, Option_column.전저.value, item)
+                        self.tableWidget_call.resizeColumnsToContents()
+                    else:
+                        pass
                 else:
                     pass
 
                 if df_call.iloc[index]['월저'] >= df_call.iloc[index]['저가']:
 
                     str = '{0:0.2f}'.format(df_call.iloc[index]['월저']) + '\n' + '▼'
-                    item = QTableWidgetItem(str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setForeground(QBrush(청색))             
-                    self.tableWidget_call.setItem(index, Option_column.월저.value, item)
-                    self.tableWidget_call.resizeColumnsToContents()
+
+                    if str != self.tableWidget_call.item(index, Option_column.월저.value).text():
+                        item = QTableWidgetItem(str)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setForeground(QBrush(청색))             
+                        self.tableWidget_call.setItem(index, Option_column.월저.value, item)
+                        self.tableWidget_call.resizeColumnsToContents()
+                    else:
+                        pass
+                else:
+                    pass
+
+                if df_call.iloc[index]['기준가'] >= df_call.iloc[index]['저가']:
+
+                    str = '{0:0.2f}'.format(df_call.iloc[index]['기준가']) + '\n' + '▼'
+
+                    if str != self.tableWidget_call.item(index, Option_column.기준가.value).text():
+                        item = QTableWidgetItem(str)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setForeground(QBrush(청색))             
+                        self.tableWidget_call.setItem(index, Option_column.기준가.value, item)
+                        self.tableWidget_call.resizeColumnsToContents()
+                    else:
+                        pass
                 else:
                     pass
             else:
@@ -14560,22 +14583,30 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if df_call.iloc[index]['전고'] <= df_call.iloc[index]['고가']:
 
                     str = '{0:0.2f}'.format(df_call.iloc[index]['전고']) + '\n' + '▲'
-                    item = QTableWidgetItem(str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setForeground(QBrush(적색))             
-                    self.tableWidget_call.setItem(index, Option_column.전고.value, item)
-                    self.tableWidget_call.resizeColumnsToContents()
+
+                    if str != self.tableWidget_call.item(index, Option_column.전고.value).text():
+                        item = QTableWidgetItem(str)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setForeground(QBrush(적색))             
+                        self.tableWidget_call.setItem(index, Option_column.전고.value, item)
+                        self.tableWidget_call.resizeColumnsToContents()
+                    else:
+                        pass
                 else:
                     pass
 
                 if df_call.iloc[index]['월고'] <= df_call.iloc[index]['고가']:
 
                     str = '{0:0.2f}'.format(df_call.iloc[index]['월고']) + '\n' + '▲'
-                    item = QTableWidgetItem(str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setForeground(QBrush(적색))             
-                    self.tableWidget_call.setItem(index, Option_column.월고.value, item)
-                    self.tableWidget_call.resizeColumnsToContents()
+
+                    if str != self.tableWidget_call.item(index, Option_column.월고.value).text():
+                        item = QTableWidgetItem(str)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setForeground(QBrush(적색))             
+                        self.tableWidget_call.setItem(index, Option_column.월고.value, item)
+                        self.tableWidget_call.resizeColumnsToContents()
+                    else:
+                        pass
                 else:
                     pass
             else:
@@ -15603,22 +15634,45 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if df_put.iloc[index]['전저'] >= df_put.iloc[index]['저가']:
 
                     str = '{0:0.2f}'.format(df_put.iloc[index]['전저']) + '\n' + '▼'
-                    item = QTableWidgetItem(str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setForeground(QBrush(청색))             
-                    self.tableWidget_put.setItem(index, Option_column.전저.value, item)
-                    self.tableWidget_put.resizeColumnsToContents()
+
+                    if str != self.tableWidget_put.item(index, Option_column.전저.value).text():
+                        item = QTableWidgetItem(str)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setForeground(QBrush(청색))             
+                        self.tableWidget_put.setItem(index, Option_column.전저.value, item)
+                        self.tableWidget_put.resizeColumnsToContents()
+                    else:
+                        pass
                 else:
                     pass
 
                 if df_put.iloc[index]['월저'] >= df_put.iloc[index]['저가']:
 
                     str = '{0:0.2f}'.format(df_put.iloc[index]['월저']) + '\n' + '▼'
-                    item = QTableWidgetItem(str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setForeground(QBrush(청색))             
-                    self.tableWidget_put.setItem(index, Option_column.월저.value, item)
-                    self.tableWidget_put.resizeColumnsToContents()
+
+                    if str != self.tableWidget_put.item(index, Option_column.월저.value).text():
+                        item = QTableWidgetItem(str)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setForeground(QBrush(청색))             
+                        self.tableWidget_put.setItem(index, Option_column.월저.value, item)
+                        self.tableWidget_put.resizeColumnsToContents()
+                    else:
+                        pass
+                else:
+                    pass
+
+                if df_put.iloc[index]['기준가'] >= df_put.iloc[index]['저가']:
+
+                    str = '{0:0.2f}'.format(df_put.iloc[index]['기준가']) + '\n' + '▼'
+
+                    if str != self.tableWidget_put.item(index, Option_column.기준가.value).text():
+                        item = QTableWidgetItem(str)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setForeground(QBrush(청색))             
+                        self.tableWidget_put.setItem(index, Option_column.기준가.value, item)
+                        self.tableWidget_put.resizeColumnsToContents()
+                    else:
+                        pass
                 else:
                     pass
             else:
@@ -15667,22 +15721,30 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if df_put.iloc[index]['전고'] <= df_put.iloc[index]['고가']:
 
                     str = '{0:0.2f}'.format(df_put.iloc[index]['전고']) + '\n' + '▲'
-                    item = QTableWidgetItem(str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setForeground(QBrush(적색))             
-                    self.tableWidget_put.setItem(index, Option_column.전고.value, item)
-                    self.tableWidget_put.resizeColumnsToContents()
+
+                    if str != self.tableWidget_put.item(index, Option_column.전고.value).text():
+                        item = QTableWidgetItem(str)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setForeground(QBrush(적색))             
+                        self.tableWidget_put.setItem(index, Option_column.전고.value, item)
+                        self.tableWidget_put.resizeColumnsToContents()
+                    else:
+                        pass
                 else:
                     pass
 
                 if df_put.iloc[index]['월고'] <= df_put.iloc[index]['고가']:
 
                     str = '{0:0.2f}'.format(df_put.iloc[index]['월고']) + '\n' + '▲'
-                    item = QTableWidgetItem(str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setForeground(QBrush(적색))             
-                    self.tableWidget_put.setItem(index, Option_column.월고.value, item)
-                    self.tableWidget_put.resizeColumnsToContents()
+
+                    if str != self.tableWidget_put.item(index, Option_column.월고.value).text():
+                        item = QTableWidgetItem(str)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setForeground(QBrush(적색))             
+                        self.tableWidget_put.setItem(index, Option_column.월고.value, item)
+                        self.tableWidget_put.resizeColumnsToContents()
+                    else:
+                        pass
                 else:
                     pass
             else:
