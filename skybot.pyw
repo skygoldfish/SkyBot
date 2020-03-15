@@ -502,9 +502,6 @@ flag_telegram_on = True
 
 telegram_send_message = 'None'
 
-telegram_call_check = False
-telegram_put_check = False
-
 MONTH_1 = False
 MONTH_2 = False
 MONTH_3 = False
@@ -6464,7 +6461,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global coloring_done_time
         global node_coloring
-        global telegram_call_check
 
         dt = datetime.datetime.now()
         start_time = timeit.default_timer()
@@ -6477,8 +6473,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.call_open_check()        
             self.call_crossval_color_update()        
             self.call_node_color_update()
-
-            telegram_call_check = True
 
             self.call_coreval_color_update()
 
@@ -6513,11 +6507,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global coloring_done_time
         global node_coloring
         global 콜_체결_초
-        global telegram_call_check
 
         dt = datetime.datetime.now()
-        
-        telegram_call_check = False
 
         if int(call_result['체결시간'][4:6]) == 콜_체결_초:
             
@@ -6540,8 +6531,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.call_crossval_color_update()        
             self.call_node_color_update()
 
-            telegram_call_check = True
-
             self.call_low_coreval_color_update()
 
             node_coloring = False
@@ -6561,11 +6550,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global coloring_done_time
         global node_coloring
         global 콜_체결_초
-        global telegram_call_check
 
         dt = datetime.datetime.now()
-        
-        telegram_call_check = False
 
         if int(call_result['체결시간'][4:6]) == 콜_체결_초:
             
@@ -6588,8 +6574,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.call_crossval_color_update()        
             self.call_node_color_update()
 
-            telegram_call_check = True
-
             self.call_high_coreval_color_update()
 
             node_coloring = False
@@ -6608,7 +6592,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global coloring_done_time
         global node_coloring
-        global telegram_put_check
 
         dt = datetime.datetime.now()
         start_time = timeit.default_timer()
@@ -6621,8 +6604,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.put_open_check()        
             self.put_crossval_color_update()        
             self.put_node_color_update()
-
-            telegram_put_check = True
 
             self.put_coreval_color_update()
 
@@ -6657,11 +6638,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global coloring_done_time
         global node_coloring
         global 풋_체결_초
-        global telegram_put_check
 
-        dt = datetime.datetime.now()        
-
-        telegram_put_check = False
+        dt = datetime.datetime.now()
 
         if int(put_result['체결시간'][4:6]) == 풋_체결_초:
 
@@ -6684,8 +6662,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.put_crossval_color_update()        
             self.put_node_color_update()
 
-            telegram_put_check = True
-
             self.put_low_coreval_color_update()
 
             node_coloring = False
@@ -6705,11 +6681,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global coloring_done_time
         global node_coloring
         global 풋_체결_초
-        global telegram_put_check
 
         dt = datetime.datetime.now()
-        
-        telegram_put_check = False
 
         if int(put_result['체결시간'][4:6]) == 풋_체결_초:
 
@@ -6731,8 +6704,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.put_open_check()        
             self.put_crossval_color_update()        
             self.put_node_color_update()
-
-            telegram_put_check = True
 
             self.put_high_coreval_color_update()
 
@@ -7912,36 +7883,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if df_call.iloc[i]['저가'] in 진성맥점:
 
-                        flag_call_low_coreval = True
-                        '''
-                        if telegram_call_check:
-
-                            str = ''
-
-                            if TARGET_MONTH_SELECT == 1 and MONTH_1:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 본월물 콜저가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_call.iloc[i]['저가'])
-                                self.textBrowser.append(str)
-
-                            elif TARGET_MONTH_SELECT == 2 and MONTH_2:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 차월물 콜저가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_call.iloc[i]['저가'])
-                                self.textBrowser.append(str)
-
-                            elif TARGET_MONTH_SELECT == 3 and MONTH_3:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_call.iloc[i]['저가'])
-                                self.textBrowser.append(str)
-                            else:
-                                pass
-                            
-                            call_low_coreval_str = str
-                        else:
-                            pass
-                        '''
+                        flag_call_low_coreval = True                        
 
                         '''
                         if fut_code == cmshcode:
@@ -7995,36 +7937,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if df_call.iloc[i]['고가'] in 진성맥점:
 
-                        flag_call_high_coreval = True
-                        '''
-                        if telegram_call_check:
-
-                            str = ''
-
-                            if TARGET_MONTH_SELECT == 1 and MONTH_1:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 본월물 콜고가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_call.iloc[i]['고가'])
-                                self.textBrowser.append(str)
-
-                            elif TARGET_MONTH_SELECT == 2 and MONTH_2:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 차월물 콜고가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_call.iloc[i]['고가'])
-                                self.textBrowser.append(str)
-
-                            elif TARGET_MONTH_SELECT == 3 and MONTH_3:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_call.iloc[i]['고가'])
-                                self.textBrowser.append(str)
-                            else:
-                                pass
-                            
-                            call_high_coreval_str = str
-                        else:
-                            pass
-                        '''                        
+                        flag_call_high_coreval = True                                
 
                         '''
                         if fut_code == cmshcode:
@@ -9739,36 +9652,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if df_put.iloc[i]['저가'] in 진성맥점:
 
-                        flag_put_low_coreval = True
-                        '''
-                        if telegram_put_check:
-
-                            str = ''
-
-                            if TARGET_MONTH_SELECT == 1 and MONTH_1:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 본월물 풋저가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_put.iloc[i]['저가'])
-                                self.textBrowser.append(str)
-
-                            elif TARGET_MONTH_SELECT == 2 and MONTH_2:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 차월물 풋저가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_put.iloc[i]['저가'])
-                                self.textBrowser.append(str)
-
-                            elif TARGET_MONTH_SELECT == 3 and MONTH_3:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_put.iloc[i]['저가'])
-                                self.textBrowser.append(str)
-                            else:
-                                pass
-                            
-                            put_low_coreval_str = str
-                        else:
-                            pass  
-                        '''                      
+                        flag_put_low_coreval = True                            
 
                         '''                        
                         if fut_code == cmshcode:
@@ -9822,36 +9706,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if df_put.iloc[i]['고가'] in 진성맥점:
 
-                        flag_put_high_coreval = True
-                        '''
-                        if telegram_put_check:
-
-                            str = ''
-
-                            if TARGET_MONTH_SELECT == 1 and MONTH_1:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 본월물 풋고가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_put.iloc[i]['고가'])
-                                self.textBrowser.append(str)
-
-                            elif TARGET_MONTH_SELECT == 2 and MONTH_2:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 차월물 풋고가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_put.iloc[i]['고가'])
-                                self.textBrowser.append(str)
-
-                            elif TARGET_MONTH_SELECT == 3 and MONTH_3:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 {3:0.2f} 맥점 발생 !!!\r'.format(\
-                                    dt.hour, dt.minute, dt.second, df_put.iloc[i]['고가'])
-                                self.textBrowser.append(str)
-                            else:
-                                pass
-                            
-                            put_high_coreval_str = str
-                        else:
-                            pass 
-                        '''                       
+                        flag_put_high_coreval = True                        
 
                         '''
                         if fut_code == cmshcode:
