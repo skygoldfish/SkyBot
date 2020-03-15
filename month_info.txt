@@ -14,14 +14,14 @@ S&P 500 = ESH20
 DOW = YMH20
 NASDAQ = NQH20
 
-################### < CME Index of the Last Night > #####################
+################# < Futures Index of the Last Night > ###################
 Overnight DOW Index = 23102
 Overnight CME FUT Index = 247.40
 
 ##################### < US Index of the Last Night > ####################
-S&P 500 Last Low = 2394.75
-S&P 500 Last High = 2705.88
-DOW Last Low = 20390.0
-DOW Last High = 23129.0
-NASDAQ Last Low = 6944.25
-NASDAQ Last High = 7969.12
+S&P 500 Last Low = 2393.50
+S&P 500 Last High = 2707.75
+DOW Last Low = 20388.0
+DOW Last High = 23147.0
+NASDAQ Last Low = 6942.50
+NASDAQ Last High = 7978.00
