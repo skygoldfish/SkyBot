@@ -6369,6 +6369,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass                                               
                     else:
+                        pass
+
+                    # 비대칭장 탐색
+                    if not dongsi_hoga:
+
+                        if TARGET_MONTH_SELECT == 1:
+
+                            self.asym_detect()
+                        else:
+                            pass
+                    else:
                         pass                    
                     
                     # 원웨이장 표시(주간만)
@@ -6381,7 +6392,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
                     else:
-                        pass                                    
+                        pass
+                                                    
                 else:
                     if overnight:
 
@@ -7020,7 +7032,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_oneway_level1, call_oneway_level2, call_oneway_level3, call_oneway_level4, call_oneway_level5
         global put_oneway_level1, put_oneway_level2, put_oneway_level3, put_oneway_level4, put_oneway_level5
         global oneway_first_touch, oneway_str
-        global 비대칭장 
 
         if overnight:
 
@@ -7219,37 +7230,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 call_oneway_level3 = False
                 call_oneway_level4 = False
-                call_oneway_level5 = False
-
-            if ASYM_FACTOR * abs(풋대비합) <= abs(콜대비합):
-
-                if 풋대비합 < 0 and 콜대비합 > 0:
-
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 콜 우세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
-                    self.textBrowser.append(비대칭장)
-
-                elif 풋대비합 > 0 and 콜대비합 < 0:
-
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 콜 약세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
-                    self.textBrowser.append(비대칭장)
-                else:
-                    pass
-
-            elif ASYM_FACTOR * abs(콜대비합) <= abs(풋대비합):
-
-                if 풋대비합 > 0 and 콜대비합 < 0:
-
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 풋 우세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
-                    self.textBrowser.append(비대칭장)
-
-                elif 풋대비합 < 0 and 콜대비합 > 0:
-
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 풋 약세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
-                    self.textBrowser.append(비대칭장)
-                else:
-                    pass
-            else:
-                비대칭장 = ''
+                call_oneway_level5 = False            
             
             if not call_oneway and not put_oneway:
                 self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
@@ -7302,6 +7283,42 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.centerval_flag = not self.centerval_flag                        
             else:
                 pass  
+
+        return
+
+    def asym_detect(self):
+        
+        global 비대칭장 
+
+        if ASYM_FACTOR * abs(풋대비합) <= abs(콜대비합):
+
+            if 풋대비합 < 0 and 콜대비합 > 0:
+
+                비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 콜 우세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
+                self.textBrowser.append(비대칭장)
+
+            elif 풋대비합 > 0 and 콜대비합 < 0:
+
+                비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 콜 약세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
+                self.textBrowser.append(비대칭장)
+            else:
+                pass
+
+        elif ASYM_FACTOR * abs(콜대비합) <= abs(풋대비합):
+
+            if 풋대비합 > 0 and 콜대비합 < 0:
+
+                비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 풋 우세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
+                self.textBrowser.append(비대칭장)
+
+            elif 풋대비합 < 0 and 콜대비합 > 0:
+
+                비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 풋 약세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
+                self.textBrowser.append(비대칭장)
+            else:
+                pass
+        else:
+            비대칭장 = ''
 
         return
 
