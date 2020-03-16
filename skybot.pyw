@@ -5810,12 +5810,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # 해외선물 한국시간 표시
             if not flag_ovc_terminate:
 
-                str = '{0:02d}:{1:02d}:{2:02d}'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
-                self.label_msg.setText(str)
+                if OVC_체결시간 == '000000':
+
+                    str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
+                    self.label_msg.setText(str)
+                else:
+                    str = '{0:02d}:{1:02d}:{2:02d}'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
+                    self.label_msg.setText(str)
             else:
                 pass
                                     
-            if receive_real_ovc:
+            if receive_real_ovc or market_service:
                 
                 self.label_clear() 
 
@@ -7300,9 +7305,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if kospi_text_color != '':
 
             if kospi_text_color == 'red':
-                self.label_kospi.setStyleSheet('background-color: white; color: magenta')
+                self.label_kospi.setStyleSheet('background-color: white; color: red')
             elif kospi_text_color == 'blue':
-                self.label_kospi.setStyleSheet('background-color: white; color: cyan')
+                self.label_kospi.setStyleSheet('background-color: white; color: blue')
             else:
                 self.label_kospi.setStyleSheet('background-color: white; color: black')
         else:
@@ -7311,9 +7316,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if kosdaq_text_color != '':
 
             if kosdaq_text_color == 'red':
-                self.label_kosdaq.setStyleSheet('background-color: white; color: magenta')
+                self.label_kosdaq.setStyleSheet('background-color: white; color: red')
             elif kosdaq_text_color == 'blue':
-                self.label_kosdaq.setStyleSheet('background-color: white; color: cyan')
+                self.label_kosdaq.setStyleSheet('background-color: white; color: blue')
             else:
                 self.label_kosdaq.setStyleSheet('background-color: white; color: black')
         else:
@@ -7322,9 +7327,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if samsung_text_color != '':
 
             if samsung_text_color == 'red':
-                self.label_kosdaq.setStyleSheet('background-color: white; color: magenta')
+                self.label_kosdaq.setStyleSheet('background-color: white; color: red')
             elif samsung_text_color == 'blue':
-                self.label_kosdaq.setStyleSheet('background-color: white; color: cyan')
+                self.label_kosdaq.setStyleSheet('background-color: white; color: blue')
             else:
                 self.label_kosdaq.setStyleSheet('background-color: white; color: black')
         else:
@@ -7333,9 +7338,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if sp500_text_color != '':
 
             if sp500_text_color == 'red':
-                self.label_1st.setStyleSheet('background-color: white; color: magenta')
+                self.label_1st.setStyleSheet('background-color: white; color: red')
             elif sp500_text_color == 'blue':
-                self.label_1st.setStyleSheet('background-color: white; color: cyan')
+                self.label_1st.setStyleSheet('background-color: white; color: blue')
             else:
                 self.label_1st.setStyleSheet('background-color: white; color: black')
         else:
@@ -7344,9 +7349,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if dow_text_color != '':
 
             if dow_text_color == 'red':
-                self.label_2nd.setStyleSheet('background-color: white; color: magenta')
+                self.label_2nd.setStyleSheet('background-color: white; color: red')
             elif dow_text_color == 'blue':
-                self.label_2nd.setStyleSheet('background-color: white; color: cyan')
+                self.label_2nd.setStyleSheet('background-color: white; color: blue')
             else:
                 self.label_2nd.setStyleSheet('background-color: white; color: black')
         else:
@@ -7355,9 +7360,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if nasdaq_text_color != '':
 
             if nasdaq_text_color == 'red':
-                self.label_3rd.setStyleSheet('background-color: white; color: magenta')
+                self.label_3rd.setStyleSheet('background-color: white; color: red')
             elif nasdaq_text_color == 'blue':
-                self.label_3rd.setStyleSheet('background-color: white; color: cyan')
+                self.label_3rd.setStyleSheet('background-color: white; color: blue')
             else:
                 self.label_3rd.setStyleSheet('background-color: white; color: black')
         else:
