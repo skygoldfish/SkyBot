@@ -336,6 +336,11 @@ with open('rules.txt', mode='r') as initfile:
                 pass
     else:
         pass
+
+    tmp = initfile.readline().strip()
+    temp = tmp.split()
+    ASYM_FACTOR = float(temp[3])
+    #print('ASYM_FACTOR =', ASYM_FACTOR)
     
     tmp = initfile.readline().strip()
     tmp = initfile.readline().strip()
@@ -7216,7 +7221,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 call_oneway_level4 = False
                 call_oneway_level5 = False
 
-            if 3 * abs(풋대비합) <= abs(콜대비합):
+            if ASYM_FACTOR * abs(풋대비합) <= abs(콜대비합):
 
                 if 풋대비합 < 0 and 콜대비합 > 0:
 
@@ -7230,7 +7235,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif 3 * abs(콜대비합) <= abs(풋대비합):
+            elif ASYM_FACTOR * abs(콜대비합) <= abs(풋대비합):
 
                 if 풋대비합 > 0 and 콜대비합 < 0:
 
