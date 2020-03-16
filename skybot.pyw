@@ -7061,10 +7061,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if blink:
                             self.label_msg.setStyleSheet('background-color: blue; color: white')
-                            self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
+                            self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))                            
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음(★★★★★)\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)
+                            if dt.second % 10 == 0:
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 매우 높음(★★★★★)\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)
+                            else:
+                                pass
 
                             if not oneway_first_touch:
 
@@ -7081,9 +7084,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         put_oneway_level4 = True
                         put_oneway_level5 = False
 
-                        if blink:
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 높음(★★★★)\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)
+                        if blink:                            
+
+                            if dt.second % 10 == 0:
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성 높음(★★★★)\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)
+                            else:
+                                pass
 
                             if not oneway_first_touch:
 
@@ -7104,10 +7111,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     put_oneway_level3 = True
                     put_oneway_level4 = False
-                    put_oneway_level5 = False
+                    put_oneway_level5 = False                    
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성(★★★)\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
+                    if dt.second % 10 == 0:
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성(★★★)\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
 
                     if not oneway_first_touch:
 
@@ -7123,10 +7133,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     put_oneway = True
-                    oneway_str = ''
+                    oneway_str = ''                    
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성(★★)\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)                    
+                    if dt.second % 10 == 0:
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 풋 OneWay 가능성(★★)\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
+                    else:
+                        pass                   
                 else:
                     pass     
 
@@ -7153,10 +7166,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if blink:
                             self.label_msg.setStyleSheet('background-color: red; color: white')
-                            self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
+                            self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))                            
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음(★★★★★)\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)
+                            if dt.second % 10 == 0:
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 매우 높음(★★★★★)\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)
+                            else:
+                                pass
 
                             if not oneway_first_touch:
 
@@ -7173,9 +7189,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         call_oneway_level4 = True
                         call_oneway_level5 = False
 
-                        if blink:
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 높음(★★★★)\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)
+                        if blink:                            
+
+                            if dt.second % 10 == 0:
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성 높음(★★★★)\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)
+                            else:
+                                pass
 
                             if not oneway_first_touch:
 
@@ -7196,10 +7216,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     call_oneway_level3 = True
                     call_oneway_level4 = False
-                    call_oneway_level5 = False
+                    call_oneway_level5 = False                    
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성(★★★)\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
+                    if dt.second % 10 == 0:
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성(★★★)\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
 
                     if not oneway_first_touch:
 
@@ -7215,10 +7238,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     call_oneway = True
-                    oneway_str = ''
+                    oneway_str = ''                    
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성(★★)\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
+                    if dt.second % 10 == 0:
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 콜 OneWay 가능성(★★)\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
                 else:
                     pass
             else:
@@ -7295,14 +7321,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if ASYM_FACTOR * abs(풋대비합) <= abs(콜대비합):
 
             if 풋대비합 < 0 and 콜대비합 > 0:
-
+                
                 비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 콜 우세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
-                self.textBrowser.append(비대칭장)
+
+                if dt.second % 10 == 0:
+                    self.textBrowser.append(비대칭장)
+                else:
+                    pass
 
             elif 풋대비합 > 0 and 콜대비합 < 0:
 
                 비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 콜 약세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
-                self.textBrowser.append(비대칭장)
+
+                if dt.second % 10 == 0:
+                    self.textBrowser.append(비대칭장)
+                else:
+                    pass
             else:
                 pass
 
@@ -7311,12 +7345,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if 풋대비합 > 0 and 콜대비합 < 0:
 
                 비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 풋 우세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
-                self.textBrowser.append(비대칭장)
+
+                if dt.second % 10 == 0:
+                    self.textBrowser.append(비대칭장)
+                else:
+                    pass
 
             elif 풋대비합 < 0 and 콜대비합 > 0:
 
                 비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 풋 약세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
-                self.textBrowser.append(비대칭장)
+
+                if dt.second % 10 == 0:
+                    self.textBrowser.append(비대칭장)
+                else:
+                    pass
             else:
                 pass
         else:
