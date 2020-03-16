@@ -7220,12 +7220,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if 풋대비합 < 0 and 콜대비합 > 0:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 콜 우세 비대칭장...\r'.format(dt.hour, dt.minute, dt.second)
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 콜 우세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
                     self.textBrowser.append(비대칭장)
 
                 elif 풋대비합 > 0 and 콜대비합 < 0:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 콜 약세 비대칭장...\r'.format(dt.hour, dt.minute, dt.second)
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 콜 약세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
                     self.textBrowser.append(비대칭장)
                 else:
                     pass
@@ -7234,12 +7234,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if 풋대비합 > 0 and 콜대비합 < 0:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 풋 우세 비대칭장...\r'.format(dt.hour, dt.minute, dt.second)
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 풋 우세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
                     self.textBrowser.append(비대칭장)
 
                 elif 풋대비합 < 0 and 콜대비합 > 0:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 풋 약세 비대칭장...\r'.format(dt.hour, dt.minute, dt.second)
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 풋 약세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
                     self.textBrowser.append(비대칭장)
                 else:
                     pass
