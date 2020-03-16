@@ -7290,6 +7290,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         global 비대칭장 
 
+        dt = datetime.datetime.now()
+
         if ASYM_FACTOR * abs(풋대비합) <= abs(콜대비합):
 
             if 풋대비합 < 0 and 콜대비합 > 0:
