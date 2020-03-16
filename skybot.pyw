@@ -16877,6 +16877,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     dongsi_hoga = True
 
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 스레드를 종료합니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    self.textBrowser.append(str)
+
+                    if self.telegram_send_worker.isRunning():
+                        self.telegram_send_worker.terminate()
+                    else:
+                        pass
+
+                    if self.telegram_listen_worker.isRunning():
+                        self.telegram_listen_worker.terminate()
+                    else:
+                        pass
+
                 # 주간 선물/옵션장 종료
                 elif result['장구분'] == '5' and result['장상태'] == '41':
 
@@ -16938,6 +16951,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         # 해외선물 지수 요청취소                    
                         #self.OVC.UnadviseRealData()
+                        
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 스레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
+
+                        if self.telegram_send_worker.isRunning():
+                            self.telegram_send_worker.terminate()
+                        else:
+                            pass
+
+                        if self.telegram_listen_worker.isRunning():
+                            self.telegram_listen_worker.terminate()
+                        else:
+                            pass
 
                         if TARGET_MONTH_SELECT == 1:
 
