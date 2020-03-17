@@ -75,10 +75,6 @@ locale.setlocale(locale.LC_ALL, '')
 DATABASE = 'DATA\\mymoneybot.sqlite'
 UI_DIR = "UI\\"
 
-global kse_start_hour
-
-kse_start_hour = 9
-
 # 만기일 야간옵션은 month_info.txt에서 mangi_yagan을 NO -> YES로 변경
 with open('month_info.txt', mode='r') as monthfile:
 
