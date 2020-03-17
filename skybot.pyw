@@ -155,49 +155,49 @@ with open('month_info.txt', mode='r') as monthfile:
     temp = tmp.split()
     NASDAQ = temp[2]     
 
-with open('overnight_info.txt', mode='r') as monthfile:
+with open('overnight_info.txt', mode='r') as overnight_file:
 
-    tmp = monthfile.readline().strip()
+    tmp = overnight_file.readline().strip()
     
-    tmp = monthfile.readline().strip()
+    tmp = overnight_file.readline().strip()
     temp = tmp.split()
     DOW_INDEX = int(temp[4])
     print('DOW_INDEX =', DOW_INDEX)
 
-    tmp = monthfile.readline().strip()
+    tmp = overnight_file.readline().strip()
     temp = tmp.split()
     CME_INDEX = float(temp[5])
     print('CME_INDEX =', CME_INDEX)
 
-    tmp = monthfile.readline().strip()
-    tmp = monthfile.readline().strip()
+    tmp = overnight_file.readline().strip()
+    tmp = overnight_file.readline().strip()
 
-    tmp = monthfile.readline().strip()
+    tmp = overnight_file.readline().strip()
     temp = tmp.split()
     SP500_LAST_LOW = float(temp[5])
     print('SP500_LAST_LOW =', SP500_LAST_LOW)
 
-    tmp = monthfile.readline().strip()
+    tmp = overnight_file.readline().strip()
     temp = tmp.split()
     SP500_LAST_HIGH = float(temp[5])
     print('SP500_LAST_HIGH =', SP500_LAST_HIGH)
 
-    tmp = monthfile.readline().strip()
+    tmp = overnight_file.readline().strip()
     temp = tmp.split()
     DOW_LAST_LOW = float(temp[4])
     print('DOW_LAST_LOW =', DOW_LAST_LOW)
 
-    tmp = monthfile.readline().strip()
+    tmp = overnight_file.readline().strip()
     temp = tmp.split()
     DOW_LAST_HIGH = float(temp[4])
     print('DOW_LAST_HIGH =', DOW_LAST_HIGH)
 
-    tmp = monthfile.readline().strip()
+    tmp = overnight_file.readline().strip()
     temp = tmp.split()
     NASDAQ_LAST_LOW = float(temp[4])
     print('NASDAQ_LAST_LOW =', NASDAQ_LAST_LOW)
 
-    tmp = monthfile.readline().strip()
+    tmp = overnight_file.readline().strip()
     temp = tmp.split()
     NASDAQ_LAST_HIGH = float(temp[4])
     print('NASDAQ_LAST_HIGH =', NASDAQ_LAST_HIGH)
