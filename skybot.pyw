@@ -1165,6 +1165,9 @@ sp500_price = 0.0
 dow_price = 0.0
 nasdaq_price = 0.0
 
+cme_close = 0.0
+dow_close = 0.0
+
 kospi_text_color = ''
 kosdaq_text_color = ''
 samsung_text_color = ''
@@ -6374,7 +6377,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 비대칭장 탐색
                     if not dongsi_hoga:
 
-                        if TARGET_MONTH_SELECT == 1:
+                        if TARGET_MONTH_SELECT == 1 and not self.alternate_flag:
 
                             self.asym_detect()
                         else:
@@ -6397,33 +6400,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     if overnight:
 
-                        if int(OVC_체결시간[0:2]) == US_INDEX_END_HOUR and int(OVC_체결시간[2:4]) == US_INDEX_END_MIN and int(OVC_체결시간[4:6]) == US_INDEX_END_SEC:
-
-                            # 다음날 해외선물 피봇계산을 위해 종료시(5시 59분 57초 ?) 마지막 값 저장
-                            str = '[{0:02d}:{1:02d}:{2:02d}] SP500 Low = {3:0.2f}, SP500 High = {4:0.2f}, SP500 Close = {5:0.2f}\r'.format \
-                                (int(OVC_체결시간[0:2]), 
-                                int(OVC_체결시간[2:4]), 
-                                int(OVC_체결시간[4:6]),
-                                sp500_저가, sp500_고가, sp500_price)
-                            self.textBrowser.append(str)
-                            print(str)
-
-                            str = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
-                                (int(OVC_체결시간[0:2]), 
-                                int(OVC_체결시간[2:4]), 
-                                int(OVC_체결시간[4:6]),
-                                dow_저가, dow_고가, dow_price)
-                            self.textBrowser.append(str)
-                            print(str)
-
-                            str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ Low = {3:0.2f}, NASDAQ High = {4:0.2f}, NASDAQ Close = {5:0.2f}\r'.format \
-                                (int(OVC_체결시간[0:2]), 
-                                int(OVC_체결시간[2:4]), 
-                                int(OVC_체결시간[4:6]),
-                                nasdaq_저가, nasdaq_고가, nasdaq_price)
-                            self.textBrowser.append(str)
-                            print(str)
-
+                        if int(OVC_체결시간[0:2]) == US_INDEX_END_HOUR and int(OVC_체결시간[2:4]) == US_INDEX_END_MIN and int(OVC_체결시간[4:6]) == US_INDEX_END_SEC:                            
+                            
                             flag_ovc_terminate = True
                             receive_real_ovc = False
                         else:
@@ -6439,6 +6417,70 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if dt.hour == 7 and dt.minute == 0:
 
                     if self.parent.connection.IsConnected() and not flag_offline:
+
+                        # 다음날 해외선물 피봇계산을 위해 종료시(5시 59분 57초 ?) 마지막 값 저장
+                        str = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:0.2f}, DOW 종가 = {4:0.2f}\r'.format \
+                            (int(OVC_체결시간[0:2]), 
+                            int(OVC_체결시간[2:4]), 
+                            int(OVC_체결시간[4:6]),
+                            cme_close, dow_close)
+                        self.textBrowser.append(str)
+                        print(str)
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] SP500 Low = {3:0.2f}, SP500 High = {4:0.2f}, SP500 Close = {5:0.2f}\r'.format \
+                            (int(OVC_체결시간[0:2]), 
+                            int(OVC_체결시간[2:4]), 
+                            int(OVC_체결시간[4:6]),
+                            sp500_저가, sp500_고가, sp500_price)
+                        self.textBrowser.append(str)
+                        print(str)
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] DOW Low = {3:0.1f}, DOW High = {4:0.1f}, DOW Close = {5:0.1f}\r'.format \
+                            (int(OVC_체결시간[0:2]), 
+                            int(OVC_체결시간[2:4]), 
+                            int(OVC_체결시간[4:6]),
+                            dow_저가, dow_고가, dow_price)
+                        self.textBrowser.append(str)
+                        print(str)
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ Low = {3:0.2f}, NASDAQ High = {4:0.2f}, NASDAQ Close = {5:0.2f}\r'.format \
+                            (int(OVC_체결시간[0:2]), 
+                            int(OVC_체결시간[2:4]), 
+                            int(OVC_체결시간[4:6]),
+                            nasdaq_저가, nasdaq_고가, nasdaq_price)
+                        self.textBrowser.append(str)
+                        print(str)
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 주요정보를 저징합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
+                        print(str)
+                        
+                        # 야간장의 주요정보를 저장
+                        with open('overnight_info.txt', mode='w') as overnight_file:
+
+                            file_str = '################# < Futures Index of the Last Night > ###################\n'
+                            overnight_file.write(file_str)
+                            file_str = 'Overnight DOW Index = {0}\n'.format(dow_close)
+                            overnight_file.write(file_str)
+                            file_str = 'Overnight CME FUT Index = {0}\n'.format(cme_close)
+                            overnight_file.write(file_str)
+                            file_str = '\n'
+                            overnight_file.write(file_str)
+                            file_str = '##################### < US Index of the Last Night > ####################\n'
+                            overnight_file.write(file_str)
+                            file_str = 'S&P 500 Last Low = {0}\n'.format(sp500_저가)
+                            overnight_file.write(file_str)
+                            file_str = 'S&P 500 Last High = {0}\n'.format(sp500_고가)
+                            overnight_file.write(file_str)
+                            file_str = 'DOW Last Low = {0}\n'.format(dow_저가)
+                            overnight_file.write(file_str)
+                            file_str = 'DOW Last High = {0}\n'.format(dow_고가)
+                            overnight_file.write(file_str)
+                            file_str = 'NASDAQ Last Low = {0}\n'.format(nasdaq_저가)
+                            overnight_file.write(file_str)
+                            file_str = 'NASDAQ Last High = {0}\n'.format(nasdaq_고가)
+                            overnight_file.write(file_str)
+                            overnight_file.close()
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
@@ -7038,7 +7080,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
         else:
             # oneway check
-            if FUT_INSTITUTIONAL_거래대금순매수 > ONEWAY_THRESHOLD or FUT_RETAIL_거래대금순매수 > ONEWAY_THRESHOLD:
+            if (풋대비합 > 0 and 콜대비합 < 0) and (FUT_INSTITUTIONAL_거래대금순매수 > ONEWAY_THRESHOLD or FUT_RETAIL_거래대금순매수 > ONEWAY_THRESHOLD):
 
                 if 선물_거래대금순매수 > 0 and 현물_거래대금순매수 < 0 \
                     and FUT_FOREIGNER_거래대금순매수 < 0 and 프로그램_전체순매수금액 < 0 and KOSPI_FOREIGNER_거래대금순매수 < 0 and fut_realdata['거래량'] < 0:
@@ -7143,7 +7185,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass     
 
-            elif FUT_INSTITUTIONAL_거래대금순매수 < -ONEWAY_THRESHOLD or FUT_RETAIL_거래대금순매수 < -ONEWAY_THRESHOLD:
+            elif (풋대비합 < 0 and 콜대비합 > 0) and (FUT_INSTITUTIONAL_거래대금순매수 < -ONEWAY_THRESHOLD or FUT_RETAIL_거래대금순매수 < -ONEWAY_THRESHOLD):
 
                 if 선물_거래대금순매수 < 0 and 현물_거래대금순매수 > 0 \
                     and FUT_FOREIGNER_거래대금순매수 > 0 and 프로그램_전체순매수금액 > 0 and KOSPI_FOREIGNER_거래대금순매수 > 0 and fut_realdata['거래량'] > 0:
@@ -7322,7 +7364,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if 풋대비합 < 0 and 콜대비합 > 0:
                 
-                비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 콜 우세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
+                비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 콜 우세(+{3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
 
                 if dt.second % 10 == 0:
                     self.textBrowser.append(비대칭장)
@@ -7331,7 +7373,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif 풋대비합 > 0 and 콜대비합 < 0:
 
-                비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 콜 약세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
+                비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 콜 약세(-{3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
 
                 if dt.second % 10 == 0:
                     self.textBrowser.append(비대칭장)
@@ -7344,7 +7386,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if 풋대비합 > 0 and 콜대비합 < 0:
 
-                비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 풋 우세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
+                비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 풋 우세(+{3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
 
                 if dt.second % 10 == 0:
                     self.textBrowser.append(비대칭장)
@@ -7353,7 +7395,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif 풋대비합 < 0 and 콜대비합 > 0:
 
-                비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 풋 약세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
+                비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] 풋 약세(-{3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
 
                 if dt.second % 10 == 0:
                     self.textBrowser.append(비대칭장)
@@ -16767,6 +16809,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global sp500_price, sp500_text_color, sp500_시가, sp500_전일종가, sp500_피봇, sp500_저가, sp500_고가            
             global dow_price, dow_text_color, dow_시가, dow_전일종가, dow_피봇, dow_저가, dow_고가 
 
+            global cme_close, dow_close
+
             start_time = timeit.default_timer()
 
             dt = datetime.datetime.now()
@@ -16953,12 +16997,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.pushButton_add.setText('ScrShot')
 
-                        #str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                        #self.textBrowser.append(str) 
-
-                        # 해외선물 지수 요청취소                    
-                        #self.OVC.UnadviseRealData()
-
                         if TARGET_MONTH_SELECT == 1:
 
                             self.capture_screenshot()
@@ -16972,6 +17010,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
+
+                    cme_close = cme_realdata['현재가']
+                    dow_close = dow_price
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 DOW 지수 = {3}\r'.format(dt.hour, dt.minute, dt.second, dow_price)
                     self.textBrowser.append(str)
@@ -16987,12 +17028,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         receive_quote = False
 
                         self.pushButton_add.setText('ScrShot')
-
-                        #str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                        #self.textBrowser.append(str)  
-
-                        # 해외선물 지수 요청취소                    
-                        #self.OVC.UnadviseRealData()
                         
                         str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 스레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
