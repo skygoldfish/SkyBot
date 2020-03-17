@@ -5827,7 +5827,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     
             if receive_real_ovc or market_service:
                 
-                self.label_clear() 
+                self.label_clear(self.alternate_flag) 
 
                 # 그래프 그리기
 
@@ -7405,7 +7405,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return
 
-    def label_clear(self):
+    def label_clear(self, toggle):
+
+        dt = datetime.datetime.now()
 
         if kospi_text_color != '':
 
@@ -7432,11 +7434,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if samsung_text_color != '':
 
             if samsung_text_color == 'red':
-                self.label_kosdaq.setStyleSheet('background-color: white; color: red')
+                self.label_samsung.setStyleSheet('background-color: white; color: red')
             elif samsung_text_color == 'blue':
-                self.label_kosdaq.setStyleSheet('background-color: white; color: blue')
+                self.label_samsung.setStyleSheet('background-color: white; color: blue')
             else:
-                self.label_kosdaq.setStyleSheet('background-color: white; color: black')
+                self.label_samsung.setStyleSheet('background-color: white; color: black')
         else:
             pass            
 
@@ -7470,6 +7472,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.label_3rd.setStyleSheet('background-color: white; color: blue')
             else:
                 self.label_3rd.setStyleSheet('background-color: white; color: black')
+        else:
+            pass
+
+        if dt.second % 10 == 0 and toggle:
+            
+            if kospi_text_color != kosdaq_text_color:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] KOSPI, KOSDAQ의 극성이 상이합니다... \r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+            else:
+                pass
+            
+            if dow_text_color != nasdaq_text_color:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] DOW, NASDAQ의 극성이 상이합니다... \r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+            else:
+                pass                
         else:
             pass        
 
@@ -17538,7 +17558,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             if result['전일대비구분'] == '5':
 
-                                jisu_str = "SS: {0} ▲ ({1}, {2:0.1f}%)".format(temp_str, format(-result['전일대비'], ','), result['등락율'])
+                                jisu_str = "SS: {0} ▲ (-{1}, {2:0.1f}%)".format(temp_str, format(result['전일대비'], ','), result['등락율'])
                                 self.label_samsung.setText(jisu_str)
                                 self.label_samsung.setStyleSheet('background-color: pink ; color: blue')
                                 samsung_text_color = 'blue'
@@ -17558,7 +17578,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             if result['전일대비구분'] == '5':
 
-                                jisu_str = "SS: {0} ▼ ({1}, {2:0.1f}%)".format(temp_str, format(-result['전일대비'], ','), result['등락율'])
+                                jisu_str = "SS: {0} ▼ (-{1}, {2:0.1f}%)".format(temp_str, format(result['전일대비'], ','), result['등락율'])
                                 self.label_samsung.setText(jisu_str)
                                 self.label_samsung.setStyleSheet('background-color: lightskyblue ; color: blue')
                                 samsung_text_color = 'blue'
@@ -17810,7 +17830,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             if result['전일대비구분'] == '5':
 
-                                jisu_str = "KOSPI: {0} ▲ ({1:0.2f}, {2:0.1f}%)".format(temp_str, -result['전일비'], result['등락율'])
+                                jisu_str = "KOSPI: {0} ▲ (-{1:0.2f}, {2:0.1f}%)".format(temp_str, result['전일비'], result['등락율'])
                                 self.label_kospi.setText(jisu_str)
                                 self.label_kospi.setStyleSheet('background-color: pink ; color: blue')
                                 kospi_text_color = 'blue'
@@ -17830,7 +17850,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             if result['전일대비구분'] == '5':
 
-                                jisu_str = "KOSPI: {0} ▼ ({1:0.2f}, {2:0.1f}%)".format(temp_str, -result['전일비'], result['등락율'])
+                                jisu_str = "KOSPI: {0} ▼ (-{1:0.2f}, {2:0.1f}%)".format(temp_str, result['전일비'], result['등락율'])
                                 self.label_kospi.setText(jisu_str)
                                 self.label_kospi.setStyleSheet('background-color: lightskyblue ; color: blue')
                                 kospi_text_color = 'blue'
@@ -17847,22 +17867,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             pass
 
                         kospi_price = round(float(result['지수']), 2)
-
-                        if kospi_text_color != kosdaq_text_color:
-
-                            str = '[{0:02d}:{1:02d}:{2:02d}] KOSPI, KOSDAQ의 극성이 상이합니다... \r'.format(
-                                    int(result['시간'][0:2]),
-                                    int(result['시간'][2:4]),
-                                    int(result['시간'][4:6]))                                
-                            self.textBrowser.append(str)
-                        else:
-                            pass
                     else:
                         pass                    
 
                 elif result['업종코드'] == KOSDAQ:                                       
 
-                    if round(float(result['지수']), 2) != kosdaq_price:
+                    if round(float(result['지수']), 2) != kosdaq_price:                        
 
                         if round(float(result['지수']), 2) > kosdaq_price:
 
@@ -17870,7 +17880,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             if result['전일대비구분'] == '5':
 
-                                jisu_str = "KOSDAQ: {0} ▲ ({1:0.2f}, {2:0.1f}%)".format(temp_str, -result['전일비'], result['등락율'])
+                                jisu_str = "KOSDAQ: {0} ▲ (-{1:0.2f}, {2:0.1f}%)".format(temp_str, result['전일비'], result['등락율'])
                                 self.label_kosdaq.setText(jisu_str)
                                 self.label_kosdaq.setStyleSheet('background-color: pink ; color: blue')
                                 kosdaq_text_color = 'blue'
@@ -17890,7 +17900,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             if result['전일대비구분'] == '5':
 
-                                jisu_str = "KOSDAQ: {0} ▼ ({1:0.2f}, {2:0.1f}%)".format(temp_str, -result['전일비'], result['등락율'])
+                                jisu_str = "KOSDAQ: {0} ▼ (-{1:0.2f}, {2:0.1f}%)".format(temp_str, result['전일비'], result['등락율'])
                                 self.label_kosdaq.setText(jisu_str)
                                 self.label_kosdaq.setStyleSheet('background-color: lightskyblue ; color: blue')
                                 kosdaq_text_color = 'blue'
@@ -18830,9 +18840,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     pass                                
 
                                 if min(temp) > 0:
-                                    jisu_str = "NASDAQ: {0:.2f} ({1:.2f}, {2:0.2f}%)⬈".format(result['체결가격'], -result['전일대비'], result['등락율'])                                    
+                                    jisu_str = "NASDAQ: {0:.2f} (-{1:.2f}, {2:0.2f}%)⬈".format(result['체결가격'], result['전일대비'], result['등락율'])                                    
                                 else:
-                                    jisu_str = "NASDAQ: {0:.2f} ▲ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
+                                    jisu_str = "NASDAQ: {0:.2f} ▲ (-{1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
 
                                 self.label_3rd.setText(jisu_str)
                                 self.label_3rd.setStyleSheet('background-color: pink ; color: blue')
@@ -18884,9 +18894,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                     pass                                
 
                                 if max(temp) < 0:
-                                    jisu_str = "NASDAQ: {0:.2f} ({1:.2f}, {2:0.2f}%)⬊".format(result['체결가격'], -result['전일대비'], result['등락율'])                                    
+                                    jisu_str = "NASDAQ: {0:.2f} (-{1:.2f}, {2:0.2f}%)⬊".format(result['체결가격'], result['전일대비'], result['등락율'])                                    
                                 else:
-                                    jisu_str = "NASDAQ: {0:.2f} ▼ ({1:.2f}, {2:0.2f}%)".format(result['체결가격'], -result['전일대비'], result['등락율'])
+                                    jisu_str = "NASDAQ: {0:.2f} ▼ (-{1:.2f}, {2:0.2f}%)".format(result['체결가격'], result['전일대비'], result['등락율'])
 
                                 self.label_3rd.setText(jisu_str)
                                 self.label_3rd.setStyleSheet('background-color: lightskyblue ; color: blue')
@@ -19212,25 +19222,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         pass                    
                 else:
                     pass
-
-                if sp500_text_color == 'blue' and dow_text_color == 'blue' and nasdaq_text_color == 'blue':
-
-                    pass
-
-                elif sp500_text_color == 'red' and dow_text_color == 'red' and nasdaq_text_color == 'red':
-
-                    pass
-                else:
-
-                    if nasdaq_text_color != '':
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] S&P 500, DOW, NASDAQ의 극성이 상이합니다... \r'.format(
-                                    int(result['체결시간_한국'][0:2]),
-                                    int(result['체결시간_한국'][2:4]),
-                                    int(result['체결시간_한국'][4:6]))                                
-                        #self.textBrowser.append(str)
-                    else:
-                        pass
             else:
                 print('요청하지 않은 TR 코드 : ', szTrCode)
             '''
