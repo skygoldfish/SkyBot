@@ -153,9 +153,10 @@ with open('month_info.txt', mode='r') as monthfile:
 
     tmp = monthfile.readline().strip()
     temp = tmp.split()
-    NASDAQ = temp[2]  
+    NASDAQ = temp[2]     
 
-    tmp = monthfile.readline().strip()
+with open('overnight_info.txt', mode='r') as monthfile:
+
     tmp = monthfile.readline().strip()
     
     tmp = monthfile.readline().strip()
