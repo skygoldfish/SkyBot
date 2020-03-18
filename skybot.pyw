@@ -10096,7 +10096,45 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
 
-        if szTrCode == 't2101':
+        if szTrCode == 't1514':
+
+            CTS일자, df = result
+            
+            if df.iloc[0]['업종코드'] == KOSPI:
+
+                if df.iloc[0]['전일대비구분'] == '5':
+
+                    jisu_str = "KOSPI: {0} (-{1:0.2f}, {2:0.1f}%)".format(df.iloc[0]['지수'], df.iloc[0]['전일대비'], df.iloc[0]['등락율'])
+                    self.label_kospi.setText(jisu_str)
+                    self.label_kospi.setStyleSheet('background-color: black ; color: cyan')
+
+                elif df.iloc[0]['전일대비구분'] == '2':
+
+                    jisu_str = "KOSPI: {0} ({1:0.2f}, {2:0.1f}%)".format(df.iloc[0]['지수'], df.iloc[0]['전일대비'], df.iloc[0]['등락율'])
+                    self.label_kospi.setText(jisu_str)
+                    self.label_kospi.setStyleSheet('background-color: black ; color: magenta')
+                else:
+                    pass
+
+            elif df.iloc[0]['업종코드'] == KOSDAQ:
+
+                if df.iloc[0]['전일대비구분'] == '5':
+
+                    jisu_str = "KOSDAQ: {0} (-{1:0.2f}, {2:0.1f}%)".format(df.iloc[0]['지수'], df.iloc[0]['전일대비'], df.iloc[0]['등락율'])
+                    self.label_kosdaq.setText(jisu_str)
+                    self.label_kosdaq.setStyleSheet('background-color: black ; color: cyan')
+
+                elif df.iloc[0]['전일대비구분'] == '5':
+
+                    jisu_str = "KOSDAQ: {0} ({1:0.2f}, {2:0.1f}%)".format(df.iloc[0]['지수'], df.iloc[0]['전일대비'], df.iloc[0]['등락율'])
+                    self.label_kosdaq.setText(jisu_str)
+                    self.label_kosdaq.setStyleSheet('background-color: black ; color: magenta')
+                else:
+                    pass
+            else:
+                pass                    
+
+        elif szTrCode == 't2101':
 
             df = result[0]
 
@@ -19400,6 +19438,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
+
+        # 코스피 조회
+        XQ = t1514(parent=self)
+        XQ.Query(업종코드=KOSPI,구분1='',구분2='1',CTS일자='',조회건수='0001',비중구분='', 연속조회=False)
+
+        time.sleep(1.1)
+
+        # 코스닥지수 조회
+        XQ = t1514(parent=self)
+        XQ.Query(업종코드=KOSDAQ,구분1='',구분2='1',CTS일자='',조회건수='0001',비중구분='', 연속조회=False)
 
         if service_terminate:
 

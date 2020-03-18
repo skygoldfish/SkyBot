@@ -880,7 +880,9 @@ class t1463(XAQuery):
 
 # 업종기간별추이
 class t1514(XAQuery):
+
     def Query(self, 업종코드='001',구분1='',구분2='1',CTS일자='',조회건수='100',비중구분='', 연속조회=False):
+
         if 연속조회 == False:
             self.ActiveX.LoadFromResFile(self.RESFILE)
             self.ActiveX.SetFieldData(self.INBLOCK, "upcode", 0, 업종코드)
@@ -899,7 +901,13 @@ class t1514(XAQuery):
                 함수이름 = inspect.currentframe().f_code.co_name
                 print("%s-%s " % (클래스이름, 함수이름), "error... {0}".format(err_code))
 
+    def OnReceiveMessage(self, systemError, messageCode, message):
+        클래스이름 = self.__class__.__name__
+        함수이름 = inspect.currentframe().f_code.co_name
+        print("%s-%s " % (클래스이름, 함수이름), systemError, messageCode, message)
+
     def OnReceiveData(self, szTrCode):
+
         result = []
         nCount = self.ActiveX.GetBlockCount(self.OUTBLOCK)
         for i in range(nCount):
