@@ -13900,7 +13900,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         #if market_service and (fut_time == fut_first_arrive + 1 or fut_time == fut_first_arrive + 2):
-        if fut_time == telegram_send_worker_on_time + 1 or fut_time == telegram_send_worker_on_time + 2:
+        if fut_time == telegram_send_worker_on_time + 2 or fut_time == telegram_send_worker_on_time + 3:
             
             # 선물 시가갭 컬러링(주간 장시작시 표시안되는 오류 대응)
             if overnight:
