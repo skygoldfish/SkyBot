@@ -2868,7 +2868,7 @@ class t8416_Put_Worker(QThread):
 # 텔레그램 송수신시 약 1.2초 정도 전달지연 시간 발생함
 class telegram_send_worker(QThread):
 
-    finished = pyqtSignal(object)
+    finished = pyqtSignal(str)
 
     def run(self):
 
@@ -3251,7 +3251,7 @@ class telegram_send_worker(QThread):
 ########################################################################################################################
 class telegram_listen_worker(QThread):
 
-    finished = pyqtSignal(object)
+    finished = pyqtSignal(str)
 
     def run(self):
 
@@ -5811,7 +5811,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         pass 
 
-    @pyqtSlot(object)
+    @pyqtSlot(str)
     def send_telegram_message(self, str):
 
         try:
@@ -5826,7 +5826,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         except:
             pass
 
-    @pyqtSlot(object)
+    @pyqtSlot(str)
     def listen_telegram_message(self, str):
 
         try:
