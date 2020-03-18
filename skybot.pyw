@@ -507,7 +507,9 @@ telegram_send_message = 'None'
 MONTH_1 = False
 MONTH_2 = False
 MONTH_3 = False
-FLAG_OLOH = False 
+FLAG_OLOH = False
+
+oloh_str = ''
 
 call_low_touch = False
 call_high_touch = False
@@ -531,6 +533,11 @@ call_low_node_list = []
 call_high_node_list = []
 put_low_node_list = []
 put_high_node_list = []
+
+call_low_node_str = ''
+call_high_node_str = ''
+put_low_node_str = ''
+put_high_node_str = ''
 
 call_low_coreval_str = ''
 call_high_coreval_str = ''
@@ -2984,6 +2991,7 @@ class telegram_send_worker(QThread):
                 if telegram_toggle:
 
                     # 선물 OL/OH 알람(NM, MAN인 경우만)
+                    '''
                     if flag_fut_ol:
 
                         if TARGET_MONTH_SELECT == 2 and FLAG_OLOH:
@@ -3013,8 +3021,17 @@ class telegram_send_worker(QThread):
                             pass
                     else:
                         pass
+                    '''
+
+                    if oloh_str != '' and FLAG_OLOH:
+
+                        str = oloh_str
+                        ToTelegram(str)
+                    else:
+                        pass
 
                     # 옵션맥점 발생 알람
+                    '''
                     if call_low_node_list:
 
                         if TARGET_MONTH_SELECT == 1 and MONTH_1:
@@ -3096,6 +3113,35 @@ class telegram_send_worker(QThread):
                             ToTelegram(str)
                         else:
                             pass
+                    else:
+                        pass
+                    '''
+
+                    if call_low_node_str != '' and (MONTH_1 or MONTH_2 or MONTH_3):
+
+                        str = call_low_node_str
+                        ToTelegram(str)
+                    else:
+                        pass
+
+                    if call_high_node_str != '' and (MONTH_1 or MONTH_2 or MONTH_3):
+
+                        str = call_high_node_str
+                        ToTelegram(str)
+                    else:
+                        pass
+
+                    if put_low_node_str != '' and (MONTH_1 or MONTH_2 or MONTH_3):
+
+                        str = put_low_node_str
+                        ToTelegram(str)
+                    else:
+                        pass
+
+                    if put_high_node_str != '' and (MONTH_1 or MONTH_2 or MONTH_3):
+
+                        str = put_high_node_str
+                        ToTelegram(str)
                     else:
                         pass
 
@@ -5813,17 +5859,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.alternate_flag = not self.alternate_flag
             
             # 해외선물 한국시간 표시
-            if not flag_ovc_terminate:
+            if OVC_체결시간 == '000000':
 
-                if OVC_체결시간 == '000000':
-
-                    str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
-                    self.label_msg.setText(str)
-                else:
-                    str = '{0:02d}:{1:02d}:{2:02d}'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
-                    self.label_msg.setText(str)
+                str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
             else:
-                pass
+                str = '{0:02d}:{1:02d}:{2:02d}'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
+                
+            self.label_msg.setText(str)
                                     
             if receive_real_ovc or market_service:
                 
@@ -6324,6 +6366,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             global call_low_coreval_str, call_high_coreval_str, put_low_coreval_str, put_high_coreval_str
                             global call_low_node_count, call_high_node_count, put_low_node_count, put_high_node_count
                             global call_low_node_list, call_high_node_list, put_low_node_list, put_high_node_list
+                            global call_low_node_str, call_high_node_str, put_low_node_str, put_high_node_str
 
                             if flag_call_low_coreval:
                                 self.call_low_coreval_color_blink(self.alternate_flag)
@@ -6331,6 +6374,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 call_low_coreval_str = ''
                                 call_low_node_count = 0
                                 call_low_node_list = []
+                                call_low_node_str = ''
 
                             if flag_call_high_coreval:
                                 self.call_high_coreval_color_blink(self.alternate_flag)
@@ -6338,6 +6382,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 call_high_coreval_str = ''
                                 call_high_node_count = 0
                                 call_high_node_list = []
+                                call_high_node_str = ''
 
                             if flag_put_low_coreval:
                                 self.put_low_coreval_color_blink(self.alternate_flag)
@@ -6345,13 +6390,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 put_low_coreval_str = ''
                                 put_low_node_count = 0
                                 put_low_node_list = []
+                                put_low_node_str = ''
 
                             if flag_put_high_coreval:
                                 self.put_high_coreval_color_blink(self.alternate_flag)                        
                             else:
                                 put_high_coreval_str = '' 
                                 put_high_node_count = 0
-                                put_high_node_list = []  
+                                put_high_node_list = []
+                                put_high_node_str = ''
 
                             global kp200_low_node_str, kp200_high_node_str                            
 
@@ -7672,7 +7719,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def call_low_coreval_color_blink(self, blink):
 
-        global call_low_node_count, call_low_node_list
+        global call_low_node_count, call_low_node_list, call_low_node_str
+
+        dt = datetime.datetime.now()
         
         if call_open_list:
 
@@ -7699,6 +7748,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
             else:
                 pass
+
+        if call_low_node_list and call_low_node_str == '':
+
+            if TARGET_MONTH_SELECT == 1:
+
+                call_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 {3} 발생 C ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
+
+            elif TARGET_MONTH_SELECT == 2:
+
+                call_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 {3} 발생 C ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
+
+            elif TARGET_MONTH_SELECT == 3:
+
+                call_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 {3} 발생 C ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
+            else:
+                pass                        
+        else:
+            call_low_node_str == ''
 
         call_low_node_count = count
 
@@ -7746,7 +7813,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def call_high_coreval_color_blink(self, blink):
 
-        global call_high_node_count, call_high_node_list
+        global call_high_node_count, call_high_node_list, call_high_node_str
+
+        dt = datetime.datetime.now()
         
         if call_open_list:
 
@@ -7773,6 +7842,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
             else:
                 pass
+
+        if call_high_node_list and call_high_node_str == '':
+
+            if TARGET_MONTH_SELECT == 1:
+
+                call_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 {3} 발생 C ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
+
+            elif TARGET_MONTH_SELECT == 2:
+
+                call_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 {3} 발생 C ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
+
+            elif TARGET_MONTH_SELECT == 3:
+
+                call_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 {3} 발생 C ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
+            else:
+                pass
+        else:
+            call_high_node_str == ''
 
         call_high_node_count = count    
 
@@ -9441,7 +9528,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def put_low_coreval_color_blink(self, blink):
 
-        global put_low_node_count, put_low_node_list
+        global put_low_node_count, put_low_node_list, put_low_node_str
+
+        dt = datetime.datetime.now()
         
         if put_open_list:
 
@@ -9468,6 +9557,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
             else:
                 pass
+
+        if put_low_node_list and put_low_node_str == '':
+
+            if TARGET_MONTH_SELECT == 1:
+
+                put_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 {3} 발생 P ▲".format(dt.hour, dt.minute, dt.second, put_low_node_list)
+
+            elif TARGET_MONTH_SELECT == 2:
+
+                put_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 {3} 발생 P ▲".format(dt.hour, dt.minute, dt.second, put_low_node_list)
+
+            elif TARGET_MONTH_SELECT == 3:
+
+                put_low_node_str = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 {3} 발생 P ▲".format(dt.hour, dt.minute, dt.second, put_low_node_list)
+            else:
+                pass
+        else:
+            put_low_node_str == ''    
 
         put_low_node_count = count
 
@@ -9515,7 +9622,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def put_high_coreval_color_blink(self, blink):
 
-        global put_high_node_count, put_high_node_list
+        global put_high_node_count, put_high_node_list, put_high_node_str
+
+        dt = datetime.datetime.now()
 
         if put_open_list:
 
@@ -9542,6 +9651,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))                 
             else:
                 pass
+
+        if put_high_node_list and put_high_node_str == '':
+
+            if TARGET_MONTH_SELECT == 1: 
+
+                put_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 {3} 발생 P ▼".format(dt.hour, dt.minute, dt.second, put_high_node_list)
+
+            elif TARGET_MONTH_SELECT == 2:
+
+                put_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 {3} 발생 P ▼".format(dt.hour, dt.minute, dt.second, put_high_node_list)
+
+            elif TARGET_MONTH_SELECT == 3:
+
+                put_high_node_str = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 {3} 발생 P ▼".format(dt.hour, dt.minute, dt.second, put_high_node_list)
+            else:
+                pass
+        else:
+            put_high_node_str == ''
 
         put_high_node_count = count
 
@@ -13413,12 +13540,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def fut_oloh_check(self):
 
-        global flag_fut_ol, flag_fut_oh
+        global flag_fut_ol, flag_fut_oh, oloh_str
+
+        dt = datetime.datetime.now()
 
         # FUT OL/OH
         if self.within_n_tick(선물_시가, 선물_저가, 10) and not self.within_n_tick(선물_시가, 선물_고가, 10):
-
-            flag_fut_ol = True
 
             item = QTableWidgetItem('▲')
             item.setTextAlignment(Qt.AlignCenter)
@@ -13442,9 +13569,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.저가.value).setBackground(QBrush(적색))
                 self.tableWidget_fut.item(1, Futures_column.저가.value).setForeground(QBrush(검정색))
 
-        elif not self.within_n_tick(선물_시가, 선물_저가, 10) and self.within_n_tick(선물_시가, 선물_고가, 10):
+            if TARGET_MONTH_SELECT == 2 and not flag_fut_ol:
 
-            flag_fut_oh = True
+                oloh_str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OL ▲".format(dt.hour, dt.minute, dt.second)
+
+            elif TARGET_MONTH_SELECT == 3 and not flag_fut_ol:
+
+                oloh_str = "[{0:02d}:{1:02d}:{2:02d}] MAN 선물 OL ▲".format(dt.hour, dt.minute, dt.second)
+            else:
+                pass
+            
+            flag_fut_ol = True
+
+        elif not self.within_n_tick(선물_시가, 선물_저가, 10) and self.within_n_tick(선물_시가, 선물_고가, 10):
 
             item = QTableWidgetItem('▼')
             item.setTextAlignment(Qt.AlignCenter)
@@ -13468,9 +13605,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.고가.value).setBackground(QBrush(청색))
                 self.tableWidget_fut.item(1, Futures_column.고가.value).setForeground(QBrush(흰색))
 
+            if TARGET_MONTH_SELECT == 2 and not flag_fut_oh:
+
+                oloh_str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OH ▼".format(dt.hour, dt.minute, dt.second)
+
+            elif TARGET_MONTH_SELECT == 3 and not flag_fut_oh:
+
+                oloh_str = "[{0:02d}:{1:02d}:{2:02d}] MAN 선물 OH ▼".format(dt.hour, dt.minute, dt.second)
+            else:
+                pass
+            
+            flag_fut_oh = True
+
         else:
             flag_fut_ol = False
             flag_fut_oh = False
+            oloh_str = ''
 
             item = QTableWidgetItem('')
 
