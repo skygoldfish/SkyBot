@@ -511,7 +511,7 @@ MONTH_2 = False
 MONTH_3 = False
 FLAG_OLOH = False
 
-oloh_str = ''
+n_oloh_str = ''
 
 call_low_touch = False
 call_high_touch = False
@@ -3025,9 +3025,9 @@ class telegram_send_worker(QThread):
                         pass
                     '''
 
-                    if oloh_str != '' and FLAG_OLOH:
+                    if n_oloh_str != '' and FLAG_OLOH:
 
-                        str = oloh_str
+                        str = n_oloh_str
                         ToTelegram(str)
                     else:
                         pass
@@ -3147,7 +3147,8 @@ class telegram_send_worker(QThread):
                     else:
                         pass
 
-                    # 콜 원웨이 알람
+                    '''
+                    # 콜 원웨이 알람 --> 비대칭장으로 대체
                     if call_oneway_level3:
 
                         str = oneway_str
@@ -3182,8 +3183,9 @@ class telegram_send_worker(QThread):
                         ToTelegram(str)
                     else:
                         pass
+                    '''
 
-                    # 비대칭장 알람
+                    # 비대칭장(장의 형태) 알람
                     if 비대칭장 != '' and (MONTH_1 or MONTH_2 or MONTH_3):
 
                         str = 비대칭장
@@ -6432,12 +6434,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass                    
                     
-                    # 원웨이장 표시(주간만)
+                    # 원웨이장 표시(주간만) --> 비대칭장으로 파악(CM + NM + MAN)
                     if not overnight and not dongsi_hoga:
 
                         if TARGET_MONTH_SELECT == 1:
 
-                            self.check_oneway(self.alternate_flag)
+                            #self.check_oneway(self.alternate_flag)
+                            self.display_centerval()
 
                         else:
                             pass
@@ -7352,52 +7355,55 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
             else:
                 pass
+        return
 
-            # 예상 중심가 표시
-            if call_atm_value > put_atm_value:
+    def display_centerval(self):
 
-                center = put_atm_value + (call_atm_value - put_atm_value) / 2
+        # 예상 중심가 표시
+        if call_atm_value > put_atm_value:
 
-            elif put_atm_value > call_atm_value:
+            center = put_atm_value + (call_atm_value - put_atm_value) / 2
 
-                center = call_atm_value + (put_atm_value - call_atm_value) / 2
+        elif put_atm_value > call_atm_value:
 
+            center = call_atm_value + (put_atm_value - call_atm_value) / 2
+
+        else:
+            center = call_atm_value
+        
+        if abs(call_atm_value - put_atm_value) <= 0.02:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, atm_str, call_atm_value)
+            self.textBrowser.append(str)            
+        else:
+            pass
+
+        item = QTableWidgetItem("{0:0.2f}".format(center))
+        item.setTextAlignment(Qt.AlignCenter)
+
+        if call_atm_value == put_atm_value:
+
+            item.setBackground(QBrush(검정색))
+            item.setForeground(QBrush(대맥점색))
+        else:
+            item.setBackground(QBrush(대맥점색))
+            item.setForeground(QBrush(검정색))
+
+        self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
+
+        if abs(call_atm_value - put_atm_value) <= centerval_threshold:
+                        
+            if self.centerval_flag:
+
+                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(적색))
+                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(적색))
             else:
-                center = call_atm_value
-            
-            if abs(call_atm_value - put_atm_value) <= 0.02:
+                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
+                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, atm_str, call_atm_value)
-                self.textBrowser.append(str)            
-            else:
-                pass
-
-            item = QTableWidgetItem("{0:0.2f}".format(center))
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if call_atm_value == put_atm_value:
-
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(대맥점색))
-            else:
-                item.setBackground(QBrush(대맥점색))
-                item.setForeground(QBrush(검정색))
-
-            self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
-
-            if abs(call_atm_value - put_atm_value) <= centerval_threshold:
-                            
-                if self.centerval_flag:
-
-                    self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(적색))
-                    self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(적색))
-                else:
-                    self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-                    self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-
-                self.centerval_flag = not self.centerval_flag                        
-            else:
-                pass  
+            self.centerval_flag = not self.centerval_flag                        
+        else:
+            pass  
 
         return
 
@@ -13677,7 +13683,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def fut_oloh_check(self):
 
-        global flag_fut_ol, flag_fut_oh, oloh_str
+        global flag_fut_ol, flag_fut_oh, n_oloh_str
 
         dt = datetime.datetime.now()
 
@@ -13708,11 +13714,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if TARGET_MONTH_SELECT == 2 and not flag_fut_ol:
 
-                oloh_str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OL ▲".format(dt.hour, dt.minute, dt.second)
+                n_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OL ▲".format(dt.hour, dt.minute, dt.second)
 
             elif TARGET_MONTH_SELECT == 3 and not flag_fut_ol:
 
-                oloh_str = "[{0:02d}:{1:02d}:{2:02d}] MAN 선물 OL ▲".format(dt.hour, dt.minute, dt.second)
+                n_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] MAN 선물 OL ▲".format(dt.hour, dt.minute, dt.second)
             else:
                 pass
             
@@ -13744,11 +13750,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if TARGET_MONTH_SELECT == 2 and not flag_fut_oh:
 
-                oloh_str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OH ▼".format(dt.hour, dt.minute, dt.second)
+                n_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OH ▼".format(dt.hour, dt.minute, dt.second)
 
             elif TARGET_MONTH_SELECT == 3 and not flag_fut_oh:
 
-                oloh_str = "[{0:02d}:{1:02d}:{2:02d}] MAN 선물 OH ▼".format(dt.hour, dt.minute, dt.second)
+                n_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] MAN 선물 OH ▼".format(dt.hour, dt.minute, dt.second)
             else:
                 pass
             
@@ -13757,7 +13763,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             flag_fut_ol = False
             flag_fut_oh = False
-            oloh_str = ''
+            n_oloh_str = ''
 
             item = QTableWidgetItem('')
 
