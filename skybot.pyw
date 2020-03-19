@@ -14407,7 +14407,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.fut_oloh_check()
             self.fut_node_coloring()
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 저가 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 저가 {3} Update...\r'.format(dt.hour, dt.minute, dt.second, 선물_저가)
             self.textBrowser.append(str)
             
             진폭 = 선물_고가 - 선물_저가
@@ -14467,7 +14467,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.fut_oloh_check()
             self.fut_node_coloring()
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 고가 Color Update Done...\r'.format(dt.hour, dt.minute, dt.second)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 고가 {3} Update...\r'.format(dt.hour, dt.minute, dt.second, 선물_고가)
             self.textBrowser.append(str)
             
             진폭 = 선물_고가 - 선물_저가
@@ -18072,10 +18072,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 Color Update Done...\r'.format(
+                        str = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 {3} Update...\r'.format(
                             int(result['시간'][0:2]),
                             int(result['시간'][2:4]),
-                            int(result['시간'][4:6]))
+                            int(result['시간'][4:6]), kp200_realdata['저가'])
                         self.textBrowser.append(str)
                     else:
                         pass
@@ -18099,10 +18099,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 Color Update Done...\r'.format(
+                        str = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 {3} Update...\r'.format(
                             int(result['시간'][0:2]),
                             int(result['시간'][2:4]),
-                            int(result['시간'][4:6]))
+                            int(result['시간'][4:6]), kp200_realdata['고가'])
                         self.textBrowser.append(str)
                     else:
                         pass
