@@ -14090,11 +14090,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 1:
 
-                    ToTelegram("본월물 텔레그램 Polling이 시작됩니다.")
+                    ToTelegram("CM 텔레그램 Polling이 시작됩니다.")
 
                 elif TARGET_MONTH_SELECT == 2:
 
-                    ToTelegram("차월물 텔레그램 Polling이 시작됩니다.")
+                    ToTelegram("NM 텔레그램 Polling이 시작됩니다.")
 
                 elif TARGET_MONTH_SELECT == 3:
 
