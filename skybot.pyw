@@ -6245,7 +6245,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if not self.alternate_flag:
 
-                            self.asym_detect()
+                            if 콜대비합 != 0 and 풋대비합 != 0:
+                                self.asym_detect()
+                            else:
+                                pass
                         else:
                             pass
                     else:
@@ -7236,15 +7239,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 
                 if TARGET_MONTH_SELECT == 1:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 우세(+{3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 우세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
 
                 elif TARGET_MONTH_SELECT == 2:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 우세(+{3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 우세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
 
                 elif TARGET_MONTH_SELECT == 3:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 우세(+{3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 우세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
 
                 else:
                     pass
@@ -7258,15 +7261,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 1:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 약세(-{3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 약세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
 
                 elif TARGET_MONTH_SELECT == 2:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 약세(-{3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 약세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
 
                 elif TARGET_MONTH_SELECT == 3:
                     
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 약세(-{3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 약세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
 
                 else:
                     pass
@@ -7280,15 +7283,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 1:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 우세(-{3:0.1f}) 양꽝장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 우세({3:0.1f}) 양꽝장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
 
                 elif TARGET_MONTH_SELECT == 2:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 우세(-{3:0.1f}) 양꽝장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 우세({3:0.1f}) 양꽝장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
 
                 elif TARGET_MONTH_SELECT == 3:
                     
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 우세(-{3:0.1f}) 양꽝장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 우세({3:0.1f}) 양꽝장...\r'.format(dt.hour, dt.minute, dt.second, abs(콜대비합/풋대비합))
 
                 else:
                     pass
@@ -7306,15 +7309,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 1:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 우세(+{3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 우세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
 
                 elif TARGET_MONTH_SELECT == 2:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 우세(+{3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 우세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
 
                 elif TARGET_MONTH_SELECT == 3:
                     
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 우세(+{3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 우세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
 
                 else:
                     pass
@@ -7328,15 +7331,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 1:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 약세(-{3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 약세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
 
                 elif TARGET_MONTH_SELECT == 2:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 약세(-{3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 약세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
 
                 elif TARGET_MONTH_SELECT == 3:
                     
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 약세(-{3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 약세({3:0.1f}) 비대칭장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
 
                 else:
                     pass
@@ -7350,15 +7353,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 1:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 우세(-{3:0.1f}) 양꽝장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 우세({3:0.1f}) 양꽝장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
 
                 elif TARGET_MONTH_SELECT == 2:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 우세(-{3:0.1f}) 양꽝장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 우세({3:0.1f}) 양꽝장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
 
                 elif TARGET_MONTH_SELECT == 3:
                     
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 우세(-{3:0.1f}) 양꽝장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 우세({3:0.1f}) 양꽝장...\r'.format(dt.hour, dt.minute, dt.second, abs(풋대비합/콜대비합))
 
                 else:
                     pass
