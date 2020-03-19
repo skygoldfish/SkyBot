@@ -14042,9 +14042,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 ToTelegram(str)
 
-            else:
+            elif TARGET_MONTH_SELECT == 3:
+
                 str = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                ToTelegram(str)         
+                ToTelegram(str)
+            else:
+                pass         
 
             flag_telegram_send_worker = True             
         else:
@@ -14093,8 +14096,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     ToTelegram("차월물 텔레그램 Polling이 시작됩니다.")
 
-                else:
+                elif TARGET_MONTH_SELECT == 3:
+
                     ToTelegram("MAN 텔레그램 Polling이 시작됩니다.")
+                else:
+                    pass
                 
                 self.pushButton_remove.setStyleSheet("background-color: lawngreen")
                 #self.telegram_flag = True
