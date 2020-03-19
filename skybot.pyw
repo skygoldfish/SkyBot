@@ -17321,20 +17321,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             jisu_str = "HYUNDAI: {0}({1}, {2:0.1f}%)".format(현재가, format(-result['예상체결가전일종가대비'], ','),
                                                                               result['예상체결가전일종가등락율'])
-                            self.label_samsung.setText(jisu_str)
-                            self.label_samsung.setStyleSheet('background-color: blue ; color: white')
+                            self.label_kosdaq.setText(jisu_str)
+                            self.label_kosdaq.setStyleSheet('background-color: blue ; color: white')
 
                         elif result['예상체결가전일종가대비구분'] == '2':
 
                             jisu_str = "HYUNDAI: {0}({1}, {2:0.1f}%)".format(현재가, format(result['예상체결가전일종가대비'], ','),
                                                                               result['예상체결가전일종가등락율'])
-                            self.label_samsung.setText(jisu_str)
-                            self.label_samsung.setStyleSheet('background-color: red ; color: white')
+                            self.label_kosdaq.setText(jisu_str)
+                            self.label_kosdaq.setStyleSheet('background-color: red ; color: white')
 
                         else:
                             jisu_str = "HYUNDAI: {0}({1})".format(현재가, format(result['예상체결가전일종가대비'], ','))
-                            self.label_samsung.setText(jisu_str)
-                            self.label_samsung.setStyleSheet('background-color: yellow ; color: black')
+                            self.label_kosdaq.setText(jisu_str)
+                            self.label_kosdaq.setStyleSheet('background-color: yellow ; color: black')
                     else:
                         pass
 
