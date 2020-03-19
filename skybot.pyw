@@ -14030,7 +14030,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             str = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker({3})가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second, telegram_send_worker_on_time)
             self.textBrowser.append(str)
-            print(str)  
+            print(str) 
+
+            if TARGET_MONTH_SELECT == 1:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                ToTelegram(str)
+
+            elif TARGET_MONTH_SELECT == 2:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                ToTelegram(str)
+
+            else:
+                str = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                ToTelegram(str)         
 
             flag_telegram_send_worker = True             
         else:
