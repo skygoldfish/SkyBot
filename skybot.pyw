@@ -2959,72 +2959,9 @@ class telegram_send_worker(QThread):
 
             if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (command[0] == 'Go' or command[0] == '/start'):
 
-                '''
-                # OL, OH 알람
-                if call_ol_count - call_oh_count >= COL_OL - COL_OH and put_oh_count - put_ol_count >= POH_OH - POH_OL:
-
-                    if TARGET_MONTH_SELECT == 1:
-
-                        ToTelegram("본월물 Call 우세 !!!")
-
-                    elif TARGET_MONTH_SELECT == 2:
-
-                        ToTelegram("차월물 Call 우세 !!!")
-
-                    else:
-                        pass                        
-
-                elif put_ol_count - put_oh_count >= POL_OL - POL_OH and call_oh_count - call_ol_count >= COH_OH - COH_OL:
-
-                    if TARGET_MONTH_SELECT == 1:
-
-                        ToTelegram("본월물 Put 우세 !!!")
-
-                    elif TARGET_MONTH_SELECT == 2:
-
-                         ToTelegram("차월물 Put 우세 !!!")
-
-                    else:
-                        pass                        
-                else:
-                    pass
-                '''
-
                 if telegram_toggle:
 
                     # 선물 OL/OH 알람(NM, MAN인 경우만)
-                    '''
-                    if flag_fut_ol:
-
-                        if TARGET_MONTH_SELECT == 2 and FLAG_OLOH:
-
-                            str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OL ▲".format(dt.hour, dt.minute, dt.second)
-                            ToTelegram(str)
-
-                        elif TARGET_MONTH_SELECT == 3 and FLAG_OLOH:
-
-                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 선물 OL ▲".format(dt.hour, dt.minute, dt.second)
-                            ToTelegram(str)
-                        else:
-                            pass
-
-                    elif flag_fut_oh:
-
-                        if TARGET_MONTH_SELECT == 2 and FLAG_OLOH:
-
-                            str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OH ▼".format(dt.hour, dt.minute, dt.second)
-                            ToTelegram(str)
-
-                        elif TARGET_MONTH_SELECT == 3 and FLAG_OLOH:
-
-                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 선물 OH ▼".format(dt.hour, dt.minute, dt.second)
-                            ToTelegram(str)
-                        else:
-                            pass
-                    else:
-                        pass
-                    '''
-
                     if n_oloh_str != '' and FLAG_OLOH:
 
                         str = n_oloh_str
@@ -3033,92 +2970,6 @@ class telegram_send_worker(QThread):
                         pass
 
                     # 옵션맥점 발생 알람
-                    '''
-                    if call_low_node_list:
-
-                        if TARGET_MONTH_SELECT == 1 and MONTH_1:
-
-                            str = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 {3} 발생 C ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
-                            ToTelegram(str)
-
-                        elif TARGET_MONTH_SELECT == 2 and MONTH_2:
-
-                            str = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 {3} 발생 C ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
-                            ToTelegram(str)
-
-                        elif TARGET_MONTH_SELECT == 3 and MONTH_3:
-
-                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 {3} 발생 C ▲".format(dt.hour, dt.minute, dt.second, call_low_node_list)
-                            ToTelegram(str)
-                        else:
-                            pass                        
-                    else:
-                        pass
-
-                    if call_high_node_list:
-
-                        if TARGET_MONTH_SELECT == 1 and MONTH_1:
-
-                            str = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 {3} 발생 C ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
-                            ToTelegram(str)
-
-                        elif TARGET_MONTH_SELECT == 2 and MONTH_2:
-
-                            str = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 {3} 발생 C ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
-                            ToTelegram(str)
-
-                        elif TARGET_MONTH_SELECT == 3 and MONTH_3:
-
-                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 {3} 발생 C ▼".format(dt.hour, dt.minute, dt.second, call_high_node_list)
-                            ToTelegram(str)
-                        else:
-                            pass
-                    else:
-                        pass
-
-                    if put_low_node_list:
-
-                        if TARGET_MONTH_SELECT == 1 and MONTH_1:
-
-                            str = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 {3} 발생 P ▲".format(dt.hour, dt.minute, dt.second, put_low_node_list)
-                            ToTelegram(str)
-
-                        elif TARGET_MONTH_SELECT == 2 and MONTH_2:
-
-                            str = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 {3} 발생 P ▲".format(dt.hour, dt.minute, dt.second, put_low_node_list)
-                            ToTelegram(str)
-
-                        elif TARGET_MONTH_SELECT == 3 and MONTH_3:
-
-                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 {3} 발생 P ▲".format(dt.hour, dt.minute, dt.second, put_low_node_list)
-                            ToTelegram(str)
-                        else:
-                            pass
-                    else:
-                        pass
-
-                    if put_high_node_list:
-
-                        if TARGET_MONTH_SELECT == 1 and MONTH_1:
-
-                            str = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 {3} 발생 P ▼".format(dt.hour, dt.minute, dt.second, put_high_node_list)
-                            ToTelegram(str)
-
-                        elif TARGET_MONTH_SELECT == 2 and MONTH_2:
-
-                            str = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 {3} 발생 P ▼".format(dt.hour, dt.minute, dt.second, put_high_node_list)
-                            ToTelegram(str)
-
-                        elif TARGET_MONTH_SELECT == 3 and MONTH_3:
-
-                            str = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 {3} 발생 P ▼".format(dt.hour, dt.minute, dt.second, put_high_node_list)
-                            ToTelegram(str)
-                        else:
-                            pass
-                    else:
-                        pass
-                    '''
-
                     if call_low_node_str != '' and (MONTH_1 or MONTH_2 or MONTH_3):
 
                         str = call_low_node_str
@@ -3186,7 +3037,7 @@ class telegram_send_worker(QThread):
                     '''
 
                     # 비대칭장(장의 형태) 알람
-                    if 비대칭장 != '' and (MONTH_1 or MONTH_2 or MONTH_3):
+                    if (비대칭장 != '' and FLAG_OLOH) and (MONTH_1 or MONTH_2 or MONTH_3):
 
                         str = 비대칭장
                         ToTelegram(str)
@@ -3208,46 +3059,12 @@ class telegram_send_worker(QThread):
                     str = kp200_high_node_str
                     ToTelegram(str)
                 else:
-                    pass                    
-                
-                # 월물별 옵션맥점 선택알람
-                #self.display_month_data()
-
+                    pass
             else:
                 pass
 
             self.finished.emit(str)
             self.msleep(1000 * TELEGRAM_SEND_INTERVAL)
-
-    def display_month_data(self):
-
-        if call_low_coreval_str != '':
-
-            str = call_low_coreval_str
-            ToTelegram(str)
-        else:
-            pass
-
-        if call_high_coreval_str != '':
-
-            str = call_high_coreval_str
-            ToTelegram(str)
-        else:
-            pass
-
-        if put_low_coreval_str != '':
-
-            str = put_low_coreval_str
-            ToTelegram(str)
-        else:
-            pass
-
-        if put_high_coreval_str != '':
-
-            str = put_high_coreval_str
-            ToTelegram(str)
-        else:
-            pass
 
         return
 
