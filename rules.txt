@@ -2,8 +2,8 @@
 actval count of the option pairs = 100
 basic coreval of the options = 1.20 2.50 3.50 4.85 5.10 5.50 6.85 7.10 8.10
 my coreval = 3.50
-Asymmetric Market Ratio = 2.5
-OneWay Market Ratio = 3.75
+Asymmetric Market Ratio = 2
+OneWay Market Ratio = 3
 
 ###################### < telegram > ##########################
 telegram service = ON
