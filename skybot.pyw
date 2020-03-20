@@ -326,8 +326,13 @@ with open('rules.txt', mode='r') as initfile:
 
     tmp = initfile.readline().strip()
     temp = tmp.split()
-    ASYM_FACTOR = float(temp[3])
-    #print('ASYM_FACTOR =', ASYM_FACTOR)
+    ASYM_FACTOR = float(temp[4])
+    print('ASYM_FACTOR =', ASYM_FACTOR)
+
+    tmp = initfile.readline().strip()
+    temp = tmp.split()
+    ONEWAY_FACTOR = float(temp[4])
+    print('ONEWAY_FACTOR =', ONEWAY_FACTOR)
     
     tmp = initfile.readline().strip()
     tmp = initfile.readline().strip()
@@ -574,8 +579,10 @@ yagan_service_terminate = False
 call_oneway = False
 put_oneway = False
 
-call_asymmetric = False
-put_asymmetric = False
+call_ms_asymmetric = False
+put_ms_asymmetric = False
+call_md_asymmetric = False
+put_md_asymmetric = False
 
 call_dying = False
 put_dying = False
@@ -5672,57 +5679,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global flag_offline, receive_real_ovc
             
             self.alternate_flag = not self.alternate_flag
-            
-            # 해외선물 한국시간 표시
-            if OVC_체결시간 == '000000':
 
-                str = 'ⓜ {0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
-            else:
-                str = 'ⓢ {0:02d}:{1:02d}:{2:02d}'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
-                
-            self.label_msg.setText(str)
-            
-            # 콜 매수 OneWay장
-            if call_oneway:
-
-                if self.alternate_flag:
-                    self.label_msg.setStyleSheet('background-color: red; color: white')
-                else:
-                    self.label_msg.setStyleSheet('background-color: white; color: red')
-
-            # 콜 매도 비대칭장
-            elif call_asymmetric:
-
-                self.label_msg.setStyleSheet('background-color: black; color: pink')
-
-            # 콜 매도 양꽝장
-            elif call_dying:
-
-                self.label_msg.setStyleSheet('background-color: black; color: magenta')
-
-            # 풋 매수 OneWay장
-            elif put_oneway:
-
-                if self.alternate_flag:
-                    self.label_msg.setStyleSheet('background-color: blue; color: white')
-                else:
-                    self.label_msg.setStyleSheet('background-color: white; color: blue')
-
-            # 풋 매도 비대칭장
-            elif put_asymmetric:
-
-                self.label_msg.setStyleSheet('background-color: black; color: lightskyblue')
-
-            # 풋 매도 양꽝장
-            elif put_dying:
-
-                self.label_msg.setStyleSheet('background-color: black; color: cyan')
-            else:
-                # 대칭장
-                self.label_msg.setStyleSheet('background-color: lawngreen; color: black')
-            
-            self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
-
+            # 장의 유형을 시간과 함께 표시
+            self.market_type_display()
                                     
             if receive_real_ovc or market_service:
                 
@@ -6410,6 +6369,69 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         except:
             pass
 
+    def market_type_display(self):
+
+        # 해외선물 한국시간 표시
+        if OVC_체결시간 == '000000':
+
+            str = 'ⓜ {0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
+        else:
+            str = 'ⓢ {0:02d}:{1:02d}:{2:02d}'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
+            
+        self.label_msg.setText(str)
+        
+        # 콜 매수 OneWay장
+        if call_oneway:
+
+            if self.alternate_flag:
+                self.label_msg.setStyleSheet('background-color: red; color: white')
+            else:
+                self.label_msg.setStyleSheet('background-color: white; color: red')
+
+        # 콜 매수 비대칭장
+        elif call_ms_asymmetric:
+
+            self.label_msg.setStyleSheet('background-color: red; color: white')
+
+        # 콜 매도 비대칭장
+        elif call_md_asymmetric:
+
+            self.label_msg.setStyleSheet('background-color: black; color: pink')
+
+        # 콜 매도 양꽝장
+        elif call_dying:
+
+            self.label_msg.setStyleSheet('background-color: black; color: magenta')
+
+        # 풋 매수 OneWay장
+        elif put_oneway:
+
+            if self.alternate_flag:
+                self.label_msg.setStyleSheet('background-color: blue; color: white')
+            else:
+                self.label_msg.setStyleSheet('background-color: white; color: blue')
+
+        # 풋 매수 비대칭장
+        elif put_ms_asymmetric:
+
+            self.label_msg.setStyleSheet('background-color: blue; color: white')
+
+        # 풋 매도 비대칭장
+        elif put_md_asymmetric:
+
+            self.label_msg.setStyleSheet('background-color: black; color: lightskyblue')
+
+        # 풋 매도 양꽝장
+        elif put_dying:
+
+            self.label_msg.setStyleSheet('background-color: black; color: cyan')
+        else:
+            # 대칭장
+            self.label_msg.setStyleSheet('background-color: lawngreen; color: black')
+        
+        self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        return
     
     def opt_call_node_coloring(self):
 
@@ -7263,34 +7285,62 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def asym_detect(self, blink):
         
         global 비대칭장
-        global call_oneway, put_oneway 
-        global call_asymmetric, put_asymmetric
-        global call_dying, put_dying 
+        global call_oneway, put_oneway, call_dying, put_dying 
+        global call_ms_asymmetric, put_ms_asymmetric, call_md_asymmetric, put_md_asymmetric
 
         dt = datetime.datetime.now()
 
-        if ASYM_FACTOR * abs(풋대비합) <= abs(콜대비합):
+        if ASYM_FACTOR <= abs(콜대비합/풋대비합):
 
             if 풋대비합 < 0 and 콜대비합 > 0:
 
-                call_oneway = True
-                call_asymmetric = False
-                call_dying = False
-                
-                if TARGET_MONTH_SELECT == 1:
+                if abs(콜대비합/풋대비합) >= ONEWAY_FACTOR:
+                    
+                    call_oneway = True
+                    call_ms_asymmetric = False
+                    call_md_asymmetric = False
+                    call_dying = False
+                    put_oneway = False 
+                    put_ms_asymmetric = False
+                    put_md_asymmetric = False
+                    put_dying = False
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    if TARGET_MONTH_SELECT == 1:
 
-                elif TARGET_MONTH_SELECT == 2:
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    elif TARGET_MONTH_SELECT == 2:
 
-                elif TARGET_MONTH_SELECT == 3:
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    elif TARGET_MONTH_SELECT == 3:
 
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    else:
+                        pass
                 else:
-                    pass
+                    call_oneway = False
+                    call_ms_asymmetric = True
+                    call_md_asymmetric = False
+                    call_dying = False
+                    put_oneway = False 
+                    put_ms_asymmetric = False
+                    put_md_asymmetric = False
+                    put_dying = False
+
+                    if TARGET_MONTH_SELECT == 1:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+
+                    elif TARGET_MONTH_SELECT == 2:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+
+                    elif TARGET_MONTH_SELECT == 3:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    else:
+                        pass                
 
                 if dt.second % 10 == 0 and not blink:
 
@@ -7300,7 +7350,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif 풋대비합 > 0 and 콜대비합 < 0:             
+            elif 풋대비합 > 0 and 콜대비합 < 0:
+
+                call_oneway = False
+                call_ms_asymmetric = False
+                call_md_asymmetric = True
+                call_dying = False
+                put_oneway = False 
+                put_ms_asymmetric = False
+                put_md_asymmetric = False
+                put_dying = False             
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -7317,16 +7376,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                call_oneway = False
-                call_asymmetric = True
-                call_dying = False
-
                 if dt.second % 10 == 0 and not blink:
                     self.textBrowser.append(비대칭장)
                 else:
                     pass
 
-            elif 풋대비합 < 0 and 콜대비합 < 0:    
+            elif 풋대비합 < 0 and 콜대비합 < 0:
+
+                call_oneway = False
+                call_ms_asymmetric = False
+                call_md_asymmetric = False
+                call_dying = True
+                put_oneway = False 
+                put_ms_asymmetric = False
+                put_md_asymmetric = False
+                put_dying = False      
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -7343,10 +7407,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                call_oneway = False
-                call_asymmetric = False
-                call_dying = True
-
                 if dt.second % 10 == 0 and not blink:
                     self.textBrowser.append(비대칭장)
                 else:
@@ -7354,28 +7414,57 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-        elif ASYM_FACTOR * abs(콜대비합) <= abs(풋대비합):
+        elif ASYM_FACTOR <= abs(풋대비합/콜대비합):
 
             if 풋대비합 > 0 and 콜대비합 < 0:
 
-                put_oneway = True 
-                put_asymmetric = False
-                put_dying = False              
+                if abs(풋대비합/콜대비합) >= ONEWAY_FACTOR:  
 
-                if TARGET_MONTH_SELECT == 1:
+                    call_oneway = False
+                    call_ms_asymmetric = False
+                    call_md_asymmetric = False
+                    call_dying = False
+                    put_oneway = True 
+                    put_ms_asymmetric = False
+                    put_md_asymmetric = False
+                    put_dying = False
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    if TARGET_MONTH_SELECT == 1:
 
-                elif TARGET_MONTH_SELECT == 2:
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    elif TARGET_MONTH_SELECT == 2:
 
-                elif TARGET_MONTH_SELECT == 3:
-                    
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
 
+                    elif TARGET_MONTH_SELECT == 3:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    else:
+                        pass
                 else:
-                    pass
+                    call_oneway = False
+                    call_ms_asymmetric = False
+                    call_md_asymmetric = False
+                    call_dying = False
+                    put_oneway = False 
+                    put_ms_asymmetric = True
+                    put_md_asymmetric = False
+                    put_dying = False
+
+                    if TARGET_MONTH_SELECT == 1:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+
+                    elif TARGET_MONTH_SELECT == 2:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+
+                    elif TARGET_MONTH_SELECT == 3:
+                        
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    else:
+                        pass                
 
                 if dt.second % 10 == 0 and not blink:
 
@@ -7385,7 +7474,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif 풋대비합 < 0 and 콜대비합 > 0:             
+            elif 풋대비합 < 0 and 콜대비합 > 0: 
+
+                call_oneway = False
+                call_ms_asymmetric = False
+                call_md_asymmetric = False
+                call_dying = False
+                put_oneway = False 
+                put_ms_asymmetric = False
+                put_md_asymmetric = True
+                put_dying = False            
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -7402,16 +7500,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                put_oneway = False
-                put_asymmetric = True
-                put_dying = False
-
                 if dt.second % 10 == 0 and not blink:
                     self.textBrowser.append(비대칭장)
                 else:
                     pass
 
-            elif 풋대비합 < 0 and 콜대비합 < 0:        
+            elif 풋대비합 < 0 and 콜대비합 < 0:
+
+                call_oneway = False
+                call_ms_asymmetric = False
+                call_md_asymmetric = False
+                call_dying = False
+                put_oneway = False 
+                put_ms_asymmetric = False
+                put_md_asymmetric = False
+                put_dying = True        
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -7428,10 +7531,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                put_oneway = False
-                put_asymmetric = False
-                put_dying = True
-
                 if dt.second % 10 == 0 and not blink:
                     self.textBrowser.append(비대칭장)
                 else:
@@ -7442,12 +7541,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             비대칭장 = ''
 
             call_oneway = False
-            call_asymmetric = False
+            call_ms_asymmetric = False
+            call_md_asymmetric = False
             call_dying = False
-
-            put_oneway = False
-            put_asymmetric = False
-            put_dying = False
+            put_oneway = False 
+            put_ms_asymmetric = False
+            put_md_asymmetric = False
+            put_dying = False 
 
         return
 
