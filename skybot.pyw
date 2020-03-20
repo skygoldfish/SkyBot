@@ -12522,6 +12522,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 print('t2835 put open list = ', put_open_list, len(put_open_list))
                 print('\r')
 
+                print('대비합 초기화 전...', round(df_call['대비'].sum(), 2), round(df_put['대비'].sum(), 2))
+
+                '''
+                for i in range(option_pairs_count):
+
+                    # 대비 초기화
+                    df_call.loc[i, '대비'] = 0
+                    df_put.loc[i, '대비'] = 0
+
+                print('대비합 초기화 후...', round(df_call['대비'].sum(), 2), round(df_put['대비'].sum(), 2))
+                '''
+
                 self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
                 self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
                 self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
@@ -13433,7 +13445,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass                
 
-                    if overnight:
+                    if overnight:                        
 
                         # EUREX 야간옵션 시세전광판
                         XQ = t2835(parent=self)
@@ -15662,6 +15674,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if call_db_percent_local:
 
             콜대비합 = round(df_call['대비'].sum(), 2)
+
+            print('콜대비합 =', 콜대비합)
+
             tmp = np.array(call_db_percent_local)            
             대비평균 = int(round(np.mean(tmp), 2))
             call_str = repr(콜대비합) + '\n(' + repr(대비평균) + '%' + ')'
@@ -15673,7 +15688,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
         else:
-            print('call_db_percent_local is empty...')        
+            print('call_db_percent_local is empty...')
+
+            콜대비합 = 0        
 
         self.tableWidget_call.resizeColumnsToContents()
 
@@ -16803,6 +16820,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if put_db_percent_local:
 
             풋대비합 = round(df_put['대비'].sum(), 2)
+
+            print('풋대비합 =', 풋대비합)
+
             tmp = np.array(put_db_percent_local)            
             대비평균 = int(round(np.mean(tmp), 2))
             put_str = repr(풋대비합) + '\n(' + repr(대비평균) + '%' + ')'
@@ -16815,6 +16835,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
         else:
             print('put_db_percent_local is empty...')
+
+            풋대비합 = 0
 
         self.tableWidget_put.resizeColumnsToContents()
 
