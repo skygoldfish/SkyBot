@@ -2,7 +2,6 @@
 KSE Start Hour = 9
 Current Month = 202004
 First Day of the Current Month = 20200313
-US Index End Time = 055957
 Mangi Yagan = NO
 
 ####################### < Target Month Select > #########################

@@ -111,19 +111,7 @@ with open('month_info.txt', mode='r') as monthfile:
     tmp = monthfile.readline().strip()
     temp = tmp.split()
     MONTH_FIRSTDAY = temp[7]
-    
-    tmp = monthfile.readline().strip()
-    temp = tmp.split()
-    US_INDEX_END_TIME = temp[5]
-    #print('US_INDEX_END_TIME =', US_INDEX_END_TIME)
-
-    US_INDEX_END_HOUR = int(US_INDEX_END_TIME[0:2])
-    US_INDEX_END_MIN = int(US_INDEX_END_TIME[2:4])
-    US_INDEX_END_SEC = int(US_INDEX_END_TIME[4:6])
-    #print('US_INDEX_END_HOUR =', US_INDEX_END_HOUR)
-    #print('US_INDEX_END_MIN =', US_INDEX_END_MIN)
-    #print('US_INDEX_END_SEC =', US_INDEX_END_SEC)
-    
+        
     tmp = monthfile.readline().strip()
     temp = tmp.split()
     MANGI_YAGAN = temp[3]
@@ -408,7 +396,6 @@ day_timespan = 395 + 10
 overnight_timespan = 660 + 60 + 10
 
 flag_offline = False
-flag_ovc_terminate = False
 
 # 업종코드
 KOSPI = '001'
@@ -4887,13 +4874,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                print('선물_전저 ', 선물_전저)
-                print('선물_전고 ', 선물_전고)
-                print('선물_종가 ', 선물_종가)
-                print('선물_피봇 ', 선물_피봇)
-                print('선물_시가 ', 선물_시가)
-                print('선물_저가 ', 선물_저가)
-                print('선물_고가 ', 선물_고가)
+                print('선물_전저 =', 선물_전저)
+                print('선물_전고 =', 선물_전고)
+                print('선물_종가 =', 선물_종가)
+                print('선물_피봇 =', 선물_피봇)
+                print('선물_시가 =', 선물_시가)
+                print('선물_저가 =', 선물_저가)
+                print('선물_고가 =', 선물_고가)
 
             elif comboindex4 == 1:
                 
@@ -5639,7 +5626,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         try:
             dt = datetime.datetime.now()
 
-            if not flag_ovc_terminate:
+            if market_service:
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Send Message = {3}\r'.format(dt.hour, dt.minute, dt.second, str)
                 print(str)
@@ -5658,7 +5645,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             telegram_command = str
 
-            if not flag_ovc_terminate:
+            if market_service:
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)
                 print(str)
@@ -5676,7 +5663,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             global flag_fut_low, flag_fut_high
             global flag_kp200_low, flag_kp200_high
-            global flag_offline, flag_ovc_terminate, receive_real_ovc
+            global flag_offline, receive_real_ovc
             
             self.alternate_flag = not self.alternate_flag
             
@@ -6268,16 +6255,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         pass
                                                     
                 else:
-                    if overnight:
-
-                        if int(OVC_체결시간[0:2]) == US_INDEX_END_HOUR and int(OVC_체결시간[2:4]) == US_INDEX_END_MIN and int(OVC_체결시간[4:6]) == US_INDEX_END_SEC:                            
-                            
-                            flag_ovc_terminate = True
-                            receive_real_ovc = False
-                        else:
-                            pass
-                    else:
-                        pass                
+                    pass          
             else:
                 pass
 
@@ -7453,7 +7431,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        if dt.second % 10 == 0 and toggle:
+        if dt.second % 20 == 0 and toggle:
             
             if kospi_text_color != kosdaq_text_color:
 
@@ -11412,6 +11390,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             df = result[0]
 
+            if pre_start:
+
+                if df['종합지수전일대비구분'] == '5':
+
+                    jisu_str = "KOSPI: {0} (-{1:0.2f}, {2:0.1f}%)".format(df['종합지수'], df['종합지수전일대비'], df['종합지수등락율'])
+                    self.label_kospi.setText(jisu_str)
+                    self.label_kospi.setStyleSheet('background-color: black ; color: cyan')
+
+                elif df['종합지수전일대비구분'] == '2':
+
+                    jisu_str = "KOSPI: {0} ({1:0.2f}, {2:0.1f}%)".format(df['종합지수'], df['종합지수전일대비'], df['종합지수등락율'])
+                    self.label_kospi.setText(jisu_str)
+                    self.label_kospi.setStyleSheet('background-color: black ; color: magenta')
+                else:
+                    pass
+            else:
+                pass
+
             # 주간 데이타를 가져옴            
             item = QTableWidgetItem("{0:0.2f}".format(df['KOSPI200지수']))
             item.setTextAlignment(Qt.AlignCenter)
@@ -11696,7 +11692,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     선물_고가 = cme_realdata['종가']
             else:
                 if pre_start:
-                    선물_종가 = CME_INDEX
+                    #선물_종가 = CME_INDEX
                     선물_피봇 = CME_INDEX 
                     선물_시가 = CME_INDEX
                     선물_저가 = CME_INDEX
@@ -13443,6 +13439,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일종가']))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
+            
             self.tableWidget_fut.resizeColumnsToContents()
 
         elif szTrCode == 't8433':
