@@ -574,6 +574,12 @@ yagan_service_terminate = False
 call_oneway = False
 put_oneway = False
 
+call_asymmetric = False
+puy_asymmetric = False
+
+call_dying = False
+puy_dying = False
+
 call_oneway_level1 = False
 call_oneway_level2 = False
 call_oneway_level3 = False
@@ -3283,11 +3289,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         self.label_msg.setText("🕘")
         self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
-        self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
+        #self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.label_atm.setText("Basis(양합:양차)")
         self.label_atm.setStyleSheet('background-color: yellow; color: black')
-        self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
+        #self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
         
         self.label_kospi.setText("KOSPI: 가격 (전일대비, 등락율)")
         self.label_kospi.setStyleSheet('background-color: black ; color: yellow')
@@ -6228,16 +6234,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         pass
 
                     # 비대칭장 탐색
-                    if not dongsi_hoga:
+                    if not dongsi_hoga and 콜대비합 != 0 and 풋대비합 != 0:
 
-                        if not self.alternate_flag:
-
-                            if 콜대비합 != 0 and 풋대비합 != 0:
-                                self.asym_detect()
-                            else:
-                                pass
-                        else:
-                            pass
+                        self.asym_detect(self.alternate_flag)
                     else:
                         pass                    
                     
@@ -6261,6 +6260,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             # 오전 7시 10분경 서버초기화시 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
             if overnight:
+
+                if dt.hour == 6 and dt.minute == 1 and dt.second == 0:
+
+                    # 해외선물 지수요청 취소                    
+                    self.OVC.UnadviseRealData()
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다. \r'.format \
+                        (int(OVC_체결시간[0:2]), 
+                        int(OVC_체결시간[2:4]), 
+                        int(OVC_체결시간[4:6]))
+                    self.textBrowser.append(str)
+                    print(str)
+                else:
+                    pass
 
                 if dt.hour == 7 and dt.minute == 0:
 
@@ -7205,15 +7218,29 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return
 
-    def asym_detect(self):
+    def asym_detect(self, blink):
         
-        global 비대칭장 
+        global 비대칭장
+        global call_oneway, put_oneway 
+        global call_asymmetric, put_asymmetric
+        global call_dying, put_dying 
 
         dt = datetime.datetime.now()
 
         if ASYM_FACTOR * abs(풋대비합) <= abs(콜대비합):
 
             if 풋대비합 < 0 and 콜대비합 > 0:
+                
+                if blink:
+                    self.label_msg.setStyleSheet('background-color: red; color: white')
+                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
+                else:
+                    self.label_msg.setStyleSheet('background-color: white; color: red')
+                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                call_oneway = True
+                call_asymmetric = False
+                call_dying = False
                 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -7230,7 +7257,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if dt.second % 10 == 0:
+                if dt.second % 10 == 0 and not blink:
 
                     self.textBrowser.append(비대칭장)
                     str = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:0.2f}:{4:0.2f}\r'.format(dt.hour, dt.minute, dt.second, 콜시가갭합, 풋시가갭합)
@@ -7238,11 +7265,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif 풋대비합 > 0 and 콜대비합 < 0:                
+            elif 풋대비합 > 0 and 콜대비합 < 0:
+                '''
+                if not call_asymmetric:
+                    self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
+                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
+                else:
+                    pass 
+                '''
+                self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
+                self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))               
 
                 if TARGET_MONTH_SELECT == 1:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)                    
 
                 elif TARGET_MONTH_SELECT == 2:
 
@@ -7255,12 +7291,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if dt.second % 10 == 0:
+                call_oneway = False
+                call_asymmetric = True
+                call_dying = False
+
+                if dt.second % 10 == 0 and not blink:
                     self.textBrowser.append(비대칭장)
                 else:
                     pass
 
-            elif 풋대비합 < 0 and 콜대비합 < 0:                
+            elif 풋대비합 < 0 and 콜대비합 < 0:   
+                '''
+                if not call_dying:
+                    self.label_msg.setStyleSheet('background-color: black; color: white')
+                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
+                else:
+                    pass
+                '''
+                self.label_msg.setStyleSheet('background-color: black; color: white')
+                self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))             
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -7277,7 +7326,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if dt.second % 10 == 0:
+                call_oneway = False
+                call_asymmetric = False
+                call_dying = True
+
+                if dt.second % 10 == 0 and not blink:
                     self.textBrowser.append(비대칭장)
                 else:
                     pass
@@ -7286,7 +7339,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif ASYM_FACTOR * abs(콜대비합) <= abs(풋대비합):
 
-            if 풋대비합 > 0 and 콜대비합 < 0:                
+            if 풋대비합 > 0 and 콜대비합 < 0:
+                
+                if blink:
+                    self.label_msg.setStyleSheet('background-color: blue; color: white')
+                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
+                else:
+                    self.label_msg.setStyleSheet('background-color: white; color: blue')
+                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                put_oneway = True 
+                put_asymmetric = False
+                put_dying = False              
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -7303,7 +7367,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if dt.second % 10 == 0:
+                if dt.second % 10 == 0 and not blink:
 
                     self.textBrowser.append(비대칭장)
                     str = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:0.2f}:{4:0.2f}\r'.format(dt.hour, dt.minute, dt.second, 콜시가갭합, 풋시가갭합)
@@ -7311,7 +7375,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif 풋대비합 < 0 and 콜대비합 > 0:                
+            elif 풋대비합 < 0 and 콜대비합 > 0:
+                '''
+                if not put_asymmetric:
+                    self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
+                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
+                else:
+                    pass
+                '''
+                self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
+                self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))                
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -7328,12 +7401,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if dt.second % 10 == 0:
+                put_oneway = False
+                put_asymmetric = True
+                put_dying = False
+
+                if dt.second % 10 == 0 and not blink:
                     self.textBrowser.append(비대칭장)
                 else:
                     pass
 
-            elif 풋대비합 < 0 and 콜대비합 < 0:                
+            elif 풋대비합 < 0 and 콜대비합 < 0:  
+                '''
+                if not put_dying:
+                    self.label_msg.setStyleSheet('background-color: black; color: white')
+                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
+                else:
+                    pass
+                '''
+                self.label_msg.setStyleSheet('background-color: black; color: white')
+                self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))              
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -7350,7 +7436,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if dt.second % 10 == 0:
+                put_oneway = False
+                put_asymmetric = False
+                put_dying = True
+
+                if dt.second % 10 == 0 and not blink:
                     self.textBrowser.append(비대칭장)
                 else:
                     pass
@@ -7358,6 +7448,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
         else:
             비대칭장 = ''
+
+            call_oneway = False
+            call_asymmetric = False
+            call_dying = False
+
+            put_oneway = False
+            put_asymmetric = False
+            put_dying = False
+
+            #self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
+            #self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
         return
 
