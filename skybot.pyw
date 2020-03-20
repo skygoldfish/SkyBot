@@ -6235,7 +6235,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         pass
 
                     # 비대칭장 탐색
-                    if not dongsi_hoga and 콜대비합 != 0 and 풋대비합 != 0:
+                    if not dongsi_hoga and abs(콜대비합) > 0 and abs(풋대비합) > 0:
 
                         self.asym_detect(self.alternate_flag)
                     else:
