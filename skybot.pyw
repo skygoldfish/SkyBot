@@ -7431,7 +7431,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        if dt.second % 20 == 0 and toggle:
+        if dt.second % 30 == 0 and toggle:
             
             if kospi_text_color != kosdaq_text_color:
 
