@@ -10270,9 +10270,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             if not overnight:
 
-                선물_전저 = fut_realdata['전저']
-                선물_전고 = fut_realdata['전고']
-                선물_종가 = fut_realdata['종가']
+                #선물_전저 = fut_realdata['전저']
+                #선물_전고 = fut_realdata['전고']
+                #선물_종가 = fut_realdata['종가']
                 선물_피봇 = fut_realdata['피봇']
                 선물_시가 = df['시가']
                 선물_저가 = df['저가']
@@ -13439,7 +13439,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem("{0:0.2f}".format(df.iloc[0]['전일종가']))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
-            
+
             self.tableWidget_fut.resizeColumnsToContents()
 
         elif szTrCode == 't8433':
@@ -17594,6 +17594,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if result['예상체결가격'] != float(self.tableWidget_fut.item(1, Futures_column.시가.value).text()):
 
                         선물_시가 = result['예상체결가격']
+                        fut_realdata['시가'] = result['예상체결가격']
 
                         if x_yfc_idx > 0:
                             df_plotdata_fut.iloc[0][x_yfc_idx] = 선물_시가
@@ -17628,10 +17629,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
 
-                        fut_realdata['시가'] = 선물_시가
-
-                        선물_피봇 = self.calc_pivot(fut_realdata['전저'], fut_realdata['전고'],
-                                                             fut_realdata['종가'], 선물_시가)
+                        선물_피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
 
                         item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['피봇']))
                         item.setTextAlignment(Qt.AlignCenter)
