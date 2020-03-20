@@ -575,10 +575,10 @@ call_oneway = False
 put_oneway = False
 
 call_asymmetric = False
-puy_asymmetric = False
+put_asymmetric = False
 
 call_dying = False
-puy_dying = False
+put_dying = False
 
 call_oneway_level1 = False
 call_oneway_level2 = False
@@ -5681,6 +5681,48 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 str = 'ⓢ {0:02d}:{1:02d}:{2:02d}'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                 
             self.label_msg.setText(str)
+            
+            # 콜 매수 OneWay장
+            if call_oneway:
+
+                if self.alternate_flag:
+                    self.label_msg.setStyleSheet('background-color: red; color: white')
+                else:
+                    self.label_msg.setStyleSheet('background-color: white; color: red')
+
+            # 콜 매도 비대칭장
+            elif call_asymmetric:
+
+                self.label_msg.setStyleSheet('background-color: black; color: pink')
+
+            # 콜 매도 양꽝장
+            elif call_dying:
+
+                self.label_msg.setStyleSheet('background-color: black; color: magenta')
+
+            # 풋 매수 OneWay장
+            elif put_oneway:
+
+                if self.alternate_flag:
+                    self.label_msg.setStyleSheet('background-color: blue; color: white')
+                else:
+                    self.label_msg.setStyleSheet('background-color: white; color: blue')
+
+            # 풋 매도 비대칭장
+            elif put_asymmetric:
+
+                self.label_msg.setStyleSheet('background-color: black; color: lightskyblue')
+
+            # 풋 매도 양꽝장
+            elif put_dying:
+
+                self.label_msg.setStyleSheet('background-color: black; color: cyan')
+            else:
+                # 대칭장
+                self.label_msg.setStyleSheet('background-color: lawngreen; color: black')
+            
+            self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
+
                                     
             if receive_real_ovc or market_service:
                 
@@ -7230,13 +7272,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if ASYM_FACTOR * abs(풋대비합) <= abs(콜대비합):
 
             if 풋대비합 < 0 and 콜대비합 > 0:
-                
-                if blink:
-                    self.label_msg.setStyleSheet('background-color: red; color: white')
-                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
-                else:
-                    self.label_msg.setStyleSheet('background-color: white; color: red')
-                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 call_oneway = True
                 call_asymmetric = False
@@ -7265,16 +7300,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif 풋대비합 > 0 and 콜대비합 < 0:
-                '''
-                if not call_asymmetric:
-                    self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
-                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
-                else:
-                    pass 
-                '''
-                self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
-                self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))               
+            elif 풋대비합 > 0 and 콜대비합 < 0:             
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -7300,16 +7326,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif 풋대비합 < 0 and 콜대비합 < 0:   
-                '''
-                if not call_dying:
-                    self.label_msg.setStyleSheet('background-color: black; color: white')
-                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
-                else:
-                    pass
-                '''
-                self.label_msg.setStyleSheet('background-color: black; color: white')
-                self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))             
+            elif 풋대비합 < 0 and 콜대비합 < 0:    
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -7340,13 +7357,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         elif ASYM_FACTOR * abs(콜대비합) <= abs(풋대비합):
 
             if 풋대비합 > 0 and 콜대비합 < 0:
-                
-                if blink:
-                    self.label_msg.setStyleSheet('background-color: blue; color: white')
-                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
-                else:
-                    self.label_msg.setStyleSheet('background-color: white; color: blue')
-                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 put_oneway = True 
                 put_asymmetric = False
@@ -7375,16 +7385,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif 풋대비합 < 0 and 콜대비합 > 0:
-                '''
-                if not put_asymmetric:
-                    self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
-                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
-                else:
-                    pass
-                '''
-                self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
-                self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))                
+            elif 풋대비합 < 0 and 콜대비합 > 0:             
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -7410,16 +7411,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif 풋대비합 < 0 and 콜대비합 < 0:  
-                '''
-                if not put_dying:
-                    self.label_msg.setStyleSheet('background-color: black; color: white')
-                    self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
-                else:
-                    pass
-                '''
-                self.label_msg.setStyleSheet('background-color: black; color: white')
-                self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))              
+            elif 풋대비합 < 0 and 콜대비합 < 0:        
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -7456,9 +7448,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             put_oneway = False
             put_asymmetric = False
             put_dying = False
-
-            #self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
-            #self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
         return
 
