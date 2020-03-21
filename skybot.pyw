@@ -5700,7 +5700,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.alternate_flag = not self.alternate_flag
 
             # 장의 유형을 시간과 함께 표시
-            self.market_type_display()
+            self.market_type_display(self.alternate_flag)
                                     
             if receive_real_ovc or market_service:
                 
@@ -6394,7 +6394,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         except:
             pass
 
-    def market_type_display(self):
+    def market_type_display(self, blink):
 
         dt = datetime.datetime.now()
 
@@ -6410,7 +6410,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # 콜 매수 OneWay장
         if call_ms_oneway:
 
-            if self.alternate_flag:
+            if blink:
                 self.label_msg.setStyleSheet('background-color: red; color: white')
             else:
                 self.label_msg.setStyleSheet('background-color: white; color: red')
@@ -6433,7 +6433,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # 풋 매수 OneWay장
         elif put_ms_oneway:
 
-            if self.alternate_flag:
+            if blink:
                 self.label_msg.setStyleSheet('background-color: blue; color: white')
             else:
                 self.label_msg.setStyleSheet('background-color: white; color: blue')
