@@ -7302,7 +7302,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if ASYM_RATIO <= abs(콜대비합/풋대비합):
+        if abs(콜대비합/풋대비합) >= ASYM_RATIO:
 
             if 풋대비합 < 0 and 콜대비합 > 0:
 
@@ -7426,7 +7426,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-        elif ASYM_RATIO <= abs(풋대비합/콜대비합):
+        elif abs(풋대비합/콜대비합) >= ASYM_RATIO:
 
             if 풋대비합 > 0 and 콜대비합 < 0:
 
