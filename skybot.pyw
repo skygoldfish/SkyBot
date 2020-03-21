@@ -324,13 +324,13 @@ with open('rules.txt', mode='r') as initfile:
 
     tmp = initfile.readline().strip()
     temp = tmp.split()
-    ASYM_FACTOR = float(temp[4])
-    print('ASYM_FACTOR =', ASYM_FACTOR)
+    ASYM_RATIO = float(temp[4])
+    print('ASYM_RATIO =', ASYM_RATIO)
 
     tmp = initfile.readline().strip()
     temp = tmp.split()
-    ONEWAY_FACTOR = float(temp[4])
-    print('ONEWAY_FACTOR =', ONEWAY_FACTOR)
+    ONEWAY_RATIO = float(temp[4])
+    print('ONEWAY_RATIO =', ONEWAY_RATIO)
     
     tmp = initfile.readline().strip()
     tmp = initfile.readline().strip()
@@ -7302,11 +7302,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if ASYM_FACTOR <= abs(콜대비합/풋대비합):
+        if ASYM_RATIO <= abs(콜대비합/풋대비합):
 
             if 풋대비합 < 0 and 콜대비합 > 0:
 
-                if abs(콜대비합/풋대비합) >= ONEWAY_FACTOR:
+                if abs(콜대비합/풋대비합) >= ONEWAY_RATIO:
                     
                     call_ms_oneway = True
                     call_ms_asymmetric = False
@@ -7426,11 +7426,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-        elif ASYM_FACTOR <= abs(풋대비합/콜대비합):
+        elif ASYM_RATIO <= abs(풋대비합/콜대비합):
 
             if 풋대비합 > 0 and 콜대비합 < 0:
 
-                if abs(풋대비합/콜대비합) >= ONEWAY_FACTOR:  
+                if abs(풋대비합/콜대비합) >= ONEWAY_RATIO:  
 
                     call_ms_oneway = False
                     call_ms_asymmetric = False
