@@ -397,6 +397,10 @@ telegram_toggle = True
 
 ovc_start_hour = kse_start_hour - 1
 
+시스템시간 = 0
+서버시간 = 0
+시스템_서버_시간차 = 0
+
 day_timespan = 395 + 10
 overnight_timespan = 660 + 60 + 10
 
@@ -576,16 +580,16 @@ service_terminate = False
 jugan_service_terminate = False
 yagan_service_terminate = False
 
-call_oneway = False
-put_oneway = False
+call_ms_oneway = False
+put_ms_oneway = False
 
 call_ms_asymmetric = False
 put_ms_asymmetric = False
 call_md_asymmetric = False
 put_md_asymmetric = False
 
-call_dying = False
-put_dying = False
+call_md_all_dying = False
+put_md_all_dying = False
 
 call_oneway_level1 = False
 call_oneway_level2 = False
@@ -5669,6 +5673,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     @pyqtSlot(dict)
     def update_screen(self, data):
+
         try:
             start_time = timeit.default_timer()            
             dt = datetime.datetime.now()
@@ -5677,6 +5682,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global flag_fut_low, flag_fut_high
             global flag_kp200_low, flag_kp200_high
             global flag_offline, receive_real_ovc
+            global 시스템시간
+
+            시스템시간 = dt.hour * 3600 + dt.minute * 60 + dt.second
             
             self.alternate_flag = not self.alternate_flag
 
@@ -6259,15 +6267,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-            # 오전 7시 10분경 서버초기화시 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
+            # 오전 7시 10분경 증권사 서버초기화전에 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
             if overnight:
 
-                if dt.hour == 6 and dt.minute == 1 and dt.second == 0:
+                보정된시간 = 시스템시간 - 시스템_서버_시간차
+
+                if 보정된시간 == 6 * 3600 + 1 * 60:
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 시스템 서버간 시간차 = {3}초... \r'.format(dt.hour, dt.minute, dt.second, 시스템_서버_시간차)
+                    self.textBrowser.append(str)
+                    print(str)
 
                     # 해외선물 지수요청 취소                    
                     self.OVC.UnadviseRealData()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다. \r'.format \
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소(서버시간) 합니다. \r'.format \
                         (int(OVC_체결시간[0:2]), 
                         int(OVC_체결시간[2:4]), 
                         int(OVC_체결시간[4:6]))
@@ -6381,7 +6395,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.label_msg.setText(str)
         
         # 콜 매수 OneWay장
-        if call_oneway:
+        if call_ms_oneway:
 
             if self.alternate_flag:
                 self.label_msg.setStyleSheet('background-color: red; color: white')
@@ -6399,12 +6413,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.label_msg.setStyleSheet('background-color: black; color: pink')
 
         # 콜 매도 양꽝장
-        elif call_dying:
+        elif call_md_all_dying:
 
             self.label_msg.setStyleSheet('background-color: black; color: magenta')
 
         # 풋 매수 OneWay장
-        elif put_oneway:
+        elif put_ms_oneway:
 
             if self.alternate_flag:
                 self.label_msg.setStyleSheet('background-color: blue; color: white')
@@ -6422,7 +6436,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.label_msg.setStyleSheet('background-color: black; color: lightskyblue')
 
         # 풋 매도 양꽝장
-        elif put_dying:
+        elif put_md_all_dying:
 
             self.label_msg.setStyleSheet('background-color: black; color: cyan')
         else:
@@ -6995,7 +7009,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
 
-        global call_oneway, put_oneway
+        global call_ms_oneway, put_ms_oneway
         global call_oneway_level1, call_oneway_level2, call_oneway_level3, call_oneway_level4, call_oneway_level5
         global put_oneway_level1, put_oneway_level2, put_oneway_level3, put_oneway_level4, put_oneway_level5
         global oneway_first_touch, oneway_str
@@ -7017,7 +7031,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.label_msg.setStyleSheet('background-color: white; color: blue')
                         self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    put_oneway = True
+                    put_ms_oneway = True
 
                     # 시가갭 & 퍼센트로 oneway 판단
                     if 풋시가갭합 > 0 and 풋시가갭합_퍼센트 < 0:
@@ -7074,7 +7088,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.label_msg.setStyleSheet('background-color: blue; color: white')
                     self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    put_oneway = True
+                    put_ms_oneway = True
 
                     put_oneway_level3 = True
                     put_oneway_level4 = False
@@ -7099,7 +7113,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.label_msg.setStyleSheet('background-color: blue; color: white')
                     self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    put_oneway = True
+                    put_ms_oneway = True
                     oneway_str = ''                    
 
                     if dt.second % 10 == 0:
@@ -7122,7 +7136,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.label_msg.setStyleSheet('background-color: white; color: red')
                         self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    call_oneway = True
+                    call_ms_oneway = True
 
                     # 시가갭 & 퍼센트로 oneway 판단
                     if 콜시가갭합 > 0 and 콜시가갭합_퍼센트 < 0:
@@ -7179,7 +7193,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.label_msg.setStyleSheet('background-color: red; color: white')
                     self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    call_oneway = True
+                    call_ms_oneway = True
 
                     call_oneway_level3 = True
                     call_oneway_level4 = False
@@ -7204,7 +7218,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     self.label_msg.setStyleSheet('background-color: red; color: white')
                     self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    call_oneway = True
+                    call_ms_oneway = True
                     oneway_str = ''                    
 
                     if dt.second % 10 == 0:
@@ -7225,7 +7239,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 call_oneway_level4 = False
                 call_oneway_level5 = False            
             
-            if not call_oneway and not put_oneway:
+            if not call_ms_oneway and not put_ms_oneway:
                 self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
                 self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
             else:
@@ -7285,7 +7299,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def asym_detect(self, blink):
         
         global 비대칭장
-        global call_oneway, put_oneway, call_dying, put_dying 
+        global call_ms_oneway, put_ms_oneway, call_md_all_dying, put_md_all_dying 
         global call_ms_asymmetric, put_ms_asymmetric, call_md_asymmetric, put_md_asymmetric
 
         dt = datetime.datetime.now()
@@ -7296,14 +7310,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if abs(콜대비합/풋대비합) >= ONEWAY_FACTOR:
                     
-                    call_oneway = True
+                    call_ms_oneway = True
                     call_ms_asymmetric = False
                     call_md_asymmetric = False
-                    call_dying = False
-                    put_oneway = False 
+                    call_md_all_dying = False
+                    put_ms_oneway = False 
                     put_ms_asymmetric = False
                     put_md_asymmetric = False
-                    put_dying = False
+                    put_md_all_dying = False
 
                     if TARGET_MONTH_SELECT == 1:
 
@@ -7319,14 +7333,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
                 else:
-                    call_oneway = False
+                    call_ms_oneway = False
                     call_ms_asymmetric = True
                     call_md_asymmetric = False
-                    call_dying = False
-                    put_oneway = False 
+                    call_md_all_dying = False
+                    put_ms_oneway = False 
                     put_ms_asymmetric = False
                     put_md_asymmetric = False
-                    put_dying = False
+                    put_md_all_dying = False
 
                     if TARGET_MONTH_SELECT == 1:
 
@@ -7352,14 +7366,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif 풋대비합 > 0 and 콜대비합 < 0:
 
-                call_oneway = False
+                call_ms_oneway = False
                 call_ms_asymmetric = False
                 call_md_asymmetric = True
-                call_dying = False
-                put_oneway = False 
+                call_md_all_dying = False
+                put_ms_oneway = False 
                 put_ms_asymmetric = False
                 put_md_asymmetric = False
-                put_dying = False             
+                put_md_all_dying = False             
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -7383,14 +7397,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif 풋대비합 < 0 and 콜대비합 < 0:
 
-                call_oneway = False
+                call_ms_oneway = False
                 call_ms_asymmetric = False
                 call_md_asymmetric = False
-                call_dying = True
-                put_oneway = False 
+                call_md_all_dying = True
+                put_ms_oneway = False 
                 put_ms_asymmetric = False
                 put_md_asymmetric = False
-                put_dying = False      
+                put_md_all_dying = False      
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -7420,14 +7434,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if abs(풋대비합/콜대비합) >= ONEWAY_FACTOR:  
 
-                    call_oneway = False
+                    call_ms_oneway = False
                     call_ms_asymmetric = False
                     call_md_asymmetric = False
-                    call_dying = False
-                    put_oneway = True 
+                    call_md_all_dying = False
+                    put_ms_oneway = True 
                     put_ms_asymmetric = False
                     put_md_asymmetric = False
-                    put_dying = False
+                    put_md_all_dying = False
 
                     if TARGET_MONTH_SELECT == 1:
 
@@ -7443,14 +7457,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
                 else:
-                    call_oneway = False
+                    call_ms_oneway = False
                     call_ms_asymmetric = False
                     call_md_asymmetric = False
-                    call_dying = False
-                    put_oneway = False 
+                    call_md_all_dying = False
+                    put_ms_oneway = False 
                     put_ms_asymmetric = True
                     put_md_asymmetric = False
-                    put_dying = False
+                    put_md_all_dying = False
 
                     if TARGET_MONTH_SELECT == 1:
 
@@ -7476,14 +7490,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif 풋대비합 < 0 and 콜대비합 > 0: 
 
-                call_oneway = False
+                call_ms_oneway = False
                 call_ms_asymmetric = False
                 call_md_asymmetric = False
-                call_dying = False
-                put_oneway = False 
+                call_md_all_dying = False
+                put_ms_oneway = False 
                 put_ms_asymmetric = False
                 put_md_asymmetric = True
-                put_dying = False            
+                put_md_all_dying = False            
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -7507,14 +7521,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif 풋대비합 < 0 and 콜대비합 < 0:
 
-                call_oneway = False
+                call_ms_oneway = False
                 call_ms_asymmetric = False
                 call_md_asymmetric = False
-                call_dying = False
-                put_oneway = False 
+                call_md_all_dying = False
+                put_ms_oneway = False 
                 put_ms_asymmetric = False
                 put_md_asymmetric = False
-                put_dying = True        
+                put_md_all_dying = True        
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -7540,14 +7554,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             비대칭장 = ''
 
-            call_oneway = False
+            call_ms_oneway = False
             call_ms_asymmetric = False
             call_md_asymmetric = False
-            call_dying = False
-            put_oneway = False 
+            call_md_all_dying = False
+            put_ms_oneway = False 
             put_ms_asymmetric = False
             put_md_asymmetric = False
-            put_dying = False 
+            put_md_all_dying = False 
 
         return
 
@@ -17179,10 +17193,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global dow_price, dow_text_color, dow_시가, dow_전일종가, dow_피봇, dow_저가, dow_고가 
 
             global cme_close, dow_close
+            global 시스템시간, 서버시간, 시스템_서버_시간차
 
             start_time = timeit.default_timer()
 
             dt = datetime.datetime.now()
+            
+            시스템시간 = dt.hour * 3600 + dt.minute * 60 + dt.second
 
             if szTrCode == 'JIF':
 
@@ -17194,7 +17211,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if result['장구분'] == '5' and result['장상태'] == '25':
 
                     # 서버시간과 동기를 위한 delta time 계산
-                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - ((kse_start_hour - 1) * 3600 + 50 * 60 + 0)
+                    time_delta = 시스템시간 - ((kse_start_hour - 1) * 3600 + 50 * 60 + 0)
 
                     if time_delta > 0:
                         str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 빠릅니다.\r'.format(\
@@ -17211,6 +17228,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 장시작 10분전입니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
+
                     '''
                     if not START_ON:
 
@@ -17239,7 +17257,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 elif result['장구분'] == '5' and result['장상태'] == '21':
 
                     # 서버시간과 동기를 위한 delta time 계산
-                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (kse_start_hour * 3600 + 0 * 60 + 0)
+                    time_delta = 시스템시간 - (kse_start_hour * 3600 + 0 * 60 + 0)
 
                     yoc_stop = not yoc_stop
                     #pre_start = False
@@ -17256,7 +17274,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 elif result['장구분'] == '7' and result['장상태'] == '21':
 
                     # 서버시간과 동기를 위한 delta time 계산
-                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (kse_start_hour * 3600 + 0 * 60 + 0)
+                    time_delta = 시스템시간 - (kse_start_hour * 3600 + 0 * 60 + 0)
                     
                     str = '[{0:02d}:{1:02d}:{2:02d}] Time Delta = {3}초\r'.format(dt.hour, dt.minute, dt.second, time_delta)
                     self.textBrowser.append(str)
@@ -17270,7 +17288,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 elif result['장구분'] == '8' and result['장상태'] == '21':
 
                     # 서버시간과 동기를 위한 delta time 계산
-                    time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - (kse_start_hour * 3600 + 0 * 60 + 0)
+                    time_delta = 시스템시간 - (kse_start_hour * 3600 + 0 * 60 + 0)
 
                     if time_delta > 0:
                         str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 빠릅니다.\r'.format(dt.hour, dt.minute,
@@ -18822,7 +18840,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 '''
 
                 # 서버시간과 동기를 위한 delta time 계산
-                time_delta = (dt.hour * 3600 + dt.minute * 60 + dt.second) - \
+                time_delta = 시스템시간 - \
                     (int(result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6]))
 
                 if result['단축코드'][0:3] == '201':
@@ -19138,21 +19156,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         ovc_x_idx = 1    
 
                 # 해외선물 시작시간과 동기를 맞춤
-                # ovc_x_idx = ovc_x_idx + 선물장간_시간차 
 
-                '''
-                str = '[{0:02d}:{1:02d}:{2:02d}] kse_start_hour = {3}, night_time = {4} \r'.format(
-                            int(result['체결시간_한국'][0:2]),
-                            int(result['체결시간_한국'][2:4]),
-                            int(result['체결시간_한국'][4:6]),
-                            kse_start_hour, night_time)
-                 
-                if overnight:
+                서버시간 = int(OVC_체결시간[0:2]) * 3600 + int(OVC_체결시간[2:4]) * 60 + int(OVC_체결시간[4:6])
 
-                    self.textBrowser.append(str)
-                else:
-                    pass   
-                '''                         
+                시스템_서버_시간차 = 시스템시간 - 서버시간
 
                 if result['종목코드'] == NASDAQ:                    
 
