@@ -528,6 +528,9 @@ oneway_str = ''
 
 비대칭장 = ''
 
+call_open_count = 0
+put_open_count = 0
+
 call_low_node_count = 0
 call_high_node_count = 0
 put_low_node_count = 0
@@ -7312,11 +7315,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if abs(콜대비합/풋대비합) >= ASYM_RATIO:
+        if call_open_count > 0:
+
+            콜대비합_평균 = 콜대비합/call_open_count
+        else:
+            콜대비합_평균 = 콜대비합
+
+        if put_open_count > 0:
+
+            풋대비합_평균 = 풋대비합/put_open_count
+        else:
+            풋대비합_평균 = 풋대비합
+
+        if abs(콜대비합_평균/풋대비합_평균) >= ASYM_RATIO:
 
             if 풋대비합 < 0 and 콜대비합 > 0:
 
-                if abs(콜대비합/풋대비합) >= ONEWAY_RATIO:
+                if abs(콜대비합_평균/풋대비합_평균) >= ONEWAY_RATIO:
                     
                     call_ms_oneway = True
                     call_ms_asymmetric = False
@@ -7329,15 +7344,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if TARGET_MONTH_SELECT == 1:
 
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
 
                     elif TARGET_MONTH_SELECT == 2:
 
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
 
                     elif TARGET_MONTH_SELECT == 3:
 
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
                     else:
                         pass
                 else:
@@ -7352,15 +7370,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if TARGET_MONTH_SELECT == 1:
 
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
 
                     elif TARGET_MONTH_SELECT == 2:
 
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
 
                     elif TARGET_MONTH_SELECT == 3:
 
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
                     else:
                         pass                
 
@@ -7385,15 +7406,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 1:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)                    
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)                    
 
                 elif TARGET_MONTH_SELECT == 2:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
 
                 elif TARGET_MONTH_SELECT == 3:
                     
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
 
                 else:
                     pass
@@ -7416,15 +7440,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 1:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매도({3:0.2f}:{4:0.2f}) 양꽝장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매도({3:0.2f}:{4:0.2f}) 양꽝장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
 
                 elif TARGET_MONTH_SELECT == 2:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매도({3:0.2f}:{4:0.2f}) 양꽝장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매도({3:0.2f}:{4:0.2f}) 양꽝장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
 
                 elif TARGET_MONTH_SELECT == 3:
                     
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매도({3:0.2f}:{4:0.2f}) 양꽝장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매도({3:0.2f}:{4:0.2f}) 양꽝장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
 
                 else:
                     pass
@@ -7436,11 +7463,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-        elif abs(풋대비합/콜대비합) >= ASYM_RATIO:
+        elif abs(풋대비합_평균/콜대비합_평균) >= ASYM_RATIO:
 
             if 풋대비합 > 0 and 콜대비합 < 0:
 
-                if abs(풋대비합/콜대비합) >= ONEWAY_RATIO:  
+                if abs(풋대비합_평균/콜대비합_평균) >= ONEWAY_RATIO:  
 
                     call_ms_oneway = False
                     call_ms_asymmetric = False
@@ -7453,15 +7480,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if TARGET_MONTH_SELECT == 1:
 
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
 
                     elif TARGET_MONTH_SELECT == 2:
 
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
 
                     elif TARGET_MONTH_SELECT == 3:
 
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
                     else:
                         pass
                 else:
@@ -7476,15 +7506,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if TARGET_MONTH_SELECT == 1:
 
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
 
                     elif TARGET_MONTH_SELECT == 2:
 
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
 
                     elif TARGET_MONTH_SELECT == 3:
                         
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
                     else:
                         pass                
 
@@ -7509,15 +7542,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 1:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
 
                 elif TARGET_MONTH_SELECT == 2:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
 
                 elif TARGET_MONTH_SELECT == 3:
                     
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
 
                 else:
                     pass
@@ -7540,15 +7576,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 1:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매도({3:0.2f}:{4:0.2f}) 양꽝장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매도({3:0.2f}:{4:0.2f}) 양꽝장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
 
                 elif TARGET_MONTH_SELECT == 2:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매도({3:0.2f}:{4:0.2f}) 양꽝장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매도({3:0.2f}:{4:0.2f}) 양꽝장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
 
                 elif TARGET_MONTH_SELECT == 3:
                     
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매도({3:0.2f}:{4:0.2f}) 양꽝장\r'.format(dt.hour, dt.minute, dt.second, 콜대비합, 풋대비합)
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매도({3:0.2f}:{4:0.2f}) 양꽝장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
 
                 else:
                     pass
@@ -10226,7 +10265,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             print('server time =', server_time)
 
             system_server_timegap = int(dt.strftime('%H%M%S')) - int(server_time[0:6])
-            
+
             print('system_server_timegap = ', system_server_timegap)
 
         elif szTrCode == 't1514':
@@ -15392,7 +15431,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     
     def call_state_update(self):
 
+        global call_open_count
+
         dt = datetime.datetime.now()
+
+        call_open_count = call_open.count(True)
 
         if call_open[option_pairs_count - 1]:
             new_actval = repr(call_below_atm_count) + '/' + repr(call_open.count(True)) + '*'
@@ -15474,6 +15517,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global 콜시가갭합, 콜시가갭합_퍼센트
         global call_ol_count, call_oh_count
         global 콜대비합
+        global call_open_count
         
         call_ol = [False] * option_pairs_count
         call_oh = [False] * option_pairs_count
@@ -15653,6 +15697,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
 
         # Call Open Count 및 OLOH 표시
+        call_open_count = call_open.count(True)
+
         if call_open[option_pairs_count - 1]:
 
             new_actval = repr(call_below_atm_count) + '/' + repr(call_open.count(True)) + '*'
@@ -16541,7 +16587,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     
     def put_state_update(self):
 
+        global put_open_count
+
         dt = datetime.datetime.now()
+
+        put_open_count = put_open.count(True)
 
         if put_open[0]:
             new_actval = repr(put_above_atm_count) + '/' + repr(put_open.count(True)) + '*'
@@ -16622,7 +16672,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global put_gap_percent, put_db_percent     
         global 풋시가갭합, 풋시가갭합_퍼센트
         global put_ol_count, put_oh_count
-        global 풋대비합
+        global 풋대비합, put_open_count
         
         put_ol = [False] * option_pairs_count
         put_oh = [False] * option_pairs_count
@@ -16802,6 +16852,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
 
         # Put Open Count 및 OLOH 표시
+        put_open_count = put_open.count(True)
+
         if put_open[0]:
 
             new_actval = repr(put_above_atm_count) + '/' + repr(put_open.count(True)) + '*'
@@ -18845,21 +18897,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 해외선물 시작시간과 동기를 맞춤
                 opt_x_idx = opt_x_idx + 선물장간_시간차  
 
+                '''
                 str = '[{0:02d}:{1:02d}:{2:02d}] opt_x_idx = {3} \r'.format(
                             int(result['체결시간'][0:2]),
                             int(result['체결시간'][2:4]),
                             int(result['체결시간'][4:6]),
                             opt_x_idx)              
-                '''
+                
                 if overnight:                    
                     self.textBrowser.append(str)
                 else:
                     print(str)
                 '''
-
-                # 서버시간과 동기를 위한 delta time 계산
-                time_delta = 시스템시간 - \
-                    (int(result['체결시간'][0:2]) * 3600 + int(result['체결시간'][2:4]) * 60 + int(result['체결시간'][4:6]))
 
                 if result['단축코드'][0:3] == '201':
                     
