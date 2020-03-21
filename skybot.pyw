@@ -6334,9 +6334,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             file_str = '################# < Futures Index of the Last Night > ###################\n'
                             overnight_file.write(file_str)
-                            file_str = 'Overnight DOW Index = {0}\n'.format(dow_close)
+                            file_str = 'Overnight DOW Close = {0}\n'.format(dow_close)
                             overnight_file.write(file_str)
-                            file_str = 'Overnight CME FUT Index = {0}\n'.format(cme_close)
+                            file_str = 'Overnight CME FUT Close = {0}\n'.format(cme_close)
                             overnight_file.write(file_str)
                             file_str = '\n'
                             overnight_file.write(file_str)
