@@ -13585,7 +13585,27 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.textBrowser.append(str)
                         print(str)
                     else:
-                        pass                                                               
+                        pass
+
+                    if NEW_NODE_VAL2 > 0:
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 동적맥점 {3} 추가되었습니다.\r'.format(dt.hour, dt.minute, dt.second, NEW_NODE_VAL2)
+                        self.textBrowser.append(str)
+                        print(str)
+                    else:
+                        pass 
+
+                    if NEW_NODE_VAL3 > 0:
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 동적맥점 {3} 추가되었습니다.\r'.format(dt.hour, dt.minute, dt.second, NEW_NODE_VAL3)
+                        self.textBrowser.append(str)
+                        print(str)
+                    else:
+                        pass
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 진성맥점은 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
+                    self.textBrowser.append(str)
+                    print(str)                                                                
                 else:
                     pass
             else:
