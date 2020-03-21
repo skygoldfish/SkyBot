@@ -525,6 +525,8 @@ oneway_str = ''
 
 콜대비합 = 0
 풋대비합 = 0
+콜대비합_평균 = 0
+풋대비합_평균 = 0
 
 비대칭장 = ''
 
@@ -6252,7 +6254,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         pass
 
                     # 비대칭장 탐색
-                    if not dongsi_hoga and abs(콜대비합) > 0 and abs(풋대비합) > 0:
+                    if not dongsi_hoga and abs(콜대비합_평균) > 0 and abs(풋대비합_평균) > 0:
 
                         self.asym_detect(self.alternate_flag)
                     else:
@@ -7314,18 +7316,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_ms_asymmetric, put_ms_asymmetric, call_md_asymmetric, put_md_asymmetric
 
         dt = datetime.datetime.now()
-
-        if call_open_count > 0:
-
-            콜대비합_평균 = 콜대비합/call_open_count
-        else:
-            콜대비합_평균 = 콜대비합
-
-        if put_open_count > 0:
-
-            풋대비합_평균 = 풋대비합/put_open_count
-        else:
-            풋대비합_평균 = 풋대비합
 
         if abs(콜대비합_평균/풋대비합_평균) >= ASYM_RATIO:
 
@@ -15105,26 +15095,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     
     def call_db_update(self):
 
-        global call_진폭, 콜대비합
+        global call_진폭, 콜대비합, 콜대비합_평균
 
         temp = call_db_percent[:]
         call_db_percent_local = [value for value in temp if not math.isnan(value)]
         call_db_percent_local.sort()
 
         if call_db_percent_local:
-            
-            콜대비합 = round(df_call['대비'].sum(), 2)
 
-            tmp = np.array(call_db_percent_local)            
-            대비평균 = int(round(np.mean(tmp), 2))
-            call_str = repr(콜대비합) + '\n(' + repr(대비평균) + '%' + ')'
+            if call_open_count > 0:
 
-            if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
-                item = QTableWidgetItem(call_str)
-                self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
-                self.tableWidget_call.resizeColumnsToContents()
+                콜대비합 = round(df_call['대비'].sum(), 2)
+                콜대비합_평균 = round(콜대비합/call_open_count, 2) 
+
+                tmp = np.array(call_db_percent_local)            
+                대비평균 = int(round(np.mean(tmp), 2))
+                call_str = repr(콜대비합_평균) + '\n(' + repr(대비평균) + '%' + ')'
+
+                if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
+                    item = QTableWidgetItem(call_str)
+                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
+                    self.tableWidget_call.resizeColumnsToContents()
+                else:
+                    pass 
             else:
-                pass                    
+                pass                               
         else:
             print('call_db_percent_local is empty...')
 
@@ -15438,9 +15433,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         call_open_count = call_open.count(True)
 
         if call_open[option_pairs_count - 1]:
-            new_actval = repr(call_below_atm_count) + '/' + repr(call_open.count(True)) + '*'
+            new_actval = repr(call_below_atm_count) + '/' + repr(call_open_count) + '*'
         else:
-            new_actval = repr(call_below_atm_count) + '/' + repr(call_open.count(True))
+            new_actval = repr(call_below_atm_count) + '/' + repr(call_open_count)
 
         if new_actval != self.tableWidget_call.horizontalHeaderItem(1).text():
             item = QTableWidgetItem(new_actval)
@@ -15516,7 +15511,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_gap_percent, call_db_percent      
         global 콜시가갭합, 콜시가갭합_퍼센트
         global call_ol_count, call_oh_count
-        global 콜대비합
+        global 콜대비합, 콜대비합_평균
         global call_open_count
         
         call_ol = [False] * option_pairs_count
@@ -15701,9 +15696,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if call_open[option_pairs_count - 1]:
 
-            new_actval = repr(call_below_atm_count) + '/' + repr(call_open.count(True)) + '*'
+            new_actval = repr(call_below_atm_count) + '/' + repr(call_open_count) + '*'
         else:
-            new_actval = repr(call_below_atm_count) + '/' + repr(call_open.count(True))
+            new_actval = repr(call_below_atm_count) + '/' + repr(call_open_count)
 
         if new_actval != self.tableWidget_call.horizontalHeaderItem(1).text():
             item = QTableWidgetItem(new_actval)
@@ -15760,20 +15755,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if call_db_percent_local:
 
-            콜대비합 = round(df_call['대비'].sum(), 2)
+            if call_open_count > 0:
 
-            print('콜대비합 =', 콜대비합)
+                콜대비합 = round(df_call['대비'].sum(), 2)
+                콜대비합_평균 = round(콜대비합/call_open_count, 2)
 
-            tmp = np.array(call_db_percent_local)            
-            대비평균 = int(round(np.mean(tmp), 2))
-            call_str = repr(콜대비합) + '\n(' + repr(대비평균) + '%' + ')'
+                print('콜대비합 =', 콜대비합)
 
-            if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
-                item = QTableWidgetItem(call_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
+                tmp = np.array(call_db_percent_local)            
+                대비평균 = int(round(np.mean(tmp), 2))
+                call_str = repr(콜대비합_평균) + '\n(' + repr(대비평균) + '%' + ')'
+
+                if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
+                    item = QTableWidgetItem(call_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
+                else:
+                    pass
             else:
-                pass
+                pass            
         else:
             print('call_db_percent_local is empty...')
 
@@ -16258,27 +16258,32 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     
     def put_db_update(self):
 
-        global put_진폭, 풋대비합
+        global put_진폭, 풋대비합, 풋대비합_평균 
 
         temp = put_db_percent[:]
         put_db_percent_local = [value for value in temp if not math.isnan(value)]
         put_db_percent_local.sort()
 
         if put_db_percent_local:
-            
-            풋대비합 = round(df_put['대비'].sum(), 2)
 
-            tmp = np.array(put_db_percent_local)            
-            대비평균 = int(round(np.mean(tmp), 2))
-            put_str = repr(풋대비합) + '\n(' + repr(대비평균) + '%' + ')'
+            if put_open_count > 0:
 
-            if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
-                item = QTableWidgetItem(put_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
-                self.tableWidget_put.resizeColumnsToContents()
+                풋대비합 = round(df_put['대비'].sum(), 2)
+                풋대비합_평균 = round(풋대비합/put_open_count, 2)
+
+                tmp = np.array(put_db_percent_local)            
+                대비평균 = int(round(np.mean(tmp), 2))
+                put_str = repr(풋대비합_평균) + '\n(' + repr(대비평균) + '%' + ')'
+
+                if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
+                    item = QTableWidgetItem(put_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
+                    self.tableWidget_put.resizeColumnsToContents()
+                else:
+                    pass
             else:
-                pass
+                pass            
         else:
             print('put_db_percent_local is empty...')
 
@@ -16594,9 +16599,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         put_open_count = put_open.count(True)
 
         if put_open[0]:
-            new_actval = repr(put_above_atm_count) + '/' + repr(put_open.count(True)) + '*'
+            new_actval = repr(put_above_atm_count) + '/' + repr(put_open_count) + '*'
         else:
-            new_actval = repr(put_above_atm_count) + '/' + repr(put_open.count(True))
+            new_actval = repr(put_above_atm_count) + '/' + repr(put_open_count)
 
         if new_actval != self.tableWidget_put.horizontalHeaderItem(1).text():
             item = QTableWidgetItem(new_actval)
@@ -16672,7 +16677,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global put_gap_percent, put_db_percent     
         global 풋시가갭합, 풋시가갭합_퍼센트
         global put_ol_count, put_oh_count
-        global 풋대비합, put_open_count
+        global 풋대비합, 풋대비합_평균 
+        global put_open_count
         
         put_ol = [False] * option_pairs_count
         put_oh = [False] * option_pairs_count
@@ -16856,9 +16862,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if put_open[0]:
 
-            new_actval = repr(put_above_atm_count) + '/' + repr(put_open.count(True)) + '*'
+            new_actval = repr(put_above_atm_count) + '/' + repr(put_open_count) + '*'
         else:
-            new_actval = repr(put_above_atm_count) + '/' + repr(put_open.count(True))
+            new_actval = repr(put_above_atm_count) + '/' + repr(put_open_count)
 
         if new_actval != self.tableWidget_put.horizontalHeaderItem(1).text():
             item = QTableWidgetItem(new_actval)
@@ -16915,20 +16921,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if put_db_percent_local:
 
-            풋대비합 = round(df_put['대비'].sum(), 2)
+            if put_open_count > 0:
 
-            print('풋대비합 =', 풋대비합)
+                풋대비합 = round(df_put['대비'].sum(), 2)
+                풋대비합_평균 = round(풋대비합/put_open_count, 2)
 
-            tmp = np.array(put_db_percent_local)            
-            대비평균 = int(round(np.mean(tmp), 2))
-            put_str = repr(풋대비합) + '\n(' + repr(대비평균) + '%' + ')'
+                print('풋대비합 =', 풋대비합)
 
-            if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
-                item = QTableWidgetItem(put_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
+                tmp = np.array(put_db_percent_local)            
+                대비평균 = int(round(np.mean(tmp), 2))
+                put_str = repr(풋대비합_평균) + '\n(' + repr(대비평균) + '%' + ')'
+
+                if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
+                    item = QTableWidgetItem(put_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
+                else:
+                    pass
             else:
-                pass
+                pass            
         else:
             print('put_db_percent_local is empty...')
 
