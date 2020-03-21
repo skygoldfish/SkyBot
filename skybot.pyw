@@ -249,6 +249,7 @@ with open('rules.txt', mode='r') as initfile:
             result = list(Counter(HIGH_LOW_LIST).values())
             #print('중복횟수 리스트 =', result)
             print('1st 동적맥점 빈도수 =', max(result))
+            동적맥점_빈도수_1st = max(result)
 
             if max(result) > 2:
 
@@ -273,6 +274,7 @@ with open('rules.txt', mode='r') as initfile:
                 result = list(Counter(SECOND_LIST).values())
                 #print('2nd 중복횟수 리스트 =', result)
                 print('2nd 동적맥점 빈도수 =', max(result))
+                동적맥점_빈도수_2nd = max(result)
 
                 if max(result) > 2:
 
@@ -297,6 +299,7 @@ with open('rules.txt', mode='r') as initfile:
                     result = list(Counter(THIRD_LIST).values())
                     #print('3rd 중복횟수 리스트 =', result)
                     print('3rd 동적맥점 빈도수 =', max(result))
+                    동적맥점_빈도수_3rd = max(result)
 
                     if max(result) > 2:
 
@@ -13583,7 +13586,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     
                     if NEW_NODE_VAL1 > 0:
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 동적맥점 {3} 추가되었습니다.\r'.format(dt.hour, dt.minute, dt.second, NEW_NODE_VAL1)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 동적맥점({3}, {4}번 출현) 추가되었습니다.\r'.format \
+                            (dt.hour, dt.minute, dt.second, NEW_NODE_VAL1, 동적맥점_빈도수_1st)
                         self.textBrowser.append(str)
                         print(str)
                     else:
@@ -13591,7 +13595,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if NEW_NODE_VAL2 > 0:
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 동적맥점 {3} 추가되었습니다.\r'.format(dt.hour, dt.minute, dt.second, NEW_NODE_VAL2)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 동적맥점({3}, {4}번 출현) 추가되었습니다.\r'.format \
+                            (dt.hour, dt.minute, dt.second, NEW_NODE_VAL2, 동적맥점_빈도수_2nd)
                         self.textBrowser.append(str)
                         print(str)
                     else:
@@ -13599,7 +13604,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if NEW_NODE_VAL3 > 0:
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 동적맥점 {3} 추가되었습니다.\r'.format(dt.hour, dt.minute, dt.second, NEW_NODE_VAL3)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 동적맥점({3}, {4}번 출현) 추가되었습니다.\r'.format \
+                            (dt.hour, dt.minute, dt.second, NEW_NODE_VAL3, 동적맥점_빈도수_3rd)
                         self.textBrowser.append(str)
                         print(str)
                     else:
