@@ -15051,6 +15051,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             print('call_db_percent_local is empty...')
 
+            콜대비합 = 0
+
         call_진폭 = df_call['진폭'].values.tolist()
         진폭최대값 = max(call_진폭)
 
@@ -16194,6 +16196,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
         else:
             print('put_db_percent_local is empty...')
+
+            풋대비합 = 0
 
         put_진폭 = df_put['진폭'].values.tolist()
         진폭최대값 = max(put_진폭)
