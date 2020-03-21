@@ -10226,6 +10226,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             print('server time =', server_time)
 
             system_server_timegap = int(dt.strftime('%H%M%S')) - int(server_time[0:6])
+            
             print('system_server_timegap = ', system_server_timegap)
 
         elif szTrCode == 't1514':
@@ -10286,28 +10287,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 atm_index = opt_actval.index(atm_str)
                 atm_index_old = atm_index
 
-                #print('t2101 atm_index = ', atm_index)
-                '''
-                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
-                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
-                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))                
-                
-                if not overnight:
-                            
-                    self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                    self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                    self.tableWidget_call.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-
-                    self.tableWidget_put.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                    self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                    self.tableWidget_put.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-
-                    selected_call = [atm_index - 1, atm_index, atm_index + 1]
-                    selected_put = [atm_index - 1, atm_index, atm_index + 1]
-                else:
-                    pass
-                '''
                 view_actval = opt_actval[atm_index-5:atm_index+6]
 
                 call_atm_value = df_call.iloc[atm_index]['현재가']
@@ -19647,8 +19626,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
 
-        # 서버시간 확인
-        
+        # 서버시간 확인        
         XQ = t0167(parent=self)
         XQ.Query()
 
