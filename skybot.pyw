@@ -6383,6 +6383,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def market_type_display(self):
 
+        dt = datetime.datetime.now()
+
         # 해외선물 한국시간 표시
         if OVC_체결시간 == '000000':
 
@@ -15494,8 +15496,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 '''
                 pass
             else:
-                str = '[{0:02d}:{1:02d}:{2:02d}] Call Open Check List = {3}\r'.format(dt.hour, dt.minute, dt.second, call_open_list)
-                self.textBrowser.append(str)
+                #str = '[{0:02d}:{1:02d}:{2:02d}] Call Open Check List = {3}\r'.format(dt.hour, dt.minute, dt.second, call_open_list)
+                #self.textBrowser.append(str)
+                pass
         else:
             loop_list = opt_total_list
 
@@ -16642,8 +16645,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 '''
                 pass
             else:
-                str = '[{0:02d}:{1:02d}:{2:02d}] Put Open Check List = {3}\r'.format(dt.hour, dt.minute, dt.second, put_open_list)
-                self.textBrowser.append(str)
+                #str = '[{0:02d}:{1:02d}:{2:02d}] Put Open Check List = {3}\r'.format(dt.hour, dt.minute, dt.second, put_open_list)
+                #self.textBrowser.append(str)
+                pass
         else:
             loop_list = opt_total_list
 
