@@ -247,14 +247,14 @@ with open('rules.txt', mode='r') as initfile:
 
             # 첫번재 최대빈도 맥점탐색
             result = list(Counter(HIGH_LOW_LIST).values())
-            print('중복횟수 리스트 =', result)
+            #print('중복횟수 리스트 =', result)
             print('중복횟수 리스트 최대빈도수 =', max(result))
 
             if max(result) > 2:
 
                 # 중복횟수 최대값 인덱스 구함
                 max_index = result.index(max(result))            
-                print('중복횟수 최대빈도수 인덱스 =', max_index)
+                #print('중복횟수 최대빈도수 인덱스 =', max_index)
 
                 # 최대 중복값 산출
                 result = list(Counter(HIGH_LOW_LIST).keys())
@@ -265,24 +265,23 @@ with open('rules.txt', mode='r') as initfile:
                 진성맥점 = list(set(진성맥점))
                 진성맥점.sort()
                 print('진성맥점 리스트 =', 진성맥점)
-
-                '''
+                
                 # 두번재 최대빈도 맥점탐색
                 SECOND_LIST = list(filter((NEW_NODE_VAL1).__ne__, HIGH_LOW_LIST))
-                print('2nd 최대빈도 제거된 리스트 =', SECOND_LIST)
+                #print('2nd 최대빈도 제거된 리스트 =', SECOND_LIST)
 
                 result = list(Counter(SECOND_LIST).values())
-                print('2nd 중복횟수 리스트 =', result)
+                #print('2nd 중복횟수 리스트 =', result)
                 print('2nd 중복횟수 리스트 최대빈도수 =', max(result))
 
                 if max(result) > 2:
 
                     max_index = result.index(max(result))            
-                    print('2nd 중복횟수 최대빈도수 인덱스 =', max_index)
+                    #print('2nd 중복횟수 최대빈도수 인덱스 =', max_index)
 
                     # 최대 중복값 산출
                     result = list(Counter(SECOND_LIST).keys())
-                    print('2nd keys list =', result)
+                    #print('2nd keys list =', result)
                     NEW_NODE_VAL2 = result[max_index]
                     print('2nd 동적맥점(최대빈도수의 값) =', NEW_NODE_VAL2)
                     
@@ -293,20 +292,20 @@ with open('rules.txt', mode='r') as initfile:
 
                     # 세번재 최대빈도 맥점탐색
                     THIRD_LIST = list(filter((NEW_NODE_VAL2).__ne__, SECOND_LIST))
-                    print('3rd 최대빈도 제거된 리스트 =', THIRD_LIST)
+                    #print('3rd 최대빈도 제거된 리스트 =', THIRD_LIST)
 
                     result = list(Counter(THIRD_LIST).values())
-                    print('3rd 중복횟수 리스트 =', result)
+                    #print('3rd 중복횟수 리스트 =', result)
                     print('3rd 중복횟수 리스트 최대빈도수 =', max(result))
 
                     if max(result) > 2:
 
                         max_index = result.index(max(result))            
-                        print('3rd 중복횟수 최대빈도수 인덱스 =', max_index)
+                        #print('3rd 중복횟수 최대빈도수 인덱스 =', max_index)
 
                         # 최대 중복값 산출
                         result = list(Counter(THIRD_LIST).keys())
-                        print('3rd keys list =', result)
+                        #print('3rd keys list =', result)
                         NEW_NODE_VAL3 = result[max_index]
                         print('3rd 동적맥점(최대빈도수의 값) =', NEW_NODE_VAL3)
 
@@ -317,8 +316,7 @@ with open('rules.txt', mode='r') as initfile:
                     else:
                         pass
                 else:
-                    pass
-                '''
+                    pass                
             else:
                 pass
     else:
