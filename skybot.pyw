@@ -397,6 +397,7 @@ nRowCount = int(행사가갯수)
 
 server_date = ''
 server_time = ''
+system_server_timegap = 0
 
 telegram_toggle = True
 
@@ -10212,7 +10213,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global put_above_atm_count, put_max_actval
         global kp200_종가
         global t2835_month_info
-        global server_date, server_time
+        global server_date, server_time, system_server_timegap
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -10224,8 +10225,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             print('server date =', server_date)
             print('server time =', server_time)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 서버 시간 = {3}\r'.format(dt.hour, dt.minute, dt.second, result)
-            self.textBrowser.append(str)
+            system_server_timegap = int(dt.strftime('%H%M%S')) - int(server_time[0:6])
+            print('system_server_timegap = ', system_server_timegap)
 
         elif szTrCode == 't1514':
 
@@ -13628,7 +13629,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 진성맥점은 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
                     self.textBrowser.append(str)
-                    print(str)                                                                
+                    print(str)
+                    
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간 - 서버시간 = {3}초\r'.format(dt.hour, dt.minute, dt.second, system_server_timegap)
+                    self.textBrowser.append(str)                                                                
                 else:
                     pass
             else:
@@ -17247,12 +17251,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if szTrCode == 'JIF':
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(\
-                    dt.hour, dt.minute, dt.second, result['장구분'], result['장상태'])
+                    int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), result['장구분'], result['장상태'])
                 self.textBrowser.append(str)
 
                 # 장시작 10분전
                 if result['장구분'] == '5' and result['장상태'] == '25':
 
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 장시작 10분전입니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    self.textBrowser.append(str)
+
+                    '''
                     # 서버시간과 동기를 위한 delta time 계산
                     time_delta = 시스템시간 - ((kse_start_hour - 1) * 3600 + 50 * 60 + 0)
 
@@ -17271,8 +17279,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 장시작 10분전입니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
-
-                    '''
+                    
                     if not START_ON:
 
                         self.AddCode()
@@ -17299,37 +17306,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 주간 선물/옵션장 시작
                 elif result['장구분'] == '5' and result['장상태'] == '21':
 
-                    # 서버시간과 동기를 위한 delta time 계산
-                    time_delta = 시스템시간 - (kse_start_hour * 3600 + 0 * 60 + 0)
-
                     yoc_stop = not yoc_stop
-                    #pre_start = False
 
                     market_service = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Time Delta = {3}초\r'.format(dt.hour, dt.minute, dt.second, time_delta)
-                    self.textBrowser.append(str)
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장이 시작됩니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
                 # 야간 선물장 시작
                 elif result['장구분'] == '7' and result['장상태'] == '21':
-
-                    # 서버시간과 동기를 위한 delta time 계산
-                    time_delta = 시스템시간 - (kse_start_hour * 3600 + 0 * 60 + 0)
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Time Delta = {3}초\r'.format(dt.hour, dt.minute, dt.second, time_delta)
-                    self.textBrowser.append(str)
-
                     market_service = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 시작됩니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
 
                 # 야간 옵션장 시작
                 elif result['장구분'] == '8' and result['장상태'] == '21':
 
+                    '''
                     # 서버시간과 동기를 위한 delta time 계산
                     time_delta = 시스템시간 - (kse_start_hour * 3600 + 0 * 60 + 0)
 
@@ -17345,8 +17340,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간과 서버시간이 같습니다.\r'.format(dt.hour, dt.minute,
                                                                                 dt.second)
                         self.textBrowser.append(str)
+                    '''
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 시작됩니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
 
                 # 현물 장마감 5분전
@@ -17412,7 +17408,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 DOW 지수 = {3}\r'.format(dt.hour, dt.minute, dt.second, dow_price)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 DOW 지수 = {3}\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), dow_price)
                     self.textBrowser.append(str)
 
                     if market_service:
@@ -17438,13 +17434,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 야간 선물장 종료
                 elif result['장구분'] == '7' and result['장상태'] == '41':
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 종료되었습니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
 
                     cme_close = cme_realdata['현재가']
                     dow_close = dow_price
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 DOW 지수 = {3}\r'.format(dt.hour, dt.minute, dt.second, dow_price)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 DOW 지수 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), dow_price)
                     self.textBrowser.append(str)
 
                     if market_service:
@@ -17459,7 +17455,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.pushButton_add.setText('ScrShot')
                         
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 스레드를 종료합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 스레드를 종료합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                         self.textBrowser.append(str)
 
                         if self.telegram_send_worker.isRunning():
@@ -17483,7 +17479,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 야간 옵션장 종료
                 elif result['장구분'] == '8' and result['장상태'] == '41':
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 종료되었습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 종료되었습니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
                 else:
                     pass
