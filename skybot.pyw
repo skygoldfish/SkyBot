@@ -248,7 +248,7 @@ with open('rules.txt', mode='r') as initfile:
             # 첫번재 최대빈도 맥점탐색
             result = list(Counter(HIGH_LOW_LIST).values())
             #print('중복횟수 리스트 =', result)
-            print('중복횟수 리스트 최대빈도수 =', max(result))
+            print('1st 동적맥점 빈도수 =', max(result))
 
             if max(result) > 2:
 
@@ -272,7 +272,7 @@ with open('rules.txt', mode='r') as initfile:
 
                 result = list(Counter(SECOND_LIST).values())
                 #print('2nd 중복횟수 리스트 =', result)
-                print('2nd 중복횟수 리스트 최대빈도수 =', max(result))
+                print('2nd 동적맥점 빈도수 =', max(result))
 
                 if max(result) > 2:
 
@@ -296,7 +296,7 @@ with open('rules.txt', mode='r') as initfile:
 
                     result = list(Counter(THIRD_LIST).values())
                     #print('3rd 중복횟수 리스트 =', result)
-                    print('3rd 중복횟수 리스트 최대빈도수 =', max(result))
+                    print('3rd 동적맥점 빈도수 =', max(result))
 
                     if max(result) > 2:
 
