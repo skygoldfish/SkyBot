@@ -4511,6 +4511,11 @@ class t0167(XAQuery):
         self.ActiveX.SetFieldData(self.INBLOCK, "id", 0, id)
         self.ActiveX.Request(0)
 
+    def OnReceiveMessage(self, systemError, messageCode, message):
+        클래스이름 = self.__class__.__name__
+        함수이름 = inspect.currentframe().f_code.co_name
+        print("%s-%s " % (클래스이름, 함수이름), systemError, messageCode, message)
+
     def OnReceiveData(self, szTrCode):
         dt = self.ActiveX.GetFieldData(self.OUTBLOCK, "dt", 0).strip()
         time = self.ActiveX.GetFieldData(self.OUTBLOCK, "time", 0).strip()

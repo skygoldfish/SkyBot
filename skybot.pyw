@@ -394,6 +394,10 @@ with open('rules.txt', mode='r') as initfile:
 ########################################################################################################################
 모니터번호 = 0
 nRowCount = int(행사가갯수)
+
+server_date = ''
+server_time = ''
+
 telegram_toggle = True
 
 ovc_start_hour = kse_start_hour - 1
@@ -10208,11 +10212,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global put_above_atm_count, put_max_actval
         global kp200_종가
         global t2835_month_info
+        global server_date, server_time
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
 
-        if szTrCode == 't1514':
+        if szTrCode == 't0167':
+
+            server_date, server_time = result
+            
+            print('server date =', server_date)
+            print('server time =', server_time)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 서버 시간 = {3}\r'.format(dt.hour, dt.minute, dt.second, result)
+            self.textBrowser.append(str)
+
+        elif szTrCode == 't1514':
 
             CTS일자, df = result
             
@@ -19635,6 +19650,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
+
+        # 서버시간 확인
+        
+        XQ = t0167(parent=self)
+        XQ.Query()
+
+        #time.sleep(1.1)        
 
         # 코스피 조회
         XQ = t1514(parent=self)
