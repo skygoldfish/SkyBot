@@ -523,10 +523,21 @@ put_high_touch = False
 oneway_first_touch = False
 oneway_str = ''
 
+콜시가갭합 = 0
+풋시가갭합 = 0
+콜시가갭합_퍼센트 = 0
+풋시가갭합_퍼센트 = 0
+
+콜시가갭합_단위평균 = 0
+풋시가갭합_단위평균 = 0
+
 콜대비합 = 0
 풋대비합 = 0
-콜대비합_평균 = 0
-풋대비합_평균 = 0
+콜대비합_퍼센트 = 0
+풋대비합_퍼센트 = 0
+
+콜대비합_단위평균 = 0
+풋대비합_단위평균 = 0
 
 비대칭장 = ''
 
@@ -996,14 +1007,6 @@ comboindex4 = 0
 
 콜_순매수_체결량 = 0
 풋_순매수_체결량 = 0
-
-#pre_콜시가갭합 = 0
-#pre_풋시가갭합 = 0
-
-콜시가갭합 = 0
-풋시가갭합 = 0
-콜시가갭합_퍼센트 = 0
-풋시가갭합_퍼센트 = 0
 
 # 컬러정의
 blueviolet = QColor(138, 43, 226)
@@ -6254,7 +6257,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         pass
 
                     # 비대칭장 탐색
-                    if not dongsi_hoga and abs(콜대비합_평균) > 0 and abs(풋대비합_평균) > 0:
+                    if not dongsi_hoga and abs(콜대비합_단위평균) > 0 and abs(풋대비합_단위평균) > 0:
 
                         self.asym_detect(self.alternate_flag)
                     else:
@@ -7317,11 +7320,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if abs(콜대비합_평균/풋대비합_평균) >= ASYM_RATIO:
+        if abs(콜대비합_단위평균/풋대비합_단위평균) >= ASYM_RATIO:
 
             if 풋대비합 < 0 and 콜대비합 > 0:
 
-                if abs(콜대비합_평균/풋대비합_평균) >= ONEWAY_RATIO:
+                if abs(콜대비합_단위평균/풋대비합_단위평균) >= ONEWAY_RATIO:
                     
                     call_ms_oneway = True
                     call_ms_asymmetric = False
@@ -7335,17 +7338,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if TARGET_MONTH_SELECT == 1:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format \
-                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                            (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
 
                     elif TARGET_MONTH_SELECT == 2:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format \
-                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                            (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
 
                     elif TARGET_MONTH_SELECT == 3:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format \
-                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                            (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
                     else:
                         pass
                 else:
@@ -7361,17 +7364,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if TARGET_MONTH_SELECT == 1:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
-                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                            (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
 
                     elif TARGET_MONTH_SELECT == 2:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
-                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                            (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
 
                     elif TARGET_MONTH_SELECT == 3:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
-                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                            (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
                     else:
                         pass                
 
@@ -7397,17 +7400,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if TARGET_MONTH_SELECT == 1:
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
-                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)                    
+                        (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)                    
 
                 elif TARGET_MONTH_SELECT == 2:
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
-                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                        (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
 
                 elif TARGET_MONTH_SELECT == 3:
                     
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
-                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                        (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
 
                 else:
                     pass
@@ -7431,17 +7434,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if TARGET_MONTH_SELECT == 1:
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매도({3:0.2f}:{4:0.2f}) 양꽝장\r'.format \
-                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                        (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
 
                 elif TARGET_MONTH_SELECT == 2:
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매도({3:0.2f}:{4:0.2f}) 양꽝장\r'.format \
-                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                        (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
 
                 elif TARGET_MONTH_SELECT == 3:
                     
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매도({3:0.2f}:{4:0.2f}) 양꽝장\r'.format \
-                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                        (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
 
                 else:
                     pass
@@ -7453,11 +7456,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-        elif abs(풋대비합_평균/콜대비합_평균) >= ASYM_RATIO:
+        elif abs(풋대비합_단위평균/콜대비합_단위평균) >= ASYM_RATIO:
 
             if 풋대비합 > 0 and 콜대비합 < 0:
 
-                if abs(풋대비합_평균/콜대비합_평균) >= ONEWAY_RATIO:  
+                if abs(풋대비합_단위평균/콜대비합_단위평균) >= ONEWAY_RATIO:  
 
                     call_ms_oneway = False
                     call_ms_asymmetric = False
@@ -7471,17 +7474,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if TARGET_MONTH_SELECT == 1:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format \
-                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                            (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
 
                     elif TARGET_MONTH_SELECT == 2:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format \
-                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                            (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
 
                     elif TARGET_MONTH_SELECT == 3:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매수({3:0.2f}:{4:0.2f}) OneWay장\r'.format \
-                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                            (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
                     else:
                         pass
                 else:
@@ -7497,17 +7500,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     if TARGET_MONTH_SELECT == 1:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
-                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                            (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
 
                     elif TARGET_MONTH_SELECT == 2:
 
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
-                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                            (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
 
                     elif TARGET_MONTH_SELECT == 3:
                         
                         비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매수({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
-                            (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                            (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
                     else:
                         pass                
 
@@ -7533,17 +7536,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if TARGET_MONTH_SELECT == 1:
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
-                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                        (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
 
                 elif TARGET_MONTH_SELECT == 2:
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
-                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                        (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
 
                 elif TARGET_MONTH_SELECT == 3:
                     
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매도({3:0.2f}:{4:0.2f}) 비대칭장\r'.format \
-                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                        (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
 
                 else:
                     pass
@@ -7567,17 +7570,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if TARGET_MONTH_SELECT == 1:
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매도({3:0.2f}:{4:0.2f}) 양꽝장\r'.format \
-                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                        (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
 
                 elif TARGET_MONTH_SELECT == 2:
 
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매도({3:0.2f}:{4:0.2f}) 양꽝장\r'.format \
-                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                        (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
 
                 elif TARGET_MONTH_SELECT == 3:
                     
                     비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매도({3:0.2f}:{4:0.2f}) 양꽝장\r'.format \
-                        (dt.hour, dt.minute, dt.second, 콜대비합_평균, 풋대비합_평균)
+                        (dt.hour, dt.minute, dt.second, 콜대비합_단위평균, 풋대비합_단위평균)
 
                 else:
                     pass
@@ -10751,7 +10754,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         시가갭 = 시가 - 종가
                         대비 = int(round((현재가 - 시가) * 1, 2))
 
-                        if 시가 >= oloh_cutoff and 저가 < 고가:
+                        if 시가 > 0 and 저가 < 고가:
 
                             call_gap_percent[i] = (시가 / 종가 - 1) * 100
 
@@ -10903,7 +10906,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 print('t2301 주간 전광판 콜 데이타 = \r', df_call)
 
-                self.tableWidget_call.resizeColumnsToContents()
+                #self.tableWidget_call.resizeColumnsToContents()
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] {3} 월물 Call 전광판 데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                 self.textBrowser.append(str)
@@ -11031,7 +11034,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         시가갭 = 시가 - 종가
                         대비 = int(round((현재가 - 시가) * 1, 2))
 
-                        if 시가 >= oloh_cutoff and 저가 < 고가:
+                        if 시가 > 0 and 저가 < 고가:
 
                             put_gap_percent[i] = (시가 / 종가 - 1) * 100
 
@@ -11183,7 +11186,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 
                 print('t2301 주간 전광판 풋 데이타 = \r', df_put)
 
-                self.tableWidget_put.resizeColumnsToContents()
+                #self.tableWidget_put.resizeColumnsToContents()
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] {3} 월물 Put 전광판 데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                 self.textBrowser.append(str)
@@ -11406,7 +11409,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_call.setItem(i, Option_column.시가.value, item)
 
-                        if 시가 > 0:
+                        if 시가 > 0 and df['저가'][i] < df['고가'][i]:
 
                             시가갭 = 시가 - df_call.iloc[i]['종가']
                             df_call.loc[i, '시가갭'] = 시가갭
@@ -11488,7 +11491,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_put.setItem(i, Option_column.시가.value, item)
 
-                        if 시가 > 0:
+                        if 시가 > 0 and df1['저가'][i] < df1['고가'][i]:
 
                             시가갭 = 시가 - df_put.iloc[i]['종가']
                             df_put.loc[i, '시가갭'] = 시가갭
@@ -12212,7 +12215,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         대비 = round((현재가 - 시가), 2)
                         df_call.loc[i, '대비'] = 대비
 
-                        if 시가 >= oloh_cutoff and 저가 < 고가:
+                        if 시가 > 0 and 저가 < 고가:
 
                             call_gap_percent[i] = (시가 / 종가 - 1) * 100
 
@@ -12447,7 +12450,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         대비 = round((현재가 - 시가), 2)
                         df_put.loc[i, '대비'] = 대비
 
-                        if 시가 >= oloh_cutoff and 저가 < 고가:
+                        if 시가 > 0 and 저가 < 고가:
 
                             put_gap_percent[i] = (시가 / 종가 - 1) * 100
 
@@ -14996,12 +14999,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         return
 
+    '''
     def call_open_update(self):
 
         global call_open, call_below_atm_count
         global df_call, call_gap_percent, df_plotdata_call
         global call_시가, call_시가_node_list, call_피봇, call_피봇_node_list
-        global call_max_actval 
+        global call_max_actval                
+        global 콜시가갭합, 콜시가갭합_퍼센트, 콜시가갭합_단위평균
 
         index = call_행사가.index(call_result['단축코드'][5:8])
 
@@ -15015,12 +15020,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
         else:
             pass
-        '''
+        
         if index != atm_index:
             self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
         else:
             self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
-        '''
+        
         item = QTableWidgetItem(call_result['시가'])
         item.setTextAlignment(Qt.AlignCenter)
 
@@ -15057,9 +15062,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
 
-        # 시가갭 갱신        
-        global 콜시가갭합, 콜시가갭합_퍼센트
-
+        # 시가갭 갱신
         콜시가갭합 = round(df_call['시가갭'].sum(), 2)
 
         temp = call_gap_percent[:]
@@ -15092,10 +15095,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         return
-    
+    '''
+
     def call_db_update(self):
 
-        global call_진폭, 콜대비합, 콜대비합_평균
+        global call_진폭, 콜대비합, 콜대비합_단위평균
 
         temp = call_db_percent[:]
         call_db_percent_local = [value for value in temp if not math.isnan(value)]
@@ -15106,11 +15110,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if call_open_count > 0:
 
                 콜대비합 = round(df_call['대비'].sum(), 2)
-                콜대비합_평균 = round(콜대비합/call_open_count, 2) 
+                콜대비합_단위평균 = round(콜대비합/call_open_count, 2) 
 
                 tmp = np.array(call_db_percent_local)            
                 대비평균 = int(round(np.mean(tmp), 2))
-                call_str = repr(콜대비합_평균) + '\n(' + repr(대비평균) + '%' + ')'
+                call_str = repr(콜대비합_단위평균) + '\n(' + repr(대비평균) + '%' + ')'
 
                 if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
                     item = QTableWidgetItem(call_str)
@@ -15511,8 +15515,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_gap_percent, call_db_percent      
         global 콜시가갭합, 콜시가갭합_퍼센트
         global call_ol_count, call_oh_count
-        global 콜대비합, 콜대비합_평균
-        global call_open_count
+        global 콜대비합, 콜대비합_단위평균
+        global call_open_count        
+        global 콜시가갭합, 콜시가갭합_퍼센트, 콜시가갭합_단위평균 
         
         call_ol = [False] * option_pairs_count
         call_oh = [False] * option_pairs_count
@@ -15558,7 +15563,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
                 
-                if df_call.iloc[index]['종가'] > 0:
+                if df_call.iloc[index]['종가'] > 0 and df_call.iloc[index]['저가'] < df_call.iloc[index]['고가']:
 
                     df_call.loc[index, '시가갭'] = df_call.iloc[index]['시가'] - df_call.iloc[index]['종가']
 
@@ -15671,7 +15676,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
                     
-                if df_call.iloc[index]['시가'] >= oloh_cutoff:
+                if df_call.iloc[index]['시가'] > 0 and df_call.iloc[index]['저가'] < df_call.iloc[index]['고가']:
 
                     df_call.loc[index, '대비'] = \
                         round((df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가']), 2)
@@ -15720,8 +15725,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         # 시가갭 갱신
-        global 콜시가갭합, 콜시가갭합_퍼센트
-
         temp = call_gap_percent[:]
         call_gap_percent_local = [value for value in temp if not math.isnan(value)]
         call_gap_percent_local.sort()
@@ -15758,13 +15761,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if call_open_count > 0:
 
                 콜대비합 = round(df_call['대비'].sum(), 2)
-                콜대비합_평균 = round(콜대비합/call_open_count, 2)
+                콜대비합_단위평균 = round(콜대비합/call_open_count, 2)
 
                 print('콜대비합 =', 콜대비합)
 
                 tmp = np.array(call_db_percent_local)            
                 대비평균 = int(round(np.mean(tmp), 2))
-                call_str = repr(콜대비합_평균) + '\n(' + repr(대비평균) + '%' + ')'
+                call_str = repr(콜대비합_단위평균) + '\n(' + repr(대비평균) + '%' + ')'
 
                 if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
                     item = QTableWidgetItem(call_str)
@@ -16159,12 +16162,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         return
     
+    '''
     def put_open_update(self):
 
         global put_open, put_above_atm_count
         global df_put, put_gap_percent, df_plotdata_put
         global put_시가, put_시가_node_list, put_피봇, put_피봇_node_list
-        global put_max_actval
+        global put_max_actval        
+        global 풋시가갭합, 풋시가갭합_퍼센트, 풋시가갭합_단위평균 
 
         index = put_행사가.index(put_result['단축코드'][5:8])
 
@@ -16178,12 +16183,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
         else:
             pass
-        '''
+        
         if index != atm_index:
             self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
         else:
             self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
-        '''
+        
         item = QTableWidgetItem(put_result['시가'])
         item.setTextAlignment(Qt.AlignCenter)
 
@@ -16220,9 +16225,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
 
-        # 시가갭 갱신        
-        global 풋시가갭합, 풋시가갭합_퍼센트
-
+        # 시가갭 갱신
         풋시가갭합 = round(df_put['시가갭'].sum(), 2)
 
         temp = put_gap_percent[:]
@@ -16255,10 +16258,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         return
+    '''
     
     def put_db_update(self):
 
-        global put_진폭, 풋대비합, 풋대비합_평균 
+        global put_진폭, 풋대비합, 풋대비합_단위평균 
 
         temp = put_db_percent[:]
         put_db_percent_local = [value for value in temp if not math.isnan(value)]
@@ -16269,11 +16273,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if put_open_count > 0:
 
                 풋대비합 = round(df_put['대비'].sum(), 2)
-                풋대비합_평균 = round(풋대비합/put_open_count, 2)
+                풋대비합_단위평균 = round(풋대비합/put_open_count, 2)
 
                 tmp = np.array(put_db_percent_local)            
                 대비평균 = int(round(np.mean(tmp), 2))
-                put_str = repr(풋대비합_평균) + '\n(' + repr(대비평균) + '%' + ')'
+                put_str = repr(풋대비합_단위평균) + '\n(' + repr(대비평균) + '%' + ')'
 
                 if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
                     item = QTableWidgetItem(put_str)
@@ -16677,8 +16681,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global put_gap_percent, put_db_percent     
         global 풋시가갭합, 풋시가갭합_퍼센트
         global put_ol_count, put_oh_count
-        global 풋대비합, 풋대비합_평균 
+        global 풋대비합, 풋대비합_단위평균 
         global put_open_count
+        global 풋시가갭합, 풋시가갭합_퍼센트, 풋시가갭합_단위평균
         
         put_ol = [False] * option_pairs_count
         put_oh = [False] * option_pairs_count
@@ -16724,7 +16729,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if df_put.iloc[index]['종가'] > 0:
+                if df_put.iloc[index]['종가'] > 0 and df_put.iloc[index]['저가'] < df_put.iloc[index]['고가']:
 
                     df_put.loc[index, '시가갭'] = df_put.iloc[index]['시가'] - df_put.iloc[index]['종가']   
 
@@ -16837,7 +16842,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-                if df_put.iloc[index]['시가'] >= oloh_cutoff:
+                if df_put.iloc[index]['시가'] > 0 and df_put.iloc[index]['저가'] < df_put.iloc[index]['고가']:
 
                     df_put.loc[index, '대비'] = \
                         round((df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가']), 2)
@@ -16886,8 +16891,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         # 시가갭 갱신
-        global 풋시가갭합, 풋시가갭합_퍼센트
-
         temp = put_gap_percent[:]
         put_gap_percent_local = [value for value in temp if not math.isnan(value)]
         put_gap_percent_local.sort()
@@ -16924,13 +16927,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if put_open_count > 0:
 
                 풋대비합 = round(df_put['대비'].sum(), 2)
-                풋대비합_평균 = round(풋대비합/put_open_count, 2)
+                풋대비합_단위평균 = round(풋대비합/put_open_count, 2)
 
                 print('풋대비합 =', 풋대비합)
 
                 tmp = np.array(put_db_percent_local)            
                 대비평균 = int(round(np.mean(tmp), 2))
-                put_str = repr(풋대비합_평균) + '\n(' + repr(대비평균) + '%' + ')'
+                put_str = repr(풋대비합_단위평균) + '\n(' + repr(대비평균) + '%' + ')'
 
                 if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
                     item = QTableWidgetItem(put_str)
@@ -17735,7 +17738,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_call.setItem(index, Option_column.피봇.value, item)
 
-                            if float(result['예상체결가격']) >= oloh_cutoff and df_call.iloc[index]['종가'] > 0:
+                            if float(result['예상체결가격']) > 0 and df_call.iloc[index]['종가'] > 0:
 
                                 시가갭 = float(result['예상체결가격']) - df_call.iloc[index]['종가']
                                 df_call.loc[index, '시가갭'] = 시가갭
@@ -17767,7 +17770,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        global 콜시가갭합
+                        global 콜시가갭합, 콜시가갭합_단위평균
 
                         콜시가갭합 = round(df_call['시가갭'].sum(), 2)
 
@@ -17830,7 +17833,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
 
-                            if float(result['예상체결가격']) >= oloh_cutoff and df_put.iloc[index]['종가'] > 0:
+                            if float(result['예상체결가격']) > 0 and df_put.iloc[index]['종가'] > 0:
 
                                 시가갭 = float(result['예상체결가격']) - df_put.iloc[index]['종가']
                                 df_put.loc[index, '시가갭'] = 시가갭
@@ -17862,7 +17865,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        global 풋시가갭합
+                        global 풋시가갭합, 풋시가갭합_단위평균 
 
                         풋시가갭합 = round(df_put['시가갭'].sum(), 2)
 
