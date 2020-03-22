@@ -15448,7 +15448,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        call_open_count = call_open.count(True)
+        call_open_count = len(call_open_list)
 
         if call_open[option_pairs_count - 1]:
             new_actval = repr(call_below_atm_count) + '/' + repr(call_open_count) + '*'
@@ -15704,7 +15704,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
 
         # Call Open Count 및 OLOH 표시
-        call_open_count = call_open.count(True)
+        call_open_count = len(call_open_list)
 
         if call_open[option_pairs_count - 1]:
 
@@ -16619,7 +16619,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        put_open_count = put_open.count(True)
+        put_open_count = len(put_open_list)
 
         if put_open[0]:
             new_actval = repr(put_above_atm_count) + '/' + repr(put_open_count) + '*'
@@ -16875,7 +16875,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass
 
         # Put Open Count 및 OLOH 표시
-        put_open_count = put_open.count(True)
+        put_open_count = len(put_open_list)
 
         if put_open[0]:
 
@@ -17802,6 +17802,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 self.tableWidget_call.resizeColumnsToContents()
                             else:
                                 pass
+
+                            new_actval = repr(len(call_gap_percent_local))
+
+                            if new_actval != self.tableWidget_call.horizontalHeaderItem(1).text():
+                                item = QTableWidgetItem(new_actval)
+                                item.setTextAlignment(Qt.AlignCenter)
+                                self.tableWidget_call.setHorizontalHeaderItem(1, item)
+                            else:
+                                pass
                         else:
                             pass
 
@@ -17897,6 +17906,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 item = QTableWidgetItem(put_str)
                                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
                                 self.tableWidget_put.resizeColumnsToContents()
+                            else:
+                                pass
+
+                            new_actval = repr(len(put_gap_percent_local))
+
+                            if new_actval != self.tableWidget_put.horizontalHeaderItem(1).text():
+                                item = QTableWidgetItem(new_actval)
+                                item.setTextAlignment(Qt.AlignCenter)
+                                self.tableWidget_put.setHorizontalHeaderItem(1, item)
                             else:
                                 pass
                         else:
