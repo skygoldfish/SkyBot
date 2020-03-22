@@ -14748,9 +14748,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # 시가 갱신
         if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
-            df_call.loc[index, '시가'] = round(float(시가), 2)                
-            df_call.loc[index, '시가갭'] = df_call.iloc[index]['시가'] - df_call.iloc[index]['종가']
-
+            df_call.loc[index, '시가'] = round(float(시가), 2)
+            df_plotdata_call.iloc[index][선물장간_시간차] = df_call.iloc[index]['시가']                
+            
             item = QTableWidgetItem(시가)
             item.setTextAlignment(Qt.AlignCenter)
 
@@ -14762,6 +14762,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setForeground(QBrush(검정색))
 
             self.tableWidget_call.setItem(index, Option_column.시가.value, item)
+            
+            df_call.loc[index, '시가갭'] = df_call.iloc[index]['시가'] - df_call.iloc[index]['종가']
+        
+            gap_str = "{0:0.2f}".format(df_call.iloc[index]['시가갭'])
+
+            item = QTableWidgetItem(gap_str)
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if df_call.iloc[index]['시가'] > df_call.iloc[index]['종가']:
+                item.setBackground(QBrush(콜기준가색))
+                item.setForeground(QBrush(검정색))
+            elif df_call.iloc[index]['시가'] < df_call.iloc[index]['종가']:
+                item.setBackground(QBrush(풋기준가색))
+                item.setForeground(QBrush(흰색))
+            else:
+                item.setBackground(QBrush(흰색))
+
+            self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
 
             if df_call.iloc[index]['시가'] in 진성맥점:
 
@@ -14789,7 +14807,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), df_call.iloc[index]['시가'])
             self.textBrowser.append(str)
                         
-            self.call_open_gap_update(index)
+            #self.call_open_gap_update(index)
         else:
             pass
 
@@ -15468,7 +15486,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass                               
 
         return
-
+    '''
     def call_open_gap_update(self, index):
 
         global df_call, call_gap_percent
@@ -15496,7 +15514,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
         
         return
-
+    '''
     def call_open_check(self):
 
         global df_call, call_below_atm_count
@@ -15899,8 +15917,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
 
             df_put.loc[index, '시가'] = round(float(시가), 2)
-            df_put.loc[index, '시가갭'] = df_put.iloc[index]['시가'] - df_put.iloc[index]['종가']
-
+            df_plotdata_put.iloc[index][선물장간_시간차] = df_put.iloc[index]['시가']
+            
             item = QTableWidgetItem(시가)
             item.setTextAlignment(Qt.AlignCenter)
 
@@ -15912,6 +15930,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 item.setForeground(QBrush(검정색))
 
             self.tableWidget_put.setItem(index, Option_column.시가.value, item)
+
+            df_put.loc[index, '시가갭'] = df_put.iloc[index]['시가'] - df_put.iloc[index]['종가']
+        
+            gap_str = "{0:0.2f}".format(df_put.iloc[index]['시가갭'])
+
+            item = QTableWidgetItem(gap_str)
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if df_put.iloc[index]['시가'] > df_put.iloc[index]['종가']:
+                item.setBackground(QBrush(콜기준가색))
+                item.setForeground(QBrush(검정색))
+            elif df_put.iloc[index]['시가'] < df_put.iloc[index]['종가']:
+                item.setBackground(QBrush(풋기준가색))
+                item.setForeground(QBrush(흰색))
+            else:
+                item.setBackground(QBrush(흰색))
+
+            self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
 
             if df_put.iloc[index]['시가'] in 진성맥점:
 
@@ -15939,7 +15975,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), df_put.iloc[index]['시가'])
             self.textBrowser.append(str)
                         
-            self.put_open_gap_update(index)
+            #self.put_open_gap_update(index)
         else:
             pass
 
@@ -16621,7 +16657,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass           
 
         return
-
+    '''
     def put_open_gap_update(self, index):
 
         global df_put, put_gap_percent
@@ -16649,7 +16685,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
         
         return
-
+    '''
     def put_open_check(self):
 
         global df_put, put_above_atm_count
