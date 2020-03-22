@@ -20147,11 +20147,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             except Exception as e:
                 pass
 
+            '''
+            # 백그라운드 로봇작업 --> 추후 사용예정
             _temp = []
             for r in self.robots:
                 if r.running == True:
                     _temp.append(r.Name)
-
+            
             if current_str in ['09:01:00']:
                 self.RobotRun()
                 self.RobotView()
@@ -20163,7 +20165,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if current_str[3:] in ['00:00', '30:00']:
                 #ToTelegram("%s : 로봇 %s개가 실행중입니다. ([%s])" % (current_str, len(_temp), ','.join(_temp)))
                 pass
-
+            '''
             if current.minute % 10 == 0: # 매 10 분
                 pass
 
@@ -20333,8 +20335,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         pass
 
     def OnReceiveData(self, szTrCode, result):
-        # print(szTrCode, result)
-        pass
+        print(szTrCode, result)
+        #pass
 
     def OnReceiveRealData(self, szTrCode, result):
         # print(szTrCode, result)
