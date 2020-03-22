@@ -15107,21 +15107,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if call_db_percent_local:
 
-            if call_open_count > 0:
+            콜대비합 = round(df_call['대비'].sum(), 2)
+            콜대비합_단위평균 = round(콜대비합/len(call_db_percent_local), 2) 
 
-                콜대비합 = round(df_call['대비'].sum(), 2)
-                콜대비합_단위평균 = round(콜대비합/call_open_count, 2) 
+            tmp = np.array(call_db_percent_local)            
+            대비평균 = int(round(np.mean(tmp), 2))
+            call_str = repr(콜대비합_단위평균) + '\n(' + repr(대비평균) + '%' + ')'
 
-                tmp = np.array(call_db_percent_local)            
-                대비평균 = int(round(np.mean(tmp), 2))
-                call_str = repr(콜대비합_단위평균) + '\n(' + repr(대비평균) + '%' + ')'
-
-                if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
-                    item = QTableWidgetItem(call_str)
-                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
-                    self.tableWidget_call.resizeColumnsToContents()
-                else:
-                    pass 
+            if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
+                item = QTableWidgetItem(call_str)
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
+                self.tableWidget_call.resizeColumnsToContents()
             else:
                 pass                               
         else:
@@ -15498,14 +15494,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setBackground(QBrush(흰색))
 
         self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
-        '''
-        global pre_콜시가갭합
-
-        pre_콜시가갭합 = round(df_call['시가갭'].sum(), 2)
-
-        str = '[{0:02d}:{1:02d}:{2:02d}] Call[{3}, {4:0.2f}] pre 시가 갱신 !!!\r'.format(dt.hour, dt.minute, dt.second, index, df_call.iloc[index]['시가'])
-        self.textBrowser.append(str)          
-        '''
+        
         return
 
     def call_open_check(self):
@@ -15732,10 +15721,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         콜시가갭합 = round(df_call['시가갭'].sum(), 2)
 
         if call_gap_percent_local:
+            
+            콜시가갭합_단위평균 = round(콜시가갭합/len(call_gap_percent_local), 2)
 
             tmp = np.array(call_gap_percent_local)            
             콜시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
-            call_str = repr(콜시가갭합) + '\n(' + repr(콜시가갭합_퍼센트) + '%' + ')'
+            call_str = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트) + '%' + ')'
 
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.시가갭.value).text():
                 item = QTableWidgetItem(call_str)
@@ -15758,23 +15749,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if call_db_percent_local:
 
-            if call_open_count > 0:
+            콜대비합 = round(df_call['대비'].sum(), 2)
+            콜대비합_단위평균 = round(콜대비합/len(call_db_percent_local), 2)
 
-                콜대비합 = round(df_call['대비'].sum(), 2)
-                콜대비합_단위평균 = round(콜대비합/call_open_count, 2)
+            print('콜대비합 =', 콜대비합)
 
-                print('콜대비합 =', 콜대비합)
+            tmp = np.array(call_db_percent_local)            
+            대비평균 = int(round(np.mean(tmp), 2))
+            call_str = repr(콜대비합_단위평균) + '\n(' + repr(대비평균) + '%' + ')'
 
-                tmp = np.array(call_db_percent_local)            
-                대비평균 = int(round(np.mean(tmp), 2))
-                call_str = repr(콜대비합_단위평균) + '\n(' + repr(대비평균) + '%' + ')'
-
-                if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
-                    item = QTableWidgetItem(call_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
-                else:
-                    pass
+            if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
+                item = QTableWidgetItem(call_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
             else:
                 pass            
         else:
@@ -16270,22 +16257,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if put_db_percent_local:
 
-            if put_open_count > 0:
+            풋대비합 = round(df_put['대비'].sum(), 2)
+            풋대비합_단위평균 = round(풋대비합/len(put_db_percent_local), 2)
 
-                풋대비합 = round(df_put['대비'].sum(), 2)
-                풋대비합_단위평균 = round(풋대비합/put_open_count, 2)
+            tmp = np.array(put_db_percent_local)            
+            대비평균 = int(round(np.mean(tmp), 2))
+            put_str = repr(풋대비합_단위평균) + '\n(' + repr(대비평균) + '%' + ')'
 
-                tmp = np.array(put_db_percent_local)            
-                대비평균 = int(round(np.mean(tmp), 2))
-                put_str = repr(풋대비합_단위평균) + '\n(' + repr(대비평균) + '%' + ')'
-
-                if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
-                    item = QTableWidgetItem(put_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
-                    self.tableWidget_put.resizeColumnsToContents()
-                else:
-                    pass
+            if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
+                item = QTableWidgetItem(put_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
+                self.tableWidget_put.resizeColumnsToContents()
             else:
                 pass            
         else:
@@ -16664,14 +16647,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setBackground(QBrush(흰색))
 
         self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
-        '''
-        global pre_풋시가갭합
-
-        pre_풋시가갭합 = round(df_put['시가갭'].sum(), 2)
-
-        str = '[{0:02d}:{1:02d}:{2:02d}] Put[{3}, {4:0.2f}] pre 시가 갱신 !!!\r'.format(dt.hour, dt.minute, dt.second, index, df_put.iloc[index]['시가'])
-        self.textBrowser.append(str)           
-        '''
+        
         return
 
     def put_open_check(self):
@@ -16899,9 +16875,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if put_gap_percent_local:
 
+            풋시가갭합_단위평균 = round(풋시가갭합/len(put_gap_percent_local), 2)
+
             tmp = np.array(put_gap_percent_local)            
             풋시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
-            put_str = repr(풋시가갭합) + '\n(' + repr(풋시가갭합_퍼센트) + '%' + ')'
+            put_str = repr(풋시가갭합_단위평균) + '\n(' + repr(풋시가갭합_퍼센트) + '%' + ')'
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.시가갭.value).text():
                 item = QTableWidgetItem(put_str)
@@ -16924,23 +16902,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if put_db_percent_local:
 
-            if put_open_count > 0:
+            풋대비합 = round(df_put['대비'].sum(), 2)
+            풋대비합_단위평균 = round(풋대비합/len(put_db_percent_local), 2)
 
-                풋대비합 = round(df_put['대비'].sum(), 2)
-                풋대비합_단위평균 = round(풋대비합/put_open_count, 2)
+            print('풋대비합 =', 풋대비합)
 
-                print('풋대비합 =', 풋대비합)
+            tmp = np.array(put_db_percent_local)            
+            대비평균 = int(round(np.mean(tmp), 2))
+            put_str = repr(풋대비합_단위평균) + '\n(' + repr(대비평균) + '%' + ')'
 
-                tmp = np.array(put_db_percent_local)            
-                대비평균 = int(round(np.mean(tmp), 2))
-                put_str = repr(풋대비합_단위평균) + '\n(' + repr(대비평균) + '%' + ')'
-
-                if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
-                    item = QTableWidgetItem(put_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
-                else:
-                    pass
+            if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
+                item = QTableWidgetItem(put_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
             else:
                 pass            
         else:
@@ -17770,7 +17744,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        global 콜시가갭합, 콜시가갭합_단위평균
+                        global 콜시가갭합, 콜시가갭합_퍼센트, 콜시가갭합_단위평균
 
                         콜시가갭합 = round(df_call['시가갭'].sum(), 2)
 
@@ -17780,9 +17754,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if call_gap_percent_local:
 
+                            콜시가갭합_단위평균 = round(콜시가갭합/len(call_gap_percent_local), 2)
+
                             tmp = np.array(call_gap_percent_local)                            
-                            meanc = int(round(np.mean(tmp), 2))
-                            call_str = repr(콜시가갭합) + '\n(' + repr(meanc) + '%' + ')'
+                            콜시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
+                            call_str = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트) + '%' + ')'
 
                             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.시가갭.value).text():
                                 item = QTableWidgetItem(call_str)
@@ -17865,7 +17841,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                        global 풋시가갭합, 풋시가갭합_단위평균 
+                        global 풋시가갭합, 풋시가갭합_퍼센트, 풋시가갭합_단위평균 
 
                         풋시가갭합 = round(df_put['시가갭'].sum(), 2)
 
@@ -17875,9 +17851,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if put_gap_percent_local:
 
+                            풋시가갭합_단위평균 = round(풋시가갭합/len(put_gap_percent_local), 2)
+
                             tmp = np.array(put_gap_percent_local)                            
-                            meanp = int(round(np.mean(tmp), 2))
-                            put_str = repr(풋시가갭합) + '\n(' + repr(meanp) + '%' + ')'
+                            풋시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
+                            put_str = repr(풋시가갭합_단위평균) + '\n(' + repr(풋시가갭합_퍼센트) + '%' + ')'
 
                             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.시가갭.value).text():
                                 item = QTableWidgetItem(put_str)
