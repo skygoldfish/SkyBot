@@ -248,7 +248,7 @@ with open('rules.txt', mode='r') as initfile:
             # 첫번재 최대빈도 맥점탐색
             result = list(Counter(HIGH_LOW_LIST).values())
             #print('중복횟수 리스트 =', result)
-            print('1st 동적맥점 빈도수 =', max(result))
+            #print('1st 동적맥점 빈도수 =', max(result))
             동적맥점_빈도수_1st = max(result)
 
             if max(result) > 2:
@@ -260,12 +260,13 @@ with open('rules.txt', mode='r') as initfile:
                 # 최대 중복값 산출
                 result = list(Counter(HIGH_LOW_LIST).keys())
                 NEW_NODE_VAL1 = result[max_index]
-                print('1st 동적맥점(최대빈도수의 값) =', NEW_NODE_VAL1)
+                #print('1st 동적맥점(최대빈도수의 값) =', NEW_NODE_VAL1)
+                print('1st 동적맥점 값 = {0}, 1st 동적맥점 빈도수 = {1}'.format(NEW_NODE_VAL1, 동적맥점_빈도수_1st))
 
                 진성맥점.append(NEW_NODE_VAL1)
                 진성맥점 = list(set(진성맥점))
                 진성맥점.sort()
-                print('진성맥점 리스트 =', 진성맥점)
+                #print('진성맥점 리스트 =', 진성맥점)
                 
                 # 두번재 최대빈도 맥점탐색
                 SECOND_LIST = list(filter((NEW_NODE_VAL1).__ne__, HIGH_LOW_LIST))
@@ -273,7 +274,7 @@ with open('rules.txt', mode='r') as initfile:
 
                 result = list(Counter(SECOND_LIST).values())
                 #print('2nd 중복횟수 리스트 =', result)
-                print('2nd 동적맥점 빈도수 =', max(result))
+                #print('2nd 동적맥점 빈도수 =', max(result))
                 동적맥점_빈도수_2nd = max(result)
 
                 if max(result) > 2:
@@ -285,12 +286,13 @@ with open('rules.txt', mode='r') as initfile:
                     result = list(Counter(SECOND_LIST).keys())
                     #print('2nd keys list =', result)
                     NEW_NODE_VAL2 = result[max_index]
-                    print('2nd 동적맥점(최대빈도수의 값) =', NEW_NODE_VAL2)
+                    #print('2nd 동적맥점(최대빈도수의 값) =', NEW_NODE_VAL2)
+                    print('2nd 동적맥점 값 = {0}, 2nd 동적맥점 빈도수 = {1}'.format(NEW_NODE_VAL2, 동적맥점_빈도수_2nd))
                     
                     진성맥점.append(NEW_NODE_VAL2)
                     진성맥점 = list(set(진성맥점))
                     진성맥점.sort()
-                    print('진성맥점 리스트 =', 진성맥점)
+                    #print('진성맥점 리스트 =', 진성맥점)
 
                     # 세번재 최대빈도 맥점탐색
                     THIRD_LIST = list(filter((NEW_NODE_VAL2).__ne__, SECOND_LIST))
@@ -298,7 +300,7 @@ with open('rules.txt', mode='r') as initfile:
 
                     result = list(Counter(THIRD_LIST).values())
                     #print('3rd 중복횟수 리스트 =', result)
-                    print('3rd 동적맥점 빈도수 =', max(result))
+                    #print('3rd 동적맥점 빈도수 =', max(result))
                     동적맥점_빈도수_3rd = max(result)
 
                     if max(result) > 2:
@@ -310,7 +312,8 @@ with open('rules.txt', mode='r') as initfile:
                         result = list(Counter(THIRD_LIST).keys())
                         #print('3rd keys list =', result)
                         NEW_NODE_VAL3 = result[max_index]
-                        print('3rd 동적맥점(최대빈도수의 값) =', NEW_NODE_VAL3)
+                        #print('3rd 동적맥점(최대빈도수의 값) =', NEW_NODE_VAL3)
+                        print('3rd 동적맥점 값 = {0}, 3rd 동적맥점 빈도수 = {1}'.format(NEW_NODE_VAL3, 동적맥점_빈도수_3rd))
 
                         진성맥점.append(NEW_NODE_VAL3)
                         진성맥점 = list(set(진성맥점))
