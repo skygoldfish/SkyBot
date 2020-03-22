@@ -261,7 +261,7 @@ with open('rules.txt', mode='r') as initfile:
                 result = list(Counter(HIGH_LOW_LIST).keys())
                 NEW_NODE_VAL1 = result[max_index]
                 #print('1st 동적맥점(최대빈도수의 값) =', NEW_NODE_VAL1)
-                print('1st 동적맥점 값 = {0}, 1st 동적맥점 빈도수 = {1}'.format(NEW_NODE_VAL1, 동적맥점_빈도수_1st))
+                print('1st 동적맥점 값 = {0}, 빈도수 = {1}'.format(NEW_NODE_VAL1, 동적맥점_빈도수_1st))
 
                 진성맥점.append(NEW_NODE_VAL1)
                 진성맥점 = list(set(진성맥점))
@@ -287,7 +287,7 @@ with open('rules.txt', mode='r') as initfile:
                     #print('2nd keys list =', result)
                     NEW_NODE_VAL2 = result[max_index]
                     #print('2nd 동적맥점(최대빈도수의 값) =', NEW_NODE_VAL2)
-                    print('2nd 동적맥점 값 = {0}, 2nd 동적맥점 빈도수 = {1}'.format(NEW_NODE_VAL2, 동적맥점_빈도수_2nd))
+                    print('2nd 동적맥점 값 = {0}, 빈도수 = {1}'.format(NEW_NODE_VAL2, 동적맥점_빈도수_2nd))
                     
                     진성맥점.append(NEW_NODE_VAL2)
                     진성맥점 = list(set(진성맥점))
@@ -313,7 +313,7 @@ with open('rules.txt', mode='r') as initfile:
                         #print('3rd keys list =', result)
                         NEW_NODE_VAL3 = result[max_index]
                         #print('3rd 동적맥점(최대빈도수의 값) =', NEW_NODE_VAL3)
-                        print('3rd 동적맥점 값 = {0}, 3rd 동적맥점 빈도수 = {1}'.format(NEW_NODE_VAL3, 동적맥점_빈도수_3rd))
+                        print('3rd 동적맥점 값 = {0}, 빈도수 = {1}'.format(NEW_NODE_VAL3, 동적맥점_빈도수_3rd))
 
                         진성맥점.append(NEW_NODE_VAL3)
                         진성맥점 = list(set(진성맥점))
@@ -13616,7 +13616,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     
                     if NEW_NODE_VAL1 > 0:
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 동적맥점({3}, {4}번 출현) 추가되었습니다.\r'.format \
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3} (빈도수 = {4}) 추가됨...\r'.format \
                             (dt.hour, dt.minute, dt.second, NEW_NODE_VAL1, 동적맥점_빈도수_1st)
                         self.textBrowser.append(str)
                         print(str)
@@ -13625,7 +13625,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if NEW_NODE_VAL2 > 0:
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 동적맥점({3}, {4}번 출현) 추가되었습니다.\r'.format \
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(빈도수 = {4}) 추가됨...\r'.format \
                             (dt.hour, dt.minute, dt.second, NEW_NODE_VAL2, 동적맥점_빈도수_2nd)
                         self.textBrowser.append(str)
                         print(str)
@@ -13634,7 +13634,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if NEW_NODE_VAL3 > 0:
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 동적맥점({3}, {4}번 출현) 추가되었습니다.\r'.format \
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(빈도수 = {4}) 추가됨...\r'.format \
                             (dt.hour, dt.minute, dt.second, NEW_NODE_VAL3, 동적맥점_빈도수_3rd)
                         self.textBrowser.append(str)
                         print(str)
