@@ -251,7 +251,7 @@ with open('rules.txt', mode='r') as initfile:
             #print('1st 동적맥점 빈도수 =', max(result))
             동적맥점_빈도수_1st = max(result)
 
-            if max(result) > 2:
+            if 동적맥점_빈도수_1st > 2:
 
                 # 중복횟수 최대값 인덱스 구함
                 max_index = result.index(max(result))            
@@ -277,7 +277,7 @@ with open('rules.txt', mode='r') as initfile:
                 #print('2nd 동적맥점 빈도수 =', max(result))
                 동적맥점_빈도수_2nd = max(result)
 
-                if max(result) > 2:
+                if 동적맥점_빈도수_2nd > 2:
 
                     max_index = result.index(max(result))            
                     #print('2nd 중복횟수 최대빈도수 인덱스 =', max_index)
@@ -303,7 +303,7 @@ with open('rules.txt', mode='r') as initfile:
                     #print('3rd 동적맥점 빈도수 =', max(result))
                     동적맥점_빈도수_3rd = max(result)
 
-                    if max(result) > 2:
+                    if 동적맥점_빈도수_3rd > 2:
 
                         max_index = result.index(max(result))            
                         #print('3rd 중복횟수 최대빈도수 인덱스 =', max_index)
