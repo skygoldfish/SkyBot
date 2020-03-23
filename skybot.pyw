@@ -1283,7 +1283,6 @@ class PandasModel(QtCore.QAbstractTableModel):
     def flags(self, index):
         return QtCore.Qt.ItemIsEnabled
 
-
 class RealDataTableModel(QAbstractTableModel):
     def __init__(self, parent=None):
         QtCore.QAbstractTableModel.__init__(self, parent)
@@ -3067,27 +3066,31 @@ class telegram_send_worker(QThread):
                 else:
                     pass                
                 
-                # kp200 맥점 알람
-                if kp200_low_node_str != '':
+                if TARGET_MONTH_SELECT == 1:
 
-                    str = kp200_low_node_str
-                    ToTelegram(str)
+                    # kp200 맥점 알람
+                    if kp200_low_node_str != '':
+
+                        str = kp200_low_node_str
+                        ToTelegram(str)
+                    else:
+                        pass
+
+                    if kp200_high_node_str != '':
+
+                        str = kp200_high_node_str
+                        ToTelegram(str)
+                    else:
+                        pass
                 else:
-                    pass
-
-                if kp200_high_node_str != '':
-
-                    str = kp200_high_node_str
-                    ToTelegram(str)
-                else:
-                    pass
+                    pass                
             else:
                 pass
 
             self.finished.emit(str)
             self.msleep(1000 * TELEGRAM_SEND_INTERVAL)
 
-        return
+        #return
 
 ########################################################################################################################
 
@@ -4860,7 +4863,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-            return
+            #return
 
         def cb4_selectionChanged(self):
 
@@ -4929,7 +4932,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-            return
+            #return
     else:
         pass
 
@@ -5080,7 +5083,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_call.resizeColumnsToContents()
         
-        return
+        #return
 
     @pyqtSlot(int)
     def _put_horizontal_header_clicked(self, idx):
@@ -5209,7 +5212,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_put.resizeColumnsToContents()
         
-        return
+        #return
 
     @pyqtSlot(int)
     def _fut_horizontal_header_clicked(self, idx):
@@ -5217,7 +5220,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # cell focus 이동
         self.tableWidget_fut.setCurrentCell(3, Futures_column.OID.value)
 
-        return
+        #return
 
     @pyqtSlot(int)
     def _supply_horizontal_header_clicked(self, idx):
@@ -5225,7 +5228,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # cell focus 이동
         self.tableWidget_supply.setCurrentCell(1, 5)
 
-        return
+        #return
 
     @pyqtSlot(int)
     def _quote_horizontal_header_clicked(self, idx):
@@ -5233,7 +5236,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # cell focus 이동
         self.tableWidget_quote.setCurrentCell(1, Quote_column.미결종합.value - 1)
 
-        return
+        #return
 
     def all_node_set(self):
 
@@ -5296,7 +5299,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     pass
             else:
                 pass
-        return
+        #return
 
     '''
     @pyqtSlot(int)
@@ -5315,7 +5318,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_call.resizeColumnsToContents()
 
-        return
+        #return
 
     @pyqtSlot(int)
     def _put_vertical_header_clicked(self, idx):
@@ -5333,7 +5336,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_put.resizeColumnsToContents()
 
-        return
+        #return
     '''
     @pyqtSlot(int, int)
     def _calltable_cell_clicked(self, row, col):
@@ -5363,7 +5366,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         print(txt)
 
-        return
+        #return
 
     @pyqtSlot(int, int)
     def _puttable_cell_clicked(self, row, col):
@@ -5392,7 +5395,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         print(txt)
 
-        return
+        #return
 
     @pyqtSlot(int, int)
     def _futtable_cell_clicked(self, row, col):
@@ -5520,7 +5523,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
         self.tableWidget_fut.resizeColumnsToContents()      
 
-        return
+        #return
 
     @pyqtSlot(int, int)
     def _supplytable_cell_clicked(self, row, col):
@@ -5537,7 +5540,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass  
 
-        return
+        #return
 
     @pyqtSlot(int, int)
     def _quotetable_cell_clicked(self, row, col):
@@ -5554,7 +5557,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        return
+        #return
     
     @pyqtSlot(int)
     def _calltable_vertical_scroll_position(self, row):
@@ -5576,7 +5579,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_call.resizeColumnsToContents()
 
-        return
+        #return
 
     @pyqtSlot(int)
     def _puttable_vertical_scroll_position(self, row):
@@ -5598,7 +5601,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_put.resizeColumnsToContents()
 
-        return
+        #return
 
     @pyqtSlot(int)
     def t8415_call_request(self, index):
@@ -6464,7 +6467,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        return
+        #return
     
     def opt_call_node_coloring(self):
 
@@ -6509,7 +6512,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
             self.textBrowser.append(str)
 
-        return
+        #return
 
     def opt_call_low_node_coloring(self):
 
@@ -6552,7 +6555,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)
 
-        return        
+        #return        
 
     def opt_call_high_node_coloring(self):
 
@@ -6595,7 +6598,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)
 
-        return                
+        #return                
     
     def opt_put_node_coloring(self):
 
@@ -6640,7 +6643,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
             self.textBrowser.append(str)
 
-        return
+        #return
 
     def opt_put_low_node_coloring(self):
 
@@ -6683,7 +6686,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)
 
-        return
+        #return
 
     def opt_put_high_node_coloring(self):
 
@@ -6726,7 +6729,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str) 
 
-        return
+        #return
 
     # 탐색순서가 중요 !!!
     def opt_node_coloring(self):
@@ -6765,7 +6768,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
         self.textBrowser.append(str)
 
-        return        
+        #return        
 
     def label_atm_display(self):
 
@@ -6816,7 +6819,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.label_atm.setText(str)
 
-        return
+        #return
 
     def set_call_atm_row_color(self, rowIndex, brush):
 
@@ -6908,7 +6911,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         #str = '[{0:02d}:{1:02d}:{2:02d}] 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec)
         #self.textBrowser.append(str)
         
-        return
+        #return
     '''
 
     # 현재가 클리어
@@ -6944,7 +6947,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.tableWidget_put.item(i, Option_column.현재가.value).setBackground(QBrush(옅은회색))
 
-        return
+        #return
 
     # 저가, 현재가, 고가 클리어
     def price_color_clear(self):
@@ -6982,7 +6985,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.tableWidget_put.item(i, Option_column.현재가.value).setBackground(QBrush(흰색))
 
-        return
+        #return
 
     '''
     # 선물 현재가 클리어
@@ -6994,7 +6997,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.item(1, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_fut.item(2, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
 
-        return
+        #return
 
     # Call 컬러처리
     def call_cv_color_clear(self):
@@ -7007,7 +7010,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        return
+        #return
     
     # Put 컬러처리
     def put_cv_color_clear(self):
@@ -7020,7 +7023,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        return
+        #return
     '''
 
     def check_oneway(self, blink):
@@ -7263,7 +7266,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
             else:
                 pass
-        return
+        #return
 
     def display_centerval(self):
 
@@ -7313,7 +7316,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass  
 
-        return
+        #return
 
     def asym_detect(self, blink):
         
@@ -7606,7 +7609,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             put_md_asymmetric = False
             put_md_all_dying = False 
 
-        return
+        #return
 
     def label_clear(self, toggle):
 
@@ -7696,21 +7699,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass        
 
-        return
+        #return
 
     def call_low_color_clear(self, index):
 
         self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(옅은회색))
         self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))            
 
-        return
+        #return
 
     def call_high_color_clear(self, index):
 
         self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(옅은회색))
         self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))            
 
-        return
+        #return
 
     def call_node_color_clear(self):
 
@@ -7791,7 +7794,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
 
-        return
+        #return
 
     def call_crossval_color_update(self):
 
@@ -7847,7 +7850,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-        return
+        #return
 
     def kp200_low_color_blink(self, blink):
 
@@ -7859,7 +7862,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(검정색))
             self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(대맥점색))
 
-        return
+        #return
 
     def kp200_high_color_blink(self, blink):
 
@@ -7871,7 +7874,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(검정색))
             self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(대맥점색))
 
-        return
+        #return
 
     def call_low_coreval_color_blink(self, blink):
 
@@ -7965,7 +7968,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-        return
+        #return
 
     def call_high_coreval_color_blink(self, blink):
 
@@ -8059,7 +8062,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-        return    
+        #return    
 
     def call_coreval_color_update(self):
 
@@ -8207,7 +8210,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_call.resizeColumnsToContents()
 
-        return
+        #return
 
     def call_low_coreval_color_update(self):
 
@@ -8261,7 +8264,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-        return
+        #return
 
     def call_high_coreval_color_update(self):
 
@@ -8315,7 +8318,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass        
 
-        return
+        #return
     
     def call_node_color_update(self):
 
@@ -8922,7 +8925,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Call Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
             self.textBrowser.append(str)        
         '''
-        return
+        #return
     
     def put_node_color_update(self):
 	
@@ -9529,21 +9532,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Put Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
             self.textBrowser.append(str)
         '''
-        return
+        #return
 
     def put_low_color_clear(self, index):
 
         self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(옅은회색))
         self.tableWidget_put.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
 
-        return
+        #return
 
     def put_high_color_clear(self, index):
 
         self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(옅은회색))
         self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
 
-        return
+        #return
 
     def put_node_color_clear(self):
 
@@ -9624,7 +9627,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
 
-        return
+        #return
 
     def put_crossval_color_update(self):
 
@@ -9680,7 +9683,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-        return
+        #return
 
     def put_low_coreval_color_blink(self, blink):
 
@@ -9774,7 +9777,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass 
 
-        return
+        #return
 
     def put_high_coreval_color_blink(self, blink):
 
@@ -9868,7 +9871,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass   
 
-        return           
+        #return           
     
     def put_coreval_color_update(self):
 
@@ -10016,7 +10019,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_put.resizeColumnsToContents()
 
-        return    
+        #return    
 
     def put_low_coreval_color_update(self):
 
@@ -10070,7 +10073,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass        
 
-        return
+        #return
 
     def put_high_coreval_color_update(self):
 
@@ -10124,7 +10127,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass        
 
-        return    
+        #return    
     
     def fut_node_color_clear(self):
 
@@ -10172,7 +10175,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.item(1, Futures_column.고가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_fut.item(1, Futures_column.고가.value).setForeground(QBrush(검정색))       
 
-        return
+        #return
 
     def OnReceiveData(self, szTrCode, result):
 
@@ -12002,9 +12005,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.fut_node_coloring()
 
             # 실시간에서만 표시됨
-            t = dt.hour * 3600 + dt.minute * 60 + dt.second
-            self.kp200_low_node_coloring(t)
-            self.kp200_high_node_coloring(t)
+            self.kp200_low_node_coloring()
+            self.kp200_high_node_coloring()
 
             if refresh_flag:
 
@@ -13723,7 +13725,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
     
-    def kp200_low_node_coloring(self, t):
+    def kp200_low_node_coloring(self):
 
         dt = datetime.datetime.now()
 
@@ -13749,9 +13751,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-        return
+        #return
 
-    def kp200_high_node_coloring(self, t):  
+    def kp200_high_node_coloring(self):  
 
         dt = datetime.datetime.now() 
 
@@ -13777,7 +13779,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-        return
+        #return
 
     def fut_oloh_check(self):
 
@@ -13886,7 +13888,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.고가.value).setBackground(QBrush(옅은회색))
                 self.tableWidget_fut.item(1, Futures_column.고가.value).setForeground(QBrush(검정색))
         
-        return
+        #return
 
     def fut_node_coloring(self):
 
@@ -14067,7 +14069,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         str = '[{0:02d}:{1:02d}:{2:02d}] 선물 맥점 컬러링을 완료했습니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
         
-        return
+        #return
 
     # 선물표시	
     def futures_display(self, result):        
@@ -14673,7 +14675,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         self.tableWidget_fut.resizeColumnsToContents() 
 
-        return
+        #return
 
     # 콜 표시
     def call_display(self, result):
@@ -15018,7 +15020,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                    
         opt_callreal_update_counter += 1
         
-        return
+        #return
 
     '''
     def call_open_update(self):
@@ -15115,7 +15117,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        return
+        #return
     '''
 
     def call_db_update(self):
@@ -15158,7 +15160,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass 
 
-        return
+        #return
 
     def call_oi_update(self):
 	
@@ -15216,7 +15218,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        return
+        #return
     
     def call_volume_power_update(self):
 
@@ -15378,7 +15380,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        return
+        #return
 
     def check_call_oloh(self, index):
 
@@ -15488,7 +15490,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass                               
 
-        return
+        #return
     '''
     def call_open_gap_update(self, index):
 
@@ -15516,7 +15518,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
         
-        return
+        #return
     '''
     def call_open_check(self):
 
@@ -15792,7 +15794,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_call.resizeColumnsToContents()
 
-        return
+        #return
     '''
     def call_db_check(self):
 
@@ -15843,7 +15845,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             print('call_db_percent_local is empty...')
 
-        return
+        #return
     '''
     # 풋 표시
     def put_display(self, result):
@@ -16186,7 +16188,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     
         opt_putreal_update_counter += 1            
 
-        return
+        #return
     
     '''
     def put_open_update(self):
@@ -16283,7 +16285,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        return
+        #return
     '''
     
     def put_db_update(self):
@@ -16327,7 +16329,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass 
 
-        return
+        #return
 
     def put_oi_update(self):
 	
@@ -16385,7 +16387,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        return
+        #return
         
     def put_volume_power_update(self):
 
@@ -16549,7 +16551,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        return
+        #return
 
     def check_put_oloh(self, index):
 
@@ -16659,7 +16661,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass           
 
-        return
+        #return
     '''
     def put_open_gap_update(self, index):
 
@@ -16687,7 +16689,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
         
-        return
+        #return
     '''
     def put_open_check(self):
 
@@ -16963,7 +16965,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_put.resizeColumnsToContents()
 
-        return
+        #return
     '''
     def put_db_check(self):
 
@@ -17014,7 +17016,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             print('put_db_percent_local is empty...')
 
-        return
+        #return
     '''
     # 호가표시
     def quote_display(self):
@@ -17125,7 +17127,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        return
+        #return
 
     def oi_sum_display(self):
         
@@ -17213,7 +17215,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        return
+        #return
 
     def OnReceiveRealData(self, szTrCode, result):
 
@@ -18264,13 +18266,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item.setBackground(QBrush(흰색))                     
                         self.tableWidget_fut.setItem(2, Futures_column.저가.value, item)
 
-                        if TARGET_MONTH_SELECT == 1:
-
-                            t = int(result['시간'][0:2]) * 3600 + int(result['시간'][2:4]) * 60 + int(result['시간'][4:6])
-                            self.kp200_low_node_coloring(t)
-
-                        else:
-                            pass
+                        self.kp200_low_node_coloring()
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] kp200 저가 {3} Update...\r'.format(
                             int(result['시간'][0:2]),
@@ -18291,13 +18287,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         item.setBackground(QBrush(흰색))
                         self.tableWidget_fut.setItem(2, Futures_column.고가.value, item)
 
-                        if TARGET_MONTH_SELECT == 1:
-
-                            t = int(result['시간'][0:2]) * 3600 + int(result['시간'][2:4]) * 60 + int(result['시간'][4:6])
-                            self.kp200_high_node_coloring(t)
-
-                        else:
-                            pass
+                        self.kp200_high_node_coloring()
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] kp200 고가 {3} Update...\r'.format(
                             int(result['시간'][0:2]),
@@ -19816,7 +19806,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             XQ.Query(월물=t2301_month_info, 미니구분='G')
 
-        return
+        #return
 
     def SaveResult(self):
 
@@ -19886,7 +19876,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             df_plotdata_put_volume.to_csv(put_volume_csv, encoding='ms949')
         '''
         
-        return
+        #return
 
     def RemoveCode(self):
 
@@ -19954,7 +19944,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.pushButton_remove.setStyleSheet("background-color: lightGray")
             print('flag_telegram_on =', flag_telegram_on)
         
-        return
+        #return
 
     def high_low_list_save_to_file(self):
         
@@ -20004,7 +19994,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.list_to_file_write(list_final, file_name, sep = ' ')
 
-        return
+        #return
 
     def list_to_file_write(self, list, fname, sep):  
         
@@ -20027,7 +20017,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         print('파일쓰기 성공!!!')
 
-        return
+        #return
 
     def closeEvent(self,event):
 
