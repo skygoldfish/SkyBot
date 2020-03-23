@@ -13618,7 +13618,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     
                     if NEW_NODE_VAL1 > 0:
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3} (빈도수 = {4}) 추가됨...\r'.format \
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(빈도수 = {4}) 추가됨...\r'.format \
                             (dt.hour, dt.minute, dt.second, NEW_NODE_VAL1, 동적맥점_빈도수_1st)
                         self.textBrowser.append(str)
                         print(str)
