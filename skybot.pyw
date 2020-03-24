@@ -615,6 +615,8 @@ put_md_asymmetric = False
 
 call_md_all_dying = False
 put_md_all_dying = False
+call_ms_all_going = False
+put_ms_all_going = False
 
 call_oneway_level1 = False
 call_oneway_level2 = False
@@ -696,8 +698,8 @@ opt_x_idx_old = 0
 
 ovc_x_idx = 0
 
-call_below_atm_count = 0
-put_above_atm_count = 0
+call_itm_count = 0
+put_itm_count = 0
 
 every_2sec = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58]
 every_5sec = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
@@ -963,11 +965,20 @@ call_oh = [False] * nRowCount
 call_gap_percent = [NaN] * nRowCount
 call_db_percent = [NaN] * nRowCount
 
+call_otm_db = [0] * nRowCount
+call_otm_db_percent = [NaN] * nRowCount
+
 put_open = [False] * nRowCount
 put_ol = [False] * nRowCount
 put_oh = [False] * nRowCount
 put_gap_percent = [NaN] * nRowCount
 put_db_percent = [NaN] * nRowCount
+
+put_otm_db = [0] * nRowCount
+put_otm_db_percent = [NaN] * nRowCount
+
+콜대비_퍼센트_평균 = 0
+풋대비_퍼센트_평균 = 0
 
 opt_callreal_update_counter = 0
 opt_putreal_update_counter = 0
@@ -6263,7 +6274,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         pass
 
                     # 비대칭장 탐색
-                    if not dongsi_hoga and abs(콜대비합_단위평균) > 0 and abs(풋대비합_단위평균) > 0:
+                    if not dongsi_hoga and abs(콜대비_퍼센트_평균) > 0 and abs(풋대비_퍼센트_평균) > 0:
 
                         self.asym_detect(self.alternate_flag)
                     else:
@@ -6439,6 +6450,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.label_msg.setStyleSheet('background-color: black; color: magenta')
 
+        # 콜 매수 양빵장
+        elif call_ms_all_going:
+
+            self.label_msg.setStyleSheet('background-color: magenta; color: black')
+
         # 풋 매수 OneWay장
         elif put_ms_oneway:
 
@@ -6461,6 +6477,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         elif put_md_all_dying:
 
             self.label_msg.setStyleSheet('background-color: black; color: cyan')
+
+        # 풋 매수 양빵장
+        elif put_ms_all_going:
+
+            self.label_msg.setStyleSheet('background-color: cyan; color: black')
         else:
             # 대칭장
             self.label_msg.setStyleSheet('background-color: lawngreen; color: black')
@@ -7323,9 +7344,405 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global 비대칭장
         global call_ms_oneway, put_ms_oneway, call_md_all_dying, put_md_all_dying 
         global call_ms_asymmetric, put_ms_asymmetric, call_md_asymmetric, put_md_asymmetric
+        global call_ms_all_going, put_ms_all_going
 
         dt = datetime.datetime.now()
 
+        if 콜대비_퍼센트_평균 > 0 and 풋대비_퍼센트_평균 < 0:
+
+            if abs(콜대비_퍼센트_평균) > abs(풋대비_퍼센트_평균):
+                
+                if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ONEWAY_RATIO:
+
+                    # 콜 원웨이
+                    call_ms_oneway = True
+                    call_ms_asymmetric = False
+                    call_md_asymmetric = False
+                    call_md_all_dying = False
+                    call_ms_all_going = False
+                    put_ms_oneway = False 
+                    put_ms_asymmetric = False
+                    put_md_asymmetric = False
+                    put_md_all_dying = False
+                    put_ms_all_going = False
+
+                    if TARGET_MONTH_SELECT == 1:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.0f}:{4:0.0f}) OneWay장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 2:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.0f}:{4:0.0f}) OneWay장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 3:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매수({3:0.0f}:{4:0.0f}) OneWay장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                    else:
+                        pass
+
+                    if dt.second % 10 == 0 and not blink:
+
+                        self.textBrowser.append(비대칭장)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:0.2f}:{4:0.2f}\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜시가갭합, 풋시가갭합)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+                else:
+                    # 콜매수 비대칭
+                    call_ms_oneway = False
+                    call_ms_asymmetric = True
+                    call_md_asymmetric = False
+                    call_md_all_dying = False
+                    call_ms_all_going = False
+                    put_ms_oneway = False 
+                    put_ms_asymmetric = False
+                    put_md_asymmetric = False
+                    put_md_all_dying = False
+                    put_ms_all_going = False
+
+                    if TARGET_MONTH_SELECT == 1:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.0f}:{4:0.0f}) 비대칭장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 2:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.0f}:{4:0.0f}) 비대칭장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 3:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매수({3:0.0f}:{4:0.0f}) 비대칭장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                    else:
+                        pass 
+
+                    if dt.second % 10 == 0 and not blink:
+
+                        self.textBrowser.append(비대칭장)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:0.2f}:{4:0.2f}\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜시가갭합, 풋시가갭합)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+
+            elif abs(콜대비_퍼센트_평균) < abs(풋대비_퍼센트_평균):
+
+                # 풋매도 비대칭
+                call_ms_oneway = False
+                call_ms_asymmetric = False
+                call_md_asymmetric = False
+                call_md_all_dying = False
+                call_ms_all_going = False
+                put_ms_oneway = False 
+                put_ms_asymmetric = False
+                put_md_asymmetric = True
+                put_md_all_dying = False
+                put_ms_all_going = False
+
+                if TARGET_MONTH_SELECT == 1:
+
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매도({3:0.0f}:{4:0.0f}) 비대칭장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                elif TARGET_MONTH_SELECT == 2:
+
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매도({3:0.0f}:{4:0.0f}) 비대칭장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                elif TARGET_MONTH_SELECT == 3:
+                    
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매도({3:0.0f}:{4:0.0f}) 비대칭장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                else:
+                    pass
+
+                if dt.second % 10 == 0 and not blink:
+                    self.textBrowser.append(비대칭장)
+                else:
+                    pass
+            else:
+                pass
+
+        elif 콜대비_퍼센트_평균 < 0 and 풋대비_퍼센트_평균 > 0:
+
+            if abs(콜대비_퍼센트_평균) > abs(풋대비_퍼센트_평균):
+
+                # 콜매도 비대칭
+                call_ms_oneway = False
+                call_ms_asymmetric = False
+                call_md_asymmetric = True
+                call_md_all_dying = False
+                call_ms_all_going = False
+                put_ms_oneway = False 
+                put_ms_asymmetric = False
+                put_md_asymmetric = False
+                put_md_all_dying = False
+                put_ms_all_going = False
+
+                if TARGET_MONTH_SELECT == 1:
+
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매도({3:0.0f}:{4:0.0f}) 비대칭장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)                    
+
+                elif TARGET_MONTH_SELECT == 2:
+
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매도({3:0.0f}:{4:0.0f}) 비대칭장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                elif TARGET_MONTH_SELECT == 3:
+                    
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매도({3:0.0f}:{4:0.0f}) 비대칭장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                else:
+                    pass
+
+                if dt.second % 10 == 0 and not blink:
+                    self.textBrowser.append(비대칭장)
+                else:
+                    pass
+
+            elif abs(콜대비_퍼센트_평균) < abs(풋대비_퍼센트_평균):
+
+                if abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ONEWAY_RATIO:
+
+                    # 풋 원웨이
+                    call_ms_oneway = False
+                    call_ms_asymmetric = False
+                    call_md_asymmetric = False
+                    call_md_all_dying = False
+                    call_ms_all_going = False
+                    put_ms_oneway = True 
+                    put_ms_asymmetric = False
+                    put_md_asymmetric = False
+                    put_md_all_dying = False
+                    put_ms_all_going = False
+
+                    if TARGET_MONTH_SELECT == 1:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.0f}:{4:0.0f}) OneWay장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 2:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.0f}:{4:0.0f}) OneWay장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 3:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매수({3:0.0f}:{4:0.0f}) OneWay장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                    else:
+                        pass
+
+                    if dt.second % 10 == 0 and not blink:
+
+                        self.textBrowser.append(비대칭장)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:0.2f}:{4:0.2f}\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜시가갭합, 풋시가갭합)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+                else:
+                    # 풋매수
+                    call_ms_oneway = False
+                    call_ms_asymmetric = False
+                    call_md_asymmetric = False
+                    call_md_all_dying = False
+                    call_ms_all_going = False
+                    put_ms_oneway = False 
+                    put_ms_asymmetric = True
+                    put_md_asymmetric = False
+                    put_md_all_dying = False
+                    put_ms_all_going = False
+
+                    if TARGET_MONTH_SELECT == 1:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.0f}:{4:0.0f}) 비대칭장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 2:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.0f}:{4:0.0f}) 비대칭장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 3:
+                        
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매수({3:0.0f}:{4:0.0f}) 비대칭장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                    else:
+                        pass
+
+                    if dt.second % 10 == 0 and not blink:
+
+                        self.textBrowser.append(비대칭장)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 시가갭 = {3:0.2f}:{4:0.2f}\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜시가갭합, 풋시가갭합)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+            else:
+                pass
+
+        elif 콜대비_퍼센트_평균 < 0 and 풋대비_퍼센트_평균 < 0:
+
+            if abs(콜대비_퍼센트_평균) > abs(풋대비_퍼센트_평균):
+
+                # 콜매도 양꽝장
+                call_ms_oneway = False
+                call_ms_asymmetric = False
+                call_md_asymmetric = False
+                call_md_all_dying = True
+                call_ms_all_going = False
+                put_ms_oneway = False 
+                put_ms_asymmetric = False
+                put_md_asymmetric = False
+                put_md_all_dying = False
+                put_ms_all_going = False
+
+                if TARGET_MONTH_SELECT == 1:
+
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매도({3:0.0f}:{4:0.0f}) 양꽝장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                elif TARGET_MONTH_SELECT == 2:
+
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매도({3:0.0f}:{4:0.0f}) 양꽝장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                elif TARGET_MONTH_SELECT == 3:
+                    
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매도({3:0.0f}:{4:0.0f}) 양꽝장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                else:
+                    pass
+
+                if dt.second % 10 == 0 and not blink:
+                    self.textBrowser.append(비대칭장)
+                else:
+                    pass
+
+            elif abs(콜대비_퍼센트_평균) < abs(풋대비_퍼센트_평균):
+
+                # 풋매도 양꽝장
+                call_ms_oneway = False
+                call_ms_asymmetric = False
+                call_md_asymmetric = False
+                call_md_all_dying = False
+                call_ms_all_going = False
+                put_ms_oneway = False 
+                put_ms_asymmetric = False
+                put_md_asymmetric = False
+                put_md_all_dying = True
+                put_ms_all_going = False
+
+                if TARGET_MONTH_SELECT == 1:
+
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매도({3:0.0f}:{4:0.0f}) 양꽝장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                elif TARGET_MONTH_SELECT == 2:
+
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매도({3:0.0f}:{4:0.0f}) 양꽝장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                elif TARGET_MONTH_SELECT == 3:
+                    
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매도({3:0.0f}:{4:0.0f}) 양꽝장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                else:
+                    pass
+
+                if dt.second % 10 == 0 and not blink:
+                    self.textBrowser.append(비대칭장)
+                else:
+                    pass
+            else:
+                pass
+
+        elif 콜대비_퍼센트_평균 > 0 and 풋대비_퍼센트_평균 > 0:
+
+            if abs(콜대비_퍼센트_평균) > abs(풋대비_퍼센트_평균):
+
+                # 콜매수 양빵장
+                call_ms_oneway = False
+                call_ms_asymmetric = False
+                call_md_asymmetric = False
+                call_md_all_dying = False
+                call_ms_all_going = True
+                put_ms_oneway = False 
+                put_ms_asymmetric = False
+                put_md_asymmetric = False
+                put_md_all_dying = False
+                put_ms_all_going = False
+
+                if TARGET_MONTH_SELECT == 1:
+
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                elif TARGET_MONTH_SELECT == 2:
+
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                elif TARGET_MONTH_SELECT == 3:
+                    
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                else:
+                    pass
+
+                if dt.second % 10 == 0 and not blink:
+                    self.textBrowser.append(비대칭장)
+                else:
+                    pass
+
+            elif abs(콜대비_퍼센트_평균) < abs(풋대비_퍼센트_평균):
+
+                # 풋매수 양빵장
+                call_ms_oneway = False
+                call_ms_asymmetric = False
+                call_md_asymmetric = False
+                call_md_all_dying = False
+                call_ms_all_going = False
+                put_ms_oneway = False 
+                put_ms_asymmetric = False
+                put_md_asymmetric = False
+                put_md_all_dying = False
+                put_ms_all_going = True
+
+                if TARGET_MONTH_SELECT == 1:
+
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                elif TARGET_MONTH_SELECT == 2:
+
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                elif TARGET_MONTH_SELECT == 3:
+                    
+                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
+                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                else:
+                    pass
+
+                if dt.second % 10 == 0 and not blink:
+                    self.textBrowser.append(비대칭장)
+                else:
+                    pass
+            else:
+                pass
+        else:
+            pass
+
+        '''
         if abs(콜대비합_단위평균/풋대비합_단위평균) >= ASYM_RATIO:
 
             if 풋대비합 < 0 and 콜대비합 > 0:
@@ -7610,6 +8027,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             put_md_all_dying = False 
 
         #return
+        '''
 
     def label_clear(self, toggle):
 
@@ -10227,6 +10645,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global call_oi_init_value, put_oi_init_value
         global call_gap_percent, call_db_percent, put_gap_percent, put_db_percent
+        global call_otm_db_percent, put_otm_db_percent
 
         global call_open
         global call_ol
@@ -10247,8 +10666,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_현재가, 선물_고가
         global call_open_list, put_open_list, opt_total_list
-        global call_below_atm_count, call_max_actval
-        global put_above_atm_count, put_max_actval
+        global call_itm_count, call_max_actval
+        global put_itm_count, put_max_actval
         global kp200_종가
         global t2835_month_info
         global server_date, server_time, system_server_timegap
@@ -11671,7 +12090,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 for index in call_open_list:
 
                     if index > atm_index:
-                        call_below_atm_count += 1
+                        call_itm_count += 1
                     else:
                         pass
                     
@@ -11687,7 +12106,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 for index in put_open_list:
 
                     if index > atm_index:
-                        put_above_atm_count += 1
+                        put_itm_count += 1
                     else:
                         pass
                     
@@ -14680,12 +15099,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     # 콜 표시
     def call_display(self, result):
 
-        global call_result, call_open, call_below_atm_count
+        global call_result, call_open, call_itm_count
         global df_call, df_plotdata_call, df_plotdata_call_oi
         global call_atm_value
         global call_시가, call_시가_node_list, call_피봇, call_피봇_node_list, 콜시가리스트
         global call_저가, call_저가_node_list, call_고가, call_고가_node_list
-        global call_gap_percent, call_db_percent
+        global call_gap_percent, call_db_percent, call_otm_db, call_otm_db_percent
         global opt_callreal_update_counter
         global df_call_volume, call_volume_total, df_plotdata_call_volume
         global node_coloring
@@ -14727,7 +15146,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.textBrowser.append(str)
 
                 if index > atm_index:
-                    call_below_atm_count += 1
+                    call_itm_count += 1
                 else:
                     pass
                 
@@ -14849,6 +15268,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             대비 = round((float(현재가) - float(시가)), 2)
             df_call.loc[index, '대비'] = 대비
+
+            # 콜 외가(등가포함) 대비 저장
+            if index <= atm_index:
+
+                call_otm_db[index] = 대비
+                call_otm_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
+            else:
+                pass
 
             call_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
             gap_str = "{0:0.2f}\n({1:0.0f}%)".format(대비, call_db_percent[index])
@@ -15025,7 +15452,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     '''
     def call_open_update(self):
 
-        global call_open, call_below_atm_count
+        global call_open, call_itm_count
         global df_call, call_gap_percent, df_plotdata_call
         global call_시가, call_시가_node_list, call_피봇, call_피봇_node_list
         global call_max_actval                
@@ -15038,7 +15465,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             call_open[index] = True
 
             if index > atm_index:
-                call_below_atm_count += 1
+                call_itm_count += 1
             else:
                 pass
         else:
@@ -15122,20 +15549,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def call_db_update(self):
 
-        global call_진폭, 콜대비합, 콜대비합_단위평균
+        global call_진폭, 콜대비합, 콜대비합_단위평균, 콜대비_퍼센트_평균
 
-        temp = call_db_percent[:]
+        #temp = call_db_percent[:]
+        temp = call_otm_db_percent[:]
+
         call_db_percent_local = [value for value in temp if not math.isnan(value)]
         call_db_percent_local.sort()
 
         if call_db_percent_local:
 
-            콜대비합 = round(df_call['대비'].sum(), 2)
+            #콜대비합 = round(df_call['대비'].sum(), 2)
+            콜대비합 = round(sum(call_otm_db), 2)
+
             콜대비합_단위평균 = round(콜대비합/len(call_db_percent_local), 2) 
 
             tmp = np.array(call_db_percent_local)            
-            대비평균 = int(round(np.mean(tmp), 2))
-            call_str = repr(콜대비합_단위평균) + '\n(' + repr(대비평균) + '%' + ')'
+            콜대비_퍼센트_평균 = int(round(np.mean(tmp), 2))
+            call_str = repr(콜대비합_단위평균) + '\n(' + repr(콜대비_퍼센트_평균) + '%' + ')'
 
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(call_str)
@@ -15456,9 +15887,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         call_open_count = len(call_open_list)
 
         if call_open[option_pairs_count - 1]:
-            new_actval = repr(call_below_atm_count) + '/' + repr(call_open_count) + '*'
+            new_actval = repr(call_itm_count) + '/' + repr(call_open_count) + '*'
         else:
-            new_actval = repr(call_below_atm_count) + '/' + repr(call_open_count)
+            new_actval = repr(call_itm_count) + '/' + repr(call_open_count)
 
         if new_actval != self.tableWidget_call.horizontalHeaderItem(1).text():
             item = QTableWidgetItem(new_actval)
@@ -15522,20 +15953,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     '''
     def call_open_check(self):
 
-        global df_call, call_below_atm_count
+        global df_call, call_itm_count
         global call_open, call_ol, call_oh
         global call_gap_percent, call_db_percent      
         global 콜시가갭합, 콜시가갭합_퍼센트
         global call_ol_count, call_oh_count
         global 콜대비합, 콜대비합_단위평균
         global call_open_count        
-        global 콜시가갭합, 콜시가갭합_퍼센트, 콜시가갭합_단위평균 
+        global 콜시가갭합, 콜시가갭합_퍼센트, 콜시가갭합_단위평균, 콜대비_퍼센트_평균
         
         call_ol = [False] * option_pairs_count
         call_oh = [False] * option_pairs_count
         call_gap_percent = [NaN] * option_pairs_count
         call_db_percent = [NaN] * option_pairs_count
-        call_below_atm_count = 0
+        call_itm_count = 0
 
         if not market_service:
             call_open = [False] * option_pairs_count
@@ -15601,7 +16032,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if df_call.iloc[index]['저가'] < df_call.iloc[index]['고가']:
                     
                     if index > atm_index:
-                        call_below_atm_count += 1
+                        call_itm_count += 1
                     else:
                         pass
 
@@ -15713,9 +16144,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if call_open[option_pairs_count - 1]:
 
-            new_actval = repr(call_below_atm_count) + '/' + repr(call_open_count) + '*'
+            new_actval = repr(call_itm_count) + '/' + repr(call_open_count) + '*'
         else:
-            new_actval = repr(call_below_atm_count) + '/' + repr(call_open_count)
+            new_actval = repr(call_itm_count) + '/' + repr(call_open_count)
 
         if new_actval != self.tableWidget_call.horizontalHeaderItem(1).text():
             item = QTableWidgetItem(new_actval)
@@ -15766,20 +16197,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             print('call_gap_percent_local is empty...')
 
         # 대비 갱신
-        temp = call_db_percent[:]
+        #temp = call_db_percent[:]
+        temp = call_otm_db_percent[:]
+
         call_db_percent_local = [value for value in temp if not math.isnan(value)]
         call_db_percent_local.sort()
 
         if call_db_percent_local:
 
-            콜대비합 = round(df_call['대비'].sum(), 2)
+            #콜대비합 = round(df_call['대비'].sum(), 2)
+            콜대비합 = round(sum(call_otm_db), 2)
+
             콜대비합_단위평균 = round(콜대비합/len(call_db_percent_local), 2)
 
             print('콜대비합 =', 콜대비합)
 
             tmp = np.array(call_db_percent_local)            
-            대비평균 = int(round(np.mean(tmp), 2))
-            call_str = repr(콜대비합_단위평균) + '\n(' + repr(대비평균) + '%' + ')'
+            콜대비_퍼센트_평균 = int(round(np.mean(tmp), 2))
+            call_str = repr(콜대비합_단위평균) + '\n(' + repr(콜대비_퍼센트_평균) + '%' + ')'
 
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(call_str)
@@ -15850,12 +16285,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     # 풋 표시
     def put_display(self, result):
 
-        global put_result, put_open, put_above_atm_count
+        global put_result, put_open, put_itm_count
         global df_put, df_plotdata_put, df_plotdata_put_oi
         global put_atm_value
         global put_시가, put_시가_node_list, put_피봇, put_피봇_node_list, 풋시가리스트
         global put_저가, put_저가_node_list, put_고가, put_고가_node_list
-        global put_gap_percent, put_db_percent
+        global put_gap_percent, put_db_percent, put_otm_db, put_otm_db_percent
         global opt_putreal_update_counter
         global df_put_volume, put_volume_total, df_plotdata_put_volume, df_plotdata_volume_cha
         global put_open_list
@@ -15896,7 +16331,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.textBrowser.append(str)
 
                 if index < atm_index:
-                    put_above_atm_count += 1
+                    put_itm_count += 1
                 else:
                     pass
 
@@ -16017,6 +16452,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             대비 = round((float(현재가) - float(시가)), 2)
             df_put.loc[index, '대비'] = 대비
+            
+            # 풋 외가(등가포함) 대비 저장
+            if index >= atm_index:
+
+                put_otm_db[index] = 대비
+                put_otm_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
+            else:
+                pass
 
             put_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
             gap_str = "{0:0.2f}\n({1:0.0f}%)".format(대비, put_db_percent[index])  
@@ -16193,7 +16636,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     '''
     def put_open_update(self):
 
-        global put_open, put_above_atm_count
+        global put_open, put_itm_count
         global df_put, put_gap_percent, df_plotdata_put
         global put_시가, put_시가_node_list, put_피봇, put_피봇_node_list
         global put_max_actval        
@@ -16206,7 +16649,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             put_open[index] = True
 
             if index < atm_index:
-                put_above_atm_count += 1
+                put_itm_count += 1
             else:
                 pass
         else:
@@ -16290,20 +16733,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     
     def put_db_update(self):
 
-        global put_진폭, 풋대비합, 풋대비합_단위평균 
+        global put_진폭, 풋대비합, 풋대비합_단위평균, 풋대비_퍼센트_평균 
 
-        temp = put_db_percent[:]
+        #temp = put_db_percent[:]
+        temp = put_otm_db_percent[:]
+
         put_db_percent_local = [value for value in temp if not math.isnan(value)]
         put_db_percent_local.sort()
 
         if put_db_percent_local:
 
-            풋대비합 = round(df_put['대비'].sum(), 2)
+            #풋대비합 = round(df_put['대비'].sum(), 2)
+            풋대비합 = round(sum(put_otm_db), 2)
+
             풋대비합_단위평균 = round(풋대비합/len(put_db_percent_local), 2)
 
             tmp = np.array(put_db_percent_local)            
-            대비평균 = int(round(np.mean(tmp), 2))
-            put_str = repr(풋대비합_단위평균) + '\n(' + repr(대비평균) + '%' + ')'
+            풋대비_퍼센트_평균 = int(round(np.mean(tmp), 2))
+            put_str = repr(풋대비합_단위평균) + '\n(' + repr(풋대비_퍼센트_평균) + '%' + ')'
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(put_str)
@@ -16627,9 +17074,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         put_open_count = len(put_open_list)
 
         if put_open[0]:
-            new_actval = repr(put_above_atm_count) + '/' + repr(put_open_count) + '*'
+            new_actval = repr(put_itm_count) + '/' + repr(put_open_count) + '*'
         else:
-            new_actval = repr(put_above_atm_count) + '/' + repr(put_open_count)
+            new_actval = repr(put_itm_count) + '/' + repr(put_open_count)
 
         if new_actval != self.tableWidget_put.horizontalHeaderItem(1).text():
             item = QTableWidgetItem(new_actval)
@@ -16693,20 +17140,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     '''
     def put_open_check(self):
 
-        global df_put, put_above_atm_count
+        global df_put, put_itm_count
         global put_open, put_ol, put_oh
         global put_gap_percent, put_db_percent     
         global 풋시가갭합, 풋시가갭합_퍼센트
         global put_ol_count, put_oh_count
         global 풋대비합, 풋대비합_단위평균 
         global put_open_count
-        global 풋시가갭합, 풋시가갭합_퍼센트, 풋시가갭합_단위평균
+        global 풋시가갭합, 풋시가갭합_퍼센트, 풋시가갭합_단위평균, 풋대비_퍼센트_평균
         
         put_ol = [False] * option_pairs_count
         put_oh = [False] * option_pairs_count
         put_gap_percent = [NaN] * option_pairs_count
         put_db_percent = [NaN] * option_pairs_count
-        put_above_atm_count = 0
+        put_itm_count = 0
 
         if not market_service:
             put_open = [False] * option_pairs_count
@@ -16772,7 +17219,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if df_put.iloc[index]['저가'] < df_put.iloc[index]['고가']:
 
                     if index < atm_index:
-                        put_above_atm_count += 1
+                        put_itm_count += 1
                     else:
                         pass
 
@@ -16884,9 +17331,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if put_open[0]:
 
-            new_actval = repr(put_above_atm_count) + '/' + repr(put_open_count) + '*'
+            new_actval = repr(put_itm_count) + '/' + repr(put_open_count) + '*'
         else:
-            new_actval = repr(put_above_atm_count) + '/' + repr(put_open_count)
+            new_actval = repr(put_itm_count) + '/' + repr(put_open_count)
 
         if new_actval != self.tableWidget_put.horizontalHeaderItem(1).text():
             item = QTableWidgetItem(new_actval)
@@ -16937,20 +17384,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             print('put_gap_percent_local is empty...')
 
         # 대비 갱신
-        temp = put_db_percent[:]
+        #temp = put_db_percent[:]
+        temp = put_otm_db_percent[:]
+
         put_db_percent_local = [value for value in temp if not math.isnan(value)]
         put_db_percent_local.sort()
 
         if put_db_percent_local:
 
-            풋대비합 = round(df_put['대비'].sum(), 2)
+            #풋대비합 = round(df_put['대비'].sum(), 2)
+            풋대비합 = round(sum(put_otm_db), 2)
+
             풋대비합_단위평균 = round(풋대비합/len(put_db_percent_local), 2)
 
             print('풋대비합 =', 풋대비합)
 
             tmp = np.array(put_db_percent_local)            
-            대비평균 = int(round(np.mean(tmp), 2))
-            put_str = repr(풋대비합_단위평균) + '\n(' + repr(대비평균) + '%' + ')'
+            풋대비_퍼센트_평균 = int(round(np.mean(tmp), 2))
+            put_str = repr(풋대비합_단위평균) + '\n(' + repr(풋대비_퍼센트_평균) + '%' + ')'
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(put_str)
