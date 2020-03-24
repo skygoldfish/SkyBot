@@ -7348,7 +7348,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if 콜대비_퍼센트_평균 > 0 and 풋대비_퍼센트_평균 < 0:
+        if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ASYM_RATIO and 콜대비_퍼센트_평균 > 0 and 풋대비_퍼센트_평균 < 0:
 
             if abs(콜대비_퍼센트_평균) > abs(풋대비_퍼센트_평균):
                 
@@ -7468,7 +7468,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-        elif 콜대비_퍼센트_평균 < 0 and 풋대비_퍼센트_평균 > 0:
+        elif abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ASYM_RATIO and 콜대비_퍼센트_평균 < 0 and 풋대비_퍼센트_평균 > 0:
 
             if abs(콜대비_퍼센트_평균) > abs(풋대비_퍼센트_평균):
 
@@ -7740,7 +7740,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
         else:
-            pass
+            # 대칭장
+            비대칭장 = ''
+
+            call_ms_oneway = False
+            call_ms_asymmetric = False
+            call_md_asymmetric = False
+            call_md_all_dying = False
+            call_ms_all_going = False
+            put_ms_oneway = False 
+            put_ms_asymmetric = False
+            put_md_asymmetric = False
+            put_md_all_dying = False
+            put_ms_all_going = False
 
         '''
         if abs(콜대비합_단위평균/풋대비합_단위평균) >= ASYM_RATIO:
