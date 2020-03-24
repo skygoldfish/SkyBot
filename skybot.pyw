@@ -7348,9 +7348,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ASYM_RATIO and 콜대비_퍼센트_평균 > 0 and 풋대비_퍼센트_평균 < 0:
+        if 콜대비_퍼센트_평균 > 0 and 풋대비_퍼센트_평균 < 0:
 
-            if abs(콜대비_퍼센트_평균) > abs(풋대비_퍼센트_평균):
+            if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ASYM_RATIO:
                 
                 if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ONEWAY_RATIO and 콜대비_퍼센트_평균 > 30:
 
@@ -7430,7 +7430,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
 
-            elif abs(콜대비_퍼센트_평균) < abs(풋대비_퍼센트_평균):
+            elif abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ASYM_RATIO:
 
                 # 풋매도 비대칭
                 call_ms_oneway = False
@@ -7466,11 +7466,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                pass
+                # 대칭장
+                비대칭장 = ''
 
-        elif abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ASYM_RATIO and 콜대비_퍼센트_평균 < 0 and 풋대비_퍼센트_평균 > 0:
+                call_ms_oneway = False
+                call_ms_asymmetric = False
+                call_md_asymmetric = False
+                call_md_all_dying = False
+                call_ms_all_going = False
+                put_ms_oneway = False 
+                put_ms_asymmetric = False
+                put_md_asymmetric = False
+                put_md_all_dying = False
+                put_ms_all_going = False
 
-            if abs(콜대비_퍼센트_평균) > abs(풋대비_퍼센트_평균):
+        elif 콜대비_퍼센트_평균 < 0 and 풋대비_퍼센트_평균 > 0:
+
+            if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ASYM_RATIO:
 
                 # 콜매도 비대칭
                 call_ms_oneway = False
@@ -7506,7 +7518,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif abs(콜대비_퍼센트_평균) < abs(풋대비_퍼센트_평균):
+            elif abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ASYM_RATIO:
 
                 if abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ONEWAY_RATIO and 풋대비_퍼센트_평균 > 30:
 
@@ -7586,11 +7598,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
             else:
-                pass
+                # 대칭장
+                비대칭장 = ''
+
+                call_ms_oneway = False
+                call_ms_asymmetric = False
+                call_md_asymmetric = False
+                call_md_all_dying = False
+                call_ms_all_going = False
+                put_ms_oneway = False 
+                put_ms_asymmetric = False
+                put_md_asymmetric = False
+                put_md_all_dying = False
+                put_ms_all_going = False
 
         elif 콜대비_퍼센트_평균 < 0 and 풋대비_퍼센트_평균 < 0:
 
-            if abs(콜대비_퍼센트_평균) > abs(풋대비_퍼센트_평균):
+            if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ASYM_RATIO:
 
                 # 콜매도 양꽝장
                 call_ms_oneway = False
@@ -7626,7 +7650,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif abs(콜대비_퍼센트_평균) < abs(풋대비_퍼센트_평균):
+            elif abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ASYM_RATIO:
 
                 # 풋매도 양꽝장
                 call_ms_oneway = False
@@ -7662,11 +7686,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                pass
+                # 대칭장
+                비대칭장 = ''
+
+                call_ms_oneway = False
+                call_ms_asymmetric = False
+                call_md_asymmetric = False
+                call_md_all_dying = False
+                call_ms_all_going = False
+                put_ms_oneway = False 
+                put_ms_asymmetric = False
+                put_md_asymmetric = False
+                put_md_all_dying = False
+                put_ms_all_going = False
 
         elif 콜대비_퍼센트_평균 > 0 and 풋대비_퍼센트_평균 > 0:
 
-            if abs(콜대비_퍼센트_평균) > abs(풋대비_퍼센트_평균):
+            if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ASYM_RATIO:
 
                 # 콜매수 양빵장
                 call_ms_oneway = False
@@ -7702,7 +7738,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif abs(콜대비_퍼센트_평균) < abs(풋대비_퍼센트_평균):
+            elif abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ASYM_RATIO:
 
                 # 풋매수 양빵장
                 call_ms_oneway = False
@@ -7738,21 +7774,21 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                pass
-        else:
-            # 대칭장
-            비대칭장 = ''
+                # 대칭장
+                비대칭장 = ''
 
-            call_ms_oneway = False
-            call_ms_asymmetric = False
-            call_md_asymmetric = False
-            call_md_all_dying = False
-            call_ms_all_going = False
-            put_ms_oneway = False 
-            put_ms_asymmetric = False
-            put_md_asymmetric = False
-            put_md_all_dying = False
-            put_ms_all_going = False
+                call_ms_oneway = False
+                call_ms_asymmetric = False
+                call_md_asymmetric = False
+                call_md_all_dying = False
+                call_ms_all_going = False
+                put_ms_oneway = False 
+                put_ms_asymmetric = False
+                put_md_asymmetric = False
+                put_md_all_dying = False
+                put_ms_all_going = False
+        else:
+            pass
 
         '''
         if abs(콜대비합_단위평균/풋대비합_단위평균) >= ASYM_RATIO:
