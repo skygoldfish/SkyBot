@@ -7352,7 +7352,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if abs(콜대비_퍼센트_평균) > abs(풋대비_퍼센트_평균):
                 
-                if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ONEWAY_RATIO:
+                if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ONEWAY_RATIO and 콜대비_퍼센트_평균 > 30:
 
                     # 콜 원웨이
                     call_ms_oneway = True
@@ -7508,7 +7508,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             elif abs(콜대비_퍼센트_평균) < abs(풋대비_퍼센트_평균):
 
-                if abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ONEWAY_RATIO:
+                if abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ONEWAY_RATIO and 풋대비_퍼센트_평균 > 30:
 
                     # 풋 원웨이
                     call_ms_oneway = False
