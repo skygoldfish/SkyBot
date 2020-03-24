@@ -15104,7 +15104,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_atm_value
         global call_시가, call_시가_node_list, call_피봇, call_피봇_node_list, 콜시가리스트
         global call_저가, call_저가_node_list, call_고가, call_고가_node_list
-        global call_gap_percent, call_db_percent, call_otm_db, call_otm_db_percent
+        global call_gap_percent, call_db_percent
         global opt_callreal_update_counter
         global df_call_volume, call_volume_total, df_plotdata_call_volume
         global node_coloring
@@ -15112,6 +15112,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_max_actval, call_open
         global 콜_인덱스, 콜_시가, 콜_현재가, 콜_저가, 콜_고가
         global call_low_touch, call_high_touch
+        global call_otm_db, call_otm_db_percent
 
         dt = datetime.datetime.now()
 
@@ -16210,7 +16211,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             콜대비합_단위평균 = round(콜대비합/len(call_db_percent_local), 2)
 
-            print('콜대비합 =', 콜대비합)
+            #print('콜대비합 =', 콜대비합)
 
             tmp = np.array(call_db_percent_local)            
             콜대비_퍼센트_평균 = int(round(np.mean(tmp), 2))
@@ -16290,13 +16291,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global put_atm_value
         global put_시가, put_시가_node_list, put_피봇, put_피봇_node_list, 풋시가리스트
         global put_저가, put_저가_node_list, put_고가, put_고가_node_list
-        global put_gap_percent, put_db_percent, put_otm_db, put_otm_db_percent
+        global put_gap_percent, put_db_percent
         global opt_putreal_update_counter
         global df_put_volume, put_volume_total, df_plotdata_put_volume, df_plotdata_volume_cha
         global put_open_list
         global put_max_actval, put_open
         global 풋_인덱스, 풋_시가, 풋_현재가, 풋_저가, 풋_고가
         global put_low_touch, put_high_touch
+        global put_otm_db, put_otm_db_percent
 
         dt = datetime.datetime.now()
 
@@ -17397,7 +17399,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             풋대비합_단위평균 = round(풋대비합/len(put_db_percent_local), 2)
 
-            print('풋대비합 =', 풋대비합)
+            #print('풋대비합 =', 풋대비합)
 
             tmp = np.array(put_db_percent_local)            
             풋대비_퍼센트_평균 = int(round(np.mean(tmp), 2))
