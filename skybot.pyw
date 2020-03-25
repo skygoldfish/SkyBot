@@ -7052,6 +7052,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_fut.item(1, Futures_column.현재가.value).setBackground(QBrush(흰색))
             self.tableWidget_fut.item(2, Futures_column.현재가.value).setBackground(QBrush(흰색))
 
+        '''
         global call_scroll_end_position
 
         if call_scroll_end_position > option_pairs_count:
@@ -7079,6 +7080,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.tableWidget_put.item(i, Option_column.현재가.value).setBackground(QBrush(흰색))
 
         #return
+        '''
 
     '''
     # 선물 현재가 클리어
