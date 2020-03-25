@@ -7614,7 +7614,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif 콜대비_퍼센트_평균 < 0 and 풋대비_퍼센트_평균 < 0:
 
-            if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ASYM_RATIO:
+            if 콜대비_퍼센트_평균 < 풋대비_퍼센트_평균:
 
                 # 콜매도 양꽝장
                 call_ms_oneway = False
@@ -7650,7 +7650,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ASYM_RATIO:
+            elif 콜대비_퍼센트_평균 > 풋대비_퍼센트_평균:
 
                 # 풋매도 양꽝장
                 call_ms_oneway = False
@@ -7702,7 +7702,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif 콜대비_퍼센트_평균 > 0 and 풋대비_퍼센트_평균 > 0:
 
-            if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ASYM_RATIO:
+            if 콜대비_퍼센트_평균 > 풋대비_퍼센트_평균:
 
                 # 콜매수 양빵장
                 call_ms_oneway = False
@@ -7738,7 +7738,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
 
-            elif abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ASYM_RATIO:
+            elif 콜대비_퍼센트_평균 < 풋대비_퍼센트_평균:
 
                 # 풋매수 양빵장
                 call_ms_oneway = False
