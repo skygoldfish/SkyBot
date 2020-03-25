@@ -5614,7 +5614,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if call_scroll_begin_position <= option_pairs_count:
 
-            call_scroll_end_position = call_scroll_begin_position + 9
+            if UI_STYLE == 'Option_Full_view.ui':
+
+                scroll_depth = 24
+            else:
+                scroll_depth = 9
+
+            call_scroll_end_position = call_scroll_begin_position + scroll_depth
 
             print('call scroll position -----> from %d to %d' % (call_scroll_begin_position, call_scroll_end_position))
 
@@ -5636,7 +5642,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if put_scroll_begin_position <= option_pairs_count:
 
-            put_scroll_end_position = put_scroll_begin_position + 9
+            if UI_STYLE == 'Option_Full_view.ui':
+
+                scroll_depth = 24
+            else:
+                scroll_depth = 9
+
+            put_scroll_end_position = put_scroll_begin_position + scroll_depth
 
             print('put scroll position -----> from %d to %d' % (put_scroll_begin_position, put_scroll_end_position))
 
@@ -15384,7 +15396,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             elif float(현재가) > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
                 item.setBackground(QBrush(pink))
             else:
-                item.setBackground(QBrush(옅은회색))
+                item.setBackground(QBrush(흰색))
 
             if float(시가) < float(현재가):
                 item.setForeground(QBrush(적색))
@@ -16569,7 +16581,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             elif float(현재가) > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
                 item.setBackground(QBrush(pink))
             else:
-                item.setBackground(QBrush(옅은회색))
+                item.setBackground(QBrush(흰색))
 
             if float(시가) < float(현재가):
                 item.setForeground(QBrush(적색))
