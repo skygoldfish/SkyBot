@@ -478,6 +478,14 @@ if UI_STYLE == 'Vertical_view.ui':
     
     plot4_price_curve = None
     plot4_kp200_curve = None
+
+elif UI_STYLE == 'Horizontal_view.ui':
+
+    pass
+
+elif UI_STYLE == 'Option_Full_view.ui':
+
+    pass
 else:
     pass
 
@@ -661,7 +669,7 @@ night_time = 0
 
 oloh_cutoff = 0.10
 nodelist_low_cutoff = 0.09
-nodelist_high_cutoff = 20.0
+nodelist_high_cutoff = 10.0
 
 centerval_threshold = 0.60
 
@@ -2672,16 +2680,22 @@ class screen_update_worker(QThread):
 
             data = {}
 
-            # atm index 중심으로 위,아래 15개 요청(총 31개)
-            for actval in opt_actval[atm_index - 15:atm_index + 16]:
-            #for actval in opt_actval:
+            if UI_STYLE == 'Vertical_view.ui' or UI_STYLE == 'Horizontal_view.ui':
 
-                data[actval] = self.get_data_infos(actval)
+                
 
-            # dummy 요청(안하면 screen update로 못들어감 ?)
-            for actval in opt_actval[option_pairs_count - 1:option_pairs_count]:
+                # atm index 중심으로 위,아래 15개 요청(총 31개)
+                for actval in opt_actval[atm_index - 15:atm_index + 16]:
+                #for actval in opt_actval:
 
-                data[actval] = self.get_data_infos(actval)
+                    data[actval] = self.get_data_infos(actval)
+
+                # dummy 요청(안하면 screen update로 못들어감 ?)
+                for actval in opt_actval[option_pairs_count - 1:option_pairs_count]:
+
+                    data[actval] = self.get_data_infos(actval)
+            else:
+                pass            
             
             self.finished.emit(data)  
             self.msleep(500)
@@ -2824,7 +2838,15 @@ class screen_update_worker(QThread):
                     plot4_1_data = df_plotdata_fut_volume.iloc[0].values.tolist()
                     plot4_2_data = None
                 else:
-                    pass  
+                    pass
+
+            elif UI_STYLE == 'Horizontal_view.ui':
+
+                pass
+
+            elif UI_STYLE == 'Option_Full_view.ui':
+
+                pass  
             else:
                 pass
             
@@ -2832,6 +2854,13 @@ class screen_update_worker(QThread):
 
                 return call_curve_data, put_curve_data, curve1_data, curve2_data, curve3_data, curve4_data, \
                     curve5_data, curve6_data, plot3_data, plot4_1_data, plot4_2_data
+
+            elif UI_STYLE == 'Horizontal_view.ui':
+
+                pass
+            elif UI_STYLE == 'Option_Full_view.ui':
+
+                pass 
             else:
                 return call_curve_data, put_curve_data, curve1_data, curve2_data, curve3_data, curve4_data, \
                     curve5_data, curve6_data
@@ -2839,7 +2868,15 @@ class screen_update_worker(QThread):
         except:
 
             if UI_STYLE == 'Vertical_view.ui':
-                return None, None, None, None, None, None, None, None, None, None, None 
+
+                return None, None, None, None, None, None, None, None, None, None, None
+
+            elif UI_STYLE == 'Horizontal_view.ui':
+
+                pass
+            elif UI_STYLE == 'Option_Full_view.ui':
+
+                pass  
             else:
                 return None, None, None, None, None, None, None, None
 
@@ -3317,16 +3354,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.telegram_listen_worker.finished.connect(self.listen_telegram_message)
 
         # 위젯 선언 및 초기화
-        self.comboBox1.setStyleSheet("background-color: white")
-        self.comboBox2.setStyleSheet("background-color: white")
-
-        if UI_STYLE == 'Vertical_view.ui':
-
-            self.comboBox3.setStyleSheet("background-color: white")
-            self.comboBox4.setStyleSheet("background-color: white")
-        else:
-            pass
-        
         self.pushButton_add.setStyleSheet("background-color: lightGray")
         
         self.label_msg.setText("🕘")
@@ -3401,6 +3428,32 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_put.resizeColumnsToContents()
         
+        for i in range(nRowCount):
+
+            item = QTableWidgetItem("{0}".format(''))
+            self.tableWidget_call.setItem(i, 0, item)
+            self.tableWidget_call.item(i, 0).setBackground(QBrush(검정색))
+
+        for i in range(nRowCount):
+
+            item = QTableWidgetItem("{0}".format(''))
+            self.tableWidget_put.setItem(i, 0, item)
+            self.tableWidget_put.item(i, 0).setBackground(QBrush(검정색))
+
+        for i in range(nRowCount):
+            for j in range(self.tableWidget_call.columnCount() - 1):
+
+                item = QTableWidgetItem("{0}".format(''))
+                self.tableWidget_call.setItem(i, j + 1, item)
+                self.tableWidget_call.item(i, j + 1).setBackground(QBrush(검정색))
+
+        for i in range(nRowCount):
+            for j in range(self.tableWidget_put.columnCount() - 1):
+
+                item = QTableWidgetItem("{0}".format(''))
+                self.tableWidget_put.setItem(i, j + 1, item)
+                self.tableWidget_put.item(i, j + 1).setBackground(QBrush(검정색))
+
         # 선물 tablewidget 초기화
         self.tableWidget_fut.setRowCount(3)
         self.tableWidget_fut.setColumnCount(Futures_column.OID.value + 1)
@@ -3430,7 +3483,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(녹색))
         self.tableWidget_fut.setItem(2, 0, item)
-        
+
         self.tableWidget_fut.resizeColumnsToContents()
 
         # Quote tablewidget 초기화
@@ -3466,197 +3519,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         header.setSectionResizeMode(5, QHeaderView.Stretch)
         self.tableWidget_supply.verticalHeader().setStretchLastSection(True)
         self.tableWidget_supply.clearContents()
-
-        if overnight:
-
-            self.comboBox1.addItems(['1. FV-Plot', '2. OV-Plot', '3. None', '4. HC-Plot', '5. FP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
-            self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
-            
-            self.comboBox2.addItems(['1. OV-Plot', '2. None', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
-            self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
-             
-        else:
-            self.comboBox1.addItems(['1. FV-Plot', '2. OV-Plot', '3. OO-Plot', '4. HC-Plot', '5. FP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
-            self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
-            
-            self.comboBox2.addItems(['1. OV-Plot', '2. OO-Plot', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
-            self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
-
-        if UI_STYLE == 'Vertical_view.ui':
-
-            self.comboBox3.addItems(['1. DOW', '2. S&P 500', '3. NASDAQ'])
-            self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
-
-            self.comboBox4.addItems(['1. FP-Plot', '2. FV-Plot'])
-            self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged) 
-        else:
-            pass  
-
-        # Enable antialiasing for prettier plots
-        pg.setConfigOptions(antialias=True)
-
-        self.Plot1.enableAutoRange('y', True)
-        self.Plot1.plotItem.showGrid(True, True, 0.5)
-        self.Plot1.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)        
-
-        self.Plot2.enableAutoRange('y', True)
-        self.Plot2.plotItem.showGrid(True, True, 0.5)
-        self.Plot2.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
-        self.Plot2.setXLink(self.Plot1) 
-
-        if UI_STYLE == 'Vertical_view.ui':
-
-            self.Plot3.enableAutoRange('y', True)
-            self.Plot3.plotItem.showGrid(True, True, 0.5)
-            self.Plot3.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
-            self.Plot3.setXLink(self.Plot1)
-
-            self.Plot4.enableAutoRange('y', True)
-            self.Plot4.plotItem.showGrid(True, True, 0.5)
-            self.Plot4.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
-            self.Plot4.setXLink(self.Plot1)
-        else:
-            pass
-
-        global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
-        global plot1_fut_jl_line, plot1_fut_jh_line, plot1_fut_pivot_line, plot1_ovc_open_line        
-        global plot1_fut_volume_curve, plot1_fut_volume_plus_curve, plot1_fut_volume_minus_curve
-        global plot1_call_oi_curve, plot1_put_oi_curve
-        global plot1_call_volume_curve, plot1_put_volume_curve, plot1_volume_cha_curve
-        global plot1_two_sum_curve, plot1_two_cha_curve
-        global plot1_sp500_curve, plot1_dow_curve, plot1_nasdaq_curve
-        global plot1_hc_high_line, plot1_hc_low_line
-        global plot1_atm_high_line, plot1_atm_low_line
-
-        global plot2_fut_volume_curve, plot2_fut_volume_plus_curve, plot2_fut_volume_minus_curve        
-        global plot2_call_oi_curve, plot2_put_oi_curve        
-        global plot2_call_volume_curve, plot2_put_volume_curve, plot2_volume_cha_curve        
-        global plot2_two_sum_curve, plot2_two_cha_curve
-        global plot2_sp500_curve, plot2_dow_curve, plot2_nasdaq_curve        
-        global plot2_time_line_start, plot2_time_line_yagan_start, plot2_time_line, plot2_ovc_open_line
-        global plot2_hc_high_line, plot2_hc_low_line
-        global mv_line, call_curve, put_curve
-        
-        # Plot1
-        plot1_time_line_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
-        plot1_time_line_yagan_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
-        plot1_time_line = self.Plot1.addLine(x=0, y=None, pen=tpen1)
-        
-        plot1_fut_jl_line = self.Plot1.addLine(x=None, pen=goldenrod_pen)
-        plot1_fut_jh_line = self.Plot1.addLine(x=None, pen=gold_pen)        
-        plot1_fut_pivot_line = self.Plot1.addLine(x=None, pen=fut_pvt_pen)
-
-        plot1_ovc_open_line = self.Plot1.addLine(x=None, pen=ypen1)      
-        
-        plot1_two_sum_curve = self.Plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot1_two_cha_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)  
-
-        plot1_hc_high_line = self.Plot1.addLine(x=None, pen=magenta_pen)
-        plot1_hc_low_line = self.Plot1.addLine(x=None, pen=aqua_pen)
-        
-        plot1_atm_high_line = self.Plot1.addLine(x=None, pen=yellow_pen)
-        plot1_atm_low_line = self.Plot1.addLine(x=None, pen=yellow_pen)
-                
-        plot1_fut_volume_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        plot1_fut_volume_plus_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        plot1_fut_volume_minus_curve = self.Plot1.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-
-        plot1_call_volume_curve = self.Plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot1_put_volume_curve = self.Plot1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-        plot1_volume_cha_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-
-        plot1_call_oi_curve = self.Plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot1_put_oi_curve = self.Plot1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-        
-        plot1_fut_price_curve = self.Plot1.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        plot1_kp200_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
-        
-        plot1_sp500_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot1_dow_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot1_nasdaq_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)   
-        
-        # Plot2
-        plot2_time_line_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
-        plot2_time_line_yagan_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
-        plot2_time_line = self.Plot2.addLine(x=0, y=None, pen=tpen1)
-
-        plot2_ovc_open_line = self.Plot2.addLine(x=None, pen=yellow_pen)
-        
-        plot2_two_sum_curve = self.Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot2_two_cha_curve = self.Plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
-
-        plot2_hc_high_line = self.Plot2.addLine(x=None, pen=magenta_pen)
-        plot2_hc_low_line = self.Plot2.addLine(x=None, pen=aqua_pen)
-        
-        plot2_call_oi_curve = self.Plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot2_put_oi_curve = self.Plot2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-
-        plot2_call_volume_curve = self.Plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot2_put_volume_curve = self.Plot2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-        plot2_volume_cha_curve = self.Plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-
-        plot2_fut_volume_curve = self.Plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
-        plot2_fut_volume_plus_curve = self.Plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
-        plot2_fut_volume_minus_curve = self.Plot2.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
-
-        plot2_sp500_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        plot2_dow_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        plot2_nasdaq_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        
-        for i in range(9):
-            mv_line.append(self.Plot2.addLine(x=None, pen=mvpen)) 
-
-        for i in range(29):
-            call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
-            put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))
-
-        # Plot 3, 4 관련 설정
-        if UI_STYLE == 'Vertical_view.ui':
-
-            global plot3_time_line, plot3_time_line_start, plot3_time_line_yagan_start 
-            global plot3_ovc_close_line, plot3_ovc_open_line, plot3_ovc_high_line, plot3_ovc_low_line, plot3_curve
-            global plot3_ovc_jl_line, plot3_ovc_jh_line, plot3_ovc_pivot_line 
-
-            global plot4_time_line, plot4_time_line_start, plot4_time_line_yagan_start 
-            global plot4_fut_open_line, plot4_fut_close_line, plot4_fut_pivot_line, plot4_fut_jl_line, plot4_fut_jh_line
-            global plot4_fv_plus_curve, plot4_fv_minus_curve, plot4_price_curve, plot4_kp200_curve
-            global plot4_fut_low_line, plot4_fut_high_line            
-            
-            plot3_time_line = self.Plot3.addLine(x=0, y=None, pen=tpen1)
-            plot3_time_line_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
-            plot3_time_line_yagan_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
-
-            plot3_ovc_jl_line = self.Plot3.addLine(x=None, pen=goldenrod_pen)
-            plot3_ovc_jh_line = self.Plot3.addLine(x=None, pen=gold_pen)  
-            plot3_ovc_close_line = self.Plot3.addLine(x=None, pen=green_pen)
-            plot3_ovc_open_line = self.Plot3.addLine(x=None, pen=yellow_pen)
-            plot3_ovc_pivot_line = self.Plot3.addLine(x=None, pen=fut_pvt_pen)
-
-            plot3_ovc_low_line = self.Plot3.addLine(x=None, pen=skyblue_pen)
-            plot3_ovc_high_line = self.Plot3.addLine(x=None, pen=orange_pen)
-            
-            plot3_curve = self.Plot3.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-            
-            plot4_time_line = self.Plot4.addLine(x=0, y=None, pen=tpen1)  
-            plot4_time_line_start = self.Plot4.addLine(x=0, y=None, pen=tpen)
-            plot4_time_line_yagan_start = self.Plot4.addLine(x=0, y=None, pen=tpen)
-            
-            plot4_fut_jl_line = self.Plot4.addLine(x=None, pen=goldenrod_pen)
-            plot4_fut_jh_line = self.Plot4.addLine(x=None, pen=gold_pen)  
-            plot4_fut_open_line = self.Plot4.addLine(x=None, pen=yellow_pen)
-            plot4_fut_close_line = self.Plot4.addLine(x=None, pen=green_pen)
-            plot4_fut_pivot_line = self.Plot4.addLine(x=None, pen=fut_pvt_pen)   
-
-            plot4_fut_low_line = self.Plot4.addLine(x=None, pen=skyblue_pen)
-            plot4_fut_high_line = self.Plot4.addLine(x=None, pen=orange_pen)               
-
-            plot4_fv_plus_curve = self.Plot4.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
-            plot4_fv_minus_curve = self.Plot4.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-
-            plot4_price_curve = self.Plot4.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)             
-            plot4_kp200_curve = self.Plot4.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
-        else:
-            pass
 
         # init value & clear color
         item = QTableWidgetItem('0')
@@ -3764,11 +3626,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
-        
+
         item = QTableWidgetItem("{0:0.2f}".format(0.0))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(0, Futures_column.전저.value, item)
-        
+
         item = QTableWidgetItem("{0:0.2f}".format(0.0))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(1, Futures_column.전저.value, item)
@@ -3780,7 +3642,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         item = QTableWidgetItem("{0:0.2f}".format(0.0))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(0, Futures_column.전고.value, item)
-        
+
         item = QTableWidgetItem("{0:0.2f}".format(0.0))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(1, Futures_column.전고.value, item)
@@ -3792,7 +3654,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         item = QTableWidgetItem("{0:0.2f}".format(0.0))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
-        
+
         item = QTableWidgetItem("{0:0.2f}".format(0.0))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
@@ -3870,33 +3732,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         item.setBackground(QBrush(옅은회색))
         self.tableWidget_fut.setItem(2, Futures_column.고가.value, item)
 
-        self.tableWidget_fut.resizeColumnsToContents()
-
-        for i in range(nRowCount):
-
-            item = QTableWidgetItem("{0}".format(''))
-            self.tableWidget_call.setItem(i, 0, item)
-            self.tableWidget_call.item(i, 0).setBackground(QBrush(검정색))
-
-        for i in range(nRowCount):
-
-            item = QTableWidgetItem("{0}".format(''))
-            self.tableWidget_put.setItem(i, 0, item)
-            self.tableWidget_put.item(i, 0).setBackground(QBrush(검정색))
-
-        for i in range(nRowCount):
-            for j in range(self.tableWidget_call.columnCount() - 1):
-
-                item = QTableWidgetItem("{0}".format(''))
-                self.tableWidget_call.setItem(i, j + 1, item)
-                self.tableWidget_call.item(i, j + 1).setBackground(QBrush(검정색))
-
-        for i in range(nRowCount):
-            for j in range(self.tableWidget_put.columnCount() - 1):
-
-                item = QTableWidgetItem("{0}".format(''))
-                self.tableWidget_put.setItem(i, j + 1, item)
-                self.tableWidget_put.item(i, j + 1).setBackground(QBrush(검정색))
+        self.tableWidget_fut.resizeColumnsToContents() 
 
         kp200_realdata['KP200'] = 0.0
         kp200_realdata['전저'] = 0.0
@@ -4026,6 +3862,262 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         item = QTableWidgetItem('0')
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_supply.setItem(0, Supply_column.프로그램.value, item)
+        
+        fut_h_header = self.tableWidget_fut.horizontalHeader()
+        fut_h_header.sectionClicked.connect(self._fut_horizontal_header_clicked)
+
+        supply_h_header = self.tableWidget_supply.horizontalHeader()
+        supply_h_header.sectionClicked.connect(self._supply_horizontal_header_clicked)
+
+        quote_h_header = self.tableWidget_quote.horizontalHeader()
+        quote_h_header.sectionClicked.connect(self._quote_horizontal_header_clicked)
+
+        self.tableWidget_fut.cellClicked.connect(self._futtable_cell_clicked)
+        self.tableWidget_supply.cellClicked.connect(self._supplytable_cell_clicked)
+        self.tableWidget_quote.cellClicked.connect(self._quotetable_cell_clicked)        
+
+        # 컬럼 헤더 click시 Event 처리용.
+        call_h_header = self.tableWidget_call.horizontalHeader()
+        call_h_header.sectionClicked.connect(self._call_horizontal_header_clicked)
+
+        put_h_header = self.tableWidget_put.horizontalHeader()
+        put_h_header.sectionClicked.connect(self._put_horizontal_header_clicked)
+
+        self.tableWidget_call.cellClicked.connect(self._calltable_cell_clicked)
+        self.tableWidget_put.cellClicked.connect(self._puttable_cell_clicked)
+        
+        self.tableWidget_call.verticalScrollBar().valueChanged.connect(self._calltable_vertical_scroll_position)
+        self.tableWidget_put.verticalScrollBar().valueChanged.connect(self._puttable_vertical_scroll_position)
+        
+        if UI_STYLE == 'Vertical_view.ui' or UI_STYLE == 'Horizontal_view.ui':
+
+            self.comboBox1.setStyleSheet("background-color: white")
+            self.comboBox2.setStyleSheet("background-color: white")            
+
+            if overnight:
+
+                self.comboBox1.addItems(['1. FV-Plot', '2. OV-Plot', '3. None', '4. HC-Plot', '5. FP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+                self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
+
+                self.comboBox2.addItems(['1. OV-Plot', '2. None', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+                self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
+
+            else:
+                self.comboBox1.addItems(['1. FV-Plot', '2. OV-Plot', '3. OO-Plot', '4. HC-Plot', '5. FP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+                self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
+
+                self.comboBox2.addItems(['1. OV-Plot', '2. OO-Plot', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+                self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
+
+            global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
+            global plot1_fut_jl_line, plot1_fut_jh_line, plot1_fut_pivot_line, plot1_ovc_open_line        
+            global plot1_fut_volume_curve, plot1_fut_volume_plus_curve, plot1_fut_volume_minus_curve
+            global plot1_call_oi_curve, plot1_put_oi_curve
+            global plot1_call_volume_curve, plot1_put_volume_curve, plot1_volume_cha_curve
+            global plot1_two_sum_curve, plot1_two_cha_curve
+            global plot1_sp500_curve, plot1_dow_curve, plot1_nasdaq_curve
+            global plot1_hc_high_line, plot1_hc_low_line
+            global plot1_atm_high_line, plot1_atm_low_line
+
+            global plot2_fut_volume_curve, plot2_fut_volume_plus_curve, plot2_fut_volume_minus_curve        
+            global plot2_call_oi_curve, plot2_put_oi_curve        
+            global plot2_call_volume_curve, plot2_put_volume_curve, plot2_volume_cha_curve        
+            global plot2_two_sum_curve, plot2_two_cha_curve
+            global plot2_sp500_curve, plot2_dow_curve, plot2_nasdaq_curve        
+            global plot2_time_line_start, plot2_time_line_yagan_start, plot2_time_line, plot2_ovc_open_line
+            global plot2_hc_high_line, plot2_hc_low_line
+            global mv_line, call_curve, put_curve
+        
+            # Plot1
+            plot1_time_line_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
+            plot1_time_line_yagan_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
+            plot1_time_line = self.Plot1.addLine(x=0, y=None, pen=tpen1)
+
+            plot1_fut_jl_line = self.Plot1.addLine(x=None, pen=goldenrod_pen)
+            plot1_fut_jh_line = self.Plot1.addLine(x=None, pen=gold_pen)        
+            plot1_fut_pivot_line = self.Plot1.addLine(x=None, pen=fut_pvt_pen)
+
+            plot1_ovc_open_line = self.Plot1.addLine(x=None, pen=ypen1)      
+
+            plot1_two_sum_curve = self.Plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+            plot1_two_cha_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)  
+
+            plot1_hc_high_line = self.Plot1.addLine(x=None, pen=magenta_pen)
+            plot1_hc_low_line = self.Plot1.addLine(x=None, pen=aqua_pen)
+
+            plot1_atm_high_line = self.Plot1.addLine(x=None, pen=yellow_pen)
+            plot1_atm_low_line = self.Plot1.addLine(x=None, pen=yellow_pen)
+
+            plot1_fut_volume_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+            plot1_fut_volume_plus_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+            plot1_fut_volume_minus_curve = self.Plot1.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+
+            plot1_call_volume_curve = self.Plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+            plot1_put_volume_curve = self.Plot1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+            plot1_volume_cha_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+
+            plot1_call_oi_curve = self.Plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+            plot1_put_oi_curve = self.Plot1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+
+            plot1_fut_price_curve = self.Plot1.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+            plot1_kp200_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
+
+            plot1_sp500_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+            plot1_dow_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+            plot1_nasdaq_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)   
+
+            # Plot2
+            plot2_time_line_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
+            plot2_time_line_yagan_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
+            plot2_time_line = self.Plot2.addLine(x=0, y=None, pen=tpen1)
+
+            plot2_ovc_open_line = self.Plot2.addLine(x=None, pen=yellow_pen)
+
+            plot2_two_sum_curve = self.Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+            plot2_two_cha_curve = self.Plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
+
+            plot2_hc_high_line = self.Plot2.addLine(x=None, pen=magenta_pen)
+            plot2_hc_low_line = self.Plot2.addLine(x=None, pen=aqua_pen)
+
+            plot2_call_oi_curve = self.Plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+            plot2_put_oi_curve = self.Plot2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+
+            plot2_call_volume_curve = self.Plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+            plot2_put_volume_curve = self.Plot2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
+            plot2_volume_cha_curve = self.Plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+
+            plot2_fut_volume_curve = self.Plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+            plot2_fut_volume_plus_curve = self.Plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+            plot2_fut_volume_minus_curve = self.Plot2.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+
+            plot2_sp500_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+            plot2_dow_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+            plot2_nasdaq_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+
+            for i in range(9):
+                mv_line.append(self.Plot2.addLine(x=None, pen=mvpen)) 
+
+            for i in range(29):
+                call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
+                put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))
+
+            # Enable antialiasing for prettier plots
+            pg.setConfigOptions(antialias=True)
+
+            self.Plot1.enableAutoRange('y', True)
+            self.Plot1.plotItem.showGrid(True, True, 0.5)
+            self.Plot1.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)        
+
+            self.Plot2.enableAutoRange('y', True)
+            self.Plot2.plotItem.showGrid(True, True, 0.5)
+            self.Plot2.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+            self.Plot2.setXLink(self.Plot1)
+        else:
+            pass
+
+        if UI_STYLE == 'Vertical_view.ui':
+
+            self.comboBox3.setStyleSheet("background-color: white")
+            self.comboBox4.setStyleSheet("background-color: white")
+
+            self.comboBox3.addItems(['1. DOW', '2. S&P 500', '3. NASDAQ'])
+            self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
+
+            self.comboBox4.addItems(['1. FP-Plot', '2. FV-Plot'])
+            self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged)
+
+            self.Plot3.enableAutoRange('y', True)
+            self.Plot3.plotItem.showGrid(True, True, 0.5)
+            self.Plot3.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+            self.Plot3.setXLink(self.Plot1)
+
+            self.Plot4.enableAutoRange('y', True)
+            self.Plot4.plotItem.showGrid(True, True, 0.5)
+            self.Plot4.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+            self.Plot4.setXLink(self.Plot1)
+
+            global plot3_time_line, plot3_time_line_start, plot3_time_line_yagan_start 
+            global plot3_ovc_close_line, plot3_ovc_open_line, plot3_ovc_high_line, plot3_ovc_low_line, plot3_curve
+            global plot3_ovc_jl_line, plot3_ovc_jh_line, plot3_ovc_pivot_line 
+
+            global plot4_time_line, plot4_time_line_start, plot4_time_line_yagan_start 
+            global plot4_fut_open_line, plot4_fut_close_line, plot4_fut_pivot_line, plot4_fut_jl_line, plot4_fut_jh_line
+            global plot4_fv_plus_curve, plot4_fv_minus_curve, plot4_price_curve, plot4_kp200_curve
+            global plot4_fut_low_line, plot4_fut_high_line            
+            
+            plot3_time_line = self.Plot3.addLine(x=0, y=None, pen=tpen1)
+            plot3_time_line_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
+            plot3_time_line_yagan_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
+
+            plot3_ovc_jl_line = self.Plot3.addLine(x=None, pen=goldenrod_pen)
+            plot3_ovc_jh_line = self.Plot3.addLine(x=None, pen=gold_pen)  
+            plot3_ovc_close_line = self.Plot3.addLine(x=None, pen=green_pen)
+            plot3_ovc_open_line = self.Plot3.addLine(x=None, pen=yellow_pen)
+            plot3_ovc_pivot_line = self.Plot3.addLine(x=None, pen=fut_pvt_pen)
+
+            plot3_ovc_low_line = self.Plot3.addLine(x=None, pen=skyblue_pen)
+            plot3_ovc_high_line = self.Plot3.addLine(x=None, pen=orange_pen)
+            
+            plot3_curve = self.Plot3.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+            
+            plot4_time_line = self.Plot4.addLine(x=0, y=None, pen=tpen1)  
+            plot4_time_line_start = self.Plot4.addLine(x=0, y=None, pen=tpen)
+            plot4_time_line_yagan_start = self.Plot4.addLine(x=0, y=None, pen=tpen)
+            
+            plot4_fut_jl_line = self.Plot4.addLine(x=None, pen=goldenrod_pen)
+            plot4_fut_jh_line = self.Plot4.addLine(x=None, pen=gold_pen)  
+            plot4_fut_open_line = self.Plot4.addLine(x=None, pen=yellow_pen)
+            plot4_fut_close_line = self.Plot4.addLine(x=None, pen=green_pen)
+            plot4_fut_pivot_line = self.Plot4.addLine(x=None, pen=fut_pvt_pen)   
+
+            plot4_fut_low_line = self.Plot4.addLine(x=None, pen=skyblue_pen)
+            plot4_fut_high_line = self.Plot4.addLine(x=None, pen=orange_pen)               
+
+            plot4_fv_plus_curve = self.Plot4.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+            plot4_fv_minus_curve = self.Plot4.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+
+            plot4_price_curve = self.Plot4.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)             
+            plot4_kp200_curve = self.Plot4.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
+
+            if overnight:
+
+                # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
+                plot1_time_line_start.setValue(선물장간_시간차 + 1)
+                plot2_time_line_start.setValue(선물장간_시간차 + 1)
+                plot1_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+                plot2_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+
+                plot3_time_line_start.setValue(선물장간_시간차 + 1)
+                plot4_time_line_start.setValue(선물장간_시간차 + 1)
+                plot3_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+                plot4_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+            else:
+                # 시작시간 X축 표시(index 60은 시가)
+                plot1_time_line_start.setValue(선물장간_시간차)
+                plot2_time_line_start.setValue(선물장간_시간차)
+
+                plot3_time_line_start.setValue(선물장간_시간차)
+                plot4_time_line_start.setValue(선물장간_시간차)
+
+        elif UI_STYLE == 'Horizontal_view.ui':
+
+            if overnight:
+
+                # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
+                plot1_time_line_start.setValue(선물장간_시간차 + 1)
+                plot2_time_line_start.setValue(선물장간_시간차 + 1)
+                plot1_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+                plot2_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+            else:
+                # 시작시간 X축 표시(index 60은 시가)
+                plot1_time_line_start.setValue(선물장간_시간차)
+                plot2_time_line_start.setValue(선물장간_시간차)
+
+        elif UI_STYLE == 'Option_Full_view.ui':
+
+            pass 
+        else:
+            pass        
 
         self.color_flag = True
         self.alternate_flag = True
@@ -4065,69 +4157,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             list_high5.append(round(진성맥점[i] + 0.05, 2))
 
         coreval = 진성맥점 + list_low1 + list_low2 + list_low3 + list_low4 + list_low5 + list_high1 + list_high2 + list_high3 + list_high4 + list_high5
-        coreval.sort()
-
-        # 컬럼 헤더 click시 Event 처리용.
-        call_h_header = self.tableWidget_call.horizontalHeader()
-        call_h_header.sectionClicked.connect(self._call_horizontal_header_clicked)
-
-        put_h_header = self.tableWidget_put.horizontalHeader()
-        put_h_header.sectionClicked.connect(self._put_horizontal_header_clicked)
-
-        fut_h_header = self.tableWidget_fut.horizontalHeader()
-        fut_h_header.sectionClicked.connect(self._fut_horizontal_header_clicked)
-
-        supply_h_header = self.tableWidget_supply.horizontalHeader()
-        supply_h_header.sectionClicked.connect(self._supply_horizontal_header_clicked)
-
-        quote_h_header = self.tableWidget_quote.horizontalHeader()
-        quote_h_header.sectionClicked.connect(self._quote_horizontal_header_clicked)
-
-        '''
-        call_v_header = self.tableWidget_call.verticalHeader()
-        call_v_header.sectionClicked.connect(self._call_vertical_header_clicked)
-
-        put_v_header = self.tableWidget_put.verticalHeader()
-        put_v_header.sectionClicked.connect(self._put_vertical_header_clicked)
-        '''
-
-        self.tableWidget_call.cellClicked.connect(self._calltable_cell_clicked)
-        self.tableWidget_put.cellClicked.connect(self._puttable_cell_clicked)
-        self.tableWidget_fut.cellClicked.connect(self._futtable_cell_clicked)
-
-        self.tableWidget_supply.cellClicked.connect(self._supplytable_cell_clicked)
-        self.tableWidget_quote.cellClicked.connect(self._quotetable_cell_clicked)
-        
-        self.tableWidget_call.verticalScrollBar().valueChanged.connect(self._calltable_vertical_scroll_position)
-        self.tableWidget_put.verticalScrollBar().valueChanged.connect(self._puttable_vertical_scroll_position)
-
-        if overnight:
-
-            # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
-            plot1_time_line_start.setValue(선물장간_시간차 + 1)
-            plot2_time_line_start.setValue(선물장간_시간차 + 1)
-            plot1_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-            plot2_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-
-            if UI_STYLE == 'Vertical_view.ui':
-
-                plot3_time_line_start.setValue(선물장간_시간차 + 1)
-                plot4_time_line_start.setValue(선물장간_시간차 + 1)
-                plot3_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-                plot4_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-            else:
-                pass
-        else:
-            # 시작시간 X축 표시(index 60은 시가)
-            plot1_time_line_start.setValue(선물장간_시간차)
-            plot2_time_line_start.setValue(선물장간_시간차)
-
-            if UI_STYLE == 'Vertical_view.ui':
-
-                plot3_time_line_start.setValue(선물장간_시간차)
-                plot4_time_line_start.setValue(선물장간_시간차)
-            else:
-                pass
+        coreval.sort()        
         
         self.JIF = JIF(parent=self)
 
@@ -4146,13 +4176,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.OPT_REAL = OC0(parent=self)
         self.OPT_HO = OH0(parent=self)
         self.FUT_REAL = FC0(parent=self)
-        self.FUT_HO = FH0(parent=self)
-
+        self.FUT_HO = FH0(parent=self) 
+        
         if int(current_str[0:2]) < 12:
             str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Morning! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
         else:
             str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Afternoon! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
-        self.textBrowser.append(str)
+        self.textBrowser.append(str)         
 
         self.XingAdminCheck()        
             
@@ -4943,7 +4973,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-            #return
+    elif UI_STYLE == 'Horizontal_view.ui':
+
+        pass
+    elif UI_STYLE == 'Option_Full_view.ui':
+
+        pass 
     else:
         pass
 
@@ -5727,401 +5762,426 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.label_clear(self.alternate_flag) 
 
                 # 그래프 그리기
+                if UI_STYLE == 'Vertical_view.ui' or UI_STYLE == 'Horizontal_view.ui':
 
-                # Plot 1 x축 타임라인
-                if comboindex1 == 0 or comboindex1 == 4:
+                    # Plot 1 x축 타임라인
+                    if comboindex1 == 0 or comboindex1 == 4:
 
-                    plot1_time_line.setValue(x_idx)
-                else:
-                    plot1_time_line.setValue(opt_x_idx)
+                        plot1_time_line.setValue(x_idx)
+                    else:
+                        plot1_time_line.setValue(opt_x_idx)
 
-                # Plot 2 x축 타임라인
-                plot2_time_line.setValue(opt_x_idx)
+                    # Plot 2 x축 타임라인
+                    plot2_time_line.setValue(opt_x_idx)
 
-                if UI_STYLE == 'Vertical_view.ui':
+                    if UI_STYLE == 'Vertical_view.ui':
 
-                    # Plot 3 x축 타임라인
-                    plot3_time_line.setValue(ovc_x_idx)
+                        # Plot 3 x축 타임라인
+                        plot3_time_line.setValue(ovc_x_idx)
 
-                    # Plot 4 x축 타임라인
-                    plot4_time_line.setValue(x_idx)
-                else:
-                    pass
+                        # Plot 4 x축 타임라인
+                        plot4_time_line.setValue(x_idx)
 
-                # 옵션그래프 초기화
-                if comboindex2 == 4:
+                    elif UI_STYLE == 'Horizontal_view.ui':
 
-                    for i in range(29):
-                        call_curve[i].clear()
-                        put_curve[i].clear()
+                        pass
+                    elif UI_STYLE == 'Option_Full_view.ui':
 
-                    # 옵션 Y축 최대값 구하기
-                    axY = self.Plot2.getAxis('left')
-                    #print('옵션 y axis range: {}'.format(axY.range[1]))
-
-                    if 6.0 <= axY.range[1] < 7.1:
-                        mv_line[6].setValue(6.85)
-                        mv_line[7].setValue(0)
-                        mv_line[8].setValue(0)
-                    elif 7.1 <= axY.range[1] < 8.1:
-                        mv_line[6].setValue(6.85)
-                        mv_line[7].setValue(7.1)
-                        mv_line[8].setValue(0)
-                    elif axY.range[1] >= 8.1:
-                        mv_line[6].setValue(6.85)
-                        mv_line[7].setValue(7.1)
-                        mv_line[8].setValue(8.1)
+                        pass 
                     else:
                         pass
 
-                    # 4종의 그래프데이타를 받아옴
-                    global selected_call, selected_put
-
-                    call_idx = []
-                    put_idx = []
-
-                    # atm index 중심으로 위,아래 15개 만 탐색
-                    #for i in range(option_pairs_count):
-                    for i in range(atm_index - 15, atm_index + 16):
-
-                        if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
-                            call_idx.append(i)
-                        else:
-                            pass
-
-                        if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
-                            put_idx.append(i)
-                        else:
-                            pass                
-
-                    selected_call = call_idx
-                    selected_put = put_idx            
-                else:
-                    pass            
-
-                for actval, infos in data.items():
-
-                    index = opt_actval.index(actval)
-
+                    # 옵션그래프 초기화
                     if comboindex2 == 4:
 
-                        for i in range(len(call_idx)):
+                        for i in range(29):
+                            call_curve[i].clear()
+                            put_curve[i].clear()
 
-                            if index == call_idx[i]:
-                                call_curve[i].setData(infos[0])
-                            else:
-                                pass                    
+                        # 옵션 Y축 최대값 구하기
+                        axY = self.Plot2.getAxis('left')
+                        #print('옵션 y axis range: {}'.format(axY.range[1]))
 
-                        for i in range(len(put_idx)):
+                        if 6.0 <= axY.range[1] < 7.1:
+                            mv_line[6].setValue(6.85)
+                            mv_line[7].setValue(0)
+                            mv_line[8].setValue(0)
+                        elif 7.1 <= axY.range[1] < 8.1:
+                            mv_line[6].setValue(6.85)
+                            mv_line[7].setValue(7.1)
+                            mv_line[8].setValue(0)
+                        elif axY.range[1] >= 8.1:
+                            mv_line[6].setValue(6.85)
+                            mv_line[7].setValue(7.1)
+                            mv_line[8].setValue(8.1)
+                        else:
+                            pass
 
-                            if index == put_idx[i]:
-                                put_curve[i].setData(infos[1])
+                        # 4종의 그래프데이타를 받아옴
+                        global selected_call, selected_put
+
+                        call_idx = []
+                        put_idx = []
+
+                        # atm index 중심으로 위,아래 15개 만 탐색
+                        #for i in range(option_pairs_count):
+                        for i in range(atm_index - 15, atm_index + 16):
+
+                            if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
+                                call_idx.append(i)
                             else:
                                 pass
+
+                            if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
+                                put_idx.append(i)
+                            else:
+                                pass                
+
+                        selected_call = call_idx
+                        selected_put = put_idx            
                     else:
-                        pass           
+                        pass            
 
-                    if index == option_pairs_count - 1:
+                    for actval, infos in data.items():
 
-                        curve1_data = infos[2]
-                        curve2_data = infos[3] 
-                        curve3_data = infos[4]
-                        curve4_data = infos[5]
-                        curve5_data = infos[6]
-                        curve6_data = infos[7]
+                        index = opt_actval.index(actval)
 
-                        if UI_STYLE == 'Vertical_view.ui':
+                        if comboindex2 == 4:
 
-                            plot3_data = infos[8]
-                            plot4_1_data = infos[9]
-                            plot4_2_data = infos[10]
+                            for i in range(len(call_idx)):
+
+                                if index == call_idx[i]:
+                                    call_curve[i].setData(infos[0])
+                                else:
+                                    pass                    
+
+                            for i in range(len(put_idx)):
+
+                                if index == put_idx[i]:
+                                    put_curve[i].setData(infos[1])
+                                else:
+                                    pass
+                        else:
+                            pass           
+
+                        if index == option_pairs_count - 1:
+
+                            curve1_data = infos[2]
+                            curve2_data = infos[3] 
+                            curve3_data = infos[4]
+                            curve4_data = infos[5]
+                            curve5_data = infos[6]
+                            curve6_data = infos[7]
+
+                            if UI_STYLE == 'Vertical_view.ui':
+
+                                plot3_data = infos[8]
+                                plot4_1_data = infos[9]
+                                plot4_2_data = infos[10]
+
+                            elif UI_STYLE == 'Horizontal_view.ui':
+
+                                pass
+
+                            elif UI_STYLE == 'Option_Full_view.ui':
+
+                                pass 
+                            else:
+                                pass
                         else:
                             pass
+                        
+                    # Plot 3, Plot4 그리기
+                    if UI_STYLE == 'Vertical_view.ui':
+
+                        if comboindex3 == 0:
+
+                            if DOW_LAST_LOW > 0:
+                                plot3_ovc_jl_line.setValue(DOW_LAST_LOW)
+                            else:
+                                pass 
+                            
+                            if DOW_LAST_HIGH > 0:
+                                plot3_ovc_jh_line.setValue(DOW_LAST_HIGH)
+                            else:
+                                pass
+                            
+                            if dow_전일종가 > 0:
+                                plot3_ovc_close_line.setValue(dow_전일종가)
+                            else:
+                                pass
+                            
+                            if dow_시가 > 0:
+                                plot3_ovc_open_line.setValue(dow_시가)
+                            else:
+                                pass
+                            
+                            if dow_피봇 > 0:
+                                plot3_ovc_pivot_line.setValue(dow_피봇)
+                            else:
+                                pass
+                            
+                            if dow_저가 > 0:
+                                plot3_ovc_low_line.setValue(dow_저가)
+                            else:
+                                pass
+
+                            if dow_고가 > 0:
+                                plot3_ovc_high_line.setValue(dow_고가)
+                            else:
+                                pass                       
+                            
+                            plot3_curve.setData(plot3_data)
+
+                        elif comboindex3 == 1:
+
+                            if SP500_LAST_LOW > 0:
+                                plot3_ovc_jl_line.setValue(SP500_LAST_LOW)
+                            else:
+                                pass 
+
+                            if SP500_LAST_HIGH > 0:
+                                plot3_ovc_jh_line.setValue(SP500_LAST_HIGH)
+                            else:
+                                pass
+
+                            if sp500_전일종가 > 0:
+                                plot3_ovc_close_line.setValue(sp500_전일종가)
+                            else:
+                                pass 
+                            
+                            if sp500_시가 > 0:
+                                plot3_ovc_open_line.setValue(sp500_시가)
+                            else:
+                                pass
+
+                            if sp500_피봇 > 0:
+                                plot3_ovc_pivot_line.setValue(sp500_피봇)
+                            else:
+                                pass
+
+                            if sp500_저가 > 0:
+                                plot3_ovc_low_line.setValue(sp500_저가)
+                            else:
+                                pass
+
+                            if sp500_고가 > 0:
+                                plot3_ovc_high_line.setValue(sp500_고가)
+                            else:
+                                pass
+                            
+                            plot3_curve.setData(plot3_data)
+
+                        elif comboindex3 == 2:
+
+                            if NASDAQ_LAST_LOW > 0:
+                                plot3_ovc_jl_line.setValue(NASDAQ_LAST_LOW)
+                            else:
+                                pass 
+
+                            if NASDAQ_LAST_HIGH > 0:
+                                plot3_ovc_jh_line.setValue(NASDAQ_LAST_HIGH)
+                            else:
+                                pass
+
+                            if nasdaq_전일종가 > 0:
+                                plot3_ovc_close_line.setValue(nasdaq_전일종가)
+                            else:
+                                pass
+                            
+                            if nasdaq_시가 > 0:
+                                plot3_ovc_open_line.setValue(nasdaq_시가)
+                            else:
+                                pass   
+
+                            if nasdaq_피봇 > 0:
+                                plot3_ovc_pivot_line.setValue(nasdaq_피봇)
+                            else:
+                                pass
+
+                            if nasdaq_저가 > 0:
+                                plot3_ovc_low_line.setValue(nasdaq_저가)
+                            else:
+                                pass
+
+                            if nasdaq_고가 > 0:
+                                plot3_ovc_high_line.setValue(nasdaq_고가)
+                            else:
+                                pass
+                            
+                            plot3_curve.setData(plot3_data)
+                        else:
+                            pass
+                        
+                        if comboindex4 == 0:
+
+                            if 선물_전저 > 0:
+                                plot4_fut_jl_line.setValue(선물_전저)
+                            else:
+                                pass
+
+                            if 선물_전고 > 0:
+                                plot4_fut_jh_line.setValue(선물_전고)
+                            else:
+                                pass
+
+                            if 선물_종가 > 0:
+                                plot4_fut_close_line.setValue(선물_종가)
+                            else:
+                                pass
+                            
+                            if 선물_시가 > 0:
+                                plot4_fut_open_line.setValue(선물_시가)
+                            else:
+                                pass
+
+                            if 선물_피봇 > 0:
+                                plot4_fut_pivot_line.setValue(선물_피봇)
+                            else:
+                                pass
+
+                            if 선물_저가 > 0:
+                                plot4_fut_low_line.setValue(선물_저가)
+                            else:
+                                pass
+
+                            if 선물_고가 > 0:
+                                plot4_fut_high_line.setValue(선물_고가)
+                            else:
+                                pass
+                            
+                            plot4_price_curve.setData(plot4_1_data)
+                            plot4_kp200_curve.setData(plot4_2_data)
+
+                        elif comboindex4 == 1:                        
+
+                            if 선물_누적거래량 > 0:
+
+                                plot4_fv_plus_curve.setData(plot4_1_data)
+                            else:
+                                plot4_fv_minus_curve.setData(plot4_1_data)
+                        else:
+                            pass
+
+                    elif UI_STYLE == 'Horizontal_view.ui':
+
+                        pass
+                    elif UI_STYLE == 'Option_Full_view.ui':
+
+                        pass                     
                     else:
                         pass
-                
-                # Plot 3, Plot4 그리기
-                if UI_STYLE == 'Vertical_view.ui':
 
-                    if comboindex3 == 0:
-                        
-                        if DOW_LAST_LOW > 0:
-                            plot3_ovc_jl_line.setValue(DOW_LAST_LOW)
-                        else:
-                            pass 
-                        
-                        if DOW_LAST_HIGH > 0:
-                            plot3_ovc_jh_line.setValue(DOW_LAST_HIGH)
-                        else:
-                            pass
-                        
-                        if dow_전일종가 > 0:
-                            plot3_ovc_close_line.setValue(dow_전일종가)
-                        else:
-                            pass
-                        
-                        if dow_시가 > 0:
-                            plot3_ovc_open_line.setValue(dow_시가)
-                        else:
-                            pass
-                        
-                        if dow_피봇 > 0:
-                            plot3_ovc_pivot_line.setValue(dow_피봇)
-                        else:
-                            pass
-                        
-                        if dow_저가 > 0:
-                            plot3_ovc_low_line.setValue(dow_저가)
-                        else:
-                            pass
+                    # 선택된 plot1 그래프 그리기
+                    if comboindex1 == 0:
 
-                        if dow_고가 > 0:
-                            plot3_ovc_high_line.setValue(dow_고가)
-                        else:
-                            pass                       
-                        
-                        plot3_curve.setData(plot3_data)
-
-                    elif comboindex3 == 1:
-                        
-                        if SP500_LAST_LOW > 0:
-                            plot3_ovc_jl_line.setValue(SP500_LAST_LOW)
-                        else:
-                            pass 
-
-                        if SP500_LAST_HIGH > 0:
-                            plot3_ovc_jh_line.setValue(SP500_LAST_HIGH)
-                        else:
-                            pass
-
-                        if sp500_전일종가 > 0:
-                            plot3_ovc_close_line.setValue(sp500_전일종가)
-                        else:
-                            pass 
-                        
-                        if sp500_시가 > 0:
-                            plot3_ovc_open_line.setValue(sp500_시가)
-                        else:
-                            pass
-
-                        if sp500_피봇 > 0:
-                            plot3_ovc_pivot_line.setValue(sp500_피봇)
-                        else:
-                            pass
-
-                        if sp500_저가 > 0:
-                            plot3_ovc_low_line.setValue(sp500_저가)
-                        else:
-                            pass
-
-                        if sp500_고가 > 0:
-                            plot3_ovc_high_line.setValue(sp500_고가)
-                        else:
-                            pass
-                        
-                        plot3_curve.setData(plot3_data)
-
-                    elif comboindex3 == 2:
-                        
-                        if NASDAQ_LAST_LOW > 0:
-                            plot3_ovc_jl_line.setValue(NASDAQ_LAST_LOW)
-                        else:
-                            pass 
-
-                        if NASDAQ_LAST_HIGH > 0:
-                            plot3_ovc_jh_line.setValue(NASDAQ_LAST_HIGH)
-                        else:
-                            pass
-
-                        if nasdaq_전일종가 > 0:
-                            plot3_ovc_close_line.setValue(nasdaq_전일종가)
-                        else:
-                            pass
-                        
-                        if nasdaq_시가 > 0:
-                            plot3_ovc_open_line.setValue(nasdaq_시가)
-                        else:
-                            pass   
-
-                        if nasdaq_피봇 > 0:
-                            plot3_ovc_pivot_line.setValue(nasdaq_피봇)
-                        else:
-                            pass
-
-                        if nasdaq_저가 > 0:
-                            plot3_ovc_low_line.setValue(nasdaq_저가)
-                        else:
-                            pass
-
-                        if nasdaq_고가 > 0:
-                            plot3_ovc_high_line.setValue(nasdaq_고가)
-                        else:
-                            pass
-                        
-                        plot3_curve.setData(plot3_data)
-                    else:
-                        pass
-                    
-                    if comboindex4 == 0:
-                        
-                        if 선물_전저 > 0:
-                            plot4_fut_jl_line.setValue(선물_전저)
-                        else:
-                            pass
-
-                        if 선물_전고 > 0:
-                            plot4_fut_jh_line.setValue(선물_전고)
-                        else:
-                            pass
-
-                        if 선물_종가 > 0:
-                            plot4_fut_close_line.setValue(선물_종가)
-                        else:
-                            pass
-                        
-                        if 선물_시가 > 0:
-                            plot4_fut_open_line.setValue(선물_시가)
-                        else:
-                            pass
-
-                        if 선물_피봇 > 0:
-                            plot4_fut_pivot_line.setValue(선물_피봇)
-                        else:
-                            pass
-
-                        if 선물_저가 > 0:
-                            plot4_fut_low_line.setValue(선물_저가)
-                        else:
-                            pass
-
-                        if 선물_고가 > 0:
-                            plot4_fut_high_line.setValue(선물_고가)
-                        else:
-                            pass
-                        
-                        plot4_price_curve.setData(plot4_1_data)
-                        plot4_kp200_curve.setData(plot4_2_data)
-                        
-                    elif comboindex4 == 1:                        
-                        
                         if 선물_누적거래량 > 0:
-
-                            plot4_fv_plus_curve.setData(plot4_1_data)
+                            plot1_fut_volume_plus_curve.setData(curve1_data)
                         else:
-                            plot4_fv_minus_curve.setData(plot4_1_data)
-                    else:
-                        pass                    
-                else:
-                    pass
+                            plot1_fut_volume_minus_curve.setData(curve1_data)
 
-                # 선택된 plot1 그래프 그리기
-                if comboindex1 == 0:
+                    elif comboindex1 == 1:                      
 
-                    if 선물_누적거래량 > 0:
-                        plot1_fut_volume_plus_curve.setData(curve1_data)
-                    else:
-                        plot1_fut_volume_minus_curve.setData(curve1_data)
+                        plot1_call_volume_curve.setData(curve1_data)
+                        plot1_put_volume_curve.setData(curve2_data)
+                        plot1_volume_cha_curve.setData(curve3_data)
 
-                elif comboindex1 == 1:                      
+                    elif comboindex1 == 2:
+
+                        if not overnight:
+                            plot1_call_oi_curve.setData(curve1_data)
+                            plot1_put_oi_curve.setData(curve2_data)
+                        else:
+                            pass
+
+                    elif comboindex1 == 3:
+
+                        plot1_two_sum_curve.setData(curve1_data)
+                        plot1_two_cha_curve.setData(curve2_data)
+
+                    elif comboindex1 == 4:
                     
-                    plot1_call_volume_curve.setData(curve1_data)
-                    plot1_put_volume_curve.setData(curve2_data)
-                    plot1_volume_cha_curve.setData(curve3_data)
+                        plot1_kp200_curve.setData(curve1_data)
+                        plot1_fut_price_curve.setData(curve2_data)
 
-                elif comboindex1 == 2:
-                                       
-                    if not overnight:
-                        plot1_call_oi_curve.setData(curve1_data)
-                        plot1_put_oi_curve.setData(curve2_data)
+                    elif comboindex1 == 5:
+
+                        plot1_sp500_curve.setData(curve1_data)
+
+                        plot1_hc_high_line.setValue(sp500_고가)
+                        plot1_hc_low_line.setValue(sp500_저가)
+
+                    elif comboindex1 == 6:
+
+                        plot1_dow_curve.setData(curve1_data)
+
+                        plot1_hc_high_line.setValue(dow_고가)
+                        plot1_hc_low_line.setValue(dow_저가)
+
+                    elif comboindex1 == 7:
+
+                        plot1_nasdaq_curve.setData(curve1_data)
+
+                        plot1_hc_high_line.setValue(nasdaq_고가)
+                        plot1_hc_low_line.setValue(nasdaq_저가)
                     else:
+                        pass   
+
+                    # 선택된 plot2 그래프 그리기
+                    if comboindex2 == 0:
+
+                        plot2_call_volume_curve.setData(curve4_data)
+                        plot2_put_volume_curve.setData(curve5_data)  
+                        plot2_volume_cha_curve.setData(curve6_data) 
+
+                    elif comboindex2 == 1:
+
+                        if not overnight:
+                            plot2_call_oi_curve.setData(curve4_data)
+                            plot2_put_oi_curve.setData(curve5_data)
+                        else:
+                            pass         
+
+                    elif comboindex2 == 2:
+
+                        if 선물_누적거래량 > 0:
+                            plot2_fut_volume_plus_curve.setData(curve4_data)
+                        else:
+                            plot2_fut_volume_minus_curve.setData(curve4_data)
+
+                    elif comboindex2 == 3:
+
+                        plot2_two_sum_curve.setData(curve4_data)
+                        plot2_two_cha_curve.setData(curve5_data)
+
+                    elif comboindex2 == 4:
+
                         pass
 
-                elif comboindex1 == 3:
+                    elif comboindex2 == 5:
 
-                    plot1_two_sum_curve.setData(curve1_data)
-                    plot1_two_cha_curve.setData(curve2_data)
+                        plot2_sp500_curve.setData(curve4_data) 
 
-                elif comboindex1 == 4:
-                
-                    plot1_kp200_curve.setData(curve1_data)
-                    plot1_fut_price_curve.setData(curve2_data)
+                        plot2_hc_high_line.setValue(sp500_고가)
+                        plot2_hc_low_line.setValue(sp500_저가)
 
-                elif comboindex1 == 5:
+                    elif comboindex2 == 6: 
 
-                    plot1_sp500_curve.setData(curve1_data)
+                        plot2_dow_curve.setData(curve4_data) 
 
-                    plot1_hc_high_line.setValue(sp500_고가)
-                    plot1_hc_low_line.setValue(sp500_저가)
+                        plot2_hc_high_line.setValue(dow_고가)
+                        plot2_hc_low_line.setValue(dow_저가)
 
-                elif comboindex1 == 6:
+                    elif comboindex2 == 7: 
 
-                    plot1_dow_curve.setData(curve1_data)
+                        plot2_nasdaq_curve.setData(curve4_data)
 
-                    plot1_hc_high_line.setValue(dow_고가)
-                    plot1_hc_low_line.setValue(dow_저가)
-
-                elif comboindex1 == 7:
-
-                    plot1_nasdaq_curve.setData(curve1_data)
-
-                    plot1_hc_high_line.setValue(nasdaq_고가)
-                    plot1_hc_low_line.setValue(nasdaq_저가)
-                else:
-                    pass   
-
-                # 선택된 plot2 그래프 그리기
-                if comboindex2 == 0:
-                                        
-                    plot2_call_volume_curve.setData(curve4_data)
-                    plot2_put_volume_curve.setData(curve5_data)  
-                    plot2_volume_cha_curve.setData(curve6_data) 
-
-                elif comboindex2 == 1:
-                                        
-                    if not overnight:
-                        plot2_call_oi_curve.setData(curve4_data)
-                        plot2_put_oi_curve.setData(curve5_data)
+                        plot2_hc_high_line.setValue(nasdaq_고가)
+                        plot2_hc_low_line.setValue(nasdaq_저가)
                     else:
-                        pass         
-
-                elif comboindex2 == 2:
-
-                    if 선물_누적거래량 > 0:
-                        plot2_fut_volume_plus_curve.setData(curve4_data)
-                    else:
-                        plot2_fut_volume_minus_curve.setData(curve4_data)
-
-                elif comboindex2 == 3:
-
-                    plot2_two_sum_curve.setData(curve4_data)
-                    plot2_two_cha_curve.setData(curve5_data)
-
-                elif comboindex2 == 4:
-
-                    pass
-
-                elif comboindex2 == 5:
-
-                    plot2_sp500_curve.setData(curve4_data) 
-
-                    plot2_hc_high_line.setValue(sp500_고가)
-                    plot2_hc_low_line.setValue(sp500_저가)
-
-                elif comboindex2 == 6: 
-
-                    plot2_dow_curve.setData(curve4_data) 
-
-                    plot2_hc_high_line.setValue(dow_고가)
-                    plot2_hc_low_line.setValue(dow_저가)
-
-                elif comboindex2 == 7: 
-
-                    plot2_nasdaq_curve.setData(curve4_data)
-
-                    plot2_hc_high_line.setValue(nasdaq_고가)
-                    plot2_hc_low_line.setValue(nasdaq_저가)
+                        pass          
                 else:
-                    pass          
+                    pass                
 
                 # 호가 갱신
                 if receive_quote:
@@ -11026,61 +11086,46 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 callche_result = []
                 putche_result = []
 
-                if not overnight:
+                if UI_STYLE == 'Vertical_view.ui' or UI_STYLE == 'Horizontal_view.ui':
+
+                    if not overnight:
                     
-                    self.Plot1.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
-                    plot1_time_line.setValue(선물장간_시간차 + day_timespan - 1)
+                        self.Plot1.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+                        plot1_time_line.setValue(선물장간_시간차 + day_timespan - 1)
 
-                    self.Plot2.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
-                    plot2_time_line.setValue(선물장간_시간차 + day_timespan - 1)
+                        self.Plot2.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+                        plot2_time_line.setValue(선물장간_시간차 + day_timespan - 1)
 
-                    if UI_STYLE == 'Vertical_view.ui':
+                        if UI_STYLE == 'Vertical_view.ui':
 
-                        self.Plot3.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
-                        plot3_time_line.setValue(선물장간_시간차 + day_timespan - 1)
+                            self.Plot3.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+                            plot3_time_line.setValue(선물장간_시간차 + day_timespan - 1)
 
-                        self.Plot4.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
-                        plot4_time_line.setValue(선물장간_시간차 + day_timespan - 1)
+                            self.Plot4.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+                            plot4_time_line.setValue(선물장간_시간차 + day_timespan - 1)
+                        else:
+                            pass                        
                     else:
-                        pass
+                        # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
+                        self.Plot1.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
+                        plot1_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
 
-                    df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + day_timespan))
+                        self.Plot2.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
+                        plot2_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
 
-                    df_plotdata_call_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_volume_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                        if UI_STYLE == 'Vertical_view.ui':
 
-                    df_plotdata_call_oi = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_put_oi = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                            self.Plot3.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
+                            plot3_time_line.setValue(선물장간_시간차 +overnight_timespan - 1)
 
-                    df_plotdata_two_sum = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_two_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-
-                    df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_fut_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-
-                    df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                            self.Plot4.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
+                            plot4_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
+                        else:
+                            pass                    
                 else:
-                    # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
-                    self.Plot1.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
-                    plot1_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
+                    pass
 
-                    self.Plot2.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
-                    plot2_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
-
-                    if UI_STYLE == 'Vertical_view.ui':
-
-                        self.Plot3.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
-                        plot3_time_line.setValue(선물장간_시간차 +overnight_timespan - 1)
-
-                        self.Plot4.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
-                        plot4_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
-                    else:
-                        pass
+                if overnight:
 
                     df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + overnight_timespan))
@@ -11102,6 +11147,27 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                else:
+                    df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + day_timespan))
+
+                    df_plotdata_call_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_volume_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+
+                    df_plotdata_call_oi = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_put_oi = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+
+                    df_plotdata_two_sum = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_two_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+
+                    df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_fut_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+
+                    df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
 
                 # 콜처리
                 for i in range(option_pairs_count):
@@ -12242,6 +12308,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     plot4_fut_close_line.setValue(fut_realdata['현재가'])
                     plot4_fut_pivot_line.setValue(fut_realdata['현재가'])
                     plot4_fut_open_line.setValue(fut_realdata['현재가'])
+
+                elif UI_STYLE == 'Horizontal_view.ui':
+
+                    pass
+                elif UI_STYLE == 'Option_Full_view.ui':
+
+                    pass 
                 else:
                     pass
 
@@ -12283,6 +12356,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     plot4_fut_close_line.setValue(df['현재가'])
                     plot4_fut_pivot_line.setValue(df['현재가'])
                     plot4_fut_open_line.setValue(df['현재가'])
+
+                elif UI_STYLE == 'Horizontal_view.ui':
+
+                    pass
+                elif UI_STYLE == 'Option_Full_view.ui':
+
+                    pass 
                 else:
                     pass
 
