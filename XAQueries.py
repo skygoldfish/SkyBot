@@ -1736,6 +1736,42 @@ class t8432(XAQuery):
         if self.parent != None:
             self.parent.OnReceiveData(szTrCode, [df])
 
+# 지수옵션마스터조회API용
+class t8433(XAQuery):
+    def Query(self, 구분='F'):
+        self.ActiveX.LoadFromResFile(self.RESFILE)
+        self.ActiveX.SetFieldData(self.INBLOCK, "dummy", 0, "0")
+        self.ActiveX.Request(0)
+
+    def OnReceiveMessage(self, systemError, messageCode, message):
+        클래스이름 = self.__class__.__name__
+        함수이름 = inspect.currentframe().f_code.co_name
+        print("%s-%s " % (클래스이름, 함수이름), systemError, messageCode, message)
+
+    def OnReceiveData(self, szTrCode):
+        result = []
+        nCount = self.ActiveX.GetBlockCount(self.OUTBLOCK)
+        for i in range(nCount):
+            종목명 = self.ActiveX.GetFieldData(self.OUTBLOCK, "hname", i).strip()
+            단축코드 = self.ActiveX.GetFieldData(self.OUTBLOCK, "shcode", i).strip()
+            확장코드 = self.ActiveX.GetFieldData(self.OUTBLOCK, "expcode", i).strip()
+            상한가 = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "hprice", i).strip())
+            하한가 = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "lprice", i).strip())
+            전일종가 = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilclose", i).strip())
+            전일고가 = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilhigh", i).strip())
+            전일저가 = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnillow", i).strip())
+            기준가 = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "recprice", i).strip())
+
+            lst = [종목명, 단축코드, 확장코드, 상한가, 하한가, 전일종가, 전일고가, 전일저가, 기준가]
+            result.append(lst)
+
+        columns = ['종목명', '단축코드', '확장코드', '상한가', '하한가', '전일종가', '전일고가', '전일저가', '기준가']
+        df = DataFrame(data=result, columns=columns)
+
+        #print(df)
+
+        if self.parent != None:
+            self.parent.OnReceiveData(szTrCode, [df])
 
 # 주식종목코드조회(API용)
 class t8436(XAQuery):

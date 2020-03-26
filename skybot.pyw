@@ -821,6 +821,9 @@ df_fut_ohlc = pd.DataFrame()
 
 call_code = []
 put_code = []
+call_cm_code = []
+put_cm_code = []
+
 opt_actval = []
 
 view_actval = []
@@ -14282,7 +14285,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         elif szTrCode == 't8433':
 
-            pass
+            global call_cm_code, put_cm_code
+
+            df = result[0]
+
+            for i in range(len(df)):
+                
+                if df['단축코드'][i][0:3] == '201' and df['단축코드'][i][4] == repr(current_month):
+
+                    call_cm_code.append(df['단축코드'][i])
+
+                elif df['단축코드'][i][0:3] == '301' and df['단축코드'][i][4] == repr(current_month):
+
+                    put_cm_code.append(df['단축코드'][i])
+                else:
+                    pass 
+
+            print('call cm code =', call_cm_code)    
+            print('put cm code =', put_cm_code)            
         else:
             pass
     
@@ -20351,6 +20371,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] t8432 지수선물 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
+
+                # 지수옵션 마스터조회 API용
+                XQ = t8433(parent=self)
+                XQ.Query()
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] t8433 지수옵션 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
             else:
                 pass
 
@@ -20390,14 +20417,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                 self.textBrowser.append(str)
 
-            else:
+            elif TARGET_MONTH_SELECT == 3:
+
                 if MANGI_YAGAN == 'YES':
                     t2301_month_info = MONTH_AFTER_NEXT
                 else:
-                    t2301_month_info = MONTH_AFTER_NEXT   
+                    t2301_month_info = MONTH_AFTER_NEXT 
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 차차월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                 self.textBrowser.append(str)
+            else:
+                pass
 
             XQ.Query(월물=t2301_month_info, 미니구분='G')
 
