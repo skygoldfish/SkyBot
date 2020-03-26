@@ -27,7 +27,7 @@
      <x>966</x>
      <y>55</y>
      <width>940</width>
-     <height>760</height>
+     <height>610</height>
     </rect>
    </property>
    <property name="font">
@@ -56,7 +56,7 @@
      <x>13</x>
      <y>55</y>
      <width>940</width>
-     <height>760</height>
+     <height>610</height>
     </rect>
    </property>
    <property name="font">
@@ -319,8 +319,8 @@
   <widget class="QTableWidget" name="tableWidget_fut">
    <property name="geometry">
     <rect>
-     <x>966</x>
-     <y>865</y>
+     <x>13</x>
+     <y>680</y>
      <width>940</width>
      <height>133</height>
     </rect>
@@ -370,7 +370,7 @@
    <property name="geometry">
     <rect>
      <x>13</x>
-     <y>920</y>
+     <y>923</y>
      <width>941</width>
      <height>79</height>
     </rect>
@@ -418,7 +418,94 @@
     <enum>QFrame::Raised</enum>
    </property>
   </widget>
+  <widget class="PlotWidget" name="Plot1">
+   <property name="geometry">
+    <rect>
+     <x>966</x>
+     <y>680</y>
+     <width>941</width>
+     <height>154</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Consolas</family>
+     <weight>75</weight>
+     <italic>true</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::WinPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+  </widget>
+  <widget class="PlotWidget" name="Plot2">
+   <property name="geometry">
+    <rect>
+     <x>966</x>
+     <y>848</y>
+     <width>941</width>
+     <height>154</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Consolas</family>
+     <weight>75</weight>
+     <italic>true</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::WinPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox1">
+   <property name="geometry">
+    <rect>
+     <x>1810</x>
+     <y>681</y>
+     <width>95</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox2">
+   <property name="geometry">
+    <rect>
+     <x>1810</x>
+     <y>849</y>
+     <width>95</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+  </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PlotWidget</class>
+   <extends>QGraphicsView</extends>
+   <header>pyqtgraph</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
