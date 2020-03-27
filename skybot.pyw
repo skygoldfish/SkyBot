@@ -3965,21 +3965,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         plot2_time_line_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
         plot2_time_line_yagan_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
         plot2_time_line = self.Plot2.addLine(x=0, y=None, pen=tpen1)
+        
+        plot2_hc_high_line = self.Plot2.addLine(x=None, pen=magenta_pen)
+        plot2_hc_low_line = self.Plot2.addLine(x=None, pen=aqua_pen)
 
         plot2_ovc_jl_line = self.Plot2.addLine(x=None, pen=goldenrod_pen)
         plot2_ovc_jh_line = self.Plot2.addLine(x=None, pen=gold_pen)  
         plot2_ovc_close_line = self.Plot2.addLine(x=None, pen=green_pen)
         plot2_ovc_open_line = self.Plot2.addLine(x=None, pen=yellow_pen)
         plot2_ovc_pivot_line = self.Plot2.addLine(x=None, pen=fut_pvt_pen)
-
         plot2_ovc_low_line = self.Plot2.addLine(x=None, pen=skyblue_pen)
         plot2_ovc_high_line = self.Plot2.addLine(x=None, pen=orange_pen)
+        
+        for i in range(9):
+            mv_line.append(self.Plot2.addLine(x=None, pen=mvpen)) 
 
         plot2_two_sum_curve = self.Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         plot2_two_cha_curve = self.Plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
-
-        plot2_hc_high_line = self.Plot2.addLine(x=None, pen=magenta_pen)
-        plot2_hc_low_line = self.Plot2.addLine(x=None, pen=aqua_pen)
 
         plot2_call_oi_curve = self.Plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         plot2_put_oi_curve = self.Plot2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -3995,9 +3997,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         plot2_sp500_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         plot2_dow_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         plot2_nasdaq_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-
-        for i in range(9):
-            mv_line.append(self.Plot2.addLine(x=None, pen=mvpen)) 
         
         for i in range(nRowCount):
             call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
