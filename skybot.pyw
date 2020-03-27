@@ -656,6 +656,7 @@ night_time = 0
 선물_현재가 = 0
 선물_저가 = 0
 선물_고가 = 0
+선물_대비 = 0
 
 선물_누적거래량 = 0
 
@@ -6667,7 +6668,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         # 선물, 콜, 풋 현재가 클리어
                         #self.cv_color_clear()
-                        self.price_color_clear()
+                        #self.price_color_clear()
                         
                         if self.alternate_flag:
 
@@ -7505,8 +7506,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             self.tableWidget_fut.item(1, Futures_column.현재가.value).setBackground(QBrush(흰색))
             self.tableWidget_fut.item(2, Futures_column.현재가.value).setBackground(QBrush(흰색))
-
-        '''
+        
         global call_scroll_end_position
 
         if call_scroll_end_position > option_pairs_count:
@@ -7533,8 +7533,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.tableWidget_put.item(i, Option_column.현재가.value).setBackground(QBrush(흰색))
 
-        #return
-        '''
+        #return        
 
     '''
     # 선물 현재가 클리어
@@ -8244,22 +8243,41 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 put_md_all_dying = False
                 put_ms_all_going = False
 
-                if TARGET_MONTH_SELECT == 1:
+                if 선물_대비 > 0:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
-                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                    if TARGET_MONTH_SELECT == 1:
 
-                elif TARGET_MONTH_SELECT == 2:
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
-                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                    elif TARGET_MONTH_SELECT == 2:
 
-                elif TARGET_MONTH_SELECT == 3:
-                    
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
-                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 3:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                    else:
+                        pass
                 else:
-                    pass
+                    if TARGET_MONTH_SELECT == 1:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 2:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 3:
+                        
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                    else:
+                        pass                
 
                 if dt.second % 10 == 0 and not blink:
                     self.textBrowser.append(비대칭장)
@@ -8280,22 +8298,41 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 put_md_all_dying = False
                 put_ms_all_going = True
 
-                if TARGET_MONTH_SELECT == 1:
+                if 선물_대비 > 0:
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
-                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                    if TARGET_MONTH_SELECT == 1:
 
-                elif TARGET_MONTH_SELECT == 2:
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
 
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
-                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                    elif TARGET_MONTH_SELECT == 2:
 
-                elif TARGET_MONTH_SELECT == 3:
-                    
-                    비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
-                        (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 3:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                    else:
+                        pass
                 else:
-                    pass
+                    if TARGET_MONTH_SELECT == 1:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 2:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 3:
+                        
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매수({3:0.0f}:{4:0.0f}) 양빵장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                    else:
+                        pass                
 
                 if dt.second % 10 == 0 and not blink:
                     self.textBrowser.append(비대칭장)
@@ -15124,6 +15161,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global first_refresh, fut_first_arrive
         global flag_telegram_listen_worker, telegram_send_worker_on_time
         global flag_telegram_send_worker
+        global 선물_대비
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -15256,149 +15294,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        # 현재가 갱신
-        if overnight:
-            fut_price = self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]
-        else:
-            fut_price = self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]
-
-        if 현재가 != fut_price:
-
-            if overnight:
-                
-                df_fut.loc[0, '현재가'] = 선물_현재가
-                cme_realdata['현재가'] = 선물_현재가
-
-                if float(현재가) < float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
-                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
-                elif float(현재가) > float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
-                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
-                else:    
-                    item = QTableWidgetItem(현재가)
-
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if float(현재가) < float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
-                    item.setBackground(QBrush(lightskyblue))
-                elif float(현재가) > float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
-                    item.setBackground(QBrush(pink))
-                else:
-                    item.setBackground(QBrush(옅은회색))
-
-                self.tableWidget_fut.setItem(0, Futures_column.현재가.value, item)
-            else:
-                df_fut.loc[1, '현재가'] = 선물_현재가
-                fut_realdata['현재가'] = 선물_현재가 
-
-                if float(현재가) < float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
-                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
-                elif float(현재가) > float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
-                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
-                else:    
-                    item = QTableWidgetItem(현재가)
-
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if float(현재가) < float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
-                    item.setBackground(QBrush(lightskyblue))
-                elif float(현재가) > float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
-                    item.setBackground(QBrush(pink))
-                else:
-                    #item.setBackground(QBrush(옅은회색))
-                    pass
-
-                self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)                              
-
-            if 선물_시가 < 선물_현재가:
-
-                if overnight:
-                    self.tableWidget_fut.item(0, Futures_column.현재가.value).setForeground(QBrush(적색))
-                else:
-                    self.tableWidget_fut.item(1, Futures_column.현재가.value).setForeground(QBrush(적색))
-
-            elif 선물_시가 > 선물_현재가:
-
-                if overnight:
-                    self.tableWidget_fut.item(0, Futures_column.현재가.value).setForeground(QBrush(청색))
-                else:
-                    self.tableWidget_fut.item(1, Futures_column.현재가.value).setForeground(QBrush(청색))
-
-            else:
-                if overnight:
-                    self.tableWidget_fut.item(0, Futures_column.현재가.value).setForeground(QBrush(검정색))
-                else:
-                    self.tableWidget_fut.item(1, Futures_column.현재가.value).setForeground(QBrush(검정색))
-
-            대비 = 선물_현재가 - 선물_시가
-            등락율 = result['등락율']
-
-            item = QTableWidgetItem("{0:0.2f}\n({1:0.2f}%)".format(대비, 등락율))
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if overnight:
-                self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
-            else:
-                self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
-            
-            if 대비 > 0:
-
-                direction = '▲'
-
-                if direction != self.tableWidget_fut.horizontalHeaderItem(0).text():
-                    item = QTableWidgetItem(direction)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_fut.setHorizontalHeaderItem(0, item)
-                else:
-                    pass
-
-                if overnight:
-
-                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
-                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(검정색))
-                else:
-                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
-                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(검정색))
-
-            elif 대비 < 0:
-
-                direction = '▼'
-
-                if direction != self.tableWidget_fut.horizontalHeaderItem(0).text():
-                    item = QTableWidgetItem(direction)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_fut.setHorizontalHeaderItem(0, item)
-                else:
-                    pass  
-
-                if overnight:
-
-                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
-                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
-                else:
-                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(청색))
-                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색)) 
-
-            else:
-
-                direction = ''
-
-                if direction != self.tableWidget_fut.horizontalHeaderItem(0).text():
-                    item = QTableWidgetItem(direction)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_fut.setHorizontalHeaderItem(0, item)
-                else:
-                    pass  
-
-                if overnight:
-
-                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
-                else:
-                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))     
-        else:
-            pass 
-
         # 시가 및 피봇 갱신
         if overnight:
             fut_open = self.tableWidget_fut.item(0, Futures_column.시가.value).text()
@@ -15528,6 +15423,149 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     fut_realdata['시가갭'] = 시가갭
             else:
                 pass 
+
+        # 현재가 갱신
+        if overnight:
+            fut_price = self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]
+        else:
+            fut_price = self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]
+
+        if 현재가 != fut_price:
+
+            if overnight:
+                
+                df_fut.loc[0, '현재가'] = 선물_현재가
+                cme_realdata['현재가'] = 선물_현재가
+
+                if float(현재가) < float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
+                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
+                elif float(현재가) > float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
+                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
+                else:    
+                    item = QTableWidgetItem(현재가)
+
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if float(현재가) < float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
+                    item.setBackground(QBrush(lightskyblue))
+                elif float(현재가) > float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
+                    item.setBackground(QBrush(pink))
+                else:
+                    item.setBackground(QBrush(옅은회색))
+
+                self.tableWidget_fut.setItem(0, Futures_column.현재가.value, item)
+            else:
+                df_fut.loc[1, '현재가'] = 선물_현재가
+                fut_realdata['현재가'] = 선물_현재가 
+
+                if float(현재가) < float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
+                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
+                elif float(현재가) > float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
+                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
+                else:    
+                    item = QTableWidgetItem(현재가)
+
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if float(현재가) < float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
+                    item.setBackground(QBrush(lightskyblue))
+                elif float(현재가) > float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
+                    item.setBackground(QBrush(pink))
+                else:
+                    #item.setBackground(QBrush(옅은회색))
+                    pass
+
+                self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)                              
+
+            if 선물_시가 < 선물_현재가:
+
+                if overnight:
+                    self.tableWidget_fut.item(0, Futures_column.현재가.value).setForeground(QBrush(적색))
+                else:
+                    self.tableWidget_fut.item(1, Futures_column.현재가.value).setForeground(QBrush(적색))
+
+            elif 선물_시가 > 선물_현재가:
+
+                if overnight:
+                    self.tableWidget_fut.item(0, Futures_column.현재가.value).setForeground(QBrush(청색))
+                else:
+                    self.tableWidget_fut.item(1, Futures_column.현재가.value).setForeground(QBrush(청색))
+
+            else:
+                if overnight:
+                    self.tableWidget_fut.item(0, Futures_column.현재가.value).setForeground(QBrush(검정색))
+                else:
+                    self.tableWidget_fut.item(1, Futures_column.현재가.value).setForeground(QBrush(검정색))
+
+            선물_대비 = 선물_현재가 - 선물_시가
+            등락율 = result['등락율']
+
+            item = QTableWidgetItem("{0:0.2f}\n({1:0.2f}%)".format(선물_대비, 등락율))
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if overnight:
+                self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
+            else:
+                self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
+            
+            if 선물_대비 > 0:
+
+                direction = '▲'
+
+                if direction != self.tableWidget_fut.horizontalHeaderItem(0).text():
+                    item = QTableWidgetItem(direction)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_fut.setHorizontalHeaderItem(0, item)
+                else:
+                    pass
+
+                if overnight:
+
+                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
+                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(검정색))
+                else:
+                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
+                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(검정색))
+
+            elif 선물_대비 < 0:
+
+                direction = '▼'
+
+                if direction != self.tableWidget_fut.horizontalHeaderItem(0).text():
+                    item = QTableWidgetItem(direction)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_fut.setHorizontalHeaderItem(0, item)
+                else:
+                    pass  
+
+                if overnight:
+
+                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
+                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+                else:
+                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(청색))
+                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색)) 
+
+            else:
+
+                direction = ''
+
+                if direction != self.tableWidget_fut.horizontalHeaderItem(0).text():
+                    item = QTableWidgetItem(direction)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_fut.setHorizontalHeaderItem(0, item)
+                else:
+                    pass  
+
+                if overnight:
+
+                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+                else:
+                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))     
+        else:
+            pass        
                 
         # 저가 갱신
         if overnight:
