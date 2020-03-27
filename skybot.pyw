@@ -956,6 +956,7 @@ new_actval_down_count = 0
 
 selected_call = []
 selected_put = []
+selected_opt_list = []
 
 call_node_state = dict()
 put_node_state = dict()
@@ -2693,17 +2694,18 @@ class screen_update_worker(QThread):
 
             data = {}
 
-            # atm index 중심으로 위,아래 20개 요청(총 41개)
-            for actval in opt_actval[atm_index - 20:atm_index + 20]:
-            #for actval in opt_actval:
+            # atm index 중심으로 위,아래 25개 요청(총 51개)
+            #for actval in opt_actval[atm_index - 25:atm_index + 25]:
+            for actval in selected_opt_list:
 
                 data[actval] = self.get_data_infos(actval)
 
             # dummy 요청(안하면 screen update로 못들어감 ?)
+            '''
             for actval in opt_actval[option_pairs_count - 1:option_pairs_count]:
 
                 data[actval] = self.get_data_infos(actval)          
-            
+            '''
             self.finished.emit(data)  
             self.msleep(500)
 
@@ -3996,11 +3998,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         for i in range(9):
             mv_line.append(self.Plot2.addLine(x=None, pen=mvpen)) 
-
-        for i in range(41):
+        
+        for i in range(nRowCount):
             call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
             put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))
-
+        
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
 
@@ -4687,7 +4689,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_two_sum_curve.clear()
             plot2_two_cha_curve.clear()
                         
-            for i in range(41):
+            for i in range(nRowCount):
                 call_curve[i].clear()
                 put_curve[i].clear()
             
@@ -4723,7 +4725,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 plot2_two_sum_curve.clear()
                 plot2_two_cha_curve.clear()
 
-                for i in range(41):
+                for i in range(nRowCount):
                     call_curve[i].clear()
                     put_curve[i].clear()
 
@@ -4759,7 +4761,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_two_sum_curve.clear()
             plot2_two_cha_curve.clear()
             
-            for i in range(41):
+            for i in range(nRowCount):
                 call_curve[i].clear()
                 put_curve[i].clear()                
 
@@ -4793,7 +4795,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_fut_volume_plus_curve.clear()
             plot2_fut_volume_minus_curve.clear()
             
-            for i in range(41):
+            for i in range(nRowCount):
                 call_curve[i].clear()
                 put_curve[i].clear()                
 
@@ -4868,7 +4870,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_two_sum_curve.clear()
             plot2_two_cha_curve.clear()
             
-            for i in range(41):
+            for i in range(nRowCount):
                 call_curve[i].clear()                
                 put_curve[i].clear()
 
@@ -4935,7 +4937,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_two_sum_curve.clear()
             plot2_two_cha_curve.clear()
             
-            for i in range(41):
+            for i in range(nRowCount):
                 call_curve[i].clear()
                 put_curve[i].clear()                
 
@@ -5002,7 +5004,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_two_sum_curve.clear()
             plot2_two_cha_curve.clear()
             
-            for i in range(41):
+            for i in range(nRowCount):
                 call_curve[i].clear()
                 put_curve[i].clear()                
                 
@@ -5633,9 +5635,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if atm_str != '':
 
                 if row < atm_index:
-                    call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
+
+                    if UI_STYLE == 'Option_Full_view.ui':
+                        call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
+                    else:
+                        call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
                 else:
-                    call_positionCell = self.tableWidget_call.item(atm_index - 4, 1)
+
+                    if UI_STYLE == 'Option_Full_view.ui':
+                        call_positionCell = self.tableWidget_call.item(atm_index - 9, 1)
+                    else:
+                        call_positionCell = self.tableWidget_call.item(atm_index - 4, 1)
 
                 self.tableWidget_call.scrollToItem(call_positionCell)
 
@@ -5663,9 +5673,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if atm_str != '':
 
                 if row < atm_index:
-                    put_positionCell = self.tableWidget_put.item(atm_index + 3, 1)
+
+                    if UI_STYLE == 'Option_Full_view.ui':
+                        put_positionCell = self.tableWidget_put.item(atm_index + 9, 1)
+                    else:
+                        put_positionCell = self.tableWidget_put.item(atm_index + 3, 1)
                 else:
-                    put_positionCell = self.tableWidget_put.item(atm_index - 4, 1)
+
+                    if UI_STYLE == 'Option_Full_view.ui':
+                        put_positionCell = self.tableWidget_put.item(atm_index - 9, 1)
+                    else:
+                        put_positionCell = self.tableWidget_put.item(atm_index - 4, 1)
 
                 self.tableWidget_put.scrollToItem(put_positionCell)
             else:
@@ -6035,9 +6053,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 옵션그래프 초기화
                 if comboindex2 == 4:
 
-                    for i in range(41):
+                    global selected_call, selected_put, selected_opt_list
+                    
+                    for i in range(option_pairs_count):
                         call_curve[i].clear()
-                        put_curve[i].clear()                        
+                        put_curve[i].clear()                                             
 
                     # 옵션 Y축 최대값 구하기
                     axY = self.Plot2.getAxis('left')
@@ -6058,27 +6078,33 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         pass
 
-                    # 4종의 그래프데이타를 받아옴
-                    global selected_call, selected_put
+                    # 4종의 그래프데이타를 받아옴                   
 
                     call_idx = []
                     put_idx = []
+                    selected_opt_list = []
 
                     # 외가 20개, 내가 20개 탐색
-                    for i in range(atm_index - 20, atm_index + 20):
+                    for i in range(option_pairs_count):
 
                         if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
                             call_idx.append(i)
+                            selected_opt_list.append(opt_actval[i])
                         else:
                             pass
 
                         if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
                             put_idx.append(i)
+                            selected_opt_list.append(opt_actval[i])
                         else:
                             pass
 
                     selected_call = call_idx                    
-                    selected_put = put_idx   
+                    selected_put = put_idx
+
+                    selected_opt_list.append(opt_actval[option_pairs_count-1])
+                    
+                    #print('selected_opt_list =', selected_opt_list) 
                 else:
                     pass            
 
@@ -11223,6 +11249,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global t2835_month_info
         global server_date, server_time, system_server_timegap
         global call_cm_code, put_cm_code, opt_cm_length
+        global selected_opt_list
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -11510,7 +11537,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 옵션 행사가 갯수
                 option_pairs_count = len(df)
-
+                '''
+                for i in range(option_pairs_count):
+                    call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
+                    put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))
+                '''
                 if not overnight:
 
                     call_open = [False] * option_pairs_count
@@ -12632,6 +12663,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             atm_str = self.find_ATM(kp200_realdata['종가'])
             atm_index = opt_actval.index(atm_str)
+            
+            # update 쓰레드 시간단축 목적 !!!
+            selected_opt_list.append(opt_actval[option_pairs_count-1])
+            #print('selected_opt_list =', selected_opt_list)
 
             if atm_str[-1] == '2' or atm_str[-1] == '7':
 
@@ -14031,7 +14066,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             str = '[{0:02d}:{1:02d}:{2:02d}] Call 과거데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)                            
 
-                            call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
+                            if UI_STYLE == 'Option_Full_view.ui':
+
+                                call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
+                            else:
+                                call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
+
                             self.tableWidget_call.scrollToItem(call_positionCell)
 
                             time.sleep(1.1)
@@ -14297,7 +14337,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.tableWidget_call.resizeColumnsToContents()
 
-                        call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
+                        if UI_STYLE == 'Option_Full_view.ui':
+
+                            call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
+                        else:
+                            call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
+
                         self.tableWidget_call.scrollToItem(call_positionCell)
 
                         time.sleep(1.1)
@@ -14433,7 +14478,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     self.tableWidget_put.resizeColumnsToContents()
 
-                    put_positionCell = self.tableWidget_put.item(atm_index + 3, 1)
+                    if UI_STYLE == 'Option_Full_view.ui':
+
+                        put_positionCell = self.tableWidget_put.item(atm_index + 8, 1)
+                    else:
+                        put_positionCell = self.tableWidget_put.item(atm_index + 3, 1)
+
                     self.tableWidget_put.scrollToItem(put_positionCell)
 
                     if self.t8416_putworker.isRunning():
