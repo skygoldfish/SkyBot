@@ -2693,7 +2693,7 @@ class screen_update_worker(QThread):
 
             data = {}
 
-            # atm index 중심으로 위,아래 20개 요청(총 40개)
+            # atm index 중심으로 위,아래 20개 요청(총 41개)
             for actval in opt_actval[atm_index - 20:atm_index + 20]:
             #for actval in opt_actval:
 
@@ -3997,10 +3997,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         for i in range(9):
             mv_line.append(self.Plot2.addLine(x=None, pen=mvpen)) 
 
-        for i in range(40):
+        for i in range(41):
             call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
-
-        for i in range(40):
             put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))
 
         # Enable antialiasing for prettier plots
@@ -4689,10 +4687,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_two_sum_curve.clear()
             plot2_two_cha_curve.clear()
                         
-            for i in range(40):
+            for i in range(41):
                 call_curve[i].clear()
-
-            for i in range(40):
                 put_curve[i].clear()
             
             plot2_sp500_curve.clear()
@@ -4727,10 +4723,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 plot2_two_sum_curve.clear()
                 plot2_two_cha_curve.clear()
 
-                for i in range(40):
+                for i in range(41):
                     call_curve[i].clear()
-
-                for i in range(40):
                     put_curve[i].clear()
 
                 plot2_sp500_curve.clear()
@@ -4765,11 +4759,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_two_sum_curve.clear()
             plot2_two_cha_curve.clear()
             
-            for i in range(40):
+            for i in range(41):
                 call_curve[i].clear()
-
-            for i in range(40):
-                put_curve[i].clear()
+                put_curve[i].clear()                
 
             plot2_sp500_curve.clear()
             plot2_dow_curve.clear()
@@ -4801,11 +4793,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_fut_volume_plus_curve.clear()
             plot2_fut_volume_minus_curve.clear()
             
-            for i in range(40):
+            for i in range(41):
                 call_curve[i].clear()
-
-            for i in range(40):
-                put_curve[i].clear() 
+                put_curve[i].clear()                
 
             plot2_sp500_curve.clear()
             plot2_dow_curve.clear()
@@ -4878,10 +4868,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_two_sum_curve.clear()
             plot2_two_cha_curve.clear()
             
-            for i in range(40):
-                call_curve[i].clear()
-
-            for i in range(40):
+            for i in range(41):
+                call_curve[i].clear()                
                 put_curve[i].clear()
 
             plot2_dow_curve.clear()
@@ -4947,11 +4935,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_two_sum_curve.clear()
             plot2_two_cha_curve.clear()
             
-            for i in range(40):
+            for i in range(41):
                 call_curve[i].clear()
-
-            for i in range(40):
-                put_curve[i].clear()
+                put_curve[i].clear()                
 
             plot2_sp500_curve.clear()
             plot2_nasdaq_curve.clear()
@@ -5016,11 +5002,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_two_sum_curve.clear()
             plot2_two_cha_curve.clear()
             
-            for i in range(40):
+            for i in range(41):
                 call_curve[i].clear()
-
-            for i in range(40):
-                put_curve[i].clear()
+                put_curve[i].clear()                
                 
             plot2_sp500_curve.clear()
             plot2_dow_curve.clear() 
@@ -6051,7 +6035,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 옵션그래프 초기화
                 if comboindex2 == 4:
 
-                    for i in range(40):
+                    for i in range(41):
                         call_curve[i].clear()
                         put_curve[i].clear()                        
 
