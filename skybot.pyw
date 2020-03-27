@@ -1132,25 +1132,33 @@ plot1_time_line = None
 plot1_time_line_start = None
 plot1_time_line_yagan_start = None
 
-plot1_fut_price_curve = None
+plot1_fut_jl_line = None
+plot1_fut_jh_line = None
+plot1_fut_close_line = None
+plot1_fut_open_line = None    
+plot1_fut_pivot_line = None
+plot1_fut_low_line = None
+plot1_fut_high_line = None  
 
+plot1_hc_high_line = None
+plot1_hc_low_line = None
+plot1_atm_high_line = None
+plot1_atm_low_line = None
+
+plot1_ovc_jl_line = None
+plot1_ovc_jh_line = None
+plot1_ovc_close_line = None
+plot1_ovc_open_line = None
+plot1_ovc_pivot_line = None
+plot1_ovc_low_line = None
+plot1_ovc_high_line = None
+
+plot1_fut_price_curve = None
 plot1_fut_volume_curve = None
 plot1_fut_volume_plus_curve = None
 plot1_fut_volume_minus_curve = None
 
-plot1_fut_pivot_line = None
-plot1_fut_jl_line = None
-plot1_fut_jh_line = None
 plot1_kp200_curve = None
-
-plot1_ovc_open_line = None
-
-plot1_hc_high_line = None
-plot1_hc_low_line = None
-
-plot1_atm_high_line = None
-plot1_atm_low_line = None
-
 plot1_call_volume_curve = None
 plot1_put_volume_curve = None
 plot1_volume_cha_curve = None
@@ -1187,6 +1195,15 @@ plot2_put_oi_curve = None
 
 plot2_two_sum_curve = None
 plot2_two_cha_curve = None
+
+plot2_ovc_jl_line = None
+plot2_ovc_jh_line = None
+plot2_ovc_close_line = None
+plot2_ovc_open_line = None
+plot2_ovc_pivot_line = None
+
+plot2_ovc_low_line = None
+plot2_ovc_high_line = None
 
 plot2_sp500_curve = None
 plot2_dow_curve = None
@@ -2676,8 +2693,8 @@ class screen_update_worker(QThread):
 
             data = {}
 
-            # atm index 중심으로 위,아래 15개 요청(총 31개)
-            for actval in opt_actval[atm_index - 15:atm_index + 16]:
+            # atm index 중심으로 위,아래 20개 요청(총 40개)
+            for actval in opt_actval[atm_index - 20:atm_index + 20]:
             #for actval in opt_actval:
 
                 data[actval] = self.get_data_infos(actval)
@@ -3877,42 +3894,52 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
-        global plot1_fut_jl_line, plot1_fut_jh_line, plot1_fut_pivot_line, plot1_ovc_open_line        
+        global plot1_hc_high_line, plot1_hc_low_line, plot1_atm_high_line, plot1_atm_low_line
+        global plot1_fut_jl_line, plot1_fut_jh_line, plot1_fut_close_line, plot1_fut_open_line, plot1_fut_pivot_line, plot1_fut_low_line, plot1_fut_high_line    
+        global plot1_ovc_jl_line, plot1_ovc_jh_line, plot1_ovc_close_line, plot1_ovc_open_line, plot1_ovc_pivot_line, plot1_ovc_low_line, plot1_ovc_high_line    
         global plot1_fut_volume_curve, plot1_fut_volume_plus_curve, plot1_fut_volume_minus_curve
         global plot1_call_oi_curve, plot1_put_oi_curve
         global plot1_call_volume_curve, plot1_put_volume_curve, plot1_volume_cha_curve
-        global plot1_two_sum_curve, plot1_two_cha_curve
-        global plot1_sp500_curve, plot1_dow_curve, plot1_nasdaq_curve
-        global plot1_hc_high_line, plot1_hc_low_line
-        global plot1_atm_high_line, plot1_atm_low_line
+        global plot1_two_sum_curve, plot1_two_cha_curve        
+        global plot1_sp500_curve, plot1_dow_curve, plot1_nasdaq_curve        
 
         global plot2_fut_volume_curve, plot2_fut_volume_plus_curve, plot2_fut_volume_minus_curve        
         global plot2_call_oi_curve, plot2_put_oi_curve        
         global plot2_call_volume_curve, plot2_put_volume_curve, plot2_volume_cha_curve        
         global plot2_two_sum_curve, plot2_two_cha_curve
         global plot2_sp500_curve, plot2_dow_curve, plot2_nasdaq_curve        
-        global plot2_time_line_start, plot2_time_line_yagan_start, plot2_time_line, plot2_ovc_open_line
+        global plot2_time_line_start, plot2_time_line_yagan_start, plot2_time_line
+        global plot2_ovc_jl_line, plot2_ovc_jh_line, plot2_ovc_close_line, plot2_ovc_open_line, plot2_ovc_pivot_line, plot2_ovc_low_line, plot2_ovc_high_line
         global plot2_hc_high_line, plot2_hc_low_line
         global mv_line, call_curve, put_curve
-                # Plot1
+        
         plot1_time_line_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
         plot1_time_line_yagan_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
         plot1_time_line = self.Plot1.addLine(x=0, y=None, pen=tpen1)
+        
+        plot1_hc_high_line = self.Plot1.addLine(x=None, pen=magenta_pen)
+        plot1_hc_low_line = self.Plot1.addLine(x=None, pen=aqua_pen)
+        plot1_atm_high_line = self.Plot1.addLine(x=None, pen=yellow_pen)
+        plot1_atm_low_line = self.Plot1.addLine(x=None, pen=yellow_pen)
 
         plot1_fut_jl_line = self.Plot1.addLine(x=None, pen=goldenrod_pen)
-        plot1_fut_jh_line = self.Plot1.addLine(x=None, pen=gold_pen)        
+        plot1_fut_jh_line = self.Plot1.addLine(x=None, pen=gold_pen)  
+        plot1_fut_open_line = self.Plot1.addLine(x=None, pen=yellow_pen)
+        plot1_fut_close_line = self.Plot1.addLine(x=None, pen=green_pen)
         plot1_fut_pivot_line = self.Plot1.addLine(x=None, pen=fut_pvt_pen)
+        plot1_fut_low_line = self.Plot1.addLine(x=None, pen=skyblue_pen)
+        plot1_fut_high_line = self.Plot1.addLine(x=None, pen=orange_pen)   
 
-        plot1_ovc_open_line = self.Plot1.addLine(x=None, pen=ypen1)      
+        plot1_ovc_jl_line = self.Plot1.addLine(x=None, pen=goldenrod_pen)
+        plot1_ovc_jh_line = self.Plot1.addLine(x=None, pen=gold_pen)  
+        plot1_ovc_close_line = self.Plot1.addLine(x=None, pen=green_pen)
+        plot1_ovc_open_line = self.Plot1.addLine(x=None, pen=yellow_pen)
+        plot1_ovc_pivot_line = self.Plot1.addLine(x=None, pen=fut_pvt_pen)
+        plot1_ovc_low_line = self.Plot1.addLine(x=None, pen=skyblue_pen)
+        plot1_ovc_high_line = self.Plot1.addLine(x=None, pen=orange_pen)   
 
         plot1_two_sum_curve = self.Plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         plot1_two_cha_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)  
-
-        plot1_hc_high_line = self.Plot1.addLine(x=None, pen=magenta_pen)
-        plot1_hc_low_line = self.Plot1.addLine(x=None, pen=aqua_pen)
-
-        plot1_atm_high_line = self.Plot1.addLine(x=None, pen=yellow_pen)
-        plot1_atm_low_line = self.Plot1.addLine(x=None, pen=yellow_pen)
 
         plot1_fut_volume_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         plot1_fut_volume_plus_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
@@ -3937,7 +3964,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         plot2_time_line_yagan_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
         plot2_time_line = self.Plot2.addLine(x=0, y=None, pen=tpen1)
 
+        plot2_ovc_jl_line = self.Plot2.addLine(x=None, pen=goldenrod_pen)
+        plot2_ovc_jh_line = self.Plot2.addLine(x=None, pen=gold_pen)  
+        plot2_ovc_close_line = self.Plot2.addLine(x=None, pen=green_pen)
         plot2_ovc_open_line = self.Plot2.addLine(x=None, pen=yellow_pen)
+        plot2_ovc_pivot_line = self.Plot2.addLine(x=None, pen=fut_pvt_pen)
+
+        plot2_ovc_low_line = self.Plot2.addLine(x=None, pen=skyblue_pen)
+        plot2_ovc_high_line = self.Plot2.addLine(x=None, pen=orange_pen)
 
         plot2_two_sum_curve = self.Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         plot2_two_cha_curve = self.Plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
@@ -3963,8 +3997,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         for i in range(9):
             mv_line.append(self.Plot2.addLine(x=None, pen=mvpen)) 
 
-        for i in range(29):
+        for i in range(40):
             call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
+
+        for i in range(40):
             put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))
 
         # Enable antialiasing for prettier plots
@@ -4228,17 +4264,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot1_dow_curve.clear()
             plot1_nasdaq_curve.clear()
             
-            plot1_atm_high_line.setValue(0)
-            plot1_atm_low_line.setValue(0)            
-
-            plot1_ovc_open_line.setValue(0)
-
             plot1_hc_high_line.setValue(0)
             plot1_hc_low_line.setValue(0)
+            plot1_atm_high_line.setValue(0)
+            plot1_atm_low_line.setValue(0)
 
             plot1_fut_jl_line.setValue(0)
             plot1_fut_jh_line.setValue(0)
+            plot1_fut_close_line.setValue(0)
             plot1_fut_pivot_line.setValue(0)
+            plot1_fut_open_line.setValue(0)
+            plot1_fut_low_line.setValue(0)
+            plot1_fut_high_line.setValue(0)
+            
+            plot1_ovc_close_line.setValue(0)
+            plot1_ovc_open_line.setValue(0)
+            plot1_ovc_jl_line.setValue(0)
+            plot1_ovc_jh_line.setValue(0)
+            plot1_ovc_pivot_line.setValue(0)
+            plot1_ovc_low_line.setValue(0)
+            plot1_ovc_high_line.setValue(0)
 
         elif comboindex1 == 1:            
             
@@ -4258,17 +4303,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot1_dow_curve.clear()
             plot1_nasdaq_curve.clear()     
             
-            plot1_atm_high_line.setValue(0)
-            plot1_atm_low_line.setValue(0)
-            
-            plot1_ovc_open_line.setValue(0)
-
             plot1_hc_high_line.setValue(0)
             plot1_hc_low_line.setValue(0)
-            
+            plot1_atm_high_line.setValue(0)
+            plot1_atm_low_line.setValue(0)
+
             plot1_fut_jl_line.setValue(0)
             plot1_fut_jh_line.setValue(0)
-            plot1_fut_pivot_line.setValue(0) 
+            plot1_fut_close_line.setValue(0)
+            plot1_fut_pivot_line.setValue(0)
+            plot1_fut_open_line.setValue(0)
+            plot1_fut_low_line.setValue(0)
+            plot1_fut_high_line.setValue(0)
+            
+            plot1_ovc_close_line.setValue(0)
+            plot1_ovc_open_line.setValue(0)
+            plot1_ovc_jl_line.setValue(0)
+            plot1_ovc_jh_line.setValue(0)
+            plot1_ovc_pivot_line.setValue(0)
+            plot1_ovc_low_line.setValue(0)
+            plot1_ovc_high_line.setValue(0)
 
         elif comboindex1 == 2:
             
@@ -4289,17 +4343,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot1_dow_curve.clear()
             plot1_nasdaq_curve.clear()   
 
-            plot1_atm_high_line.setValue(0)
-            plot1_atm_low_line.setValue(0)
-            
-            plot1_ovc_open_line.setValue(0)
-
             plot1_hc_high_line.setValue(0)
             plot1_hc_low_line.setValue(0)
-            
+            plot1_atm_high_line.setValue(0)
+            plot1_atm_low_line.setValue(0)
+
             plot1_fut_jl_line.setValue(0)
             plot1_fut_jh_line.setValue(0)
-            plot1_fut_pivot_line.setValue(0)     
+            plot1_fut_close_line.setValue(0)
+            plot1_fut_pivot_line.setValue(0)
+            plot1_fut_open_line.setValue(0)
+            plot1_fut_low_line.setValue(0)
+            plot1_fut_high_line.setValue(0)
+            
+            plot1_ovc_close_line.setValue(0)
+            plot1_ovc_open_line.setValue(0)
+            plot1_ovc_jl_line.setValue(0)
+            plot1_ovc_jh_line.setValue(0)
+            plot1_ovc_pivot_line.setValue(0)
+            plot1_ovc_low_line.setValue(0)
+            plot1_ovc_high_line.setValue(0) 
         
         elif comboindex1 == 3:
 
@@ -4320,17 +4383,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot1_dow_curve.clear()
             plot1_nasdaq_curve.clear()
             
-            plot1_atm_high_line.setValue(0)
-            plot1_atm_low_line.setValue(0) 
-
-            plot1_ovc_open_line.setValue(0)
-            
-            plot1_fut_jl_line.setValue(0)
-            plot1_fut_jh_line.setValue(0)
-            plot1_fut_pivot_line.setValue(0)            
-
             plot1_hc_high_line.setValue(1.5)
             plot1_hc_low_line.setValue(-1.5)
+            plot1_atm_high_line.setValue(0)
+            plot1_atm_low_line.setValue(0)
+
+            plot1_fut_jl_line.setValue(0)
+            plot1_fut_jh_line.setValue(0)
+            plot1_fut_close_line.setValue(0)
+            plot1_fut_pivot_line.setValue(0)
+            plot1_fut_open_line.setValue(0)
+            plot1_fut_low_line.setValue(0)
+            plot1_fut_high_line.setValue(0)
+            
+            plot1_ovc_close_line.setValue(0)
+            plot1_ovc_open_line.setValue(0)
+            plot1_ovc_jl_line.setValue(0)
+            plot1_ovc_jh_line.setValue(0)
+            plot1_ovc_pivot_line.setValue(0)
+            plot1_ovc_low_line.setValue(0)
+            plot1_ovc_high_line.setValue(0)            
 
         elif comboindex1 == 4:
             
@@ -4351,16 +4423,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot1_dow_curve.clear()
             plot1_nasdaq_curve.clear()
 
-            plot1_ovc_open_line.setValue(선물_전저)
-            plot1_hc_high_line.setValue(선물_전저)
-            plot1_hc_low_line.setValue(선물_전저)
+            plot1_hc_high_line.setValue(선물_종가)
+            plot1_hc_low_line.setValue(선물_종가)
+            plot1_atm_high_line.setValue(선물_종가)
+            plot1_atm_low_line.setValue(선물_종가)
 
             plot1_fut_jl_line.setValue(선물_전저)
             plot1_fut_jh_line.setValue(선물_전고)
+            plot1_fut_close_line.setValue(선물_종가)
             plot1_fut_pivot_line.setValue(선물_피봇)
+            plot1_fut_open_line.setValue(선물_시가)
+            plot1_fut_low_line.setValue(선물_저가)
+            plot1_fut_high_line.setValue(선물_고가)
+            
+            plot1_ovc_close_line.setValue(선물_종가)
+            plot1_ovc_open_line.setValue(선물_종가)
+            plot1_ovc_jl_line.setValue(선물_종가)
+            plot1_ovc_jh_line.setValue(선물_종가)
+            plot1_ovc_pivot_line.setValue(선물_종가)
+            plot1_ovc_low_line.setValue(선물_종가)
+            plot1_ovc_high_line.setValue(선물_종가)
 
-            plot1_atm_high_line.setValue(atm_val + 1.25)
-            plot1_atm_low_line.setValue(atm_val - 1.25)
+            #print('선물_종가 =', 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_고가)
 
         elif comboindex1 == 5:
 
@@ -4385,17 +4469,53 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if sp500_전일종가 > 0:
 
+                plot1_hc_high_line.setValue(sp500_전일종가)
+                plot1_hc_low_line.setValue(sp500_전일종가)
                 plot1_atm_high_line.setValue(sp500_전일종가)
                 plot1_atm_low_line.setValue(sp500_전일종가)
-                
+
                 plot1_fut_jl_line.setValue(sp500_전일종가)
                 plot1_fut_jh_line.setValue(sp500_전일종가)
+                plot1_fut_close_line.setValue(sp500_전일종가)
                 plot1_fut_pivot_line.setValue(sp500_전일종가)
+                plot1_fut_open_line.setValue(sp500_전일종가)
+                plot1_fut_low_line.setValue(sp500_전일종가)
+                plot1_fut_high_line.setValue(sp500_전일종가)             
+            else:
+                pass
 
-                plot1_hc_high_line.setValue(sp500_고가)
-                plot1_hc_low_line.setValue(sp500_저가)
-                
-                plot1_ovc_open_line.setValue(sp500_시가)                
+            if sp500_전일종가 > 0:                    
+                plot1_ovc_close_line.setValue(sp500_전일종가)
+            else:
+                pass
+
+            if sp500_시가 > 0:    
+                plot1_ovc_open_line.setValue(sp500_시가)
+            else:
+                pass
+
+            if SP500_LAST_LOW > 0:
+                plot1_ovc_jl_line.setValue(SP500_LAST_LOW)
+            else:
+                pass
+
+            if SP500_LAST_HIGH > 0:
+                plot1_ovc_jh_line.setValue(SP500_LAST_HIGH)
+            else:
+                pass
+
+            if sp500_피봇 > 0:
+                plot1_ovc_pivot_line.setValue(sp500_피봇)
+            else:
+                pass
+
+            if sp500_저가 > 0:
+                plot1_ovc_low_line.setValue(sp500_저가)
+            else:
+                pass
+
+            if sp500_고가 > 0:
+                plot1_ovc_high_line.setValue(sp500_고가)
             else:
                 pass
 
@@ -4422,17 +4542,53 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if dow_전일종가 > 0:
 
+                plot1_hc_high_line.setValue(dow_전일종가)
+                plot1_hc_low_line.setValue(dow_전일종가)
                 plot1_atm_high_line.setValue(dow_전일종가)
                 plot1_atm_low_line.setValue(dow_전일종가)
-                
+
                 plot1_fut_jl_line.setValue(dow_전일종가)
                 plot1_fut_jh_line.setValue(dow_전일종가)
+                plot1_fut_close_line.setValue(dow_전일종가)
                 plot1_fut_pivot_line.setValue(dow_전일종가)
+                plot1_fut_open_line.setValue(dow_전일종가)
+                plot1_fut_low_line.setValue(dow_전일종가)
+                plot1_fut_high_line.setValue(dow_전일종가) 
+            else:
+                pass
 
-                plot1_hc_high_line.setValue(dow_고가)
-                plot1_hc_low_line.setValue(dow_저가)
-                
-                plot1_ovc_open_line.setValue(dow_시가) 
+            if dow_전일종가 > 0:
+                plot1_ovc_close_line.setValue(dow_전일종가)
+            else:
+                pass
+
+            if dow_시가 > 0:
+                plot1_ovc_open_line.setValue(dow_시가)
+            else:
+                pass
+
+            if DOW_LAST_LOW > 0:
+                plot1_ovc_jl_line.setValue(DOW_LAST_LOW)
+            else:
+                pass
+
+            if DOW_LAST_HIGH > 0:
+                plot1_ovc_jh_line.setValue(DOW_LAST_HIGH)
+            else:
+                pass
+
+            if dow_피봇 > 0:
+                plot1_ovc_pivot_line.setValue(dow_피봇)
+            else:
+                pass
+
+            if dow_저가 > 0:
+                plot1_ovc_low_line.setValue(dow_저가)
+            else:
+                pass
+
+            if dow_고가 > 0:
+                plot1_ovc_high_line.setValue(dow_고가)
             else:
                 pass             
 
@@ -4459,17 +4615,53 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if nasdaq_전일종가 > 0:
 
+                plot1_hc_high_line.setValue(nasdaq_전일종가)
+                plot1_hc_low_line.setValue(nasdaq_전일종가)
                 plot1_atm_high_line.setValue(nasdaq_전일종가)
                 plot1_atm_low_line.setValue(nasdaq_전일종가)
-                
+
                 plot1_fut_jl_line.setValue(nasdaq_전일종가)
                 plot1_fut_jh_line.setValue(nasdaq_전일종가)
+                plot1_fut_close_line.setValue(nasdaq_전일종가)
                 plot1_fut_pivot_line.setValue(nasdaq_전일종가)
+                plot1_fut_open_line.setValue(nasdaq_전일종가)
+                plot1_fut_low_line.setValue(nasdaq_전일종가)
+                plot1_fut_high_line.setValue(nasdaq_전일종가) 
+            else:
+                pass
 
-                plot1_hc_high_line.setValue(nasdaq_고가)
-                plot1_hc_low_line.setValue(nasdaq_저가)
-                
-                plot1_ovc_open_line.setValue(nasdaq_시가) 
+            if nasdaq_전일종가 > 0:                    
+                plot1_ovc_close_line.setValue(nasdaq_전일종가)
+            else:
+                pass
+
+            if nasdaq_시가 > 0: 
+                plot1_ovc_open_line.setValue(nasdaq_시가)
+            else:
+                pass
+
+            if NASDAQ_LAST_LOW > 0:
+                plot1_ovc_jl_line.setValue(NASDAQ_LAST_LOW)
+            else:
+                pass
+
+            if NASDAQ_LAST_HIGH > 0:
+                plot1_ovc_jh_line.setValue(NASDAQ_LAST_HIGH)
+            else:
+                pass
+
+            if nasdaq_피봇 > 0:
+                plot1_ovc_pivot_line.setValue(nasdaq_피봇)
+            else:
+                pass
+
+            if nasdaq_저가 > 0:
+                plot1_ovc_low_line.setValue(nasdaq_저가)
+            else:
+                pass
+
+            if nasdaq_고가 > 0:
+                plot1_ovc_high_line.setValue(nasdaq_고가)
             else:
                 pass
         else:
@@ -4497,8 +4689,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_two_sum_curve.clear()
             plot2_two_cha_curve.clear()
                         
-            for i in range(29):
+            for i in range(40):
                 call_curve[i].clear()
+
+            for i in range(40):
                 put_curve[i].clear()
             
             plot2_sp500_curve.clear()
@@ -4508,7 +4702,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             for i in range(9):
                 mv_line[i].setValue(0)
 
+            plot2_ovc_close_line.setValue(0)
             plot2_ovc_open_line.setValue(0)
+            plot2_ovc_jl_line.setValue(0)
+            plot2_ovc_jh_line.setValue(0)
+            plot2_ovc_pivot_line.setValue(0)
+            plot2_ovc_low_line.setValue(0)
+            plot2_ovc_high_line.setValue(0)
 
             plot2_hc_high_line.setValue(0)
             plot2_hc_low_line.setValue(0)
@@ -4527,9 +4727,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 plot2_two_sum_curve.clear()
                 plot2_two_cha_curve.clear()
 
-                for i in range(29):
+                for i in range(40):
                     call_curve[i].clear()
-                    put_curve[i].clear() 
+
+                for i in range(40):
+                    put_curve[i].clear()
 
                 plot2_sp500_curve.clear()
                 plot2_dow_curve.clear()
@@ -4538,7 +4740,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 for i in range(9):
                     mv_line[i].setValue(0)
 
+                plot2_ovc_close_line.setValue(0)
                 plot2_ovc_open_line.setValue(0)
+                plot2_ovc_jl_line.setValue(0)
+                plot2_ovc_jh_line.setValue(0)
+                plot2_ovc_pivot_line.setValue(0)
+                plot2_ovc_low_line.setValue(0)
+                plot2_ovc_high_line.setValue(0)
 
                 plot2_hc_high_line.setValue(0)
                 plot2_hc_low_line.setValue(0)
@@ -4557,8 +4765,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_two_sum_curve.clear()
             plot2_two_cha_curve.clear()
             
-            for i in range(29):
+            for i in range(40):
                 call_curve[i].clear()
+
+            for i in range(40):
                 put_curve[i].clear()
 
             plot2_sp500_curve.clear()
@@ -4568,7 +4778,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             for i in range(9):
                 mv_line[i].setValue(0)
 
+            plot2_ovc_close_line.setValue(0)
             plot2_ovc_open_line.setValue(0)
+            plot2_ovc_jl_line.setValue(0)
+            plot2_ovc_jh_line.setValue(0)
+            plot2_ovc_pivot_line.setValue(0)
+            plot2_ovc_low_line.setValue(0)
+            plot2_ovc_high_line.setValue(0)
 
             plot2_hc_high_line.setValue(0)
             plot2_hc_low_line.setValue(0)
@@ -4585,8 +4801,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_fut_volume_plus_curve.clear()
             plot2_fut_volume_minus_curve.clear()
             
-            for i in range(29):
+            for i in range(40):
                 call_curve[i].clear()
+
+            for i in range(40):
                 put_curve[i].clear() 
 
             plot2_sp500_curve.clear()
@@ -4596,7 +4814,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             for i in range(9):
                 mv_line[i].setValue(0)
 
+            plot2_ovc_close_line.setValue(0)
             plot2_ovc_open_line.setValue(0)
+            plot2_ovc_jl_line.setValue(0)
+            plot2_ovc_jh_line.setValue(0)
+            plot2_ovc_pivot_line.setValue(0)
+            plot2_ovc_low_line.setValue(0)
+            plot2_ovc_high_line.setValue(0)
 
             plot2_hc_high_line.setValue(1.5)
             plot2_hc_low_line.setValue(-1.5)
@@ -4623,6 +4847,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_hc_high_line.setValue(0)
             plot2_hc_low_line.setValue(0)
 
+            plot2_ovc_close_line.setValue(0)
+            plot2_ovc_open_line.setValue(0)
+            plot2_ovc_jl_line.setValue(0)
+            plot2_ovc_jh_line.setValue(0)
+            plot2_ovc_pivot_line.setValue(0)
+            plot2_ovc_low_line.setValue(0)
+            plot2_ovc_high_line.setValue(0)
+
             # 대맥점 표시
             mv_line[0].setValue(1.2)
             mv_line[1].setValue(2.5)
@@ -4646,9 +4878,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_two_sum_curve.clear()
             plot2_two_cha_curve.clear()
             
-            for i in range(29):
+            for i in range(40):
                 call_curve[i].clear()
-                put_curve[i].clear() 
+
+            for i in range(40):
+                put_curve[i].clear()
 
             plot2_dow_curve.clear()
             plot2_nasdaq_curve.clear()
@@ -4658,10 +4892,43 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 for i in range(9):
                     mv_line[i].setValue(sp500_전일종가)
 
-                plot2_hc_high_line.setValue(sp500_고가)
-                plot2_hc_low_line.setValue(sp500_저가)
-                
+                plot2_hc_high_line.setValue(sp500_전일종가)
+                plot2_hc_low_line.setValue(sp500_전일종가)
+            else:
+                pass
+
+            if sp500_전일종가 > 0:                    
+                plot2_ovc_close_line.setValue(sp500_전일종가)
+            else:
+                pass
+
+            if sp500_시가 > 0:    
                 plot2_ovc_open_line.setValue(sp500_시가)
+            else:
+                pass
+
+            if SP500_LAST_LOW > 0:
+                plot2_ovc_jl_line.setValue(SP500_LAST_LOW)
+            else:
+                pass
+
+            if SP500_LAST_HIGH > 0:
+                plot2_ovc_jh_line.setValue(SP500_LAST_HIGH)
+            else:
+                pass
+
+            if sp500_피봇 > 0:
+                plot2_ovc_pivot_line.setValue(sp500_피봇)
+            else:
+                pass
+
+            if sp500_저가 > 0:
+                plot2_ovc_low_line.setValue(sp500_저가)
+            else:
+                pass
+
+            if sp500_고가 > 0:
+                plot2_ovc_high_line.setValue(sp500_고가)
             else:
                 pass            
 
@@ -4680,8 +4947,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_two_sum_curve.clear()
             plot2_two_cha_curve.clear()
             
-            for i in range(29):
+            for i in range(40):
                 call_curve[i].clear()
+
+            for i in range(40):
                 put_curve[i].clear()
 
             plot2_sp500_curve.clear()
@@ -4692,12 +4961,45 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 for i in range(9):
                     mv_line[i].setValue(dow_전일종가)
 
-                plot2_hc_high_line.setValue(dow_고가)
-                plot2_hc_low_line.setValue(dow_저가)
-                
+                plot2_hc_high_line.setValue(dow_전일종가)
+                plot2_hc_low_line.setValue(dow_전일종가)
+            else:
+                pass
+
+            if dow_전일종가 > 0:
+                plot2_ovc_close_line.setValue(dow_전일종가)
+            else:
+                pass
+
+            if dow_시가 > 0:
                 plot2_ovc_open_line.setValue(dow_시가)
             else:
                 pass
+
+            if DOW_LAST_LOW > 0:
+                plot2_ovc_jl_line.setValue(DOW_LAST_LOW)
+            else:
+                pass
+
+            if DOW_LAST_HIGH > 0:
+                plot2_ovc_jh_line.setValue(DOW_LAST_HIGH)
+            else:
+                pass
+
+            if dow_피봇 > 0:
+                plot2_ovc_pivot_line.setValue(dow_피봇)
+            else:
+                pass
+
+            if dow_저가 > 0:
+                plot2_ovc_low_line.setValue(dow_저가)
+            else:
+                pass
+
+            if dow_고가 > 0:
+                plot2_ovc_high_line.setValue(dow_고가)
+            else:
+                pass             
 
         elif comboindex2 == 7:
 
@@ -4714,8 +5016,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_two_sum_curve.clear()
             plot2_two_cha_curve.clear()
             
-            for i in range(29):
+            for i in range(40):
                 call_curve[i].clear()
+
+            for i in range(40):
                 put_curve[i].clear()
                 
             plot2_sp500_curve.clear()
@@ -4726,10 +5030,43 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 for i in range(9):
                     mv_line[i].setValue(nasdaq_전일종가)
 
-                plot2_hc_high_line.setValue(nasdaq_고가)
-                plot2_hc_low_line.setValue(nasdaq_저가)
-                
+                plot2_hc_high_line.setValue(nasdaq_전일종가)
+                plot2_hc_low_line.setValue(nasdaq_전일종가)
+            else:
+                pass
+
+            if nasdaq_전일종가 > 0:                    
+                plot2_ovc_close_line.setValue(nasdaq_전일종가)
+            else:
+                pass
+
+            if nasdaq_시가 > 0: 
                 plot2_ovc_open_line.setValue(nasdaq_시가)
+            else:
+                pass
+
+            if NASDAQ_LAST_LOW > 0:
+                plot2_ovc_jl_line.setValue(NASDAQ_LAST_LOW)
+            else:
+                pass
+
+            if NASDAQ_LAST_HIGH > 0:
+                plot2_ovc_jh_line.setValue(NASDAQ_LAST_HIGH)
+            else:
+                pass
+
+            if nasdaq_피봇 > 0:
+                plot2_ovc_pivot_line.setValue(nasdaq_피봇)
+            else:
+                pass
+
+            if nasdaq_저가 > 0:
+                plot2_ovc_low_line.setValue(nasdaq_저가)
+            else:
+                pass
+
+            if nasdaq_고가 > 0:
+                plot2_ovc_high_line.setValue(nasdaq_고가)
             else:
                 pass
         else:
@@ -4925,9 +5262,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 plot4_fut_jl_line.setValue(0)
                 plot4_fut_jh_line.setValue(0)
-                plot4_fut_pivot_line.setValue(0)
                 plot4_fut_close_line.setValue(0)
+                plot4_fut_pivot_line.setValue(0)                
                 plot4_fut_open_line.setValue(0)
+                plot4_fut_low_line.setValue(0)
+                plot4_fut_high_line.setValue(0)
             else:
                 pass
     else:
@@ -5712,9 +6051,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 옵션그래프 초기화
                 if comboindex2 == 4:
 
-                    for i in range(29):
+                    for i in range(40):
                         call_curve[i].clear()
-                        put_curve[i].clear()
+                        put_curve[i].clear()                        
 
                     # 옵션 Y축 최대값 구하기
                     axY = self.Plot2.getAxis('left')
@@ -5741,22 +6080,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     call_idx = []
                     put_idx = []
 
-                    # atm index 중심으로 위,아래 15개 만 탐색
-                    #for i in range(option_pairs_count):
-                    for i in range(atm_index - 15, atm_index + 16):
+                    # 외가 20개, 내가 20개 탐색
+                    for i in range(atm_index - 20, atm_index + 20):
 
                         if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
                             call_idx.append(i)
                         else:
                             pass
 
+                    selected_call = call_idx
+
+                    # 외가 20개, 내가 20개 탐색
+                    for i in range(atm_index - 20, atm_index + 20):
+
                         if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
                             put_idx.append(i)
                         else:
-                            pass                
-
-                    selected_call = call_idx
-                    selected_put = put_idx            
+                            pass
+                    
+                    selected_put = put_idx   
                 else:
                     pass            
 
@@ -6003,30 +6345,143 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     plot1_two_cha_curve.setData(curve2_data)
 
                 elif comboindex1 == 4:
+
+                    plot1_fut_jl_line.setValue(선물_전저)
+                    plot1_fut_jh_line.setValue(선물_전고)
+                    plot1_fut_close_line.setValue(선물_종가)
+                    plot1_fut_pivot_line.setValue(선물_피봇)
+                    plot1_fut_open_line.setValue(선물_시가)
+                    plot1_fut_low_line.setValue(선물_저가)
+                    plot1_fut_high_line.setValue(선물_고가)
                 
                     plot1_kp200_curve.setData(curve1_data)
                     plot1_fut_price_curve.setData(curve2_data)
 
                 elif comboindex1 == 5:
+                    
+                    plot1_hc_high_line.setValue(sp500_전일종가)
+                    plot1_hc_low_line.setValue(sp500_전일종가)
+
+                    if SP500_LAST_LOW > 0:
+                        plot1_ovc_jl_line.setValue(SP500_LAST_LOW)
+                    else:
+                        pass 
+
+                    if SP500_LAST_HIGH > 0:
+                        plot1_ovc_jh_line.setValue(SP500_LAST_HIGH)
+                    else:
+                        pass
+
+                    if sp500_전일종가 > 0:
+                        plot1_ovc_close_line.setValue(sp500_전일종가)
+                    else:
+                        pass 
+                    
+                    if sp500_시가 > 0:
+                        plot1_ovc_open_line.setValue(sp500_시가)
+                    else:
+                        pass
+
+                    if sp500_피봇 > 0:
+                        plot1_ovc_pivot_line.setValue(sp500_피봇)
+                    else:
+                        pass
+
+                    if sp500_저가 > 0:
+                        plot1_ovc_low_line.setValue(sp500_저가)
+                    else:
+                        pass
+
+                    if sp500_고가 > 0:
+                        plot1_ovc_high_line.setValue(sp500_고가)
+                    else:
+                        pass
 
                     plot1_sp500_curve.setData(curve1_data)
 
-                    plot1_hc_high_line.setValue(sp500_고가)
-                    plot1_hc_low_line.setValue(sp500_저가)
-
                 elif comboindex1 == 6:
 
-                    plot1_dow_curve.setData(curve1_data)
+                    plot1_hc_high_line.setValue(dow_전일종가)
+                    plot1_hc_low_line.setValue(dow_전일종가)
 
-                    plot1_hc_high_line.setValue(dow_고가)
-                    plot1_hc_low_line.setValue(dow_저가)
+                    if DOW_LAST_LOW > 0:
+                        plot1_ovc_jl_line.setValue(DOW_LAST_LOW)
+                    else:
+                        pass 
+                    
+                    if DOW_LAST_HIGH > 0:
+                        plot1_ovc_jh_line.setValue(DOW_LAST_HIGH)
+                    else:
+                        pass
+                    
+                    if dow_전일종가 > 0:
+                        plot1_ovc_close_line.setValue(dow_전일종가)
+                    else:
+                        pass
+                    
+                    if dow_시가 > 0:
+                        plot1_ovc_open_line.setValue(dow_시가)
+                    else:
+                        pass
+                    
+                    if dow_피봇 > 0:
+                        plot1_ovc_pivot_line.setValue(dow_피봇)
+                    else:
+                        pass
+                    
+                    if dow_저가 > 0:
+                        plot1_ovc_low_line.setValue(dow_저가)
+                    else:
+                        pass
+
+                    if dow_고가 > 0:
+                        plot1_ovc_high_line.setValue(dow_고가)
+                    else:
+                        pass                       
+                    
+                    plot1_dow_curve.setData(curve1_data)
 
                 elif comboindex1 == 7:
 
-                    plot1_nasdaq_curve.setData(curve1_data)
+                    plot1_hc_high_line.setValue(nasdaq_전일종가)
+                    plot1_hc_low_line.setValue(nasdaq_전일종가)
 
-                    plot1_hc_high_line.setValue(nasdaq_고가)
-                    plot1_hc_low_line.setValue(nasdaq_저가)
+                    if NASDAQ_LAST_LOW > 0:
+                        plot1_ovc_jl_line.setValue(NASDAQ_LAST_LOW)
+                    else:
+                        pass 
+
+                    if NASDAQ_LAST_HIGH > 0:
+                        plot1_ovc_jh_line.setValue(NASDAQ_LAST_HIGH)
+                    else:
+                        pass
+
+                    if nasdaq_전일종가 > 0:
+                        plot1_ovc_close_line.setValue(nasdaq_전일종가)
+                    else:
+                        pass
+                    
+                    if nasdaq_시가 > 0:
+                        plot1_ovc_open_line.setValue(nasdaq_시가)
+                    else:
+                        pass   
+
+                    if nasdaq_피봇 > 0:
+                        plot1_ovc_pivot_line.setValue(nasdaq_피봇)
+                    else:
+                        pass
+
+                    if nasdaq_저가 > 0:
+                        plot1_ovc_low_line.setValue(nasdaq_저가)
+                    else:
+                        pass
+
+                    if nasdaq_고가 > 0:
+                        plot1_ovc_high_line.setValue(nasdaq_고가)
+                    else:
+                        pass
+                    
+                    plot1_nasdaq_curve.setData(curve1_data)
                 else:
                     pass   
 
@@ -6063,24 +6518,129 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif comboindex2 == 5:
 
-                    plot2_sp500_curve.setData(curve4_data) 
+                    plot2_hc_high_line.setValue(sp500_전일종가)
+                    plot2_hc_low_line.setValue(sp500_전일종가)
 
-                    plot2_hc_high_line.setValue(sp500_고가)
-                    plot2_hc_low_line.setValue(sp500_저가)
+                    if SP500_LAST_LOW > 0:
+                        plot2_ovc_jl_line.setValue(SP500_LAST_LOW)
+                    else:
+                        pass 
+
+                    if SP500_LAST_HIGH > 0:
+                        plot2_ovc_jh_line.setValue(SP500_LAST_HIGH)
+                    else:
+                        pass
+
+                    if sp500_전일종가 > 0:
+                        plot2_ovc_close_line.setValue(sp500_전일종가)
+                    else:
+                        pass 
+                    
+                    if sp500_시가 > 0:
+                        plot2_ovc_open_line.setValue(sp500_시가)
+                    else:
+                        pass
+
+                    if sp500_피봇 > 0:
+                        plot2_ovc_pivot_line.setValue(sp500_피봇)
+                    else:
+                        pass
+
+                    if sp500_저가 > 0:
+                        plot2_ovc_low_line.setValue(sp500_저가)
+                    else:
+                        pass
+
+                    if sp500_고가 > 0:
+                        plot2_ovc_high_line.setValue(sp500_고가)
+                    else:
+                        pass
+                    
+                    plot2_sp500_curve.setData(curve4_data) 
 
                 elif comboindex2 == 6: 
 
+                    plot2_hc_high_line.setValue(dow_전일종가)
+                    plot2_hc_low_line.setValue(dow_전일종가)
+
+                    if DOW_LAST_LOW > 0:
+                        plot2_ovc_jl_line.setValue(DOW_LAST_LOW)
+                    else:
+                        pass 
+                    
+                    if DOW_LAST_HIGH > 0:
+                        plot2_ovc_jh_line.setValue(DOW_LAST_HIGH)
+                    else:
+                        pass
+                    
+                    if dow_전일종가 > 0:
+                        plot2_ovc_close_line.setValue(dow_전일종가)
+                    else:
+                        pass
+                    
+                    if dow_시가 > 0:
+                        plot2_ovc_open_line.setValue(dow_시가)
+                    else:
+                        pass
+                    
+                    if dow_피봇 > 0:
+                        plot2_ovc_pivot_line.setValue(dow_피봇)
+                    else:
+                        pass
+                    
+                    if dow_저가 > 0:
+                        plot2_ovc_low_line.setValue(dow_저가)
+                    else:
+                        pass
+
+                    if dow_고가 > 0:
+                        plot2_ovc_high_line.setValue(dow_고가)
+                    else:
+                        pass                 
+                    
                     plot2_dow_curve.setData(curve4_data) 
 
-                    plot2_hc_high_line.setValue(dow_고가)
-                    plot2_hc_low_line.setValue(dow_저가)
+                elif comboindex2 == 7:
+                    
+                    plot2_hc_high_line.setValue(nasdaq_전일종가)
+                    plot2_hc_low_line.setValue(nasdaq_전일종가)
 
-                elif comboindex2 == 7: 
+                    if NASDAQ_LAST_LOW > 0:
+                        plot2_ovc_jl_line.setValue(NASDAQ_LAST_LOW)
+                    else:
+                        pass 
+
+                    if NASDAQ_LAST_HIGH > 0:
+                        plot2_ovc_jh_line.setValue(NASDAQ_LAST_HIGH)
+                    else:
+                        pass
+
+                    if nasdaq_전일종가 > 0:
+                        plot2_ovc_close_line.setValue(nasdaq_전일종가)
+                    else:
+                        pass
+                    
+                    if nasdaq_시가 > 0:
+                        plot2_ovc_open_line.setValue(nasdaq_시가)
+                    else:
+                        pass   
+
+                    if nasdaq_피봇 > 0:
+                        plot2_ovc_pivot_line.setValue(nasdaq_피봇)
+                    else:
+                        pass
+
+                    if nasdaq_저가 > 0:
+                        plot2_ovc_low_line.setValue(nasdaq_저가)
+                    else:
+                        pass
+
+                    if nasdaq_고가 > 0:
+                        plot2_ovc_high_line.setValue(nasdaq_고가)
+                    else:
+                        pass 
 
                     plot2_nasdaq_curve.setData(curve4_data)
-
-                    plot2_hc_high_line.setValue(nasdaq_고가)
-                    plot2_hc_low_line.setValue(nasdaq_저가)
                 else:
                     pass               
 
