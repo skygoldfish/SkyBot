@@ -6072,16 +6072,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         else:
                             pass
 
-                    selected_call = call_idx
-
-                    # 외가 20개, 내가 20개 탐색
-                    for i in range(atm_index - 20, atm_index + 20):
-
                         if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
                             put_idx.append(i)
                         else:
                             pass
-                    
+
+                    selected_call = call_idx                    
                     selected_put = put_idx   
                 else:
                     pass            
