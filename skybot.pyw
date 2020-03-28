@@ -4178,7 +4178,37 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Morning! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
         else:
             str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Afternoon! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
-        self.textBrowser.append(str)         
+        self.textBrowser.append(str)
+        
+        if NEW_NODE_VAL1 > 0:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                (dt.hour, dt.minute, dt.second, NEW_NODE_VAL1, 동적맥점_빈도수_1st)
+            self.textBrowser.append(str)
+        else:
+            pass
+
+        if NEW_NODE_VAL2 > 0:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                (dt.hour, dt.minute, dt.second, NEW_NODE_VAL2, 동적맥점_빈도수_2nd)
+            self.textBrowser.append(str)
+        else:
+            pass 
+
+        if NEW_NODE_VAL3 > 0:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                (dt.hour, dt.minute, dt.second, NEW_NODE_VAL3, 동적맥점_빈도수_3rd)
+            self.textBrowser.append(str)
+        else:
+            pass
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] 오늘의 진성맥점은'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(str)
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
+        self.textBrowser.append(str)
 
         self.XingAdminCheck()        
             
@@ -6036,33 +6066,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if comboindex2 == 4:
 
                     global selected_call, selected_put, selected_opt_list
+
+                    old_selected_opt_list = copy.deepcopy(selected_opt_list)
                     
-                    # 전체 행사가 그래프 클리어
-                    for i in range(option_pairs_count):
-                        call_curve[i].clear()
-                        put_curve[i].clear()                                             
-
-                    # 옵션 Y축 최대값 구하기
-                    axY = self.Plot2.getAxis('left')
-                    #print('옵션 y axis range: {}'.format(axY.range[1]))
-
-                    if 6.0 <= axY.range[1] < 7.1:
-                        mv_line[6].setValue(6.85)
-                        mv_line[7].setValue(0)
-                        mv_line[8].setValue(0)
-                    elif 7.1 <= axY.range[1] < 8.1:
-                        mv_line[6].setValue(6.85)
-                        mv_line[7].setValue(7.1)
-                        mv_line[8].setValue(0)
-                    elif axY.range[1] >= 8.1:
-                        mv_line[6].setValue(6.85)
-                        mv_line[7].setValue(7.1)
-                        mv_line[8].setValue(8.1)
-                    else:
-                        pass
-
-                    # 4종의 그래프데이타를 받아옴                   
-
+                    # 콜, 풋 그래프 선택
                     call_idx = []
                     put_idx = []
                     selected_opt_list = []
@@ -6087,7 +6094,41 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     # 마지막 행사가 추가해야 쓰레드 정상동작함(?)
                     selected_opt_list.append(opt_actval[option_pairs_count-1])
                     
-                    #print('selected_opt_list =', selected_opt_list) 
+                    #print('selected_opt_list =', selected_opt_list)                    
+                    
+                    if selected_opt_list != old_selected_opt_list:
+
+                        # 전체 행사가 그래프 클리어
+                        for i in range(option_pairs_count):
+                            call_curve[i].clear()
+                            put_curve[i].clear()
+                    else:
+                        # 선택된 행사가 그래프 클리어
+                        for actval in selected_opt_list:
+
+                            index = opt_actval.index(actval)
+                            call_curve[index].clear()
+                            put_curve[index].clear()                                             
+
+                    # 옵션 Y축 최대값 구하기
+                    axY = self.Plot2.getAxis('left')
+                    #print('옵션 y axis range: {}'.format(axY.range[1]))
+
+                    # 의미가 그리기
+                    if 6.0 <= axY.range[1] < 7.1:
+                        mv_line[6].setValue(6.85)
+                        mv_line[7].setValue(0)
+                        mv_line[8].setValue(0)
+                    elif 7.1 <= axY.range[1] < 8.1:
+                        mv_line[6].setValue(6.85)
+                        mv_line[7].setValue(7.1)
+                        mv_line[8].setValue(0)
+                    elif axY.range[1] >= 8.1:
+                        mv_line[6].setValue(6.85)
+                        mv_line[7].setValue(7.1)
+                        mv_line[8].setValue(8.1)
+                    else:
+                        pass
                 else:
                     pass            
 
@@ -12706,7 +12747,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
             # update 쓰레드 시간단축 목적 !!!
             selected_opt_list.append(opt_actval[option_pairs_count-1])
-            #print('selected_opt_list =', selected_opt_list)
+            print('t2801 selected_opt_list =', selected_opt_list)
 
             if atm_str[-1] == '2' or atm_str[-1] == '7':
 
@@ -14677,38 +14718,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
                         self.textBrowser.append(str)
                     else:
-                        pass
-                    
-                    if NEW_NODE_VAL1 > 0:
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(빈도수 = {4}) 추가됨...\r'.format \
-                            (dt.hour, dt.minute, dt.second, NEW_NODE_VAL1, 동적맥점_빈도수_1st)
-                        self.textBrowser.append(str)
-                        print(str)
-                    else:
-                        pass
-
-                    if NEW_NODE_VAL2 > 0:
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(빈도수 = {4}) 추가됨...\r'.format \
-                            (dt.hour, dt.minute, dt.second, NEW_NODE_VAL2, 동적맥점_빈도수_2nd)
-                        self.textBrowser.append(str)
-                        print(str)
-                    else:
-                        pass 
-
-                    if NEW_NODE_VAL3 > 0:
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(빈도수 = {4}) 추가됨...\r'.format \
-                            (dt.hour, dt.minute, dt.second, NEW_NODE_VAL3, 동적맥점_빈도수_3rd)
-                        self.textBrowser.append(str)
-                        print(str)
-                    else:
-                        pass
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 진성맥점은 {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
-                    self.textBrowser.append(str)
-                    print(str)
+                        pass                    
                     
                     str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간 - 서버시간 = {3}초\r'.format(dt.hour, dt.minute, dt.second, system_server_timegap)
                     self.textBrowser.append(str)                                                                
