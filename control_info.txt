@@ -12,7 +12,7 @@ S&P 500 = ESM20
 DOW = YMM20
 NASDAQ = NQM20
 
-[4]. << UI = Horizontal_View.ui, Vertical_View.ui, Option_Full_View.ui >>
+[4]. << UI Select : Horizontal_View.ui, Vertical_View.ui, Option_Full_View.ui >>
 UI = Option_Full_view.ui
 
 [5]. << Initial Value >>
