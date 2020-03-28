@@ -3020,7 +3020,7 @@ class telegram_send_worker(QThread):
 
                 if telegram_toggle:
 
-                    # 선물 OL/OH 알람(NM, MAN인 경우만)
+                    # 선물 OL/OH 알람
                     if n_oloh_str != '' and FLAG_OLOH:
 
                         str = n_oloh_str
@@ -13103,7 +13103,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.opt_node_coloring()
                 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 맥점 컬러링을 완료했습니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
+                #self.textBrowser.append(str)
             else:
                 pass
 
@@ -14902,7 +14902,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.저가.value).setBackground(QBrush(적색))
                 self.tableWidget_fut.item(1, Futures_column.저가.value).setForeground(QBrush(검정색))
 
-            if TARGET_MONTH_SELECT == 2 and not flag_fut_ol:
+            if TARGET_MONTH_SELECT == 1 and not flag_fut_ol:
+
+                n_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] CM 선물 OL ▲".format(dt.hour, dt.minute, dt.second)
+
+            elif TARGET_MONTH_SELECT == 2 and not flag_fut_ol:
 
                 n_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OL ▲".format(dt.hour, dt.minute, dt.second)
 
@@ -14938,7 +14942,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_fut.item(1, Futures_column.고가.value).setBackground(QBrush(청색))
                 self.tableWidget_fut.item(1, Futures_column.고가.value).setForeground(QBrush(흰색))
 
-            if TARGET_MONTH_SELECT == 2 and not flag_fut_oh:
+            if TARGET_MONTH_SELECT == 1 and not flag_fut_oh:
+
+                n_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] CM 선물 OH ▼".format(dt.hour, dt.minute, dt.second)
+
+            elif TARGET_MONTH_SELECT == 2 and not flag_fut_oh:
 
                 n_oloh_str = "[{0:02d}:{1:02d}:{2:02d}] NM 선물 OH ▼".format(dt.hour, dt.minute, dt.second)
 
@@ -15157,7 +15165,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         # 선물 맥점 컬러링
         str = '[{0:02d}:{1:02d}:{2:02d}] 선물 맥점 컬러링을 완료했습니다.\r'.format(dt.hour, dt.minute, dt.second)
-        self.textBrowser.append(str)
+        #self.textBrowser.append(str)
         
         #return
 
