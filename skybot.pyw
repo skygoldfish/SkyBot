@@ -6055,6 +6055,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     global selected_call, selected_put, selected_opt_list
                     
+                    # 전체 행사가 그래프 클리어
                     for i in range(option_pairs_count):
                         call_curve[i].clear()
                         put_curve[i].clear()                                             
@@ -6083,8 +6084,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     call_idx = []
                     put_idx = []
                     selected_opt_list = []
-
-                    # 외가 20개, 내가 20개 탐색
+                    
                     for i in range(option_pairs_count):
 
                         if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
@@ -6102,6 +6102,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     selected_call = call_idx                    
                     selected_put = put_idx
 
+                    # 마지막 행사가 추가해야 쓰레드 정상동작함(?)
                     selected_opt_list.append(opt_actval[option_pairs_count-1])
                     
                     #print('selected_opt_list =', selected_opt_list) 
