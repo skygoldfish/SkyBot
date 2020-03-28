@@ -183,6 +183,7 @@ with open('control_info.txt', mode='r') as control_file:
 
     if os.path.exists('HL-List.txt'):
 
+        # 저가, 고가 리스트에서 맥점 추출
         with open('HL-List.txt', mode='r') as hlfile:
 
             tmp = hlfile.readline().strip()
@@ -322,6 +323,7 @@ with open('control_info.txt', mode='r') as control_file:
     ONEWAY_THRESHOLD = int(temp[9])
     print('ONEWAY_THRESHOLD =', ONEWAY_THRESHOLD)
 
+# 야간시장의 데이타를 가져옴
 with open('overnight_info.txt', mode='r') as overnight_file:
 
     tmp = overnight_file.readline().strip()
