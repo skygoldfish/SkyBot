@@ -658,7 +658,7 @@ night_time = 0
 선물_고가 = 0
 선물_대비 = 0
 
-선물_누적거래량 = 0
+fut_volume_power = 0
 
 oloh_cutoff = 0.10
 nodelist_low_cutoff = 0.09
@@ -693,6 +693,7 @@ put_oi_init_value = 0
 
 call_volume_total = 0
 put_volume_total = 0
+option_volume_power = 0
 
 opt_x_idx = 0
 opt_x_idx_old = 0
@@ -6154,7 +6155,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 # 선택된 plot1 그래프 그리기
                 if comboindex1 == 0:
 
-                    if 선물_누적거래량 > 0:
+                    if fut_volume_power > 0:
                         plot1_fut_volume_plus_curve.setData(curve1_data)
                     else:
                         plot1_fut_volume_minus_curve.setData(curve1_data)
@@ -6336,7 +6337,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 elif comboindex2 == 2:
 
-                    if 선물_누적거래량 > 0:
+                    if fut_volume_power > 0:
                         plot2_fut_volume_plus_curve.setData(curve4_data)
                     else:
                         plot2_fut_volume_minus_curve.setData(curve4_data)
@@ -6642,7 +6643,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     elif comboindex4 == 1:                        
 
-                        if 선물_누적거래량 > 0:
+                        if fut_volume_power > 0:
 
                             plot4_fv_plus_curve.setData(plot4_1_data)
                         else:
@@ -15159,7 +15160,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global fut_tick_list, fut_value_list, df_fut_ohlc
         global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
         global flag_fut_low, flag_fut_high 
-        global 선물_누적거래량
+        global fut_volume_power
         global first_refresh, fut_first_arrive
         global flag_telegram_listen_worker, telegram_send_worker_on_time
         global flag_telegram_send_worker
@@ -15692,19 +15693,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             pass
 
         # 장중 거래량 갱신, 장중 거래량은 누적거래량이 아닌 수정거래량 임
-        선물_누적거래량 = result['매수누적체결량'] - result['매도누적체결량']
-        df_plotdata_fut_volume.iloc[0][x_idx] = 선물_누적거래량
+        fut_volume_power = result['매수누적체결량'] - result['매도누적체결량']
+        df_plotdata_fut_volume.iloc[0][x_idx] = fut_volume_power
 
-        temp = format(선물_누적거래량, ',')
+        temp = format(fut_volume_power, ',')
 
         item = QTableWidgetItem(temp)
         item.setTextAlignment(Qt.AlignCenter)
 
-        if 선물_누적거래량 > 0:
+        if fut_volume_power > 0:
 
             item.setBackground(QBrush(적색))
             item.setForeground(QBrush(검정색))
-        elif 선물_누적거래량 < 0:
+        elif fut_volume_power < 0:
 
             item.setBackground(QBrush(청색))
             item.setForeground(QBrush(흰색))
@@ -15714,12 +15715,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if overnight:
             self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
-            df_fut.loc[0, '거래량'] = 선물_누적거래량
-            cme_realdata['거래량'] = 선물_누적거래량
+            df_fut.loc[0, '거래량'] = fut_volume_power
+            cme_realdata['거래량'] = fut_volume_power
         else:
             self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
-            df_fut.loc[1, '거래량'] = 선물_누적거래량
-            fut_realdata['거래량'] = 선물_누적거래량        
+            df_fut.loc[1, '거래량'] = fut_volume_power
+            fut_realdata['거래량'] = fut_volume_power        
         
         # 미결 갱신
         fut_realdata['미결'] = result['미결제약정수량']  
@@ -17501,7 +17502,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def put_volume_power_update(self):
 
         global df_put, df_put_volume, put_volume_total, df_plotdata_put_volume, df_plotdata_volume_cha, put_volume
-        global 풋_순매수_체결량
+        global 풋_순매수_체결량, option_volume_power
 
         index = put_행사가.index(put_result['단축코드'][5:8])
 
@@ -17566,6 +17567,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         df_plotdata_put_volume.iloc[0][opt_x_idx] = put_volume_total
 
         df_plotdata_volume_cha.iloc[0][opt_x_idx] = call_volume_total - put_volume_total
+        option_volume_power = call_volume_total - put_volume_total
 
         순매수누적체결량 = format(put_volume_total, ',')
 
