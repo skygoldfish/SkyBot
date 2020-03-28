@@ -17565,9 +17565,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         put_volume_total = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
         df_plotdata_put_volume.iloc[0][opt_x_idx] = put_volume_total
-
-        df_plotdata_volume_cha.iloc[0][opt_x_idx] = call_volume_total - put_volume_total
+        
         option_volume_power = call_volume_total - put_volume_total
+        df_plotdata_volume_cha.iloc[0][opt_x_idx] = option_volume_power
 
         순매수누적체결량 = format(put_volume_total, ',')
 
