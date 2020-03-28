@@ -6030,26 +6030,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 # 그래프 그리기 #
 
-                # Plot 1 x축 타임라인
-                if comboindex1 == 0 or comboindex1 == 4:
-
-                    plot1_time_line.setValue(x_idx)
-                else:
-                    plot1_time_line.setValue(opt_x_idx)
-
-                # Plot 2 x축 타임라인
-                plot2_time_line.setValue(opt_x_idx)
-
-                if UI_STYLE == 'Vertical_view.ui':
-
-                    # Plot 3 x축 타임라인
-                    plot3_time_line.setValue(ovc_x_idx)
-
-                    # Plot 4 x축 타임라인
-                    plot4_time_line.setValue(x_idx) 
-                else:
-                    pass
-
                 # 옵션그래프 초기화
                 if comboindex2 == 4:
 
@@ -6109,6 +6089,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass            
 
+                # 데이타 가져오기
                 for actval, infos in data.items():
 
                     index = opt_actval.index(actval)
@@ -6149,181 +6130,27 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             pass
                     else:
                         pass
-                    
-                # Plot 3, Plot4 그리기
+                                
+                # Plot 1 x축 타임라인 그리기
+                if comboindex1 == 0 or comboindex1 == 4:
+
+                    plot1_time_line.setValue(x_idx)
+                else:
+                    plot1_time_line.setValue(opt_x_idx)
+
+                # Plot 2 x축 타임라인 그리기
+                plot2_time_line.setValue(opt_x_idx)
+
                 if UI_STYLE == 'Vertical_view.ui':
 
-                    if comboindex3 == 0:
+                    # Plot 3 x축 타임라인 그리기
+                    plot3_time_line.setValue(ovc_x_idx)
 
-                        if DOW_LAST_LOW > 0:
-                            plot3_ovc_jl_line.setValue(DOW_LAST_LOW)
-                        else:
-                            pass 
-                        
-                        if DOW_LAST_HIGH > 0:
-                            plot3_ovc_jh_line.setValue(DOW_LAST_HIGH)
-                        else:
-                            pass
-                        
-                        if dow_전일종가 > 0:
-                            plot3_ovc_close_line.setValue(dow_전일종가)
-                        else:
-                            pass
-                        
-                        if dow_시가 > 0:
-                            plot3_ovc_open_line.setValue(dow_시가)
-                        else:
-                            pass
-                        
-                        if dow_피봇 > 0:
-                            plot3_ovc_pivot_line.setValue(dow_피봇)
-                        else:
-                            pass
-                        
-                        if dow_저가 > 0:
-                            plot3_ovc_low_line.setValue(dow_저가)
-                        else:
-                            pass
-
-                        if dow_고가 > 0:
-                            plot3_ovc_high_line.setValue(dow_고가)
-                        else:
-                            pass                       
-                        
-                        plot3_curve.setData(plot3_data)
-
-                    elif comboindex3 == 1:
-
-                        if SP500_LAST_LOW > 0:
-                            plot3_ovc_jl_line.setValue(SP500_LAST_LOW)
-                        else:
-                            pass 
-
-                        if SP500_LAST_HIGH > 0:
-                            plot3_ovc_jh_line.setValue(SP500_LAST_HIGH)
-                        else:
-                            pass
-
-                        if sp500_전일종가 > 0:
-                            plot3_ovc_close_line.setValue(sp500_전일종가)
-                        else:
-                            pass 
-                        
-                        if sp500_시가 > 0:
-                            plot3_ovc_open_line.setValue(sp500_시가)
-                        else:
-                            pass
-
-                        if sp500_피봇 > 0:
-                            plot3_ovc_pivot_line.setValue(sp500_피봇)
-                        else:
-                            pass
-
-                        if sp500_저가 > 0:
-                            plot3_ovc_low_line.setValue(sp500_저가)
-                        else:
-                            pass
-
-                        if sp500_고가 > 0:
-                            plot3_ovc_high_line.setValue(sp500_고가)
-                        else:
-                            pass
-                        
-                        plot3_curve.setData(plot3_data)
-
-                    elif comboindex3 == 2:
-
-                        if NASDAQ_LAST_LOW > 0:
-                            plot3_ovc_jl_line.setValue(NASDAQ_LAST_LOW)
-                        else:
-                            pass 
-
-                        if NASDAQ_LAST_HIGH > 0:
-                            plot3_ovc_jh_line.setValue(NASDAQ_LAST_HIGH)
-                        else:
-                            pass
-
-                        if nasdaq_전일종가 > 0:
-                            plot3_ovc_close_line.setValue(nasdaq_전일종가)
-                        else:
-                            pass
-                        
-                        if nasdaq_시가 > 0:
-                            plot3_ovc_open_line.setValue(nasdaq_시가)
-                        else:
-                            pass   
-
-                        if nasdaq_피봇 > 0:
-                            plot3_ovc_pivot_line.setValue(nasdaq_피봇)
-                        else:
-                            pass
-
-                        if nasdaq_저가 > 0:
-                            plot3_ovc_low_line.setValue(nasdaq_저가)
-                        else:
-                            pass
-
-                        if nasdaq_고가 > 0:
-                            plot3_ovc_high_line.setValue(nasdaq_고가)
-                        else:
-                            pass
-                        
-                        plot3_curve.setData(plot3_data)
-                    else:
-                        pass
-                    
-                    if comboindex4 == 0:
-
-                        if 선물_전저 > 0:
-                            plot4_fut_jl_line.setValue(선물_전저)
-                        else:
-                            pass
-
-                        if 선물_전고 > 0:
-                            plot4_fut_jh_line.setValue(선물_전고)
-                        else:
-                            pass
-
-                        if 선물_종가 > 0:
-                            plot4_fut_close_line.setValue(선물_종가)
-                        else:
-                            pass
-                        
-                        if 선물_시가 > 0:
-                            plot4_fut_open_line.setValue(선물_시가)
-                        else:
-                            pass
-
-                        if 선물_피봇 > 0:
-                            plot4_fut_pivot_line.setValue(선물_피봇)
-                        else:
-                            pass
-
-                        if 선물_저가 > 0:
-                            plot4_fut_low_line.setValue(선물_저가)
-                        else:
-                            pass
-
-                        if 선물_고가 > 0:
-                            plot4_fut_high_line.setValue(선물_고가)
-                        else:
-                            pass
-                        
-                        plot4_price_curve.setData(plot4_1_data)
-                        plot4_kp200_curve.setData(plot4_2_data)
-
-                    elif comboindex4 == 1:                        
-
-                        if 선물_누적거래량 > 0:
-
-                            plot4_fv_plus_curve.setData(plot4_1_data)
-                        else:
-                            plot4_fv_minus_curve.setData(plot4_1_data)
-                    else:
-                        pass                
+                    # Plot 4 x축 타임라인 그리기
+                    plot4_time_line.setValue(x_idx) 
                 else:
                     pass
-
+                
                 # 선택된 plot1 그래프 그리기
                 if comboindex1 == 0:
 
@@ -6649,7 +6476,181 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     plot2_nasdaq_curve.setData(curve4_data)
                 else:
-                    pass               
+                    pass 
+
+                # Plot 3, Plot4 그리기
+                if UI_STYLE == 'Vertical_view.ui':
+
+                    if comboindex3 == 0:
+
+                        if DOW_LAST_LOW > 0:
+                            plot3_ovc_jl_line.setValue(DOW_LAST_LOW)
+                        else:
+                            pass 
+                        
+                        if DOW_LAST_HIGH > 0:
+                            plot3_ovc_jh_line.setValue(DOW_LAST_HIGH)
+                        else:
+                            pass
+                        
+                        if dow_전일종가 > 0:
+                            plot3_ovc_close_line.setValue(dow_전일종가)
+                        else:
+                            pass
+                        
+                        if dow_시가 > 0:
+                            plot3_ovc_open_line.setValue(dow_시가)
+                        else:
+                            pass
+                        
+                        if dow_피봇 > 0:
+                            plot3_ovc_pivot_line.setValue(dow_피봇)
+                        else:
+                            pass
+                        
+                        if dow_저가 > 0:
+                            plot3_ovc_low_line.setValue(dow_저가)
+                        else:
+                            pass
+
+                        if dow_고가 > 0:
+                            plot3_ovc_high_line.setValue(dow_고가)
+                        else:
+                            pass                       
+                        
+                        plot3_curve.setData(plot3_data)
+
+                    elif comboindex3 == 1:
+
+                        if SP500_LAST_LOW > 0:
+                            plot3_ovc_jl_line.setValue(SP500_LAST_LOW)
+                        else:
+                            pass 
+
+                        if SP500_LAST_HIGH > 0:
+                            plot3_ovc_jh_line.setValue(SP500_LAST_HIGH)
+                        else:
+                            pass
+
+                        if sp500_전일종가 > 0:
+                            plot3_ovc_close_line.setValue(sp500_전일종가)
+                        else:
+                            pass 
+                        
+                        if sp500_시가 > 0:
+                            plot3_ovc_open_line.setValue(sp500_시가)
+                        else:
+                            pass
+
+                        if sp500_피봇 > 0:
+                            plot3_ovc_pivot_line.setValue(sp500_피봇)
+                        else:
+                            pass
+
+                        if sp500_저가 > 0:
+                            plot3_ovc_low_line.setValue(sp500_저가)
+                        else:
+                            pass
+
+                        if sp500_고가 > 0:
+                            plot3_ovc_high_line.setValue(sp500_고가)
+                        else:
+                            pass
+                        
+                        plot3_curve.setData(plot3_data)
+
+                    elif comboindex3 == 2:
+
+                        if NASDAQ_LAST_LOW > 0:
+                            plot3_ovc_jl_line.setValue(NASDAQ_LAST_LOW)
+                        else:
+                            pass 
+
+                        if NASDAQ_LAST_HIGH > 0:
+                            plot3_ovc_jh_line.setValue(NASDAQ_LAST_HIGH)
+                        else:
+                            pass
+
+                        if nasdaq_전일종가 > 0:
+                            plot3_ovc_close_line.setValue(nasdaq_전일종가)
+                        else:
+                            pass
+                        
+                        if nasdaq_시가 > 0:
+                            plot3_ovc_open_line.setValue(nasdaq_시가)
+                        else:
+                            pass   
+
+                        if nasdaq_피봇 > 0:
+                            plot3_ovc_pivot_line.setValue(nasdaq_피봇)
+                        else:
+                            pass
+
+                        if nasdaq_저가 > 0:
+                            plot3_ovc_low_line.setValue(nasdaq_저가)
+                        else:
+                            pass
+
+                        if nasdaq_고가 > 0:
+                            plot3_ovc_high_line.setValue(nasdaq_고가)
+                        else:
+                            pass
+                        
+                        plot3_curve.setData(plot3_data)
+                    else:
+                        pass
+                    
+                    if comboindex4 == 0:
+
+                        if 선물_전저 > 0:
+                            plot4_fut_jl_line.setValue(선물_전저)
+                        else:
+                            pass
+
+                        if 선물_전고 > 0:
+                            plot4_fut_jh_line.setValue(선물_전고)
+                        else:
+                            pass
+
+                        if 선물_종가 > 0:
+                            plot4_fut_close_line.setValue(선물_종가)
+                        else:
+                            pass
+                        
+                        if 선물_시가 > 0:
+                            plot4_fut_open_line.setValue(선물_시가)
+                        else:
+                            pass
+
+                        if 선물_피봇 > 0:
+                            plot4_fut_pivot_line.setValue(선물_피봇)
+                        else:
+                            pass
+
+                        if 선물_저가 > 0:
+                            plot4_fut_low_line.setValue(선물_저가)
+                        else:
+                            pass
+
+                        if 선물_고가 > 0:
+                            plot4_fut_high_line.setValue(선물_고가)
+                        else:
+                            pass
+                        
+                        plot4_price_curve.setData(plot4_1_data)
+                        plot4_kp200_curve.setData(plot4_2_data)
+
+                    elif comboindex4 == 1:                        
+
+                        if 선물_누적거래량 > 0:
+
+                            plot4_fv_plus_curve.setData(plot4_1_data)
+                        else:
+                            plot4_fv_minus_curve.setData(plot4_1_data)
+                    else:
+                        pass                
+                else:
+                    pass
 
                 # 호가 갱신
                 if receive_quote:
