@@ -5669,13 +5669,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if row < atm_index:
 
                     if UI_STYLE == 'Option_Full_view.ui':
+
                         call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
+
+                    elif UI_STYLE == 'Horizontal_view.ui':
+
+                        call_positionCell = self.tableWidget_call.item(atm_index + 4, 1)    
                     else:
                         call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
                 else:
 
                     if UI_STYLE == 'Option_Full_view.ui':
+
                         call_positionCell = self.tableWidget_call.item(atm_index - 9, 1)
+
+                    elif UI_STYLE == 'Horizontal_view.ui':
+
+                        call_positionCell = self.tableWidget_call.item(atm_index - 4, 1)
                     else:
                         call_positionCell = self.tableWidget_call.item(atm_index - 4, 1)
 
@@ -5707,13 +5717,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if row < atm_index:
 
                     if UI_STYLE == 'Option_Full_view.ui':
+
                         put_positionCell = self.tableWidget_put.item(atm_index + 9, 1)
+
+                    if UI_STYLE == 'Horizontal_view.ui':
+
+                        put_positionCell = self.tableWidget_put.item(atm_index + 4, 1)
                     else:
                         put_positionCell = self.tableWidget_put.item(atm_index + 3, 1)
                 else:
 
                     if UI_STYLE == 'Option_Full_view.ui':
+
                         put_positionCell = self.tableWidget_put.item(atm_index - 9, 1)
+
+                    if UI_STYLE == 'Horizontal_view.ui':
+
+                        put_positionCell = self.tableWidget_put.item(atm_index - 4, 1)    
                     else:
                         put_positionCell = self.tableWidget_put.item(atm_index - 4, 1)
 
@@ -14150,6 +14170,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             if UI_STYLE == 'Option_Full_view.ui':
 
                                 call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
+
+                            elif UI_STYLE == 'Horizontal_view.ui':
+
+                                call_positionCell = self.tableWidget_call.item(atm_index + 4, 1)
+
                             else:
                                 call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
 
@@ -14421,6 +14446,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         if UI_STYLE == 'Option_Full_view.ui':
 
                             call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
+
+                        elif UI_STYLE == 'Horizontal_view.ui':
+
+                            call_positionCell = self.tableWidget_call.item(atm_index + 4, 1)
+
                         else:
                             call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
 
