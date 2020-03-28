@@ -77,17 +77,17 @@ UI_DIR = "UI\\"
 
 np.warnings.filterwarnings('ignore')
 
-# 만기일 야간옵션은 month_info.txt에서 mangi_yagan을 NO -> YES로 변경
-with open('month_info.txt', mode='r') as monthfile:
+# control file에서 필요한 정보를 가져옴
+with open('control_info.txt', mode='r') as control_file:
 
-    tmp = monthfile.readline().strip()
+    tmp = control_file.readline().strip()
 
-    tmp = monthfile.readline().strip()
+    tmp = control_file.readline().strip()
     temp = tmp.split()
     kse_start_hour = int(temp[4])
     #print('kse_start_hour =', kse_start_hour)
 
-    tmp = monthfile.readline().strip()
+    tmp = control_file.readline().strip()
     temp = tmp.split()
     CURRENT_MONTH = temp[3]
 
@@ -108,102 +108,55 @@ with open('month_info.txt', mode='r') as monthfile:
     #print('NEXT MONTH =', NEXT_MONTH)
     #print('MONTH AFTER NEXT =', MONTH_AFTER_NEXT)
 
-    tmp = monthfile.readline().strip()
+    tmp = control_file.readline().strip()
     temp = tmp.split()
     MONTH_FIRSTDAY = temp[7]
-        
-    tmp = monthfile.readline().strip()
+
+    # 만기일 야간옵션은 control_info.txt에서 mangi_yagan을 NO -> YES로 변경 
+    tmp = control_file.readline().strip()
     temp = tmp.split()
     MANGI_YAGAN = temp[3]
     #print('MANGI_YAGAN =', MANGI_YAGAN)
 
-    tmp = monthfile.readline().strip()
-    tmp = monthfile.readline().strip()
-    tmp = monthfile.readline().strip()
+    tmp = control_file.readline().strip()
+    tmp = control_file.readline().strip()
 
-    tmp = monthfile.readline().strip()
+    tmp = control_file.readline().strip()
     temp = tmp.split()
     TARGET_MONTH_SELECT = int(temp[4])
     print('TARGET MONTH SELECT =', TARGET_MONTH_SELECT)
 
-    tmp = monthfile.readline().strip()
-    tmp = monthfile.readline().strip()
+    tmp = control_file.readline().strip()
+    tmp = control_file.readline().strip()
 
-    tmp = monthfile.readline().strip()
+    tmp = control_file.readline().strip()
     temp = tmp.split()
     SP500 = temp[3]
 
-    tmp = monthfile.readline().strip()
+    tmp = control_file.readline().strip()
     temp = tmp.split()
     DOW = temp[2]
 
-    tmp = monthfile.readline().strip()
+    tmp = control_file.readline().strip()
     temp = tmp.split()
-    NASDAQ = temp[2]     
+    NASDAQ = temp[2]
 
-with open('overnight_info.txt', mode='r') as overnight_file:
+    tmp = control_file.readline().strip()
+    tmp = control_file.readline().strip()
+    tmp = control_file.readline().strip()
 
-    tmp = overnight_file.readline().strip()
-    
-    tmp = overnight_file.readline().strip()
-    temp = tmp.split()
-    DOW_INDEX = int(temp[4])
-    print('DOW_INDEX =', DOW_INDEX)
-
-    tmp = overnight_file.readline().strip()
-    temp = tmp.split()
-    CME_INDEX = float(temp[5])
-    print('CME_INDEX =', CME_INDEX)
-
-    tmp = overnight_file.readline().strip()
-    tmp = overnight_file.readline().strip()
-
-    tmp = overnight_file.readline().strip()
-    temp = tmp.split()
-    SP500_LAST_LOW = float(temp[5])
-    print('SP500_LAST_LOW =', SP500_LAST_LOW)
-
-    tmp = overnight_file.readline().strip()
-    temp = tmp.split()
-    SP500_LAST_HIGH = float(temp[5])
-    print('SP500_LAST_HIGH =', SP500_LAST_HIGH)
-
-    tmp = overnight_file.readline().strip()
-    temp = tmp.split()
-    DOW_LAST_LOW = float(temp[4])
-    print('DOW_LAST_LOW =', DOW_LAST_LOW)
-
-    tmp = overnight_file.readline().strip()
-    temp = tmp.split()
-    DOW_LAST_HIGH = float(temp[4])
-    print('DOW_LAST_HIGH =', DOW_LAST_HIGH)
-
-    tmp = overnight_file.readline().strip()
-    temp = tmp.split()
-    NASDAQ_LAST_LOW = float(temp[4])
-    print('NASDAQ_LAST_LOW =', NASDAQ_LAST_LOW)
-
-    tmp = overnight_file.readline().strip()
-    temp = tmp.split()
-    NASDAQ_LAST_HIGH = float(temp[4])
-    print('NASDAQ_LAST_HIGH =', NASDAQ_LAST_HIGH)
-
-with open('UI_Style.txt', mode='r') as uifile:
-
-    tmp = uifile.readline().strip()
-    tmp = uifile.readline().strip()
     temp = tmp.split()
     UI_STYLE = temp[2]
+    #print('UI_STYLE =', UI_STYLE)  
 
-with open('rules.txt', mode='r') as initfile:
+    tmp = control_file.readline().strip()
+    tmp = control_file.readline().strip()
 
-    tmp = initfile.readline().strip()
-
-    tmp = initfile.readline().strip()
+    tmp = control_file.readline().strip()
     temp = tmp.split()
     행사가갯수 = temp[7]
 
-    tmp = initfile.readline().strip()
+    tmp = control_file.readline().strip()
     temp = tmp.split()
 
     진성맥점 = []
@@ -215,7 +168,7 @@ with open('rules.txt', mode='r') as initfile:
         else:
             pass
 
-    tmp = initfile.readline().strip()
+    tmp = control_file.readline().strip()
     temp = tmp.split()
     MY_COREVAL = float(temp[3])
 
@@ -328,70 +281,93 @@ with open('rules.txt', mode='r') as initfile:
     else:
         pass
 
-    tmp = initfile.readline().strip()
+    tmp = control_file.readline().strip()
     temp = tmp.split()
     ASYM_RATIO = float(temp[4])
     print('ASYM_RATIO =', ASYM_RATIO)
 
-    tmp = initfile.readline().strip()
+    tmp = control_file.readline().strip()
     temp = tmp.split()
     ONEWAY_RATIO = float(temp[4])
     print('ONEWAY_RATIO =', ONEWAY_RATIO)
     
-    tmp = initfile.readline().strip()
-    tmp = initfile.readline().strip()
+    tmp = control_file.readline().strip()
+    tmp = control_file.readline().strip()
 
-    tmp = initfile.readline().strip()
+    tmp = control_file.readline().strip()
     temp = tmp.split()
     TELEGRAM_SERVICE = temp[3]
     #print(TELEGRAM_SERVICE)
 
-    tmp = initfile.readline().strip()
+    tmp = control_file.readline().strip()
     temp = tmp.split()
     TELEGRAM_START_TIME = int(temp[7])
     #print(TELEGRAM_START_TIME)
 
-    tmp = initfile.readline().strip()
+    tmp = control_file.readline().strip()
     temp = tmp.split()
     TELEGRAM_POLLING_INTERVAL = int(temp[4])
     #print(TELEGRAM_POLLING_INTERVAL)
 
-    tmp = initfile.readline().strip()
+    tmp = control_file.readline().strip()
     temp = tmp.split()
     TELEGRAM_SEND_INTERVAL = int(temp[4])
     #print(TELEGRAM_SEND_INTERVAL)
 
-    tmp = initfile.readline().strip()
-    tmp = initfile.readline().strip()
+    tmp = control_file.readline().strip()
+    tmp = control_file.readline().strip()
 
-    tmp = initfile.readline().strip()
+    tmp = control_file.readline().strip()
     temp = tmp.split()
     ONEWAY_THRESHOLD = int(temp[9])
-    #print(ONEWAY_THRESHOLD)
+    print('ONEWAY_THRESHOLD =', ONEWAY_THRESHOLD)
 
-    tmp = initfile.readline().strip()
-    temp = tmp.split()
-    COL_OL = int(temp[7])
-    COL_OH = int(temp[11])    
-    #print(COL_OL, COL_OH)
+with open('overnight_info.txt', mode='r') as overnight_file:
 
-    tmp = initfile.readline().strip()
+    tmp = overnight_file.readline().strip()
+    
+    tmp = overnight_file.readline().strip()
     temp = tmp.split()
-    COH_OL = int(temp[7])
-    COH_OH = int(temp[11])    
-    #print(COH_OL, COH_OH)
+    DOW_INDEX = int(temp[4])
+    print('DOW_INDEX =', DOW_INDEX)
 
-    tmp = initfile.readline().strip()
+    tmp = overnight_file.readline().strip()
     temp = tmp.split()
-    POL_OL = int(temp[7])
-    POL_OH = int(temp[11])    
-    #print(POL_OL, POL_OH)
+    CME_INDEX = float(temp[5])
+    print('CME_INDEX =', CME_INDEX)
 
-    tmp = initfile.readline().strip()
+    tmp = overnight_file.readline().strip()
+    tmp = overnight_file.readline().strip()
+
+    tmp = overnight_file.readline().strip()
     temp = tmp.split()
-    POH_OL = int(temp[7])
-    POH_OH = int(temp[11])    
-    #print(POH_OL, POH_OH)
+    SP500_LAST_LOW = float(temp[5])
+    print('SP500_LAST_LOW =', SP500_LAST_LOW)
+
+    tmp = overnight_file.readline().strip()
+    temp = tmp.split()
+    SP500_LAST_HIGH = float(temp[5])
+    print('SP500_LAST_HIGH =', SP500_LAST_HIGH)
+
+    tmp = overnight_file.readline().strip()
+    temp = tmp.split()
+    DOW_LAST_LOW = float(temp[4])
+    print('DOW_LAST_LOW =', DOW_LAST_LOW)
+
+    tmp = overnight_file.readline().strip()
+    temp = tmp.split()
+    DOW_LAST_HIGH = float(temp[4])
+    print('DOW_LAST_HIGH =', DOW_LAST_HIGH)
+
+    tmp = overnight_file.readline().strip()
+    temp = tmp.split()
+    NASDAQ_LAST_LOW = float(temp[4])
+    print('NASDAQ_LAST_LOW =', NASDAQ_LAST_LOW)
+
+    tmp = overnight_file.readline().strip()
+    temp = tmp.split()
+    NASDAQ_LAST_HIGH = float(temp[4])
+    print('NASDAQ_LAST_HIGH =', NASDAQ_LAST_HIGH)
 
 # 전역변수
 ########################################################################################################################
@@ -676,7 +652,6 @@ centerval_threshold = 0.60
 basis = 0
 
 time_delta = 0
-START_ON = False
 
 Option_column = Enum('Option_column', '행사가 OLOH 기준가 월저 월고 전저 전고 종가 피봇 시가 시가갭 저가 현재가 고가 대비 진폭 VP OI OID')
 Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수잔량 매도잔량 건수비 잔량비 전저 전고 종가 피봇 시가 시가갭 저가 현재가 고가 대비 진폭 거래량 FR OI OID')
@@ -3055,45 +3030,7 @@ class telegram_send_worker(QThread):
                         str = put_high_node_str
                         ToTelegram(str)
                     else:
-                        pass
-
-                    '''
-                    # 콜 원웨이 알람 --> 비대칭장으로 대체
-                    if call_oneway_level3:
-
-                        str = oneway_str
-                        ToTelegram(str)
-
-                    elif call_oneway_level4:
-
-                        str = oneway_str
-                        ToTelegram(str)
-
-                    elif call_oneway_level5:
-
-                        str = oneway_str
-                        ToTelegram(str)
-                    else:
-                        pass
-
-                    # 풋 원웨이 알람
-                    if put_oneway_level3:
-
-                        str = oneway_str
-                        ToTelegram(str)
-
-                    elif put_oneway_level4:
-
-                        str = oneway_str
-                        ToTelegram(str)
-
-                    elif put_oneway_level5:
-
-                        str = oneway_str
-                        ToTelegram(str)
-                    else:
-                        pass
-                    '''
+                        pass                    
 
                     # 비대칭장(장의 형태) 알람
                     if (비대칭장 != '' and FLAG_OLOH) and (MONTH_1 or MONTH_2 or MONTH_3):
@@ -4204,7 +4141,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 오늘의 진성맥점은'.format(dt.hour, dt.minute, dt.second)
+        str = '[{0:02d}:{1:02d}:{2:02d}] 오늘의 맥점은'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
 
         str = '[{0:02d}:{1:02d}:{2:02d}] {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
@@ -7639,6 +7576,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         #return
     '''
 
+    '''
     def check_oneway(self, blink):
 
         dt = datetime.datetime.now()
@@ -7880,6 +7818,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
         #return
+    '''
 
     def display_centerval(self):
 
@@ -18502,17 +18441,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         self.textBrowser.append(str)
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 장시작 10분전입니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
-                    
-                    if not START_ON:
-
-                        self.AddCode()
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Auto Start...\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
-
-                        pre_start = True
-                    else:
-                        pass
+                    self.textBrowser.append(str)                    
                     '''
 
                 # 현물장 시작 10초전
@@ -20874,7 +20803,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def AddCode(self):
 
         global pre_start
-        global START_ON
         global t2301_month_info
 
         dt = datetime.datetime.now()
@@ -20910,8 +20838,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 pass 
         else:
             if not refresh_flag:
-
-                START_ON = True
                 
                 self.pushButton_add.setStyleSheet("background-color: lawngreen")
                 self.pushButton_add.setText('Starting...')
