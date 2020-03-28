@@ -1,34 +1,34 @@
-1.################################ < Month Info > ################################
+[1].################################ < Month Info > ################################
 KSE Start Hour = 9
 Current Month = 202004
 First Day of the Current Month = 20200313
 Mangi Yagan = NO
 
-2.######## < Target Month Select : 1 = current month, 2 = next month > ###########
+[2].######## < Target Month Select : 1 = current month, 2 = next month > ###########
 Target Month Select = 1
 
-3.######################### < US Index Code(H/M/U/Z) > ###########################
+[3].######################### < US Index Code(H/M/U/Z) > ###########################
 S&P 500 = ESM20
 DOW = YMM20
 NASDAQ = NQM20
 
-4.###### < UI = Horizontal_View.ui, Vertical_View.ui, Option_Full_View.ui > ######
+[4].###### < UI = Horizontal_View.ui, Vertical_View.ui, Option_Full_View.ui > ######
 UI = Option_Full_view.ui
 
-5.############################### < Initial value > ##############################
+[5].############################### < Initial value > ##############################
 actval count of the option pairs = 100
 basic coreval of the options = 1.20 2.50 3.50 4.85 5.10 5.50 6.85 7.10 8.10
 my coreval = 3.50
 Asymmetric Market Ratio = 2
 OneWay Market Ratio = 3
 
-6.############################### < Telegram > ###################################
+[6].############################### < Telegram > ###################################
 telegram service = ON
 telegram polling start time(minute) after service = 5
 telegram polling interval(second) = 10
 telegram send interval(second) = 5
 
-7.################################# < Rules > ####################################
+[7].################################# < Rules > ####################################
 threshold of the institutional party's supply & demand = 2500
 
 
