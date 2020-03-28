@@ -2698,6 +2698,7 @@ class screen_update_worker(QThread):
 
             # atm index 중심으로 위,아래 25개 요청(총 51개)
             #for actval in opt_actval[atm_index - 25:atm_index + 25]:
+            # 선택된 콜,풋 만으로 loop를 돌림
             for actval in selected_opt_list:
 
                 data[actval] = self.get_data_infos(actval)
