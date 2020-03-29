@@ -14556,16 +14556,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     print(df_put)
                     print('\r')
 
-                    self.tableWidget_put.resizeColumnsToContents()
-
-                    if UI_STYLE == 'Horizontal_Large_View.ui':
-
-                        put_positionCell = self.tableWidget_put.item(atm_index + 8, 1)
-                    else:
-                        put_positionCell = self.tableWidget_put.item(atm_index + 3, 1)
-
-                    self.tableWidget_put.scrollToItem(put_positionCell)
-
                     if self.t8416_putworker.isRunning():
 
                         put_기준가 = df_put['기준가'].values.tolist()
@@ -14594,8 +14584,20 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         
                         str = '[{0:02d}:{1:02d}:{2:02d}] Put 과거데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
-                    else:
-                        pass                
+                        
+                        self.tableWidget_put.resizeColumnsToContents()
+
+                        if UI_STYLE == 'Horizontal_Large_View.ui':
+
+                            put_positionCell = self.tableWidget_put.item(atm_index + 8, 1)
+
+                        elif UI_STYLE == 'Horizontal_Small_View.ui':
+
+                            put_positionCell = self.tableWidget_put.item(atm_index + 4, 1)
+                        else:
+                            put_positionCell = self.tableWidget_put.item(atm_index + 3, 1)
+
+                        self.tableWidget_put.scrollToItem(put_positionCell)
 
                     if overnight:                        
 
