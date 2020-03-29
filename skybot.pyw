@@ -330,13 +330,8 @@ with open('overnight_info.txt', mode='r') as overnight_file:
     
     tmp = overnight_file.readline().strip()
     temp = tmp.split()
-    DOW_INDEX = int(temp[4])
-    print('DOW_INDEX =', DOW_INDEX)
-
-    tmp = overnight_file.readline().strip()
-    temp = tmp.split()
-    CME_INDEX = float(temp[5])
-    print('CME_INDEX =', CME_INDEX)
+    CME_LAST_CLOSE = float(temp[5])
+    print('CME_LAST_CLOSE =', CME_LAST_CLOSE)
 
     tmp = overnight_file.readline().strip()
     tmp = overnight_file.readline().strip()
@@ -350,6 +345,11 @@ with open('overnight_info.txt', mode='r') as overnight_file:
     temp = tmp.split()
     SP500_LAST_HIGH = float(temp[5])
     print('SP500_LAST_HIGH =', SP500_LAST_HIGH)
+    
+    tmp = overnight_file.readline().strip()
+    temp = tmp.split()
+    SP500_LAST_CLOSE = float(temp[5])
+    print('SP500_LAST_CLOSE =', SP500_LAST_CLOSE)
 
     tmp = overnight_file.readline().strip()
     temp = tmp.split()
@@ -360,6 +360,11 @@ with open('overnight_info.txt', mode='r') as overnight_file:
     temp = tmp.split()
     DOW_LAST_HIGH = float(temp[4])
     print('DOW_LAST_HIGH =', DOW_LAST_HIGH)
+    
+    tmp = overnight_file.readline().strip()
+    temp = tmp.split()
+    DOW_LAST_CLOSE = float(temp[4])
+    print('DOW_LAST_CLOSE =', DOW_LAST_CLOSE)
 
     tmp = overnight_file.readline().strip()
     temp = tmp.split()
@@ -370,6 +375,11 @@ with open('overnight_info.txt', mode='r') as overnight_file:
     temp = tmp.split()
     NASDAQ_LAST_HIGH = float(temp[4])
     print('NASDAQ_LAST_HIGH =', NASDAQ_LAST_HIGH)
+    
+    tmp = overnight_file.readline().strip()
+    temp = tmp.split()
+    NASDAQ_LAST_CLOSE = float(temp[4])
+    print('NASDAQ_LAST_CLOSE =', NASDAQ_LAST_CLOSE)
 
 # 전역변수
 ########################################################################################################################
@@ -1206,6 +1216,8 @@ nasdaq_price = 0.0
 
 cme_close = 0.0
 dow_close = 0.0
+sp500_close = 0.0
+nasdaq_close = 0.0
 
 kospi_text_color = ''
 kosdaq_text_color = ''
@@ -6897,9 +6909,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         with open('overnight_info.txt', mode='w') as overnight_file:
 
                             file_str = '################# < Futures Index of the Last Night > ###################\n'
-                            overnight_file.write(file_str)
-                            file_str = 'Overnight DOW Close = {0}\n'.format(dow_close)
-                            overnight_file.write(file_str)
+                            overnight_file.write(file_str)                            
                             file_str = 'Overnight CME FUT Close = {0}\n'.format(cme_close)
                             overnight_file.write(file_str)
                             file_str = '\n'
@@ -6910,13 +6920,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             overnight_file.write(file_str)
                             file_str = 'S&P 500 Last High = {0}\n'.format(sp500_고가)
                             overnight_file.write(file_str)
+                            file_str = 'S&P 500 Last Close = {0}\n'.format(sp500_close)
+                            overnight_file.write(file_str)
                             file_str = 'DOW Last Low = {0}\n'.format(dow_저가)
                             overnight_file.write(file_str)
                             file_str = 'DOW Last High = {0}\n'.format(dow_고가)
                             overnight_file.write(file_str)
+                            file_str = 'DOW Last Close = {0}\n'.format(dow_close)
+                            overnight_file.write(file_str)
                             file_str = 'NASDAQ Last Low = {0}\n'.format(nasdaq_저가)
                             overnight_file.write(file_str)
                             file_str = 'NASDAQ Last High = {0}\n'.format(nasdaq_고가)
+                            overnight_file.write(file_str)
+                            file_str = 'NASDAQ Last Close = {0}\n'.format(nasdaq_close)
                             overnight_file.write(file_str)
                             overnight_file.close()
 
@@ -12982,12 +12998,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     선물_고가 = cme_realdata['종가']
             else:
                 if pre_start:
-                    #선물_종가 = CME_INDEX
-                    선물_피봇 = CME_INDEX 
-                    선물_시가 = CME_INDEX
-                    선물_저가 = CME_INDEX
-                    선물_현재가 = CME_INDEX
-                    선물_고가 = CME_INDEX 
+                    #선물_종가 = CME_LAST_CLOSE
+                    선물_피봇 = CME_LAST_CLOSE 
+                    선물_시가 = CME_LAST_CLOSE
+                    선물_저가 = CME_LAST_CLOSE
+                    선물_현재가 = CME_LAST_CLOSE
+                    선물_고가 = CME_LAST_CLOSE 
                 else:
                     pass           
             
@@ -18404,7 +18420,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             global sp500_price, sp500_text_color, sp500_시가, sp500_전일종가, sp500_피봇, sp500_저가, sp500_고가            
             global dow_price, dow_text_color, dow_시가, dow_전일종가, dow_피봇, dow_저가, dow_고가 
 
-            global cme_close, dow_close
+            global cme_close, dow_close, sp500_close, nasdaq_close
             global 시스템시간, 서버시간, 시스템_서버_시간차
 
             start_time = timeit.default_timer()
@@ -18594,6 +18610,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     cme_close = cme_realdata['현재가']
                     dow_close = dow_price
+                    sp500_close = sp500_price
+                    nasdaq_close = nasdaq_price
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 DOW 지수 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), dow_price)
                     self.textBrowser.append(str)
@@ -19087,7 +19105,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         fut_realdata['피봇'] = 선물_피봇
 
-                        예상시가 = (CME_INDEX * dow_price) / DOW_INDEX
+                        예상시가 = (CME_LAST_CLOSE * dow_price) / DOW_LAST_CLOSE
 
                         item = QTableWidgetItem("{0:0.2f}".format(예상시가))
                         item.setTextAlignment(Qt.AlignCenter)
