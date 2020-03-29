@@ -123,37 +123,6 @@ with open('control_info.txt', mode='r') as control_file:
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
-    TARGET_MONTH_SELECT = int(temp[4])
-    #print('TARGET MONTH SELECT =', TARGET_MONTH_SELECT)
-
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    SP500 = temp[3]
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    DOW = temp[2]
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    NASDAQ = temp[2]
-
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-
-    temp = tmp.split()
-    UI_STYLE = temp[2]
-    #print('UI_STYLE =', UI_STYLE)  
-
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
     행사가갯수 = temp[7]
 
     tmp = control_file.readline().strip()
@@ -291,6 +260,37 @@ with open('control_info.txt', mode='r') as control_file:
     temp = tmp.split()
     ONEWAY_RATIO = float(temp[4])
     #print('ONEWAY_RATIO =', ONEWAY_RATIO)
+
+    tmp = control_file.readline().strip()
+    tmp = control_file.readline().strip()
+
+    tmp = control_file.readline().strip()    
+    temp = tmp.split()
+    UI_STYLE = temp[2]
+    print('UI_STYLE =', UI_STYLE)   
+    
+    tmp = control_file.readline().strip()
+    tmp = control_file.readline().strip()
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    TARGET_MONTH_SELECT = int(temp[4])
+    #print('TARGET MONTH SELECT =', TARGET_MONTH_SELECT)
+
+    tmp = control_file.readline().strip()
+    tmp = control_file.readline().strip()
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    SP500 = temp[3]
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    DOW = temp[2]
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    NASDAQ = temp[2]
     
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
@@ -298,7 +298,7 @@ with open('control_info.txt', mode='r') as control_file:
     tmp = control_file.readline().strip()
     temp = tmp.split()
     TELEGRAM_SERVICE = temp[3]
-    #print(TELEGRAM_SERVICE)
+    #print('TELEGRAM_SERVICE =', TELEGRAM_SERVICE)
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
