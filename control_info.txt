@@ -16,20 +16,20 @@ NASDAQ = NQM20
 UI = Option_Full_view.ui
 
 [5]. << Initial Value >>
-actval count of the option pairs = 100
-basic coreval of the options = 1.20 2.50 3.50 4.85 5.10 5.50 6.85 7.10 8.10
-my coreval = 3.50
+Actval count of the option pairs = 100
+Basic coreval of the options = 1.20 2.50 3.50 4.85 5.10 5.50 6.85 7.10 8.10
+My coreval = 3.50
 Asymmetric Market Ratio = 2
 OneWay Market Ratio = 3
 
 [6]. << Telegram >>
-telegram service = ON
-telegram polling start time(minute) after service = 5
-telegram polling interval(second) = 10
-telegram send interval(second) = 5
+Telegram service = ON
+Telegram polling start time(minute) after service = 5
+Telegram polling interval(second) = 10
+Telegram send interval(second) = 5
 
 [7]. << Rules >>
-threshold of the institutional party's supply & demand = 2500
+Threshold of the institutional party's supply & demand = 2500
 
 
 

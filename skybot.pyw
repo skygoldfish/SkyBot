@@ -124,7 +124,7 @@ with open('control_info.txt', mode='r') as control_file:
     tmp = control_file.readline().strip()
     temp = tmp.split()
     TARGET_MONTH_SELECT = int(temp[4])
-    print('TARGET MONTH SELECT =', TARGET_MONTH_SELECT)
+    #print('TARGET MONTH SELECT =', TARGET_MONTH_SELECT)
 
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
@@ -197,7 +197,7 @@ with open('control_info.txt', mode='r') as control_file:
 
             HIGH_LOW_LIST.sort()
             HIGH_LOW_LIST.reverse()
-            print('HIGH_LOW_LIST =', HIGH_LOW_LIST)
+            #print('HIGH_LOW_LIST =', HIGH_LOW_LIST)
 
             # 첫번재 최대빈도 맥점탐색
             result = list(Counter(HIGH_LOW_LIST).values())
@@ -285,12 +285,12 @@ with open('control_info.txt', mode='r') as control_file:
     tmp = control_file.readline().strip()
     temp = tmp.split()
     ASYM_RATIO = float(temp[4])
-    print('ASYM_RATIO =', ASYM_RATIO)
+    #print('ASYM_RATIO =', ASYM_RATIO)
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
     ONEWAY_RATIO = float(temp[4])
-    print('ONEWAY_RATIO =', ONEWAY_RATIO)
+    #print('ONEWAY_RATIO =', ONEWAY_RATIO)
     
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
@@ -321,7 +321,7 @@ with open('control_info.txt', mode='r') as control_file:
     tmp = control_file.readline().strip()
     temp = tmp.split()
     ONEWAY_THRESHOLD = int(temp[9])
-    print('ONEWAY_THRESHOLD =', ONEWAY_THRESHOLD)
+    #print('ONEWAY_THRESHOLD =', ONEWAY_THRESHOLD)
 
 # 야간시장의 데이타를 가져옴
 with open('overnight_info.txt', mode='r') as overnight_file:
