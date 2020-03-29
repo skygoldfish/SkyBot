@@ -14,7 +14,7 @@ OneWay Market Ratio = 3
 [3]. << UI Select : Horizontal_Large_View.ui, Horizontal_Small_View.ui, Vertical_View.ui >>
 UI = Horizontal_Large_View.ui
 
-[4]. << Target Month Select : 1 = current month, 2 = next month >>
+[4]. << Target Month Select : current month = 1, next month = 2 >>
 Target Month Select = 1
 
 [5]. << US Index Code(H/M/U/Z) >>
