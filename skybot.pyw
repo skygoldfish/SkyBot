@@ -946,6 +946,7 @@ new_actval_down_count = 0
 selected_call = []
 selected_put = []
 selected_opt_list = []
+old_selected_opt_list = []
 
 call_node_state = dict()
 put_node_state = dict()
@@ -6089,27 +6090,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             index = opt_actval.index(actval)
                             call_curve[index].clear()
-                            put_curve[index].clear()                                             
-
-                    # 옵션 Y축 최대값 구하기
-                    axY = self.Plot2.getAxis('left')
-                    #print('옵션 y axis range: {}'.format(axY.range[1]))
-
-                    # 의미가 그리기
-                    if 6.0 <= axY.range[1] < 7.1:
-                        mv_line[6].setValue(6.85)
-                        mv_line[7].setValue(0)
-                        mv_line[8].setValue(0)
-                    elif 7.1 <= axY.range[1] < 8.1:
-                        mv_line[6].setValue(6.85)
-                        mv_line[7].setValue(7.1)
-                        mv_line[8].setValue(0)
-                    elif axY.range[1] >= 8.1:
-                        mv_line[6].setValue(6.85)
-                        mv_line[7].setValue(7.1)
-                        mv_line[8].setValue(8.1)
-                    else:
-                        pass
+                            put_curve[index].clear()                    
                 else:
                     pass            
 
@@ -6120,6 +6101,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     if comboindex2 == 4:
 
+                        # 선택된 콜그래프 그리기
                         for i in range(len(call_idx)):
 
                             if index == call_idx[i]:
@@ -6127,12 +6109,33 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             else:
                                 pass                    
 
+                        # 선택된 풋그래프 그리기
                         for i in range(len(put_idx)):
 
                             if index == put_idx[i]:
                                 put_curve[i].setData(infos[1])
                             else:
                                 pass
+
+                        # 옵션 Y축 최대값 구하기
+                        axY = self.Plot2.getAxis('left')
+                        #print('옵션 y axis range: {}'.format(axY.range[1]))
+
+                        # 최대값내의 의미가 그리기
+                        if 6.0 <= axY.range[1] < 7.1:
+                            mv_line[6].setValue(6.85)
+                            mv_line[7].setValue(0)
+                            mv_line[8].setValue(0)
+                        elif 7.1 <= axY.range[1] < 8.1:
+                            mv_line[6].setValue(6.85)
+                            mv_line[7].setValue(7.1)
+                            mv_line[8].setValue(0)
+                        elif axY.range[1] >= 8.1:
+                            mv_line[6].setValue(6.85)
+                            mv_line[7].setValue(7.1)
+                            mv_line[8].setValue(8.1)
+                        else:
+                            pass
                     else:
                         pass           
 
