@@ -1,11 +1,13 @@
 ################# < Futures Index of the Last Night > ###################
-Overnight DOW Index = 20124
-Overnight CME FUT Index = 218.10
+Overnight CME FUT Close = 226.35
 
 ##################### < US Index of the Last Night > ####################
-S&P 500 Last Low = 2350.88
-S&P 500 Last High = 2555.50
-DOW Last Low = 19985.0
-DOW Last High = 21798.0
-NASDAQ Last Low = 6910.25
-NASDAQ Last High = 7541.00
+S&P 500 Last Low = 2505.25
+S&P 500 Last High = 2634.5
+S&P 500 Last Close = 2519.12
+DOW Last Low = 21316.0
+DOW Last High = 22545.0
+DOW Last Close = 21404.5
+NASDAQ Last Low = 7551.25
+NASDAQ Last High = 7893.25
+NASDAQ Last Close = 7555.0
