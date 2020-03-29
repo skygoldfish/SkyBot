@@ -4419,23 +4419,47 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot1_ovc_low_line.setValue(CME_LAST_CLOSE)
             plot1_ovc_high_line.setValue(CME_LAST_CLOSE)
 
-            if pre_start:                
+            if 선물_전저 > 0:
 
-                plot1_fut_jl_line.setValue(CME_LAST_CLOSE)
-                plot1_fut_jh_line.setValue(CME_LAST_CLOSE)
-                plot1_fut_close_line.setValue(CME_LAST_CLOSE)
-                plot1_fut_pivot_line.setValue(CME_LAST_CLOSE)
-                plot1_fut_open_line.setValue(CME_LAST_CLOSE)
-                plot1_fut_low_line.setValue(CME_LAST_CLOSE)
-                plot1_fut_high_line.setValue(CME_LAST_CLOSE)
-            else:
                 plot1_fut_jl_line.setValue(선물_전저)
+            else:
+                plot1_fut_jl_line.setValue(CME_LAST_CLOSE)
+            
+            if 선물_전고 > 0:
+
                 plot1_fut_jh_line.setValue(선물_전고)
-                plot1_fut_close_line.setValue(선물_종가)
+            else:
+                plot1_fut_jh_line.setValue(CME_LAST_CLOSE)
+
+            if 선물_피봇 > 0:
+
                 plot1_fut_pivot_line.setValue(선물_피봇)
+            else:
+                plot1_fut_pivot_line.setValue(CME_LAST_CLOSE)
+
+            if 선물_시가 > 0:
+
                 plot1_fut_open_line.setValue(선물_시가)
+            else:
+                plot1_fut_open_line.setValue(CME_LAST_CLOSE)
+
+            if 선물_저가 > 0:
+
                 plot1_fut_low_line.setValue(선물_저가)
+            else:
+                plot1_fut_low_line.setValue(CME_LAST_CLOSE)
+
+            if 선물_고가 > 0:
+
                 plot1_fut_high_line.setValue(선물_고가)
+            else:
+                plot1_fut_high_line.setValue(CME_LAST_CLOSE)
+            
+            if 선물_종가 > 0:
+
+                plot1_fut_close_line.setValue(선물_종가)
+            else:
+                plot1_fut_close_line.setValue(CME_LAST_CLOSE)
 
             #print('선물_종가 =', 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_고가)
 
@@ -4473,15 +4497,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot1_fut_low_line.setValue(SP500_LAST_CLOSE)
             plot1_fut_high_line.setValue(SP500_LAST_CLOSE) 
 
-            if sp500_전일종가 > 0:                    
-                plot1_ovc_close_line.setValue(sp500_전일종가)
-            else:
-                pass
-
             if sp500_시가 > 0:    
                 plot1_ovc_open_line.setValue(sp500_시가)
             else:
-                pass
+                plot1_ovc_open_line.setValue(SP500_LAST_CLOSE)
 
             if SP500_LAST_LOW > 0:
                 plot1_ovc_jl_line.setValue(SP500_LAST_LOW)
@@ -4496,17 +4515,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if sp500_피봇 > 0:
                 plot1_ovc_pivot_line.setValue(sp500_피봇)
             else:
-                pass
+                plot1_ovc_pivot_line.setValue(SP500_LAST_CLOSE)
 
             if sp500_저가 > 0:
                 plot1_ovc_low_line.setValue(sp500_저가)
             else:
-                pass
+                plot1_ovc_low_line.setValue(SP500_LAST_CLOSE)
 
             if sp500_고가 > 0:
                 plot1_ovc_high_line.setValue(sp500_고가)
             else:
-                pass
+                plot1_ovc_high_line.setValue(SP500_LAST_CLOSE)
+            
+            if sp500_전일종가 > 0:                    
+                plot1_ovc_close_line.setValue(sp500_전일종가)
+            else:
+                plot1_ovc_close_line.setValue(SP500_LAST_CLOSE)
 
         elif comboindex1 == 6:
 
@@ -4542,15 +4566,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot1_fut_low_line.setValue(DOW_LAST_CLOSE)
             plot1_fut_high_line.setValue(DOW_LAST_CLOSE) 
 
-            if dow_전일종가 > 0:
-                plot1_ovc_close_line.setValue(dow_전일종가)
-            else:
-                pass
-
             if dow_시가 > 0:
                 plot1_ovc_open_line.setValue(dow_시가)
             else:
-                pass
+                plot1_ovc_open_line.setValue(DOW_LAST_CLOSE)
 
             if DOW_LAST_LOW > 0:
                 plot1_ovc_jl_line.setValue(DOW_LAST_LOW)
@@ -4565,17 +4584,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if dow_피봇 > 0:
                 plot1_ovc_pivot_line.setValue(dow_피봇)
             else:
-                pass
+                plot1_ovc_pivot_line.setValue(DOW_LAST_CLOSE)
 
             if dow_저가 > 0:
                 plot1_ovc_low_line.setValue(dow_저가)
             else:
-                pass
+                plot1_ovc_low_line.setValue(DOW_LAST_CLOSE)
 
             if dow_고가 > 0:
                 plot1_ovc_high_line.setValue(dow_고가)
             else:
-                pass             
+                plot1_ovc_high_line.setValue(DOW_LAST_CLOSE)  
+            
+            if dow_전일종가 > 0:
+                plot1_ovc_close_line.setValue(dow_전일종가)
+            else:
+                plot1_ovc_close_line.setValue(DOW_LAST_CLOSE)           
 
         elif comboindex1 == 7:
 
@@ -4611,15 +4635,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot1_fut_low_line.setValue(NASDAQ_LAST_CLOSE)
             plot1_fut_high_line.setValue(NASDAQ_LAST_CLOSE)
 
-            if nasdaq_전일종가 > 0:                    
-                plot1_ovc_close_line.setValue(nasdaq_전일종가)
-            else:
-                pass
-
             if nasdaq_시가 > 0: 
                 plot1_ovc_open_line.setValue(nasdaq_시가)
             else:
-                pass
+                plot1_ovc_open_line.setValue(NASDAQ_LAST_CLOSE)
 
             if NASDAQ_LAST_LOW > 0:
                 plot1_ovc_jl_line.setValue(NASDAQ_LAST_LOW)
@@ -4634,17 +4653,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if nasdaq_피봇 > 0:
                 plot1_ovc_pivot_line.setValue(nasdaq_피봇)
             else:
-                pass
+                plot1_ovc_pivot_line.setValue(NASDAQ_LAST_CLOSE)
 
             if nasdaq_저가 > 0:
                 plot1_ovc_low_line.setValue(nasdaq_저가)
             else:
-                pass
+                plot1_ovc_low_line.setValue(NASDAQ_LAST_CLOSE)
 
             if nasdaq_고가 > 0:
                 plot1_ovc_high_line.setValue(nasdaq_고가)
             else:
-                pass
+                plot1_ovc_high_line.setValue(NASDAQ_LAST_CLOSE)
+            
+            if nasdaq_전일종가 > 0:                    
+                plot1_ovc_close_line.setValue(nasdaq_전일종가)
+            else:
+                plot1_ovc_close_line.setValue(NASDAQ_LAST_CLOSE)
         else:
             pass
 
@@ -4864,15 +4888,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_hc_high_line.setValue(SP500_LAST_CLOSE)
             plot2_hc_low_line.setValue(SP500_LAST_CLOSE)
 
-            if sp500_전일종가 > 0:                    
-                plot2_ovc_close_line.setValue(sp500_전일종가)
-            else:
-                pass
-
             if sp500_시가 > 0:    
                 plot2_ovc_open_line.setValue(sp500_시가)
             else:
-                pass
+                plot2_ovc_open_line.setValue(SP500_LAST_CLOSE)
 
             if SP500_LAST_LOW > 0:
                 plot2_ovc_jl_line.setValue(SP500_LAST_LOW)
@@ -4887,17 +4906,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if sp500_피봇 > 0:
                 plot2_ovc_pivot_line.setValue(sp500_피봇)
             else:
-                pass
+                plot2_ovc_pivot_line.setValue(SP500_LAST_CLOSE)
 
             if sp500_저가 > 0:
                 plot2_ovc_low_line.setValue(sp500_저가)
             else:
-                pass
+                plot2_ovc_low_line.setValue(SP500_LAST_CLOSE)
 
             if sp500_고가 > 0:
                 plot2_ovc_high_line.setValue(sp500_고가)
             else:
-                pass            
+                plot2_ovc_high_line.setValue(SP500_LAST_CLOSE)
+            
+            if sp500_전일종가 > 0:                    
+                plot2_ovc_close_line.setValue(sp500_전일종가)
+            else:
+                plot2_ovc_close_line.setValue(SP500_LAST_CLOSE)           
 
         elif comboindex2 == 6:
 
@@ -4927,15 +4951,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_hc_high_line.setValue(DOW_LAST_CLOSE)
             plot2_hc_low_line.setValue(DOW_LAST_CLOSE)
 
-            if dow_전일종가 > 0:
-                plot2_ovc_close_line.setValue(dow_전일종가)
-            else:
-                pass
-
             if dow_시가 > 0:
                 plot2_ovc_open_line.setValue(dow_시가)
             else:
-                pass
+                plot2_ovc_open_line.setValue(DOW_LAST_CLOSE)
 
             if DOW_LAST_LOW > 0:
                 plot2_ovc_jl_line.setValue(DOW_LAST_LOW)
@@ -4950,17 +4969,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if dow_피봇 > 0:
                 plot2_ovc_pivot_line.setValue(dow_피봇)
             else:
-                pass
+                plot2_ovc_pivot_line.setValue(DOW_LAST_CLOSE)
 
             if dow_저가 > 0:
                 plot2_ovc_low_line.setValue(dow_저가)
             else:
-                pass
+                plot2_ovc_low_line.setValue(DOW_LAST_CLOSE)
 
             if dow_고가 > 0:
                 plot2_ovc_high_line.setValue(dow_고가)
             else:
-                pass             
+                plot2_ovc_high_line.setValue(DOW_LAST_CLOSE)
+            
+            if dow_전일종가 > 0:
+                plot2_ovc_close_line.setValue(dow_전일종가)
+            else:
+                plot2_ovc_close_line.setValue(DOW_LAST_CLOSE)             
 
         elif comboindex2 == 7:
 
@@ -4990,15 +5014,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_hc_high_line.setValue(NASDAQ_LAST_CLOSE)
             plot2_hc_low_line.setValue(NASDAQ_LAST_CLOSE)
 
-            if nasdaq_전일종가 > 0:                    
-                plot2_ovc_close_line.setValue(nasdaq_전일종가)
-            else:
-                pass
-
             if nasdaq_시가 > 0: 
                 plot2_ovc_open_line.setValue(nasdaq_시가)
             else:
-                pass
+                plot2_ovc_open_line.setValue(NASDAQ_LAST_CLOSE)
 
             if NASDAQ_LAST_LOW > 0:
                 plot2_ovc_jl_line.setValue(NASDAQ_LAST_LOW)
@@ -5013,17 +5032,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             if nasdaq_피봇 > 0:
                 plot2_ovc_pivot_line.setValue(nasdaq_피봇)
             else:
-                pass
+                plot2_ovc_pivot_line.setValue(NASDAQ_LAST_CLOSE)
 
             if nasdaq_저가 > 0:
                 plot2_ovc_low_line.setValue(nasdaq_저가)
             else:
-                pass
+                plot2_ovc_low_line.setValue(NASDAQ_LAST_CLOSE)
 
             if nasdaq_고가 > 0:
                 plot2_ovc_high_line.setValue(nasdaq_고가)
             else:
-                pass
+                plot2_ovc_high_line.setValue(NASDAQ_LAST_CLOSE)
+            
+            if nasdaq_전일종가 > 0:                    
+                plot2_ovc_close_line.setValue(nasdaq_전일종가)
+            else:
+                plot2_ovc_close_line.setValue(NASDAQ_LAST_CLOSE)
         else:
             pass
 
@@ -5605,22 +5629,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if row < atm_index:
 
-                    if UI_STYLE == 'Option_Full_view.ui':
+                    if UI_STYLE == 'Horizontal_Large_View.ui':
 
                         call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
 
-                    elif UI_STYLE == 'Horizontal_view.ui':
+                    elif UI_STYLE == 'Horizontal_Small_view.ui':
 
                         call_positionCell = self.tableWidget_call.item(atm_index + 4, 1)    
                     else:
                         call_positionCell = self.tableWidget_call.item(atm_index + 3, 1)
                 else:
 
-                    if UI_STYLE == 'Option_Full_view.ui':
+                    if UI_STYLE == 'Horizontal_Large_View.ui':
 
                         call_positionCell = self.tableWidget_call.item(atm_index - 9, 1)
 
-                    elif UI_STYLE == 'Horizontal_view.ui':
+                    elif UI_STYLE == 'Horizontal_Small_view.ui':
 
                         call_positionCell = self.tableWidget_call.item(atm_index - 4, 1)
                     else:
@@ -5653,22 +5677,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if row < atm_index:
 
-                    if UI_STYLE == 'Option_Full_view.ui':
+                    if UI_STYLE == 'Horizontal_Large_View.ui':
 
                         put_positionCell = self.tableWidget_put.item(atm_index + 9, 1)
 
-                    if UI_STYLE == 'Horizontal_view.ui':
+                    if UI_STYLE == 'Horizontal_Small_view.ui':
 
                         put_positionCell = self.tableWidget_put.item(atm_index + 4, 1)
                     else:
                         put_positionCell = self.tableWidget_put.item(atm_index + 3, 1)
                 else:
 
-                    if UI_STYLE == 'Option_Full_view.ui':
+                    if UI_STYLE == 'Horizontal_Large_View.ui':
 
                         put_positionCell = self.tableWidget_put.item(atm_index - 9, 1)
 
-                    if UI_STYLE == 'Horizontal_view.ui':
+                    if UI_STYLE == 'Horizontal_Small_view.ui':
 
                         put_positionCell = self.tableWidget_put.item(atm_index - 4, 1)    
                     else:
@@ -5858,7 +5882,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if call_scroll_begin_position <= option_pairs_count:
 
-            if UI_STYLE == 'Option_Full_view.ui':
+            if UI_STYLE == 'Horizontal_Large_View.ui':
 
                 scroll_depth = 19
             else:
@@ -5886,7 +5910,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if put_scroll_begin_position <= option_pairs_count:
 
-            if UI_STYLE == 'Option_Full_view.ui':
+            if UI_STYLE == 'Horizontal_Large_View.ui':
 
                 scroll_depth = 19
             else:
@@ -12983,6 +13007,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     선물_고가 = cme_realdata['종가']
             else:
+                pass
+                '''
                 if pre_start:
                     #선물_종가 = CME_LAST_CLOSE
                     선물_피봇 = CME_LAST_CLOSE 
@@ -12991,7 +13017,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     선물_현재가 = CME_LAST_CLOSE
                     선물_고가 = CME_LAST_CLOSE 
                 else:
-                    pass           
+                    pass
+                '''           
             
             if overnight:
 
@@ -14110,11 +14137,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             str = '[{0:02d}:{1:02d}:{2:02d}] Call 과거데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)                            
 
-                            if UI_STYLE == 'Option_Full_view.ui':
+                            if UI_STYLE == 'Horizontal_Large_View.ui':
 
                                 call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
 
-                            elif UI_STYLE == 'Horizontal_view.ui':
+                            elif UI_STYLE == 'Horizontal_Small_View.ui':
 
                                 call_positionCell = self.tableWidget_call.item(atm_index + 4, 1)
 
@@ -14386,11 +14413,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.tableWidget_call.resizeColumnsToContents()
 
-                        if UI_STYLE == 'Option_Full_view.ui':
+                        if UI_STYLE == 'Horizontal_Large_View.ui':
 
                             call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
 
-                        elif UI_STYLE == 'Horizontal_view.ui':
+                        elif UI_STYLE == 'Horizontal_Small_View.ui':
 
                             call_positionCell = self.tableWidget_call.item(atm_index + 4, 1)
 
@@ -14532,7 +14559,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     self.tableWidget_put.resizeColumnsToContents()
 
-                    if UI_STYLE == 'Option_Full_view.ui':
+                    if UI_STYLE == 'Horizontal_Large_View.ui':
 
                         put_positionCell = self.tableWidget_put.item(atm_index + 8, 1)
                     else:

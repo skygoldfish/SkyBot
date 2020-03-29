@@ -12,8 +12,8 @@ S&P 500 = ESM20
 DOW = YMM20
 NASDAQ = NQM20
 
-[4]. << UI Select : Horizontal_View.ui, Vertical_View.ui, Option_Full_View.ui >>
-UI = Option_Full_view.ui
+[4]. << UI Select : Horizontal_Small_View.ui, Vertical_View.ui, Horizontal_Large_View.ui >>
+UI = Horizontal_Large_View.ui
 
 [5]. << Initial Value >>
 Actval count of the option pairs = 100
