@@ -14592,7 +14592,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         if UI_STYLE == 'Horizontal_Large_View.ui':
 
-                            put_positionCell = self.tableWidget_put.item(atm_index + 8, 1)
+                            put_positionCell = self.tableWidget_put.item(atm_index + 9, 1)
 
                         elif UI_STYLE == 'Horizontal_Small_View.ui':
 
