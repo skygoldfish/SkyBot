@@ -4406,26 +4406,36 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot1_dow_curve.clear()
             plot1_nasdaq_curve.clear()
 
-            plot1_hc_high_line.setValue(선물_종가)
-            plot1_hc_low_line.setValue(선물_종가)
-            plot1_atm_high_line.setValue(선물_종가)
-            plot1_atm_low_line.setValue(선물_종가)
+            plot1_hc_high_line.setValue(CME_LAST_CLOSE)
+            plot1_hc_low_line.setValue(CME_LAST_CLOSE)
+            plot1_atm_high_line.setValue(CME_LAST_CLOSE)
+            plot1_atm_low_line.setValue(CME_LAST_CLOSE)
 
-            plot1_fut_jl_line.setValue(선물_전저)
-            plot1_fut_jh_line.setValue(선물_전고)
-            plot1_fut_close_line.setValue(선물_종가)
-            plot1_fut_pivot_line.setValue(선물_피봇)
-            plot1_fut_open_line.setValue(선물_시가)
-            plot1_fut_low_line.setValue(선물_저가)
-            plot1_fut_high_line.setValue(선물_고가)
-            
-            plot1_ovc_close_line.setValue(선물_종가)
-            plot1_ovc_open_line.setValue(선물_종가)
-            plot1_ovc_jl_line.setValue(선물_종가)
-            plot1_ovc_jh_line.setValue(선물_종가)
-            plot1_ovc_pivot_line.setValue(선물_종가)
-            plot1_ovc_low_line.setValue(선물_종가)
-            plot1_ovc_high_line.setValue(선물_종가)
+            plot1_ovc_close_line.setValue(CME_LAST_CLOSE)
+            plot1_ovc_open_line.setValue(CME_LAST_CLOSE)
+            plot1_ovc_jl_line.setValue(CME_LAST_CLOSE)
+            plot1_ovc_jh_line.setValue(CME_LAST_CLOSE)
+            plot1_ovc_pivot_line.setValue(CME_LAST_CLOSE)
+            plot1_ovc_low_line.setValue(CME_LAST_CLOSE)
+            plot1_ovc_high_line.setValue(CME_LAST_CLOSE)
+
+            if pre_start:                
+
+                plot1_fut_jl_line.setValue(CME_LAST_CLOSE)
+                plot1_fut_jh_line.setValue(CME_LAST_CLOSE)
+                plot1_fut_close_line.setValue(CME_LAST_CLOSE)
+                plot1_fut_pivot_line.setValue(CME_LAST_CLOSE)
+                plot1_fut_open_line.setValue(CME_LAST_CLOSE)
+                plot1_fut_low_line.setValue(CME_LAST_CLOSE)
+                plot1_fut_high_line.setValue(CME_LAST_CLOSE)
+            else:
+                plot1_fut_jl_line.setValue(선물_전저)
+                plot1_fut_jh_line.setValue(선물_전고)
+                plot1_fut_close_line.setValue(선물_종가)
+                plot1_fut_pivot_line.setValue(선물_피봇)
+                plot1_fut_open_line.setValue(선물_시가)
+                plot1_fut_low_line.setValue(선물_저가)
+                plot1_fut_high_line.setValue(선물_고가)
 
             #print('선물_종가 =', 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_고가)
 
@@ -4450,22 +4460,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot1_dow_curve.clear()
             plot1_nasdaq_curve.clear()
 
-            if sp500_전일종가 > 0:
+            plot1_hc_high_line.setValue(SP500_LAST_CLOSE)
+            plot1_hc_low_line.setValue(SP500_LAST_CLOSE)
+            plot1_atm_high_line.setValue(SP500_LAST_CLOSE)
+            plot1_atm_low_line.setValue(SP500_LAST_CLOSE)
 
-                plot1_hc_high_line.setValue(sp500_전일종가)
-                plot1_hc_low_line.setValue(sp500_전일종가)
-                plot1_atm_high_line.setValue(sp500_전일종가)
-                plot1_atm_low_line.setValue(sp500_전일종가)
-
-                plot1_fut_jl_line.setValue(sp500_전일종가)
-                plot1_fut_jh_line.setValue(sp500_전일종가)
-                plot1_fut_close_line.setValue(sp500_전일종가)
-                plot1_fut_pivot_line.setValue(sp500_전일종가)
-                plot1_fut_open_line.setValue(sp500_전일종가)
-                plot1_fut_low_line.setValue(sp500_전일종가)
-                plot1_fut_high_line.setValue(sp500_전일종가)             
-            else:
-                pass
+            plot1_fut_jl_line.setValue(SP500_LAST_CLOSE)
+            plot1_fut_jh_line.setValue(SP500_LAST_CLOSE)
+            plot1_fut_close_line.setValue(SP500_LAST_CLOSE)
+            plot1_fut_pivot_line.setValue(SP500_LAST_CLOSE)
+            plot1_fut_open_line.setValue(SP500_LAST_CLOSE)
+            plot1_fut_low_line.setValue(SP500_LAST_CLOSE)
+            plot1_fut_high_line.setValue(SP500_LAST_CLOSE) 
 
             if sp500_전일종가 > 0:                    
                 plot1_ovc_close_line.setValue(sp500_전일종가)
@@ -4523,22 +4529,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot1_sp500_curve.clear()
             plot1_nasdaq_curve.clear()  
 
-            if dow_전일종가 > 0:
+            plot1_hc_high_line.setValue(DOW_LAST_CLOSE)
+            plot1_hc_low_line.setValue(DOW_LAST_CLOSE)
+            plot1_atm_high_line.setValue(DOW_LAST_CLOSE)
+            plot1_atm_low_line.setValue(DOW_LAST_CLOSE)
 
-                plot1_hc_high_line.setValue(dow_전일종가)
-                plot1_hc_low_line.setValue(dow_전일종가)
-                plot1_atm_high_line.setValue(dow_전일종가)
-                plot1_atm_low_line.setValue(dow_전일종가)
-
-                plot1_fut_jl_line.setValue(dow_전일종가)
-                plot1_fut_jh_line.setValue(dow_전일종가)
-                plot1_fut_close_line.setValue(dow_전일종가)
-                plot1_fut_pivot_line.setValue(dow_전일종가)
-                plot1_fut_open_line.setValue(dow_전일종가)
-                plot1_fut_low_line.setValue(dow_전일종가)
-                plot1_fut_high_line.setValue(dow_전일종가) 
-            else:
-                pass
+            plot1_fut_jl_line.setValue(DOW_LAST_CLOSE)
+            plot1_fut_jh_line.setValue(DOW_LAST_CLOSE)
+            plot1_fut_close_line.setValue(DOW_LAST_CLOSE)
+            plot1_fut_pivot_line.setValue(DOW_LAST_CLOSE)
+            plot1_fut_open_line.setValue(DOW_LAST_CLOSE)
+            plot1_fut_low_line.setValue(DOW_LAST_CLOSE)
+            plot1_fut_high_line.setValue(DOW_LAST_CLOSE) 
 
             if dow_전일종가 > 0:
                 plot1_ovc_close_line.setValue(dow_전일종가)
@@ -4596,22 +4598,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot1_sp500_curve.clear()
             plot1_dow_curve.clear()  
 
-            if nasdaq_전일종가 > 0:
+            plot1_hc_high_line.setValue(NASDAQ_LAST_CLOSE)
+            plot1_hc_low_line.setValue(NASDAQ_LAST_CLOSE)
+            plot1_atm_high_line.setValue(NASDAQ_LAST_CLOSE)
+            plot1_atm_low_line.setValue(NASDAQ_LAST_CLOSE)
 
-                plot1_hc_high_line.setValue(nasdaq_전일종가)
-                plot1_hc_low_line.setValue(nasdaq_전일종가)
-                plot1_atm_high_line.setValue(nasdaq_전일종가)
-                plot1_atm_low_line.setValue(nasdaq_전일종가)
-
-                plot1_fut_jl_line.setValue(nasdaq_전일종가)
-                plot1_fut_jh_line.setValue(nasdaq_전일종가)
-                plot1_fut_close_line.setValue(nasdaq_전일종가)
-                plot1_fut_pivot_line.setValue(nasdaq_전일종가)
-                plot1_fut_open_line.setValue(nasdaq_전일종가)
-                plot1_fut_low_line.setValue(nasdaq_전일종가)
-                plot1_fut_high_line.setValue(nasdaq_전일종가) 
-            else:
-                pass
+            plot1_fut_jl_line.setValue(NASDAQ_LAST_CLOSE)
+            plot1_fut_jh_line.setValue(NASDAQ_LAST_CLOSE)
+            plot1_fut_close_line.setValue(NASDAQ_LAST_CLOSE)
+            plot1_fut_pivot_line.setValue(NASDAQ_LAST_CLOSE)
+            plot1_fut_open_line.setValue(NASDAQ_LAST_CLOSE)
+            plot1_fut_low_line.setValue(NASDAQ_LAST_CLOSE)
+            plot1_fut_high_line.setValue(NASDAQ_LAST_CLOSE)
 
             if nasdaq_전일종가 > 0:                    
                 plot1_ovc_close_line.setValue(nasdaq_전일종가)
@@ -4860,15 +4858,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_dow_curve.clear()
             plot2_nasdaq_curve.clear()
 
-            if sp500_전일종가 > 0:
+            for i in range(9):
+                mv_line[i].setValue(SP500_LAST_CLOSE)
 
-                for i in range(9):
-                    mv_line[i].setValue(sp500_전일종가)
-
-                plot2_hc_high_line.setValue(sp500_전일종가)
-                plot2_hc_low_line.setValue(sp500_전일종가)
-            else:
-                pass
+            plot2_hc_high_line.setValue(SP500_LAST_CLOSE)
+            plot2_hc_low_line.setValue(SP500_LAST_CLOSE)
 
             if sp500_전일종가 > 0:                    
                 plot2_ovc_close_line.setValue(sp500_전일종가)
@@ -4927,15 +4921,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_sp500_curve.clear()
             plot2_nasdaq_curve.clear()
 
-            if dow_전일종가 > 0:
+            for i in range(9):
+                mv_line[i].setValue(DOW_LAST_CLOSE)
 
-                for i in range(9):
-                    mv_line[i].setValue(dow_전일종가)
-
-                plot2_hc_high_line.setValue(dow_전일종가)
-                plot2_hc_low_line.setValue(dow_전일종가)
-            else:
-                pass
+            plot2_hc_high_line.setValue(DOW_LAST_CLOSE)
+            plot2_hc_low_line.setValue(DOW_LAST_CLOSE)
 
             if dow_전일종가 > 0:
                 plot2_ovc_close_line.setValue(dow_전일종가)
@@ -4994,15 +4984,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             plot2_sp500_curve.clear()
             plot2_dow_curve.clear() 
 
-            if nasdaq_전일종가 > 0:
+            for i in range(9):
+                mv_line[i].setValue(NASDAQ_LAST_CLOSE)
 
-                for i in range(9):
-                    mv_line[i].setValue(nasdaq_전일종가)
-
-                plot2_hc_high_line.setValue(nasdaq_전일종가)
-                plot2_hc_low_line.setValue(nasdaq_전일종가)
-            else:
-                pass
+            plot2_hc_high_line.setValue(NASDAQ_LAST_CLOSE)
+            plot2_hc_low_line.setValue(NASDAQ_LAST_CLOSE)
 
             if nasdaq_전일종가 > 0:                    
                 plot2_ovc_close_line.setValue(nasdaq_전일종가)
