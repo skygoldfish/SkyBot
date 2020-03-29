@@ -13089,11 +13089,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if refresh_flag:
 
-                # 옵션 맥점 컬러링                    
-                self.opt_node_coloring()
-                
-                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 맥점 컬러링을 완료했습니다.\r'.format(dt.hour, dt.minute, dt.second)
-                #self.textBrowser.append(str)
+                # 옵션 맥점 컬러링                
+                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션맥점 Refresh 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+
+                self.opt_node_coloring()                
             else:
                 pass
 
@@ -13767,8 +13767,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 refresh_flag = True
 
                 self.pushButton_add.setStyleSheet("background-color: lawngreen")
-                self.pushButton_add.setText('Refresh')       
-                
+                self.pushButton_add.setText('Refresh')                
             else:
                 # Refresh
                 str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
