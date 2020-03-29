@@ -5681,7 +5681,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         put_positionCell = self.tableWidget_put.item(atm_index + 9, 1)
 
-                    if UI_STYLE == 'Horizontal_Small_view.ui':
+                    elif UI_STYLE == 'Horizontal_Small_view.ui':
 
                         put_positionCell = self.tableWidget_put.item(atm_index + 4, 1)
                     else:
@@ -5692,7 +5692,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         put_positionCell = self.tableWidget_put.item(atm_index - 9, 1)
 
-                    if UI_STYLE == 'Horizontal_Small_view.ui':
+                    elif UI_STYLE == 'Horizontal_Small_view.ui':
 
                         put_positionCell = self.tableWidget_put.item(atm_index - 4, 1)    
                     else:
