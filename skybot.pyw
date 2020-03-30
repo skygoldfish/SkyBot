@@ -323,63 +323,98 @@ with open('control_info.txt', mode='r') as control_file:
     ONEWAY_THRESHOLD = int(temp[9])
     #print('ONEWAY_THRESHOLD =', ONEWAY_THRESHOLD)
 
-# 야간시장의 데이타를 가져옴
-with open('overnight_info.txt', mode='r') as overnight_file:
+if os.path.isfile('overnight_info.txt'):
 
-    tmp = overnight_file.readline().strip()
-    
-    tmp = overnight_file.readline().strip()
-    temp = tmp.split()
-    CME_LAST_CLOSE = float(temp[5])
-    print('CME_LAST_CLOSE =', CME_LAST_CLOSE)
+    # 야간시장의 데이타를 가져옴
+    with open('overnight_info.txt', mode='r') as overnight_file:
 
-    tmp = overnight_file.readline().strip()
-    tmp = overnight_file.readline().strip()
+        tmp = overnight_file.readline().strip()
+        
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        CME_LAST_CLOSE = float(temp[5])
+        print('CME_LAST_CLOSE =', CME_LAST_CLOSE)
 
-    tmp = overnight_file.readline().strip()
-    temp = tmp.split()
-    SP500_LAST_LOW = float(temp[5])
-    print('SP500_LAST_LOW =', SP500_LAST_LOW)
+        tmp = overnight_file.readline().strip()
+        tmp = overnight_file.readline().strip()
 
-    tmp = overnight_file.readline().strip()
-    temp = tmp.split()
-    SP500_LAST_HIGH = float(temp[5])
-    print('SP500_LAST_HIGH =', SP500_LAST_HIGH)
-    
-    tmp = overnight_file.readline().strip()
-    temp = tmp.split()
-    SP500_LAST_CLOSE = float(temp[5])
-    print('SP500_LAST_CLOSE =', SP500_LAST_CLOSE)
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        SP500_LAST_LOW = float(temp[5])
+        print('SP500_LAST_LOW =', SP500_LAST_LOW)
 
-    tmp = overnight_file.readline().strip()
-    temp = tmp.split()
-    DOW_LAST_LOW = float(temp[4])
-    print('DOW_LAST_LOW =', DOW_LAST_LOW)
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        SP500_LAST_HIGH = float(temp[5])
+        print('SP500_LAST_HIGH =', SP500_LAST_HIGH)
+        
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        SP500_LAST_CLOSE = float(temp[5])
+        print('SP500_LAST_CLOSE =', SP500_LAST_CLOSE)
 
-    tmp = overnight_file.readline().strip()
-    temp = tmp.split()
-    DOW_LAST_HIGH = float(temp[4])
-    print('DOW_LAST_HIGH =', DOW_LAST_HIGH)
-    
-    tmp = overnight_file.readline().strip()
-    temp = tmp.split()
-    DOW_LAST_CLOSE = float(temp[4])
-    print('DOW_LAST_CLOSE =', DOW_LAST_CLOSE)
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        DOW_LAST_LOW = float(temp[4])
+        print('DOW_LAST_LOW =', DOW_LAST_LOW)
 
-    tmp = overnight_file.readline().strip()
-    temp = tmp.split()
-    NASDAQ_LAST_LOW = float(temp[4])
-    print('NASDAQ_LAST_LOW =', NASDAQ_LAST_LOW)
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        DOW_LAST_HIGH = float(temp[4])
+        print('DOW_LAST_HIGH =', DOW_LAST_HIGH)
+        
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        DOW_LAST_CLOSE = float(temp[4])
+        print('DOW_LAST_CLOSE =', DOW_LAST_CLOSE)
 
-    tmp = overnight_file.readline().strip()
-    temp = tmp.split()
-    NASDAQ_LAST_HIGH = float(temp[4])
-    print('NASDAQ_LAST_HIGH =', NASDAQ_LAST_HIGH)
-    
-    tmp = overnight_file.readline().strip()
-    temp = tmp.split()
-    NASDAQ_LAST_CLOSE = float(temp[4])
-    print('NASDAQ_LAST_CLOSE =', NASDAQ_LAST_CLOSE)
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        NASDAQ_LAST_LOW = float(temp[4])
+        print('NASDAQ_LAST_LOW =', NASDAQ_LAST_LOW)
+
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        NASDAQ_LAST_HIGH = float(temp[4])
+        print('NASDAQ_LAST_HIGH =', NASDAQ_LAST_HIGH)
+        
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        NASDAQ_LAST_CLOSE = float(temp[4])
+        print('NASDAQ_LAST_CLOSE =', NASDAQ_LAST_CLOSE)
+else:
+    CME_LAST_CLOSE = 0
+    SP500_LAST_LOW = 0
+    SP500_LAST_HIGH = 0
+    SP500_LAST_CLOSE = 0
+    DOW_LAST_LOW = 0
+    DOW_LAST_HIGH = 0
+    DOW_LAST_CLOSE = 0
+    NASDAQ_LAST_LOW = 0
+    NASDAQ_LAST_HIGH = 0
+    NASDAQ_LAST_CLOSE = 0
+
+if os.path.isfile('kp200_info.txt'):
+
+    with open('kp200_info.txt', mode='r') as kp200_file:
+
+        tmp = kp200_file.readline().strip()
+
+        tmp = kp200_file.readline().strip()
+        temp = tmp.split()
+        KP200_LAST_CLOSE = float(temp[3])
+
+        tmp = kp200_file.readline().strip()
+        temp = tmp.split()
+        KP200_LAST_LOW = float(temp[3])
+
+        tmp = kp200_file.readline().strip()
+        temp = tmp.split()
+        KP200_LAST_HIGH = float(temp[3])
+        #print('KP200_LAST_HIGH =', KP200_LAST_HIGH)
+else:
+    KP200_LAST_LOW = 0
+    KP200_LAST_HIGH = 0
 
 # 전역변수
 ########################################################################################################################
@@ -402,6 +437,8 @@ day_timespan = 395 + 10
 overnight_timespan = 660 + 60 + 10
 
 flag_offline = False
+
+kp200_pivot = 0
 
 # 업종코드
 KOSPI = '001'
@@ -561,10 +598,6 @@ kp200_high_node_str = ''
 opt_search_start_value = 0.0
 opt_coreval_search_start_value = 0.5
 opt_search_end_value = 10
-
-저가_고가_갱신_탐색치1 = 0.09
-저가_고가_갱신_탐색치2 = 10.0
-탐색폭 = 0.2
 
 start_time_str = ''
 end_time_str = ''
@@ -5192,6 +5225,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         def cb4_selectionChanged(self):
 
             global comboindex4
+            global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_고가
 
             comboindex4 = self.comboBox4.currentIndex()
 
@@ -5203,37 +5237,37 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if 선물_전저 > 0:
                     plot4_fut_jl_line.setValue(선물_전저)
                 else:
-                    pass
+                    선물_전저 = CME_LAST_CLOSE
 
                 if 선물_전고 > 0:
                     plot4_fut_jh_line.setValue(선물_전고)
                 else:
-                    pass
+                    선물_전고 = CME_LAST_CLOSE
 
                 if 선물_종가 > 0:
                     plot4_fut_close_line.setValue(선물_종가)
                 else:
-                    pass
+                    선물_종가 = CME_LAST_CLOSE
 
                 if 선물_피봇 > 0:                
                     plot4_fut_pivot_line.setValue(선물_피봇)
                 else:
-                    pass
+                    선물_피봇 = CME_LAST_CLOSE
 
                 if 선물_시가 > 0:
                     plot4_fut_open_line.setValue(선물_시가)
                 else:
-                    pass
+                    선물_시가 = CME_LAST_CLOSE
 
                 if 선물_저가 > 0:
                     plot4_fut_low_line.setValue(선물_저가)
                 else:
-                    pass
+                    선물_저가 = CME_LAST_CLOSE
 
                 if 선물_고가 > 0:
                     plot4_fut_high_line.setValue(선물_고가)
                 else:
-                    pass
+                    선물_고가 = CME_LAST_CLOSE
 
                 print('선물_전저 =', 선물_전저)
                 print('선물_전고 =', 선물_전고)
@@ -14802,6 +14836,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
 
+            if os.path.isfile('kp200_info.txt'):
+
+                item = QTableWidgetItem("{0:0.2f}".format(KP200_LAST_LOW))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(2, Futures_column.전저.value, item)
+
+                item = QTableWidgetItem("{0:0.2f}".format(KP200_LAST_HIGH))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(2, Futures_column.전고.value, item)
+            else:
+                pass            
+
             self.tableWidget_fut.resizeColumnsToContents()
 
         elif szTrCode == 't8433':            
@@ -15193,7 +15239,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global flag_fut_low, flag_fut_high 
         global fut_volume_power
         global first_refresh, fut_first_arrive
-        global flag_telegram_listen_worker, telegram_send_worker_on_time
+        global telegram_send_worker_on_time, flag_telegram_listen_worker
         global flag_telegram_send_worker
         global 선물_대비
 
@@ -15263,6 +15309,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 ToTelegram(str)
+
+                self.telegram_listen_worker.start()
+                self.telegram_listen_worker.daemon = True
+
+                # 차차월물은 시작과 동시에 Polling 시작
+                ToTelegram("MAN 텔레그램 Polling이 시작됩니다.")
+
+                self.pushButton_remove.setStyleSheet("background-color: lawngreen")
+
+                flag_telegram_listen_worker = True
             else:
                 pass         
 
@@ -15270,7 +15326,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
 
-        #if market_service and (fut_time == fut_first_arrive + 1 or fut_time == fut_first_arrive + 2):
         if fut_time == telegram_send_worker_on_time + 2 or fut_time == telegram_send_worker_on_time + 3:
             
             # 선물 시가갭 컬러링(주간 장시작시 표시안되는 오류 대응)
@@ -15312,15 +15367,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 elif TARGET_MONTH_SELECT == 2:
 
                     ToTelegram("NM 텔레그램 Polling이 시작됩니다.")
-
-                elif TARGET_MONTH_SELECT == 3:
-
-                    ToTelegram("MAN 텔레그램 Polling이 시작됩니다.")
                 else:
                     pass
                 
                 self.pushButton_remove.setStyleSheet("background-color: lawngreen")
-                #self.telegram_flag = True
                 
                 flag_telegram_listen_worker = True
             else:
@@ -15994,51 +16044,46 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setBackground(QBrush(회색))             
             self.tableWidget_call.setItem(index, Option_column.저가.value, item)
 
-            # 시가 0.5 ~ 9.x 탐색
-            if 저가_고가_갱신_탐색치1 < df_call.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
+            if df_call.iloc[index]['전저'] >= df_call.iloc[index]['저가']:
 
-                if df_call.iloc[index]['전저'] >= df_call.iloc[index]['저가']:
+                str = '{0:0.2f}'.format(df_call.iloc[index]['전저']) + '\n' + '▼'
 
-                    str = '{0:0.2f}'.format(df_call.iloc[index]['전저']) + '\n' + '▼'
-
-                    if str != self.tableWidget_call.item(index, Option_column.전저.value).text():
-                        item = QTableWidgetItem(str)
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setForeground(QBrush(청색))             
-                        self.tableWidget_call.setItem(index, Option_column.전저.value, item)
-                        self.tableWidget_call.resizeColumnsToContents()
-                    else:
-                        pass
+                if str != self.tableWidget_call.item(index, Option_column.전저.value).text():
+                    item = QTableWidgetItem(str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setForeground(QBrush(청색))             
+                    self.tableWidget_call.setItem(index, Option_column.전저.value, item)
+                    self.tableWidget_call.resizeColumnsToContents()
                 else:
                     pass
+            else:
+                pass
 
-                if df_call.iloc[index]['월저'] >= df_call.iloc[index]['저가']:
+            if df_call.iloc[index]['월저'] >= df_call.iloc[index]['저가']:
 
-                    str = '{0:0.2f}'.format(df_call.iloc[index]['월저']) + '\n' + '▼'
+                str = '{0:0.2f}'.format(df_call.iloc[index]['월저']) + '\n' + '▼'
 
-                    if str != self.tableWidget_call.item(index, Option_column.월저.value).text():
-                        item = QTableWidgetItem(str)
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setForeground(QBrush(청색))             
-                        self.tableWidget_call.setItem(index, Option_column.월저.value, item)
-                        self.tableWidget_call.resizeColumnsToContents()
-                    else:
-                        pass
+                if str != self.tableWidget_call.item(index, Option_column.월저.value).text():
+                    item = QTableWidgetItem(str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setForeground(QBrush(청색))             
+                    self.tableWidget_call.setItem(index, Option_column.월저.value, item)
+                    self.tableWidget_call.resizeColumnsToContents()
                 else:
                     pass
+            else:
+                pass
 
-                if df_call.iloc[index]['기준가'] >= df_call.iloc[index]['저가']:
+            if df_call.iloc[index]['기준가'] >= df_call.iloc[index]['저가']:
 
-                    str = '{0:0.2f}'.format(df_call.iloc[index]['기준가']) + '\n' + '▼'
+                str = '{0:0.2f}'.format(df_call.iloc[index]['기준가']) + '\n' + '▼'
 
-                    if str != self.tableWidget_call.item(index, Option_column.기준가.value).text():
-                        item = QTableWidgetItem(str)
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setForeground(QBrush(청색))             
-                        self.tableWidget_call.setItem(index, Option_column.기준가.value, item)
-                        self.tableWidget_call.resizeColumnsToContents()
-                    else:
-                        pass
+                if str != self.tableWidget_call.item(index, Option_column.기준가.value).text():
+                    item = QTableWidgetItem(str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setForeground(QBrush(청색))             
+                    self.tableWidget_call.setItem(index, Option_column.기준가.value, item)
+                    self.tableWidget_call.resizeColumnsToContents()
                 else:
                     pass
             else:
@@ -16081,36 +16126,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setBackground(QBrush(회색))
             self.tableWidget_call.setItem(index, Option_column.고가.value, item)
 
-            # 시가 0.5 ~ 9.x 탐색
-            if 저가_고가_갱신_탐색치1 < df_call.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
+            if df_call.iloc[index]['전고'] <= df_call.iloc[index]['고가']:
 
-                if df_call.iloc[index]['전고'] <= df_call.iloc[index]['고가']:
+                str = '{0:0.2f}'.format(df_call.iloc[index]['전고']) + '\n' + '▲'
 
-                    str = '{0:0.2f}'.format(df_call.iloc[index]['전고']) + '\n' + '▲'
-
-                    if str != self.tableWidget_call.item(index, Option_column.전고.value).text():
-                        item = QTableWidgetItem(str)
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setForeground(QBrush(적색))             
-                        self.tableWidget_call.setItem(index, Option_column.전고.value, item)
-                        self.tableWidget_call.resizeColumnsToContents()
-                    else:
-                        pass
+                if str != self.tableWidget_call.item(index, Option_column.전고.value).text():
+                    item = QTableWidgetItem(str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setForeground(QBrush(적색))             
+                    self.tableWidget_call.setItem(index, Option_column.전고.value, item)
+                    self.tableWidget_call.resizeColumnsToContents()
                 else:
                     pass
+            else:
+                pass
 
-                if df_call.iloc[index]['월고'] <= df_call.iloc[index]['고가']:
+            if df_call.iloc[index]['월고'] <= df_call.iloc[index]['고가']:
 
-                    str = '{0:0.2f}'.format(df_call.iloc[index]['월고']) + '\n' + '▲'
+                str = '{0:0.2f}'.format(df_call.iloc[index]['월고']) + '\n' + '▲'
 
-                    if str != self.tableWidget_call.item(index, Option_column.월고.value).text():
-                        item = QTableWidgetItem(str)
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setForeground(QBrush(적색))             
-                        self.tableWidget_call.setItem(index, Option_column.월고.value, item)
-                        self.tableWidget_call.resizeColumnsToContents()
-                    else:
-                        pass
+                if str != self.tableWidget_call.item(index, Option_column.월고.value).text():
+                    item = QTableWidgetItem(str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setForeground(QBrush(적색))             
+                    self.tableWidget_call.setItem(index, Option_column.월고.value, item)
+                    self.tableWidget_call.resizeColumnsToContents()
                 else:
                     pass
             else:
@@ -17179,51 +17219,46 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setBackground(QBrush(회색))
             self.tableWidget_put.setItem(index, Option_column.저가.value, item)
 
-            # 시가 0.5 ~ 9.x 탐색
-            if 저가_고가_갱신_탐색치1 < df_put.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
+            if df_put.iloc[index]['전저'] >= df_put.iloc[index]['저가']:
 
-                if df_put.iloc[index]['전저'] >= df_put.iloc[index]['저가']:
+                str = '{0:0.2f}'.format(df_put.iloc[index]['전저']) + '\n' + '▼'
 
-                    str = '{0:0.2f}'.format(df_put.iloc[index]['전저']) + '\n' + '▼'
-
-                    if str != self.tableWidget_put.item(index, Option_column.전저.value).text():
-                        item = QTableWidgetItem(str)
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setForeground(QBrush(청색))             
-                        self.tableWidget_put.setItem(index, Option_column.전저.value, item)
-                        self.tableWidget_put.resizeColumnsToContents()
-                    else:
-                        pass
+                if str != self.tableWidget_put.item(index, Option_column.전저.value).text():
+                    item = QTableWidgetItem(str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setForeground(QBrush(청색))             
+                    self.tableWidget_put.setItem(index, Option_column.전저.value, item)
+                    self.tableWidget_put.resizeColumnsToContents()
                 else:
                     pass
+            else:
+                pass
 
-                if df_put.iloc[index]['월저'] >= df_put.iloc[index]['저가']:
+            if df_put.iloc[index]['월저'] >= df_put.iloc[index]['저가']:
 
-                    str = '{0:0.2f}'.format(df_put.iloc[index]['월저']) + '\n' + '▼'
+                str = '{0:0.2f}'.format(df_put.iloc[index]['월저']) + '\n' + '▼'
 
-                    if str != self.tableWidget_put.item(index, Option_column.월저.value).text():
-                        item = QTableWidgetItem(str)
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setForeground(QBrush(청색))             
-                        self.tableWidget_put.setItem(index, Option_column.월저.value, item)
-                        self.tableWidget_put.resizeColumnsToContents()
-                    else:
-                        pass
+                if str != self.tableWidget_put.item(index, Option_column.월저.value).text():
+                    item = QTableWidgetItem(str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setForeground(QBrush(청색))             
+                    self.tableWidget_put.setItem(index, Option_column.월저.value, item)
+                    self.tableWidget_put.resizeColumnsToContents()
                 else:
                     pass
+            else:
+                pass
 
-                if df_put.iloc[index]['기준가'] >= df_put.iloc[index]['저가']:
+            if df_put.iloc[index]['기준가'] >= df_put.iloc[index]['저가']:
 
-                    str = '{0:0.2f}'.format(df_put.iloc[index]['기준가']) + '\n' + '▼'
+                str = '{0:0.2f}'.format(df_put.iloc[index]['기준가']) + '\n' + '▼'
 
-                    if str != self.tableWidget_put.item(index, Option_column.기준가.value).text():
-                        item = QTableWidgetItem(str)
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setForeground(QBrush(청색))             
-                        self.tableWidget_put.setItem(index, Option_column.기준가.value, item)
-                        self.tableWidget_put.resizeColumnsToContents()
-                    else:
-                        pass
+                if str != self.tableWidget_put.item(index, Option_column.기준가.value).text():
+                    item = QTableWidgetItem(str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setForeground(QBrush(청색))             
+                    self.tableWidget_put.setItem(index, Option_column.기준가.value, item)
+                    self.tableWidget_put.resizeColumnsToContents()
                 else:
                     pass
             else:
@@ -17266,36 +17301,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item.setBackground(QBrush(회색))
             self.tableWidget_put.setItem(index, Option_column.고가.value, item)
 
-            # 시가 0.5 ~ 9.x 탐색
-            if 저가_고가_갱신_탐색치1 < df_put.iloc[index]['시가'] < 저가_고가_갱신_탐색치2:
+            if df_put.iloc[index]['전고'] <= df_put.iloc[index]['고가']:
 
-                if df_put.iloc[index]['전고'] <= df_put.iloc[index]['고가']:
+                str = '{0:0.2f}'.format(df_put.iloc[index]['전고']) + '\n' + '▲'
 
-                    str = '{0:0.2f}'.format(df_put.iloc[index]['전고']) + '\n' + '▲'
-
-                    if str != self.tableWidget_put.item(index, Option_column.전고.value).text():
-                        item = QTableWidgetItem(str)
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setForeground(QBrush(적색))             
-                        self.tableWidget_put.setItem(index, Option_column.전고.value, item)
-                        self.tableWidget_put.resizeColumnsToContents()
-                    else:
-                        pass
+                if str != self.tableWidget_put.item(index, Option_column.전고.value).text():
+                    item = QTableWidgetItem(str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setForeground(QBrush(적색))             
+                    self.tableWidget_put.setItem(index, Option_column.전고.value, item)
+                    self.tableWidget_put.resizeColumnsToContents()
                 else:
                     pass
+            else:
+                pass
 
-                if df_put.iloc[index]['월고'] <= df_put.iloc[index]['고가']:
+            if df_put.iloc[index]['월고'] <= df_put.iloc[index]['고가']:
 
-                    str = '{0:0.2f}'.format(df_put.iloc[index]['월고']) + '\n' + '▲'
+                str = '{0:0.2f}'.format(df_put.iloc[index]['월고']) + '\n' + '▲'
 
-                    if str != self.tableWidget_put.item(index, Option_column.월고.value).text():
-                        item = QTableWidgetItem(str)
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setForeground(QBrush(적색))             
-                        self.tableWidget_put.setItem(index, Option_column.월고.value, item)
-                        self.tableWidget_put.resizeColumnsToContents()
-                    else:
-                        pass
+                if str != self.tableWidget_put.item(index, Option_column.월고.value).text():
+                    item = QTableWidgetItem(str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setForeground(QBrush(적색))             
+                    self.tableWidget_put.setItem(index, Option_column.월고.value, item)
+                    self.tableWidget_put.resizeColumnsToContents()
                 else:
                     pass
             else:
@@ -18447,6 +18477,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             global cme_close, dow_close, sp500_close, nasdaq_close
             global 시스템시간, 서버시간, 시스템_서버_시간차
+            global kp200_pivot
 
             start_time = timeit.default_timer()
 
@@ -18606,6 +18637,19 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 DOW 지수 = {3}\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), dow_price)
                     self.textBrowser.append(str)
+
+                    # KP200의 주요정보를 저장
+                    with open('kp200_info.txt', mode='w') as kp200_file:
+
+                        file_str = '################# < KP200 Index of the Last Day > ###################\n'
+                        kp200_file.write(file_str)                            
+                        file_str = 'KP200 Close = {0}\n'.format(kp200_realdata['현재가'])
+                        kp200_file.write(file_str)
+                        file_str = 'KP200 Low = {0}\n'.format(kp200_realdata['저가'])
+                        kp200_file.write(file_str)
+                        file_str = 'KP200 High = {0}\n'.format(kp200_realdata['고가'])
+                        kp200_file.write(file_str)
+                        kp200_file.close()
 
                     if market_service:
 
@@ -19357,7 +19401,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             int(result['시간'][2:4]),
                             int(result['시간'][4:6]),
                             kp200_realdata['시가'])
-                        self.textBrowser.append(str)                        
+                        self.textBrowser.append(str)
+
+                        if KP200_LAST_LOW > 0 and KP200_LAST_HIGH > 0:
+
+                            kp200_pivot = self.calc_pivot(KP200_LAST_LOW, KP200_LAST_HIGH, kp200_종가, kp200_realdata['시가'])         
+
+                            item = QTableWidgetItem("{0:0.2f}".format(kp200_pivot))
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_fut.setItem(2, Futures_column.피봇.value, item)
+                        else:
+                            pass              
                         
                         atm_str = self.find_ATM(kp200_realdata['시가'])
                         atm_index = opt_actval.index(atm_str)
