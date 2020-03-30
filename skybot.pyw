@@ -4225,6 +4225,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global plot1_call_volume_curve, plot1_put_volume_curve
         global plot1_call_oi_curve, plot1_put_oi_curve
         global plot1_two_sum_curve, plot1_two_cha_curve
+        global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_고가
 
         txt = self.comboBox1.currentText()
         comboindex1 = self.comboBox1.currentIndex()        
@@ -4425,42 +4426,49 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 plot1_fut_jl_line.setValue(선물_전저)
             else:
                 plot1_fut_jl_line.setValue(CME_LAST_CLOSE)
+                선물_전저 = CME_LAST_CLOSE
             
             if 선물_전고 > 0:
 
                 plot1_fut_jh_line.setValue(선물_전고)
             else:
                 plot1_fut_jh_line.setValue(CME_LAST_CLOSE)
+                선물_전고 = CME_LAST_CLOSE
 
             if 선물_피봇 > 0:
 
                 plot1_fut_pivot_line.setValue(선물_피봇)
             else:
                 plot1_fut_pivot_line.setValue(CME_LAST_CLOSE)
+                선물_피봇 = CME_LAST_CLOSE
 
             if 선물_시가 > 0:
 
                 plot1_fut_open_line.setValue(선물_시가)
             else:
                 plot1_fut_open_line.setValue(CME_LAST_CLOSE)
+                선물_시가 = CME_LAST_CLOSE
 
             if 선물_저가 > 0:
 
                 plot1_fut_low_line.setValue(선물_저가)
             else:
                 plot1_fut_low_line.setValue(CME_LAST_CLOSE)
+                선물_저가 = CME_LAST_CLOSE
 
             if 선물_고가 > 0:
 
                 plot1_fut_high_line.setValue(선물_고가)
             else:
                 plot1_fut_high_line.setValue(CME_LAST_CLOSE)
+                선물_고가 = CME_LAST_CLOSE
             
             if 선물_종가 > 0:
 
                 plot1_fut_close_line.setValue(선물_종가)
             else:
                 plot1_fut_close_line.setValue(CME_LAST_CLOSE)
+                선물_종가 = CME_LAST_CLOSE
 
             #print('선물_종가 =', 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_고가)
 
