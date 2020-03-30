@@ -6132,7 +6132,18 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             index = opt_actval.index(actval)
                             call_curve[index].clear()
-                            put_curve[index].clear()                    
+                            put_curve[index].clear()
+
+                    mv_line[0].setValue(1.2)
+                    mv_line[1].setValue(2.5)
+                    mv_line[2].setValue(3.5)
+                    mv_line[3].setValue(4.85)
+                    mv_line[4].setValue(5.1)
+                    mv_line[5].setValue(5.5)
+                    mv_line[6].setValue(0)
+                    mv_line[7].setValue(0)
+                    mv_line[8].setValue(0)
+
                 else:
                     pass            
 
