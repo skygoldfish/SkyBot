@@ -13150,7 +13150,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             # 실시간에서만 표시됨
             self.kp200_node_color_clear()
             self.kp200_node_coloring()
-            
+
             self.kp200_low_node_coloring()
             self.kp200_high_node_coloring()
 
@@ -14904,8 +14904,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         flag_kp200_low_node = False    
         
         # kp200 맥점 컬러링
-        self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(옅은회색))
-        self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))
+        #self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(옅은회색))
+        #self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))
         
         for i in range(10):
 
@@ -14932,8 +14932,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         flag_kp200_high_node = False    
         
         # kp200 맥점 컬러링
-        self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(옅은회색))
-        self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(검정색))
+        #self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(옅은회색))
+        #self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(검정색))
         
         for i in range(10):
 
