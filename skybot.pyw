@@ -5757,6 +5757,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             # cell focus 이동
             self.tableWidget_call.setCurrentCell(100, Option_column.OID.value)
+            self.opt_call_node_coloring()
         else:
             txt = "call table cell clicked = ({0},{1}) ==>None type<==".format(row, col)
 
@@ -5804,6 +5805,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             # cell focus 이동
             self.tableWidget_put.setCurrentCell(100, Option_column.OID.value)
+            self.opt_put_node_coloring()
         else:
             txt = "put table cell clicked = ({0},{1}) ==>None type<==".format(row, col)
 
