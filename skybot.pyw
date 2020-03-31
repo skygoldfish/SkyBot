@@ -11844,7 +11844,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 for i in range(option_pairs_count):
 
                     행사가 = df['행사가'][i]
-                    item = QTableWidgetItem("{0:0.2f}".format(df['float_행사가'][i]))
+                    item = QTableWidgetItem("{0:0.1f}".format(df['float_행사가'][i]))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.행사가.value, item)
 
@@ -12125,7 +12125,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 for i in range(option_pairs_count):
 
                     행사가 = df1['행사가'][i]
-                    item = QTableWidgetItem("{0:0.2f}".format(df1['float_행사가'][i]))
+                    item = QTableWidgetItem("{0:0.1f}".format(df1['float_행사가'][i]))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.행사가.value, item)
 
@@ -16180,7 +16180,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             df_call.loc[index, '시가'] = round(float(시가), 2)
             df_plotdata_call.iloc[index][선물장간_시간차] = round(float(시가), 2)
-            
+            '''
+            if float(시가) >= 100:
+
+                item = QTableWidgetItem("{0:0.1f}".format(float(시가)))
+            else:
+                item = QTableWidgetItem(시가)            
+            '''
             item = QTableWidgetItem(시가)
             item.setTextAlignment(Qt.AlignCenter)
 
@@ -17146,7 +17152,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if call_open[option_pairs_count - 1]:
 
-            new_actval = repr(call_itm_count) + '/' + repr(call_open_count) + '*'
+            new_actval = repr(call_itm_count) + '/' + repr(call_open_count) + '\n*'
         else:
             new_actval = repr(call_itm_count) + '/' + repr(call_open_count)
 
@@ -17361,7 +17367,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             df_put.loc[index, '시가'] = round(float(시가), 2)
             df_plotdata_put.iloc[index][선물장간_시간차] = round(float(시가), 2)
-            
+            '''
+            if float(시가) >= 100:
+
+                item = QTableWidgetItem("{0:0.1f}".format(float(시가)))
+            else:
+                item = QTableWidgetItem(시가)
+            '''
             item = QTableWidgetItem(시가)
             item.setTextAlignment(Qt.AlignCenter)
 
@@ -18258,8 +18270,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             item = QTableWidgetItem(oloh_str)
                             item.setTextAlignment(Qt.AlignCenter)
-                            item.setBackground(QBrush(청색))
-                            item.setForeground(QBrush(흰색))
+                            item.setBackground(QBrush(적색))
+                            item.setForeground(QBrush(검정색))
                             self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
 
                             self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(청색))
@@ -18277,8 +18289,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             item = QTableWidgetItem(oloh_str)
                             item.setTextAlignment(Qt.AlignCenter)
-                            item.setBackground(QBrush(적색))
-                            item.setForeground(QBrush(검정색))
+                            item.setBackground(QBrush(청색))
+                            item.setForeground(QBrush(흰색))
                             self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
 
                             self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(청색))
@@ -18331,7 +18343,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if put_open[0]:
 
-            new_actval = repr(put_itm_count) + '/' + repr(put_open_count) + '*'
+            new_actval = repr(put_itm_count) + '/' + repr(put_open_count) + '\n*'
         else:
             new_actval = repr(put_itm_count) + '/' + repr(put_open_count)
 
