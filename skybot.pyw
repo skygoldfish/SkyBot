@@ -7169,43 +7169,27 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
         start_time = timeit.default_timer()
+        
+        node_coloring = True
+
+        self.call_node_color_clear()        
+        self.call_open_check()        
+        self.call_crossval_color_update()        
+        self.call_node_color_update()
+        self.call_coreval_color_update()
+
+        node_coloring = False
+
+        process_time = (timeit.default_timer() - start_time) * 1000
 
         if market_service:
-
-            node_coloring = True
-
-            self.call_node_color_clear()        
-            self.call_open_check()        
-            self.call_crossval_color_update()        
-            self.call_node_color_update()
-
-            self.call_coreval_color_update()
-
-            node_coloring = False
-
-            process_time = (timeit.default_timer() - start_time) * 1000
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)
-
         else:
-            node_coloring = True
-
-            self.call_node_color_clear()        
-            self.call_open_check()        
-            self.call_crossval_color_update()        
-            self.call_node_color_update()
-            self.call_coreval_color_update()
-
-            node_coloring = False
-
-            process_time = (timeit.default_timer() - start_time) * 1000
-
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
             self.textBrowser.append(str)
-
-        #return
 
     def opt_call_low_node_coloring(self):
 
@@ -7300,43 +7284,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         dt = datetime.datetime.now()
         start_time = timeit.default_timer()
+        
+        node_coloring = True
+
+        self.put_node_color_clear()        
+        self.put_open_check()        
+        self.put_crossval_color_update()        
+        self.put_node_color_update()
+        self.put_coreval_color_update()
+
+        node_coloring = False
+
+        process_time = (timeit.default_timer() - start_time) * 1000
 
         if market_service:
 
-            node_coloring = True
-
-            self.put_node_color_clear()        
-            self.put_open_check()        
-            self.put_crossval_color_update()        
-            self.put_node_color_update()
-
-            self.put_coreval_color_update()
-
-            node_coloring = False
-
-            process_time = (timeit.default_timer() - start_time) * 1000
-
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
-            self.textBrowser.append(str)
-                                 
+            self.textBrowser.append(str)                                 
         else:
-            node_coloring = True
-
-            self.put_node_color_clear()        
-            self.put_open_check()        
-            self.put_crossval_color_update()        
-            self.put_node_color_update()
-            self.put_coreval_color_update()
-
-            node_coloring = False
-
-            process_time = (timeit.default_timer() - start_time) * 1000
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
             self.textBrowser.append(str)
-
-        #return
 
     def opt_put_low_node_coloring(self):
 
