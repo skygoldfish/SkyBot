@@ -540,6 +540,7 @@ MONTH_1 = False
 MONTH_2 = False
 MONTH_3 = False
 FLAG_OLOH = False
+FLAG_ASYM = False
 
 n_oloh_str = ''
 
@@ -2960,7 +2961,7 @@ class telegram_send_worker(QThread):
             
             dt = datetime.datetime.now()
             
-            global telegram_toggle, MONTH_1, MONTH_2, MONTH_3, FLAG_OLOH 
+            global telegram_toggle, MONTH_1, MONTH_2, MONTH_3, FLAG_OLOH, FLAG_ASYM 
 
             telegram_toggle = not telegram_toggle
 
@@ -2983,6 +2984,7 @@ class telegram_send_worker(QThread):
                 MONTH_2 = False
                 MONTH_3 = False
                 FLAG_OLOH = False
+                FLAG_ASYM = False
 
             elif command_count == 1 and command[0] == '/start':
 
@@ -2990,6 +2992,7 @@ class telegram_send_worker(QThread):
                 MONTH_2 = True
                 MONTH_3 = True
                 FLAG_OLOH = True
+                FLAG_ASYM = True
 
             elif command_count == 2 and command[0] == 'Go':
 
@@ -2999,6 +3002,7 @@ class telegram_send_worker(QThread):
                     MONTH_2 = False
                     MONTH_3 = False
                     FLAG_OLOH = False
+                    FLAG_ASYM = False
 
                 elif command[1] == '2':
 
@@ -3006,6 +3010,7 @@ class telegram_send_worker(QThread):
                     MONTH_2 = True
                     MONTH_3 = False
                     FLAG_OLOH = False
+                    FLAG_ASYM = False
 
                 elif command[1] == '3':
 
@@ -3013,6 +3018,7 @@ class telegram_send_worker(QThread):
                     MONTH_2 = False
                     MONTH_3 = True
                     FLAG_OLOH = False
+                    FLAG_ASYM = False
 
                 elif command[1] == '12':
 
@@ -3020,6 +3026,7 @@ class telegram_send_worker(QThread):
                     MONTH_2 = True
                     MONTH_3 = False
                     FLAG_OLOH = False
+                    FLAG_ASYM = False
 
                 elif command[1] == '123':
 
@@ -3027,24 +3034,74 @@ class telegram_send_worker(QThread):
                     MONTH_2 = True
                     MONTH_3 = True
                     FLAG_OLOH = False
+                    FLAG_ASYM = False
+
+                elif command[1] == '12o':
+
+                    MONTH_1 = True
+                    MONTH_2 = True
+                    MONTH_3 = False
+                    FLAG_OLOH = True
+                    FLAG_ASYM = False
+
+                elif command[1] == '12a':
+
+                    MONTH_1 = True
+                    MONTH_2 = True
+                    MONTH_3 = False
+                    FLAG_OLOH = False
+                    FLAG_ASYM = True
                 
-                elif command[1] == '1234':
+                elif command[1] == '123o':
 
                     MONTH_1 = True
                     MONTH_2 = True
                     MONTH_3 = True
                     FLAG_OLOH = True
+                    FLAG_ASYM = False
+
+                elif command[1] == '123a':
+
+                    MONTH_1 = True
+                    MONTH_2 = True
+                    MONTH_3 = True
+                    FLAG_OLOH = False
+                    FLAG_ASYM = True
+
+                elif command[1] == '123ao':
+
+                    MONTH_1 = True
+                    MONTH_2 = True
+                    MONTH_3 = True
+                    FLAG_OLOH = True
+                    FLAG_ASYM = True
+
+                elif command[1] == '123oa':
+
+                    MONTH_1 = True
+                    MONTH_2 = True
+                    MONTH_3 = True
+                    FLAG_OLOH = True
+                    FLAG_ASYM = True
                 else:
-                    pass
+                    MONTH_1 = False
+                    MONTH_2 = False
+                    MONTH_3 = False
+                    FLAG_OLOH = False
+                    FLAG_ASYM = False
             else:
-                pass           
+                MONTH_1 = False
+                MONTH_2 = False
+                MONTH_3 = False
+                FLAG_OLOH = False
+                FLAG_ASYM = False           
 
             if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (command[0] == 'Go' or command[0] == '/start'):
 
                 if telegram_toggle:
 
                     # 선물 OL/OH 알람
-                    if n_oloh_str != '' and FLAG_OLOH:
+                    if (n_oloh_str != '' and FLAG_OLOH) and (MONTH_1 or MONTH_2 or MONTH_3):
 
                         str = n_oloh_str
                         ToTelegram(str)
@@ -3081,7 +3138,7 @@ class telegram_send_worker(QThread):
                         pass                    
 
                     # 비대칭장(장의 형태) 알람
-                    if (비대칭장 != '' and FLAG_OLOH) and (MONTH_1 or MONTH_2 or MONTH_3):
+                    if (비대칭장 != '' and FLAG_ASYM) and (MONTH_1 or MONTH_2 or MONTH_3):
 
                         str = 비대칭장
                         ToTelegram(str)
@@ -14355,38 +14412,80 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if today_str != MONTH_FIRSTDAY:
 
                     df_call.loc[call_t8416_count, '기준가'] = round(df['저가'][0], 2)
-                    item = QTableWidgetItem("{0:0.2f}".format(df['저가'][0]))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(call_t8416_count, Option_column.기준가.value, item)
+
+                    if df['저가'][0] >= 100:
+
+                        item = QTableWidgetItem("{0:0.1f}".format(df['저가'][0]))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(call_t8416_count, Option_column.기준가.value, item)
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(df['저가'][0]))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(call_t8416_count, Option_column.기준가.value, item)
 
                     df_call.loc[call_t8416_count, '월저'] = round(min(df['저가']), 2)
-                    item = QTableWidgetItem("{0:0.2f}".format(min(df['저가'])))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(call_t8416_count, Option_column.월저.value, item)
+
+                    if min(df['저가']) >= 100:
+
+                        item = QTableWidgetItem("{0:0.1f}".format(min(df['저가'])))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(call_t8416_count, Option_column.월저.value, item)
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(min(df['저가'])))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(call_t8416_count, Option_column.월저.value, item)
 
                     df_call.loc[call_t8416_count, '월고'] = round(max(df['고가']), 2)
-                    item = QTableWidgetItem("{0:0.2f}".format(max(df['고가'])))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(call_t8416_count, Option_column.월고.value, item)
+
+                    if max(df['고가']) >= 100:
+
+                        item = QTableWidgetItem("{0:0.1f}".format(max(df['고가'])))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(call_t8416_count, Option_column.월고.value, item)
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(max(df['고가'])))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(call_t8416_count, Option_column.월고.value, item)
                 else:
                     pass
 
                 df_call.loc[call_t8416_count, '전저'] = round(block['전일저가'], 2)
-                item = QTableWidgetItem("{0:0.2f}".format(df_call.iloc[call_t8416_count]['전저']))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(call_t8416_count, Option_column.전저.value, item)
+
+                if block['전일저가'] >= 100:
+
+                    item = QTableWidgetItem("{0:0.1f}".format(block['전일저가']))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(call_t8416_count, Option_column.전저.value, item)
+                else:
+                    item = QTableWidgetItem("{0:0.2f}".format(block['전일저가']))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(call_t8416_count, Option_column.전저.value, item)
 
                 df_call.loc[call_t8416_count, '전고'] = round(block['전일고가'], 2)
-                item = QTableWidgetItem("{0:0.2f}".format(df_call.iloc[call_t8416_count]['전고']))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(call_t8416_count, Option_column.전고.value, item)
+
+                if block['전일고가'] >= 100:
+
+                    item = QTableWidgetItem("{0:0.1f}".format(block['전일고가']))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(call_t8416_count, Option_column.전고.value, item)
+                else:
+                    item = QTableWidgetItem("{0:0.2f}".format(block['전일고가']))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setItem(call_t8416_count, Option_column.전고.value, item)
 
                 if round(block['전일종가'], 2) != df_call.iloc[call_t8416_count]['종가']:
 
                     df_call.loc[call_t8416_count, '종가'] = round(block['전일종가'], 2)
-                    item = QTableWidgetItem("{0:0.2f}".format(df_call.iloc[call_t8416_count]['종가']))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setItem(call_t8416_count, Option_column.종가.value, item)
+
+                    if block['전일종가'] >= 100:
+
+                        item = QTableWidgetItem("{0:0.1f}".format(block['전일종가']))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(call_t8416_count, Option_column.종가.value, item)
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(block['전일종가']))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(call_t8416_count, Option_column.종가.value, item)
 
                     df_plotdata_call.iloc[call_t8416_count][0] = round(block['전일종가'], 2)
 
@@ -14525,38 +14624,80 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 if today_str != MONTH_FIRSTDAY:
 
                     df_put.loc[put_t8416_count, '기준가'] = round(df['저가'][0], 2)
-                    item = QTableWidgetItem("{0:0.2f}".format(df['저가'][0]))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(put_t8416_count, Option_column.기준가.value, item)
+
+                    if df['저가'][0] >= 100:
+
+                        item = QTableWidgetItem("{0:0.1f}".format(df['저가'][0]))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(put_t8416_count, Option_column.기준가.value, item)
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(df['저가'][0]))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(put_t8416_count, Option_column.기준가.value, item)                    
 
                     df_put.loc[put_t8416_count, '월저'] = round(min(df['저가']), 2)
-                    item = QTableWidgetItem("{0:0.2f}".format(min(df['저가'])))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(put_t8416_count, Option_column.월저.value, item)
+
+                    if min(df['저가']) >= 100:
+                        
+                        item = QTableWidgetItem("{0:0.1f}".format(min(df['저가'])))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(put_t8416_count, Option_column.월저.value, item)
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(min(df['저가'])))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(put_t8416_count, Option_column.월저.value, item)
 
                     df_put.loc[put_t8416_count, '월고'] = round(max(df['고가']), 2)
-                    item = QTableWidgetItem("{0:0.2f}".format(max(df['고가'])))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(put_t8416_count, Option_column.월고.value, item)
+
+                    if max(df['고가']) >= 100:
+
+                        item = QTableWidgetItem("{0:0.1f}".format(max(df['고가'])))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(put_t8416_count, Option_column.월고.value, item)
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(max(df['고가'])))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(put_t8416_count, Option_column.월고.value, item)
                 else:
                     pass                
 
                 df_put.loc[put_t8416_count, '전저'] = round(block['전일저가'], 2)
-                item = QTableWidgetItem("{0:0.2f}".format(df_put.iloc[put_t8416_count]['전저']))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(put_t8416_count, Option_column.전저.value, item)
+
+                if block['전일저가'] >= 100:
+
+                    item = QTableWidgetItem("{0:0.1f}".format(block['전일저가']))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(put_t8416_count, Option_column.전저.value, item)
+                else:
+                    item = QTableWidgetItem("{0:0.2f}".format(block['전일저가']))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(put_t8416_count, Option_column.전저.value, item)
 
                 df_put.loc[put_t8416_count, '전고'] = round(block['전일고가'], 2)
-                item = QTableWidgetItem("{0:0.2f}".format(df_put.iloc[put_t8416_count]['전고']))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(put_t8416_count, Option_column.전고.value, item)
+
+                if block['전일고가'] >= 100:
+
+                    item = QTableWidgetItem("{0:0.1f}".format(block['전일고가']))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(put_t8416_count, Option_column.전고.value, item)
+                else:
+                    item = QTableWidgetItem("{0:0.2f}".format(block['전일고가']))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setItem(put_t8416_count, Option_column.전고.value, item)
 
                 if round(block['전일종가'], 2) != df_put.iloc[put_t8416_count]['종가']:
 
                     df_put.loc[put_t8416_count, '종가'] = round(block['전일종가'], 2)
-                    item = QTableWidgetItem("{0:0.2f}".format(df_put.iloc[put_t8416_count]['종가']))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setItem(put_t8416_count, Option_column.종가.value, item)
+
+                    if block['전일종가'] >= 100:
+
+                        item = QTableWidgetItem("{0:0.1f}".format(block['전일종가']))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(put_t8416_count, Option_column.종가.value, item)
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(block['전일종가']))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(put_t8416_count, Option_column.종가.value, item)
 
                     df_plotdata_put.iloc[put_t8416_count][0] = round(block['전일종가'], 2)
 
@@ -16085,9 +16226,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             df_call.loc[index, '피봇'] = 피봇
 
-            item = QTableWidgetItem("{0:0.2f}".format(피봇))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_call.setItem(index, Option_column.피봇.value, item)                
+            if 피봇 >= 100:
+
+                item = QTableWidgetItem("{0:0.1f}".format(피봇))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setItem(index, Option_column.피봇.value, item)   
+            else:
+                item = QTableWidgetItem("{0:0.2f}".format(피봇))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setItem(index, Option_column.피봇.value, item)                
 
             call_피봇 = df_call['피봇'].values.tolist()
             call_피봇_node_list = self.make_node_list(call_피봇)
@@ -17260,9 +17407,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             df_put.loc[index, '피봇'] = 피봇
 
-            item = QTableWidgetItem("{0:0.2f}".format(피봇))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
+            if 피봇 >= 100:
+
+                item = QTableWidgetItem("{0:0.1f}".format(피봇))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
+            else:
+                item = QTableWidgetItem("{0:0.2f}".format(피봇))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
 
             put_피봇 = df_put['피봇'].values.tolist()
             put_피봇_node_list = self.make_node_list(put_피봇)
@@ -21242,11 +21395,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if TARGET_MONTH_SELECT == 1:
 
-                ToTelegram("본월물 텔레그램 Polling이 시작됩니다.")
+                ToTelegram("CM 텔레그램 Polling이 시작됩니다.")
 
             elif TARGET_MONTH_SELECT == 2:
 
-                ToTelegram("차월물 텔레그램 Polling이 시작됩니다.")
+                ToTelegram("NM 텔레그램 Polling이 시작됩니다.")
 
             else:
                 ToTelegram("MAN 텔레그램 Polling이 시작됩니다.")
@@ -21259,14 +21412,39 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if flag_telegram_on:
             
+            str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)
+            self.textBrowser.append(str)
+            print(str)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] OL/OH : {3}\r'.format(dt.hour, dt.minute, dt.second, n_oloh_str)
+            self.textBrowser.append(str)
+            print(str)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 비대칭장 : {3}\r'.format(dt.hour, dt.minute, dt.second, 비대칭장)
+            self.textBrowser.append(str)
+            print(str)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] call_low_node_str : {3}\r'.format(dt.hour, dt.minute, dt.second, call_low_node_str)
+            self.textBrowser.append(str)
+            print(str)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] call_high_node_str : {3}\r'.format(dt.hour, dt.minute, dt.second, call_high_node_str)
+            self.textBrowser.append(str)
+            print(str)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] put_low_node_str : {3}\r'.format(dt.hour, dt.minute, dt.second, put_low_node_str)
+            self.textBrowser.append(str)
+            print(str)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] put_high_node_str : {3}\r'.format(dt.hour, dt.minute, dt.second, put_high_node_str)
+            self.textBrowser.append(str)
+            print(str)
+            
             if TARGET_MONTH_SELECT == 1:
 
                 self.capture_screenshot()
             else:
                 pass
-
-            #self.high_low_list_save_to_file()
-            #print('화면을 캡처했습니다...')  
 
             self.pushButton_remove.setStyleSheet("background-color: lawngreen")
             print('flag_telegram_on =', flag_telegram_on)
@@ -21274,7 +21452,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.pushButton_remove.setStyleSheet("background-color: lightGray")
             print('flag_telegram_on =', flag_telegram_on)
         
-        #return
 
     def high_low_list_save_to_file(self):
         
