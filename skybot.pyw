@@ -13288,14 +13288,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     전저 = df_call.iloc[i]['저가']
                     df_call.loc[i, '전저'] = 전저
 
-                    item = QTableWidgetItem("{0:0.2f}".format(전저))
+                    if 전저 >= 100:
+                        item = QTableWidgetItem("{0:0.1f}".format(전저))
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(전저))
+
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.전저.value, item)
 
                     전고 = df_call.iloc[i]['고가']
                     df_call.loc[i, '전고'] = 전고
 
-                    item = QTableWidgetItem("{0:0.2f}".format(전고))
+                    if 전고 >= 100:
+                        item = QTableWidgetItem("{0:0.1f}".format(전고))
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(전고))
+
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.전고.value, item)
 
@@ -13310,7 +13318,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     종가 = df_call.iloc[i]['현재가']
                     df_call.loc[i, '종가'] = 종가
 
-                    item = QTableWidgetItem("{0:0.2f}".format(종가))
+                    if 종가 >= 100:
+                        item = QTableWidgetItem("{0:0.1f}".format(종가))
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(종가))
+
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.종가.value, item)
 
@@ -13523,14 +13535,22 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     전저 = df_put.iloc[i]['저가']
                     df_put.loc[i, '전저'] = 전저
 
-                    item = QTableWidgetItem("{0:0.2f}".format(전저))
+                    if 전저 >= 100:
+                        item = QTableWidgetItem("{0:0.1f}".format(전저))
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(전저))
+
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.전저.value, item)
 
                     전고 = df_put.iloc[i]['고가']
                     df_put.loc[i, '전고'] = 전고
 
-                    item = QTableWidgetItem("{0:0.2f}".format(전고))
+                    if 전고 >= 100:
+                        item = QTableWidgetItem("{0:0.1f}".format(전고))
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(전고))
+
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.전고.value, item)
 
@@ -13545,7 +13565,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     종가 = df_put.iloc[i]['현재가']
                     df_put.loc[i, '종가'] = 종가
 
-                    item = QTableWidgetItem("{0:0.2f}".format(종가))
+                    if 종가 >= 100:
+                        item = QTableWidgetItem("{0:0.1f}".format(종가))
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(종가))
+
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.종가.value, item)
 
