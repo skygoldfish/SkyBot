@@ -17887,7 +17887,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             df_call.loc[index, '대비'] = 대비
 
             # 콜 외가(등가포함) 대비 저장
-            if index <= atm_index:
+            if index <= atm_index and df_call.iloc[index]['시가'] > 0.1:
 
                 call_otm_db[index] = 대비
                 call_otm_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
@@ -19074,7 +19074,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             df_put.loc[index, '대비'] = 대비
             
             # 풋 외가(등가포함) 대비 저장
-            if index >= atm_index:
+            if index >= atm_index and df_put.iloc[index]['시가'] > 0.1:
 
                 put_otm_db[index] = 대비
                 put_otm_db_percent[index] = (float(현재가) / float(시가) - 1) * 100
