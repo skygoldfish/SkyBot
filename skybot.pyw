@@ -9396,7 +9396,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if opt_coreval_search_start_value < df_call.iloc[i]['시가'] < opt_search_end_value:
 
-                if df_call.iloc[i]['시가'] in 진성맥점:
+                if df_call.iloc[i]['시가'] in coreval:
 
                     self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -9533,7 +9533,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if opt_coreval_search_start_value < df_call.iloc[i]['시가'] < opt_search_end_value:
 
-                if df_call.iloc[i]['시가'] in 진성맥점:
+                if df_call.iloc[i]['시가'] in coreval:
 
                     self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -9587,7 +9587,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if opt_coreval_search_start_value < df_call.iloc[i]['시가'] < opt_search_end_value:
 
-                if df_call.iloc[i]['시가'] in 진성맥점:
+                if df_call.iloc[i]['시가'] in coreval:
 
                     self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -10206,7 +10206,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if call_node_state['시가']:
 
-                if df_call.iloc[i]['시가'] in 진성맥점:
+                if df_call.iloc[i]['시가'] in coreval:
 
                     self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -10527,7 +10527,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if call_node_state['시가']:
 
-                if df_call.iloc[i]['시가'] in 진성맥점:
+                if df_call.iloc[i]['시가'] in coreval:
 
                     self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -10835,7 +10835,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if call_node_state['시가']:
 
-                if df_call.iloc[i]['시가'] in 진성맥점:
+                if df_call.iloc[i]['시가'] in coreval:
 
                     self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -11429,7 +11429,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if put_node_state['시가']:
 
-                if df_put.iloc[i]['시가'] in 진성맥점:
+                if df_put.iloc[i]['시가'] in coreval:
 
                     self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -11750,7 +11750,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if put_node_state['시가']:
 
-                if df_put.iloc[i]['시가'] in 진성맥점:
+                if df_put.iloc[i]['시가'] in coreval:
 
                     self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -12058,7 +12058,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if put_node_state['시가']:
 
-                if df_put.iloc[i]['시가'] in 진성맥점:
+                if df_put.iloc[i]['시가'] in coreval:
 
                     self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -12655,7 +12655,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if opt_coreval_search_start_value < df_put.iloc[i]['시가'] < opt_search_end_value:
 
-                if df_put.iloc[i]['시가'] in 진성맥점:
+                if df_put.iloc[i]['시가'] in coreval:
 
                     self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -12792,7 +12792,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if opt_coreval_search_start_value < df_put.iloc[i]['시가'] < opt_search_end_value:
 
-                if df_put.iloc[i]['시가'] in 진성맥점:
+                if df_put.iloc[i]['시가'] in coreval:
 
                     self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -12846,7 +12846,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if opt_coreval_search_start_value < df_put.iloc[i]['시가'] < opt_search_end_value:
 
-                if df_put.iloc[i]['시가'] in 진성맥점:
+                if df_put.iloc[i]['시가'] in coreval:
 
                     self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -13524,7 +13524,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.tableWidget_call.setItem(i, Option_column.시가.value, item)
 
-                        if 시가 in 진성맥점:
+                        if 시가 in coreval:
 
                             self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                             self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -13804,7 +13804,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.tableWidget_put.setItem(i, Option_column.시가.value, item)
 
-                        if 시가 in 진성맥점:
+                        if 시가 in coreval:
 
                             self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                             self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -15006,7 +15006,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.tableWidget_call.setItem(i, Option_column.시가.value, item)
 
-                        if 시가 in 진성맥점:
+                        if 시가 in coreval:
 
                             self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                             self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -15253,7 +15253,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                         self.tableWidget_put.setItem(i, Option_column.시가.value, item)
 
-                        if 시가 in 진성맥점:
+                        if 시가 in coreval:
 
                             self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                             self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -17816,7 +17816,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
 
-            if df_call.iloc[index]['시가'] in 진성맥점:
+            if df_call.iloc[index]['시가'] in coreval:
 
                 self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
                 self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -19003,7 +19003,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
 
-            if df_put.iloc[index]['시가'] in 진성맥점:
+            if df_put.iloc[index]['시가'] in coreval:
 
                 self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
                 self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
