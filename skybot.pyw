@@ -7138,7 +7138,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if int(call_result['체결시간'][4:6]) == 콜_체결_초:
             
             # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
+            self.call_node_color_clear()        
+            self.call_open_check()        
+            self.call_crossval_color_update()        
+            self.call_node_color_update()
             self.call_low_coreval_color_update()
+
             '''
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Low Coreval Color Check !!!\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
@@ -7146,7 +7151,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             print(str) 
             '''   
         else:
-
             start_time = timeit.default_timer()
 
             node_coloring = True
@@ -7155,7 +7159,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.call_open_check()        
             self.call_crossval_color_update()        
             self.call_node_color_update()
-
             self.call_low_coreval_color_update()
 
             node_coloring = False
@@ -7181,7 +7184,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if int(call_result['체결시간'][4:6]) == 콜_체결_초:
             
             # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
+            self.call_node_color_clear()        
+            self.call_open_check()        
+            self.call_crossval_color_update()        
+            self.call_node_color_update()
             self.call_high_coreval_color_update()
+
             '''
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call High Coreval Color Check !!!\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]))
@@ -7189,7 +7197,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             print(str)
             '''    
         else:
-
             start_time = timeit.default_timer()
 
             node_coloring = True
@@ -7198,7 +7205,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.call_open_check()        
             self.call_crossval_color_update()        
             self.call_node_color_update()
-
             self.call_high_coreval_color_update()
 
             node_coloring = False
@@ -7254,7 +7260,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if int(put_result['체결시간'][4:6]) == 풋_체결_초:
 
             # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
+            self.put_node_color_clear()        
+            self.put_open_check()        
+            self.put_crossval_color_update()        
+            self.put_node_color_update()
             self.put_low_coreval_color_update()
+            
             '''
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Low Coreval Color Check !!!\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
@@ -7262,7 +7273,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             print(str)
             '''
         else:
-
             start_time = timeit.default_timer()
 
             node_coloring = True
@@ -7271,7 +7281,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.put_open_check()        
             self.put_crossval_color_update()        
             self.put_node_color_update()
-
             self.put_low_coreval_color_update()
 
             node_coloring = False
@@ -7297,7 +7306,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         if int(put_result['체결시간'][4:6]) == 풋_체결_초:
 
             # 진성맥점 발생여부는 저,고 갱신시 반드시 수행
+            self.put_node_color_clear()        
+            self.put_open_check()        
+            self.put_crossval_color_update()        
+            self.put_node_color_update()
             self.put_high_coreval_color_update()
+
             '''
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put High Coreval Color Check !!!\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]))
@@ -7305,7 +7319,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             print(str)
             '''
         else:
-
             start_time = timeit.default_timer()
 
             node_coloring = True
@@ -7314,7 +7327,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.put_open_check()        
             self.put_crossval_color_update()        
             self.put_node_color_update()
-
             self.put_high_coreval_color_update()
 
             node_coloring = False
