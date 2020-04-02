@@ -17621,13 +17621,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if df_call.iloc[index]['저가'] >= 10.0 and df_call.iloc[index]['현재가'] > df_call.iloc[index]['저가']:
 
-                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(옅은회색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(옅은회색))
             else:
                 pass
 
             if df_call.iloc[index]['고가'] >= 10.0 and df_call.iloc[index]['현재가'] < df_call.iloc[index]['고가']:
 
-                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(옅은회색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(옅은회색))
             else:
                 pass
         else:
@@ -18726,13 +18726,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             if df_put.iloc[index]['저가'] >= 10.0 and df_put.iloc[index]['현재가'] > df_put.iloc[index]['저가']:
 
-                self.tableWidget_put.item(index, Option_column.저가.value).setForeground(QBrush(옅은회색))
+                self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(옅은회색))
             else:
                 pass
 
             if df_put.iloc[index]['고가'] >= 10.0 and df_put.iloc[index]['현재가'] < df_put.iloc[index]['고가']:
 
-                self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(옅은회색))
+                self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(옅은회색))
             else:
                 pass
         else:
