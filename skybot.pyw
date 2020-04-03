@@ -17700,8 +17700,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # 저가 갱신
         if 저가 != self.tableWidget_call.item(index, Option_column.저가.value).text():
 
-            call_low_touch = True
-
             item = QTableWidgetItem('▼')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
             
@@ -17767,6 +17765,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             call_저가 = df_call['저가'].values.tolist()
             call_저가_node_list = self.make_node_list(call_저가)
+            
+            call_low_touch = True
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(저가), 2))
@@ -17783,8 +17783,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         # 고가 갱신
         if 고가 != self.tableWidget_call.item(index, Option_column.고가.value).text():
-
-            call_high_touch = True
 
             item = QTableWidgetItem('▲')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
@@ -17836,6 +17834,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             call_고가 = df_call['고가'].values.tolist()
             call_고가_node_list = self.make_node_list(call_고가)
+            
+            call_high_touch = True
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(고가), 2))
@@ -18797,8 +18797,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         # 저가 갱신
         if 저가 != self.tableWidget_put.item(index, Option_column.저가.value).text():
 
-            put_low_touch = True
-
             item = QTableWidgetItem('▼')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
             
@@ -18864,6 +18862,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             put_저가 = df_put['저가'].values.tolist()
             put_저가_node_list = self.make_node_list(put_저가)
+            
+            put_low_touch = True
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(저가), 2))
@@ -18880,8 +18880,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         # 고가 갱신
         if 고가 != self.tableWidget_put.item(index, Option_column.고가.value).text():
-
-            put_high_touch = True
 
             item = QTableWidgetItem('▲')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
@@ -18933,6 +18931,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             put_고가 = df_put['고가'].values.tolist()
             put_고가_node_list = self.make_node_list(put_고가)
+            
+            put_high_touch = True
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(고가), 2))
