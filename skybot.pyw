@@ -18264,12 +18264,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global 콜대비합, 콜대비합_단위평균
         global call_open_count        
         global 콜시가갭합, 콜시가갭합_퍼센트, 콜시가갭합_단위평균, 콜대비_퍼센트_평균
+        global call_otm_db, call_otm_db_percent 
         
         call_ol = [False] * option_pairs_count
         call_oh = [False] * option_pairs_count
         call_gap_percent = [NaN] * option_pairs_count
         call_db_percent = [NaN] * option_pairs_count
         call_itm_count = 0
+        call_otm_db = [0] * option_pairs_count
+        call_otm_db_percent = [NaN] * option_pairs_count
 
         if not market_service:
             call_open = [False] * option_pairs_count
@@ -18431,6 +18434,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
+            # 콜 외가(등가포함) 대비 저장
+            if index <= atm_index and df_call.iloc[index]['시가'] > 0.1 and (df_call.iloc[index]['저가'] < df_call.iloc[index]['고가']):
+
+                call_otm_db[index] = df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가']
+                call_otm_db_percent[index] = (df_call.iloc[index]['현재가'] / df_call.iloc[index]['시가'] - 1) * 100
+            else:
+                pass
+
         # Call Open Count 및 OLOH 표시
         call_open_count = len(call_open_list)
 
@@ -18501,8 +18512,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             콜대비합 = round(sum(call_otm_db), 2)
 
             콜대비합_단위평균 = round(콜대비합/len(call_db_percent_local), 2)
-
-            #print('콜대비합 =', 콜대비합)
 
             tmp = np.array(call_db_percent_local)            
             콜대비_퍼센트_평균 = round(np.mean(tmp), 1)
@@ -19300,12 +19309,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global 풋대비합, 풋대비합_단위평균 
         global put_open_count
         global 풋시가갭합, 풋시가갭합_퍼센트, 풋시가갭합_단위평균, 풋대비_퍼센트_평균
+        global put_otm_db, put_otm_db_percent
         
         put_ol = [False] * option_pairs_count
         put_oh = [False] * option_pairs_count
         put_gap_percent = [NaN] * option_pairs_count
         put_db_percent = [NaN] * option_pairs_count
         put_itm_count = 0
+        put_otm_db = [0] * option_pairs_count
+        put_otm_db_percent = [NaN] * option_pairs_count
 
         if not market_service:
             put_open = [False] * option_pairs_count
@@ -19467,6 +19479,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
+            # 풋 외가(등가포함) 대비 저장
+            if index >= atm_index and df_put.iloc[index]['시가'] > 0.1 and (df_put.iloc[index]['저가'] < df_put.iloc[index]['고가']):
+
+                put_otm_db[index] = df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가']
+                put_otm_db_percent[index] = (df_put.iloc[index]['현재가'] / df_put.iloc[index]['시가'] - 1) * 100
+            else:
+                pass
+
         # Put Open Count 및 OLOH 표시
         put_open_count = len(put_open_list)
 
@@ -19537,8 +19557,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             풋대비합 = round(sum(put_otm_db), 2)
 
             풋대비합_단위평균 = round(풋대비합/len(put_db_percent_local), 2)
-
-            #print('풋대비합 =', 풋대비합)
 
             tmp = np.array(put_db_percent_local)            
             풋대비_퍼센트_평균 = round(np.mean(tmp), 1)
