@@ -17708,7 +17708,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem(저가)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(회색))
-
             self.tableWidget_call.setItem(index, Option_column.저가.value, item)
 
             if df_call.iloc[index]['전저'] >= df_call.iloc[index]['저가']:
@@ -17792,7 +17791,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem(고가)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(회색))
-
             self.tableWidget_call.setItem(index, Option_column.고가.value, item)
 
             if df_call.iloc[index]['전고'] <= df_call.iloc[index]['고가']:
@@ -18805,7 +18803,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem(저가)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(회색))
-
             self.tableWidget_put.setItem(index, Option_column.저가.value, item)
 
             if df_put.iloc[index]['전저'] >= df_put.iloc[index]['저가']:
@@ -18889,7 +18886,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem(고가)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(회색))
-
             self.tableWidget_put.setItem(index, Option_column.고가.value, item)
 
             if df_put.iloc[index]['전고'] <= df_put.iloc[index]['고가']:
