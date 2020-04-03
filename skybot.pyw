@@ -18282,17 +18282,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             loop_list = call_open_list
 
-            if market_service:
-                '''
-                str = '[{0:02d}:{1:02d}:{2:02d}] Call Open Check List = {3}\r'.format(\
-                    int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
-                self.textBrowser.append(str)
-                '''
-                pass
-            else:
-                #str = '[{0:02d}:{1:02d}:{2:02d}] Call Open Check List = {3}\r'.format(dt.hour, dt.minute, dt.second, call_open_list)
-                #self.textBrowser.append(str)
-                pass
         else:
             loop_list = opt_total_list
 
@@ -18532,59 +18521,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_call.resizeColumnsToContents()
 
-        #return
-    '''
-    def call_db_check(self):
-
-        global df_call, call_db_percent
-
-        for index in range(option_pairs_count):
-
-            if df_call.iloc[index]['시가'] > opt_search_start_value:
-
-                if df_call.iloc[index]['시가'] >= oloh_cutoff and df_call.iloc[index]['저가'] < df_call.iloc[index]['고가']:
-
-                    df_call.loc[index, '대비'] = \
-                        round((df_call.iloc[index]['현재가'] - df_call.iloc[index]['시가']), 2)
-                    call_db_percent[index] = (df_call.iloc[index]['현재가'] / df_call.iloc[index]['시가'] - 1) * 100
-
-                    gap_str = "{0:0.2f}\n({1:0.0f}%)".format(df_call.iloc[index]['대비'], call_db_percent[index])
-
-                    if gap_str != self.tableWidget_call.item(index, Option_column.대비.value).text():
-
-                        item = QTableWidgetItem(gap_str)
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_call.setItem(index, Option_column.대비.value, item)
-                    else:
-                        pass
-                else:
-                    pass
-            else:
-                pass            
-
-        temp = call_db_percent[:]
-        call_db_percent_local = [value for value in temp if not math.isnan(value)]
-        call_db_percent_local.sort()
-
-        if call_db_percent_local:
-
-            sumc = round(df_call['대비'].sum(), 2)
-            tmp = np.array(call_db_percent_local)            
-            meanc = int(round(np.mean(tmp), 2))
-            call_str = repr(sumc) + '\n (' + repr(meanc) + '%' + ')'
-
-            if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
-                item = QTableWidgetItem(call_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
-                self.tableWidget_call.resizeColumnsToContents()
-            else:
-                pass
-        else:
-            print('call_db_percent_local is empty...')
-
-        #return
-    '''
+        
     # 풋 표시
     def put_display(self, result):
 
@@ -19381,17 +19318,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             loop_list = put_open_list
 
-            if market_service:
-                '''
-                str = '[{0:02d}:{1:02d}:{2:02d}] Put Open Check List = {3}\r'.format(\
-                    int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
-                self.textBrowser.append(str)
-                '''
-                pass
-            else:
-                #str = '[{0:02d}:{1:02d}:{2:02d}] Put Open Check List = {3}\r'.format(dt.hour, dt.minute, dt.second, put_open_list)
-                #self.textBrowser.append(str)
-                pass
         else:
             loop_list = opt_total_list
 
@@ -19631,59 +19557,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_put.resizeColumnsToContents()
 
-        #return
-    '''
-    def put_db_check(self):
 
-        global df_put, put_db_percent
-
-        for index in range(option_pairs_count):
-
-            if df_put.iloc[index]['시가'] > opt_search_start_value:
-
-                if df_put.iloc[index]['시가'] >= oloh_cutoff and df_put.iloc[index]['저가'] < df_put.iloc[index]['고가']:
-
-                    df_put.loc[index, '대비'] = \
-                        round((df_put.iloc[index]['현재가'] - df_put.iloc[index]['시가']), 2)
-                    put_db_percent[index] = (df_put.iloc[index]['현재가'] / df_put.iloc[index]['시가'] - 1) * 100
-
-                    gap_str = "{0:0.2f}\n({1:0.0f}%)".format(df_put.iloc[index]['대비'], put_db_percent[index])
-
-                    if gap_str != self.tableWidget_put.item(index, Option_column.대비.value).text():
-
-                        item = QTableWidgetItem(gap_str)
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_put.setItem(index, Option_column.대비.value, item)
-                    else:
-                        pass
-                else:
-                    pass
-            else:
-                pass
-
-        temp = put_db_percent[:]
-        put_db_percent_local = [value for value in temp if not math.isnan(value)]
-        put_db_percent_local.sort()
-
-        if put_db_percent_local:
-
-            sump = round(df_put['대비'].sum(), 2)
-            tmp = np.array(put_db_percent_local)            
-            meanp = int(round(np.mean(tmp), 2))
-            put_str = repr(sump) + '\n (' + repr(meanp) + '%' + ')'
-
-            if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
-                item = QTableWidgetItem(put_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
-                self.tableWidget_put.resizeColumnsToContents()
-            else:
-                pass
-        else:
-            print('put_db_percent_local is empty...')
-
-        #return
-    '''
     # 호가표시
     def quote_display(self):
         
