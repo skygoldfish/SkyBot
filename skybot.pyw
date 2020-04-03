@@ -6765,6 +6765,31 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 self.label_atm_display()
                             else:
+                                pass
+
+                            # 콜 저가, 고가 갱신 컬러링
+                            global call_low_touch, call_high_touch
+
+                            if call_low_touch:
+
+                                self.opt_call_low_node_coloring_sec()
+                                
+                                item = QTableWidgetItem('저가')
+                                self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+                                call_low_touch = False
+                            else:
+                                pass
+
+                            if call_high_touch:
+
+                                self.opt_call_high_node_coloring_sec()
+
+                                item = QTableWidgetItem('고가')
+                                self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+                                call_high_touch = False
+                            else:
                                 pass                                                               
                         else:
                             # 풋 테이블 데이타 갱신
@@ -6780,34 +6805,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             else:
                                 pass
                             
-                            # 옵션 저가, 고가 갱신시 방향화살표 OFF
-                            global call_low_touch, call_high_touch, put_low_touch, put_high_touch 
-
-                            if call_low_touch:
-                                
-                                item = QTableWidgetItem('저가')
-                                self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-                                #self.tableWidget_call.resizeColumnsToContents() 
-
-                                call_low_touch = False
-                            else:
-                                pass
-
-                            if call_high_touch:
-
-                                item = QTableWidgetItem('고가')
-                                self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-                                #self.tableWidget_call.resizeColumnsToContents()
-
-                                call_high_touch = False
-                            else:
-                                pass
+                            # 풋 저가, 고가 갱신 컬러링
+                            global put_low_touch, put_high_touch 
 
                             if put_low_touch:
 
+                                self.opt_put_low_node_coloring_sec()
+
                                 item = QTableWidgetItem('저가')
                                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-                                #self.tableWidget_put.resizeColumnsToContents() 
 
                                 put_low_touch = False
                             else:
@@ -6815,9 +6821,10 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                             if put_high_touch:
 
+                                self.opt_put_high_node_coloring_sec()
+
                                 item = QTableWidgetItem('고가')
                                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-                                #self.tableWidget_put.resizeColumnsToContents()
 
                                 put_high_touch = False
                             else:
@@ -7172,7 +7179,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)
 
-        #return        
+    def opt_call_low_node_coloring_sec(self):
+
+        dt = datetime.datetime.now()
+
+        start_time = timeit.default_timer()
+
+        self.call_node_color_clear()        
+        self.call_open_check()        
+        self.call_crossval_color_update()        
+        self.call_node_color_update()
+        self.call_low_coreval_color_update()
+
+        process_time = (timeit.default_timer() - start_time) * 1000
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] Call Low Node Color Check Time : {3:0.2f} ms\r'.format(\
+            int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
+        self.textBrowser.append(str)
+            
 
     def opt_call_high_node_coloring(self):
 
@@ -7214,7 +7238,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)
 
-        #return                
+    def opt_call_high_node_coloring_sec(self):
+
+        dt = datetime.datetime.now()
+
+        start_time = timeit.default_timer()
+
+        self.call_node_color_clear()        
+        self.call_open_check()        
+        self.call_crossval_color_update()        
+        self.call_node_color_update()
+        self.call_high_coreval_color_update()
+
+        process_time = (timeit.default_timer() - start_time) * 1000
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] Call High Node Color Check Time : {3:0.2f} ms\r'.format(\
+            int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
+        self.textBrowser.append(str)            
     
     def opt_put_node_coloring(self):
 
@@ -7286,7 +7326,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)
 
-        #return
+    def opt_put_low_node_coloring_sec(self):
+
+        dt = datetime.datetime.now()
+
+        start_time = timeit.default_timer()
+
+        self.put_node_color_clear()        
+        self.put_open_check()        
+        self.put_crossval_color_update()        
+        self.put_node_color_update()
+        self.put_low_coreval_color_update()
+
+        process_time = (timeit.default_timer() - start_time) * 1000
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] Put Low Node Color Check Time : {3:0.2f} ms\r'.format(\
+            int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
+        self.textBrowser.append(str)
+            
 
     def opt_put_high_node_coloring(self):
 
@@ -7326,9 +7383,26 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put High Node Color Check Time : {3:0.2f} ms\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
-            self.textBrowser.append(str) 
+            self.textBrowser.append(str)
 
-        #return
+    def opt_put_high_node_coloring_sec(self):
+
+        dt = datetime.datetime.now()
+
+        start_time = timeit.default_timer()
+
+        self.put_node_color_clear()        
+        self.put_open_check()        
+        self.put_crossval_color_update()        
+        self.put_node_color_update()
+        self.put_high_coreval_color_update()
+
+        process_time = (timeit.default_timer() - start_time) * 1000
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] Put High Node Color Check Time : {3:0.2f} ms\r'.format(\
+            int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
+        self.textBrowser.append(str)            
+
 
     # 탐색순서가 중요 !!!
     def opt_node_coloring(self):
@@ -17435,7 +17509,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         dt = datetime.datetime.now()
 
         index = call_행사가.index(result['단축코드'][5:8])
-        #콜_인덱스 = index
+        #df_call.loc[index, '체결시간'] = result['체결시간']
         
         시가 = result['시가']
         현재가 = result['현재가']
@@ -17550,8 +17624,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Open Update !!!\r'.format(int(result['체결시간'][0:2]), \
                         int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), df_call.iloc[index]['시가'])
             self.textBrowser.append(str)
-                        
-            #self.call_open_gap_update(index)
         else:
             pass
 
@@ -17607,7 +17679,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem(gap_str)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setItem(index, Option_column.대비.value, item)
-
+            '''
             if df_call.iloc[index]['저가'] >= 10.0 and df_call.iloc[index]['현재가'] > df_call.iloc[index]['저가']:
 
                 self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(옅은회색))
@@ -17621,6 +17693,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
             else:
                 pass
+            '''
         else:
             pass
 
@@ -17636,11 +17709,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             item = QTableWidgetItem(저가)
             item.setTextAlignment(Qt.AlignCenter)
-
-            if df_call.iloc[index]['저가'] > 1.1:
-                item.setBackground(QBrush(회색)) 
-            else:
-                pass
+            item.setBackground(QBrush(회색))
 
             self.tableWidget_call.setItem(index, Option_column.저가.value, item)
 
@@ -17702,12 +17771,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(저가), 2))
             self.textBrowser.append(str)
-
+            '''
             if 1.1 < df_call.iloc[index]['저가'] < 10.0:
 
                 self.opt_call_low_node_coloring()
             else:
                 pass
+            '''
         else:
             pass
 
@@ -17723,11 +17793,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             item = QTableWidgetItem(고가)
             item.setTextAlignment(Qt.AlignCenter)
-
-            if df_call.iloc[index]['고가'] > 1.1:
-                item.setBackground(QBrush(회색))
-            else:
-                pass
+            item.setBackground(QBrush(회색))
 
             self.tableWidget_call.setItem(index, Option_column.고가.value, item)
 
@@ -17774,12 +17840,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(고가), 2))
             self.textBrowser.append(str)
-
+            '''
             if 1.1 < df_call.iloc[index]['고가'] < 10.0:
 
                 self.opt_call_high_node_coloring()
             else:
                 pass
+            '''
         else:
             pass               
                    
@@ -18540,7 +18607,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         dt = datetime.datetime.now()
 
         index = put_행사가.index(result['단축코드'][5:8])
-        #풋_인덱스 = index
+        #df_put.loc[index, '체결시간'] = result['체결시간']
         
         시가 = result['시가']
         현재가 = result['현재가']
@@ -18709,7 +18776,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem(gap_str)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setItem(index, Option_column.대비.value, item)
-
+            '''
             if df_put.iloc[index]['저가'] >= 10.0 and df_put.iloc[index]['현재가'] > df_put.iloc[index]['저가']:
 
                 self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(옅은회색))
@@ -18723,6 +18790,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
             else:
                 pass
+            '''
         else:
             pass
 
@@ -18738,11 +18806,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             item = QTableWidgetItem(저가)
             item.setTextAlignment(Qt.AlignCenter)
-
-            if df_put.iloc[index]['저가'] > 1.1:
-                item.setBackground(QBrush(회색))
-            else:
-                pass
+            item.setBackground(QBrush(회색))
 
             self.tableWidget_put.setItem(index, Option_column.저가.value, item)
 
@@ -18804,12 +18868,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(저가), 2))
             self.textBrowser.append(str)
-
+            '''
             if 1.1 < df_put.iloc[index]['저가'] < 10.0:
 
                 self.opt_put_low_node_coloring()
             else:
                 pass
+            '''
         else:
             pass
 
@@ -18825,11 +18890,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             item = QTableWidgetItem(고가)
             item.setTextAlignment(Qt.AlignCenter)
-
-            if df_put.iloc[index]['고가'] > 1.1:
-                item.setBackground(QBrush(회색))
-            else:
-                pass
+            item.setBackground(QBrush(회색))
 
             self.tableWidget_put.setItem(index, Option_column.고가.value, item)
 
@@ -18876,12 +18937,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(고가), 2))
             self.textBrowser.append(str)
-
+            '''
             if 1.1 < df_put.iloc[index]['고가'] < 10.0:
 
                 self.opt_put_high_node_coloring()
             else:
-                pass            
+                pass
+            '''            
         else:
             pass                
                     
