@@ -17441,12 +17441,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         현재가 = result['현재가']
         저가 = result['저가']
         고가 = result['고가']
-        '''
-        콜_시가 = result['시가']
-        콜_현재가 = result['현재가']
-        콜_저가 = result['저가']
-        콜_고가 = result['고가']
-        '''
+        
         if 저가 != 고가:
 
             if not call_open[index]:
@@ -17493,13 +17488,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             df_call.loc[index, '시가'] = round(float(시가), 2)
             df_plotdata_call.iloc[index][선물장간_시간차] = round(float(시가), 2)
-            '''
-            if float(시가) >= 100:
-
-                item = QTableWidgetItem("{0:0.1f}".format(float(시가)))
-            else:
-                item = QTableWidgetItem(시가)            
-            '''
+            
             item = QTableWidgetItem(시가)
             item.setTextAlignment(Qt.AlignCenter)
 
@@ -18557,12 +18546,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         현재가 = result['현재가']
         저가 = result['저가']
         고가 = result['고가']
-        '''
-        풋_시가 = result['시가']
-        풋_현재가 = result['현재가']
-        풋_저가 = result['저가']
-        풋_고가 = result['고가']
-        '''
+        
         if 저가 != 고가:
 
             if not put_open[index]:
