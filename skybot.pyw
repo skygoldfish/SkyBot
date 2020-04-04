@@ -7044,15 +7044,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = 'ⓢ {0:02d}:{1:02d}:{2:02d}'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
             
         self.label_msg.setText(str)
-
+        '''
         if dt.second == 0 and blink:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 시스템 서버간 시간차이는 = {3}초 입니다.'.format( \
-                dt.hour, dt.minute, dt.second, self.parent.system_server_timegap)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 시스템 서버간 시간차이는 {3}초 입니다.'.format( \
+                dt.hour, dt.minute, dt.second, self.parent.system_server_time_gap)
             self.textBrowser.append(str)
         else:
             pass
-        
+        '''
         # 콜 매수 OneWay장
         if call_ms_oneway:
 
@@ -23377,7 +23377,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.user_id = ''
         self.계좌번호 = None
         self.거래비밀번호 = None
-        self.system_server_timegap = 0
+        self.system_server_time_gap = 0
 
         # AxtiveX 설정
         # self.connection = XASession(parent=self)
@@ -23657,9 +23657,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             server_date, server_time = result
 
-            self.system_server_timegap = int(dt.strftime('%H%M%S')) - int(server_time[0:6])
+            systemtime = int(dt.strftime('%H%M%S')[0:2]) * 3600 + int(dt.strftime('%H%M%S')[2:4]) * 60 + int(dt.strftime('%H%M%S')[4:6])
+            servertime = int(server_time[0:2]) * 3600 + int(server_time[2:4]) * 60 + int(server_time[4:6])
 
-            print('시스템 서버간 시간차이는 = {0}초 입니다.'.format(system_server_timegap))
+            self.system_server_time_gap = systemtime - servertime
+
+            print('시스템 서버간 시간차이는 {0}초 입니다.'.format(self.system_server_time_gap))
         else:
             pass
 
