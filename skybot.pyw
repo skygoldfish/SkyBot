@@ -7108,7 +7108,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         
         self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        #return
     
     def opt_call_node_coloring(self):
 
@@ -9155,13 +9154,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global flag_call_low_coreval, flag_call_high_coreval
         global call_low_node_count, call_high_node_count
-        global call_low_node_list, call_high_node_list
 
         flag_call_low_coreval = False
         flag_call_high_coreval = False
-
-        call_low_node_list = []
-        call_high_node_list = []
 
         item = QTableWidgetItem('저가')
         self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -9297,17 +9292,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_call.resizeColumnsToContents()
 
-        #return
 
     def call_low_coreval_color_update(self):
 
-        global flag_call_low_coreval, call_low_coreval_str
-        global call_low_node_list
+        global flag_call_low_coreval
 
         dt = datetime.datetime.now()
 
-        flag_call_low_coreval = False
-        call_low_node_list = []        
+        flag_call_low_coreval = False 
 
         if call_open_list:
 
@@ -9351,17 +9343,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             else:
                 pass
 
-        #return
-
     def call_high_coreval_color_update(self):
 
-        global flag_call_high_coreval, call_high_coreval_str
-        global call_high_node_list
+        global flag_call_high_coreval
 
         dt = datetime.datetime.now()
 
         flag_call_high_coreval = False
-        call_high_node_list = []
 
         if call_open_list:
 
@@ -9403,9 +9391,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass
             else:
-                pass        
-
-        #return
+                pass
     
     def call_node_color_update(self):
 
@@ -13086,13 +13072,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         global flag_put_low_coreval, flag_put_high_coreval
         global put_low_node_count, put_high_node_count
-        global put_low_node_list, put_high_node_list
 
         flag_put_low_coreval = False
         flag_put_high_coreval = False
-
-        put_low_node_list = []
-        put_high_node_list = []
 
         item = QTableWidgetItem('저가')
         self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -13228,17 +13210,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         self.tableWidget_put.resizeColumnsToContents()
 
-        #return    
 
     def put_low_coreval_color_update(self):
 
-        global flag_put_low_coreval, put_low_coreval_str
-        global put_low_node_list
+        global flag_put_low_coreval
 
         dt = datetime.datetime.now()
 
         flag_put_low_coreval = False
-        put_low_node_list = []
 
         if put_open_list:
 
@@ -13280,19 +13259,15 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 else:
                     pass                
             else:
-                pass        
-
-        #return
+                pass 
 
     def put_high_coreval_color_update(self):
 
-        global flag_put_high_coreval, put_high_coreval_str
-        global put_high_node_list
+        global flag_put_high_coreval
 
         dt = datetime.datetime.now()
 
         flag_put_high_coreval = False
-        put_high_node_list = []
 
         if put_open_list:
 
