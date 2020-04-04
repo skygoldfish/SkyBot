@@ -85,6 +85,16 @@ def FromTelegram():
             except Exception as e:
                 pass
 
+def TelegramToMe(str):
+
+    import telegram
+
+    TELEGRAM_TOKEN = '1036288207:AAHCTnfiEh2YgcHabXzt3fZ7mxOXzXf-Jxw'
+    CHAT_ID = '61361737'
+
+    bot = telegram.Bot(token=TELEGRAM_TOKEN)
+    bot.sendMessage(chat_id=CHAT_ID, text=str)
+
 def Speak(str):
     speak = wincl.Dispatch("SAPI.SpVoice")
     speak.Speak(str)

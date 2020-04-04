@@ -638,10 +638,10 @@ put_ms_asymmetric = False
 call_md_asymmetric = False
 put_md_asymmetric = False
 
-call_md_all_dying = False
-put_md_all_dying = False
-call_ms_all_going = False
-put_ms_all_going = False
+call_md_all_down = False
+put_md_all_down = False
+call_ms_all_up = False
+put_ms_all_up = False
 
 call_oneway_level1 = False
 call_oneway_level2 = False
@@ -7066,12 +7066,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.label_msg.setStyleSheet('background-color: black; color: pink')
 
         # 콜 매도 양꽝장
-        elif call_md_all_dying:
+        elif call_md_all_down:
 
             self.label_msg.setStyleSheet('background-color: black; color: magenta')
 
         # 콜 매수 양빵장
-        elif call_ms_all_going:
+        elif call_ms_all_up:
 
             self.label_msg.setStyleSheet('background-color: magenta; color: black')
 
@@ -7094,12 +7094,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.label_msg.setStyleSheet('background-color: black; color: lightskyblue')
 
         # 풋 매도 양꽝장
-        elif put_md_all_dying:
+        elif put_md_all_down:
 
             self.label_msg.setStyleSheet('background-color: black; color: cyan')
 
         # 풋 매수 양빵장
-        elif put_ms_all_going:
+        elif put_ms_all_up:
 
             self.label_msg.setStyleSheet('background-color: cyan; color: black')
         else:
@@ -7993,9 +7993,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
     def asym_detect(self, blink):
         
         global 비대칭장
-        global call_ms_oneway, put_ms_oneway, call_md_all_dying, put_md_all_dying 
+        global call_ms_oneway, put_ms_oneway, call_md_all_down, put_md_all_down 
         global call_ms_asymmetric, put_ms_asymmetric, call_md_asymmetric, put_md_asymmetric
-        global call_ms_all_going, put_ms_all_going
+        global call_ms_all_up, put_ms_all_up
 
         dt = datetime.datetime.now()
 
@@ -8009,13 +8009,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     call_ms_oneway = True
                     call_ms_asymmetric = False
                     call_md_asymmetric = False
-                    call_md_all_dying = False
-                    call_ms_all_going = False
+                    call_md_all_down = False
+                    call_ms_all_up = False
                     put_ms_oneway = False 
                     put_ms_asymmetric = False
                     put_md_asymmetric = False
-                    put_md_all_dying = False
-                    put_ms_all_going = False
+                    put_md_all_down = False
+                    put_ms_all_up = False
 
                     if TARGET_MONTH_SELECT == 1:
 
@@ -8047,13 +8047,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     call_ms_oneway = False
                     call_ms_asymmetric = True
                     call_md_asymmetric = False
-                    call_md_all_dying = False
-                    call_ms_all_going = False
+                    call_md_all_down = False
+                    call_ms_all_up = False
                     put_ms_oneway = False 
                     put_ms_asymmetric = False
                     put_md_asymmetric = False
-                    put_md_all_dying = False
-                    put_ms_all_going = False
+                    put_md_all_down = False
+                    put_ms_all_up = False
 
                     if TARGET_MONTH_SELECT == 1:
 
@@ -8087,13 +8087,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 call_ms_oneway = False
                 call_ms_asymmetric = False
                 call_md_asymmetric = False
-                call_md_all_dying = False
-                call_ms_all_going = False
+                call_md_all_down = False
+                call_ms_all_up = False
                 put_ms_oneway = False 
                 put_ms_asymmetric = False
                 put_md_asymmetric = True
-                put_md_all_dying = False
-                put_ms_all_going = False
+                put_md_all_down = False
+                put_ms_all_up = False
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -8123,13 +8123,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 call_ms_oneway = False
                 call_ms_asymmetric = False
                 call_md_asymmetric = False
-                call_md_all_dying = False
-                call_ms_all_going = False
+                call_md_all_down = False
+                call_ms_all_up = False
                 put_ms_oneway = False 
                 put_ms_asymmetric = False
                 put_md_asymmetric = False
-                put_md_all_dying = False
-                put_ms_all_going = False
+                put_md_all_down = False
+                put_ms_all_up = False
 
         elif 콜대비_퍼센트_평균 < 0 and 풋대비_퍼센트_평균 > 0:
 
@@ -8139,13 +8139,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 call_ms_oneway = False
                 call_ms_asymmetric = False
                 call_md_asymmetric = True
-                call_md_all_dying = False
-                call_ms_all_going = False
+                call_md_all_down = False
+                call_ms_all_up = False
                 put_ms_oneway = False 
                 put_ms_asymmetric = False
                 put_md_asymmetric = False
-                put_md_all_dying = False
-                put_ms_all_going = False
+                put_md_all_down = False
+                put_ms_all_up = False
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -8177,13 +8177,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     call_ms_oneway = False
                     call_ms_asymmetric = False
                     call_md_asymmetric = False
-                    call_md_all_dying = False
-                    call_ms_all_going = False
+                    call_md_all_down = False
+                    call_ms_all_up = False
                     put_ms_oneway = True 
                     put_ms_asymmetric = False
                     put_md_asymmetric = False
-                    put_md_all_dying = False
-                    put_ms_all_going = False
+                    put_md_all_down = False
+                    put_ms_all_up = False
 
                     if TARGET_MONTH_SELECT == 1:
 
@@ -8215,13 +8215,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     call_ms_oneway = False
                     call_ms_asymmetric = False
                     call_md_asymmetric = False
-                    call_md_all_dying = False
-                    call_ms_all_going = False
+                    call_md_all_down = False
+                    call_ms_all_up = False
                     put_ms_oneway = False 
                     put_ms_asymmetric = True
                     put_md_asymmetric = False
-                    put_md_all_dying = False
-                    put_ms_all_going = False
+                    put_md_all_down = False
+                    put_ms_all_up = False
 
                     if TARGET_MONTH_SELECT == 1:
 
@@ -8255,13 +8255,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 call_ms_oneway = False
                 call_ms_asymmetric = False
                 call_md_asymmetric = False
-                call_md_all_dying = False
-                call_ms_all_going = False
+                call_md_all_down = False
+                call_ms_all_up = False
                 put_ms_oneway = False 
                 put_ms_asymmetric = False
                 put_md_asymmetric = False
-                put_md_all_dying = False
-                put_ms_all_going = False
+                put_md_all_down = False
+                put_ms_all_up = False
 
         elif 콜대비_퍼센트_평균 < 0 and 풋대비_퍼센트_평균 < 0:
 
@@ -8271,13 +8271,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 call_ms_oneway = False
                 call_ms_asymmetric = False
                 call_md_asymmetric = False
-                call_md_all_dying = True
-                call_ms_all_going = False
+                call_md_all_down = True
+                call_ms_all_up = False
                 put_ms_oneway = False 
                 put_ms_asymmetric = False
                 put_md_asymmetric = False
-                put_md_all_dying = False
-                put_ms_all_going = False
+                put_md_all_down = False
+                put_ms_all_up = False
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -8307,13 +8307,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 call_ms_oneway = False
                 call_ms_asymmetric = False
                 call_md_asymmetric = False
-                call_md_all_dying = False
-                call_ms_all_going = False
+                call_md_all_down = False
+                call_ms_all_up = False
                 put_ms_oneway = False 
                 put_ms_asymmetric = False
                 put_md_asymmetric = False
-                put_md_all_dying = True
-                put_ms_all_going = False
+                put_md_all_down = True
+                put_ms_all_up = False
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -8343,13 +8343,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 call_ms_oneway = False
                 call_ms_asymmetric = False
                 call_md_asymmetric = False
-                call_md_all_dying = False
-                call_ms_all_going = False
+                call_md_all_down = False
+                call_ms_all_up = False
                 put_ms_oneway = False 
                 put_ms_asymmetric = False
                 put_md_asymmetric = False
-                put_md_all_dying = False
-                put_ms_all_going = False
+                put_md_all_down = False
+                put_ms_all_up = False
 
         elif 콜대비_퍼센트_평균 > 0 and 풋대비_퍼센트_평균 > 0:
 
@@ -8359,13 +8359,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 call_ms_oneway = False
                 call_ms_asymmetric = False
                 call_md_asymmetric = False
-                call_md_all_dying = False
-                call_ms_all_going = True
+                call_md_all_down = False
+                call_ms_all_up = True
                 put_ms_oneway = False 
                 put_ms_asymmetric = False
                 put_md_asymmetric = False
-                put_md_all_dying = False
-                put_ms_all_going = False
+                put_md_all_down = False
+                put_ms_all_up = False
 
                 if 선물_대비 > 0:
 
@@ -8414,13 +8414,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 call_ms_oneway = False
                 call_ms_asymmetric = False
                 call_md_asymmetric = False
-                call_md_all_dying = False
-                call_ms_all_going = False
+                call_md_all_down = False
+                call_ms_all_up = False
                 put_ms_oneway = False 
                 put_ms_asymmetric = False
                 put_md_asymmetric = False
-                put_md_all_dying = False
-                put_ms_all_going = True
+                put_md_all_down = False
+                put_ms_all_up = True
 
                 if 선물_대비 > 0:
 
@@ -8469,13 +8469,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 call_ms_oneway = False
                 call_ms_asymmetric = False
                 call_md_asymmetric = False
-                call_md_all_dying = False
-                call_ms_all_going = False
+                call_md_all_down = False
+                call_ms_all_up = False
                 put_ms_oneway = False 
                 put_ms_asymmetric = False
                 put_md_asymmetric = False
-                put_md_all_dying = False
-                put_ms_all_going = False
+                put_md_all_down = False
+                put_ms_all_up = False
         else:
             pass        
 
@@ -23368,6 +23368,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.금일백업작업중 = False
         self.종목선정작업중 = False
 
+        self.user_id = ''
         self.계좌번호 = None
         self.거래비밀번호 = None
 
@@ -23435,10 +23436,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass
 
     def closeEvent(self,event):
+
+        dt = datetime.datetime.now()
+
         result = QMessageBox.question(self,"프로그램 종료","정말 종료하시겠습니까 ?", QMessageBox.Yes| QMessageBox.No)
 
         if result == QMessageBox.Yes:
             event.accept()
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 SkyBot을 종료합니다.'.format(dt.hour, dt.minute, dt.second, self.user_id)
+            TelegramToMe(str)
+
             self.clock.stop()
             self.SaveRobots()
         else:
@@ -23559,6 +23567,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # ------------------------------------------------------------------------------------------------------------------
     def MyLogin(self):
+
         계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
         주식계좌정보 = 계좌정보.query("구분 == '거래'")
 
@@ -23568,6 +23577,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.계좌번호 = 주식계좌정보['계좌번호'].values[0].strip()
             self.id = 주식계좌정보['사용자ID'].values[0].strip()
+            self.user_id = self.id
             self.pwd = 주식계좌정보['비밀번호'].values[0].strip()
             self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()
             self.거래비밀번호 = 주식계좌정보['거래비밀번호'].values[0].strip()
@@ -23576,9 +23586,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             print("secret디렉토리의 passwords.csv 파일에서 거래 계좌를 지정해 주세요")
 
-    def OnLogin(self, code, msg):
+    def OnLogin(self, code, msg):        
+
+        dt = datetime.datetime.now()
+
         if code == '0000':
             self.statusbar.showMessage("로그인 되었습니다.")
+            str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 SkyBot을 시작합니다.'.format(dt.hour, dt.minute, dt.second, self.user_id)
+            TelegramToMe(str)
         else:
             self.statusbar.showMessage("%s %s" % (code, msg))
 
