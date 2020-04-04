@@ -23451,11 +23451,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if result == QMessageBox.Yes:
             event.accept()
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 SkyBot을 종료합니다.'.format(dt.hour, dt.minute, dt.second, self.user_id)
+            str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 귀가했습니다.'.format(dt.hour, dt.minute, dt.second, self.user_id)
             TelegramToMe(str)
 
             self.clock.stop()
-            self.SaveRobots()
+            #self.SaveRobots()
         else:
             event.ignore()
 
@@ -23599,19 +23599,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         if code == '0000':
 
-            self.statusbar.showMessage("로그인 되었습니다.")
+            #self.statusbar.showMessage("로그인 되었습니다.")
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 SkyBot을 시작합니다.'.format(dt.hour, dt.minute, dt.second, self.user_id)
-            TelegramToMe(str)
+            token = ''
+            chat_id = 0
 
             if os.path.exists('secret/telegram_token.txt'):
                 
                 with open('secret/telegram_token.txt', mode='r') as tokenfile:
                     try:
                         token = tokenfile.readline().strip()
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] {3}님의 token은 {4} 입니다.'.format(dt.hour, dt.minute, dt.second, self.user_id, token)
-                        TelegramToMe(str)
 
                     except Exception as e:
                         pass            
@@ -23622,11 +23619,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     try:
                         chat_id = int(chatfile.readline().strip())
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] {3}님의 chat_id는 {4} 입니다.'.format(dt.hour, dt.minute, dt.second, self.user_id, chat_id)
-                        TelegramToMe(str)
-
                     except Exception as e:
-                        pass            
+                        pass 
+
+            if token != '' and chat_id != 0:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 출석했습니다.'.format( \
+                    dt.hour, dt.minute, dt.second, self.user_id, token, chat_id)
+                TelegramToMe(str)
+
+                self.statusbar.showMessage("로그인 되었습니다.")
+            else:
+                pass
         else:
             self.statusbar.showMessage("%s %s" % (code, msg))
 
