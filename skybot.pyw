@@ -542,10 +542,10 @@ FLAG_OLOH = False
 
 n_oloh_str = ''
 
-call_low_touch = False
-call_high_touch = False
-put_low_touch = False
-put_high_touch = False
+flag_call_low_update = False
+flag_call_high_update = False
+flag_put_low_update = False
+flag_put_high_update = False
 
 oneway_first_touch = False
 oneway_str = ''
@@ -6767,28 +6767,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             else:
                                 pass
 
-                            # 콜 저가, 고가 갱신 컬러링
-                            global call_low_touch, call_high_touch
+                            # 콜 저가, 고가 컬러링 갱신 
+                            global flag_call_low_update, flag_call_high_update
 
-                            if call_low_touch:
+                            if flag_call_low_update:
 
                                 self.call_low_node_coloring_per_sec()
                                 
                                 item = QTableWidgetItem('저가')
                                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
 
-                                call_low_touch = False
+                                flag_call_low_update = False
                             else:
                                 pass
 
-                            if call_high_touch:
+                            if flag_call_high_update:
 
                                 self.call_high_node_coloring_per_sec()
 
                                 item = QTableWidgetItem('고가')
                                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                                call_high_touch = False
+                                flag_call_high_update = False
                             else:
                                 pass                                                               
                         else:
@@ -6805,28 +6805,28 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             else:
                                 pass
                             
-                            # 풋 저가, 고가 갱신 컬러링
-                            global put_low_touch, put_high_touch 
+                            # 풋 저가, 고가 컬러링 갱신
+                            global flag_put_low_update, flag_put_high_update 
 
-                            if put_low_touch:
+                            if flag_put_low_update:
 
                                 self.put_low_node_coloring_per_sec()
 
                                 item = QTableWidgetItem('저가')
                                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
 
-                                put_low_touch = False
+                                flag_put_low_update = False
                             else:
                                 pass
 
-                            if put_high_touch:
+                            if flag_put_high_update:
 
                                 self.put_high_node_coloring_per_sec()
 
                                 item = QTableWidgetItem('고가')
                                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                                put_high_touch = False
+                                flag_put_high_update = False
                             else:
                                 pass
 
@@ -13897,9 +13897,13 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         종가 = round((현재가 + df['전일대비'][i]), 2)
 
                     else:
-                        종가 = round(현재가, 2)                                            
+                        종가 = round(현재가, 2)
 
-                    item = QTableWidgetItem("{0:0.2f}".format(종가))
+                    if 종가 >= 100:
+                        item = QTableWidgetItem("{0:0.1f}".format(종가))
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(종가))
+
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.종가.value, item)
 
@@ -14179,7 +14183,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     else:
                         종가 = round(현재가, 2)                                            
 
-                    item = QTableWidgetItem("{0:0.2f}".format(종가))
+                    if 종가 >= 100:
+                        item = QTableWidgetItem("{0:0.1f}".format(종가))
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(종가))
+
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.종가.value, item)
 
@@ -15369,8 +15377,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_call.loc[i, '현재가'] = 현재가
 
                     item = QTableWidgetItem("{0:0.2f}".format(현재가))
-                    item.setTextAlignment(Qt.AlignCenter)                    
-                    #item.setBackground(QBrush(옅은회색))
+                    item.setTextAlignment(Qt.AlignCenter)
 
                     if 시가 > 0:
 
@@ -15616,8 +15623,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     df_put.loc[i, '현재가'] = 현재가
 
                     item = QTableWidgetItem("{0:0.2f}".format(현재가))
-                    item.setTextAlignment(Qt.AlignCenter)                    
-                    #item.setBackground(QBrush(옅은회색))
+                    item.setTextAlignment(Qt.AlignCenter)
 
                     if 시가 > 0:
 
@@ -18148,7 +18154,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global call_open_list
         global call_max_actval, call_open
         global 콜_인덱스, 콜_시가, 콜_현재가, 콜_저가, 콜_고가
-        global call_low_touch, call_high_touch
+        global flag_call_low_update, flag_call_high_update
         global call_otm_db, call_otm_db_percent
 
         dt = datetime.datetime.now()
@@ -18411,7 +18417,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             call_저가 = df_call['저가'].values.tolist()
             call_저가_node_list = self.make_node_list(call_저가)
             
-            call_low_touch = True
+            flag_call_low_update = True
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(저가), 2))
@@ -18480,7 +18486,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             call_고가 = df_call['고가'].values.tolist()
             call_고가_node_list = self.make_node_list(call_고가)
             
-            call_high_touch = True
+            flag_call_high_update = True
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(고가), 2))
@@ -19192,7 +19198,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global put_open_list
         global put_max_actval, put_open
         global 풋_인덱스, 풋_시가, 풋_현재가, 풋_저가, 풋_고가
-        global put_low_touch, put_high_touch
+        global flag_put_low_update, flag_put_high_update
         global put_otm_db, put_otm_db_percent
 
         dt = datetime.datetime.now()
@@ -19454,7 +19460,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             put_저가 = df_put['저가'].values.tolist()
             put_저가_node_list = self.make_node_list(put_저가)
             
-            put_low_touch = True
+            flag_put_low_update = True
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(저가), 2))
@@ -19523,7 +19529,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             put_고가 = df_put['고가'].values.tolist()
             put_고가_node_list = self.make_node_list(put_고가)
             
-            put_high_touch = True
+            flag_put_high_update = True
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(고가), 2))
