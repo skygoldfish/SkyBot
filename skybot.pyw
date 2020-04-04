@@ -23388,15 +23388,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.RobotView()
 
-
         #TODO:자동로그인
         self.MyLogin()
 
     def OnClockTick(self):
+
         current = datetime.datetime.now()
         current_str = current.strftime('%H:%M:%S')
 
-        if current.second == 0: # 매 0초
+        if current.second == 0: # 매 0초(1분 주기)
             try:
                 if self.connection is not None:
                     msg = '오프라인'
