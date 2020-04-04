@@ -7177,26 +7177,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call Low Node Color Check Time : {3:0.2f} ms\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
-            self.textBrowser.append(str)
-
-    def call_low_node_coloring_per_sec(self):
-
-        dt = datetime.datetime.now()
-
-        start_time = timeit.default_timer()
-
-        self.call_open_check()
-        self.call_low_node_color_clear()
-        self.call_low_crossval_color_update()        
-        self.call_low_node_color_update()
-        self.call_low_coreval_color_update()
-
-        process_time = (timeit.default_timer() - start_time) * 1000
-
-        str = '[{0:02d}:{1:02d}:{2:02d}] Call Low Node Color Check Time : {3:0.2f} ms\r'.format(\
-            int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
-        self.textBrowser.append(str)
-            
+            self.textBrowser.append(str)          
 
     def opt_call_high_node_coloring(self):
 
@@ -7237,6 +7218,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Call High Node Color Check Time : {3:0.2f} ms\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)
+    
+    def call_low_node_coloring_per_sec(self):
+
+        dt = datetime.datetime.now()
+
+        start_time = timeit.default_timer()
+
+        self.call_open_check()
+        self.call_low_node_color_clear()
+        self.call_low_crossval_color_update()        
+        self.call_low_node_color_update()
+        self.call_low_coreval_color_update()
+
+        process_time = (timeit.default_timer() - start_time) * 1000
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] Call Low Node Color Check Time : {3:0.2f} ms\r'.format(\
+            int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
+        self.textBrowser.append(str)
 
     def call_high_node_coloring_per_sec(self):
 
@@ -7324,26 +7323,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put Low Node Color Check Time : {3:0.2f} ms\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
-            self.textBrowser.append(str)
-
-    def put_low_node_coloring_per_sec(self):
-
-        dt = datetime.datetime.now()
-
-        start_time = timeit.default_timer()
-                
-        self.put_open_check()       
-        self.put_low_node_color_clear() 
-        self.put_low_crossval_color_update()        
-        self.put_low_node_color_update()
-        self.put_low_coreval_color_update()
-
-        process_time = (timeit.default_timer() - start_time) * 1000
-
-        str = '[{0:02d}:{1:02d}:{2:02d}] Put Low Node Color Check Time : {3:0.2f} ms\r'.format(\
-            int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
-        self.textBrowser.append(str)
-            
+            self.textBrowser.append(str)            
 
     def opt_put_high_node_coloring(self):
 
@@ -7383,7 +7363,25 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put High Node Color Check Time : {3:0.2f} ms\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
-            self.textBrowser.append(str)
+            self.textBrowser.append(str)    
+
+    def put_low_node_coloring_per_sec(self):
+
+        dt = datetime.datetime.now()
+
+        start_time = timeit.default_timer()
+                
+        self.put_open_check()       
+        self.put_low_node_color_clear() 
+        self.put_low_crossval_color_update()        
+        self.put_low_node_color_update()
+        self.put_low_coreval_color_update()
+
+        process_time = (timeit.default_timer() - start_time) * 1000
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] Put Low Node Color Check Time : {3:0.2f} ms\r'.format(\
+            int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
+        self.textBrowser.append(str)
 
     def put_high_node_coloring_per_sec(self):
 
