@@ -1411,8 +1411,6 @@ class CPluginManager:
 
 
 Ui_계좌정보조회, QtBaseClass_계좌정보조회 = uic.loadUiType(UI_DIR+"계좌정보조회.ui")
-
-
 class 화면_계좌정보(QDialog, Ui_계좌정보조회):
     def __init__(self, parent=None):
         super(화면_계좌정보, self).__init__(parent)
@@ -1557,8 +1555,6 @@ class 화면_일별가격정보백업(QDialog, Ui_일별가격정보백업):
 
 
 Ui_일별업종정보백업, QtBaseClass_일별업종정보백업 = uic.loadUiType(UI_DIR+"일별업종정보백업.ui")
-
-
 class 화면_일별업종정보백업(QDialog, Ui_일별업종정보백업):
     def __init__(self, parent=None):
         super(화면_일별업종정보백업, self).__init__(parent)
@@ -2429,21 +2425,24 @@ class 화면_실시간정보(QDialog, Ui_실시간정보):
 
 Ui_뉴스, QtBaseClass_뉴스 = uic.loadUiType(UI_DIR+"뉴스.ui")
 class 화면_뉴스(QDialog, Ui_뉴스):
+
+    news_str = ''
+
     def __init__(self, parent=None):
         super(화면_뉴스, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setupUi(self)
 
         self.parent = parent
-
-        self.news = NWS(parent=self)
+        self.news = NWS(parent=self)        
 
     def OnReceiveRealData(self, szTrCode, result):
         str = '{}:{} - {}\r'.format(result['날짜'], result['시간'], result['제목'])
         try:
+            self.news_str = str
             self.textBrowser.append(str)
         except Exception as e:
-            pass
+            pass    
 
     def AddCode(self):
         self.news.AdviseRealData()
@@ -7044,6 +7043,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             str = 'ⓢ {0:02d}:{1:02d}:{2:02d}'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
             
         self.label_msg.setText(str)
+        
+        # 클래스간 데이타 교환
+        #str = 화면_뉴스().news_str
+        #print(str)
+        #self.textBrowser.append(str)
+
         '''
         if dt.second == 0 and blink:
 
@@ -7053,6 +7058,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         else:
             pass
         '''
+
         # 콜 매수 OneWay장
         if call_ms_oneway:
 
