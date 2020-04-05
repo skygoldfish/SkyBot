@@ -2426,21 +2426,21 @@ class 화면_실시간정보(QDialog, Ui_실시간정보):
 Ui_뉴스, QtBaseClass_뉴스 = uic.loadUiType(UI_DIR+"뉴스.ui")
 class 화면_뉴스(QDialog, Ui_뉴스):
 
-    news_str = ''
-
     def __init__(self, parent=None):
         super(화면_뉴스, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setupUi(self)
 
         self.parent = parent
-        self.news = NWS(parent=self)        
+        self.news = NWS(parent=self)
+        
+        self.news_str = ''     
 
     def OnReceiveRealData(self, szTrCode, result):
         str = '{}:{} - {}\r'.format(result['날짜'], result['시간'], result['제목'])
         try:
             self.news_str = str
-            self.textBrowser.append(str)
+            self.textBrowser.append(self.news_str)
         except Exception as e:
             pass    
 
