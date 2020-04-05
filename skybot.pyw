@@ -23380,7 +23380,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.금일백업작업중 = False
         self.종목선정작업중 = False
 
-        self.user_id = ''
+        self.id = ''
         self.계좌번호 = None
         self.거래비밀번호 = None
         self.system_server_time_gap = 0
@@ -23459,7 +23459,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if TARGET_MONTH_SELECT == 1:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그아웃 했습니다.'.format(dt.hour, dt.minute, dt.second, self.user_id)
+                str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그아웃 했습니다.'.format(dt.hour, dt.minute, dt.second, self.id)
                 TelegramToMe(str)
             else:
                 pass
@@ -23594,7 +23594,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.계좌번호 = 주식계좌정보['계좌번호'].values[0].strip()
             self.id = 주식계좌정보['사용자ID'].values[0].strip()
-            self.user_id = self.id
             self.pwd = 주식계좌정보['비밀번호'].values[0].strip()
             self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()
             self.거래비밀번호 = 주식계좌정보['거래비밀번호'].values[0].strip()
@@ -23608,8 +23607,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dt = datetime.datetime.now()
 
         if code == '0000':
-
-            #self.statusbar.showMessage("로그인 되었습니다.")
 
             token = ''
             chat_id = 0
@@ -23635,7 +23632,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if TARGET_MONTH_SELECT == 1 and token != '' and chat_id != 0:
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 로그인 했습니다.'.format( \
-                    dt.hour, dt.minute, dt.second, self.user_id, token, chat_id)
+                    dt.hour, dt.minute, dt.second, self.id, token, chat_id)
                 TelegramToMe(str)
             else:
                 pass
