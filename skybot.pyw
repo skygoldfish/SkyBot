@@ -23457,8 +23457,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if result == QMessageBox.Yes:
             event.accept()
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그아웃 했습니다.'.format(dt.hour, dt.minute, dt.second, self.user_id)
-            TelegramToMe(str)
+            if TARGET_MONTH_SELECT == 1:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그아웃 했습니다.'.format(dt.hour, dt.minute, dt.second, self.user_id)
+                TelegramToMe(str)
+            else:
+                pass
 
             self.clock.stop()
             #self.SaveRobots()
@@ -23628,7 +23632,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     except Exception as e:
                         pass 
 
-            if token != '' and chat_id != 0:
+            if TARGET_MONTH_SELECT == 1 and token != '' and chat_id != 0:
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 로그인 했습니다.'.format( \
                     dt.hour, dt.minute, dt.second, self.user_id, token, chat_id)
