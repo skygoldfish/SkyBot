@@ -23457,7 +23457,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if result == QMessageBox.Yes:
             event.accept()
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 귀가했습니다.'.format(dt.hour, dt.minute, dt.second, self.user_id)
+            str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그아웃 했습니다.'.format(dt.hour, dt.minute, dt.second, self.user_id)
             TelegramToMe(str)
 
             self.clock.stop()
@@ -23630,7 +23630,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if token != '' and chat_id != 0:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 출석했습니다.'.format( \
+                str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 로그인 했습니다.'.format( \
                     dt.hour, dt.minute, dt.second, self.user_id, token, chat_id)
                 TelegramToMe(str)
 
