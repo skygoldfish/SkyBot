@@ -23637,10 +23637,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 로그인 했습니다.'.format( \
                     dt.hour, dt.minute, dt.second, self.user_id, token, chat_id)
                 TelegramToMe(str)
-
-                self.statusbar.showMessage("로그인 되었습니다.")
             else:
                 pass
+            
+            self.statusbar.showMessage("로그인 되었습니다.")
         else:
             self.statusbar.showMessage("%s %s" % (code, msg))
 
