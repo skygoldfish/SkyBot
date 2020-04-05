@@ -86,8 +86,11 @@ def FromTelegram():
                 pass
 
 def TelegramToMe(str):
-
+    
     import telegram
+
+    global TELEGRAM_TOKEN
+    global CHAT_ID
 
     TELEGRAM_TOKEN = '1036288207:AAHCTnfiEh2YgcHabXzt3fZ7mxOXzXf-Jxw'
     CHAT_ID = '61361737'

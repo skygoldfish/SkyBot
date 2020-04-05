@@ -23627,12 +23627,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         chat_id = int(chatfile.readline().strip())
 
                     except Exception as e:
-                        pass 
+                        pass
 
             if TARGET_MONTH_SELECT == 1 and token != '' and chat_id != 0:
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 로그인 했습니다.'.format( \
                     dt.hour, dt.minute, dt.second, self.id, token, chat_id)
+                
                 TelegramToMe(str)
             else:
                 pass
