@@ -89,14 +89,11 @@ def TelegramToMe(str):
     
     import telegram
 
-    global TELEGRAM_TOKEN
-    global CHAT_ID
+    MY_TELEGRAM_TOKEN = '1036288207:AAHCTnfiEh2YgcHabXzt3fZ7mxOXzXf-Jxw'
+    MY_CHAT_ID = '61361737'
 
-    TELEGRAM_TOKEN = '1036288207:AAHCTnfiEh2YgcHabXzt3fZ7mxOXzXf-Jxw'
-    CHAT_ID = '61361737'
-
-    bot = telegram.Bot(token=TELEGRAM_TOKEN)
-    bot.sendMessage(chat_id=CHAT_ID, text=str)
+    bot = telegram.Bot(token=MY_TELEGRAM_TOKEN)
+    bot.sendMessage(chat_id=MY_CHAT_ID, text=str)
 
 def Speak(str):
     speak = wincl.Dispatch("SAPI.SpVoice")
