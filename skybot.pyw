@@ -7130,9 +7130,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         start_time = timeit.default_timer()
         
         node_coloring = True
-                
-        self.call_open_check()       
-        self.call_node_color_clear() 
+            
+        self.call_node_color_clear()         
+        self.call_open_check()   
         self.call_crossval_color_update()        
         self.call_node_color_update()
         self.call_coreval_color_update()
@@ -7173,9 +7173,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             start_time = timeit.default_timer()
 
             node_coloring = True
-                    
-            self.call_open_check()      
-            self.call_node_color_clear()  
+                 
+            self.call_node_color_clear()        
+            self.call_open_check()     
             self.call_crossval_color_update()        
             self.call_node_color_update()
             self.call_low_coreval_color_update()
@@ -7213,9 +7213,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             start_time = timeit.default_timer()
 
             node_coloring = True
-
-            self.call_open_check()    
-            self.call_node_color_clear()
+   
+            self.call_node_color_clear()        
+            self.call_open_check()   
             self.call_crossval_color_update()        
             self.call_node_color_update()
             self.call_high_coreval_color_update()
@@ -7235,9 +7235,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         dt = datetime.datetime.now()
 
         start_time = timeit.default_timer()
-
-        self.call_open_check()
+        
         self.call_low_node_color_clear()
+        self.call_open_check()
         self.call_low_crossval_color_update()        
         self.call_low_node_color_update()
         self.call_low_coreval_color_update()
@@ -7254,8 +7254,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         start_time = timeit.default_timer()
                
-        self.call_open_check()        
         self.call_high_node_color_clear() 
+        self.call_open_check()
         self.call_high_crossval_color_update()        
         self.call_high_node_color_update()
         self.call_high_coreval_color_update()
@@ -7275,9 +7275,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         start_time = timeit.default_timer()
         
         node_coloring = True
-                
-        self.put_open_check()       
-        self.put_node_color_clear() 
+            
+        self.put_node_color_clear()        
+        self.put_open_check()    
         self.put_crossval_color_update()        
         self.put_node_color_update()
         self.put_coreval_color_update()
@@ -7319,9 +7319,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             start_time = timeit.default_timer()
 
             node_coloring = True
-                    
-            self.put_open_check()       
-            self.put_node_color_clear() 
+                  
+            self.put_node_color_clear()        
+            self.put_open_check()    
             self.put_crossval_color_update()        
             self.put_node_color_update()
             self.put_low_coreval_color_update()
@@ -7359,9 +7359,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             start_time = timeit.default_timer()
 
             node_coloring = True
-                    
-            self.put_open_check()      
-            self.put_node_color_clear()  
+                
+            self.put_node_color_clear()        
+            self.put_open_check()     
             self.put_crossval_color_update()        
             self.put_node_color_update()
             self.put_high_coreval_color_update()
@@ -7381,9 +7381,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         dt = datetime.datetime.now()
 
         start_time = timeit.default_timer()
-                
-        self.put_open_check()       
-        self.put_low_node_color_clear() 
+             
+        self.put_low_node_color_clear()        
+        self.put_open_check()    
         self.put_low_crossval_color_update()        
         self.put_low_node_color_update()
         self.put_low_coreval_color_update()
@@ -7399,9 +7399,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         dt = datetime.datetime.now()
 
         start_time = timeit.default_timer()
-               
-        self.put_open_check()       
-        self.put_high_node_color_clear()  
+            
+        self.put_high_node_color_clear()        
+        self.put_open_check()     
         self.put_high_crossval_color_update()        
         self.put_high_node_color_update()
         self.put_high_coreval_color_update()
@@ -7425,14 +7425,14 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         node_coloring = True
         
-        self.call_open_check()
-        self.call_node_color_clear()
+        self.call_node_color_clear()        
+        self.call_open_check()   
         self.call_crossval_color_update()
         self.call_node_color_update()
         self.call_coreval_color_update()
         
-        self.put_open_check()
-        self.put_node_color_clear()
+        self.put_node_color_clear()        
+        self.put_open_check()   
         self.put_crossval_color_update()
         self.put_node_color_update()
         self.put_coreval_color_update()
