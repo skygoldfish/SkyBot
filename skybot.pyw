@@ -8017,7 +8017,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 
                 if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ONEWAY_RATIO and 콜대비_퍼센트_평균 > 30:
 
-                    # 콜 원웨이
+                    if TARGET_MONTH_SELECT == 1 and not call_ms_oneway:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 2 and not call_ms_oneway:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 3 and not call_ms_oneway:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                    else:
+                        pass
+                    
+                    # 콜 원웨이(원웨이장은 플래그 세팅을 나중에 해줌 --> 발생시각 표시를 위해)
                     call_ms_oneway = True
                     call_ms_asymmetric = False
                     call_md_asymmetric = False
@@ -8028,23 +8045,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     put_md_asymmetric = False
                     put_md_all_down = False
                     put_ms_all_up = False
-
-                    if TARGET_MONTH_SELECT == 1:
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
-
-                    elif TARGET_MONTH_SELECT == 2:
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
-
-                    elif TARGET_MONTH_SELECT == 3:
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 콜 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
-                    else:
-                        pass
 
                     if dt.second % 10 == 0 and not blink:
 
@@ -8185,7 +8185,24 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ONEWAY_RATIO and 풋대비_퍼센트_평균 > 30:
 
-                    # 풋 원웨이
+                    if TARGET_MONTH_SELECT == 1 and not put_ms_oneway:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 2 and not put_ms_oneway:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+
+                    elif TARGET_MONTH_SELECT == 3 and not put_ms_oneway:
+
+                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
+                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
+                    else:
+                        pass
+                    
+                    # 풋 원웨이(원웨이장은 플래그 세팅을 나중에 해줌 --> 발생시각 표시를 위해)
                     call_ms_oneway = False
                     call_ms_asymmetric = False
                     call_md_asymmetric = False
@@ -8196,23 +8213,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                     put_md_asymmetric = False
                     put_md_all_down = False
                     put_ms_all_up = False
-
-                    if TARGET_MONTH_SELECT == 1:
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] CM 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
-
-                    elif TARGET_MONTH_SELECT == 2:
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] NM 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
-
-                    elif TARGET_MONTH_SELECT == 3:
-
-                        비대칭장 = '[{0:02d}:{1:02d}:{2:02d}] MAN 풋 매수({3:0.1f}:{4:0.1f}) OneWay장\r'.format \
-                            (dt.hour, dt.minute, dt.second, 콜대비_퍼센트_평균, 풋대비_퍼센트_평균)
-                    else:
-                        pass
 
                     if dt.second % 10 == 0 and not blink:
 
