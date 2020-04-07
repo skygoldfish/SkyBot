@@ -6035,16 +6035,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                 print(str)
             else:
                 pass
-
-            # 매 10분마다 교차컬러링 수행
-            if dt.minute % 10 == 0 and dt.second == 0:
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 교차컬러링을 수행합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                print(str)
-
-                self.opt_node_coloring()
-            else:
-                pass
         except:
             pass
 
@@ -6834,6 +6824,17 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
                                 flag_put_high_update = False
+                            else:
+                                pass
+                            
+                            # 매 10분마다 교차컬러링 수행
+                            if dt.minute % 10 == 0 and dt.second == 0:
+
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 교차컬러링을 수행합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)
+                                print(str)
+
+                                self.opt_node_coloring()
                             else:
                                 pass
 
