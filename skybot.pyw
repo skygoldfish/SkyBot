@@ -6748,6 +6748,23 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                         # 선물, 콜, 풋 현재가 클리어
                         #self.cv_color_clear()
                         #self.price_color_clear()
+
+                        global flag_call_low_update, flag_call_high_update, flag_put_low_update, flag_put_high_update
+
+                        # 매 10분마다 교차컬러링 수행
+                        if not flag_call_low_update and not flag_call_high_update and not flag_put_low_update and not flag_put_high_update:
+
+                            if self.alternate_flag and dt.minute % 10 == 0 and dt.second == 0:
+
+                                str = '[{0:02d}:{1:02d}:{2:02d}] 교차컬러링을 수행합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                                self.textBrowser.append(str)
+                                print(str)
+
+                                self.opt_node_coloring()
+                            else:
+                                pass
+                        else:
+                            pass
                         
                         if self.alternate_flag:
 
@@ -6764,9 +6781,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
                             else:
                                 pass
 
-                            # 콜 저가, 고가 컬러링 갱신 
-                            global flag_call_low_update, flag_call_high_update
-
+                            # 콜 저가, 고가 컬러링 갱신
                             if flag_call_low_update:
 
                                 self.call_low_node_coloring_per_sec()
@@ -6800,11 +6815,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 self.oi_sum_display()
                             else:
-                                pass
+                                pass                            
                             
                             # 풋 저가, 고가 컬러링 갱신
-                            global flag_put_low_update, flag_put_high_update 
-
                             if flag_put_low_update:
 
                                 self.put_low_node_coloring_per_sec()
@@ -6825,18 +6838,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                                 flag_put_high_update = False
                             else:
-                                pass
-                            
-                            # 매 10분마다 교차컬러링 수행
-                            if dt.minute % 10 == 0 and dt.second == 0:
-
-                                str = '[{0:02d}:{1:02d}:{2:02d}] 교차컬러링을 수행합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                                self.textBrowser.append(str)
-                                print(str)
-
-                                self.opt_node_coloring()
-                            else:
-                                pass
+                                pass                            
 
                         if not dongsi_hoga:
                         
