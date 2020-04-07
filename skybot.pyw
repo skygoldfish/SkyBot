@@ -17571,8 +17571,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global flag_fut_low, flag_fut_high 
         global fut_volume_power
         global first_refresh, fut_first_arrive
-        global telegram_send_worker_on_time, flag_telegram_listen_worker
-        global flag_telegram_send_worker
+        global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
         global 선물_대비
 
         dt = datetime.datetime.now()
@@ -18187,6 +18186,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         global 콜_인덱스, 콜_시가, 콜_현재가, 콜_저가, 콜_고가
         global flag_call_low_update, flag_call_high_update
         global call_otm_db, call_otm_db_percent
+        global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
 
         dt = datetime.datetime.now()
 
@@ -18197,6 +18197,81 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         현재가 = result['현재가']
         저가 = result['저가']
         고가 = result['고가']
+
+        # 야간선물이 없어짐에 대응
+        if overnight:
+
+            opt_time = dt.hour * 3600 + dt.minute * 60 + dt.second
+
+            if not flag_telegram_send_worker:            
+
+                self.telegram_send_worker.start()
+                self.telegram_send_worker.daemon = True
+
+                telegram_send_worker_on_time = opt_time 
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker({3})가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second, telegram_send_worker_on_time)
+                self.textBrowser.append(str)
+                print(str) 
+
+                if TARGET_MONTH_SELECT == 1:
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    ToTelegram(str)
+
+                elif TARGET_MONTH_SELECT == 2:
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    ToTelegram(str)
+
+                elif TARGET_MONTH_SELECT == 3:
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    ToTelegram(str)
+
+                    self.telegram_listen_worker.start()
+                    self.telegram_listen_worker.daemon = True
+
+                    # 차차월물은 시작과 동시에 Polling 시작
+                    ToTelegram("MAN 텔레그램 Polling이 시작됩니다.")
+
+                    self.pushButton_remove.setStyleSheet("background-color: lawngreen")
+
+                    flag_telegram_listen_worker = True
+                else:
+                    pass         
+
+                flag_telegram_send_worker = True             
+            else:
+                pass
+
+            # Telegram Send Worker 시작 후 TELEGRAM_START_TIME분에 Telegram Listen을 위한 Polling Thread 시작 !!!
+            if not flag_telegram_listen_worker and opt_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME:
+
+                if TELEGRAM_SERVICE == 'ON':
+
+                    self.telegram_listen_worker.start()
+                    self.telegram_listen_worker.daemon = True
+
+                    if TARGET_MONTH_SELECT == 1:
+
+                        ToTelegram("CM 텔레그램 Polling이 시작됩니다.")
+
+                    elif TARGET_MONTH_SELECT == 2:
+
+                        ToTelegram("NM 텔레그램 Polling이 시작됩니다.")
+                    else:
+                        pass
+                    
+                    self.pushButton_remove.setStyleSheet("background-color: lawngreen")
+
+                    flag_telegram_listen_worker = True
+                else:
+                    pass            
+            else:
+                pass
+        else:
+            pass
         
         if 저가 != 고가:
 
