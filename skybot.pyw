@@ -17064,103 +17064,99 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         #print('fut_first_arrive = {0}, first_refresh = {1}, market_service = {2}\r'.format(fut_first_arrive, first_refresh, market_service))
 
-        if not overnight:
+        fut_time = dt.hour * 3600 + dt.minute * 60 + dt.second         
 
-            fut_time = dt.hour * 3600 + dt.minute * 60 + dt.second
+        if not flag_telegram_send_worker and not overnight:            
 
-            if not flag_telegram_send_worker:            
+            self.telegram_send_worker.start()
+            self.telegram_send_worker.daemon = True
 
-                self.telegram_send_worker.start()
-                self.telegram_send_worker.daemon = True
+            telegram_send_worker_on_time = fut_time 
 
-                telegram_send_worker_on_time = fut_time 
-                
-                str = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker({3})가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second, telegram_send_worker_on_time)
-                self.textBrowser.append(str)
-                print(str) 
+            str = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker({3})가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second, telegram_send_worker_on_time)
+            self.textBrowser.append(str)
+            print(str) 
+
+            if TARGET_MONTH_SELECT == 1:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                ToTelegram(str)
+
+            elif TARGET_MONTH_SELECT == 2:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                ToTelegram(str)
+
+            elif TARGET_MONTH_SELECT == 3:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                ToTelegram(str)
+
+                self.telegram_listen_worker.start()
+                self.telegram_listen_worker.daemon = True
+
+                # 차차월물은 시작과 동시에 Polling 시작
+                ToTelegram("MAN 텔레그램 Polling이 시작됩니다.")
+
+                self.pushButton_remove.setStyleSheet("background-color: lawngreen")
+
+                flag_telegram_listen_worker = True
+            else:
+                pass         
+
+            flag_telegram_send_worker = True             
+        else:
+            pass
+
+        # Telegram Send Worker 시작 후 TELEGRAM_START_TIME분에 Telegram Listen을 위한 Polling Thread 시작 !!!
+        if not flag_telegram_listen_worker and fut_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME and not overnight:
+
+            if TELEGRAM_SERVICE == 'ON':
+
+                self.telegram_listen_worker.start()
+                self.telegram_listen_worker.daemon = True
 
                 if TARGET_MONTH_SELECT == 1:
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    ToTelegram(str)
+                    ToTelegram("CM 텔레그램 Polling이 시작됩니다.")
 
                 elif TARGET_MONTH_SELECT == 2:
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    ToTelegram(str)
-
-                elif TARGET_MONTH_SELECT == 3:
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    ToTelegram(str)
-
-                    self.telegram_listen_worker.start()
-                    self.telegram_listen_worker.daemon = True
-
-                    # 차차월물은 시작과 동시에 Polling 시작
-                    ToTelegram("MAN 텔레그램 Polling이 시작됩니다.")
-
-                    self.pushButton_remove.setStyleSheet("background-color: lawngreen")
-
-                    flag_telegram_listen_worker = True
+                    ToTelegram("NM 텔레그램 Polling이 시작됩니다.")
                 else:
-                    pass         
-
-                flag_telegram_send_worker = True             
-            else:
-                pass
-
-            if fut_time == telegram_send_worker_on_time + 2 or fut_time == telegram_send_worker_on_time + 3:
+                    pass
                 
-                # 선물 시가갭 컬러링(주간 장시작시 표시안되는 오류 대응)
-                if overnight:
+                self.pushButton_remove.setStyleSheet("background-color: lawngreen")
 
-                    if 선물_시가 > 선물_종가:
-                        self.tableWidget_fut.item(0, Futures_column.시가갭.value).setBackground(QBrush(콜기준가색))
-                        self.tableWidget_fut.item(0, Futures_column.시가갭.value).setForeground(QBrush(검정색))
-                    elif 선물_시가 < 선물_종가:
-                        self.tableWidget_fut.item(0, Futures_column.시가갭.value).setBackground(QBrush(풋기준가색))
-                        self.tableWidget_fut.item(0, Futures_column.시가갭.value).setForeground(QBrush(흰색))
-                    else:
-                        self.tableWidget_fut.item(0, Futures_column.시가갭.value).setBackground(QBrush(흰색))
-                else:
-
-                    if 선물_시가 > 선물_종가:
-                        self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(콜기준가색))
-                        self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(검정색))
-                    elif 선물_시가 < 선물_종가:
-                        self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(풋기준가색))
-                        self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(흰색))
-                    else:
-                        self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(흰색))   
+                flag_telegram_listen_worker = True
             else:
-                pass
+                pass            
+        else:
+            pass
+        
+        if fut_time == telegram_send_worker_on_time + 2 or fut_time == telegram_send_worker_on_time + 3:
+            
+            # 선물 시가갭 컬러링(주간 장시작시 표시안되는 오류 대응)
+            if overnight:
 
-            # Telegram Send Worker 시작 후 TELEGRAM_START_TIME분에 Telegram Listen을 위한 Polling Thread 시작 !!!
-            if not flag_telegram_listen_worker and fut_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME:
-
-                if TELEGRAM_SERVICE == 'ON':
-
-                    self.telegram_listen_worker.start()
-                    self.telegram_listen_worker.daemon = True
-
-                    if TARGET_MONTH_SELECT == 1:
-
-                        ToTelegram("CM 텔레그램 Polling이 시작됩니다.")
-
-                    elif TARGET_MONTH_SELECT == 2:
-
-                        ToTelegram("NM 텔레그램 Polling이 시작됩니다.")
-                    else:
-                        pass
-                    
-                    self.pushButton_remove.setStyleSheet("background-color: lawngreen")
-                    
-                    flag_telegram_listen_worker = True
+                if 선물_시가 > 선물_종가:
+                    self.tableWidget_fut.item(0, Futures_column.시가갭.value).setBackground(QBrush(콜기준가색))
+                    self.tableWidget_fut.item(0, Futures_column.시가갭.value).setForeground(QBrush(검정색))
+                elif 선물_시가 < 선물_종가:
+                    self.tableWidget_fut.item(0, Futures_column.시가갭.value).setBackground(QBrush(풋기준가색))
+                    self.tableWidget_fut.item(0, Futures_column.시가갭.value).setForeground(QBrush(흰색))
                 else:
-                    pass            
+                    self.tableWidget_fut.item(0, Futures_column.시가갭.value).setBackground(QBrush(흰색))
             else:
-                pass
+
+                if 선물_시가 > 선물_종가:
+                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(콜기준가색))
+                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(검정색))
+                elif 선물_시가 < 선물_종가:
+                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(풋기준가색))
+                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setForeground(QBrush(흰색))
+                else:
+                    self.tableWidget_fut.item(1, Futures_column.시가갭.value).setBackground(QBrush(흰색))   
         else:
             pass        
 
