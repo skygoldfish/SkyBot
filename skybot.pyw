@@ -695,6 +695,9 @@ nodelist_high_cutoff = 10.0
 
 centerval_threshold = 0.60
 
+update_start = 0.3
+update_end = 10.0
+
 콜매수 = ''
 콜매도 = ''
 풋매수 = ''
@@ -17874,21 +17877,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem(gap_str)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setItem(index, Option_column.대비.value, item)
-            '''
-            if df_call.iloc[index]['저가'] >= 10.0 and df_call.iloc[index]['현재가'] > df_call.iloc[index]['저가']:
-
-                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(옅은회색))
-                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
-            else:
-                pass
-
-            if df_call.iloc[index]['고가'] >= 10.0 and df_call.iloc[index]['현재가'] < df_call.iloc[index]['고가']:
-
-                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(옅은회색))
-                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
-            else:
-                pass
-            '''
         else:
             pass
 
@@ -17961,7 +17949,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             call_저가 = df_call['저가'].values.tolist()
             call_저가_node_list = self.make_node_list(call_저가)
             
-            flag_call_low_update = True
+            if update_start < df_call.iloc[index]['저가'] < update_end:
+
+                flag_call_low_update = True
+            else:
+                pass
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(저가), 2))
@@ -18022,8 +18014,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             call_고가 = df_call['고가'].values.tolist()
             call_고가_node_list = self.make_node_list(call_고가)
-            
-            flag_call_high_update = True
+
+            if update_start < df_call.iloc[index]['고가'] < update_end:
+
+                flag_call_high_update = True
+            else:
+                pass
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(고가), 2))
@@ -18903,21 +18899,6 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             item = QTableWidgetItem(gap_str)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setItem(index, Option_column.대비.value, item)
-            '''
-            if df_put.iloc[index]['저가'] >= 10.0 and df_put.iloc[index]['현재가'] > df_put.iloc[index]['저가']:
-
-                self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(옅은회색))
-                self.tableWidget_put.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
-            else:
-                pass
-
-            if df_put.iloc[index]['고가'] >= 10.0 and df_put.iloc[index]['현재가'] < df_put.iloc[index]['고가']:
-
-                self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(옅은회색))
-                self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(검정색))
-            else:
-                pass
-            '''
         else:
             pass
 
@@ -18989,8 +18970,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             put_저가 = df_put['저가'].values.tolist()
             put_저가_node_list = self.make_node_list(put_저가)
+
+            if update_start < df_put.iloc[index]['저가'] < update_end:
             
-            flag_put_low_update = True
+                flag_put_low_update = True
+            else:
+                pass
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(저가), 2))
@@ -19051,8 +19036,12 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
             put_고가 = df_put['고가'].values.tolist()
             put_고가_node_list = self.make_node_list(put_고가)
+
+            if update_start < df_put.iloc[index]['고가'] < update_end:
             
-            flag_put_high_update = True
+                flag_put_high_update = True
+            else:
+                pass
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), round(float(고가), 2))
