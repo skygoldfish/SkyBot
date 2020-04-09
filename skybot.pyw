@@ -7375,15 +7375,11 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         if atm_index != atm_index_old:
 
-            self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(
-                QBrush(노란색))
-            self.tableWidget_call.item(atm_index_old, Option_column.행사가.value).setBackground(
-                QBrush(라임))
+            self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
+            self.tableWidget_call.item(atm_index_old, Option_column.행사가.value).setBackground(QBrush(라임))
 
-            self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(
-                QBrush(노란색))
-            self.tableWidget_put.item(atm_index_old, Option_column.행사가.value).setBackground(
-                QBrush(라임))
+            self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
+            self.tableWidget_put.item(atm_index_old, Option_column.행사가.value).setBackground(QBrush(라임))
 
             atm_index_old = atm_index
         else:
@@ -7399,12 +7395,35 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             self.label_atm.setStyleSheet('background-color: yellow; color: black')
             self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        str = '{0:0.2f}({1:0.2f}:{2:0.2f})'.format(basis, call_atm_value + put_atm_value,
-            abs(call_atm_value - put_atm_value))
+        str = '{0:0.2f}({1:0.2f}:{2:0.2f})'.format(basis, call_atm_value + put_atm_value, abs(call_atm_value - put_atm_value))
 
         self.label_atm.setText(str)
 
-        #return
+        if 옵션잔존일 == 1:
+
+            # 만기일 등가 위, 등가, 등가 아래 3개의 양합을 콜 기준가에 표시함
+            two_sum1 = df_call.iloc[atm_index - 1]['현재가'] + df_put.iloc[atm_index - 1]['현재가']
+            item = QTableWidgetItem("{0:0.1f}".format(two_sum1))
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(라임))
+            item.setForeground(QBrush(검정색))
+            self.tableWidget_call.setItem(atm_index - 1, Option_column.기준가.value, item)
+
+            two_sum2 = df_call.iloc[atm_index]['현재가'] + df_put.iloc[atm_index]['현재가']
+            item = QTableWidgetItem("{0:0.1f}".format(two_sum2))
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(노란색))
+            item.setForeground(QBrush(검정색))
+            self.tableWidget_call.setItem(atm_index, Option_column.기준가.value, item)
+
+            two_sum3 = df_call.iloc[atm_index + 1]['현재가'] + df_put.iloc[atm_index + 1]['현재가']
+            item = QTableWidgetItem("{0:0.1f}".format(two_sum3))
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(라임))
+            item.setForeground(QBrush(검정색))
+            self.tableWidget_call.setItem(atm_index + 1, Option_column.기준가.value, item)
+        else:
+            pass
 
     def set_call_atm_row_color(self, rowIndex, brush):
 
