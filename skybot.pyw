@@ -21948,19 +21948,33 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
                 if not overnight:
 
-                    if fut_cr > 1 and fut_cr > fut_rr:
+                    if fut_cr > 1 and fut_rr > 1:
+                        
+                        if fut_cr > fut_rr:
 
-                        self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(적색))
-                        self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
-                        self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(적색))
-                        self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
+                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(적색))
+                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
+                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(적색))
+                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
+                        else:
+                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(pink))
+                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
+                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(pink))
+                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
 
-                    elif fut_cr < 1 and fut_cr < fut_rr:
+                    elif fut_cr < 1 and fut_rr < 1:
+                        
+                        if fut_cr < fut_rr:
 
-                        self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(청색))
-                        self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(흰색))
-                        self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(청색))
-                        self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(흰색))
+                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(청색))
+                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(흰색))
+                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(청색))
+                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(흰색))
+                        else:
+                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(lightskyblue))
+                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
+                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(lightskyblue))
+                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
                     else:
                         self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(흰색))
                         self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
