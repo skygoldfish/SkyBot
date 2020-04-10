@@ -7112,8 +7112,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
         self.label_msg.setText(str)
         
         # 클래스간 데이타 교환(클래스메소드 사용)
-        str = 화면_뉴스.AskNews()
-        print(str)
+        #str = 화면_뉴스.AskNews()
+        #print(str)
         #self.textBrowser.append(str)
 
         '''
