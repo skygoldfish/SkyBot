@@ -426,7 +426,6 @@ server_time = ''
 system_server_timegap = 0
 
 telegram_toggle = True
-news_str = ''
 
 ovc_start_hour = kse_start_hour - 1
 
@@ -2433,6 +2432,8 @@ class 화면_실시간정보(QDialog, Ui_실시간정보):
 
 Ui_뉴스, QtBaseClass_뉴스 = uic.loadUiType(UI_DIR+"뉴스.ui")
 class 화면_뉴스(QDialog, Ui_뉴스):
+
+    news_str = ''
     
     def __init__(self, parent=None):
         super(화면_뉴스, self).__init__(parent)
@@ -2445,9 +2446,7 @@ class 화면_뉴스(QDialog, Ui_뉴스):
     def OnReceiveRealData(self, szTrCode, result):
         str = '{}:{} - {}\r'.format(result['날짜'], result['시간'], result['제목'])
         try:
-            
-            global news_str    
-            news_str = str 
+            화면_뉴스.news_str = str
 
             self.textBrowser.append(str)
         except Exception as e:
@@ -2458,6 +2457,10 @@ class 화면_뉴스(QDialog, Ui_뉴스):
 
     def RemoveCode(self):
         self.news.UnadviseRealData()
+
+    @classmethod
+    def AskNews(cls):
+        return cls.news_str
 
 
 Ui_주문테스트, QtBaseClass_주문테스트 = uic.loadUiType(UI_DIR+"주문테스트.ui")
@@ -7108,10 +7111,9 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
         self.label_msg.setText(str)
         
-        # 클래스간 데이타 교환
-        #c1 = 화면_뉴스()
-        #str = c1.news_str
-        print(news_str)
+        # 클래스간 데이타 교환(클래스메소드 사용)
+        str = 화면_뉴스.AskNews()
+        print(str)
         #self.textBrowser.append(str)
 
         '''
