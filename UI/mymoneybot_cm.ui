@@ -779,7 +779,7 @@
      <normaloff>PNG/수급.png</normaloff>PNG/수급.png</iconset>
    </property>
    <property name="text">
-    <string>BigChart</string>
+    <string>Big Chart</string>
    </property>
   </action>
   <action name="actionOpenInterest">
