@@ -2433,6 +2433,7 @@ class 화면_실시간정보(QDialog, Ui_실시간정보):
 Ui_뉴스, QtBaseClass_뉴스 = uic.loadUiType(UI_DIR+"뉴스.ui")
 class 화면_뉴스(QDialog, Ui_뉴스):
 
+    # 클래스변수 선언
     news_str = ''
     
     def __init__(self, parent=None):
@@ -2446,8 +2447,8 @@ class 화면_뉴스(QDialog, Ui_뉴스):
     def OnReceiveRealData(self, szTrCode, result):
         str = '{}:{} - {}\r'.format(result['날짜'], result['시간'], result['제목'])
         try:
+            # 클래스변수 갱신(클래스 외부에서 접근가능)
             화면_뉴스.news_str = str
-
             self.textBrowser.append(str)
         except Exception as e:
             pass    
@@ -2457,10 +2458,6 @@ class 화면_뉴스(QDialog, Ui_뉴스):
 
     def RemoveCode(self):
         self.news.UnadviseRealData()
-
-    @classmethod
-    def AskNews(cls):
-        return cls.news_str
 
 
 Ui_주문테스트, QtBaseClass_주문테스트 = uic.loadUiType(UI_DIR+"주문테스트.ui")
@@ -7111,9 +7108,8 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             
         self.label_msg.setText(str)
         
-        # 클래스간 데이타 교환(클래스메소드 사용)
-        #str = 화면_뉴스.AskNews()
-        #print(str)
+        # 클래스간 데이타 교환
+        #print(화면_뉴스.news_str)
         #self.textBrowser.append(str)
 
         '''
@@ -22852,7 +22848,7 @@ Ui_빅차트, QtBaseClass_빅차트 = uic.loadUiType(UI_DIR+"BigChart.ui")
 class 화면_BigChart(QDialog, Ui_빅차트):
     
     def __init__(self, parent=None):
-        super(화면_BigChart, self).__init__(parent)
+        super(화면_BigChart, self).__init__(parent, flags=Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint | Qt.WindowCloseButtonHint)        
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setupUi(self)
 
