@@ -2438,7 +2438,7 @@ class 화면_뉴스(QDialog, Ui_뉴스):
     
     def __init__(self, parent=None):
 
-        super(화면_뉴스, self).__init__(parent, flags=Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint | Qt.WindowCloseButtonHint)
+        super(화면_뉴스, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setupUi(self)
 
@@ -2448,7 +2448,7 @@ class 화면_뉴스(QDialog, Ui_뉴스):
     def OnReceiveRealData(self, szTrCode, result):
 
         str = '{}:{} - {}\r'.format(result['날짜'], result['시간'], result['제목'])
-        
+
         try:
             # 클래스변수 갱신(클래스 외부에서 접근가능)
             화면_뉴스.news_str = str
@@ -3165,7 +3165,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
     def __init__(self, parent=None):
         super(화면_당월물옵션전광판, self).\
-            __init__(parent, flags=Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint | Qt.WindowCloseButtonHint)
+            __init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setupUi(self)
 
@@ -22857,7 +22857,7 @@ Ui_빅차트, QtBaseClass_빅차트 = uic.loadUiType(UI_DIR+"BigChart.ui")
 class 화면_BigChart(QDialog, Ui_빅차트):
     
     def __init__(self, parent=None):
-        super(화면_BigChart, self).__init__(parent, flags=Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint | Qt.WindowCloseButtonHint)        
+        super(화면_BigChart, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)     
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setupUi(self)
 
