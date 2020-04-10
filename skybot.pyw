@@ -7354,6 +7354,7 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
 
         str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
         self.textBrowser.append(str)
+        
 
     def label_atm_display(self):
 
