@@ -22873,7 +22873,6 @@ if TARGET_MONTH_SELECT == 1:
 elif TARGET_MONTH_SELECT == 2:
 
     Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+"mymoneybot_nm.ui")
-
 else:
     Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+"mymoneybot_man.ui")
 
@@ -22884,7 +22883,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
         self.setWindowTitle("SkyBot ver1.0")
-
+        '''
         self.plugins = CPluginManager.plugin_loader()
         menuitems = self.plugins.keys()
         menu = self.menubar.addMenu('&플러그인로봇')
@@ -22893,7 +22892,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             icon.addPixmap(QPixmap("PNG/approval.png"), QIcon.Normal, QIcon.Off)
             entry = menu.addAction(icon, item)
             entry.setObjectName(item)
-
+        '''
         self.시작시각 = datetime.datetime.now()
 
         self.robots = []
@@ -22907,7 +22906,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tableView_robot.setModel(self.model)
         self.tableView_robot.setSelectionBehavior(QTableView.SelectRows)
         self.tableView_robot.setSelectionMode(QTableView.SingleSelection)
-
         self.tableView_robot.pressed.connect(self.RobotCurrentIndex)
         self.tableView_robot_current_index = None
 
@@ -23641,7 +23639,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.RobotView()
             for r in self.robots:
                 logger.debug('%s %s %s %s' % (r.Name, r.UUID, len(r.portfolio), r.getstatus()))
-
+        '''
         if _action in self.plugins.keys():
             robot = self.plugins[_action].instance()
             robot.set_database(database=DATABASE)
@@ -23650,7 +23648,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if ret == 1:
                 self.robots.append(robot)
             self.RobotView()
-
+        '''
         # 당월물 옵션전광판
         if _action == "actionCMOptionPrice":
             

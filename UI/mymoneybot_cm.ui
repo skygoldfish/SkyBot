@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>881</width>
+    <width>880</width>
     <height>458</height>
    </rect>
   </property>
@@ -57,7 +57,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>881</width>
+     <width>1249</width>
      <height>21</height>
     </rect>
    </property>
@@ -163,9 +163,9 @@
    <addaction name="menu_2"/>
    <addaction name="menu_4"/>
    <addaction name="menu_5"/>
+   <addaction name="menuRobot"/>
    <addaction name="menu_6"/>
    <addaction name="menu_3"/>
-   <addaction name="menuRobot"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
