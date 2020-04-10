@@ -22848,6 +22848,16 @@ class 화면_당월물옵션전광판(QDialog, Ui_당월물옵션전광판):
             event.ignore()
         '''
 
+Ui_빅차트, QtBaseClass_빅차트 = uic.loadUiType(UI_DIR+"BigChart.ui")
+class 화면_BigChart(QDialog, Ui_빅차트):
+    
+    def __init__(self, parent=None):
+        super(화면_BigChart, self).__init__(parent)
+        self.setAttribute(Qt.WA_DeleteOnClose)
+        self.setupUi(self)
+
+        self.parent = parent
+
 ########################################################################################################################
 # 메인
 ########################################################################################################################
@@ -23649,6 +23659,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.dialog['당월물옵션전광판'] = 화면_당월물옵션전광판(parent=self)
                 self.dialog['당월물옵션전광판'].show()
+
+        # Big Chart
+        if _action == "actionBigChart":
+            
+            if self.dialog.get('BigChart') is not None:
+
+                try:
+                    self.dialog['BigChart'].show()
+                except Exception as e:
+                    self.dialog['BigChart'] = 화면_BigChart(parent=self)
+                    self.dialog['BigChart'].show()
+            else:
+                self.dialog['BigChart'] = 화면_BigChart(parent=self)
+                self.dialog['BigChart'].show()
 
     # ------------------------------------------------------------
 

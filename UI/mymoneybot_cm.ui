@@ -155,7 +155,7 @@
     <addaction name="actionCMOptionPrice"/>
     <addaction name="separator"/>
     <addaction name="separator"/>
-    <addaction name="actionSupplyDemand"/>
+    <addaction name="actionBigChart"/>
     <addaction name="separator"/>
    </widget>
    <addaction name="menu"/>
@@ -773,13 +773,13 @@
     <string>차월물 옵션전광판</string>
    </property>
   </action>
-  <action name="actionSupplyDemand">
+  <action name="actionBigChart">
    <property name="icon">
     <iconset>
      <normaloff>PNG/수급.png</normaloff>PNG/수급.png</iconset>
    </property>
    <property name="text">
-    <string>시장분석</string>
+    <string>BigChart</string>
    </property>
   </action>
   <action name="actionOpenInterest">
