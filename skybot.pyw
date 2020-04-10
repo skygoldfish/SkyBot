@@ -2437,7 +2437,8 @@ class 화면_뉴스(QDialog, Ui_뉴스):
     news_str = ''
     
     def __init__(self, parent=None):
-        super(화면_뉴스, self).__init__(parent)
+
+        super(화면_뉴스, self).__init__(parent, flags=Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint | Qt.WindowCloseButtonHint)
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setupUi(self)
 
@@ -2445,7 +2446,9 @@ class 화면_뉴스(QDialog, Ui_뉴스):
         self.news = NWS(parent=self)    
 
     def OnReceiveRealData(self, szTrCode, result):
+
         str = '{}:{} - {}\r'.format(result['날짜'], result['시간'], result['제목'])
+        
         try:
             # 클래스변수 갱신(클래스 외부에서 접근가능)
             화면_뉴스.news_str = str
@@ -2454,9 +2457,15 @@ class 화면_뉴스(QDialog, Ui_뉴스):
             pass    
 
     def AddCode(self):
+
+        str = '실시간 뉴스를 요청합니다.\r'
+        self.textBrowser.append(str)
         self.news.AdviseRealData()
 
     def RemoveCode(self):
+
+        str = '실시간 뉴스요청을 취소합니다.\r'
+        self.textBrowser.append(str)
         self.news.UnadviseRealData()
 
 
