@@ -2752,7 +2752,7 @@ class 화면_거래결과(QDialog, Ui_거래결과):
 
 Ui_버전, QtBaseClass_버전 = uic.loadUiType(UI_DIR+"버전.ui")
 class 화면_버전(QDialog, Ui_버전):
-    
+
     def __init__(self, parent=None):
         super(화면_버전, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -2768,6 +2768,7 @@ class 화면_버전(QDialog, Ui_버전):
         self.model.update(df)
         for i in range(len(df.columns)):
             self.tableView.resizeColumnToContents(i)
+            
 
 ########################################################################################################################
 # sky work !!!
