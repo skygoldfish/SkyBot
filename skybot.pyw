@@ -1315,6 +1315,7 @@ def sqliteconn():
     conn = sqlite3.connect(DATABASE)
     return conn
 
+
 class PandasModel(QtCore.QAbstractTableModel):
     def __init__(self, data=None, parent=None):
         QtCore.QAbstractTableModel.__init__(self, parent)
@@ -1351,6 +1352,7 @@ class PandasModel(QtCore.QAbstractTableModel):
 
     def flags(self, index):
         return QtCore.Qt.ItemIsEnabled
+
 
 class RealDataTableModel(QAbstractTableModel):
     def __init__(self, parent=None):
@@ -1395,9 +1397,12 @@ class RealDataTableModel(QAbstractTableModel):
 
 
 class CPluginManager:
+
     plugins = None
+
     @classmethod
     def plugin_loader(cls):
+
         path = "plugins/"
         result = {}
 
@@ -1419,6 +1424,7 @@ class CPluginManager:
 
 Ui_계좌정보조회, QtBaseClass_계좌정보조회 = uic.loadUiType(UI_DIR+"계좌정보조회.ui")
 class 화면_계좌정보(QDialog, Ui_계좌정보조회):
+
     def __init__(self, parent=None):
         super(화면_계좌정보, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -1470,6 +1476,7 @@ class 화면_계좌정보(QDialog, Ui_계좌정보조회):
 
 Ui_일별가격정보백업, QtBaseClass_일별가격정보백업 = uic.loadUiType(UI_DIR+"일별가격정보백업.ui")
 class 화면_일별가격정보백업(QDialog, Ui_일별가격정보백업):
+
     def __init__(self, parent=None):
         super(화면_일별가격정보백업, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -1563,6 +1570,7 @@ class 화면_일별가격정보백업(QDialog, Ui_일별가격정보백업):
 
 Ui_일별업종정보백업, QtBaseClass_일별업종정보백업 = uic.loadUiType(UI_DIR+"일별업종정보백업.ui")
 class 화면_일별업종정보백업(QDialog, Ui_일별업종정보백업):
+
     def __init__(self, parent=None):
         super(화면_일별업종정보백업, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -1663,6 +1671,7 @@ class 화면_일별업종정보백업(QDialog, Ui_일별업종정보백업):
 
 Ui_분별가격정보백업, QtBaseClass_분별가격정보백업 = uic.loadUiType(UI_DIR+"분별가격정보백업.ui")
 class 화면_분별가격정보백업(QDialog, Ui_분별가격정보백업):
+
     def __init__(self, parent=None):
         super(화면_분별가격정보백업, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -1758,6 +1767,7 @@ class 화면_분별가격정보백업(QDialog, Ui_분별가격정보백업):
 
 Ui_종목별투자자정보백업, QtBaseClass_종목별투자자정보백업 = uic.loadUiType(UI_DIR+"종목별투자자정보백업.ui")
 class 화면_종목별투자자정보백업(QDialog, Ui_종목별투자자정보백업):
+
     def __init__(self, parent=None):
         super(화면_종목별투자자정보백업, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -1850,6 +1860,7 @@ class 화면_종목별투자자정보백업(QDialog, Ui_종목별투자자정보
 ## ---------------------------------------------------------------------------------------------------------------------
 Ui_종목코드, QtBaseClass_종목코드 = uic.loadUiType(UI_DIR+"종목코드조회.ui")
 class 화면_종목코드(QDialog, Ui_종목코드):
+
     def __init__(self, parent=None):
         super(화면_종목코드, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -1887,6 +1898,7 @@ class 화면_종목코드(QDialog, Ui_종목코드):
 
 Ui_업종정보, QtBaseClass_업종정보 = uic.loadUiType(UI_DIR+"업종정보조회.ui")
 class 화면_업종정보(QDialog, Ui_업종정보):
+
     def __init__(self, parent=None):
         super(화면_업종정보, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -1936,6 +1948,7 @@ class 화면_업종정보(QDialog, Ui_업종정보):
 
 Ui_테마정보, QtBaseClass_테마정보 = uic.loadUiType(UI_DIR+"테마정보조회.ui")
 class 화면_테마정보(QDialog, Ui_테마정보):
+
     def __init__(self, parent=None):
         super(화면_테마정보, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -1984,6 +1997,7 @@ class 화면_테마정보(QDialog, Ui_테마정보):
 
 Ui_분별주가조회, QtBaseClass_분별주가조회 = uic.loadUiType(UI_DIR+"분별주가조회.ui")
 class 화면_분별주가(QDialog, Ui_분별주가조회):
+
     def __init__(self, parent=None):
         super(화면_분별주가, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -2029,6 +2043,7 @@ class 화면_분별주가(QDialog, Ui_분별주가조회):
 
 Ui_일자별주가조회, QtBaseClass_일자별주가조회 = uic.loadUiType(UI_DIR+"일자별주가조회.ui")
 class 화면_일별주가(QDialog, Ui_일자별주가조회):
+
     def __init__(self, parent=None):
         super(화면_일별주가, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -2091,6 +2106,7 @@ class 화면_일별주가(QDialog, Ui_일자별주가조회):
 
 Ui_종목별투자자조회, QtBaseClass_종목별투자자조회 = uic.loadUiType(UI_DIR+"종목별투자자조회.ui")
 class 화면_종목별투자자(QDialog, Ui_종목별투자자조회):
+
     def __init__(self, parent=None):
         super(화면_종목별투자자, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -2142,6 +2158,7 @@ class 화면_종목별투자자(QDialog, Ui_종목별투자자조회):
 
 
 class 화면_종목별투자자2(QDialog, Ui_종목별투자자조회):
+
     def __init__(self, parent=None):
         super(화면_종목별투자자2, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -2193,6 +2210,7 @@ class 화면_종목별투자자2(QDialog, Ui_종목별투자자조회):
 
 Ui_차트인덱스, QtBaseClass_차트인덱스 = uic.loadUiType(UI_DIR+"차트인덱스.ui")
 class 화면_차트인덱스(QDialog, Ui_차트인덱스):
+
     def __init__(self, parent=None):
         super(화면_차트인덱스, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -2253,6 +2271,7 @@ class 화면_차트인덱스(QDialog, Ui_차트인덱스):
 
 Ui_종목검색, QtBaseClass_종목검색 = uic.loadUiType(UI_DIR+"종목검색.ui")
 class 화면_종목검색(QDialog, Ui_종목검색):
+
     def __init__(self, parent=None):
         super(화면_종목검색, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -2285,6 +2304,7 @@ class 화면_종목검색(QDialog, Ui_종목검색):
 
 Ui_e종목검색, QtBaseClass_e종목검색 = uic.loadUiType(UI_DIR+"e종목검색.ui")
 class 화면_e종목검색(QDialog, Ui_e종목검색):
+
     def __init__(self, parent=None):
         super(화면_e종목검색, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -2321,6 +2341,7 @@ class 화면_e종목검색(QDialog, Ui_e종목검색):
 
 Ui_호가창정보, QtBaseClass_호가창정보 = uic.loadUiType(UI_DIR+"실시간호가.ui")
 class 화면_호가창정보(QDialog, Ui_호가창정보):
+
     def __init__(self, parent=None):
         super(화면_호가창정보, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -2405,6 +2426,7 @@ class 화면_호가창정보(QDialog, Ui_호가창정보):
 
 Ui_실시간정보, QtBaseClass_실시간정보 = uic.loadUiType(UI_DIR+"실시간주가.ui")
 class 화면_실시간정보(QDialog, Ui_실시간정보):
+
     def __init__(self, parent=None):
         super(화면_실시간정보, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -2435,6 +2457,7 @@ class 화면_뉴스(QDialog, Ui_뉴스):
 
     # 클래스변수 선언
     news_str = ''
+    news_on = False
     
     def __init__(self, parent=None):
 
@@ -2443,7 +2466,8 @@ class 화면_뉴스(QDialog, Ui_뉴스):
         self.setupUi(self)
 
         self.parent = parent
-        self.news = NWS(parent=self)    
+        self.news = NWS(parent=self)
+        화면_뉴스.news_on = True
 
     def OnReceiveRealData(self, szTrCode, result):
 
@@ -2468,9 +2492,25 @@ class 화면_뉴스(QDialog, Ui_뉴스):
         self.textBrowser.append(str)
         self.news.UnadviseRealData()
 
+    def setText_to_Browser(self, str):
+
+        self.textBrowser.append(str)
+
+    def closeEvent(self,event):
+
+        화면_뉴스.news_on = False
+        self.news.UnadviseRealData()
+
+    @classmethod
+    def testcode(cls, str):
+
+        print(str) 
+        #cls.textBrowser.append(str)   
+
 
 Ui_주문테스트, QtBaseClass_주문테스트 = uic.loadUiType(UI_DIR+"주문테스트.ui")
 class 화면_주문테스트(QDialog, Ui_주문테스트):
+
     def __init__(self, parent=None):
         super(화면_주문테스트, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -2558,6 +2598,7 @@ class 화면_주문테스트(QDialog, Ui_주문테스트):
 
 Ui_외부신호2eBEST, QtBaseClass_외부신호2eBEST = uic.loadUiType(UI_DIR+"외부신호2eBEST.ui")
 class 화면_외부신호2eBEST(QDialog, Ui_외부신호2eBEST):
+
     def __init__(self, parent=None):
         super(화면_외부신호2eBEST, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -2639,7 +2680,6 @@ class 화면_외부신호2eBEST(QDialog, Ui_외부신호2eBEST):
                     cursor.execute(query, data)
                     conn.commit()
 
-
     def OnReadFile(self, line):
         try:
             self.plainTextEdit.insertPlainText("\r>> " +line.strip() + '\r')
@@ -2675,6 +2715,7 @@ class 화면_외부신호2eBEST(QDialog, Ui_외부신호2eBEST):
 
 Ui_거래결과, QtBaseClass_거래결과 = uic.loadUiType(UI_DIR+"거래결과.ui")
 class 화면_거래결과(QDialog, Ui_거래결과):
+
     def __init__(self, parent=None):
         super(화면_거래결과, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -2711,6 +2752,7 @@ class 화면_거래결과(QDialog, Ui_거래결과):
 
 Ui_버전, QtBaseClass_버전 = uic.loadUiType(UI_DIR+"버전.ui")
 class 화면_버전(QDialog, Ui_버전):
+    
     def __init__(self, parent=None):
         super(화면_버전, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -7092,18 +7134,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.label_msg.setText(str)
         
         # 클래스간 데이타 교환
-        #print(화면_뉴스.news_str)
-        #self.textBrowser.append(str)
+        print(화면_뉴스.news_on)
 
-        '''
-        if dt.second == 0 and blink:
+        if 화면_뉴스.news_on:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 시스템 서버간 시간차이는 {3}초 입니다.'.format( \
-                dt.hour, dt.minute, dt.second, self.parent.system_server_time_gap)
-            self.textBrowser.append(str)
+            str = 'sky...\r'
+            화면_뉴스.testcode(str)
         else:
             pass
-        '''
 
         # 콜 매수 OneWay장
         if call_ms_oneway:
@@ -22764,6 +22802,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
 Ui_BigChart, QtBaseClass_BigChart = uic.loadUiType(UI_DIR+"BigChart.ui")
 class 화면_BigChart(QDialog, Ui_BigChart):
+
+    bigchart_on = False
     
     def __init__(self, parent=None):
         super(화면_BigChart, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)     
@@ -22771,6 +22811,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.setupUi(self)
 
         self.parent = parent
+        화면_BigChart.bigchart_on = True
+
+    def closeEvent(self,event):
+
+        화면_BigChart.bigchart_on = False
 
 ########################################################################################################################
 # 메인
