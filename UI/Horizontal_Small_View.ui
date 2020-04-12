@@ -238,9 +238,9 @@
   <widget class="QComboBox" name="comboBox1">
    <property name="geometry">
     <rect>
-     <x>858</x>
+     <x>853</x>
      <y>601</y>
-     <width>95</width>
+     <width>100</width>
      <height>20</height>
     </rect>
    </property>
@@ -251,9 +251,9 @@
   <widget class="QComboBox" name="comboBox2">
    <property name="geometry">
     <rect>
-     <x>1811</x>
+     <x>1806</x>
      <y>457</y>
-     <width>95</width>
+     <width>100</width>
      <height>20</height>
     </rect>
    </property>

@@ -1309,12 +1309,20 @@ flag_fut_oh = False
 풋_저가 = ''
 풋_고가 = ''
 
+call_plot_data = 0.0
+put_plot_data = 0.0
+curve1_plot_data = 0.0
+curve2_plot_data = 0.0
+curve3_plot_data = 0.0
+curve4_plot_data = 0.0
+curve5_plot_data = 0.0
+curve6_plot_data = 0.0
+
 ########################################################################################################################
 
 def sqliteconn():
     conn = sqlite3.connect(DATABASE)
     return conn
-
 
 class PandasModel(QtCore.QAbstractTableModel):
     def __init__(self, data=None, parent=None):
@@ -2492,6 +2500,7 @@ class 화면_뉴스(QDialog, Ui_뉴스):
         self.textBrowser.append(str)
         self.news.UnadviseRealData()
 
+    # 클래스간 통신 목적
     def setText_to_Browser(self, str):
 
         self.textBrowser.append(str)
@@ -3923,21 +3932,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_put.verticalScrollBar().valueChanged.connect(self._puttable_vertical_scroll_position)
         
         self.comboBox1.setStyleSheet("background-color: white")
-        self.comboBox2.setStyleSheet("background-color: white")            
+        self.comboBox2.setStyleSheet("background-color: white")
 
         if overnight:
 
-            self.comboBox1.addItems(['1. FV-Plot', '2. OV-Plot', '3. None', '4. HC-Plot', '5. FP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            self.comboBox1.addItems(['1. 선물체결', '2. 옵션체결', '3. None', '4. 양합양차', '5. 선물가격', '6. S&P 500', '7. DOW', '8. NASDAQ'])
             self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-            self.comboBox2.addItems(['1. OV-Plot', '2. None', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            self.comboBox2.addItems(['1. 옵션체결', '2. None', '3. 선물체결', '4. 양합양차', '5. 옵션가격', '6. S&P 500', '7. DOW', '8. NASDAQ'])
             self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
-
         else:
-            self.comboBox1.addItems(['1. FV-Plot', '2. OV-Plot', '3. OO-Plot', '4. HC-Plot', '5. FP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            self.comboBox1.addItems(['1. 선물체결', '2. 옵션체결', '3. 옵션미결', '4. 양합양차', '5. 선물가격', '6. S&P 500', '7. DOW', '8. NASDAQ'])
             self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-            self.comboBox2.addItems(['1. OV-Plot', '2. OO-Plot', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            self.comboBox2.addItems(['1. 옵션체결', '2. 옵션미결', '3. 선물체결', '4. 양합양차', '5. 옵션가격', '6. S&P 500', '7. DOW', '8. NASDAQ'])
             self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
@@ -6106,92 +6114,91 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global flag_offline, receive_real_ovc
             global 시스템시간
 
+            global call_plot_data, put_plot_data
+            global curve1_plot_data, curve2_plot_data, curve3_plot_data, curve4_plot_data, curve5_plot_data, curve6_plot_data 
+
             시스템시간 = dt.hour * 3600 + dt.minute * 60 + dt.second
             
             self.alternate_flag = not self.alternate_flag
 
-            # 장의 유형을 시간과 함께 표시
+            # Market 유형을 시간과 함께 표시
             self.market_type_display(self.alternate_flag)
-                                    
+
+            # 실시간 서비스                     
             if receive_real_ovc or market_service:
                 
-                self.label_clear(self.alternate_flag) 
+                self.label_clear(self.alternate_flag)                
 
-                # 그래프 그리기 #
-
-                # 옵션그래프 초기화
-                if comboindex2 == 4:
-
-                    global selected_call, selected_put, selected_opt_list
-
-                    old_selected_opt_list = copy.deepcopy(selected_opt_list)
-                    
-                    # 콜, 풋 그래프 선택
-                    call_idx = []
-                    put_idx = []
-                    selected_opt_list = []
-                    
-                    for i in range(option_pairs_count):
-
-                        if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
-                            call_idx.append(i)
-                            selected_opt_list.append(opt_actval[i])
-                        else:
-                            pass
-
-                        if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
-                            put_idx.append(i)
-                            selected_opt_list.append(opt_actval[i])
-                        else:
-                            pass
-
-                    selected_call = call_idx                    
-                    selected_put = put_idx
-
-                    # 마지막 행사가 추가해야 쓰레드 정상동작함(?)
-                    selected_opt_list.append(opt_actval[option_pairs_count-1])
-                    
-                    #print('selected_opt_list =', selected_opt_list)                    
-                    
-                    if selected_opt_list != old_selected_opt_list:
-
-                        # 전체 행사가 그래프 클리어
-                        for i in range(option_pairs_count):
-                            call_curve[i].clear()
-                            put_curve[i].clear()
-                    else:
-                        # 선택된 행사가 그래프 클리어
-                        for actval in selected_opt_list:
-
-                            index = opt_actval.index(actval)
-                            call_curve[index].clear()
-                            put_curve[index].clear()
-
-                    mv_line[0].setValue(1.2)
-                    mv_line[1].setValue(2.5)
-                    mv_line[2].setValue(3.5)
-                    mv_line[3].setValue(4.85)
-                    mv_line[4].setValue(5.1)
-                    mv_line[5].setValue(5.5)
-                    mv_line[6].setValue(0)
-                    mv_line[7].setValue(0)
-                    mv_line[8].setValue(0)
-
-                else:
-                    pass            
-
-                # 데이타 가져오기
+                # 전체 데이타 가져오기
                 for actval, infos in data.items():
 
                     index = opt_actval.index(actval)
 
+                    # 옵션그래프 초기화 및 옵션데이타 가져오기
                     if comboindex2 == 4:
+
+                        global selected_call, selected_put, selected_opt_list
+
+                        old_selected_opt_list = copy.deepcopy(selected_opt_list)
+
+                        # 콜, 풋 그래프 선택
+                        call_idx = []
+                        put_idx = []
+                        selected_opt_list = []
+
+                        for i in range(option_pairs_count):
+
+                            if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
+                                call_idx.append(i)
+                                selected_opt_list.append(opt_actval[i])
+                            else:
+                                pass
+
+                            if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
+                                put_idx.append(i)
+                                selected_opt_list.append(opt_actval[i])
+                            else:
+                                pass
+
+                        selected_call = call_idx                    
+                        selected_put = put_idx
+
+                        # 마지막 행사가 추가해야 쓰레드 정상동작함(?)
+                        selected_opt_list.append(opt_actval[option_pairs_count-1])
+
+                        #print('selected_opt_list =', selected_opt_list)                    
+
+                        if selected_opt_list != old_selected_opt_list:
+
+                            # 전체 행사가 그래프 클리어
+                            for i in range(option_pairs_count):
+                                call_curve[i].clear()
+                                put_curve[i].clear()
+                        else:
+                            # 선택된 행사가 그래프 클리어
+                            for actval in selected_opt_list:
+
+                                #index = opt_actval.index(actval)
+                                call_curve[index].clear()
+                                put_curve[index].clear()
+
+                        mv_line[0].setValue(1.2)
+                        mv_line[1].setValue(2.5)
+                        mv_line[2].setValue(3.5)
+                        mv_line[3].setValue(4.85)
+                        mv_line[4].setValue(5.1)
+                        mv_line[5].setValue(5.5)
+                        mv_line[6].setValue(0)
+                        mv_line[7].setValue(0)
+                        mv_line[8].setValue(0)
 
                         # 선택된 콜그래프 그리기
                         for i in range(len(call_idx)):
 
                             if index == call_idx[i]:
-                                call_curve[i].setData(infos[0])
+
+                                call_plot_data = infos[0]
+                                call_curve[i].setData(call_plot_data)
                             else:
                                 pass                    
 
@@ -6199,33 +6206,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         for i in range(len(put_idx)):
 
                             if index == put_idx[i]:
-                                put_curve[i].setData(infos[1])
+
+                                put_plot_data = infos[1]
+                                put_curve[i].setData(put_plot_data)
                             else:
                                 pass
-
-                        # 옵션 Y축 최대값 구하기
-                        axY = self.Plot2.getAxis('left')
-                        #print('옵션 y axis range: {}'.format(axY.range[1]))
-
-                        # 최대값내의 의미가 그리기
-                        if 6.0 <= axY.range[1] < 7.1:
-                            mv_line[6].setValue(6.85)
-                            mv_line[7].setValue(0)
-                            mv_line[8].setValue(0)
-                        elif 7.1 <= axY.range[1] < 8.1:
-                            mv_line[6].setValue(6.85)
-                            mv_line[7].setValue(7.1)
-                            mv_line[8].setValue(0)
-                        elif axY.range[1] >= 8.1:
-                            mv_line[6].setValue(6.85)
-                            mv_line[7].setValue(7.1)
-                            mv_line[8].setValue(8.1)
-                        else:
-                            pass
                     else:
-                        pass           
+                        pass
 
+                    # 데이타 가져오기
                     if index == option_pairs_count - 1:
+
+                        curve1_plot_data = infos[2]
+                        curve2_plot_data = infos[3] 
+                        curve3_plot_data = infos[4]
+                        curve4_plot_data = infos[5]
+                        curve5_plot_data = infos[6]
+                        curve6_plot_data = infos[7]
 
                         curve1_data = infos[2]
                         curve2_data = infos[3] 
@@ -6243,6 +6240,30 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
                     else:
                         pass
+
+                if comboindex2 == 4:
+
+                    # 옵션 Y축 최대값 구하기
+                    axY = self.Plot2.getAxis('left')
+                    #print('옵션 y axis range: {}'.format(axY.range[1]))
+
+                    # 최대값내의 의미가 그리기
+                    if 6.0 <= axY.range[1] < 7.1:
+                        mv_line[6].setValue(6.85)
+                        mv_line[7].setValue(0)
+                        mv_line[8].setValue(0)
+                    elif 7.1 <= axY.range[1] < 8.1:
+                        mv_line[6].setValue(6.85)
+                        mv_line[7].setValue(7.1)
+                        mv_line[8].setValue(0)
+                    elif axY.range[1] >= 8.1:
+                        mv_line[6].setValue(6.85)
+                        mv_line[7].setValue(7.1)
+                        mv_line[8].setValue(8.1)
+                    else:
+                        pass
+                else:
+                    pass
                                 
                 # Plot 1 x축 타임라인 그리기
                 if comboindex1 == 0 or comboindex1 == 4:
@@ -22823,6 +22844,7 @@ Ui_BigChart, QtBaseClass_BigChart = uic.loadUiType(UI_DIR+"BigChart.ui")
 class 화면_BigChart(QDialog, Ui_BigChart):
 
     bigchart = False
+    overnight = False    
     
     def __init__(self, parent=None):
         super(화면_BigChart, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)     
@@ -22836,21 +22858,29 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.screen_update_worker.finished.connect(self.update_bigchart)
 
         self.comboBox1.setStyleSheet("background-color: white")
-        self.comboBox2.setStyleSheet("background-color: white")            
+        self.comboBox2.setStyleSheet("background-color: white")
+        
+        dt = datetime.datetime.now()
+        current_str = dt.strftime('%H:%M:%S')
 
-        if overnight:
+        if 4 < int(current_str[0:2]) < 야간선물_기준시간:
 
-            self.comboBox1.addItems(['1. FV-Plot', '2. OV-Plot', '3. None', '4. HC-Plot', '5. FP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
-            self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
-
-            self.comboBox2.addItems(['1. OV-Plot', '2. None', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
-            self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
-
+            화면_BigChart.overnight = False
         else:
-            self.comboBox1.addItems(['1. FV-Plot', '2. OV-Plot', '3. OO-Plot', '4. HC-Plot', '5. FP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            화면_BigChart.overnight = True           
+
+        if 화면_BigChart.overnight:
+
+            self.comboBox1.addItems(['1. 선물체결 Plot', '2. 옵션체결 Plot', '3. None', '4. 양합양차 Plot', '5. 선물가격 Plot', '6. S&P 500 Plot', '7. DOW Plot', '8. NASDAQ Plot'])
             self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-            self.comboBox2.addItems(['1. OV-Plot', '2. OO-Plot', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            self.comboBox2.addItems(['1. 옵션체결 Plot', '2. None', '3. 선물체결 Plot', '4. 양합양차 Plot', '5. 옵션가격 Plot', '6. S&P 500 Plot', '7. DOW Plot', '8. NASDAQ Plot'])
+            self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
+        else:
+            self.comboBox1.addItems(['1. 선물체결 Plot', '2. 옵션체결 Plot', '3. 옵션미결 Plot', '4. 양합양차 Plot', '5. 선물가격 Plot', '6. S&P 500 Plot', '7. DOW Plot', '8. NASDAQ Plot'])
+            self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
+
+            self.comboBox2.addItems(['1. 옵션체결 Plot', '2. 옵션미결 Plot', '3. 선물체결 Plot', '4. 양합양차 Plot', '5. 옵션가격 Plot', '6. S&P 500 Plot', '7. DOW Plot', '8. NASDAQ Plot'])
             self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
@@ -22971,9 +23001,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
         for i in range(nRowCount):
             call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
-            put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))
-        
-        if overnight:
+            put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))            
+
+        if 화면_BigChart.overnight:
+            # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
+            self.Plot1.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
+            plot1_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
+
+            self.Plot2.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
+            plot2_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
 
             # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
             plot1_time_line_start.setValue(선물장간_시간차 + 1)
@@ -22981,9 +23017,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
             plot2_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
         else:
+            self.Plot1.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+            plot1_time_line.setValue(선물장간_시간차 + day_timespan - 1)
+
+            self.Plot2.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+            plot2_time_line.setValue(선물장간_시간차 + day_timespan - 1)
+
             # 시작시간 X축 표시(index 60은 시가)
             plot1_time_line_start.setValue(선물장간_시간차)
-            plot2_time_line_start.setValue(선물장간_시간차)            
+            plot2_time_line_start.setValue(선물장간_시간차)
 
         # 쓰레드 시작...
         self.screen_update_worker.start()
@@ -23498,7 +23540,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif comboindex2 == 1:
                         
-            if not overnight:
+            if not 화면_BigChart.overnight:
 
                 plot2_call_volume_curve.clear()
                 plot2_put_volume_curve.clear()
@@ -23836,6 +23878,421 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         dt = datetime.datetime.now()
         start_time = timeit.default_timer()
+
+        if receive_real_ovc or market_service:
+        #if True:
+
+            # 옵션그래프 초기화 및 데이타 가져오기
+            if comboindex2 == 4:                            
+
+                if selected_opt_list != old_selected_opt_list:
+
+                    # 전체 행사가 그래프 클리어
+                    for index in range(option_pairs_count):
+                        call_curve[index].clear()
+                        put_curve[index].clear()
+                else:
+                    # 선택된 행사가 그래프 클리어
+                    for index in range(option_pairs_count):
+
+                        if index in selected_call:
+                            call_curve[index].clear()
+                        else:
+                            pass
+
+                        if index in selected_put:
+                            put_curve[index].clear()
+                        else:
+                            pass
+
+                mv_line[0].setValue(1.2)
+                mv_line[1].setValue(2.5)
+                mv_line[2].setValue(3.5)
+                mv_line[3].setValue(4.85)
+                mv_line[4].setValue(5.1)
+                mv_line[5].setValue(5.5)
+                mv_line[6].setValue(0)
+                mv_line[7].setValue(0)
+                mv_line[8].setValue(0)
+
+                for index in range(option_pairs_count):
+
+                    # 선택된 콜그래프 그리기
+                    for i in range(len(selected_call)):
+
+                        if index == selected_call[i]:
+                            call_curve[i].setData(call_plot_data)
+                        else:
+                            pass                    
+
+                    # 선택된 풋그래프 그리기
+                    for i in range(len(selected_put)):
+
+                        if index == selected_put[i]:
+                            put_curve[i].setData(put_plot_data)
+                        else:
+                            pass
+
+                    # 옵션 Y축 최대값 구하기
+                    axY = self.Plot2.getAxis('left')
+                    #print('옵션 y axis range: {}'.format(axY.range[1]))
+
+                    # 최대값내의 의미가 그리기
+                    if 6.0 <= axY.range[1] < 7.1:
+                        mv_line[6].setValue(6.85)
+                        mv_line[7].setValue(0)
+                        mv_line[8].setValue(0)
+                    elif 7.1 <= axY.range[1] < 8.1:
+                        mv_line[6].setValue(6.85)
+                        mv_line[7].setValue(7.1)
+                        mv_line[8].setValue(0)
+                    elif axY.range[1] >= 8.1:
+                        mv_line[6].setValue(6.85)
+                        mv_line[7].setValue(7.1)
+                        mv_line[8].setValue(8.1)
+                    else:
+                        pass
+            else:
+                pass            
+
+            # Plot 1 x축 타임라인 그리기
+            if comboindex1 == 0 or comboindex1 == 4:
+
+                plot1_time_line.setValue(x_idx)
+            else:
+                plot1_time_line.setValue(opt_x_idx)
+
+            # Plot 2 x축 타임라인 그리기
+            plot2_time_line.setValue(opt_x_idx)
+
+            # 선택된 plot1 그래프 그리기
+            if comboindex1 == 0:
+
+                if fut_volume_power > 0:
+                    plot1_fut_volume_plus_curve.setData(curve1_plot_data)
+                else:
+                    plot1_fut_volume_minus_curve.setData(curve1_plot_data)
+
+            elif comboindex1 == 1:                      
+
+                plot1_call_volume_curve.setData(curve1_plot_data)
+                plot1_put_volume_curve.setData(curve2_plot_data)
+                plot1_volume_cha_curve.setData(curve3_plot_data)
+
+            elif comboindex1 == 2:
+
+                if not 화면_BigChart.overnight:
+                    plot1_call_oi_curve.setData(curve1_plot_data)
+                    plot1_put_oi_curve.setData(curve2_plot_data)
+                else:
+                    pass
+
+            elif comboindex1 == 3:
+
+                plot1_two_sum_curve.setData(curve1_plot_data)
+                plot1_two_cha_curve.setData(curve2_plot_data)
+
+            elif comboindex1 == 4:
+
+                plot1_fut_jl_line.setValue(선물_전저)
+                plot1_fut_jh_line.setValue(선물_전고)
+                plot1_fut_close_line.setValue(선물_종가)
+                plot1_fut_pivot_line.setValue(선물_피봇)
+                plot1_fut_open_line.setValue(선물_시가)
+                plot1_fut_low_line.setValue(선물_저가)
+                plot1_fut_high_line.setValue(선물_고가)
+
+                plot1_kp200_curve.setData(curve1_plot_data)
+                plot1_fut_price_curve.setData(curve2_plot_data)
+
+            elif comboindex1 == 5:
+
+                plot1_hc_high_line.setValue(sp500_전일종가)
+                plot1_hc_low_line.setValue(sp500_전일종가)
+
+                if SP500_LAST_LOW > 0:
+                    plot1_ovc_jl_line.setValue(SP500_LAST_LOW)
+                else:
+                    pass 
+
+                if SP500_LAST_HIGH > 0:
+                    plot1_ovc_jh_line.setValue(SP500_LAST_HIGH)
+                else:
+                    pass
+
+                if sp500_전일종가 > 0:
+                    plot1_ovc_close_line.setValue(sp500_전일종가)
+                else:
+                    pass 
+                
+                if sp500_시가 > 0:
+                    plot1_ovc_open_line.setValue(sp500_시가)
+                else:
+                    pass
+
+                if sp500_피봇 > 0:
+                    plot1_ovc_pivot_line.setValue(sp500_피봇)
+                else:
+                    pass
+
+                if sp500_저가 > 0:
+                    plot1_ovc_low_line.setValue(sp500_저가)
+                else:
+                    pass
+
+                if sp500_고가 > 0:
+                    plot1_ovc_high_line.setValue(sp500_고가)
+                else:
+                    pass
+
+                plot1_sp500_curve.setData(curve1_plot_data)
+
+            elif comboindex1 == 6:
+
+                plot1_hc_high_line.setValue(dow_전일종가)
+                plot1_hc_low_line.setValue(dow_전일종가)
+
+                if DOW_LAST_LOW > 0:
+                    plot1_ovc_jl_line.setValue(DOW_LAST_LOW)
+                else:
+                    pass 
+                
+                if DOW_LAST_HIGH > 0:
+                    plot1_ovc_jh_line.setValue(DOW_LAST_HIGH)
+                else:
+                    pass
+                
+                if dow_전일종가 > 0:
+                    plot1_ovc_close_line.setValue(dow_전일종가)
+                else:
+                    pass
+                
+                if dow_시가 > 0:
+                    plot1_ovc_open_line.setValue(dow_시가)
+                else:
+                    pass
+                
+                if dow_피봇 > 0:
+                    plot1_ovc_pivot_line.setValue(dow_피봇)
+                else:
+                    pass
+                
+                if dow_저가 > 0:
+                    plot1_ovc_low_line.setValue(dow_저가)
+                else:
+                    pass
+
+                if dow_고가 > 0:
+                    plot1_ovc_high_line.setValue(dow_고가)
+                else:
+                    pass                       
+                
+                plot1_dow_curve.setData(curve1_plot_data)
+
+            elif comboindex1 == 7:
+
+                plot1_hc_high_line.setValue(nasdaq_전일종가)
+                plot1_hc_low_line.setValue(nasdaq_전일종가)
+
+                if NASDAQ_LAST_LOW > 0:
+                    plot1_ovc_jl_line.setValue(NASDAQ_LAST_LOW)
+                else:
+                    pass 
+
+                if NASDAQ_LAST_HIGH > 0:
+                    plot1_ovc_jh_line.setValue(NASDAQ_LAST_HIGH)
+                else:
+                    pass
+
+                if nasdaq_전일종가 > 0:
+                    plot1_ovc_close_line.setValue(nasdaq_전일종가)
+                else:
+                    pass
+                
+                if nasdaq_시가 > 0:
+                    plot1_ovc_open_line.setValue(nasdaq_시가)
+                else:
+                    pass   
+
+                if nasdaq_피봇 > 0:
+                    plot1_ovc_pivot_line.setValue(nasdaq_피봇)
+                else:
+                    pass
+
+                if nasdaq_저가 > 0:
+                    plot1_ovc_low_line.setValue(nasdaq_저가)
+                else:
+                    pass
+
+                if nasdaq_고가 > 0:
+                    plot1_ovc_high_line.setValue(nasdaq_고가)
+                else:
+                    pass
+                
+                plot1_nasdaq_curve.setData(curve1_plot_data)
+            else:
+                pass   
+
+            # 선택된 plot2 그래프 그리기
+            if comboindex2 == 0:
+
+                plot2_call_volume_curve.setData(curve4_plot_data)
+                plot2_put_volume_curve.setData(curve5_plot_data)  
+                plot2_volume_cha_curve.setData(curve6_plot_data) 
+
+            elif comboindex2 == 1:
+
+                if not 화면_BigChart.overnight:
+                    plot2_call_oi_curve.setData(curve4_plot_data)
+                    plot2_put_oi_curve.setData(curve5_plot_data)
+                else:
+                    pass         
+
+            elif comboindex2 == 2:
+
+                if fut_volume_power > 0:
+                    plot2_fut_volume_plus_curve.setData(curve4_plot_data)
+                else:
+                    plot2_fut_volume_minus_curve.setData(curve4_plot_data)
+
+            elif comboindex2 == 3:
+
+                plot2_two_sum_curve.setData(curve4_plot_data)
+                plot2_two_cha_curve.setData(curve5_plot_data)
+
+            elif comboindex2 == 4:
+
+                pass
+
+            elif comboindex2 == 5:
+
+                plot2_hc_high_line.setValue(sp500_전일종가)
+                plot2_hc_low_line.setValue(sp500_전일종가)
+
+                if SP500_LAST_LOW > 0:
+                    plot2_ovc_jl_line.setValue(SP500_LAST_LOW)
+                else:
+                    pass 
+
+                if SP500_LAST_HIGH > 0:
+                    plot2_ovc_jh_line.setValue(SP500_LAST_HIGH)
+                else:
+                    pass
+
+                if sp500_전일종가 > 0:
+                    plot2_ovc_close_line.setValue(sp500_전일종가)
+                else:
+                    pass 
+                
+                if sp500_시가 > 0:
+                    plot2_ovc_open_line.setValue(sp500_시가)
+                else:
+                    pass
+
+                if sp500_피봇 > 0:
+                    plot2_ovc_pivot_line.setValue(sp500_피봇)
+                else:
+                    pass
+
+                if sp500_저가 > 0:
+                    plot2_ovc_low_line.setValue(sp500_저가)
+                else:
+                    pass
+
+                if sp500_고가 > 0:
+                    plot2_ovc_high_line.setValue(sp500_고가)
+                else:
+                    pass
+                
+                plot2_sp500_curve.setData(curve4_plot_data) 
+
+            elif comboindex2 == 6: 
+
+                plot2_hc_high_line.setValue(dow_전일종가)
+                plot2_hc_low_line.setValue(dow_전일종가)
+
+                if DOW_LAST_LOW > 0:
+                    plot2_ovc_jl_line.setValue(DOW_LAST_LOW)
+                else:
+                    pass 
+                
+                if DOW_LAST_HIGH > 0:
+                    plot2_ovc_jh_line.setValue(DOW_LAST_HIGH)
+                else:
+                    pass
+                
+                if dow_전일종가 > 0:
+                    plot2_ovc_close_line.setValue(dow_전일종가)
+                else:
+                    pass
+                
+                if dow_시가 > 0:
+                    plot2_ovc_open_line.setValue(dow_시가)
+                else:
+                    pass
+                
+                if dow_피봇 > 0:
+                    plot2_ovc_pivot_line.setValue(dow_피봇)
+                else:
+                    pass
+                
+                if dow_저가 > 0:
+                    plot2_ovc_low_line.setValue(dow_저가)
+                else:
+                    pass
+
+                if dow_고가 > 0:
+                    plot2_ovc_high_line.setValue(dow_고가)
+                else:
+                    pass                 
+                
+                plot2_dow_curve.setData(curve4_plot_data) 
+
+            elif comboindex2 == 7:
+
+                plot2_hc_high_line.setValue(nasdaq_전일종가)
+                plot2_hc_low_line.setValue(nasdaq_전일종가)
+
+                if NASDAQ_LAST_LOW > 0:
+                    plot2_ovc_jl_line.setValue(NASDAQ_LAST_LOW)
+                else:
+                    pass 
+
+                if NASDAQ_LAST_HIGH > 0:
+                    plot2_ovc_jh_line.setValue(NASDAQ_LAST_HIGH)
+                else:
+                    pass
+
+                if nasdaq_전일종가 > 0:
+                    plot2_ovc_close_line.setValue(nasdaq_전일종가)
+                else:
+                    pass
+                
+                if nasdaq_시가 > 0:
+                    plot2_ovc_open_line.setValue(nasdaq_시가)
+                else:
+                    pass   
+
+                if nasdaq_피봇 > 0:
+                    plot2_ovc_pivot_line.setValue(nasdaq_피봇)
+                else:
+                    pass
+
+                if nasdaq_저가 > 0:
+                    plot2_ovc_low_line.setValue(nasdaq_저가)
+                else:
+                    pass
+
+                if nasdaq_고가 > 0:
+                    plot2_ovc_high_line.setValue(nasdaq_고가)
+                else:
+                    pass 
+
+                plot2_nasdaq_curve.setData(curve4_plot_data)
+            else:
+                pass 
+        else:
+            pass        
 
         str = '[{0:02d}:{1:02d}:{2:02d}] BigChart Update Time : {3:0.2f} ms...\r'.format(\
             dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
