@@ -428,6 +428,7 @@ today_title = today.strftime('%Y-%m-%d')
 
 now = datetime.datetime.now()        
 nowDate = now.strftime('%Y-%m-%d')
+current_str = now.strftime('%H:%M:%S')
 
 yesterday = today - datetime.timedelta(1)
 yesterday_str = yesterday.strftime('%Y%m%d')
@@ -435,9 +436,6 @@ yesterday_str = yesterday.strftime('%Y%m%d')
 current_month = int(CURRENT_MONTH[4:6])
 next_month = int(NEXT_MONTH[4:6])
 month_after_next = int(MONTH_AFTER_NEXT[4:6])
-
-dt = datetime.datetime.now()
-current_str = dt.strftime('%H:%M:%S')
 
 야간선물_기준시간 = 17
 
