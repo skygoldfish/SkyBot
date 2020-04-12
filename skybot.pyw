@@ -2823,102 +2823,102 @@ class screen_update_worker(QThread):
             # COMBO 1
             if comboindex1 == 0:
 
-                curve1_data = df_plotdata_fut_volume.iloc[0].values.tolist()
-                curve2_data = None
-                curve3_data = None
+                curve1_plot_data = df_plotdata_fut_volume.iloc[0].values.tolist()
+                curve2_plot_data = None
+                curve3_plot_data = None
 
             elif comboindex1 == 1:                             
                 
-                curve1_data = df_plotdata_call_volume.iloc[0].values.tolist()
-                curve2_data = df_plotdata_put_volume.iloc[0].values.tolist()
-                curve3_data = df_plotdata_volume_cha.iloc[0].values.tolist()
+                curve1_plot_data = df_plotdata_call_volume.iloc[0].values.tolist()
+                curve2_plot_data = df_plotdata_put_volume.iloc[0].values.tolist()
+                curve3_plot_data = df_plotdata_volume_cha.iloc[0].values.tolist()
 
             elif comboindex1 == 2:
                 
-                curve1_data = df_plotdata_call_oi.iloc[0].values.tolist()
-                curve2_data = df_plotdata_put_oi.iloc[0].values.tolist() 
-                curve3_data = None 
+                curve1_plot_data = df_plotdata_call_oi.iloc[0].values.tolist()
+                curve2_plot_data = df_plotdata_put_oi.iloc[0].values.tolist() 
+                curve3_plot_data = None 
 
             elif comboindex1 == 3:
 
-                curve1_data = df_plotdata_two_sum.iloc[0].values.tolist()
-                curve2_data = df_plotdata_two_cha.iloc[0].values.tolist()
-                curve3_data = None  
+                curve1_plot_data = df_plotdata_two_sum.iloc[0].values.tolist()
+                curve2_plot_data = df_plotdata_two_cha.iloc[0].values.tolist()
+                curve3_plot_data = None  
 
             elif comboindex1 == 4:     
 
-                curve1_data = df_plotdata_kp200.iloc[0].values.tolist()
-                curve2_data = df_plotdata_fut.iloc[0].values.tolist()
-                curve3_data = None
+                curve1_plot_data = df_plotdata_kp200.iloc[0].values.tolist()
+                curve2_plot_data = df_plotdata_fut.iloc[0].values.tolist()
+                curve3_plot_data = None
 
             elif comboindex1 == 5: 
 
-                curve1_data = df_plotdata_sp500.iloc[0].values.tolist()
-                curve2_data = None
-                curve3_data = None
+                curve1_plot_data = df_plotdata_sp500.iloc[0].values.tolist()
+                curve2_plot_data = None
+                curve3_plot_data = None
 
             elif comboindex1 == 6: 
 
-                curve1_data = df_plotdata_dow.iloc[0].values.tolist()
-                curve2_data = None
-                curve3_data = None
+                curve1_plot_data = df_plotdata_dow.iloc[0].values.tolist()
+                curve2_plot_data = None
+                curve3_plot_data = None
 
             elif comboindex1 == 7: 
 
-                curve1_data = df_plotdata_nasdaq.iloc[0].values.tolist()
-                curve2_data = None
-                curve3_data = None
+                curve1_plot_data = df_plotdata_nasdaq.iloc[0].values.tolist()
+                curve2_plot_data = None
+                curve3_plot_data = None
             else:
                 pass
 
             # COMBO 2
             if comboindex2 == 0:
                 
-                curve4_data = df_plotdata_call_volume.iloc[0].values.tolist()
-                curve5_data = df_plotdata_put_volume.iloc[0].values.tolist()
-                curve6_data = df_plotdata_volume_cha.iloc[0].values.tolist()
+                curve4_plot_data = df_plotdata_call_volume.iloc[0].values.tolist()
+                curve5_plot_data = df_plotdata_put_volume.iloc[0].values.tolist()
+                curve6_plot_data = df_plotdata_volume_cha.iloc[0].values.tolist()
             
             elif comboindex2 == 1:                
                 
-                curve4_data = df_plotdata_call_oi.iloc[0].values.tolist()
-                curve5_data = df_plotdata_put_oi.iloc[0].values.tolist()
-                curve6_data = None 
+                curve4_plot_data = df_plotdata_call_oi.iloc[0].values.tolist()
+                curve5_plot_data = df_plotdata_put_oi.iloc[0].values.tolist()
+                curve6_plot_data = None 
             
             elif comboindex2 == 2:
 
-                curve4_data = df_plotdata_fut_volume.iloc[0].values.tolist()
-                curve5_data = None
-                curve6_data = None  
+                curve4_plot_data = df_plotdata_fut_volume.iloc[0].values.tolist()
+                curve5_plot_data = None
+                curve6_plot_data = None  
 
             elif comboindex2 == 3:
 
-                curve4_data = df_plotdata_two_sum.iloc[0].values.tolist()
-                curve5_data = df_plotdata_two_cha.iloc[0].values.tolist()
-                curve6_data = None 
+                curve4_plot_data = df_plotdata_two_sum.iloc[0].values.tolist()
+                curve5_plot_data = df_plotdata_two_cha.iloc[0].values.tolist()
+                curve6_plot_data = None 
 
             elif comboindex2 == 4:
 
-                curve4_data = None
-                curve5_data = None
-                curve6_data = None
+                curve4_plot_data = None
+                curve5_plot_data = None
+                curve6_plot_data = None
 
             elif comboindex2 == 5:
 
-                curve4_data = df_plotdata_sp500.iloc[0].values.tolist()
-                curve5_data = None
-                curve6_data = None 
+                curve4_plot_data = df_plotdata_sp500.iloc[0].values.tolist()
+                curve5_plot_data = None
+                curve6_plot_data = None 
 
             elif comboindex2 == 6:
 
-                curve4_data = df_plotdata_dow.iloc[0].values.tolist()
-                curve5_data = None
-                curve6_data = None 
+                curve4_plot_data = df_plotdata_dow.iloc[0].values.tolist()
+                curve5_plot_data = None
+                curve6_plot_data = None 
 
             elif comboindex2 == 7:
 
-                curve4_data = df_plotdata_nasdaq.iloc[0].values.tolist()
-                curve5_data = None
-                curve6_data = None 
+                curve4_plot_data = df_plotdata_nasdaq.iloc[0].values.tolist()
+                curve5_plot_data = None
+                curve6_plot_data = None 
             else:
                 pass
             
@@ -2956,11 +2956,11 @@ class screen_update_worker(QThread):
             
             if UI_STYLE == 'Vertical_view.ui':
 
-                return call_curve_data, put_curve_data, curve1_data, curve2_data, curve3_data, curve4_data, \
-                    curve5_data, curve6_data, plot3_data, plot4_1_data, plot4_2_data            
+                return call_curve_data, put_curve_data, curve1_plot_data, curve2_plot_data, curve3_plot_data, curve4_plot_data, \
+                    curve5_plot_data, curve6_plot_data, plot3_data, plot4_1_data, plot4_2_data            
             else:
-                return call_curve_data, put_curve_data, curve1_data, curve2_data, curve3_data, curve4_data, \
-                    curve5_data, curve6_data
+                return call_curve_data, put_curve_data, curve1_plot_data, curve2_plot_data, curve3_plot_data, curve4_plot_data, \
+                    curve5_plot_data, curve6_plot_data
 
         except:
 
@@ -3932,7 +3932,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global plot2_time_line_start, plot2_time_line_yagan_start, plot2_time_line
         global plot2_ovc_jl_line, plot2_ovc_jh_line, plot2_ovc_close_line, plot2_ovc_open_line, plot2_ovc_pivot_line, plot2_ovc_low_line, plot2_ovc_high_line
         global plot2_hc_high_line, plot2_hc_low_line
-        global mv_line, call_curve, put_curve
+        global call_curve, put_curve, mv_line
         
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
@@ -4284,7 +4284,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def cb1_selectionChanged(self):
 
-        global comboindex1
+        #global comboindex1
         global plot1_fut_price_curve, plot1_kp200_curve, plot1_fut_volume_curve, plot1_fut_volume_plus_curve, plot1_fut_volume_minus_curve
         global plot1_call_volume_curve, plot1_put_volume_curve
         global plot1_call_oi_curve, plot1_put_oi_curve
@@ -4747,7 +4747,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def cb2_selectionChanged(self):
 
-        global comboindex2
+        #global comboindex2
         global call_curve, put_curve, plot2_fut_volume_curve, plot2_fut_volume_plus_curve, plot2_fut_volume_minus_curve
         global plot2_call_volume_curve, plot2_put_volume_curve
         global plot2_call_oi_curve, plot2_put_oi_curve
@@ -6148,20 +6148,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 call_curve[index].clear()
                                 put_curve[index].clear()
 
-                        mv_line[0].setValue(1.2)
-                        mv_line[1].setValue(2.5)
-                        mv_line[2].setValue(3.5)
-                        mv_line[3].setValue(4.85)
-                        mv_line[4].setValue(5.1)
-                        mv_line[5].setValue(5.5)
-                        mv_line[6].setValue(0)
-                        mv_line[7].setValue(0)
-                        mv_line[8].setValue(0)
-
                         # 선택된 콜그래프 그리기
-                        for i in range(len(call_idx)):
+                        for i in range(len(selected_call)):
 
-                            if index == call_idx[i]:
+                            if index == selected_call[i]:
 
                                 call_plot_data = infos[0]
                                 call_curve[i].setData(call_plot_data)
@@ -6169,9 +6159,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass                    
 
                         # 선택된 풋그래프 그리기
-                        for i in range(len(put_idx)):
+                        for i in range(len(selected_put)):
 
-                            if index == put_idx[i]:
+                            if index == selected_put[i]:
 
                                 put_plot_data = infos[1]
                                 put_curve[i].setData(put_plot_data)
@@ -6182,6 +6172,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # 데이타 가져오기
                     if index == option_pairs_count - 1:
+                        
+                        mv_line[0].setValue(1.2)
+                        mv_line[1].setValue(2.5)
+                        mv_line[2].setValue(3.5)
+                        mv_line[3].setValue(4.85)
+                        mv_line[4].setValue(5.1)
+                        mv_line[5].setValue(5.5)
+                        mv_line[6].setValue(0)
+                        mv_line[7].setValue(0)
+                        mv_line[8].setValue(0)
 
                         curve1_plot_data = infos[2]
                         curve2_plot_data = infos[3] 
@@ -6189,13 +6189,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         curve4_plot_data = infos[5]
                         curve5_plot_data = infos[6]
                         curve6_plot_data = infos[7]
-
-                        curve1_data = infos[2]
-                        curve2_data = infos[3] 
-                        curve3_data = infos[4]
-                        curve4_data = infos[5]
-                        curve5_data = infos[6]
-                        curve6_data = infos[7]
 
                         if UI_STYLE == 'Vertical_view.ui':
 
@@ -6255,28 +6248,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if comboindex1 == 0:
 
                     if fut_volume_power > 0:
-                        plot1_fut_volume_plus_curve.setData(curve1_data)
+                        plot1_fut_volume_plus_curve.setData(curve1_plot_data)
                     else:
-                        plot1_fut_volume_minus_curve.setData(curve1_data)
+                        plot1_fut_volume_minus_curve.setData(curve1_plot_data)
 
                 elif comboindex1 == 1:                      
 
-                    plot1_call_volume_curve.setData(curve1_data)
-                    plot1_put_volume_curve.setData(curve2_data)
-                    plot1_volume_cha_curve.setData(curve3_data)
+                    plot1_call_volume_curve.setData(curve1_plot_data)
+                    plot1_put_volume_curve.setData(curve2_plot_data)
+                    plot1_volume_cha_curve.setData(curve3_plot_data)
 
                 elif comboindex1 == 2:
 
                     if not overnight:
-                        plot1_call_oi_curve.setData(curve1_data)
-                        plot1_put_oi_curve.setData(curve2_data)
+                        plot1_call_oi_curve.setData(curve1_plot_data)
+                        plot1_put_oi_curve.setData(curve2_plot_data)
                     else:
                         pass
 
                 elif comboindex1 == 3:
 
-                    plot1_two_sum_curve.setData(curve1_data)
-                    plot1_two_cha_curve.setData(curve2_data)
+                    plot1_two_sum_curve.setData(curve1_plot_data)
+                    plot1_two_cha_curve.setData(curve2_plot_data)
 
                 elif comboindex1 == 4:
 
@@ -6288,8 +6281,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     plot1_fut_low_line.setValue(선물_저가)
                     plot1_fut_high_line.setValue(선물_고가)
                 
-                    plot1_kp200_curve.setData(curve1_data)
-                    plot1_fut_price_curve.setData(curve2_data)
+                    plot1_kp200_curve.setData(curve1_plot_data)
+                    plot1_fut_price_curve.setData(curve2_plot_data)
 
                 elif comboindex1 == 5:
                     
@@ -6331,7 +6324,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    plot1_sp500_curve.setData(curve1_data)
+                    plot1_sp500_curve.setData(curve1_plot_data)
 
                 elif comboindex1 == 6:
 
@@ -6373,7 +6366,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass                       
                     
-                    plot1_dow_curve.setData(curve1_data)
+                    plot1_dow_curve.setData(curve1_plot_data)
 
                 elif comboindex1 == 7:
 
@@ -6415,36 +6408,36 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
                     
-                    plot1_nasdaq_curve.setData(curve1_data)
+                    plot1_nasdaq_curve.setData(curve1_plot_data)
                 else:
                     pass   
 
                 # 선택된 plot2 그래프 그리기
                 if comboindex2 == 0:
 
-                    plot2_call_volume_curve.setData(curve4_data)
-                    plot2_put_volume_curve.setData(curve5_data)  
-                    plot2_volume_cha_curve.setData(curve6_data) 
+                    plot2_call_volume_curve.setData(curve4_plot_data)
+                    plot2_put_volume_curve.setData(curve5_plot_data)  
+                    plot2_volume_cha_curve.setData(curve6_plot_data) 
 
                 elif comboindex2 == 1:
 
                     if not overnight:
-                        plot2_call_oi_curve.setData(curve4_data)
-                        plot2_put_oi_curve.setData(curve5_data)
+                        plot2_call_oi_curve.setData(curve4_plot_data)
+                        plot2_put_oi_curve.setData(curve5_plot_data)
                     else:
                         pass         
 
                 elif comboindex2 == 2:
 
                     if fut_volume_power > 0:
-                        plot2_fut_volume_plus_curve.setData(curve4_data)
+                        plot2_fut_volume_plus_curve.setData(curve4_plot_data)
                     else:
-                        plot2_fut_volume_minus_curve.setData(curve4_data)
+                        plot2_fut_volume_minus_curve.setData(curve4_plot_data)
 
                 elif comboindex2 == 3:
 
-                    plot2_two_sum_curve.setData(curve4_data)
-                    plot2_two_cha_curve.setData(curve5_data)
+                    plot2_two_sum_curve.setData(curve4_plot_data)
+                    plot2_two_cha_curve.setData(curve5_plot_data)
 
                 elif comboindex2 == 4:
 
@@ -6490,7 +6483,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
                     
-                    plot2_sp500_curve.setData(curve4_data) 
+                    plot2_sp500_curve.setData(curve4_plot_data) 
 
                 elif comboindex2 == 6: 
 
@@ -6532,7 +6525,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass                 
                     
-                    plot2_dow_curve.setData(curve4_data) 
+                    plot2_dow_curve.setData(curve4_plot_data) 
 
                 elif comboindex2 == 7:
                     
@@ -6574,7 +6567,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass 
 
-                    plot2_nasdaq_curve.setData(curve4_data)
+                    plot2_nasdaq_curve.setData(curve4_plot_data)
                 else:
                     pass 
 
@@ -22894,7 +22887,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global plot2_time_line_start, plot2_time_line_yagan_start, plot2_time_line
         global plot2_ovc_jl_line, plot2_ovc_jh_line, plot2_ovc_close_line, plot2_ovc_open_line, plot2_ovc_pivot_line, plot2_ovc_low_line, plot2_ovc_high_line
         global plot2_hc_high_line, plot2_hc_low_line
-        global mv_line, call_curve, put_curve
+        global call_curve, put_curve, mv_line
 
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
@@ -23026,7 +23019,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     
     def cb1_selectionChanged(self):
 
-        global comboindex1
+        #global comboindex1
         global plot1_fut_price_curve, plot1_kp200_curve, plot1_fut_volume_curve, plot1_fut_volume_plus_curve, plot1_fut_volume_minus_curve
         global plot1_call_volume_curve, plot1_put_volume_curve
         global plot1_call_oi_curve, plot1_put_oi_curve
@@ -23489,7 +23482,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
     def cb2_selectionChanged(self):
 
-        global comboindex2
+        #global comboindex2
         global call_curve, put_curve, plot2_fut_volume_curve, plot2_fut_volume_plus_curve, plot2_fut_volume_minus_curve
         global plot2_call_volume_curve, plot2_put_volume_curve
         global plot2_call_oi_curve, plot2_put_oi_curve
@@ -23926,25 +23919,25 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         else:
                             pass
 
-                    # 옵션 Y축 최대값 구하기
-                    axY = self.Plot2.getAxis('left')
-                    #print('옵션 y axis range: {}'.format(axY.range[1]))
+                # 옵션 Y축 최대값 구하기
+                axY = self.Plot2.getAxis('left')
+                #print('옵션 y axis range: {}'.format(axY.range[1]))
 
-                    # 최대값내의 의미가 그리기
-                    if 6.0 <= axY.range[1] < 7.1:
-                        mv_line[6].setValue(6.85)
-                        mv_line[7].setValue(0)
-                        mv_line[8].setValue(0)
-                    elif 7.1 <= axY.range[1] < 8.1:
-                        mv_line[6].setValue(6.85)
-                        mv_line[7].setValue(7.1)
-                        mv_line[8].setValue(0)
-                    elif axY.range[1] >= 8.1:
-                        mv_line[6].setValue(6.85)
-                        mv_line[7].setValue(7.1)
-                        mv_line[8].setValue(8.1)
-                    else:
-                        pass
+                # 최대값내의 의미가 그리기
+                if 6.0 <= axY.range[1] < 7.1:
+                    mv_line[6].setValue(6.85)
+                    mv_line[7].setValue(0)
+                    mv_line[8].setValue(0)
+                elif 7.1 <= axY.range[1] < 8.1:
+                    mv_line[6].setValue(6.85)
+                    mv_line[7].setValue(7.1)
+                    mv_line[8].setValue(0)
+                elif axY.range[1] >= 8.1:
+                    mv_line[6].setValue(6.85)
+                    mv_line[7].setValue(7.1)
+                    mv_line[8].setValue(8.1)
+                else:
+                    pass
             else:
                 pass            
 
