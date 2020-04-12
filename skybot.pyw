@@ -421,14 +421,14 @@ else:
 모니터번호 = 0
 nRowCount = int(행사가갯수)
 
+now = datetime.datetime.now()        
+nowDate = now.strftime('%Y-%m-%d')
+current_str = now.strftime('%H:%M:%S')
+
 today = datetime.date.today()
 now_Month = today.strftime('%Y%m')
 today_str = today.strftime('%Y%m%d')
 today_title = today.strftime('%Y-%m-%d')
-
-now = datetime.datetime.now()        
-nowDate = now.strftime('%Y-%m-%d')
-current_str = now.strftime('%H:%M:%S')
 
 yesterday = today - datetime.timedelta(1)
 yesterday_str = yesterday.strftime('%Y%m%d')
