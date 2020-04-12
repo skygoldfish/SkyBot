@@ -521,9 +521,9 @@ nowDate = now.strftime('%Y-%m-%d')
 yesterday = today - datetime.timedelta(1)
 yesterday_str = yesterday.strftime('%Y%m%d')
 
-current_month = 0
-next_month = 0
-month_after_next = 0
+current_month = int(CURRENT_MONTH[4:6])
+next_month = int(NEXT_MONTH[4:6])
+month_after_next = int(MONTH_AFTER_NEXT[4:6])
 
 t2301_month_info = ''
 t2835_month_info = ''
@@ -3222,7 +3222,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global 모니터번호
         
-        global MANGI_YAGAN, current_month, next_month, month_after_next, TARGET_MONTH_SELECT, MONTH_FIRSTDAY
+        global MANGI_YAGAN, TARGET_MONTH_SELECT, MONTH_FIRSTDAY
         global cm_option_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, fut_code
         global overnight, kse_start_hour, ovc_start_hour
         
@@ -3265,10 +3265,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         nowDate = now.strftime('%Y-%m-%d')
         current_str = dt.strftime('%H:%M:%S')
-
-        current_month = int(CURRENT_MONTH[4:6])
-        next_month = int(NEXT_MONTH[4:6])
-        month_after_next = int(MONTH_AFTER_NEXT[4:6])
 
         if 4 < int(current_str[0:2]) < 야간선물_기준시간:
 
@@ -22868,6 +22864,43 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             화면_BigChart.overnight = False
         else:
             화면_BigChart.overnight = True
+
+        if not 화면_BigChart.overnight:
+
+            if TARGET_MONTH_SELECT == 1:
+
+                cm_option_title = repr(current_month) + '월 만기 주간 Big Chart'
+
+            elif TARGET_MONTH_SELECT == 2:
+
+                cm_option_title = repr(next_month) + '월 만기 주간 Big Chart'
+            else:
+                cm_option_title = repr(month_after_next) + '월 만기 주간 Big Chart'
+        else:
+            if MANGI_YAGAN == 'YES':
+
+                if TARGET_MONTH_SELECT == 1:
+
+                    cm_option_title = repr(next_month) + '월 만기 야간 Big Chart'
+
+                elif TARGET_MONTH_SELECT == 2:
+
+                    cm_option_title = repr(month_after_next) + '월 만기 야간 Big Chart'
+                else:
+                    pass
+            else:
+                if TARGET_MONTH_SELECT == 1:
+
+                    cm_option_title = repr(current_month) + '월 만기 야간 Big Chart'
+
+                elif TARGET_MONTH_SELECT == 2:
+
+                    cm_option_title = repr(next_month) + '월 만기 야간 Big Chart'
+
+                else:
+                    cm_option_title = repr(month_after_next) + '월 만기 야간 Big Chart'
+
+        self.setWindowTitle(cm_option_title)
 
         if 화면_BigChart.overnight:
 
