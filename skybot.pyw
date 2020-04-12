@@ -3936,16 +3936,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if overnight:
 
-            self.comboBox1.addItems(['1. 선물체결', '2. 옵션체결', '3. None', '4. 양합양차', '5. 선물가격', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            self.comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ None', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ'])
             self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-            self.comboBox2.addItems(['1. 옵션체결', '2. None', '3. 선물체결', '4. 양합양차', '5. 옵션가격', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            self.comboBox2.addItems(['⓵ 옵션체결', '⓶ None', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ'])
             self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
         else:
-            self.comboBox1.addItems(['1. 선물체결', '2. 옵션체결', '3. 옵션미결', '4. 양합양차', '5. 선물가격', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            self.comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션미결', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ'])
             self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-            self.comboBox2.addItems(['1. 옵션체결', '2. 옵션미결', '3. 선물체결', '4. 양합양차', '5. 옵션가격', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            self.comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션미결', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ'])
             self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
@@ -22867,20 +22867,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             화면_BigChart.overnight = False
         else:
-            화면_BigChart.overnight = True           
+            화면_BigChart.overnight = True
 
         if 화면_BigChart.overnight:
 
-            self.comboBox1.addItems(['1. 선물체결 Plot', '2. 옵션체결 Plot', '3. None', '4. 양합양차 Plot', '5. 선물가격 Plot', '6. S&P 500 Plot', '7. DOW Plot', '8. NASDAQ Plot'])
+            self.comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ None', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ'])
             self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-            self.comboBox2.addItems(['1. 옵션체결 Plot', '2. None', '3. 선물체결 Plot', '4. 양합양차 Plot', '5. 옵션가격 Plot', '6. S&P 500 Plot', '7. DOW Plot', '8. NASDAQ Plot'])
+            self.comboBox2.addItems(['⓵ 옵션체결', '⓶ None', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ'])
             self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
         else:
-            self.comboBox1.addItems(['1. 선물체결 Plot', '2. 옵션체결 Plot', '3. 옵션미결 Plot', '4. 양합양차 Plot', '5. 선물가격 Plot', '6. S&P 500 Plot', '7. DOW Plot', '8. NASDAQ Plot'])
+            self.comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션미결', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ'])
             self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-            self.comboBox2.addItems(['1. 옵션체결 Plot', '2. 옵션미결 Plot', '3. 선물체결 Plot', '4. 양합양차 Plot', '5. 옵션가격 Plot', '6. S&P 500 Plot', '7. DOW Plot', '8. NASDAQ Plot'])
+            self.comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션미결', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ'])
             self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
