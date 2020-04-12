@@ -1,2 +1,0 @@
-# UI Select = Horizontal_view.ui  or  Vertical_view.ui or Option_Full_view.ui
-UI = Option_Full_view.ui
