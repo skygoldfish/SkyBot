@@ -3228,7 +3228,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         global MANGI_YAGAN, TARGET_MONTH_SELECT, MONTH_FIRSTDAY
         global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, fut_code
-        global overnight, KSE_START_HOUR, OVC_START_HOUR
+        global KSE_START_HOUR, OVC_START_HOUR
         
         self.상태그림 = ['▼', '▲']
         self.상태문자 = ['매도', '대기', '매수']
@@ -3265,59 +3265,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.showMaximized()
 
-        dt = datetime.datetime.now()
-        
-        nowDate = now.strftime('%Y-%m-%d')
-        current_str = dt.strftime('%H:%M:%S')
+        if TARGET_MONTH_SELECT == 1:
 
-        if 4 < int(current_str[0:2]) < 야간선물_기준시간:
+            if os.path.exists('SkyBot_CM.exe'):
 
-            if TARGET_MONTH_SELECT == 1:
-
-                if os.path.exists('SkyBot_CM.exe'):
-
-                    buildtime = time.ctime(os.path.getmtime('SkyBot_CM.exe'))
-                else:
-                    buildtime = time.ctime(os.path.getmtime(__file__))
-
-            elif TARGET_MONTH_SELECT == 2:
-
-                if os.path.exists('SkyBot_NM.exe'):
-
-                    buildtime = time.ctime(os.path.getmtime('SkyBot_NM.exe'))
-                else:
-                    buildtime = time.ctime(os.path.getmtime(__file__))
-
+                buildtime = time.ctime(os.path.getmtime('SkyBot_CM.exe'))
             else:
-                if os.path.exists('SkyBot_MAN.exe'):
+                buildtime = time.ctime(os.path.getmtime(__file__))
 
-                    buildtime = time.ctime(os.path.getmtime('SkyBot_MAN.exe'))
-                else:
-                    buildtime = time.ctime(os.path.getmtime(__file__))
+        elif TARGET_MONTH_SELECT == 2:
+
+            if os.path.exists('SkyBot_NM.exe'):
+
+                buildtime = time.ctime(os.path.getmtime('SkyBot_NM.exe'))
+            else:
+                buildtime = time.ctime(os.path.getmtime(__file__))
+
         else:
+            if os.path.exists('SkyBot_MAN.exe'):
 
-            if TARGET_MONTH_SELECT == 1:
-
-                if os.path.exists('SkyBot_CM.exe'):
-
-                    buildtime = time.ctime(os.path.getmtime('SkyBot_CM.exe'))
-                else:
-                    buildtime = time.ctime(os.path.getmtime(__file__))
-
-            elif TARGET_MONTH_SELECT == 2:
-
-                if os.path.exists('SkyBot_NM.exe'):
-
-                    buildtime = time.ctime(os.path.getmtime('SkyBot_NM.exe'))
-                else:
-                    buildtime = time.ctime(os.path.getmtime(__file__))
-
+                buildtime = time.ctime(os.path.getmtime('SkyBot_MAN.exe'))
             else:
-                if os.path.exists('SkyBot_MAN.exe'):
-
-                    buildtime = time.ctime(os.path.getmtime('SkyBot_MAN.exe'))
-                else:
-                    buildtime = time.ctime(os.path.getmtime(__file__))
+                buildtime = time.ctime(os.path.getmtime(__file__))
         
         #self.telegram_flag = True
         self.pushButton_remove.setStyleSheet("background-color: lightGray")
@@ -3376,7 +3345,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.setWindowTitle(widget_title)
         
-        # 사용할 쓰레드 등록
         # 쓰레드 시작은 start(), 종료는 terminate()
         self.t8416_callworker = t8416_Call_Worker()
         self.t8416_callworker.finished.connect(self.t8416_call_request)
