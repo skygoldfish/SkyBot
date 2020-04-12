@@ -22821,7 +22821,7 @@ class bigchart_update_worker(QThread):
 Ui_BigChart, QtBaseClass_BigChart = uic.loadUiType(UI_DIR+"BigChart.ui")
 class 화면_BigChart(QDialog, Ui_BigChart):
 
-    bigchart_on = False
+    bigchart = False
     
     def __init__(self, parent=None):
         super(화면_BigChart, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)     
@@ -22829,7 +22829,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.setupUi(self)
 
         self.parent = parent
-        화면_BigChart.bigchart_on = True
+        화면_BigChart.bigchart = True
 
         self.screen_update_worker = bigchart_update_worker()
         self.screen_update_worker.finished.connect(self.update_bigchart)
@@ -22873,7 +22873,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
     def closeEvent(self,event):
 
-        화면_BigChart.bigchart_on = False
+        화면_BigChart.bigchart = False
 
         if self.screen_update_worker.isRunning():
 
