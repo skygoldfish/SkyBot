@@ -84,8 +84,8 @@ with open('control_info.txt', mode='r') as control_file:
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
-    kse_start_hour = int(temp[4])
-    #print('kse_start_hour =', kse_start_hour)
+    KSE_START_HOUR = int(temp[4])
+    #print('KSE_START_HOUR =', KSE_START_HOUR)
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
@@ -421,13 +421,38 @@ else:
 모니터번호 = 0
 nRowCount = int(행사가갯수)
 
+today = datetime.date.today()
+now_Month = today.strftime('%Y%m')
+today_str = today.strftime('%Y%m%d')
+today_title = today.strftime('%Y-%m-%d')
+
+now = datetime.datetime.now()        
+nowDate = now.strftime('%Y-%m-%d')
+
+yesterday = today - datetime.timedelta(1)
+yesterday_str = yesterday.strftime('%Y%m%d')
+
+current_month = int(CURRENT_MONTH[4:6])
+next_month = int(NEXT_MONTH[4:6])
+month_after_next = int(MONTH_AFTER_NEXT[4:6])
+
+dt = datetime.datetime.now()
+current_str = dt.strftime('%H:%M:%S')
+
+야간선물_기준시간 = 17
+
+if 4 < int(current_str[0:2]) < 야간선물_기준시간:
+    overnight = False
+else:
+    overnight = True
+
 server_date = ''
 server_time = ''
 system_server_timegap = 0
 
 telegram_toggle = True
 
-ovc_start_hour = kse_start_hour - 1
+OVC_START_HOUR = KSE_START_HOUR - 1
 
 시스템시간 = 0
 서버시간 = 0
@@ -509,21 +534,6 @@ if UI_STYLE == 'Vertical_view.ui':
     plot4_kp200_curve = None
 else:
     pass
-
-today = datetime.date.today()
-now_Month = today.strftime('%Y%m')
-today_str = today.strftime('%Y%m%d')
-today_str_title = today.strftime('%Y-%m-%d')
-
-now = datetime.datetime.now()        
-nowDate = now.strftime('%Y-%m-%d')
-
-yesterday = today - datetime.timedelta(1)
-yesterday_str = yesterday.strftime('%Y%m%d')
-
-current_month = int(CURRENT_MONTH[4:6])
-next_month = int(NEXT_MONTH[4:6])
-month_after_next = int(MONTH_AFTER_NEXT[4:6])
 
 t2301_month_info = ''
 t2835_month_info = ''
@@ -674,8 +684,6 @@ OVC_체결시간 = '000000'
 
 night_time = 0
 
-야간선물_기준시간 = 17
-
 선물_전저 = 0
 선물_전고 = 0
 선물_종가 = 0
@@ -752,7 +760,7 @@ every_5min = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
 receive_real_ovc = False
 receive_quote = False
 
-cm_option_title = ''
+widget_title = ''
 
 FUT_FOREIGNER_거래대금순매수 = 0
 FUT_RETAIL_거래대금순매수 = 0
@@ -971,8 +979,6 @@ put_피봇_node_list = []
 put_시가_node_list = []
 put_저가_node_list = []
 put_고가_node_list = []
-
-overnight = False
 
 call_scroll_begin_position = 0
 call_scroll_end_position = 0
@@ -3223,8 +3229,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 모니터번호
         
         global MANGI_YAGAN, TARGET_MONTH_SELECT, MONTH_FIRSTDAY
-        global cm_option_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, fut_code
-        global overnight, kse_start_hour, ovc_start_hour
+        global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, fut_code
+        global overnight, KSE_START_HOUR, OVC_START_HOUR
         
         self.상태그림 = ['▼', '▲']
         self.상태문자 = ['매도', '대기', '매수']
@@ -3318,61 +3324,59 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #self.telegram_flag = True
         self.pushButton_remove.setStyleSheet("background-color: lightGray")
 
-        if 4 < int(current_str[0:2]) < 야간선물_기준시간:
+        if not overnight:
 
             if TARGET_MONTH_SELECT == 1:
 
-                cm_option_title = repr(current_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
+                widget_title = repr(current_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
                 ToTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
 
             elif TARGET_MONTH_SELECT == 2:
 
-                cm_option_title = repr(next_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
+                widget_title = repr(next_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
                 ToTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
 
             else:
-                cm_option_title = repr(month_after_next) + '월 만기 주간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
+                widget_title = repr(month_after_next) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
                 ToTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
         else:
-            overnight = True
-
-            kse_start_hour = 18            
+            KSE_START_HOUR = 18            
 
             if MANGI_YAGAN == 'YES':
 
                 if TARGET_MONTH_SELECT == 1:
 
-                    cm_option_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
+                    widget_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
                     ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
 
                     print('next_month =', next_month)
 
                 elif TARGET_MONTH_SELECT == 2:
 
-                    cm_option_title = repr(month_after_next) + '월 만기 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
+                    widget_title = repr(month_after_next) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
                     ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
                 else:
                     pass
             else:
                 if TARGET_MONTH_SELECT == 1:
 
-                    cm_option_title = repr(current_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
+                    widget_title = repr(current_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
                     ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
 
                 elif TARGET_MONTH_SELECT == 2:
 
-                    cm_option_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
+                    widget_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
                     ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
 
                 else:
-                    cm_option_title = repr(month_after_next) + '월 만기 야간 선물옵션 전광판' + '(' + today_str_title + ')' + ' build : ' + buildtime
+                    widget_title = repr(month_after_next) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
                     ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
 
-        ovc_start_hour = kse_start_hour - 1 
+        OVC_START_HOUR = KSE_START_HOUR - 1 
 
-        print('장시작 준비시간 =', ovc_start_hour)
+        print('장시작 준비시간 =', OVC_START_HOUR)
 
-        self.setWindowTitle(cm_option_title)
+        self.setWindowTitle(widget_title)
         
         # 사용할 쓰레드 등록
         # 쓰레드 시작은 start(), 종료는 terminate()
@@ -7544,7 +7548,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         now = time.localtime()
         times = "%04d-%02d-%02d-%02d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
         
-        hwnd = win32gui.FindWindow(None, cm_option_title)
+        hwnd = win32gui.FindWindow(None, widget_title)
         win32gui.SetForegroundWindow(hwnd)
         dimensions = win32gui.GetWindowRect(hwnd)
         img = ImageGrab.grab(dimensions)
@@ -20047,7 +20051,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     '''
                     # 서버시간과 동기를 위한 delta time 계산
-                    time_delta = 시스템시간 - ((kse_start_hour - 1) * 3600 + 50 * 60 + 0)
+                    time_delta = 시스템시간 - ((KSE_START_HOUR - 1) * 3600 + 50 * 60 + 0)
 
                     if time_delta > 0:
                         str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 빠릅니다.\r'.format(\
@@ -20101,7 +20105,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     '''
                     # 서버시간과 동기를 위한 delta time 계산
-                    time_delta = 시스템시간 - (kse_start_hour * 3600 + 0 * 60 + 0)
+                    time_delta = 시스템시간 - (KSE_START_HOUR * 3600 + 0 * 60 + 0)
 
                     if time_delta > 0:
                         str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 빠릅니다.\r'.format(dt.hour, dt.minute,
@@ -20432,7 +20436,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif szTrCode == 'YOC':
 
-                if int(result['예상체결시간'][0:2]) == (kse_start_hour - 1) and int(result['예상체결시간'][2:4]) == 59 and \
+                if int(result['예상체결시간'][0:2]) == (KSE_START_HOUR - 1) and int(result['예상체결시간'][2:4]) == 59 and \
                     (int(result['예상체결시간'][4:6]) == 58 or int(result['예상체결시간'][4:6]) == 59):
 
                     # 지수옵션 예상체결 요청취소(안하면 시작시 지연발생함)
@@ -21596,13 +21600,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        x_idx = (nighttime - kse_start_hour) * 60 + int(result['체결시간'][2:4]) + 1
+                        x_idx = (nighttime - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
                     else:
                         x_idx = 1
                 else:
 
                     if result['체결시간'] != '':
-                        x_idx = (int(result['체결시간'][0:2]) - kse_start_hour) * 60 + int(result['체결시간'][2:4]) + 1
+                        x_idx = (int(result['체결시간'][0:2]) - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
                     else:
                         x_idx = 1
 
@@ -21673,13 +21677,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        opt_x_idx = (nighttime - kse_start_hour) * 60 + int(result['체결시간'][2:4]) + 1
+                        opt_x_idx = (nighttime - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
                     else:
                         opt_x_idx = 1
                 else:
 
                     if result['체결시간'] != '':
-                        opt_x_idx = (int(result['체결시간'][0:2]) - kse_start_hour) * 60 + int(result['체결시간'][2:4]) + 1
+                        opt_x_idx = (int(result['체결시간'][0:2]) - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
                     else:
                         opt_x_idx = 1
 
@@ -22009,13 +22013,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        ovc_x_idx = (night_time - (kse_start_hour - 1)) * 60 + int(result['체결시간_한국'][2:4]) + 1
+                        ovc_x_idx = (night_time - (KSE_START_HOUR - 1)) * 60 + int(result['체결시간_한국'][2:4]) + 1
                     else:
                         ovc_x_idx = 1
 
                     if ovc_x_idx < 0:
 
-                        str = '{0}--{1}'.format(night_time, kse_start_hour)
+                        str = '{0}--{1}'.format(night_time, KSE_START_HOUR)
 
                         self.label_atm.setText(str)
                     else:
@@ -22023,7 +22027,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     # 해외선물 개장시간은 국내시장의 1시간 전
                     if result['체결시간_한국'] != '':
-                        ovc_x_idx = (int(result['체결시간_한국'][0:2]) - ovc_start_hour) * 60 + int(result['체결시간_한국'][2:4]) + 1
+                        ovc_x_idx = (int(result['체결시간_한국'][0:2]) - OVC_START_HOUR) * 60 + int(result['체결시간_한국'][2:4]) + 1
                     else:
                         ovc_x_idx = 1    
 
@@ -22839,8 +22843,7 @@ class bigchart_update_worker(QThread):
 Ui_BigChart, QtBaseClass_BigChart = uic.loadUiType(UI_DIR+"BigChart.ui")
 class 화면_BigChart(QDialog, Ui_BigChart):
 
-    bigchart = False
-    overnight = False    
+    bigchart = False   
     
     def __init__(self, parent=None):
         super(화면_BigChart, self).__init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)     
@@ -22856,53 +22859,44 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox1.setStyleSheet("background-color: white")
         self.comboBox2.setStyleSheet("background-color: white")
         
-        dt = datetime.datetime.now()
-        current_str = dt.strftime('%H:%M:%S')
-
-        if 4 < int(current_str[0:2]) < 야간선물_기준시간:
-
-            화면_BigChart.overnight = False
-        else:
-            화면_BigChart.overnight = True
-
-        if not 화면_BigChart.overnight:
+        if not overnight:
 
             if TARGET_MONTH_SELECT == 1:
 
-                cm_option_title = repr(current_month) + '월 만기 주간 Big Chart'
+                widget_title = repr(current_month) + '월 만기 주간 Big Chart'
 
             elif TARGET_MONTH_SELECT == 2:
 
-                cm_option_title = repr(next_month) + '월 만기 주간 Big Chart'
+                widget_title = repr(next_month) + '월 만기 주간 Big Chart'
             else:
-                cm_option_title = repr(month_after_next) + '월 만기 주간 Big Chart'
+                widget_title = repr(month_after_next) + '월 만기 주간 Big Chart'
         else:
             if MANGI_YAGAN == 'YES':
 
                 if TARGET_MONTH_SELECT == 1:
 
-                    cm_option_title = repr(next_month) + '월 만기 야간 Big Chart'
+                    widget_title = repr(next_month) + '월 만기 야간 Big Chart'
 
                 elif TARGET_MONTH_SELECT == 2:
 
-                    cm_option_title = repr(month_after_next) + '월 만기 야간 Big Chart'
+                    widget_title = repr(month_after_next) + '월 만기 야간 Big Chart'
                 else:
                     pass
             else:
                 if TARGET_MONTH_SELECT == 1:
 
-                    cm_option_title = repr(current_month) + '월 만기 야간 Big Chart'
+                    widget_title = repr(current_month) + '월 만기 야간 Big Chart'
 
                 elif TARGET_MONTH_SELECT == 2:
 
-                    cm_option_title = repr(next_month) + '월 만기 야간 Big Chart'
+                    widget_title = repr(next_month) + '월 만기 야간 Big Chart'
 
                 else:
-                    cm_option_title = repr(month_after_next) + '월 만기 야간 Big Chart'
+                    widget_title = repr(month_after_next) + '월 만기 야간 Big Chart'
 
-        self.setWindowTitle(cm_option_title)
+        self.setWindowTitle(widget_title)
 
-        if 화면_BigChart.overnight:
+        if overnight:
 
             self.comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ None', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ'])
             self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
@@ -23036,7 +23030,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
             put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))            
 
-        if 화면_BigChart.overnight:
+        if overnight:
             # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
             self.Plot1.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
             plot1_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
@@ -23573,7 +23567,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif comboindex2 == 1:
                         
-            if not 화면_BigChart.overnight:
+            if not overnight:
 
                 plot2_call_volume_curve.clear()
                 plot2_put_volume_curve.clear()
@@ -24014,7 +24008,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex1 == 2:
 
-                if not 화면_BigChart.overnight:
+                if not overnight:
                     plot1_call_oi_curve.setData(curve1_plot_data)
                     plot1_put_oi_curve.setData(curve2_plot_data)
                 else:
@@ -24175,7 +24169,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 1:
 
-                if not 화면_BigChart.overnight:
+                if not overnight:
                     plot2_call_oi_curve.setData(curve4_plot_data)
                     plot2_put_oi_curve.setData(curve5_plot_data)
                 else:
