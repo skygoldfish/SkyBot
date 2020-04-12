@@ -2500,13 +2500,13 @@ class 화면_뉴스(QDialog, Ui_뉴스):
 
         화면_뉴스.news_on = False
         self.news.UnadviseRealData()
-
+    '''
     @classmethod
     def testcode(cls, str):
 
         print(str) 
         #cls.textBrowser.append(str)   
-
+    '''
 
 Ui_주문테스트, QtBaseClass_주문테스트 = uic.loadUiType(UI_DIR+"주문테스트.ui")
 class 화면_주문테스트(QDialog, Ui_주문테스트):
@@ -7135,6 +7135,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.label_msg.setText(str)
         
         # 클래스간 데이타 교환
+        '''
         print(화면_뉴스.news_on)
 
         if 화면_뉴스.news_on:
@@ -7143,6 +7144,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             화면_뉴스.testcode(str)
         else:
             pass
+        '''
 
         # 콜 매수 OneWay장
         if call_ms_oneway:
@@ -22791,16 +22793,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def closeEvent(self,event):
 
-        pass
-        '''
-        result = QMessageBox.question(self,"옵션전광판 종료","정말 종료하시겠습니까 ?", QMessageBox.Yes| QMessageBox.No)
-
-        if result == QMessageBox.Yes:
-            event.accept()
+        if self.screen_update_worker.isRunning():
+            
+            self.screen_update_worker.terminate()
         else:
-            event.ignore()
-        '''
+            pass
 
+########################################################################################################################
+# Big Chart Update Thread
+########################################################################################################################
+class bigchart_update_worker(QThread):
+
+    finished = pyqtSignal(str)
+
+    def run(self):
+
+        while True:
+
+            str = 'Big Chart Update...'                
+
+            self.finished.emit(str)
+            self.msleep(500)
+
+########################################################################################################################
+# Big Chart UI Class
+########################################################################################################################
 Ui_BigChart, QtBaseClass_BigChart = uic.loadUiType(UI_DIR+"BigChart.ui")
 class 화면_BigChart(QDialog, Ui_BigChart):
 
@@ -22814,9 +22831,55 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.parent = parent
         화면_BigChart.bigchart_on = True
 
+        self.screen_update_worker = bigchart_update_worker()
+        self.screen_update_worker.finished.connect(self.update_bigchart)
+
+        self.comboBox1.setStyleSheet("background-color: white")
+        self.comboBox2.setStyleSheet("background-color: white")            
+
+        if overnight:
+
+            self.comboBox1.addItems(['1. FV-Plot', '2. OV-Plot', '3. None', '4. HC-Plot', '5. FP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
+
+            self.comboBox2.addItems(['1. OV-Plot', '2. None', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
+
+        else:
+            self.comboBox1.addItems(['1. FV-Plot', '2. OV-Plot', '3. OO-Plot', '4. HC-Plot', '5. FP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
+
+            self.comboBox2.addItems(['1. OV-Plot', '2. OO-Plot', '3. FV-Plot', '4. HC-Plot', '5. OP-Plot', '6. S&P 500', '7. DOW', '8. NASDAQ'])
+            self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
+
+        self.screen_update_worker.start()
+        self.screen_update_worker.daemon = True
+
+    def cb1_selectionChanged(self):
+        pass
+
+    def cb2_selectionChanged(self):
+        pass
+
+    @pyqtSlot(str)
+    def update_bigchart(self):
+
+        dt = datetime.datetime.now()
+        start_time = timeit.default_timer()
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] BigChart Update Time : {3:0.2f} ms...\r'.format(\
+            dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
+        print(str)
+
     def closeEvent(self,event):
 
         화면_BigChart.bigchart_on = False
+
+        if self.screen_update_worker.isRunning():
+
+            self.screen_update_worker.terminate()
+        else:
+            pass
 
 ########################################################################################################################
 # 메인
