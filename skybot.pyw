@@ -4189,6 +4189,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.OPT_HO = OH0(parent=self)
         self.FUT_REAL = FC0(parent=self)
         self.FUT_HO = FH0(parent=self) 
+
+        dt = datetime.datetime.now() 
         
         if int(current_str[0:2]) < 12:
             str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Morning! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
@@ -6173,15 +6175,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 데이타 가져오기
                     if index == option_pairs_count - 1:
                         
-                        mv_line[0].setValue(1.2)
-                        mv_line[1].setValue(2.5)
-                        mv_line[2].setValue(3.5)
-                        mv_line[3].setValue(4.85)
-                        mv_line[4].setValue(5.1)
-                        mv_line[5].setValue(5.5)
-                        mv_line[6].setValue(0)
-                        mv_line[7].setValue(0)
-                        mv_line[8].setValue(0)
+                        if comboindex2 == 4:
+
+                            mv_line[0].setValue(1.2)
+                            mv_line[1].setValue(2.5)
+                            mv_line[2].setValue(3.5)
+                            mv_line[3].setValue(4.85)
+                            mv_line[4].setValue(5.1)
+                            mv_line[5].setValue(5.5)
+                            mv_line[6].setValue(0)
+                            mv_line[7].setValue(0)
+                            mv_line[8].setValue(0)
+                        else:
+                            pass
 
                         curve1_plot_data = infos[2]
                         curve2_plot_data = infos[3] 
@@ -6523,7 +6529,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if dow_고가 > 0:
                         plot2_ovc_high_line.setValue(dow_고가)
                     else:
-                        pass                 
+                        pass                    
+
+                    print('dow curve4_plot_data =', curve4_plot_data)                 
                     
                     plot2_dow_curve.setData(curve4_plot_data) 
 
