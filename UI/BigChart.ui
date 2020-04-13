@@ -23,7 +23,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <widget class="QComboBox" name="comboBox1">
+    <widget class="QComboBox" name="bc_comboBox1">
      <property name="font">
       <font>
        <weight>50</weight>
@@ -36,7 +36,7 @@
     </widget>
    </item>
    <item row="1" column="0">
-    <widget class="PlotWidget" name="Plot1">
+    <widget class="PlotWidget" name="bc_Plot1">
      <property name="font">
       <font>
        <family>Consolas</family>
@@ -57,7 +57,7 @@
     </widget>
    </item>
    <item row="2" column="0">
-    <widget class="QComboBox" name="comboBox2">
+    <widget class="QComboBox" name="bc_comboBox2">
      <property name="font">
       <font>
        <weight>50</weight>
@@ -70,7 +70,7 @@
     </widget>
    </item>
    <item row="3" column="0">
-    <widget class="PlotWidget" name="Plot2">
+    <widget class="PlotWidget" name="bc_Plot2">
      <property name="font">
       <font>
        <family>Consolas</family>
