@@ -1050,6 +1050,9 @@ comboindex2 = 0
 comboindex3 = 0
 comboindex4 = 0
 
+bc_comboindex1 = 0
+bc_comboindex2 = 0
+
 콜현재가 = ''
 풋현재가 = ''
 선물현재가 = 0
@@ -23758,7 +23761,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     
     def cb1_selectionChanged(self):
 
-        global comboindex1
+        global bc_comboindex1
         global bc_plot1_fut_price_curve, bc_plot1_kp200_curve, bc_plot1_fut_volume_curve, bc_plot1_fut_volume_plus_curve, bc_plot1_fut_volume_minus_curve
         global bc_plot1_call_volume_curve, bc_plot1_put_volume_curve
         global bc_plot1_call_oi_curve, bc_plot1_put_oi_curve
@@ -23766,9 +23769,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_고가
 
         txt = self.bc_comboBox1.currentText()
-        comboindex1 = self.bc_comboBox1.currentIndex()        
+        bc_comboindex1 = self.bc_comboBox1.currentIndex()        
 
-        if comboindex1 == 0:
+        if bc_comboindex1 == 0:
 
             bc_plot1_call_oi_curve.clear()
             bc_plot1_put_oi_curve.clear()
@@ -23808,7 +23811,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_ovc_low_line.setValue(0)
             bc_plot1_ovc_high_line.setValue(0)
 
-        elif comboindex1 == 1:            
+        elif bc_comboindex1 == 1:            
             
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -23847,7 +23850,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_ovc_low_line.setValue(0)
             bc_plot1_ovc_high_line.setValue(0)
 
-        elif comboindex1 == 2:
+        elif bc_comboindex1 == 2:
             
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -23887,7 +23890,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_ovc_low_line.setValue(0)
             bc_plot1_ovc_high_line.setValue(0) 
         
-        elif comboindex1 == 3:
+        elif bc_comboindex1 == 3:
 
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -23927,7 +23930,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_ovc_low_line.setValue(0)
             bc_plot1_ovc_high_line.setValue(0)            
 
-        elif comboindex1 == 4:
+        elif bc_comboindex1 == 4:
             
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -24010,7 +24013,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             #print('선물_종가 =', 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_고가)
 
-        elif comboindex1 == 5:
+        elif bc_comboindex1 == 5:
 
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -24079,7 +24082,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 bc_plot1_ovc_close_line.setValue(SP500_LAST_CLOSE)
 
-        elif comboindex1 == 6:
+        elif bc_comboindex1 == 6:
 
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -24148,7 +24151,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 bc_plot1_ovc_close_line.setValue(DOW_LAST_CLOSE)           
 
-        elif comboindex1 == 7:
+        elif bc_comboindex1 == 7:
 
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -24221,16 +24224,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
     def cb2_selectionChanged(self):
 
-        global comboindex2
+        global bc_comboindex2
         global bc_call_curve, bc_put_curve, bc_plot2_fut_volume_curve, bc_plot2_fut_volume_plus_curve, bc_plot2_fut_volume_minus_curve
         global bc_plot2_call_volume_curve, bc_plot2_put_volume_curve
         global bc_plot2_call_oi_curve, bc_plot2_put_oi_curve
         global bc_plot2_two_sum_curve, bc_plot2_two_cha_curve
 
         txt = self.bc_comboBox2.currentText()
-        comboindex2 = self.bc_comboBox2.currentIndex()
+        bc_comboindex2 = self.bc_comboBox2.currentIndex()
 
-        if comboindex2 == 0:
+        if bc_comboindex2 == 0:
             
             bc_plot2_call_oi_curve.clear()
             bc_plot2_put_oi_curve.clear()
@@ -24263,7 +24266,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_hc_high_line.setValue(0)
             bc_plot2_hc_low_line.setValue(0)
 
-        elif comboindex2 == 1:
+        elif bc_comboindex2 == 1:
                         
             if not overnight:
 
@@ -24301,7 +24304,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass            
 
-        elif comboindex2 == 2:
+        elif bc_comboindex2 == 2:
 
             bc_plot2_call_oi_curve.clear()
             bc_plot2_put_oi_curve.clear()
@@ -24335,7 +24338,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_hc_high_line.setValue(0)
             bc_plot2_hc_low_line.setValue(0)
         
-        elif comboindex2 == 3:
+        elif bc_comboindex2 == 3:
 
             bc_plot2_call_oi_curve.clear()
             bc_plot2_put_oi_curve.clear()   
@@ -24369,7 +24372,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_hc_high_line.setValue(1.5)
             bc_plot2_hc_low_line.setValue(-1.5)
 
-        elif comboindex2 == 4:
+        elif bc_comboindex2 == 4:
 
             bc_plot2_call_oi_curve.clear()
             bc_plot2_put_oi_curve.clear()   
@@ -24407,7 +24410,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_mv_line[4].setValue(5.1)
             bc_mv_line[5].setValue(5.5)
 
-        elif comboindex2 == 5:
+        elif bc_comboindex2 == 5:
 
             bc_plot2_call_oi_curve.clear()
             bc_plot2_put_oi_curve.clear()   
@@ -24470,7 +24473,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 bc_plot2_ovc_close_line.setValue(SP500_LAST_CLOSE)           
 
-        elif comboindex2 == 6:
+        elif bc_comboindex2 == 6:
 
             bc_plot2_call_oi_curve.clear()
             bc_plot2_put_oi_curve.clear()   
@@ -24533,7 +24536,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 bc_plot2_ovc_close_line.setValue(DOW_LAST_CLOSE)             
 
-        elif comboindex2 == 7:
+        elif bc_comboindex2 == 7:
 
             bc_plot2_call_oi_curve.clear()
             bc_plot2_put_oi_curve.clear()   
@@ -24607,7 +24610,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if receive_real_ovc or market_service:
 
             # 옵션그래프 초기화 및 데이타 가져오기
-            if comboindex2 == 4:                            
+            if bc_comboindex2 == 4:                            
 
                 if selected_opt_list != old_selected_opt_list:
 
@@ -24680,7 +24683,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass            
 
             # Plot 1 x축 타임라인 그리기
-            if comboindex1 == 0 or comboindex1 == 4:
+            if bc_comboindex1 == 0 or bc_comboindex1 == 4:
 
                 bc_plot1_time_line.setValue(x_idx)
             else:
@@ -24690,20 +24693,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_time_line.setValue(opt_x_idx)
 
             # 선택된 plot1 그래프 그리기
-            if comboindex1 == 0:
+            if bc_comboindex1 == 0:
 
                 if fut_volume_power > 0:
                     bc_plot1_fut_volume_plus_curve.setData(curve1_plot_data)
                 else:
                     bc_plot1_fut_volume_minus_curve.setData(curve1_plot_data)
 
-            elif comboindex1 == 1:                      
+            elif bc_comboindex1 == 1:                      
 
                 bc_plot1_call_volume_curve.setData(curve1_plot_data)
                 bc_plot1_put_volume_curve.setData(curve2_plot_data)
                 bc_plot1_volume_cha_curve.setData(curve3_plot_data)
 
-            elif comboindex1 == 2:
+            elif bc_comboindex1 == 2:
 
                 if not overnight:
                     bc_plot1_call_oi_curve.setData(curve1_plot_data)
@@ -24711,12 +24714,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif comboindex1 == 3:
+            elif bc_comboindex1 == 3:
 
                 bc_plot1_two_sum_curve.setData(curve1_plot_data)
                 bc_plot1_two_cha_curve.setData(curve2_plot_data)
 
-            elif comboindex1 == 4:
+            elif bc_comboindex1 == 4:
 
                 bc_plot1_fut_jl_line.setValue(선물_전저)
                 bc_plot1_fut_jh_line.setValue(선물_전고)
@@ -24729,7 +24732,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot1_kp200_curve.setData(curve1_plot_data)
                 bc_plot1_fut_price_curve.setData(curve2_plot_data)
 
-            elif comboindex1 == 5:
+            elif bc_comboindex1 == 5:
 
                 bc_plot1_hc_high_line.setValue(sp500_전일종가)
                 bc_plot1_hc_low_line.setValue(sp500_전일종가)
@@ -24771,7 +24774,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot1_sp500_curve.setData(curve1_plot_data)
 
-            elif comboindex1 == 6:
+            elif bc_comboindex1 == 6:
 
                 bc_plot1_hc_high_line.setValue(dow_전일종가)
                 bc_plot1_hc_low_line.setValue(dow_전일종가)
@@ -24813,7 +24816,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 bc_plot1_dow_curve.setData(curve1_plot_data)
 
-            elif comboindex1 == 7:
+            elif bc_comboindex1 == 7:
 
                 bc_plot1_hc_high_line.setValue(nasdaq_전일종가)
                 bc_plot1_hc_low_line.setValue(nasdaq_전일종가)
@@ -24858,13 +24861,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass   
 
             # 선택된 plot2 그래프 그리기
-            if comboindex2 == 0:
+            if bc_comboindex2 == 0:
 
                 bc_plot2_call_volume_curve.setData(curve4_plot_data)
                 bc_plot2_put_volume_curve.setData(curve5_plot_data)  
                 bc_plot2_volume_cha_curve.setData(curve6_plot_data) 
 
-            elif comboindex2 == 1:
+            elif bc_comboindex2 == 1:
 
                 if not overnight:
                     bc_plot2_call_oi_curve.setData(curve4_plot_data)
@@ -24872,23 +24875,23 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass         
 
-            elif comboindex2 == 2:
+            elif bc_comboindex2 == 2:
 
                 if fut_volume_power > 0:
                     bc_plot2_fut_volume_plus_curve.setData(curve4_plot_data)
                 else:
                     bc_plot2_fut_volume_minus_curve.setData(curve4_plot_data)
 
-            elif comboindex2 == 3:
+            elif bc_comboindex2 == 3:
 
                 bc_plot2_two_sum_curve.setData(curve4_plot_data)
                 bc_plot2_two_cha_curve.setData(curve5_plot_data)
 
-            elif comboindex2 == 4:
+            elif bc_comboindex2 == 4:
 
                 pass
 
-            elif comboindex2 == 5:
+            elif bc_comboindex2 == 5:
 
                 bc_plot2_hc_high_line.setValue(sp500_전일종가)
                 bc_plot2_hc_low_line.setValue(sp500_전일종가)
@@ -24930,7 +24933,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 bc_plot2_sp500_curve.setData(curve4_plot_data) 
 
-            elif comboindex2 == 6: 
+            elif bc_comboindex2 == 6: 
 
                 bc_plot2_hc_high_line.setValue(dow_전일종가)
                 bc_plot2_hc_low_line.setValue(dow_전일종가)
@@ -24972,7 +24975,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
                 bc_plot2_dow_curve.setData(curve4_plot_data) 
 
-            elif comboindex2 == 7:
+            elif bc_comboindex2 == 7:
 
                 bc_plot2_hc_high_line.setValue(nasdaq_전일종가)
                 bc_plot2_hc_low_line.setValue(nasdaq_전일종가)
@@ -25031,7 +25034,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.bigchart_update_worker.terminate()
         else:
             pass
-        
+
 ########################################################################################################################
 # 메인
 ########################################################################################################################
