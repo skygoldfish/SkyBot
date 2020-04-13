@@ -3052,186 +3052,7 @@ class screen_update_worker(QThread):
 
             else:
                 return None, None, None, None, None, None, None, None
-'''                
-class screen_update_worker(QThread):
 
-    finished = pyqtSignal(dict)
-    
-    def run(self):
-        
-        while True:
-
-            data = {}
-
-            # atm index 중심으로 위,아래 25개 요청(총 51개)
-            #for actval in opt_actval[atm_index - 25:atm_index + 25]:
-            # 선택된 콜,풋 만으로 loop를 돌림
-            for actval in selected_opt_list:
-
-                data[actval] = self.get_data_infos(actval)
-            
-            self.finished.emit(data)  
-            self.msleep(500)
-
-    def get_data_infos(self, actval):
-
-        try:
-            index = opt_actval.index(actval)
-
-            call_curve_data = df_plotdata_call.iloc[index].values.tolist()
-            put_curve_data = df_plotdata_put.iloc[index].values.tolist()
-
-            # COMBO 1
-            if comboindex1 == 0:
-
-                curve1_plot_data = df_plotdata_fut_volume.iloc[0].values.tolist()
-                curve2_plot_data = None
-                curve3_plot_data = None
-
-            elif comboindex1 == 1:                             
-                
-                curve1_plot_data = df_plotdata_call_volume.iloc[0].values.tolist()
-                curve2_plot_data = df_plotdata_put_volume.iloc[0].values.tolist()
-                curve3_plot_data = df_plotdata_volume_cha.iloc[0].values.tolist()
-
-            elif comboindex1 == 2:
-                
-                curve1_plot_data = df_plotdata_call_oi.iloc[0].values.tolist()
-                curve2_plot_data = df_plotdata_put_oi.iloc[0].values.tolist() 
-                curve3_plot_data = None 
-
-            elif comboindex1 == 3:
-
-                curve1_plot_data = df_plotdata_two_sum.iloc[0].values.tolist()
-                curve2_plot_data = df_plotdata_two_cha.iloc[0].values.tolist()
-                curve3_plot_data = None  
-
-            elif comboindex1 == 4:     
-
-                curve1_plot_data = df_plotdata_kp200.iloc[0].values.tolist()
-                curve2_plot_data = df_plotdata_fut.iloc[0].values.tolist()
-                curve3_plot_data = None
-
-            elif comboindex1 == 5: 
-
-                curve1_plot_data = df_plotdata_sp500.iloc[0].values.tolist()
-                curve2_plot_data = None
-                curve3_plot_data = None
-
-            elif comboindex1 == 6: 
-
-                curve1_plot_data = df_plotdata_dow.iloc[0].values.tolist()
-                curve2_plot_data = None
-                curve3_plot_data = None
-
-            elif comboindex1 == 7: 
-
-                curve1_plot_data = df_plotdata_nasdaq.iloc[0].values.tolist()
-                curve2_plot_data = None
-                curve3_plot_data = None
-            else:
-                pass
-
-            # COMBO 2
-            if comboindex2 == 0:
-                
-                curve4_plot_data = df_plotdata_call_volume.iloc[0].values.tolist()
-                curve5_plot_data = df_plotdata_put_volume.iloc[0].values.tolist()
-                curve6_plot_data = df_plotdata_volume_cha.iloc[0].values.tolist()
-            
-            elif comboindex2 == 1:                
-                
-                curve4_plot_data = df_plotdata_call_oi.iloc[0].values.tolist()
-                curve5_plot_data = df_plotdata_put_oi.iloc[0].values.tolist()
-                curve6_plot_data = None 
-            
-            elif comboindex2 == 2:
-
-                curve4_plot_data = df_plotdata_fut_volume.iloc[0].values.tolist()
-                curve5_plot_data = None
-                curve6_plot_data = None  
-
-            elif comboindex2 == 3:
-
-                curve4_plot_data = df_plotdata_two_sum.iloc[0].values.tolist()
-                curve5_plot_data = df_plotdata_two_cha.iloc[0].values.tolist()
-                curve6_plot_data = None 
-
-            elif comboindex2 == 4:
-
-                curve4_plot_data = None
-                curve5_plot_data = None
-                curve6_plot_data = None
-
-            elif comboindex2 == 5:
-
-                curve4_plot_data = df_plotdata_sp500.iloc[0].values.tolist()
-                curve5_plot_data = None
-                curve6_plot_data = None 
-
-            elif comboindex2 == 6:
-
-                curve4_plot_data = df_plotdata_dow.iloc[0].values.tolist()
-                curve5_plot_data = None
-                curve6_plot_data = None 
-
-            elif comboindex2 == 7:
-
-                curve4_plot_data = df_plotdata_nasdaq.iloc[0].values.tolist()
-                curve5_plot_data = None
-                curve6_plot_data = None 
-            else:
-                pass
-            
-            if UI_STYLE == 'Vertical_view.ui':
-
-                # COMBO 3
-                if comboindex3 == 0:
-
-                    plot3_data = df_plotdata_dow.iloc[0].values.tolist()
-
-                elif comboindex3 == 1:                             
-
-                    plot3_data = df_plotdata_sp500.iloc[0].values.tolist()
-
-                elif comboindex3 == 2:
-
-                    plot3_data = df_plotdata_nasdaq.iloc[0].values.tolist()
-                else:
-                    pass
-
-                # COMBO 4
-                if comboindex4 == 0:
-
-                    plot4_1_data = df_plotdata_fut.iloc[0].values.tolist()
-                    plot4_2_data = df_plotdata_kp200.iloc[0].values.tolist()
-
-                elif comboindex4 == 1:                             
-
-                    plot4_1_data = df_plotdata_fut_volume.iloc[0].values.tolist()
-                    plot4_2_data = None
-                else:
-                    pass 
-            else:
-                pass
-            
-            if UI_STYLE == 'Vertical_view.ui':
-
-                return call_curve_data, put_curve_data, curve1_plot_data, curve2_plot_data, curve3_plot_data, curve4_plot_data, \
-                    curve5_plot_data, curve6_plot_data, plot3_data, plot4_1_data, plot4_2_data            
-            else:
-                return call_curve_data, put_curve_data, curve1_plot_data, curve2_plot_data, curve3_plot_data, curve4_plot_data, \
-                    curve5_plot_data, curve6_plot_data
-
-        except:
-
-            if UI_STYLE == 'Vertical_view.ui':
-
-                return None, None, None, None, None, None, None, None, None, None, None
-
-            else:
-                return None, None, None, None, None, None, None, None
-'''
 ########################################################################################################################
 
 ########################################################################################################################
@@ -23691,15 +23512,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def closeEvent(self,event):
 
-        print('main close event....\r')
-        '''
         if self.screen_update_worker.isRunning():
             
             self.screen_update_worker.terminate()
         else:
             pass
-        '''
-        pass
 
 ########################################################################################################################
 # Big Chart Update Thread
@@ -25215,7 +25032,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
         
-
 ########################################################################################################################
 # 메인
 ########################################################################################################################
