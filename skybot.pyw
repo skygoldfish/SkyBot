@@ -2896,8 +2896,6 @@ class screen_update_worker(QThread):
 
             data = {}
 
-            # atm index 중심으로 위,아래 25개 요청(총 51개)
-            #for actval in opt_actval[atm_index - 25:atm_index + 25]:
             # 선택된 콜,풋 만으로 loop를 돌림
             for actval in selected_opt_list:
 
@@ -6090,6 +6088,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global call_plot_data, put_plot_data
             global plot_data1, plot_data2, plot_data3, plot_data4, plot_data5, plot_data6, plot_data7
             global plot_data8, plot_data9, plot_data10, plot_data11, plot_data12, plot_data13
+            global selected_call, selected_put, selected_opt_list
 
             시스템시간 = dt.hour * 3600 + dt.minute * 60 + dt.second
             
@@ -6102,63 +6101,59 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if receive_real_ovc or market_service:
                 
                 self.label_clear(self.alternate_flag)
+
+                # 선택된 콜, 풋 검사
+                old_selected_opt_list = copy.deepcopy(selected_opt_list)
+
+                call_idx = []
+                put_idx = []
+                selected_opt_list = []
+
+                for i in range(option_pairs_count):
+
+                    if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
+                        call_idx.append(i)
+                        selected_opt_list.append(opt_actval[i])
+                    else:
+                        pass
+
+                    if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
+                        put_idx.append(i)
+                        selected_opt_list.append(opt_actval[i])
+                    else:
+                        pass
+
+                selected_call = call_idx                    
+                selected_put = put_idx
+
+                # 마지막 행사가 추가해야 쓰레드 정상동작함(?)
+                selected_opt_list.append(opt_actval[option_pairs_count-1])
+
+                if comboindex2 == 4 and selected_opt_list != old_selected_opt_list:
+
+                    # 전체 행사가 그래프 클리어
+                    for i in range(option_pairs_count):
+                        call_curve[i].clear()
+                        put_curve[i].clear()
+                else:
+                    pass   
                 
-                # 전체 데이타 가져오기
+                # 전체 행사가 검색 및 저장, 그리기
                 for actval, infos in data.items():
 
                     index = opt_actval.index(actval)
 
                     # 옵션그래프 초기화 및 옵션데이타 가져오기
-                    #if comboindex2 == 4:
+                    if comboindex2 == 4 and selected_opt_list == old_selected_opt_list:
 
-                    global selected_call, selected_put, selected_opt_list
-
-                    old_selected_opt_list = copy.deepcopy(selected_opt_list)
-
-                    # 콜, 풋 그래프 선택
-                    call_idx = []
-                    put_idx = []
-                    selected_opt_list = []
-
-                    for i in range(option_pairs_count):
-
-                        if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
-                            call_idx.append(i)
-                            selected_opt_list.append(opt_actval[i])
-                        else:
-                            pass
-
-                        if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
-                            put_idx.append(i)
-                            selected_opt_list.append(opt_actval[i])
-                        else:
-                            pass
-
-                    selected_call = call_idx                    
-                    selected_put = put_idx
-
-                    # 마지막 행사가 추가해야 쓰레드 정상동작함(?)
-                    selected_opt_list.append(opt_actval[option_pairs_count-1])        
-
-                    if comboindex2 == 4:
-
-                        if selected_opt_list != old_selected_opt_list:
-
-                            # 전체 행사가 그래프 클리어
-                            for i in range(option_pairs_count):
-                                call_curve[i].clear()
-                                put_curve[i].clear()
-                        else:
-                            # 선택된 행사가 그래프 클리어
-                            for actval in selected_opt_list:
-
-                                #index = opt_actval.index(actval)
-                                call_curve[index].clear()
-                                put_curve[index].clear()
+                        # 선택된 행사가 그래프 클리어
+                        for actval in selected_opt_list:
+                            call_curve[index].clear()
+                            put_curve[index].clear()
                     else:
-                        pass                    
+                        pass                
 
-                    # 선택된 콜그래프 그리기
+                    # 선택된 콜그래프 저장 및 그리기
                     for i in range(len(selected_call)):
 
                         if index == selected_call[i]:
@@ -6172,7 +6167,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass                    
 
-                    # 선택된 풋그래프 그리기
+                    # 선택된 풋그래프 저장 및 그리기
                     for i in range(len(selected_put)):
 
                         if index == selected_put[i]:
@@ -6185,10 +6180,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
                         else:
                             pass
-                    #else:
-                        #pass
 
-                    # 데이타 가져오기
+                    # 그외 데이타 가져오기
                     if index == option_pairs_count - 1:
                         
                         if comboindex2 == 4:
@@ -6252,16 +6245,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                 else:
                     pass
-                                
+                
                 # Plot 1 x축 타임라인 그리기
                 if comboindex1 == 0 or comboindex1 == 4:
 
                     plot1_time_line.setValue(x_idx)
+
+                elif comboindex1 == 5 or comboindex1 == 6 or comboindex1 == 7:
+
+                    plot1_time_line.setValue(ovc_x_idx)
                 else:
                     plot1_time_line.setValue(opt_x_idx)
 
                 # Plot 2 x축 타임라인 그리기
-                plot2_time_line.setValue(opt_x_idx)
+                if comboindex2 == 5 or comboindex2 == 6 or comboindex2 == 7:
+
+                    plot2_time_line.setValue(ovc_x_idx)
+                else:
+                    plot2_time_line.setValue(opt_x_idx)                    
 
                 if UI_STYLE == 'Vertical_view.ui':
 
@@ -23968,11 +23969,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             if bc_comboindex1 == 0 or bc_comboindex1 == 4:
 
                 bc_plot1_time_line.setValue(x_idx)
+
+            elif bc_comboindex1 == 5 or bc_comboindex1 == 6 or bc_comboindex1 == 7:
+
+                bc_plot1_time_line.setValue(ovc_x_idx)
             else:
                 bc_plot1_time_line.setValue(opt_x_idx)
 
             # Plot 2 x축 타임라인 그리기
-            bc_plot2_time_line.setValue(opt_x_idx)
+            if bc_comboindex2 == 5 or bc_comboindex2 == 6 or bc_comboindex2 == 7:
+
+                bc_plot2_time_line.setValue(ovc_x_idx)
+            else:
+                bc_plot2_time_line.setValue(opt_x_idx)
 
             # 선택된 plot1 그래프 그리기
             if bc_comboindex1 == 0:
