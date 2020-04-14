@@ -5700,7 +5700,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
 
-                    elif UI_STYLE == 'Horizontal_Small_view.ui':
+                    elif UI_STYLE == 'Horizontal_Small_View.ui':
 
                         call_positionCell = self.tableWidget_call.item(atm_index + 4, 1)    
                     else:
@@ -5711,7 +5711,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         call_positionCell = self.tableWidget_call.item(atm_index - 9, 1)
 
-                    elif UI_STYLE == 'Horizontal_Small_view.ui':
+                    elif UI_STYLE == 'Horizontal_Small_View.ui':
 
                         call_positionCell = self.tableWidget_call.item(atm_index - 4, 1)
                     else:
@@ -5747,7 +5747,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         put_positionCell = self.tableWidget_put.item(atm_index + 9, 1)
 
-                    elif UI_STYLE == 'Horizontal_Small_view.ui':
+                    elif UI_STYLE == 'Horizontal_Small_View.ui':
 
                         put_positionCell = self.tableWidget_put.item(atm_index + 4, 1)
                     else:
@@ -5758,7 +5758,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         put_positionCell = self.tableWidget_put.item(atm_index - 9, 1)
 
-                    elif UI_STYLE == 'Horizontal_Small_view.ui':
+                    elif UI_STYLE == 'Horizontal_Small_View.ui':
 
                         put_positionCell = self.tableWidget_put.item(atm_index - 4, 1)    
                     else:
