@@ -1404,14 +1404,22 @@ flag_fut_oh = False
 풋_저가 = ''
 풋_고가 = ''
 
-call_plot_data = []
-put_plot_data = []
-curve1_plot_data = []
-curve2_plot_data = []
-curve3_plot_data = []
-curve4_plot_data = []
-curve5_plot_data = []
-curve6_plot_data = []
+call_plot_data = [0] * nRowCount
+put_plot_data = [0] * nRowCount
+
+plot_data1 = []
+plot_data2 = []
+plot_data3 = []
+plot_data4 = []
+plot_data5 = []
+plot_data6 = []
+plot_data7 = []
+plot_data8 = []
+plot_data9 = []
+plot_data10 = []
+plot_data11 = []
+plot_data12 = []
+plot_data13 = []
 
 ########################################################################################################################
 
@@ -2905,108 +2913,20 @@ class screen_update_worker(QThread):
             call_curve_data = df_plotdata_call.iloc[index].values.tolist()
             put_curve_data = df_plotdata_put.iloc[index].values.tolist()
 
-            # COMBO 1
-            if comboindex1 == 0:
+            data1 = df_plotdata_fut_volume.iloc[0].values.tolist()
+            data2 = df_plotdata_call_volume.iloc[0].values.tolist()
+            data3 = df_plotdata_put_volume.iloc[0].values.tolist()
+            data4 = df_plotdata_volume_cha.iloc[0].values.tolist()
+            data5 = df_plotdata_call_oi.iloc[0].values.tolist()
+            data6 = df_plotdata_put_oi.iloc[0].values.tolist() 
+            data7 = df_plotdata_two_sum.iloc[0].values.tolist()
+            data8 = df_plotdata_two_cha.iloc[0].values.tolist()
+            data9 = df_plotdata_kp200.iloc[0].values.tolist()
+            data10 = df_plotdata_fut.iloc[0].values.tolist()
+            data11 = df_plotdata_sp500.iloc[0].values.tolist()
+            data12 = df_plotdata_dow.iloc[0].values.tolist()
+            data13 = df_plotdata_nasdaq.iloc[0].values.tolist()            
 
-                curve1_data = df_plotdata_fut_volume.iloc[0].values.tolist()
-                curve2_data = None
-                curve3_data = None
-
-            elif comboindex1 == 1:                             
-                
-                curve1_data = df_plotdata_call_volume.iloc[0].values.tolist()
-                curve2_data = df_plotdata_put_volume.iloc[0].values.tolist()
-                curve3_data = df_plotdata_volume_cha.iloc[0].values.tolist()
-
-            elif comboindex1 == 2:
-                
-                curve1_data = df_plotdata_call_oi.iloc[0].values.tolist()
-                curve2_data = df_plotdata_put_oi.iloc[0].values.tolist() 
-                curve3_data = None 
-
-            elif comboindex1 == 3:
-
-                curve1_data = df_plotdata_two_sum.iloc[0].values.tolist()
-                curve2_data = df_plotdata_two_cha.iloc[0].values.tolist()
-                curve3_data = None  
-
-            elif comboindex1 == 4:     
-
-                curve1_data = df_plotdata_kp200.iloc[0].values.tolist()
-                curve2_data = df_plotdata_fut.iloc[0].values.tolist()
-                curve3_data = None
-
-            elif comboindex1 == 5: 
-
-                curve1_data = df_plotdata_sp500.iloc[0].values.tolist()
-                curve2_data = None
-                curve3_data = None
-
-            elif comboindex1 == 6: 
-
-                curve1_data = df_plotdata_dow.iloc[0].values.tolist()
-                curve2_data = None
-                curve3_data = None
-
-            elif comboindex1 == 7: 
-
-                curve1_data = df_plotdata_nasdaq.iloc[0].values.tolist()
-                curve2_data = None
-                curve3_data = None
-            else:
-                pass
-
-            # COMBO 2
-            if comboindex2 == 0:
-                
-                curve4_data = df_plotdata_call_volume.iloc[0].values.tolist()
-                curve5_data = df_plotdata_put_volume.iloc[0].values.tolist()
-                curve6_data = df_plotdata_volume_cha.iloc[0].values.tolist()
-            
-            elif comboindex2 == 1:                
-                
-                curve4_data = df_plotdata_call_oi.iloc[0].values.tolist()
-                curve5_data = df_plotdata_put_oi.iloc[0].values.tolist()
-                curve6_data = None 
-            
-            elif comboindex2 == 2:
-
-                curve4_data = df_plotdata_fut_volume.iloc[0].values.tolist()
-                curve5_data = None
-                curve6_data = None  
-
-            elif comboindex2 == 3:
-
-                curve4_data = df_plotdata_two_sum.iloc[0].values.tolist()
-                curve5_data = df_plotdata_two_cha.iloc[0].values.tolist()
-                curve6_data = None 
-
-            elif comboindex2 == 4:
-
-                curve4_data = None
-                curve5_data = None
-                curve6_data = None
-
-            elif comboindex2 == 5:
-
-                curve4_data = df_plotdata_sp500.iloc[0].values.tolist()
-                curve5_data = None
-                curve6_data = None 
-
-            elif comboindex2 == 6:
-
-                curve4_data = df_plotdata_dow.iloc[0].values.tolist()
-                curve5_data = None
-                curve6_data = None 
-
-            elif comboindex2 == 7:
-
-                curve4_data = df_plotdata_nasdaq.iloc[0].values.tolist()
-                curve5_data = None
-                curve6_data = None 
-            else:
-                pass
-            
             if UI_STYLE == 'Vertical_view.ui':
 
                 # COMBO 3
@@ -3041,20 +2961,19 @@ class screen_update_worker(QThread):
             
             if UI_STYLE == 'Vertical_view.ui':
 
-                return call_curve_data, put_curve_data, curve1_data, curve2_data, curve3_data, curve4_data, \
-                    curve5_data, curve6_data, plot3_data, plot4_1_data, plot4_2_data            
+                return call_curve_data, put_curve_data, data1, data2, data3, data4, \
+                    data5, data6, data7, data8, data9, data10, data11, data12, data13, plot3_data, plot4_1_data, plot4_2_data                
             else:
-                return call_curve_data, put_curve_data, curve1_data, curve2_data, curve3_data, curve4_data, \
-                    curve5_data, curve6_data
-
+                return call_curve_data, put_curve_data, data1, data2, data3, data4, \
+                    data5, data6, data7, data8, data9, data10, data11, data12, data13
         except:
 
             if UI_STYLE == 'Vertical_view.ui':
 
-                return None, None, None, None, None, None, None, None, None, None, None
+                return None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
 
             else:
-                return None, None, None, None, None, None, None, None
+                return None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
 
 ########################################################################################################################
 
@@ -6168,7 +6087,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global 시스템시간
 
             global call_plot_data, put_plot_data
-            global curve1_plot_data, curve2_plot_data, curve3_plot_data, curve4_plot_data, curve5_plot_data, curve6_plot_data 
+            global plot_data1, plot_data2, plot_data3, plot_data4, plot_data5, plot_data6, plot_data7
+            global plot_data8, plot_data9, plot_data10, plot_data11, plot_data12, plot_data13
 
             시스템시간 = dt.hour * 3600 + dt.minute * 60 + dt.second
             
@@ -6180,8 +6100,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 실시간 서비스                     
             if receive_real_ovc or market_service:
                 
-                self.label_clear(self.alternate_flag)                
-
+                self.label_clear(self.alternate_flag)
                 
                 # 전체 데이타 가져오기
                 for actval, infos in data.items():
@@ -6189,38 +6108,38 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     index = opt_actval.index(actval)
 
                     # 옵션그래프 초기화 및 옵션데이타 가져오기
+                    #if comboindex2 == 4:
+
+                    global selected_call, selected_put, selected_opt_list
+
+                    old_selected_opt_list = copy.deepcopy(selected_opt_list)
+
+                    # 콜, 풋 그래프 선택
+                    call_idx = []
+                    put_idx = []
+                    selected_opt_list = []
+
+                    for i in range(option_pairs_count):
+
+                        if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
+                            call_idx.append(i)
+                            selected_opt_list.append(opt_actval[i])
+                        else:
+                            pass
+
+                        if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
+                            put_idx.append(i)
+                            selected_opt_list.append(opt_actval[i])
+                        else:
+                            pass
+
+                    selected_call = call_idx                    
+                    selected_put = put_idx
+
+                    # 마지막 행사가 추가해야 쓰레드 정상동작함(?)
+                    selected_opt_list.append(opt_actval[option_pairs_count-1])        
+
                     if comboindex2 == 4:
-
-                        global selected_call, selected_put, selected_opt_list
-
-                        old_selected_opt_list = copy.deepcopy(selected_opt_list)
-
-                        # 콜, 풋 그래프 선택
-                        call_idx = []
-                        put_idx = []
-                        selected_opt_list = []
-
-                        for i in range(option_pairs_count):
-
-                            if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
-                                call_idx.append(i)
-                                selected_opt_list.append(opt_actval[i])
-                            else:
-                                pass
-
-                            if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
-                                put_idx.append(i)
-                                selected_opt_list.append(opt_actval[i])
-                            else:
-                                pass
-
-                        selected_call = call_idx                    
-                        selected_put = put_idx
-
-                        # 마지막 행사가 추가해야 쓰레드 정상동작함(?)
-                        selected_opt_list.append(opt_actval[option_pairs_count-1])
-
-                        #print('selected_opt_list =', selected_opt_list)                    
 
                         if selected_opt_list != old_selected_opt_list:
 
@@ -6235,28 +6154,38 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 #index = opt_actval.index(actval)
                                 call_curve[index].clear()
                                 put_curve[index].clear()
+                    else:
+                        pass                    
 
-                        # 선택된 콜그래프 그리기
-                        for i in range(len(selected_call)):
+                    # 선택된 콜그래프 그리기
+                    for i in range(len(selected_call)):
 
-                            if index == selected_call[i]:
+                        if index == selected_call[i]:
 
-                                call_plot_data = infos[0]
-                                call_curve[i].setData(call_plot_data)
-                            else:
-                                pass                    
+                            call_plot_data[index] = infos[0]
 
-                        # 선택된 풋그래프 그리기
-                        for i in range(len(selected_put)):
-
-                            if index == selected_put[i]:
-
-                                put_plot_data = infos[1]
-                                put_curve[i].setData(put_plot_data)
+                            if comboindex2 == 4:
+                                call_curve[i].setData(infos[0])
                             else:
                                 pass
-                    else:
-                        pass
+                        else:
+                            pass                    
+
+                    # 선택된 풋그래프 그리기
+                    for i in range(len(selected_put)):
+
+                        if index == selected_put[i]:
+
+                            put_plot_data[index] = infos[1]
+
+                            if comboindex2 == 4:
+                                put_curve[i].setData(infos[1])
+                            else:
+                                pass
+                        else:
+                            pass
+                    #else:
+                        #pass
 
                     # 데이타 가져오기
                     if index == option_pairs_count - 1:
@@ -6275,18 +6204,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        curve1_plot_data = infos[2]
-                        curve2_plot_data = infos[3] 
-                        curve3_plot_data = infos[4]
-                        curve4_plot_data = infos[5]
-                        curve5_plot_data = infos[6]
-                        curve6_plot_data = infos[7]
+                        plot_data1 = infos[2]
+                        plot_data2 = infos[3] 
+                        plot_data3 = infos[4]
+                        plot_data4 = infos[5]
+                        plot_data5 = infos[6]
+                        plot_data6 = infos[7]
+                        plot_data7 = infos[8]
+                        plot_data8 = infos[9] 
+                        plot_data9 = infos[10]
+                        plot_data10 = infos[11]
+                        plot_data11 = infos[12]
+                        plot_data12 = infos[13]
+                        plot_data13 = infos[14]
 
                         if UI_STYLE == 'Vertical_view.ui':
 
-                            plot3_data = infos[8]
-                            plot4_1_data = infos[9]
-                            plot4_2_data = infos[10]
+                            plot3_data = infos[15]
+                            plot4_1_data = infos[16]
+                            plot4_2_data = infos[17]
                         else:
                             pass
                     else:
@@ -6340,28 +6276,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if comboindex1 == 0:
 
                     if fut_volume_power > 0:
-                        plot1_fut_volume_plus_curve.setData(curve1_plot_data)
+                        plot1_fut_volume_plus_curve.setData(plot_data1)
                     else:
-                        plot1_fut_volume_minus_curve.setData(curve1_plot_data)
+                        plot1_fut_volume_minus_curve.setData(plot_data1)
 
                 elif comboindex1 == 1:                      
 
-                    plot1_call_volume_curve.setData(curve1_plot_data)
-                    plot1_put_volume_curve.setData(curve2_plot_data)
-                    plot1_volume_cha_curve.setData(curve3_plot_data)
+                    plot1_call_volume_curve.setData(plot_data2)
+                    plot1_put_volume_curve.setData(plot_data3)
+                    plot1_volume_cha_curve.setData(plot_data4)
 
                 elif comboindex1 == 2:
 
                     if not overnight:
-                        plot1_call_oi_curve.setData(curve1_plot_data)
-                        plot1_put_oi_curve.setData(curve2_plot_data)
+                        plot1_call_oi_curve.setData(plot_data5)
+                        plot1_put_oi_curve.setData(plot_data6)
                     else:
                         pass
 
                 elif comboindex1 == 3:
 
-                    plot1_two_sum_curve.setData(curve1_plot_data)
-                    plot1_two_cha_curve.setData(curve2_plot_data)
+                    plot1_two_sum_curve.setData(plot_data7)
+                    plot1_two_cha_curve.setData(plot_data8)
 
                 elif comboindex1 == 4:
 
@@ -6373,8 +6309,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     plot1_fut_low_line.setValue(선물_저가)
                     plot1_fut_high_line.setValue(선물_고가)
                 
-                    plot1_kp200_curve.setData(curve1_plot_data)
-                    plot1_fut_price_curve.setData(curve2_plot_data)
+                    plot1_kp200_curve.setData(plot_data9)
+                    plot1_fut_price_curve.setData(plot_data10)
 
                 elif comboindex1 == 5:
                     
@@ -6416,7 +6352,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    plot1_sp500_curve.setData(curve1_plot_data)
+                    plot1_sp500_curve.setData(plot_data11)
 
                 elif comboindex1 == 6:
 
@@ -6458,7 +6394,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass                       
                     
-                    plot1_dow_curve.setData(curve1_plot_data)
+                    plot1_dow_curve.setData(plot_data12)
 
                 elif comboindex1 == 7:
 
@@ -6500,36 +6436,36 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
                     
-                    plot1_nasdaq_curve.setData(curve1_plot_data)
+                    plot1_nasdaq_curve.setData(plot_data13)
                 else:
                     pass   
 
                 # 선택된 plot2 그래프 그리기
                 if comboindex2 == 0:
 
-                    plot2_call_volume_curve.setData(curve4_plot_data)
-                    plot2_put_volume_curve.setData(curve5_plot_data)  
-                    plot2_volume_cha_curve.setData(curve6_plot_data) 
+                    plot2_call_volume_curve.setData(plot_data2)
+                    plot2_put_volume_curve.setData(plot_data3)  
+                    plot2_volume_cha_curve.setData(plot_data4) 
 
                 elif comboindex2 == 1:
 
                     if not overnight:
-                        plot2_call_oi_curve.setData(curve4_plot_data)
-                        plot2_put_oi_curve.setData(curve5_plot_data)
+                        plot2_call_oi_curve.setData(plot_data5)
+                        plot2_put_oi_curve.setData(plot_data6)
                     else:
                         pass         
 
                 elif comboindex2 == 2:
 
                     if fut_volume_power > 0:
-                        plot2_fut_volume_plus_curve.setData(curve4_plot_data)
+                        plot2_fut_volume_plus_curve.setData(plot_data1)
                     else:
-                        plot2_fut_volume_minus_curve.setData(curve4_plot_data)
+                        plot2_fut_volume_minus_curve.setData(plot_data1)
 
                 elif comboindex2 == 3:
 
-                    plot2_two_sum_curve.setData(curve4_plot_data)
-                    plot2_two_cha_curve.setData(curve5_plot_data)
+                    plot2_two_sum_curve.setData(plot_data7)
+                    plot2_two_cha_curve.setData(plot_data8)
 
                 elif comboindex2 == 4:
 
@@ -6575,7 +6511,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
                     
-                    plot2_sp500_curve.setData(curve4_plot_data) 
+                    plot2_sp500_curve.setData(plot_data11) 
 
                 elif comboindex2 == 6: 
 
@@ -6617,7 +6553,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass                
                     
-                    plot2_dow_curve.setData(curve4_plot_data) 
+                    plot2_dow_curve.setData(plot_data12) 
 
                 elif comboindex2 == 7:
                     
@@ -6659,7 +6595,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass 
 
-                    plot2_nasdaq_curve.setData(curve4_plot_data)
+                    plot2_nasdaq_curve.setData(plot_data13)
                 else:
                     pass 
 
@@ -6836,656 +6772,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass                
                 else:
                     pass
-                
-                '''
-                # 그래프 그리기 #
-
-                # 옵션그래프 초기화
-                if comboindex2 == 4:
-
-                    global selected_call, selected_put, selected_opt_list
-
-                    old_selected_opt_list = copy.deepcopy(selected_opt_list)
-                    
-                    # 콜, 풋 그래프 선택
-                    call_idx = []
-                    put_idx = []
-                    selected_opt_list = []
-                    
-                    for i in range(option_pairs_count):
-
-                        if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
-                            call_idx.append(i)
-                            selected_opt_list.append(opt_actval[i])
-                        else:
-                            pass
-
-                        if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
-                            put_idx.append(i)
-                            selected_opt_list.append(opt_actval[i])
-                        else:
-                            pass
-
-                    selected_call = call_idx                    
-                    selected_put = put_idx
-
-                    # 마지막 행사가 추가해야 쓰레드 정상동작함(?)
-                    selected_opt_list.append(opt_actval[option_pairs_count-1])
-                    
-                    #print('selected_opt_list =', selected_opt_list)                    
-                    
-                    if selected_opt_list != old_selected_opt_list:
-
-                        # 전체 행사가 그래프 클리어
-                        for i in range(option_pairs_count):
-                            call_curve[i].clear()
-                            put_curve[i].clear()
-                    else:
-                        # 선택된 행사가 그래프 클리어
-                        for actval in selected_opt_list:
-
-                            index = opt_actval.index(actval)
-                            call_curve[index].clear()
-                            put_curve[index].clear()
-
-                    mv_line[0].setValue(1.2)
-                    mv_line[1].setValue(2.5)
-                    mv_line[2].setValue(3.5)
-                    mv_line[3].setValue(4.85)
-                    mv_line[4].setValue(5.1)
-                    mv_line[5].setValue(5.5)
-                    mv_line[6].setValue(0)
-                    mv_line[7].setValue(0)
-                    mv_line[8].setValue(0)
-
-                else:
-                    pass            
-
-                # 데이타 가져오기
-                for actval, infos in data.items():
-
-                    index = opt_actval.index(actval)
-
-                    if comboindex2 == 4:
-
-                        # 선택된 콜그래프 그리기
-                        for i in range(len(call_idx)):
-
-                            if index == call_idx[i]:
-                                call_curve[i].setData(infos[0])
-                            else:
-                                pass                    
-
-                        # 선택된 풋그래프 그리기
-                        for i in range(len(put_idx)):
-
-                            if index == put_idx[i]:
-                                put_curve[i].setData(infos[1])
-                            else:
-                                pass
-
-                        # 옵션 Y축 최대값 구하기
-                        axY = self.Plot2.getAxis('left')
-                        #print('옵션 y axis range: {}'.format(axY.range[1]))
-
-                        # 최대값내의 의미가 그리기
-                        if 6.0 <= axY.range[1] < 7.1:
-                            mv_line[6].setValue(6.85)
-                            mv_line[7].setValue(0)
-                            mv_line[8].setValue(0)
-                        elif 7.1 <= axY.range[1] < 8.1:
-                            mv_line[6].setValue(6.85)
-                            mv_line[7].setValue(7.1)
-                            mv_line[8].setValue(0)
-                        elif axY.range[1] >= 8.1:
-                            mv_line[6].setValue(6.85)
-                            mv_line[7].setValue(7.1)
-                            mv_line[8].setValue(8.1)
-                        else:
-                            pass
-                    else:
-                        pass           
-
-                    if index == option_pairs_count - 1:
-
-                        curve1_data = infos[2]
-                        curve2_data = infos[3] 
-                        curve3_data = infos[4]
-                        curve4_data = infos[5]
-                        curve5_data = infos[6]
-                        curve6_data = infos[7]
-
-                        if UI_STYLE == 'Vertical_view.ui':
-
-                            plot3_data = infos[8]
-                            plot4_1_data = infos[9]
-                            plot4_2_data = infos[10]
-                        else:
-                            pass
-                    else:
-                        pass
-                                
-                # Plot 1 x축 타임라인 그리기
-                if comboindex1 == 0 or comboindex1 == 4:
-
-                    plot1_time_line.setValue(x_idx)
-                else:
-                    plot1_time_line.setValue(opt_x_idx)
-
-                # Plot 2 x축 타임라인 그리기
-                plot2_time_line.setValue(opt_x_idx)
-
-                if UI_STYLE == 'Vertical_view.ui':
-
-                    # Plot 3 x축 타임라인 그리기
-                    plot3_time_line.setValue(ovc_x_idx)
-
-                    # Plot 4 x축 타임라인 그리기
-                    plot4_time_line.setValue(x_idx) 
-                else:
-                    pass
-                
-                # 선택된 plot1 그래프 그리기
-                if comboindex1 == 0:
-
-                    if fut_volume_power > 0:
-                        plot1_fut_volume_plus_curve.setData(curve1_data)
-                    else:
-                        plot1_fut_volume_minus_curve.setData(curve1_data)
-
-                elif comboindex1 == 1:                      
-
-                    plot1_call_volume_curve.setData(curve1_data)
-                    plot1_put_volume_curve.setData(curve2_data)
-                    plot1_volume_cha_curve.setData(curve3_data)
-
-                elif comboindex1 == 2:
-
-                    if not overnight:
-                        plot1_call_oi_curve.setData(curve1_data)
-                        plot1_put_oi_curve.setData(curve2_data)
-                    else:
-                        pass
-
-                elif comboindex1 == 3:
-
-                    plot1_two_sum_curve.setData(curve1_data)
-                    plot1_two_cha_curve.setData(curve2_data)
-
-                elif comboindex1 == 4:
-
-                    plot1_fut_jl_line.setValue(선물_전저)
-                    plot1_fut_jh_line.setValue(선물_전고)
-                    plot1_fut_close_line.setValue(선물_종가)
-                    plot1_fut_pivot_line.setValue(선물_피봇)
-                    plot1_fut_open_line.setValue(선물_시가)
-                    plot1_fut_low_line.setValue(선물_저가)
-                    plot1_fut_high_line.setValue(선물_고가)
-                
-                    plot1_kp200_curve.setData(curve1_data)
-                    plot1_fut_price_curve.setData(curve2_data)
-
-                elif comboindex1 == 5:
-                    
-                    plot1_hc_high_line.setValue(sp500_전일종가)
-                    plot1_hc_low_line.setValue(sp500_전일종가)
-
-                    if SP500_LAST_LOW > 0:
-                        plot1_ovc_jl_line.setValue(SP500_LAST_LOW)
-                    else:
-                        pass 
-
-                    if SP500_LAST_HIGH > 0:
-                        plot1_ovc_jh_line.setValue(SP500_LAST_HIGH)
-                    else:
-                        pass
-
-                    if sp500_전일종가 > 0:
-                        plot1_ovc_close_line.setValue(sp500_전일종가)
-                    else:
-                        pass 
-                    
-                    if sp500_시가 > 0:
-                        plot1_ovc_open_line.setValue(sp500_시가)
-                    else:
-                        pass
-
-                    if sp500_피봇 > 0:
-                        plot1_ovc_pivot_line.setValue(sp500_피봇)
-                    else:
-                        pass
-
-                    if sp500_저가 > 0:
-                        plot1_ovc_low_line.setValue(sp500_저가)
-                    else:
-                        pass
-
-                    if sp500_고가 > 0:
-                        plot1_ovc_high_line.setValue(sp500_고가)
-                    else:
-                        pass
-
-                    plot1_sp500_curve.setData(curve1_data)
-
-                elif comboindex1 == 6:
-
-                    plot1_hc_high_line.setValue(dow_전일종가)
-                    plot1_hc_low_line.setValue(dow_전일종가)
-
-                    if DOW_LAST_LOW > 0:
-                        plot1_ovc_jl_line.setValue(DOW_LAST_LOW)
-                    else:
-                        pass 
-                    
-                    if DOW_LAST_HIGH > 0:
-                        plot1_ovc_jh_line.setValue(DOW_LAST_HIGH)
-                    else:
-                        pass
-                    
-                    if dow_전일종가 > 0:
-                        plot1_ovc_close_line.setValue(dow_전일종가)
-                    else:
-                        pass
-                    
-                    if dow_시가 > 0:
-                        plot1_ovc_open_line.setValue(dow_시가)
-                    else:
-                        pass
-                    
-                    if dow_피봇 > 0:
-                        plot1_ovc_pivot_line.setValue(dow_피봇)
-                    else:
-                        pass
-                    
-                    if dow_저가 > 0:
-                        plot1_ovc_low_line.setValue(dow_저가)
-                    else:
-                        pass
-
-                    if dow_고가 > 0:
-                        plot1_ovc_high_line.setValue(dow_고가)
-                    else:
-                        pass                       
-                    
-                    plot1_dow_curve.setData(curve1_data)
-
-                elif comboindex1 == 7:
-
-                    plot1_hc_high_line.setValue(nasdaq_전일종가)
-                    plot1_hc_low_line.setValue(nasdaq_전일종가)
-
-                    if NASDAQ_LAST_LOW > 0:
-                        plot1_ovc_jl_line.setValue(NASDAQ_LAST_LOW)
-                    else:
-                        pass 
-
-                    if NASDAQ_LAST_HIGH > 0:
-                        plot1_ovc_jh_line.setValue(NASDAQ_LAST_HIGH)
-                    else:
-                        pass
-
-                    if nasdaq_전일종가 > 0:
-                        plot1_ovc_close_line.setValue(nasdaq_전일종가)
-                    else:
-                        pass
-                    
-                    if nasdaq_시가 > 0:
-                        plot1_ovc_open_line.setValue(nasdaq_시가)
-                    else:
-                        pass   
-
-                    if nasdaq_피봇 > 0:
-                        plot1_ovc_pivot_line.setValue(nasdaq_피봇)
-                    else:
-                        pass
-
-                    if nasdaq_저가 > 0:
-                        plot1_ovc_low_line.setValue(nasdaq_저가)
-                    else:
-                        pass
-
-                    if nasdaq_고가 > 0:
-                        plot1_ovc_high_line.setValue(nasdaq_고가)
-                    else:
-                        pass
-                    
-                    plot1_nasdaq_curve.setData(curve1_data)
-                else:
-                    pass   
-
-                # 선택된 plot2 그래프 그리기
-                if comboindex2 == 0:
-
-                    plot2_call_volume_curve.setData(curve4_data)
-                    plot2_put_volume_curve.setData(curve5_data)  
-                    plot2_volume_cha_curve.setData(curve6_data) 
-
-                elif comboindex2 == 1:
-
-                    if not overnight:
-                        plot2_call_oi_curve.setData(curve4_data)
-                        plot2_put_oi_curve.setData(curve5_data)
-                    else:
-                        pass         
-
-                elif comboindex2 == 2:
-
-                    if fut_volume_power > 0:
-                        plot2_fut_volume_plus_curve.setData(curve4_data)
-                    else:
-                        plot2_fut_volume_minus_curve.setData(curve4_data)
-
-                elif comboindex2 == 3:
-
-                    plot2_two_sum_curve.setData(curve4_data)
-                    plot2_two_cha_curve.setData(curve5_data)
-
-                elif comboindex2 == 4:
-
-                    pass
-
-                elif comboindex2 == 5:
-
-                    plot2_hc_high_line.setValue(sp500_전일종가)
-                    plot2_hc_low_line.setValue(sp500_전일종가)
-
-                    if SP500_LAST_LOW > 0:
-                        plot2_ovc_jl_line.setValue(SP500_LAST_LOW)
-                    else:
-                        pass 
-
-                    if SP500_LAST_HIGH > 0:
-                        plot2_ovc_jh_line.setValue(SP500_LAST_HIGH)
-                    else:
-                        pass
-
-                    if sp500_전일종가 > 0:
-                        plot2_ovc_close_line.setValue(sp500_전일종가)
-                    else:
-                        pass 
-                    
-                    if sp500_시가 > 0:
-                        plot2_ovc_open_line.setValue(sp500_시가)
-                    else:
-                        pass
-
-                    if sp500_피봇 > 0:
-                        plot2_ovc_pivot_line.setValue(sp500_피봇)
-                    else:
-                        pass
-
-                    if sp500_저가 > 0:
-                        plot2_ovc_low_line.setValue(sp500_저가)
-                    else:
-                        pass
-
-                    if sp500_고가 > 0:
-                        plot2_ovc_high_line.setValue(sp500_고가)
-                    else:
-                        pass
-                    
-                    plot2_sp500_curve.setData(curve4_data) 
-
-                elif comboindex2 == 6: 
-
-                    plot2_hc_high_line.setValue(dow_전일종가)
-                    plot2_hc_low_line.setValue(dow_전일종가)
-
-                    if DOW_LAST_LOW > 0:
-                        plot2_ovc_jl_line.setValue(DOW_LAST_LOW)
-                    else:
-                        pass 
-                    
-                    if DOW_LAST_HIGH > 0:
-                        plot2_ovc_jh_line.setValue(DOW_LAST_HIGH)
-                    else:
-                        pass
-                    
-                    if dow_전일종가 > 0:
-                        plot2_ovc_close_line.setValue(dow_전일종가)
-                    else:
-                        pass
-                    
-                    if dow_시가 > 0:
-                        plot2_ovc_open_line.setValue(dow_시가)
-                    else:
-                        pass
-                    
-                    if dow_피봇 > 0:
-                        plot2_ovc_pivot_line.setValue(dow_피봇)
-                    else:
-                        pass
-                    
-                    if dow_저가 > 0:
-                        plot2_ovc_low_line.setValue(dow_저가)
-                    else:
-                        pass
-
-                    if dow_고가 > 0:
-                        plot2_ovc_high_line.setValue(dow_고가)
-                    else:
-                        pass                 
-                    
-                    plot2_dow_curve.setData(curve4_data) 
-
-                elif comboindex2 == 7:
-                    
-                    plot2_hc_high_line.setValue(nasdaq_전일종가)
-                    plot2_hc_low_line.setValue(nasdaq_전일종가)
-
-                    if NASDAQ_LAST_LOW > 0:
-                        plot2_ovc_jl_line.setValue(NASDAQ_LAST_LOW)
-                    else:
-                        pass 
-
-                    if NASDAQ_LAST_HIGH > 0:
-                        plot2_ovc_jh_line.setValue(NASDAQ_LAST_HIGH)
-                    else:
-                        pass
-
-                    if nasdaq_전일종가 > 0:
-                        plot2_ovc_close_line.setValue(nasdaq_전일종가)
-                    else:
-                        pass
-                    
-                    if nasdaq_시가 > 0:
-                        plot2_ovc_open_line.setValue(nasdaq_시가)
-                    else:
-                        pass   
-
-                    if nasdaq_피봇 > 0:
-                        plot2_ovc_pivot_line.setValue(nasdaq_피봇)
-                    else:
-                        pass
-
-                    if nasdaq_저가 > 0:
-                        plot2_ovc_low_line.setValue(nasdaq_저가)
-                    else:
-                        pass
-
-                    if nasdaq_고가 > 0:
-                        plot2_ovc_high_line.setValue(nasdaq_고가)
-                    else:
-                        pass 
-
-                    plot2_nasdaq_curve.setData(curve4_data)
-                else:
-                    pass 
-
-                # Plot 3, Plot4 그리기
-                if UI_STYLE == 'Vertical_view.ui':
-
-                    if comboindex3 == 0:
-
-                        if DOW_LAST_LOW > 0:
-                            plot3_ovc_jl_line.setValue(DOW_LAST_LOW)
-                        else:
-                            pass 
-                        
-                        if DOW_LAST_HIGH > 0:
-                            plot3_ovc_jh_line.setValue(DOW_LAST_HIGH)
-                        else:
-                            pass
-                        
-                        if dow_전일종가 > 0:
-                            plot3_ovc_close_line.setValue(dow_전일종가)
-                        else:
-                            pass
-                        
-                        if dow_시가 > 0:
-                            plot3_ovc_open_line.setValue(dow_시가)
-                        else:
-                            pass
-                        
-                        if dow_피봇 > 0:
-                            plot3_ovc_pivot_line.setValue(dow_피봇)
-                        else:
-                            pass
-                        
-                        if dow_저가 > 0:
-                            plot3_ovc_low_line.setValue(dow_저가)
-                        else:
-                            pass
-
-                        if dow_고가 > 0:
-                            plot3_ovc_high_line.setValue(dow_고가)
-                        else:
-                            pass                       
-                        
-                        plot3_curve.setData(plot3_data)
-
-                    elif comboindex3 == 1:
-
-                        if SP500_LAST_LOW > 0:
-                            plot3_ovc_jl_line.setValue(SP500_LAST_LOW)
-                        else:
-                            pass 
-
-                        if SP500_LAST_HIGH > 0:
-                            plot3_ovc_jh_line.setValue(SP500_LAST_HIGH)
-                        else:
-                            pass
-
-                        if sp500_전일종가 > 0:
-                            plot3_ovc_close_line.setValue(sp500_전일종가)
-                        else:
-                            pass 
-                        
-                        if sp500_시가 > 0:
-                            plot3_ovc_open_line.setValue(sp500_시가)
-                        else:
-                            pass
-
-                        if sp500_피봇 > 0:
-                            plot3_ovc_pivot_line.setValue(sp500_피봇)
-                        else:
-                            pass
-
-                        if sp500_저가 > 0:
-                            plot3_ovc_low_line.setValue(sp500_저가)
-                        else:
-                            pass
-
-                        if sp500_고가 > 0:
-                            plot3_ovc_high_line.setValue(sp500_고가)
-                        else:
-                            pass
-                        
-                        plot3_curve.setData(plot3_data)
-
-                    elif comboindex3 == 2:
-
-                        if NASDAQ_LAST_LOW > 0:
-                            plot3_ovc_jl_line.setValue(NASDAQ_LAST_LOW)
-                        else:
-                            pass 
-
-                        if NASDAQ_LAST_HIGH > 0:
-                            plot3_ovc_jh_line.setValue(NASDAQ_LAST_HIGH)
-                        else:
-                            pass
-
-                        if nasdaq_전일종가 > 0:
-                            plot3_ovc_close_line.setValue(nasdaq_전일종가)
-                        else:
-                            pass
-                        
-                        if nasdaq_시가 > 0:
-                            plot3_ovc_open_line.setValue(nasdaq_시가)
-                        else:
-                            pass   
-
-                        if nasdaq_피봇 > 0:
-                            plot3_ovc_pivot_line.setValue(nasdaq_피봇)
-                        else:
-                            pass
-
-                        if nasdaq_저가 > 0:
-                            plot3_ovc_low_line.setValue(nasdaq_저가)
-                        else:
-                            pass
-
-                        if nasdaq_고가 > 0:
-                            plot3_ovc_high_line.setValue(nasdaq_고가)
-                        else:
-                            pass
-                        
-                        plot3_curve.setData(plot3_data)
-                    else:
-                        pass
-                    
-                    if comboindex4 == 0:
-
-                        if 선물_전저 > 0:
-                            plot4_fut_jl_line.setValue(선물_전저)
-                        else:
-                            pass
-
-                        if 선물_전고 > 0:
-                            plot4_fut_jh_line.setValue(선물_전고)
-                        else:
-                            pass
-
-                        if 선물_종가 > 0:
-                            plot4_fut_close_line.setValue(선물_종가)
-                        else:
-                            pass
-                        
-                        if 선물_시가 > 0:
-                            plot4_fut_open_line.setValue(선물_시가)
-                        else:
-                            pass
-
-                        if 선물_피봇 > 0:
-                            plot4_fut_pivot_line.setValue(선물_피봇)
-                        else:
-                            pass
-
-                        if 선물_저가 > 0:
-                            plot4_fut_low_line.setValue(선물_저가)
-                        else:
-                            pass
-
-                        if 선물_고가 > 0:
-                            plot4_fut_high_line.setValue(선물_고가)
-                        else:
-                            pass
-                        
-                        plot4_price_curve.setData(plot4_1_data)
-                        plot4_kp200_curve.setData(plot4_2_data)
-
-                    elif comboindex4 == 1:                        
-
-                        if fut_volume_power > 0:
-
-                            plot4_fv_plus_curve.setData(plot4_1_data)
-                        else:
-                            plot4_fv_minus_curve.setData(plot4_1_data)
-                    else:
-                        pass                
-                else:
-                    pass
-                '''
 
                 # 호가 갱신
                 if receive_quote:
@@ -13957,11 +13243,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # 옵션 행사가 갯수
                 option_pairs_count = len(df)
-                '''
-                for i in range(option_pairs_count):
-                    call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
-                    put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))
-                '''
+                
                 if not overnight:
 
                     call_open = [False] * option_pairs_count
@@ -24648,7 +23930,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_call)):
 
                         if index == selected_call[i]:
-                            bc_call_curve[i].setData(call_plot_data)
+                            bc_call_curve[i].setData(call_plot_data[index])
                         else:
                             pass                    
 
@@ -24656,13 +23938,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_put)):
 
                         if index == selected_put[i]:
-                            bc_put_curve[i].setData(put_plot_data)
+                            bc_put_curve[i].setData(put_plot_data[index])
                         else:
                             pass
 
                 # 옵션 Y축 최대값 구하기
                 axY = self.bc_Plot2.getAxis('left')
-                #print('옵션 y axis range: {}'.format(axY.range[1]))
 
                 # 최대값내의 의미가 그리기
                 if 6.0 <= axY.range[1] < 7.1:
@@ -24696,28 +23977,28 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             if bc_comboindex1 == 0:
 
                 if fut_volume_power > 0:
-                    bc_plot1_fut_volume_plus_curve.setData(curve1_plot_data)
+                    bc_plot1_fut_volume_plus_curve.setData(plot_data1)
                 else:
-                    bc_plot1_fut_volume_minus_curve.setData(curve1_plot_data)
+                    bc_plot1_fut_volume_minus_curve.setData(plot_data1)
 
             elif bc_comboindex1 == 1:                      
 
-                bc_plot1_call_volume_curve.setData(curve1_plot_data)
-                bc_plot1_put_volume_curve.setData(curve2_plot_data)
-                bc_plot1_volume_cha_curve.setData(curve3_plot_data)
+                bc_plot1_call_volume_curve.setData(plot_data2)
+                bc_plot1_put_volume_curve.setData(plot_data3)
+                bc_plot1_volume_cha_curve.setData(plot_data4)
 
             elif bc_comboindex1 == 2:
 
                 if not overnight:
-                    bc_plot1_call_oi_curve.setData(curve1_plot_data)
-                    bc_plot1_put_oi_curve.setData(curve2_plot_data)
+                    bc_plot1_call_oi_curve.setData(plot_data5)
+                    bc_plot1_put_oi_curve.setData(plot_data6)
                 else:
                     pass
 
             elif bc_comboindex1 == 3:
 
-                bc_plot1_two_sum_curve.setData(curve1_plot_data)
-                bc_plot1_two_cha_curve.setData(curve2_plot_data)
+                bc_plot1_two_sum_curve.setData(plot_data7)
+                bc_plot1_two_cha_curve.setData(plot_data8)
 
             elif bc_comboindex1 == 4:
 
@@ -24729,8 +24010,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot1_fut_low_line.setValue(선물_저가)
                 bc_plot1_fut_high_line.setValue(선물_고가)
 
-                bc_plot1_kp200_curve.setData(curve1_plot_data)
-                bc_plot1_fut_price_curve.setData(curve2_plot_data)
+                bc_plot1_kp200_curve.setData(plot_data9)
+                bc_plot1_fut_price_curve.setData(plot_data10)
 
             elif bc_comboindex1 == 5:
 
@@ -24772,7 +24053,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                bc_plot1_sp500_curve.setData(curve1_plot_data)
+                bc_plot1_sp500_curve.setData(plot_data11)
 
             elif bc_comboindex1 == 6:
 
@@ -24814,7 +24095,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                       
                 
-                bc_plot1_dow_curve.setData(curve1_plot_data)
+                bc_plot1_dow_curve.setData(plot_data12)
 
             elif bc_comboindex1 == 7:
 
@@ -24856,36 +24137,36 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                bc_plot1_nasdaq_curve.setData(curve1_plot_data)
+                bc_plot1_nasdaq_curve.setData(plot_data13)
             else:
                 pass   
 
             # 선택된 plot2 그래프 그리기
             if bc_comboindex2 == 0:
 
-                bc_plot2_call_volume_curve.setData(curve4_plot_data)
-                bc_plot2_put_volume_curve.setData(curve5_plot_data)  
-                bc_plot2_volume_cha_curve.setData(curve6_plot_data) 
+                bc_plot2_call_volume_curve.setData(plot_data2)
+                bc_plot2_put_volume_curve.setData(plot_data3)  
+                bc_plot2_volume_cha_curve.setData(plot_data4) 
 
             elif bc_comboindex2 == 1:
 
                 if not overnight:
-                    bc_plot2_call_oi_curve.setData(curve4_plot_data)
-                    bc_plot2_put_oi_curve.setData(curve5_plot_data)
+                    bc_plot2_call_oi_curve.setData(plot_data5)
+                    bc_plot2_put_oi_curve.setData(plot_data6)
                 else:
                     pass         
 
             elif bc_comboindex2 == 2:
 
                 if fut_volume_power > 0:
-                    bc_plot2_fut_volume_plus_curve.setData(curve4_plot_data)
+                    bc_plot2_fut_volume_plus_curve.setData(plot_data1)
                 else:
-                    bc_plot2_fut_volume_minus_curve.setData(curve4_plot_data)
+                    bc_plot2_fut_volume_minus_curve.setData(plot_data1)
 
             elif bc_comboindex2 == 3:
 
-                bc_plot2_two_sum_curve.setData(curve4_plot_data)
-                bc_plot2_two_cha_curve.setData(curve5_plot_data)
+                bc_plot2_two_sum_curve.setData(plot_data7)
+                bc_plot2_two_cha_curve.setData(plot_data8)
 
             elif bc_comboindex2 == 4:
 
@@ -24931,7 +24212,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                bc_plot2_sp500_curve.setData(curve4_plot_data) 
+                bc_plot2_sp500_curve.setData(plot_data11) 
 
             elif bc_comboindex2 == 6: 
 
@@ -24973,7 +24254,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                 
                 
-                bc_plot2_dow_curve.setData(curve4_plot_data) 
+                bc_plot2_dow_curve.setData(plot_data12) 
 
             elif bc_comboindex2 == 7:
 
@@ -25015,7 +24296,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass 
 
-                bc_plot2_nasdaq_curve.setData(curve4_plot_data)
+                bc_plot2_nasdaq_curve.setData(plot_data13)
             else:
                 pass 
         else:
