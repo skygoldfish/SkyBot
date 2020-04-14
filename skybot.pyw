@@ -6189,8 +6189,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             mv_line[1].setValue(2.5)
                             mv_line[2].setValue(3.5)
                             mv_line[3].setValue(4.85)
-                            mv_line[4].setValue(5.1)
-                            mv_line[5].setValue(5.5)
+                            mv_line[4].setValue(0)
+                            mv_line[5].setValue(0)
                             mv_line[6].setValue(0)
                             mv_line[7].setValue(0)
                             mv_line[8].setValue(0)
@@ -6228,15 +6228,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     #print('옵션 y axis range: {}'.format(axY.range[1]))
 
                     # 최대값내의 의미가 그리기
-                    if 6.0 <= axY.range[1] < 7.1:
+                    if 5.0 <= axY.range[1] < 6.0:
+                        mv_line[4].setValue(5.1)
+                        mv_line[5].setValue(5.5)
+                        mv_line[6].setValue(0)
+                        mv_line[7].setValue(0)
+                        mv_line[8].setValue(0)
+                    elif 6.0 <= axY.range[1] < 7.1:
+                        mv_line[4].setValue(5.1)
+                        mv_line[5].setValue(5.5)
                         mv_line[6].setValue(6.85)
                         mv_line[7].setValue(0)
                         mv_line[8].setValue(0)
                     elif 7.1 <= axY.range[1] < 8.1:
+                        mv_line[4].setValue(5.1)
+                        mv_line[5].setValue(5.5)
                         mv_line[6].setValue(6.85)
                         mv_line[7].setValue(7.1)
                         mv_line[8].setValue(0)
                     elif axY.range[1] >= 8.1:
+                        mv_line[4].setValue(5.1)
+                        mv_line[5].setValue(5.5)
                         mv_line[6].setValue(6.85)
                         mv_line[7].setValue(7.1)
                         mv_line[8].setValue(8.1)
@@ -23919,8 +23931,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_mv_line[1].setValue(2.5)
                 bc_mv_line[2].setValue(3.5)
                 bc_mv_line[3].setValue(4.85)
-                bc_mv_line[4].setValue(5.1)
-                bc_mv_line[5].setValue(5.5)
+                bc_mv_line[4].setValue(0)
+                bc_mv_line[5].setValue(0)
                 bc_mv_line[6].setValue(0)
                 bc_mv_line[7].setValue(0)
                 bc_mv_line[8].setValue(0)
@@ -23947,15 +23959,27 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 axY = self.bc_Plot2.getAxis('left')
 
                 # 최대값내의 의미가 그리기
-                if 6.0 <= axY.range[1] < 7.1:
+                if 5.0 <= axY.range[1] < 6.0:
+                    bc_mv_line[4].setValue(5.1)
+                    bc_mv_line[5].setValue(5.5)
+                    bc_mv_line[6].setValue(0)
+                    bc_mv_line[7].setValue(0)
+                    bc_mv_line[8].setValue(0)
+                elif 6.0 <= axY.range[1] < 7.1:
+                    bc_mv_line[4].setValue(5.1)
+                    bc_mv_line[5].setValue(5.5)
                     bc_mv_line[6].setValue(6.85)
                     bc_mv_line[7].setValue(0)
                     bc_mv_line[8].setValue(0)
                 elif 7.1 <= axY.range[1] < 8.1:
+                    bc_mv_line[4].setValue(5.1)
+                    bc_mv_line[5].setValue(5.5)
                     bc_mv_line[6].setValue(6.85)
                     bc_mv_line[7].setValue(7.1)
                     bc_mv_line[8].setValue(0)
                 elif axY.range[1] >= 8.1:
+                    bc_mv_line[4].setValue(5.1)
+                    bc_mv_line[5].setValue(5.5)
                     bc_mv_line[6].setValue(6.85)
                     bc_mv_line[7].setValue(7.1)
                     bc_mv_line[8].setValue(8.1)
