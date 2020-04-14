@@ -494,7 +494,7 @@ RETAIL = "0008"
 FOREIGNER = "0017"
 INSTITUTIONAL = "0018"
 
-if UI_STYLE == 'Vertical_view.ui':
+if UI_STYLE == 'Vertical_View.ui':
 
     # Plot3 관련 전역변수    
     plot3_time_line = None
@@ -2926,7 +2926,7 @@ class screen_update_worker(QThread):
             data12 = df_plotdata_dow.iloc[0].values.tolist()
             data13 = df_plotdata_nasdaq.iloc[0].values.tolist()            
 
-            if UI_STYLE == 'Vertical_view.ui':
+            if UI_STYLE == 'Vertical_View.ui':
 
                 # COMBO 3
                 if comboindex3 == 0:
@@ -2958,7 +2958,7 @@ class screen_update_worker(QThread):
             else:
                 pass
             
-            if UI_STYLE == 'Vertical_view.ui':
+            if UI_STYLE == 'Vertical_View.ui':
 
                 return call_curve_data, put_curve_data, data1, data2, data3, data4, \
                     data5, data6, data7, data8, data9, data10, data11, data12, data13, plot3_data, plot4_1_data, plot4_2_data                
@@ -2967,7 +2967,7 @@ class screen_update_worker(QThread):
                     data5, data6, data7, data8, data9, data10, data11, data12, data13
         except:
 
-            if UI_STYLE == 'Vertical_view.ui':
+            if UI_STYLE == 'Vertical_View.ui':
 
                 return None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
 
@@ -4037,15 +4037,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
             put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))
         
-        if UI_STYLE == 'Vertical_view.ui':
+        if UI_STYLE == 'Vertical_View.ui':
 
             self.comboBox3.setStyleSheet("background-color: white")
             self.comboBox4.setStyleSheet("background-color: white")
 
-            self.comboBox3.addItems(['1. DOW', '2. S&P 500', '3. NASDAQ'])
+            self.comboBox3.addItems(['⓵ DOW', '⓶ S&P 500', '⓷ NASDAQ'])
             self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
 
-            self.comboBox4.addItems(['1. FP-Plot', '2. FV-Plot'])
+            self.comboBox4.addItems(['⓵ FP-Plot', '⓶ FV-Plot'])
             self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged)
 
             self.Plot3.enableAutoRange('y', True)
@@ -5129,8 +5129,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-
-    if UI_STYLE == 'Vertical_view.ui':
+    if UI_STYLE == 'Vertical_View.ui':
 
         def cb3_selectionChanged(self):
 
@@ -6212,7 +6211,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         plot_data12 = infos[13]
                         plot_data13 = infos[14]
 
-                        if UI_STYLE == 'Vertical_view.ui':
+                        if UI_STYLE == 'Vertical_View.ui':
 
                             plot3_data = infos[15]
                             plot4_1_data = infos[16]
@@ -6264,7 +6263,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     plot2_time_line.setValue(opt_x_idx)                    
 
-                if UI_STYLE == 'Vertical_view.ui':
+                if UI_STYLE == 'Vertical_View.ui':
 
                     # Plot 3 x축 타임라인 그리기
                     plot3_time_line.setValue(ovc_x_idx)
@@ -6602,7 +6601,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass 
 
                 # Plot 3, Plot4 그리기
-                if UI_STYLE == 'Vertical_view.ui':
+                if UI_STYLE == 'Vertical_View.ui':
 
                     if comboindex3 == 0:
 
@@ -13273,7 +13272,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.Plot2.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
                     plot2_time_line.setValue(선물장간_시간차 + day_timespan - 1)
 
-                    if UI_STYLE == 'Vertical_view.ui':
+                    if UI_STYLE == 'Vertical_View.ui':
 
                         self.Plot3.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
                         plot3_time_line.setValue(선물장간_시간차 + day_timespan - 1)
@@ -13290,7 +13289,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.Plot2.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
                     plot2_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
 
-                    if UI_STYLE == 'Vertical_view.ui':
+                    if UI_STYLE == 'Vertical_View.ui':
 
                         self.Plot3.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
                         plot3_time_line.setValue(선물장간_시간차 +overnight_timespan - 1)
@@ -14487,7 +14486,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 주간 현재가가 야간 종가임 
                 df_plotdata_fut.iloc[0][0] = fut_realdata['현재가']
 
-                if UI_STYLE == 'Vertical_view.ui':
+                if UI_STYLE == 'Vertical_View.ui':
 
                     # 초기 plot화면 설정
                     plot4_fut_jl_line.setValue(fut_realdata['현재가'])
@@ -14528,7 +14527,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(0, Futures_column.종가.value, item)
 
-                if UI_STYLE == 'Vertical_view.ui':
+                if UI_STYLE == 'Vertical_View.ui':
 
                     # 초기 plot화면 설정
                     plot4_fut_jl_line.setValue(df['현재가'])
