@@ -17402,42 +17402,42 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if overnight:
                 
-                df_fut.loc[0, '현재가'] = 선물_현재가
+                df_fut.set_value(0, '현재가', 선물_현재가)
                 cme_realdata['현재가'] = 선물_현재가
 
-                if float(현재가) < float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
+                if 선물_현재가 < float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
                     item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
-                elif float(현재가) > float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
+                elif 선물_현재가 > float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
                     item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
                 else:    
                     item = QTableWidgetItem(현재가)
 
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if float(현재가) < float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
+                if 선물_현재가 < float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
                     item.setBackground(QBrush(lightskyblue))
-                elif float(현재가) > float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
+                elif 선물_현재가 > float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
                     item.setBackground(QBrush(pink))
                 else:
                     item.setBackground(QBrush(옅은회색))
 
                 self.tableWidget_fut.setItem(0, Futures_column.현재가.value, item)
             else:
-                df_fut.loc[1, '현재가'] = 선물_현재가
+                df_fut.set_value(1, '현재가', 선물_현재가)
                 fut_realdata['현재가'] = 선물_현재가 
 
-                if float(현재가) < float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
+                if 선물_현재가 < float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
                     item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
-                elif float(현재가) > float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
+                elif 선물_현재가 > float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
                     item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
                 else:    
                     item = QTableWidgetItem(현재가)
 
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if float(현재가) < float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
+                if 선물_현재가 < float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
                     item.setBackground(QBrush(lightskyblue))
-                elif float(현재가) > float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
+                elif 선물_현재가 > float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
                     item.setBackground(QBrush(pink))
                 else:
                     #item.setBackground(QBrush(옅은회색))
@@ -17550,12 +17550,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(회색))            
 
             if overnight:
+
                 self.tableWidget_fut.setItem(0, Futures_column.저가.value, item)
-                df_fut.loc[0, '저가'] = 선물_저가
+                df_fut.set_value(0, '저가', 선물_저가)
                 cme_realdata['저가'] = 선물_저가
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.저가.value, item)
-                df_fut.loc[1, '저가'] = 선물_저가
+                df_fut.set_value(1, '저가', 선물_저가)
                 fut_realdata['저가'] = 선물_저가
 
             if 선물_전저 >= 선물_저가:
@@ -17588,11 +17589,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if overnight:
                 self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
-                df_fut.loc[0, '진폭'] = 진폭
+                df_fut.set_value(0, '진폭', 진폭)
                 cme_realdata['진폭'] = 진폭
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
-                df_fut.loc[1, '진폭'] = 진폭
+                df_fut.set_value(1, '진폭', 진폭)
                 fut_realdata['진폭'] = 진폭            
         else:
             pass
@@ -17612,11 +17613,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(회색))            
 
             if overnight:
+                
                 self.tableWidget_fut.setItem(0, Futures_column.고가.value, item)
-                df_fut.loc[0, '고가'] = 선물_고가
+                df_fut.set_value(0, '고가', 선물_고가)
+                cme_realdata['고가'] = 선물_고가
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.고가.value, item)
-                df_fut.loc[1, '고가'] = 선물_고가
+                df_fut.set_value(1, '고가', 선물_고가)
+                fut_realdata['고가'] = 선물_고가
 
             if 선물_전고 <= 선물_고가:
 
@@ -17648,11 +17652,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if overnight:
                 self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
-                df_fut.loc[0, '진폭'] = 진폭
+                df_fut.set_value(0, '진폭', 진폭)
                 cme_realdata['진폭'] = 진폭
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
-                df_fut.loc[1, '진폭'] = 진폭  
+                df_fut.set_value(1, '진폭', 진폭)  
                 fut_realdata['진폭'] = 진폭          
         else:
             pass
@@ -17680,41 +17684,44 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if overnight:
             self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
-            df_fut.loc[0, '거래량'] = fut_volume_power
+            df_fut.set_value(0, '거래량', fut_volume_power) 
             cme_realdata['거래량'] = fut_volume_power
         else:
             self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
-            df_fut.loc[1, '거래량'] = fut_volume_power
+            df_fut.set_value(1, '거래량', fut_volume_power) 
             fut_realdata['거래량'] = fut_volume_power        
         
         # 미결 갱신
-        fut_realdata['미결'] = result['미결제약정수량']  
-        temp = format(fut_realdata['미결'], ',')                     
-
-        item = QTableWidgetItem(temp)
-        item.setTextAlignment(Qt.AlignCenter)
-
         if not overnight:
-            self.tableWidget_fut.setItem(1, Futures_column.OI.value, item)
-            df_fut.loc[1, '미결'] = fut_realdata['미결']
+
+            df_fut.set_value(1, '미결', result['미결제약정수량']) 
+            fut_realdata['미결'] = result['미결제약정수량']
+
+            temp = format(fut_realdata['미결'], ',')                     
+
+            item = QTableWidgetItem(temp)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(1, Futures_column.OI.value, item)            
         else:
             pass
 
         # 미결증감 갱신
-        fut_realdata['미결증감'] = result['미결제약정증감']
-        temp = format(fut_realdata['미결증감'], ',')  
-
-        item = QTableWidgetItem(temp)
-        item.setTextAlignment(Qt.AlignCenter)
-
-        if result['미결제약정증감'] < 0:
-            item.setBackground(QBrush(라임))
-        else:
-            item.setBackground(QBrush(흰색))
-
         if not overnight:
-            self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)
-            df_fut.loc[1, '미결증감'] = fut_realdata['미결증감']   
+
+            df_fut.set_value(1, '미결증감', result['미결제약정증감'])  
+            fut_realdata['미결증감'] = result['미결제약정증감']
+
+            temp = format(fut_realdata['미결증감'], ',')  
+
+            item = QTableWidgetItem(temp)
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if result['미결제약정증감'] < 0:
+                item.setBackground(QBrush(라임))
+            else:
+                item.setBackground(QBrush(흰색))
+
+            self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)              
         else:
             pass
         
