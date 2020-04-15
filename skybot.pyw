@@ -1054,9 +1054,9 @@ comboindex4 = 0
 bc_comboindex1 = 0
 bc_comboindex2 = 0
 
-콜현재가 = ''
-풋현재가 = ''
-선물현재가 = 0
+FC0_선물현재가 = 0
+OC0_콜현재가 = ''
+OC0_풋현재가 = ''
 
 콜시가리스트 = None
 콜저가리스트 = None
@@ -20143,8 +20143,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global x_idx, ovc_x_idx
             global call_result, put_result
             
-            global 선물현재가
-            global opt_x_idx, 콜현재가, 풋현재가
+            global FC0_선물현재가, OC0_콜현재가, OC0_풋현재가
+            global opt_x_idx
             global flag_telegram_send_worker
             global dongsi_hoga
 
@@ -21738,9 +21738,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 해외선물 시작시간과 동기를 맞춤
                 x_idx = x_idx + 선물장간_시간차
 
-                if result['현재가'] != 선물현재가:
+                if result['현재가'] != FC0_선물현재가:
                        
-                    선물현재가 = result['현재가']
+                    FC0_선물현재가 = result['현재가']
 
                     self.futures_display(result)
 
@@ -21830,9 +21830,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if result['단축코드'][0:3] == '201':
                     
-                    if result['현재가'] != 콜현재가:
+                    if result['현재가'] != OC0_콜현재가:
                         
-                        콜현재가 = result['현재가']
+                        OC0_콜현재가 = result['현재가']
 
                         call_result = copy.deepcopy(result)                        
                         self.call_display(result)  
@@ -21875,9 +21875,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif result['단축코드'][0:3] == '301':
                     
-                    if result['현재가'] != 풋현재가:
+                    if result['현재가'] != OC0_풋현재가:
 
-                        풋현재가 = result['현재가']
+                        OC0_풋현재가 = result['현재가']
 
                         put_result = copy.deepcopy(result)
                         self.put_display(result)
