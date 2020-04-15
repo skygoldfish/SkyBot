@@ -8782,7 +8782,40 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
             else:
-                pass            
+                pass
+    
+    def put_only_cross_color_update(self):
+
+        global put_scroll_end_position
+
+        if put_scroll_end_position > option_pairs_count:
+
+            put_scroll_end_position = option_pairs_count
+        else:
+            pass
+
+        for i in range(put_scroll_begin_position, put_scroll_end_position):
+
+            저가 = df_put.get_value(i, '저가')
+            고가 = df_put.get_value(i, '고가')
+
+            if 저가 < 고가:
+
+                if 저가 > 1.0 and 저가 in put_고가_node_list:
+
+                    self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(흰색))                 
+                else:
+                    pass
+                
+                if 고가 > 1.0 and 고가 in put_저가_node_list:
+
+                    self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(흰색))                  
+                else:
+                    pass
+            else:
+                pass           
 
     def kp200_low_color_blink(self, blink):
 
@@ -12436,40 +12469,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
             self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
- 
-    def put_only_cross_color_update(self):
-
-        global put_scroll_end_position
-
-        if put_scroll_end_position > option_pairs_count:
-
-            put_scroll_end_position = option_pairs_count
-        else:
-            pass
-
-        for i in range(put_scroll_begin_position, put_scroll_end_position):
-
-            저가 = df_put.get_value(i, '저가')
-            고가 = df_put.get_value(i, '고가')
-
-            if 저가 < 고가:
-
-                if 저가 > 1.0 and 저가 in put_고가_node_list:
-
-                    self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
-                    self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(흰색))                 
-                else:
-                    pass
-                
-                if 고가 > 1.0 and 고가 in put_저가_node_list:
-
-                    self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
-                    self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(흰색))                  
-                else:
-                    pass
-            else:
-                pass
-     
+      
     def put_low_coreval_color_blink(self, blink):
 
         global put_low_node_count, put_low_node_list, put_low_node_str
@@ -18000,7 +18000,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             call_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
-            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(대비, call_db_percent[index])
+            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(콜대비, call_db_percent[index])
 
             item = QTableWidgetItem(gap_str)
             item.setTextAlignment(Qt.AlignCenter)
@@ -19023,7 +19023,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if 풋시가 > 0.1 and 풋저가 < 풋고가:
 
-                대비 = 풋현재가 - 풋시가
+                풋대비 = 풋현재가 - 풋시가
                 df_put.set_value(index, '대비', 대비)
             else:
                 pass
@@ -19031,13 +19031,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 풋 외가(등가포함) 대비 저장
             if index >= atm_index and 풋시가 > 0.1 and 풋저가 < 풋고가:
 
-                put_otm_db[index] = 대비
+                put_otm_db[index] = 풋대비
                 put_otm_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
             else:
                 pass
 
             put_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
-            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(대비, put_db_percent[index])  
+            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(풋대비, put_db_percent[index])  
 
             item = QTableWidgetItem(gap_str)
             item.setTextAlignment(Qt.AlignCenter)
