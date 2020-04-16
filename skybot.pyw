@@ -16391,9 +16391,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
             df_call.set_value(index, '수정거래량', int(수정거래량))
-            df_call.set_value(index, '매도누적체결량', int(매도누적체결량))
-            df_call.set_value(index, '매수누적체결량', int(매수누적체결량))
-
+            df_call_volume.set_value(index, '매도누적체결량', int(매도누적체결량))
+            df_call_volume.set_value(index, '매수누적체결량', int(매수누적체결량))
             df_call.set_value(index, '거래량', call_result['누적거래량'])
 
             if not overnight:
