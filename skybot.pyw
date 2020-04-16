@@ -16165,15 +16165,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             call_저가 = df_call['저가'].values.tolist()
             call_저가_node_list = self.make_node_list(call_저가)
             
-            if update_start < 콜저가 < update_end:
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update...\r'.format(\
+                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜저가)
+            self.textBrowser.append(str)
+            
+            if 콜저가 < 콜고가 and update_start < 콜저가 < update_end:
 
                 flag_call_low_update = True
             else:
                 pass
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update...\r'.format(\
-                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜저가)
-            self.textBrowser.append(str)
         else:
             pass
 
@@ -16230,16 +16230,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             call_고가 = df_call['고가'].values.tolist()
             call_고가_node_list = self.make_node_list(call_고가)
+            
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update...\r'.format(\
+                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜고가)
+            self.textBrowser.append(str)
 
-            if update_start < 콜고가 < update_end:
+            if 콜저가 < 콜고가 and update_start < 콜고가 < update_end:
 
                 flag_call_high_update = True
             else:
                 pass
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update...\r'.format(\
-                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜고가)
-            self.textBrowser.append(str)
         else:
             pass               
                    
@@ -17108,16 +17108,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             put_저가 = df_put['저가'].values.tolist()
             put_저가_node_list = self.make_node_list(put_저가)
+            
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update...\r'.format(\
+                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋저가)
+            self.textBrowser.append(str)
 
-            if update_start < 풋저가 < update_end:
+            if 풋저가 < 풋고가 and update_start < 풋저가 < update_end:
             
                 flag_put_low_update = True
             else:
                 pass
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update...\r'.format(\
-                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋저가)
-            self.textBrowser.append(str)
         else:
             pass
 
@@ -17174,16 +17174,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             put_고가 = df_put['고가'].values.tolist()
             put_고가_node_list = self.make_node_list(put_고가)
+            
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update...\r'.format(\
+                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋고가)
+            self.textBrowser.append(str)
 
-            if update_start < 풋고가 < update_end:
+            if 풋저가 < 풋고가 and update_start < 풋고가 < update_end:
             
                 flag_put_high_update = True
             else:
                 pass
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update...\r'.format(\
-                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋고가)
-            self.textBrowser.append(str)
         else:
             pass                
                     
