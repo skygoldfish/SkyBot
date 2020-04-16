@@ -18014,13 +18014,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem('▼')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
             
-            df_call.set_value(index, '저가', 콜저가)
-
             item = QTableWidgetItem(저가)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lightskyblue))
             item.setForeground(QBrush(검정색))
             self.tableWidget_call.setItem(index, Option_column.저가.value, item)
+            
+            df_call.set_value(index, '저가', 콜저가)
 
             if 콜전저 >= 콜저가:
 
@@ -18095,13 +18095,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem('▲')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
             
-            df_call.set_value(index, '고가', 콜고가)
-
             item = QTableWidgetItem(고가)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(pink))
             item.setForeground(QBrush(검정색))
             self.tableWidget_call.setItem(index, Option_column.고가.value, item)
+            
+            df_call.set_value(index, '고가', 콜고가)
 
             if 콜전고 <= 콜고가:
 
@@ -18958,13 +18958,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem('▼')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
             
-            df_put.set_value(index, '저가', 풋저가)
-
             item = QTableWidgetItem(저가)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lightskyblue))
             item.setForeground(QBrush(검정색))
             self.tableWidget_put.setItem(index, Option_column.저가.value, item)
+            
+            df_put.set_value(index, '저가', 풋저가)
 
             if 풋전저 >= 풋저가:
 
@@ -19039,13 +19039,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem('▲')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
             
-            df_put.set_value(index, '고가', 풋고가)
-
             item = QTableWidgetItem(고가)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(pink))
             item.setForeground(QBrush(검정색))
             self.tableWidget_put.setItem(index, Option_column.고가.value, item)
+            
+            df_put.set_value(index, '고가', 풋고가)
 
             if 풋전고 <= 풋고가:
 
