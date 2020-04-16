@@ -18315,7 +18315,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
             
-            수정거래량 = format(df_call.get_value(index, '수정거래량'), ',')
+            수정거래량 = format(int(수정거래량), ',')
 
             if 수정거래량 != self.tableWidget_call.item(index, Option_column.VP.value).text():
 
@@ -18428,72 +18428,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_quote.setItem(0, 3, item)
         else:
             pass
-    '''
-    def check_call_oloh(self, index):
 
-        global call_ol, call_oh        
-
-        if df_call.iloc[index]['시가'] >= oloh_cutoff:
-
-            if df_call.iloc[index]['시가'] < 1.0:
-
-                oloh_threshold = 1
-
-            elif df_call.iloc[index]['시가'] >= 1.0 and df_call.iloc[index]['시가'] < 2.0:
-
-                oloh_threshold = 2
-
-            elif df_call.iloc[index]['시가'] >= 2.0 and df_call.iloc[index]['시가'] < 3.0:
-
-                oloh_threshold = 3
-
-            elif df_call.iloc[index]['시가'] >= 3.0 and df_call.iloc[index]['시가'] < 4.0:
-
-                oloh_threshold = 4
-
-            else:
-                oloh_threshold = 5   
-
-            # call OL/OH count
-            if self.within_n_tick(df_call.iloc[index]['시가'], df_call.iloc[index]['저가'], oloh_threshold) \
-                    and not self.within_n_tick(df_call.iloc[index]['시가'], df_call.iloc[index]['고가'], oloh_threshold):
-
-                oloh_str = '▲'
-
-                item = QTableWidgetItem(oloh_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(검정색))
-                self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
-
-                call_ol[index] = True
-
-            elif self.within_n_tick(df_call.iloc[index]['시가'], df_call.iloc[index]['고가'], oloh_threshold) \
-                    and not self.within_n_tick(df_call.iloc[index]['시가'], df_call.iloc[index]['저가'], oloh_threshold):
-
-                oloh_str = '▼'
-
-                item = QTableWidgetItem(oloh_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(청색))
-                item.setForeground(QBrush(흰색))
-                self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
-
-                call_oh[index] = True
-
-            else:
-                oloh_str = ''
-
-                item = QTableWidgetItem(oloh_str)
-                item.setBackground(QBrush(흰색))
-                item.setForeground(QBrush(검정색))
-                self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
-
-                call_ol[index] = False
-                call_oh[index] = False              
-        else:
-            pass
-    '''
     def call_state_update(self):
 
         global call_open_count
@@ -18536,34 +18471,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass           
         else:
             pass
-
-    '''
-    def call_open_gap_update(self, index):
-
-        global df_call, call_gap_percent
-        global df_plotdata_call
-        global call_피봇, call_피봇_node_list
-
-        dt = datetime.datetime.now()
-
-        df_plotdata_call.iloc[index][선물장간_시간차] = df_call.iloc[index]['시가']
-        
-        gap_str = "{0:0.2f}".format(df_call.iloc[index]['시가갭'])
-
-        item = QTableWidgetItem(gap_str)
-        item.setTextAlignment(Qt.AlignCenter)
-
-        if df_call.iloc[index]['시가'] > df_call.iloc[index]['종가']:
-            item.setBackground(QBrush(콜기준가색))
-            item.setForeground(QBrush(검정색))
-        elif df_call.iloc[index]['시가'] < df_call.iloc[index]['종가']:
-            item.setBackground(QBrush(풋기준가색))
-            item.setForeground(QBrush(흰색))
-        else:
-            item.setBackground(QBrush(흰색))
-
-        self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
-    '''
 
     def call_open_check(self):
 
@@ -19352,7 +19259,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
             
-            수정거래량 = format(df_put.get_value(index, '수정거래량'), ',')
+            수정거래량 = format(int(수정거래량), ',')
 
             if 수정거래량 != self.tableWidget_put.item(index, Option_column.VP.value).text():
 
@@ -19468,72 +19375,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_quote.setItem(0, 7, item)
         else:
             pass
-    '''
-    def check_put_oloh(self, index):
 
-        global put_ol, put_oh        
-
-        if df_put.iloc[index]['시가'] >= oloh_cutoff:
-
-            if df_put.iloc[index]['시가'] < 1.0:
-
-                oloh_threshold = 1
-
-            elif df_put.iloc[index]['시가'] >= 1.0 and df_put.iloc[index]['시가'] < 2.0:
-
-                oloh_threshold = 2
-
-            elif df_put.iloc[index]['시가'] >= 2.0 and df_put.iloc[index]['시가'] < 3.0:
-
-                oloh_threshold = 3
-
-            elif df_put.iloc[index]['시가'] >= 3.0 and df_put.iloc[index]['시가'] < 4.0:
-
-                oloh_threshold = 4
-
-            else:
-                oloh_threshold = 5   
-
-            # put OL/OH count
-            if self.within_n_tick(df_put.iloc[index]['시가'], df_put.iloc[index]['저가'], oloh_threshold) \
-                    and not self.within_n_tick(df_put.iloc[index]['시가'], df_put.iloc[index]['고가'], oloh_threshold):
-
-                oloh_str = '▲'
-
-                item = QTableWidgetItem(oloh_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(청색))
-                item.setForeground(QBrush(흰색))
-                self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
-
-                put_ol[index] = True
-
-            elif self.within_n_tick(df_put.iloc[index]['시가'], df_put.iloc[index]['고가'], oloh_threshold) \
-                    and not self.within_n_tick(df_put.iloc[index]['시가'], df_put.iloc[index]['저가'], oloh_threshold):
-
-                oloh_str = '▼'
-
-                item = QTableWidgetItem(oloh_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(검정색))
-                self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
-
-                put_oh[index] = True
-
-            else:
-                oloh_str = ''
-
-                item = QTableWidgetItem(oloh_str)
-                item.setBackground(QBrush(흰색))
-                item.setForeground(QBrush(검정색))
-                self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
-
-                put_ol[index] = False
-                put_oh[index] = False    
-        else:
-            pass
-    '''
     def put_state_update(self):
 
         global put_open_count
@@ -19576,34 +19418,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass           
         else:
             pass
-
-    '''
-    def put_open_gap_update(self, index):
-
-        global df_put, put_gap_percent
-        global df_plotdata_put
-        global put_피봇, put_피봇_node_list
-
-        dt = datetime.datetime.now()
-
-        df_plotdata_put.iloc[index][선물장간_시간차] = df_put.iloc[index]['시가']
-        
-        gap_str = "{0:0.2f}".format(df_put.iloc[index]['시가갭'])
-
-        item = QTableWidgetItem(gap_str)
-        item.setTextAlignment(Qt.AlignCenter)
-
-        if df_put.iloc[index]['시가'] > df_put.iloc[index]['종가']:
-            item.setBackground(QBrush(콜기준가색))
-            item.setForeground(QBrush(검정색))
-        elif df_put.iloc[index]['시가'] < df_put.iloc[index]['종가']:
-            item.setBackground(QBrush(풋기준가색))
-            item.setForeground(QBrush(흰색))
-        else:
-            item.setBackground(QBrush(흰색))
-
-        self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
-    '''
 
     def put_open_check(self):
 
@@ -20590,46 +20404,47 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if result['예상체결가격'] != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
                             df_plotdata_call.iloc[index][선물장간_시간차] = float(result['예상체결가격'])
+                            df_call.set_value(index, '시가', float(result['예상체결가격']))
 
-                            df_call.loc[index, '시가'] = round(float(result['예상체결가격']), 2)
+                            전저 = df_call.get_value(index, '전저')
+                            전고 = df_call.get_value(index, '전고')
+                            종가 = df_call.get_value(index, '종가')
 
                             self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(흰색))
 
                             item = QTableWidgetItem("{0}".format(result['예상체결가격']))
                             item.setTextAlignment(Qt.AlignCenter)
 
-                            if float(result['예상체결가격']) > df_call.iloc[index]['종가']:
+                            if float(result['예상체결가격']) > 종가:
                                 item.setForeground(QBrush(적색))
-                            elif float(result['예상체결가격']) < df_call.iloc[index]['종가']:
+                            elif float(result['예상체결가격']) < 종가:
                                 item.setForeground(QBrush(청색))
                             else:
                                 item.setForeground(QBrush(검정색))
 
                             self.tableWidget_call.setItem(index, Option_column.시가.value, item)
 
-                            if df_call.iloc[index]['시가'] in coreval:
+                            if float(result['예상체결가격']) in coreval:
 
                                 self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
                                 self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
                             else:
                                 pass
 
-                            df_call.loc[index, '피봇'] = self.calc_pivot(df_call.iloc[index]['전저'],
-                                                                          df_call.iloc[index]['전고'],
-                                                                          df_call.iloc[index]['종가'],
-                                                                          df_call.iloc[index]['시가'])
+                            피봇 = self.calc_pivot(전저, 전고, 종가, float(result['예상체결가격']))
 
-                            item = QTableWidgetItem("{0:0.2f}".format(df_call.iloc[index]['피봇']))
+                            df_call.set_value(index, '피봇', 피봇)
+
+                            item = QTableWidgetItem("{0:0.2f}".format(피봇))
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_call.setItem(index, Option_column.피봇.value, item)
 
-                            if float(result['예상체결가격']) > 0 and df_call.iloc[index]['종가'] > 0:
+                            if float(result['예상체결가격']) > 0 and 종가 > 0:
 
-                                시가갭 = float(result['예상체결가격']) - df_call.iloc[index]['종가']
-                                df_call.loc[index, '시가갭'] = 시가갭
+                                시가갭 = float(result['예상체결가격']) - 종가
+                                df_call.set_value(index, '시가갭', 시가갭)
 
-                                yoc_call_gap_percent[index] = (float(result['예상체결가격']) / df_call.iloc[index][
-                                    '종가'] - 1) * 100
+                                yoc_call_gap_percent[index] = (float(result['예상체결가격']) / 종가 - 1) * 100
 
                                 gap_str = "{0:0.2f}\n({1:0.0f}%)".format(시가갭, yoc_call_gap_percent[index])
 
@@ -20696,46 +20511,47 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if result['예상체결가격'] != self.tableWidget_put.item(index, Option_column.시가.value).text():
 
                             df_plotdata_put.iloc[index][선물장간_시간차] = float(result['예상체결가격'])
+                            df_put.set_value(index, '시가', float(result['예상체결가격']))
 
-                            df_put.loc[index, '시가'] = round(float(result['예상체결가격']), 2)
+                            전저 = df_put.get_value(index, '전저')
+                            전고 = df_put.get_value(index, '전고')
+                            종가 = df_put.get_value(index, '종가')
 
                             self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(흰색))
 
                             item = QTableWidgetItem("{0}".format(result['예상체결가격']))
                             item.setTextAlignment(Qt.AlignCenter)
 
-                            if float(result['예상체결가격']) > df_put.iloc[index]['종가']:
+                            if float(result['예상체결가격']) > 종가:
                                 item.setForeground(QBrush(적색))
-                            elif float(result['예상체결가격']) < df_put.iloc[index]['종가']:
+                            elif float(result['예상체결가격']) < 종가:
                                 item.setForeground(QBrush(청색))
                             else:
                                 item.setForeground(QBrush(검정색))
 
                             self.tableWidget_put.setItem(index, Option_column.시가.value, item)
 
-                            if df_put.iloc[index]['시가'] in coreval:
+                            if float(result['예상체결가격']) in coreval:
 
                                 self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
                                 self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
                             else:
                                 pass
 
-                            df_put.loc[index, '피봇'] = self.calc_pivot(df_put.iloc[index]['전저'],
-                                                                          df_put.iloc[index]['전고'],
-                                                                          df_put.iloc[index]['종가'],
-                                                                          df_put.iloc[index]['시가'])
+                            피봇 = self.calc_pivot(전저, 전고, 종가, float(result['예상체결가격']))
 
-                            item = QTableWidgetItem("{0:0.2f}".format(df_put.iloc[index]['피봇']))
+                            df_put.set_value(index, '피봇', 피봇)
+
+                            item = QTableWidgetItem("{0:0.2f}".format(피봇))
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_put.setItem(index, Option_column.피봇.value, item)
 
-                            if float(result['예상체결가격']) > 0 and df_put.iloc[index]['종가'] > 0:
+                            if float(result['예상체결가격']) > 0 and 종가 > 0:
 
-                                시가갭 = float(result['예상체결가격']) - df_put.iloc[index]['종가']
-                                df_put.loc[index, '시가갭'] = 시가갭
+                                시가갭 = float(result['예상체결가격']) - 종가
+                                df_put.set_value(index, '시가갭', 시가갭)
 
-                                yoc_put_gap_percent[index] = (float(result['예상체결가격']) / df_put.iloc[index][
-                                    '종가'] - 1) * 100
+                                yoc_put_gap_percent[index] = (float(result['예상체결가격']) / 종가 - 1) * 100
 
                                 gap_str = "{0:0.2f}\n({1:0.0f}%)".format(시가갭, yoc_put_gap_percent[index])
 
