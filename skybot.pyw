@@ -16813,7 +16813,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             콜대비_퍼센트_평균 = round(np.mean(tmp), 1)
             call_str = repr(콜대비합_단위평균) + '\n(' + repr(int(콜대비_퍼센트_평균)) + '%' + ')'
 
-            print('콜대비_퍼센트_평균 =', 콜대비_퍼센트_평균)
+            #print('콜대비_퍼센트_평균 =', 콜대비_퍼센트_평균)
 
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(call_str)
@@ -17763,7 +17763,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             풋대비_퍼센트_평균 = round(np.mean(tmp), 1)
             put_str = repr(풋대비합_단위평균) + '\n(' + repr(int(풋대비_퍼센트_평균)) + '%' + ')'
 
-            print('풋대비_퍼센트_평균 =', 풋대비_퍼센트_평균)
+            #print('풋대비_퍼센트_평균 =', 풋대비_퍼센트_평균)
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(put_str)
