@@ -11142,6 +11142,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global server_date, server_time, system_server_timegap
         global call_cm_code, put_cm_code, opt_cm_length
         global selected_opt_list
+        global 콜대비_퍼센트_평균, 풋대비_퍼센트_평균
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -12956,6 +12957,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 call_db_percent = [NaN] * option_pairs_count
                 put_db_percent = [NaN] * option_pairs_count
 
+                콜대비_퍼센트_평균 = 0
+                풋대비_퍼센트_평균 = 0
+
                 item = QTableWidgetItem('행사가')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.행사가.value, item)
 
@@ -13502,18 +13506,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print('\r')
                 print('t2835 put open list = ', put_open_list, len(put_open_list))
                 print('\r')
-
-                print('대비합 초기화 전...', round(df_call['대비'].sum(), 2), round(df_put['대비'].sum(), 2))
-
-                '''
-                for i in range(option_pairs_count):
-
-                    # 대비 초기화
-                    df_call.loc[i, '대비'] = 0
-                    df_put.loc[i, '대비'] = 0
-
-                print('대비합 초기화 후...', round(df_call['대비'].sum(), 2), round(df_put['대비'].sum(), 2))
-                '''
 
                 self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
                 self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
@@ -16821,6 +16813,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             콜대비_퍼센트_평균 = round(np.mean(tmp), 1)
             call_str = repr(콜대비합_단위평균) + '\n(' + repr(int(콜대비_퍼센트_평균)) + '%' + ')'
 
+            print('콜대비_퍼센트_평균 =', 콜대비_퍼센트_평균)
+
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(call_str)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -17768,6 +17762,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             tmp = np.array(put_db_percent_local)            
             풋대비_퍼센트_평균 = round(np.mean(tmp), 1)
             put_str = repr(풋대비합_단위평균) + '\n(' + repr(int(풋대비_퍼센트_평균)) + '%' + ')'
+
+            print('풋대비_퍼센트_평균 =', 풋대비_퍼센트_평균)
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(put_str)
