@@ -16048,62 +16048,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(str)
         else:
             pass
-
-        # 현재가 갱신
-        if 현재가 != self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]:
-
-            df_call.set_value(index, '현재가', 콜현재가)
-            df_plotdata_call.iloc[index][opt_x_idx] = 콜현재가
-
-            if 콜현재가 < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
-                item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
-            elif 콜현재가 > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
-                item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
-            else:    
-                item = QTableWidgetItem(현재가)
-            
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if 콜현재가 < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
-                item.setBackground(QBrush(lightskyblue))
-            elif 콜현재가 > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
-                item.setBackground(QBrush(pink))
-            else:
-                item.setBackground(QBrush(흰색))
-
-            if 콜시가 < 콜현재가:
-                item.setForeground(QBrush(적색))
-            elif 콜시가 > 콜현재가:
-                item.setForeground(QBrush(청색))
-            else:
-                item.setForeground(QBrush(검정색))
-
-            self.tableWidget_call.setItem(index, Option_column.현재가.value, item)
-            
-            if 콜시가 > 0.1 and 콜저가 < 콜고가:
-
-                콜대비 = 콜현재가 - 콜시가
-                df_call.set_value(index, '대비', 콜대비)
-            else:
-                pass
-
-            # 콜 외가(등가포함) 대비 저장
-            if index <= atm_index and 콜시가 > 0.1 and 콜저가 < 콜고가:
-
-                call_otm_db[index] = 콜대비
-                call_otm_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
-            else:
-                pass
-
-            call_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
-            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(콜대비, call_db_percent[index])
-
-            item = QTableWidgetItem(gap_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_call.setItem(index, Option_column.대비.value, item)
-        else:
-            pass
-
+        
         # 저가 갱신
         if 저가 != self.tableWidget_call.item(index, Option_column.저가.value).text():
 
@@ -16248,6 +16193,61 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 flag_call_high_update = True
             else:
                 pass
+        else:
+            pass
+
+        # 현재가 갱신
+        if 현재가 != self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]:
+
+            df_call.set_value(index, '현재가', 콜현재가)
+            df_plotdata_call.iloc[index][opt_x_idx] = 콜현재가
+
+            if 콜현재가 < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+                item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
+            elif 콜현재가 > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+                item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
+            else:    
+                item = QTableWidgetItem(현재가)
+            
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if 콜현재가 < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+                item.setBackground(QBrush(lightskyblue))
+            elif 콜현재가 > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+                item.setBackground(QBrush(pink))
+            else:
+                item.setBackground(QBrush(흰색))
+
+            if 콜시가 < 콜현재가:
+                item.setForeground(QBrush(적색))
+            elif 콜시가 > 콜현재가:
+                item.setForeground(QBrush(청색))
+            else:
+                item.setForeground(QBrush(검정색))
+
+            self.tableWidget_call.setItem(index, Option_column.현재가.value, item)
+            
+            if 콜시가 > 0.1 and 콜저가 < 콜고가:
+
+                콜대비 = 콜현재가 - 콜시가
+                df_call.set_value(index, '대비', 콜대비)
+            else:
+                pass
+
+            # 콜 외가(등가포함) 대비 저장
+            if index <= atm_index and 콜시가 > 0.1 and 콜저가 < 콜고가:
+
+                call_otm_db[index] = 콜대비
+                call_otm_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
+            else:
+                pass
+
+            call_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
+            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(콜대비, call_db_percent[index])
+
+            item = QTableWidgetItem(gap_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_call.setItem(index, Option_column.대비.value, item)
         else:
             pass
              
@@ -17015,62 +17015,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(str)
         else:
             pass
-
-        # 현재가 갱신
-        if 현재가 != self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]:
-
-            df_put.set_value(index, '현재가', 풋현재가)
-            df_plotdata_put.iloc[index][opt_x_idx] = 풋현재가
-
-            if 풋현재가 < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
-                item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
-            elif 풋현재가 > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
-                item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
-            else:    
-                item = QTableWidgetItem(현재가)
-
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if 풋현재가 < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
-                item.setBackground(QBrush(lightskyblue))
-            elif 풋현재가 > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
-                item.setBackground(QBrush(pink))
-            else:
-                item.setBackground(QBrush(흰색))
-
-            if 풋시가 < 풋현재가:
-                item.setForeground(QBrush(적색))
-            elif 풋시가 > 풋현재가:
-                item.setForeground(QBrush(청색))
-            else:
-                item.setForeground(QBrush(검정색))
-
-            self.tableWidget_put.setItem(index, Option_column.현재가.value, item)
-            
-            if 풋시가 > 0.1 and 풋저가 < 풋고가:
-
-                풋대비 = 풋현재가 - 풋시가
-                df_put.set_value(index, '대비', 대비)
-            else:
-                pass
-            
-            # 풋 외가(등가포함) 대비 저장
-            if index >= atm_index and 풋시가 > 0.1 and 풋저가 < 풋고가:
-
-                put_otm_db[index] = 풋대비
-                put_otm_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
-            else:
-                pass
-
-            put_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
-            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(풋대비, put_db_percent[index])  
-
-            item = QTableWidgetItem(gap_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setItem(index, Option_column.대비.value, item)
-        else:
-            pass
-
+        
         # 저가 갱신
         if 저가 != self.tableWidget_put.item(index, Option_column.저가.value).text():
 
@@ -17215,6 +17160,61 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 flag_put_high_update = True
             else:
                 pass
+        else:
+            pass
+
+        # 현재가 갱신
+        if 현재가 != self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]:
+
+            df_put.set_value(index, '현재가', 풋현재가)
+            df_plotdata_put.iloc[index][opt_x_idx] = 풋현재가
+
+            if 풋현재가 < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+                item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
+            elif 풋현재가 > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+                item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
+            else:    
+                item = QTableWidgetItem(현재가)
+
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if 풋현재가 < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+                item.setBackground(QBrush(lightskyblue))
+            elif 풋현재가 > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+                item.setBackground(QBrush(pink))
+            else:
+                item.setBackground(QBrush(흰색))
+
+            if 풋시가 < 풋현재가:
+                item.setForeground(QBrush(적색))
+            elif 풋시가 > 풋현재가:
+                item.setForeground(QBrush(청색))
+            else:
+                item.setForeground(QBrush(검정색))
+
+            self.tableWidget_put.setItem(index, Option_column.현재가.value, item)
+            
+            if 풋시가 > 0.1 and 풋저가 < 풋고가:
+
+                풋대비 = 풋현재가 - 풋시가
+                df_put.set_value(index, '대비', 대비)
+            else:
+                pass
+            
+            # 풋 외가(등가포함) 대비 저장
+            if index >= atm_index and 풋시가 > 0.1 and 풋저가 < 풋고가:
+
+                put_otm_db[index] = 풋대비
+                put_otm_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
+            else:
+                pass
+
+            put_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
+            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(풋대비, put_db_percent[index])  
+
+            item = QTableWidgetItem(gap_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_put.setItem(index, Option_column.대비.value, item)
         else:
             pass
 
@@ -19773,15 +19773,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 '''
 
                 if result['단축코드'][0:3] == '201':
-                    
+
+                    call_result = copy.deepcopy(result)                        
+                    self.call_display(result) 
+                    '''
                     if result['현재가'] != OC0_콜현재가:
                         
                         OC0_콜현재가 = result['현재가']
 
                         call_result = copy.deepcopy(result)                        
-                        self.call_display(result)  
-
-                        '''
+                        self.call_display(result)
+                        
                         if opt_callreal_update_counter >= 500:
 
                             opt_callreal_update_counter = 0
@@ -19812,21 +19814,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 opt_callreal_update_counter,
                                 opt_putreal_update_counter,
                                 process_time)
-                            self.textBrowser.append(str)
-                        '''
+                            self.textBrowser.append(str)                        
                     else:
-                        pass 
+                        pass
+                    ''' 
 
                 elif result['단축코드'][0:3] == '301':
-                    
+
+                    put_result = copy.deepcopy(result)
+                    self.put_display(result)
+                    '''
                     if result['현재가'] != OC0_풋현재가:
 
                         OC0_풋현재가 = result['현재가']
 
                         put_result = copy.deepcopy(result)
                         self.put_display(result)
-
-                        '''
+                        
                         if opt_putreal_update_counter >= 500:
 
                             opt_callreal_update_counter = 0
@@ -19857,10 +19861,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 opt_callreal_update_counter,
                                 opt_putreal_update_counter,
                                 process_time)
-                            self.textBrowser.append(str)
-                        '''   
+                            self.textBrowser.append(str)                           
                     else:
-                        pass 
+                        pass
+                    ''' 
                 else:
                     pass
 
