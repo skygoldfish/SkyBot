@@ -12264,15 +12264,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    # 옵션 실시간테이타 요청
+                    # 옵션 실시간 가격 및 호가요청
                     for i in range(option_pairs_count):
                         self.OPT_REAL.AdviseRealData(call_code[i])
                         self.OPT_REAL.AdviseRealData(put_code[i])
-
-                    # 전일등가 중심 9개 행사가 호가요청
-                    for i in range(option_pairs_count):
                         self.OPT_HO.AdviseRealData(call_code[i])
-                        self.OPT_HO.AdviseRealData(put_code[i])
+                        self.OPT_HO.AdviseRealData(put_code[i])                       
 
                     # 선물 실시간테이타 요청
                     self.FUT_REAL.AdviseRealData(fut_code)
@@ -12315,34 +12312,39 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         # 콜 데이타 획득                        
                         시가 = df['시가'][i]
-                        df_call.loc[i, '시가'] = 시가
+                        df_call.set_value(i, '시가', 시가)
 
                         item = QTableWidgetItem("{0:0.2f}".format(시가))
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_call.setItem(i, Option_column.시가.value, item)
 
-                        if 시가 > 0 and df['저가'][i] < df['고가'][i]:
+                        저가 = df['저가'][i]
+                        고가 = df['고가'][i]
 
-                            시가갭 = 시가 - df_call.iloc[i]['종가']
-                            df_call.loc[i, '시가갭'] = 시가갭
+                        if 시가 > 0 and 저가 < 고가:
 
-                            if df_call.iloc[i]['종가'] > 0:
+                            종가 = df_call.get_value(i, '종가')
 
-                                call_gap_percent[i] = (df_call.iloc[i]['시가'] / df_call.iloc[i]['종가'] - 1) * 100
-                                gap_str = "{0:0.2f}\n({1:0.0f}%)".format(df_call.iloc[i]['시가갭'], call_gap_percent[i])
+                            시가갭 = 시가 - 종가
+                            df_call.set_value(i, '시가갭', 시가갭)
+
+                            if 종가 > 0:
+
+                                call_gap_percent[i] = (시가 / 종가 - 1) * 100
+                                gap_str = "{0:0.2f}\n({1:0.0f}%)".format(시가갭, call_gap_percent[i])
                             else:
                                 call_gap_percent[i] = 0.0
-                                gap_str = "{0:0.2f}".format(df_call.iloc[i]['시가갭'])
+                                gap_str = "{0:0.2f}".format(시가갭)
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_call.setItem(i, Option_column.시가갭.value, item)
 
-                            if df_call.iloc[i]['피봇'] == 0:
+                            if df_call.get_value(i, '피봇') == 0:
 
-                                피봇 = self.calc_pivot(df_call.iloc[i]['전저'], df_call.iloc[i]['전고'], df_call.iloc[i]['종가'], 시가)
+                                피봇 = self.calc_pivot(df_call.get_value(i, '전저'), df_call.get_value(i, '전고'), 종가, 시가)
 
-                                df_call.loc[i, '피봇'] = 피봇
+                                df_call.set_value(i, '피봇', 피봇)
 
                                 item = QTableWidgetItem("{0:0.2f}".format(피봇))
                                 item.setTextAlignment(Qt.AlignCenter)
@@ -12351,14 +12353,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
                         else:
                             시가갭 = 0
-                            df_call.loc[i, '시가갭'] = 시가갭
+                            df_call.set_value(i, '시가갭', 시가갭)
 
                         현재가 = df['현재가'][i]
-                        df_call.loc[i, '현재가'] = 현재가
+                        df_call.set_value(i, '현재가', 현재가)
 
                         item = QTableWidgetItem("{0:0.2f}".format(현재가))
                         item.setTextAlignment(Qt.AlignCenter)
-                        #item.setBackground(QBrush(옅은회색))
 
                         if 시가 > 0:
 
@@ -12373,16 +12374,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         self.tableWidget_call.setItem(i, Option_column.현재가.value, item)
                         
-                        저가 = df['저가'][i]
-                        df_call.loc[i, '저가'] = 저가
+                        df_call.set_value(i, '저가', 저가)
 
                         item = QTableWidgetItem("{0:0.2f}".format(저가))
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(옅은회색))
                         self.tableWidget_call.setItem(i, Option_column.저가.value, item)
 
-                        고가 = df['고가'][i]
-                        df_call.loc[i, '고가'] = 고가
+                        df_call.set_value(i, '고가', 고가)
 
                         item = QTableWidgetItem("{0:0.2f}".format(고가))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -12397,34 +12396,39 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         # 풋 데이타 획득                        
                         시가 = df1['시가'][i]
-                        df_put.loc[i, '시가'] = 시가
+                        df_put.set_value(i, '시가', 시가)
 
                         item = QTableWidgetItem("{0:0.2f}".format(시가))
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_put.setItem(i, Option_column.시가.value, item)
 
+                        저가 = df1['저가'][i]
+                        고가 = df1['고가'][i]
+
                         if 시가 > 0 and df1['저가'][i] < df1['고가'][i]:
 
-                            시가갭 = 시가 - df_put.iloc[i]['종가']
-                            df_put.loc[i, '시가갭'] = 시가갭
+                            종가 = df_put.get_value(i, '종가')
 
-                            if df_put.iloc[i]['종가'] > 0:
+                            시가갭 = 시가 - 종가
+                            df_put.set_value(i, '시가갭', 시가갭)
 
-                                put_gap_percent[i] = (df_put.iloc[i]['시가'] / df_put.iloc[i]['종가'] - 1) * 100
-                                gap_str = "{0:0.2f}\n({1:0.0f}%)".format(df_put.iloc[i]['시가갭'], put_gap_percent[i])
+                            if 종가 > 0:
+
+                                put_gap_percent[i] = (시가 / 종가 - 1) * 100
+                                gap_str = "{0:0.2f}\n({1:0.0f}%)".format(시가갭, put_gap_percent[i])
                             else:
                                 put_gap_percent[i] = 0.0
-                                gap_str = "{0:0.2f}".format(df_put.iloc[i]['시가갭'])
+                                gap_str = "{0:0.2f}".format(시가갭)
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_put.setItem(i, Option_column.시가갭.value, item)
 
-                            if df_put.iloc[i]['피봇'] == 0:
+                            if df_put.get_value(i, '피봇') == 0:
 
-                                피봇 = self.calc_pivot(df_put.iloc[i]['전저'], df_put.iloc[i]['전고'], df_put.iloc[i]['종가'], 시가)
+                                피봇 = self.calc_pivot(df_put.get_value(i, '전저'), df_put.get_value(i, '전고'), 종가, 시가)
 
-                                df_put.loc[i, '피봇'] = 피봇                                         
+                                df_put.set_value(i, '피봇', 피봇)                                         
 
                                 item = QTableWidgetItem("{0:0.2f}".format(피봇))
                                 item.setTextAlignment(Qt.AlignCenter)
@@ -12433,14 +12437,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
                         else:
                             시가갭 = 0
-                            df_put.loc[i, '시가갭'] = 시가갭
+                            df_put.set_value(i, '시가갭', 시가갭)
 
                         현재가 = df1['현재가'][i]
-                        df_put.loc[i, '현재가'] = 현재가
+                        df_put.set_value(i, '현재가', 현재가)
 
                         item = QTableWidgetItem("{0:0.2f}".format(현재가))
                         item.setTextAlignment(Qt.AlignCenter)
-                        #item.setBackground(QBrush(옅은회색))
 
                         if 시가 > 0:
 
@@ -12455,16 +12458,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         self.tableWidget_put.setItem(i, Option_column.현재가.value, item)
                         
-                        저가 = df1['저가'][i]
-                        df_put.loc[i, '저가'] = 저가
+                        df_put.set_value(i, '저가', 저가)
 
                         item = QTableWidgetItem("{0:0.2f}".format(저가))
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(옅은회색))
                         self.tableWidget_put.setItem(i, Option_column.저가.value, item)
 
-                        고가 = df1['고가'][i]
-                        df_put.loc[i, '고가'] = 고가
+                        df_put.set_value(i, '고가', 고가)
 
                         item = QTableWidgetItem("{0:0.2f}".format(고가))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -12995,9 +12996,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 for i in range(option_pairs_count):
 
                     # 수정거래량 초기화
-                    #df_call.loc[i, '수정거래량'] = 0
-                    df_call.loc[i, '시가갭'] = 0
-                    df_call.loc[i, '대비'] = 0
+                    df_call.set_value(i, '시가갭', 0)
+                    df_call.set_value(i, '대비', 0)
 
                     # Call 처리
                     self.tableWidget_call.item(i, Option_column.행사가.value).setBackground(QBrush(흰색))
@@ -13008,8 +13008,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.OLOH.value, item)
 
-                    전저 = df_call.iloc[i]['저가']
-                    df_call.loc[i, '전저'] = 전저
+                    전저 = df_call.get_value(i, '저가')
+                    df_call.set_value(i, '전저', 전저)
 
                     if 전저 >= 100:
                         item = QTableWidgetItem("{0:0.1f}".format(전저))
@@ -13019,8 +13019,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.전저.value, item)
 
-                    전고 = df_call.iloc[i]['고가']
-                    df_call.loc[i, '전고'] = 전고
+                    전고 = df_call.get_value(i, '고가')
+                    df_call.set_value(i, '전고', 전고)
 
                     if 전고 >= 100:
                         item = QTableWidgetItem("{0:0.1f}".format(전고))
@@ -13036,10 +13036,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         시가 = 0.0
 
-                    df_call.loc[i, '시가'] = 시가
+                    df_call.set_value(i, '시가', 시가)
 
-                    종가 = df_call.iloc[i]['현재가']
-                    df_call.loc[i, '종가'] = 종가
+                    종가 = df_call.get_value(i, '현재가')
+                    df_call.set_value(i, '종가', 종가)
 
                     if 종가 >= 100:
                         item = QTableWidgetItem("{0:0.1f}".format(종가))
@@ -13052,7 +13052,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_call.iloc[i][0] = 종가
 
                     현재가 = df['현재가'][i]
-                    df_call.loc[i, '현재가'] = 현재가
+                    df_call.set_value(i, '현재가', 현재가)
 
                     item = QTableWidgetItem("{0:0.2f}".format(현재가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -13071,7 +13071,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.setItem(i, Option_column.현재가.value, item)
 
                     저가 = df['저가'][i]
-                    df_call.loc[i, '저가'] = df['저가'][i]
+                    df_call.set_value(i, '저가', 저가)
 
                     item = QTableWidgetItem("{0:0.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -13079,7 +13079,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.setItem(i, Option_column.저가.value, item)
 
                     고가 = df['고가'][i]
-                    df_call.loc[i, '고가'] = df['고가'][i]
+                    df_call.set_value(i, '고가', 고가)
 
                     item = QTableWidgetItem("{0:0.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -13098,7 +13098,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     진폭 = 고가 - 저가
-                    df_call.loc[i, '진폭'] = 진폭
+                    df_call.set_value(i, '진폭', 진폭)
 
                     item = QTableWidgetItem("{0:0.2f}".format(진폭))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -13134,10 +13134,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_plotdata_call.iloc[i][선물장간_시간차] = 시가
 
                         시가갭 = 시가 - 종가
-                        df_call.loc[i, '시가갭'] = 시가갭
+                        df_call.set_value(i, '시가갭', 시가갭)
 
                         대비 = round((현재가 - 시가), 2)
-                        df_call.loc[i, '대비'] = 대비
+                        df_call.set_value(i, '대비', 대비)
 
                         if 시가 > 0 and 저가 < 고가:
 
@@ -13170,7 +13170,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.tableWidget_call.setItem(i, Option_column.대비.value, item)
 
                         피봇 = self.calc_pivot(전저, 전고, 종가, 시가)
-                        df_call.loc[i, '피봇'] = 피봇
 
                         item = QTableWidgetItem("{0:0.2f}".format(피봇))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -13200,7 +13199,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_call.item(i, Option_column.행사가.value).setBackground(QBrush(흰색))
                         self.tableWidget_call.item(i, Option_column.행사가.value).setForeground(QBrush(검정색))
 
-                    df_call.loc[i, '피봇'] = 피봇
+                    df_call.set_value(i, '피봇', 피봇)
 
                     if 시가 > 0 and 저가 < 고가:
                         self.tableWidget_call.item(i, Option_column.행사가.value).setBackground(QBrush(라임))
@@ -13216,12 +13215,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         수정거래량 = int((df['매수잔량'][i] - df['매도잔량'][i]) * (df['현재가'][i] - 시가갭))
 
                     # 수정거래량 초기화
-                    df_call.loc[i, '수정거래량'] = 0
+                    df_call.set_value(i, '수정거래량', 0)
 
-                    # t2835에 미결항목이 없음                    
-                    df_call.loc[i, '순미결'] = 0
-                    df_call.loc[i, '수정미결'] = 0
-                    df_call.loc[i, '수정미결증감'] = 0
+                    # t2835에 미결항목이 없음
+                    df_call.set_value(i, '순미결', 0)
+                    df_call.set_value(i, '수정미결', 0)
+                    df_call.set_value(i, '수정미결증감', 0)
 
                     temp = format(0, ',')
 
@@ -13243,9 +13242,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_call_volume.iloc[0][선물장간_시간차] = 0
 
                     # Put 처리
-                    #df_put.loc[i, '수정거래량'] = 0
-                    df_put.loc[i, '시가갭'] = 0
-                    df_put.loc[i, '대비'] = 0
+                    df_put.set_value(i, '시가갭', 0)
+                    df_put.set_value(i, '대비', 0)
 
                     self.tableWidget_put.item(i, Option_column.행사가.value).setBackground(QBrush(흰색))
 
@@ -13254,8 +13252,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.OLOH.value, item)
 
-                    전저 = df_put.iloc[i]['저가']
-                    df_put.loc[i, '전저'] = 전저
+                    전저 = df_put.get_value(i, '저가')
+                    df_put.set_value(i, '전저', 전저)
 
                     if 전저 >= 100:
                         item = QTableWidgetItem("{0:0.1f}".format(전저))
@@ -13265,8 +13263,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.전저.value, item)
 
-                    전고 = df_put.iloc[i]['고가']
-                    df_put.loc[i, '전고'] = 전고
+                    전고 = df_put.get_value(i, '고가')
+                    df_put.set_value(i, '전고', 전고)
 
                     if 전고 >= 100:
                         item = QTableWidgetItem("{0:0.1f}".format(전고))
@@ -13282,10 +13280,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         시가 = 0.0
 
-                    df_put.loc[i, '시가'] = 시가
+                    df_put.set_value(i, '시가', 시가)
 
-                    종가 = df_put.iloc[i]['현재가']
-                    df_put.loc[i, '종가'] = 종가
+                    종가 = df_put.get_value(i, '현재가')
+                    df_put.set_value(i, '종가', 종가)
 
                     if 종가 >= 100:
                         item = QTableWidgetItem("{0:0.1f}".format(종가))
@@ -13298,7 +13296,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_put.iloc[i][0] = 종가
 
                     현재가 = df1['현재가'][i]
-                    df_put.loc[i, '현재가'] = 현재가
+                    df_put.set_value(i, '현재가', 현재가)
 
                     item = QTableWidgetItem("{0:0.2f}".format(현재가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -13317,7 +13315,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.setItem(i, Option_column.현재가.value, item)
 
                     저가 = df1['저가'][i]
-                    df_put.loc[i, '저가'] = df1['저가'][i]
+                    df_put.set_value(i, '저가', 저가)
 
                     item = QTableWidgetItem("{0:0.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -13325,7 +13323,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.setItem(i, Option_column.저가.value, item)
 
                     고가 = df1['고가'][i]
-                    df_put.loc[i, '고가'] = df1['고가'][i]
+                    df_put.set_value(i, '고가', 고가)
 
                     item = QTableWidgetItem("{0:0.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -13344,7 +13342,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     진폭 = 고가 - 저가
-                    df_put.loc[i, '진폭'] = 진폭
+                    df_put.set_value(i, '진폭', 진폭)
 
                     item = QTableWidgetItem("{0:0.2f}".format(진폭))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -13380,10 +13378,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_plotdata_put.iloc[i][선물장간_시간차] = 시가
 
                         시가갭 = 시가 - 종가
-                        df_put.loc[i, '시가갭'] = 시가갭
+                        df_put.set_value(i, '시가갭', 시가갭)
 
                         대비 = round((현재가 - 시가), 2)
-                        df_put.loc[i, '대비'] = 대비
+                        df_put.set_value(i, '대비', 대비)
 
                         if 시가 > 0 and 저가 < 고가:
 
@@ -13416,7 +13414,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.tableWidget_put.setItem(i, Option_column.대비.value, item)
 
                         피봇 = self.calc_pivot(전저, 전고, 종가, 시가)
-                        df_put.loc[i, '피봇'] = 피봇
 
                         item = QTableWidgetItem("{0:0.2f}".format(피봇))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -13446,7 +13443,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_put.item(i, Option_column.행사가.value).setBackground(QBrush(흰색))
                         self.tableWidget_put.item(i, Option_column.행사가.value).setForeground(QBrush(검정색))
 
-                    df_put.loc[i, '피봇'] = 피봇
+                    df_put.set_value(i, '피봇', 피봇)
 
                     if 시가 > 0 and 저가 < 고가:
                         self.tableWidget_put.item(i, Option_column.행사가.value).setBackground(QBrush(라임))
@@ -13462,12 +13459,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         수정거래량 = int((df1['매수잔량'][i] - df1['매도잔량'][i]) * (df1['현재가'][i] - 시가갭))
 
                     # 수정거래량 초기화
-                    df_put.loc[i, '수정거래량'] = 0
+                    df_put.set_value(i, '수정거래량', 0)
 
                     # t2835에 미결항목이 없음
-                    df_put.loc[i, '순미결'] = 0
-                    df_put.loc[i, '수정미결'] = 0
-                    df_put.loc[i, '수정미결증감'] = 0
+                    df_put.set_value(i, '순미결', 0)
+                    df_put.set_value(i, '수정미결', 0)
+                    df_put.set_value(i, '수정미결증감', 0)
 
                     temp = format(0, ',')
 
@@ -13575,17 +13572,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
 
-                self.OPT_REAL = EC0(parent=self)
+                self.OPT_REAL = EC0(parent=self)                
+                self.OPT_HO = EH0(parent=self)
 
                 for i in range(option_pairs_count):
                     self.OPT_REAL.AdviseRealData(call_code[i])
                     self.OPT_REAL.AdviseRealData(put_code[i]) 
-
-                self.OPT_HO = EH0(parent=self)
-
-                for i in range(option_pairs_count):
                     self.OPT_HO.AdviseRealData(call_code[i])
-                    self.OPT_HO.AdviseRealData(put_code[i]) 
+                    self.OPT_HO.AdviseRealData(put_code[i])                    
 
                 self.FUT_REAL = NC0(parent=self)
                 self.FUT_REAL.AdviseRealData(fut_code)
@@ -13618,10 +13612,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 for i in range(option_pairs_count):
 
                     # 콜 데이타 획득
-                    종가 = df_call.iloc[i]['종가']
+                    종가 = df_call.get_value(i, '종가')
 
                     시가 = df['시가'][i]
-                    df_call.loc[i, '시가'] = df['시가'][i]
+                    df_call.set_value(i, '시가', 시가)
 
                     item = QTableWidgetItem("{0:0.2f}".format(시가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -13630,24 +13624,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if 시가 > 0:
 
                         시가갭 = 시가 - 종가
-                        df_call.loc[i, '시가갭'] = 시가갭
+                        df_call.set_value(i, '시가갭', 시가갭)
 
-                        피봇 = self.calc_pivot(df_call.iloc[i]['전저'], df_call.iloc[i]['전고'], 종가, 시가)
-                        df_call.loc[i, '피봇'] = 피봇
+                        피봇 = self.calc_pivot(df_call.get_value(i, '전저'), df_call.get_value(i, '전고'), 종가, 시가)
+                        df_call.set_value(i, '피봇', 피봇)
 
                         item = QTableWidgetItem("{0:0.2f}".format(피봇))
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_call.setItem(i, Option_column.피봇.value, item)
                     else:
                         시가갭 = 0
-                        df_call.loc[i, '시가갭'] = 시가갭
+                        df_call.set_value(i, '시가갭', 시가갭)
 
                     현재가 = df['현재가'][i]
-                    df_call.loc[i, '현재가'] = 현재가
+                    df_call.set_value(i, '현재가', 현재가)
 
                     item = QTableWidgetItem("{0:0.2f}".format(현재가))
-                    item.setTextAlignment(Qt.AlignCenter)                    
-                    #item.setBackground(QBrush(옅은회색))
+                    item.setTextAlignment(Qt.AlignCenter)
 
                     if 시가 > 0:
 
@@ -13663,7 +13656,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.setItem(i, Option_column.현재가.value, item)
 
                     저가 = df['저가'][i]
-                    df_call.loc[i, '저가'] = df['저가'][i]
+                    df_call.set_value(i, '저가', 저가)
 
                     item = QTableWidgetItem("{0:0.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -13671,7 +13664,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.setItem(i, Option_column.저가.value, item)
 
                     고가 = df['고가'][i]
-                    df_call.loc[i, '고가'] = df['고가'][i]
+                    df_call.set_value(i, '고가', 고가)
 
                     item = QTableWidgetItem("{0:0.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -13685,10 +13678,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     # 풋 데이타 획득
-                    종가 = df_put.iloc[i]['종가']
+                    종가 = df_put.get_value(i, '종가')
 
                     시가 = df1['시가'][i]
-                    df_put.loc[i, '시가'] = df1['시가'][i]
+                    df_put.set_value(i, '시가', 시가)
 
                     item = QTableWidgetItem("{0:0.2f}".format(시가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -13697,24 +13690,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if 시가 > 0:
 
                         시가갭 = 시가 - 종가
-                        df_put.loc[i, '시가갭'] = 시가갭
+                        df_put.set_value(i, '시가갭', 시가갭)
 
-                        피봇 = self.calc_pivot(df_put.iloc[i]['전저'], df_put.iloc[i]['전고'], 종가, 시가)
-                        df_put.loc[i, '피봇'] = 피봇
+                        피봇 = self.calc_pivot(df_put.get_value(i, '전저'), df_put.get_value(i, '전고'), 종가, 시가)
+                        df_put.set_value(i, '피봇', 피봇)
 
                         item = QTableWidgetItem("{0:0.2f}".format(피봇))
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_put.setItem(i, Option_column.피봇.value, item)
                     else:
                         시가갭 = 0
-                        df_put.loc[i, '시가갭'] = 시가갭
+                        df_put.set_value(i, '시가갭', 시가갭)
 
                     현재가 = df1['현재가'][i]
-                    df_put.loc[i, '현재가'] = 현재가
+                    df_put.set_value(i, '현재가', 현재가)
 
                     item = QTableWidgetItem("{0:0.2f}".format(현재가))
-                    item.setTextAlignment(Qt.AlignCenter)                    
-                    #item.setBackground(QBrush(옅은회색))
+                    item.setTextAlignment(Qt.AlignCenter)
 
                     if 시가 > 0:
 
@@ -13730,7 +13722,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.setItem(i, Option_column.현재가.value, item)
                     
                     저가 = df1['저가'][i]
-                    df_put.loc[i, '저가'] = df1['저가'][i]
+                    df_put.set_value(i, '저가', 저가)
 
                     item = QTableWidgetItem("{0:0.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -13738,7 +13730,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.setItem(i, Option_column.저가.value, item)
 
                     고가 = df1['고가'][i]
-                    df_put.loc[i, '고가'] = df1['고가'][i]
+                    df_put.set_value(i, '고가', 고가)
 
                     item = QTableWidgetItem("{0:0.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -14567,8 +14559,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         for i in range(option_pairs_count):
 
-                            df_call.loc[i, '수정거래량'] = 수정거래량
-                            df_put.loc[i, '수정거래량'] = 수정거래량
+                            df_call.set_value(i, '수정거래량', 수정거래량)
+                            df_put.set_value(i, '수정거래량', 수정거래량)
 
                             temp = format(수정거래량, ',')
 
@@ -14580,8 +14572,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_put.setItem(i, Option_column.VP.value, item)
 
-                            df_call.loc[i, '수정미결'] = 수정미결
-                            df_put.loc[i, '수정미결'] = 수정미결
+                            df_call.set_value(i, '수정미결', 수정미결)
+                            df_put.set_value(i, '수정미결', 수정미결)
 
                             temp = format(수정미결, ',')
 
@@ -14593,8 +14585,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_put.setItem(i, Option_column.OI.value, item)
 
-                            df_call.loc[i, '수정미결증감'] = 수정미결증감
-                            df_put.loc[i, '수정미결증감'] = 수정미결증감
+                            df_call.set_value(i, '수정미결증감', 수정미결증감)
+                            df_put.set_value(i, '수정미결증감', 수정미결증감)
 
                             temp = format(수정미결증감, ',')
 
@@ -20741,11 +20733,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def SaveResult(self):
 
         dt = datetime.datetime.now()
-
         now = time.localtime()
 
         times = "%04d-%02d-%02d-%02d-%02d-%02d" % \
                 (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+
+        # 저장전 전체 데이타를 다시 내려받음
+        self.AddCode()
 
         file = open('skybot.log', 'w')
         text = self.textBrowser.toPlainText()
@@ -20910,23 +20904,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         for i in range(option_pairs_count):
 
-            if 1.2 < df_call.iloc[i]['저가'] < 10.0:
-                call_low_list.append(df_call.iloc[i]['저가'])
+            콜저가 = df_call.get_value(i, '저가')
+            콜고가 = df_call.get_value(i, '고가')
+            풋저가 = df_put.get_value(i, '저가')
+            풋고가 = df_put.get_value(i, '고가')
+
+            if 1.2 < 콜저가 < 10.0:
+                call_low_list.append(콜저가)
             else:
                 pass
 
-            if 1.2 < df_call.iloc[i]['고가'] < 10.0:
-                call_high_list.append(df_call.iloc[i]['고가'])
+            if 1.2 < 콜고가 < 10.0:
+                call_high_list.append(콜고가)
             else:
                 pass
 
-            if 1.2 < df_put.iloc[i]['저가'] < 10.0:
-                put_low_list.append(df_put.iloc[i]['저가'])
+            if 1.2 < 풋저가 < 10.0:
+                put_low_list.append(풋저가)
             else:
                 pass
 
-            if 1.2 < df_put.iloc[i]['고가'] < 10.0:
-                put_high_list.append(df_put.iloc[i]['고가'])
+            if 1.2 < 풋고가 < 10.0:
+                put_high_list.append(풋고가)
             else:
                 pass
 
