@@ -2901,6 +2901,11 @@ class screen_update_worker(QThread):
 
                 data[actval] = self.get_data_infos(actval)
 
+            '''
+            # 같은 파일내 다른 클래스의 함수를 호출할 경우 classmethod 사용!!!
+            화면_선물옵션전광판.test_classmethod()
+            '''
+
             self.finished.emit(data)  
             self.msleep(500)
 
@@ -12836,18 +12841,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     선물_고가 = cme_realdata['종가']
             else:
-                pass
-                '''
-                if pre_start:
-                    #선물_종가 = CME_LAST_CLOSE
-                    선물_피봇 = CME_LAST_CLOSE 
-                    선물_시가 = CME_LAST_CLOSE
-                    선물_저가 = CME_LAST_CLOSE
-                    선물_현재가 = CME_LAST_CLOSE
-                    선물_고가 = CME_LAST_CLOSE 
-                else:
-                    pass
-                '''           
+                pass    
             
             if overnight:
 
@@ -15847,6 +15841,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         콜전저 = df_call.get_value(index, '전저')
         콜전고 = df_call.get_value(index, '전고')
 
+        if 콜저가 > 콜현재가:
+
+            저가 = 현재가
+            콜저가 = 콜현재가
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 콜저가 오류수정 !!!\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
+            print(str) 
+        else:
+            pass
+
+        if 콜고가 < 콜현재가:
+
+            고가 = 현재가
+            콜고가 = 콜현재가
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 콜고가 오류수정 !!!\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
+            print(str)
+        else:
+            pass
+
         # 야간선물이 없어짐에 따른 텔레그램 기동 대응
         if overnight:
 
@@ -16233,8 +16249,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
         else:
-            pass               
-                   
+            pass
+             
         opt_callreal_update_counter += 1
 
     def call_db_update(self):
@@ -16868,6 +16884,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         풋월고 = df_put.get_value(index, '월고')
         풋전저 = df_put.get_value(index, '전저')
         풋전고 = df_put.get_value(index, '전고')
+
+        if 풋저가 > 풋현재가:
+
+            저가 = 현재가
+            풋저가 = 풋현재가
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 풋저가 오류수정 !!!\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
+            print(str)
+        else:
+            pass
+
+        if 풋고가 < 풋현재가:
+
+            고가 = 현재가
+            풋고가 = 풋현재가
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 풋고가 오류수정 !!!\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
+            print(str)
+        else:
+            pass
         
         if 저가 != 고가:
 
@@ -17178,8 +17216,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
         else:
-            pass                
-                    
+            pass
+
         opt_putreal_update_counter += 1 
     
     def put_db_update(self):
@@ -20505,6 +20543,47 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         except Exception as e:
             pass
+        
+    '''
+    def TableUpdate(self):
+
+        # 옵션 전광판 요청(주간=FC0/OC0, 야간=NC0/EC0)
+        XQ = t2301(parent=self)
+
+        if TARGET_MONTH_SELECT == 1:
+
+            if MANGI_YAGAN == 'YES':
+                t2301_month_info = NEXT_MONTH
+            else:
+                t2301_month_info = CURRENT_MONTH
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
+            self.textBrowser.append(str)
+
+        elif TARGET_MONTH_SELECT == 2:
+
+            if MANGI_YAGAN == 'YES':
+                t2301_month_info = MONTH_AFTER_NEXT
+            else:
+                t2301_month_info = NEXT_MONTH   
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
+            self.textBrowser.append(str)
+
+        elif TARGET_MONTH_SELECT == 3:
+
+            if MANGI_YAGAN == 'YES':
+                t2301_month_info = MONTH_AFTER_NEXT
+            else:
+                t2301_month_info = MONTH_AFTER_NEXT 
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 차차월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
+            self.textBrowser.append(str)
+        else:
+            pass
+
+        XQ.Query(월물=t2301_month_info, 미니구분='G')
+    '''
 
     def AddCode(self):
 
@@ -20850,6 +20929,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.screen_update_worker.terminate()
         else:
             pass
+    '''
+    @classmethod
+    def test_classmethod(cls):
+
+        print('sky...')
+    '''
 
 ########################################################################################################################
 # Big Chart Update Thread
