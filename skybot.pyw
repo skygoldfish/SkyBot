@@ -7028,7 +7028,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            # 오전 7시 10분경 증권사 서버초기화전에 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
+            # 오전 6시 10분경 증권사 서버초기화전에 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
             if overnight:
 
                 보정된시간 = 시스템시간 - 시스템_서버_시간차
@@ -7051,7 +7051,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if dt.hour == 7 and dt.minute == 0:
+                if dt.hour == 6 and dt.minute == 5:
 
                     if self.parent.connection.IsConnected() and not flag_offline:
 
@@ -20543,7 +20543,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         except Exception as e:
             pass
-        
+
     '''
     def TableUpdate(self):
 
