@@ -16250,6 +16250,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_call.setItem(index, Option_column.대비.value, item)
         else:
             pass
+
+        if float(self.tableWidget_call.item(index, Option_column.저가.value).text()) > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 콜저가[{3}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, index)
+            self.textBrowser.append(str)
+            print(str)
+
+            self.AddCode() 
+        else:
+            pass
+
+        if float(self.tableWidget_call.item(index, Option_column.고가.value).text()) < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 콜고가[{3}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, index)
+            self.textBrowser.append(str)
+            print(str)
+
+            self.AddCode()
+        else:
+            pass
              
         opt_callreal_update_counter += 1
 
@@ -17215,6 +17235,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem(gap_str)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setItem(index, Option_column.대비.value, item)
+        else:
+            pass
+
+        if float(self.tableWidget_put.item(index, Option_column.저가.value).text()) > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 풋저가[{3}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, index)
+            self.textBrowser.append(str)
+            print(str)
+
+            self.AddCode() 
+        else:
+            pass
+
+        if float(self.tableWidget_put.item(index, Option_column.고가.value).text()) < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 풋고가[{3}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, index)
+            self.textBrowser.append(str)
+            print(str)
+
+            self.AddCode()
         else:
             pass
 
