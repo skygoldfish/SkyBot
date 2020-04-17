@@ -16253,7 +16253,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if float(self.tableWidget_call.item(index, Option_column.저가.value).text()) > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 콜저가[{3}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, index)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 콜저가[{3}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, 콜저가)
             self.textBrowser.append(str)
             print(str)
 
@@ -16263,7 +16263,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if float(self.tableWidget_call.item(index, Option_column.고가.value).text()) < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 콜고가[{3}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, index)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 콜고가[{3}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, 콜고가)
             self.textBrowser.append(str)
             print(str)
 
@@ -17240,7 +17240,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if float(self.tableWidget_put.item(index, Option_column.저가.value).text()) > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 풋저가[{3}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, index)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 풋저가[{3}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, 풋저가)
             self.textBrowser.append(str)
             print(str)
 
@@ -17250,7 +17250,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if float(self.tableWidget_put.item(index, Option_column.고가.value).text()) < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 풋고가[{3}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, index)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 풋고가[{3}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, 풋고가)
             self.textBrowser.append(str)
             print(str)
 
