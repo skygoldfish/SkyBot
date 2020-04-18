@@ -7380,10 +7380,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         node_coloring = True
         
         self.call_node_color_clear() 
-        self.put_node_color_clear()     
+        self.put_node_color_clear()
+        
+        #start_time = timeit.default_timer()
 
         self.call_open_check()    
         self.put_open_check()
+
+        #process_time = (timeit.default_timer() - start_time) * 1000
 
         self.call_cross_color_update()
         self.put_cross_color_update()
@@ -7395,13 +7399,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.put_coreval_color_update()
 
         node_coloring = False
-        '''
-        current_str = dt.strftime('%H:%M:%S')
-        coloring_done_time = int(current_str[0:2]) * 3600 + int(current_str[3:5]) * 60 + int(current_str[6:8])
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Color Update Done {3}...\r'.format(dt.hour, dt.minute, dt.second, coloring_done_time)
-        self.textBrowser.append(str)
-        '''
         process_time = (timeit.default_timer() - start_time) * 1000
 
         str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
@@ -10486,7 +10484,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 	
         #start_time = timeit.default_timer()
         #dt = datetime.datetime.now()
-
+        
         df_put['저가'].apply(self.check_put_low_isin_call_open_list)
         df_put['고가'].apply(self.check_put_high_isin_call_open_list)
         df_put['저가'].apply(self.check_put_low_isin_call_close_list)
@@ -10518,6 +10516,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         df_put['시가'].apply(self.check_put_open_isin_put_high_list)
 
         df_put['시가'].apply(self.check_put_open_isin_coreval_list)
+        
         '''
         global put_scroll_end_position
 
