@@ -9278,13 +9278,330 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
             else:
                 pass
+
+    # 콜 컬러링 Apply 함수
+    # 콜 저가, 고가가 풋시가에 있는지 검사
+    def check_call_low_isin_put_open_list(self, x):
+
+        if x > 0.3 and x in put_시가_node_list:
+
+            i = call_저가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.저가.value).setBackground(QBrush(풋시가색))
+            self.tableWidget_call.item(i+1, Option_column.저가.value).setForeground(QBrush(흰색))            
+        else:
+            pass
+    
+    def check_call_high_isin_put_open_list(self, x):
+
+        if x > 0.3 and x in put_시가_node_list:
+
+            i = call_고가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.고가.value).setBackground(QBrush(풋시가색))
+            self.tableWidget_call.item(i+1, Option_column.고가.value).setForeground(QBrush(흰색))            
+        else:
+            pass
+
+    # 콜 저가, 고가가 풋종가에 있는지 검사
+    def check_call_low_isin_put_close_list(self, x):
+
+        if x > 0.3 and x in put_종가_node_list:
+
+            i = call_저가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.저가.value).setBackground(QBrush(풋종가색))
+            self.tableWidget_call.item(i+1, Option_column.저가.value).setForeground(QBrush(검정색))       
+        else:
+            pass
+
+    def check_call_high_isin_put_close_list(self, x):
+
+        if x > 0.3 and x in put_종가_node_list:
+
+            i = call_고가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.고가.value).setBackground(QBrush(풋종가색))
+            self.tableWidget_call.item(i+1, Option_column.고가.value).setForeground(QBrush(검정색))       
+        else:
+            pass
+
+    # 콜 저가, 고가가 풋피봇에 있는지 검사
+    def check_call_low_isin_put_pivot_list(self, x):
+
+        if x > 0.3 and x in put_피봇_node_list:
+
+            i = call_저가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.저가.value).setBackground(QBrush(풋피봇색))
+            self.tableWidget_call.item(i+1, Option_column.저가.value).setForeground(QBrush(검정색))      
+        else:
+            pass
+
+    def check_call_high_isin_put_pivot_list(self, x):
+
+        if x > 0.3 and x in put_피봇_node_list:
+
+            i = call_고가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.고가.value).setBackground(QBrush(풋피봇색))
+            self.tableWidget_call.item(i+1, Option_column.고가.value).setForeground(QBrush(검정색))      
+        else:
+            pass
+
+    # 콜 저가, 고가가 콜시가에 있는지 검사
+    def check_call_low_isin_call_open_list(self, x):
+
+        if x > 0.3 and x in call_시가_node_list:
+
+            i = call_저가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.저가.value).setBackground(QBrush(콜시가색))
+            self.tableWidget_call.item(i+1, Option_column.저가.value).setForeground(QBrush(검정색))  
+        else:
+            pass
+
+    def check_call_high_isin_call_open_list(self, x):
+
+        if x > 0.3 and x in call_시가_node_list:
+
+            i = call_고가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.고가.value).setBackground(QBrush(콜시가색))
+            self.tableWidget_call.item(i+1, Option_column.고가.value).setForeground(QBrush(검정색))  
+        else:
+            pass
+
+    # 콜 저가, 고가가 콜종가에 있는지 검사
+    def check_call_low_isin_call_close_list(self, x):
+
+        if x > 0.3 and x in call_종가_node_list:
+
+            i = call_저가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.저가.value).setBackground(QBrush(콜종가색))
+            self.tableWidget_call.item(i+1, Option_column.저가.value).setForeground(QBrush(검정색))
+        else:
+            pass
+
+    def check_call_high_isin_call_close_list(self, x):
+
+        if x > 0.3 and x in call_종가_node_list:
+
+            i = call_고가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.고가.value).setBackground(QBrush(콜종가색))
+            self.tableWidget_call.item(i+1, Option_column.고가.value).setForeground(QBrush(검정색))
+        else:
+            pass
+
+    # 콜 저가, 고가가 콜피봇에 있는지 검사
+    def check_call_low_isin_call_pivot_list(self, x):
+
+        if x > 0.3 and x in call_피봇_node_list:
+
+            i = call_저가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.저가.value).setBackground(QBrush(콜피봇색))
+            self.tableWidget_call.item(i+1, Option_column.저가.value).setForeground(QBrush(검정색))
+        else:
+            pass
+
+    def check_call_high_isin_call_pivot_list(self, x):
+
+        if x > 0.3 and x in call_피봇_node_list:
+
+            i = call_고가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.고가.value).setBackground(QBrush(콜피봇색))
+            self.tableWidget_call.item(i+1, Option_column.고가.value).setForeground(QBrush(검정색))
+        else:
+            pass
+
+    # 콜종가가 풋, 콜의 저가, 고가에 있는지 검사
+    def check_call_close_isin_put_low_list(self, x):
+
+        if x > 0.3 and x in put_저가_node_list:
+
+            i = call_종가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.종가.value).setBackground(QBrush(콜종가색))
+            self.tableWidget_call.item(i+1, Option_column.종가.value).setForeground(QBrush(검정색))         
+        else:
+            pass
+
+    def check_call_close_isin_put_high_list(self, x):
+
+        if x > 0.3 and x in put_고가_node_list:
+
+            i = call_종가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.종가.value).setBackground(QBrush(콜종가색))
+            self.tableWidget_call.item(i+1, Option_column.종가.value).setForeground(QBrush(검정색))         
+        else:
+            pass
+
+    def check_call_close_isin_call_low_list(self, x):
+
+        if x > 0.3 and x in call_저가_node_list:
+
+            i = call_종가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.종가.value).setBackground(QBrush(콜종가색))
+            self.tableWidget_call.item(i+1, Option_column.종가.value).setForeground(QBrush(검정색))         
+        else:
+            pass
+
+    def check_call_close_isin_call_high_list(self, x):
+
+        if x > 0.3 and x in call_고가_node_list:
+
+            i = call_종가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.종가.value).setBackground(QBrush(콜종가색))
+            self.tableWidget_call.item(i+1, Option_column.종가.value).setForeground(QBrush(검정색))         
+        else:
+            pass
+
+    # 콜피봇이 풋, 콜의 저가, 고가에 있는지 검사
+    def check_call_pivot_isin_put_low_list(self, x):
+
+        if x > 0.3 and x in put_저가_node_list:
+
+            i = call_피봇.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.피봇.value).setBackground(QBrush(콜피봇색))
+            self.tableWidget_call.item(i+1, Option_column.피봇.value).setForeground(QBrush(검정색))       
+        else:
+            pass
+
+    def check_call_pivot_isin_put_high_list(self, x):
+
+        if x > 0.3 and x in put_고가_node_list:
+
+            i = call_피봇.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.피봇.value).setBackground(QBrush(콜피봇색))
+            self.tableWidget_call.item(i+1, Option_column.피봇.value).setForeground(QBrush(검정색))       
+        else:
+            pass
+
+    def check_call_pivot_isin_call_low_list(self, x):
+
+        if x > 0.3 and x in call_저가_node_list:
+
+            i = call_피봇.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.피봇.value).setBackground(QBrush(콜피봇색))
+            self.tableWidget_call.item(i+1, Option_column.피봇.value).setForeground(QBrush(검정색))       
+        else:
+            pass
+
+    def check_call_pivot_isin_call_high_list(self, x):
+
+        if x > 0.3 and x in call_고가_node_list:
+
+            i = call_피봇.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.피봇.value).setBackground(QBrush(콜피봇색))
+            self.tableWidget_call.item(i+1, Option_column.피봇.value).setForeground(QBrush(검정색))       
+        else:
+            pass
+
+    # 콜시가가 풋, 콜의 저가, 고가에 있는지 검사
+    def check_call_open_isin_put_low_list(self, x):
+
+        if x > 0.3 and x in put_저가_node_list:
+
+            i = call_시가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.시가.value).setBackground(QBrush(콜시가색))
+            self.tableWidget_call.item(i+1, Option_column.시가.value).setForeground(QBrush(검정색))     
+        else:
+            pass
+
+    def check_call_open_isin_put_high_list(self, x):
+
+        if x > 0.3 and x in put_고가_node_list:
+
+            i = call_시가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.시가.value).setBackground(QBrush(콜시가색))
+            self.tableWidget_call.item(i+1, Option_column.시가.value).setForeground(QBrush(검정색))     
+        else:
+            pass
+
+    def check_call_open_isin_call_low_list(self, x):
+
+        if x > 0.3 and x in call_저가_node_list:
+
+            i = call_시가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.시가.value).setBackground(QBrush(콜시가색))
+            self.tableWidget_call.item(i+1, Option_column.시가.value).setForeground(QBrush(검정색))     
+        else:
+            pass
+
+    def check_call_open_isin_call_high_list(self, x):
+
+        if x > 0.3 and x in call_고가_node_list:
+
+            i = call_시가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.시가.value).setBackground(QBrush(콜시가색))
+            self.tableWidget_call.item(i+1, Option_column.시가.value).setForeground(QBrush(검정색))     
+        else:
+            pass
+
+    # 콜시가가 맥점에 있는지 검사
+    def check_call_open_isin_coreval_list(self, x):
+
+        if x > 0.3 and x in coreval:
+
+            i = call_시가.index(x)
+
+            self.tableWidget_call.item(i+1, Option_column.시가.value).setBackground(QBrush(대맥점색))
+            self.tableWidget_call.item(i+1, Option_column.시가.value).setForeground(QBrush(검정색))  
+        else:
+            pass
     
     def call_node_color_update(self):
 
-        start_time = timeit.default_timer()
+        #start_time = timeit.default_timer()
+        #dt = datetime.datetime.now()
+        
+        df_call['저가'].apply(self.check_call_low_isin_put_open_list)
+        df_call['고가'].apply(self.check_call_high_isin_put_open_list)
+        df_call['저가'].apply(self.check_call_low_isin_put_close_list)
+        df_call['고가'].apply(self.check_call_high_isin_put_close_list)
 
-        dt = datetime.datetime.now()
+        df_call['저가'].apply(self.check_call_low_isin_put_pivot_list) 
+        df_call['고가'].apply(self.check_call_high_isin_put_pivot_list)
+        df_call['저가'].apply(self.check_call_low_isin_call_open_list) 
+        df_call['고가'].apply(self.check_call_high_isin_call_open_list) 
 
+        df_call['저가'].apply(self.check_call_low_isin_call_close_list)
+        df_call['고가'].apply(self.check_call_high_isin_call_close_list)
+        df_call['저가'].apply(self.check_call_low_isin_call_pivot_list)
+        df_call['고가'].apply(self.check_call_high_isin_call_pivot_list) 
+
+        df_call['종가'].apply(self.check_call_close_isin_put_low_list)
+        df_call['종가'].apply(self.check_call_close_isin_put_high_list)
+        df_call['종가'].apply(self.check_call_close_isin_call_low_list)
+        df_call['종가'].apply(self.check_call_close_isin_call_high_list) 
+
+        df_call['피봇'].apply(self.check_call_pivot_isin_put_low_list)
+        df_call['피봇'].apply(self.check_call_pivot_isin_put_high_list)
+        df_call['피봇'].apply(self.check_call_pivot_isin_call_low_list)
+        df_call['피봇'].apply(self.check_call_pivot_isin_call_high_list) 
+
+        df_call['시가'].apply(self.check_call_open_isin_put_low_list)
+        df_call['시가'].apply(self.check_call_open_isin_put_high_list)
+        df_call['시가'].apply(self.check_call_open_isin_call_low_list)
+        df_call['시가'].apply(self.check_call_open_isin_call_high_list)
+
+        df_call['시가'].apply(self.check_call_open_isin_coreval_list)
+        '''
         global call_scroll_end_position
 
         if call_scroll_end_position > option_pairs_count:
@@ -9876,13 +10193,124 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass          
             else:
-                pass    
+                pass
+        '''  
+
+    # 풋 컬러링 Apply 함수
+    # 풋 저가, 고가가 콜시가에 있는지 검사
+    def check_put_low_isin_call_open_list(self, x):
+
+        pass
+
+    def check_put_high_isin_call_open_list(self, x): 
+
+        pass
+
+    # 풋 저가, 고가가 콜종가에 있는지 검사
+    def check_put_low_isin_call_close_list(self, x):
+
+        pass
+
+    def check_put_high_isin_call_close_list(self, x):
+
+        pass
+
+    # 풋 저가, 고가가 콜피봇에 있는지 검사
+    def check_put_low_isin_call_pivot_list(self, x):
+
+        pass
+
+    def check_put_high_isin_call_pivot_list(self, x):
+
+        pass
+
+    # 풋 저가, 고가가 풋시가에 있는지 검사
+    def check_put_low_isin_put_open_list(self, x):
+
+        pass
+
+    def check_put_high_isin_put_open_list(self, x):
+
+        pass
+
+    # 풋 저가, 고가가 풋종가에 있는지 검사
+    def check_put_low_isin_put_close_list(self, x):
+
+        pass
+
+    def check_put_high_isin_put_close_list(self, x):
+
+        pass
+
+    # 풋 저가, 고가가 풋피봇에 있는지 검사
+    def check_put_low_isin_put_pivot_list(self, x):
+
+        pass
+
+    def check_put_high_isin_put_pivot_list(self, x):
+
+        pass
+
+    # 풋종가가 콜, 풋의 저가, 고가에 있는지 검사
+    def check_put_close_isin_call_low_list(self, x):
+
+        pass
+
+    def check_put_close_isin_call_high_list(self, x):
+
+        pass
+
+    def check_put_close_isin_put_low_list(self, x):
+
+        pass
+
+    def check_put_close_isin_put_high_list(self, x):
+
+        pass
+
+    # 풋피봇이 콜, 풋의 저가, 고가에 있는지 검사
+    def check_put_pivot_isin_call_low_list(self, x):
+
+        pass
+
+    def check_put_pivot_isin_call_high_list(self, x):
+
+        pass
+
+    def check_put_pivot_isin_put_low_list(self, x):
+
+        pass
+
+    def check_put_pivot_isin_put_high_list(self, x):
+
+        pass
+
+    # 풋시가가 콜, 풋의 저가, 고가에 있는지 검사
+    def check_put_open_isin_call_low_list(self, x):
+
+        pass
+
+    def check_put_open_isin_call_high_list(self, x):
+
+        pass
+
+    def check_put_open_isin_put_low_list(self, x):
+
+        pass
+
+    def check_put_open_isin_put_high_list(self, x):
+
+        pass
+
+    # 풋시가가 맥점에 있는지 검사
+    def check_put_open_isin_coreval_list(self, x):
+
+        pass
 
     def put_node_color_update(self):
 	
-        start_time = timeit.default_timer()
-
-        dt = datetime.datetime.now()
+        #start_time = timeit.default_timer()
+        #dt = datetime.datetime.now()
 
         global put_scroll_end_position
 
