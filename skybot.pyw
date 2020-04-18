@@ -16261,7 +16261,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
              
-        opt_callreal_update_counter += 1
+        #opt_callreal_update_counter += 1
 
     def call_db_update(self):
 
@@ -17248,7 +17248,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        opt_putreal_update_counter += 1 
+        #opt_putreal_update_counter += 1 
     
     def put_db_update(self):
 
