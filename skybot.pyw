@@ -3481,8 +3481,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_fut.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_fut.setHorizontalHeaderLabels(
-            ['F', '▲▼', 'MSHC', 'MDHC', 'MSHR', 'MDHR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
-             '현재가', '고가', '대비', '진폭', 'PMS', 'FR', 'OI', 'OI↕'])
+            ['F', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'MDHR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
+             '현재가', '고가', '대비', '진폭', 'CPMS', 'FR', 'OI', 'OI↕'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
 
         item = QTableWidgetItem("{0}".format('CME'))
@@ -3512,8 +3512,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_quote.horizontalHeader().setStyleSheet(stylesheet)
         self.tableWidget_quote.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.tableWidget_quote.setHorizontalHeaderLabels(['콜MSCC', '콜MDCC', '콜MSCR', '콜MDCR',
-                                                          '풋MSCC', '풋MDCC', '풋MSCR', '풋MDCR', '콜HCR', '콜HRR',
+        self.tableWidget_quote.setHorizontalHeaderLabels(['콜CMSC', '콜CMDC', '콜CMSR', '콜CMDR',
+                                                          '풋CMSC', '풋CMDC', '풋CMSR', '풋CMDCR', '콜HCR', '콜HRR',
                                                           '풋HCR', '풋HRR', '∑HCRΔ/∑HRRΔ', '∑콜OI:∑풋OI'])
         self.tableWidget_quote.verticalHeader().setVisible(False)
 
@@ -16602,6 +16602,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
+        # 등가표시
         if index == atm_index:
 
             call_atm_value = 콜현재가
@@ -16707,7 +16708,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
             
-            # Call Open Count 및 OLOH 표시
+            # Call Open Count 표시
             call_open_count = call_open.count(True)
 
             if call_open[option_pairs_count - 1]:
@@ -17829,6 +17830,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
+        # 등가표시
         if index == atm_index:
 
             put_atm_value = 풋현재가
@@ -17857,7 +17859,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            # Put Open Count 및 OLOH 표시
+            # Put Open Count 표시
             put_open_count = put_open.count(True)
 
             if put_open[0]:
