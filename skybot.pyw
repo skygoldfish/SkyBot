@@ -1424,6 +1424,7 @@ plot_data13 = []
 
 call_scroll = False
 put_scroll = False
+refresh_coloring = False
 
 ########################################################################################################################
 
@@ -7380,12 +7381,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global coloring_done_time
         global node_coloring
+        global refresh_coloring
 
         dt = datetime.datetime.now()
 
         start_time = timeit.default_timer()
 
         node_coloring = True
+        refresh_coloring = True
         
         self.call_node_color_clear() 
         self.put_node_color_clear()
@@ -7407,6 +7410,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.put_coreval_color_update()
 
         node_coloring = False
+        refresh_coloring = False
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
@@ -17411,7 +17415,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         dt = datetime.datetime.now()
 
-        if not market_service or call_scroll:
+        if not market_service or call_scroll or refresh_coloring:
             
             call_ol = [False] * option_pairs_count
             call_oh = [False] * option_pairs_count
@@ -18566,7 +18570,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         dt = datetime.datetime.now()
 
-        if not market_service or put_scroll:
+        if not market_service or put_scroll or refresh_coloring:
             
             put_ol = [False] * option_pairs_count
             put_oh = [False] * option_pairs_count
