@@ -4761,6 +4761,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 plot1_ovc_close_line.setValue(nasdaq_전일종가)
             else:
                 plot1_ovc_close_line.setValue(NASDAQ_LAST_CLOSE)
+
+        elif comboindex1 == 8:
+            pass
         else:
             pass
 
@@ -5140,6 +5143,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 plot2_ovc_close_line.setValue(nasdaq_전일종가)
             else:
                 plot2_ovc_close_line.setValue(NASDAQ_LAST_CLOSE)
+
+        elif comboindex2 == 8:
+            pass
         else:
             pass
 
@@ -6275,14 +6281,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     plot1_time_line.setValue(x_idx)
 
-                elif comboindex1 == 5 or comboindex1 == 6 or comboindex1 == 7:
+                elif comboindex1 == 5 or comboindex1 == 6 or comboindex1 == 7 or comboindex1 == 8:
 
                     plot1_time_line.setValue(ovc_x_idx)
                 else:
                     plot1_time_line.setValue(opt_x_idx)
 
                 # Plot 2 x축 타임라인 그리기
-                if comboindex2 == 5 or comboindex2 == 6 or comboindex2 == 7:
+                if comboindex2 == 5 or comboindex2 == 6 or comboindex2 == 7 or comboindex2 == 8:
 
                     plot2_time_line.setValue(ovc_x_idx)
                 else:
@@ -6463,6 +6469,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                     
                     plot1_nasdaq_curve.setData(plot_data13)
+
+                elif comboindex1 == 8:
+                    pass
                 else:
                     pass   
 
@@ -6622,6 +6631,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass 
 
                     plot2_nasdaq_curve.setData(plot_data13)
+
+                elif comboindex2 == 8:
+                    pass
                 else:
                     pass 
 
@@ -22662,6 +22674,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot1_ovc_close_line.setValue(nasdaq_전일종가)
             else:
                 bc_plot1_ovc_close_line.setValue(NASDAQ_LAST_CLOSE)
+
+        elif bc_comboindex1 == 8:
+            pass
         else:
             pass
 
@@ -23041,6 +23056,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot2_ovc_close_line.setValue(nasdaq_전일종가)
             else:
                 bc_plot2_ovc_close_line.setValue(NASDAQ_LAST_CLOSE)
+
+        elif bc_comboindex2 == 8:
+            pass
         else:
             pass
 
@@ -23141,14 +23159,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot1_time_line.setValue(x_idx)
 
-            elif bc_comboindex1 == 5 or bc_comboindex1 == 6 or bc_comboindex1 == 7:
+            elif bc_comboindex1 == 5 or bc_comboindex1 == 6 or bc_comboindex1 == 7 or bc_comboindex1 == 8:
 
                 bc_plot1_time_line.setValue(ovc_x_idx)
             else:
                 bc_plot1_time_line.setValue(opt_x_idx)
 
             # Plot 2 x축 타임라인 그리기
-            if bc_comboindex2 == 5 or bc_comboindex2 == 6 or bc_comboindex2 == 7:
+            if bc_comboindex2 == 5 or bc_comboindex2 == 6 or bc_comboindex2 == 7 or bc_comboindex2 == 8:
 
                 bc_plot2_time_line.setValue(ovc_x_idx)
             else:
@@ -23319,6 +23337,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
                 
                 bc_plot1_nasdaq_curve.setData(plot_data13)
+
+            elif bc_comboindex1 == 8:
+                pass
             else:
                 pass   
 
@@ -23478,6 +23499,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass 
 
                 bc_plot2_nasdaq_curve.setData(plot_data13)
+
+            elif bc_comboindex2 == 8:
+                pass
             else:
                 pass 
         else:
