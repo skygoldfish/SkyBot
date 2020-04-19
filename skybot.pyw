@@ -1422,6 +1422,9 @@ plot_data11 = []
 plot_data12 = []
 plot_data13 = []
 
+call_scroll = False
+put_scroll = False
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -5473,8 +5476,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             # cell focus 이동
             self.tableWidget_call.setCurrentCell(100, Option_column.OID.value)
-            self.opt_call_node_coloring()
-
+            self.call_scroll_coloring()
         else:
             pass
 
@@ -5601,7 +5603,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             # cell focus 이동
             self.tableWidget_put.setCurrentCell(100, Option_column.OID.value)
-            self.opt_put_node_coloring()
+            self.put_scroll_coloring()
         else:
             pass
 
@@ -5955,7 +5957,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             print('call scroll position -----> from %d to %d' % (call_scroll_begin_position, call_scroll_end_position))
 
-            self.opt_call_node_coloring()
+            self.call_scroll_coloring()
 
         elif call_scroll_begin_position > option_pairs_count:
             pass
@@ -5981,7 +5983,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             print('put scroll position -----> from %d to %d' % (put_scroll_begin_position, put_scroll_end_position))
 
-            self.opt_put_node_coloring()
+            self.put_scroll_coloring()
 
         elif put_scroll_begin_position > option_pairs_count:
             pass
@@ -7235,15 +7237,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
 
     
-    def opt_call_node_coloring(self):
+    def call_scroll_coloring(self):
 
         global coloring_done_time
         global node_coloring
+        global call_scroll
 
         dt = datetime.datetime.now()
         start_time = timeit.default_timer()
         
         node_coloring = True
+        call_scroll = True
             
         self.call_node_color_clear()         
         self.call_open_check()   
@@ -7252,6 +7256,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.call_coreval_color_update()
 
         node_coloring = False
+        call_scroll = False
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
@@ -7300,15 +7305,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
         self.textBrowser.append(str)            
     
-    def opt_put_node_coloring(self):
+    def put_scroll_coloring(self):
 
         global coloring_done_time
         global node_coloring
+        global put_scroll
 
         dt = datetime.datetime.now()
         start_time = timeit.default_timer()
         
         node_coloring = True
+        put_scroll = True
             
         self.put_node_color_clear()        
         self.put_open_check()    
@@ -7317,6 +7324,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.put_coreval_color_update()
 
         node_coloring = False
+        put_scroll = False
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
@@ -17402,7 +17410,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         dt = datetime.datetime.now()
 
-        if not market_service:
+        if not market_service or call_scroll:
             
             call_ol = [False] * option_pairs_count
             call_oh = [False] * option_pairs_count
@@ -18557,7 +18565,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         dt = datetime.datetime.now()
 
-        if not market_service:
+        if not market_service or put_scroll:
             
             put_ol = [False] * option_pairs_count
             put_oh = [False] * option_pairs_count
