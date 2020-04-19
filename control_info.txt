@@ -17,10 +17,11 @@ UI = Horizontal_Large_View.ui
 [4]. << Target Month Select : current month = 1, next month = 2 >>
 Target Month Select = 1
 
-[5]. << US Index Code(H/M/U/Z) >>
+[5]. << CME Index Code(H/M/U/Z) >>
 S&P 500 = ESM20
 DOW = YMM20
 NASDAQ = NQM20
+WTI = CLM20
 
 [6]. << Telegram >>
 Telegram service = ON

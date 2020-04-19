@@ -291,6 +291,11 @@ with open('control_info.txt', mode='r') as control_file:
     tmp = control_file.readline().strip()
     temp = tmp.split()
     NASDAQ = temp[2]
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    WTI = temp[2]
+    #print('WTI =',WTI)
     
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
@@ -3255,8 +3260,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         print('모니터화면 번호 = ', 모니터번호)
         
-        print('current month = %s, month firstday = %s, next month = %s, month after next = %s, next month select = %s, SP500 = %s, DOW = %s, NASDAQ = %s' \
-            % (CURRENT_MONTH, MONTH_FIRSTDAY, NEXT_MONTH, MONTH_AFTER_NEXT, TARGET_MONTH_SELECT, SP500, DOW, NASDAQ))
+        print('current month = %s, month firstday = %s, next month = %s, month after next = %s, next month select = %s, SP500 = %s, DOW = %s, NASDAQ = %s, WTI = %s' \
+            % (CURRENT_MONTH, MONTH_FIRSTDAY, NEXT_MONTH, MONTH_AFTER_NEXT, TARGET_MONTH_SELECT, SP500, DOW, NASDAQ, WTI))
 
         left = screen.left()
         top = screen.top()
@@ -3914,16 +3919,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if overnight:
 
-            self.comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ None', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ'])
+            self.comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ None', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI'])
             self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-            self.comboBox2.addItems(['⓵ 옵션체결', '⓶ None', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ'])
+            self.comboBox2.addItems(['⓵ 옵션체결', '⓶ None', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI'])
             self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
         else:
-            self.comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션미결', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ'])
+            self.comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션미결', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI'])
             self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-            self.comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션미결', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ'])
+            self.comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션미결', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI'])
             self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
@@ -12854,6 +12859,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.OVC.AdviseRealData(종목코드=SP500)
                 self.OVC.AdviseRealData(종목코드=DOW)
                 self.OVC.AdviseRealData(종목코드=NASDAQ)
+                #self.OVC.AdviseRealData(종목코드=WTI)
 
                 XQ = t2101(parent=self)
                 XQ.Query(종목코드=fut_code)
@@ -22036,16 +22042,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if overnight:
 
-            self.bc_comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ None', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ'])
+            self.bc_comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ None', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI'])
             self.bc_comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-            self.bc_comboBox2.addItems(['⓵ 옵션체결', '⓶ None', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ'])
+            self.bc_comboBox2.addItems(['⓵ 옵션체결', '⓶ None', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI'])
             self.bc_comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
         else:
-            self.bc_comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션미결', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ'])
+            self.bc_comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션미결', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI'])
             self.bc_comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-            self.bc_comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션미결', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ'])
+            self.bc_comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션미결', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI'])
             self.bc_comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         global bc_plot1_time_line_start, bc_plot1_time_line_yagan_start, bc_plot1_time_line, bc_plot1_fut_price_curve, bc_plot1_kp200_curve
