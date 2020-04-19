@@ -17410,7 +17410,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         dt = datetime.datetime.now()
 
-        if not market_service or call_scroll:
+        if not market_service or call_scroll or flag_call_cross_coloring:
             
             call_ol = [False] * option_pairs_count
             call_oh = [False] * option_pairs_count
@@ -18564,7 +18564,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         dt = datetime.datetime.now()
 
-        if not market_service or put_scroll:
+        if not market_service or put_scroll or flag_put_cross_coloring:
             
             put_ol = [False] * option_pairs_count
             put_oh = [False] * option_pairs_count
