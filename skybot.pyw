@@ -17419,7 +17419,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             call_itm_count = 0
             call_otm_db = [0] * option_pairs_count
             call_otm_db_percent = [NaN] * option_pairs_count
-
             call_open = [False] * option_pairs_count
 
             if call_open_list:
@@ -18573,8 +18572,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             put_db_percent = [NaN] * option_pairs_count
             put_itm_count = 0
             put_otm_db = [0] * option_pairs_count
-            put_otm_db_percent = [NaN] * option_pairs_count        
-
+            put_otm_db_percent = [NaN] * option_pairs_count
             put_open = [False] * option_pairs_count
             
             if put_open_list:
