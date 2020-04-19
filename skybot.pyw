@@ -9569,7 +9569,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     
     def call_node_color_update(self):
 
-        if 1:
+        if 0:
             df_call['저가'].apply(self.check_call_low_isin_put_open_list)
             df_call['고가'].apply(self.check_call_high_isin_put_open_list)
             df_call['저가'].apply(self.check_call_low_isin_put_close_list)
@@ -10484,7 +10484,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def put_node_color_update(self):	
 
-        if 1:
+        if 0:
             df_put['저가'].apply(self.check_put_low_isin_call_open_list)
             df_put['고가'].apply(self.check_put_high_isin_call_open_list)
             df_put['저가'].apply(self.check_put_low_isin_call_close_list)
@@ -16429,6 +16429,108 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         self.tableWidget_fut.resizeColumnsToContents() 
 
+    def check_call_oloh(self, result):
+
+        global call_ol, call_oh
+
+        dt = datetime.datetime.now()
+
+        index = call_행사가.index(result['단축코드'][5:8])
+        
+        시가 = result['시가']
+        현재가 = result['현재가']
+        저가 = result['저가']
+        고가 = result['고가']
+
+        콜시가 = float(result['시가'])
+        콜현재가 = float(result['현재가'])
+        콜저가 = float(result['저가'])
+        콜고가 = float(result['고가'])
+
+        if 콜시가 >= oloh_cutoff:
+
+            if 콜시가 < 1.0:
+
+                oloh_threshold = 1
+
+            elif 1.0 <= 콜시가 < 2.0:
+
+                oloh_threshold = 2
+
+            elif 2.0 <= 콜시가 < 3.0:
+
+                oloh_threshold = 3
+
+            elif 3.0 <= 콜시가 < 4.0:
+
+                oloh_threshold = 4
+            else:
+                oloh_threshold = 5   
+
+            # call OL/OH count
+            if self.within_n_tick(콜시가, 콜저가, oloh_threshold) and not self.within_n_tick(콜시가, 콜고가, oloh_threshold):
+
+                oloh_str = '▲'
+
+                item = QTableWidgetItem(oloh_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(적색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
+
+                self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(적색))
+                self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))  
+
+                self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(적색))
+                self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
+
+                call_ol[index] = True
+
+            elif self.within_n_tick(콜시가, 콜고가, oloh_threshold) and not self.within_n_tick(콜시가, 콜저가, oloh_threshold):
+
+                oloh_str = '▼'
+
+                item = QTableWidgetItem(oloh_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(청색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
+
+                self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(적색))
+                self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))  
+
+                self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(적색))
+                self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색)) 
+
+                call_oh[index] = True
+            else:
+                oloh_str = ''
+
+                if oloh_str != self.tableWidget_call.item(index, Option_column.OLOH.value).text():
+                    item = QTableWidgetItem(oloh_str)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
+                else:
+                    pass
+
+                call_ol[index] = False
+                call_oh[index] = False
+        else:
+            pass        
+
+        call_ol_count = call_ol.count(True)
+        call_oh_count = call_oh.count(True)
+
+        new_oloh = repr(call_ol_count) + ':' + repr(call_oh_count)
+
+        if new_oloh != self.tableWidget_call.horizontalHeaderItem(2).text():
+            item = QTableWidgetItem(new_oloh)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_call.setHorizontalHeaderItem(2, item)
+        else:
+            pass
+
     # 콜 표시
     def call_display(self, result):
 
@@ -16491,6 +16593,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             print(str)
         else:
             pass
+        
+        if index == atm_index:
+
+            call_atm_value = 콜현재가
+
+            self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색)) 
+        else:
+            self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))  
 
         # 야간선물이 없어짐에 따른 텔레그램 기동 대응
         if overnight:
@@ -16568,105 +16678,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
         else:
             pass
-        
-        if 저가 != 고가:
 
-            if not call_open[index]:
+        if 저가 != 고가 and not call_open[index]:
 
-                call_open[index] = True
-                
-                # 콜 시가 갱신
-                if 콜시가 > opt_search_start_value:
-                    call_open_list.append(index)
-                    call_open_list = list(set(call_open_list))
-                else:
-                    pass
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format(int(result['체결시간'][0:2]), \
-                            int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), call_open_list)
-                self.textBrowser.append(str)            
+            call_open[index] = True
+            
+            # 콜 시가 갱신
+            if 콜시가 > opt_search_start_value:
+                call_open_list.append(index)
+                call_open_list = list(set(call_open_list))
             else:
                 pass
 
-            if 콜시가 >= oloh_cutoff:
-
-                if 콜시가 < 1.0:
-
-                    oloh_threshold = 1
-
-                elif 1.0 <= 콜시가 < 2.0:
-
-                    oloh_threshold = 2
-
-                elif 2.0 <= 콜시가 < 3.0:
-
-                    oloh_threshold = 3
-
-                elif 3.0 <= 콜시가 < 4.0:
-
-                    oloh_threshold = 4
-                else:
-                    oloh_threshold = 5   
-
-                # call OL/OH count
-                if self.within_n_tick(콜시가, 콜저가, oloh_threshold) and not self.within_n_tick(콜시가, 콜고가, oloh_threshold):
-
-                    oloh_str = '▲'
-
-                    item = QTableWidgetItem(oloh_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(적색))
-                    item.setForeground(QBrush(검정색))
-                    self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
-
-                    self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(적색))
-                    self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))  
-
-                    self.tableWidget_call.item(index, Option_column.저가.value).setBackground(QBrush(적색))
-                    self.tableWidget_call.item(index, Option_column.저가.value).setForeground(QBrush(검정색))
-
-                    call_ol[index] = True
-
-                elif self.within_n_tick(콜시가, 콜고가, oloh_threshold) and not self.within_n_tick(콜시가, 콜저가, oloh_threshold):
-
-                    oloh_str = '▼'
-
-                    item = QTableWidgetItem(oloh_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(청색))
-                    item.setForeground(QBrush(흰색))
-                    self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
-
-                    self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(적색))
-                    self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))  
-
-                    self.tableWidget_call.item(index, Option_column.고가.value).setBackground(QBrush(적색))
-                    self.tableWidget_call.item(index, Option_column.고가.value).setForeground(QBrush(검정색)) 
-
-                    call_oh[index] = True
-                else:
-                    oloh_str = ''
-
-                    if oloh_str != self.tableWidget_call.item(index, Option_column.OLOH.value).text():
-                        item = QTableWidgetItem(oloh_str)
-                        item.setBackground(QBrush(흰색))
-                        item.setForeground(QBrush(검정색))
-                        self.tableWidget_call.setItem(index, Option_column.OLOH.value, item)
-                    else:
-                        pass
-
-                    call_ol[index] = False
-                    call_oh[index] = False
-            else:
-                pass            
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format(int(result['체결시간'][0:2]), \
+                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), call_open_list)
+            self.textBrowser.append(str)
             
             if index > atm_index:
                 call_itm_count += 1
             else:
                 pass
-
+            
             # Call Open Count 및 OLOH 표시
-            call_open_count = len(call_open_list)
+            call_open_count = call_open.count(True)
 
             if call_open[option_pairs_count - 1]:
 
@@ -16679,60 +16713,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setHorizontalHeaderItem(1, item)
             else:
-                pass
-
-            call_ol_count = call_ol.count(True)
-            call_oh_count = call_oh.count(True)
-
-            new_oloh = repr(call_ol_count) + ':' + repr(call_oh_count)
-
-            if new_oloh != self.tableWidget_call.horizontalHeaderItem(2).text():
-                item = QTableWidgetItem(new_oloh)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setHorizontalHeaderItem(2, item)
-            else:
-                pass
-
-            # 시가갭 갱신
-            temp = call_gap_percent[:]
-            call_gap_percent_local = [value for value in temp if not math.isnan(value)]
-            call_gap_percent_local.sort()
-
-            콜시가갭합 = round(df_call['시가갭'].sum(), 2)
-
-            if call_gap_percent_local:
-
-                콜시가갭합_단위평균 = round(콜시가갭합/len(call_gap_percent_local), 2)
-
-                tmp = np.array(call_gap_percent_local)            
-                콜시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
-                call_str = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트) + '%' + ')'
-
-                if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.시가갭.value).text():
-                    item = QTableWidgetItem(call_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
-                else:
-                    pass
-            else:
-                print('call_gap_percent_local is empty...')
-
-            if index == atm_index:
-
-                call_atm_value = 콜현재가
-                self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색)) 
-            else:
-                self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
-            
-            if index == option_pairs_count - 1:
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 콜 최대 시작가 {3} 오픈되었습니다.\r'.format(\
-                    int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜시가)
-                self.textBrowser.append(str)
-            else:
-                pass
+                pass            
         else:
-            pass        
+            pass      
 
         # 시가 갱신
         if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
@@ -16772,6 +16755,30 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setBackground(QBrush(흰색))
 
             self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
+            
+            # 시가갭 갱신
+            temp = call_gap_percent[:]
+            call_gap_percent_local = [value for value in temp if not math.isnan(value)]
+            call_gap_percent_local.sort()
+
+            콜시가갭합 = round(df_call['시가갭'].sum(), 2)
+
+            if call_gap_percent_local:
+
+                콜시가갭합_단위평균 = round(콜시가갭합/len(call_gap_percent_local), 2)
+
+                tmp = np.array(call_gap_percent_local)            
+                콜시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
+                call_str = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트) + '%' + ')'
+
+                if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.시가갭.value).text():
+                    item = QTableWidgetItem(call_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
+                else:
+                    pass
+            else:
+                print('call_gap_percent_local is empty...')
 
             if 콜시가 in coreval:
 
@@ -16802,6 +16809,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Open Update !!!\r'.format(int(result['체결시간'][0:2]), \
                         int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜시가)
             self.textBrowser.append(str)
+            
+            if index == option_pairs_count - 1:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 콜 최대 시작가 {3} 오픈되었습니다.\r'.format(\
+                    int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜시가)
+                self.textBrowser.append(str)
+            else:
+                pass
         else:
             pass
         
@@ -16877,6 +16892,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜저가)
             self.textBrowser.append(str)
+
+            self.check_call_oloh(result)
             
             if 콜저가 < 콜고가 and update_start < 콜저가 < update_end:
 
@@ -16943,6 +16960,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜고가)
             self.textBrowser.append(str)
+            
+            self.check_call_oloh(result)
 
             if 콜저가 < 콜고가 and update_start < 콜고가 < update_end:
 
@@ -17029,7 +17048,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass            
             else:
                 print('call_db_percent_local is empty...')
-
                 콜대비합 = 0        
         else:
             pass
@@ -17382,17 +17400,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 콜시가갭합, 콜시가갭합_퍼센트, 콜시가갭합_단위평균, 콜대비_퍼센트_평균
         global call_otm_db, call_otm_db_percent 
         
-        call_ol = [False] * option_pairs_count
-        call_oh = [False] * option_pairs_count
-        call_gap_percent = [NaN] * option_pairs_count
-        call_db_percent = [NaN] * option_pairs_count
-        call_itm_count = 0
-        call_otm_db = [0] * option_pairs_count
-        call_otm_db_percent = [NaN] * option_pairs_count
-
         dt = datetime.datetime.now()
 
         if not market_service:
+            
+            call_ol = [False] * option_pairs_count
+            call_oh = [False] * option_pairs_count
+            call_gap_percent = [NaN] * option_pairs_count
+            call_db_percent = [NaN] * option_pairs_count
+            call_itm_count = 0
+            call_otm_db = [0] * option_pairs_count
+            call_otm_db_percent = [NaN] * option_pairs_count
 
             call_open = [False] * option_pairs_count
 
@@ -17448,11 +17466,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        if not market_service:
-
-                            call_open[index] = True
-                        else:
-                            pass                    
+                        call_open[index] = True                   
 
                         if 시가 >= oloh_cutoff:
 
@@ -17556,94 +17570,195 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     call_otm_db_percent[index] = (현재가 / 시가 - 1) * 100
                 else:
                     pass
-        else:
-            pass
-        
-        # Call Open Count 및 OLOH 표시
-        call_open_count = len(call_open_list)
 
-        if call_open[option_pairs_count - 1]:
+            # Call Open Count 및 OLOH 표시
+            call_open_count = call_open.count(True)
 
-            new_actval = repr(call_itm_count) + '/' + repr(call_open_count) + '\n*'
-        else:
-            new_actval = repr(call_itm_count) + '/' + repr(call_open_count)
+            if call_open[option_pairs_count - 1]:
 
-        if new_actval != self.tableWidget_call.horizontalHeaderItem(1).text():
-            item = QTableWidgetItem(new_actval)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_call.setHorizontalHeaderItem(1, item)
-        else:
-            pass
+                new_actval = repr(call_itm_count) + '/' + repr(call_open_count) + '\n*'
+            else:
+                new_actval = repr(call_itm_count) + '/' + repr(call_open_count)
 
-        call_ol_count = call_ol.count(True)
-        call_oh_count = call_oh.count(True)
-
-        new_oloh = repr(call_ol_count) + ':' + repr(call_oh_count)
-
-        if new_oloh != self.tableWidget_call.horizontalHeaderItem(2).text():
-            item = QTableWidgetItem(new_oloh)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_call.setHorizontalHeaderItem(2, item)
-        else:
-            pass
-
-        # 시가갭 갱신
-        temp = call_gap_percent[:]
-        call_gap_percent_local = [value for value in temp if not math.isnan(value)]
-        call_gap_percent_local.sort()
-
-        콜시가갭합 = round(df_call['시가갭'].sum(), 2)
-
-        if call_gap_percent_local:
-            
-            콜시가갭합_단위평균 = round(콜시가갭합/len(call_gap_percent_local), 2)
-
-            tmp = np.array(call_gap_percent_local)            
-            콜시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
-            call_str = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트) + '%' + ')'
-
-            if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.시가갭.value).text():
-                item = QTableWidgetItem(call_str)
+            if new_actval != self.tableWidget_call.horizontalHeaderItem(1).text():
+                item = QTableWidgetItem(new_actval)
                 item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
+                self.tableWidget_call.setHorizontalHeaderItem(1, item)
             else:
                 pass
-        else:
-            print('call_gap_percent_local is empty...')
 
-        # 대비 갱신
-        #temp = call_db_percent[:]
-        temp = call_otm_db_percent[:]
+            call_ol_count = call_ol.count(True)
+            call_oh_count = call_oh.count(True)
 
-        call_db_percent_local = [value for value in temp if not math.isnan(value)]
-        call_db_percent_local.sort()
+            new_oloh = repr(call_ol_count) + ':' + repr(call_oh_count)
 
-        if call_db_percent_local:
-
-            #콜대비합 = round(df_call['대비'].sum(), 2)
-            콜대비합 = round(sum(call_otm_db), 2)
-
-            콜대비합_단위평균 = round(콜대비합/len(call_db_percent_local), 2)
-
-            tmp = np.array(call_db_percent_local)            
-            콜대비_퍼센트_평균 = round(np.mean(tmp), 1)
-            call_str = repr(콜대비합_단위평균) + '\n(' + repr(int(콜대비_퍼센트_평균)) + '%' + ')'
-
-            #print('콜대비_퍼센트_평균 =', 콜대비_퍼센트_평균)
-
-            if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
-                item = QTableWidgetItem(call_str)
+            if new_oloh != self.tableWidget_call.horizontalHeaderItem(2).text():
+                item = QTableWidgetItem(new_oloh)
                 item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
+                self.tableWidget_call.setHorizontalHeaderItem(2, item)
             else:
-                pass            
+                pass
+
+            # 시가갭 갱신
+            temp = call_gap_percent[:]
+            call_gap_percent_local = [value for value in temp if not math.isnan(value)]
+            call_gap_percent_local.sort()
+
+            콜시가갭합 = round(df_call['시가갭'].sum(), 2)
+
+            if call_gap_percent_local:
+
+                콜시가갭합_단위평균 = round(콜시가갭합/len(call_gap_percent_local), 2)
+
+                tmp = np.array(call_gap_percent_local)            
+                콜시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
+                call_str = repr(콜시가갭합_단위평균) + '\n(' + repr(콜시가갭합_퍼센트) + '%' + ')'
+
+                if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.시가갭.value).text():
+                    item = QTableWidgetItem(call_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
+                else:
+                    pass
+            else:
+                print('call_gap_percent_local is empty...')
+
+            # 대비 갱신
+            #temp = call_db_percent[:]
+            temp = call_otm_db_percent[:]
+
+            call_db_percent_local = [value for value in temp if not math.isnan(value)]
+            call_db_percent_local.sort()
+
+            if call_db_percent_local:
+
+                #콜대비합 = round(df_call['대비'].sum(), 2)
+                콜대비합 = round(sum(call_otm_db), 2)
+
+                콜대비합_단위평균 = round(콜대비합/len(call_db_percent_local), 2)
+
+                tmp = np.array(call_db_percent_local)            
+                콜대비_퍼센트_평균 = round(np.mean(tmp), 1)
+                call_str = repr(콜대비합_단위평균) + '\n(' + repr(int(콜대비_퍼센트_평균)) + '%' + ')'
+
+                #print('콜대비_퍼센트_평균 =', 콜대비_퍼센트_평균)
+
+                if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
+                    item = QTableWidgetItem(call_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
+                else:
+                    pass            
+            else:
+                print('call_db_percent_local is empty...')
+
+                콜대비합 = 0        
+
+            self.tableWidget_call.resizeColumnsToContents()
         else:
-            print('call_db_percent_local is empty...')
+            pass
 
-            콜대비합 = 0        
+    def check_put_oloh(self, result):
 
-        self.tableWidget_call.resizeColumnsToContents()
+        global put_ol, put_oh
 
+        dt = datetime.datetime.now()
+
+        index = put_행사가.index(result['단축코드'][5:8])
+        
+        시가 = result['시가']
+        현재가 = result['현재가']
+        저가 = result['저가']
+        고가 = result['고가']
+
+        풋시가 = float(result['시가'])
+        풋현재가 = float(result['현재가'])
+        풋저가 = float(result['저가'])
+        풋고가 = float(result['고가'])
+
+        if 풋시가 >= oloh_cutoff:
+
+            if 풋시가 < 1.0:
+
+                oloh_threshold = 1
+
+            elif 1.0 <= 풋시가 < 2.0:
+
+                oloh_threshold = 2
+
+            elif 2.0 <= 풋시가 < 3.0:
+
+                oloh_threshold = 3
+
+            elif 3.0 <= 풋시가 < 4.0:
+
+                oloh_threshold = 4
+            else:
+                oloh_threshold = 5   
+
+            # ㅔㅕㅅ OL/OH count
+            if self.within_n_tick(풋시가, 풋저가, oloh_threshold) and not self.within_n_tick(풋시가, 풋고가, oloh_threshold):
+
+                oloh_str = '▲'
+
+                item = QTableWidgetItem(oloh_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(적색))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
+
+                self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(청색))
+                self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(흰색))  
+
+                self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(청색))
+                self.tableWidget_put.item(index, Option_column.저가.value).setForeground(QBrush(흰색))
+
+                put_ol[index] = True
+
+            elif self.within_n_tick(풋시가, 풋고가, oloh_threshold) and not self.within_n_tick(풋시가, 풋저가, oloh_threshold):
+
+                oloh_str = '▼'
+
+                item = QTableWidgetItem(oloh_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(청색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
+
+                self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(청색))
+                self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(흰색))  
+
+                self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(청색))
+                self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(흰색)) 
+
+                put_oh[index] = True
+            else:
+                oloh_str = ''
+
+                if oloh_str != self.tableWidget_put.item(index, Option_column.OLOH.value).text():
+                    item = QTableWidgetItem(oloh_str)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
+                else:
+                    pass
+
+                put_ol[index] = False
+                put_oh[index] = False
+        else:
+            pass        
+
+        put_ol_count = put_ol.count(True)
+        put_oh_count = put_oh.count(True)
+
+        new_oloh = repr(put_ol_count) + ':' + repr(put_oh_count)
+
+        if new_oloh != self.tableWidget_put.horizontalHeaderItem(2).text():
+            item = QTableWidgetItem(new_oloh)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_put.setHorizontalHeaderItem(2, item)
+        else:
+            pass
         
     # 풋 표시
     def put_display(self, result):
@@ -17666,7 +17781,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
 
         index = put_행사가.index(result['단축코드'][5:8])
-        #df_put.loc[index, '체결시간'] = result['체결시간']
         
         시가 = result['시가']
         현재가 = result['현재가']
@@ -17708,96 +17822,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        if 저가 != 고가:
+        if index == atm_index:
 
-            if not put_open[index]:
+            put_atm_value = 풋현재가
 
-                put_open[index] = True
-                
-                # 풋 시가 갱신
-                if 풋시가 > opt_search_start_value:
-                    put_open_list.append(index)
-                    put_open_list = list(set(put_open_list))
-                else:
-                    pass
+            self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
+        else:
+            self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))    
+        
+        if 저가 != 고가 and not put_open[index]:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format(int(result['체결시간'][0:2]), \
-                            int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), put_open_list)
-                self.textBrowser.append(str)
+            put_open[index] = True
+            
+            # 풋 시가 갱신
+            if 풋시가 > opt_search_start_value:
+                put_open_list.append(index)
+                put_open_list = list(set(put_open_list))
             else:
                 pass
 
-            if 풋시가 >= oloh_cutoff:
-
-                if 풋시가 < 1.0:
-
-                    oloh_threshold = 1
-
-                elif 1.0 <= 풋시가 < 2.0:
-
-                    oloh_threshold = 2
-
-                elif 2.0 <= 풋시가 < 3.0:
-
-                    oloh_threshold = 3
-
-                elif 3.0 <= 풋시가 < 4.0:
-
-                    oloh_threshold = 4
-                else:
-                    oloh_threshold = 5   
-
-                # put OL/OH count
-                if self.within_n_tick(풋시가, 풋저가, oloh_threshold) and not self.within_n_tick(풋시가, 풋고가, oloh_threshold):
-
-                    oloh_str = '▲'
-
-                    item = QTableWidgetItem(oloh_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(적색))
-                    item.setForeground(QBrush(검정색))
-                    self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
-
-                    self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(청색))
-                    self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(흰색))
-
-                    self.tableWidget_put.item(index, Option_column.저가.value).setBackground(QBrush(청색))
-                    self.tableWidget_put.item(index, Option_column.저가.value).setForeground(QBrush(흰색)) 
-
-                    put_ol[index] = True
-
-                elif self.within_n_tick(풋시가, 풋고가, oloh_threshold) and not self.within_n_tick(풋시가, 풋저가, oloh_threshold):
-
-                    oloh_str = '▼'
-
-                    item = QTableWidgetItem(oloh_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(청색))
-                    item.setForeground(QBrush(흰색))
-                    self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
-
-                    self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(청색))
-                    self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(흰색))
-
-                    self.tableWidget_put.item(index, Option_column.고가.value).setBackground(QBrush(청색))
-                    self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
-
-                    put_oh[index] = True
-                else:
-                    oloh_str = ''
-
-                    if oloh_str != self.tableWidget_put.item(index, Option_column.OLOH.value).text():
-                        item = QTableWidgetItem(oloh_str)
-                        item.setBackground(QBrush(흰색))
-                        item.setForeground(QBrush(검정색))
-                        self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)                                
-                    else:
-                        pass
-
-                    put_ol[index] = False
-                    put_oh[index] = False
-            else:
-                pass
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format(int(result['체결시간'][0:2]), \
+                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), put_open_list)
+            self.textBrowser.append(str)
             
             if index < atm_index:
                 put_itm_count += 1
@@ -17805,7 +17851,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # Put Open Count 및 OLOH 표시
-            put_open_count = len(put_open_list)
+            put_open_count = put_open.count(True)
 
             if put_open[0]:
 
@@ -17819,58 +17865,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(1, item)
             else:
                 pass
-
-            put_ol_count = put_ol.count(True)
-            put_oh_count = put_oh.count(True)
-
-            new_oloh = repr(put_ol_count) + ':' + repr(put_oh_count)
-
-            if new_oloh != self.tableWidget_put.horizontalHeaderItem(2).text():
-                item = QTableWidgetItem(new_oloh)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setHorizontalHeaderItem(2, item)
-            else:
-                pass
-
-            # 시가갭 갱신
-            temp = put_gap_percent[:]
-            put_gap_percent_local = [value for value in temp if not math.isnan(value)]
-            put_gap_percent_local.sort()
-
-            풋시가갭합 = round(df_put['시가갭'].sum(), 2)
-
-            if put_gap_percent_local:
-
-                풋시가갭합_단위평균 = round(풋시가갭합/len(put_gap_percent_local), 2)
-
-                tmp = np.array(put_gap_percent_local)            
-                풋시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
-                put_str = repr(풋시가갭합_단위평균) + '\n(' + repr(풋시가갭합_퍼센트) + '%' + ')'
-
-                if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.시가갭.value).text():
-                    item = QTableWidgetItem(put_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
-                else:
-                    pass
-            else:
-                print('put_gap_percent_local is empty...')
-
-            if index == atm_index:
-                put_atm_value = 풋현재가
-                self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
-            else:
-                self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
-            
-            if index == 0:
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 풋 최대 시작가 {3} 오픈되었습니다.\r'.format(\
-                    int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 시가)
-                self.textBrowser.append(str)
-            else:
-                pass            
         else:
-            pass        
+            pass       
         
         # 시가 갱신
         if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
@@ -17910,6 +17906,30 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setBackground(QBrush(흰색))
 
             self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
+            
+            # 시가갭 갱신
+            temp = put_gap_percent[:]
+            put_gap_percent_local = [value for value in temp if not math.isnan(value)]
+            put_gap_percent_local.sort()
+
+            풋시가갭합 = round(df_put['시가갭'].sum(), 2)
+
+            if put_gap_percent_local:
+
+                풋시가갭합_단위평균 = round(풋시가갭합/len(put_gap_percent_local), 2)
+
+                tmp = np.array(put_gap_percent_local)            
+                풋시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
+                put_str = repr(풋시가갭합_단위평균) + '\n(' + repr(풋시가갭합_퍼센트) + '%' + ')'
+
+                if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.시가갭.value).text():
+                    item = QTableWidgetItem(put_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
+                else:
+                    pass
+            else:
+                print('put_gap_percent_local is empty...')
 
             if 풋시가 in coreval:
 
@@ -17940,6 +17960,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Open Update !!!\r'.format(int(result['체결시간'][0:2]), \
                         int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋시가)
             self.textBrowser.append(str)
+            
+            if index == 0:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 풋 최대 시작가 {3} 오픈되었습니다.\r'.format(\
+                    int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 시가)
+                self.textBrowser.append(str)
+            else:
+                pass  
         else:
             pass
         
@@ -18016,6 +18044,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋저가)
             self.textBrowser.append(str)
 
+            self.check_put_oloh(result)
+
             if 풋저가 < 풋고가 and update_start < 풋저가 < update_end:
             
                 flag_put_low_update = True
@@ -18081,6 +18111,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋고가)
             self.textBrowser.append(str)
+            
+            self.check_put_oloh(result)
 
             if 풋저가 < 풋고가 and update_start < 풋고가 < update_end:
             
@@ -18167,7 +18199,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass            
             else:
                 print('put_db_percent_local is empty...')
-
                 풋대비합 = 0
         else:
             pass
@@ -18524,17 +18555,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 풋시가갭합, 풋시가갭합_퍼센트, 풋시가갭합_단위평균, 풋대비_퍼센트_평균
         global put_otm_db, put_otm_db_percent
         
-        put_ol = [False] * option_pairs_count
-        put_oh = [False] * option_pairs_count
-        put_gap_percent = [NaN] * option_pairs_count
-        put_db_percent = [NaN] * option_pairs_count
-        put_itm_count = 0
-        put_otm_db = [0] * option_pairs_count
-        put_otm_db_percent = [NaN] * option_pairs_count
-        
         dt = datetime.datetime.now()
 
         if not market_service:
+            
+            put_ol = [False] * option_pairs_count
+            put_oh = [False] * option_pairs_count
+            put_gap_percent = [NaN] * option_pairs_count
+            put_db_percent = [NaN] * option_pairs_count
+            put_itm_count = 0
+            put_otm_db = [0] * option_pairs_count
+            put_otm_db_percent = [NaN] * option_pairs_count        
 
             put_open = [False] * option_pairs_count
             
@@ -18591,11 +18622,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        if not market_service:
-
-                            put_open[index] = True                        
-                        else:
-                            pass                    
+                        put_open[index] = True                    
 
                         if 시가 >= oloh_cutoff:
 
@@ -18699,94 +18726,93 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_otm_db_percent[index] = (현재가 / 시가 - 1) * 100
                 else:
                     pass
-        else:
-            pass
 
-        # Put Open Count 및 OLOH 표시
-        put_open_count = len(put_open_list)
+            # Put Open Count 및 OLOH 표시
+            put_open_count = put_open.count(True)
 
-        if put_open[0]:
+            if put_open[0]:
 
-            new_actval = repr(put_itm_count) + '/' + repr(put_open_count) + '\n*'
-        else:
-            new_actval = repr(put_itm_count) + '/' + repr(put_open_count)
+                new_actval = repr(put_itm_count) + '/' + repr(put_open_count) + '\n*'
+            else:
+                new_actval = repr(put_itm_count) + '/' + repr(put_open_count)
 
-        if new_actval != self.tableWidget_put.horizontalHeaderItem(1).text():
-            item = QTableWidgetItem(new_actval)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setHorizontalHeaderItem(1, item)
-        else:
-            pass
-
-        put_ol_count = put_ol.count(True)
-        put_oh_count = put_oh.count(True)
-
-        new_oloh = repr(put_ol_count) + ':' + repr(put_oh_count)
-
-        if new_oloh != self.tableWidget_put.horizontalHeaderItem(2).text():
-            item = QTableWidgetItem(new_oloh)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setHorizontalHeaderItem(2, item)
-        else:
-            pass
-
-        # 시가갭 갱신
-        temp = put_gap_percent[:]
-        put_gap_percent_local = [value for value in temp if not math.isnan(value)]
-        put_gap_percent_local.sort()
-
-        풋시가갭합 = round(df_put['시가갭'].sum(), 2)
-
-        if put_gap_percent_local:
-
-            풋시가갭합_단위평균 = round(풋시가갭합/len(put_gap_percent_local), 2)
-
-            tmp = np.array(put_gap_percent_local)            
-            풋시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
-            put_str = repr(풋시가갭합_단위평균) + '\n(' + repr(풋시가갭합_퍼센트) + '%' + ')'
-
-            if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.시가갭.value).text():
-                item = QTableWidgetItem(put_str)
+            if new_actval != self.tableWidget_put.horizontalHeaderItem(1).text():
+                item = QTableWidgetItem(new_actval)
                 item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
+                self.tableWidget_put.setHorizontalHeaderItem(1, item)
             else:
                 pass
-        else:
-            print('put_gap_percent_local is empty...')
 
-        # 대비 갱신
-        #temp = put_db_percent[:]
-        temp = put_otm_db_percent[:]
+            put_ol_count = put_ol.count(True)
+            put_oh_count = put_oh.count(True)
 
-        put_db_percent_local = [value for value in temp if not math.isnan(value)]
-        put_db_percent_local.sort()
+            new_oloh = repr(put_ol_count) + ':' + repr(put_oh_count)
 
-        if put_db_percent_local:
-
-            #풋대비합 = round(df_put['대비'].sum(), 2)
-            풋대비합 = round(sum(put_otm_db), 2)
-
-            풋대비합_단위평균 = round(풋대비합/len(put_db_percent_local), 2)
-
-            tmp = np.array(put_db_percent_local)            
-            풋대비_퍼센트_평균 = round(np.mean(tmp), 1)
-            put_str = repr(풋대비합_단위평균) + '\n(' + repr(int(풋대비_퍼센트_평균)) + '%' + ')'
-
-            #print('풋대비_퍼센트_평균 =', 풋대비_퍼센트_평균)
-
-            if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
-                item = QTableWidgetItem(put_str)
+            if new_oloh != self.tableWidget_put.horizontalHeaderItem(2).text():
+                item = QTableWidgetItem(new_oloh)
                 item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
+                self.tableWidget_put.setHorizontalHeaderItem(2, item)
             else:
-                pass            
+                pass
+
+            # 시가갭 갱신
+            temp = put_gap_percent[:]
+            put_gap_percent_local = [value for value in temp if not math.isnan(value)]
+            put_gap_percent_local.sort()
+
+            풋시가갭합 = round(df_put['시가갭'].sum(), 2)
+
+            if put_gap_percent_local:
+
+                풋시가갭합_단위평균 = round(풋시가갭합/len(put_gap_percent_local), 2)
+
+                tmp = np.array(put_gap_percent_local)            
+                풋시가갭합_퍼센트 = int(round(np.mean(tmp), 2))
+                put_str = repr(풋시가갭합_단위평균) + '\n(' + repr(풋시가갭합_퍼센트) + '%' + ')'
+
+                if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.시가갭.value).text():
+                    item = QTableWidgetItem(put_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
+                else:
+                    pass
+            else:
+                print('put_gap_percent_local is empty...')
+
+            # 대비 갱신
+            #temp = put_db_percent[:]
+            temp = put_otm_db_percent[:]
+
+            put_db_percent_local = [value for value in temp if not math.isnan(value)]
+            put_db_percent_local.sort()
+
+            if put_db_percent_local:
+
+                #풋대비합 = round(df_put['대비'].sum(), 2)
+                풋대비합 = round(sum(put_otm_db), 2)
+
+                풋대비합_단위평균 = round(풋대비합/len(put_db_percent_local), 2)
+
+                tmp = np.array(put_db_percent_local)            
+                풋대비_퍼센트_평균 = round(np.mean(tmp), 1)
+                put_str = repr(풋대비합_단위평균) + '\n(' + repr(int(풋대비_퍼센트_평균)) + '%' + ')'
+
+                #print('풋대비_퍼센트_평균 =', 풋대비_퍼센트_평균)
+
+                if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
+                    item = QTableWidgetItem(put_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
+                else:
+                    pass            
+            else:
+                print('put_db_percent_local is empty...')
+
+                풋대비합 = 0
+
+            self.tableWidget_put.resizeColumnsToContents()
         else:
-            print('put_db_percent_local is empty...')
-
-            풋대비합 = 0
-
-        self.tableWidget_put.resizeColumnsToContents()
-
+            pass
 
     # 호가표시
     def quote_display(self):
