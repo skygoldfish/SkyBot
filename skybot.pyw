@@ -15136,38 +15136,38 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print('t8416 Put 전광판\r')
                     print(df_put)
                     print('\r')
+                    
+                    put_기준가 = df_put['기준가'].values.tolist()
+                    put_월저 = df_put['월저'].values.tolist()
+                    put_월고 = df_put['월고'].values.tolist()
+                    put_전저 = df_put['전저'].values.tolist()
+                    put_전고 = df_put['전고'].values.tolist()
+                    put_종가 = df_put['종가'].values.tolist()
+                    put_피봇 = df_put['피봇'].values.tolist()
+                    put_시가 = df_put['시가'].values.tolist()
+                    put_저가 = df_put['저가'].values.tolist()
+                    put_고가 = df_put['고가'].values.tolist()
+
+                    put_기준가_node_list = self.make_node_list(put_기준가)
+                    put_월저_node_list = self.make_node_list(put_월저)
+                    put_월고_node_list = self.make_node_list(put_월고)
+                    put_전저_node_list = self.make_node_list(put_전저)
+                    put_전고_node_list = self.make_node_list(put_전고)
+                    put_종가_node_list = self.make_node_list(put_종가)
+                    put_피봇_node_list = self.make_node_list(put_피봇)
+                    put_시가_node_list = self.make_node_list(put_시가)
+                    put_저가_node_list = self.make_node_list(put_저가)
+                    put_고가_node_list = self.make_node_list(put_고가)
+                    
+                    self.tableWidget_put.resizeColumnsToContents()
 
                     if self.t8416_putworker.isRunning():
-
-                        put_기준가 = df_put['기준가'].values.tolist()
-                        put_월저 = df_put['월저'].values.tolist()
-                        put_월고 = df_put['월고'].values.tolist()
-                        put_전저 = df_put['전저'].values.tolist()
-                        put_전고 = df_put['전고'].values.tolist()
-                        put_종가 = df_put['종가'].values.tolist()
-                        put_피봇 = df_put['피봇'].values.tolist()
-                        put_시가 = df_put['시가'].values.tolist()
-                        put_저가 = df_put['저가'].values.tolist()
-                        put_고가 = df_put['고가'].values.tolist()
-
-                        put_기준가_node_list = self.make_node_list(put_기준가)
-                        put_월저_node_list = self.make_node_list(put_월저)
-                        put_월고_node_list = self.make_node_list(put_월고)
-                        put_전저_node_list = self.make_node_list(put_전저)
-                        put_전고_node_list = self.make_node_list(put_전고)
-                        put_종가_node_list = self.make_node_list(put_종가)
-                        put_피봇_node_list = self.make_node_list(put_피봇)
-                        put_시가_node_list = self.make_node_list(put_시가)
-                        put_저가_node_list = self.make_node_list(put_저가)
-                        put_고가_node_list = self.make_node_list(put_고가)
 
                         self.t8416_putworker.terminate()
                         
                         str = '[{0:02d}:{1:02d}:{2:02d}] Put 과거데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
                         
-                        self.tableWidget_put.resizeColumnsToContents()
-
                         if UI_STYLE == 'Horizontal_Large_View.ui':
 
                             put_positionCell = self.tableWidget_put.item(atm_index + 9, 1)
@@ -15179,6 +15179,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             put_positionCell = self.tableWidget_put.item(atm_index + 3, 1)
 
                         self.tableWidget_put.scrollToItem(put_positionCell)
+                    else:
+                        pass
 
                     if overnight:                        
 
@@ -15216,7 +15218,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.textBrowser.append(str)
 
                         XQ.Query(월물=t2835_month_info)
-
                     else:
                             
                         수정거래량 = 0
@@ -15264,8 +15265,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_put.setItem(i, Option_column.OID.value, item)
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 수정거래량 및 수정미결 초기화...\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)       
+                        #str = '[{0:02d}:{1:02d}:{2:02d}] 수정거래량 및 수정미결 초기화...\r'.format(dt.hour, dt.minute, dt.second)
+                        #self.textBrowser.append(str)       
 
                         self.screen_update_worker.start()
                         self.screen_update_worker.daemon = True
@@ -15278,16 +15279,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.pushButton_add.setStyleSheet("background-color: lawngreen")
                         self.pushButton_add.setText('Refresh')
-
-                    # 옵션 맥점 컬러링
-                    str = '[{0:02d}:{1:02d}:{2:02d}] t8416 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
                     
-                    self.opt_node_coloring()
-                    
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 만기일은 {3}일 남았습니다.\r'.format(dt.hour, dt.minute, dt.second, 옵션잔존일)
-                    self.textBrowser.append(str)
-
                     if new_actval_up_count > 0:
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
@@ -15303,7 +15295,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass                    
                     
                     str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간 - 서버시간 = {3}초\r'.format(dt.hour, dt.minute, dt.second, system_server_timegap)
-                    self.textBrowser.append(str)                                                                
+                    self.textBrowser.append(str)  
+
+                    if not overnight:
+
+                        # 옵션 맥점 컬러링
+                        str = '[{0:02d}:{1:02d}:{2:02d}] t8416종료 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
+                        
+                        self.opt_node_coloring()
+                    else:
+                        pass                    
+                    
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 만기일은 {3}일 남았습니다.\r'.format(dt.hour, dt.minute, dt.second, 옵션잔존일)
+                    self.textBrowser.append(str)                                                              
                 else:
                     pass
             else:
