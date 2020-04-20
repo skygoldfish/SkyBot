@@ -16931,7 +16931,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.check_call_oloh(result)
             
-            if 콜저가 < 콜고가 and update_start < 콜저가 < update_end:
+            # 콜은 인덱스 기준으로 갱신
+            if 콜저가 < 콜고가 and call_scroll_begin_position <= index <= call_scroll_end_position:
 
                 flag_call_low_update = True
             else:
@@ -16999,7 +17000,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             self.check_call_oloh(result)
 
-            if 콜저가 < 콜고가 and update_start < 콜고가 < update_end:
+            # 콜은 인덱스 기준으로 갱신
+            if 콜저가 < 콜고가 and call_scroll_begin_position <= index <= call_scroll_end_position:
 
                 flag_call_high_update = True
             else:
@@ -18086,6 +18088,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.check_put_oloh(result)
 
+            # 풋은 가격기준으로 갱신
             if 풋저가 < 풋고가 and update_start < 풋저가 < update_end:
             
                 flag_put_low_update = True
@@ -18154,6 +18157,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             self.check_put_oloh(result)
 
+            # 풋은 가격기준으로 갱신
             if 풋저가 < 풋고가 and update_start < 풋고가 < update_end:
             
                 flag_put_high_update = True
