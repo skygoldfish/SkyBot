@@ -17094,9 +17094,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if float(self.tableWidget_call.item(index, Option_column.저가.value).text()) > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+        call_low = float(self.tableWidget_call.item(index, Option_column.저가.value).text())
+        call_high = float(self.tableWidget_call.item(index, Option_column.고가.value).text())
+        call_current = float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4])
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 콜저가[{3}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, 콜저가)
+        if call_low < call_high and call_low > call_current:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 콜저가[{3}/{4}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, call_low, call_current)
             self.textBrowser.append(str)
             print(str)
 
@@ -17104,9 +17108,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if float(self.tableWidget_call.item(index, Option_column.고가.value).text()) < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+        if call_low < call_high and call_high < call_current:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 콜고가[{3}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, 콜고가)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 콜고가[{3}/{4}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, call_high, call_current)
             self.textBrowser.append(str)
             print(str)
 
@@ -18251,9 +18255,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if float(self.tableWidget_put.item(index, Option_column.저가.value).text()) > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+        put_low = float(self.tableWidget_put.item(index, Option_column.저가.value).text())
+        put_high = float(self.tableWidget_put.item(index, Option_column.고가.value).text())
+        put_current = float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4])
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 풋저가[{3}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, 풋저가)
+        if put_low < put_high and put_low > put_current:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 풋저가[{3}/{4}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, put_low, put_current)
             self.textBrowser.append(str)
             print(str)
 
@@ -18261,9 +18269,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if float(self.tableWidget_put.item(index, Option_column.고가.value).text()) < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+        if put_low < put_high and put_high < put_current:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 풋고가[{3}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, 풋고가)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 풋고가[{3}/{4}] 갱신오류 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, put_high, put_current)
             self.textBrowser.append(str)
             print(str)
 
