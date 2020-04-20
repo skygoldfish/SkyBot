@@ -17035,6 +17035,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             콜대비 = 콜현재가 - 콜시가
             df_call.at[index, '대비'] = 콜대비
+            
+            if 콜시가 > 0.1:
+
+                call_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
+                gap_str = "{0:0.2f}\n({1:0.0f}%)".format(콜대비, call_db_percent[index])
+
+                item = QTableWidgetItem(gap_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_call.setItem(index, Option_column.대비.value, item)
+            else:
+                pass
 
             # 콜 외가(등가포함) 대비 저장
             if index <= atm_index and 콜시가 > 0.1 and 콜저가 < 콜고가:
@@ -17043,13 +17054,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 call_otm_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
             else:
                 pass
-
-            call_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
-            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(콜대비, call_db_percent[index])
-
-            item = QTableWidgetItem(gap_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_call.setItem(index, Option_column.대비.value, item)
 
             # 대비 갱신
             #temp = call_db_percent[:]
@@ -17067,7 +17071,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 tmp = np.array(call_db_percent_local)            
                 콜대비_퍼센트_평균 = round(np.mean(tmp), 1)
-                call_str = repr(콜대비합_단위평균) + '\n(' + repr(int(콜대비_퍼센트_평균)) + '%' + ')'
+                call_str = repr(콜대비합_단위평균) + '\n(' + repr(콜대비_퍼센트_평균) + '%' + ')'
 
                 #print('콜대비_퍼센트_평균 =', 콜대비_퍼센트_평균)
 
@@ -17124,7 +17128,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             tmp = np.array(call_db_percent_local)            
             콜대비_퍼센트_평균 = round(np.mean(tmp), 1)
-            call_str = repr(콜대비합_단위평균) + '\n(' + repr(int(콜대비_퍼센트_평균)) + '%' + ')'
+            call_str = repr(콜대비합_단위평균) + '\n(' + repr(콜대비_퍼센트_평균) + '%' + ')'
 
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(call_str)
@@ -17669,7 +17673,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 tmp = np.array(call_db_percent_local)            
                 콜대비_퍼센트_평균 = round(np.mean(tmp), 1)
-                call_str = repr(콜대비합_단위평균) + '\n(' + repr(int(콜대비_퍼센트_평균)) + '%' + ')'
+                call_str = repr(콜대비합_단위평균) + '\n(' + repr(콜대비_퍼센트_평균) + '%' + ')'
 
                 #print('콜대비_퍼센트_평균 =', 콜대비_퍼센트_평균)
 
@@ -18185,7 +18189,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_put.setItem(index, Option_column.현재가.value, item)
             
             풋대비 = 풋현재가 - 풋시가
-            df_put.at[index, '대비'] = 대비
+            df_put.at[index, '대비'] = 풋대비
+
+            if 풋시가 > 0.1:
+
+                put_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
+                gap_str = "{0:0.2f}\n({1:0.0f}%)".format(풋대비, put_db_percent[index])  
+
+                item = QTableWidgetItem(gap_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_put.setItem(index, Option_column.대비.value, item)
+            else:
+                pass
             
             # 풋 외가(등가포함) 대비 저장
             if index >= atm_index and 풋시가 > 0.1 and 풋저가 < 풋고가:
@@ -18194,13 +18209,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_otm_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
             else:
                 pass
-
-            put_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
-            gap_str = "{0:0.2f}\n({1:0.0f}%)".format(풋대비, put_db_percent[index])  
-
-            item = QTableWidgetItem(gap_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setItem(index, Option_column.대비.value, item)
 
             # 대비 갱신
             #temp = put_db_percent[:]
@@ -18218,7 +18226,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 tmp = np.array(put_db_percent_local)            
                 풋대비_퍼센트_평균 = round(np.mean(tmp), 1)
-                put_str = repr(풋대비합_단위평균) + '\n(' + repr(int(풋대비_퍼센트_평균)) + '%' + ')'
+                put_str = repr(풋대비합_단위평균) + '\n(' + repr(풋대비_퍼센트_평균) + '%' + ')'
 
                 #print('풋대비_퍼센트_평균 =', 풋대비_퍼센트_평균)
 
@@ -18275,7 +18283,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             tmp = np.array(put_db_percent_local)            
             풋대비_퍼센트_평균 = round(np.mean(tmp), 1)
-            put_str = repr(풋대비합_단위평균) + '\n(' + repr(int(풋대비_퍼센트_평균)) + '%' + ')'
+            put_str = repr(풋대비합_단위평균) + '\n(' + repr(풋대비_퍼센트_평균) + '%' + ')'
 
             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(put_str)
@@ -18825,7 +18833,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 tmp = np.array(put_db_percent_local)            
                 풋대비_퍼센트_평균 = round(np.mean(tmp), 1)
-                put_str = repr(풋대비합_단위평균) + '\n(' + repr(int(풋대비_퍼센트_평균)) + '%' + ')'
+                put_str = repr(풋대비합_단위평균) + '\n(' + repr(풋대비_퍼센트_평균) + '%' + ')'
 
                 #print('풋대비_퍼센트_평균 =', 풋대비_퍼센트_평균)
 
