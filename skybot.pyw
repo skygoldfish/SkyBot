@@ -8588,7 +8588,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         for i in range(call_scroll_begin_position, call_scroll_end_position):
 
-            if not market_service:
+            if not market_service or call_scroll or refresh_coloring:
             
                 oloh_str = ''                           
                 item = QTableWidgetItem(oloh_str)
@@ -11152,7 +11152,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         for i in range(put_scroll_begin_position, put_scroll_end_position):
 
-            if not market_service:
+            if not market_service or put_scroll or refresh_coloring:
             
                 oloh_str = ''                           
                 item = QTableWidgetItem(oloh_str)
