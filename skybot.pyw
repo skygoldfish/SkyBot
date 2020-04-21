@@ -3610,43 +3610,43 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
 
-        item = QTableWidgetItem("{0}".format('T'))
+        item = QTableWidgetItem("{0}".format('-'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
 
-        item = QTableWidgetItem("{0}".format('콜매수'))
+        item = QTableWidgetItem("{0}".format('-'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)
 
-        item = QTableWidgetItem("{0}".format('콜매도'))
+        item = QTableWidgetItem("{0}".format('-'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)
 
-        item = QTableWidgetItem("{0}".format('풋매수'))
+        item = QTableWidgetItem("{0}".format('-'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
 
-        item = QTableWidgetItem("{0}".format('풋매도'))
+        item = QTableWidgetItem("{0}".format('-'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
 
-        item = QTableWidgetItem("{0}".format('손절'))
+        item = QTableWidgetItem("{0}".format('-'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)
 
-        item = QTableWidgetItem("{0}".format('익절'))
+        item = QTableWidgetItem("{0}".format('-'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(흰색))
@@ -4220,6 +4220,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
                 (dt.hour, dt.minute, dt.second, NEW_NODE_VAL1, 동적맥점_빈도수_1st)
             self.textBrowser.append(str)
+
+            item = QTableWidgetItem("{0}".format(NEW_NODE_VAL1))
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(lime))
+            self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)
         else:
             pass
 
@@ -4228,6 +4233,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
                 (dt.hour, dt.minute, dt.second, NEW_NODE_VAL2, 동적맥점_빈도수_2nd)
             self.textBrowser.append(str)
+
+            item = QTableWidgetItem("{0}".format(NEW_NODE_VAL2))
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(lime))
+            self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)
         else:
             pass 
 
@@ -4236,6 +4246,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
                 (dt.hour, dt.minute, dt.second, NEW_NODE_VAL3, 동적맥점_빈도수_3rd)
             self.textBrowser.append(str)
+
+            item = QTableWidgetItem("{0}".format(NEW_NODE_VAL3))
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(lime))
+            self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
         else:
             pass
 
