@@ -149,6 +149,7 @@ with open('control_info.txt', mode='r') as control_file:
     NEW_NODE_VAL1 = 0
     NEW_NODE_VAL2 = 0
     NEW_NODE_VAL3 = 0
+    NEW_NODE_VAL4 = 0
 
     if os.path.exists('HL-List.txt'):
 
@@ -241,7 +242,31 @@ with open('control_info.txt', mode='r') as control_file:
                         진성맥점.append(NEW_NODE_VAL3)
                         진성맥점 = list(set(진성맥점))
                         진성맥점.sort()
-                        print('진성맥점 리스트 =', 진성맥점)
+                        #print('진성맥점 리스트 =', 진성맥점)
+
+                        # 네번재 최대빈도 맥점탐색
+                        FOURTH_LIST = list(filter((NEW_NODE_VAL3).__ne__, THIRD_LIST))
+                        #print('4th 최대빈도 제거된 리스트 =', FOURTH_LIST)
+
+                        result = list(Counter(FOURTH_LIST).values())
+                        #print('4th 중복횟수 리스트 =', result)
+                        #print('4th 동적맥점 빈도수 =', max(result))
+                        동적맥점_빈도수_4th = max(result)
+
+                        if 동적맥점_빈도수_4th > 2:
+
+                            max_index = result.index(max(result))
+                            result = list(Counter(FOURTH_LIST).keys())
+
+                            NEW_NODE_VAL4 = result[max_index]
+                            print('4th 동적맥점 값 = {0}, 빈도수 = {1}'.format(NEW_NODE_VAL4, 동적맥점_빈도수_4th))
+
+                            진성맥점.append(NEW_NODE_VAL4)
+                            진성맥점 = list(set(진성맥점))
+                            진성맥점.sort()
+                            print('진성맥점 리스트 =', 진성맥점)
+                        else:
+                            pass
                     else:
                         pass
                 else:
@@ -4251,6 +4276,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
             self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
+        else:
+            pass
+
+        if NEW_NODE_VAL4 > 0:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 4th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                (dt.hour, dt.minute, dt.second, NEW_NODE_VAL4, 동적맥점_빈도수_4th)
+            self.textBrowser.append(str)
+
+            item = QTableWidgetItem("{0}".format(NEW_NODE_VAL4))
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(lime))
+            self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
         else:
             pass
 
