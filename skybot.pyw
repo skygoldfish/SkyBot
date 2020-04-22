@@ -22454,6 +22454,70 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.setWindowTitle(widget_title)
 
+        self.label_1.setText(" 전저 : 가격 ")
+        self.label_1.setStyleSheet('background-color: black ; color: yellow')
+        self.label_1.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_2.setText(" 전고 : 가격 ")
+        self.label_2.setStyleSheet('background-color: black ; color: yellow')
+        self.label_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_3.setText(" 종가 : 가격 ")
+        self.label_3.setStyleSheet('background-color: black ; color: yellow')
+        self.label_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_4.setText(" 피봇 : 가격 ")
+        self.label_4.setStyleSheet('background-color: black ; color: yellow')
+        self.label_4.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_5.setText(" 시가 : 가격 ")
+        self.label_5.setStyleSheet('background-color: black ; color: yellow')
+        self.label_5.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_6.setText(" 저가 : 가격 ")
+        self.label_6.setStyleSheet('background-color: black ; color: yellow')
+        self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_7.setText(" 현재가 : 가격 ")
+        self.label_7.setStyleSheet('background-color: black ; color: yellow')
+        self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_8.setText(" 고가 : 가격 ")
+        self.label_8.setStyleSheet('background-color: black ; color: yellow')
+        self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_9.setText(" 전저 : 가격 ")
+        self.label_9.setStyleSheet('background-color: black ; color: yellow')
+        self.label_9.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_10.setText(" 전고 : 가격 ")
+        self.label_10.setStyleSheet('background-color: black ; color: yellow')
+        self.label_10.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_11.setText(" 종가 : 가격 ")
+        self.label_11.setStyleSheet('background-color: black ; color: yellow')
+        self.label_11.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_12.setText(" 피봇 : 가격 ")
+        self.label_12.setStyleSheet('background-color: black ; color: yellow')
+        self.label_12.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_13.setText(" 시가 : 가격 ")
+        self.label_13.setStyleSheet('background-color: black ; color: yellow')
+        self.label_13.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_14.setText(" 저가 : 가격 ")
+        self.label_14.setStyleSheet('background-color: black ; color: yellow')
+        self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_15.setText(" 현재가 : 가격 ")
+        self.label_15.setStyleSheet('background-color: black ; color: yellow')
+        self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_16.setText(" 고가 : 가격 ")
+        self.label_16.setStyleSheet('background-color: black ; color: yellow')
+        self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+
         if overnight:
 
             self.bc_comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ None', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI'])
