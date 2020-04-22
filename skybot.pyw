@@ -22478,7 +22478,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_6.setStyleSheet('background-color: black ; color: yellow')
         self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_7.setText(" 현재가 : 가격 ")
+        self.label_7.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
         self.label_7.setStyleSheet('background-color: black ; color: yellow')
         self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -22510,7 +22510,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_14.setStyleSheet('background-color: black ; color: yellow')
         self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_15.setText(" 현재가 : 가격 ")
+        self.label_15.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
         self.label_15.setStyleSheet('background-color: black ; color: yellow')
         self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -22966,7 +22966,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_pivot_line.setValue(SP500_LAST_CLOSE)
             bc_plot1_fut_open_line.setValue(SP500_LAST_CLOSE)
             bc_plot1_fut_low_line.setValue(SP500_LAST_CLOSE)
-            bc_plot1_fut_high_line.setValue(SP500_LAST_CLOSE) 
+            bc_plot1_fut_high_line.setValue(SP500_LAST_CLOSE)
 
             if sp500_시가 > 0:    
                 bc_plot1_ovc_open_line.setValue(sp500_시가)
@@ -22974,12 +22974,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot1_ovc_open_line.setValue(SP500_LAST_CLOSE)
 
             if SP500_LAST_LOW > 0:
+
                 bc_plot1_ovc_jl_line.setValue(SP500_LAST_LOW)
+                
+                str = ' 전저 : {0:0.2f} '.format(SP500_LAST_LOW)
+                self.label_1.setText(str) 
             else:
                 pass
 
             if SP500_LAST_HIGH > 0:
+
                 bc_plot1_ovc_jh_line.setValue(SP500_LAST_HIGH)
+
+                str = ' 전고 : {0:0.2f} '.format(SP500_LAST_HIGH)
+                self.label_2.setText(str) 
             else:
                 pass
 
@@ -23038,39 +23046,82 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_high_line.setValue(DOW_LAST_CLOSE) 
 
             if dow_시가 > 0:
+
                 bc_plot1_ovc_open_line.setValue(dow_시가)
+
+                str = ' 시가 : {0:0.0f} '.format(dow_시가)
+                self.label_5.setText(str) 
             else:
                 bc_plot1_ovc_open_line.setValue(DOW_LAST_CLOSE)
 
+                str = ' 시가 : {0:0.0f} '.format(DOW_LAST_CLOSE)
+                self.label_5.setText(str) 
+
             if DOW_LAST_LOW > 0:
+
                 bc_plot1_ovc_jl_line.setValue(DOW_LAST_LOW)
+
+                str = ' 전저 : {0:0.0f} '.format(DOW_LAST_LOW)
+                self.label_1.setText(str)
             else:
                 pass
 
             if DOW_LAST_HIGH > 0:
+
                 bc_plot1_ovc_jh_line.setValue(DOW_LAST_HIGH)
+
+                str = ' 전고 : {0:0.0f} '.format(DOW_LAST_HIGH)
+                self.label_2.setText(str) 
             else:
                 pass
 
             if dow_피봇 > 0:
+
                 bc_plot1_ovc_pivot_line.setValue(dow_피봇)
+
+                str = ' 피봇 : {0:0.0f} '.format(dow_피봇)
+                self.label_4.setText(str)    
             else:
                 bc_plot1_ovc_pivot_line.setValue(DOW_LAST_CLOSE)
 
+                str = ' 피봇 : {0:0.0f} '.format(DOW_LAST_CLOSE)
+                self.label_4.setText(str)
+
             if dow_저가 > 0:
+
                 bc_plot1_ovc_low_line.setValue(dow_저가)
+
+                str = ' 저가 : {0:0.0f} '.format(dow_저가)
+                self.label_6.setText(str) 
             else:
                 bc_plot1_ovc_low_line.setValue(DOW_LAST_CLOSE)
 
+                str = ' 저가 : {0:0.0f} '.format(DOW_LAST_CLOSE)
+                self.label_6.setText(str)
+
             if dow_고가 > 0:
+
                 plot1_ovc_high_line.setValue(dow_고가)
+
+                str = ' 고가 : {0:0.0f} '.format(dow_고가)
+                self.label_8.setText(str)
             else:
-                bc_plot1_ovc_high_line.setValue(DOW_LAST_CLOSE)  
+                bc_plot1_ovc_high_line.setValue(DOW_LAST_CLOSE) 
+
+                str = ' 고가 : {0:0.0f} '.format(DOW_LAST_CLOSE)
+                self.label_8.setText(str) 
             
             if dow_전일종가 > 0:
+
                 bc_plot1_ovc_close_line.setValue(dow_전일종가)
+
+                str = ' 종가 : {0:0.0f} '.format(dow_전일종가)
+                self.label_3.setText(str)
             else:
-                bc_plot1_ovc_close_line.setValue(DOW_LAST_CLOSE)           
+                bc_plot1_ovc_close_line.setValue(DOW_LAST_CLOSE) 
+
+                str = ' 종가 : {0:0.0f} '.format(DOW_LAST_CLOSE)
+                self.label_3.setText(str)          
 
         elif bc_comboindex1 == 7:
 
@@ -23758,7 +23809,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if dow_고가 > 0:
                     bc_plot1_ovc_high_line.setValue(dow_고가)
                 else:
-                    pass                       
+                    pass 
+
+                str = ' 현재가 : {0:0.0f} '.format(dow_price)
+                self.label_7.setText(str)                      
                 
                 bc_plot1_dow_curve.setData(plot_data12)
 
