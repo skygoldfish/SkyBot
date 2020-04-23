@@ -21608,6 +21608,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     NASDAQ_저가 =  result['저가']
                     NASDAQ_고가 =  result['고가']
+                    NASDAQ_시가 = result['시가']
                     
                     NASDAQ_진폭 = int(result['고가'] - result['저가'])
                     NASDAQ_등락율 = result['등락율']
@@ -21620,11 +21621,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         NASDAQ_종가 = result['체결가격'] - result['전일대비']
                         NASDAQ_전일대비 = result['전일대비']
                     
-                    if NASDAQ_종가 == 0.0:
+                    if NASDAQ_피봇 == 0.0:
                         
                         df_plotdata_nasdaq.iloc[0][0] = NASDAQ_종가
                         df_plotdata_nasdaq.iloc[0][1] = result['시가']
-                        NASDAQ_시가 = result['시가']
 
                         if NASDAQ_전저 > 0 and NASDAQ_전고 > 0:
 
@@ -21708,6 +21708,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     SP500_저가 =  result['저가']
                     SP500_고가 =  result['고가']
+                    SP500_시가 = result['시가']
                     
                     SP500_진폭 = int(result['고가'] - result['저가'])
                     SP500_등락율 = result['등락율']
@@ -21722,11 +21723,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         SP500_전일대비 = locale.format('%.2f', result['전일대비'], 1)
                         전일대비 = locale.format('%.2f', result['전일대비'], 1)
 
-                    if SP500_종가 == 0.0:
+                    if SP500_피봇 == 0.0:
                         
                         df_plotdata_sp500.iloc[0][0] = SP500_종가
                         df_plotdata_sp500.iloc[0][1] = result['시가']
-                        SP500_시가 = result['시가']
 
                         if SP500_전저 > 0 and SP500_전고 > 0:
 
@@ -21812,6 +21812,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     DOW_저가 =  result['저가']
                     DOW_고가 =  result['고가']
+                    DOW_시가 = result['시가']
 
                     DOW_진폭 = int(result['고가'] - result['저가'])
                     DOW_등락율 = result['등락율']
@@ -21824,11 +21825,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         DOW_종가 = result['체결가격'] - result['전일대비']
                         DOW_전일대비 = int(result['전일대비'])
 
-                    if DOW_종가 == 0.0:
+                    if DOW_피봇 == 0.0:
                         
                         df_plotdata_dow.iloc[0][0] = DOW_종가
                         df_plotdata_dow.iloc[0][1] = result['시가']
-                        DOW_시가 = result['시가']
 
                         if DOW_전저 > 0 and DOW_전고 > 0:
 
