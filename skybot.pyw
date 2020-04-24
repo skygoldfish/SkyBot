@@ -21813,19 +21813,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif result['종목코드'] == DOW:
 
-                    DOW_저가 =  result['저가']
-                    DOW_고가 =  result['고가']
-                    DOW_시가 = result['시가']
+                    DOW_저가 =  int(result['저가'])
+                    DOW_고가 =  int(result['고가'])
+                    DOW_시가 = int(result['시가'])
 
                     DOW_진폭 = int(result['고가'] - result['저가'])
                     DOW_등락율 = result['등락율']
 
                     if result['전일대비기호'] == '5':
 
-                        DOW_종가 = result['체결가격'] + result['전일대비']
+                        DOW_종가 = int(result['체결가격'] + result['전일대비'])
                         DOW_전일대비 = -int(result['전일대비'])
                     else:
-                        DOW_종가 = result['체결가격'] - result['전일대비']
+                        DOW_종가 = int(result['체결가격'] - result['전일대비'])
                         DOW_전일대비 = int(result['전일대비'])
 
                     if DOW_피봇 == 0.0:
@@ -23774,10 +23774,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if DOW_고가 > 0:
                     bc_plot1_ovc_high_line.setValue(DOW_고가)
                 else:
-                    pass 
+                    pass
 
-                str = ' 현재가 : {0:0.0f} '.format(DOW_현재가)
-                self.label_7.setText(str)                      
+                str = ' 저가 : {0} '.format(format(DOW_저가, ','))
+                self.label_6.setText(str)                
+
+                str = " 현재가 : {0} ({1}, {2:0.2f}%, {3}) ". \
+                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                self.label_7.setText(str)
+
+                str = ' 고가 : {0} '.format(format(DOW_고가, ','))
+                self.label_8.setText(str)                      
                 
                 bc_plot1_dow_curve.setData(plot_data12)
 
