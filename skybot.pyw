@@ -1280,6 +1280,7 @@ green_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DotLine)
 lime_pen = pg.mkPen(lime, width=2, style=QtCore.Qt.DotLine)
 yellow_pen = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
 orange_pen = pg.mkPen(orange, width=1, style=QtCore.Qt.DashLine)
+pink_pen = pg.mkPen(pink, width=1, style=QtCore.Qt.DashLine)
 skyblue_pen = pg.mkPen(skyblue, width=1, style=QtCore.Qt.DashLine)
 goldenrod_pen = pg.mkPen(goldenrod, width=2, style=QtCore.Qt.DotLine)
 gold_pen = pg.mkPen(gold, width=2, style=QtCore.Qt.DotLine)
@@ -4060,7 +4061,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot1_fut_close_line = self.Plot1.addLine(x=None, pen=lime_pen)
         plot1_fut_pivot_line = self.Plot1.addLine(x=None, pen=fut_pvt_pen)
         plot1_fut_low_line = self.Plot1.addLine(x=None, pen=skyblue_pen)
-        plot1_fut_high_line = self.Plot1.addLine(x=None, pen=yellow_pen)   
+        plot1_fut_high_line = self.Plot1.addLine(x=None, pen=pink_pen)   
 
         plot1_ovc_jl_line = self.Plot1.addLine(x=None, pen=goldenrod_pen)
         plot1_ovc_jh_line = self.Plot1.addLine(x=None, pen=gold_pen)  
@@ -4068,7 +4069,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot1_ovc_open_line = self.Plot1.addLine(x=None, pen=red_pen)
         plot1_ovc_pivot_line = self.Plot1.addLine(x=None, pen=fut_pvt_pen)
         plot1_ovc_low_line = self.Plot1.addLine(x=None, pen=skyblue_pen)
-        plot1_ovc_high_line = self.Plot1.addLine(x=None, pen=yellow_pen)   
+        plot1_ovc_high_line = self.Plot1.addLine(x=None, pen=pink_pen)   
 
         plot1_two_sum_curve = self.Plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         plot1_two_cha_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)  
@@ -4105,7 +4106,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot2_ovc_open_line = self.Plot2.addLine(x=None, pen=red_pen)
         plot2_ovc_pivot_line = self.Plot2.addLine(x=None, pen=fut_pvt_pen)
         plot2_ovc_low_line = self.Plot2.addLine(x=None, pen=skyblue_pen)
-        plot2_ovc_high_line = self.Plot2.addLine(x=None, pen=yellow_pen)
+        plot2_ovc_high_line = self.Plot2.addLine(x=None, pen=pink_pen)
         
         for i in range(9):
             mv_line.append(self.Plot2.addLine(x=None, pen=mvpen)) 
@@ -4188,7 +4189,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot4_fut_pivot_line = self.Plot4.addLine(x=None, pen=fut_pvt_pen)   
 
             plot4_fut_low_line = self.Plot4.addLine(x=None, pen=skyblue_pen)
-            plot4_fut_high_line = self.Plot4.addLine(x=None, pen=yellow_pen)               
+            plot4_fut_high_line = self.Plot4.addLine(x=None, pen=pink_pen)               
 
             plot4_fv_plus_curve = self.Plot4.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
             plot4_fv_minus_curve = self.Plot4.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
@@ -18022,7 +18023,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 oloh_threshold = 5   
 
-            # ㅔㅕㅅ OL/OH count
+            # call OL/OH count
             if self.within_n_tick(풋시가, 풋저가, oloh_threshold) and not self.within_n_tick(풋시가, 풋고가, oloh_threshold):
 
                 oloh_str = '▲'
@@ -22446,7 +22447,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.label_8.setText(" 고가 : 가격 ")
-        self.label_8.setStyleSheet('background-color: yellow ; color: black')
+        self.label_8.setStyleSheet('background-color: pink ; color: black')
         self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
 
         # Plot2 가격표시
@@ -22479,7 +22480,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.label_16.setText(" 고가 : 가격 ")
-        self.label_16.setStyleSheet('background-color: yellow ; color: black')
+        self.label_16.setStyleSheet('background-color: pink ; color: black')
         self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
 
         if overnight:
@@ -22544,7 +22545,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_fut_close_line = self.bc_Plot1.addLine(x=None, pen=lime_pen)
         bc_plot1_fut_pivot_line = self.bc_Plot1.addLine(x=None, pen=fut_pvt_pen)
         bc_plot1_fut_low_line = self.bc_Plot1.addLine(x=None, pen=skyblue_pen)
-        bc_plot1_fut_high_line = self.bc_Plot1.addLine(x=None, pen=yellow_pen)   
+        bc_plot1_fut_high_line = self.bc_Plot1.addLine(x=None, pen=pink_pen)   
 
         bc_plot1_ovc_jl_line = self.bc_Plot1.addLine(x=None, pen=goldenrod_pen)
         bc_plot1_ovc_jh_line = self.bc_Plot1.addLine(x=None, pen=gold_pen)  
@@ -22552,7 +22553,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_ovc_open_line = self.bc_Plot1.addLine(x=None, pen=red_pen)
         bc_plot1_ovc_pivot_line = self.bc_Plot1.addLine(x=None, pen=fut_pvt_pen)
         bc_plot1_ovc_low_line = self.bc_Plot1.addLine(x=None, pen=skyblue_pen)
-        bc_plot1_ovc_high_line = self.bc_Plot1.addLine(x=None, pen=yellow_pen)   
+        bc_plot1_ovc_high_line = self.bc_Plot1.addLine(x=None, pen=pink_pen)   
 
         bc_plot1_two_sum_curve = self.bc_Plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot1_two_cha_curve = self.bc_Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)  
@@ -22589,7 +22590,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_ovc_open_line = self.bc_Plot2.addLine(x=None, pen=red_pen)
         bc_plot2_ovc_pivot_line = self.bc_Plot2.addLine(x=None, pen=fut_pvt_pen)
         bc_plot2_ovc_low_line = self.bc_Plot2.addLine(x=None, pen=skyblue_pen)
-        bc_plot2_ovc_high_line = self.bc_Plot2.addLine(x=None, pen=yellow_pen)
+        bc_plot2_ovc_high_line = self.bc_Plot2.addLine(x=None, pen=pink_pen)
         
         for i in range(9):
             bc_mv_line.append(self.bc_Plot2.addLine(x=None, pen=mvpen)) 
