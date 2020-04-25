@@ -166,6 +166,7 @@ CME_당일종가 = 0
 DOW_당일종가 = 0
 SP500_당일종가 = 0
 NASDAQ_당일종가 = 0
+WTI_당일종가 = 0
 
 # control file에서 필요한 정보를 가져옴
 with open('control_info.txt', mode='r') as control_file:
@@ -502,6 +503,21 @@ if os.path.isfile('overnight_info.txt'):
         temp = tmp.split()
         NASDAQ_종가 = float(temp[4])
         print('NASDAQ_종가 =', NASDAQ_종가)
+
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        WTI_전저 = float(temp[4])
+        print('WTI_전저 =', WTI_전저)
+
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        WTI_전고 = float(temp[4])
+        print('WTI_전고 =', WTI_전고)
+        
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        WTI_종가 = float(temp[4])
+        print('WTI_종가 =', WTI_종가)
 else:
     CME_종가 = 0
     SP500_전저 = 0
@@ -1003,6 +1019,7 @@ df_plotdata_kp200 = pd.DataFrame()
 df_plotdata_sp500 = pd.DataFrame()
 df_plotdata_dow = pd.DataFrame()
 df_plotdata_nasdaq = pd.DataFrame()
+df_plotdata_wti = pd.DataFrame()
 
 call_quote = pd.Series()
 put_quote = pd.Series()
@@ -11924,7 +11941,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_plotdata_two_sum, df_plotdata_two_cha
         global start_time_str, end_time_str
 
-        global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq
+        global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti
         global view_actval
         
         global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_현재가, 선물_고가
@@ -12301,6 +12318,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_wti = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                 else:
                     df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + day_timespan))
@@ -12322,6 +12340,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_wti = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
 
                 # 콜처리
                 for i in range(option_pairs_count):
@@ -12989,11 +13008,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 장운영정보 요청
                 self.JIF.AdviseRealData('0')
 
-                # S&P 500, DOW, NASDAQ 요청
+                # S&P 500, DOW, NASDAQ, WTI 요청
                 self.OVC.AdviseRealData(종목코드=SP500)
                 self.OVC.AdviseRealData(종목코드=DOW)
                 self.OVC.AdviseRealData(종목코드=NASDAQ)
-                #self.OVC.AdviseRealData(종목코드=WTI)
+                self.OVC.AdviseRealData(종목코드=WTI)
 
                 XQ = t2101(parent=self)
                 XQ.Query(종목코드=fut_code)
@@ -19566,7 +19585,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             global yoc_stop
             global OVC_체결시간, 호가시간
-            global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq
+            global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti
 
             global sp500_delta, sp500_delta_old, sp500_직전대비
             global dow_delta, dow_delta_old, dow_직전대비
@@ -19589,7 +19608,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_현재가, NASDAQ_전일대비, NASDAQ_등락율, NASDAQ_진폭, NASDAQ_고가
             global WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭, WTI_고가
 
-            global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가
+            global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가
             global 시스템시간, 서버시간, 시스템_서버_시간차
             global kp200_pivot
 
@@ -21610,21 +21629,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if result['종목코드'] == NASDAQ:                    
 
                     NASDAQ_저가 =  result['저가']
-                    NASDAQ_고가 =  result['고가']
-                    NASDAQ_시가 = result['시가']
+                    NASDAQ_고가 =  result['고가']                    
                     
                     NASDAQ_진폭 = result['고가'] - result['저가']
                     NASDAQ_등락율 = result['등락율']
 
-                    if result['전일대비기호'] == '5':
+                    if NASDAQ_시가 == 0:
 
-                        NASDAQ_종가 = result['체결가격'] + result['전일대비']
-                        NASDAQ_전일대비 = -result['전일대비']
+                        NASDAQ_시가 = result['시가']
+
+                        if result['전일대비기호'] == '5':
+
+                            NASDAQ_종가 = result['체결가격'] + result['전일대비']
+                            NASDAQ_전일대비 = -result['전일대비']
+                        else:
+                            NASDAQ_종가 = result['체결가격'] - result['전일대비']
+                            NASDAQ_전일대비 = result['전일대비']
                     else:
-                        NASDAQ_종가 = result['체결가격'] - result['전일대비']
-                        NASDAQ_전일대비 = result['전일대비']
+                        pass                    
                     
-                    if NASDAQ_피봇 == 0.0:
+                    if NASDAQ_피봇 == 0:
                         
                         df_plotdata_nasdaq.iloc[0][0] = NASDAQ_종가
                         df_plotdata_nasdaq.iloc[0][1] = result['시가']
@@ -21710,23 +21734,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 elif result['종목코드'] == SP500:                    
 
                     SP500_저가 =  result['저가']
-                    SP500_고가 =  result['고가']
-                    SP500_시가 = result['시가']
+                    SP500_고가 =  result['고가']                    
                     
                     SP500_진폭 = result['고가'] - result['저가']
                     SP500_등락율 = result['등락율']
 
-                    if result['전일대비기호'] == '5':
+                    if SP500_시가 == 0:
 
-                        SP500_종가 = result['체결가격'] + result['전일대비']
-                        SP500_전일대비 = locale.format('%.2f', -result['전일대비'], 1)
-                        전일대비 = locale.format('%.2f', -result['전일대비'], 1) 
+                        SP500_시가 = result['시가']
+
+                        if result['전일대비기호'] == '5':
+
+                            SP500_종가 = result['체결가격'] + result['전일대비']
+                            SP500_전일대비 = locale.format('%.2f', -result['전일대비'], 1)
+                        else:
+                            SP500_종가 = result['체결가격'] - result['전일대비']
+                            SP500_전일대비 = locale.format('%.2f', result['전일대비'], 1)
                     else:
-                        SP500_종가 = result['체결가격'] - result['전일대비']
-                        SP500_전일대비 = locale.format('%.2f', result['전일대비'], 1)
-                        전일대비 = locale.format('%.2f', result['전일대비'], 1)
+                        pass                    
 
-                    if SP500_피봇 == 0.0:
+                    if SP500_피봇 == 0:
                         
                         df_plotdata_sp500.iloc[0][0] = SP500_종가
                         df_plotdata_sp500.iloc[0][1] = result['시가']
@@ -21758,9 +21785,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if result['전일대비기호'] == '5':                                                               
 
                                 if min(temp) > 0:
-                                    jisu_str = "S&P 500: {0} ({1}, {2:0.2f}%)⬈".format(체결가격, 전일대비, SP500_등락율)                                    
+                                    jisu_str = "S&P 500: {0} ({1}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                 else:
-                                    jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, SP500_등락율)
+                                    jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
                                 self.label_1st.setText(jisu_str)
                                 self.label_1st.setStyleSheet('background-color: pink; color: blue')
@@ -21769,9 +21796,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             elif result['전일대비기호'] == '2':                        
 
                                 if min(temp) > 0:
-                                    jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)⬈".format(체결가격, 전일대비, SP500_등락율)                                    
+                                    jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                 else:
-                                    jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, SP500_등락율)
+                                    jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
                                 self.label_1st.setText(jisu_str)
                                 self.label_1st.setStyleSheet('background-color: pink; color: red')
@@ -21784,9 +21811,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if result['전일대비기호'] == '5':                           
 
                                 if max(temp) < 0:
-                                    jisu_str = "S&P 500: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, 전일대비, SP500_등락율)                                    
+                                    jisu_str = "S&P 500: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                 else:
-                                    jisu_str = "S&P 500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, SP500_등락율)
+                                    jisu_str = "S&P 500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
                                 self.label_1st.setText(jisu_str)
                                 self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
@@ -21795,9 +21822,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             elif result['전일대비기호'] == '2':
                                 
                                 if max(temp) < 0:
-                                    jisu_str = "S&P 500: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, 전일대비, SP500_등락율)                                    
+                                    jisu_str = "S&P 500: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                 else:
-                                    jisu_str = "S&P 500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, 전일대비, SP500_등락율)
+                                    jisu_str = "S&P 500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
                                 self.label_1st.setText(jisu_str)
                                 self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
@@ -21815,20 +21842,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     DOW_저가 =  int(result['저가'])
                     DOW_고가 =  int(result['고가'])
-                    DOW_시가 = int(result['시가'])
-
                     DOW_진폭 = int(result['고가'] - result['저가'])
                     DOW_등락율 = result['등락율']
 
-                    if result['전일대비기호'] == '5':
+                    if DOW_시가 == 0:
+                        
+                        DOW_시가 = int(result['시가'])
 
-                        DOW_종가 = int(result['체결가격'] + result['전일대비'])
-                        DOW_전일대비 = -int(result['전일대비'])
+                        if result['전일대비기호'] == '5':
+
+                            DOW_종가 = int(result['체결가격'] + result['전일대비'])
+                            DOW_전일대비 = -int(result['전일대비'])
+                        else:
+                            DOW_종가 = int(result['체결가격'] - result['전일대비'])
+                            DOW_전일대비 = int(result['전일대비'])
                     else:
-                        DOW_종가 = int(result['체결가격'] - result['전일대비'])
-                        DOW_전일대비 = int(result['전일대비'])
+                        pass                    
 
-                    if DOW_피봇 == 0.0:
+                    if DOW_피봇 == 0:
                         
                         df_plotdata_dow.iloc[0][0] = DOW_종가
                         df_plotdata_dow.iloc[0][1] = result['시가']
@@ -21919,7 +21950,130 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         DOW_현재가 = 체결가격
                     else:
+                        pass
+
+                elif result['종목코드'] == WTI:
+
+                    WTI_저가 =  result['저가']
+                    WTI_고가 =  result['고가']
+                    
+                    WTI_진폭 = result['고가'] - result['저가']
+                    WTI_등락율 = result['등락율']
+                    
+                    if WTI_시가 == 0:
+
+                        WTI_시가 = result['시가']
+
+                        if result['전일대비기호'] == '5':
+
+                            WTI_종가 = result['체결가격'] + result['전일대비']
+                            WTI_전일대비 = locale.format('%.2f', -result['전일대비'], 1)
+                        else:
+                            WTI_종가 = result['체결가격'] - result['전일대비']
+                            WTI_전일대비 = locale.format('%.2f', result['전일대비'], 1)
+                    else:
                         pass                    
+
+                    if WTI_피봇 == 0:
+                        
+                        df_plotdata_wti.iloc[0][0] = WTI_종가
+                        df_plotdata_wti.iloc[0][1] = result['시가']
+
+                        if WTI_전저 > 0 and WTI_전고 > 0:
+
+                            WTI_피봇 = self.calc_pivot(WTI_전저, WTI_전고, WTI_종가, WTI_시가)
+                        else:
+                            pass
+                    else:
+                        pass
+
+                    if result['체결가격'] != WTI_현재가:
+                        
+                        wti_delta_old = wti_delta
+                        wti_delta = result['체결가격']
+                        wti_직전대비.extend([wti_delta - wti_delta_old])
+                        temp = list(wti_직전대비)
+                        
+                        if 2 <= ovc_x_idx <= overnight_timespan - 1:
+                            df_plotdata_wti.iloc[0][ovc_x_idx] = result['체결가격']
+                        else:
+                            pass
+                        
+                        체결가격 = locale.format('%.2f', result['체결가격'], 1)
+                        
+                        if result['체결가격'] > WTI_현재가:
+                            
+                            if result['전일대비기호'] == '5':                                                               
+
+                                if min(temp) > 0:
+                                    jisu_str = "WTI: {0} ({1}, {2:0.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                else:
+                                    jisu_str = "WTI: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+
+                                if overnight:
+
+                                    self.label_samsung.setText(jisu_str)
+                                    self.label_samsung.setStyleSheet('background-color: pink; color: blue')
+                                    wti_text_color = 'blue'
+                                else:
+                                    pass
+
+                            elif result['전일대비기호'] == '2':                        
+
+                                if min(temp) > 0:
+                                    jisu_str = "WTI: {0} ▲ ({1}, {2:0.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                else:
+                                    jisu_str = "WTI: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+
+                                if overnight:
+
+                                    self.label_samsung.setText(jisu_str)
+                                    self.label_samsung.setStyleSheet('background-color: pink; color: red')
+                                    wti_text_color = 'red'
+                                else:
+                                    pass                                
+                            else:
+                                pass
+                            
+                        elif result['체결가격'] < WTI_현재가:
+                            
+                            if result['전일대비기호'] == '5':                           
+
+                                if max(temp) < 0:
+                                    jisu_str = "WTI: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                else:
+                                    jisu_str = "WTI: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+
+                                if overnight:
+
+                                    self.label_samsung.setText(jisu_str)
+                                    self.label_samsung.setStyleSheet('background-color: lightskyblue; color: blue')
+                                    wti_text_color = 'blue'
+                                else:
+                                    pass                                
+
+                            elif result['전일대비기호'] == '2':
+                                
+                                if max(temp) < 0:
+                                    jisu_str = "WTI: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                else:
+                                    jisu_str = "WTI: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+
+                                if overnight:
+                                    
+                                    self.label_samsung.setText(jisu_str)
+                                    self.label_samsung.setStyleSheet('background-color: lightskyblue; color: red')
+                                    wti_text_color = 'red'
+                                else:
+                                    pass
+                            else:
+                                pass                            
+                        else:
+                            pass
+
+                        WTI_현재가 = result['체결가격']
+                    else:
+                        pass                 
                 else:
                     pass
             else:
