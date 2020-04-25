@@ -1007,8 +1007,8 @@ df_plotdata_call_volume = pd.DataFrame()
 df_plotdata_put_volume = pd.DataFrame()
 df_plotdata_volume_cha = pd.DataFrame()
 
-df_plotdata_call_oi = pd.DataFrame()
-df_plotdata_put_oi = pd.DataFrame()
+df_plotdata_call_rr = pd.DataFrame()
+df_plotdata_put_rr = pd.DataFrame()
 
 df_plotdata_two_sum = pd.DataFrame()
 df_plotdata_two_cha = pd.DataFrame()
@@ -1198,6 +1198,14 @@ OC0_풋현재가 = ''
 
 콜_순매수_체결량 = 0
 풋_순매수_체결량 = 0
+
+콜매수잔량 = 0
+콜매도잔량 = 0
+풋매수잔량 = 0
+풋매도잔량 = 0
+
+콜잔량비 = 0
+풋잔량비 = 0
 
 # 컬러정의
 blueviolet = QColor(138, 43, 226)
@@ -3039,8 +3047,8 @@ class screen_update_worker(QThread):
             data2 = df_plotdata_call_volume.iloc[0].values.tolist()
             data3 = df_plotdata_put_volume.iloc[0].values.tolist()
             data4 = df_plotdata_volume_cha.iloc[0].values.tolist()
-            data5 = df_plotdata_call_oi.iloc[0].values.tolist()
-            data6 = df_plotdata_put_oi.iloc[0].values.tolist() 
+            data5 = df_plotdata_call_rr.iloc[0].values.tolist()
+            data6 = df_plotdata_put_rr.iloc[0].values.tolist() 
             data7 = df_plotdata_two_sum.iloc[0].values.tolist()
             data8 = df_plotdata_two_cha.iloc[0].values.tolist()
             data9 = df_plotdata_kp200.iloc[0].values.tolist()
@@ -4035,10 +4043,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.comboBox2.addItems(['⓵ 옵션체결', '⓶ None', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
             self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
         else:
-            self.comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션미결', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
+            self.comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션잔량비', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
             self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-            self.comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션미결', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
+            self.comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션잔량비', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
             self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
@@ -7173,11 +7181,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 호가 갱신
                 if receive_quote:
 
+                    self.quote_display()
+                    '''
                     if self.alternate_flag:
 
                         self.quote_display()
                     else:
                         pass
+                    '''
                 else:
                     pass
 
@@ -12116,7 +12127,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global atm_index, atm_index_old
         global df_plotdata_call, df_plotdata_put
         global df_plotdata_call_volume, df_plotdata_put_volume, df_plotdata_volume_cha
-        global df_plotdata_call_oi, df_plotdata_put_oi
+        global df_plotdata_call_rr, df_plotdata_put_rr
         global atm_str, atm_val
 
         global fut_realdata, cme_realdata
@@ -12537,8 +12548,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_volume_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
 
-                    df_plotdata_call_oi = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_put_oi = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_call_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_put_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
 
                     df_plotdata_two_sum = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_two_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
@@ -12559,8 +12570,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_volume_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
 
-                    df_plotdata_call_oi = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_put_oi = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_call_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_put_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
 
                     df_plotdata_two_sum = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_two_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
@@ -13195,11 +13206,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_plotdata_put_volume.iloc[0][선물장간_시간차] = 0
                 df_plotdata_volume_cha.iloc[0][선물장간_시간차] = 0
                 
-                df_plotdata_call_oi[0][0] = 0
-                df_plotdata_put_oi[0][0] = 0
+                df_plotdata_call_rr[0][0] = 0
+                df_plotdata_put_rr[0][0] = 0
 
-                df_plotdata_call_oi[0][선물장간_시간차] = 0
-                df_plotdata_put_oi[0][선물장간_시간차] = 0
+                df_plotdata_call_rr[0][선물장간_시간차] = 0
+                df_plotdata_put_rr[0][선물장간_시간차] = 0
                 
                 콜_순미결합 = df_call['순미결'].sum()
                 풋_순미결합 = df_put['순미결'].sum()
@@ -16947,7 +16958,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def call_display(self, result):
 
         global call_result, call_open, call_itm_count
-        global df_call, df_plotdata_call, df_plotdata_call_oi
+        global df_call, df_plotdata_call, df_plotdata_call_rr
         global call_atm_value
         global call_시가, call_시가_node_list, call_피봇, call_피봇_node_list, 콜시가리스트
         global call_저가, call_저가_node_list, call_고가, call_고가_node_list
@@ -18342,7 +18353,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def put_display(self, result):
 
         global put_result, put_open, put_itm_count
-        global df_put, df_plotdata_put, df_plotdata_put_oi
+        global df_put, df_plotdata_put, df_plotdata_put_rr
         global put_atm_value
         global put_시가, put_시가_node_list, put_피봇, put_피봇_node_list, 풋시가리스트
         global put_저가, put_저가_node_list, put_고가, put_고가_node_list
@@ -19562,6 +19573,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def quote_display(self):
         
         global call_quote, put_quote
+        global 콜매수잔량, 콜매도잔량, 풋매수잔량, 풋매도잔량, 콜잔량비, 풋잔량비
+        global df_plotdata_call_rr, df_plotdata_put_rr
 
         call_quote = df_call_hoga.sum()
         put_quote = df_put_hoga.sum()
@@ -19576,6 +19589,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             call_remainder_ratio = 0
 
+        콜잔량비 = call_remainder_ratio
+
         if put_quote['매도건수'] > 0:
             put_count_ratio = put_quote['매수건수'] / put_quote['매도건수']
         else:
@@ -19585,6 +19600,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             put_remainder_ratio = put_quote['매수잔량'] / put_quote['매도잔량']
         else:
             put_remainder_ratio = 0
+
+        풋잔량비 = put_remainder_ratio
+
+        df_plotdata_call_rr.iloc[0][opt_x_idx] = 콜잔량비
+        df_plotdata_put_rr.iloc[0][opt_x_idx] = 풋잔량비
 
         temp = (call_quote['매수건수'] + call_quote['매도건수']) - (put_quote['매수건수'] + put_quote['매도건수'])
         건수차 = format(temp, ',')
@@ -19627,11 +19647,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_quote.setItem(0, 8, item)
         else:
             pass
+        
+        콜매수잔량 = call_quote['매수잔량']
+        콜매도잔량 = call_quote['매도잔량']
 
-        temp = call_quote['매수잔량'] + call_quote['매도잔량']
+        temp = 콜매수잔량 + 콜매도잔량
         잔량합 = format(temp, ',')
 
-        item_str = "{0:0.2f}\n({1})".format(call_remainder_ratio, 잔량합)
+        item_str = "{0:0.2f}\n{1}:{2}".format(call_remainder_ratio, format(call_quote['매수잔량'], ','), format(call_quote['매도잔량'], ','))
 
         if item_str != self.tableWidget_quote.item(0, 9).text():
 
@@ -19653,11 +19676,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_quote.setItem(0, 10, item)
         else:
             pass
+        
+        풋매수잔량 = put_quote['매수잔량']
+        풋매도잔량 = put_quote['매도잔량']
 
-        temp = put_quote['매수잔량'] + put_quote['매도잔량']
+        temp = 풋매수잔량 + 풋매도잔량
         잔량합 = format(temp, ',')
 
-        item_str = "{0:0.2f}\n({1})".format(put_remainder_ratio, 잔량합)
+        item_str = "{0:0.2f}\n{1}:{2}".format(put_remainder_ratio, format(put_quote['매수잔량'], ','), format(put_quote['매도잔량'], ','))
 
         if item_str != self.tableWidget_quote.item(0, 11).text():
 
@@ -19678,8 +19704,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         콜_수정미결합 = df_call['수정미결'].sum()
         풋_수정미결합 = df_put['수정미결'].sum()
                     
-        df_plotdata_call_oi.iloc[0][opt_x_idx] = 콜_수정미결합
-        df_plotdata_put_oi.iloc[0][opt_x_idx] = 풋_수정미결합
+        #df_plotdata_call_rr.iloc[0][opt_x_idx] = 콜_수정미결합
+        #df_plotdata_put_rr.iloc[0][opt_x_idx] = 풋_수정미결합
 
         oi_delta_old = oi_delta
         oi_delta = 콜_수정미결합 - 풋_수정미결합
@@ -19697,57 +19723,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             콜_수정미결퍼센트 = 0
             풋_수정미결퍼센트 = 0
 
-        '''
-        if oi_delta > 0:
-
-            if min(temp) > 0:
-
-                item_str = '{0}\n{1}⬈'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
-
-            elif max(temp) < 0:
-
-                item_str = '{0}\n{1}⬊'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
-            else:
-                item_str = '{0}\n{1}'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
-
-        elif oi_delta < 0:
-
-            if min(temp) > 0:
-
-                item_str = '{0}\n{1}⬊'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
-
-            elif max(temp) < 0:
-
-                item_str = '{0}\n{1}⬈'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
-            else:
-                item_str = '{0}\n{1}'.format(format(콜_수정미결합, ','), format(풋_수정미결합, ','))
-
-        else:
-            item_str = '{0:0.1f}%\n{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
-        '''
-
         item_str = '{0:0.1f}%\n{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
         if item_str != self.tableWidget_quote.item(0, Quote_column.미결종합.value - 1).text():
 
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
-
-            '''
-            if oi_delta > 0:
-
-                item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(검정색))
-
-            elif oi_delta < 0:
-
-                item.setBackground(QBrush(청색))
-                item.setForeground(QBrush(흰색))
-
-            else:
-                item.setBackground(QBrush(흰색))
-                item.setForeground(QBrush(검정색))
-            '''
 
             self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
         else:
@@ -22870,10 +22851,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.bc_comboBox2.addItems(['⓵ 옵션체결', '⓶ None', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
             self.bc_comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
         else:
-            self.bc_comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션미결', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
+            self.bc_comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션잔량비', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
             self.bc_comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-            self.bc_comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션미결', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
+            self.bc_comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션잔량비', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
             self.bc_comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         global bc_plot1_time_line_start, bc_plot1_time_line_yagan_start, bc_plot1_time_line, bc_plot1_fut_price_curve, bc_plot1_kp200_curve
