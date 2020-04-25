@@ -241,6 +241,7 @@ with open('control_info.txt', mode='r') as control_file:
     NEW_NODE_VAL2 = 0
     NEW_NODE_VAL3 = 0
     NEW_NODE_VAL4 = 0
+    NEW_NODE_VAL5 = 0
 
     if os.path.exists('HL-List.txt'):
 
@@ -355,7 +356,27 @@ with open('control_info.txt', mode='r') as control_file:
                             진성맥점.append(NEW_NODE_VAL4)
                             진성맥점 = list(set(진성맥점))
                             진성맥점.sort()
-                            print('진성맥점 리스트 =', 진성맥점)
+                            #print('진성맥점 리스트 =', 진성맥점)
+
+                            # 다섯번재 최대빈도 맥점탐색
+                            FIFTH_LIST = list(filter((NEW_NODE_VAL4).__ne__, FOURTH_LIST))
+                            result = list(Counter(FIFTH_LIST).values())
+                            동적맥점_빈도수_5th = max(result)
+
+                            if 동적맥점_빈도수_5th > 2:
+
+                                max_index = result.index(max(result))
+                                result = list(Counter(FIFTH_LIST).keys())
+
+                                NEW_NODE_VAL5 = result[max_index]
+                                print('5th 동적맥점 값 = {0}, 빈도수 = {1}'.format(NEW_NODE_VAL5, 동적맥점_빈도수_5th))
+
+                                진성맥점.append(NEW_NODE_VAL5)
+                                진성맥점 = list(set(진성맥점))
+                                진성맥점.sort()
+                                print('진성맥점 리스트 =', 진성맥점)
+                            else:
+                                pass
                         else:
                             pass
                     else:
@@ -4387,6 +4408,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
             self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
+        else:
+            pass
+
+        if NEW_NODE_VAL5 > 0:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 5th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                (dt.hour, dt.minute, dt.second, NEW_NODE_VAL5, 동적맥점_빈도수_5th)
+            self.textBrowser.append(str)
+
+            item = QTableWidgetItem("{0}".format(NEW_NODE_VAL5))
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(lime))
+            self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)
         else:
             pass
 
@@ -12223,7 +12257,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if df.iloc[0]['전일대비구분'] == '5':
 
-                    jisu_str = "KOSPI: {0} (-{1:0.2f}, {2:0.1f}%)".format(df.iloc[0]['지수'], df.iloc[0]['전일대비'], df.iloc[0]['등락율'])
+                    jisu_str = "KOSPI: {0} (-{1:0.2f}, {2:0.1f}%)".format(format(df.iloc[0]['지수'], ','), df.iloc[0]['전일대비'], df.iloc[0]['등락율'])
                     self.label_kospi.setText(jisu_str)
                     self.label_kospi.setStyleSheet('background-color: black ; color: cyan')
 
