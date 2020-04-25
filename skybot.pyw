@@ -1204,7 +1204,10 @@ OC0_풋현재가 = ''
 풋매수잔량 = 0
 풋매도잔량 = 0
 
+콜건수비 = 0
 콜잔량비 = 0
+
+풋건수비 = 0
 풋잔량비 = 0
 
 # 컬러정의
@@ -3476,7 +3479,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         OVC_START_HOUR = KSE_START_HOUR - 1 
 
-        print('장시작 준비시간 =', OVC_START_HOUR)
+        print('야간장 기준시간 =', OVC_START_HOUR)
 
         self.setWindowTitle(widget_title)
         
@@ -19573,7 +19576,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def quote_display(self):
         
         global call_quote, put_quote
-        global 콜매수잔량, 콜매도잔량, 풋매수잔량, 풋매도잔량, 콜잔량비, 풋잔량비
+        global 콜매수잔량, 콜매도잔량, 풋매수잔량, 풋매도잔량, 콜건수비, 콜잔량비, 풋건수비, 풋잔량비
         global df_plotdata_call_rr, df_plotdata_put_rr
 
         call_quote = df_call_hoga.sum()
@@ -19583,6 +19586,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             call_count_ratio = call_quote['매수건수'] / call_quote['매도건수']
         else:
             call_count_ratio = 0
+
+        콜건수비 = call_count_ratio
 
         if call_quote['매도잔량'] > 0:
             call_remainder_ratio = call_quote['매수잔량'] / call_quote['매도잔량']
@@ -19595,6 +19600,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             put_count_ratio = put_quote['매수건수'] / put_quote['매도건수']
         else:
             put_count_ratio = 0
+
+        풋건수비 = put_count_ratio
 
         if put_quote['매도잔량'] > 0:
             put_remainder_ratio = put_quote['매수잔량'] / put_quote['매도잔량']
