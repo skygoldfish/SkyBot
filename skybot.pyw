@@ -12263,7 +12263,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif df.iloc[0]['전일대비구분'] == '2':
 
-                    jisu_str = "KOSPI: {0} ({1:0.2f}, {2:0.1f}%)".format(df.iloc[0]['지수'], df.iloc[0]['전일대비'], df.iloc[0]['등락율'])
+                    jisu_str = "KOSPI: {0} ({1:0.2f}, {2:0.1f}%)".format(format(df.iloc[0]['지수'], ','), df.iloc[0]['전일대비'], df.iloc[0]['등락율'])
                     self.label_kospi.setText(jisu_str)
                     self.label_kospi.setStyleSheet('background-color: black ; color: magenta')
                 else:
