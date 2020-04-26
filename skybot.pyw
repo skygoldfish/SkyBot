@@ -551,6 +551,15 @@ else:
     NASDAQ_전고 = 0
     NASDAQ_종가 = 0
 
+KP200_전저 = 0
+KP200_전고 = 0
+kp200_종가 = 0
+kp200_피봇 = 0
+kp200_시가 = 0
+kp200_저가 = 0
+kp200_현재가 = 0
+kp200_고가 = 0
+
 if os.path.isfile('kp200_info.txt'):
 
     with open('kp200_info.txt', mode='r') as kp200_file:
@@ -570,8 +579,7 @@ if os.path.isfile('kp200_info.txt'):
         KP200_전고 = float(temp[3])
         #print('KP200_전고 =', KP200_전고)
 else:
-    KP200_전저 = 0
-    KP200_전고 = 0
+    pass
 
 # 전역변수
 ########################################################################################################################
@@ -622,8 +630,6 @@ flag_offline = False
 flag_call_cross_coloring = False
 flag_put_cross_coloring = False
 flag_clear = False
-
-kp200_pivot = 0
 
 # 업종코드
 KOSPI = '001'
@@ -830,8 +836,6 @@ flag_fut_high = False
 
 flag_kp200_low = False
 flag_kp200_high = False
-
-kp200_종가 = 0
 
 옵션잔존일 = 0
 
@@ -12221,7 +12225,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_open_list, put_open_list, opt_total_list
         global call_itm_count, call_max_actval
         global put_itm_count, put_max_actval
-        global kp200_종가
+        global kp200_종가, kp200_시가, kp200_저가, kp200_현재가, kp200_고가
         global t2835_month_info
         global server_date, server_time, system_server_timegap
         global call_cm_code, put_cm_code, opt_cm_length
@@ -13644,9 +13648,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
 
             # kp200 coreval 리스트 만듬
+            kp200_종가 = df['KOSPI200지수']
             kp200_realdata['종가'] = df['KOSPI200지수']
             
-            atm_str = self.find_ATM(kp200_realdata['종가'])
+            atm_str = self.find_ATM(kp200_종가)
             atm_index = opt_actval.index(atm_str)
             
             # update 쓰레드 시간단축 목적 !!!
@@ -13708,7 +13713,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             kp200_coreval.sort()
             print('t2801 kp200_coreval', kp200_coreval)
 
-            atm_str = self.find_ATM(kp200_realdata['종가'])
+            atm_str = self.find_ATM(kp200_종가)
 
             if atm_str[-1] == '2' or atm_str[-1] == '7':
 
@@ -13755,7 +13760,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
 
-                df_plotdata_kp200.iloc[0][0] = kp200_realdata['종가']
+                df_plotdata_kp200.iloc[0][0] = kp200_종가
 
                 # 주간 현재가가 야간 종가임 
                 df_plotdata_fut.iloc[0][0] = fut_realdata['현재가']
@@ -16018,7 +16023,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if self.within_n_tick(kp200_realdata['종가'], kp200_realdata['저가'], 10):
+        if self.within_n_tick(kp200_종가, kp200_realdata['저가'], 10):
 
             self.tableWidget_fut.item(2, Futures_column.종가.value).setBackground(QBrush(콜종가색))
             self.tableWidget_fut.item(2, Futures_column.종가.value).setForeground(QBrush(검정색))
@@ -16027,9 +16032,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if kp200_pivot > 0:
+        if kp200_피봇 > 0:
 
-            if self.within_n_tick(kp200_pivot, kp200_realdata['저가'], 10):
+            if self.within_n_tick(kp200_피봇, kp200_realdata['저가'], 10):
 
                 self.tableWidget_fut.item(2, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
                 self.tableWidget_fut.item(2, Futures_column.피봇.value).setForeground(QBrush(검정색))
@@ -16067,9 +16072,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if kp200_pivot > 0:
+        if kp200_피봇 > 0:
 
-            if self.within_n_tick(kp200_pivot, kp200_realdata['고가'], 10):                
+            if self.within_n_tick(kp200_피봇, kp200_realdata['고가'], 10):                
 
                 self.tableWidget_fut.item(2, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
                 self.tableWidget_fut.item(2, Futures_column.피봇.value).setForeground(QBrush(검정색))
@@ -19854,7 +19859,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가
             global 시스템시간, 서버시간, 시스템_서버_시간차
-            global kp200_pivot
+            global kp200_시가, kp200_피봇, kp200_저가, kp200_현재가, kp200_고가
 
             start_time = timeit.default_timer()
 
@@ -20120,6 +20125,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if result['예상지수'] != float(self.tableWidget_fut.item(2, Futures_column.시가.value).text()):
 
+                            kp200_시가 = result['예상지수']
                             kp200_realdata['시가'] = result['예상지수']
                             fut_realdata['KP200'] = result['예상지수']
 
@@ -20131,10 +20137,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item = QTableWidgetItem("{0:0.2f}".format(result['예상지수']))
                             item.setTextAlignment(Qt.AlignCenter)
 
-                            if kp200_realdata['시가'] > kp200_realdata['종가']:
+                            if kp200_시가 > kp200_종가:
 
                                 item.setForeground(QBrush(적색))
-                            elif kp200_realdata['시가'] < kp200_realdata['종가']:
+                            elif kp200_시가 < kp200_종가:
 
                                 item.setForeground(QBrush(청색))
                             else:
@@ -20733,9 +20739,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             #item.setBackground(QBrush(옅은회색))
                             pass 
 
-                        if kp200_realdata['현재가'] > kp200_realdata['시가']:
+                        if kp200_realdata['현재가'] > kp200_시가:
                             item.setForeground(QBrush(적색))
-                        elif kp200_realdata['현재가'] < kp200_realdata['시가']:
+                        elif kp200_realdata['현재가'] < kp200_시가:
                             item.setForeground(QBrush(청색))
                         else:
                             item.setForeground(QBrush(검정색))
@@ -20748,16 +20754,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         flag_kp200_start_set = True
 
-                        kp200_realdata['시가'] = round(float(result['시가지수']), 2)
-                        df_plotdata_kp200.iloc[0][선물장간_시간차] = round(float(result['시가지수']), 2)
+                        kp200_시가 = float(result['시가지수'])
+                        kp200_realdata['시가'] = float(result['시가지수'])
+                        df_plotdata_kp200.iloc[0][선물장간_시간차] = float(result['시가지수'])
 
                         item = QTableWidgetItem(result['시가지수'])
                         item.setTextAlignment(Qt.AlignCenter)
 
-                        if kp200_realdata['시가'] > kp200_종가:
+                        if kp200_시가 > kp200_종가:
 
                             item.setForeground(QBrush(적색))
-                        elif kp200_realdata['시가'] < kp200_종가:
+                        elif kp200_시가 < kp200_종가:
 
                             item.setForeground(QBrush(청색))
                         else:
@@ -20765,13 +20772,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.tableWidget_fut.setItem(2, Futures_column.시가.value, item)
 
-                        item = QTableWidgetItem("{0:0.2f}".format(kp200_realdata['시가'] - kp200_종가))
+                        item = QTableWidgetItem("{0:0.2f}".format(kp200_시가 - kp200_종가))
                         item.setTextAlignment(Qt.AlignCenter)
 
-                        if kp200_realdata['시가'] > kp200_종가:
+                        if kp200_시가 > kp200_종가:
                             item.setBackground(QBrush(콜기준가색))
                             item.setForeground(QBrush(검정색))
-                        elif kp200_realdata['시가'] < kp200_종가:
+                        elif kp200_시가 < kp200_종가:
                             item.setBackground(QBrush(풋기준가색))
                             item.setForeground(QBrush(흰색))
                         else:
@@ -20783,20 +20790,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             int(result['시간'][0:2]),
                             int(result['시간'][2:4]),
                             int(result['시간'][4:6]),
-                            kp200_realdata['시가'])
+                            kp200_시가)
                         self.textBrowser.append(str)
 
                         if KP200_전저 > 0 and KP200_전고 > 0:
 
-                            kp200_pivot = self.calc_pivot(KP200_전저, KP200_전고, kp200_종가, kp200_realdata['시가'])         
+                            kp200_피봇 = self.calc_pivot(KP200_전저, KP200_전고, kp200_종가, kp200_시가)         
 
-                            item = QTableWidgetItem("{0:0.2f}".format(kp200_pivot))
+                            item = QTableWidgetItem("{0:0.2f}".format(kp200_피봇))
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_fut.setItem(2, Futures_column.피봇.value, item)
                         else:
                             pass              
                         
-                        atm_str = self.find_ATM(kp200_realdata['시가'])
+                        atm_str = self.find_ATM(kp200_시가)
                         atm_index = opt_actval.index(atm_str)
 
                         if atm_str[-1] == '2' or atm_str[-1] == '7':
