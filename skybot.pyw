@@ -86,6 +86,7 @@ np.warnings.filterwarnings('ignore')
 선물_저가 = 0
 
 선물_현재가 = 0
+선물_과거가 = 0
 선물_대비 = 0
 선물_전일대비 = 0
 선물_등락율 = 0
@@ -103,6 +104,7 @@ SP500_시가 = 0
 SP500_저가 = 0
 
 SP500_현재가 = 0
+SP500_과거가 = 0
 SP500_대비 = 0
 SP500_전일대비 = 0
 SP500_등락율 = 0
@@ -120,6 +122,7 @@ DOW_시가 = 0
 DOW_저가 = 0
 
 DOW_현재가 = 0
+DOW_과거가 = 0
 DOW_대비 = 0
 DOW_전일대비 = 0
 DOW_등락율 = 0
@@ -137,6 +140,7 @@ NASDAQ_시가 = 0
 NASDAQ_저가 = 0
 
 NASDAQ_현재가 = 0
+NASDAQ_과거가 = 0
 NASDAQ_대비 = 0
 NASDAQ_전일대비 = 0
 NASDAQ_등락율 = 0
@@ -154,6 +158,7 @@ WTI_시가 = 0
 WTI_저가 = 0
 
 WTI_현재가 = 0
+WTI_과거가 = 0
 WTI_대비 = 0
 WTI_전일대비 = 0
 WTI_등락율 = 0
@@ -16363,7 +16368,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         '''
         
         df_plotdata_fut.iloc[0][x_idx] = 선물_현재가
-        df_plotdata_kp200.iloc[0][x_idx] = round(float(result['KOSPI200지수']), 2)
+        df_plotdata_kp200.iloc[0][x_idx] = float(result['KOSPI200지수'])
 
         #print('fut_first_arrive = {0}, first_refresh = {1}, market_service = {2}\r'.format(fut_first_arrive, first_refresh, market_service))
 
@@ -19897,6 +19902,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_현재가, NASDAQ_전일대비, NASDAQ_등락율, NASDAQ_진폭, NASDAQ_고가
             global WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭, WTI_고가
 
+            global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가 
+
             global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가
             global 시스템시간, 서버시간, 시스템_서버_시간차
             global kp200_시가, kp200_피봇, kp200_저가, kp200_현재가, kp200_고가
@@ -21487,13 +21494,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 해외선물 시작시간과 동기를 맞춤
                 x_idx = x_idx + 선물장간_시간차
 
+                self.futures_display(result)
+
+                '''
                 if result['현재가'] != FC0_선물현재가:
                        
                     FC0_선물현재가 = result['현재가']
 
                     self.futures_display(result)
-
-                    '''
+                    
                     if szTrCode == 'FC0':
 
                         if result['전일동시간대거래량'] > 0:
@@ -21518,10 +21527,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
                     else:
-                        pass
-                    '''                
+                        pass                                    
                 else:
                     pass
+                '''
 
             elif szTrCode == 'OC0' or szTrCode == 'EC0':
 
@@ -21951,19 +21960,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass                                
 
-                    if result['체결가격'] != NASDAQ_현재가:
+                    if result['체결가격'] != NASDAQ_과거가:
                         
                         nasdaq_delta_old = nasdaq_delta
                         nasdaq_delta = result['체결가격']
                         nasdaq_직전대비.extend([nasdaq_delta - nasdaq_delta_old])
                         대비리스트 = list(nasdaq_직전대비)
+
+                        NASDAQ_현재가 = result['체결가격']
                         
                         if 2 <= ovc_x_idx <= overnight_timespan - 1:
                             df_plotdata_nasdaq.iloc[0][ovc_x_idx] = result['체결가격']
                         else:
                             pass
 
-                        if result['체결가격'] > NASDAQ_현재가:
+                        if result['체결가격'] > NASDAQ_과거가:
 
                             if result['전일대비기호'] == '5':
 
@@ -21989,7 +22000,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
 
-                        elif result['체결가격'] < NASDAQ_현재가:
+                        elif result['체결가격'] < NASDAQ_과거가:
 
                             if result['전일대비기호'] == '5':     
 
@@ -22017,7 +22028,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        NASDAQ_현재가 = result['체결가격']
+                        NASDAQ_과거가 = result['체결가격']
                     else:
                         pass                    
 
@@ -22055,12 +22066,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    if result['체결가격'] != SP500_현재가:
+                    if result['체결가격'] != SP500_과거가:
                         
                         sp500_delta_old = sp500_delta
                         sp500_delta = result['체결가격']
                         sp500_직전대비.extend([sp500_delta - sp500_delta_old])
                         대비리스트 = list(sp500_직전대비)
+
+                        SP500_현재가 = result['체결가격']
                         
                         if 2 <= ovc_x_idx <= overnight_timespan - 1:
                             df_plotdata_sp500.iloc[0][ovc_x_idx] = result['체결가격']
@@ -22069,7 +22082,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         체결가격 = locale.format('%.2f', result['체결가격'], 1)
                         
-                        if result['체결가격'] > SP500_현재가:
+                        if result['체결가격'] > SP500_과거가:
                             
                             if result['전일대비기호'] == '5':                                                               
 
@@ -22095,7 +22108,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
                             
-                        elif result['체결가격'] < SP500_현재가:
+                        elif result['체결가격'] < SP500_과거가:
                             
                             if result['전일대비기호'] == '5':                           
 
@@ -22123,7 +22136,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        SP500_현재가 = result['체결가격']
+                        SP500_과거가 = result['체결가격']
                     else:
                         pass                    
 
@@ -22162,19 +22175,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     체결가격 = int(result['체결가격'])                    
 
-                    if 체결가격 != DOW_현재가:
+                    if 체결가격 != DOW_과거가:
                         
                         dow_delta_old = dow_delta
                         dow_delta = 체결가격
                         dow_직전대비.extend([dow_delta - dow_delta_old])
                         대비리스트 = list(dow_직전대비)
+
+                        DOW_현재가 = result['체결가격']
                         
                         if 2 <= ovc_x_idx <= overnight_timespan - 1:
                             df_plotdata_dow.iloc[0][ovc_x_idx] = result['체결가격']
                         else:
                             pass
 
-                        if 체결가격 > DOW_현재가:
+                        if 체결가격 > DOW_과거가:
 
                             if result['전일대비기호'] == '5':                                                              
 
@@ -22204,7 +22219,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
 
-                        elif 체결가격 < DOW_현재가:
+                        elif 체결가격 < DOW_과거가:
 
                             if result['전일대비기호'] == '5':        
 
@@ -22236,7 +22251,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        DOW_현재가 = 체결가격
+                        DOW_과거가 = 체결가격
                     else:
                         pass
 
@@ -22274,12 +22289,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    if result['체결가격'] != WTI_현재가:
+                    if result['체결가격'] != WTI_과거가:
                         
                         wti_delta_old = wti_delta
                         wti_delta = result['체결가격']
                         wti_직전대비.extend([wti_delta - wti_delta_old])
                         대비리스트 = list(wti_직전대비)
+
+                        WTI_현재가 = result['체결가격']
                         
                         if 2 <= ovc_x_idx <= overnight_timespan - 1:
                             df_plotdata_wti.iloc[0][ovc_x_idx] = result['체결가격']
@@ -22288,7 +22305,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         체결가격 = locale.format('%.2f', result['체결가격'], 1)
                         
-                        if result['체결가격'] > WTI_현재가:
+                        if result['체결가격'] > WTI_과거가:
                             
                             if result['전일대비기호'] == '5':                                                               
 
@@ -22322,7 +22339,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
                             
-                        elif result['체결가격'] < WTI_현재가:
+                        elif result['체결가격'] < WTI_과거가:
                             
                             if result['전일대비기호'] == '5':                           
 
@@ -22358,7 +22375,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        WTI_현재가 = result['체결가격']
+                        WTI_과거가 = result['체결가격']
                     else:
                         pass                 
                 else:
