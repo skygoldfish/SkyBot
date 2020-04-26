@@ -23110,6 +23110,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if bc_comboindex1 == 0:
 
+            self.label_1.setText(" 전저 : 가격 ")
+            self.label_2.setText(" 전고 : 가격 ")
+            self.label_3.setText(" 종가 : 가격 ")
+            self.label_4.setText(" 피봇 : 가격 ")
+            self.label_5.setText(" 시가 : 가격 ")
+            self.label_6.setText(" 저가 : 가격 ")
+            self.label_7.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+            self.label_8.setText(" 고가 : 가격 ")
+
             bc_plot1_call_rr_curve.clear()
             bc_plot1_put_rr_curve.clear()
 
@@ -23151,7 +23160,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_ovc_low_line.setValue(0)
             bc_plot1_ovc_high_line.setValue(0)
 
-        elif bc_comboindex1 == 1:            
+        elif bc_comboindex1 == 1:
+
+            self.label_1.setText(" 전저 : 가격 ")
+            self.label_2.setText(" 전고 : 가격 ")
+            self.label_3.setText(" 종가 : 가격 ")
+            self.label_4.setText(" 피봇 : 가격 ")
+            self.label_5.setText(" 시가 : 가격 ")
+            self.label_6.setText(" 저가 : 가격 ")
+            self.label_7.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+            self.label_8.setText(" 고가 : 가격 ")            
             
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -23194,6 +23212,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_rr_line.setValue(0)
 
         elif bc_comboindex1 == 2:
+
+            self.label_1.setText(" 전저 : 가격 ")
+            self.label_2.setText(" 전고 : 가격 ")
+            self.label_3.setText(" 종가 : 가격 ")
+            self.label_4.setText(" 피봇 : 가격 ")
+            self.label_5.setText(" 시가 : 가격 ")
+            self.label_6.setText(" 저가 : 가격 ")
+            self.label_7.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+            self.label_8.setText(" 고가 : 가격 ")
             
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -23237,6 +23264,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_rr_line.setValue(1) 
         
         elif bc_comboindex1 == 3:
+
+            self.label_1.setText(" 전저 : 가격 ")
+            self.label_2.setText(" 전고 : 가격 ")
+            self.label_3.setText(" 종가 : 가격 ")
+            self.label_4.setText(" 피봇 : 가격 ")
+            self.label_5.setText(" 시가 : 가격 ")
+            self.label_6.setText(" 저가 : 가격 ")
+            self.label_7.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+            self.label_8.setText(" 고가 : 가격 ")
 
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -23831,6 +23867,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_comboindex2 = self.bc_comboBox2.currentIndex()
 
         if bc_comboindex2 == 0:
+
+            self.label_9.setText(" 전저 : 가격 ")
+            self.label_10.setText(" 전고 : 가격 ")
+            self.label_11.setText(" 종가 : 가격 ")
+            self.label_12.setText(" 피봇 : 가격 ")
+            self.label_13.setText(" 시가 : 가격 ")
+            self.label_14.setText(" 저가 : 가격 ")
+            self.label_15.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+            self.label_16.setText(" 고가 : 가격 ")
             
             bc_plot2_call_rr_curve.clear()
             bc_plot2_put_rr_curve.clear()
@@ -23867,6 +23912,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_hc_low_line.setValue(0)
 
         elif bc_comboindex2 == 1:
+
+            self.label_9.setText(" 전저 : 가격 ")
+            self.label_10.setText(" 전고 : 가격 ")
+            self.label_11.setText(" 종가 : 가격 ")
+            self.label_12.setText(" 피봇 : 가격 ")
+            self.label_13.setText(" 시가 : 가격 ")
+            self.label_14.setText(" 저가 : 가격 ")
+            self.label_15.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+            self.label_16.setText(" 고가 : 가격 ")
                         
             if not overnight:
 
@@ -23909,6 +23963,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex2 == 2:
 
+            self.label_9.setText(" 전저 : 가격 ")
+            self.label_10.setText(" 전고 : 가격 ")
+            self.label_11.setText(" 종가 : 가격 ")
+            self.label_12.setText(" 피봇 : 가격 ")
+            self.label_13.setText(" 시가 : 가격 ")
+            self.label_14.setText(" 저가 : 가격 ")
+            self.label_15.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+            self.label_16.setText(" 고가 : 가격 ")
+
             bc_plot2_call_rr_curve.clear()
             bc_plot2_put_rr_curve.clear()
 
@@ -23946,6 +24009,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
         elif bc_comboindex2 == 3:
 
+            self.label_9.setText(" 전저 : 가격 ")
+            self.label_10.setText(" 전고 : 가격 ")
+            self.label_11.setText(" 종가 : 가격 ")
+            self.label_12.setText(" 피봇 : 가격 ")
+            self.label_13.setText(" 시가 : 가격 ")
+            self.label_14.setText(" 저가 : 가격 ")
+            self.label_15.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+            self.label_16.setText(" 고가 : 가격 ")
+
             bc_plot2_call_rr_curve.clear()
             bc_plot2_put_rr_curve.clear()   
 
@@ -23982,6 +24054,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_hc_low_line.setValue(-1.5)
 
         elif bc_comboindex2 == 4:
+
+            self.label_9.setText(" 전저 : 가격 ")
+            self.label_10.setText(" 전고 : 가격 ")
+            self.label_11.setText(" 종가 : 가격 ")
+            self.label_12.setText(" 피봇 : 가격 ")
+            self.label_13.setText(" 시가 : 가격 ")
+            self.label_14.setText(" 저가 : 가격 ")
+            self.label_15.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+            self.label_16.setText(" 고가 : 가격 ")
 
             bc_plot2_call_rr_curve.clear()
             bc_plot2_put_rr_curve.clear()   
