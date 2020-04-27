@@ -23957,7 +23957,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             bc_plot1_ovc_close_line.setValue(WTI_종가)
 
-            str = ' 종가 : {0} '.format(WTI_종가)
+            str = ' 종가 : {0:0.2f} '.format(WTI_종가)
             self.label_3.setText(str)
 
             if WTI_피봇 > 0:
@@ -24626,7 +24626,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot2_ovc_close_line.setValue(WTI_종가)
 
-            str = ' 종가 : {0} '.format(WTI_종가)
+            str = ' 종가 : {0:0.2f} '.format(WTI_종가)
             self.label_11.setText(str)
 
             if WTI_피봇 > 0:
