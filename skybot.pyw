@@ -7602,6 +7602,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             overnight_file.write(file_str)
                             file_str = 'NASDAQ Last Close = {0}\n'.format(NASDAQ_당일종가)
                             overnight_file.write(file_str)
+                            file_str = 'WTI Last Low = {0}\n'.format(WTI_저가)
+                            overnight_file.write(file_str)
+                            file_str = 'WTI Last High = {0}\n'.format(WTI_고가)
+                            overnight_file.write(file_str)
+                            file_str = 'WTI Last Close = {0}\n'.format(WTI_당일종가)
+                            overnight_file.write(file_str)
                             overnight_file.close()
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
@@ -20152,6 +20158,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     DOW_당일종가 = DOW_현재가
                     SP500_당일종가 = SP500_현재가
                     NASDAQ_당일종가 = NASDAQ_현재가
+                    WTI_당일종가 = NASDAQ_현재가
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 DOW 지수 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), DOW_현재가)
                     self.textBrowser.append(str)
