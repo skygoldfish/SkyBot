@@ -22425,45 +22425,45 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             
                             if result['전일대비기호'] == '5':
 
-                                if comboindex1 == 8 or comboindex2 == 8: 
+                                if min(대비리스트) > 0:
+                                    jisu_str = "WTI: {0} ({1}, {2:0.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                else:
+                                    jisu_str = "WTI: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
 
-                                    if min(대비리스트) > 0:
-                                        jisu_str = "WTI: {0} ({1}, {2:0.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
-                                    else:
-                                        jisu_str = "WTI: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+                                if overnight:
 
-                                    if overnight:
+                                    self.label_samsung.setText(jisu_str)
+                                    self.label_samsung.setStyleSheet('background-color: pink; color: blue')
+                                    wti_text_color = 'blue'
+                                else:
+                                    if comboindex1 == 8 or comboindex2 == 8:
 
-                                        self.label_samsung.setText(jisu_str)
-                                        self.label_samsung.setStyleSheet('background-color: pink; color: blue')
-                                        wti_text_color = 'blue'
-                                    else:
                                         self.label_1st.setText(jisu_str)
                                         self.label_1st.setStyleSheet('background-color: pink; color: blue')
-                                        wti_text_color = 'blue'
-                                else:
-                                    pass                                
+                                        wti_text_color = 'blue'                                            
+                                    else:
+                                        pass                                
 
                             elif result['전일대비기호'] == '2':
 
-                                if comboindex1 == 8 or comboindex2 == 8: 
+                                if min(대비리스트) > 0:
+                                    jisu_str = "WTI: {0} ▲ ({1}, {2:0.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                else:
+                                    jisu_str = "WTI: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
 
-                                    if min(대비리스트) > 0:
-                                        jisu_str = "WTI: {0} ▲ ({1}, {2:0.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
-                                    else:
-                                        jisu_str = "WTI: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+                                if overnight:
 
-                                    if overnight:
+                                    self.label_samsung.setText(jisu_str)
+                                    self.label_samsung.setStyleSheet('background-color: pink; color: red')
+                                    wti_text_color = 'red'
+                                else:
+                                    if comboindex1 == 8 or comboindex2 == 8:                                    
 
-                                        self.label_samsung.setText(jisu_str)
-                                        self.label_samsung.setStyleSheet('background-color: pink; color: red')
-                                        wti_text_color = 'red'
-                                    else:
                                         self.label_1st.setText(jisu_str)
                                         self.label_1st.setStyleSheet('background-color: pink; color: red')
-                                        wti_text_color = 'red' 
-                                else:
-                                    pass                                                               
+                                        wti_text_color = 'red'                                        
+                                    else:
+                                        pass                                                               
                             else:
                                 pass
                             
@@ -22471,45 +22471,45 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             
                             if result['전일대비기호'] == '5':
 
-                                if comboindex1 == 8 or comboindex2 == 8: 
+                                if max(대비리스트) < 0:
+                                    jisu_str = "WTI: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                else:
+                                    jisu_str = "WTI: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
 
-                                    if max(대비리스트) < 0:
-                                        jisu_str = "WTI: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
-                                    else:
-                                        jisu_str = "WTI: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+                                if overnight:
 
-                                    if overnight:
+                                    self.label_samsung.setText(jisu_str)
+                                    self.label_samsung.setStyleSheet('background-color: lightskyblue; color: blue')
+                                    wti_text_color = 'blue'
+                                else:
+                                    if comboindex1 == 8 or comboindex2 == 8:
 
-                                        self.label_samsung.setText(jisu_str)
-                                        self.label_samsung.setStyleSheet('background-color: lightskyblue; color: blue')
-                                        wti_text_color = 'blue'
-                                    else:
                                         self.label_1st.setText(jisu_str)
                                         self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
-                                        wti_text_color = 'blue' 
-                                else:
-                                    pass                                                               
+                                        wti_text_color = 'blue'                                            
+                                    else:
+                                        pass                                                               
 
                             elif result['전일대비기호'] == '2':
 
-                                if comboindex1 == 8 or comboindex2 == 8: 
+                                if max(대비리스트) < 0:
+                                    jisu_str = "WTI: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                else:
+                                    jisu_str = "WTI: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
 
-                                    if max(대비리스트) < 0:
-                                        jisu_str = "WTI: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
-                                    else:
-                                        jisu_str = "WTI: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+                                if overnight:
 
-                                    if overnight:
+                                    self.label_samsung.setText(jisu_str)
+                                    self.label_samsung.setStyleSheet('background-color: lightskyblue; color: red')
+                                    wti_text_color = 'red'
+                                else:
+                                    if comboindex1 == 8 or comboindex2 == 8:
 
-                                        self.label_samsung.setText(jisu_str)
-                                        self.label_samsung.setStyleSheet('background-color: lightskyblue; color: red')
-                                        wti_text_color = 'red'
-                                    else:
                                         self.label_1st.setText(jisu_str)
                                         self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
-                                        wti_text_color = 'red'
-                                else:
-                                    pass                                
+                                        wti_text_color = 'red'                                            
+                                    else:
+                                        pass                                
                             else:
                                 pass                            
                         else:
