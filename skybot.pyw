@@ -21943,12 +21943,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if result['전일대비기호'] == '5':
 
                             NASDAQ_종가 = result['체결가격'] + result['전일대비']
-                            NASDAQ_전일대비 = -result['전일대비']
                         else:
                             NASDAQ_종가 = result['체결가격'] - result['전일대비']
-                            NASDAQ_전일대비 = result['전일대비']
                     else:
-                        pass                    
+                        pass
+
+                    if result['전일대비기호'] == '5':
+
+                        NASDAQ_전일대비 = -result['전일대비']
+                    else:
+                        NASDAQ_전일대비 = result['전일대비']                    
                     
                     if NASDAQ_피봇 == 0:
                         
@@ -22049,12 +22053,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if result['전일대비기호'] == '5':
 
                             SP500_종가 = result['체결가격'] + result['전일대비']
-                            SP500_전일대비 = locale.format('%.2f', -result['전일대비'], 1)
                         else:
                             SP500_종가 = result['체결가격'] - result['전일대비']
-                            SP500_전일대비 = locale.format('%.2f', result['전일대비'], 1)
                     else:
-                        pass                    
+                        pass      
+
+                    if result['전일대비기호'] == '5':
+
+                        SP500_전일대비 = locale.format('%.2f', -result['전일대비'], 1)
+                    else:
+                        SP500_전일대비 = locale.format('%.2f', result['전일대비'], 1)              
 
                     if SP500_피봇 == 0:
                         
@@ -22156,12 +22164,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if result['전일대비기호'] == '5':
 
                             DOW_종가 = int(result['체결가격'] + result['전일대비'])
-                            DOW_전일대비 = -int(result['전일대비'])
                         else:
                             DOW_종가 = int(result['체결가격'] - result['전일대비'])
-                            DOW_전일대비 = int(result['전일대비'])
                     else:
-                        pass                    
+                        pass    
+
+                    if result['전일대비기호'] == '5':
+
+                        DOW_전일대비 = -int(result['전일대비'])
+                    else:
+                        DOW_전일대비 = int(result['전일대비'])                
 
                     if DOW_피봇 == 0:
                         
@@ -22272,12 +22284,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if result['전일대비기호'] == '5':
 
                             WTI_종가 = result['체결가격'] + result['전일대비']
-                            WTI_전일대비 = locale.format('%.2f', -result['전일대비'], 1)
                         else:
                             WTI_종가 = result['체결가격'] - result['전일대비']
-                            WTI_전일대비 = locale.format('%.2f', result['전일대비'], 1)
                     else:
-                        pass                    
+                        pass 
+
+                    if result['전일대비기호'] == '5':
+
+                        WTI_전일대비 = locale.format('%.2f', -result['전일대비'], 1)
+                    else:
+                        WTI_전일대비 = locale.format('%.2f', result['전일대비'], 1)                   
 
                     if WTI_피봇 == 0:
                         
