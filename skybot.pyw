@@ -19693,7 +19693,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         콜건수비 = call_count_ratio
 
         if call_quote['매도잔량'] > 0:
-            call_remainder_ratio = call_quote['매수잔량'] / call_quote['매도잔량']
+            call_remainder_ratio = round((call_quote['매수잔량'] / call_quote['매도잔량']), 2)
         else:
             call_remainder_ratio = 0
 
@@ -19707,7 +19707,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         풋건수비 = put_count_ratio
 
         if put_quote['매도잔량'] > 0:
-            put_remainder_ratio = put_quote['매수잔량'] / put_quote['매도잔량']
+            put_remainder_ratio = round((put_quote['매수잔량'] / put_quote['매도잔량']), 2)
         else:
             put_remainder_ratio = 0
 
@@ -19768,7 +19768,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         temp = 콜매수잔량 + 콜매도잔량
         잔량합 = format(temp, ',')
 
-        item_str = "{0:0.2f}\n{1}:{2}".format(call_remainder_ratio, format(call_quote['매수잔량'], ','), format(call_quote['매도잔량'], ','))
+        item_str = '콜HRR' + '(' + repr(call_remainder_ratio) + ')'
+        item = QTableWidgetItem(item_str)
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_quote.setHorizontalHeaderItem(9, item)
+
+        item_str = "{0}\n{1}".format(format(call_quote['매수잔량'], ','), format(call_quote['매도잔량'], ','))
 
         if item_str != self.tableWidget_quote.item(0, 9).text():
 
@@ -19797,7 +19802,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         temp = 풋매수잔량 + 풋매도잔량
         잔량합 = format(temp, ',')
 
-        item_str = "{0:0.2f}\n{1}:{2}".format(put_remainder_ratio, format(put_quote['매수잔량'], ','), format(put_quote['매도잔량'], ','))
+        item_str = '풋HRR' + '(' + repr(put_remainder_ratio) + ')'
+        item = QTableWidgetItem(item_str)
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_quote.setHorizontalHeaderItem(11, item)
+
+        item_str = "{0}\n{1}".format(format(put_quote['매수잔량'], ','), format(put_quote['매도잔량'], ','))
 
         if item_str != self.tableWidget_quote.item(0, 11).text():
 
