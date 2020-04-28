@@ -247,6 +247,7 @@ with open('control_info.txt', mode='r') as control_file:
     NEW_NODE_VAL3 = 0
     NEW_NODE_VAL4 = 0
     NEW_NODE_VAL5 = 0
+    NEW_NODE_VAL6 = 0
 
     if os.path.exists('HL-List.txt'):
 
@@ -380,6 +381,26 @@ with open('control_info.txt', mode='r') as control_file:
                                 진성맥점 = list(set(진성맥점))
                                 진성맥점.sort()
                                 print('진성맥점 리스트 =', 진성맥점)
+
+                                # 여섯번재 최대빈도 맥점탐색
+                                SIXTH_LIST = list(filter((NEW_NODE_VAL5).__ne__, FIFTH_LIST))
+                                result = list(Counter(SIXTH_LIST).values())
+                                동적맥점_빈도수_6th = max(result)
+
+                                if 동적맥점_빈도수_6th > 2:
+
+                                    max_index = result.index(max(result))
+                                    result = list(Counter(SIXTH_LIST).keys())
+
+                                    NEW_NODE_VAL6 = result[max_index]
+                                    print('6th 동적맥점 값 = {0}, 빈도수 = {1}'.format(NEW_NODE_VAL6, 동적맥점_빈도수_6th))
+
+                                    진성맥점.append(NEW_NODE_VAL6)
+                                    진성맥점 = list(set(진성맥점))
+                                    진성맥점.sort()
+                                    print('진성맥점 리스트 =', 진성맥점)
+                                else:
+                                    pass
                             else:
                                 pass
                         else:
@@ -3203,12 +3224,16 @@ class telegram_send_worker(QThread):
             element = telegram_command.split()
             
             command_count = len(element)
-            
-            command = []
 
-            for i in range(command_count):
+            if command_count > 0:
 
-                command.append(element[i])   
+                command = []
+
+                for i in range(command_count):
+
+                    command.append(element[i])  
+            else:
+                pass             
 
             if command_count == 1 and command[0] == '/start':
 
@@ -4422,6 +4447,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
             self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)
+        else:
+            pass
+
+        if NEW_NODE_VAL6 > 0:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 6th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                (dt.hour, dt.minute, dt.second, NEW_NODE_VAL6, 동적맥점_빈도수_6th)
+            self.textBrowser.append(str)
+
+            item = QTableWidgetItem("{0}\n({1})".format(NEW_NODE_VAL6, 동적맥점_빈도수_6th))
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(lime))
+            self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
         else:
             pass
 
