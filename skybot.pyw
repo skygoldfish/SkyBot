@@ -6487,7 +6487,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 실시간 서비스                     
             if receive_real_ovc or market_service:
                 
-                self.label_clear(self.alternate_flag)
+                #self.label_clear(self.alternate_flag)
 
                 # 선택된 콜, 풋 검사
                 old_selected_opt_list = copy.deepcopy(selected_opt_list)
