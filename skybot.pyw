@@ -19696,7 +19696,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         put_quote = df_put_hoga.sum()
 
         if call_quote['매도건수'] > 0:
-            call_count_ratio = call_quote['매수건수'] / call_quote['매도건수']
+            call_count_ratio = round((call_quote['매수건수'] / call_quote['매도건수']), 2)
         else:
             call_count_ratio = 0
 
@@ -19710,7 +19710,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         콜잔량비 = call_remainder_ratio
 
         if put_quote['매도건수'] > 0:
-            put_count_ratio = put_quote['매수건수'] / put_quote['매도건수']
+            put_count_ratio = round((put_quote['매수건수'] / put_quote['매도건수']), 2)
         else:
             put_count_ratio = 0
 
@@ -19730,15 +19730,72 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
+        #temp = call_quote['매수건수'] + call_quote['매도건수']
+        #건수합 = format(temp, ',')
+
+        item_str = "{0}\n({1})\n({2})".format(repr(call_count_ratio), format(call_quote['매수건수'], ','), format(call_quote['매도건수'], ','))
+
+        if item_str != self.tableWidget_quote.item(0, 8).text():
+
+            item = QTableWidgetItem(item_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_quote.setItem(0, 8, item)
+        else:
+            pass
+        
+        콜매수잔량 = call_quote['매수잔량']
+        콜매도잔량 = call_quote['매도잔량']
+
+        #temp = 콜매수잔량 + 콜매도잔량
+        #잔량합 = format(temp, ',')
+
+        item_str = "{0}\n({1})\n({2})".format(repr(call_remainder_ratio), format(call_quote['매수잔량'], ','), format(call_quote['매도잔량'], ','))
+
+        if item_str != self.tableWidget_quote.item(0, 9).text():
+
+            item = QTableWidgetItem(item_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_quote.setItem(0, 9, item)
+        else:
+            pass
+
+        #temp = put_quote['매수건수'] + put_quote['매도건수']
+        #건수합 = format(temp, ',')
+
+        item_str = "{0}\n({1})\n({2})".format(repr(put_count_ratio), format(put_quote['매수건수'], ','), format(put_quote['매도건수'], ','))
+
+        if item_str != self.tableWidget_quote.item(0, 10).text():
+
+            item = QTableWidgetItem(item_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_quote.setItem(0, 10, item)
+        else:
+            pass
+        
+        풋매수잔량 = put_quote['매수잔량']
+        풋매도잔량 = put_quote['매도잔량']
+
+        #temp = 풋매수잔량 + 풋매도잔량
+        #잔량합 = format(temp, ',')
+        
+        item_str = "{0}\n({1})\n({2})".format(repr(put_remainder_ratio), format(put_quote['매수잔량'], ','), format(put_quote['매도잔량'], ','))
+
+        if item_str != self.tableWidget_quote.item(0, 11).text():
+
+            item = QTableWidgetItem(item_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_quote.setItem(0, 11, item)
+        else:
+            pass
+
         temp = (call_quote['매수건수'] + call_quote['매도건수']) - (put_quote['매수건수'] + put_quote['매도건수'])
         건수차 = format(temp, ',')
 
         temp = (call_quote['매수잔량'] + call_quote['매도잔량']) - (put_quote['매수잔량'] + put_quote['매도잔량'])
         잔량차 = format(temp, ',')
 
-        item_str = "{0:0.2f}/{1:0.2f}\n({2}/{3})".format(call_count_ratio - put_count_ratio,
-                                                         call_remainder_ratio - put_remainder_ratio,
-                                                         건수차, 잔량차)
+        item_str = "{0:0.2f}({1})\n{2:0.2f}({3})".format(call_count_ratio - put_count_ratio, 건수차,
+                                                         call_remainder_ratio - put_remainder_ratio, 잔량차)
 
         if item_str != self.tableWidget_quote.item(0, 12).text():
 
@@ -19757,75 +19814,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.tableWidget_quote.setItem(0, 12, item)
         else:
-            pass
-
-        temp = call_quote['매수건수'] + call_quote['매도건수']
-        건수합 = format(temp, ',')
-
-        item_str = "{0:0.2f}\n({1})".format(call_count_ratio, 건수합)
-
-        if item_str != self.tableWidget_quote.item(0, 8).text():
-
-            item = QTableWidgetItem(item_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_quote.setItem(0, 8, item)
-        else:
-            pass
-        
-        콜매수잔량 = call_quote['매수잔량']
-        콜매도잔량 = call_quote['매도잔량']
-
-        temp = 콜매수잔량 + 콜매도잔량
-        잔량합 = format(temp, ',')
-
-        item_str = '콜HRR' + '(' + repr(call_remainder_ratio) + ')'
-        item = QTableWidgetItem(item_str)
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_quote.setHorizontalHeaderItem(9, item)
-
-        item_str = "{0}\n{1}".format(format(call_quote['매수잔량'], ','), format(call_quote['매도잔량'], ','))
-
-        if item_str != self.tableWidget_quote.item(0, 9).text():
-
-            item = QTableWidgetItem(item_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_quote.setItem(0, 9, item)
-        else:
-            pass
-
-        temp = put_quote['매수건수'] + put_quote['매도건수']
-        건수합 = format(temp, ',')
-
-        item_str = "{0:0.2f}\n({1})".format(put_count_ratio, 건수합)
-
-        if item_str != self.tableWidget_quote.item(0, 10).text():
-
-            item = QTableWidgetItem(item_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_quote.setItem(0, 10, item)
-        else:
-            pass
-        
-        풋매수잔량 = put_quote['매수잔량']
-        풋매도잔량 = put_quote['매도잔량']
-
-        temp = 풋매수잔량 + 풋매도잔량
-        잔량합 = format(temp, ',')
-
-        item_str = '풋HRR' + '(' + repr(put_remainder_ratio) + ')'
-        item = QTableWidgetItem(item_str)
-        item.setTextAlignment(Qt.AlignCenter)
-        self.tableWidget_quote.setHorizontalHeaderItem(11, item)
-
-        item_str = "{0}\n{1}".format(format(put_quote['매수잔량'], ','), format(put_quote['매도잔량'], ','))
-
-        if item_str != self.tableWidget_quote.item(0, 11).text():
-
-            item = QTableWidgetItem(item_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_quote.setItem(0, 11, item)
-        else:
-            pass
+            pass        
 
     def oi_sum_display(self):
         
