@@ -3497,7 +3497,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         OVC_START_HOUR = KSE_START_HOUR - 1 
 
-        print('야간장 기준시간 =', OVC_START_HOUR)
+        print('장준비 기준시간 =', OVC_START_HOUR)
 
         self.setWindowTitle(widget_title)
         
@@ -4919,7 +4919,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_fut_price_curve.clear()
             
             plot1_sp500_curve.clear()
-            plot1_dow_curve.clear()  
+            plot1_dow_curve.clear()
+            plot1_wti_curve.clear()  
 
             plot1_hc_high_line.setValue(NASDAQ_종가)
             plot1_hc_low_line.setValue(NASDAQ_종가)
@@ -4990,7 +4991,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_fut_price_curve.clear()
             
             plot1_sp500_curve.clear()
-            plot1_dow_curve.clear()  
+            plot1_dow_curve.clear()
+            plot1_nasdaq_curve.clear()  
 
             plot1_hc_high_line.setValue(WTI_종가)
             plot1_hc_low_line.setValue(WTI_종가)
@@ -5402,7 +5404,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_curve[i].clear()                
                 
             plot2_sp500_curve.clear()
-            plot2_dow_curve.clear() 
+            plot2_dow_curve.clear()
+            plot2_wti_curve.clear()
 
             for i in range(9):
                 mv_line[i].setValue(NASDAQ_종가)
@@ -5467,7 +5470,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_curve[i].clear()                
                 
             plot2_sp500_curve.clear()
-            plot2_dow_curve.clear() 
+            plot2_dow_curve.clear()
+            plot2_nasdaq_curve.clear() 
 
             for i in range(9):
                 mv_line[i].setValue(WTI_종가)
@@ -21983,15 +21987,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if NASDAQ_시가 == 0:
                         
-                        df_plotdata_nasdaq.iloc[0][0] = NASDAQ_종가
-                        df_plotdata_nasdaq.iloc[0][1] = result['시가']
-                        NASDAQ_시가 = result['시가']
-
                         if result['전일대비기호'] == '5':
 
                             NASDAQ_종가 = result['체결가격'] + result['전일대비']
                         else:
                             NASDAQ_종가 = result['체결가격'] - result['전일대비']
+
+                        df_plotdata_nasdaq.iloc[0][0] = NASDAQ_종가
+                        df_plotdata_nasdaq.iloc[0][1] = result['시가']
+                        NASDAQ_시가 = result['시가']
                     else:
                         pass
 
@@ -22093,15 +22097,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if SP500_시가 == 0:
                         
-                        df_plotdata_sp500.iloc[0][0] = SP500_종가
-                        df_plotdata_sp500.iloc[0][1] = result['시가']
-                        SP500_시가 = result['시가']
-
                         if result['전일대비기호'] == '5':
 
                             SP500_종가 = result['체결가격'] + result['전일대비']
                         else:
                             SP500_종가 = result['체결가격'] - result['전일대비']
+
+                        df_plotdata_sp500.iloc[0][0] = SP500_종가
+                        df_plotdata_sp500.iloc[0][1] = result['시가']
+                        SP500_시가 = result['시가']
                     else:
                         pass      
 
@@ -22264,15 +22268,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if DOW_시가 == 0:
                         
-                        df_plotdata_dow.iloc[0][0] = DOW_종가
-                        df_plotdata_dow.iloc[0][1] = result['시가']
-                        DOW_시가 = int(result['시가'])
-
                         if result['전일대비기호'] == '5':
 
                             DOW_종가 = int(result['체결가격'] + result['전일대비'])
                         else:
                             DOW_종가 = int(result['체결가격'] - result['전일대비'])
+                            
+                        df_plotdata_dow.iloc[0][0] = DOW_종가
+                        df_plotdata_dow.iloc[0][1] = result['시가']
+                        DOW_시가 = int(result['시가'])
                     else:
                         pass    
 
@@ -22384,15 +22388,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     if WTI_시가 == 0:
                         
-                        df_plotdata_wti.iloc[0][0] = WTI_종가
-                        df_plotdata_wti.iloc[0][1] = result['시가']
-                        WTI_시가 = result['시가']
-
                         if result['전일대비기호'] == '5':
 
                             WTI_종가 = result['체결가격'] + result['전일대비']
                         else:
                             WTI_종가 = result['체결가격'] - result['전일대비']
+                        
+                        df_plotdata_wti.iloc[0][0] = WTI_종가
+                        df_plotdata_wti.iloc[0][1] = result['시가']
+                        WTI_시가 = result['시가']
                     else:
                         pass 
 
@@ -23787,7 +23791,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             if DOW_고가 > 0:
 
-                plot1_ovc_high_line.setValue(DOW_고가)
+                bc_plot1_ovc_high_line.setValue(DOW_고가)
 
                 str = ' 고가 : {0} '.format(format(DOW_고가, ','))
                 self.label_8.setText(str)
