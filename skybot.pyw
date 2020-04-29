@@ -23555,6 +23555,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex1 == 4:
             
+            self.label_1.setText(" 전저 : 가격 ")
+            self.label_2.setText(" 전고 : 가격 ")
+            self.label_3.setText(" 종가 : 가격 ")
+            self.label_4.setText(" 피봇 : 가격 ")
+            self.label_5.setText(" 시가 : 가격 ")
+            self.label_6.setText(" 저가 : 가격 ")
+            self.label_7.setText(" 현재가 : 000.00 (전일대비, 등락율, 진폭) ")
+            self.label_8.setText(" 고가 : 가격 ")
+            
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
 
@@ -24909,19 +24918,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_high_line.setValue(선물_고가)
 
             str = ' 저가 : {0} '.format(선물_저가)
-            self.label_6.setText(str)                
-            
-            if 선물_현재가 > float(self.label_7.text()[7:13]):
+            self.label_6.setText(str)       
 
-                str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+            value = self.label_7.text().split()[2]
+            
+            if 선물_현재가 > float(value):
+
+                str = " 현재가 : {0} ▲ ({1:0.2f}, {2:0.2f}%, {3:0.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
 
                 self.label_7.setStyleSheet('background-color: pink ; color: black')
                 self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_7.setText(str)
 
-            elif 선물_현재가 < float(self.label_7.text()[7:13]):
+            elif 선물_현재가 < float(value):
 
-                str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                str = " 현재가 : {0} ▼ ({1:0.2f}, {2:0.2f}%, {3:0.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
 
                 self.label_7.setStyleSheet('background-color: skyblue ; color: black')
                 self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
