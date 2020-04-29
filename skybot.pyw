@@ -6514,6 +6514,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global plot_data1, plot_data2, plot_data3, plot_data4, plot_data5, plot_data6, plot_data7
             global plot_data8, plot_data9, plot_data10, plot_data11, plot_data12, plot_data13, plot_data14
             global selected_call, selected_put, selected_opt_list
+            global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가 
 
             시스템시간 = dt.hour * 3600 + dt.minute * 60 + dt.second
             
@@ -7578,12 +7579,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if self.parent.connection.IsConnected() and not flag_offline:
 
+                        SP500_당일종가 = SP500_현재가
+                        DOW_당일종가 = DOW_현재가
+                        NASDAQ_당일종가 = NASDAQ_현재가
+                        WTI_당일종가 = WTI_현재가
+
                         # 다음날 해외선물 피봇계산을 위해 종료시(5시 59분 57초 ?) 마지막 값 저장
-                        str = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:0.2f}, DOW 종가 = {4:0.2f}\r'.format \
+                        str = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:0.2f}\r'.format \
                             (int(OVC_체결시간[0:2]), 
                             int(OVC_체결시간[2:4]), 
                             int(OVC_체결시간[4:6]),
-                            CME_당일종가, DOW_당일종가)
+                            CME_당일종가)
                         self.textBrowser.append(str)
                         print(str)
 
@@ -7591,7 +7597,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             (int(OVC_체결시간[0:2]), 
                             int(OVC_체결시간[2:4]), 
                             int(OVC_체결시간[4:6]),
-                            SP500_저가, SP500_고가, SP500_현재가)
+                            SP500_저가, SP500_고가, SP500_당일종가)
                         self.textBrowser.append(str)
                         print(str)
 
@@ -7599,7 +7605,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             (int(OVC_체결시간[0:2]), 
                             int(OVC_체결시간[2:4]), 
                             int(OVC_체결시간[4:6]),
-                            DOW_저가, DOW_고가, DOW_현재가)
+                            DOW_저가, DOW_고가, DOW_당일종가)
                         self.textBrowser.append(str)
                         print(str)
 
@@ -7607,7 +7613,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             (int(OVC_체결시간[0:2]), 
                             int(OVC_체결시간[2:4]), 
                             int(OVC_체결시간[4:6]),
-                            NASDAQ_저가, NASDAQ_고가, NASDAQ_현재가)
+                            NASDAQ_저가, NASDAQ_고가, NASDAQ_당일종가)
+                        self.textBrowser.append(str)
+                        print(str)
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] WTI Low = {3:0.2f}, WTI High = {4:0.2f}, WTI Close = {5:0.2f}\r'.format \
+                            (int(OVC_체결시간[0:2]), 
+                            int(OVC_체결시간[2:4]), 
+                            int(OVC_체결시간[4:6]),
+                            WTI_저가, WTI_고가, WTI_당일종가)
                         self.textBrowser.append(str)
                         print(str)
 
@@ -19761,7 +19775,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         풋잔량비 = put_remainder_ratio
 
-        if market_service:
+        if market_service and opt_x_idx > 0:
 
             df_plotdata_call_rr.iloc[0][opt_x_idx] = 콜잔량비
             df_plotdata_put_rr.iloc[0][opt_x_idx] = 풋잔량비
@@ -20141,7 +20155,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 S&P 500 지수 = {3}\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), SP500_현재가)
+                    self.textBrowser.append(str)
+                    
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 DOW 지수 = {3}\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), DOW_현재가)
+                    self.textBrowser.append(str)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 NASDAQ 지수 = {3}\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), NASDAQ_현재가)
+                    self.textBrowser.append(str)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 WTI 지수 = {3}\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), WTI_현재가)
                     self.textBrowser.append(str)
 
                     # KP200의 주요정보를 저장
@@ -20154,6 +20177,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         file_str = 'KP200 Low = {0}\n'.format(kp200_realdata['저가'])
                         kp200_file.write(file_str)
                         file_str = 'KP200 High = {0}\n'.format(kp200_realdata['고가'])
+                        kp200_file.write(file_str)
+                        file_str = '################### < CME Index of the Day > #####################\n'
+                        kp200_file.write(file_str)
+                        file_str = 'SP500 Day Close = {0}\n'.format(SP500_현재가)
+                        kp200_file.write(file_str)
+                        file_str = 'DOW Day Close = {0}\n'.format(DOW_현재가)
+                        kp200_file.write(file_str)
+                        file_str = 'NASDAQ Day Close = {0}\n'.format(NASDAQ_현재가)
+                        kp200_file.write(file_str)
+                        file_str = 'WTI Day Close = {0}\n'.format(WTI_현재가)
                         kp200_file.write(file_str)
                         kp200_file.close()
 
@@ -20186,12 +20219,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(str)
 
                     CME_당일종가 = cme_realdata['현재가']
-                    DOW_당일종가 = DOW_현재가
+                    '''
                     SP500_당일종가 = SP500_현재가
+                    DOW_당일종가 = DOW_현재가
                     NASDAQ_당일종가 = NASDAQ_현재가
-                    WTI_당일종가 = NASDAQ_현재가
+                    WTI_당일종가 = WTI_현재가
+                    '''
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 S&P 500 지수 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), SP500_현재가)
+                    self.textBrowser.append(str)
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 DOW 지수 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), DOW_현재가)
+                    self.textBrowser.append(str)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 NASDAQ 지수 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), NASDAQ_현재가)
+                    self.textBrowser.append(str)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 WTI 지수 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), WTI_현재가)
                     self.textBrowser.append(str)
 
                     if market_service:
