@@ -240,7 +240,7 @@ with open('control_info.txt', mode='r') as control_file:
             진성맥점.append(float(temp[i]))
         else:
             pass
-
+    
     tmp = control_file.readline().strip()
     temp = tmp.split()
     MY_COREVAL = float(temp[3])
@@ -249,6 +249,8 @@ with open('control_info.txt', mode='r') as control_file:
     진성맥점 = list(set(진성맥점))
     진성맥점.sort()
     #print(진성맥점)
+
+    DEFAULT_NODE_LIST = 진성맥점[:]
 
     NEW_NODE_VAL1 = 0
     NEW_NODE_VAL2 = 0
@@ -4351,22 +4353,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         list_high4 = []
         list_high5 = []
 
-        for i in range(len(진성맥점)):
+        for i in range(len(DEFAULT_NODE_LIST)):
 
-            list_low5.append(round(진성맥점[i] - 0.05, 2))
-            list_low4.append(round(진성맥점[i] - 0.04, 2))
-            list_low3.append(round(진성맥점[i] - 0.03, 2))
-            list_low2.append(round(진성맥점[i] - 0.02, 2))
-            list_low1.append(round(진성맥점[i] - 0.01, 2))
+            list_low5.append(round(DEFAULT_NODE_LIST[i] - 0.05, 2))
+            list_low4.append(round(DEFAULT_NODE_LIST[i] - 0.04, 2))
+            list_low3.append(round(DEFAULT_NODE_LIST[i] - 0.03, 2))
+            list_low2.append(round(DEFAULT_NODE_LIST[i] - 0.02, 2))
+            list_low1.append(round(DEFAULT_NODE_LIST[i] - 0.01, 2))
 
-            list_high1.append(round(진성맥점[i] + 0.01, 2))
-            list_high2.append(round(진성맥점[i] + 0.02, 2))
-            list_high3.append(round(진성맥점[i] + 0.03, 2))
-            list_high4.append(round(진성맥점[i] + 0.04, 2))
-            list_high5.append(round(진성맥점[i] + 0.05, 2))
+            list_high1.append(round(DEFAULT_NODE_LIST[i] + 0.01, 2))
+            list_high2.append(round(DEFAULT_NODE_LIST[i] + 0.02, 2))
+            list_high3.append(round(DEFAULT_NODE_LIST[i] + 0.03, 2))
+            list_high4.append(round(DEFAULT_NODE_LIST[i] + 0.04, 2))
+            list_high5.append(round(DEFAULT_NODE_LIST[i] + 0.05, 2))
 
-        coreval = 진성맥점 + list_low1 + list_low2 + list_low3 + list_low4 + list_low5 + list_high1 + list_high2 + list_high3 + list_high4 + list_high5
+        coreval = DEFAULT_NODE_LIST + list_low1 + list_low2 + list_low3 + list_low4 + list_low5 + list_high1 + list_high2 + list_high3 + list_high4 + list_high5
         coreval.sort()
+
+        #print('coreval =', coreval)
                         
         self.JIF = JIF(parent=self)
 
@@ -7708,6 +7712,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now()
 
+        #진성맥점 = DEFAULT_NODE_LIST
+
         mv_call_low_list = []
         mv_call_high_list = []
         mv_put_low_list = []
@@ -7720,6 +7726,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         OLD_NODE_VAL4 = NEW_NODE_VAL4
         OLD_NODE_VAL5 = NEW_NODE_VAL5
         OLD_NODE_VAL6 = NEW_NODE_VAL6
+
+        OLD_진성맥점 = 진성맥점[:]
 
         temp = df_call['저가'].values.tolist()
         temp.sort()
@@ -7987,6 +7995,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
+        if 진성맥점 != OLD_진성맥점:
+
+            new_list = list(set(진성맥점) - set(DEFAULT_NODE_LIST))
+            str = '[{0:02d}:{1:02d}:{2:02d}] 갱신된 새맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, new_list)
+            self.textBrowser.append(str)
+        else:
+            pass
+
     def market_type_display(self, blink):
 
         dt = datetime.datetime.now()
@@ -8244,6 +8260,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.call_coreval_color_update()        
         self.put_coreval_color_update()
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] 진성맥점 = {3})\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
+        self.textBrowser.append(str)
 
         node_coloring = False
         refresh_coloring = False
@@ -9945,27 +9964,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
+                
+                if 저가 in 진성맥점:
 
-                    if 저가 in 진성맥점:
+                    self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
 
-                        self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
-                        self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
+                    flag_call_low_coreval = True
 
-                        flag_call_low_coreval = True
+                    count_low += 1
 
-                        count_low += 1
+                    '''
+                    if fut_code == cmshcode:
 
-                        '''
-                        if fut_code == cmshcode:
-
-                            txt = '차월물 콜 저까 가 {} 입니다'.format(df_call.iloc[i]['저가'])
-                        else:
-                            txt = '콜 저까 가 {} 입니다'.format(df_call.iloc[i]['저가'])
-
-                        Speak(txt)
-                        '''
+                        txt = '차월물 콜 저까 가 {} 입니다'.format(df_call.iloc[i]['저가'])
                     else:
-                        pass
+                        txt = '콜 저까 가 {} 입니다'.format(df_call.iloc[i]['저가'])
+
+                    Speak(txt)
+                    '''
                 else:
                     pass
 
@@ -9973,27 +9992,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
+                
+                if 고가 in 진성맥점:
 
-                    if 고가 in 진성맥점:
+                    self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
 
-                        self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
-                        self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
+                    flag_call_high_coreval = True
 
-                        flag_call_high_coreval = True
+                    count_high += 1
 
-                        count_high += 1
+                    '''                        
+                    if fut_code == cmshcode:
 
-                        '''                        
-                        if fut_code == cmshcode:
-
-                            txt = '차월물 콜 고까 가 {} 입니다'.format(df_call.iloc[i]['고가'])
-                        else:
-                            txt = '콜 고까 가 {} 입니다'.format(df_call.iloc[i]['고가'])
-
-                        Speak(txt)
-                        '''
+                        txt = '차월물 콜 고까 가 {} 입니다'.format(df_call.iloc[i]['고가'])
                     else:
-                        pass
+                        txt = '콜 고까 가 {} 입니다'.format(df_call.iloc[i]['고가'])
+
+                    Speak(txt)
+                    '''
                 else:
                     pass
             else:
@@ -10081,22 +10100,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
+                
+                if 저가 in 진성맥점:
 
-                    if 저가 in 진성맥점:
+                    flag_call_low_coreval = True                        
 
-                        flag_call_low_coreval = True                        
+                    '''
+                    if fut_code == cmshcode:
 
-                        '''
-                        if fut_code == cmshcode:
-
-                            txt = '차월물 콜 저까 가 {} 입니다'.format(df_call.iloc[i]['저가'])
-                        else:
-                            txt = '콜 저까 가 {} 입니다'.format(df_call.iloc[i]['저가'])
-
-                        Speak(txt)
-                        '''
+                        txt = '차월물 콜 저까 가 {} 입니다'.format(df_call.iloc[i]['저가'])
                     else:
-                        pass
+                        txt = '콜 저까 가 {} 입니다'.format(df_call.iloc[i]['저가'])
+
+                    Speak(txt)
+                    '''
                 else:
                     pass                
             else:
@@ -10134,22 +10153,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
+                
+                if 고가 in 진성맥점:
 
-                    if 고가 in 진성맥점:
+                    flag_call_high_coreval = True                                
 
-                        flag_call_high_coreval = True                                
+                    '''
+                    if fut_code == cmshcode:
 
-                        '''
-                        if fut_code == cmshcode:
-
-                            txt = '차월물 콜 고까 가 {} 입니다'.format(df_call.iloc[i]['고가'])
-                        else:
-                            txt = '콜 고까 가 {} 입니다'.format(df_call.iloc[i]['고가'])
-
-                        Speak(txt)
-                        '''
+                        txt = '차월물 콜 고까 가 {} 입니다'.format(df_call.iloc[i]['고가'])
                     else:
-                        pass
+                        txt = '콜 고까 가 {} 입니다'.format(df_call.iloc[i]['고가'])
+
+                    Speak(txt)
+                    '''
                 else:
                     pass
             else:
@@ -12301,27 +12320,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
+                
+                if 저가 in 진성맥점:
 
-                    if 저가 in 진성맥점:
+                    self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
 
-                        self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
-                        self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
+                    flag_put_low_coreval = True
 
-                        flag_put_low_coreval = True
+                    count_low += 1
 
-                        count_low += 1
+                    '''                        
+                    if fut_code == cmshcode:
 
-                        '''                        
-                        if fut_code == cmshcode:
-
-                            txt = '차월물 풋 저까 가 {} 입니다'.format(df_put.iloc[i]['저가'])
-                        else:
-                            txt = '풋 저까 가 {} 입니다'.format(df_put.iloc[i]['저가'])
-
-                        Speak(txt)
-                        '''
+                        txt = '차월물 풋 저까 가 {} 입니다'.format(df_put.iloc[i]['저가'])
                     else:
-                        pass
+                        txt = '풋 저까 가 {} 입니다'.format(df_put.iloc[i]['저가'])
+
+                    Speak(txt)
+                    '''
                 else:
                     pass
 
@@ -12329,27 +12348,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
+                
+                if 고가 in 진성맥점:
 
-                    if 고가 in 진성맥점:
+                    self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
+                    self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
 
-                        self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
-                        self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
+                    flag_put_high_coreval = True
 
-                        flag_put_high_coreval = True
+                    count_high += 1
 
-                        count_high += 1
+                    '''
+                    if fut_code == cmshcode:
 
-                        '''
-                        if fut_code == cmshcode:
-
-                            txt = '차월물 풋 고까 가 {} 입니다'.format(df_put.iloc[i]['고가'])
-                        else:
-                            txt = '풋 고까 가 {} 입니다'.format(df_put.iloc[i]['고가'])
-
-                        Speak(txt)
-                        '''
+                        txt = '차월물 풋 고까 가 {} 입니다'.format(df_put.iloc[i]['고가'])
                     else:
-                        pass
+                        txt = '풋 고까 가 {} 입니다'.format(df_put.iloc[i]['고가'])
+
+                    Speak(txt)
+                    '''
                 else:
                     pass
             else:
@@ -12438,22 +12457,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
+                
+                if 저가 in 진성맥점:
 
-                    if 저가 in 진성맥점:
+                    flag_put_low_coreval = True                            
 
-                        flag_put_low_coreval = True                            
+                    '''                        
+                    if fut_code == cmshcode:
 
-                        '''                        
-                        if fut_code == cmshcode:
-
-                            txt = '차월물 풋 저까 가 {} 입니다'.format(df_put.iloc[i]['저가'])
-                        else:
-                            txt = '풋 저까 가 {} 입니다'.format(df_put.iloc[i]['저가'])
-
-                        Speak(txt)
-                        '''
+                        txt = '차월물 풋 저까 가 {} 입니다'.format(df_put.iloc[i]['저가'])
                     else:
-                        pass
+                        txt = '풋 저까 가 {} 입니다'.format(df_put.iloc[i]['저가'])
+
+                    Speak(txt)
+                    '''
                 else:
                     pass                
             else:
@@ -12491,22 +12510,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+                else:
+                    pass
+                
+                if 고가 in 진성맥점:
 
-                    if 고가 in 진성맥점:
+                    flag_put_high_coreval = True                        
 
-                        flag_put_high_coreval = True                        
+                    '''
+                    if fut_code == cmshcode:
 
-                        '''
-                        if fut_code == cmshcode:
-
-                            txt = '차월물 풋 고까 가 {} 입니다'.format(df_put.iloc[i]['고가'])
-                        else:
-                            txt = '풋 고까 가 {} 입니다'.format(df_put.iloc[i]['고가'])
-
-                        Speak(txt)
-                        '''
+                        txt = '차월물 풋 고까 가 {} 입니다'.format(df_put.iloc[i]['고가'])
                     else:
-                        pass
+                        txt = '풋 고까 가 {} 입니다'.format(df_put.iloc[i]['고가'])
+
+                    Speak(txt)
+                    '''
                 else:
                     pass
             else:
