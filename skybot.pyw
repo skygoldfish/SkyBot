@@ -7905,10 +7905,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if NEW_NODE_VAL11 != NEW_NODE_VAL1:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
-                (dt.hour, dt.minute, dt.second, NEW_NODE_VAL1, 동적맥점_빈도수_1st)
+                (dt.hour, dt.minute, dt.second, NEW_NODE_VAL11, 동적맥점_빈도수_1st)
             self.textBrowser.append(str)
 
-            item = QTableWidgetItem("{0}\n({1})".format(NEW_NODE_VAL1, 동적맥점_빈도수_1st))
+            item = QTableWidgetItem("{0}\n({1})".format(NEW_NODE_VAL11, 동적맥점_빈도수_1st))
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
             self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)
@@ -7918,10 +7918,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if NEW_NODE_VAL22 != NEW_NODE_VAL2:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
-                (dt.hour, dt.minute, dt.second, NEW_NODE_VAL2, 동적맥점_빈도수_2nd)
+                (dt.hour, dt.minute, dt.second, NEW_NODE_VAL22, 동적맥점_빈도수_2nd)
             self.textBrowser.append(str)
 
-            item = QTableWidgetItem("{0}\n({1})".format(NEW_NODE_VAL2, 동적맥점_빈도수_2nd))
+            item = QTableWidgetItem("{0}\n({1})".format(NEW_NODE_VAL22, 동적맥점_빈도수_2nd))
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
             self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)
@@ -7931,10 +7931,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if NEW_NODE_VAL33 != NEW_NODE_VAL3:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
-                (dt.hour, dt.minute, dt.second, NEW_NODE_VAL3, 동적맥점_빈도수_3rd)
+                (dt.hour, dt.minute, dt.second, NEW_NODE_VAL33, 동적맥점_빈도수_3rd)
             self.textBrowser.append(str)
 
-            item = QTableWidgetItem("{0}\n({1})".format(NEW_NODE_VAL3, 동적맥점_빈도수_3rd))
+            item = QTableWidgetItem("{0}\n({1})".format(NEW_NODE_VAL33, 동적맥점_빈도수_3rd))
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
             self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
@@ -7944,10 +7944,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if NEW_NODE_VAL44 != NEW_NODE_VAL4:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 4th 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
-                (dt.hour, dt.minute, dt.second, NEW_NODE_VAL4, 동적맥점_빈도수_4th)
+                (dt.hour, dt.minute, dt.second, NEW_NODE_VAL44, 동적맥점_빈도수_4th)
             self.textBrowser.append(str)
 
-            item = QTableWidgetItem("{0}\n({1})".format(NEW_NODE_VAL4, 동적맥점_빈도수_4th))
+            item = QTableWidgetItem("{0}\n({1})".format(NEW_NODE_VAL44, 동적맥점_빈도수_4th))
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
             self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
@@ -7957,10 +7957,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if NEW_NODE_VAL55 != NEW_NODE_VAL5:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 5th 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
-                (dt.hour, dt.minute, dt.second, NEW_NODE_VAL5, 동적맥점_빈도수_5th)
+                (dt.hour, dt.minute, dt.second, NEW_NODE_VAL55, 동적맥점_빈도수_5th)
             self.textBrowser.append(str)
 
-            item = QTableWidgetItem("{0}\n({1})".format(NEW_NODE_VAL5, 동적맥점_빈도수_5th))
+            item = QTableWidgetItem("{0}\n({1})".format(NEW_NODE_VAL55, 동적맥점_빈도수_5th))
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
             self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)
@@ -7970,10 +7970,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if NEW_NODE_VAL66 != NEW_NODE_VAL6:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 6th 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
-                (dt.hour, dt.minute, dt.second, NEW_NODE_VAL6, 동적맥점_빈도수_6th)
+                (dt.hour, dt.minute, dt.second, NEW_NODE_VAL66, 동적맥점_빈도수_6th)
             self.textBrowser.append(str)
 
-            item = QTableWidgetItem("{0}\n({1})".format(NEW_NODE_VAL6, 동적맥점_빈도수_6th))
+            item = QTableWidgetItem("{0}\n({1})".format(NEW_NODE_VAL66, 동적맥점_빈도수_6th))
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
             self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
