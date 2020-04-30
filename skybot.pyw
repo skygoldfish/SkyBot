@@ -7729,35 +7729,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         moving_list = []
 
         OLD_진성맥점 = 진성맥점[:]
-
-        temp = df_call['저가'].values.tolist()
-        temp.sort()
-        index1 = bisect(temp, 1.20)
-        index2 = bisect(temp, 9.99)
-        call_low_list = temp[index1:index2]
-
-        temp = df_call['고가'].values.tolist()
-        temp.sort()
-        index1 = bisect(temp, 1.20)
-        index2 = bisect(temp, 9.99)
-        call_high_list = temp[index1:index2]
-
-        temp = df_put['저가'].values.tolist()
-        temp.sort()
-        index1 = bisect(temp, 1.20)
-        index2 = bisect(temp, 9.99)
-        put_low_list = temp[index1:index2]
-
-        temp = df_put['고가'].values.tolist()
-        temp.sort()
-        index1 = bisect(temp, 1.20)
-        index2 = bisect(temp, 9.99)
-        put_high_list = temp[index1:index2]
         
-        #print('call_low_list =', call_low_list)
-        #print('call_high_list =', call_high_list)
-        #print('put_low_list =', put_low_list)
-        #print('put_high_list =', put_high_list)
+        call_저가.sort()
+        index1 = bisect(call_저가, 1.20)
+        index2 = bisect(call_저가, 9.99)
+        call_low_list = call_저가[index1:index2]
+
+        call_고가.sort()
+        index1 = bisect(call_고가, 1.20)
+        index2 = bisect(call_고가, 9.99)
+        call_high_list = call_고가[index1:index2]
+
+        put_저가.sort()
+        index1 = bisect(put_저가, 1.20)
+        index2 = bisect(put_저가, 9.99)
+        put_low_list = put_저가[index1:index2]
+
+        put_고가.sort()
+        index1 = bisect(put_고가, 1.20)
+        index2 = bisect(put_고가, 9.99)
+        put_high_list = put_고가[index1:index2]
+        
+        print('call_low_list =', call_low_list)
+        print('call_high_list =', call_high_list)
+        print('put_low_list =', put_low_list)
+        print('put_high_list =', put_high_list)
         #print('FILE_HIGH_LOW_LIST =', FILE_HIGH_LOW_LIST)        
 
         moving_list = FILE_HIGH_LOW_LIST + call_low_list + call_high_list + put_low_list + put_high_list
@@ -8096,8 +8092,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.call_node_color_update()
         self.call_coreval_color_update()
 
-        self.search_moving_node()
-
         node_coloring = False
         call_scroll = False
 
@@ -8165,8 +8159,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.put_only_cross_color_update()        
         self.put_node_color_update()
         self.put_coreval_color_update()
-
-        self.search_moving_node()
 
         node_coloring = False
         put_scroll = False
@@ -8252,6 +8244,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.call_coreval_color_update()        
         self.put_coreval_color_update()
+        
+        self.search_moving_node()
 
         str = '[{0:02d}:{1:02d}:{2:02d}] 진성맥점 = {3})\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
         self.textBrowser.append(str)
@@ -13767,7 +13761,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print('t2301 call open list = ', call_open_list, len(call_open_list))
                     print('\r')
                     print('t2301 put open list = ', put_open_list, len(put_open_list))
-                    print('\r')            
+                    print('\r')
+
+                    self.search_moving_node()           
 
                     if pre_start:
 
@@ -14440,11 +14436,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.kp200_low_node_coloring()
             self.kp200_high_node_coloring()
-            
-            self.search_moving_node()
 
             if refresh_flag:
-
+            
                 # 옵션 맥점 컬러링                
                 str = '[{0:02d}:{1:02d}:{2:02d}] 옵션맥점 Refresh 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
@@ -15096,6 +15090,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 item = QTableWidgetItem(max_str)
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.진폭.value, item)
+
+                if overnight:
+
+                    self.search_moving_node()
+                else:
+                    pass
 
                 # 실시간테이타 요청                
                 str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
