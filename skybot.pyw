@@ -7360,6 +7360,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if flag_call_cross_coloring and flag_put_cross_coloring:
 
+                            self.search_moving_node()
+
                             flag_call_cross_coloring = False
                             flag_put_cross_coloring = False
                             flag_clear = False
@@ -7681,7 +7683,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        print('동적 맥점탐색 시작...')
+        print('동적 맥점 탐색을 시작합니다.')
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] 동적 맥점 탐색을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(str)
 
         #진성맥점 = DEFAULT_NODE_LIST
 
@@ -7938,6 +7943,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 진성맥점 != OLD_진성맥점:
 
             new_list = list(set(진성맥점) - set(DEFAULT_NODE_LIST))
+            new_list.sort()
             str = '[{0:02d}:{1:02d}:{2:02d}] 갱신된 맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, new_list)
             self.textBrowser.append(str)
         else:
@@ -8048,6 +8054,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.call_node_color_update()
         self.call_coreval_color_update()
 
+        self.search_moving_node()
+
         node_coloring = False
         call_scroll = False
 
@@ -8115,6 +8123,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.put_only_cross_color_update()        
         self.put_node_color_update()
         self.put_coreval_color_update()
+
+        self.search_moving_node()
 
         node_coloring = False
         put_scroll = False
