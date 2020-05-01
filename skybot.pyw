@@ -1003,6 +1003,12 @@ ccmshcode = ''
 call_atm_value = 0
 put_atm_value = 0
 
+atm_zero_sum = 0
+atm_zero_cha = 0
+
+atm_minus_sum = 0
+atm_plus_sum = 0
+
 kp200_realdata = dict()
 fut_realdata = dict()
 cme_realdata = dict()
@@ -7342,6 +7348,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         global flag_call_low_update, flag_call_high_update, flag_put_low_update, flag_put_high_update
                         global flag_call_cross_coloring, flag_put_cross_coloring, flag_clear
 
+                        self.label_atm_display()
+
                         # 매 10분마다 교차컬러링 수행
                         if not flag_call_low_update and not flag_call_high_update and not flag_put_low_update and not flag_put_high_update:
 
@@ -7409,12 +7417,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             #self.call_state_update() 
                             #self.call_db_update()
-
-                            if not overnight:
-
-                                self.label_atm_display()
-                            else:
-                                pass
 
                             # 콜 저가, 고가 맥점 컬러갱신
                             if flag_call_low_update:
@@ -8256,21 +8258,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         process_time = (timeit.default_timer() - start_time) * 1000
 
         str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
-        self.textBrowser.append(str)
-        
+        self.textBrowser.append(str)        
 
     def label_atm_display(self):
 
         global df_plotdata_two_sum, df_plotdata_two_cha, basis
-        global atm_str, atm_val, atm_index, atm_index_old
+        global atm_str, atm_val, atm_index, atm_index_old, call_atm_value, put_atm_value 
+        global atm_zero_sum, atm_zero_cha, atm_minus_sum, atm_plus_sum
         
-        df_plotdata_two_sum[opt_x_idx] = call_atm_value + put_atm_value
-        df_plotdata_two_cha[opt_x_idx] = call_atm_value - put_atm_value
-        
-        # 등가 check & coloring
+        # 등가 check & coloring        
+        atm_index_old = atm_index
+
         atm_str = self.find_ATM(fut_realdata['KP200'])
         atm_index = opt_actval.index(atm_str)
 
+        call_atm_value = df_call.at[atm_index, '현재가']
+        put_atm_value = df_put.at[atm_index, '현재가']
+
+        atm_minus_sum = df_call.at[atm_index - 1, '현재가'] + df_put.at[atm_index - 1, '현재가']
+        atm_zero_sum = df_call.at[atm_index, '현재가'] + df_put.at[atm_index, '현재가']
+        atm_zero_cha = df_call.at[atm_index, '현재가'] - df_put.at[atm_index, '현재가']
+        atm_plus_sum = df_call.at[atm_index + 1, '현재가'] + df_put.at[atm_index + 1, '현재가']
+        
+        df_plotdata_two_sum[opt_x_idx] = atm_zero_sum
+        df_plotdata_two_cha[opt_x_idx] = atm_zero_cha
+        
         if atm_str[-1] == '2' or atm_str[-1] == '7':
 
             atm_val = float(atm_str) + 0.5
@@ -8284,8 +8296,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
             self.tableWidget_put.item(atm_index_old, Option_column.행사가.value).setBackground(QBrush(라임))
-
-            atm_index_old = atm_index
         else:
             pass
 
@@ -8299,29 +8309,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.label_atm.setStyleSheet('background-color: yellow; color: black')
             self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        str = '{0:0.2f}({1:0.2f}:{2:0.2f})'.format(basis, call_atm_value + put_atm_value, abs(call_atm_value - put_atm_value))
+        str = '{0:0.2f}({1:0.2f}:{2:0.2f})'.format(basis, atm_zero_sum, abs(atm_zero_cha))
 
         self.label_atm.setText(str)
 
         if 옵션잔존일 == 1:
 
             # 만기일 등가 위, 등가, 등가 아래 3개의 양합을 콜 기준가에 표시함
-            two_sum1 = df_call.iloc[atm_index - 1]['현재가'] + df_put.iloc[atm_index - 1]['현재가']
-            item = QTableWidgetItem("{0:0.1f}".format(two_sum1))
+            item = QTableWidgetItem("{0:0.2f}".format(atm_minus_sum))
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(라임))
             item.setForeground(QBrush(검정색))
-            self.tableWidget_call.setItem(atm_index - 1, Option_column.기준가.value, item)
+            self.tableWidget_call.setItem(atm_index - 1, Option_column.기준가.value, item)            
 
-            two_sum2 = df_call.iloc[atm_index]['현재가'] + df_put.iloc[atm_index]['현재가']
-            item = QTableWidgetItem("{0:0.1f}".format(two_sum2))
+            item = QTableWidgetItem("{0:0.2f}".format(atm_zero_sum))
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(노란색))
             item.setForeground(QBrush(검정색))
-            self.tableWidget_call.setItem(atm_index, Option_column.기준가.value, item)
+            self.tableWidget_call.setItem(atm_index, Option_column.기준가.value, item)            
 
-            two_sum3 = df_call.iloc[atm_index + 1]['현재가'] + df_put.iloc[atm_index + 1]['현재가']
-            item = QTableWidgetItem("{0:0.1f}".format(two_sum3))
+            item = QTableWidgetItem("{0:0.2f}".format(atm_plus_sum))
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(라임))
             item.setForeground(QBrush(검정색))
@@ -17436,7 +17443,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_result, call_open, call_itm_count
         global df_call, df_plotdata_call, df_plotdata_call_rr
-        global call_atm_value
+        global atm_str, atm_index, call_atm_value
         global call_시가, call_시가_node_list, call_피봇, call_피봇_node_list, 콜시가리스트
         global call_저가, call_저가_node_list, call_고가, call_고가_node_list
         global call_gap_percent, call_db_percent
@@ -17493,15 +17500,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             print(str)
         else:
             pass
-        '''
-        # 등가표시
-        if index == atm_index:
-
-            call_atm_value = 콜현재가
-
-            self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색)) 
-        else:
-            self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))  
+        '''        
 
         # 야간선물이 없어짐에 따른 텔레그램 기동 대응
         if overnight:
@@ -17581,6 +17580,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         if 저가 != 고가 and not call_open[index]:
+
+            # 등가 check & coloring
+            atm_str = self.find_ATM(fut_realdata['KP200'])
+            atm_index = opt_actval.index(atm_str)
+
+            if index == atm_index:
+                self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
+            else:
+                self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
 
             call_open[index] = True
             
@@ -17906,7 +17914,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setForeground(QBrush(검정색))
 
             self.tableWidget_call.setItem(index, Option_column.현재가.value, item)
-            
+                        
             콜대비 = 콜현재가 - 콜시가
             df_call.at[index, '대비'] = 콜대비
             
@@ -18833,7 +18841,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global put_result, put_open, put_itm_count
         global df_put, df_plotdata_put, df_plotdata_put_rr
-        global put_atm_value
+        global atm_str, atm_index, put_atm_value
         global put_시가, put_시가_node_list, put_피봇, put_피봇_node_list, 풋시가리스트
         global put_저가, put_저가_node_list, put_고가, put_고가_node_list
         global put_gap_percent, put_db_percent
@@ -18890,16 +18898,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         '''
-        # 등가표시
-        if index == atm_index:
 
-            put_atm_value = 풋현재가
-
-            self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
-        else:
-            self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))    
-        
         if 저가 != 고가 and not put_open[index]:
+
+            # 등가 check & coloring
+            atm_str = self.find_ATM(fut_realdata['KP200'])
+            atm_index = opt_actval.index(atm_str)
+
+            if index == atm_index:
+                self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
+            else:
+                self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
 
             put_open[index] = True
             
@@ -19225,7 +19234,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setForeground(QBrush(검정색))
 
             self.tableWidget_put.setItem(index, Option_column.현재가.value, item)
-            
+                        
             풋대비 = 풋현재가 - 풋시가
             df_put.at[index, '대비'] = 풋대비
 
