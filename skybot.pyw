@@ -6555,7 +6555,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 실시간 서비스                     
             if receive_real_ovc or market_service:
                 
-                #self.label_clear(self.alternate_flag)
+                if not overnight:
+                    self.label_atm_display()
+                else:
+                    pass
 
                 # 선택된 콜, 풋 검사
                 old_selected_opt_list = copy.deepcopy(selected_opt_list)
@@ -7355,7 +7358,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         global flag_call_low_update, flag_call_high_update, flag_put_low_update, flag_put_high_update
                         global flag_call_cross_coloring, flag_put_cross_coloring, flag_clear
 
-                        self.label_atm_display()
+                        #self.label_atm_display()
 
                         # 매 10분마다 교차컬러링 수행
                         if not flag_call_low_update and not flag_call_high_update and not flag_put_low_update and not flag_put_high_update:
@@ -7373,6 +7376,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.call_node_color_clear()
                                     self.put_node_color_clear()
                                     flag_clear = True
+                                    
+                                    if bms_node_list:
+                                        self.search_moving_node()
+                                    else:
+                                        pass
                                 else:
                                     pass 
 
@@ -7394,6 +7402,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.call_node_color_clear()
                                     self.put_node_color_clear()
                                     flag_clear = True
+
+                                    if bms_node_list:
+                                        self.search_moving_node()
+                                    else:
+                                        pass
                                 else:
                                     pass
 
@@ -7407,11 +7420,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         if flag_call_cross_coloring and flag_put_cross_coloring:
-
-                            if bms_node_list:
-                                self.search_moving_node()
-                            else:
-                                pass
 
                             flag_call_cross_coloring = False
                             flag_put_cross_coloring = False
@@ -7712,7 +7720,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if not flag_offline:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update Time : {3:0.2f} ms...\r'.format(\
+                str = '[{0:02d}:{1:02d}:{2:02d}] UI Screen Update : {3:0.2f} ms...\r'.format(\
                     dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
                 print(str)
             else:
@@ -8049,10 +8057,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             new_list = list(set(진성맥점) - set(DEFAULT_NODE_LIST))
             new_list.sort()
-            str = '[{0:02d}:{1:02d}:{2:02d}] 갱신된 맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, new_list)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 추가된 진성맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, new_list)
             self.textBrowser.append(str)
         else:
-            pass
+            str = '[{0:02d}:{1:02d}:{2:02d}] 진성맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
+            self.textBrowser.append(str)
 
     def market_type_display(self, blink):
 
@@ -8166,11 +8175,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if market_service:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check : {3:0.2f} ms\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)
         else:
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
             self.textBrowser.append(str)
 
     def call_low_node_coloring(self):
@@ -8187,7 +8196,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Call Low Node Color Check Time : {3:0.2f} ms\r'.format(\
+        str = '[{0:02d}:{1:02d}:{2:02d}] Call Low Node Color Check : {3:0.2f} ms\r'.format(\
             int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
         self.textBrowser.append(str)
 
@@ -8205,7 +8214,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Call High Node Color Check Time : {3:0.2f} ms\r'.format(\
+        str = '[{0:02d}:{1:02d}:{2:02d}] Call High Node Color Check : {3:0.2f} ms\r'.format(\
             int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
         self.textBrowser.append(str)            
     
@@ -8234,12 +8243,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if market_service:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(\
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check : {3:0.2f} ms\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)                                 
         else:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
             self.textBrowser.append(str)
 
     def put_low_node_coloring(self):
@@ -8256,7 +8265,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Put Low Node Color Check Time : {3:0.2f} ms\r'.format(\
+        str = '[{0:02d}:{1:02d}:{2:02d}] Put Low Node Color Check : {3:0.2f} ms\r'.format(\
             int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
         self.textBrowser.append(str)
 
@@ -8274,7 +8283,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Put High Node Color Check Time : {3:0.2f} ms\r'.format(\
+        str = '[{0:02d}:{1:02d}:{2:02d}] Put High Node Color Check : {3:0.2f} ms\r'.format(\
             int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
         self.textBrowser.append(str)            
 
@@ -8309,23 +8318,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.call_node_color_update()
         self.put_node_color_update()
 
-        self.call_coreval_color_update()        
-        self.put_coreval_color_update()
-        
         if bms_node_list:
             self.search_moving_node()
         else:
             pass
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 진성맥점 = {3})\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
-        self.textBrowser.append(str)
-
+        self.call_coreval_color_update()        
+        self.put_coreval_color_update()
+        
         node_coloring = False
         refresh_coloring = False
 
         process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Node Color Check Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Node Color Check : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
         self.textBrowser.append(str)        
 
     def label_atm_display(self):
@@ -8381,38 +8387,49 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.label_atm.setText(str)
 
-        if 옵션잔존일 == 1:
+        # 콜 양합표시
+        val = df_call.at[atm_index - 1, '기준가']
+        item = QTableWidgetItem("{0}\n({1})".format(val, atm_minus_sum))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(라임))
+        item.setForeground(QBrush(검정색))
+        self.tableWidget_call.setItem(atm_index - 1, Option_column.기준가.value, item)            
 
-            # 만기일 등가 위, 등가, 등가 아래 3개의 양합을 콜 기준가에 표시함
-            item = QTableWidgetItem("{0:0.2f}".format(atm_minus_sum))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(라임))
-            item.setForeground(QBrush(검정색))
-            self.tableWidget_call.setItem(atm_index - 1, Option_column.기준가.value, item)            
+        val = df_call.at[atm_index, '기준가']
+        item = QTableWidgetItem("{0}\n({1})".format(val, atm_zero_sum))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(노란색))
+        item.setForeground(QBrush(검정색))
+        self.tableWidget_call.setItem(atm_index, Option_column.기준가.value, item)            
 
-            item = QTableWidgetItem("{0:0.2f}".format(atm_zero_sum))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(노란색))
-            item.setForeground(QBrush(검정색))
-            self.tableWidget_call.setItem(atm_index, Option_column.기준가.value, item)            
+        val = df_call.at[atm_index + 1, '기준가']
+        item = QTableWidgetItem("{0}\n({1})".format(val, atm_plus_sum))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(라임))
+        item.setForeground(QBrush(검정색))
+        self.tableWidget_call.setItem(atm_index + 1, Option_column.기준가.value, item)
 
-            item = QTableWidgetItem("{0:0.2f}".format(atm_plus_sum))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(라임))
-            item.setForeground(QBrush(검정색))
-            self.tableWidget_call.setItem(atm_index + 1, Option_column.기준가.value, item)
-        else:
-            pass
+        # 풋 양합표시
+        val = df_put.at[atm_index - 1, '기준가']
+        item = QTableWidgetItem("{0}\n({1})".format(val, atm_minus_sum))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(라임))
+        item.setForeground(QBrush(검정색))
+        self.tableWidget_put.setItem(atm_index - 1, Option_column.기준가.value, item)            
 
-    def set_call_atm_row_color(self, rowIndex, brush):
+        val = df_put.at[atm_index, '기준가']
+        item = QTableWidgetItem("{0}\n({1})".format(val, atm_zero_sum))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(노란색))
+        item.setForeground(QBrush(검정색))
+        self.tableWidget_put.setItem(atm_index, Option_column.기준가.value, item)            
 
-        for j in range(self.tableWidget_call.columnCount() - 1):
-            self.tableWidget_call.item(rowIndex, j + 1).setBackground(brush)
-
-    def set_put_atm_row_color(self, rowIndex, brush):
-
-        for j in range(self.tableWidget_put.columnCount() - 1):
-            self.tableWidget_put.item(rowIndex, j + 1).setBackground(brush)
+        val = df_call.at[atm_index + 1, '기준가']
+        item = QTableWidgetItem("{0}\n({1})".format(val, atm_plus_sum))
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(라임))
+        item.setForeground(QBrush(검정색))
+        self.tableWidget_put.setItem(atm_index + 1, Option_column.기준가.value, item)
 
     def within_n_tick(self, source, target, n):
 
