@@ -8291,11 +8291,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if atm_index != atm_index_old:
 
-            self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
             self.tableWidget_call.item(atm_index_old, Option_column.행사가.value).setBackground(QBrush(라임))
+            self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
 
-            self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
             self.tableWidget_put.item(atm_index_old, Option_column.행사가.value).setBackground(QBrush(라임))
+            self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
         else:
             pass
 
