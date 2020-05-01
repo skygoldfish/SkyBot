@@ -269,13 +269,26 @@ with open('control_info.txt', mode='r') as control_file:
             tmp = hlfile.readline().strip()
             temp = tmp.split()
 
-            high_low_list = []
+            file_list = []
 
             for i in range(len(temp)):
                 
-                high_low_list.append(float(temp[i]))
+                file_list.append(float(temp[i]))
 
-            FILE_HIGH_LOW_LIST = high_low_list[:]
+            '''
+            node_remove1 = list(filter((1.2).__ne__, file_list))
+            node_remove2 = list(filter((2.5).__ne__, node_remove1))
+            node_remove3 = list(filter((3.5).__ne__, node_remove2))
+            node_remove4 = list(filter((4.85).__ne__, node_remove3))
+            node_remove5 = list(filter((5.1).__ne__, node_remove4))
+            node_remove6 = list(filter((5.5).__ne__, node_remove5))
+            node_remove7 = list(filter((6.85).__ne__, node_remove6))
+            node_remove8 = list(filter((7.1).__ne__, node_remove7))
+            high_low_list = list(filter((8.1).__ne__, node_remove8))
+            '''
+
+            high_low_list = file_list[:]
+            FILE_HIGH_LOW_LIST = file_list[:]
 
             high_low_list.sort()
             high_low_list.reverse()
@@ -7401,7 +7414,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if flag_call_cross_coloring and flag_put_cross_coloring:
 
-                            self.search_moving_node()
+                            if bms_node_list:
+                                self.search_moving_node()
+                            else:
+                                pass
 
                             flag_call_cross_coloring = False
                             flag_put_cross_coloring = False
@@ -8247,7 +8263,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.call_coreval_color_update()        
         self.put_coreval_color_update()
         
-        self.search_moving_node()
+        if bms_node_list:
+            self.search_moving_node()
+        else:
+            pass
 
         str = '[{0:02d}:{1:02d}:{2:02d}] 진성맥점 = {3})\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
         self.textBrowser.append(str)
@@ -13770,7 +13789,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print('t2301 put open list = ', put_open_list, len(put_open_list))
                     print('\r')
 
-                    self.search_moving_node()           
+                    if bms_node_list:
+                        self.search_moving_node()
+                    else:
+                        pass           
 
                     if pre_start:
 
@@ -15098,8 +15120,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem(max_str)
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.진폭.value, item)
 
-                if overnight:
-
+                if overnight and bms_node_list:
                     self.search_moving_node()
                 else:
                     pass
@@ -17802,7 +17823,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜저가)
             self.textBrowser.append(str)
             
-            self.search_moving_node()
+            if bms_node_list:
+                self.search_moving_node()
+            else:
+                pass
+
             self.check_call_oloh(result)
             
             # 콜은 인덱스 기준으로 갱신
@@ -17872,7 +17897,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜고가)
             self.textBrowser.append(str)
             
-            self.search_moving_node()
+            if bms_node_list:
+                self.search_moving_node()
+            else:
+                pass
+
             self.check_call_oloh(result)
 
             # 콜은 인덱스 기준으로 갱신
@@ -19122,7 +19151,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋저가)
             self.textBrowser.append(str)
 
-            self.search_moving_node()
+            if bms_node_list:
+                self.search_moving_node()
+            else:
+                pass
+
             self.check_put_oloh(result)
 
             # 풋은 가격기준으로 갱신
@@ -19192,7 +19225,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋고가)
             self.textBrowser.append(str)
             
-            self.search_moving_node()
+            if bms_node_list:
+                self.search_moving_node()
+            else:
+                pass
+
             self.check_put_oloh(result)
 
             # 풋은 가격기준으로 갱신
