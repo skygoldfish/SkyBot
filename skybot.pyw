@@ -7726,6 +7726,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
         except:
             pass
+    
+    def get_maxval_info(self, input_list):
+    
+        input_list.sort()
+        input_list.reverse()
+
+        result = list(Counter(input_list).values())
+        빈도수 = max(result)
+        
+        if 빈도수 > 2:
+
+            max_index = result.index(max(result))
+
+            # 최대 중복값 산출
+            result = list(Counter(input_list).keys())
+            value = result[max_index]
+
+            return value, 빈도수
+        else:
+            return None, None
 
     def search_moving_node(self):
 
@@ -7768,13 +7788,47 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         index2 = bisect(put_고가, 9.99)
         put_high_list = put_고가[index1:index2]
         
-        print('call_low_list =', call_low_list)
-        print('call_high_list =', call_high_list)
-        print('put_low_list =', put_low_list)
-        print('put_high_list =', put_high_list)
+        #print('call_low_list =', call_low_list)
+        #print('call_high_list =', call_high_list)
+        #print('put_low_list =', put_low_list)
+        #print('put_high_list =', put_high_list)
         #print('FILE_HIGH_LOW_LIST =', FILE_HIGH_LOW_LIST)        
 
         moving_list = FILE_HIGH_LOW_LIST + call_low_list + call_high_list + put_low_list + put_high_list
+
+        # 1st search
+        new_node_val1, 동적맥점_빈도수_1st = self.get_maxval_info(moving_list)
+        진성맥점.append(new_node_val1)
+
+        # 2nd search
+        second_list = list(filter((new_node_val1).__ne__, moving_list))
+        new_node_val2, 동적맥점_빈도수_2nd = self.get_maxval_info(second_list)
+        진성맥점.append(new_node_val2)
+
+        # 3rd search
+        third_list = list(filter((new_node_val2).__ne__, second_list))
+        new_node_val3, 동적맥점_빈도수_3rd = self.get_maxval_info(third_list)
+        진성맥점.append(new_node_val3)
+
+        # 4th search
+        fourth_list = list(filter((new_node_val3).__ne__, third_list))
+        new_node_val4, 동적맥점_빈도수_4th = self.get_maxval_info(fourth_list)
+        진성맥점.append(new_node_val4)
+
+        # 5th search
+        fifth_list = list(filter((new_node_val4).__ne__, fourth_list))
+        new_node_val5, 동적맥점_빈도수_5th = self.get_maxval_info(fifth_list)
+        진성맥점.append(new_node_val5)
+
+        # 6th search
+        sixth_list = list(filter((new_node_val5).__ne__, fifth_list))
+        new_node_val6, 동적맥점_빈도수_6th = self.get_maxval_info(sixth_list)
+        진성맥점.append(new_node_val6)
+
+        진성맥점 = list(set(진성맥점))
+        진성맥점.sort()
+
+        '''
         moving_list.sort()
         moving_list.reverse()
 
@@ -7881,6 +7935,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass                
         else:
             pass
+        '''
 
         if new_node_val1 in bms_node_list:
 
