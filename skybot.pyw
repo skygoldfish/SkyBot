@@ -20,28 +20,28 @@ import sys, os
 import datetime, time
 import win32com.client
 import pythoncom
-import inspect
-import pickle
-import uuid
-import base64
-import subprocess
+import ctypes
 import webbrowser
 import numpy as np
 import pandas as pd
-import pandas.io.sql as pdsql
-import sqlite3
-import ctypes
 import logging
 import logging.handlers
 import timeit
 import pyqtgraph as pg
 import math
-import collections
-import win32gui
 import copy
 import locale
+import collections
 
-from subprocess import Popen
+#import sqlite3
+#import inspect
+#import pickle
+#import uuid
+#import base64
+#import subprocess
+#import pandas.io.sql as pdsql
+#import win32gui
+
 from PyQt5 import QtCore, QtGui, QtWidgets, QAxContainer, uic
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -49,13 +49,15 @@ from PyQt5.QtWidgets import *
 from numpy import NaN, Inf, arange, isscalar, asarray, array
 from pandas import DataFrame, Series
 from threading import Timer
-from multiprocessing import Pool, Process, Queue
 from enum import Enum
 from bisect import bisect
 from mss import mss
-from PIL import Image
 from collections import Counter
+from PIL import Image
+
+#from subprocess import Popen
 #from PIL import ImageGrab
+#from multiprocessing import Pool, Process, Queue
 
 from XASessions import *
 from XAQueries import *
