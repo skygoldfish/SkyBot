@@ -14648,12 +14648,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.전고.value, item)
 
+                    # to be check !!!
+                    '''
                     if 18 <= dt.hour < 24 or 0 <= dt.hour < 4:
                         
                         시가 = df['시가'][i]
                     else:
                         시가 = 0.0
-
+                    '''
+                    
+                    시가 = df['시가'][i]
                     df_call.at[i, '시가'] = 시가
 
                     종가 = df_call.at[i, '현재가']
@@ -14892,12 +14896,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.전고.value, item)
 
+                    # to be check !!!
+                    '''
                     if 18 <= dt.hour < 24 or 0 <= dt.hour < 4:
                         
                         시가 = df1['시가'][i]
                     else:
                         시가 = 0.0
+                    '''
 
+                    시가 = df1['시가'][i]
                     df_put.at[i, '시가'] = 시가
 
                     종가 = df_put.at[i, '현재가']
@@ -25201,6 +25209,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         dt = datetime.datetime.now()
         start_time = timeit.default_timer()
+
+        if flag_offline:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] BigChart UI 쓰레드를 종료합니다. : {3:0.2f} ms...\r'.format(\
+            dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
+            print(str)
+
+            self.bigchart_update_worker.terminate()
+        else:
+            pass
         
         # 옵션그래프 초기화 및 데이타 가져오기
         if bc_comboindex2 == 4:                            
@@ -25973,7 +25991,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass        
         
-        str = '[{0:02d}:{1:02d}:{2:02d}] BigChart Update Time : {3:0.2f} ms...\r'.format(\
+        str = '[{0:02d}:{1:02d}:{2:02d}] BigChart UI Update : {3:0.2f} ms...\r'.format(\
             dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
         print(str)
 
