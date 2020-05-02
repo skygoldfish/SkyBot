@@ -25,7 +25,6 @@ import webbrowser
 import numpy as np
 import pandas as pd
 import logging
-import logging.handlers
 import timeit
 import pyqtgraph as pg
 import math
@@ -41,6 +40,7 @@ import collections
 #import subprocess
 #import pandas.io.sql as pdsql
 #import win32gui
+#import logging.handlers
 
 from PyQt5 import QtCore, QtGui, QtWidgets, QAxContainer, uic
 from PyQt5.QtCore import *
