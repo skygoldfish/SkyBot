@@ -8057,7 +8057,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             new_list = list(set(진성맥점) - set(DEFAULT_NODE_LIST))
             new_list.sort()
-            str = '[{0:02d}:{1:02d}:{2:02d}] 추가된 진성맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, new_list)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 탐색된 진성맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, new_list)
             self.textBrowser.append(str)
         else:
             str = '[{0:02d}:{1:02d}:{2:02d}] 진성맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
@@ -8289,7 +8289,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
 
     # 탐색순서가 중요(교차탐색) !!!
-    def opt_node_coloring(self):
+    def opt_all_node_coloring(self):
 
         global coloring_done_time
         global node_coloring
@@ -14143,9 +14143,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)                    
-
-                    #str = '{0} 야간옵션 시세전광판 재요청...'.format(t2835_month_info)
-                    #print(str)
             
             self.tableWidget_call.resizeColumnsToContents()
             self.tableWidget_put.resizeColumnsToContents()
@@ -14538,7 +14535,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] 옵션맥점 Refresh 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
 
-                self.opt_node_coloring()                
+                self.opt_all_node_coloring()                
             else:
                 pass
 
@@ -15193,11 +15190,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 item = QTableWidgetItem(max_str)
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.진폭.value, item)
-
-                if overnight and bms_node_list:
-                    self.search_moving_node()
-                else:
-                    pass
 
                 # 실시간테이타 요청                
                 str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -16144,6 +16136,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_put.scrollToItem(put_positionCell)
                     else:
                         pass
+                    
+                    if new_actval_up_count > 0:
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+
+                    if new_actval_down_count > 0:
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+                    
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간 - 서버시간 = {3}초\r'.format(dt.hour, dt.minute, dt.second, system_server_timegap)
+                    self.textBrowser.append(str)                  
+                    
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 만기일은 {3}일 남았습니다.\r'.format(dt.hour, dt.minute, dt.second, 옵션잔존일)
+                    self.textBrowser.append(str)  
 
                     if overnight:                        
 
@@ -16227,9 +16239,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item = QTableWidgetItem(temp)
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_put.setItem(i, Option_column.OID.value, item)
-
-                        #str = '[{0:02d}:{1:02d}:{2:02d}] 수정거래량 및 수정미결 초기화...\r'.format(dt.hour, dt.minute, dt.second)
-                        #self.textBrowser.append(str)       
+                        
+                        # 옵션 맥점 컬러링
+                        str = '[{0:02d}:{1:02d}:{2:02d}] t8416종료 주간 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
+                        
+                        self.opt_all_node_coloring()       
 
                         self.screen_update_worker.start()
                         self.screen_update_worker.daemon = True
@@ -16241,37 +16256,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         refresh_flag = True
 
                         self.pushButton_add.setStyleSheet("background-color: lawngreen")
-                        self.pushButton_add.setText('Refresh')
-                    
-                    if new_actval_up_count > 0:
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
-                        self.textBrowser.append(str)
-                    else:
-                        pass
-
-                    if new_actval_down_count > 0:
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
-                        self.textBrowser.append(str)
-                    else:
-                        pass                    
-                    
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간 - 서버시간 = {3}초\r'.format(dt.hour, dt.minute, dt.second, system_server_timegap)
-                    self.textBrowser.append(str)  
-
-                    if not overnight:
-
-                        # 옵션 맥점 컬러링
-                        str = '[{0:02d}:{1:02d}:{2:02d}] t8416종료 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
-                        
-                        self.opt_node_coloring()
-                    else:
-                        pass                    
-                    
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 만기일은 {3}일 남았습니다.\r'.format(dt.hour, dt.minute, dt.second, 옵션잔존일)
-                    self.textBrowser.append(str)                                                              
+                        self.pushButton_add.setText('Refresh')                                                                                
                 else:
                     pass
             else:
@@ -20635,7 +20620,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.pushButton_add.setText('ScrShot')
 
-                        self.opt_node_coloring()
+                        self.opt_all_node_coloring()
 
                         if TARGET_MONTH_SELECT == 1:
 
@@ -20695,7 +20680,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        self.opt_node_coloring()
+                        self.opt_all_node_coloring()
 
                         if TARGET_MONTH_SELECT == 1:
 
