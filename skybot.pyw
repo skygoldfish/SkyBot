@@ -907,7 +907,7 @@ put_volume_total = 0
 option_volume_power = 0
 
 opt_x_idx = 0
-opt_x_idx_old = 0
+old_opt_x_idx = 0
 
 ovc_x_idx = 0
 
@@ -1083,7 +1083,7 @@ put_cell_widget = []
 atm_str = ''
 atm_val = 0
 atm_index = 0
-atm_index_old = 0
+old_atm_index = 0
 atm_index_yj = 0
 jgubun = ''
 
@@ -1203,22 +1203,22 @@ opt_put_ho_update_counter = 0
 refresh_flag = False
 
 oi_delta = 0
-oi_delta_old = 0
+old_oi_delta = 0
 
 volume_delta = 0
-volume_delta_old = 0
+old_volume_delta = 0
 
 sp500_delta = 0
-sp500_delta_old = 0
+old_sp500_delta = 0
 
 dow_delta = 0
-dow_delta_old = 0
+old_dow_delta = 0
 
 nasdaq_delta = 0
-nasdaq_delta_old = 0
+old_nasdaq_delta = 0
 
 wti_delta = 0
-wti_delta_old = 0
+old_wti_delta = 0
 
 comboindex1 = 0
 comboindex2 = 0
@@ -8337,11 +8337,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def label_atm_display(self):
 
         global df_plotdata_two_sum, df_plotdata_two_cha, basis
-        global atm_str, atm_val, atm_index, atm_index_old, call_atm_value, put_atm_value 
+        global atm_str, atm_val, atm_index, old_atm_index, call_atm_value, put_atm_value 
         global atm_zero_sum, atm_zero_cha, atm_minus_sum, atm_plus_sum
         
         # 등가 check & coloring        
-        atm_index_old = atm_index
+        old_atm_index = atm_index
 
         atm_str = self.find_ATM(fut_realdata['KP200'])
         atm_index = opt_actval.index(atm_str)
@@ -8363,12 +8363,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             atm_val = float(atm_str)
 
-        if atm_index != atm_index_old:
+        if atm_index != old_atm_index:
 
-            self.tableWidget_call.item(atm_index_old, Option_column.행사가.value).setBackground(QBrush(라임))
+            self.tableWidget_call.item(old_atm_index, Option_column.행사가.value).setBackground(QBrush(라임))
             self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
 
-            self.tableWidget_put.item(atm_index_old, Option_column.행사가.value).setBackground(QBrush(라임))
+            self.tableWidget_put.item(old_atm_index, Option_column.행사가.value).setBackground(QBrush(라임))
             self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
         else:
             pass
@@ -12684,7 +12684,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_code, put_code
         global opt_actval
         global df_plotdata_fut
-        global atm_index, atm_index_old
+        global atm_index, old_atm_index
         global df_plotdata_call, df_plotdata_put
         global df_plotdata_call_volume, df_plotdata_put_volume, df_plotdata_volume_cha
         global df_plotdata_call_rr, df_plotdata_put_rr
@@ -12828,7 +12828,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if atm_str in opt_actval:
 
                 atm_index = opt_actval.index(atm_str)
-                atm_index_old = atm_index
+                old_atm_index = atm_index
 
                 view_actval = opt_actval[atm_index-5:atm_index+6]
 
@@ -16803,7 +16803,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global cme_realdata, fut_realdata
         global df_fut
         global df_plotdata_fut, df_plotdata_kp200, df_plotdata_fut_volume
-        global atm_str, atm_val, atm_index, atm_index_old
+        global atm_str, atm_val, atm_index, old_atm_index
         global fut_tick_list, fut_value_list, df_fut_ohlc
         global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
         global flag_fut_low, flag_fut_high 
@@ -20289,7 +20289,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def oi_sum_display(self):
         
         global 콜_수정미결합, 풋_수정미결합
-        global oi_delta, oi_delta_old, 수정미결_직전대비        
+        global oi_delta, old_oi_delta, 수정미결_직전대비        
 
         #콜_수정미결합 = df_call['수정미결'].sum() - call_oi_init_value
         #풋_수정미결합 = df_put['수정미결'].sum() - put_oi_init_value
@@ -20300,12 +20300,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #df_plotdata_call_rr.iloc[0][opt_x_idx] = 콜_수정미결합
         #df_plotdata_put_rr.iloc[0][opt_x_idx] = 풋_수정미결합
 
-        oi_delta_old = oi_delta
+        old_oi_delta = oi_delta
         oi_delta = 콜_수정미결합 - 풋_수정미결합
         
         수정미결합 = 콜_수정미결합 + 풋_수정미결합
         
-        수정미결_직전대비.extend([oi_delta - oi_delta_old])
+        수정미결_직전대비.extend([oi_delta - old_oi_delta])
         temp = list(수정미결_직전대비)
 
         if 수정미결합 > 0:
@@ -20345,7 +20345,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global opt_callreal_update_counter, opt_putreal_update_counter
             global opt_call_ho_update_counter, opt_put_ho_update_counter
             global call_atm_value, put_atm_value
-            global atm_index_old           
+            global old_atm_index           
             global receive_quote
 
             global FUT_FOREIGNER_거래대금순매수, FUT_RETAIL_거래대금순매수, FUT_INSTITUTIONAL_거래대금순매수, FUT_STOCK_거래대금순매수, \
@@ -20393,10 +20393,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global OVC_체결시간, 호가시간
             global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti
 
-            global sp500_delta, sp500_delta_old, sp500_직전대비, sp500_text_color
-            global dow_delta, dow_delta_old, dow_직전대비, dow_text_color
-            global nasdaq_delta, nasdaq_delta_old, nasdaq_직전대비, nasdaq_text_color
-            global wti_delta, wti_delta_old, wti_직전대비, wti_text_color
+            global sp500_delta, old_sp500_delta, sp500_직전대비, sp500_text_color
+            global dow_delta, old_dow_delta, dow_직전대비, dow_text_color
+            global nasdaq_delta, old_nasdaq_delta, nasdaq_직전대비, nasdaq_text_color
+            global wti_delta, old_wti_delta, wti_직전대비, wti_text_color
             global receive_real_ovc
             global x_idx, ovc_x_idx
             global call_result, put_result
@@ -22505,9 +22505,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if result['체결가격'] != NASDAQ_과거가:
                         
-                        nasdaq_delta_old = nasdaq_delta
+                        old_nasdaq_delta = nasdaq_delta
                         nasdaq_delta = result['체결가격']
-                        nasdaq_직전대비.extend([nasdaq_delta - nasdaq_delta_old])
+                        nasdaq_직전대비.extend([nasdaq_delta - old_nasdaq_delta])
                         대비리스트 = list(nasdaq_직전대비)
 
                         NASDAQ_현재가 = result['체결가격']
@@ -22615,9 +22615,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if result['체결가격'] != SP500_과거가:
                         
-                        sp500_delta_old = sp500_delta
+                        old_sp500_delta = sp500_delta
                         sp500_delta = result['체결가격']
-                        sp500_직전대비.extend([sp500_delta - sp500_delta_old])
+                        sp500_직전대비.extend([sp500_delta - old_sp500_delta])
                         대비리스트 = list(sp500_직전대비)
 
                         SP500_현재가 = result['체결가격']
@@ -22788,9 +22788,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 체결가격 != DOW_과거가:
                         
-                        dow_delta_old = dow_delta
+                        old_dow_delta = dow_delta
                         dow_delta = 체결가격
-                        dow_직전대비.extend([dow_delta - dow_delta_old])
+                        dow_직전대비.extend([dow_delta - old_dow_delta])
                         대비리스트 = list(dow_직전대비)
 
                         DOW_현재가 = result['체결가격']
@@ -22906,9 +22906,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if result['체결가격'] != WTI_과거가:
                         
-                        wti_delta_old = wti_delta
+                        old_wti_delta = wti_delta
                         wti_delta = result['체결가격']
-                        wti_직전대비.extend([wti_delta - wti_delta_old])
+                        wti_직전대비.extend([wti_delta - old_wti_delta])
                         대비리스트 = list(wti_직전대비)
 
                         WTI_현재가 = result['체결가격']
