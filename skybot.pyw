@@ -21195,12 +21195,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if int(result['예상체결시간'][0:2]) == (KSE_START_HOUR - 1) and int(result['예상체결시간'][2:4]) == 59 and \
                     (int(result['예상체결시간'][4:6]) == 58 or int(result['예상체결시간'][4:6]) == 59):
 
-                    # 지수옵션 예상체결 요청취소(안하면 시작시 지연발생함)
+                    # 지수옵션 예상체결 요청취소(안하면 시작시 지연발생함 ???)
                     self.YOC.UnadviseRealData()
 
                     yoc_stop = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format \
+                        (int(result['예상체결시간'][0:2]), int(result['예상체결시간'][2:4]), int(result['예상체결시간'][4:6]))
                     self.textBrowser.append(str)
                 else:
                     pass
