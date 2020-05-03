@@ -7667,13 +7667,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         # 야간장의 주요정보를 저장
                         with open('overnight_info.txt', mode='w') as overnight_file:
 
+                            now = time.localtime()
+
+                            times = "%04d-%02d-%02d-%02d-%02d-%02d" % \
+                                    (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+
+                            file_str = '{}\n'.format(times)
+                            overnight_file.write(file_str)
+                            file_str = '\n'
+                            overnight_file.write(file_str)
                             file_str = '################# < Futures Index of the Last Night > ###################\n'
                             overnight_file.write(file_str)                            
                             file_str = 'Overnight CME FUT Close = {0}\n'.format(CME_당일종가)
                             overnight_file.write(file_str)
                             file_str = '\n'
                             overnight_file.write(file_str)
-                            file_str = '##################### < US Index of the Last Night > ####################\n'
+                            file_str = '##################### < CME Index of the Last Night > ####################\n'
                             overnight_file.write(file_str)
                             file_str = 'S&P 500 Last Low = {0}\n'.format(SP500_저가)
                             overnight_file.write(file_str)
