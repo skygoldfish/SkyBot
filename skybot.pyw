@@ -8355,6 +8355,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         basis = round((fut_realdata['현재가'] - fut_realdata['KP200']), 2)
 
+        call_atm_value = df_call.at[atm_index, '현재가']
+        put_atm_value = df_put.at[atm_index, '현재가']
+                
+        atm_minus_3 = round((df_call.at[atm_index - 3, '현재가'] + df_put.at[atm_index - 3, '현재가']), 2)
+        atm_minus_2 = round((df_call.at[atm_index - 2, '현재가'] + df_put.at[atm_index - 2, '현재가']), 2)
+        atm_minus_1 = round((df_call.at[atm_index - 1, '현재가'] + df_put.at[atm_index - 1, '현재가']) , 2)
+        atm_zero_sum = round((df_call.at[atm_index, '현재가'] + df_put.at[atm_index, '현재가']) , 2)
+        atm_zero_cha = round((call_atm_value - put_atm_value) , 2)
+        atm_plus_1 = round((df_call.at[atm_index + 1, '현재가'] + df_put.at[atm_index + 1, '현재가']) , 2)
+        atm_plus_2 = round((df_call.at[atm_index + 2, '현재가'] + df_put.at[atm_index + 2, '현재가']) , 2)
+        atm_plus_3 = round((df_call.at[atm_index + 3, '현재가'] + df_put.at[atm_index + 3, '현재가']) , 2)
+        
+        df_plotdata_two_sum[opt_x_idx] = atm_zero_sum
+        df_plotdata_two_cha[opt_x_idx] = atm_zero_cha
+        
         if basis < 0:
 
             self.label_atm.setStyleSheet('background-color: black; color: yellow')
@@ -8366,21 +8381,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         str = '{0}({1}:{2})'.format(basis, atm_zero_sum, abs(atm_zero_cha))
 
         self.label_atm.setText(str)
-
-        call_atm_value = df_call.at[atm_index, '현재가']
-        put_atm_value = df_put.at[atm_index, '현재가']
-                
-        atm_minus_3 = round((df_call.at[atm_index - 3, '현재가'] + df_put.at[atm_index - 3, '현재가']), 2)
-        atm_minus_2 = round((df_call.at[atm_index - 2, '현재가'] + df_put.at[atm_index - 2, '현재가']), 2)
-        atm_minus_1 = round((df_call.at[atm_index - 1, '현재가'] + df_put.at[atm_index - 1, '현재가']) , 2)
-        atm_zero_sum = round((df_call.at[atm_index, '현재가'] + df_put.at[atm_index, '현재가']) , 2)
-        atm_zero_cha = round((df_call.at[atm_index, '현재가'] - df_put.at[atm_index, '현재가']) , 2)
-        atm_plus_1 = round((df_call.at[atm_index + 1, '현재가'] + df_put.at[atm_index + 1, '현재가']) , 2)
-        atm_plus_2 = round((df_call.at[atm_index + 2, '현재가'] + df_put.at[atm_index + 2, '현재가']) , 2)
-        atm_plus_3 = round((df_call.at[atm_index + 3, '현재가'] + df_put.at[atm_index + 3, '현재가']) , 2)
-        
-        df_plotdata_two_sum[opt_x_idx] = atm_zero_sum
-        df_plotdata_two_cha[opt_x_idx] = atm_zero_cha
 
         atm_list = []
         atm_list.append(atm_minus_3)
@@ -8937,29 +8937,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def display_centerval(self):
 
+        global atm_zero_cha
+
         # 예상 중심가 표시
         if call_atm_value > put_atm_value:
 
-            center = put_atm_value + (call_atm_value - put_atm_value) / 2
+            center = put_atm_value + atm_zero_cha / 2
 
         elif put_atm_value > call_atm_value:
 
-            center = call_atm_value + (put_atm_value - call_atm_value) / 2
+            center = call_atm_value - atm_zero_cha / 2
 
         else:
             center = call_atm_value
         
-        if abs(call_atm_value - put_atm_value) <= 0.02:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, atm_str, call_atm_value)
-            self.textBrowser.append(str)            
-        else:
-            pass
-
         item = QTableWidgetItem("{0:0.2f}".format(center))
         item.setTextAlignment(Qt.AlignCenter)
 
-        if call_atm_value == put_atm_value:
+        if abs(atm_zero_cha) <= 0.02:
 
             item.setBackground(QBrush(검정색))
             item.setForeground(QBrush(대맥점색))
@@ -8968,8 +8963,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setForeground(QBrush(검정색))
 
         self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
+        
+        if abs(atm_zero_cha) <= 0.02:
 
-        if abs(call_atm_value - put_atm_value) <= centerval_threshold:
+            str = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, atm_str, call_atm_value)
+            self.textBrowser.append(str)            
+        else:
+            pass
+
+        if abs(atm_zero_cha) <= centerval_threshold:
                         
             if self.centerval_flag:
 
