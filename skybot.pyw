@@ -8937,8 +8937,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def display_centerval(self):
 
-        global atm_zero_cha
-
         # 예상 중심가 표시
         if call_atm_value > put_atm_value:
 
@@ -8947,7 +8945,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         elif put_atm_value > call_atm_value:
 
             center = call_atm_value - atm_zero_cha / 2
-
         else:
             center = call_atm_value
         
