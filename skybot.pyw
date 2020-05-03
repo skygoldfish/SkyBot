@@ -6555,7 +6555,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if receive_real_ovc or market_service:
                 
                 if not overnight:
-                    self.display_atm()
+                    self.display_atm(self.alternate_flag)
                 else:
                     pass
                 
@@ -7356,8 +7356,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         global flag_call_low_update, flag_call_high_update, flag_put_low_update, flag_put_high_update
                         global flag_call_cross_coloring, flag_put_cross_coloring, flag_clear
-
-                        #self.display_atm()
 
                         # 매 10분마다 교차컬러링 수행
                         if not flag_call_low_update and not flag_call_high_update and not flag_put_low_update and not flag_put_high_update:
@@ -8333,11 +8331,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Node Color Check : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
         self.textBrowser.append(str)        
 
-    def display_atm(self):
+    def display_atm(self, blink):
 
         global df_plotdata_two_sum, df_plotdata_two_cha, basis
         global atm_str, atm_val, atm_index, old_atm_index, call_atm_value, put_atm_value 
         global atm_zero_sum, atm_zero_cha
+
+        atm_list = []
         
         # 등가 check & coloring        
         old_atm_index = atm_index
@@ -8347,6 +8347,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         call_atm_value = df_call.at[atm_index, '현재가']
         put_atm_value = df_put.at[atm_index, '현재가']
+        
+        df_plotdata_two_sum[opt_x_idx] = atm_zero_sum
+        df_plotdata_two_cha[opt_x_idx] = atm_zero_cha
 
         atm_minus_3 = round((df_call.at[atm_index - 3, '현재가'] + df_put.at[atm_index - 3, '현재가']), 2)
         atm_minus_2 = round((df_call.at[atm_index - 2, '현재가'] + df_put.at[atm_index - 2, '현재가']), 2)
@@ -8356,9 +8359,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         atm_plus_1 = round((df_call.at[atm_index + 1, '현재가'] + df_put.at[atm_index + 1, '현재가']) , 2)
         atm_plus_2 = round((df_call.at[atm_index + 2, '현재가'] + df_put.at[atm_index + 2, '현재가']) , 2)
         atm_plus_3 = round((df_call.at[atm_index + 3, '현재가'] + df_put.at[atm_index + 3, '현재가']) , 2)
-        
-        df_plotdata_two_sum[opt_x_idx] = atm_zero_sum
-        df_plotdata_two_cha[opt_x_idx] = atm_zero_cha
+
+        atm_list.append(atm_minus_3)
+        atm_list.append(atm_minus_2)
+        atm_list.append(atm_minus_1)
+        atm_list.append(atm_zero_sum)
+        atm_list.append(atm_plus_1)
+        atm_list.append(atm_plus_2)
+        atm_list.append(atm_plus_3)   
+
+        min_index = atm_list.index(min(atm_list)) + atm_index - 3
         
         if atm_str[-1] == '2' or atm_str[-1] == '7':
 
@@ -8490,7 +8500,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setForeground(QBrush(검정색))
         self.tableWidget_put.setItem(atm_index + 3, Option_column.기준가.value, item)
 
-    def within_n_tick(self, source, target, n):
+        if min_index != atm_index:
+
+            if blink:
+
+                self.tableWidget_call.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
+                self.tableWidget_call.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
+                self.tableWidget_put.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
+                self.tableWidget_put.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
+            else:
+                self.tableWidget_call.item(min_index, Option_column.기준가.value).setBackground(QBrush(노란색))
+                self.tableWidget_call.item(min_index, Option_column.기준가.value).setForeground(QBrush(검정색))
+                self.tableWidget_put.item(min_index, Option_column.기준가.value).setBackground(QBrush(노란색))
+                self.tableWidget_put.item(min_index, Option_column.기준가.value).setForeground(QBrush(검정색))
+        else:
+            pass
+
+    def is_within_n_tick(self, source, target, n):
 
         if round((target - 0.01*n), 2) <= source <= round((target + 0.01*n), 2):
             return True
@@ -16308,7 +16334,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         atm_zero_cha = round((df_call.at[atm_index, '현재가'] - df_put.at[atm_index, '현재가']) , 2)
                         atm_plus_1 = round((df_call.at[atm_index + 1, '현재가'] + df_put.at[atm_index + 1, '현재가']) , 2)
                         atm_plus_2 = round((df_call.at[atm_index + 2, '현재가'] + df_put.at[atm_index + 2, '현재가']) , 2)
-                        atm_plus_3 = round((df_call.at[atm_index + 3, '현재가'] + df_put.at[atm_index + 3, '현재가']) , 2)      
+                        atm_plus_3 = round((df_call.at[atm_index + 3, '현재가'] + df_put.at[atm_index + 3, '현재가']) , 2)
+                        
+                        atm_list = []
+                        atm_list.append(atm_minus_3)
+                        atm_list.append(atm_minus_2)
+                        atm_list.append(atm_minus_1)
+                        atm_list.append(atm_zero_sum)
+                        atm_list.append(atm_plus_1)
+                        atm_list.append(atm_plus_2)
+                        atm_list.append(atm_plus_3)   
+
+                        min_index = atm_list.index(min(atm_list)) + atm_index - 3
 
                         # 콜 양합표시
                         val = df_call.at[atm_index - 3, '기준가']
@@ -16409,6 +16446,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setBackground(QBrush(라임))
                         item.setForeground(QBrush(검정색))
                         self.tableWidget_put.setItem(atm_index + 3, Option_column.기준가.value, item)
+
+                        if min_index != atm_index:
+
+                            self.tableWidget_call.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
+                            self.tableWidget_call.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
+                            self.tableWidget_put.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
+                            self.tableWidget_put.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
+                        else:
+                            pass
 
                         # 옵션 맥점 컬러링
                         str = '[{0:02d}:{1:02d}:{2:02d}] t8416종료 주간 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -16546,7 +16592,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         for i in range(10):
 
-            if self.within_n_tick(kp200_realdata['저가'], kp200_coreval[i], 10):
+            if self.is_within_n_tick(kp200_realdata['저가'], kp200_coreval[i], 10):
                 
                 self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(대맥점색))
                 self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))
@@ -16572,7 +16618,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         for i in range(10):
 
-            if self.within_n_tick(kp200_realdata['고가'], kp200_coreval[i], 10):
+            if self.is_within_n_tick(kp200_realdata['고가'], kp200_coreval[i], 10):
                 
                 self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(대맥점색))
                 self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(검정색))
@@ -16591,7 +16637,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
 
         # FUT OL/OH
-        if self.within_n_tick(선물_시가, 선물_저가, 10) and not self.within_n_tick(선물_시가, 선물_고가, 10):
+        if self.is_within_n_tick(선물_시가, 선물_저가, 10) and not self.is_within_n_tick(선물_시가, 선물_고가, 10):
 
             item = QTableWidgetItem('▲')
             item.setTextAlignment(Qt.AlignCenter)
@@ -16631,7 +16677,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             flag_fut_ol = True
 
-        elif not self.within_n_tick(선물_시가, 선물_저가, 10) and self.within_n_tick(선물_시가, 선물_고가, 10):
+        elif not self.is_within_n_tick(선물_시가, 선물_저가, 10) and self.is_within_n_tick(선물_시가, 선물_고가, 10):
 
             item = QTableWidgetItem('▼')
             item.setTextAlignment(Qt.AlignCenter)
@@ -16704,7 +16750,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
                 
         # 전저, 전고, 종가, 피봇 컬러링
-        if self.within_n_tick(KP200_전저, kp200_realdata['저가'], 10):
+        if self.is_within_n_tick(KP200_전저, kp200_realdata['저가'], 10):
 
             self.tableWidget_fut.item(2, Futures_column.전저.value).setBackground(QBrush(콜전저색))
             self.tableWidget_fut.item(2, Futures_column.전저.value).setForeground(QBrush(검정색))
@@ -16713,7 +16759,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if self.within_n_tick(KP200_전고, kp200_realdata['저가'], 10):
+        if self.is_within_n_tick(KP200_전고, kp200_realdata['저가'], 10):
 
             self.tableWidget_fut.item(2, Futures_column.전고.value).setBackground(QBrush(콜전고색))
             self.tableWidget_fut.item(2, Futures_column.전고.value).setForeground(QBrush(검정색))
@@ -16722,7 +16768,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if self.within_n_tick(kp200_종가, kp200_realdata['저가'], 10):
+        if self.is_within_n_tick(kp200_종가, kp200_realdata['저가'], 10):
 
             self.tableWidget_fut.item(2, Futures_column.종가.value).setBackground(QBrush(콜종가색))
             self.tableWidget_fut.item(2, Futures_column.종가.value).setForeground(QBrush(검정색))
@@ -16733,7 +16779,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if kp200_피봇 > 0:
 
-            if self.within_n_tick(kp200_피봇, kp200_realdata['저가'], 10):
+            if self.is_within_n_tick(kp200_피봇, kp200_realdata['저가'], 10):
 
                 self.tableWidget_fut.item(2, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
                 self.tableWidget_fut.item(2, Futures_column.피봇.value).setForeground(QBrush(검정색))
@@ -16744,7 +16790,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass        
 
-        if self.within_n_tick(KP200_전저, kp200_realdata['고가'], 10):
+        if self.is_within_n_tick(KP200_전저, kp200_realdata['고가'], 10):
 
             self.tableWidget_fut.item(2, Futures_column.전저.value).setBackground(QBrush(콜전저색))
             self.tableWidget_fut.item(2, Futures_column.전저.value).setForeground(QBrush(검정색))
@@ -16753,7 +16799,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass        
 
-        if self.within_n_tick(KP200_전고, kp200_realdata['고가'], 10):
+        if self.is_within_n_tick(KP200_전고, kp200_realdata['고가'], 10):
 
             self.tableWidget_fut.item(2, Futures_column.전고.value).setBackground(QBrush(콜전고색))
             self.tableWidget_fut.item(2, Futures_column.전고.value).setForeground(QBrush(검정색))
@@ -16762,7 +16808,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass        
 
-        if self.within_n_tick(선물_종가, kp200_realdata['고가'], 10):
+        if self.is_within_n_tick(선물_종가, kp200_realdata['고가'], 10):
 
             self.tableWidget_fut.item(2, Futures_column.종가.value).setBackground(QBrush(콜종가색))
             self.tableWidget_fut.item(2, Futures_column.종가.value).setForeground(QBrush(검정색))
@@ -16773,7 +16819,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if kp200_피봇 > 0:
 
-            if self.within_n_tick(kp200_피봇, kp200_realdata['고가'], 10):                
+            if self.is_within_n_tick(kp200_피봇, kp200_realdata['고가'], 10):                
 
                 self.tableWidget_fut.item(2, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
                 self.tableWidget_fut.item(2, Futures_column.피봇.value).setForeground(QBrush(검정색))
@@ -16827,7 +16873,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
                 
         # 전저, 전고, 종가, 피봇 컬러링
-        if self.within_n_tick(선물_전저, 선물_저가, 10):
+        if self.is_within_n_tick(선물_전저, 선물_저가, 10):
 
             if overnight:
 
@@ -16843,7 +16889,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if self.within_n_tick(선물_전고, 선물_저가, 10):
+        if self.is_within_n_tick(선물_전고, 선물_저가, 10):
 
             if overnight:
 
@@ -16859,7 +16905,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if self.within_n_tick(선물_종가, 선물_저가, 10):
+        if self.is_within_n_tick(선물_종가, 선물_저가, 10):
 
             if overnight:
 
@@ -16877,7 +16923,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 선물_피봇 > 0:
 
-            if self.within_n_tick(선물_피봇, 선물_저가, 10):
+            if self.is_within_n_tick(선물_피봇, 선물_저가, 10):
 
                 if overnight:
 
@@ -16895,7 +16941,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass        
 
-        if self.within_n_tick(선물_전저, 선물_고가, 10):
+        if self.is_within_n_tick(선물_전저, 선물_고가, 10):
 
             if overnight:
 
@@ -16911,7 +16957,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass        
 
-        if self.within_n_tick(선물_전고, 선물_고가, 10):
+        if self.is_within_n_tick(선물_전고, 선물_고가, 10):
 
             if overnight:
 
@@ -16927,7 +16973,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass        
 
-        if self.within_n_tick(선물_종가, 선물_고가, 10):
+        if self.is_within_n_tick(선물_종가, 선물_고가, 10):
 
             if overnight:
 
@@ -16945,7 +16991,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 선물_피봇 > 0:
 
-            if self.within_n_tick(선물_피봇, 선물_고가, 10):                
+            if self.is_within_n_tick(선물_피봇, 선물_고가, 10):                
 
                 if overnight:
 
@@ -17625,7 +17671,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 oloh_threshold = 5   
 
             # call OL/OH count
-            if self.within_n_tick(콜시가, 콜저가, oloh_threshold) and not self.within_n_tick(콜시가, 콜고가, oloh_threshold):
+            if self.is_within_n_tick(콜시가, 콜저가, oloh_threshold) and not self.is_within_n_tick(콜시가, 콜고가, oloh_threshold):
 
                 oloh_str = '▲'
 
@@ -17643,7 +17689,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 call_ol[index] = True
 
-            elif self.within_n_tick(콜시가, 콜고가, oloh_threshold) and not self.within_n_tick(콜시가, 콜저가, oloh_threshold):
+            elif self.is_within_n_tick(콜시가, 콜고가, oloh_threshold) and not self.is_within_n_tick(콜시가, 콜저가, oloh_threshold):
 
                 oloh_str = '▼'
 
@@ -18823,7 +18869,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 oloh_threshold = 5   
 
                             # call OL/OH count
-                            if self.within_n_tick(시가, 저가, oloh_threshold) and not self.within_n_tick(시가, 고가, oloh_threshold):
+                            if self.is_within_n_tick(시가, 저가, oloh_threshold) and not self.is_within_n_tick(시가, 고가, oloh_threshold):
 
                                 oloh_str = '▲'
 
@@ -18841,7 +18887,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 call_ol[index] = True
 
-                            elif self.within_n_tick(시가, 고가, oloh_threshold) and not self.within_n_tick(시가, 저가, oloh_threshold):
+                            elif self.is_within_n_tick(시가, 고가, oloh_threshold) and not self.is_within_n_tick(시가, 저가, oloh_threshold):
 
                                 oloh_str = '▼'
 
@@ -19031,7 +19077,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 oloh_threshold = 5   
 
             # call OL/OH count
-            if self.within_n_tick(풋시가, 풋저가, oloh_threshold) and not self.within_n_tick(풋시가, 풋고가, oloh_threshold):
+            if self.is_within_n_tick(풋시가, 풋저가, oloh_threshold) and not self.is_within_n_tick(풋시가, 풋고가, oloh_threshold):
 
                 oloh_str = '▲'
 
@@ -19049,7 +19095,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 put_ol[index] = True
 
-            elif self.within_n_tick(풋시가, 풋고가, oloh_threshold) and not self.within_n_tick(풋시가, 풋저가, oloh_threshold):
+            elif self.is_within_n_tick(풋시가, 풋고가, oloh_threshold) and not self.is_within_n_tick(풋시가, 풋저가, oloh_threshold):
 
                 oloh_str = '▼'
 
@@ -20156,7 +20202,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 oloh_threshold = 5   
 
                             # put OL/OH count
-                            if self.within_n_tick(시가, 저가, oloh_threshold) and not self.within_n_tick(시가, 고가, oloh_threshold):
+                            if self.is_within_n_tick(시가, 저가, oloh_threshold) and not self.is_within_n_tick(시가, 고가, oloh_threshold):
 
                                 oloh_str = '▲'
 
@@ -20174,7 +20220,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 put_ol[index] = True
 
-                            elif self.within_n_tick(시가, 고가, oloh_threshold) and not self.within_n_tick(시가, 저가, oloh_threshold):
+                            elif self.is_within_n_tick(시가, 고가, oloh_threshold) and not self.is_within_n_tick(시가, 저가, oloh_threshold):
 
                                 oloh_str = '▼'
 
