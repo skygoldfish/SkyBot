@@ -18239,7 +18239,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if 콜기준가 >= 콜저가:
+            if not overnight and 콜기준가 >= 콜저가:
 
                 str = '{0:0.2f}'.format(콜기준가) + '\n' + '▼'
 
@@ -19567,7 +19567,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if 풋기준가 >= 풋저가:
+            if not overnight and 풋기준가 >= 풋저가:
 
                 str = '{0:0.2f}'.format(풋기준가) + '\n' + '▼'
 
