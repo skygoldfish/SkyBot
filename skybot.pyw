@@ -4771,54 +4771,54 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot1_rr_line.setValue(CME_종가)
 
-            if 선물_전저 > 0:
-
-                plot1_fut_jl_line.setValue(선물_전저)
+            if 선물_전저 == 0:
+                선물_전저 = CME_종가
             else:
-                plot1_fut_jl_line.setValue(CME_종가)
-                #선물_전저 = CME_종가
+                pass
+
+            if 선물_전고 == 0:
+                선물_전고 = CME_종가
+            else:
+                pass
+
+            if 선물_종가 == 0:
+                선물_전고 = CME_종가
+            else:
+                pass
+
+            if 선물_피봇 == 0:
+                선물_피봇 = CME_종가
+            else:
+                pass
+
+            if 선물_시가 == 0:
+                선물_시가 = CME_종가
+            else:
+                pass
+
+            if 선물_저가 == 0:
+                선물_저가 = CME_종가
+            else:
+                pass
+
+            if 선물_고가 == 0:
+                선물_고가 = CME_종가
+            else:
+                pass
+
+            plot1_fut_jl_line.setValue(선물_전저)
             
-            if 선물_전고 > 0:
-
-                plot1_fut_jh_line.setValue(선물_전고)
-            else:
-                plot1_fut_jh_line.setValue(CME_종가)
-                #선물_전고 = CME_종가
+            plot1_fut_jh_line.setValue(선물_전고)
             
-            if 선물_종가 > 0:
+            plot1_fut_close_line.setValue(선물_종가)
 
-                plot1_fut_close_line.setValue(선물_종가)
-            else:
-                plot1_fut_close_line.setValue(CME_종가)
-                #선물_종가 = CME_종가
+            plot1_fut_pivot_line.setValue(선물_피봇)
 
-            if 선물_피봇 > 0:
+            plot1_fut_open_line.setValue(선물_시가)
 
-                plot1_fut_pivot_line.setValue(선물_피봇)
-            else:
-                plot1_fut_pivot_line.setValue(CME_종가)
-                #선물_피봇 = CME_종가
+            plot1_fut_low_line.setValue(선물_저가)
 
-            if 선물_시가 > 0:
-
-                plot1_fut_open_line.setValue(선물_시가)
-            else:
-                plot1_fut_open_line.setValue(CME_종가)
-                #선물_시가 = CME_종가
-
-            if 선물_저가 > 0:
-
-                plot1_fut_low_line.setValue(선물_저가)
-            else:
-                plot1_fut_low_line.setValue(CME_종가)
-                #선물_저가 = CME_종가
-
-            if 선물_고가 > 0:
-
-                plot1_fut_high_line.setValue(선물_고가)
-            else:
-                plot1_fut_high_line.setValue(CME_종가)
-                #선물_고가 = CME_종가            
+            plot1_fut_high_line.setValue(선물_고가)          
 
             #print('선물_종가 =', 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_고가)
 
@@ -24336,68 +24336,75 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot1_rr_line.setValue(CME_종가)
 
-            if 선물_전저 > 0:
-
-                bc_plot1_fut_jl_line.setValue(선물_전저)
-
-                str = ' 전저 : {0} '.format(format(선물_전저, ','))
-                self.label_1.setText(str) 
+            if 선물_전저 == 0:
+                선물_전저 = CME_종가
             else:
-                bc_plot1_fut_jl_line.setValue(CME_종가)
+                pass
+
+            if 선물_전고 == 0:
+                선물_전고 = CME_종가
+            else:
+                pass
+
+            if 선물_종가 == 0:
+                선물_전고 = CME_종가
+            else:
+                pass
+
+            if 선물_피봇 == 0:
+                선물_피봇 = CME_종가
+            else:
+                pass
+
+            if 선물_시가 == 0:
+                선물_시가 = CME_종가
+            else:
+                pass
+
+            if 선물_저가 == 0:
+                선물_저가 = CME_종가
+            else:
+                pass
+
+            if 선물_고가 == 0:
+                선물_고가 = CME_종가
+            else:
+                pass
+
+            bc_plot1_fut_jl_line.setValue(선물_전저)
+
+            str = ' 전저 : {0} '.format(format(선물_전저, ','))
+            self.label_1.setText(str) 
             
-            if 선물_전고 > 0:
+            bc_plot1_fut_jh_line.setValue(선물_전고)
 
-                bc_plot1_fut_jh_line.setValue(선물_전고)
-
-                str = ' 전고 : {0} '.format(format(선물_전고, ','))
-                self.label_2.setText(str) 
-            else:
-                bc_plot1_fut_jh_line.setValue(CME_종가)
+            str = ' 전고 : {0} '.format(format(선물_전고, ','))
+            self.label_2.setText(str) 
             
-            if 선물_종가 > 0:
+            bc_plot1_fut_close_line.setValue(선물_종가)
 
-                bc_plot1_fut_close_line.setValue(선물_종가)
+            str = ' 종가 : {0} '.format(format(선물_종가, ','))
+            self.label_3.setText(str)
 
-                str = ' 종가 : {0} '.format(format(선물_종가, ','))
-                self.label_3.setText(str)
-            else:
-                bc_plot1_fut_close_line.setValue(CME_종가)
+            bc_plot1_fut_pivot_line.setValue(선물_피봇)
 
-            if 선물_피봇 > 0:
+            str = ' 피봇 : {0} '.format(format(선물_피봇, ','))
+            self.label_4.setText(str)
 
-                bc_plot1_fut_pivot_line.setValue(선물_피봇)
+            bc_plot1_fut_open_line.setValue(선물_시가)
 
-                str = ' 피봇 : {0} '.format(format(선물_피봇, ','))
-                self.label_4.setText(str)
-            else:
-                bc_plot1_fut_pivot_line.setValue(CME_종가)
+            str = ' 시가 : {0} '.format(format(선물_시가, ','))
+            self.label_5.setText(str)
 
-            if 선물_시가 > 0:
+            bc_plot1_fut_low_line.setValue(선물_저가)
 
-                bc_plot1_fut_open_line.setValue(선물_시가)
+            str = ' 저가 : {0} '.format(format(선물_저가, ','))
+            self.label_6.setText(str)
 
-                str = ' 시가 : {0} '.format(format(선물_시가, ','))
-                self.label_5.setText(str)
-            else:
-                bc_plot1_fut_open_line.setValue(CME_종가)
+            bc_plot1_fut_high_line.setValue(선물_고가)
 
-            if 선물_저가 > 0:
-
-                bc_plot1_fut_low_line.setValue(선물_저가)
-
-                str = ' 저가 : {0} '.format(format(선물_저가, ','))
-                self.label_6.setText(str)
-            else:
-                bc_plot1_fut_low_line.setValue(CME_종가)
-
-            if 선물_고가 > 0:
-
-                bc_plot1_fut_high_line.setValue(선물_고가)
-
-                str = ' 고가 : {0} '.format(format(선물_고가, ','))
-                self.label_8.setText(str)
-            else:
-                bc_plot1_fut_high_line.setValue(CME_종가)
+            str = ' 고가 : {0} '.format(format(선물_고가, ','))
+            self.label_8.setText(str)
 
         elif bc_comboindex1 == 5:
 
