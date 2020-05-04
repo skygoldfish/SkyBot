@@ -7772,6 +7772,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         call_high_list = []
         put_low_list = []
         put_high_list = []
+        high_low_list = []
         moving_list = []
 
         OLD_진성맥점 = 진성맥점[:]
@@ -7800,9 +7801,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #print('call_high_list =', call_high_list)
         #print('put_low_list =', put_low_list)
         #print('put_high_list =', put_high_list)
-        #print('FILE_HIGH_LOW_LIST =', FILE_HIGH_LOW_LIST)        
+        #print('FILE_HIGH_LOW_LIST =', FILE_HIGH_LOW_LIST)
 
-        moving_list = FILE_HIGH_LOW_LIST + call_low_list + call_high_list + put_low_list + put_high_list
+        high_low_list = call_low_list + call_high_list + put_low_list + put_high_list     
+
+        moving_list = FILE_HIGH_LOW_LIST + high_low_list
 
         # 1st search
         동적맥점1, 동적맥점1_빈도수 = self.get_maxval_info(moving_list)
@@ -7945,65 +7948,89 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         '''
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
-            (dt.hour, dt.minute, dt.second, 동적맥점1, 동적맥점1_빈도수)
-        self.textBrowser.append(str)
-        print(str)
+        if 동적맥점1 in high_low_list:
 
-        item = QTableWidgetItem("{0}\n({1})".format(동적맥점1, 동적맥점1_빈도수))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(lime))
-        self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)            
+            str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
+                (dt.hour, dt.minute, dt.second, 동적맥점1, 동적맥점1_빈도수)
+            self.textBrowser.append(str)
+            print(str)
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
-            (dt.hour, dt.minute, dt.second, 동적맥점2, 동적맥점2_빈도수)
-        self.textBrowser.append(str)
-        print(str)
+            item = QTableWidgetItem("{0}\n({1})".format(동적맥점1, 동적맥점1_빈도수))
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(lime))
+            self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)
+        else:
+            pass            
 
-        item = QTableWidgetItem("{0}\n({1})".format(동적맥점2, 동적맥점2_빈도수))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(lime))
-        self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)             
+        if 동적맥점2 in high_low_list:
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
-            (dt.hour, dt.minute, dt.second, 동적맥점3, 동적맥점3_빈도수)
-        self.textBrowser.append(str)
-        print(str)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
+                (dt.hour, dt.minute, dt.second, 동적맥점2, 동적맥점2_빈도수)
+            self.textBrowser.append(str)
+            print(str)
 
-        item = QTableWidgetItem("{0}\n({1})".format(동적맥점3, 동적맥점3_빈도수))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(lime))
-        self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)            
+            item = QTableWidgetItem("{0}\n({1})".format(동적맥점2, 동적맥점2_빈도수))
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(lime))
+            self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)
+        else:
+            pass             
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 4th 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
-            (dt.hour, dt.minute, dt.second, 동적맥점4, 동적맥점4_빈도수)
-        self.textBrowser.append(str)
-        print(str)
+        if 동적맥점3 in high_low_list:
 
-        item = QTableWidgetItem("{0}\n({1})".format(동적맥점4, 동적맥점4_빈도수))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(lime))
-        self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)            
+            str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
+                (dt.hour, dt.minute, dt.second, 동적맥점3, 동적맥점3_빈도수)
+            self.textBrowser.append(str)
+            print(str)
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 5th 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
-            (dt.hour, dt.minute, dt.second, 동적맥점5, 동적맥점5_빈도수)
-        self.textBrowser.append(str)
-        print(str)
+            item = QTableWidgetItem("{0}\n({1})".format(동적맥점3, 동적맥점3_빈도수))
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(lime))
+            self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
+        else:
+            pass            
 
-        item = QTableWidgetItem("{0}\n({1})".format(동적맥점5, 동적맥점5_빈도수))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(lime))
-        self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)            
+        if 동적맥점4 in high_low_list:
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 6th 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
-            (dt.hour, dt.minute, dt.second, 동적맥점6, 동적맥점6_빈도수)
-        self.textBrowser.append(str)
-        print(str)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 4th 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
+                (dt.hour, dt.minute, dt.second, 동적맥점4, 동적맥점4_빈도수)
+            self.textBrowser.append(str)
+            print(str)
 
-        item = QTableWidgetItem("{0}\n({1})".format(동적맥점6, 동적맥점6_빈도수))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(lime))
-        self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)            
+            item = QTableWidgetItem("{0}\n({1})".format(동적맥점4, 동적맥점4_빈도수))
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(lime))
+            self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
+        else:
+            pass            
+
+        if 동적맥점5 in high_low_list:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 5th 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
+                (dt.hour, dt.minute, dt.second, 동적맥점5, 동적맥점5_빈도수)
+            self.textBrowser.append(str)
+            print(str)
+
+            item = QTableWidgetItem("{0}\n({1})".format(동적맥점5, 동적맥점5_빈도수))
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(lime))
+            self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item) 
+        else:
+            pass           
+
+        if 동적맥점6 in high_low_list:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 6th 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
+                (dt.hour, dt.minute, dt.second, 동적맥점6, 동적맥점6_빈도수)
+            self.textBrowser.append(str)
+            print(str)
+
+            item = QTableWidgetItem("{0}\n({1})".format(동적맥점6, 동적맥점6_빈도수))
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(lime))
+            self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
+        else:
+            pass            
 
         if 진성맥점 != OLD_진성맥점:
 
