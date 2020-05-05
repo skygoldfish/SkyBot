@@ -496,6 +496,8 @@ if os.path.isfile('overnight_info.txt'):
     with open('overnight_info.txt', mode='r') as overnight_file:
 
         tmp = overnight_file.readline().strip()
+        tmp = overnight_file.readline().strip()
+        tmp = overnight_file.readline().strip()
         
         tmp = overnight_file.readline().strip()
         temp = tmp.split()
