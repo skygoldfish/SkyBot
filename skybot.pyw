@@ -7907,123 +7907,51 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         진성맥점 = list(set(진성맥점))
         진성맥점.sort()
 
-        '''
-        moving_list.sort()
-        moving_list.reverse()
+        item_str = "{0}\n({1})".format(동적맥점1, 동적맥점1_빈도수)
+        item = QTableWidgetItem(item_str)
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(lime))
+        self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)
 
-        # 첫번재 최대빈도 맥점탐색
-        result = list(Counter(moving_list).values())
-        동적맥점1_빈도수 = max(result)
+        item_str = "{0}\n({1})".format(동적맥점2, 동적맥점2_빈도수)
+        item = QTableWidgetItem(item_str)
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(lime))
+        self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)
 
-        if 동적맥점1_빈도수 > 2:
+        item_str = "{0}\n({1})".format(동적맥점3, 동적맥점3_빈도수)
+        item = QTableWidgetItem(item_str)
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(lime))
+        self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
 
-            # 중복횟수 최대값 인덱스 구함
-            max_index = result.index(max(result))
+        item_str = "{0}\n({1})".format(동적맥점4, 동적맥점4_빈도수)
+        item = QTableWidgetItem(item_str)
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(lime))
+        self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
 
-            # 최대 중복값 산출
-            result = list(Counter(moving_list).keys())
-            동적맥점1 = result[max_index]
+        item_str = "{0}\n({1})".format(동적맥점5, 동적맥점5_빈도수)
+        item = QTableWidgetItem(item_str)
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(lime))
+        self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)
 
-            진성맥점.append(동적맥점1)
-            
-            # 두번재 최대빈도 맥점탐색
-            second_list = list(filter((동적맥점1).__ne__, moving_list))
-
-            result = list(Counter(second_list).values())
-            동적맥점2_빈도수 = max(result)
-
-            if 동적맥점2_빈도수 > 2:
-
-                max_index = result.index(max(result))
-
-                # 최대 중복값 산출
-                result = list(Counter(second_list).keys())
-                동적맥점2 = result[max_index]
-                
-                진성맥점.append(동적맥점2)
-
-                # 세번재 최대빈도 맥점탐색
-                third_list = list(filter((동적맥점2).__ne__, second_list))
-
-                result = list(Counter(third_list).values())
-                동적맥점3_빈도수 = max(result)
-
-                if 동적맥점3_빈도수 > 2:
-
-                    max_index = result.index(max(result))
-
-                    # 최대 중복값 산출
-                    result = list(Counter(third_list).keys())
-                    동적맥점3 = result[max_index]
-
-                    진성맥점.append(동적맥점3)
-
-                    # 네번재 최대빈도 맥점탐색
-                    fourth_list = list(filter((동적맥점3).__ne__, third_list))
-
-                    result = list(Counter(fourth_list).values())
-                    동적맥점4_빈도수 = max(result)
-
-                    if 동적맥점4_빈도수 > 2:
-
-                        max_index = result.index(max(result))
-                        result = list(Counter(fourth_list).keys())
-
-                        동적맥점4 = result[max_index]
-
-                        진성맥점.append(동적맥점4)
-
-                        # 다섯번재 최대빈도 맥점탐색
-                        fifth_list = list(filter((동적맥점4).__ne__, fourth_list))
-                        result = list(Counter(fifth_list).values())
-                        동적맥점5_빈도수 = max(result)
-
-                        if 동적맥점5_빈도수 > 2:
-
-                            max_index = result.index(max(result))
-                            result = list(Counter(fifth_list).keys())
-
-                            동적맥점5 = result[max_index]
-
-                            진성맥점.append(동적맥점5)
-
-                            # 여섯번재 최대빈도 맥점탐색
-                            sixth_list = list(filter((동적맥점5).__ne__, fifth_list))
-                            result = list(Counter(sixth_list).values())
-                            동적맥점6_빈도수 = max(result)
-
-                            if 동적맥점6_빈도수 > 2:
-
-                                max_index = result.index(max(result))
-                                result = list(Counter(sixth_list).keys())
-
-                                동적맥점6 = result[max_index]
-
-                                진성맥점.append(동적맥점6)
-                                진성맥점 = list(set(진성맥점))
-                                진성맥점.sort()
-                            else:
-                                pass
-                        else:
-                            pass
-                    else:
-                        pass
-                else:
-                    pass
-            else:
-                pass                
-        else:
-            pass
-        '''
+        item_str = "{0}\n({1})".format(동적맥점6, 동적맥점6_빈도수)
+        item = QTableWidgetItem(item_str)
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(lime))
+        self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
 
         if 동적맥점1 in high_low_list:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
+            str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
                 (dt.hour, dt.minute, dt.second, 동적맥점1, 동적맥점1_빈도수)
             self.textBrowser.append(str)
             print(str)
 
-            item = QTableWidgetItem("{0}\n({1})".format(동적맥점1, 동적맥점1_빈도수))
+            item_str = "{0}\n({1})✓".format(동적맥점1, 동적맥점1_빈도수)
+            item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
             self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)
@@ -8032,12 +7960,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 동적맥점2 in high_low_list:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
+            str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
                 (dt.hour, dt.minute, dt.second, 동적맥점2, 동적맥점2_빈도수)
             self.textBrowser.append(str)
             print(str)
 
-            item = QTableWidgetItem("{0}\n({1})".format(동적맥점2, 동적맥점2_빈도수))
+            item_str = "{0}\n({1})✓".format(동적맥점2, 동적맥점2_빈도수)
+            item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
             self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)
@@ -8046,12 +7975,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 동적맥점3 in high_low_list:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
+            str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
                 (dt.hour, dt.minute, dt.second, 동적맥점3, 동적맥점3_빈도수)
             self.textBrowser.append(str)
             print(str)
 
-            item = QTableWidgetItem("{0}\n({1})".format(동적맥점3, 동적맥점3_빈도수))
+            item_str = "{0}\n({1})✓".format(동적맥점3, 동적맥점3_빈도수)
+            item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
             self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
@@ -8060,12 +7990,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 동적맥점4 in high_low_list:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 4th 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
+            str = '[{0:02d}:{1:02d}:{2:02d}] 4th 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
                 (dt.hour, dt.minute, dt.second, 동적맥점4, 동적맥점4_빈도수)
             self.textBrowser.append(str)
             print(str)
 
-            item = QTableWidgetItem("{0}\n({1})".format(동적맥점4, 동적맥점4_빈도수))
+            item_str = "{0}\n({1})✓".format(동적맥점4, 동적맥점4_빈도수)
+            item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
             self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
@@ -8074,12 +8005,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 동적맥점5 in high_low_list:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 5th 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
+            str = '[{0:02d}:{1:02d}:{2:02d}] 5th 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
                 (dt.hour, dt.minute, dt.second, 동적맥점5, 동적맥점5_빈도수)
             self.textBrowser.append(str)
             print(str)
 
-            item = QTableWidgetItem("{0}\n({1})".format(동적맥점5, 동적맥점5_빈도수))
+            item_str = "{0}\n({1})✓".format(동적맥점5, 동적맥점5_빈도수)
+            item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
             self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item) 
@@ -8088,17 +8020,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 동적맥점6 in high_low_list:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 6th 동적맥점 {3}(발생빈도수 = {4}) 변경됨...\r'.format \
+            str = '[{0:02d}:{1:02d}:{2:02d}] 6th 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
                 (dt.hour, dt.minute, dt.second, 동적맥점6, 동적맥점6_빈도수)
             self.textBrowser.append(str)
             print(str)
 
-            item = QTableWidgetItem("{0}\n({1})".format(동적맥점6, 동적맥점6_빈도수))
+            item_str = "{0}\n({1})✓".format(동적맥점6, 동적맥점6_빈도수)
+            item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
             self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
         else:
-            pass            
+            pass
+
+        self.tableWidget_fut.resizeColumnsToContents()            
 
         if 진성맥점 != OLD_진성맥점:
 
