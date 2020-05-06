@@ -7877,35 +7877,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # 1st search
         동적맥점1, 동적맥점1_빈도수 = self.get_maxval_info(moving_list)
-        진성맥점.append(동적맥점1)
+        #진성맥점.append(동적맥점1)
 
         # 2nd search
         second_list = list(filter((동적맥점1).__ne__, moving_list))
         동적맥점2, 동적맥점2_빈도수 = self.get_maxval_info(second_list)
-        진성맥점.append(동적맥점2)
+        #진성맥점.append(동적맥점2)
 
         # 3rd search
         third_list = list(filter((동적맥점2).__ne__, second_list))
         동적맥점3, 동적맥점3_빈도수 = self.get_maxval_info(third_list)
-        진성맥점.append(동적맥점3)
+        #진성맥점.append(동적맥점3)
 
         # 4th search
         fourth_list = list(filter((동적맥점3).__ne__, third_list))
         동적맥점4, 동적맥점4_빈도수 = self.get_maxval_info(fourth_list)
-        진성맥점.append(동적맥점4)
+        #진성맥점.append(동적맥점4)
 
         # 5th search
         fifth_list = list(filter((동적맥점4).__ne__, fourth_list))
         동적맥점5, 동적맥점5_빈도수 = self.get_maxval_info(fifth_list)
-        진성맥점.append(동적맥점5)
+        #진성맥점.append(동적맥점5)
 
         # 6th search
         sixth_list = list(filter((동적맥점5).__ne__, fifth_list))
         동적맥점6, 동적맥점6_빈도수 = self.get_maxval_info(sixth_list)
-        진성맥점.append(동적맥점6)
+        #진성맥점.append(동적맥점6)
 
-        진성맥점 = list(set(진성맥점))
-        진성맥점.sort()
+        #진성맥점 = list(set(진성맥점))
+        #진성맥점.sort()
 
         item_str = "{0}\n({1})".format(동적맥점1, 동적맥점1_빈도수)
         item = QTableWidgetItem(item_str)
@@ -7950,6 +7950,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(str)
             print(str)
 
+            진성맥점.append(동적맥점1)
+
             item_str = "{0}\n({1})✓".format(동적맥점1, 동적맥점1_빈도수)
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
@@ -7964,6 +7966,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 (dt.hour, dt.minute, dt.second, 동적맥점2, 동적맥점2_빈도수)
             self.textBrowser.append(str)
             print(str)
+
+            진성맥점.append(동적맥점2)
 
             item_str = "{0}\n({1})✓".format(동적맥점2, 동적맥점2_빈도수)
             item = QTableWidgetItem(item_str)
@@ -7980,6 +7984,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(str)
             print(str)
 
+            진성맥점.append(동적맥점3)
+
             item_str = "{0}\n({1})✓".format(동적맥점3, 동적맥점3_빈도수)
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
@@ -7994,6 +8000,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 (dt.hour, dt.minute, dt.second, 동적맥점4, 동적맥점4_빈도수)
             self.textBrowser.append(str)
             print(str)
+
+            진성맥점.append(동적맥점4)
 
             item_str = "{0}\n({1})✓".format(동적맥점4, 동적맥점4_빈도수)
             item = QTableWidgetItem(item_str)
@@ -8010,6 +8018,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(str)
             print(str)
 
+            진성맥점.append(동적맥점5)
+
             item_str = "{0}\n({1})✓".format(동적맥점5, 동적맥점5_빈도수)
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
@@ -8025,6 +8035,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(str)
             print(str)
 
+            진성맥점.append(동적맥점6)
+
             item_str = "{0}\n({1})✓".format(동적맥점6, 동적맥점6_빈도수)
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
@@ -8033,7 +8045,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        self.tableWidget_fut.resizeColumnsToContents()            
+        self.tableWidget_fut.resizeColumnsToContents()
+        
+        진성맥점 = list(set(진성맥점))
+        진성맥점.sort()            
 
         if 진성맥점 != OLD_진성맥점:
 
