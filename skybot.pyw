@@ -8300,7 +8300,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.call_node_color_update()
         self.put_node_color_update()
 
-        if bms_node_list:
+        if not pre_start and bms_node_list:
             self.search_moving_node()
         else:
             pass
@@ -13917,12 +13917,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print('\r')
                     print('t2301 put open list = ', put_open_list, len(put_open_list))
                     print('\r')
-
+                    '''
                     if bms_node_list:
                         self.search_moving_node()
                     else:
                         pass           
-
+                    '''
                     if pre_start:
 
                         # FUTURES/KOSPI200 예상지수 요청
