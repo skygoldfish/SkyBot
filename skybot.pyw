@@ -1594,6 +1594,9 @@ call_scroll = False
 put_scroll = False
 refresh_coloring = False
 
+high_low_list = []
+moving_list = []
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -7787,6 +7790,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def get_value_frequency(self, value):
 
+        global high_low_list, moving_list
+
         call_low_list = []
         call_high_list = []
         put_low_list = []
@@ -7845,6 +7850,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def search_moving_node(self):
 
         global 진성맥점
+        global high_low_list, moving_list 
 
         dt = datetime.datetime.now()
 
@@ -7854,45 +7860,48 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.textBrowser.append(str)
 
         #진성맥점 = DEFAULT_NODE_LIST
-
-        call_low_list = []
-        call_high_list = []
-        put_low_list = []
-        put_high_list = []
-        high_low_list = []
-        moving_list = []
-
         OLD_진성맥점 = 진성맥점[:]
-        
-        call_저가.sort()
-        index1 = bisect(call_저가, 1.20)
-        index2 = bisect(call_저가, 9.99)
-        call_low_list = call_저가[index1:index2]
 
-        call_고가.sort()
-        index1 = bisect(call_고가, 1.20)
-        index2 = bisect(call_고가, 9.99)
-        call_high_list = call_고가[index1:index2]
+        if not moving_list:            
 
-        put_저가.sort()
-        index1 = bisect(put_저가, 1.20)
-        index2 = bisect(put_저가, 9.99)
-        put_low_list = put_저가[index1:index2]
+            call_low_list = []
+            call_high_list = []
+            put_low_list = []
+            put_high_list = []
+            high_low_list = []
+            moving_list = []        
 
-        put_고가.sort()
-        index1 = bisect(put_고가, 1.20)
-        index2 = bisect(put_고가, 9.99)
-        put_high_list = put_고가[index1:index2]
-        
-        #print('call_low_list =', call_low_list)
-        #print('call_high_list =', call_high_list)
-        #print('put_low_list =', put_low_list)
-        #print('put_high_list =', put_high_list)
-        #print('FILE_HIGH_LOW_LIST =', FILE_HIGH_LOW_LIST)
+            call_저가.sort()
+            index1 = bisect(call_저가, 1.20)
+            index2 = bisect(call_저가, 9.99)
+            call_low_list = call_저가[index1:index2]
 
-        high_low_list = call_low_list + call_high_list + put_low_list + put_high_list     
+            call_고가.sort()
+            index1 = bisect(call_고가, 1.20)
+            index2 = bisect(call_고가, 9.99)
+            call_high_list = call_고가[index1:index2]
 
-        moving_list = FILE_HIGH_LOW_LIST + high_low_list
+            put_저가.sort()
+            index1 = bisect(put_저가, 1.20)
+            index2 = bisect(put_저가, 9.99)
+            put_low_list = put_저가[index1:index2]
+
+            put_고가.sort()
+            index1 = bisect(put_고가, 1.20)
+            index2 = bisect(put_고가, 9.99)
+            put_high_list = put_고가[index1:index2]
+
+            #print('call_low_list =', call_low_list)
+            #print('call_high_list =', call_high_list)
+            #print('put_low_list =', put_low_list)
+            #print('put_high_list =', put_high_list)
+            #print('FILE_HIGH_LOW_LIST =', FILE_HIGH_LOW_LIST)
+
+            high_low_list = call_low_list + call_high_list + put_low_list + put_high_list     
+
+            moving_list = FILE_HIGH_LOW_LIST + high_low_list
+        else:
+            pass        
 
         # 1st search
         동적맥점1, 동적맥점1_빈도수 = self.get_maxval_info(moving_list)
@@ -13951,12 +13960,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print('\r')
                     print('t2301 put open list = ', put_open_list, len(put_open_list))
                     print('\r')
-                    '''
-                    if bms_node_list:
-                        self.search_moving_node()
-                    else:
-                        pass           
-                    '''
+
                     if pre_start:
 
                         # FUTURES/KOSPI200 예상지수 요청
@@ -18191,6 +18195,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(lightskyblue))
             item.setForeground(QBrush(검정색))
             self.tableWidget_call.setItem(index, Option_column.저가.value, item)
+            
+            if bms_node_list:
+                self.search_moving_node()
+            else:
+                pass
 
             if 콜전저 >= 콜저가:
 
@@ -18248,11 +18257,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜저가)
             self.textBrowser.append(str)
             
-            if bms_node_list:
-                self.search_moving_node()
-            else:
-                pass
-
             self.check_call_oloh(result)
             
             # 콜은 인덱스 기준으로 갱신
@@ -18289,6 +18293,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(pink))
             item.setForeground(QBrush(검정색))
             self.tableWidget_call.setItem(index, Option_column.고가.value, item)
+            
+            if bms_node_list:
+                self.search_moving_node()
+            else:
+                pass
 
             if 콜전고 <= 콜고가:
 
@@ -18331,11 +18340,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜고가)
             self.textBrowser.append(str)
             
-            if bms_node_list:
-                self.search_moving_node()
-            else:
-                pass
-
             self.check_call_oloh(result)
 
             # 콜은 인덱스 기준으로 갱신
@@ -19538,6 +19542,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(lightskyblue))
             item.setForeground(QBrush(검정색))
             self.tableWidget_put.setItem(index, Option_column.저가.value, item)
+            
+            if bms_node_list:
+                self.search_moving_node()
+            else:
+                pass
 
             if 풋전저 >= 풋저가:
 
@@ -19595,11 +19604,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋저가)
             self.textBrowser.append(str)
 
-            if bms_node_list:
-                self.search_moving_node()
-            else:
-                pass
-
             self.check_put_oloh(result)
 
             # 풋은 가격기준으로 갱신
@@ -19636,6 +19640,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(pink))
             item.setForeground(QBrush(검정색))
             self.tableWidget_put.setItem(index, Option_column.고가.value, item)
+            
+            if bms_node_list:
+                self.search_moving_node()
+            else:
+                pass
 
             if 풋전고 <= 풋고가:
 
@@ -19678,11 +19687,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋고가)
             self.textBrowser.append(str)
             
-            if bms_node_list:
-                self.search_moving_node()
-            else:
-                pass
-
             self.check_put_oloh(result)
 
             # 풋은 가격기준으로 갱신
