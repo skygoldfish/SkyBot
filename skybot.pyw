@@ -23201,9 +23201,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         if result['전일대비기호'] == '5':
 
-                            WTI_종가 = result['체결가격'] + result['전일대비']
+                            WTI_종가 = round((result['체결가격'] + result['전일대비']), 2)
                         else:
-                            WTI_종가 = result['체결가격'] - result['전일대비']
+                            WTI_종가 = round((result['체결가격'] - result['전일대비']), 2)
                         
                         df_plotdata_wti.iloc[0][0] = WTI_종가
                         df_plotdata_wti.iloc[0][1] = result['시가']
