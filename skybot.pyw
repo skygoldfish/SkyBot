@@ -14095,7 +14095,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_call.at[i, '저가'] = 저가
                         빈도수 = self.get_value_frequency(저가)
 
-                        item_str = repr(저가) + '\n(' + repr(빈도수) + ')'
+                        item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
                         item = QTableWidgetItem(item_str)
 
                         #item = QTableWidgetItem("{0:0.2f}".format(저가))
@@ -14106,7 +14106,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_call.at[i, '고가'] = 고가
                         빈도수 = self.get_value_frequency(고가)
 
-                        item_str = repr(고가) + '\n(' + repr(빈도수) + ')'
+                        item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
                         item = QTableWidgetItem(item_str)
 
                         #item = QTableWidgetItem("{0:0.2f}".format(고가))
@@ -14187,7 +14187,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_put.at[i, '저가'] = 저가
                         빈도수 = self.get_value_frequency(저가)
 
-                        item_str = repr(저가) + '\n(' + repr(빈도수) + ')'
+                        item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
                         item = QTableWidgetItem(item_str)
 
                         #item = QTableWidgetItem("{0:0.2f}".format(저가))
@@ -14198,7 +14198,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_put.at[i, '고가'] = 고가
                         빈도수 = self.get_value_frequency(고가)
 
-                        item_str = repr(고가) + '\n(' + repr(빈도수) + ')'
+                        item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
                         item = QTableWidgetItem(item_str)
 
                         #item = QTableWidgetItem("{0:0.2f}".format(고가))
@@ -15529,7 +15529,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_call.at[i, '저가'] = 저가
                     빈도수 = self.get_value_frequency(저가)
 
-                    item_str = repr(저가) + '\n(' + repr(빈도수) + ')'
+                    item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
                     item = QTableWidgetItem(item_str)
 
                     #item = QTableWidgetItem("{0:0.2f}".format(저가))
@@ -15539,9 +15539,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     고가 = df['고가'][i]
                     df_call.at[i, '고가'] = 고가
-                    빈도수 = self.get_value_frequency(저가)
+                    빈도수 = self.get_value_frequency(고가)
 
-                    item_str = repr(고가) + '\n(' + repr(빈도수) + ')'
+                    item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
                     item = QTableWidgetItem(item_str)
 
                     #item = QTableWidgetItem("{0:0.2f}".format(고가))
@@ -15603,7 +15603,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_put.at[i, '저가'] = 저가
                     빈도수 = self.get_value_frequency(저가)
 
-                    item_str = repr(저가) + '\n(' + repr(빈도수) + ')'
+                    item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
                     item = QTableWidgetItem(item_str)
 
                     #item = QTableWidgetItem("{0:0.2f}".format(저가))
@@ -15613,9 +15613,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     고가 = df1['고가'][i]
                     df_put.at[i, '고가'] = 고가
-                    빈도수 = self.get_value_frequency(저가)
+                    빈도수 = self.get_value_frequency(고가)
 
-                    item_str = repr(고가) + '\n(' + repr(빈도수) + ')'
+                    item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
                     item = QTableWidgetItem(item_str)
 
                     #item = QTableWidgetItem("{0:0.2f}".format(고가))
