@@ -18369,6 +18369,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem(call_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
+                    self.tableWidget_call.resizeColumnsToContents()
                 else:
                     pass            
             else:
@@ -19697,6 +19698,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem(put_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
+                    self.tableWidget_put.resizeColumnsToContents()
                 else:
                     pass            
             else:
