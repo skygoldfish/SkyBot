@@ -18185,7 +18185,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             빈도수 = self.get_value_frequency(콜저가)
 
-            item_str = '저가' + '\n(' + repr(빈도수) + ')'
+            item_str = 저가 + '\n(' + repr(빈도수) + ')'
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lightskyblue))
@@ -18283,7 +18283,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             빈도수 = self.get_value_frequency(콜고가)
 
-            item_str = '고가' + '\n(' + repr(빈도수) + ')'
+            item_str = 고가 + '\n(' + repr(빈도수) + ')'
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(pink))
@@ -19532,7 +19532,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             빈도수 = self.get_value_frequency(풋저가)
 
-            item_str = '저가' + '\n(' + repr(빈도수) + ')'
+            item_str = 저가 + '\n(' + repr(빈도수) + ')'
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lightskyblue))
@@ -19630,7 +19630,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             빈도수 = self.get_value_frequency(풋고가)
 
-            item_str = '고가' + '\n(' + repr(빈도수) + ')'
+            item_str = 고가 + '\n(' + repr(빈도수) + ')'
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(pink))
