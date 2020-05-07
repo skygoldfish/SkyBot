@@ -4085,19 +4085,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.comboBox1.setStyleSheet("background-color: white")
         self.comboBox2.setStyleSheet("background-color: white")
 
-        if overnight:
+        self.comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션잔량비', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
+        self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-            self.comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ None', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
-            self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
-
-            self.comboBox2.addItems(['⓵ 옵션체결', '⓶ None', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
-            self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
-        else:
-            self.comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션잔량비', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
-            self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
-
-            self.comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션잔량비', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
-            self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
+        self.comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션잔량비', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
+        self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)            
 
         global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
         global plot1_hc_high_line, plot1_hc_low_line, plot1_atm_high_line, plot1_atm_low_line
@@ -5197,44 +5189,40 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         elif comboindex2 == 1:
                         
-            if not overnight:
+            plot2_call_volume_curve.clear()
+            plot2_put_volume_curve.clear()
+            #plot2_volume_cha_curve.clear()
 
-                plot2_call_volume_curve.clear()
-                plot2_put_volume_curve.clear()
-                #plot2_volume_cha_curve.clear()
+            plot2_fut_volume_plus_curve.clear()
+            plot2_fut_volume_minus_curve.clear()
 
-                plot2_fut_volume_plus_curve.clear()
-                plot2_fut_volume_minus_curve.clear()
+            plot2_two_sum_curve.clear()
+            plot2_two_cha_curve.clear()
 
-                plot2_two_sum_curve.clear()
-                plot2_two_cha_curve.clear()
+            for i in range(nRowCount):
+                call_curve[i].clear()
+                put_curve[i].clear()
 
-                for i in range(nRowCount):
-                    call_curve[i].clear()
-                    put_curve[i].clear()
+            plot2_sp500_curve.clear()
+            plot2_dow_curve.clear()
+            plot2_nasdaq_curve.clear()
+            plot2_wti_curve.clear()
 
-                plot2_sp500_curve.clear()
-                plot2_dow_curve.clear()
-                plot2_nasdaq_curve.clear()
-                plot2_wti_curve.clear()
+            for i in range(9):
+                mv_line[i].setValue(0)
 
-                for i in range(9):
-                    mv_line[i].setValue(0)
+            plot2_ovc_close_line.setValue(0)
+            plot2_ovc_open_line.setValue(0)
+            plot2_ovc_jl_line.setValue(0)
+            plot2_ovc_jh_line.setValue(0)
+            plot2_ovc_pivot_line.setValue(0)
+            plot2_ovc_low_line.setValue(0)
+            plot2_ovc_high_line.setValue(0)
 
-                plot2_ovc_close_line.setValue(0)
-                plot2_ovc_open_line.setValue(0)
-                plot2_ovc_jl_line.setValue(0)
-                plot2_ovc_jh_line.setValue(0)
-                plot2_ovc_pivot_line.setValue(0)
-                plot2_ovc_low_line.setValue(0)
-                plot2_ovc_high_line.setValue(0)
+            plot2_hc_high_line.setValue(0)
+            plot2_hc_low_line.setValue(0)
 
-                plot2_hc_high_line.setValue(0)
-                plot2_hc_low_line.setValue(0)
-
-                plot2_rr_line.setValue(1)
-            else:
-                pass            
+            plot2_rr_line.setValue(1)            
 
         elif comboindex2 == 2:
 
@@ -6828,12 +6816,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif comboindex1 == 2:
 
-                    if not overnight:
-                        plot1_rr_line.setValue(1)
-                        plot1_call_rr_curve.setData(plot_data5)
-                        plot1_put_rr_curve.setData(plot_data6)
-                    else:
-                        pass
+                    plot1_rr_line.setValue(1)
+                    plot1_call_rr_curve.setData(plot_data5)
+                    plot1_put_rr_curve.setData(plot_data6)
 
                 elif comboindex1 == 3:
 
@@ -7032,12 +7017,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif comboindex2 == 1:
 
-                    if not overnight:
-                        plot2_rr_line.setValue(1)
-                        plot2_call_rr_curve.setData(plot_data5)
-                        plot2_put_rr_curve.setData(plot_data6)
-                    else:
-                        pass         
+                    plot2_rr_line.setValue(1)
+                    plot2_call_rr_curve.setData(plot_data5)
+                    plot2_put_rr_curve.setData(plot_data6)         
 
                 elif comboindex2 == 2:
 
@@ -23919,19 +23901,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_16.setStyleSheet('background-color: pink ; color: black')
         self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        if overnight:
+        self.bc_comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션잔량비', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
+        self.bc_comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-            self.bc_comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ None', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
-            self.bc_comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
-
-            self.bc_comboBox2.addItems(['⓵ 옵션체결', '⓶ None', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
-            self.bc_comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
-        else:
-            self.bc_comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션잔량비', '⓸ 양합양차', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
-            self.bc_comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
-
-            self.bc_comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션잔량비', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
-            self.bc_comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
+        self.bc_comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션잔량비', '⓷ 선물체결', '⓸ 양합양차', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
+        self.bc_comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)            
 
         global bc_plot1_time_line_start, bc_plot1_time_line_yagan_start, bc_plot1_time_line, bc_plot1_fut_price_curve, bc_plot1_kp200_curve
         global bc_plot1_hc_high_line, bc_plot1_hc_low_line, bc_plot1_atm_high_line, bc_plot1_atm_low_line
@@ -24897,44 +24871,40 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_15.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
             self.label_16.setText(" 고가 : 가격 ")
                         
-            if not overnight:
+            bc_plot2_call_volume_curve.clear()
+            bc_plot2_put_volume_curve.clear()
+            #bc_plot2_volume_cha_curve.clear()
 
-                bc_plot2_call_volume_curve.clear()
-                bc_plot2_put_volume_curve.clear()
-                #bc_plot2_volume_cha_curve.clear()
+            bc_plot2_fut_volume_plus_curve.clear()
+            bc_plot2_fut_volume_minus_curve.clear()
 
-                bc_plot2_fut_volume_plus_curve.clear()
-                bc_plot2_fut_volume_minus_curve.clear()
+            bc_plot2_two_sum_curve.clear()
+            bc_plot2_two_cha_curve.clear()
 
-                bc_plot2_two_sum_curve.clear()
-                bc_plot2_two_cha_curve.clear()
+            for i in range(nRowCount):
+                bc_call_curve[i].clear()
+                bc_put_curve[i].clear()
 
-                for i in range(nRowCount):
-                    bc_call_curve[i].clear()
-                    bc_put_curve[i].clear()
+            bc_plot2_sp500_curve.clear()
+            bc_plot2_dow_curve.clear()
+            bc_plot2_nasdaq_curve.clear()
+            bc_plot2_wti_curve.clear()
 
-                bc_plot2_sp500_curve.clear()
-                bc_plot2_dow_curve.clear()
-                bc_plot2_nasdaq_curve.clear()
-                bc_plot2_wti_curve.clear()
+            for i in range(9):
+                bc_mv_line[i].setValue(0)
 
-                for i in range(9):
-                    bc_mv_line[i].setValue(0)
+            bc_plot2_ovc_close_line.setValue(0)
+            bc_plot2_ovc_open_line.setValue(0)
+            bc_plot2_ovc_jl_line.setValue(0)
+            bc_plot2_ovc_jh_line.setValue(0)
+            bc_plot2_ovc_pivot_line.setValue(0)
+            bc_plot2_ovc_low_line.setValue(0)
+            bc_plot2_ovc_high_line.setValue(0)
 
-                bc_plot2_ovc_close_line.setValue(0)
-                bc_plot2_ovc_open_line.setValue(0)
-                bc_plot2_ovc_jl_line.setValue(0)
-                bc_plot2_ovc_jh_line.setValue(0)
-                bc_plot2_ovc_pivot_line.setValue(0)
-                bc_plot2_ovc_low_line.setValue(0)
-                bc_plot2_ovc_high_line.setValue(0)
+            bc_plot2_hc_high_line.setValue(0)
+            bc_plot2_hc_low_line.setValue(0)
 
-                bc_plot2_hc_high_line.setValue(0)
-                bc_plot2_hc_low_line.setValue(0)
-
-                bc_plot2_rr_line.setValue(1)
-            else:
-                pass            
+            bc_plot2_rr_line.setValue(1)            
 
         elif bc_comboindex2 == 2:
 
@@ -25601,12 +25571,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex1 == 2:
 
-            if not overnight:
-                bc_plot1_rr_line.setValue(1)
-                bc_plot1_call_rr_curve.setData(plot_data5)
-                bc_plot1_put_rr_curve.setData(plot_data6)
-            else:
-                pass
+            bc_plot1_rr_line.setValue(1)
+            bc_plot1_call_rr_curve.setData(plot_data5)
+            bc_plot1_put_rr_curve.setData(plot_data6)
 
         elif bc_comboindex1 == 3:
 
@@ -25946,12 +25913,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex2 == 1:
 
-            if not overnight:
-                bc_plot2_rr_line.setValue(1)
-                bc_plot2_call_rr_curve.setData(plot_data5)
-                bc_plot2_put_rr_curve.setData(plot_data6)
-            else:
-                pass         
+            bc_plot2_rr_line.setValue(1)
+            bc_plot2_call_rr_curve.setData(plot_data5)
+            bc_plot2_put_rr_curve.setData(plot_data6)        
 
         elif bc_comboindex2 == 2:
 
