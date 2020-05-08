@@ -14117,7 +14117,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_call.setItem(i, Option_column.고가.value, item)
                         
                         if 시가 > opt_search_start_value and 저가 < 고가:
-
                             call_open_list.append(i)
                         else:
                             pass
@@ -14213,7 +14212,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_put.setItem(i, Option_column.고가.value, item)
                         
                         if 시가 > opt_search_start_value and 저가 < 고가:
-
                             put_open_list.append(i)
                         else:
                             pass
