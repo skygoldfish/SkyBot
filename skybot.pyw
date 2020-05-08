@@ -17509,6 +17509,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:    
                     item = QTableWidgetItem(현재가)
 
+                if 선물_시가 < 선물_현재가:
+                    item.setForeground(QBrush(적색))
+                elif 선물_시가 > 선물_현재가:
+                    item.setForeground(QBrush(청색))
+                else:
+                    item.setForeground(QBrush(검정색))
+
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(0, Futures_column.현재가.value, item)
             else:
@@ -17524,28 +17531,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:    
                     item = QTableWidgetItem(현재가)
 
+                if 선물_시가 < 선물_현재가:
+                    item.setForeground(QBrush(적색))
+                elif 선물_시가 > 선물_현재가:
+                    item.setForeground(QBrush(청색))
+                else:
+                    item.setForeground(QBrush(검정색))
+
                 item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)                              
-
-            if 선물_시가 < 선물_현재가:
-
-                if overnight:
-                    self.tableWidget_fut.item(0, Futures_column.현재가.value).setForeground(QBrush(적색))
-                else:
-                    self.tableWidget_fut.item(1, Futures_column.현재가.value).setForeground(QBrush(적색))
-
-            elif 선물_시가 > 선물_현재가:
-
-                if overnight:
-                    self.tableWidget_fut.item(0, Futures_column.현재가.value).setForeground(QBrush(청색))
-                else:
-                    self.tableWidget_fut.item(1, Futures_column.현재가.value).setForeground(QBrush(청색))
-
-            else:
-                if overnight:
-                    self.tableWidget_fut.item(0, Futures_column.현재가.value).setForeground(QBrush(검정색))
-                else:
-                    self.tableWidget_fut.item(1, Futures_column.현재가.value).setForeground(QBrush(검정색))
+                self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)
 
             등락율 = result['등락율']
 
@@ -17950,30 +17944,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         콜월고 = df_call.at[index, '월고']
         콜전저 = df_call.at[index, '전저']
         콜전고 = df_call.at[index, '전고']
-        '''
-        if 콜저가 > 콜현재가:
-
-            저가 = 현재가
-            콜저가 = 콜현재가
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 콜저가 오류수정 !!!\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)
-            print(str) 
-        else:
-            pass
-
-        if 콜고가 < 콜현재가:
-
-            고가 = 현재가
-            콜고가 = 콜현재가
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 콜고가 오류수정 !!!\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)
-            print(str)
-        else:
-            pass
-        '''        
-
+        
         # 야간선물이 없어짐에 따른 텔레그램 기동 대응
         if overnight:
 
@@ -19366,30 +19337,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         풋월고 = df_put.at[index, '월고']
         풋전저 = df_put.at[index, '전저']
         풋전고 = df_put.at[index, '전고']
-        '''
-        if 풋저가 > 풋현재가:
-
-            저가 = 현재가
-            풋저가 = 풋현재가
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 풋저가 오류수정 !!!\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)
-            print(str)
-        else:
-            pass
-
-        if 풋고가 < 풋현재가:
-
-            고가 = 현재가
-            풋고가 = 풋현재가
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 풋고가 오류수정 !!!\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)
-            print(str)
-        else:
-            pass
-        '''
-
+        
         if 저가 != 고가 and not put_open[index]:
 
             # 등가 check & coloring
