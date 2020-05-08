@@ -18329,7 +18329,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 item = QTableWidgetItem(고가)            
             
-            item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(pink))
             item.setForeground(QBrush(검정색))
@@ -19583,7 +19582,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 item = QTableWidgetItem(저가)
 
-            item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lightskyblue))
             item.setForeground(QBrush(검정색))
@@ -19686,7 +19684,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 item = QTableWidgetItem(고가)
 
-            item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(pink))
             item.setForeground(QBrush(검정색))
