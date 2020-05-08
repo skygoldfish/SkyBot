@@ -18365,15 +18365,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem(현재가)
                 item.setBackground(QBrush(흰색))
             
-            item.setTextAlignment(Qt.AlignCenter)
-
             if 콜시가 < 콜현재가:
                 item.setForeground(QBrush(적색))
             elif 콜시가 > 콜현재가:
                 item.setForeground(QBrush(청색))
             else:
                 item.setForeground(QBrush(검정색))
-
+            
+            item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setItem(index, Option_column.현재가.value, item)
                         
             콜대비 = 콜현재가 - 콜시가
@@ -19687,15 +19686,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem(현재가)
                 item.setBackground(QBrush(흰색))
 
-            item.setTextAlignment(Qt.AlignCenter)
-
             if 풋시가 < 풋현재가:
                 item.setForeground(QBrush(적색))
             elif 풋시가 > 풋현재가:
                 item.setForeground(QBrush(청색))
             else:
                 item.setForeground(QBrush(검정색))
-
+            
+            item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setItem(index, Option_column.현재가.value, item)
                         
             풋대비 = 풋현재가 - 풋시가
