@@ -14093,10 +14093,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_call.at[i, '저가'] = 저가
                         빈도수 = self.get_value_frequency(저가)
 
-                        item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
-                        item = QTableWidgetItem(item_str)
+                        if 1.20 < 저가 < 10.0:
+                            item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
+                            item = QTableWidgetItem(item_str)
+                        else:
+                            item = QTableWidgetItem("{0:0.2f}".format(저가))
 
-                        #item = QTableWidgetItem("{0:0.2f}".format(저가))
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(옅은회색))
                         self.tableWidget_call.setItem(i, Option_column.저가.value, item)
@@ -14104,10 +14106,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_call.at[i, '고가'] = 고가
                         빈도수 = self.get_value_frequency(고가)
 
-                        item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
-                        item = QTableWidgetItem(item_str)
+                        if 1.20 < 고가 < 10.0:
+                            item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
+                            item = QTableWidgetItem(item_str)
+                        else:
+                            item = QTableWidgetItem("{0:0.2f}".format(고가))
 
-                        #item = QTableWidgetItem("{0:0.2f}".format(고가))
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(옅은회색))
                         self.tableWidget_call.setItem(i, Option_column.고가.value, item)
@@ -14185,10 +14189,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_put.at[i, '저가'] = 저가
                         빈도수 = self.get_value_frequency(저가)
 
-                        item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
-                        item = QTableWidgetItem(item_str)
+                        if 1.20 < 저가 < 10.0:
+                            item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
+                            item = QTableWidgetItem(item_str)
+                        else:
+                            item = QTableWidgetItem("{0:0.2f}".format(저가))
 
-                        #item = QTableWidgetItem("{0:0.2f}".format(저가))
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(옅은회색))
                         self.tableWidget_put.setItem(i, Option_column.저가.value, item)
@@ -14196,10 +14202,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_put.at[i, '고가'] = 고가
                         빈도수 = self.get_value_frequency(고가)
 
-                        item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
-                        item = QTableWidgetItem(item_str)
+                        if 1.20 < 고가 < 10.0:
+                            item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
+                            item = QTableWidgetItem(item_str)
+                        else:
+                            item = QTableWidgetItem("{0:0.2f}".format(고가))
 
-                        #item = QTableWidgetItem("{0:0.2f}".format(고가))
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(옅은회색))
                         self.tableWidget_put.setItem(i, Option_column.고가.value, item)
@@ -15525,12 +15533,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     저가 = df['저가'][i]
                     df_call.at[i, '저가'] = 저가
-                    빈도수 = self.get_value_frequency(저가)
+                    빈도수 = self.get_value_frequency(저가)                    
 
-                    item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
-                    item = QTableWidgetItem(item_str)
+                    if 1.20 < 저가 < 10.0:
+                        item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
+                        item = QTableWidgetItem(item_str)
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(저가))
 
-                    #item = QTableWidgetItem("{0:0.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(옅은회색))
                     self.tableWidget_call.setItem(i, Option_column.저가.value, item)
@@ -15539,16 +15549,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_call.at[i, '고가'] = 고가
                     빈도수 = self.get_value_frequency(고가)
 
-                    item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
-                    item = QTableWidgetItem(item_str)
+                    if 1.20 < 고가 < 10.0:
+                        item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
+                        item = QTableWidgetItem(item_str)
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(고가))
 
-                    #item = QTableWidgetItem("{0:0.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(옅은회색))
                     self.tableWidget_call.setItem(i, Option_column.고가.value, item)
                     
                     if 시가 > 0 and 저가 < 고가:
-
                         call_open_list.append(i)
                     else:
                         pass
@@ -15599,30 +15610,33 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     저가 = df1['저가'][i]
                     df_put.at[i, '저가'] = 저가
-                    빈도수 = self.get_value_frequency(저가)
+                    빈도수 = self.get_value_frequency(저가)                    
 
-                    item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
-                    item = QTableWidgetItem(item_str)
+                    if 1.20 < 저가 < 10.0:
+                        item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
+                        item = QTableWidgetItem(item_str)
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(저가))
 
-                    #item = QTableWidgetItem("{0:0.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(옅은회색))
                     self.tableWidget_put.setItem(i, Option_column.저가.value, item)
 
                     고가 = df1['고가'][i]
                     df_put.at[i, '고가'] = 고가
-                    빈도수 = self.get_value_frequency(고가)
+                    빈도수 = self.get_value_frequency(고가)                    
 
-                    item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
-                    item = QTableWidgetItem(item_str)
+                    if 1.20 < 고가 < 10.0:
+                        item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
+                        item = QTableWidgetItem(item_str)
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(고가))
 
-                    #item = QTableWidgetItem("{0:0.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(옅은회색))
                     self.tableWidget_put.setItem(i, Option_column.고가.value, item)
                     
                     if 시가 > 0 and 저가 < 고가:
-
                         put_open_list.append(i)
                     else:
                         pass
