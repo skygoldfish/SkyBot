@@ -19562,13 +19562,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             item = QTableWidgetItem('▼')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-            '''
-            item = QTableWidgetItem(저가)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lightskyblue))
-            item.setForeground(QBrush(검정색))
-            self.tableWidget_put.setItem(index, Option_column.저가.value, item)
-            '''
+            
             df_put.at[index, '저가'] = 풋저가
             
             put_저가 = df_put['저가'].values.tolist()
