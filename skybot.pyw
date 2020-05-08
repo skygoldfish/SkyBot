@@ -13531,8 +13531,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 print('t2301 주간 전광판 콜 데이타 = \r', df_call)
 
-                #self.tableWidget_call.resizeColumnsToContents()
-
                 str = '[{0:02d}:{1:02d}:{2:02d}] {3} 월물 Call 전광판 데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                 self.textBrowser.append(str)
 
@@ -18207,28 +18205,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             item = QTableWidgetItem('▼')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-            '''
-            item = QTableWidgetItem(저가)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lightskyblue))
-            item.setForeground(QBrush(검정색))
-            self.tableWidget_call.setItem(index, Option_column.저가.value, item)
-            '''
+            
             df_call.at[index, '저가'] = 콜저가
             
             call_저가 = df_call['저가'].values.tolist()
             call_저가_node_list = self.make_node_list(call_저가)
 
-            빈도수 = self.get_value_frequency(콜저가)
+            if 1.20 < 콜저가 < 10.0:
 
-            item_str = 저가 + '\n(' + repr(빈도수) + ')'
-            item = QTableWidgetItem(item_str)
+                빈도수 = self.get_value_frequency(콜저가)
+                item_str = 저가 + '\n(' + repr(빈도수) + ')'
+                item = QTableWidgetItem(item_str)
+            else:
+                item = QTableWidgetItem(저가)
+            
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lightskyblue))
             item.setForeground(QBrush(검정색))
             self.tableWidget_call.setItem(index, Option_column.저가.value, item)
             
-            if bms_node_list:
+            if bms_node_list and 1.20 < 콜저가 < 10.0:
                 self.search_moving_node()
             else:
                 pass
@@ -18305,28 +18301,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             item = QTableWidgetItem('▲')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-            '''
-            item = QTableWidgetItem(고가)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(pink))
-            item.setForeground(QBrush(검정색))
-            self.tableWidget_call.setItem(index, Option_column.고가.value, item)
-            '''
+            
             df_call.at[index, '고가'] = 콜고가
             
             call_고가 = df_call['고가'].values.tolist()
             call_고가_node_list = self.make_node_list(call_고가)
-            
-            빈도수 = self.get_value_frequency(콜고가)
 
-            item_str = 고가 + '\n(' + repr(빈도수) + ')'
+            if 1.20 < 콜고가 < 10.0:
+
+                빈도수 = self.get_value_frequency(콜고가)
+                item_str = 고가 + '\n(' + repr(빈도수) + ')'
+                item = QTableWidgetItem(item_str)
+            else:
+                item = QTableWidgetItem(고가)            
+            
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(pink))
             item.setForeground(QBrush(검정색))
             self.tableWidget_call.setItem(index, Option_column.고가.value, item)
             
-            if bms_node_list:
+            if bms_node_list and 1.20 < 콜고가 < 10.0:
                 self.search_moving_node()
             else:
                 pass
@@ -18650,7 +18645,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
              
         #opt_callreal_update_counter += 1
-
+    '''
     def call_db_update(self):
 
         global call_진폭, 콜대비합, 콜대비합_단위평균, 콜대비_퍼센트_평균
@@ -18694,7 +18689,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_call.resizeColumnsToContents()
         else:
             pass
-
+    '''
     def call_oi_update(self):
 	
         global df_call
@@ -18921,7 +18916,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_quote.setItem(0, 3, item)
         else:
             pass
-
+    '''
     def call_state_update(self):
 
         global call_open_count
@@ -18964,7 +18959,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass           
         else:
             pass
-
+    '''
     def call_open_check(self):
 
         global df_call, call_itm_count
@@ -19566,16 +19561,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             put_저가 = df_put['저가'].values.tolist()
             put_저가_node_list = self.make_node_list(put_저가)
 
-            빈도수 = self.get_value_frequency(풋저가)
+            if 1.20 < 풋저가 < 10.0:
 
-            item_str = 저가 + '\n(' + repr(빈도수) + ')'
+                빈도수 = self.get_value_frequency(풋저가)
+                item_str = 저가 + '\n(' + repr(빈도수) + ')'
+                item = QTableWidgetItem(item_str)
+            else:
+                item = QTableWidgetItem(저가)
+
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lightskyblue))
             item.setForeground(QBrush(검정색))
             self.tableWidget_put.setItem(index, Option_column.저가.value, item)
             
-            if bms_node_list:
+            if bms_node_list and 1.20 < 풋저가 < 10.0:
                 self.search_moving_node()
             else:
                 pass
@@ -19664,16 +19664,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             put_고가 = df_put['고가'].values.tolist()
             put_고가_node_list = self.make_node_list(put_고가)
 
-            빈도수 = self.get_value_frequency(풋고가)
+            if 1.20 < 풋고가 < 10.0:
 
-            item_str = 고가 + '\n(' + repr(빈도수) + ')'
+                빈도수 = self.get_value_frequency(풋고가)
+                item_str = 고가 + '\n(' + repr(빈도수) + ')'
+                item = QTableWidgetItem(item_str)
+            else:
+                item = QTableWidgetItem(고가)
+
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(pink))
             item.setForeground(QBrush(검정색))
             self.tableWidget_put.setItem(index, Option_column.고가.value, item)
             
-            if bms_node_list:
+            if bms_node_list and 1.20 < 풋고가 < 10.0:
                 self.search_moving_node()
             else:
                 pass
@@ -19997,7 +20002,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         #opt_putreal_update_counter += 1 
-    
+    '''
     def put_db_update(self):
 
         global put_진폭, 풋대비합, 풋대비합_단위평균, 풋대비_퍼센트_평균 
@@ -20042,7 +20047,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_put.resizeColumnsToContents()
         else:
             pass
-
+    '''
     def put_oi_update(self):
 	
         global df_put
@@ -20272,7 +20277,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_quote.setItem(0, 7, item)
         else:
             pass
-
+    '''
     def put_state_update(self):
 
         global put_open_count
@@ -20315,7 +20320,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass           
         else:
             pass
-
+    '''
     def put_open_check(self):
 
         global df_put, put_itm_count
