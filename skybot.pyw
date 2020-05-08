@@ -17489,9 +17489,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # 현재가 갱신
         if overnight:
-            fut_price = self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]
+            fut_price = self.tableWidget_fut.item(0, Futures_column.현재가.value).text().split('\n')[0]
         else:
-            fut_price = self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]
+            fut_price = self.tableWidget_fut.item(1, Futures_column.현재가.value).text().split('\n')[0]
 
         if 현재가 != fut_price:
 
@@ -17500,44 +17500,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_fut.at[0, '현재가'] = 선물_현재가
                 cme_realdata['현재가'] = 선물_현재가
 
-                if 선물_현재가 < float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
+                if 선물_현재가 < float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text().split('\n')[0]):
                     item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
-                elif 선물_현재가 > float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
+                    item.setBackground(QBrush(lightskyblue))
+                elif 선물_현재가 > float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text().split('\n')[0]):
                     item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
+                    item.setBackground(QBrush(pink))
                 else:    
                     item = QTableWidgetItem(현재가)
 
                 item.setTextAlignment(Qt.AlignCenter)
-
-                if 선물_현재가 < float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
-                    item.setBackground(QBrush(lightskyblue))
-                elif 선물_현재가 > float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text()[0:6]):
-                    item.setBackground(QBrush(pink))
-                else:
-                    item.setBackground(QBrush(옅은회색))
-
                 self.tableWidget_fut.setItem(0, Futures_column.현재가.value, item)
             else:
                 df_fut.at[1, '현재가'] = 선물_현재가
                 fut_realdata['현재가'] = 선물_현재가 
 
-                if 선물_현재가 < float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
+                if 선물_현재가 < float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text().split('\n')[0]):
                     item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
-                elif 선물_현재가 > float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
+                    item.setBackground(QBrush(lightskyblue))
+                elif 선물_현재가 > float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text().split('\n')[0]):
                     item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
+                    item.setBackground(QBrush(pink))
                 else:    
                     item = QTableWidgetItem(현재가)
 
                 item.setTextAlignment(Qt.AlignCenter)
-
-                if 선물_현재가 < float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
-                    item.setBackground(QBrush(lightskyblue))
-                elif 선물_현재가 > float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text()[0:6]):
-                    item.setBackground(QBrush(pink))
-                else:
-                    #item.setBackground(QBrush(옅은회색))
-                    pass
-
                 self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)                              
 
             if 선물_시가 < 선물_현재가:
@@ -18392,26 +18379,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # 현재가 갱신
-        if 현재가 != self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]:
+        if 현재가 != self.tableWidget_call.item(index, Option_column.현재가.value).text().split('\n')[0]:
 
             df_call.at[index, '현재가'] = 콜현재가
             df_plotdata_call.iloc[index][opt_x_idx] = 콜현재가
 
-            if 콜현재가 < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+            if 콜현재가 < float(self.tableWidget_call.item(index, Option_column.현재가.value).text().split('\n')[0]):
                 item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
-            elif 콜현재가 > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
+                item.setBackground(QBrush(lightskyblue))
+            elif 콜현재가 > float(self.tableWidget_call.item(index, Option_column.현재가.value).text().split('\n')[0]):
                 item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
+                item.setBackground(QBrush(pink))
             else:    
                 item = QTableWidgetItem(현재가)
+                item.setBackground(QBrush(흰색))
             
             item.setTextAlignment(Qt.AlignCenter)
-
-            if 콜현재가 < float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
-                item.setBackground(QBrush(lightskyblue))
-            elif 콜현재가 > float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]):
-                item.setBackground(QBrush(pink))
-            else:
-                item.setBackground(QBrush(흰색))
 
             if 콜시가 < 콜현재가:
                 item.setForeground(QBrush(적색))
@@ -19741,26 +19724,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # 현재가 갱신
-        if 현재가 != self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]:
+        if 현재가 != self.tableWidget_put.item(index, Option_column.현재가.value).text().split('\n')[0]:
 
             df_put.at[index, '현재가'] = 풋현재가
             df_plotdata_put.iloc[index][opt_x_idx] = 풋현재가
 
-            if 풋현재가 < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+            if 풋현재가 < float(self.tableWidget_put.item(index, Option_column.현재가.value).text().split('\n')[0]):
                 item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
-            elif 풋현재가 > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
+                item.setBackground(QBrush(lightskyblue))
+            elif 풋현재가 > float(self.tableWidget_put.item(index, Option_column.현재가.value).text().split('\n')[0]):
                 item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
+                item.setBackground(QBrush(pink))
             else:    
                 item = QTableWidgetItem(현재가)
+                item.setBackground(QBrush(흰색))
 
             item.setTextAlignment(Qt.AlignCenter)
-
-            if 풋현재가 < float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
-                item.setBackground(QBrush(lightskyblue))
-            elif 풋현재가 > float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]):
-                item.setBackground(QBrush(pink))
-            else:
-                item.setBackground(QBrush(흰색))
 
             if 풋시가 < 풋현재가:
                 item.setForeground(QBrush(적색))
