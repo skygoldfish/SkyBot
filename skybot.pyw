@@ -17255,7 +17255,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         '''
         
         df_plotdata_fut.iloc[0][x_idx] = 선물_현재가
-        df_plotdata_kp200.iloc[0][x_idx] = float(result['KOSPI200지수'])
+        #df_plotdata_kp200.iloc[0][x_idx] = float(result['KOSPI200지수'])
 
         #print('fut_first_arrive = {0}, first_refresh = {1}, market_service = {2}\r'.format(fut_first_arrive, first_refresh, market_service))
 
@@ -21067,19 +21067,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             kp200_realdata['시가'] = result['예상지수']
                             fut_realdata['KP200'] = result['예상지수']
 
-                            if x_yj_idx > 0:
-                                df_plotdata_kp200.iloc[0][x_yj_idx] = result['예상지수']
-                            else:
-                                pass
+                            df_plotdata_kp200.iloc[0][x_yj_idx] = result['예상지수']
 
                             item = QTableWidgetItem("{0:0.2f}".format(result['예상지수']))
                             item.setTextAlignment(Qt.AlignCenter)
 
                             if kp200_시가 > kp200_종가:
-
                                 item.setForeground(QBrush(적색))
                             elif kp200_시가 < kp200_종가:
-
                                 item.setForeground(QBrush(청색))
                             else:
                                 item.setForeground(QBrush(검정색))
@@ -21653,38 +21648,32 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if result['업종코드'] == KOSPI200:
 
                     # kp200 현재가
-                    if result['지수'] != self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]:
+                    if result['지수'] != self.tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]:
 
                         fut_realdata['KP200'] = float(result['지수'])
                         kp200_realdata['현재가'] = float(result['지수'])
                         df_fut.at[2, '현재가'] = float(result['지수'])
                         
-                        #df_plotdata_kp200.iloc[0][x_idx] = kp200_realdata['현재가']
+                        df_plotdata_kp200.iloc[0][x_idx] = float(result['지수'])
 
-                        if float(result['지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
+                        if float(result['지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]):
                             item = QTableWidgetItem(result['지수'] + '\n' + self.상태그림[0])
-                        elif float(result['지수']) > float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
+                            item.setBackground(QBrush(lightskyblue))
+                        elif float(result['지수']) > float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]):
                             item = QTableWidgetItem(result['지수'] + '\n' + self.상태그림[1])
+                            item.setBackground(QBrush(pink))
                         else:    
                             item = QTableWidgetItem(result['지수'])
+                            item.setBackground(QBrush(옅은회색))
 
-                        item.setTextAlignment(Qt.AlignCenter)
-
-                        if float(result['지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
-                            item.setBackground(QBrush(lightskyblue))
-                        elif float(result['지수']) > float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text()[0:6]):
-                            item.setBackground(QBrush(pink))
-                        else:
-                            #item.setBackground(QBrush(옅은회색))
-                            pass 
-
-                        if kp200_realdata['현재가'] > kp200_시가:
+                        if float(result['지수']) > kp200_시가:
                             item.setForeground(QBrush(적색))
-                        elif kp200_realdata['현재가'] < kp200_시가:
+                        elif float(result['지수']) < kp200_시가:
                             item.setForeground(QBrush(청색))
                         else:
                             item.setForeground(QBrush(검정색))
 
+                        item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
                     else:
                         pass
@@ -21701,10 +21690,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setTextAlignment(Qt.AlignCenter)
 
                         if kp200_시가 > kp200_종가:
-
                             item.setForeground(QBrush(적색))
                         elif kp200_시가 < kp200_종가:
-
                             item.setForeground(QBrush(청색))
                         else:
                             item.setForeground(QBrush(검정색))
