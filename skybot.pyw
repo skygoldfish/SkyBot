@@ -18453,6 +18453,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_call.at[index, '저가'] = 콜저가
 
+                call_저가 = df_call['저가'].values.tolist()
+                call_저가_node_list = self.make_node_list(call_저가)
+
                 if 콜전저 >= 콜저가:
 
                     str = '{0:0.2f}'.format(콜전저) + '\n' + '▼'
@@ -18505,9 +18508,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setItem(index, Option_column.진폭.value, item)                    
 
-                call_저가 = df_call['저가'].values.tolist()
-                call_저가_node_list = self.make_node_list(call_저가)
-
                 str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update...\r'.format(\
                     int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜저가)
                 self.textBrowser.append(str)
@@ -18544,6 +18544,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 콜고가 < 10.0:
 
                 df_call.at[index, '고가'] = 콜고가
+                
+                call_고가 = df_call['고가'].values.tolist()
+                call_고가_node_list = self.make_node_list(call_고가)
 
                 if 콜전고 <= 콜고가:
 
@@ -18581,9 +18584,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem("{0:0.2f}".format(진폭))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
-
-                call_고가 = df_call['고가'].values.tolist()
-                call_고가_node_list = self.make_node_list(call_고가)
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update...\r'.format(\
                     int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜고가)
@@ -19744,8 +19744,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # 저가, 고가 갱신오류 검사, 수정
-        put_low = float(self.tableWidget_put.item(index, Option_column.저가.value).text())
-        put_high = float(self.tableWidget_put.item(index, Option_column.고가.value).text())
+        put_low = float(self.tableWidget_put.item(index, Option_column.저가.value).text().split('\n')[0])
+        put_high = float(self.tableWidget_put.item(index, Option_column.고가.value).text().split('\n')[0])
         put_current = float(self.tableWidget_put.item(index, Option_column.현재가.value).text().split('\n')[0])
 
         if put_low < put_high and put_low > put_current:
@@ -19767,6 +19767,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 풋저가 < 10.0:
 
                 df_put.at[index, '저가'] = 풋저가
+                
+                put_저가 = df_put['저가'].values.tolist()
+                put_저가_node_list = self.make_node_list(put_저가)
 
                 if 풋전저 >= 풋저가:
 
@@ -19820,9 +19823,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
-                put_저가 = df_put['저가'].values.tolist()
-                put_저가_node_list = self.make_node_list(put_저가)
-
                 str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update...\r'.format(\
                     int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋저가)
                 self.textBrowser.append(str)
@@ -19859,6 +19859,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 풋고가 < 10.0:
 
                 df_put.at[index, '고가'] = 풋고가
+                
+                put_고가 = df_put['고가'].values.tolist()
+                put_고가_node_list = self.make_node_list(put_고가)
 
                 if 풋전고 <= 풋고가:
 
@@ -19896,9 +19899,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem("{0:0.2f}".format(진폭))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
-
-                put_고가 = df_put['고가'].values.tolist()
-                put_고가_node_list = self.make_node_list(put_고가)
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update...\r'.format(\
                     int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋고가)
