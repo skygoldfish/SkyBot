@@ -18429,9 +18429,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # 저가, 고가 갱신오류 검사, 수정
-        call_low = float(self.tableWidget_call.item(index, Option_column.저가.value).text())
-        call_high = float(self.tableWidget_call.item(index, Option_column.고가.value).text())
-        call_current = float(self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4])
+        call_low = float(self.tableWidget_call.item(index, Option_column.저가.value).text().split('\n')[0])
+        call_high = float(self.tableWidget_call.item(index, Option_column.고가.value).text().split('\n')[0])
+        call_current = float(self.tableWidget_call.item(index, Option_column.현재가.value).text().split('\n')[0])
 
         if call_low < call_high and call_low > call_current:
 
@@ -18440,11 +18440,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(str)
             print(str)
 
-            저가 = self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]
+            저가 = self.tableWidget_call.item(index, Option_column.현재가.value).text().split('\n')[0]
             콜저가 = float(저가)
-
-            #item = QTableWidgetItem('▼')
-            #self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
             
             item = QTableWidgetItem(저가)
             item.setTextAlignment(Qt.AlignCenter)
@@ -18535,11 +18532,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(str)
             print(str)
 
-            고가 = self.tableWidget_call.item(index, Option_column.현재가.value).text()[0:4]
+            고가 = self.tableWidget_call.item(index, Option_column.현재가.value).text().split('\n')[0]
             콜고가 = float(고가)
-
-            #item = QTableWidgetItem('▲')
-            #self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
             
             item = QTableWidgetItem(고가)
             item.setTextAlignment(Qt.AlignCenter)
@@ -19752,7 +19746,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 저가, 고가 갱신오류 검사, 수정
         put_low = float(self.tableWidget_put.item(index, Option_column.저가.value).text())
         put_high = float(self.tableWidget_put.item(index, Option_column.고가.value).text())
-        put_current = float(self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4])
+        put_current = float(self.tableWidget_put.item(index, Option_column.현재가.value).text().split('\n')[0])
 
         if put_low < put_high and put_low > put_current:
 
@@ -19761,11 +19755,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(str)
             print(str)
 
-            저가 = self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]
+            저가 = self.tableWidget_put.item(index, Option_column.현재가.value).text().split('\n')[0]
             풋저가 = float(저가)
-
-            #item = QTableWidgetItem('▼')
-            #self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
             
             item = QTableWidgetItem(저가)
             item.setTextAlignment(Qt.AlignCenter)
@@ -19856,11 +19847,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(str)
             print(str)
 
-            고가 = self.tableWidget_put.item(index, Option_column.현재가.value).text()[0:4]
+            고가 = self.tableWidget_put.item(index, Option_column.현재가.value).text().split('\n')[0]
             풋고가 = float(고가)
-
-            #item = QTableWidgetItem('▲')
-            #self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
             
             item = QTableWidgetItem(고가)
             item.setTextAlignment(Qt.AlignCenter)
