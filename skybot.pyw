@@ -22829,12 +22829,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
+                    NASDAQ_전일대비 = result['체결가격'] - NASDAQ_종가
+                    '''
                     if result['전일대비기호'] == '5':
 
                         NASDAQ_전일대비 = -result['전일대비']
                     else:
                         NASDAQ_전일대비 = result['전일대비']                    
-                    
+                    '''
                     if NASDAQ_피봇 == 0:
                         
                         if NASDAQ_전저 > 0 and NASDAQ_전고 > 0:
@@ -22937,14 +22939,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_plotdata_sp500.iloc[0][1] = result['시가']
                         SP500_시가 = result['시가']
                     else:
-                        pass      
+                        pass
 
+                    SP500_전일대비 = round((result['체결가격'] - SP500_종가), 2)      
+                    '''
                     if result['전일대비기호'] == '5':
 
                         SP500_전일대비 = locale.format('%.2f', -result['전일대비'], 1)
                     else:
                         SP500_전일대비 = locale.format('%.2f', result['전일대비'], 1)              
-
+                    '''
                     if SP500_피봇 == 0:
                         
                         if SP500_전저 > 0 and SP500_전고 > 0:
@@ -22978,9 +22982,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 if overnight:
 
                                     if min(대비리스트) > 0:
-                                        jisu_str = "S&P 500: {0} ({1}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                        jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                     else:
-                                        jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                        jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
                                     self.label_1st.setText(jisu_str)
                                     self.label_1st.setStyleSheet('background-color: pink; color: blue')
@@ -22989,9 +22993,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     if comboindex1 != 8 and comboindex2 != 8:
 
                                         if min(대비리스트) > 0:
-                                            jisu_str = "S&P 500: {0} ({1}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                            jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                         else:
-                                            jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                            jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
                                         self.label_1st.setText(jisu_str)
                                         self.label_1st.setStyleSheet('background-color: pink; color: blue')
@@ -23004,9 +23008,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 if overnight:
 
                                     if min(대비리스트) > 0:
-                                        jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                        jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                     else:
-                                        jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                        jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
                                     self.label_1st.setText(jisu_str)
                                     self.label_1st.setStyleSheet('background-color: pink; color: red')
@@ -23015,9 +23019,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     if comboindex1 != 8 and comboindex2 != 8:
 
                                         if min(대비리스트) > 0:
-                                            jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                            jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                         else:
-                                            jisu_str = "S&P 500: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                            jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
                                         self.label_1st.setText(jisu_str)
                                         self.label_1st.setStyleSheet('background-color: pink; color: red')
@@ -23034,9 +23038,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 if overnight:
 
                                     if max(대비리스트) < 0:
-                                        jisu_str = "S&P 500: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                        jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                     else:
-                                        jisu_str = "S&P 500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                        jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
                                     self.label_1st.setText(jisu_str)
                                     self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
@@ -23045,9 +23049,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     if comboindex1 != 8 and comboindex2 != 8:
 
                                         if max(대비리스트) < 0:
-                                            jisu_str = "S&P 500: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                            jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                         else:
-                                            jisu_str = "S&P 500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                            jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
                                         self.label_1st.setText(jisu_str)
                                         self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
@@ -23060,9 +23064,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 if overnight:
 
                                     if max(대비리스트) < 0:
-                                        jisu_str = "S&P 500: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                        jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                     else:
-                                        jisu_str = "S&P 500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                        jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
                                     self.label_1st.setText(jisu_str)
                                     self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
@@ -23071,9 +23075,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     if comboindex1 != 8 and comboindex2 != 8:
 
                                         if max(대비리스트) < 0:
-                                            jisu_str = "S&P 500: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                            jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                         else:
-                                            jisu_str = "S&P 500: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                            jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
                                         self.label_1st.setText(jisu_str)
                                         self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
@@ -23108,14 +23112,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_plotdata_dow.iloc[0][1] = result['시가']
                         DOW_시가 = int(result['시가'])
                     else:
-                        pass    
+                        pass   
 
+                    DOW_전일대비 = int(result['체결가격'] - DOW_종가) 
+                    '''
                     if result['전일대비기호'] == '5':
 
                         DOW_전일대비 = -int(result['전일대비'])
                     else:
                         DOW_전일대비 = int(result['전일대비'])                
-
+                    '''
                     if DOW_피봇 == 0:
                         
                         if DOW_전저 > 0 and DOW_전고 > 0:
@@ -23230,12 +23236,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass 
 
+                    WTI_전일대비 = round((result['체결가격'] - WTI_종가), 2)
+                    '''
                     if result['전일대비기호'] == '5':
 
                         WTI_전일대비 = -result['전일대비']
                     else:
                         WTI_전일대비 = result['전일대비']                  
-
+                    '''
                     if WTI_피봇 == 0:
                         
                         if WTI_전저 > 0 and WTI_전고 > 0:
@@ -23267,9 +23275,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if result['전일대비기호'] == '5':
 
                                 if min(대비리스트) > 0:
-                                    jisu_str = "WTI: {0} ({1}, {2:0.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                    jisu_str = "WTI: {0} ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
                                 else:
-                                    jisu_str = "WTI: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+                                    jisu_str = "WTI: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
 
                                 if overnight:
 
@@ -23288,9 +23296,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             elif result['전일대비기호'] == '2':
 
                                 if min(대비리스트) > 0:
-                                    jisu_str = "WTI: {0} ▲ ({1}, {2:0.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                    jisu_str = "WTI: {0} ▲ ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
                                 else:
-                                    jisu_str = "WTI: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+                                    jisu_str = "WTI: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
 
                                 if overnight:
 
@@ -23313,9 +23321,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if result['전일대비기호'] == '5':
 
                                 if max(대비리스트) < 0:
-                                    jisu_str = "WTI: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                    jisu_str = "WTI: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
                                 else:
-                                    jisu_str = "WTI: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+                                    jisu_str = "WTI: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
 
                                 if overnight:
 
@@ -23334,9 +23342,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             elif result['전일대비기호'] == '2':
 
                                 if max(대비리스트) < 0:
-                                    jisu_str = "WTI: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                    jisu_str = "WTI: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
                                 else:
-                                    jisu_str = "WTI: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+                                    jisu_str = "WTI: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
 
                                 if overnight:
 
@@ -25620,7 +25628,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = " 현재가 : {0} ▲ ({1:0.2f}, {2:0.2f}%, {3:0.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
 
-                self.label_7.setStyleSheet('background-color: pink ; color: black')
+                if 선물_전일대비 > 0:
+                    self.label_7.setStyleSheet('background-color: pink ; color: red')
+                elif 선물_전일대비 < 0:
+                    self.label_7.setStyleSheet('background-color: pink ; color: blue')
+                else:
+                    self.label_7.setStyleSheet('background-color: pink ; color: black')
+
                 self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_7.setText(str)
 
@@ -25628,7 +25642,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = " 현재가 : {0} ▼ ({1:0.2f}, {2:0.2f}%, {3:0.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
 
-                self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+                if 선물_전일대비 > 0:
+                    self.label_7.setStyleSheet('background-color: skyblue ; color: red')
+                if 선물_전일대비 < 0:
+                    self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
+                else:
+                    self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+
                 self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_7.setText(str)
             else:
@@ -25691,7 +25711,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                     format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
-                self.label_7.setStyleSheet('background-color: pink ; color: black')
+                if SP500_전일대비 > 0:
+                    self.label_7.setStyleSheet('background-color: pink ; color: red')
+                elif SP500_전일대비 < 0:
+                    self.label_7.setStyleSheet('background-color: pink ; color: blue')
+                else:
+                    self.label_7.setStyleSheet('background-color: pink ; color: black')
+
                 self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_7.setText(str)
 
@@ -25699,8 +25725,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                     format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+                
+                if SP500_전일대비 > 0:
+                    self.label_7.setStyleSheet('background-color: skyblue ; color: red')
+                elif SP500_전일대비 < 0:
+                    self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
+                else:
+                    self.label_7.setStyleSheet('background-color: skyblue ; color: black')
 
-                self.label_7.setStyleSheet('background-color: skyblue ; color: black')
                 self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_7.setText(str)
             else:
@@ -25762,7 +25794,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                     format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
-                self.label_7.setStyleSheet('background-color: pink ; color: black')
+                if DOW_전일대비 > 0:
+                    self.label_7.setStyleSheet('background-color: pink ; color: red')
+                elif DOW_전일대비 < 0:
+                    self.label_7.setStyleSheet('background-color: pink ; color: blue')
+                else:
+                    self.label_7.setStyleSheet('background-color: pink ; color: black')
+
                 self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_7.setText(str)
 
@@ -25771,7 +25809,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                     format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
-                self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+                if DOW_전일대비 > 0:
+                    self.label_7.setStyleSheet('background-color: skyblue ; color: red')
+                elif DOW_전일대비 < 0:
+                    self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
+                else:
+                    self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+
                 self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_7.setText(str)
             else:
@@ -25833,7 +25877,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                     format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
-                self.label_7.setStyleSheet('background-color: pink ; color: black')
+                if NASDAQ_전일대비 > 0:
+                    self.label_7.setStyleSheet('background-color: pink ; color: red')
+                elif NASDAQ_전일대비 < 0:
+                    self.label_7.setStyleSheet('background-color: pink ; color: blue')
+                else:
+                    self.label_7.setStyleSheet('background-color: pink ; color: black')
+
                 self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_7.setText(str)
 
@@ -25842,7 +25892,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                     format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
-                self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+                if NASDAQ_전일대비 > 0:
+                    self.label_7.setStyleSheet('background-color: skyblue ; color: red')
+                elif NASDAQ_전일대비 < 0:
+                    self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
+                else:
+                    self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+
                 self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_7.setText(str)
             else:
@@ -25903,7 +25959,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                     format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
-                self.label_7.setStyleSheet('background-color: pink ; color: black')
+                if WTI_전일대비 > 0:
+                    self.label_7.setStyleSheet('background-color: pink ; color: red')
+                elif WTI_전일대비 < 0:
+                    self.label_7.setStyleSheet('background-color: pink ; color: blue')
+                else:
+                    self.label_7.setStyleSheet('background-color: pink ; color: black')
+
                 self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_7.setText(str)
 
@@ -25912,7 +25974,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                     format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
-                self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+                if WTI_전일대비 > 0:
+                    self.label_7.setStyleSheet('background-color: skyblue ; color: red')
+                elif WTI_전일대비 < 0:
+                    self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
+                else:
+                    self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+
                 self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_7.setText(str)
             else:
@@ -26004,8 +26072,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                     format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+                
+                if SP500_전일대비 > 0:
+                    self.label_15.setStyleSheet('background-color: pink ; color: red')
+                elif SP500_전일대비 < 0:
+                    self.label_15.setStyleSheet('background-color: pink ; color: blue')
+                else:
+                    self.label_15.setStyleSheet('background-color: pink ; color: black')
 
-                self.label_15.setStyleSheet('background-color: pink ; color: black')
                 self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_15.setText(str)
 
@@ -26014,7 +26088,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                     format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
-                self.label_15.setStyleSheet('background-color: skyblue ; color: black')
+                if SP500_전일대비 > 0:
+                    self.label_15.setStyleSheet('background-color: skyblue ; color: red')
+                elif SP500_전일대비 < 0:
+                    self.label_15.setStyleSheet('background-color: skyblue ; color: blue')
+                else:
+                    self.label_15.setStyleSheet('background-color: skyblue ; color: black')
+
                 self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_15.setText(str)
             else:
@@ -26076,7 +26156,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                     format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
-                self.label_15.setStyleSheet('background-color: pink ; color: black')
+                if DOW_전일대비 > 0:
+                    self.label_15.setStyleSheet('background-color: pink ; color: red')
+                elif DOW_전일대비 < 0:
+                    self.label_15.setStyleSheet('background-color: pink ; color: blue')
+                else:
+                    self.label_15.setStyleSheet('background-color: pink ; color: black')
+
                 self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_15.setText(str)
 
@@ -26085,7 +26171,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                     format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
-                self.label_15.setStyleSheet('background-color: skyblue ; color: black')
+                if DOW_전일대비 > 0:
+                    self.label_15.setStyleSheet('background-color: skyblue ; color: red')
+                elif DOW_전일대비 < 0:
+                    self.label_15.setStyleSheet('background-color: skyblue ; color: blue')
+                else:
+                    self.label_15.setStyleSheet('background-color: skyblue ; color: black')
+
                 self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_15.setText(str)
             else:
@@ -26147,7 +26239,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                     format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
-                self.label_15.setStyleSheet('background-color: pink ; color: black')
+                if NASDAQ_전일대비 > 0:
+                    self.label_15.setStyleSheet('background-color: pink ; color: red')
+                elif NASDAQ_전일대비 < 0:
+                    self.label_15.setStyleSheet('background-color: pink ; color: blue')
+                else:
+                    self.label_15.setStyleSheet('background-color: pink ; color: black')
+
                 self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_15.setText(str)
 
@@ -26156,7 +26254,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                     format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
-                self.label_15.setStyleSheet('background-color: skyblue ; color: black')
+                if NASDAQ_전일대비 > 0:
+                    self.label_15.setStyleSheet('background-color: skyblue ; color: red')
+                elif NASDAQ_전일대비 < 0:
+                    self.label_15.setStyleSheet('background-color: skyblue ; color: blue')
+                else:
+                    self.label_15.setStyleSheet('background-color: skyblue ; color: black')
+
                 self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_15.setText(str)
             else:
@@ -26217,7 +26321,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                     format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
-                self.label_15.setStyleSheet('background-color: pink ; color: black')
+                if WTI_전일대비 > 0:
+                    self.label_15.setStyleSheet('background-color: pink ; color: red')
+                elif WTI_전일대비 < 0:
+                    self.label_15.setStyleSheet('background-color: pink ; color: blue')
+                else:
+                    self.label_15.setStyleSheet('background-color: pink ; color: black')
+
                 self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_15.setText(str)
 
@@ -26226,7 +26336,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                     format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
-                self.label_15.setStyleSheet('background-color: skyblue ; color: black')
+                if WTI_전일대비 > 0:
+                    self.label_15.setStyleSheet('background-color: skyblue ; color: red')
+                elif WTI_전일대비 < 0:
+                    self.label_15.setStyleSheet('background-color: skyblue ; color: blue')
+                else:
+                    self.label_15.setStyleSheet('background-color: skyblue ; color: black')
+
                 self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_15.setText(str)
             else:
