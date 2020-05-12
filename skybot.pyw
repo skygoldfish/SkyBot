@@ -18237,7 +18237,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
                 else:
                     str = '{0:0.2f}'.format(콜기준가) + '\n' + '▼'
-                    
+
                     if str != self.tableWidget_call.item(index, Option_column.기준가.value).text():
                         item = QTableWidgetItem(str)
                         item.setTextAlignment(Qt.AlignCenter)
@@ -19547,8 +19547,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if atm_index - 3 <= index <= atm_index + 3:
                     pass
-                else:
-                    
+                else:                    
                     str = '{0:0.2f}'.format(풋기준가) + '\n' + '▼'
 
                     if str != self.tableWidget_put.item(index, Option_column.기준가.value).text():
