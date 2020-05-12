@@ -18233,16 +18233,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if not overnight and 콜기준가 >= 콜저가:
 
-                str = '{0:0.2f}'.format(콜기준가) + '\n' + '▼'
-
-                if str != self.tableWidget_call.item(index, Option_column.기준가.value).text():
-                    item = QTableWidgetItem(str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setForeground(QBrush(청색))             
-                    self.tableWidget_call.setItem(index, Option_column.기준가.value, item)
-                    self.tableWidget_call.resizeColumnsToContents()
-                else:
+                if atm_index - 3 <= index <= atm_index + 3:
                     pass
+                else:
+                    str = '{0:0.2f}'.format(콜기준가) + '\n' + '▼'
+                    
+                    if str != self.tableWidget_call.item(index, Option_column.기준가.value).text():
+                        item = QTableWidgetItem(str)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setForeground(QBrush(청색))             
+                        self.tableWidget_call.setItem(index, Option_column.기준가.value, item)
+                        self.tableWidget_call.resizeColumnsToContents()
+                    else:
+                        pass                
             else:
                 pass
 
@@ -19542,16 +19545,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if not overnight and 풋기준가 >= 풋저가:
 
-                str = '{0:0.2f}'.format(풋기준가) + '\n' + '▼'
-
-                if str != self.tableWidget_put.item(index, Option_column.기준가.value).text():
-                    item = QTableWidgetItem(str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setForeground(QBrush(청색))             
-                    self.tableWidget_put.setItem(index, Option_column.기준가.value, item)
-                    self.tableWidget_put.resizeColumnsToContents()
-                else:
+                if atm_index - 3 <= index <= atm_index + 3:
                     pass
+                else:
+                    
+                    str = '{0:0.2f}'.format(풋기준가) + '\n' + '▼'
+
+                    if str != self.tableWidget_put.item(index, Option_column.기준가.value).text():
+                        item = QTableWidgetItem(str)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setForeground(QBrush(청색))             
+                        self.tableWidget_put.setItem(index, Option_column.기준가.value, item)
+                        self.tableWidget_put.resizeColumnsToContents()
+                    else:
+                        pass
             else:
                 pass
 
