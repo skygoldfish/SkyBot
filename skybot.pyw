@@ -23494,7 +23494,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
             else:
-                pass
+                if int(current_str[0:2]) == 17:
+                    pre_start = True
+                else:
+                    pass
             
             # 옵션 전광판 요청(주간=FC0/OC0, 야간=NC0/EC0)
             XQ = t2301(parent=self)
