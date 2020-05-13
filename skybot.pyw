@@ -17234,7 +17234,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         선물_대비 = 선물_현재가 - 선물_시가
         선물_전일대비 = 선물_현재가 - 선물_종가         
-        선물_등락율 = float(result['등락율'])
+        선물_등락율 = result['등락율']
         선물_진폭 = 선물_고가 - 선물_저가     
         
         # 선물 OHLC 데이타프레임 생성
@@ -17541,15 +17541,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)
 
-            등락율 = result['등락율']
-
-            item = QTableWidgetItem("{0:0.2f}\n({1:0.2f}%)".format(선물_대비, 등락율))
+            item = QTableWidgetItem("{0:0.2f}\n({1:0.2f}%)".format(선물_대비, 선물_등락율))
             item.setTextAlignment(Qt.AlignCenter)
 
             if overnight:
                 self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
+
+            item = QTableWidgetItem("DOW\n({0:0.2f}%)".format(DOW_등락율))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)
             
             if 선물_대비 > 0:
 
