@@ -1,7 +1,7 @@
 [1]. << Month Info >> 
 KSE Start Hour = 9
-Current Month = 202005
-First Day of the Current Month = 20200410
+Current Month = 202006
+First Day of the Current Month = 20200515
 Mangi Yagan = NO
 
 [2]. << Initial Value >>
