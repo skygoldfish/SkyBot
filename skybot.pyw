@@ -18306,15 +18306,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if not overnight and 콜기준가 >= 콜저가:
 
-                str = '{0:0.2f}'.format(콜기준가) + '\n' + '▼'
-
-                if str != self.tableWidget_call.item(index, Option_column.기준가.value).text():
-                    item = QTableWidgetItem(str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setForeground(QBrush(청색))             
-                    self.tableWidget_call.setItem(index, Option_column.기준가.value, item)
-                else:
+                if atm_index - 3 <= index <= atm_index + 3:
                     pass
+                else:
+                    str = '{0:0.2f}'.format(콜기준가) + '\n' + '▼'
+
+                    if str != self.tableWidget_call.item(index, Option_column.기준가.value).text():
+                        item = QTableWidgetItem(str)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setForeground(QBrush(청색))             
+                        self.tableWidget_call.setItem(index, Option_column.기준가.value, item)
+                    else:
+                        pass
             else:
                 pass
 
@@ -18324,11 +18327,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem("{0:0.2f}".format(진폭))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setItem(index, Option_column.진폭.value, item)                    
-            
+            '''
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜저가)
             self.textBrowser.append(str)
-            
+            '''
             self.check_call_oloh(result)
             
             # 콜은 인덱스 기준으로 갱신
@@ -18402,11 +18405,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem("{0:0.2f}".format(진폭))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
-            
+            '''
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜고가)
             self.textBrowser.append(str)
-            
+            '''
             self.check_call_oloh(result)
 
             # 콜은 인덱스 기준으로 갱신
@@ -19606,15 +19609,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if not overnight and 풋기준가 >= 풋저가:
 
-                str = '{0:0.2f}'.format(풋기준가) + '\n' + '▼'
-
-                if str != self.tableWidget_put.item(index, Option_column.기준가.value).text():
-                    item = QTableWidgetItem(str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setForeground(QBrush(청색))             
-                    self.tableWidget_put.setItem(index, Option_column.기준가.value, item)
+                if atm_index - 3 <= index <= atm_index + 3:
+                    pass
                 else:
-                    pass                    
+                    str = '{0:0.2f}'.format(풋기준가) + '\n' + '▼'
+
+                    if str != self.tableWidget_put.item(index, Option_column.기준가.value).text():
+                        item = QTableWidgetItem(str)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setForeground(QBrush(청색))             
+                        self.tableWidget_put.setItem(index, Option_column.기준가.value, item)
+                    else:
+                        pass                    
             else:
                 pass
 
@@ -19624,11 +19630,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem("{0:0.2f}".format(진폭))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
-            
+            '''
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋저가)
             self.textBrowser.append(str)
-
+            '''
             self.check_put_oloh(result)
 
             # 풋은 가격기준으로 갱신
@@ -19702,11 +19708,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem("{0:0.2f}".format(진폭))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
-            
+            '''
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update...\r'.format(\
                 int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋고가)
             self.textBrowser.append(str)
-            
+            '''
             self.check_put_oloh(result)
 
             # 풋은 가격기준으로 갱신
