@@ -409,7 +409,7 @@ with open('control_info.txt', mode='r') as control_file:
                 else:
                     pass                
             else:
-                pass
+                print('빈도수 3이상인 맥점이 없습니다.')
     else:
         pass
 
