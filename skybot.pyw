@@ -22339,18 +22339,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        x_idx = (nighttime - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
+                        x_idx = 선물장간_시간차 + (nighttime - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
                     else:
-                        x_idx = 1
+                        x_idx = 선물장간_시간차 + 1
                 else:
 
                     if result['체결시간'] != '':
-                        x_idx = (int(result['체결시간'][0:2]) - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
+                        x_idx = 선물장간_시간차 + (int(result['체결시간'][0:2]) - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
                     else:
-                        x_idx = 1
-
-                # 해외선물 시작시간과 동기를 맞춤
-                x_idx = x_idx + 선물장간_시간차
+                        x_idx = 선물장간_시간차 + 1
 
                 self.futures_display(result)
 
@@ -22418,18 +22415,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        opt_x_idx = (nighttime - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
+                        opt_x_idx = 선물장간_시간차 + (nighttime - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
                     else:
-                        opt_x_idx = 1
+                        opt_x_idx = 선물장간_시간차 + 1
                 else:
 
                     if result['체결시간'] != '':
-                        opt_x_idx = (int(result['체결시간'][0:2]) - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
+                        opt_x_idx = 선물장간_시간차 + (int(result['체결시간'][0:2]) - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
                     else:
-                        opt_x_idx = 1
-
-                # 해외선물 시작시간과 동기를 맞춤
-                opt_x_idx = opt_x_idx + 선물장간_시간차  
+                        opt_x_idx = 선물장간_시간차 + 1
 
                 '''
                 str = '[{0:02d}:{1:02d}:{2:02d}] opt_x_idx = {3} \r'.format(
