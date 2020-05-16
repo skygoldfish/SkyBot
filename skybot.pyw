@@ -223,6 +223,11 @@ with open('control_info.txt', mode='r') as control_file:
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
+    DISPLAY_THREAD_INTERVAL = temp[5]
+    print('DISPLAY_THREAD_INTERVAL =', DISPLAY_THREAD_INTERVAL)
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
     행사가갯수 = temp[7]
 
     tmp = control_file.readline().strip()
@@ -429,7 +434,7 @@ with open('control_info.txt', mode='r') as control_file:
     tmp = control_file.readline().strip()    
     temp = tmp.split()
     UI_STYLE = temp[2]
-    print('UI_STYLE =', UI_STYLE)   
+    #print('UI_STYLE =', UI_STYLE)   
     
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
@@ -3082,7 +3087,7 @@ class screen_update_worker(QThread):
             '''
 
             self.finished.emit(data)  
-            self.msleep(500)
+            self.msleep(DISPLAY_THREAD_INTERVAL)
 
     def get_data_infos(self, actval):
 
@@ -6612,6 +6617,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             # 실시간 서비스                     
             if receive_real_ovc or market_service:
+
+                self.call_display()
+                self.put_display()
                 
                 if not overnight:
                     self.display_atm(self.alternate_flag)
@@ -17803,23 +17811,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         self.tableWidget_fut.resizeColumnsToContents() 
 
-    def check_call_oloh(self, result):
+    def check_call_oloh(self):
 
         global call_ol, call_oh
 
         dt = datetime.datetime.now()
 
-        index = call_행사가.index(result['단축코드'][5:8])
+        index = call_행사가.index(call_result['단축코드'][5:8])
         
-        시가 = result['시가']
-        현재가 = result['현재가']
-        저가 = result['저가']
-        고가 = result['고가']
+        시가 = call_result['시가']
+        현재가 = call_result['현재가']
+        저가 = call_result['저가']
+        고가 = call_result['고가']
 
-        콜시가 = float(result['시가'])
-        콜현재가 = float(result['현재가'])
-        콜저가 = float(result['저가'])
-        콜고가 = float(result['고가'])
+        콜시가 = float(call_result['시가'])
+        콜현재가 = float(call_result['현재가'])
+        콜저가 = float(call_result['저가'])
+        콜고가 = float(call_result['고가'])
 
         if 콜시가 >= oloh_cutoff:
 
@@ -17906,9 +17914,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
     # 콜 표시
-    def call_display(self, result):
+    def call_display(self):
 
-        global call_result, call_open, call_itm_count
+        global call_open, call_itm_count
         global df_call, df_plotdata_call, df_plotdata_call_rr
         global atm_str, atm_index, call_atm_value
         global call_시가, call_시가_node_list, call_피봇, call_피봇_node_list, 콜시가리스트
@@ -17926,12 +17934,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        index = call_행사가.index(result['단축코드'][5:8])
+        index = call_행사가.index(call_result['단축코드'][5:8])
         
-        시가 = result['시가']
-        현재가 = result['현재가']
-        저가 = result['저가']
-        고가 = result['고가']
+        시가 = call_result['시가']
+        현재가 = call_result['현재가']
+        저가 = call_result['저가']
+        고가 = call_result['고가']
                 
         # 야간선물이 없어짐에 따른 텔레그램 기동 대응
         if overnight:
@@ -18032,8 +18040,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format(int(result['체결시간'][0:2]), \
-                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), call_open_list)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
+                        int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
             self.textBrowser.append(str)
             
             if index > atm_index:
@@ -18149,14 +18157,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             call_피봇 = df_call['피봇'].values.tolist()
             call_피봇_node_list = self.make_node_list(call_피봇)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Open Update !!!\r'.format(int(result['체결시간'][0:2]), \
-                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜시가)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Open Update !!!\r'.format(int(call_result['체결시간'][0:2]), \
+                        int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜시가)
             self.textBrowser.append(str)
             
             if index == option_pairs_count - 1:
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 콜 최대 시작가 {3} 오픈되었습니다.\r'.format(\
-                    int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜시가)
+                    int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜시가)
                 self.textBrowser.append(str)
             else:
                 pass
@@ -18323,10 +18331,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_call.setItem(index, Option_column.진폭.value, item)                    
             '''
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update...\r'.format(\
-                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜저가)
+                int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜저가)
             self.textBrowser.append(str)
             '''
-            self.check_call_oloh(result)
+            self.check_call_oloh()
             
             # 콜은 인덱스 기준으로 갱신
             if 콜저가 < 콜고가 and call_scroll_begin_position <= index <= call_scroll_end_position:
@@ -18404,10 +18412,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
             '''
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update...\r'.format(\
-                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜고가)
+                int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜고가)
             self.textBrowser.append(str)
             '''
-            self.check_call_oloh(result)
+            self.check_call_oloh()
 
             # 콜은 인덱스 기준으로 갱신
             if 콜저가 < 콜고가 and call_scroll_begin_position <= index <= call_scroll_end_position:
@@ -18428,7 +18436,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if call_low < call_high and call_low > call_current:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 콜저가[{3}/{4}] 갱신오류 발생 !!!\r'.format(\
-                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), call_low, call_current)
+                int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_low, call_current)
             self.textBrowser.append(str)
             print(str)
 
@@ -18501,10 +18509,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setItem(index, Option_column.진폭.value, item)                    
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update...\r'.format(\
-                    int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜저가)
+                    int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜저가)
                 self.textBrowser.append(str)
 
-                self.check_call_oloh(result)
+                self.check_call_oloh()
 
                 # 콜은 인덱스 기준으로 갱신
                 if 콜저가 < 콜고가 and call_scroll_begin_position <= index <= call_scroll_end_position:
@@ -18520,7 +18528,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if call_low < call_high and call_high < call_current:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 콜고가[{3}/{4}] 갱신오류 발생 !!!\r'.format(\
-                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), call_high, call_current)
+                int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_high, call_current)
             self.textBrowser.append(str)
             print(str)
 
@@ -18578,10 +18586,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update...\r'.format(\
-                    int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 콜고가)
+                    int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜고가)
                 self.textBrowser.append(str)
 
-                self.check_call_oloh(result)
+                self.check_call_oloh()
 
                 # 콜은 인덱스 기준으로 갱신
                 if 콜저가 < 콜고가 and call_scroll_begin_position <= index <= call_scroll_end_position:
@@ -19181,23 +19189,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-    def check_put_oloh(self, result):
+    def check_put_oloh(self):
 
         global put_ol, put_oh
 
         dt = datetime.datetime.now()
 
-        index = put_행사가.index(result['단축코드'][5:8])
+        index = put_행사가.index(put_result['단축코드'][5:8])
         
-        시가 = result['시가']
-        현재가 = result['현재가']
-        저가 = result['저가']
-        고가 = result['고가']
+        시가 = put_result['시가']
+        현재가 = put_result['현재가']
+        저가 = put_result['저가']
+        고가 = put_result['고가']
 
-        풋시가 = float(result['시가'])
-        풋현재가 = float(result['현재가'])
-        풋저가 = float(result['저가'])
-        풋고가 = float(result['고가'])
+        풋시가 = float(put_result['시가'])
+        풋현재가 = float(put_result['현재가'])
+        풋저가 = float(put_result['저가'])
+        풋고가 = float(put_result['고가'])
 
         if 풋시가 >= oloh_cutoff:
 
@@ -19284,9 +19292,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         
     # 풋 표시
-    def put_display(self, result):
+    def put_display(self):
 
-        global put_result, put_open, put_itm_count
+        global put_open, put_itm_count
         global df_put, df_plotdata_put, df_plotdata_put_rr
         global atm_str, atm_index, put_atm_value
         global put_시가, put_시가_node_list, put_피봇, put_피봇_node_list, 풋시가리스트
@@ -19303,12 +19311,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        index = put_행사가.index(result['단축코드'][5:8])
+        index = put_행사가.index(put_result['단축코드'][5:8])
         
-        시가 = result['시가']
-        현재가 = result['현재가']
-        저가 = result['저가']
-        고가 = result['고가']
+        시가 = put_result['시가']
+        현재가 = put_result['현재가']
+        저가 = put_result['저가']
+        고가 = put_result['고가']
                 
         if 저가 != 고가 and not put_open[index]:
 
@@ -19332,8 +19340,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format(int(result['체결시간'][0:2]), \
-                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), put_open_list)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
+                        int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
             self.textBrowser.append(str)
             
             if index < atm_index:
@@ -19449,14 +19457,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             put_피봇 = df_put['피봇'].values.tolist()
             put_피봇_node_list = self.make_node_list(put_피봇)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Open Update !!!\r'.format(int(result['체결시간'][0:2]), \
-                        int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋시가)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Open Update !!!\r'.format(int(put_result['체결시간'][0:2]), \
+                        int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 풋시가)
             self.textBrowser.append(str)
             
             if index == 0:
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 풋 최대 시작가 {3} 오픈되었습니다.\r'.format(\
-                    int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 시가)
+                    int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 시가)
                 self.textBrowser.append(str)
             else:
                 pass  
@@ -19623,10 +19631,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
             '''
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update...\r'.format(\
-                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋저가)
+                int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 풋저가)
             self.textBrowser.append(str)
             '''
-            self.check_put_oloh(result)
+            self.check_put_oloh()
 
             # 풋은 가격기준으로 갱신
             if 풋저가 < 풋고가 and update_start < 풋저가 < update_end:            
@@ -19704,10 +19712,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
             '''
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update...\r'.format(\
-                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋고가)
+                int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 풋고가)
             self.textBrowser.append(str)
             '''
-            self.check_put_oloh(result)
+            self.check_put_oloh()
 
             # 풋은 가격기준으로 갱신
             if 풋저가 < 풋고가 and update_start < 풋고가 < update_end:            
@@ -19728,7 +19736,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if put_low < put_high and put_low > put_current:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 풋저가[{3}/{4}] 갱신오류 발생 !!!\r'.format(\
-                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), put_low, put_current)
+                int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_low, put_current)
             self.textBrowser.append(str)
             print(str)
 
@@ -19801,10 +19809,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update...\r'.format(\
-                    int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋저가)
+                    int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 풋저가)
                 self.textBrowser.append(str)
 
-                self.check_put_oloh(result)
+                self.check_put_oloh()
 
                 # 풋은 가격기준으로 갱신
                 if 풋저가 < 풋고가 and update_start < 풋저가 < update_end:
@@ -19820,7 +19828,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if put_low < put_high and put_high < put_current:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 풋고가[{3}/{4}] 갱신오류 발생 !!!\r'.format(\
-                int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), put_high, put_current)
+                int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_high, put_current)
             self.textBrowser.append(str)
             print(str)
 
@@ -19878,10 +19886,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update...\r'.format(\
-                    int(result['체결시간'][0:2]), int(result['체결시간'][2:4]), int(result['체결시간'][4:6]), 풋고가)
+                    int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 풋고가)
                 self.textBrowser.append(str)
 
-                self.check_put_oloh(result)
+                self.check_put_oloh()
 
                 # 풋은 가격기준으로 갱신
                 if 풋저가 < 풋고가 and update_start < 풋고가 < update_end:
@@ -20730,7 +20738,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global wti_delta, old_wti_delta, wti_직전대비, wti_text_color
             global receive_real_ovc
             global x_idx, ovc_x_idx
-            global call_result, put_result
             
             global FC0_선물현재가, OC0_콜현재가, OC0_풋현재가
             global opt_x_idx
@@ -22441,7 +22448,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if result['단축코드'][0:3] == '201':
 
                     call_result = copy.deepcopy(result)                        
-                    self.call_display(result) 
+                    #self.call_display() 
 
                     '''
                     if result['현재가'] != OC0_콜현재가:
@@ -22489,7 +22496,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 elif result['단축코드'][0:3] == '301':
 
                     put_result = copy.deepcopy(result)
-                    self.put_display(result)
+                    #self.put_display()
 
                     '''
                     if result['현재가'] != OC0_풋현재가:

@@ -5,6 +5,7 @@ First Day of the Current Month = 20200515
 Mangi Yagan = NO
 
 [2]. << Initial Value >>
+Display Update Thread Interval(msec) = 200
 Actval count of the option pairs = 100
 Basic coreval of the options = 1.20 2.50 3.50 4.85 5.10 5.50 6.85 7.10 8.10
 My coreval = 3.50
