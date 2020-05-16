@@ -223,8 +223,8 @@ with open('control_info.txt', mode='r') as control_file:
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
-    OPTION_DISPLAY_THREAD_INTERVAL = temp[5]
-    print('OPTION_DISPLAY_THREAD_INTERVAL =', OPTION_DISPLAY_THREAD_INTERVAL)
+    OPTION_UPDATE_THREAD_INTERVAL = temp[5]
+    print('OPTION_UPDATE_THREAD_INTERVAL =', OPTION_UPDATE_THREAD_INTERVAL)
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
@@ -3174,7 +3174,7 @@ class option_update_worker(QThread):
             str = ''
 
             self.finished.emit(str)
-            self.msleep(OPTION_DISPLAY_THREAD_INTERVAL)
+            self.msleep(OPTION_UPDATE_THREAD_INTERVAL)
 ########################################################################################################################
 
 ########################################################################################################################
