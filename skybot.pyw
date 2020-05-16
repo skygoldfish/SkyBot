@@ -223,8 +223,8 @@ with open('control_info.txt', mode='r') as control_file:
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
-    DISPLAY_THREAD_INTERVAL = temp[5]
-    print('DISPLAY_THREAD_INTERVAL =', DISPLAY_THREAD_INTERVAL)
+    OPTION_DISPLAY_THREAD_INTERVAL = temp[5]
+    print('OPTION_DISPLAY_THREAD_INTERVAL =', OPTION_DISPLAY_THREAD_INTERVAL)
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
@@ -3087,7 +3087,7 @@ class screen_update_worker(QThread):
             '''
 
             self.finished.emit(data)  
-            self.msleep(DISPLAY_THREAD_INTERVAL)
+            self.msleep(500)
 
     def get_data_infos(self, actval):
 
@@ -3160,6 +3160,21 @@ class screen_update_worker(QThread):
             else:
                 return None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
 
+########################################################################################################################
+
+########################################################################################################################
+class option_update_worker(QThread):
+
+    finished = pyqtSignal(str)
+
+    def run(self):
+        
+        while True:
+
+            str = ''
+
+            self.finished.emit(str)
+            self.msleep(OPTION_DISPLAY_THREAD_INTERVAL)
 ########################################################################################################################
 
 ########################################################################################################################
@@ -3547,6 +3562,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.screen_update_worker = screen_update_worker()
         self.screen_update_worker.finished.connect(self.update_screen)
+
+        self.option_update_worker = option_update_worker()
+        self.option_update_worker.finished.connect(self.option_update)
 
         self.telegram_send_worker = telegram_send_worker()
         self.telegram_send_worker.finished.connect(self.send_telegram_message)
@@ -6562,7 +6580,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             dt = datetime.datetime.now()
 
             if market_service:
-
                 str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Send Message = {3}\r'.format(dt.hour, dt.minute, dt.second, str)
                 print(str)
             else:
@@ -6581,8 +6598,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             telegram_command = str
 
             if market_service:
-
                 str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)
+                print(str)
+            else:
+                pass
+        except:
+            pass
+
+    @pyqtSlot(str)
+    def option_update(self, str):
+
+        try:
+            dt = datetime.datetime.now()
+
+            if market_service:
+
+                self.call_display()
+                self.put_display()
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] Option Update Done...\r'.format(dt.hour, dt.minute, dt.second)
                 print(str)
             else:
                 pass
@@ -6617,9 +6651,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             # 실시간 서비스                     
             if receive_real_ovc or market_service:
-
-                self.call_display()
-                self.put_display()
                 
                 if not overnight:
                     self.display_atm(self.alternate_flag)
@@ -20956,6 +20987,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         receive_quote = False
 
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 종료합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
+                        self.textBrowser.append(str)
+
+                        if self.option_update_worker.isRunning():
+                            self.option_update_worker.terminate()
+                        else:
+                            pass
+
                         self.pushButton_add.setText('ScrShot')
 
                         self.opt_all_node_coloring()
@@ -20981,16 +21020,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     NASDAQ_당일종가 = NASDAQ_현재가
                     WTI_당일종가 = WTI_현재가
                     '''
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 S&P 500 지수 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), SP500_현재가)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 S&P 500 지수 = {3}\r'.format \
+                        (int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), SP500_현재가)
                     self.textBrowser.append(str)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 DOW 지수 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), DOW_현재가)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 DOW 지수 = {3}\r'.format \
+                        (int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), DOW_현재가)
                     self.textBrowser.append(str)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 NASDAQ 지수 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), NASDAQ_현재가)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 NASDAQ 지수 = {3}\r'.format \
+                        (int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), NASDAQ_현재가)
                     self.textBrowser.append(str)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 WTI 지수 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), WTI_현재가)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 WTI 지수 = {3}\r'.format \
+                        (int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), WTI_현재가)
                     self.textBrowser.append(str)
 
                     if market_service:
@@ -21002,6 +21045,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         yagan_service_terminate = True
 
                         receive_quote = False
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 종료합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
+                        self.textBrowser.append(str)
+
+                        if self.option_update_worker.isRunning():
+                            self.option_update_worker.terminate()
+                        else:
+                            pass
 
                         self.pushButton_add.setText('ScrShot')
                         
@@ -22399,9 +22450,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if not market_service: 
 
                     market_service = True
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 옵션 데이타를 수신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    '''
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 옵션 데이타를 수신했습니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
+                    '''
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 시작합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
+                    self.textBrowser.append(str)
+
+                    self.option_update_worker.start()
+                    self.option_update_worker.daemon = True
                 else:
                     pass
 
@@ -22448,7 +22505,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if result['단축코드'][0:3] == '201':
 
                     call_result = copy.deepcopy(result)                        
-                    #self.call_display() 
+                    self.call_display() 
 
                     '''
                     if result['현재가'] != OC0_콜현재가:
@@ -22496,7 +22553,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 elif result['단축코드'][0:3] == '301':
 
                     put_result = copy.deepcopy(result)
-                    #self.put_display()
+                    self.put_display()
 
                     '''
                     if result['현재가'] != OC0_풋현재가:
