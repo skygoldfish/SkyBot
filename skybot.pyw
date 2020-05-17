@@ -3163,7 +3163,7 @@ class screen_update_worker(QThread):
 ########################################################################################################################
 
 ########################################################################################################################
-class option_update_worker(QThread):
+class call_update_worker(QThread):
 
     finished = pyqtSignal(str)
 
@@ -3171,7 +3171,22 @@ class option_update_worker(QThread):
         
         while True:
 
-            str = ''
+            str = 'Call Update Done...'
+
+            self.finished.emit(str)
+            self.msleep(OPTION_UPDATE_THREAD_INTERVAL)
+########################################################################################################################
+
+########################################################################################################################
+class put_update_worker(QThread):
+
+    finished = pyqtSignal(str)
+
+    def run(self):
+        
+        while True:
+
+            str = 'Put Update Done...'
 
             self.finished.emit(str)
             self.msleep(OPTION_UPDATE_THREAD_INTERVAL)
@@ -3563,8 +3578,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.screen_update_worker = screen_update_worker()
         self.screen_update_worker.finished.connect(self.update_screen)
 
-        self.option_update_worker = option_update_worker()
-        self.option_update_worker.finished.connect(self.option_update)
+        self.call_update_worker = call_update_worker()
+        self.call_update_worker.finished.connect(self.call_update)
+
+        self.put_update_worker = put_update_worker()
+        self.put_update_worker.finished.connect(self.put_update)
 
         self.telegram_send_worker = telegram_send_worker()
         self.telegram_send_worker.finished.connect(self.send_telegram_message)
@@ -6606,7 +6624,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
     @pyqtSlot(str)
-    def option_update(self, str):
+    def call_update(self, str):
 
         try:
             dt = datetime.datetime.now()
@@ -6614,10 +6632,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if market_service:
 
                 self.call_display()
+
+                strr = '[{0:02d}:{1:02d}:{2:02d}] {3}\r'.format(dt.hour, dt.minute, dt.second, str)
+                print(strr)
+            else:
+                pass
+        except:
+            pass
+
+    @pyqtSlot(str)
+    def put_update(self, str):
+
+        try:
+            dt = datetime.datetime.now()
+
+            if market_service:
+
                 self.put_display()
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Option Update Done...\r'.format(dt.hour, dt.minute, dt.second)
-                print(str)
+                strr = '[{0:02d}:{1:02d}:{2:02d}] {3}\r'.format(dt.hour, dt.minute, dt.second, str)
+                print(strr)
             else:
                 pass
         except:
@@ -20990,8 +21024,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 종료합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                         self.textBrowser.append(str)
 
-                        if self.option_update_worker.isRunning():
-                            self.option_update_worker.terminate()
+                        if self.call_update_worker.isRunning():
+                            self.call_update_worker.terminate()
+                        else:
+                            pass
+
+                        if self.put_update_worker.isRunning():
+                            self.put_update_worker.terminate()
                         else:
                             pass
 
@@ -21049,8 +21088,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 종료합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                         self.textBrowser.append(str)
 
-                        if self.option_update_worker.isRunning():
-                            self.option_update_worker.terminate()
+                        if self.call_update_worker.isRunning():
+                            self.call_update_worker.terminate()
+                        else:
+                            pass
+
+                        if self.put_update_worker.isRunning():
+                            self.put_update_worker.terminate()
                         else:
                             pass
 
@@ -22457,8 +22501,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 시작합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
 
-                    self.option_update_worker.start()
-                    self.option_update_worker.daemon = True
+                    self.call_update_worker.start()
+                    self.call_update_worker.daemon = True
+
+                    self.put_update_worker.start()
+                    self.put_update_worker.daemon = True
                 else:
                     pass
 
