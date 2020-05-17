@@ -3171,7 +3171,7 @@ class call_update_worker(QThread):
         
         while True:
 
-            str = 'Call Update Done...'
+            str = 'Call Update Start...'
 
             self.finished.emit(str)
             self.msleep(OPTION_UPDATE_THREAD_INTERVAL)
@@ -3186,7 +3186,7 @@ class put_update_worker(QThread):
         
         while True:
 
-            str = 'Put Update Done...'
+            str = 'Put Update Start...'
 
             self.finished.emit(str)
             self.msleep(OPTION_UPDATE_THREAD_INTERVAL)
@@ -6627,12 +6627,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def call_update(self, str):
 
         try:
-            dt = datetime.datetime.now()
-
             self.call_display()
-
-            strr = '[{0:02d}:{1:02d}:{2:02d}] {3}\r'.format(dt.hour, dt.minute, dt.second, str)
-            print(strr)
         except:
             pass
 
@@ -6640,12 +6635,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def put_update(self, str):
 
         try:
-            dt = datetime.datetime.now()
-
             self.put_display()
-
-            strr = '[{0:02d}:{1:02d}:{2:02d}] {3}\r'.format(dt.hour, dt.minute, dt.second, str)
-            print(strr)
         except:
             pass
 
@@ -17989,6 +17979,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_otm_db, call_otm_db_percent 
         global 콜대비_퍼센트_평균       
 
+        start_time = timeit.default_timer()
+
         dt = datetime.datetime.now()
 
         index = call_행사가.index(call_result['단축코드'][5:8])
@@ -18202,9 +18194,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             call_시가 = df_call['시가'].values.tolist()
             call_시가_node_list = self.make_node_list(call_시가)
-
-            콜전저 = df_call.at[index, '전저']
-            콜전고 = df_call.at[index, '전고']
 
             피봇 = self.calc_pivot(콜전저, 콜전고, 콜종가, 콜시가)
             df_call.at[index, '피봇'] = 피봇
@@ -18475,7 +18464,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        self.tableWidget_call.resizeColumnsToContents()        
+        self.tableWidget_call.resizeColumnsToContents()
+
+        process_time = (timeit.default_timer() - start_time) * 1000
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] Call Update Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        #self.textBrowser.append(str)
+        print(str)        
 
         '''
         # 저가, 고가 갱신오류 검사, 수정
@@ -19359,6 +19354,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_otm_db, put_otm_db_percent
         global 풋대비_퍼센트_평균
 
+        start_time = timeit.default_timer()
+
         dt = datetime.datetime.now()
 
         index = put_행사가.index(put_result['단축코드'][5:8])
@@ -19495,10 +19492,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             put_시가 = df_put['시가'].values.tolist()
             put_시가_node_list = self.make_node_list(put_시가)
-            
-            풋전저 = df_put.at[index, '전저']
-            풋전고 = df_put.at[index, '전고']
-            
+                        
             피봇 = self.calc_pivot(풋전저, 풋전고, 풋종가, 풋시가)
             df_put.at[index, '피봇'] = 피봇
 
@@ -19769,6 +19763,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         
         self.tableWidget_put.resizeColumnsToContents()
+
+        process_time = (timeit.default_timer() - start_time) * 1000
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] Put Update Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        #self.textBrowser.append(str)
+        print(str)
 
         '''
         # 저가, 고가 갱신오류 검사, 수정
