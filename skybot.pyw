@@ -17999,8 +17999,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         고가 = call_result['고가']
         
         콜시가 = float(시가)
+        콜현재가 = float(현재가)
         콜저가 = float(저가)
         콜고가 = float(고가)
+        
+        콜종가 = df_call.at[index, '종가']
+        콜기준가 = df_call.at[index, '기준가']
+        콜월저 = df_call.at[index, '월저']
+        콜월고 = df_call.at[index, '월고']
+        콜전저 = df_call.at[index, '전저']
+        콜전고 = df_call.at[index, '전고']
                 
         # 야간선물이 없어짐에 따른 텔레그램 기동 대응
         if overnight:
@@ -18129,8 +18137,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 시가 갱신
         if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
-            콜종가 = df_call.at[index, '종가']
-
             df_call.at[index, '시가'] = 콜시가
             df_plotdata_call.iat[index, 선물장간_시간차] = 콜시가
             
@@ -18232,8 +18238,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 현재가 갱신
         if 현재가 != self.tableWidget_call.item(index, Option_column.현재가.value).text().split('\n')[0]:
 
-            콜현재가 = float(현재가)
-
             df_call.at[index, '현재가'] = 콜현재가
             df_plotdata_call.iat[index, opt_x_idx] = 콜현재가
 
@@ -18329,8 +18333,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            콜전저 = df_call.at[index, '전저']
-
             if 콜전저 >= 콜저가:
 
                 str = '{0:0.2f}'.format(콜전저) + '\n' + '▼'
@@ -18345,8 +18347,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            콜월저 = df_call.at[index, '월저']
-
             if 콜월저 >= 콜저가:
 
                 str = '{0:0.2f}'.format(콜월저) + '\n' + '▼'
@@ -18360,8 +18360,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
             else:
                 pass
-
-            콜기준가 = df_call.at[index, '기준가']
 
             if not overnight and 콜기준가 >= 콜저가:
 
@@ -18428,8 +18426,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            콜전고 = df_call.at[index, '전고']
-
             if 콜전고 <= 콜고가:
 
                 str = '{0:0.2f}'.format(콜전고) + '\n' + '▲'
@@ -18443,8 +18439,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
             else:
                 pass
-
-            콜월고 = df_call.at[index, '월고']
 
             if 콜월고 <= 콜고가:
 
@@ -19373,10 +19367,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         현재가 = put_result['현재가']
         저가 = put_result['저가']
         고가 = put_result['고가']
-
+        
         풋시가 = float(시가)
+        풋현재가 = float(현재가)
         풋저가 = float(저가)
         풋고가 = float(고가)
+        
+        풋종가 = df_put.at[index, '종가']
+        풋기준가 = df_put.at[index, '기준가']
+        풋월저 = df_put.at[index, '월저']
+        풋월고 = df_put.at[index, '월고']
+        풋전저 = df_put.at[index, '전저']
+        풋전고 = df_put.at[index, '전고']
                 
         if 저가 != 고가 and not put_open[index]:
 
@@ -19428,8 +19430,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 시가 갱신
         if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
             
-            풋종가 = df_put.at[index, '종가']
-
             df_put.at[index, '시가'] = 풋시가
             df_plotdata_put.iat[index, 선물장간_시간차] = 풋시가
             
@@ -19531,8 +19531,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 현재가 갱신
         if 현재가 != self.tableWidget_put.item(index, Option_column.현재가.value).text().split('\n')[0]:
 
-            풋현재가 = float(현재가)
-
             df_put.at[index, '현재가'] = 풋현재가
             df_plotdata_put.iat[index, opt_x_idx] = 풋현재가
 
@@ -19628,8 +19626,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            풋전저 = df_put.at[index, '전저']
-
             if 풋전저 >= 풋저가:
 
                 str = '{0:0.2f}'.format(풋전저) + '\n' + '▼'
@@ -19644,8 +19640,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            풋월저 = df_put.at[index, '월저']
-
             if 풋월저 >= 풋저가:
 
                 str = '{0:0.2f}'.format(풋월저) + '\n' + '▼'
@@ -19659,8 +19653,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
             else:
                 pass
-
-            풋기준가 = df_put.at[index, '기준가']
 
             if not overnight and 풋기준가 >= 풋저가:
 
@@ -19727,8 +19719,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            풋전고 = df_put.at[index, '전고']
-
             if 풋전고 <= 풋고가:
 
                 str = '{0:0.2f}'.format(풋전고) + '\n' + '▲'
@@ -19742,8 +19732,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
             else:
                 pass
-
-            풋월고 = df_put.at[index, '월고']
 
             if 풋월고 <= 풋고가:
 
