@@ -6629,14 +6629,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         try:
             dt = datetime.datetime.now()
 
-            if market_service:
+            self.call_display()
 
-                self.call_display()
-
-                strr = '[{0:02d}:{1:02d}:{2:02d}] {3}\r'.format(dt.hour, dt.minute, dt.second, str)
-                print(strr)
-            else:
-                pass
+            strr = '[{0:02d}:{1:02d}:{2:02d}] {3}\r'.format(dt.hour, dt.minute, dt.second, str)
+            print(strr)
         except:
             pass
 
@@ -6646,14 +6642,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         try:
             dt = datetime.datetime.now()
 
-            if market_service:
+            self.put_display()
 
-                self.put_display()
-
-                strr = '[{0:02d}:{1:02d}:{2:02d}] {3}\r'.format(dt.hour, dt.minute, dt.second, str)
-                print(strr)
-            else:
-                pass
+            strr = '[{0:02d}:{1:02d}:{2:02d}] {3}\r'.format(dt.hour, dt.minute, dt.second, str)
+            print(strr)
         except:
             pass
 
@@ -18005,6 +17997,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         현재가 = call_result['현재가']
         저가 = call_result['저가']
         고가 = call_result['고가']
+        
+        콜시가 = float(시가)
+        콜저가 = float(저가)
+        콜고가 = float(고가)
                 
         # 야간선물이 없어짐에 따른 텔레그램 기동 대응
         if overnight:
@@ -18095,8 +18091,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
 
             call_open[index] = True
-
-            콜시가 = float(시가)
             
             # 콜 시가 갱신
             if 콜시가 > opt_search_start_value:
@@ -18135,7 +18129,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 시가 갱신
         if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
-            콜시가 = float(시가)
             콜종가 = df_call.at[index, '종가']
 
             df_call.at[index, '시가'] = 콜시가
@@ -18314,8 +18307,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             item = QTableWidgetItem('▼')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-
-            콜저가 = float(저가)            
+          
             df_call.at[index, '저가'] = 콜저가
             
             call_저가 = df_call['저가'].values.tolist()
@@ -18414,8 +18406,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             item = QTableWidgetItem('▲')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-
-            콜고가 = float(고가)            
+         
             df_call.at[index, '고가'] = 콜고가
             
             call_고가 = df_call['고가'].values.tolist()
@@ -19382,6 +19373,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         현재가 = put_result['현재가']
         저가 = put_result['저가']
         고가 = put_result['고가']
+
+        풋시가 = float(시가)
+        풋저가 = float(저가)
+        풋고가 = float(고가)
                 
         if 저가 != 고가 and not put_open[index]:
 
@@ -19395,8 +19390,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
 
             put_open[index] = True
-
-            풋시가 = float(시가)
             
             # 풋 시가 갱신
             if 풋시가 > opt_search_start_value:
@@ -19435,7 +19428,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 시가 갱신
         if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
             
-            풋시가 = float(시가)
             풋종가 = df_put.at[index, '종가']
 
             df_put.at[index, '시가'] = 풋시가
@@ -19614,8 +19606,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             item = QTableWidgetItem('▼')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-
-            풋저가 = float(저가)            
+         
             df_put.at[index, '저가'] = 풋저가
             
             put_저가 = df_put['저가'].values.tolist()
@@ -19714,8 +19705,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             item = QTableWidgetItem('▲')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-
-            풋고가 = float(고가)                        
+                    
             df_put.at[index, '고가'] = 풋고가
             
             put_고가 = df_put['고가'].values.tolist()
