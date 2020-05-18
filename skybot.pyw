@@ -3577,13 +3577,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.screen_update_worker = screen_update_worker()
         self.screen_update_worker.finished.connect(self.update_screen)
-
+        '''
         self.call_update_worker = call_update_worker()
         self.call_update_worker.finished.connect(self.call_update)
 
         self.put_update_worker = put_update_worker()
         self.put_update_worker.finished.connect(self.put_update)
-
+        '''
         self.telegram_send_worker = telegram_send_worker()
         self.telegram_send_worker.finished.connect(self.send_telegram_message)
 
@@ -6470,6 +6470,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
+        self.tableWidget_supply.resizeColumnsToContents()
+
     @pyqtSlot(int, int)
     def _quotetable_cell_clicked(self, row, col):
 
@@ -6484,6 +6486,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         else:
             pass
+
+        self.tableWidget_quote.resizeColumnsToContents()
     
     @pyqtSlot(int)
     def _calltable_vertical_scroll_position(self, row):
@@ -7492,7 +7496,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.call_open_check()   
                                 self.call_cross_color_update()        
                                 self.call_node_color_update()
-                                self.call_coreval_color_update()
+                                self.call_coreval_color_update()                                
+
+                                self.tableWidget_call.resizeColumnsToContents()
 
                             elif flag_call_cross_coloring or (not self.alternate_flag and dt.minute % 10 == 0 and dt.second == 0):
 
@@ -7519,6 +7525,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.put_cross_color_update()         
                                 self.put_node_color_update()
                                 self.put_coreval_color_update()
+
+                                self.tableWidget_put.resizeColumnsToContents()
                             else:
                                 pass
                         else:
@@ -8128,7 +8136,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        self.tableWidget_fut.resizeColumnsToContents()
+        #self.tableWidget_fut.resizeColumnsToContents()
         
         진성맥점 = list(set(진성맥점))
         진성맥점.sort()            
@@ -10304,7 +10312,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem('★ +')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-        self.tableWidget_call.resizeColumnsToContents()
+        #self.tableWidget_call.resizeColumnsToContents()
 
     def call_low_coreval_color_update(self):
 
@@ -12660,8 +12668,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem('★ +')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-        self.tableWidget_put.resizeColumnsToContents()
-
+        #self.tableWidget_put.resizeColumnsToContents()
 
     def put_low_coreval_color_update(self):
 
@@ -17862,7 +17869,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        self.tableWidget_fut.resizeColumnsToContents() 
+        #self.tableWidget_fut.resizeColumnsToContents() 
 
     def check_call_oloh(self):
 
@@ -18379,11 +18386,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem("{0:0.2f}".format(진폭))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setItem(index, Option_column.진폭.value, item)                    
-            '''
+            
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update...\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜저가)
             self.textBrowser.append(str)
-            '''
+            
             self.check_call_oloh()
             
             # 콜은 인덱스 기준으로 갱신
@@ -18392,7 +18399,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
         else:
-            pass
+            pass             
 
         # 고가 갱신
         if 고가 != self.tableWidget_call.item(index, Option_column.고가.value).text().split('\n')[0]:
@@ -18455,11 +18462,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem("{0:0.2f}".format(진폭))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
-            '''
+            
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update...\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜고가)
             self.textBrowser.append(str)
-            '''
+            
             self.check_call_oloh()
 
             # 콜은 인덱스 기준으로 갱신
@@ -18470,13 +18477,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        self.tableWidget_call.resizeColumnsToContents()
+        #self.tableWidget_call.resizeColumnsToContents()
+        '''
+        process_time = (timeit.default_timer() - start_time) * 1000
 
-        #process_time = (timeit.default_timer() - start_time) * 1000
-
-        #str = '[{0:02d}:{1:02d}:{2:02d}] Call Update Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
-        #self.textBrowser.append(str)
-        #print(str)        
+        str = '[{0:02d}:{1:02d}:{2:02d}] Call Update Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        self.textBrowser.append(str)
+        print(str)                 
+        '''
 
         '''
         # 저가, 고가 갱신오류 검사, 수정
@@ -19236,7 +19244,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 콜대비합 = 0        
 
-            self.tableWidget_call.resizeColumnsToContents()
+            #self.tableWidget_call.resizeColumnsToContents()
         else:
             pass
 
@@ -19677,11 +19685,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem("{0:0.2f}".format(진폭))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
-            '''
+            
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update...\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 풋저가)
             self.textBrowser.append(str)
-            '''
+            
             self.check_put_oloh()
 
             # 풋은 가격기준으로 갱신
@@ -19753,11 +19761,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem("{0:0.2f}".format(진폭))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
-            '''
+            
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update...\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 풋고가)
             self.textBrowser.append(str)
-            '''
+            
             self.check_put_oloh()
 
             # 풋은 가격기준으로 갱신
@@ -19768,13 +19776,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        self.tableWidget_put.resizeColumnsToContents()
+        #self.tableWidget_put.resizeColumnsToContents()
+        '''
+        process_time = (timeit.default_timer() - start_time) * 1000
 
-        #process_time = (timeit.default_timer() - start_time) * 1000
-
-        #str = '[{0:02d}:{1:02d}:{2:02d}] Put Update Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
-        #self.textBrowser.append(str)
-        #print(str)
+        str = '[{0:02d}:{1:02d}:{2:02d}] Put Update Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        self.textBrowser.append(str)
+        print(str)
+        '''
 
         '''
         # 저가, 고가 갱신오류 검사, 수정
@@ -20539,7 +20548,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 풋대비합 = 0
 
-            self.tableWidget_put.resizeColumnsToContents()
+            #self.tableWidget_put.resizeColumnsToContents()
         else:
             pass
 
@@ -21007,7 +21016,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 종료합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                         self.textBrowser.append(str)
-
+                        '''
                         if self.call_update_worker.isRunning():
                             self.call_update_worker.terminate()
                         else:
@@ -21017,7 +21026,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.put_update_worker.terminate()
                         else:
                             pass
-
+                        '''
                         self.pushButton_add.setText('ScrShot')
 
                         self.opt_all_node_coloring()
@@ -21071,7 +21080,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 종료합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                         self.textBrowser.append(str)
-
+                        '''
                         if self.call_update_worker.isRunning():
                             self.call_update_worker.terminate()
                         else:
@@ -21081,7 +21090,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.put_update_worker.terminate()
                         else:
                             pass
-
+                        '''
                         self.pushButton_add.setText('ScrShot')
                         
                         str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 스레드를 종료합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
