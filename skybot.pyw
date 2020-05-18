@@ -18114,8 +18114,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format(int(call_result['체결시간'][0:2]), \
-                        int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format \
+                (int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
             self.textBrowser.append(str)
             
             if index > atm_index:
@@ -18225,14 +18225,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             call_피봇 = df_call['피봇'].values.tolist()
             call_피봇_node_list = self.make_node_list(call_피봇)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Open Update !!!\r'.format(int(call_result['체결시간'][0:2]), \
-                        int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜시가)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Open Update !!!\r'.format \
+                (int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜시가)
             self.textBrowser.append(str)
             
             if index == option_pairs_count - 1:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 콜 최대 시작가 {3} 오픈되었습니다.\r'.format(\
-                    int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜시가)
+                str = '[{0:02d}:{1:02d}:{2:02d}] 콜 최대 시작가 {3} 오픈되었습니다.\r'.format \
+                    (int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜시가)
                 self.textBrowser.append(str)
             else:
                 pass
@@ -18387,11 +18387,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 
             item = QTableWidgetItem("{0:0.2f}".format(진폭))
             item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_call.setItem(index, Option_column.진폭.value, item)                    
-            
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update...\r'.format(\
-                int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜저가)
-            self.textBrowser.append(str)
+            self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
             
             self.check_call_oloh()
             
@@ -18400,6 +18396,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 flag_call_low_update = True
             else:
                 pass
+
+            process_time = (timeit.default_timer() - start_time) * 1000
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update : {4:0.2f} ms\r'.format \
+                (int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜저가, process_time)
+            self.textBrowser.append(str)
+            print(str) 
         else:
             pass             
 
@@ -18465,10 +18468,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
             
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update...\r'.format(\
-                int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜고가)
-            self.textBrowser.append(str)
-            
             self.check_call_oloh()
 
             # 콜은 인덱스 기준으로 갱신
@@ -18476,17 +18475,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 flag_call_high_update = True
             else:
                 pass
+
+            process_time = (timeit.default_timer() - start_time) * 1000
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update : {4:0.2f} ms\r'.format \
+                (int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜고가, process_time)
+            self.textBrowser.append(str)
+            print(str) 
         else:
             pass
-        
-        #self.tableWidget_call.resizeColumnsToContents()
-        '''
-        process_time = (timeit.default_timer() - start_time) * 1000
-
-        str = '[{0:02d}:{1:02d}:{2:02d}] Call Update Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
-        self.textBrowser.append(str)
-        print(str)                 
-        '''
 
         '''
         # 저가, 고가 갱신오류 검사, 수정
@@ -19413,8 +19410,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format(int(put_result['체결시간'][0:2]), \
-                        int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format \
+                (int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
             self.textBrowser.append(str)
             
             if index < atm_index:
@@ -19524,14 +19521,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             put_피봇 = df_put['피봇'].values.tolist()
             put_피봇_node_list = self.make_node_list(put_피봇)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Open Update !!!\r'.format(int(put_result['체결시간'][0:2]), \
-                        int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 풋시가)
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Open Update !!!\r'.format \
+                (int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 풋시가)
             self.textBrowser.append(str)
             
             if index == 0:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 풋 최대 시작가 {3} 오픈되었습니다.\r'.format(\
-                    int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 시가)
+                str = '[{0:02d}:{1:02d}:{2:02d}] 풋 최대 시작가 {3} 오픈되었습니다.\r'.format \
+                    (int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 시가)
                 self.textBrowser.append(str)
             else:
                 pass  
@@ -19688,10 +19685,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
             
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update...\r'.format(\
-                int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 풋저가)
-            self.textBrowser.append(str)
-            
             self.check_put_oloh()
 
             # 풋은 가격기준으로 갱신
@@ -19699,6 +19692,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 flag_put_low_update = True
             else:
                 pass
+
+            process_time = (timeit.default_timer() - start_time) * 1000
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update : {4:0.2f} ms\r'.format \
+                (int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 풋저가, process_time)
+            self.textBrowser.append(str)
+            print(str) 
         else:
             pass
 
@@ -19764,10 +19764,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
             
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update...\r'.format(\
-                int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 풋고가)
-            self.textBrowser.append(str)
-            
             self.check_put_oloh()
 
             # 풋은 가격기준으로 갱신
@@ -19775,17 +19771,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 flag_put_high_update = True
             else:
                 pass
-        else:
-            pass
-        
-        #self.tableWidget_put.resizeColumnsToContents()
-        '''
-        process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Put Update Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
-        self.textBrowser.append(str)
-        print(str)
-        '''
+            process_time = (timeit.default_timer() - start_time) * 1000
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update : {4:0.2f} ms\r'.format \
+                (int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 풋고가, process_time)
+            self.textBrowser.append(str)
+            print(str) 
+        else:
+            pass        
 
         '''
         # 저가, 고가 갱신오류 검사, 수정
