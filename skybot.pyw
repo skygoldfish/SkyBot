@@ -24194,7 +24194,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_4.setText(" 피봇 : 가격 ")
             self.label_5.setText(" 시가 : 가격 ")
             self.label_6.setText(" 저가 : 가격 ")
-            self.label_7.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+            self.label_7.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
             self.label_8.setText(" 고가 : 가격 ")
 
             bc_plot1_call_rr_curve.clear()
@@ -24246,7 +24246,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_4.setText(" 피봇 : 가격 ")
             self.label_5.setText(" 시가 : 가격 ")
             self.label_6.setText(" 저가 : 가격 ")
-            self.label_7.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+            self.label_7.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
             self.label_8.setText(" 고가 : 가격 ")            
             
             bc_plot1_fut_volume_plus_curve.clear()
@@ -24297,7 +24297,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_4.setText(" 피봇 : 가격 ")
             self.label_5.setText(" 시가 : 가격 ")
             self.label_6.setText(" 저가 : 가격 ")
-            self.label_7.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+            self.label_7.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
             self.label_8.setText(" 고가 : 가격 ")
             
             bc_plot1_fut_volume_plus_curve.clear()
@@ -24349,7 +24349,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_4.setText(" 피봇 : 가격 ")
             self.label_5.setText(" 시가 : 가격 ")
             self.label_6.setText(" 저가 : 가격 ")
-            self.label_7.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+            self.label_7.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
             self.label_8.setText(" 고가 : 가격 ")
 
             bc_plot1_fut_volume_plus_curve.clear()
@@ -24926,7 +24926,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_12.setText(" 피봇 : 가격 ")
             self.label_13.setText(" 시가 : 가격 ")
             self.label_14.setText(" 저가 : 가격 ")
-            self.label_15.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+            self.label_15.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
             self.label_16.setText(" 고가 : 가격 ")
             
             bc_plot2_call_rr_curve.clear()
@@ -24971,7 +24971,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_12.setText(" 피봇 : 가격 ")
             self.label_13.setText(" 시가 : 가격 ")
             self.label_14.setText(" 저가 : 가격 ")
-            self.label_15.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+            self.label_15.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
             self.label_16.setText(" 고가 : 가격 ")
                         
             bc_plot2_call_volume_curve.clear()
@@ -25017,7 +25017,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_12.setText(" 피봇 : 가격 ")
             self.label_13.setText(" 시가 : 가격 ")
             self.label_14.setText(" 저가 : 가격 ")
-            self.label_15.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+            self.label_15.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
             self.label_16.setText(" 고가 : 가격 ")
 
             bc_plot2_call_rr_curve.clear()
@@ -25063,7 +25063,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_12.setText(" 피봇 : 가격 ")
             self.label_13.setText(" 시가 : 가격 ")
             self.label_14.setText(" 저가 : 가격 ")
-            self.label_15.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+            self.label_15.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
             self.label_16.setText(" 고가 : 가격 ")
 
             bc_plot2_call_rr_curve.clear()
@@ -25109,7 +25109,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_12.setText(" 피봇 : 가격 ")
             self.label_13.setText(" 시가 : 가격 ")
             self.label_14.setText(" 저가 : 가격 ")
-            self.label_15.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+            self.label_15.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
             self.label_16.setText(" 고가 : 가격 ")
 
             bc_plot2_call_rr_curve.clear()
