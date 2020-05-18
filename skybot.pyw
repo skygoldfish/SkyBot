@@ -223,7 +223,7 @@ with open('control_info.txt', mode='r') as control_file:
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
-    OPTION_UPDATE_THREAD_INTERVAL = temp[5]
+    OPTION_UPDATE_THREAD_INTERVAL = int(temp[5])
     print('OPTION_UPDATE_THREAD_INTERVAL =', OPTION_UPDATE_THREAD_INTERVAL)
 
     tmp = control_file.readline().strip()
@@ -16136,7 +16136,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_call.setItem(t8416_call_count, Option_column.종가.value, item)
 
-                    df_plotdata_call.iat[t8416_call_count, 0] = block['전일종가']
+                    if t8416_call_count < option_pairs_count:
+                        df_plotdata_call.iat[t8416_call_count, 0] = block['전일종가']
+                    else:
+                        pass
 
                     #str = '[{0:02d}:{1:02d}:{2:02d}] t2301과 t8416의 콜[{3}] 종가가 상이합니다. !!!\r'.format(dt.hour, dt.minute, dt.second, t8416_call_count + 1)
                     #self.textBrowser.append(str)
@@ -16347,7 +16350,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_put.setItem(t8416_put_count, Option_column.종가.value, item)
 
-                    df_plotdata_put.iat[t8416_put_count, 0] = block['전일종가']
+                    if t8416_put_count < option_pairs_count:
+                        df_plotdata_put.iat[t8416_put_count, 0] = block['전일종가']
+                    else:
+                        pass
 
                     #str = '[{0:02d}:{1:02d}:{2:02d}] t2301과 t8416의 풋[{3}] 종가가 상이합니다. !!!\r'.format(dt.hour, dt.minute, dt.second, t8416_put_count + 1)
                     #self.textBrowser.append(str)
@@ -22478,12 +22484,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     '''
                     str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 시작합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
-
+                    '''
                     self.call_update_worker.start()
                     self.call_update_worker.daemon = True
 
                     self.put_update_worker.start()
                     self.put_update_worker.daemon = True
+                    '''
                 else:
                     pass
 
@@ -22530,7 +22537,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if result['단축코드'][0:3] == '201':
 
                     call_result = copy.deepcopy(result)                        
-                    #self.call_display() 
+                    self.call_display() 
 
                     '''
                     if result['현재가'] != OC0_콜현재가:
@@ -22578,7 +22585,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 elif result['단축코드'][0:3] == '301':
 
                     put_result = copy.deepcopy(result)
-                    #self.put_display()
+                    self.put_display()
 
                     '''
                     if result['현재가'] != OC0_풋현재가:
