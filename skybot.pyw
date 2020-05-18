@@ -18472,11 +18472,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         self.tableWidget_call.resizeColumnsToContents()
 
-        process_time = (timeit.default_timer() - start_time) * 1000
+        #process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Call Update Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        #str = '[{0:02d}:{1:02d}:{2:02d}] Call Update Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
         #self.textBrowser.append(str)
-        print(str)        
+        #print(str)        
 
         '''
         # 저가, 고가 갱신오류 검사, 수정
@@ -19770,11 +19770,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         self.tableWidget_put.resizeColumnsToContents()
 
-        process_time = (timeit.default_timer() - start_time) * 1000
+        #process_time = (timeit.default_timer() - start_time) * 1000
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] Put Update Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
+        #str = '[{0:02d}:{1:02d}:{2:02d}] Put Update Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
         #self.textBrowser.append(str)
-        print(str)
+        #print(str)
 
         '''
         # 저가, 고가 갱신오류 검사, 수정
