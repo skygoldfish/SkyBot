@@ -7500,6 +7500,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.call_coreval_color_update()                                
 
                                 self.tableWidget_call.resizeColumnsToContents()
+                                self.tableWidget_fut.resizeColumnsToContents()
 
                             elif flag_call_cross_coloring or (not self.alternate_flag and dt.minute % 10 == 0 and dt.second == 0):
 
