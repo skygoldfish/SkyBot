@@ -18475,7 +18475,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         process_time = (timeit.default_timer() - start_time) * 1000
 
         str = '[{0:02d}:{1:02d}:{2:02d}] Call Update Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
-        self.textBrowser.append(str)
+        #self.textBrowser.append(str)
         print(str)        
 
         '''
@@ -19773,7 +19773,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         process_time = (timeit.default_timer() - start_time) * 1000
 
         str = '[{0:02d}:{1:02d}:{2:02d}] Put Update Time : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
-        self.textBrowser.append(str)
+        #self.textBrowser.append(str)
         print(str)
 
         '''
