@@ -3721,42 +3721,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setForeground(QBrush(녹색))
         self.tableWidget_fut.setItem(2, 0, item)
 
-        self.tableWidget_fut.resizeColumnsToContents()
-
-        # Quote tablewidget 초기화
-        self.tableWidget_quote.setRowCount(1)
-        self.tableWidget_quote.setColumnCount(Quote_column.미결종합.value)
-
-        self.tableWidget_quote.horizontalHeader().setStyleSheet(stylesheet)
-        self.tableWidget_quote.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.tableWidget_quote.setHorizontalHeaderLabels(['콜CMSC', '콜CMDC', '콜CMSR', '콜CMDR',
-                                                          '풋CMSC', '풋CMDC', '풋CMSR', '풋CMDCR', '콜HCR', '콜HRR',
-                                                          '풋HCR', '풋HRR', '∑HCRΔ/∑HRRΔ', '∑콜OI:∑풋OI'])
-        self.tableWidget_quote.verticalHeader().setVisible(False)
-
-        header = self.tableWidget_quote.horizontalHeader()
-        header.setSectionResizeMode(QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(12, QHeaderView.Stretch)
-        self.tableWidget_quote.verticalHeader().setStretchLastSection(True)
-        self.tableWidget_quote.clearContents()
-
-        # 수급 tablewidget 초기화
-        self.tableWidget_supply.setRowCount(1)
-        self.tableWidget_supply.setColumnCount(Supply_column.프로그램.value + 1)
-
-        self.tableWidget_supply.horizontalHeader().setStyleSheet(stylesheet)
-        self.tableWidget_supply.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.tableWidget_supply.setHorizontalHeaderLabels(['외인선물', '프로그램', '외인현물', '개인선물', '기관선물', '∑선물/∑현물'])
-        self.tableWidget_supply.verticalHeader().setVisible(False)
-
-        header = self.tableWidget_supply.horizontalHeader()
-        header.setSectionResizeMode(QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(5, QHeaderView.Stretch)
-        self.tableWidget_supply.verticalHeader().setStretchLastSection(True)
-        self.tableWidget_supply.clearContents()
-
         # init value & clear color
         item = QTableWidgetItem('0')
         item.setTextAlignment(Qt.AlignCenter)
@@ -3970,6 +3934,40 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_fut.setItem(2, Futures_column.고가.value, item)
 
         self.tableWidget_fut.resizeColumnsToContents() 
+
+        # Quote tablewidget 초기화
+        self.tableWidget_quote.setRowCount(1)
+        self.tableWidget_quote.setColumnCount(Quote_column.미결종합.value)
+
+        self.tableWidget_quote.horizontalHeader().setStyleSheet(stylesheet)
+        self.tableWidget_quote.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.tableWidget_quote.setHorizontalHeaderLabels(['콜CMSC', '콜CMDC', '콜CMSR', '콜CMDR',
+                                                          '풋CMSC', '풋CMDC', '풋CMSR', '풋CMDCR', '콜HCR', '콜HRR',
+                                                          '풋HCR', '풋HRR', '∑HCRΔ/∑HRRΔ', '∑콜OI:∑풋OI'])
+        self.tableWidget_quote.verticalHeader().setVisible(False)
+
+        header = self.tableWidget_quote.horizontalHeader()
+        header.setSectionResizeMode(QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(12, QHeaderView.Stretch)
+        self.tableWidget_quote.verticalHeader().setStretchLastSection(True)
+        self.tableWidget_quote.clearContents()
+
+        # 수급 tablewidget 초기화
+        self.tableWidget_supply.setRowCount(1)
+        self.tableWidget_supply.setColumnCount(Supply_column.프로그램.value + 1)
+
+        self.tableWidget_supply.horizontalHeader().setStyleSheet(stylesheet)
+        self.tableWidget_supply.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.tableWidget_supply.setHorizontalHeaderLabels(['외인선물', '프로그램', '외인현물', '개인선물', '기관선물', '∑선물/∑현물'])
+        self.tableWidget_supply.verticalHeader().setVisible(False)
+
+        header = self.tableWidget_supply.horizontalHeader()
+        header.setSectionResizeMode(QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(5, QHeaderView.Stretch)
+        self.tableWidget_supply.verticalHeader().setStretchLastSection(True)
+        self.tableWidget_supply.clearContents()        
 
         kp200_realdata['KP200'] = 0.0
         kp200_realdata['전저'] = 0.0
@@ -6161,18 +6159,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # cell focus 이동
         self.tableWidget_fut.setCurrentCell(3, Futures_column.OID.value)
+        self.tableWidget_fut.resizeColumnsToContents()
 
     @pyqtSlot(int)
     def _supply_horizontal_header_clicked(self, idx):
 
         # cell focus 이동
         self.tableWidget_supply.setCurrentCell(1, 5)
+        self.tableWidget_supply.resizeColumnsToContents()
 
     @pyqtSlot(int)
     def _quote_horizontal_header_clicked(self, idx):
 
         # cell focus 이동
         self.tableWidget_quote.setCurrentCell(1, Quote_column.미결종합.value - 1)
+        self.tableWidget_quote.resizeColumnsToContents()
 
     def all_node_set(self):
 
@@ -22815,7 +22816,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if pre_start:
-
                     self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass
