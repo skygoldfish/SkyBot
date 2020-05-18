@@ -23963,7 +23963,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_6.setStyleSheet('background-color: skyblue ; color: black')
         self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_7.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+        self.label_7.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
         self.label_7.setStyleSheet('background-color: black ; color: yellow')
         self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -23996,7 +23996,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_14.setStyleSheet('background-color: skyblue ; color: black')
         self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_15.setText(" 현재가 : 가격(전일대비, 등락율, 진폭) ")
+        self.label_15.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
         self.label_15.setStyleSheet('background-color: black ; color: yellow')
         self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
 
