@@ -22,7 +22,7 @@ Target Month Select = 1
 S&P 500 = ESM20
 DOW = YMM20
 NASDAQ = NQM20
-WTI = CLM20
+WTI = CLN20
 
 [6]. << Telegram >>
 Telegram service = ON
