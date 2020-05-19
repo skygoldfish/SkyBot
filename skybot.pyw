@@ -609,7 +609,24 @@ if os.path.isfile('kp200_info.txt'):
         tmp = kp200_file.readline().strip()
         temp = tmp.split()
         KP200_전고 = float(temp[3])
-        #print('KP200_전고 =', KP200_전고)
+
+        tmp = kp200_file.readline().strip()
+
+        tmp = kp200_file.readline().strip()
+        temp = tmp.split()
+        SP500_전일종가 = float(temp[4])
+
+        tmp = kp200_file.readline().strip()
+        temp = tmp.split()
+        DOW_전일종가 = float(temp[4])
+
+        tmp = kp200_file.readline().strip()
+        temp = tmp.split()
+        NASDAQ_전일종가 = float(temp[4])
+
+        tmp = kp200_file.readline().strip()
+        temp = tmp.split()
+        WTI_전일종가 = float(temp[4])
 else:
     pass
 
@@ -22884,7 +22901,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     NASDAQ_고가 =  result['고가']                    
                     
                     NASDAQ_진폭 = result['고가'] - result['저가']
-                    NASDAQ_등락율 = result['등락율']
+
+                    if NASDAQ_전일종가 > 0:
+                        if not overnight:
+                            NASDAQ_등락율 = ((result['체결가격'] - NASDAQ_전일종가) / NASDAQ_전일종가) * 100
+                        else:
+                            NASDAQ_등락율 = result['등락율']
+                    else:
+                        NASDAQ_등락율 = result['등락율']
 
                     if NASDAQ_시가 == 0:
                         
@@ -22996,7 +23020,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     SP500_고가 =  result['고가']                    
                     
                     SP500_진폭 = result['고가'] - result['저가']
-                    SP500_등락율 = result['등락율']
+
+                    if SP500_전일종가 > 0:
+                        if not overnight:
+                            SP500_등락율 = ((result['체결가격'] - SP500_전일종가) / SP500_전일종가) * 100
+                        else:
+                            SP500_등락율 = result['등락율']
+                    else:
+                        SP500_등락율 = result['등락율']                   
 
                     if SP500_시가 == 0:
                         
@@ -23168,8 +23199,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     DOW_저가 =  int(result['저가'])
                     DOW_고가 =  int(result['고가'])
+
                     DOW_진폭 = int(result['고가'] - result['저가'])
-                    DOW_등락율 = result['등락율']
+
+                    if DOW_전일종가 > 0:
+                        if not overnight:
+                            DOW_등락율 = ((result['체결가격'] - DOW_전일종가) / DOW_전일종가) * 100
+                        else:
+                            DOW_등락율 = result['등락율']
+                    else:
+                        DOW_등락율 = result['등락율']                   
 
                     if DOW_시가 == 0:
                         
@@ -23291,7 +23330,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     WTI_고가 =  result['고가']
                     
                     WTI_진폭 = round((result['고가'] - result['저가']), 2)
-                    WTI_등락율 = result['등락율']
+
+                    if WTI_전일종가 > 0:
+                        if not overnight:
+                            WTI_등락율 = ((result['체결가격'] - WTI_전일종가) / WTI_전일종가) * 100
+                        else:
+                            WTI_등락율 = result['등락율']
+                    else:
+                        WTI_등락율 = result['등락율']                    
                     
                     if WTI_시가 == 0:
                         
