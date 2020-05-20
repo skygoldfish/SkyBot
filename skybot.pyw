@@ -18854,7 +18854,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            df_call.at[index, '수정거래량'] = int(수정거래량)
+            콜수정거래량 = int(수정거래량)
+            df_call.at[index, '수정거래량'] = 콜수정거래량
             df_call_volume.at[index, '매도누적체결량'] = int(매도누적체결량)
             df_call_volume.at[index, '매수누적체결량'] = int(매수누적체결량)
             df_call.at[index, '거래량'] = call_result['누적거래량']
@@ -18866,17 +18867,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
             
-            수정거래량 = format(int(수정거래량), ',')
+            수정거래량 = format(콜수정거래량, ',')
 
             if 수정거래량 != self.tableWidget_call.item(index, Option_column.VP.value).text():
 
                 item = QTableWidgetItem(수정거래량)
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if index == df_call['수정거래량'].idxmax():
-                    item.setBackground(QBrush(라임))
+                if 콜수정거래량 > 0:
+                    item.setBackground(QBrush(pink))
                 else:
-                    item.setBackground(QBrush(흰색))
+                    item.setBackground(QBrush(lightskyblue))
 
                 self.tableWidget_call.setItem(index, Option_column.VP.value, item)
             else:
@@ -20159,7 +20160,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-            df_put.at[index, '수정거래량'] = int(수정거래량)
+            풋수정거래량 = int(수정거래량)
+            df_put.at[index, '수정거래량'] = 풋수정거래량
             df_put_volume.at[index, '매도누적체결량'] = int(매도누적체결량)
             df_put_volume.at[index, '매수누적체결량'] = int(매수누적체결량)
             df_put.at[index, '거래량'] = put_result['누적거래량']
@@ -20171,17 +20173,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
             
-            수정거래량 = format(int(수정거래량), ',')
+            수정거래량 = format(풋수정거래량, ',')
 
             if 수정거래량 != self.tableWidget_put.item(index, Option_column.VP.value).text():
 
                 item = QTableWidgetItem(수정거래량)
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if index == df_put['수정거래량'].idxmax():
-                    item.setBackground(QBrush(라임))
+                if 풋수정거래량 > 0:
+                    item.setBackground(QBrush(pink))
                 else:
-                    item.setBackground(QBrush(흰색))
+                    item.setBackground(QBrush(lightskyblue))
 
                 self.tableWidget_put.setItem(index, Option_column.VP.value, item)
             else:
