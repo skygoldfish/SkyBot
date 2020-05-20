@@ -3594,13 +3594,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.screen_update_worker = screen_update_worker()
         self.screen_update_worker.finished.connect(self.update_screen)
-        '''
+        
         self.call_update_worker = call_update_worker()
         self.call_update_worker.finished.connect(self.call_update)
 
         self.put_update_worker = put_update_worker()
         self.put_update_worker.finished.connect(self.put_update)
-        '''
+        
         self.telegram_send_worker = telegram_send_worker()
         self.telegram_send_worker.finished.connect(self.send_telegram_message)
 
@@ -17894,15 +17894,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_ol, call_oh
 
-        dt = datetime.datetime.now()
+        #dt = datetime.datetime.now()
 
         index = call_행사가.index(call_result['단축코드'][5:8])
-        
+        '''
         시가 = call_result['시가']
         현재가 = call_result['현재가']
         저가 = call_result['저가']
         고가 = call_result['고가']
-
+        '''
         콜시가 = float(call_result['시가'])
         콜현재가 = float(call_result['현재가'])
         콜저가 = float(call_result['저가'])
@@ -18323,7 +18323,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
             else:
                 print('call_db_percent_local is empty...')
-                콜대비합 = 0        
+                콜대비합 = 0
+            '''
+            process_time = (timeit.default_timer() - start_time) * 1000
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] Call 현재가 {3} Update : {4:0.2f} ms\r'.format \
+                (int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜현재가, process_time)
+            self.textBrowser.append(str)
+            print(str)
+            '''         
         else:
             pass
         
@@ -19268,15 +19276,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global put_ol, put_oh
 
-        dt = datetime.datetime.now()
+        #dt = datetime.datetime.now()
 
         index = put_행사가.index(put_result['단축코드'][5:8])
-        
+        '''
         시가 = put_result['시가']
         현재가 = put_result['현재가']
         저가 = put_result['저가']
         고가 = put_result['고가']
-
+        '''
         풋시가 = float(put_result['시가'])
         풋현재가 = float(put_result['현재가'])
         풋저가 = float(put_result['저가'])
@@ -19620,6 +19628,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 print('put_db_percent_local is empty...')
                 풋대비합 = 0
+            '''
+            process_time = (timeit.default_timer() - start_time) * 1000
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put 현재가 {3} Update : {4:0.2f} ms\r'.format \
+                (int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 풋현재가, process_time)
+            self.textBrowser.append(str)
+            print(str)
+            '''
         else:
             pass
         
@@ -21029,7 +21045,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 종료합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                         self.textBrowser.append(str)
-                        '''
+                        
                         if self.call_update_worker.isRunning():
                             self.call_update_worker.terminate()
                         else:
@@ -21039,7 +21055,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.put_update_worker.terminate()
                         else:
                             pass
-                        '''
+                        
                         self.pushButton_add.setText('ScrShot')
 
                         self.opt_all_node_coloring()
@@ -21093,7 +21109,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 종료합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                         self.textBrowser.append(str)
-                        '''
+                        
                         if self.call_update_worker.isRunning():
                             self.call_update_worker.terminate()
                         else:
@@ -21103,7 +21119,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.put_update_worker.terminate()
                         else:
                             pass
-                        '''
+                        
                         self.pushButton_add.setText('ScrShot')
                         
                         str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 스레드를 종료합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
@@ -22500,13 +22516,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if not market_service: 
 
                     market_service = True
-                    '''
+                    
                     str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 옵션 데이타를 수신했습니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
                     '''
                     str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 시작합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
-                    '''
+                    
                     self.call_update_worker.start()
                     self.call_update_worker.daemon = True
 
