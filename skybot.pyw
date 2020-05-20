@@ -7571,6 +7571,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             # 콜 저가, 고가 맥점 컬러갱신
                             if flag_call_low_update:
 
+                                if bms_node_list:
+                                    self.search_moving_node()
+                                else:
+                                    pass
+                                
                                 self.call_low_node_coloring()
                                 
                                 item = QTableWidgetItem('저가')
@@ -7584,6 +7589,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
 
                             if flag_call_high_update:
+
+                                if bms_node_list:
+                                    self.search_moving_node()
+                                else:
+                                    pass
 
                                 self.call_high_node_coloring()
                                 
@@ -7613,6 +7623,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             # 풋 저가, 고가 맥점 컬러갱신
                             if flag_put_low_update:
 
+                                if bms_node_list:
+                                    self.search_moving_node()
+                                else:
+                                    pass
+
                                 self.put_low_node_coloring()
 
                                 item = QTableWidgetItem('저가')
@@ -7626,6 +7641,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
 
                             if flag_put_high_update:
+
+                                if bms_node_list:
+                                    self.search_moving_node()
+                                else:
+                                    pass
 
                                 self.put_high_node_coloring()
                                 
@@ -18356,12 +18376,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(lightskyblue))
             item.setForeground(QBrush(검정색))
             self.tableWidget_call.setItem(index, Option_column.저가.value, item)
-            
+            '''
             if bms_node_list and 1.20 < 콜저가 < 10.0:
                 self.search_moving_node()
             else:
                 pass
-
+            '''
             if 콜전저 >= 콜저가:
 
                 str = '{0:0.2f}'.format(콜전저) + '\n' + '▼'
@@ -18452,12 +18472,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(pink))
             item.setForeground(QBrush(검정색))
             self.tableWidget_call.setItem(index, Option_column.고가.value, item)
-            
+            '''
             if bms_node_list and 1.20 < 콜고가 < 10.0:
                 self.search_moving_node()
             else:
                 pass
-
+            '''
             if 콜전고 <= 콜고가:
 
                 str = '{0:0.2f}'.format(콜전고) + '\n' + '▲'
@@ -19660,12 +19680,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(lightskyblue))
             item.setForeground(QBrush(검정색))
             self.tableWidget_put.setItem(index, Option_column.저가.value, item)
-            
+            '''
             if bms_node_list and 1.20 < 풋저가 < 10.0:
                 self.search_moving_node()
             else:
                 pass
-
+            '''
             if 풋전저 >= 풋저가:
 
                 str = '{0:0.2f}'.format(풋전저) + '\n' + '▼'
@@ -19756,12 +19776,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(pink))
             item.setForeground(QBrush(검정색))
             self.tableWidget_put.setItem(index, Option_column.고가.value, item)
-            
+            '''
             if bms_node_list and 1.20 < 풋고가 < 10.0:
                 self.search_moving_node()
             else:
                 pass
-
+            '''
             if 풋전고 <= 풋고가:
 
                 str = '{0:0.2f}'.format(풋전고) + '\n' + '▲'
