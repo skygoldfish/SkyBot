@@ -25754,6 +25754,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_high_line.setValue(선물_고가)
 
             str = ' 저가 : {0} '.format(선물_저가)
+            self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
+            self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_6.setText(str)       
 
             value = self.label_7.text().split()[2]
@@ -25789,6 +25791,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             str = ' 고가 : {0} '.format(선물_고가)
+            self.label_8.setStyleSheet('background-color: pink ; color: red')
+            self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_8.setText(str)   
 
             bc_plot1_kp200_curve.setData(plot_data9)
@@ -25835,6 +25839,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             str = ' 저가 : {0} '.format(format(SP500_저가, ','))
+            self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
+            self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_6.setText(str) 
 
             tmp = self.label_7.text().split()[2]
@@ -25873,6 +25879,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             str = ' 고가 : {0} '.format(format(SP500_고가, ','))
+            self.label_8.setStyleSheet('background-color: pink ; color: red')
+            self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_8.setText(str)   
 
             bc_plot1_sp500_curve.setData(plot_data11)
@@ -25918,6 +25926,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             str = ' 저가 : {0} '.format(format(DOW_저가, ','))
+            self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
+            self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_6.setText(str)
 
             tmp = self.label_7.text().split()[2]
@@ -25956,6 +25966,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
             
             str = ' 고가 : {0} '.format(format(DOW_고가, ','))
+            self.label_8.setStyleSheet('background-color: pink ; color: red')
+            self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_8.setText(str)                      
             
             bc_plot1_dow_curve.setData(plot_data12)
@@ -26001,6 +26013,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             str = ' 저가 : {0} '.format(format(NASDAQ_저가, ','))
+            self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
+            self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_6.setText(str)
 
             tmp = self.label_7.text().split()[2]
@@ -26039,6 +26053,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             str = ' 고가 : {0} '.format(format(NASDAQ_고가, ','))
+            self.label_8.setStyleSheet('background-color: pink ; color: red')
+            self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_8.setText(str) 
             
             bc_plot1_nasdaq_curve.setData(plot_data13)
@@ -26084,6 +26100,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             str = ' 저가 : {0} '.format(format(WTI_저가, ','))
+            self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
+            self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_6.setText(str)
 
             value = self.label_7.text().split()[2]     
@@ -26121,6 +26139,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             str = ' 고가 : {0} '.format(format(WTI_고가, ','))
+            self.label_8.setStyleSheet('background-color: pink ; color: red')
+            self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_8.setText(str) 
             
             bc_plot1_wti_curve.setData(plot_data14)
@@ -26197,6 +26217,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             str = ' 저가 : {0} '.format(format(SP500_저가, ','))
+            self.label_14.setStyleSheet('background-color: skyblue ; color: blue')
+            self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_14.setText(str)
 
             tmp = self.label_15.text().split()[2]
@@ -26235,6 +26257,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             str = ' 고가 : {0} '.format(format(SP500_고가, ','))
+            self.label_16.setStyleSheet('background-color: pink ; color: red')
+            self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_16.setText(str) 
             
             bc_plot2_sp500_curve.setData(plot_data11) 
@@ -26280,6 +26304,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             str = ' 저가 : {0} '.format(format(DOW_저가, ','))
+            self.label_14.setStyleSheet('background-color: skyblue ; color: blue')
+            self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_14.setText(str)  
 
             tmp = self.label_15.text().split()[2]
@@ -26318,6 +26344,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             str = ' 고가 : {0} '.format(format(DOW_고가, ','))
+            self.label_16.setStyleSheet('background-color: pink ; color: red')
+            self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_16.setText(str)                  
             
             bc_plot2_dow_curve.setData(plot_data12) 
@@ -26363,6 +26391,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             str = ' 저가 : {0} '.format(format(NASDAQ_저가, ','))
+            self.label_14.setStyleSheet('background-color: skyblue ; color: blue')
+            self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_14.setText(str)
 
             tmp = self.label_15.text().split()[2]
@@ -26401,6 +26431,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             str = ' 고가 : {0} '.format(format(NASDAQ_고가, ','))
+            self.label_16.setStyleSheet('background-color: pink ; color: red')
+            self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_16.setText(str)    
 
             bc_plot2_nasdaq_curve.setData(plot_data13)
@@ -26446,6 +26478,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             str = ' 저가 : {0} '.format(format(WTI_저가, ','))
+            self.label_14.setStyleSheet('background-color: skyblue ; color: blue')
+            self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_14.setText(str)
 
             value = self.label_15.text().split()[2]             
@@ -26483,6 +26517,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             str = ' 고가 : {0} '.format(format(WTI_고가, ','))
+            self.label_16.setStyleSheet('background-color: pink ; color: red')
+            self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
             self.label_16.setText(str)    
 
             bc_plot2_wti_curve.setData(plot_data14)
