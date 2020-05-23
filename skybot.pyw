@@ -3907,6 +3907,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         item = QTableWidgetItem("{0:0.2f}".format(0.0))
         item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
+
+        item = QTableWidgetItem("{0:0.2f}".format(0.0))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
+
+        item = QTableWidgetItem("{0:0.2f}".format(0.0))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(2, Futures_column.시가갭.value, item)
+
+        item = QTableWidgetItem("{0:0.2f}".format(0.0))
+        item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(옅은회색))
         self.tableWidget_fut.setItem(0, Futures_column.저가.value, item)
 
@@ -3949,6 +3961,78 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(옅은회색))
         self.tableWidget_fut.setItem(2, Futures_column.고가.value, item)
+
+        item = QTableWidgetItem("{0:0.2f}".format(0.0))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
+
+        item = QTableWidgetItem("{0:0.2f}".format(0.0))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
+
+        item = QTableWidgetItem("{0:0.2f}".format(0.0))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)
+
+        item = QTableWidgetItem("{0:0.2f}".format(0.0))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
+
+        item = QTableWidgetItem("{0:0.2f}".format(0.0))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
+
+        item = QTableWidgetItem("{0:0.2f}".format(0.0))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(2, Futures_column.진폭.value, item)
+
+        item = QTableWidgetItem("{0}".format('-'))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
+
+        item = QTableWidgetItem("{0}".format('-'))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
+
+        item = QTableWidgetItem("{0}".format('-'))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
+
+        item = QTableWidgetItem("{0}".format('-'))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.FR.value, item)
+
+        item = QTableWidgetItem("{0}".format('-'))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.FR.value, item)
+
+        item = QTableWidgetItem("{0}".format('-'))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(2, Futures_column.FR.value, item)
+
+        item = QTableWidgetItem("{0}".format('-'))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.OI.value, item)
+
+        item = QTableWidgetItem("{0}".format('-'))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.OI.value, item)
+
+        item = QTableWidgetItem("{0}".format('-'))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(2, Futures_column.OI.value, item)
+
+        item = QTableWidgetItem("{0}".format('-'))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(0, Futures_column.OID.value, item)
+
+        item = QTableWidgetItem("{0}".format('-'))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)
+
+        item = QTableWidgetItem("{0}".format('-'))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(2, Futures_column.OID.value, item)
 
         self.tableWidget_fut.resizeColumnsToContents() 
 
@@ -6192,68 +6276,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_quote.setCurrentCell(1, Quote_column.미결종합.value - 1)
         self.tableWidget_quote.resizeColumnsToContents()
 
-    def all_node_set(self):
-
-        global call_node_state, put_node_state
-
-        for idx in range(Option_column.기준가.value, Option_column.시가갭.value):
-
-            col_text = self.tableWidget_call.horizontalHeaderItem(idx).text()
-
-            if col_text.find('✓') == -1:
-            
-                item = QTableWidgetItem(col_text + '\n✓')
-                self.tableWidget_call.setHorizontalHeaderItem(idx, item)
-
-                if idx == Option_column.기준가.value:
-                    call_node_state['기준가'] = True
-                elif idx == Option_column.월저.value:
-                    call_node_state['월저'] = True
-                elif idx == Option_column.월고.value:
-                    call_node_state['월고'] = True
-                elif idx == Option_column.전저.value:
-                    call_node_state['전저'] = True
-                elif idx == Option_column.전고.value:
-                    call_node_state['전고'] = True
-                elif idx == Option_column.종가.value:
-                    call_node_state['종가'] = True
-                elif idx == Option_column.피봇.value:
-                    call_node_state['피봇'] = True
-                elif idx == Option_column.시가.value:
-                    call_node_state['시가'] = True
-                else:
-                    pass
-            else:
-            	pass
-
-            col_text = self.tableWidget_put.horizontalHeaderItem(idx).text()
-
-            if col_text.find('✓') == -1:
-
-                item = QTableWidgetItem(col_text + '\n✓')
-                self.tableWidget_put.setHorizontalHeaderItem(idx, item)
-
-                if idx == Option_column.기준가.value:
-                    put_node_state['기준가'] = True
-                elif idx == Option_column.월저.value:
-                    put_node_state['월저'] = True
-                elif idx == Option_column.월고.value:
-                    put_node_state['월고'] = True
-                elif idx == Option_column.전저.value:
-                    put_node_state['전저'] = True
-                elif idx == Option_column.전고.value:
-                    put_node_state['전고'] = True
-                elif idx == Option_column.종가.value:
-                    put_node_state['종가'] = True
-                elif idx == Option_column.피봇.value:
-                    put_node_state['피봇'] = True
-                elif idx == Option_column.시가.value:
-                    put_node_state['시가'] = True
-                else:
-                    pass
-            else:
-                pass
-    
     @pyqtSlot(int, int)
     def _calltable_cell_clicked(self, row, col):
 
@@ -6350,12 +6372,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     @pyqtSlot(int, int)
     def _futtable_cell_clicked(self, row, col):
         
-        cell = self.tableWidget_fut.currentItem()
+        cell = self.tableWidget_fut.item(row, col)
+
+        txt = "fut table cell clicked = ({0},{1}) ==>{2}<==".format(row, col, cell.text())
+        print(txt)
         
         if cell is not None:
 
-            global 콜매수, 콜매도, 풋매수, 풋매도, 손절, 익절 
-
+            global 콜매수, 콜매도, 풋매수, 풋매도, 손절, 익절
+            
             fut_txt = cell.text()
 
             if row == 2 and col == Futures_column.OLOH.value:
@@ -6467,11 +6492,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     #self.telegram_flag = not self.telegram_flag
             else:
-                pass             
+                pass
+
+            # cell focus 이동
+            self.tableWidget_fut.setCurrentCell(3, Futures_column.OID.value)
+            self.tableWidget_fut.resizeColumnsToContents()             
         else:
-            pass  
-            
-        self.tableWidget_fut.resizeColumnsToContents()
+            pass
 
     @pyqtSlot(int, int)
     def _supplytable_cell_clicked(self, row, col):
@@ -6558,6 +6585,68 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         self.tableWidget_put.resizeColumnsToContents()
+    
+    def all_node_set(self):
+
+        global call_node_state, put_node_state
+
+        for idx in range(Option_column.기준가.value, Option_column.시가갭.value):
+
+            col_text = self.tableWidget_call.horizontalHeaderItem(idx).text()
+
+            if col_text.find('✓') == -1:
+            
+                item = QTableWidgetItem(col_text + '\n✓')
+                self.tableWidget_call.setHorizontalHeaderItem(idx, item)
+
+                if idx == Option_column.기준가.value:
+                    call_node_state['기준가'] = True
+                elif idx == Option_column.월저.value:
+                    call_node_state['월저'] = True
+                elif idx == Option_column.월고.value:
+                    call_node_state['월고'] = True
+                elif idx == Option_column.전저.value:
+                    call_node_state['전저'] = True
+                elif idx == Option_column.전고.value:
+                    call_node_state['전고'] = True
+                elif idx == Option_column.종가.value:
+                    call_node_state['종가'] = True
+                elif idx == Option_column.피봇.value:
+                    call_node_state['피봇'] = True
+                elif idx == Option_column.시가.value:
+                    call_node_state['시가'] = True
+                else:
+                    pass
+            else:
+            	pass
+
+            col_text = self.tableWidget_put.horizontalHeaderItem(idx).text()
+
+            if col_text.find('✓') == -1:
+
+                item = QTableWidgetItem(col_text + '\n✓')
+                self.tableWidget_put.setHorizontalHeaderItem(idx, item)
+
+                if idx == Option_column.기준가.value:
+                    put_node_state['기준가'] = True
+                elif idx == Option_column.월저.value:
+                    put_node_state['월저'] = True
+                elif idx == Option_column.월고.value:
+                    put_node_state['월고'] = True
+                elif idx == Option_column.전저.value:
+                    put_node_state['전저'] = True
+                elif idx == Option_column.전고.value:
+                    put_node_state['전고'] = True
+                elif idx == Option_column.종가.value:
+                    put_node_state['종가'] = True
+                elif idx == Option_column.피봇.value:
+                    put_node_state['피봇'] = True
+                elif idx == Option_column.시가.value:
+                    put_node_state['시가'] = True
+                else:
+                    pass
+            else:
+                pass    
 
     @pyqtSlot(int)
     def t8415_call_request(self, index):
@@ -8275,7 +8364,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.label_msg.setStyleSheet('background-color: lawngreen; color: black')
         
         self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
-
     
     def call_scroll_coloring(self):
 
@@ -13914,8 +14002,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 print('t2301 주간 전광판 풋 데이타 = \r', df_put)
 
-                #self.tableWidget_put.resizeColumnsToContents()
-
                 str = '[{0:02d}:{1:02d}:{2:02d}] {3} 월물 Put 전광판 데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                 self.textBrowser.append(str)
 
@@ -15570,6 +15656,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
                 print(str)
+
+                self.tableWidget_call.resizeColumnsToContents()
+                self.tableWidget_put.resizeColumnsToContents()  
+                self.tableWidget_fut.resizeColumnsToContents()
                 
                 self.screen_update_worker.start()
                 self.screen_update_worker.daemon = True
@@ -16282,9 +16372,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.t8416_callworker.terminate()
                         str = '[{0:02d}:{1:02d}:{2:02d}] Call 과거데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)                        
-
-                        self.tableWidget_call.resizeColumnsToContents()
+                        self.textBrowser.append(str)
 
                         if UI_STYLE == 'Horizontal_Large_View.ui':
 
@@ -16756,7 +16844,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         str = '[{0:02d}:{1:02d}:{2:02d}] t8416종료 주간 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
                         
-                        self.opt_all_node_coloring()       
+                        self.opt_all_node_coloring() 
+
+                        self.tableWidget_call.resizeColumnsToContents()
+                        self.tableWidget_put.resizeColumnsToContents()  
+                        self.tableWidget_fut.resizeColumnsToContents()    
 
                         self.screen_update_worker.start()
                         self.screen_update_worker.daemon = True
