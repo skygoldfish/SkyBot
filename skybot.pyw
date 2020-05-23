@@ -913,8 +913,6 @@ update_end = 10.0
 
 basis = 0
 
-time_delta = 0
-
 Option_column = Enum('Option_column', '행사가 OLOH 기준가 월저 월고 전저 전고 종가 피봇 시가 시가갭 저가 현재가 고가 대비 진폭 VP OI OID')
 Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수잔량 매도잔량 건수비 잔량비 전저 전고 종가 피봇 시가 시가갭 저가 현재가 고가 대비 진폭 거래량 FR OI OID')
 Option_volume_column = Enum('Option_volume_column', '매도누적체결량 매도누적체결건수 매수누적체결량 매수누적체결건수')
@@ -20924,8 +20922,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global call_result, put_result
             global yoc_call_gap_percent, yoc_put_gap_percent
 
-            global time_delta
-
             global opt_callreal_update_counter
             global call_atm_value, call_db_percent
             global call_피봇, call_피봇_node_list, call_시가, call_시가_node_list
@@ -20982,27 +20978,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 장시작 10분전입니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
 
-                    '''
-                    # 서버시간과 동기를 위한 delta time 계산
-                    time_delta = 시스템시간 - ((KSE_START_HOUR - 1) * 3600 + 50 * 60 + 0)
-
-                    if time_delta > 0:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 빠릅니다.\r'.format(\
-                            dt.hour, dt.minute, dt.second, time_delta)
-                        self.textBrowser.append(str)
-                    elif time_delta < 0:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 느립니다.\r'.format(\
-                            dt.hour, dt.minute, dt.second, time_delta)
-                        self.textBrowser.append(str)
-                    else:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간과 서버시간이 같습니다.\r'.format(\
-                            dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 장시작 10분전입니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)                    
-                    '''
-
                 # 현물장 시작 10초전
                 elif result['장구분'] == '1' and result['장상태'] == '22':
 
@@ -21035,24 +21010,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # 야간 옵션장 시작
                 elif result['장구분'] == '8' and result['장상태'] == '21':
-
-                    '''
-                    # 서버시간과 동기를 위한 delta time 계산
-                    time_delta = 시스템시간 - (KSE_START_HOUR * 3600 + 0 * 60 + 0)
-
-                    if time_delta > 0:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 빠릅니다.\r'.format(dt.hour, dt.minute,
-                                                                    dt.second, time_delta)
-                        self.textBrowser.append(str)
-                    elif time_delta < 0:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간이 서버시간보다 {3}초 느립니다.\r'.format(dt.hour, dt.minute,
-                                                                                dt.second, time_delta)
-                        self.textBrowser.append(str)
-                    else:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 시스템시간과 서버시간이 같습니다.\r'.format(dt.hour, dt.minute,
-                                                                                dt.second)
-                        self.textBrowser.append(str)
-                    '''
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 시작됩니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
