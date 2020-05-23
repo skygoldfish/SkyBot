@@ -6121,7 +6121,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
             
             # cell focus 이동
-            self.tableWidget_call.setCurrentCell(100, Option_column.OID.value)
+            self.tableWidget_call.setCurrentCell(nRowCount, Option_column.OID.value)
             self.call_scroll_coloring()
         else:
             pass
@@ -6248,7 +6248,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
             
             # cell focus 이동
-            self.tableWidget_put.setCurrentCell(100, Option_column.OID.value)
+            self.tableWidget_put.setCurrentCell(nRowCount, Option_column.OID.value)
             self.put_scroll_coloring()
         else:
             pass
@@ -6317,7 +6317,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # cell focus 이동
-            self.tableWidget_call.setCurrentCell(100, Option_column.OID.value)
+            self.tableWidget_call.setCurrentCell(nRowCount, Option_column.OID.value)
         else:
             pass
 
@@ -6363,7 +6363,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # cell focus 이동
-            self.tableWidget_put.setCurrentCell(100, Option_column.OID.value)
+            self.tableWidget_put.setCurrentCell(nRowCount, Option_column.OID.value)
         else:
             pass
 
