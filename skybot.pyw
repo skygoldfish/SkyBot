@@ -3771,27 +3771,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
 
-        item = QTableWidgetItem('0.00')
+        item = QTableWidgetItem('0')
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
 
-        item = QTableWidgetItem('0.00')
+        item = QTableWidgetItem('0')
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item)
 
-        item = QTableWidgetItem('0.00')
+        item = QTableWidgetItem('0')
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
 
-        item = QTableWidgetItem('0.00')
+        item = QTableWidgetItem('0')
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
 
-        item = QTableWidgetItem('0.0')
+        item = QTableWidgetItem('0')
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(0, Futures_column.FR.value, item)
 
-        item = QTableWidgetItem('0.0')
+        item = QTableWidgetItem('0')
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(1, Futures_column.FR.value, item)        
 
@@ -3853,7 +3853,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(1, Futures_column.전저.value, item)
 
-        item = QTableWidgetItem("{0}".format('-'))
+        item = QTableWidgetItem("{0:0.2f}".format(0.0))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(2, Futures_column.전저.value, item)
 
@@ -3865,15 +3865,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(1, Futures_column.전고.value, item)
 
-        item = QTableWidgetItem("{0}".format('-'))
+        item = QTableWidgetItem("{0:0.2f}".format(0.0))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(2, Futures_column.전고.value, item)
 
-        item = QTableWidgetItem("{0:0.2f}".format(0.0))
+        item = QTableWidgetItem("{0}".format('-'))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
 
-        item = QTableWidgetItem("{0:0.2f}".format(0.0))
+        item = QTableWidgetItem("{0}".format('-'))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
 
@@ -7603,9 +7603,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.call_node_color_update()
                                 self.call_coreval_color_update()                                
 
-                                self.tableWidget_call.resizeColumnsToContents()
-                                self.tableWidget_fut.resizeColumnsToContents()
-
                             elif flag_call_cross_coloring or (not self.alternate_flag and dt.minute % 10 == 0 and dt.second == 0):
 
                                 flag_put_cross_coloring = True
@@ -7631,8 +7628,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.put_cross_color_update()         
                                 self.put_node_color_update()
                                 self.put_coreval_color_update()
-
-                                self.tableWidget_put.resizeColumnsToContents()
                             else:
                                 pass
                         else:
@@ -8268,6 +8263,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         진성맥점.sort()            
 
         if 진성맥점 != OLD_진성맥점:
+            
+            self.tableWidget_fut.resizeColumnsToContents()
 
             new_list = list(set(진성맥점) - set(DEFAULT_NODE_LIST))
             new_list.sort()
@@ -13089,13 +13086,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if df.iloc[0]['전일대비구분'] == '5':
 
-                    jisu_str = "KOSDAQ: {0} (-{1:0.2f}, {2:0.1f}%)".format(df.iloc[0]['지수'], df.iloc[0]['전일대비'], df.iloc[0]['등락율'])
+                    jisu_str = "KOSDAQ: {0} (-{1:0.2f}, {2:0.1f}%)".format(format(df.iloc[0]['지수'], ','), df.iloc[0]['전일대비'], df.iloc[0]['등락율'])
                     self.label_kosdaq.setText(jisu_str)
                     self.label_kosdaq.setStyleSheet('background-color: black ; color: cyan')
 
                 elif df.iloc[0]['전일대비구분'] == '2':
 
-                    jisu_str = "KOSDAQ: {0} ({1:0.2f}, {2:0.1f}%)".format(df.iloc[0]['지수'], df.iloc[0]['전일대비'], df.iloc[0]['등락율'])
+                    jisu_str = "KOSDAQ: {0} ({1:0.2f}, {2:0.1f}%)".format(format(df.iloc[0]['지수'], ','), df.iloc[0]['전일대비'], df.iloc[0]['등락율'])
                     self.label_kosdaq.setText(jisu_str)
                     self.label_kosdaq.setStyleSheet('background-color: black ; color: magenta')
                 else:
@@ -14461,13 +14458,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if df['종합지수전일대비구분'] == '5':
 
-                    jisu_str = "KOSPI: {0} (-{1:0.2f}, {2:0.1f}%)".format(df['종합지수'], df['종합지수전일대비'], df['종합지수등락율'])
+                    jisu_str = "KOSPI: {0} (-{1:0.2f}, {2:0.1f}%)".format(format(df['종합지수'], ','), df['종합지수전일대비'], df['종합지수등락율'])
                     self.label_kospi.setText(jisu_str)
                     self.label_kospi.setStyleSheet('background-color: black ; color: cyan')
 
                 elif df['종합지수전일대비구분'] == '2':
 
-                    jisu_str = "KOSPI: {0} ({1:0.2f}, {2:0.1f}%)".format(df['종합지수'], df['종합지수전일대비'], df['종합지수등락율'])
+                    jisu_str = "KOSPI: {0} ({1:0.2f}, {2:0.1f}%)".format(format(df['종합지수'], ','), df['종합지수전일대비'], df['종합지수등락율'])
                     self.label_kospi.setText(jisu_str)
                     self.label_kospi.setStyleSheet('background-color: black ; color: magenta')
                 else:
@@ -14843,7 +14840,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] 옵션맥점 Refresh 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
 
-                self.opt_all_node_coloring()                
+                self.opt_all_node_coloring()    
+                
+                self.tableWidget_call.resizeColumnsToContents()
+                self.tableWidget_put.resizeColumnsToContents()  
+                self.tableWidget_fut.resizeColumnsToContents()            
             else:
                 pass
 
@@ -18801,6 +18802,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def call_db_update(self):
 
         global call_진폭, 콜대비합, 콜대비합_단위평균, 콜대비_퍼센트_평균
+        
+        call_진폭 = df_call['진폭'].values.tolist()
+        진폭최대값 = max(call_진폭)
+
+        max_str = '{0:0.2f}'.format(진폭최대값)
+
+        if max_str != self.tableWidget_call.horizontalHeaderItem(Option_column.진폭.value).text():
+            item = QTableWidgetItem(max_str)
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.진폭.value, item)
+        else:
+            pass
 
         #temp = call_db_percent[:]
         temp = call_otm_db_percent[:]
@@ -18829,18 +18841,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             print('call_db_percent_local is empty...')
 
             콜대비합 = 0
-
-        call_진폭 = df_call['진폭'].values.tolist()
-        진폭최대값 = max(call_진폭)
-
-        max_str = '{0:0.2f}'.format(진폭최대값)
-
-        if max_str != self.tableWidget_call.horizontalHeaderItem(Option_column.진폭.value).text():
-            item = QTableWidgetItem(max_str)
-            self.tableWidget_call.setHorizontalHeaderItem(Option_column.진폭.value, item)
-            self.tableWidget_call.resizeColumnsToContents()
-        else:
-            pass
     
     def call_oi_update(self):
 	
@@ -20105,6 +20105,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def put_db_update(self):
 
         global put_진폭, 풋대비합, 풋대비합_단위평균, 풋대비_퍼센트_평균 
+        
+        put_진폭 = df_put['진폭'].values.tolist()
+        진폭최대값 = max(put_진폭)
+
+        max_str = '{0:0.2f}'.format(진폭최대값)
+
+        if max_str != self.tableWidget_put.horizontalHeaderItem(Option_column.진폭.value).text():
+            item = QTableWidgetItem(max_str)
+            self.tableWidget_put.setHorizontalHeaderItem(Option_column.진폭.value, item)
+        else:
+            pass
 
         #temp = put_db_percent[:]
         temp = put_otm_db_percent[:]
@@ -20134,18 +20145,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             print('put_db_percent_local is empty...')
 
             풋대비합 = 0
-
-        put_진폭 = df_put['진폭'].values.tolist()
-        진폭최대값 = max(put_진폭)
-
-        max_str = '{0:0.2f}'.format(진폭최대값)
-
-        if max_str != self.tableWidget_put.horizontalHeaderItem(Option_column.진폭.value).text():
-            item = QTableWidgetItem(max_str)
-            self.tableWidget_put.setHorizontalHeaderItem(Option_column.진폭.value, item)
-            self.tableWidget_put.resizeColumnsToContents()
-        else:
-            pass
     
     def put_oi_update(self):
 	
@@ -22028,20 +22027,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if round(float(result['지수']), 2) != kospi_price:
 
-                        if round(float(result['지수']), 2) > kospi_price:
+                        kospi_str = format(round(float(result['지수']), 2), ',')
 
-                            temp_str = format(round(float(result['지수']), 2), ',')
+                        if round(float(result['지수']), 2) > kospi_price:
 
                             if result['전일대비구분'] == '5':
 
-                                jisu_str = "KOSPI: {0} ▲ (-{1:0.2f}, {2:0.1f}%)".format(temp_str, result['전일비'], result['등락율'])
+                                jisu_str = "KOSPI: {0} ▲ (-{1:0.2f}, {2:0.1f}%)".format(kospi_str, result['전일비'], result['등락율'])
                                 self.label_kospi.setText(jisu_str)
                                 self.label_kospi.setStyleSheet('background-color: pink ; color: blue')
                                 kospi_text_color = 'blue'
 
                             elif result['전일대비구분'] == '2':
 
-                                jisu_str = "KOSPI: {0} ▲ ({1:0.2f}, {2:0.1f}%)".format(temp_str, result['전일비'], result['등락율'])
+                                jisu_str = "KOSPI: {0} ▲ ({1:0.2f}, {2:0.1f}%)".format(kospi_str, result['전일비'], result['등락율'])
                                 self.label_kospi.setText(jisu_str)
                                 self.label_kospi.setStyleSheet('background-color: pink ; color: red')
                                 kospi_text_color = 'red'
@@ -22050,18 +22049,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         elif round(float(result['지수']), 2) < kospi_price:
 
-                            temp_str = format(round(float(result['지수']), 2), ',')
-
                             if result['전일대비구분'] == '5':
 
-                                jisu_str = "KOSPI: {0} ▼ (-{1:0.2f}, {2:0.1f}%)".format(temp_str, result['전일비'], result['등락율'])
+                                jisu_str = "KOSPI: {0} ▼ (-{1:0.2f}, {2:0.1f}%)".format(kospi_str, result['전일비'], result['등락율'])
                                 self.label_kospi.setText(jisu_str)
                                 self.label_kospi.setStyleSheet('background-color: lightskyblue ; color: blue')
                                 kospi_text_color = 'blue'
 
                             elif result['전일대비구분'] == '2':
 
-                                jisu_str = "KOSPI: {0} ▼ ({1:0.2f}, {2:0.1f}%)".format(temp_str, result['전일비'], result['등락율'])
+                                jisu_str = "KOSPI: {0} ▼ ({1:0.2f}, {2:0.1f}%)".format(kospi_str, result['전일비'], result['등락율'])
                                 self.label_kospi.setText(jisu_str)
                                 self.label_kospi.setStyleSheet('background-color: lightskyblue ; color: red')
                                 kospi_text_color = 'red'
@@ -22076,22 +22073,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif result['업종코드'] == KOSDAQ:                                       
 
-                    if round(float(result['지수']), 2) != kosdaq_price:                        
+                    if round(float(result['지수']), 2) != kosdaq_price:    
+                        
+                        kosdaq_str = format(round(float(result['지수']), 2), ',')                    
 
                         if round(float(result['지수']), 2) > kosdaq_price:
 
-                            temp_str = format(round(float(result['지수']), 2), ',')
-
                             if result['전일대비구분'] == '5':
 
-                                jisu_str = "KOSDAQ: {0} ▲ (-{1:0.2f}, {2:0.1f}%)".format(temp_str, result['전일비'], result['등락율'])
+                                jisu_str = "KOSDAQ: {0} ▲ (-{1:0.2f}, {2:0.1f}%)".format(kosdaq_str, result['전일비'], result['등락율'])
                                 self.label_kosdaq.setText(jisu_str)
                                 self.label_kosdaq.setStyleSheet('background-color: pink ; color: blue')
                                 kosdaq_text_color = 'blue'
 
                             elif result['전일대비구분'] == '2':
 
-                                jisu_str = "KOSDAQ: {0} ▲ ({1:0.2f}, {2:0.1f}%)".format(temp_str, result['전일비'], result['등락율'])
+                                jisu_str = "KOSDAQ: {0} ▲ ({1:0.2f}, {2:0.1f}%)".format(kosdaq_str, result['전일비'], result['등락율'])
                                 self.label_kosdaq.setText(jisu_str)
                                 self.label_kosdaq.setStyleSheet('background-color: pink ; color: red')
                                 kosdaq_text_color = 'red'
@@ -22100,18 +22097,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         elif round(float(result['지수']), 2) < kosdaq_price:
 
-                            temp_str = format(round(float(result['지수']), 2), ',')
-
                             if result['전일대비구분'] == '5':
 
-                                jisu_str = "KOSDAQ: {0} ▼ (-{1:0.2f}, {2:0.1f}%)".format(temp_str, result['전일비'], result['등락율'])
+                                jisu_str = "KOSDAQ: {0} ▼ (-{1:0.2f}, {2:0.1f}%)".format(kosdaq_str, result['전일비'], result['등락율'])
                                 self.label_kosdaq.setText(jisu_str)
                                 self.label_kosdaq.setStyleSheet('background-color: lightskyblue ; color: blue')
                                 kosdaq_text_color = 'blue'
 
                             elif result['전일대비구분'] == '2':
 
-                                jisu_str = "KOSDAQ: {0} ▼ ({1:0.2f}, {2:0.1f}%)".format(temp_str, result['전일비'], result['등락율'])
+                                jisu_str = "KOSDAQ: {0} ▼ ({1:0.2f}, {2:0.1f}%)".format(kosdaq_str, result['전일비'], result['등락율'])
                                 self.label_kosdaq.setText(jisu_str)
                                 self.label_kosdaq.setStyleSheet('background-color: lightskyblue ; color: red')
                                 kosdaq_text_color = 'red'
