@@ -6283,7 +6283,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if cell is not None:
 
-            txt = "call table cell clicked = ({0},{1}) ==>{2}<==".format(row, col, cell.text())
+            txt = "call table cell({0},{1}) clicked = {2}".format(row, col, cell.text())
             print(txt)
 
             if atm_str != '':
@@ -6319,7 +6319,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # cell focus 이동
             self.tableWidget_call.setCurrentCell(100, Option_column.OID.value)
         else:
-            txt = "call table cell clicked = ({0},{1}) ==>None type<==".format(row, col)
+            pass
 
         self.tableWidget_call.resizeColumnsToContents()
 
@@ -6330,7 +6330,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if cell is not None:
 
-            txt = "put table cell clicked = ({0},{1}) ==>{2}<==".format(row, col, cell.text())
+            txt = "put table cell({0},{1}) clicked = {2}".format(row, col, cell.text())
             print(txt)
 
             if atm_str != '':
@@ -6365,7 +6365,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # cell focus 이동
             self.tableWidget_put.setCurrentCell(100, Option_column.OID.value)
         else:
-            txt = "put table cell clicked = ({0},{1}) ==>None type<==".format(row, col)
+            pass
 
         self.tableWidget_put.resizeColumnsToContents()
 
@@ -6374,7 +6374,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         cell = self.tableWidget_fut.item(row, col)
 
-        txt = "fut table cell clicked = ({0},{1}) ==>{2}<==".format(row, col, cell.text())
+        txt = "fut table cell({0},{1}) clicked = {2}".format(row, col, cell.text())
         print(txt)
         
         if cell is not None:
@@ -6505,7 +6505,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         cell = self.tableWidget_supply.item(row, col)
 
-        txt = "supply table cell clicked = ({0},{1}) ==>{2}<==".format(row, col, cell.text())
+        txt = "supply table cell({0},{1}) clicked = {2}".format(row, col, cell.text())
         print(txt)
 
         if cell is not None:
@@ -6521,7 +6521,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         cell = self.tableWidget_quote.item(row, col)
 
-        txt = "quote table cell clicked = ({0},{1}) ==>{2}<==".format(row, col, cell.text())
+        txt = "quote table cell({0},{1}) clicked = {2}".format(row, col, cell.text())
         print(txt)
 
         if cell is not None:
