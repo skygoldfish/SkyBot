@@ -7649,11 +7649,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if self.alternate_flag:
 
                             # 콜 테이블 데이타 갱신
-                            self.call_oi_update()                  
+                            self.call_db_update()
                             self.call_volume_power_update()
+                            self.call_oi_update()                            
 
-                            #self.call_state_update() 
-                            #self.call_db_update()
+                            #self.call_state_update()                            
 
                             # 콜 저가, 고가 맥점 컬러갱신
                             if flag_call_low_update:
@@ -7695,11 +7695,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass                                                               
                         else:
                             # 풋 테이블 데이타 갱신
-                            self.put_oi_update()
+                            self.put_db_update()
                             self.put_volume_power_update()
+                            self.put_oi_update()                            
 
-                            #self.put_state_update()
-                            #self.put_db_update()
+                            #self.put_state_update()                            
 
                             if not overnight:
 
@@ -18110,7 +18110,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global atm_str, atm_index, call_atm_value
         global call_시가, call_시가_node_list, call_피봇, call_피봇_node_list, 콜시가리스트
         global call_저가, call_저가_node_list, call_고가, call_고가_node_list
-        global call_gap_percent, call_db_percent
         global opt_callreal_update_counter
         global df_call_volume, call_volume_total, df_plotdata_call_volume
         global node_coloring
@@ -18118,7 +18117,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_max_actval, call_open, call_ol, call_oh
         global 콜_인덱스, 콜_시가, 콜_현재가, 콜_저가, 콜_고가
         global flag_call_low_update, flag_call_high_update
-        global call_otm_db, call_otm_db_percent 
+        global call_gap_percent, call_db_percent, call_otm_db, call_otm_db_percent 
         global 콜대비_퍼센트_평균       
 
         start_time = timeit.default_timer()
@@ -18411,7 +18410,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 call_otm_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
             else:
                 pass
-
+            '''
             # 대비 갱신
             #temp = call_db_percent[:]
             temp = call_otm_db_percent[:]
@@ -18434,6 +18433,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 print('call_db_percent_local is empty...')
                 콜대비합 = 0
+            '''
             '''
             process_time = (timeit.default_timer() - start_time) * 1000
 
@@ -18797,8 +18797,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
              
         #opt_callreal_update_counter += 1
         '''
-
-    '''
+    
     def call_db_update(self):
 
         global call_진폭, 콜대비합, 콜대비합_단위평균, 콜대비_퍼센트_평균
@@ -18842,7 +18841,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_call.resizeColumnsToContents()
         else:
             pass
-    '''
+    
     def call_oi_update(self):
 	
         global df_call
@@ -19493,14 +19492,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global atm_str, atm_index, put_atm_value
         global put_시가, put_시가_node_list, put_피봇, put_피봇_node_list, 풋시가리스트
         global put_저가, put_저가_node_list, put_고가, put_고가_node_list
-        global put_gap_percent, put_db_percent
         global opt_putreal_update_counter
         global df_put_volume, put_volume_total, df_plotdata_put_volume, df_plotdata_volume_cha
         global put_open_list
         global put_max_actval, put_open, put_ol, put_oh
         global 풋_인덱스, 풋_시가, 풋_현재가, 풋_저가, 풋_고가
         global flag_put_low_update, flag_put_high_update
-        global put_otm_db, put_otm_db_percent
+        global put_gap_percent, put_db_percent, put_otm_db, put_otm_db_percent
         global 풋대비_퍼센트_평균
 
         start_time = timeit.default_timer()
@@ -19716,7 +19714,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_otm_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
             else:
                 pass
-
+            '''
             # 대비 갱신
             #temp = put_db_percent[:]
             temp = put_otm_db_percent[:]
@@ -19739,6 +19737,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 print('put_db_percent_local is empty...')
                 풋대비합 = 0
+            '''
             '''
             process_time = (timeit.default_timer() - start_time) * 1000
 
@@ -20102,8 +20101,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         #opt_putreal_update_counter += 1 
         '''
-
-    '''
+    
     def put_db_update(self):
 
         global put_진폭, 풋대비합, 풋대비합_단위평균, 풋대비_퍼센트_평균 
@@ -20148,7 +20146,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_put.resizeColumnsToContents()
         else:
             pass
-    '''
+    
     def put_oi_update(self):
 	
         global df_put
