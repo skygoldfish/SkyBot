@@ -18378,15 +18378,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # 현재가 갱신
-        if 현재가 != self.tableWidget_call.item(index, Option_column.현재가.value).text().split('\n')[0]:
+        콜_현재가 = self.tableWidget_call.item(index, Option_column.현재가.value).text().split('\n')[0]
+
+        if 현재가 != 콜_현재가:
 
             df_call.at[index, '현재가'] = 콜현재가
             df_plotdata_call.iat[index, opt_x_idx] = 콜현재가
 
-            if 콜현재가 < float(self.tableWidget_call.item(index, Option_column.현재가.value).text().split('\n')[0]):
+            if 콜현재가 < float(콜_현재가):
                 item = QTableWidgetItem(현재가 + '\n' + '▼')
                 item.setBackground(QBrush(lightskyblue))
-            elif 콜현재가 > float(self.tableWidget_call.item(index, Option_column.현재가.value).text().split('\n')[0]):
+            elif 콜현재가 > float(콜_현재가):
                 item = QTableWidgetItem(현재가 + '\n' + '▲')
                 item.setBackground(QBrush(pink))
             else:    
@@ -19681,15 +19683,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         
         # 현재가 갱신
-        if 현재가 != self.tableWidget_put.item(index, Option_column.현재가.value).text().split('\n')[0]:
+        풋_현재가 = self.tableWidget_put.item(index, Option_column.현재가.value).text().split('\n')[0]
+        
+        if 현재가 != 풋_현재가:
 
             df_put.at[index, '현재가'] = 풋현재가
             df_plotdata_put.iat[index, opt_x_idx] = 풋현재가
 
-            if 풋현재가 < float(self.tableWidget_put.item(index, Option_column.현재가.value).text().split('\n')[0]):
+            if 풋현재가 < float(풋_현재가):
                 item = QTableWidgetItem(현재가 + '\n' + '▼')
                 item.setBackground(QBrush(lightskyblue))
-            elif 풋현재가 > float(self.tableWidget_put.item(index, Option_column.현재가.value).text().split('\n')[0]):
+            elif 풋현재가 > float(풋_현재가):
                 item = QTableWidgetItem(현재가 + '\n' + '▲')
                 item.setBackground(QBrush(pink))
             else:    
