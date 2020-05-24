@@ -17708,10 +17708,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_fut.at[0, '현재가'] = 선물_현재가
                 cme_realdata['현재가'] = 선물_현재가
 
-                if 선물_현재가 < float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text().split('\n')[0]):
+                if 선물_현재가 < float(fut_price):
                     item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
                     item.setBackground(QBrush(lightskyblue))
-                elif 선물_현재가 > float(self.tableWidget_fut.item(0, Futures_column.현재가.value).text().split('\n')[0]):
+                elif 선물_현재가 > float(fut_price):
                     item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
                     item.setBackground(QBrush(pink))
                 else:    
@@ -17730,10 +17730,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_fut.at[1, '현재가'] = 선물_현재가
                 fut_realdata['현재가'] = 선물_현재가 
 
-                if 선물_현재가 < float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text().split('\n')[0]):
+                if 선물_현재가 < float(fut_price):
                     item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
                     item.setBackground(QBrush(lightskyblue))
-                elif 선물_현재가 > float(self.tableWidget_fut.item(1, Futures_column.현재가.value).text().split('\n')[0]):
+                elif 선물_현재가 > float(fut_price):
                     item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
                     item.setBackground(QBrush(pink))
                 else:    
@@ -19684,7 +19684,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         # 현재가 갱신
         풋_현재가 = self.tableWidget_put.item(index, Option_column.현재가.value).text().split('\n')[0]
-        
+
         if 현재가 != 풋_현재가:
 
             df_put.at[index, '현재가'] = 풋현재가
