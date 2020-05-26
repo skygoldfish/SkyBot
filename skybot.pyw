@@ -17984,18 +17984,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)
+            
+            item = QTableWidgetItem("DOW\n({0:0.2f}%)".format(DOW_등락율))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)
 
             item = QTableWidgetItem("{0:0.2f}\n({1:0.2f}%)".format(선물_대비, 선물_등락율))
             item.setTextAlignment(Qt.AlignCenter)
+
+            if 선물_등락율 > 0 and DOW_등락율 > 0 and 선물_등락율 > DOW_등락율:
+
+                item.setBackground(QBrush(pink))
+
+            elif 선물_등락율 < 0 and DOW_등락율 < 0 and 선물_등락율 < DOW_등락율:
+
+                item.setBackground(QBrush(lightskyblue))
+            else:
+                pass
 
             if overnight:
                 self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
-
-            item = QTableWidgetItem("DOW\n({0:0.2f}%)".format(DOW_등락율))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)
             
             if 선물_대비 > 0:
 
