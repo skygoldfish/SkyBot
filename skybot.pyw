@@ -7789,7 +7789,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.call_low_coreval_color_blink(self.alternate_flag)
                             else:                        
                                 call_low_coreval_str = ''
-                                call_low_node_count = 0
+                                #call_low_node_count = 0
                                 call_low_node_list = []
                                 call_low_node_str = ''
 
@@ -7797,7 +7797,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.call_high_coreval_color_blink(self.alternate_flag)
                             else:
                                 call_high_coreval_str = ''
-                                call_high_node_count = 0
+                                #call_high_node_count = 0
                                 call_high_node_list = []
                                 call_high_node_str = ''
 
@@ -7805,7 +7805,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.put_low_coreval_color_blink(self.alternate_flag)
                             else:
                                 put_low_coreval_str = ''
-                                put_low_node_count = 0
+                                #put_low_node_count = 0
                                 put_low_node_list = []
                                 put_low_node_str = ''
 
@@ -7813,7 +7813,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.put_high_coreval_color_blink(self.alternate_flag)                        
                             else:
                                 put_high_coreval_str = '' 
-                                put_high_node_count = 0
+                                #put_high_node_count = 0
                                 put_high_node_list = []
                                 put_high_node_str = ''
 
@@ -10152,7 +10152,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             loop_list = opt_total_list
 
         count = 0
-        call_low_node_list = []            
+        call_low_node_list = [] 
+
+        call_low_node_old_count = call_low_node_count           
 
         for i in loop_list:
 
@@ -10217,15 +10219,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
                 self.tableWidget_call.resizeColumnsToContents()
 
-                if TARGET_MONTH_SELECT == 1:
+                if TARGET_MONTH_SELECT == 1 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 2:
+                elif TARGET_MONTH_SELECT == 2 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 3:
+                elif TARGET_MONTH_SELECT == 3 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
                 else:
@@ -10241,15 +10243,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
                 self.tableWidget_call.resizeColumnsToContents()
 
-                if TARGET_MONTH_SELECT == 1:
+                if TARGET_MONTH_SELECT == 1 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 2:
+                elif TARGET_MONTH_SELECT == 2 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 3:
+                elif TARGET_MONTH_SELECT == 3 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
                 else:
@@ -10265,15 +10267,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
                 self.tableWidget_call.resizeColumnsToContents()
 
-                if TARGET_MONTH_SELECT == 1:
+                if TARGET_MONTH_SELECT == 1 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 2:
+                elif TARGET_MONTH_SELECT == 2 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 3:
+                elif TARGET_MONTH_SELECT == 3 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
                 else:
@@ -10295,7 +10297,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             loop_list = opt_total_list 
 
         count = 0
-        call_high_node_list = []            
+        call_high_node_list = [] 
+
+        call_high_node_old_count = call_high_node_count           
 
         for i in loop_list:
 
@@ -10360,15 +10364,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
                 self.tableWidget_call.resizeColumnsToContents()
 
-                if TARGET_MONTH_SELECT == 1:
+                if TARGET_MONTH_SELECT == 1 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 2:
+                elif TARGET_MONTH_SELECT == 2 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 3:
+                elif TARGET_MONTH_SELECT == 3 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
                 else:
@@ -10384,15 +10388,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
                 self.tableWidget_call.resizeColumnsToContents()
 
-                if TARGET_MONTH_SELECT == 1:
+                if TARGET_MONTH_SELECT == 1 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 2:
+                elif TARGET_MONTH_SELECT == 2 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 3:
+                elif TARGET_MONTH_SELECT == 3 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
                 else:
@@ -10408,15 +10412,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
                 self.tableWidget_call.resizeColumnsToContents()
 
-                if TARGET_MONTH_SELECT == 1:
+                if TARGET_MONTH_SELECT == 1 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 2:
+                elif TARGET_MONTH_SELECT == 2 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 3:
+                elif TARGET_MONTH_SELECT == 3 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
                 else:
@@ -12608,7 +12612,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             loop_list = opt_total_list
 
         count = 0
-        put_low_node_list = []       
+        put_low_node_list = [] 
+
+        put_low_node_old_count = put_low_node_count      
 
         for i in loop_list:
 
@@ -12673,15 +12679,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
                 self.tableWidget_put.resizeColumnsToContents()
 
-                if TARGET_MONTH_SELECT == 1:
+                if TARGET_MONTH_SELECT == 1 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 2:
+                elif TARGET_MONTH_SELECT == 2 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 3:
+                elif TARGET_MONTH_SELECT == 3 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
                 else:
@@ -12697,15 +12703,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
                 self.tableWidget_put.resizeColumnsToContents()
 
-                if TARGET_MONTH_SELECT == 1:
+                if TARGET_MONTH_SELECT == 1 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 2:
+                elif TARGET_MONTH_SELECT == 2 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 3:
+                elif TARGET_MONTH_SELECT == 3 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
                 else:
@@ -12721,15 +12727,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
                 self.tableWidget_put.resizeColumnsToContents()
 
-                if TARGET_MONTH_SELECT == 1:
+                if TARGET_MONTH_SELECT == 1 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 2:
+                elif TARGET_MONTH_SELECT == 2 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 3:
+                elif TARGET_MONTH_SELECT == 3 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
                 else:
@@ -12751,7 +12757,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             loop_list = opt_total_list
 
         count = 0
-        put_high_node_list = []              
+        put_high_node_list = []
+
+        put_high_node_old_count = put_high_node_count             
 
         for i in loop_list:
 
@@ -12816,15 +12824,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
                 self.tableWidget_put.resizeColumnsToContents()
 
-                if TARGET_MONTH_SELECT == 1:
+                if TARGET_MONTH_SELECT == 1 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 2:
+                elif TARGET_MONTH_SELECT == 2 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 3:
+                elif TARGET_MONTH_SELECT == 3 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
                 else:
@@ -12840,22 +12848,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
                 self.tableWidget_put.resizeColumnsToContents()
 
-                if TARGET_MONTH_SELECT == 1:
+                if TARGET_MONTH_SELECT == 1 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 2:
+                elif TARGET_MONTH_SELECT == 2 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 3:
+                elif TARGET_MONTH_SELECT == 3 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
                 else:
                     pass
             else:
                 pass
-
         else:
 
             if self.tableWidget_put.horizontalHeaderItem(Option_column.고가.value).text() != '★ +':
@@ -12864,15 +12871,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
                 self.tableWidget_put.resizeColumnsToContents()
 
-                if TARGET_MONTH_SELECT == 1:
+                if TARGET_MONTH_SELECT == 1 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 2:
+                elif TARGET_MONTH_SELECT == 2 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
 
-                elif TARGET_MONTH_SELECT == 3:
+                elif TARGET_MONTH_SELECT == 3 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
                 else:
