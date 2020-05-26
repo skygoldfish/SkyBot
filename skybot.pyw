@@ -4692,6 +4692,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 다중모니터 스크린샷 함수
     def capture_screenshot(self):
 
+        self.tableWidget_call.resizeColumnsToContents()
+        self.tableWidget_put.resizeColumnsToContents()
+        self.tableWidget_fut.resizeColumnsToContents()
+
         # Capture entire screen
         with mss() as sct:
             '''
