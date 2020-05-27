@@ -8129,64 +8129,145 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #진성맥점.append(동적맥점1)
 
         # 2nd search
-        second_list = list(filter((동적맥점1).__ne__, moving_list))
-        동적맥점2, 동적맥점2_빈도수 = self.get_maxval_info(second_list)
+        list_2 = list(filter((동적맥점1).__ne__, moving_list))
+        동적맥점2, 동적맥점2_빈도수 = self.get_maxval_info(list_2)
         #진성맥점.append(동적맥점2)
 
         # 3rd search
-        third_list = list(filter((동적맥점2).__ne__, second_list))
-        동적맥점3, 동적맥점3_빈도수 = self.get_maxval_info(third_list)
+        list_3 = list(filter((동적맥점2).__ne__, list_2))
+        동적맥점3, 동적맥점3_빈도수 = self.get_maxval_info(list_3)
         #진성맥점.append(동적맥점3)
 
         # 4th search
-        fourth_list = list(filter((동적맥점3).__ne__, third_list))
-        동적맥점4, 동적맥점4_빈도수 = self.get_maxval_info(fourth_list)
+        list_4 = list(filter((동적맥점3).__ne__, list_3))
+        동적맥점4, 동적맥점4_빈도수 = self.get_maxval_info(list_4)
         #진성맥점.append(동적맥점4)
 
         # 5th search
-        fifth_list = list(filter((동적맥점4).__ne__, fourth_list))
-        동적맥점5, 동적맥점5_빈도수 = self.get_maxval_info(fifth_list)
+        list_5 = list(filter((동적맥점4).__ne__, list_4))
+        동적맥점5, 동적맥점5_빈도수 = self.get_maxval_info(list_5)
         #진성맥점.append(동적맥점5)
 
         # 6th search
-        sixth_list = list(filter((동적맥점5).__ne__, fifth_list))
-        동적맥점6, 동적맥점6_빈도수 = self.get_maxval_info(sixth_list)
+        list_6 = list(filter((동적맥점5).__ne__, list_5))
+        동적맥점6, 동적맥점6_빈도수 = self.get_maxval_info(list_6)
         #진성맥점.append(동적맥점6)
 
-        #진성맥점 = list(set(진성맥점))
-        #진성맥점.sort()
+        # 7th search
+        list_7 = list(filter((동적맥점6).__ne__, list_6))
+        동적맥점7, 동적맥점7_빈도수 = self.get_maxval_info(list_7)
 
+        # 8th search
+        list_8 = list(filter((동적맥점7).__ne__, list_7))
+        동적맥점8, 동적맥점8_빈도수 = self.get_maxval_info(list_8)
+
+        # 9th search
+        list_9 = list(filter((동적맥점8).__ne__, list_8))
+        동적맥점9, 동적맥점9_빈도수 = self.get_maxval_info(list_9)
+
+        # 10th search
+        list_10 = list(filter((동적맥점9).__ne__, list_9))
+        동적맥점10, 동적맥점10_빈도수 = self.get_maxval_info(list_10)
+
+        # 11th search
+        list_11 = list(filter((동적맥점10).__ne__, list_10))
+        동적맥점11, 동적맥점11_빈도수 = self.get_maxval_info(list_11)
+
+        # 12th search
+        list_12 = list(filter((동적맥점11).__ne__, list_11))
+        동적맥점12, 동적맥점12_빈도수 = self.get_maxval_info(list_12)
+        
         item_str = "{0}\n({1})".format(동적맥점1, 동적맥점1_빈도수)
         item = QTableWidgetItem(item_str)
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(lime))
-        self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)
+
+        if overnight:
+            self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
+        else:
+            self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)        
 
         item_str = "{0}\n({1})".format(동적맥점2, 동적맥점2_빈도수)
         item = QTableWidgetItem(item_str)
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(lime))
-        self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)
+
+        if overnight:
+            self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
+        else:
+            self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)     
 
         item_str = "{0}\n({1})".format(동적맥점3, 동적맥점3_빈도수)
         item = QTableWidgetItem(item_str)
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(lime))
-        self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
+
+        if overnight:
+            self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
+        else:
+            self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)  
 
         item_str = "{0}\n({1})".format(동적맥점4, 동적맥점4_빈도수)
         item = QTableWidgetItem(item_str)
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(lime))
-        self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
+
+        if overnight:
+            self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
+        else:
+            self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item) 
 
         item_str = "{0}\n({1})".format(동적맥점5, 동적맥점5_빈도수)
         item = QTableWidgetItem(item_str)
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(lime))
-        self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)
+
+        if overnight:
+            self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
+        else:
+            self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item)
 
         item_str = "{0}\n({1})".format(동적맥점6, 동적맥점6_빈도수)
+        item = QTableWidgetItem(item_str)
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(lime))
+
+        if overnight:
+            self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
+        else:
+            self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
+
+        item_str = "{0}\n({1})".format(동적맥점7, 동적맥점7_빈도수)
+        item = QTableWidgetItem(item_str)
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(lime))
+        self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)    
+
+        item_str = "{0}\n({1})".format(동적맥점8, 동적맥점8_빈도수)
+        item = QTableWidgetItem(item_str)
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(lime))
+        self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)  
+
+        item_str = "{0}\n({1})".format(동적맥점9, 동적맥점9_빈도수)
+        item = QTableWidgetItem(item_str)
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(lime))
+        self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
+
+        item_str = "{0}\n({1})".format(동적맥점10, 동적맥점10_빈도수)
+        item = QTableWidgetItem(item_str)
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(lime))
+        self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
+
+        item_str = "{0}\n({1})".format(동적맥점11, 동적맥점11_빈도수)
+        item = QTableWidgetItem(item_str)
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setBackground(QBrush(lime))
+        self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)
+
+        item_str = "{0}\n({1})".format(동적맥점12, 동적맥점12_빈도수)
         item = QTableWidgetItem(item_str)
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(lime))
@@ -8205,7 +8286,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
-            self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)
+
+            if overnight:
+                self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
+            else:
+                self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
         else:
             pass            
 
@@ -8222,7 +8307,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
-            self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)
+
+            if overnight:
+                self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
+            else:
+                self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
         else:
             pass             
 
@@ -8239,7 +8328,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
-            self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
+
+            if overnight:
+                self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
+            else:
+                self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
         else:
             pass            
 
@@ -8256,7 +8349,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
-            self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
+
+            if overnight:
+                self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
+            else:
+                self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
         else:
             pass            
 
@@ -8273,7 +8370,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
-            self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item) 
+
+            if overnight:
+                self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
+            else:
+                self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item) 
         else:
             pass           
 
@@ -8290,11 +8391,115 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
-            self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
+
+            if overnight:
+                self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
+            else:
+                self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
         else:
             pass
 
-        #self.tableWidget_fut.resizeColumnsToContents()
+        if 동적맥점7 in high_low_list:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 7th 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
+                (dt.hour, dt.minute, dt.second, 동적맥점7, 동적맥점7_빈도수)
+            self.textBrowser.append(str)
+            print(str)
+
+            진성맥점.append(동적맥점7)
+
+            item_str = "{0}\n({1})✓".format(동적맥점7, 동적맥점7_빈도수)
+            item = QTableWidgetItem(item_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(lime))
+            self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)
+        else:
+            pass            
+
+        if 동적맥점8 in high_low_list:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 8th 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
+                (dt.hour, dt.minute, dt.second, 동적맥점8, 동적맥점8_빈도수)
+            self.textBrowser.append(str)
+            print(str)
+
+            진성맥점.append(동적맥점8)
+
+            item_str = "{0}\n({1})✓".format(동적맥점8, 동적맥점8_빈도수)
+            item = QTableWidgetItem(item_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(lime))
+            self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)
+        else:
+            pass             
+
+        if 동적맥점9 in high_low_list:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 9th 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
+                (dt.hour, dt.minute, dt.second, 동적맥점9, 동적맥점9_빈도수)
+            self.textBrowser.append(str)
+            print(str)
+
+            진성맥점.append(동적맥점9)
+
+            item_str = "{0}\n({1})✓".format(동적맥점9, 동적맥점9_빈도수)
+            item = QTableWidgetItem(item_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(lime))
+            self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
+        else:
+            pass            
+
+        if 동적맥점10 in high_low_list:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 10th 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
+                (dt.hour, dt.minute, dt.second, 동적맥점10, 동적맥점10_빈도수)
+            self.textBrowser.append(str)
+            print(str)
+
+            진성맥점.append(동적맥점10)
+
+            item_str = "{0}\n({1})✓".format(동적맥점10, 동적맥점10_빈도수)
+            item = QTableWidgetItem(item_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(lime))
+            self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
+        else:
+            pass            
+
+        if 동적맥점11 in high_low_list:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 11th 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
+                (dt.hour, dt.minute, dt.second, 동적맥점11, 동적맥점11_빈도수)
+            self.textBrowser.append(str)
+            print(str)
+
+            진성맥점.append(동적맥점11)
+
+            item_str = "{0}\n({1})✓".format(동적맥점11, 동적맥점11_빈도수)
+            item = QTableWidgetItem(item_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(lime))
+            self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)
+        else:
+            pass           
+
+        if 동적맥점12 in high_low_list:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 12th 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
+                (dt.hour, dt.minute, dt.second, 동적맥점12, 동적맥점12_빈도수)
+            self.textBrowser.append(str)
+            print(str)
+
+            진성맥점.append(동적맥점12)
+
+            item_str = "{0}\n({1})✓".format(동적맥점12, 동적맥점12_빈도수)
+            item = QTableWidgetItem(item_str)
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(lime))
+            self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
+        else:
+            pass
         
         진성맥점 = list(set(진성맥점))
         진성맥점.sort()            
