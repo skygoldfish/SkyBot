@@ -9450,7 +9450,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ASYM_RATIO:
                 
-                if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ONEWAY_RATIO and 콜대비_퍼센트_평균 > 30:
+                if abs(콜대비_퍼센트_평균/풋대비_퍼센트_평균) >= ONEWAY_RATIO and abs(선물_등락율) > abs(DOW_등락율):
 
                     if TARGET_MONTH_SELECT == 1 and not call_ms_oneway:
 
@@ -9621,7 +9621,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ASYM_RATIO:
 
-                if abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ONEWAY_RATIO and 풋대비_퍼센트_평균 > 30:
+                if abs(풋대비_퍼센트_평균/콜대비_퍼센트_평균) >= ONEWAY_RATIO and abs(선물_등락율) > abs(DOW_등락율):
 
                     if TARGET_MONTH_SELECT == 1 and not put_ms_oneway:
 
