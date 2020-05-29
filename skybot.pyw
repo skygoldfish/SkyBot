@@ -432,6 +432,10 @@ with open('control_info.txt', mode='r') as control_file:
     #print('ONEWAY_RATIO =', ONEWAY_RATIO)
 
     tmp = control_file.readline().strip()
+    temp = tmp.split()
+    DRATE_SCALE_FACTOR = float(temp[5])
+
+    tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
 
     tmp = control_file.readline().strip()    
@@ -18579,7 +18583,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if index == atm_index:
             콜등락율 = call_result['등락율']
-            df_plotdata_call_drate[opt_x_idx] = call_result['등락율']
+            df_plotdata_call_drate[opt_x_idx] = call_result['등락율'] / DRATE_SCALE_FACTOR
         else:
             pass
         
@@ -19969,7 +19973,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         if index == atm_index:
             풋등락율 = put_result['등락율']
-            df_plotdata_put_drate[opt_x_idx] = put_result['등락율']
+            df_plotdata_put_drate[opt_x_idx] = put_result['등락율'] / DRATE_SCALE_FACTOR
         else:
             pass
         

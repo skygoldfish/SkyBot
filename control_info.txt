@@ -11,6 +11,7 @@ Basic coreval of the options = 1.20 2.50 3.50 4.85 5.10 5.50 6.85 7.10 8.10
 My coreval = 3.50
 Asymmetric Market Ratio = 2
 OneWay Market Ratio = 3
+ATM Drate Scale Factor = 10
 
 [3]. << UI Select : Horizontal_Large_View.ui, Horizontal_Small_View.ui, Vertical_View.ui >>
 UI = Horizontal_Large_View.ui
