@@ -79,6 +79,9 @@ UI_DIR = "UI\\"
 
 np.warnings.filterwarnings('ignore')
 
+콜등락율 = 0
+풋등락율 = 0
+
 선물_전저 = 0
 선물_전고 = 0
 선물_종가 = 0
@@ -1087,6 +1090,9 @@ df_plotdata_put_rr = pd.DataFrame()
 df_plotdata_fut_drate = pd.DataFrame()
 df_plotdata_dow_drate = pd.DataFrame()
 
+df_plotdata_call_drate = pd.DataFrame()
+df_plotdata_put_drate = pd.DataFrame()
+
 df_plotdata_fut = pd.DataFrame()
 df_plotdata_fut_volume = pd.DataFrame()
 df_plotdata_kp200 = pd.DataFrame()
@@ -1425,6 +1431,9 @@ plot1_put_rr_curve = None
 plot1_fut_drate_curve = None
 plot1_dow_drate_curve = None
 
+plot1_call_drate_curve = None
+plot1_put_drate_curve = None
+
 plot1_sp500_curve = None
 plot1_dow_curve = None
 plot1_nasdaq_curve = None
@@ -1457,6 +1466,9 @@ plot2_put_rr_curve = None
 
 plot2_fut_drate_curve = None
 plot2_dow_drate_curve = None
+
+plot2_call_drate_curve = None
+plot2_put_drate_curve = None
 
 plot2_sp500_curve = None
 plot2_dow_curve = None
@@ -1503,6 +1515,9 @@ bc_plot1_put_rr_curve = None
 bc_plot1_fut_drate_curve = None
 bc_plot1_dow_drate_curve = None
 
+bc_plot1_call_drate_curve = None
+bc_plot1_put_drate_curve = None
+
 bc_plot1_sp500_curve = None
 bc_plot1_dow_curve = None
 bc_plot1_nasdaq_curve = None
@@ -1515,6 +1530,9 @@ bc_plot2_time_line_yagan_start = None
 
 bc_plot2_fut_drate_curve = None
 bc_plot2_dow_drate_curve = None
+
+bc_plot2_call_drate_curve = None
+bc_plot2_put_drate_curve = None
 
 bc_plot2_ovc_jl_line = None
 bc_plot2_ovc_jh_line = None
@@ -1593,6 +1611,8 @@ plot_data11 = []
 plot_data12 = []
 plot_data13 = []
 plot_data14 = []
+plot_data15 = []
+plot_data16 = []
 
 call_scroll = False
 put_scroll = False
@@ -3109,7 +3129,9 @@ class screen_update_worker(QThread):
             data11 = df_plotdata_sp500.iloc[0].values.tolist()
             data12 = df_plotdata_dow.iloc[0].values.tolist()
             data13 = df_plotdata_nasdaq.iloc[0].values.tolist()
-            data14 = df_plotdata_wti.iloc[0].values.tolist()             
+            data14 = df_plotdata_wti.iloc[0].values.tolist()    
+            data15 = df_plotdata_call_drate.iloc[0].values.tolist()
+            data16 = df_plotdata_put_drate.iloc[0].values.tolist()         
 
             if UI_STYLE == 'Vertical_View.ui':
 
@@ -3146,18 +3168,18 @@ class screen_update_worker(QThread):
             if UI_STYLE == 'Vertical_View.ui':
 
                 return call_curve_data, put_curve_data, data1, data2, data3, data4, \
-                    data5, data6, data7, data8, data9, data10, data11, data12, data13, data14, plot3_data, plot4_1_data, plot4_2_data                
+                    data5, data6, data7, data8, data9, data10, data11, data12, data13, data14, plot3_data, plot4_1_data, plot4_2_data, data15, data16                
             else:
                 return call_curve_data, put_curve_data, data1, data2, data3, data4, \
-                    data5, data6, data7, data8, data9, data10, data11, data12, data13, data14
+                    data5, data6, data7, data8, data9, data10, data11, data12, data13, data14, data15, data16
         except:
 
             if UI_STYLE == 'Vertical_View.ui':
 
-                return None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
+                return None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
 
             else:
-                return None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
+                return None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
 
 ########################################################################################################################
 
@@ -4253,7 +4275,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global plot1_call_volume_curve, plot1_put_volume_curve 
         #global plot1_volume_cha_curve
         global plot1_fut_drate_curve, plot1_dow_drate_curve        
-        global plot1_sp500_curve, plot1_dow_curve, plot1_nasdaq_curve, plot1_wti_curve        
+        global plot1_sp500_curve, plot1_dow_curve, plot1_nasdaq_curve, plot1_wti_curve
+        global plot1_call_drate_curve, plot1_put_drate_curve        
 
         global plot2_fut_volume_curve, plot2_fut_volume_plus_curve, plot2_fut_volume_minus_curve        
         global plot2_call_rr_curve, plot2_put_rr_curve        
@@ -4264,6 +4287,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global plot2_time_line_start, plot2_time_line_yagan_start, plot2_time_line
         global plot2_ovc_jl_line, plot2_ovc_jh_line, plot2_ovc_close_line, plot2_ovc_open_line, plot2_ovc_pivot_line, plot2_ovc_low_line, plot2_ovc_high_line
         global call_curve, put_curve, mv_line
+        global plot2_call_drate_curve, plot2_put_drate_curve
         
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
@@ -4300,6 +4324,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         plot1_fut_drate_curve = self.Plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         plot1_dow_drate_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)  
+
+        plot1_call_drate_curve = self.Plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        plot1_put_drate_curve = self.Plot1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
         plot1_fut_volume_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         plot1_fut_volume_plus_curve = self.Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
@@ -4338,6 +4365,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         plot2_fut_drate_curve = self.Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         plot2_dow_drate_curve = self.Plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
+
+        plot2_call_drate_curve = self.Plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        plot2_put_drate_curve = self.Plot2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
 
         plot2_call_rr_curve = self.Plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         plot2_put_rr_curve = self.Plot2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -4699,7 +4729,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global plot1_fut_price_curve, plot1_kp200_curve, plot1_fut_volume_curve, plot1_fut_volume_plus_curve, plot1_fut_volume_minus_curve
         global plot1_call_volume_curve, plot1_put_volume_curve
         global plot1_call_rr_curve, plot1_put_rr_curve
-        global plot1_fut_drate_curve, plot1_dow_drate_curve
+        global plot1_fut_drate_curve, plot1_dow_drate_curve, plot1_call_drate_curve, plot1_put_drate_curve
         global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_고가
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
@@ -4719,7 +4749,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             #plot1_volume_cha_curve.clear() 
 
             plot1_fut_drate_curve.clear()
-            plot1_dow_drate_curve.clear()           
+            plot1_dow_drate_curve.clear()
+            plot1_call_drate_curve.clear()
+            plot1_put_drate_curve.clear()           
             
             plot1_kp200_curve.clear()
             plot1_fut_price_curve.clear()
@@ -4754,7 +4786,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_put_rr_curve.clear()
 
             plot1_fut_drate_curve.clear()
-            plot1_dow_drate_curve.clear() 
+            plot1_dow_drate_curve.clear()
+            plot1_call_drate_curve.clear()
+            plot1_put_drate_curve.clear()  
 
             plot1_kp200_curve.clear()
             plot1_fut_price_curve.clear()
@@ -4791,6 +4825,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
+            plot1_call_drate_curve.clear()
+            plot1_put_drate_curve.clear() 
 
             plot1_kp200_curve.clear()
             plot1_fut_price_curve.clear()
@@ -4866,6 +4902,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
+            plot1_call_drate_curve.clear()
+            plot1_put_drate_curve.clear() 
             
             plot1_sp500_curve.clear()
             plot1_dow_curve.clear()
@@ -4937,6 +4975,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
+            plot1_call_drate_curve.clear()
+            plot1_put_drate_curve.clear() 
 
             plot1_kp200_curve.clear()
             plot1_fut_price_curve.clear()  
@@ -5010,6 +5050,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
+            plot1_call_drate_curve.clear()
+            plot1_put_drate_curve.clear() 
 
             plot1_kp200_curve.clear()
             plot1_fut_price_curve.clear()
@@ -5083,6 +5125,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
+            plot1_call_drate_curve.clear()
+            plot1_put_drate_curve.clear() 
 
             plot1_kp200_curve.clear()
             plot1_fut_price_curve.clear()
@@ -5156,6 +5200,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
+            plot1_call_drate_curve.clear()
+            plot1_put_drate_curve.clear() 
 
             plot1_kp200_curve.clear()
             plot1_fut_price_curve.clear()
@@ -5223,7 +5269,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_curve, put_curve, plot2_fut_volume_curve, plot2_fut_volume_plus_curve, plot2_fut_volume_minus_curve
         global plot2_call_volume_curve, plot2_put_volume_curve
         global plot2_call_rr_curve, plot2_put_rr_curve
-        global plot2_fut_drate_curve, plot2_dow_drate_curve
+        global plot2_fut_drate_curve, plot2_dow_drate_curve, plot2_call_drate_curve, plot2_put_drate_curve
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
         global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
@@ -5242,6 +5288,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot2_fut_drate_curve.clear()
             plot2_dow_drate_curve.clear()
+            plot2_call_drate_curve.clear()
+            plot2_put_drate_curve.clear()
                         
             for i in range(nRowCount):
                 call_curve[i].clear()
@@ -5274,6 +5322,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot2_fut_drate_curve.clear()
             plot2_dow_drate_curve.clear()
+            plot2_call_drate_curve.clear()
+            plot2_put_drate_curve.clear()
 
             for i in range(nRowCount):
                 call_curve[i].clear()
@@ -5306,6 +5356,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot2_fut_drate_curve.clear()
             plot2_dow_drate_curve.clear()
+            plot2_call_drate_curve.clear()
+            plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
                 call_curve[i].clear()
@@ -5373,6 +5425,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot2_fut_drate_curve.clear()
             plot2_dow_drate_curve.clear()
+            plot2_call_drate_curve.clear()
+            plot2_put_drate_curve.clear()
             
             plot2_sp500_curve.clear()
             plot2_dow_curve.clear()
@@ -5412,6 +5466,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot2_fut_drate_curve.clear()
             plot2_dow_drate_curve.clear()
+            plot2_call_drate_curve.clear()
+            plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
                 call_curve[i].clear()                
@@ -5481,6 +5537,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot2_fut_drate_curve.clear()
             plot2_dow_drate_curve.clear()
+            plot2_call_drate_curve.clear()
+            plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
                 call_curve[i].clear()
@@ -5550,6 +5608,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot2_fut_drate_curve.clear()
             plot2_dow_drate_curve.clear()
+            plot2_call_drate_curve.clear()
+            plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
                 call_curve[i].clear()
@@ -5619,6 +5679,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot2_fut_drate_curve.clear()
             plot2_dow_drate_curve.clear()
+            plot2_call_drate_curve.clear()
+            plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
                 call_curve[i].clear()
@@ -6656,7 +6718,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             global call_plot_data, put_plot_data
             global plot_data1, plot_data2, plot_data3, plot_data4, plot_data5, plot_data6, plot_data7
-            global plot_data8, plot_data9, plot_data10, plot_data11, plot_data12, plot_data13, plot_data14
+            global plot_data8, plot_data9, plot_data10, plot_data11, plot_data12, plot_data13, plot_data14, plot_data15, plot_data16
             global selected_call, selected_put, selected_opt_list
             global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가 
 
@@ -6785,6 +6847,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         plot_data12 = infos[13]
                         plot_data13 = infos[14]
                         plot_data14 = infos[15]
+                        plot_data15 = infos[16]
+                        plot_data16 = infos[17]
 
                         if UI_STYLE == 'Vertical_View.ui':
 
@@ -6883,6 +6947,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     plot1_fut_drate_curve.setData(plot_data7)
                     plot1_dow_drate_curve.setData(plot_data8)
+                    plot1_call_drate_curve.setData(plot_data15)
+                    plot1_put_drate_curve.setData(plot_data16)
 
                 elif comboindex1 == 4:
 
@@ -7078,6 +7144,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     plot2_fut_drate_curve.setData(plot_data7)
                     plot2_dow_drate_curve.setData(plot_data8)
+                    plot2_call_drate_curve.setData(plot_data15)
+                    plot2_put_drate_curve.setData(plot_data16)
 
                 elif comboindex2 == 4:
 
@@ -13355,6 +13423,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 콜시가리스트, 콜저가리스트, 콜고가리스트, 풋시가리스트, 풋저가리스트, 풋고가리스트
 
         global df_plotdata_fut_drate, df_plotdata_dow_drate
+        global df_plotdata_call_drate, df_plotdata_put_drate
         global start_time_str, end_time_str
 
         global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti
@@ -13466,6 +13535,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_plotdata_fut_drate[0][선물장간_시간차] = 0
                 df_plotdata_dow_drate[0][선물장간_시간차] = 0
+
+                df_plotdata_call_drate[0][0] = 0
+                df_plotdata_put_drate[0][0] = 0
+
+                df_plotdata_call_drate[0][선물장간_시간차] = 0
+                df_plotdata_put_drate[0][선물장간_시간차] = 0
 
                 item_str = '{0:0.1f}%\n{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
@@ -13733,6 +13808,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_plotdata_fut_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_dow_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_call_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_put_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
 
                     df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
@@ -13755,6 +13832,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_plotdata_fut_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_dow_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_call_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_put_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
 
                     df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
@@ -18483,7 +18562,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 콜_인덱스, 콜_시가, 콜_현재가, 콜_저가, 콜_고가
         global flag_call_low_update, flag_call_high_update
         global call_gap_percent, call_db_percent, call_otm_db, call_otm_db_percent 
-        global 콜대비_퍼센트_평균       
+        global 콜대비_퍼센트_평균
+        global df_plotdata_call_drate
+        global 콜등락율       
 
         start_time = timeit.default_timer()
 
@@ -18495,6 +18576,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         현재가 = call_result['현재가']
         저가 = call_result['저가']
         고가 = call_result['고가']
+
+        if index == atm_index:
+            콜등락율 = call_result['등락율']
+            df_plotdata_call_drate[opt_x_idx] = call_result['등락율']
+        else:
+            pass
         
         콜시가 = float(시가)
         콜현재가 = float(현재가)
@@ -19866,6 +19953,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_put_low_update, flag_put_high_update
         global put_gap_percent, put_db_percent, put_otm_db, put_otm_db_percent
         global 풋대비_퍼센트_평균
+        global df_plotdata_put_drate
+        global 풋등락율
 
         start_time = timeit.default_timer()
 
@@ -19877,6 +19966,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         현재가 = put_result['현재가']
         저가 = put_result['저가']
         고가 = put_result['고가']
+        
+        if index == atm_index:
+            풋등락율 = put_result['등락율']
+            df_plotdata_put_drate[opt_x_idx] = put_result['등락율']
+        else:
+            pass
         
         풋시가 = float(시가)
         풋현재가 = float(현재가)
@@ -24490,14 +24585,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot1_call_rr_curve, bc_plot1_put_rr_curve
         global bc_plot1_call_volume_curve, bc_plot1_put_volume_curve
         #global bc_plot1_volume_cha_curve
-        global bc_plot1_fut_drate_curve, bc_plot1_dow_drate_curve        
-        global bc_plot1_sp500_curve, bc_plot1_dow_curve, bc_plot1_nasdaq_curve, bc_plot1_wti_curve        
+        global bc_plot1_fut_drate_curve, bc_plot1_dow_drate_curve
+        global bc_plot1_call_drate_curve, bc_plot1_put_drate_curve        
+        global bc_plot1_sp500_curve, bc_plot1_dow_curve, bc_plot1_nasdaq_curve, bc_plot1_wti_curve
 
         global bc_plot2_fut_volume_curve, bc_plot2_fut_volume_plus_curve, bc_plot2_fut_volume_minus_curve        
         global bc_plot2_call_rr_curve, bc_plot2_put_rr_curve        
         global bc_plot2_call_volume_curve, bc_plot2_put_volume_curve
         #global bc_plot2_volume_cha_curve        
         global bc_plot2_fut_drate_curve, bc_plot2_dow_drate_curve
+        global bc_plot2_call_drate_curve, bc_plot2_put_drate_curve
         global bc_plot2_sp500_curve, bc_plot2_dow_curve, bc_plot2_nasdaq_curve, bc_plot2_wti_curve        
         global bc_plot2_time_line_start, bc_plot2_time_line_yagan_start, bc_plot2_time_line
         global bc_plot2_ovc_jl_line, bc_plot2_ovc_jh_line, bc_plot2_ovc_close_line, bc_plot2_ovc_open_line, bc_plot2_ovc_pivot_line, bc_plot2_ovc_low_line, bc_plot2_ovc_high_line
@@ -24537,7 +24634,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_ovc_high_line = self.bc_Plot1.addLine(x=None, pen=pink_pen) 
 
         bc_plot1_fut_drate_curve = self.bc_Plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot1_dow_drate_curve = self.bc_Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)  
+        bc_plot1_dow_drate_curve = self.bc_Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
+
+        bc_plot1_call_drate_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot1_put_drate_curve = self.bc_Plot1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3) 
 
         bc_plot1_fut_volume_curve = self.bc_Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         bc_plot1_fut_volume_plus_curve = self.bc_Plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
@@ -24576,6 +24676,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         bc_plot2_fut_drate_curve = self.bc_Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot2_dow_drate_curve = self.bc_Plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
+
+        bc_plot2_call_drate_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot2_put_drate_curve = self.bc_Plot2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3) 
 
         bc_plot2_call_rr_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot2_put_rr_curve = self.bc_Plot2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -24635,7 +24738,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot1_fut_price_curve, bc_plot1_kp200_curve, bc_plot1_fut_volume_curve, bc_plot1_fut_volume_plus_curve, bc_plot1_fut_volume_minus_curve
         global bc_plot1_call_volume_curve, bc_plot1_put_volume_curve
         global bc_plot1_call_rr_curve, bc_plot1_put_rr_curve
-        global bc_plot1_fut_drate_curve, bc_plot1_dow_drate_curve
+        global bc_plot1_fut_drate_curve, bc_plot1_dow_drate_curve, bc_plot1_call_drate_curve, bc_plot1_put_drate_curve
         global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_고가
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
@@ -24664,7 +24767,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             #bc_plot1_volume_cha_curve.clear() 
 
             bc_plot1_fut_drate_curve.clear()
-            bc_plot1_dow_drate_curve.clear()           
+            bc_plot1_dow_drate_curve.clear()
+            bc_plot1_call_drate_curve.clear()
+            bc_plot1_put_drate_curve.clear()           
             
             bc_plot1_kp200_curve.clear()
             bc_plot1_fut_price_curve.clear()
@@ -24708,7 +24813,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_put_rr_curve.clear()
 
             bc_plot1_fut_drate_curve.clear()
-            bc_plot1_dow_drate_curve.clear() 
+            bc_plot1_dow_drate_curve.clear()
+            bc_plot1_call_drate_curve.clear()
+            bc_plot1_put_drate_curve.clear() 
 
             bc_plot1_kp200_curve.clear()
             bc_plot1_fut_price_curve.clear()
@@ -24754,6 +24861,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
+            bc_plot1_call_drate_curve.clear()
+            bc_plot1_put_drate_curve.clear()
 
             bc_plot1_kp200_curve.clear()
             bc_plot1_fut_price_curve.clear()
@@ -24838,6 +24947,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
+            bc_plot1_call_drate_curve.clear()
+            bc_plot1_put_drate_curve.clear()
             
             bc_plot1_sp500_curve.clear()
             bc_plot1_dow_curve.clear()
@@ -24931,6 +25042,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
+            bc_plot1_call_drate_curve.clear()
+            bc_plot1_put_drate_curve.clear()
 
             bc_plot1_kp200_curve.clear()
             bc_plot1_fut_price_curve.clear()  
@@ -25026,6 +25139,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
+            bc_plot1_call_drate_curve.clear()
+            bc_plot1_put_drate_curve.clear()
 
             bc_plot1_kp200_curve.clear()
             bc_plot1_fut_price_curve.clear()
@@ -25121,6 +25236,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
+            bc_plot1_call_drate_curve.clear()
+            bc_plot1_put_drate_curve.clear()
 
             bc_plot1_kp200_curve.clear()
             bc_plot1_fut_price_curve.clear()
@@ -25216,6 +25333,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
+            bc_plot1_call_drate_curve.clear()
+            bc_plot1_put_drate_curve.clear()
 
             bc_plot1_kp200_curve.clear()
             bc_plot1_fut_price_curve.clear()
@@ -25305,7 +25424,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_call_curve, bc_put_curve, bc_plot2_fut_volume_curve, bc_plot2_fut_volume_plus_curve, bc_plot2_fut_volume_minus_curve
         global bc_plot2_call_volume_curve, bc_plot2_put_volume_curve
         global bc_plot2_call_rr_curve, bc_plot2_put_rr_curve
-        global bc_plot2_fut_drate_curve, bc_plot2_dow_drate_curve
+        global bc_plot2_fut_drate_curve, bc_plot2_dow_drate_curve, bc_plot2_call_drate_curve, bc_plot2_put_drate_curve
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
         global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
@@ -25333,6 +25452,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot2_fut_drate_curve.clear()
             bc_plot2_dow_drate_curve.clear()
+            bc_plot2_call_drate_curve.clear()
+            bc_plot2_put_drate_curve.clear()
                         
             for i in range(nRowCount):
                 bc_call_curve[i].clear()
@@ -25374,6 +25495,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot2_fut_drate_curve.clear()
             bc_plot2_dow_drate_curve.clear()
+            bc_plot2_call_drate_curve.clear()
+            bc_plot2_put_drate_curve.clear()
 
             for i in range(nRowCount):
                 bc_call_curve[i].clear()
@@ -25415,6 +25538,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot2_fut_drate_curve.clear()
             bc_plot2_dow_drate_curve.clear()
+            bc_plot2_call_drate_curve.clear()
+            bc_plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
                 bc_call_curve[i].clear()
@@ -25500,6 +25625,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot2_fut_drate_curve.clear()
             bc_plot2_dow_drate_curve.clear()
+            bc_plot2_call_drate_curve.clear()
+            bc_plot2_put_drate_curve.clear()
             
             bc_plot2_sp500_curve.clear()
             bc_plot2_dow_curve.clear()
@@ -25539,6 +25666,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot2_fut_drate_curve.clear()
             bc_plot2_dow_drate_curve.clear()
+            bc_plot2_call_drate_curve.clear()
+            bc_plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
                 bc_call_curve[i].clear()                
@@ -25630,6 +25759,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot2_fut_drate_curve.clear()
             bc_plot2_dow_drate_curve.clear()
+            bc_plot2_call_drate_curve.clear()
+            bc_plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
                 bc_call_curve[i].clear()
@@ -25721,6 +25852,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot2_fut_drate_curve.clear()
             bc_plot2_dow_drate_curve.clear()
+            bc_plot2_call_drate_curve.clear()
+            bc_plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
                 bc_call_curve[i].clear()
@@ -25812,6 +25945,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot2_fut_drate_curve.clear()
             bc_plot2_dow_drate_curve.clear()
+            bc_plot2_call_drate_curve.clear()
+            bc_plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
                 bc_call_curve[i].clear()
@@ -26032,6 +26167,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot1_fut_drate_curve.setData(plot_data7)
             bc_plot1_dow_drate_curve.setData(plot_data8)
+            bc_plot1_call_drate_curve.setData(plot_data15)
+            bc_plot1_put_drate_curve.setData(plot_data16)
 
         elif bc_comboindex1 == 4:
 
@@ -26448,6 +26585,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot2_fut_drate_curve.setData(plot_data7)
             bc_plot2_dow_drate_curve.setData(plot_data8)
+            bc_plot2_call_drate_curve.setData(plot_data15)
+            bc_plot2_put_drate_curve.setData(plot_data16)
 
         elif bc_comboindex2 == 4:
 
