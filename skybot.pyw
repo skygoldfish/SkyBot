@@ -17877,7 +17877,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         선물_등락율 = result['등락율']
         선물_진폭 = 선물_고가 - 선물_저가
 
-        df_plotdata_fut_drate[x_idx] = 선물_등락율
+        df_plotdata_fut_drate[x_idx] = result['등락율']
         
         # 선물 OHLC 데이타프레임 생성
         '''
@@ -23510,7 +23510,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                                                         
                         if result['체결가격'] > NASDAQ_과거가:
 
-                            if result['전일대비기호'] == '5':
+                            if NASDAQ_등락율 < 0:
 
                                 if min(대비리스트) > 0:
                                     jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬈".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
@@ -23521,7 +23521,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.label_3rd.setStyleSheet('background-color: pink ; color: blue')
                                 nasdaq_text_color = 'blue'
 
-                            elif result['전일대비기호'] == '2':                            
+                            elif NASDAQ_등락율 > 0:                            
 
                                 if min(대비리스트) > 0:
                                     jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬈".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
@@ -23536,7 +23536,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         elif result['체결가격'] < NASDAQ_과거가:
 
-                            if result['전일대비기호'] == '5':     
+                            if NASDAQ_등락율 < 0:     
 
                                 if max(대비리스트) < 0:
                                     jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬊".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
@@ -23547,7 +23547,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.label_3rd.setStyleSheet('background-color: lightskyblue ; color: blue')
                                 nasdaq_text_color = 'blue'
 
-                            elif result['전일대비기호'] == '2':     
+                            elif NASDAQ_등락율 > 0:     
 
                                 if max(대비리스트) < 0:
                                     jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬊".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
@@ -23625,7 +23625,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         if result['체결가격'] > SP500_과거가:
                             
-                            if result['전일대비기호'] == '5':
+                            if SP500_등락율 < 0:
 
                                 if overnight:
 
@@ -23651,7 +23651,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         pass                                
 
-                            elif result['전일대비기호'] == '2':  
+                            elif SP500_등락율 > 0:  
 
                                 if overnight:
 
@@ -23681,7 +23681,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             
                         elif result['체결가격'] < SP500_과거가:
                             
-                            if result['전일대비기호'] == '5': 
+                            if SP500_등락율 < 0: 
 
                                 if overnight:
 
@@ -23707,7 +23707,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         pass                                
 
-                            elif result['전일대비기호'] == '2':
+                            elif SP500_등락율 > 0:
 
                                 if overnight:
 
@@ -23802,7 +23802,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         if 체결가격 > DOW_과거가:
 
-                            if result['전일대비기호'] == '5':                                                              
+                            if DOW_등락율 < 0:                                                             
 
                                 if min(대비리스트) > 0:
                                     jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬈". \
@@ -23815,7 +23815,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.label_2nd.setStyleSheet('background-color: pink ; color: blue')
                                 dow_text_color = 'blue'
 
-                            elif result['전일대비기호'] == '2':       
+                            elif DOW_등락율 > 0:       
 
                                 if min(대비리스트) > 0:
                                     jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬈". \
@@ -23832,7 +23832,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         elif 체결가격 < DOW_과거가:
 
-                            if result['전일대비기호'] == '5':        
+                            if DOW_등락율 < 0:        
 
                                 if max(대비리스트) < 0:
                                     jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬊". \
@@ -23845,7 +23845,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.label_2nd.setStyleSheet('background-color: lightskyblue ; color: blue')
                                 dow_text_color = 'blue'
 
-                            elif result['전일대비기호'] == '2':      
+                            elif DOW_등락율 > 0:      
 
                                 if max(대비리스트) < 0:
                                     jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬊". \
@@ -23925,7 +23925,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         if result['체결가격'] > WTI_과거가:
                             
-                            if result['전일대비기호'] == '5':
+                            if WTI_등락율 < 0:
 
                                 if min(대비리스트) > 0:
                                     jisu_str = "WTI: {0} ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
@@ -23946,7 +23946,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         pass                                
 
-                            elif result['전일대비기호'] == '2':
+                            elif WTI_등락율 > 0:
 
                                 if min(대비리스트) > 0:
                                     jisu_str = "WTI: {0} ▲ ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
@@ -23971,7 +23971,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             
                         elif result['체결가격'] < WTI_과거가:
                             
-                            if result['전일대비기호'] == '5':
+                            if WTI_등락율 < 0:
 
                                 if max(대비리스트) < 0:
                                     jisu_str = "WTI: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
@@ -23992,7 +23992,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         pass                                                               
 
-                            elif result['전일대비기호'] == '2':
+                            elif WTI_등락율 > 0:
 
                                 if max(대비리스트) < 0:
                                     jisu_str = "WTI: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
