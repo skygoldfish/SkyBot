@@ -82,6 +82,8 @@ np.warnings.filterwarnings('ignore')
 콜등락율 = 0
 풋등락율 = 0
 
+drate_scale_factor = 1
+
 선물_전저 = 0
 선물_전고 = 0
 선물_종가 = 0
@@ -430,10 +432,6 @@ with open('control_info.txt', mode='r') as control_file:
     temp = tmp.split()
     ONEWAY_RATIO = float(temp[4])
     #print('ONEWAY_RATIO =', ONEWAY_RATIO)
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    DRATE_SCALE_FACTOR = float(temp[5])
 
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
@@ -3134,8 +3132,10 @@ class screen_update_worker(QThread):
             data12 = df_plotdata_dow.iloc[0].values.tolist()
             data13 = df_plotdata_nasdaq.iloc[0].values.tolist()
             data14 = df_plotdata_wti.iloc[0].values.tolist()    
-            data15 = df_plotdata_call_drate.iloc[0].values.tolist()
-            data16 = df_plotdata_put_drate.iloc[0].values.tolist()         
+            data15 = np.array(df_plotdata_call_drate.iloc[0].values.tolist()) / drate_scale_factor
+            data15 = data15.tolist()
+            data16 = np.array(df_plotdata_put_drate.iloc[0].values.tolist()) / drate_scale_factor
+            data16 = data16.tolist()         
 
             if UI_STYLE == 'Vertical_View.ui':
 
@@ -4070,6 +4070,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item = QTableWidgetItem("{0}".format('-'))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(2, Futures_column.OID.value, item)
+
+        item = QTableWidgetItem("{0}".format(drate_scale_factor))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(2, Futures_column.진폭.value, item)
 
         self.tableWidget_fut.resizeColumnsToContents() 
 
@@ -6724,11 +6728,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global plot_data1, plot_data2, plot_data3, plot_data4, plot_data5, plot_data6, plot_data7
             global plot_data8, plot_data9, plot_data10, plot_data11, plot_data12, plot_data13, plot_data14, plot_data15, plot_data16
             global selected_call, selected_put, selected_opt_list
-            global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가 
+            global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가
+            global drate_scale_factor 
 
             시스템시간 = dt.hour * 3600 + dt.minute * 60 + dt.second
             
             self.alternate_flag = not self.alternate_flag
+
+            drate_scale_factor = float(self.tableWidget_fut.item(2, Futures_column.진폭.value).text())
 
             # Market 유형을 시간과 함께 표시
             self.market_type_display(self.alternate_flag)
@@ -18583,7 +18590,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if index == atm_index:
             콜등락율 = call_result['등락율']
-            df_plotdata_call_drate[opt_x_idx] = call_result['등락율'] / DRATE_SCALE_FACTOR
+            df_plotdata_call_drate[opt_x_idx] = call_result['등락율']
         else:
             pass
         
@@ -19977,7 +19984,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         if index == atm_index:
             풋등락율 = put_result['등락율']
-            df_plotdata_put_drate[opt_x_idx] = put_result['등락율'] / DRATE_SCALE_FACTOR
+            df_plotdata_put_drate[opt_x_idx] = put_result['등락율']
         else:
             pass
         
