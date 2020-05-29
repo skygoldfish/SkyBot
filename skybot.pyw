@@ -281,18 +281,6 @@ with open('control_info.txt', mode='r') as control_file:
                 
                 file_list.append(float(temp[i]))
 
-            '''
-            node_remove1 = list(filter((1.2).__ne__, file_list))
-            node_remove2 = list(filter((2.5).__ne__, node_remove1))
-            node_remove3 = list(filter((3.5).__ne__, node_remove2))
-            node_remove4 = list(filter((4.85).__ne__, node_remove3))
-            node_remove5 = list(filter((5.1).__ne__, node_remove4))
-            node_remove6 = list(filter((5.5).__ne__, node_remove5))
-            node_remove7 = list(filter((6.85).__ne__, node_remove6))
-            node_remove8 = list(filter((7.1).__ne__, node_remove7))
-            high_low_list = list(filter((8.1).__ne__, node_remove8))
-            '''
-
             high_low_list = file_list[:]
             FILE_HIGH_LOW_LIST = file_list[:]
 
@@ -5453,9 +5441,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             mv_line[0].setValue(1.2)
             mv_line[1].setValue(2.5)
             mv_line[2].setValue(3.5)
-            mv_line[3].setValue(4.85)
-            mv_line[4].setValue(5.1)
-            mv_line[5].setValue(5.5)
+            mv_line[3].setValue(0)
+            mv_line[4].setValue(0)
+            mv_line[5].setValue(0)
             mv_line[6].setValue(0)
             mv_line[7].setValue(0)
             mv_line[8].setValue(0)
@@ -6835,7 +6823,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             mv_line[0].setValue(1.2)
                             mv_line[1].setValue(2.5)
                             mv_line[2].setValue(3.5)
-                            mv_line[3].setValue(4.85)
+                            mv_line[3].setValue(0)
                             mv_line[4].setValue(0)
                             mv_line[5].setValue(0)
                             mv_line[6].setValue(0)
@@ -6878,25 +6866,36 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     #print('옵션 y axis range: {}'.format(axY.range[1]))
 
                     # 최대값내의 의미가 그리기
-                    if 5.0 <= axY.range[1] < 6.0:
+                    if 4.0 <= axY.range[1] < 5.0:
+                        mv_line[3].setValue(4.85)
+                        mv_line[4].setValue(5.1)
+                        mv_line[5].setValue(0)
+                        mv_line[6].setValue(0)
+                        mv_line[7].setValue(0)
+                        mv_line[8].setValue(0)
+                    elif 5.0 <= axY.range[1] < 6.0:
+                        mv_line[3].setValue(4.85)
                         mv_line[4].setValue(5.1)
                         mv_line[5].setValue(5.5)
                         mv_line[6].setValue(0)
                         mv_line[7].setValue(0)
                         mv_line[8].setValue(0)
                     elif 6.0 <= axY.range[1] < 7.1:
+                        mv_line[3].setValue(4.85)
                         mv_line[4].setValue(5.1)
                         mv_line[5].setValue(5.5)
                         mv_line[6].setValue(6.85)
                         mv_line[7].setValue(0)
                         mv_line[8].setValue(0)
                     elif 7.1 <= axY.range[1] < 8.1:
+                        mv_line[3].setValue(4.85)
                         mv_line[4].setValue(5.1)
                         mv_line[5].setValue(5.5)
                         mv_line[6].setValue(6.85)
                         mv_line[7].setValue(7.1)
                         mv_line[8].setValue(0)
                     elif axY.range[1] >= 8.1:
+                        mv_line[3].setValue(4.85)
                         mv_line[4].setValue(5.1)
                         mv_line[5].setValue(5.5)
                         mv_line[6].setValue(6.85)
@@ -25664,9 +25663,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_mv_line[0].setValue(1.2)
             bc_mv_line[1].setValue(2.5)
             bc_mv_line[2].setValue(3.5)
-            bc_mv_line[3].setValue(4.85)
-            bc_mv_line[4].setValue(5.1)
-            bc_mv_line[5].setValue(5.5)
+            bc_mv_line[3].setValue(0)
+            bc_mv_line[4].setValue(0)
+            bc_mv_line[5].setValue(0)
             bc_mv_line[6].setValue(0)
             bc_mv_line[7].setValue(0)
             bc_mv_line[8].setValue(0)
@@ -26087,7 +26086,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_mv_line[0].setValue(1.2)
             bc_mv_line[1].setValue(2.5)
             bc_mv_line[2].setValue(3.5)
-            bc_mv_line[3].setValue(4.85)
+            bc_mv_line[3].setValue(0)
             bc_mv_line[4].setValue(0)
             bc_mv_line[5].setValue(0)
             bc_mv_line[6].setValue(0)
@@ -26116,25 +26115,36 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             axY = self.bc_Plot2.getAxis('left')
 
             # 최대값내의 의미가 그리기
-            if 5.0 <= axY.range[1] < 6.0:
+            if 4.0 <= axY.range[1] < 5.0:
+                bc_mv_line[3].setValue(4.85)
+                bc_mv_line[4].setValue(5.1)
+                bc_mv_line[5].setValue(0)
+                bc_mv_line[6].setValue(0)
+                bc_mv_line[7].setValue(0)
+                bc_mv_line[8].setValue(0)
+            elif 5.0 <= axY.range[1] < 6.0:
+                bc_mv_line[3].setValue(4.85)
                 bc_mv_line[4].setValue(5.1)
                 bc_mv_line[5].setValue(5.5)
                 bc_mv_line[6].setValue(0)
                 bc_mv_line[7].setValue(0)
                 bc_mv_line[8].setValue(0)
             elif 6.0 <= axY.range[1] < 7.1:
+                bc_mv_line[3].setValue(4.85)
                 bc_mv_line[4].setValue(5.1)
                 bc_mv_line[5].setValue(5.5)
                 bc_mv_line[6].setValue(6.85)
                 bc_mv_line[7].setValue(0)
                 bc_mv_line[8].setValue(0)
             elif 7.1 <= axY.range[1] < 8.1:
+                bc_mv_line[3].setValue(4.85)
                 bc_mv_line[4].setValue(5.1)
                 bc_mv_line[5].setValue(5.5)
                 bc_mv_line[6].setValue(6.85)
                 bc_mv_line[7].setValue(7.1)
                 bc_mv_line[8].setValue(0)
             elif axY.range[1] >= 8.1:
+                bc_mv_line[3].setValue(4.85)
                 bc_mv_line[4].setValue(5.1)
                 bc_mv_line[5].setValue(5.5)
                 bc_mv_line[6].setValue(6.85)
