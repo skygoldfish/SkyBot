@@ -4557,13 +4557,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             listsum = []
 
             for i in range(len(bms_node_list)):
-                var1 = self.getItem(bms_node_list, i)
-                var2 = self.getItem(bms_node_frequency_list, i)
+
+                var1 = self.get_list_item(bms_node_list, i)
+                var2 = self.get_list_item(bms_node_frequency_list, i)
                 if var1 != None and var2 != None: # 유효한 것만 합친다 (결국 두 리스트중에서 작은 사이즈로)
                     listsum.append([var1, var2])
 
             new_node = sorted(listsum, key=operator.itemgetter(0))
-            print('new_node =', new_node)
+            #print('new node list =', new_node)
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
                 (dt.hour, dt.minute, dt.second, new_node[0][0], new_node[0][1])
@@ -4767,7 +4768,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.XingAdminCheck()
 
     ## list에서 i번째 아이템을 리턴한다.
-    def getItem(self, list, i):
+    def get_list_item(self, list, i):
+
         if i >= 0 and i < len(list):
             return list[i]
         else:
@@ -8204,13 +8206,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         listsum = []
 
         for i in range(len(동적맥점_리스트)):
-            var1 = self.getItem(동적맥점_리스트, i)
-            var2 = self.getItem(동적맥점_빈도수_리스트, i)
+            
+            var1 = self.get_list_item(동적맥점_리스트, i)
+            var2 = self.get_list_item(동적맥점_빈도수_리스트, i)
             if var1 != None and var2 != None: # 유효한 것만 합친다 (결국 두 리스트중에서 작은 사이즈로)
                 listsum.append([var1, var2])
 
         new_node = sorted(listsum, key=operator.itemgetter(0))
-        print('new_node =', new_node)
+        print('new node list =', new_node)
         
         item_str = "{0}\n({1})".format(new_node[0][0], new_node[0][1])
         item = QTableWidgetItem(item_str)
