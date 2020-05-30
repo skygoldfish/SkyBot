@@ -6814,18 +6814,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global selected_call, selected_put, selected_opt_list
             global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가
             global drate_scale_factor 
-
-            시스템시간 = dt.hour * 3600 + dt.minute * 60 + dt.second
             
             self.alternate_flag = not self.alternate_flag
-
-            drate_scale_factor = float(self.tableWidget_fut.item(2, Futures_column.진폭.value).text())
 
             # Market 유형을 시간과 함께 표시
             self.market_type_display(self.alternate_flag)
             
             # 실시간 서비스                     
             if receive_real_ovc or market_service:
+                
+                # 옵션 등락율 scale factor 읽어들임
+                drate_scale_factor = float(self.tableWidget_fut.item(2, Futures_column.진폭.value).text())
                 
                 if not overnight:
                     self.display_atm(self.alternate_flag)
@@ -7578,7 +7577,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     elif comboindex4 == 1:                        
 
                         if fut_volume_power > 0:
-
                             plot4_fv_plus_curve.setData(plot4_1_data)
                         else:
                             plot4_fv_minus_curve.setData(plot4_1_data)
@@ -7865,6 +7863,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # 오전 6시 10분경 증권사 서버초기화전에 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
             if overnight:
+                
+                시스템시간 = dt.hour * 3600 + dt.minute * 60 + dt.second
 
                 보정된시간 = 시스템시간 - 시스템_서버_시간차
 
@@ -14764,10 +14764,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_call.setItem(i, Option_column.시가.value, item)
 
-                        저가 = df['저가'][i]
-                        고가 = df['고가'][i]
-
-                        if 시가 > 0 and 저가 < 고가:
+                        if 시가 > 0 and df['저가'][i] < df['고가'][i]:
 
                             종가 = df_call.at[i, '종가']
 
@@ -14820,6 +14817,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         self.tableWidget_call.setItem(i, Option_column.현재가.value, item)
                         
+                        if df['저가'][i] < df['고가'][i]:
+                            저가 = df['저가'][i]
+                            고가 = df['고가'][i]                        
+                        else:
+                            저가 = 0
+                            고가 = 0
+                        
                         df_call.at[i, '저가'] = 저가
                         빈도수 = self.get_value_frequency(저가)
 
@@ -14846,7 +14850,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setBackground(QBrush(옅은회색))
                         self.tableWidget_call.setItem(i, Option_column.고가.value, item)
                         
-                        if 시가 > opt_search_start_value and 저가 < 고가:
+                        if 시가 > opt_search_start_value and df['저가'][i] < df['고가'][i]:
                             call_open_list.append(i)
                         else:
                             pass
@@ -14858,9 +14862,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem("{0:0.2f}".format(시가))
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_put.setItem(i, Option_column.시가.value, item)
-
-                        저가 = df1['저가'][i]
-                        고가 = df1['고가'][i]
 
                         if 시가 > 0 and df1['저가'][i] < df1['고가'][i]:
 
@@ -14914,6 +14915,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
                         
                         self.tableWidget_put.setItem(i, Option_column.현재가.value, item)
+
+                        if df1['저가'][i] < df1['고가'][i]:
+                            저가 = df1['저가'][i]
+                            고가 = df1['고가'][i]                        
+                        else:
+                            저가 = 0
+                            고가 = 0
                         
                         df_put.at[i, '저가'] = 저가
                         빈도수 = self.get_value_frequency(저가)
@@ -14941,7 +14949,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setBackground(QBrush(옅은회색))
                         self.tableWidget_put.setItem(i, Option_column.고가.value, item)
                         
-                        if 시가 > opt_search_start_value and 저가 < 고가:
+                        if 시가 > opt_search_start_value and df1['저가'][i] < df1['고가'][i]:
                             put_open_list.append(i)
                         else:
                             pass
@@ -16290,7 +16298,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_call.setItem(i, Option_column.현재가.value, item)
 
-                    저가 = df['저가'][i]
+                    if df['저가'][i] < df['고가'][i]:
+                        저가 = df['저가'][i]
+                        고가 = df['고가'][i]
+                    else:
+                        저가 = 0
+                        고가 = 0
+
                     df_call.at[i, '저가'] = 저가
                     빈도수 = self.get_value_frequency(저가)                    
 
@@ -16304,7 +16318,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setBackground(QBrush(옅은회색))
                     self.tableWidget_call.setItem(i, Option_column.저가.value, item)
 
-                    고가 = df['고가'][i]
                     df_call.at[i, '고가'] = 고가
                     빈도수 = self.get_value_frequency(고가)
 
@@ -16318,7 +16331,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setBackground(QBrush(옅은회색))
                     self.tableWidget_call.setItem(i, Option_column.고가.value, item)
                     
-                    if 시가 > 0 and 저가 < 고가:
+                    if 시가 > 0 and df['저가'][i] < df['고가'][i]:
                         call_open_list.append(i)
                     else:
                         pass
@@ -16366,8 +16379,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setForeground(QBrush(검정색))
 
                     self.tableWidget_put.setItem(i, Option_column.현재가.value, item)
+
+                    if df1['저가'][i] < df1['고가'][i]:
+                        저가 = df1['저가'][i]
+                        고가 = df1['고가'][i]
+                    else:
+                        저가 = 0
+                        고가 = 0
                     
-                    저가 = df1['저가'][i]
                     df_put.at[i, '저가'] = 저가
                     빈도수 = self.get_value_frequency(저가)                    
 
@@ -16381,7 +16400,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setBackground(QBrush(옅은회색))
                     self.tableWidget_put.setItem(i, Option_column.저가.value, item)
 
-                    고가 = df1['고가'][i]
                     df_put.at[i, '고가'] = 고가
                     빈도수 = self.get_value_frequency(고가)                    
 
@@ -16395,7 +16413,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setBackground(QBrush(옅은회색))
                     self.tableWidget_put.setItem(i, Option_column.고가.value, item)
                     
-                    if 시가 > 0 and 저가 < 고가:
+                    if 시가 > 0 and df1['저가'][i] < df1['고가'][i]:
                         put_open_list.append(i)
                     else:
                         pass
