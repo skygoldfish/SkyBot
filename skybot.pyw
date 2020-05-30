@@ -8307,7 +8307,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(lime))
         self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
-
+        
         if new_node[0][0] in high_low_list:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
