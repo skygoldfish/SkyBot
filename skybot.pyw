@@ -8080,15 +8080,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        print('동적 맥점 탐색을 시작합니다.')
-
+        str = '[{0:02d}:{1:02d}:{2:02d}] 동적 맥점 탐색을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(str)
+        print(str)
+        
         동적맥점_리스트 = []
         동적맥점_빈도수_리스트 = []
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 동적 맥점 탐색을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
-        self.textBrowser.append(str)
-
-        #진성맥점 = DEFAULT_NODE_LIST
         OLD_진성맥점 = 진성맥점[:]
 
         if not moving_list:            
@@ -8206,7 +8204,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         listsum = []
 
         for i in range(len(동적맥점_리스트)):
-            
+
             var1 = self.get_list_item(동적맥점_리스트, i)
             var2 = self.get_list_item(동적맥점_빈도수_리스트, i)
             if var1 != None and var2 != None: # 유효한 것만 합친다 (결국 두 리스트중에서 작은 사이즈로)
