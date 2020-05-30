@@ -18900,7 +18900,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         
         # 저가 갱신
-        if 저가 != self.tableWidget_call.item(index, Option_column.저가.value).text().split('\n')[0] and 저가 != 고가:
+        if 저가 != 고가 and 저가 != self.tableWidget_call.item(index, Option_column.저가.value).text().split('\n')[0]:
 
             item = QTableWidgetItem('▼')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -18996,7 +18996,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass             
 
         # 고가 갱신
-        if 고가 != self.tableWidget_call.item(index, Option_column.고가.value).text().split('\n')[0] and 저가 != 고가:
+        if 저가 != 고가 and 고가 != self.tableWidget_call.item(index, Option_column.고가.value).text().split('\n')[0]:
 
             item = QTableWidgetItem('▲')
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
@@ -20217,7 +20217,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         
         # 저가 갱신
-        if 저가 != self.tableWidget_put.item(index, Option_column.저가.value).text().split('\n')[0] and 저가 != 고가:
+        if 저가 != 고가 and 저가 != self.tableWidget_put.item(index, Option_column.저가.value).text().split('\n')[0]:
 
             item = QTableWidgetItem('▼')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
@@ -20313,7 +20313,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # 고가 갱신
-        if 고가 != self.tableWidget_put.item(index, Option_column.고가.value).text().split('\n')[0] and 저가 != 고가:
+        if 저가 != 고가 and 고가 != self.tableWidget_put.item(index, Option_column.고가.value).text().split('\n')[0]:
 
             item = QTableWidgetItem('▲')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
