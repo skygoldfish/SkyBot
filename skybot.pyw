@@ -3603,7 +3603,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         OVC_START_HOUR = KSE_START_HOUR - 1 
 
-        print('장준비 기준시간 =', OVC_START_HOUR)
+        print('주간선물 기준시간 =', OVC_START_HOUR)
 
         self.setWindowTitle(widget_title)
         
