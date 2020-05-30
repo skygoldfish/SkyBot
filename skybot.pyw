@@ -1413,7 +1413,6 @@ plot1_fut_volume_minus_curve = None
 plot1_kp200_curve = None
 plot1_call_volume_curve = None
 plot1_put_volume_curve = None
-#plot1_volume_cha_curve = None
 
 plot1_call_rr_curve = None
 plot1_put_rr_curve = None
@@ -1449,7 +1448,6 @@ plot2_fut_volume_plus_curve = None
 plot2_fut_volume_minus_curve = None
 plot2_call_volume_curve = None
 plot2_put_volume_curve = None
-#plot2_volume_cha_curve = None
 
 plot2_call_rr_curve = None
 plot2_put_rr_curve = None
@@ -1497,7 +1495,6 @@ bc_plot1_fut_volume_minus_curve = None
 bc_plot1_kp200_curve = None
 bc_plot1_call_volume_curve = None
 bc_plot1_put_volume_curve = None
-#bc_plot1_volume_cha_curve = None
 
 bc_plot1_call_rr_curve = None
 bc_plot1_put_rr_curve = None
@@ -1539,7 +1536,6 @@ bc_plot2_fut_volume_plus_curve = None
 bc_plot2_fut_volume_minus_curve = None
 bc_plot2_call_volume_curve = None
 bc_plot2_put_volume_curve = None
-#bc_plot2_volume_cha_curve = None
 
 bc_plot2_call_rr_curve = None
 bc_plot2_put_rr_curve = None
@@ -3620,13 +3616,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.screen_update_worker = screen_update_worker()
         self.screen_update_worker.finished.connect(self.update_screen)
-        
+        '''
         self.call_update_worker = call_update_worker()
         self.call_update_worker.finished.connect(self.call_update)
 
         self.put_update_worker = put_update_worker()
         self.put_update_worker.finished.connect(self.put_update)
-        
+        '''
         self.telegram_send_worker = telegram_send_worker()
         self.telegram_send_worker.finished.connect(self.send_telegram_message)
 
@@ -4059,11 +4055,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(2, Futures_column.OID.value, item)
 
-        item = QTableWidgetItem("{0}".format(drate_scale_factor))
+        item = QTableWidgetItem("{0}".format('Scale\nFactor'))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(2, Futures_column.진폭.value, item)
-
-        self.tableWidget_fut.resizeColumnsToContents() 
 
         # Quote tablewidget 초기화
         self.tableWidget_quote.setRowCount(1)
@@ -4268,8 +4262,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global plot1_ovc_jl_line, plot1_ovc_jh_line, plot1_ovc_close_line, plot1_ovc_open_line, plot1_ovc_pivot_line, plot1_ovc_low_line, plot1_ovc_high_line    
         global plot1_fut_volume_curve, plot1_fut_volume_plus_curve, plot1_fut_volume_minus_curve
         global plot1_call_rr_curve, plot1_put_rr_curve
-        global plot1_call_volume_curve, plot1_put_volume_curve 
-        #global plot1_volume_cha_curve
+        global plot1_call_volume_curve, plot1_put_volume_curve
         global plot1_fut_drate_curve, plot1_dow_drate_curve        
         global plot1_sp500_curve, plot1_dow_curve, plot1_nasdaq_curve, plot1_wti_curve
         global plot1_call_drate_curve, plot1_put_drate_curve        
@@ -4277,7 +4270,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global plot2_fut_volume_curve, plot2_fut_volume_plus_curve, plot2_fut_volume_minus_curve        
         global plot2_call_rr_curve, plot2_put_rr_curve        
         global plot2_call_volume_curve, plot2_put_volume_curve
-        #global plot2_volume_cha_curve        
         global plot2_fut_drate_curve, plot2_dow_drate_curve
         global plot2_sp500_curve, plot2_dow_curve, plot2_nasdaq_curve, plot2_wti_curve        
         global plot2_time_line_start, plot2_time_line_yagan_start, plot2_time_line
@@ -4330,7 +4322,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         plot1_call_volume_curve = self.Plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         plot1_put_volume_curve = self.Plot1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-        #plot1_volume_cha_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         plot1_call_rr_curve = self.Plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         plot1_put_rr_curve = self.Plot1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -4370,7 +4361,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         plot2_call_volume_curve = self.Plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         plot2_put_volume_curve = self.Plot2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-        #plot2_volume_cha_curve = self.Plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         plot2_fut_volume_curve = self.Plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
         plot2_fut_volume_plus_curve = self.Plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
@@ -4652,12 +4642,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
         else:
             pass
+        
+        self.tableWidget_fut.resizeColumnsToContents() 
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 오늘의 중요맥점은'.format(dt.hour, dt.minute, dt.second)
-        self.textBrowser.append(str)
+        if bms_node_list:
+            str = '[{0:02d}:{1:02d}:{2:02d}] 오늘의 중요맥점은'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
-        self.textBrowser.append(str)
+            str = '[{0:02d}:{1:02d}:{2:02d}] {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, bms_node_list)
+            self.textBrowser.append(str)
+        else:
+            pass
 
         self.XingAdminCheck()
             
@@ -4742,7 +4737,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot1_call_volume_curve.clear()
             plot1_put_volume_curve.clear()
-            #plot1_volume_cha_curve.clear() 
 
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
@@ -4817,7 +4811,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot1_call_volume_curve.clear()
             plot1_put_volume_curve.clear()
-            #plot1_volume_cha_curve.clear()
 
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
@@ -4855,7 +4848,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot1_call_volume_curve.clear()
             plot1_put_volume_curve.clear()
-            #plot1_volume_cha_curve.clear()
 
             plot1_call_rr_curve.clear()
             plot1_put_rr_curve.clear()
@@ -4894,7 +4886,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot1_call_volume_curve.clear()
             plot1_put_volume_curve.clear()
-            #plot1_volume_cha_curve.clear()
 
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
@@ -4967,7 +4958,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot1_call_volume_curve.clear()
             plot1_put_volume_curve.clear()
-            #plot1_volume_cha_curve.clear()
 
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
@@ -5042,7 +5032,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot1_call_volume_curve.clear()
             plot1_put_volume_curve.clear()
-            #plot1_volume_cha_curve.clear()
 
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
@@ -5117,7 +5106,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot1_call_volume_curve.clear()
             plot1_put_volume_curve.clear()
-            #plot1_volume_cha_curve.clear()
 
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
@@ -5192,7 +5180,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot1_call_volume_curve.clear()
             plot1_put_volume_curve.clear()
-            #plot1_volume_cha_curve.clear()
 
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
@@ -5311,7 +5298,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
-            #plot2_volume_cha_curve.clear()
 
             plot2_fut_volume_plus_curve.clear()
             plot2_fut_volume_minus_curve.clear()
@@ -5348,7 +5334,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
-            #plot2_volume_cha_curve.clear()
 
             plot2_fut_drate_curve.clear()
             plot2_dow_drate_curve.clear()
@@ -5382,7 +5367,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
-            #plot2_volume_cha_curve.clear()
 
             plot2_fut_volume_plus_curve.clear()
             plot2_fut_volume_minus_curve.clear()
@@ -5414,7 +5398,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
-            #plot2_volume_cha_curve.clear()
 
             plot2_fut_volume_plus_curve.clear()
             plot2_fut_volume_minus_curve.clear()
@@ -5455,7 +5438,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
-            #plot2_volume_cha_curve.clear()
 
             plot2_fut_volume_plus_curve.clear()
             plot2_fut_volume_minus_curve.clear()
@@ -5526,7 +5508,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
-            #plot2_volume_cha_curve.clear()
 
             plot2_fut_volume_plus_curve.clear()
             plot2_fut_volume_minus_curve.clear()
@@ -5597,7 +5578,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
-            #plot2_volume_cha_curve.clear()
 
             plot2_fut_volume_plus_curve.clear()
             plot2_fut_volume_minus_curve.clear()
@@ -5668,7 +5648,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
-            #plot2_volume_cha_curve.clear()
 
             plot2_fut_volume_plus_curve.clear()
             plot2_fut_volume_minus_curve.clear()
@@ -6682,7 +6661,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
         except:
             pass
-
+    '''
     @pyqtSlot(str)
     def call_update(self, str):
 
@@ -6698,7 +6677,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.put_display()
         except:
             pass
-
+    '''
     @pyqtSlot(dict)
     def update_screen(self, data):
 
@@ -6868,7 +6847,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 최대값내의 의미가 그리기
                     if 4.0 <= axY.range[1] < 5.0:
                         mv_line[3].setValue(4.85)
-                        mv_line[4].setValue(5.1)
+                        mv_line[4].setValue(0)
                         mv_line[5].setValue(0)
                         mv_line[6].setValue(0)
                         mv_line[7].setValue(0)
@@ -6946,7 +6925,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     plot1_call_volume_curve.setData(plot_data2)
                     plot1_put_volume_curve.setData(plot_data3)
-                    #plot1_volume_cha_curve.setData(plot_data4)
 
                 elif comboindex1 == 2:
 
@@ -7135,8 +7113,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if comboindex2 == 0:
 
                     plot2_call_volume_curve.setData(plot_data2)
-                    plot2_put_volume_curve.setData(plot_data3)  
-                    #plot2_volume_cha_curve.setData(plot_data4) 
+                    plot2_put_volume_curve.setData(plot_data3) 
 
                 elif comboindex2 == 1:
 
@@ -21595,7 +21572,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 종료합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                         self.textBrowser.append(str)
-                        
+                        '''
                         if self.call_update_worker.isRunning():
                             self.call_update_worker.terminate()
                         else:
@@ -21605,7 +21582,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.put_update_worker.terminate()
                         else:
                             pass
-                        
+                        '''
                         self.pushButton_add.setText('ScrShot')
 
                         self.opt_all_node_coloring()
@@ -21659,7 +21636,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 종료합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                         self.textBrowser.append(str)
-                        
+                        '''
                         if self.call_update_worker.isRunning():
                             self.call_update_worker.terminate()
                         else:
@@ -21669,7 +21646,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.put_update_worker.terminate()
                         else:
                             pass
-                        
+                        '''
                         self.pushButton_add.setText('ScrShot')
                         
                         str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 스레드를 종료합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
@@ -24095,13 +24072,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
 
-        # 서버시간 확인        
-        XQ = t0167(parent=self)
-        XQ.Query()
+        # 옵션 등가 등락율 scale factor setting        
+        item = QTableWidgetItem("{0}".format(drate_scale_factor))
+        item.setTextAlignment(Qt.AlignCenter)
+        self.tableWidget_fut.setItem(2, Futures_column.진폭.value, item)       
 
-        #time.sleep(1.1)        
-
-        # 코스피 조회
+        # 코스피지수 조회
         XQ = t1514(parent=self)
         XQ.Query(업종코드=KOSPI,구분1='',구분2='1',CTS일자='',조회건수='0001',비중구분='', 연속조회=False)
 
@@ -24119,7 +24095,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             file.close()
 
             if TARGET_MONTH_SELECT == 1:
-
                 self.capture_screenshot()
             else:
                 pass 
@@ -24602,7 +24577,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot1_fut_volume_curve, bc_plot1_fut_volume_plus_curve, bc_plot1_fut_volume_minus_curve
         global bc_plot1_call_rr_curve, bc_plot1_put_rr_curve
         global bc_plot1_call_volume_curve, bc_plot1_put_volume_curve
-        #global bc_plot1_volume_cha_curve
         global bc_plot1_fut_drate_curve, bc_plot1_dow_drate_curve
         global bc_plot1_call_drate_curve, bc_plot1_put_drate_curve        
         global bc_plot1_sp500_curve, bc_plot1_dow_curve, bc_plot1_nasdaq_curve, bc_plot1_wti_curve
@@ -24610,7 +24584,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot2_fut_volume_curve, bc_plot2_fut_volume_plus_curve, bc_plot2_fut_volume_minus_curve        
         global bc_plot2_call_rr_curve, bc_plot2_put_rr_curve        
         global bc_plot2_call_volume_curve, bc_plot2_put_volume_curve
-        #global bc_plot2_volume_cha_curve        
         global bc_plot2_fut_drate_curve, bc_plot2_dow_drate_curve
         global bc_plot2_call_drate_curve, bc_plot2_put_drate_curve
         global bc_plot2_sp500_curve, bc_plot2_dow_curve, bc_plot2_nasdaq_curve, bc_plot2_wti_curve        
@@ -24663,7 +24636,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         bc_plot1_call_volume_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot1_put_volume_curve = self.bc_Plot1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-        #bc_plot1_volume_cha_curve = self.bc_Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         bc_plot1_call_rr_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot1_put_rr_curve = self.bc_Plot1.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
@@ -24703,7 +24675,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         bc_plot2_call_volume_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot2_put_volume_curve = self.bc_Plot2.plot(pen=bpen, symbolBrush=gold, symbolPen='w', symbol='h', symbolSize=3)
-        #bc_plot2_volume_cha_curve = self.bc_Plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         bc_plot2_fut_volume_curve = self.bc_Plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
         bc_plot2_fut_volume_plus_curve = self.bc_Plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
@@ -24782,7 +24753,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
-            #bc_plot1_volume_cha_curve.clear() 
 
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
@@ -24875,7 +24845,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
-            #bc_plot1_volume_cha_curve.clear()
 
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
@@ -24922,7 +24891,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
-            #bc_plot1_volume_cha_curve.clear()
 
             bc_plot1_call_rr_curve.clear()
             bc_plot1_put_rr_curve.clear()
@@ -24961,7 +24929,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
-            #bc_plot1_volume_cha_curve.clear()
 
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
@@ -25056,7 +25023,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
-            #bc_plot1_volume_cha_curve.clear()
 
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
@@ -25153,7 +25119,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
-            #bc_plot1_volume_cha_curve.clear()
 
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
@@ -25250,7 +25215,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
-            #bc_plot1_volume_cha_curve.clear()
 
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
@@ -25347,7 +25311,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
-            #bc_plot1_volume_cha_curve.clear()
 
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
@@ -25506,7 +25469,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         
             bc_plot2_call_volume_curve.clear()
             bc_plot2_put_volume_curve.clear()
-            #bc_plot2_volume_cha_curve.clear()
 
             bc_plot2_fut_volume_plus_curve.clear()
             bc_plot2_fut_volume_minus_curve.clear()
@@ -25552,7 +25514,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot2_call_volume_curve.clear()
             bc_plot2_put_volume_curve.clear()
-            #bc_plot2_volume_cha_curve.clear()
 
             bc_plot2_fut_drate_curve.clear()
             bc_plot2_dow_drate_curve.clear()
@@ -25595,7 +25556,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot2_call_volume_curve.clear()
             bc_plot2_put_volume_curve.clear()
-            #bc_plot2_volume_cha_curve.clear()
 
             bc_plot2_fut_volume_plus_curve.clear()
             bc_plot2_fut_volume_minus_curve.clear()
@@ -25636,7 +25596,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot2_call_volume_curve.clear()
             bc_plot2_put_volume_curve.clear()
-            #bc_plot2_volume_cha_curve.clear()
 
             bc_plot2_fut_volume_plus_curve.clear()
             bc_plot2_fut_volume_minus_curve.clear()
@@ -25677,7 +25636,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot2_call_volume_curve.clear()
             bc_plot2_put_volume_curve.clear()
-            #bc_plot2_volume_cha_curve.clear()
 
             bc_plot2_fut_volume_plus_curve.clear()
             bc_plot2_fut_volume_minus_curve.clear()
@@ -25770,7 +25728,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot2_call_volume_curve.clear()
             bc_plot2_put_volume_curve.clear()
-            #bc_plot2_volume_cha_curve.clear()
 
             bc_plot2_fut_volume_plus_curve.clear()
             bc_plot2_fut_volume_minus_curve.clear()
@@ -25863,7 +25820,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot2_call_volume_curve.clear()
             bc_plot2_put_volume_curve.clear()
-            #bc_plot2_volume_cha_curve.clear()
 
             bc_plot2_fut_volume_plus_curve.clear()
             bc_plot2_fut_volume_minus_curve.clear()
@@ -25956,7 +25912,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot2_call_volume_curve.clear()
             bc_plot2_put_volume_curve.clear()
-            #bc_plot2_volume_cha_curve.clear()
 
             bc_plot2_fut_volume_plus_curve.clear()
             bc_plot2_fut_volume_minus_curve.clear()
@@ -26117,7 +26072,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # 최대값내의 의미가 그리기
             if 4.0 <= axY.range[1] < 5.0:
                 bc_mv_line[3].setValue(4.85)
-                bc_mv_line[4].setValue(5.1)
+                bc_mv_line[4].setValue(0)
                 bc_mv_line[5].setValue(0)
                 bc_mv_line[6].setValue(0)
                 bc_mv_line[7].setValue(0)
@@ -26185,7 +26140,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot1_call_volume_curve.setData(plot_data2)
             bc_plot1_put_volume_curve.setData(plot_data3)
-            #bc_plot1_volume_cha_curve.setData(plot_data4)
 
         elif bc_comboindex1 == 2:
 
@@ -26595,8 +26549,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if bc_comboindex2 == 0:
 
             bc_plot2_call_volume_curve.setData(plot_data2)
-            bc_plot2_put_volume_curve.setData(plot_data3)  
-            #bc_plot2_volume_cha_curve.setData(plot_data4) 
+            bc_plot2_put_volume_curve.setData(plot_data3)
 
         elif bc_comboindex2 == 1:
 
