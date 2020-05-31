@@ -8558,50 +8558,34 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(lime))
         self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
-        '''
+        '''       
 
         for i in range(len(new_node)):
 
-            if i < 6:
+            if new_node[i][0] in high_low_list:
 
-                if new_node[i][0] in high_low_list:
+                str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 동적맥점 {4}(빈도수 = {5}) 발생 !!!\r'.format \
+                    (dt.hour, dt.minute, dt.second, i + 1, new_node[i][0], new_node[i][1])
+                self.textBrowser.append(str)
+                print(str)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 동적맥점 {4}(빈도수 = {5}) 발생 !!!\r'.format \
-                        (dt.hour, dt.minute, dt.second, i + 1, new_node[i][0], new_node[i][1])
-                    self.textBrowser.append(str)
-                    print(str)
+                진성맥점.append(new_node[i][0])
 
-                    진성맥점.append(new_node[i][0])
+                item_str = "{0}\n({1})✓".format(new_node[i][0], new_node[i][1])
+                item = QTableWidgetItem(item_str)
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
 
-                    item_str = "{0}\n({1})✓".format(new_node[i][0], new_node[i][1])
-                    item = QTableWidgetItem(item_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(lime))
-
+                if i < 6:
                     if overnight:
                         self.tableWidget_fut.setItem(1, 2 + i, item)
                     else:
                         self.tableWidget_fut.setItem(0, 2 + i, item)
                 else:
-                    pass
-            else:
-                if new_node[i][0] in high_low_list:
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 동적맥점 {4}(빈도수 = {5}) 발생 !!!\r'.format \
-                        (dt.hour, dt.minute, dt.second, i + 1, new_node[i][0], new_node[i][1])
-                    self.textBrowser.append(str)
-                    print(str)
-
-                    진성맥점.append(new_node[i][0])
-
-                    item_str = "{0}\n({1})✓".format(new_node[i][0], new_node[i][1])
-                    item = QTableWidgetItem(item_str)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(lime))
-
                     self.tableWidget_fut.setItem(2, i - 4, item)
-                else:
-                    pass
+            else:
+                pass
+            
         '''
         if new_node[0][0] in high_low_list:
 
