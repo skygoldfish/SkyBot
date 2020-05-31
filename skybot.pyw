@@ -511,7 +511,7 @@ if os.path.isfile('overnight_info.txt'):
         tmp = overnight_file.readline().strip()
         temp = tmp.split()
         CME_종가 = float(temp[5])
-        print('CME_종가 =', CME_종가)
+        print('CME 종가 =', CME_종가)
 
         tmp = overnight_file.readline().strip()
         tmp = overnight_file.readline().strip()
@@ -519,62 +519,62 @@ if os.path.isfile('overnight_info.txt'):
         tmp = overnight_file.readline().strip()
         temp = tmp.split()
         SP500_전저 = float(temp[5])
-        print('SP500_전저 =', SP500_전저)
+        print('SP500 전저 =', SP500_전저)
 
         tmp = overnight_file.readline().strip()
         temp = tmp.split()
         SP500_전고 = float(temp[5])
-        print('SP500_전고 =', SP500_전고)
+        print('SP500 전고 =', SP500_전고)
         
         tmp = overnight_file.readline().strip()
         temp = tmp.split()
         SP500_종가 = float(temp[5])
-        print('SP500_종가 =', SP500_종가)
+        print('SP500 종가 =', SP500_종가)
 
         tmp = overnight_file.readline().strip()
         temp = tmp.split()
         DOW_전저 = float(temp[4])
-        print('DOW_전저 =', DOW_전저)
+        print('DOW 전저 =', DOW_전저)
 
         tmp = overnight_file.readline().strip()
         temp = tmp.split()
         DOW_전고 = float(temp[4])
-        print('DOW_전고 =', DOW_전고)
+        print('DOW 전고 =', DOW_전고)
         
         tmp = overnight_file.readline().strip()
         temp = tmp.split()
         DOW_종가 = float(temp[4])
-        print('DOW_종가 =', DOW_종가)
+        print('DOW 종가 =', DOW_종가)
 
         tmp = overnight_file.readline().strip()
         temp = tmp.split()
         NASDAQ_전저 = float(temp[4])
-        print('NASDAQ_전저 =', NASDAQ_전저)
+        print('NASDAQ 전저 =', NASDAQ_전저)
 
         tmp = overnight_file.readline().strip()
         temp = tmp.split()
         NASDAQ_전고 = float(temp[4])
-        print('NASDAQ_전고 =', NASDAQ_전고)
+        print('NASDAQ 전고 =', NASDAQ_전고)
         
         tmp = overnight_file.readline().strip()
         temp = tmp.split()
         NASDAQ_종가 = float(temp[4])
-        print('NASDAQ_종가 =', NASDAQ_종가)
+        print('NASDAQ 종가 =', NASDAQ_종가)
 
         tmp = overnight_file.readline().strip()
         temp = tmp.split()
         WTI_전저 = float(temp[4])
-        print('WTI_전저 =', WTI_전저)
+        print('WTI 전저 =', WTI_전저)
 
         tmp = overnight_file.readline().strip()
         temp = tmp.split()
         WTI_전고 = float(temp[4])
-        print('WTI_전고 =', WTI_전고)
+        print('WTI 전고 =', WTI_전고)
         
         tmp = overnight_file.readline().strip()
         temp = tmp.split()
         WTI_종가 = float(temp[4])
-        print('WTI_종가 =', WTI_종가)
+        print('WTI 종가 =', WTI_종가)
 else:
     CME_종가 = 0
     SP500_전저 = 0
@@ -604,15 +604,19 @@ if os.path.isfile('kp200_info.txt'):
 
         tmp = kp200_file.readline().strip()
         temp = tmp.split()
-        KP200_종가 = float(temp[3])
+        KP200_종가 = float(temp[3])        
 
         tmp = kp200_file.readline().strip()
         temp = tmp.split()
-        KP200_전저 = float(temp[3])
+        KP200_전저 = float(temp[3])        
 
         tmp = kp200_file.readline().strip()
         temp = tmp.split()
         KP200_전고 = float(temp[3])
+
+        print('KP200 전저 =', KP200_전저)
+        print('KP200 전고 =', KP200_전고)
+        print('KP200 종가 =', KP200_종가)
 
         tmp = kp200_file.readline().strip()
 
