@@ -85,6 +85,8 @@ np.warnings.filterwarnings('ignore')
 
 drate_scale_factor = 1
 
+선물_전일종가 = 0
+
 선물_전저 = 0
 선물_전고 = 0
 선물_종가 = 0
@@ -13576,6 +13578,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global selected_opt_list
         global 콜대비_퍼센트_평균, 풋대비_퍼센트_평균
         global atm_zero_sum, atm_zero_cha
+        global 선물_전일종가
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -13687,6 +13690,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print("atm값({0})이 리스트에 없습니다.".format(atm_str))            
 
             fut_realdata['종가'] = df['전일종가']
+            선물_전일종가 = df['전일종가']
 
             item = QTableWidgetItem("{0:0.2f}".format(df['전일종가']))
             item.setTextAlignment(Qt.AlignCenter)
@@ -16491,6 +16495,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if block['단축코드'][0:3] == '101':
 
+                pass
+                '''
                 print('\r')
                 print('[t8415 fut block]')
                 print('\r')
@@ -16500,7 +16506,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print('\r')
                 print(df)
                 print('\r')
-
+                
                 # 전일 장종료 전 1시간 데이타(60개)
                 temp = df['저가'].values.tolist()
                 선물_전일저가 = temp[440:]
@@ -16513,7 +16519,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 선물 전일데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
-
+                '''
             elif block['단축코드'][0:3] == '201':
 
                 for i in range(len(selected_call)):
@@ -22288,22 +22294,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         fut_realdata['피봇'] = 선물_피봇
 
-                        예상시가 = (CME_종가 * DOW_현재가) / DOW_종가
+                        DOW_기준_예상시가 = (선물_전일종가 * DOW_현재가) / DOW_전일종가
 
-                        item = QTableWidgetItem("{0:0.2f}".format(예상시가))
+                        item = QTableWidgetItem("{0:0.2f}".format(DOW_기준_예상시가))
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(검정색))
                         item.setForeground(QBrush(대맥점색))
                         self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)                            
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 선물 예상시가 = {3:0.2f}\r'.format(\
+                        
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 선물 예상시가 - DOW 기준 예상시가 = {3:0.2f}\r'.format(\
                                         int(result['예상체결시간'][0:2]),
                                         int(result['예상체결시간'][2:4]),
                                         int(result['예상체결시간'][4:6]),
-                                        예상시가)
+                                        선물_시가 - DOW_기준_예상시가)
                         self.textBrowser.append(str)
-
-                        self.tableWidget_fut.resizeColumnsToContents()
+                        
+                        #self.tableWidget_fut.resizeColumnsToContents()
                     else:
                         pass
                 else:
