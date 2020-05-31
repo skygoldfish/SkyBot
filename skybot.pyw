@@ -13750,6 +13750,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
             else:
                 pass
+
+            # kp200 종가는 t2801에서 읽어들여 표시함
             '''
             if pre_start:
 
