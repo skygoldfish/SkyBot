@@ -15032,7 +15032,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 주간 데이타를 가져옴            
             item = QTableWidgetItem("{0:0.2f}".format(df['KOSPI200지수']))
             item.setTextAlignment(Qt.AlignCenter)
-            #item.setBackground(QBrush(옅은회색))
             self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
 
             # kp200 coreval 리스트 만듬
