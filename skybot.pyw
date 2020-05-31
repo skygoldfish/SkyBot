@@ -8118,12 +8118,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             index2 = bisect(put_고가, 9.99)
             put_high_list = put_고가[index1:index2]
 
-            #print('call_low_list =', call_low_list)
-            #print('call_high_list =', call_high_list)
-            #print('put_low_list =', put_low_list)
-            #print('put_high_list =', put_high_list)
-            #print('FILE_HIGH_LOW_LIST =', FILE_HIGH_LOW_LIST)
-
             high_low_list = call_low_list + call_high_list + put_low_list + put_high_list     
 
             moving_list = FILE_HIGH_LOW_LIST + high_low_list
@@ -19089,12 +19083,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(lightskyblue))
             item.setForeground(QBrush(검정색))
             self.tableWidget_call.setItem(index, Option_column.저가.value, item)
-            '''
-            if bms_node_list and 1.20 < 콜저가 < 10.0:
-                self.search_moving_node()
-            else:
-                pass
-            '''
+            
             if 콜전저 >= 콜저가:
 
                 str = '{0:0.2f}'.format(콜전저) + '\n' + '▼'
@@ -19185,12 +19174,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(pink))
             item.setForeground(QBrush(검정색))
             self.tableWidget_call.setItem(index, Option_column.고가.value, item)
-            '''
-            if bms_node_list and 1.20 < 콜고가 < 10.0:
-                self.search_moving_node()
-            else:
-                pass
-            '''
+            
             if 콜전고 <= 콜고가:
 
                 str = '{0:0.2f}'.format(콜전고) + '\n' + '▲'
@@ -20406,12 +20390,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(lightskyblue))
             item.setForeground(QBrush(검정색))
             self.tableWidget_put.setItem(index, Option_column.저가.value, item)
-            '''
-            if bms_node_list and 1.20 < 풋저가 < 10.0:
-                self.search_moving_node()
-            else:
-                pass
-            '''
+            
             if 풋전저 >= 풋저가:
 
                 str = '{0:0.2f}'.format(풋전저) + '\n' + '▼'
@@ -20502,12 +20481,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(pink))
             item.setForeground(QBrush(검정색))
             self.tableWidget_put.setItem(index, Option_column.고가.value, item)
-            '''
-            if bms_node_list and 1.20 < 풋고가 < 10.0:
-                self.search_moving_node()
-            else:
-                pass
-            '''
+            
             if 풋전고 <= 풋고가:
 
                 str = '{0:0.2f}'.format(풋전고) + '\n' + '▲'
