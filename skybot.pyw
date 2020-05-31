@@ -13746,7 +13746,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
             else:
                 pass
-
+            '''
             if pre_start:
 
                 kp200_realdata['종가'] = df['KOSPI200지수']
@@ -13761,13 +13761,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 else:
                     kp200_realdata['종가'] = df['KOSPI200지수']
-
+            
             kp200_종가 = kp200_realdata['종가']
-
+            
             item = QTableWidgetItem("{0:0.2f}".format(kp200_종가))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
-
+            '''
             fut_realdata['현재가'] = df['현재가']
 
             item = QTableWidgetItem("{0:0.2f}".format(fut_realdata['현재가']))
@@ -15032,6 +15032,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # kp200 coreval 리스트 만듬
             kp200_종가 = df['KOSPI200지수']
             kp200_realdata['종가'] = df['KOSPI200지수']
+
+            item = QTableWidgetItem("{0:0.2f}".format(kp200_종가))
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
             
             atm_str = self.get_atm_str(kp200_종가)
             atm_index = opt_actval.index(atm_str)
