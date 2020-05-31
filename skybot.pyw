@@ -4570,85 +4570,320 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     listsum.append([var1, var2])
 
             new_node = sorted(listsum, key=operator.itemgetter(0))
-            #print('new node list =', new_node)
+            print('new node list =', new_node)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                (dt.hour, dt.minute, dt.second, new_node[0][0], new_node[0][1])
-            self.textBrowser.append(str)
-            
-            item = QTableWidgetItem("{0}\n({1})".format(new_node[0][0], new_node[0][1]))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
+            for i in range(len(new_node)):
 
-            if overnight:
-                self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
+                str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 동적맥점 {4}(발생빈도수 = {5}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, i + 1, new_node[i][0], new_node[i][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[i][0], new_node[i][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, 2 + i, item)
+                else:
+                    self.tableWidget_fut.setItem(0, 2 + i, item)
+            '''
+            if len(new_node) == 1:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[0][0], new_node[0][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[0][0], new_node[0][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
             else:
-                self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
+                pass
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                (dt.hour, dt.minute, dt.second, new_node[1][0], new_node[1][1])
-            self.textBrowser.append(str)
-            
-            item = QTableWidgetItem("{0}\n({1})".format(new_node[1][0], new_node[1][1]))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
+            if len(new_node) == 2:
 
-            if overnight:
-                self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
+                str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[0][0], new_node[0][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[0][0], new_node[0][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[1][0], new_node[1][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[1][0], new_node[1][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
             else:
-                self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
+                pass
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                (dt.hour, dt.minute, dt.second, new_node[2][0], new_node[2][1])
-            self.textBrowser.append(str)
-            
-            item = QTableWidgetItem("{0}\n({1})".format(new_node[2][0], new_node[2][1]))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
+            if len(new_node) == 3:
 
-            if overnight:
-                self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
+                str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[0][0], new_node[0][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[0][0], new_node[0][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[1][0], new_node[1][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[1][0], new_node[1][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[2][0], new_node[2][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[2][0], new_node[2][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
             else:
-                self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
+                pass
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 4th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                (dt.hour, dt.minute, dt.second, new_node[3][0], new_node[3][1])
-            self.textBrowser.append(str)
-            
-            item = QTableWidgetItem("{0}\n({1})".format(new_node[3][0], new_node[3][1]))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
+            if len(new_node) == 4:
 
-            if overnight:
-                self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
+                str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[0][0], new_node[0][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[0][0], new_node[0][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[1][0], new_node[1][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[1][0], new_node[1][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[2][0], new_node[2][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[2][0], new_node[2][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 4th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[3][0], new_node[3][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[3][0], new_node[3][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
             else:
-                self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
+                pass
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 5th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                (dt.hour, dt.minute, dt.second, new_node[4][0], new_node[4][1])
-            self.textBrowser.append(str)
-            
-            item = QTableWidgetItem("{0}\n({1})".format(new_node[4][0], new_node[4][1]))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
+            if len(new_node) == 5:
 
-            if overnight:
-                self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
+                str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[0][0], new_node[0][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[0][0], new_node[0][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[1][0], new_node[1][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[1][0], new_node[1][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[2][0], new_node[2][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[2][0], new_node[2][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 4th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[3][0], new_node[3][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[3][0], new_node[3][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 5th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[4][0], new_node[4][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[4][0], new_node[4][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item)
             else:
-                self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item)
+                pass
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 6th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                (dt.hour, dt.minute, dt.second, new_node[5][0], new_node[5][1])
-            self.textBrowser.append(str)
-            
-            item = QTableWidgetItem("{0}\n({1})".format(new_node[5][0], new_node[5][1]))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
+            if len(new_node) == 6:
 
-            if overnight:
-                self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
+                str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[0][0], new_node[0][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[0][0], new_node[0][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[1][0], new_node[1][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[1][0], new_node[1][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[2][0], new_node[2][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[2][0], new_node[2][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 4th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[3][0], new_node[3][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[3][0], new_node[3][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 5th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[4][0], new_node[4][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[4][0], new_node[4][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item)
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 6th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
+                    (dt.hour, dt.minute, dt.second, new_node[5][0], new_node[5][1])
+                self.textBrowser.append(str)
+
+                item = QTableWidgetItem("{0}\n({1})".format(new_node[5][0], new_node[5][1]))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(lime))
+
+                if overnight:
+                    self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
+                else:
+                    self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
             else:
-                self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
+                pass
+            '''
         else:
             pass
 
@@ -8212,7 +8447,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         new_node = sorted(listsum, key=operator.itemgetter(0))
         print('new node list =', new_node)
-        
+
+        for i in range(len(new_node)):
+
+            item = QTableWidgetItem("{0}\n({1})".format(new_node[i][0], new_node[i][1]))
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(lime))
+
+            if i < 6:
+                if overnight:
+                    self.tableWidget_fut.setItem(1, 2 + i, item)
+                else:
+                    self.tableWidget_fut.setItem(0, 2 + i, item)
+            else:
+                self.tableWidget_fut.setItem(2, i - 4, item)
+
+        '''
         item_str = "{0}\n({1})".format(new_node[0][0], new_node[0][1])
         item = QTableWidgetItem(item_str)
         item.setTextAlignment(Qt.AlignCenter)
@@ -8271,7 +8521,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if overnight:
             self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
         else:
-            self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
+            self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)        
 
         item_str = "{0}\n({1})".format(new_node[6][0], new_node[6][1])
         item = QTableWidgetItem(item_str)
@@ -8308,7 +8558,51 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(lime))
         self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
-        
+        '''
+
+        for i in range(len(new_node)):
+
+            if i < 6:
+
+                if new_node[i][0] in high_low_list:
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 동적맥점 {4}(빈도수 = {5}) 발생 !!!\r'.format \
+                        (dt.hour, dt.minute, dt.second, i + 1, new_node[i][0], new_node[i][1])
+                    self.textBrowser.append(str)
+                    print(str)
+
+                    진성맥점.append(new_node[i][0])
+
+                    item_str = "{0}\n({1})✓".format(new_node[i][0], new_node[i][1])
+                    item = QTableWidgetItem(item_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(lime))
+
+                    if overnight:
+                        self.tableWidget_fut.setItem(1, 2 + i, item)
+                    else:
+                        self.tableWidget_fut.setItem(0, 2 + i, item)
+                else:
+                    pass
+            else:
+                if new_node[i][0] in high_low_list:
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 동적맥점 {4}(빈도수 = {5}) 발생 !!!\r'.format \
+                        (dt.hour, dt.minute, dt.second, i + 1, new_node[i][0], new_node[i][1])
+                    self.textBrowser.append(str)
+                    print(str)
+
+                    진성맥점.append(new_node[i][0])
+
+                    item_str = "{0}\n({1})✓".format(new_node[i][0], new_node[i][1])
+                    item = QTableWidgetItem(item_str)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(lime))
+
+                    self.tableWidget_fut.setItem(2, i - 4, item)
+                else:
+                    pass
+        '''
         if new_node[0][0] in high_low_list:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
@@ -8536,6 +8830,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
         else:
             pass
+        '''
         
         진성맥점 = list(set(진성맥점))
         진성맥점.sort()            
