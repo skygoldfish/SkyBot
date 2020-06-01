@@ -17891,7 +17891,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def fut_oloh_check(self):
 
-        global flag_fut_ol, flag_fut_oh, fut_oloh_str
+        global flag_fut_ol, flag_fut_oh, fut_oloh_str, flag_fut_oloh
 
         dt = datetime.datetime.now()
 
