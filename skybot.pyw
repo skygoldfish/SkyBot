@@ -22575,13 +22575,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(검정색))
                         item.setForeground(QBrush(대맥점색))
-                        self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)                            
+                        self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)
+
+                        선물_등락율 = ((result['예상체결가격'] - 선물_전일종가) / 선물_전일종가) * 100
+
+                        item = QTableWidgetItem("선물\n({0:0.2f}%)".format(선물_등락율))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
+
+                        item = QTableWidgetItem("DOW\n({0:0.2f}%)".format(DOW_등락율))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)                             
                         
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 선물 예상시가 - DOW 기준 예상시가 = {3:0.2f}\r'.format(\
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 선물 등락율 = {3:0.2f}, DOW 등락율 = {4:0.2f}\r'.format(\
                                         int(result['예상체결시간'][0:2]),
                                         int(result['예상체결시간'][2:4]),
                                         int(result['예상체결시간'][4:6]),
-                                        선물_시가 - DOW_기준_예상시가)
+                                        선물_등락율, DOW_등락율)
                         self.textBrowser.append(str)
                         
                         #self.tableWidget_fut.resizeColumnsToContents()
