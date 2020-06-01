@@ -21848,7 +21848,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가
             global 시스템시간, 서버시간, 시스템_서버_시간차
             global kp200_시가, kp200_피봇, kp200_저가, kp200_현재가, kp200_고가
-            global df_plotdata_dow_drate
+            global df_plotdata_dow_drate, df_plotdata_fut_drate
 
             start_time = timeit.default_timer()
 
@@ -22578,6 +22578,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)
 
                         선물_등락율 = ((result['예상체결가격'] - 선물_전일종가) / 선물_전일종가) * 100
+
+                        df_plotdata_fut_drate[ovc_x_idx] = 선물_등락율
 
                         item = QTableWidgetItem("선물\n({0:0.2f}%)".format(선물_등락율))
                         item.setTextAlignment(Qt.AlignCenter)
