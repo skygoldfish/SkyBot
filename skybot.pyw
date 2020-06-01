@@ -8307,7 +8307,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # 최대 중복값 산출
             result = list(Counter(input_list).keys())
-            value = result[max_index]
+            value = round(float(result[max_index]), 2)
 
             return value, 빈도수
         else:
