@@ -8450,7 +8450,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         for i in range(len(new_node)):
 
-            item = QTableWidgetItem("{0}\n({1})".format(new_node[i][0], new_node[i][1]))
+            item = QTableWidgetItem("{0:0.2f}\n({1})".format(new_node[i][0], new_node[i][1]))
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(lime))
 
@@ -8471,7 +8471,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 진성맥점.append(new_node[i][0])
 
-                item_str = "{0}\n({1})✓".format(new_node[i][0], new_node[i][1])
+                item_str = "{0:0.2f}\n({1})✓".format(new_node[i][0], new_node[i][1])
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(lime))
