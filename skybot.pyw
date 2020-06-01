@@ -4578,7 +4578,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     (dt.hour, dt.minute, dt.second, i + 1, new_node[i][0], new_node[i][1])
                 self.textBrowser.append(str)
 
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[i][0], new_node[i][1]))
+                item = QTableWidgetItem("{0:0.2f}\n({1})".format(new_node[i][0], new_node[i][1]))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(lime))
 
