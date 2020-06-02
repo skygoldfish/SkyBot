@@ -185,7 +185,6 @@ WTI_당일종가 = 0
 
 동적맥점_리스트 = []
 동적맥점_빈도수_리스트 = []
-
 FILE_HIGH_LOW_LIST = []
 
 # control file에서 필요한 정보를 가져옴
@@ -244,12 +243,12 @@ with open('control_info.txt', mode='r') as control_file:
     tmp = control_file.readline().strip()
     temp = tmp.split()
 
-    진성맥점 = []
+    pre_진성맥점 = []
 
     for i in range(len(temp)):
 
         if i > 5:
-            진성맥점.append(float(temp[i]))
+            pre_진성맥점.append(float(temp[i]))
         else:
             pass
     
@@ -257,12 +256,11 @@ with open('control_info.txt', mode='r') as control_file:
     temp = tmp.split()
     MY_COREVAL = float(temp[3])
 
-    진성맥점.append(MY_COREVAL)
-    진성맥점 = list(set(진성맥점))
-    진성맥점.sort()
-    #print(진성맥점)
+    pre_진성맥점.append(MY_COREVAL)
+    pre_진성맥점 = list(set(pre_진성맥점))
+    pre_진성맥점.sort()
 
-    DEFAULT_NODE_LIST = 진성맥점[:]
+    DEFAULT_NODE_LIST = pre_진성맥점[:]
 
     bms_node_val1 = 0
     bms_node_val2 = 0
@@ -312,7 +310,7 @@ with open('control_info.txt', mode='r') as control_file:
 
                 bms_node_list.append(bms_node_val1)
                 bms_node_frequency_list.append(동적맥점1_빈도수)
-                진성맥점.append(bms_node_val1)
+                pre_진성맥점.append(bms_node_val1)
                 
                 # 두번재 최대빈도 맥점탐색
                 second_list = list(filter((bms_node_val1).__ne__, high_low_list))
@@ -332,7 +330,7 @@ with open('control_info.txt', mode='r') as control_file:
                     
                     bms_node_list.append(bms_node_val2)
                     bms_node_frequency_list.append(동적맥점2_빈도수)
-                    진성맥점.append(bms_node_val2)
+                    pre_진성맥점.append(bms_node_val2)
 
                     # 세번재 최대빈도 맥점탐색
                     third_list = list(filter((bms_node_val2).__ne__, second_list))
@@ -352,7 +350,7 @@ with open('control_info.txt', mode='r') as control_file:
 
                         bms_node_list.append(bms_node_val3)
                         bms_node_frequency_list.append(동적맥점3_빈도수)
-                        진성맥점.append(bms_node_val3)
+                        pre_진성맥점.append(bms_node_val3)
 
                         # 네번재 최대빈도 맥점탐색
                         fourth_list = list(filter((bms_node_val3).__ne__, third_list))
@@ -370,7 +368,7 @@ with open('control_info.txt', mode='r') as control_file:
 
                             bms_node_list.append(bms_node_val4)
                             bms_node_frequency_list.append(동적맥점4_빈도수)
-                            진성맥점.append(bms_node_val4)
+                            pre_진성맥점.append(bms_node_val4)
 
                             # 다섯번재 최대빈도 맥점탐색
                             fifth_list = list(filter((bms_node_val4).__ne__, fourth_list))
@@ -387,7 +385,7 @@ with open('control_info.txt', mode='r') as control_file:
 
                                 bms_node_list.append(bms_node_val5)
                                 bms_node_frequency_list.append(동적맥점5_빈도수)
-                                진성맥점.append(bms_node_val5)
+                                pre_진성맥점.append(bms_node_val5)
 
                                 # 여섯번재 최대빈도 맥점탐색
                                 sixth_list = list(filter((bms_node_val5).__ne__, fifth_list))
@@ -405,10 +403,13 @@ with open('control_info.txt', mode='r') as control_file:
                                     bms_node_list.append(bms_node_val6)
                                     bms_node_frequency_list.append(동적맥점6_빈도수)                                    
 
-                                    진성맥점.append(bms_node_val6)
-                                    진성맥점 = list(set(진성맥점))
-                                    진성맥점.sort()
-                                    print('진성맥점 리스트 =', 진성맥점)
+                                    pre_진성맥점.append(bms_node_val6)
+                                    pre_진성맥점 = list(set(pre_진성맥점))
+                                    pre_진성맥점.sort()                                    
+                                    
+                                    print('DEFAULT_NODE_LIST =', DEFAULT_NODE_LIST)
+                                    print('bms_node_list =', bms_node_list)
+                                    print('pre 진성맥점 리스트 =', pre_진성맥점)
                                 else:
                                     pass
                             else:
@@ -689,6 +690,8 @@ flag_offline = False
 flag_call_cross_coloring = False
 flag_put_cross_coloring = False
 flag_clear = False
+
+진성맥점 = []
 
 # 업종코드
 KOSPI = '001'
@@ -4558,6 +4561,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Afternoon! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
 
+        global 진성맥점
+
+        진성맥점 = pre_진성맥점[:]
+        print('진성맥점 =', 진성맥점)
+
         if bms_node_list:
 
             listsum = []
@@ -8307,7 +8315,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # 최대 중복값 산출
             result = list(Counter(input_list).keys())
-            value = round(float(result[max_index]), 2)
+            value = result[max_index]
 
             return value, 빈도수
         else:
@@ -9082,6 +9090,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.put_node_color_update()
 
         if not pre_start and bms_node_list:
+        #if bms_node_list:
             self.search_moving_node()
         else:
             pass
@@ -15685,7 +15694,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.kp200_low_node_coloring()
                 self.kp200_high_node_coloring()
             else:
-                pass            
+                pass
+              
+            self.tableWidget_fut.resizeColumnsToContents()             
 
             if refresh_flag:
             
@@ -15696,8 +15707,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.opt_all_node_coloring()    
                 
                 self.tableWidget_call.resizeColumnsToContents()
-                self.tableWidget_put.resizeColumnsToContents()  
-                self.tableWidget_fut.resizeColumnsToContents()            
+                self.tableWidget_put.resizeColumnsToContents()           
             else:
                 pass
 
@@ -24522,6 +24532,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global pre_start
         global t2301_month_info
+        global 진성맥점
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -24573,7 +24584,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(str)
                 '''
             else:
-                pass
+                str = '[{0:02d}:{1:02d}:{2:02d}] OLD 진성맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
+                self.textBrowser.append(str)
+
+                진성맥점 = pre_진성맥점[:]
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 진성맥점을 초기화({3})합니다.\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
+                self.textBrowser.append(str)
 
             if not overnight:
 
