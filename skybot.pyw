@@ -24586,11 +24586,80 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 str = '[{0:02d}:{1:02d}:{2:02d}] OLD 진성맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
                 self.textBrowser.append(str)
+                print(str)
+
+                if bms_node_list:
+
+                    listsum = []
+
+                    for i in range(len(bms_node_list)):
+
+                        var1 = self.get_list_item(bms_node_list, i)
+                        var2 = self.get_list_item(bms_node_frequency_list, i)
+                        if var1 != None and var2 != None: # 유효한 것만 합친다 (결국 두 리스트중에서 작은 사이즈로)
+                            listsum.append([var1, var2])
+
+                    new_node = sorted(listsum, key=operator.itemgetter(0))
+                    #print('new node list =', new_node)
+
+                    for i in range(len(new_node)):
+                        '''
+                        str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 동적맥점 {4}(발생빈도수 = {5}) 추가됨...\r'.format \
+                            (dt.hour, dt.minute, dt.second, i + 1, new_node[i][0], new_node[i][1])
+                        self.textBrowser.append(str)
+                        '''
+                        item = QTableWidgetItem("{0:0.2f}\n({1})".format(new_node[i][0], new_node[i][1]))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(lime))
+
+                        if overnight:
+                            self.tableWidget_fut.setItem(1, 2 + i, item)
+                        else:
+                            self.tableWidget_fut.setItem(0, 2 + i, item)
+                else:
+                    pass
+
+                item = QTableWidgetItem("{0}".format('-'))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)
+
+                item = QTableWidgetItem("{0}".format('-'))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)
+
+                item = QTableWidgetItem("{0}".format('-'))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
+
+                item = QTableWidgetItem("{0}".format('-'))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
+
+                item = QTableWidgetItem("{0}".format('-'))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)
+
+                item = QTableWidgetItem("{0}".format('-'))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
 
                 진성맥점 = pre_진성맥점[:]
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 진성맥점을 초기화({3})합니다.\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
                 self.textBrowser.append(str)
+                print(str)
 
             if not overnight:
 
