@@ -1622,6 +1622,11 @@ call_scroll = False
 put_scroll = False
 refresh_coloring = False
 
+call_low_list = []
+call_high_list = []
+put_low_list = []
+put_high_list = []
+
 high_low_list = []
 moving_list = []
 
@@ -8265,7 +8270,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def get_value_frequency(self, value):
 
-        global high_low_list, moving_list
+        global call_low_list, call_high_list, put_low_list, put_high_list, high_low_list, moving_list
 
         call_low_list = []
         call_high_list = []
@@ -8325,7 +8330,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def search_moving_node(self):
 
         global 진성맥점
-        global high_low_list, moving_list
+        global call_low_list, call_high_list, put_low_list, put_high_list, high_low_list, moving_list
         global 동적맥점_리스트, 동적맥점_빈도수_리스트 
 
         dt = datetime.datetime.now()
@@ -10704,9 +10709,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 저가 in 진성맥점:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] call low 진성맥점 = {3}, low = {4}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점, 저가)
-                self.textBrowser.append(str)
-
                 count += 1
                 call_low_node_list.append(저가)
 
@@ -10840,7 +10842,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def call_high_coreval_color_blink(self, blink):
 
         global call_high_node_count, call_high_node_list, call_high_node_str
-        global telegram_send_str_call_high       
+        global telegram_send_str_call_high 
 
         dt = datetime.datetime.now()
         
@@ -10860,9 +10862,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             고가 = df_call.at[i, '고가']
 
             if 고가 in 진성맥점:
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] call high 진성맥점 = {3}, high = {4}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점, 고가)
-                self.textBrowser.append(str)
 
                 count += 1
                 call_high_node_list.append(고가)
@@ -11000,6 +10999,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_low_node_count, call_high_node_count
         global telegram_send_str_call_low, telegram_send_str_call_high
 
+        dt = datetime.datetime.now()
+        
         flag_call_low_coreval = False
         flag_call_high_coreval = False
 
@@ -11044,6 +11045,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
+                    
+                    str = '[{0:02d}:{1:02d}:{2:02d}] call low 진성맥점 = {3}, low = {4}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점, 저가)
+                    self.textBrowser.append(str)
 
                     flag_call_low_coreval = True
 
@@ -11072,6 +11076,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
+                    
+                    str = '[{0:02d}:{1:02d}:{2:02d}] call high 진성맥점 = {3}, high = {4}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점, 고가)
+                    self.textBrowser.append(str)
 
                     flag_call_high_coreval = True
 
@@ -11139,9 +11146,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
         else:
             item = QTableWidgetItem('★ +')
-            self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-
-        #self.tableWidget_call.resizeColumnsToContents()
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)        
 
     def call_low_coreval_color_update(self):
 
@@ -13188,9 +13193,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 저가 in 진성맥점:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] put low 진성맥점 = {3}, low = {4}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점, 저가)
-                self.textBrowser.append(str)
-
                 count += 1
                 put_low_node_list.append(저가)
 
@@ -13345,9 +13347,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 고가 in 진성맥점:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] put high 진성맥점 = {3}, high = {4}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점, 고가)
-                self.textBrowser.append(str)
-
                 count += 1
                 put_high_node_list.append(고가)
 
@@ -13475,7 +13474,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
             else:
-                pass   
+                pass
     
     def put_coreval_color_update(self):
 
@@ -13483,6 +13482,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_low_node_count, put_high_node_count
         global telegram_send_str_put_low, telegram_send_str_put_high
 
+        dt = datetime.datetime.now()
+        
         flag_put_low_coreval = False
         flag_put_high_coreval = False
 
@@ -13527,6 +13528,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(대맥점색))
+                    
+                    str = '[{0:02d}:{1:02d}:{2:02d}] put low 진성맥점 = {3}, low = {4}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점, 저가)
+                    self.textBrowser.append(str)
 
                     flag_put_low_coreval = True
 
@@ -13555,6 +13559,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(대맥점색))
+                    
+                    str = '[{0:02d}:{1:02d}:{2:02d}] put high 진성맥점 = {3}, high = {4}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점, 고가)
+                    self.textBrowser.append(str)
 
                     flag_put_high_coreval = True
 
@@ -13623,9 +13630,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             item = QTableWidgetItem('★ +')
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-
-        #self.tableWidget_put.resizeColumnsToContents()
-
+        
     def put_low_coreval_color_update(self):
 
         global flag_put_low_coreval
