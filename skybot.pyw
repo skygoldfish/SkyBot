@@ -4582,7 +4582,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             for i in range(len(new_node)):
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 동적맥점 {4}(발생빈도수 = {5}) 추가됨...\r'.format \
+                str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 동적맥점 {4:0.2f}(발생빈도수 = {5}) 추가됨...\r'.format \
                     (dt.hour, dt.minute, dt.second, i + 1, new_node[i][0], new_node[i][1])
                 self.textBrowser.append(str)
 
@@ -8454,7 +8454,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 listsum.append([var1, var2])
 
         new_node = sorted(listsum, key=operator.itemgetter(0))
-        print('new node list =', new_node)
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] new node list = {3}\r'.format(dt.hour, dt.minute, dt.second, new_node)
+        self.textBrowser.append(str)
+        print(str)
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] high low list = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
+        self.textBrowser.append(str)
+        print(str)
         
         for i in range(len(new_node)):
 
@@ -8472,7 +8479,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if new_node[i][0] in high_low_list:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 동적맥점 {4}(빈도수 = {5}) 발생 !!!\r'.format \
+                str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 동적맥점 {4:0.2f}(빈도수 = {5}) 발생 !!!\r'.format \
                     (dt.hour, dt.minute, dt.second, i + 1, new_node[i][0], new_node[i][1])
                 self.textBrowser.append(str)
                 print(str)
@@ -10696,6 +10703,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 저가 in 진성맥점:
 
+                str = '[{0:02d}:{1:02d}:{2:02d}] call low 진성맥점 = {3}, low = {4}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점, 저가)
+                self.textBrowser.append(str)
+
                 count += 1
                 call_low_node_list.append(저가)
 
@@ -10849,6 +10859,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             고가 = df_call.at[i, '고가']
 
             if 고가 in 진성맥점:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] call high 진성맥점 = {3}, high = {4}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점, 고가)
+                self.textBrowser.append(str)
 
                 count += 1
                 call_high_node_list.append(고가)
@@ -13174,6 +13187,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 저가 in 진성맥점:
 
+                str = '[{0:02d}:{1:02d}:{2:02d}] put low 진성맥점 = {3}, low = {4}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점, 저가)
+                self.textBrowser.append(str)
+
                 count += 1
                 put_low_node_list.append(저가)
 
@@ -13327,6 +13343,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             고가 = df_put.at[i, '고가']
 
             if 고가 in 진성맥점:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] put high 진성맥점 = {3}, high = {4}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점, 고가)
+                self.textBrowser.append(str)
 
                 count += 1
                 put_high_node_list.append(고가)
