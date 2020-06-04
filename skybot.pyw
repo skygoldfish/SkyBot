@@ -267,6 +267,7 @@ with open('control_info.txt', mode='r') as control_file:
     bms_node_val5 = 0
     bms_node_val6 = 0
 
+    pre_high_low_list = []
     bms_node_list = []
     bms_node_frequency_list = []
 
@@ -284,15 +285,15 @@ with open('control_info.txt', mode='r') as control_file:
                 
                 file_list.append(float(temp[i]))
 
-            high_low_list = file_list[:]
+            pre_high_low_list = file_list[:]
             FILE_HIGH_LOW_LIST = file_list[:]
 
-            high_low_list.sort()
-            high_low_list.reverse()
-            #print('high_low_list =', high_low_list)
+            pre_high_low_list.sort()
+            pre_high_low_list.reverse()
+            print('pre_high_low_list =', pre_high_low_list)
 
             # 첫번재 최대빈도 맥점탐색
-            result = list(Counter(high_low_list).values())
+            result = list(Counter(pre_high_low_list).values())
             동적맥점1_빈도수 = max(result)
 
             if 동적맥점1_빈도수 > 2:
@@ -302,7 +303,7 @@ with open('control_info.txt', mode='r') as control_file:
                 #print('중복횟수 최대빈도수 인덱스 =', max_index)
 
                 # 최대 중복값 산출
-                result = list(Counter(high_low_list).keys())
+                result = list(Counter(pre_high_low_list).keys())
                 bms_node_val1 = result[max_index]
                 print('1st 동적맥점 값 = {0}, 빈도수 = {1}'.format(bms_node_val1, 동적맥점1_빈도수))
 
@@ -311,7 +312,7 @@ with open('control_info.txt', mode='r') as control_file:
                 pre_진성맥점.append(bms_node_val1)
                 
                 # 두번재 최대빈도 맥점탐색
-                second_list = list(filter((bms_node_val1).__ne__, high_low_list))
+                second_list = list(filter((bms_node_val1).__ne__, pre_high_low_list))
                 #print('2nd 최대빈도 제거된 리스트 =', second_list)
 
                 result = list(Counter(second_list).values())
@@ -8272,6 +8273,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_low_list, call_high_list, put_low_list, put_high_list, high_low_list, moving_list
 
+        dt = datetime.datetime.now()
+
         call_low_list = []
         call_high_list = []
         put_low_list = []
@@ -8299,8 +8302,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         index2 = bisect(put_고가, 9.99)
         put_high_list = put_고가[index1:index2]
 
-        high_low_list = call_low_list + call_high_list + put_low_list + put_high_list     
-
+        high_low_list = call_low_list + call_high_list + put_low_list + put_high_list
+        '''
+        str = '[{0:02d}:{1:02d}:{2:02d}] high low list in get_value_frequency = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
+        self.textBrowser.append(str)
+        print(str)     
+        '''
         moving_list = FILE_HIGH_LOW_LIST + high_low_list
 
         frequency = moving_list.count(value)
@@ -8344,40 +8351,40 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         OLD_진성맥점 = 진성맥점[:]
 
-        if not moving_list:            
+        call_low_list = []
+        call_high_list = []
+        put_low_list = []
+        put_high_list = []
+        high_low_list = []
+        moving_list = []        
 
-            call_low_list = []
-            call_high_list = []
-            put_low_list = []
-            put_high_list = []
-            high_low_list = []
-            moving_list = []        
+        call_저가.sort()
+        index1 = bisect(call_저가, 1.20)
+        index2 = bisect(call_저가, 9.99)
+        call_low_list = call_저가[index1:index2]
 
-            call_저가.sort()
-            index1 = bisect(call_저가, 1.20)
-            index2 = bisect(call_저가, 9.99)
-            call_low_list = call_저가[index1:index2]
+        call_고가.sort()
+        index1 = bisect(call_고가, 1.20)
+        index2 = bisect(call_고가, 9.99)
+        call_high_list = call_고가[index1:index2]
 
-            call_고가.sort()
-            index1 = bisect(call_고가, 1.20)
-            index2 = bisect(call_고가, 9.99)
-            call_high_list = call_고가[index1:index2]
+        put_저가.sort()
+        index1 = bisect(put_저가, 1.20)
+        index2 = bisect(put_저가, 9.99)
+        put_low_list = put_저가[index1:index2]
 
-            put_저가.sort()
-            index1 = bisect(put_저가, 1.20)
-            index2 = bisect(put_저가, 9.99)
-            put_low_list = put_저가[index1:index2]
+        put_고가.sort()
+        index1 = bisect(put_고가, 1.20)
+        index2 = bisect(put_고가, 9.99)
+        put_high_list = put_고가[index1:index2]
 
-            put_고가.sort()
-            index1 = bisect(put_고가, 1.20)
-            index2 = bisect(put_고가, 9.99)
-            put_high_list = put_고가[index1:index2]
+        high_low_list = call_low_list + call_high_list + put_low_list + put_high_list
 
-            high_low_list = call_low_list + call_high_list + put_low_list + put_high_list     
+        str = '[{0:02d}:{1:02d}:{2:02d}] high low list in search_moving_node = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
+        self.textBrowser.append(str)
+        print(str)     
 
-            moving_list = FILE_HIGH_LOW_LIST + high_low_list
-        else:
-            pass        
+        moving_list = FILE_HIGH_LOW_LIST + high_low_list        
 
         # 1st search
         동적맥점1, 동적맥점1_빈도수 = self.get_maxval_info(moving_list)
@@ -8462,10 +8469,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         new_node = sorted(listsum, key=operator.itemgetter(0))
 
         str = '[{0:02d}:{1:02d}:{2:02d}] new node list = {3}\r'.format(dt.hour, dt.minute, dt.second, new_node)
-        self.textBrowser.append(str)
-        print(str)
-
-        str = '[{0:02d}:{1:02d}:{2:02d}] high low list = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
         self.textBrowser.append(str)
         print(str)
         
