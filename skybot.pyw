@@ -8269,7 +8269,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         except:
             pass
 
-    def high_low_list_update(self):
+    def opt_high_low_list_update(self):
 
         global call_저가, call_고가, put_저가, put_고가 
         global call_low_list, call_high_list, put_low_list, put_high_list, high_low_list, moving_list
@@ -8318,7 +8318,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def get_value_frequency(self, value):
         
-        self.high_low_list_update()
+        #self.opt_high_low_list_update()
 
         frequency = moving_list.count(value)
 
@@ -8360,7 +8360,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         OLD_진성맥점 = 진성맥점[:]
 
-        self.high_low_list_update()
+        self.opt_high_low_list_update()
 
         str = '[{0:02d}:{1:02d}:{2:02d}] high low list in search_moving_node = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
         self.textBrowser.append(str)
@@ -14889,23 +14889,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                self.high_low_list_update()
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] call low list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, call_low_list)
-                self.textBrowser.append(str)
-                print(str) 
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] call high list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, call_high_list)
-                self.textBrowser.append(str)
-                print(str) 
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] put low list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, put_low_list)
-                self.textBrowser.append(str)
-                print(str) 
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] put high list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, put_high_list)
-                self.textBrowser.append(str)
-                print(str) 
+                self.opt_high_low_list_update()
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
                 self.textBrowser.append(str)
@@ -15144,27 +15128,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             고가 = 0
                         
                         df_call.at[i, '저가'] = 저가
-                        빈도수 = self.get_value_frequency(저가)
 
-                        if 1.20 < 저가 < 10.0:
-                            item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
-                            item = QTableWidgetItem(item_str)
-                        else:
-                            item = QTableWidgetItem("{0:0.2f}".format(저가))
-
+                        item = QTableWidgetItem("{0:0.2f}".format(저가))
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(옅은회색))
                         self.tableWidget_call.setItem(i, Option_column.저가.value, item)
 
                         df_call.at[i, '고가'] = 고가
-                        빈도수 = self.get_value_frequency(고가)
 
-                        if 1.20 < 고가 < 10.0:
-                            item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
-                            item = QTableWidgetItem(item_str)
-                        else:
-                            item = QTableWidgetItem("{0:0.2f}".format(고가))
-
+                        item = QTableWidgetItem("{0:0.2f}".format(고가))
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(옅은회색))
                         self.tableWidget_call.setItem(i, Option_column.고가.value, item)
@@ -15243,27 +15215,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             고가 = 0
                         
                         df_put.at[i, '저가'] = 저가
-                        빈도수 = self.get_value_frequency(저가)
 
-                        if 1.20 < 저가 < 10.0:
-                            item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
-                            item = QTableWidgetItem(item_str)
-                        else:
-                            item = QTableWidgetItem("{0:0.2f}".format(저가))
-
+                        item = QTableWidgetItem("{0:0.2f}".format(저가))
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(옅은회색))
                         self.tableWidget_put.setItem(i, Option_column.저가.value, item)
 
                         df_put.at[i, '고가'] = 고가
-                        빈도수 = self.get_value_frequency(고가)
 
-                        if 1.20 < 고가 < 10.0:
-                            item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
-                            item = QTableWidgetItem(item_str)
-                        else:
-                            item = QTableWidgetItem("{0:0.2f}".format(고가))
-
+                        item = QTableWidgetItem("{0:0.2f}".format(고가))
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(옅은회색))
                         self.tableWidget_put.setItem(i, Option_column.고가.value, item)
@@ -15297,27 +15257,80 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_고가 = df_put['고가'].values.tolist()
                     put_고가_node_list = self.make_node_list(put_고가)
                     '''
-                    self.high_low_list_update()
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] call low list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, call_low_list)
-                    self.textBrowser.append(str)
-                    print(str) 
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] call high list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, call_high_list)
-                    self.textBrowser.append(str)
-                    print(str) 
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] put low list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, put_low_list)
-                    self.textBrowser.append(str)
-                    print(str) 
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] put high list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, put_high_list)
-                    self.textBrowser.append(str)
-                    print(str) 
+                    
+                    self.opt_high_low_list_update()
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
                     self.textBrowser.append(str)
                     print(str) 
+
+                    for i in range(option_pairs_count):
+
+                        if df['저가'][i] < df['고가'][i]:
+                            저가 = df['저가'][i]
+                            고가 = df['고가'][i]                        
+                        else:
+                            저가 = 0
+                            고가 = 0
+                        
+                        df_call.at[i, '저가'] = 저가
+                        빈도수 = self.get_value_frequency(저가)
+
+                        if 1.20 < 저가 < 10.0:
+                            item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
+                            item = QTableWidgetItem(item_str)
+                        else:
+                            item = QTableWidgetItem("{0:0.2f}".format(저가))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(옅은회색))
+                        self.tableWidget_call.setItem(i, Option_column.저가.value, item)
+
+                        df_call.at[i, '고가'] = 고가
+                        빈도수 = self.get_value_frequency(고가)
+
+                        if 1.20 < 고가 < 10.0:
+                            item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
+                            item = QTableWidgetItem(item_str)
+                        else:
+                            item = QTableWidgetItem("{0:0.2f}".format(고가))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(옅은회색))
+                        self.tableWidget_call.setItem(i, Option_column.고가.value, item)
+
+                        if df1['저가'][i] < df1['고가'][i]:
+                            저가 = df1['저가'][i]
+                            고가 = df1['고가'][i]                        
+                        else:
+                            저가 = 0
+                            고가 = 0
+                        
+                        df_put.at[i, '저가'] = 저가
+                        빈도수 = self.get_value_frequency(저가)
+
+                        if 1.20 < 저가 < 10.0:
+                            item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
+                            item = QTableWidgetItem(item_str)
+                        else:
+                            item = QTableWidgetItem("{0:0.2f}".format(저가))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(옅은회색))
+                        self.tableWidget_put.setItem(i, Option_column.저가.value, item)
+
+                        df_put.at[i, '고가'] = 고가
+                        빈도수 = self.get_value_frequency(고가)
+
+                        if 1.20 < 고가 < 10.0:
+                            item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
+                            item = QTableWidgetItem(item_str)
+                        else:
+                            item = QTableWidgetItem("{0:0.2f}".format(고가))
+
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(옅은회색))
+                        self.tableWidget_put.setItem(i, Option_column.고가.value, item)
                     
                     # 주야간 선물전광판 데이타 요청
                     XQ = t2101(parent=self)
@@ -16422,23 +16435,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem(max_str)
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.진폭.value, item)
 
-                self.high_low_list_update()
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] call low list in t2835 = {3}\r'.format(dt.hour, dt.minute, dt.second, call_low_list)
-                self.textBrowser.append(str)
-                print(str) 
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] call high list in t2835 = {3}\r'.format(dt.hour, dt.minute, dt.second, call_high_list)
-                self.textBrowser.append(str)
-                print(str) 
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] put low list in t2835 = {3}\r'.format(dt.hour, dt.minute, dt.second, put_low_list)
-                self.textBrowser.append(str)
-                print(str) 
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] put high list in t2835 = {3}\r'.format(dt.hour, dt.minute, dt.second, put_high_list)
-                self.textBrowser.append(str)
-                print(str) 
+                self.opt_high_low_list_update()
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2835 = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
                 self.textBrowser.append(str)
@@ -16673,27 +16670,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         고가 = 0
 
                     df_call.at[i, '저가'] = 저가
-                    빈도수 = self.get_value_frequency(저가)                    
 
-                    if 1.20 < 저가 < 10.0:
-                        item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
-                        item = QTableWidgetItem(item_str)
-                    else:
-                        item = QTableWidgetItem("{0:0.2f}".format(저가))
-
+                    item = QTableWidgetItem("{0:0.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(옅은회색))
                     self.tableWidget_call.setItem(i, Option_column.저가.value, item)
 
                     df_call.at[i, '고가'] = 고가
-                    빈도수 = self.get_value_frequency(고가)
 
-                    if 1.20 < 고가 < 10.0:
-                        item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
-                        item = QTableWidgetItem(item_str)
-                    else:
-                        item = QTableWidgetItem("{0:0.2f}".format(고가))
-
+                    item = QTableWidgetItem("{0:0.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(옅은회색))
                     self.tableWidget_call.setItem(i, Option_column.고가.value, item)
@@ -16755,27 +16740,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         고가 = 0
                     
                     df_put.at[i, '저가'] = 저가
-                    빈도수 = self.get_value_frequency(저가)                    
 
-                    if 1.20 < 저가 < 10.0:
-                        item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
-                        item = QTableWidgetItem(item_str)
-                    else:
-                        item = QTableWidgetItem("{0:0.2f}".format(저가))
-
+                    item = QTableWidgetItem("{0:0.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(옅은회색))
                     self.tableWidget_put.setItem(i, Option_column.저가.value, item)
 
                     df_put.at[i, '고가'] = 고가
-                    빈도수 = self.get_value_frequency(고가)                    
 
-                    if 1.20 < 고가 < 10.0:
-                        item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
-                        item = QTableWidgetItem(item_str)
-                    else:
-                        item = QTableWidgetItem("{0:0.2f}".format(고가))
-
+                    item = QTableWidgetItem("{0:0.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(옅은회색))
                     self.tableWidget_put.setItem(i, Option_column.고가.value, item)
@@ -16808,7 +16781,81 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_저가_node_list = self.make_node_list(put_저가)
 
                 put_고가 = df_put['고가'].values.tolist()
-                put_고가_node_list = self.make_node_list(put_고가)  
+                put_고가_node_list = self.make_node_list(put_고가)
+                
+                self.opt_high_low_list_update()
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2835 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
+                self.textBrowser.append(str)
+                print(str)
+
+                for i in range(option_pairs_count):
+
+                    if df['저가'][i] < df['고가'][i]:
+                        저가 = df['저가'][i]
+                        고가 = df['고가'][i]
+                    else:
+                        저가 = 0
+                        고가 = 0
+
+                    df_call.at[i, '저가'] = 저가
+                    빈도수 = self.get_value_frequency(저가)                    
+
+                    if 1.20 < 저가 < 10.0:
+                        item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
+                        item = QTableWidgetItem(item_str)
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(저가))
+
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(옅은회색))
+                    self.tableWidget_call.setItem(i, Option_column.저가.value, item)
+
+                    df_call.at[i, '고가'] = 고가
+                    빈도수 = self.get_value_frequency(고가)
+
+                    if 1.20 < 고가 < 10.0:
+                        item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
+                        item = QTableWidgetItem(item_str)
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(고가))
+
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(옅은회색))
+                    self.tableWidget_call.setItem(i, Option_column.고가.value, item)
+
+                    if df1['저가'][i] < df1['고가'][i]:
+                        저가 = df1['저가'][i]
+                        고가 = df1['고가'][i]
+                    else:
+                        저가 = 0
+                        고가 = 0
+                    
+                    df_put.at[i, '저가'] = 저가
+                    빈도수 = self.get_value_frequency(저가)                    
+
+                    if 1.20 < 저가 < 10.0:
+                        item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
+                        item = QTableWidgetItem(item_str)
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(저가))
+
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(옅은회색))
+                    self.tableWidget_put.setItem(i, Option_column.저가.value, item)
+
+                    df_put.at[i, '고가'] = 고가
+                    빈도수 = self.get_value_frequency(고가)                    
+
+                    if 1.20 < 고가 < 10.0:
+                        item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
+                        item = QTableWidgetItem(item_str)
+                    else:
+                        item = QTableWidgetItem("{0:0.2f}".format(고가))
+
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(옅은회색))
+                    self.tableWidget_put.setItem(i, Option_column.고가.value, item)
                         
             self.tableWidget_call.resizeColumnsToContents()
             self.tableWidget_put.resizeColumnsToContents()
@@ -19448,6 +19495,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             call_저가_node_list = self.make_node_list(call_저가)
 
             if 1.20 < 콜저가 < 10.0:
+                self.opt_high_low_list_update()
                 빈도수 = self.get_value_frequency(콜저가)
                 item = QTableWidgetItem(저가 + '\n(' + repr(빈도수) + ')')
             else:
@@ -19539,6 +19587,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             call_고가_node_list = self.make_node_list(call_고가)
 
             if 1.20 < 콜고가 < 10.0:
+                self.opt_high_low_list_update()
                 빈도수 = self.get_value_frequency(콜고가)
                 item = QTableWidgetItem(고가 + '\n(' + repr(빈도수) + ')')
             else:
@@ -20755,6 +20804,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             put_저가_node_list = self.make_node_list(put_저가)
 
             if 1.20 < 풋저가 < 10.0:
+                self.opt_high_low_list_update()
                 빈도수 = self.get_value_frequency(풋저가)
                 item = QTableWidgetItem(저가 + '\n(' + repr(빈도수) + ')')
             else:
@@ -20846,6 +20896,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             put_고가_node_list = self.make_node_list(put_고가)
 
             if 1.20 < 풋고가 < 10.0:
+                self.opt_high_low_list_update()
                 빈도수 = self.get_value_frequency(풋고가)
                 item = QTableWidgetItem(고가 + '\n(' + repr(빈도수) + ')')
             else:
