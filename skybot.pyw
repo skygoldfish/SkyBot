@@ -8317,8 +8317,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         moving_list = FILE_HIGH_LOW_LIST + high_low_list
 
     def get_value_frequency(self, value):
-        
-        #self.opt_high_low_list_update()
 
         frequency = moving_list.count(value)
 
@@ -15274,7 +15272,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             고가 = 0
                         
                         df_call.at[i, '저가'] = 저가
-                        빈도수 = self.get_value_frequency(저가)
+                        빈도수 = moving_list.count(저가)
 
                         if 1.20 < 저가 < 10.0:
                             item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
@@ -15287,7 +15285,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_call.setItem(i, Option_column.저가.value, item)
 
                         df_call.at[i, '고가'] = 고가
-                        빈도수 = self.get_value_frequency(고가)
+                        빈도수 = moving_list.count(고가)
 
                         if 1.20 < 고가 < 10.0:
                             item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
@@ -15307,7 +15305,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             고가 = 0
                         
                         df_put.at[i, '저가'] = 저가
-                        빈도수 = self.get_value_frequency(저가)
+                        빈도수 = moving_list.count(저가)
 
                         if 1.20 < 저가 < 10.0:
                             item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
@@ -15320,7 +15318,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_put.setItem(i, Option_column.저가.value, item)
 
                         df_put.at[i, '고가'] = 고가
-                        빈도수 = self.get_value_frequency(고가)
+                        빈도수 = moving_list.count(고가)
 
                         if 1.20 < 고가 < 10.0:
                             item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
@@ -16799,7 +16797,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         고가 = 0
 
                     df_call.at[i, '저가'] = 저가
-                    빈도수 = self.get_value_frequency(저가)                    
+                    빈도수 = moving_list.count(저가)                    
 
                     if 1.20 < 저가 < 10.0:
                         item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
@@ -16812,7 +16810,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.setItem(i, Option_column.저가.value, item)
 
                     df_call.at[i, '고가'] = 고가
-                    빈도수 = self.get_value_frequency(고가)
+                    빈도수 = moving_list.count(고가)
 
                     if 1.20 < 고가 < 10.0:
                         item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
@@ -16832,7 +16830,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         고가 = 0
                     
                     df_put.at[i, '저가'] = 저가
-                    빈도수 = self.get_value_frequency(저가)                    
+                    빈도수 = moving_list.count(저가)                    
 
                     if 1.20 < 저가 < 10.0:
                         item_str = '{0:0.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
@@ -16845,7 +16843,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.setItem(i, Option_column.저가.value, item)
 
                     df_put.at[i, '고가'] = 고가
-                    빈도수 = self.get_value_frequency(고가)                    
+                    빈도수 = moving_list.count(고가)                    
 
                     if 1.20 < 고가 < 10.0:
                         item_str = '{0:0.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
@@ -19496,7 +19494,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 1.20 < 콜저가 < 10.0:
                 self.opt_high_low_list_update()
-                빈도수 = self.get_value_frequency(콜저가)
+                빈도수 = moving_list.count(콜저가)
                 item = QTableWidgetItem(저가 + '\n(' + repr(빈도수) + ')')
             else:
                 item = QTableWidgetItem(저가)
@@ -19588,7 +19586,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 1.20 < 콜고가 < 10.0:
                 self.opt_high_low_list_update()
-                빈도수 = self.get_value_frequency(콜고가)
+                빈도수 = moving_list.count(콜고가)
                 item = QTableWidgetItem(고가 + '\n(' + repr(빈도수) + ')')
             else:
                 item = QTableWidgetItem(고가)            
@@ -20805,7 +20803,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 1.20 < 풋저가 < 10.0:
                 self.opt_high_low_list_update()
-                빈도수 = self.get_value_frequency(풋저가)
+                빈도수 = moving_list.count(풋저가)
                 item = QTableWidgetItem(저가 + '\n(' + repr(빈도수) + ')')
             else:
                 item = QTableWidgetItem(저가)
@@ -20897,7 +20895,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 1.20 < 풋고가 < 10.0:
                 self.opt_high_low_list_update()
-                빈도수 = self.get_value_frequency(풋고가)
+                빈도수 = moving_list.count(풋고가)
                 item = QTableWidgetItem(고가 + '\n(' + repr(빈도수) + ')')
             else:
                 item = QTableWidgetItem(고가)
