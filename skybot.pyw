@@ -8269,24 +8269,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         except:
             pass
 
-    def get_value_frequency(self, value):
+    def high_low_list_update(self):
 
         global call_저가, call_고가, put_저가, put_고가 
         global call_low_list, call_high_list, put_low_list, put_high_list, high_low_list, moving_list
 
         dt = datetime.datetime.now()
         
-        call_저가 = df_call['저가'].values.tolist()
-        call_고가 = df_call['고가'].values.tolist()
-        put_저가 = df_put['저가'].values.tolist()
-        put_고가 = df_put['고가'].values.tolist()
-
         call_low_list = []
         call_high_list = []
         put_low_list = []
         put_high_list = []
         high_low_list = []
         moving_list = []
+        
+        call_저가 = df_call['저가'].values.tolist()
+        call_고가 = df_call['고가'].values.tolist()
+        put_저가 = df_put['저가'].values.tolist()
+        put_고가 = df_put['고가'].values.tolist()
         
         call_저가.sort()
         index1 = bisect(call_저가, 1.20)
@@ -8310,11 +8310,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         high_low_list = call_low_list + call_high_list + put_low_list + put_high_list
         '''
-        str = '[{0:02d}:{1:02d}:{2:02d}] high low list in get_value_frequency = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
+        str = '[{0:02d}:{1:02d}:{2:02d}] high low list update = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
         self.textBrowser.append(str)
         print(str)     
         '''
         moving_list = FILE_HIGH_LOW_LIST + high_low_list
+
+    def get_value_frequency(self, value):
+        
+        self.high_low_list_update()
 
         frequency = moving_list.count(value)
 
@@ -8343,60 +8347,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def search_moving_node(self):
 
         global 진성맥점
-        global call_저가, call_고가, put_저가, put_고가 
-        global call_low_list, call_high_list, put_low_list, put_high_list, high_low_list, moving_list
-        global 동적맥점_리스트, 동적맥점_빈도수_리스트 
+        global 동적맥점_리스트, 동적맥점_빈도수_리스트  
 
         dt = datetime.datetime.now()
 
         str = '[{0:02d}:{1:02d}:{2:02d}] 동적 맥점 탐색을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
         print(str)
-        
-        call_저가 = df_call['저가'].values.tolist()
-        call_고가 = df_call['고가'].values.tolist()
-        put_저가 = df_put['저가'].values.tolist()
-        put_고가 = df_put['고가'].values.tolist()
-        
+                
         동적맥점_리스트 = []
         동적맥점_빈도수_리스트 = []
 
         OLD_진성맥점 = 진성맥점[:]
 
-        call_low_list = []
-        call_high_list = []
-        put_low_list = []
-        put_high_list = []
-        high_low_list = []
-        moving_list = []        
-
-        call_저가.sort()
-        index1 = bisect(call_저가, 1.20)
-        index2 = bisect(call_저가, 9.99)
-        call_low_list = call_저가[index1:index2]
-
-        call_고가.sort()
-        index1 = bisect(call_고가, 1.20)
-        index2 = bisect(call_고가, 9.99)
-        call_high_list = call_고가[index1:index2]
-
-        put_저가.sort()
-        index1 = bisect(put_저가, 1.20)
-        index2 = bisect(put_저가, 9.99)
-        put_low_list = put_저가[index1:index2]
-
-        put_고가.sort()
-        index1 = bisect(put_고가, 1.20)
-        index2 = bisect(put_고가, 9.99)
-        put_high_list = put_고가[index1:index2]
-
-        high_low_list = call_low_list + call_high_list + put_low_list + put_high_list
+        self.high_low_list_update()
 
         str = '[{0:02d}:{1:02d}:{2:02d}] high low list in search_moving_node = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
         self.textBrowser.append(str)
-        print(str)     
-
-        moving_list = FILE_HIGH_LOW_LIST + high_low_list        
+        print(str)        
 
         # 1st search
         동적맥점1, 동적맥점1_빈도수 = self.get_maxval_info(moving_list)
@@ -13903,7 +13871,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 콜대비_퍼센트_평균, 풋대비_퍼센트_평균
         global atm_zero_sum, atm_zero_cha
         global 선물_전일종가
-        global call_low_list, call_high_list, put_low_list, put_high_list, high_low_list
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -14886,13 +14853,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     call_피봇 = df_call['피봇'].values.tolist()
                     call_피봇_node_list = self.make_node_list(call_피봇)
-
+                    '''
                     call_저가 = df_call['저가'].values.tolist()
                     call_저가_node_list = self.make_node_list(call_저가)
 
                     call_고가 = df_call['고가'].values.tolist()
                     call_고가_node_list = self.make_node_list(call_고가)
-
+                    '''
                     call_진폭 = df_call['진폭'].values.tolist()
                     진폭최대값 = max(call_진폭)
                     max_str = '{0:0.2f}'.format(진폭최대값)
@@ -14906,13 +14873,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     put_피봇 = df_put['피봇'].values.tolist()
                     put_피봇_node_list = self.make_node_list(put_피봇)
-
+                    '''
                     put_저가 = df_put['저가'].values.tolist()
                     put_저가_node_list = self.make_node_list(put_저가)
 
                     put_고가 = df_put['고가'].values.tolist()
                     put_고가_node_list = self.make_node_list(put_고가)
-
+                    '''
                     put_진폭 = df_put['진폭'].values.tolist()
                     진폭최대값 = max(put_진폭)
                     max_str = '{0:0.2f}'.format(진폭최대값)
@@ -14920,46 +14887,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem(max_str)
                     self.tableWidget_put.setHorizontalHeaderItem(Option_column.진폭.value, item)
                 else:
-                    call_저가 = df_call['저가'].values.tolist()
-                    call_저가_node_list = self.make_node_list(call_저가)
+                    pass
 
-                    call_고가 = df_call['고가'].values.tolist()
-                    call_고가_node_list = self.make_node_list(call_고가)
-
-                    put_저가 = df_put['저가'].values.tolist()
-                    put_저가_node_list = self.make_node_list(put_저가)
-
-                    put_고가 = df_put['고가'].values.tolist()
-                    put_고가_node_list = self.make_node_list(put_고가)
-
-                call_low_list = []
-                call_high_list = []
-                put_low_list = []
-                put_high_list = []
-                high_low_list = []      
-
-                call_저가.sort()
-                index1 = bisect(call_저가, 1.20)
-                index2 = bisect(call_저가, 9.99)
-                call_low_list = call_저가[index1:index2]
-
-                call_고가.sort()
-                index1 = bisect(call_고가, 1.20)
-                index2 = bisect(call_고가, 9.99)
-                call_high_list = call_고가[index1:index2]
-
-                put_저가.sort()
-                index1 = bisect(put_저가, 1.20)
-                index2 = bisect(put_저가, 9.99)
-                put_low_list = put_저가[index1:index2]
-
-                put_고가.sort()
-                index1 = bisect(put_고가, 1.20)
-                index2 = bisect(put_고가, 9.99)
-                put_high_list = put_고가[index1:index2]
-
-                high_low_list = call_low_list + call_high_list + put_low_list + put_high_list
-                high_low_list.sort()
+                self.high_low_list_update()
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] call low list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, call_low_list)
                 self.textBrowser.append(str)
@@ -15348,53 +15278,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     call_피봇 = df_call['피봇'].values.tolist()
                     call_피봇_node_list = self.make_node_list(call_피봇)
-
+                    '''
                     call_저가 = df_call['저가'].values.tolist()
                     call_저가_node_list = self.make_node_list(call_저가)
 
                     call_고가 = df_call['고가'].values.tolist()
                     call_고가_node_list = self.make_node_list(call_고가)
-
+                    '''
                     put_시가 = df_put['시가'].values.tolist()
                     put_시가_node_list = self.make_node_list(put_시가)
 
                     put_피봇 = df_put['피봇'].values.tolist()
                     put_피봇_node_list = self.make_node_list(put_피봇)
-
+                    '''
                     put_저가 = df_put['저가'].values.tolist()
                     put_저가_node_list = self.make_node_list(put_저가)
 
                     put_고가 = df_put['고가'].values.tolist()
                     put_고가_node_list = self.make_node_list(put_고가)
-
-                    call_low_list = []
-                    call_high_list = []
-                    put_low_list = []
-                    put_high_list = []
-                    high_low_list = []      
-
-                    call_저가.sort()
-                    index1 = bisect(call_저가, 1.20)
-                    index2 = bisect(call_저가, 9.99)
-                    call_low_list = call_저가[index1:index2]
-
-                    call_고가.sort()
-                    index1 = bisect(call_고가, 1.20)
-                    index2 = bisect(call_고가, 9.99)
-                    call_high_list = call_고가[index1:index2]
-
-                    put_저가.sort()
-                    index1 = bisect(put_저가, 1.20)
-                    index2 = bisect(put_저가, 9.99)
-                    put_low_list = put_저가[index1:index2]
-
-                    put_고가.sort()
-                    index1 = bisect(put_고가, 1.20)
-                    index2 = bisect(put_고가, 9.99)
-                    put_high_list = put_고가[index1:index2]
-
-                    high_low_list = call_low_list + call_high_list + put_low_list + put_high_list
-                    high_low_list.sort()
+                    '''
+                    self.high_low_list_update()
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] call low list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, call_low_list)
                     self.textBrowser.append(str)
@@ -16519,34 +16422,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem(max_str)
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.진폭.value, item)
 
-                call_low_list = []
-                call_high_list = []
-                put_low_list = []
-                put_high_list = []
-                high_low_list = []      
-
-                call_저가.sort()
-                index1 = bisect(call_저가, 1.20)
-                index2 = bisect(call_저가, 9.99)
-                call_low_list = call_저가[index1:index2]
-
-                call_고가.sort()
-                index1 = bisect(call_고가, 1.20)
-                index2 = bisect(call_고가, 9.99)
-                call_high_list = call_고가[index1:index2]
-
-                put_저가.sort()
-                index1 = bisect(put_저가, 1.20)
-                index2 = bisect(put_저가, 9.99)
-                put_low_list = put_저가[index1:index2]
-
-                put_고가.sort()
-                index1 = bisect(put_고가, 1.20)
-                index2 = bisect(put_고가, 9.99)
-                put_high_list = put_고가[index1:index2]
-
-                high_low_list = call_low_list + call_high_list + put_low_list + put_high_list
-                high_low_list.sort()
+                self.high_low_list_update()
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] call low list in t2835 = {3}\r'.format(dt.hour, dt.minute, dt.second, call_low_list)
                 self.textBrowser.append(str)
@@ -25078,11 +24954,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #now = time.localtime()
         #times = "%04d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday)
 
-        call_low_list = []
-        call_high_list = []
-        put_low_list = []
-        put_high_list = []
-        list_final = []
+        call_low_list_to_file = []
+        call_high_list_to_file = []
+        put_low_list_to_file = []
+        put_high_list_to_file = []
+        list_final_to_file = []
 
         for i in range(option_pairs_count):
 
@@ -25092,39 +24968,39 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             풋고가 = df_put.at[i, '고가']
 
             if 1.2 < 콜저가 < 10.0:
-                call_low_list.append(콜저가)
+                call_low_list_to_file.append(콜저가)
             else:
                 pass
 
             if 1.2 < 콜고가 < 10.0:
-                call_high_list.append(콜고가)
+                call_high_list_to_file.append(콜고가)
             else:
                 pass
 
             if 1.2 < 풋저가 < 10.0:
-                put_low_list.append(풋저가)
+                put_low_list_to_file.append(풋저가)
             else:
                 pass
 
             if 1.2 < 풋고가 < 10.0:
-                put_high_list.append(풋고가)
+                put_high_list_to_file.append(풋고가)
             else:
                 pass
 
-        print('call_low_list =', call_low_list)
-        print('call_high_list =', call_high_list)
-        print('put_low_list =', put_low_list)
-        print('put_high_list =', put_high_list)
+        print('call_low_list =', call_low_list_to_file)
+        print('call_high_list =', call_high_list_to_file)
+        print('put_low_list =', put_low_list_to_file)
+        print('put_high_list =', put_high_list_to_file)
 
-        list_final = call_low_list + call_high_list + put_low_list + put_high_list
-        list_final.sort()
+        list_final_to_file = call_low_list_to_file + call_high_list_to_file + put_low_list_to_file + put_high_list_to_file
+        list_final_to_file.sort()
 
-        print('list_final =', list_final)
+        print('list_final =', list_final_to_file)
 
         #file_name = "HL-List {}.txt".format(times)
         file_name = "HL-List.txt"
 
-        self.list_to_file_write(list_final, file_name, sep = ' ')
+        self.list_to_file_write(list_final_to_file, file_name, sep = ' ')
 
     def list_to_file_write(self, list, fname, sep):  
         
@@ -25145,7 +25021,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         file.writelines(vstr)
         file.close()
 
-        print('파일쓰기 성공!!!')
+        #print('파일쓰기 성공!!!')
 
     def closeEvent(self,event):
 
