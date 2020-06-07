@@ -8943,9 +8943,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check : {3:0.2f} ms\r'.format(\
                 int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
             self.textBrowser.append(str)
+            print(str)
         else:
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
             self.textBrowser.append(str)
+            print(str)
 
     def call_low_node_coloring(self):
 
@@ -9010,11 +9012,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check : {3:0.2f} ms\r'.format(\
                 int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
-            self.textBrowser.append(str)                                 
+            self.textBrowser.append(str)
+            print(str)                                 
         else:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
             self.textBrowser.append(str)
+            print(str)
 
     def put_low_node_coloring(self):
 
@@ -9098,7 +9102,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         process_time = (timeit.default_timer() - start_time) * 1000
 
         str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Node Color Check : {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, process_time)
-        self.textBrowser.append(str)        
+        self.textBrowser.append(str)
+        print(str)        
 
     def display_atm(self, blink):
 
@@ -12147,7 +12152,39 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass          
                 else:
-                    pass
+                    if call_node_state['종가']:
+
+                        종가 = df_call.at[i, '종가']
+
+                        if 종가 in put_저가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(콜종가색))
+                            self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if 종가 in put_고가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(콜종가색))
+                            self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if 종가 in call_저가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(콜종가색))
+                            self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if 종가 in call_고가_node_list:
+
+                            self.tableWidget_call.item(i, Option_column.종가.value).setBackground(QBrush(콜종가색))
+                            self.tableWidget_call.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass         
+                    else:
+                        pass
             
 
     # 풋 컬러링 Apply 함수
@@ -13062,7 +13099,39 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass           
                 else:
-                    pass            
+                    if put_node_state['종가']:
+
+                        종가 = df_put.at[i, '종가']
+
+                        if 종가 in call_저가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(풋종가색))
+                            self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if 종가 in call_고가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(풋종가색))
+                            self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if 종가 in put_저가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(풋종가색))
+                            self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass
+
+                        if 종가 in put_고가_node_list:
+
+                            self.tableWidget_put.item(i, Option_column.종가.value).setBackground(QBrush(풋종가색))
+                            self.tableWidget_put.item(i, Option_column.종가.value).setForeground(QBrush(검정색))
+                        else:
+                            pass    
+                    else:
+                        pass            
 
     def put_node_color_clear(self):
 
