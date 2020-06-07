@@ -1634,6 +1634,11 @@ moving_list = []
 동적맥점_리스트 = []
 동적맥점_빈도수_리스트 = []
 
+NASDAQ_장마감일 = ''
+DOW_장마감일 = ''
+SP500_장마감일 = ''
+WTI_장마감일 = ''
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -22051,6 +22056,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global 시스템시간, 서버시간, 시스템_서버_시간차
             global kp200_시가, kp200_피봇, kp200_저가, kp200_현재가, kp200_고가
             global df_plotdata_dow_drate, df_plotdata_fut_drate
+            global NASDAQ_장마감일, DOW_장마감일, SP500_장마감일, WTI_장마감일
 
             start_time = timeit.default_timer()
 
@@ -22201,6 +22207,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         file_str = 'NASDAQ Day Close = {0}\n'.format(NASDAQ_현재가)
                         kp200_file.write(file_str)
                         file_str = 'WTI Day Close = {0}\n'.format(WTI_현재가)
+                        kp200_file.write(file_str)
+                        file_str = '################### < Expiration Date of the CME Index > #####################\n'
+                        kp200_file.write(file_str)
+                        file_str = 'SP500 Expiration Date = {0}\n'.format(SP500_장마감일)
+                        kp200_file.write(file_str)
+                        file_str = 'DOW Expiration Date = {0}\n'.format(DOW_장마감일)
+                        kp200_file.write(file_str)
+                        file_str = 'NASDAQ Expiration Date = {0}\n'.format(NASDAQ_장마감일)
+                        kp200_file.write(file_str)
+                        file_str = 'WTI Expiration Date = {0}\n'.format(WTI_장마감일)
                         kp200_file.write(file_str)
                         kp200_file.close()
 
@@ -24090,7 +24106,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 시스템_서버_시간차 = 시스템시간 - 서버시간
 
-                if result['종목코드'] == NASDAQ:                    
+                if result['종목코드'] == NASDAQ:
+
+                    if NASDAQ_장마감일 == '':
+                        NASDAQ_장마감일 = result['장마감일']
+                    else:
+                        pass                    
 
                     NASDAQ_저가 =  result['저가']
                     NASDAQ_고가 =  result['고가']                    
@@ -24203,7 +24224,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass                    
 
-                elif result['종목코드'] == SP500:                    
+                elif result['종목코드'] == SP500:
+
+                    if SP500_장마감일 == '':
+                        SP500_장마감일 = result['장마감일']
+                    else:
+                        pass                    
 
                     SP500_저가 =  result['저가']
                     SP500_고가 =  result['고가']                    
@@ -24380,6 +24406,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif result['종목코드'] == DOW:
 
+                    if DOW_장마감일 == '':
+                        DOW_장마감일 = result['장마감일']
+                    else:
+                        pass
+
                     DOW_저가 =  int(result['저가'])
                     DOW_고가 =  int(result['고가'])
 
@@ -24504,6 +24535,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                 elif result['종목코드'] == WTI:
+
+                    if WTI_장마감일 == '':
+                        WTI_장마감일 = result['장마감일']
+                    else:
+                        pass
 
                     WTI_저가 =  result['저가']
                     WTI_고가 =  result['고가']
