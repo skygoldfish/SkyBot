@@ -1639,6 +1639,11 @@ DOW_장마감일 = ''
 SP500_장마감일 = ''
 WTI_장마감일 = ''
 
+DOW_진폭비 = 0
+선물_진폭비 = 0
+
+flag_first_search = False
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -4015,7 +4020,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setBackground(QBrush(옅은회색))
         self.tableWidget_fut.setItem(2, Futures_column.고가.value, item)
 
-        item = QTableWidgetItem("{0}".format('-'))
+        item = QTableWidgetItem("{0}".format('FD\n진폭비'))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
 
@@ -8350,7 +8355,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def search_moving_node(self):
 
         global 진성맥점
-        global 동적맥점_리스트, 동적맥점_빈도수_리스트  
+        global 동적맥점_리스트, 동적맥점_빈도수_리스트 
+        global flag_first_search 
 
         dt = datetime.datetime.now()
 
@@ -8365,21 +8371,43 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.opt_high_low_list_update()
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] call low list in search_moving_node = {3}\r'.format(dt.hour, dt.minute, dt.second, call_low_list)
-        self.textBrowser.append(str)
-        print(str)
+        if not flag_first_search:
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] call high list in search_moving_node = {3}\r'.format(dt.hour, dt.minute, dt.second, call_high_list)
-        self.textBrowser.append(str)
-        print(str)
+            str = '[{0:02d}:{1:02d}:{2:02d}] call_저가 list = {3}\r'.format(dt.hour, dt.minute, dt.second, call_저가)
+            self.textBrowser.append(str)
+            print(str)
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] put low list in search_moving_node = {3}\r'.format(dt.hour, dt.minute, dt.second, put_low_list)
-        self.textBrowser.append(str)
-        print(str)
+            str = '[{0:02d}:{1:02d}:{2:02d}] call low list = {3}\r'.format(dt.hour, dt.minute, dt.second, call_low_list)
+            self.textBrowser.append(str)
+            print(str)
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] put high list in search_moving_node = {3}\r'.format(dt.hour, dt.minute, dt.second, put_high_list)
-        self.textBrowser.append(str)
-        print(str)
+            str = '[{0:02d}:{1:02d}:{2:02d}] call_고가 list = {3}\r'.format(dt.hour, dt.minute, dt.second, call_고가)
+            self.textBrowser.append(str)
+            print(str)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] call high list = {3}\r'.format(dt.hour, dt.minute, dt.second, call_high_list)
+            self.textBrowser.append(str)
+            print(str)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] put_저가 list = {3}\r'.format(dt.hour, dt.minute, dt.second, put_저가)
+            self.textBrowser.append(str)
+            print(str)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] put low list = {3}\r'.format(dt.hour, dt.minute, dt.second, put_low_list)
+            self.textBrowser.append(str)
+            print(str)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] put_고가 list = {3}\r'.format(dt.hour, dt.minute, dt.second, put_고가)
+            self.textBrowser.append(str)
+            print(str)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] put high list = {3}\r'.format(dt.hour, dt.minute, dt.second, put_high_list)
+            self.textBrowser.append(str)
+            print(str)
+
+            flag_first_search = True
+        else:
+            pass
 
         str = '[{0:02d}:{1:02d}:{2:02d}] high low list in search_moving_node = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
         self.textBrowser.append(str)
@@ -18513,6 +18541,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
         global 선물_저가, 선물_현재가, 선물_대비, 선물_전일대비, 선물_등락율, 선물_고가, 선물_진폭
         global df_plotdata_fut_drate
+        global 선물_진폭비
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -18916,7 +18945,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
                 else:
                     self.tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))     
+                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))            
+
+            선물_진폭비 = (선물_고가 - 선물_저가) / 선물_시가   
+            
+            선물_DOW_진폭비율 = 선물_진폭비 / DOW_진폭비 
+
+            item = QTableWidgetItem("{0:0.2f}".format(선물_DOW_진폭비율))
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if overnight:
+                self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
+            else:
+                self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
         else:
             pass        
                 
@@ -18979,7 +19020,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
                 df_fut.at[1, '진폭'] = 진폭
-                fut_realdata['진폭'] = 진폭            
+                fut_realdata['진폭'] = 진폭         
         else:
             pass
 
@@ -19042,7 +19083,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
                 df_fut.at[1, '진폭'] = 진폭  
-                fut_realdata['진폭'] = 진폭          
+                fut_realdata['진폭'] = 진폭         
         else:
             pass
 
@@ -22073,6 +22114,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global kp200_시가, kp200_피봇, kp200_저가, kp200_현재가, kp200_고가
             global df_plotdata_dow_drate, df_plotdata_fut_drate
             global NASDAQ_장마감일, DOW_장마감일, SP500_장마감일, WTI_장마감일
+            global DOW_진폭비
 
             start_time = timeit.default_timer()
 
@@ -24547,6 +24589,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             df_plotdata_dow.iat[0, ovc_x_idx] = result['체결가격']
                         else:
                             pass
+                        
+                        DOW_진폭비 = DOW_진폭 / DOW_시가
                     else:
                         pass
 
