@@ -15376,6 +15376,38 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     self.opt_high_low_list_update()
 
+                    str = '[{0:02d}:{1:02d}:{2:02d}] call_저가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, call_저가)
+                    self.textBrowser.append(str)
+                    print(str)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] call low list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, call_low_list)
+                    self.textBrowser.append(str)
+                    print(str)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] call_고가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, call_고가)
+                    self.textBrowser.append(str)
+                    print(str)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] call high list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, call_high_list)
+                    self.textBrowser.append(str)
+                    print(str)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] put_저가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, put_저가)
+                    self.textBrowser.append(str)
+                    print(str)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] put low list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, put_low_list)
+                    self.textBrowser.append(str)
+                    print(str)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] put_고가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, put_고가)
+                    self.textBrowser.append(str)
+                    print(str)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] put high list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, put_high_list)
+                    self.textBrowser.append(str)
+                    print(str)
+
                     str = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
                     self.textBrowser.append(str)
                     print(str) 
