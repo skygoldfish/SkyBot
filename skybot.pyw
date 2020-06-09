@@ -19592,10 +19592,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 콜시가 > 0.1:
                 call_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
 
-                if index == atm_index:
-                    gap_str = "{0:0.2f}\n({1:0.2f}%)".format(콜대비, 콜등락율)
+                if not overnight:
+
+                    if index == atm_index:
+                        gap_str = "{0:0.2f}\n({1:0.2f}%)".format(콜대비, 콜등락율)
+                    else:
+                        gap_str = "{0:0.2f}\n({1:0.0f}%)".format(콜대비, call_db_percent[index])
                 else:
-                    gap_str = "{0:0.2f}\n({1:0.0f}%)".format(콜대비, call_db_percent[index])                
+                    gap_str = "{0:0.2f}\n({1:0.0f}%)".format(콜대비, call_db_percent[index])                    
 
                 item = QTableWidgetItem(gap_str)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -20901,8 +20905,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 풋시가 > 0.1:
                 put_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
 
-                if index == atm_index:
-                    gap_str = "{0:0.2f}\n({1:0.2f}%)".format(풋대비, 풋등락율)
+                if not overnight:
+
+                    if index == atm_index:
+                        gap_str = "{0:0.2f}\n({1:0.2f}%)".format(풋대비, 풋등락율)
+                    else:
+                        gap_str = "{0:0.2f}\n({1:0.0f}%)".format(풋대비, put_db_percent[index])
                 else:
                     gap_str = "{0:0.2f}\n({1:0.0f}%)".format(풋대비, put_db_percent[index])  
 
