@@ -8513,7 +8513,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 self.tableWidget_fut.setItem(2, i - 4, item)
 
-            if new_node[i][0] in high_low_list:
+            if high_low_list is not None and new_node[i][0] in high_low_list:
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 동적맥점 {4:0.2f}(빈도수 = {5}) 발생 !!!\r'.format \
                     (dt.hour, dt.minute, dt.second, i + 1, new_node[i][0], new_node[i][1])
@@ -14405,7 +14405,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     call_code.append(df['콜옵션코드'][i])
                     opt_actval.append(df['콜옵션코드'][i][5:8])
 
-                    OLOH = ''
+                    OLOH = '-'
                     item = QTableWidgetItem(OLOH)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.OLOH.value, item)
@@ -14457,8 +14457,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         저가 = df['저가'][i]
                         고가 = df['고가'][i]                        
                     else:
-                        저가 = 0
-                        고가 = 0
+                        저가 = 0.0
+                        고가 = 0.0
 
                     item = QTableWidgetItem("{0:0.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -14688,7 +14688,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     put_code.append(df1['풋옵션코드'][i])
 
-                    OLOH = ''
+                    OLOH = '-'
                     item = QTableWidgetItem(OLOH)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.OLOH.value, item)
@@ -14740,8 +14740,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         저가 = df1['저가'][i]
                         고가 = df1['고가'][i]                        
                     else:
-                        저가 = 0
-                        고가 = 0
+                        저가 = 0.0
+                        고가 = 0.0
 
                     item = QTableWidgetItem("{0:0.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -14960,7 +14960,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] {3} 월물 Put 전광판 데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
                 self.textBrowser.append(str)
+                
+                call_저가 = df_call['저가'].values.tolist()
 
+                str = '[{0:02d}:{1:02d}:{2:02d}] call_저가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, call_저가)
+                self.textBrowser.append(str)
+                print(str)
+
+                call_고가 = df_call['고가'].values.tolist()
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] call_고가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, call_고가)
+                self.textBrowser.append(str)
+                print(str)
+
+                put_저가 = df_put['저가'].values.tolist()
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] put_저가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, put_저가)
+                self.textBrowser.append(str)
+                print(str)
+
+                put_고가 = df_put['고가'].values.tolist()
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] put_고가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, put_고가)
+                self.textBrowser.append(str)
+                print(str)
+                
                 if not pre_start:
 
                     # 콜 컬러링 리스트 작성
@@ -15173,6 +15197,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     del call_open_list[:]
                     del put_open_list[:]
 
+                    del call_저가[:]
+                    del call_고가[:]
+                    del put_저가[:]
+                    del put_고가[:]
+
                     for i in range(option_pairs_count):
 
                         # 콜 데이타 획득                        
@@ -15240,8 +15269,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             저가 = df['저가'][i]
                             고가 = df['고가'][i]                        
                         else:
-                            저가 = 0
-                            고가 = 0
+                            저가 = 0.0
+                            고가 = 0.0
                         
                         df_call.at[i, '저가'] = 저가
 
@@ -15327,8 +15356,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             저가 = df1['저가'][i]
                             고가 = df1['고가'][i]                        
                         else:
-                            저가 = 0
-                            고가 = 0
+                            저가 = 0.0
+                            고가 = 0.0
                         
                         df_put.at[i, '저가'] = 저가
 
@@ -15348,7 +15377,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             put_open_list.append(i)
                         else:
                             pass
+                    '''
+                    str = '[{0:02d}:{1:02d}:{2:02d}] df_call_저가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, df_call['저가'])
+                    self.textBrowser.append(str)
+                    print(str)
 
+                    str = '[{0:02d}:{1:02d}:{2:02d}] df_call_고가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, df_call['고가'])
+                    self.textBrowser.append(str)
+                    print(str)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] df_put_저가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, df_put['저가'])
+                    self.textBrowser.append(str)
+                    print(str)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] df_put_고가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, df_put['고가'])
+                    self.textBrowser.append(str)
+                    print(str)
+                    '''
                     call_시가 = df_call['시가'].values.tolist()
                     call_시가_node_list = self.make_node_list(call_시가)
 
@@ -15380,15 +15425,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(str)
                     print(str)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] call low list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, call_low_list)
-                    self.textBrowser.append(str)
-                    print(str)
-
                     str = '[{0:02d}:{1:02d}:{2:02d}] call_고가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, call_고가)
-                    self.textBrowser.append(str)
-                    print(str)
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] call high list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, call_high_list)
                     self.textBrowser.append(str)
                     print(str)
 
@@ -15396,15 +15433,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(str)
                     print(str)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] put low list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, put_low_list)
-                    self.textBrowser.append(str)
-                    print(str)
-
                     str = '[{0:02d}:{1:02d}:{2:02d}] put_고가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, put_고가)
-                    self.textBrowser.append(str)
-                    print(str)
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] put high list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, put_high_list)
                     self.textBrowser.append(str)
                     print(str)
 
