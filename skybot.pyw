@@ -3590,53 +3590,57 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #self.telegram_flag = True
         self.pushButton_remove.setStyleSheet("background-color: lightGray")
 
-        if not overnight:
+        if TELEGRAM_SERVICE == 'ON':
 
-            if TARGET_MONTH_SELECT == 1:
+            if not overnight:
 
-                widget_title = repr(current_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                ToTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
+                if TARGET_MONTH_SELECT == 1:
 
-            elif TARGET_MONTH_SELECT == 2:
+                    widget_title = repr(current_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                    ToTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
 
-                widget_title = repr(next_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                ToTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
+                elif TARGET_MONTH_SELECT == 2:
 
+                    widget_title = repr(next_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                    ToTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
+
+                else:
+                    widget_title = repr(month_after_next) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                    ToTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
             else:
-                widget_title = repr(month_after_next) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                ToTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
+                KSE_START_HOUR = 18            
+
+                if MANGI_YAGAN == 'YES':
+
+                    if TARGET_MONTH_SELECT == 1:
+
+                        widget_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
+
+                        print('next_month =', next_month)
+
+                    elif TARGET_MONTH_SELECT == 2:
+
+                        widget_title = repr(month_after_next) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
+                    else:
+                        pass
+                else:
+                    if TARGET_MONTH_SELECT == 1:
+
+                        widget_title = repr(current_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
+
+                    elif TARGET_MONTH_SELECT == 2:
+
+                        widget_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
+
+                    else:
+                        widget_title = repr(month_after_next) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
         else:
-            KSE_START_HOUR = 18            
-
-            if MANGI_YAGAN == 'YES':
-
-                if TARGET_MONTH_SELECT == 1:
-
-                    widget_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                    ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
-
-                    print('next_month =', next_month)
-
-                elif TARGET_MONTH_SELECT == 2:
-
-                    widget_title = repr(month_after_next) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                    ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
-                else:
-                    pass
-            else:
-                if TARGET_MONTH_SELECT == 1:
-
-                    widget_title = repr(current_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                    ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
-
-                elif TARGET_MONTH_SELECT == 2:
-
-                    widget_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                    ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
-
-                else:
-                    widget_title = repr(month_after_next) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                    ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
+            pass        
 
         OVC_START_HOUR = KSE_START_HOUR - 1 
 
@@ -18651,7 +18655,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         fut_time = dt.hour * 3600 + dt.minute * 60 + dt.second         
 
-        if not flag_telegram_send_worker and not overnight:            
+        if TELEGRAM_SERVICE == 'ON' and not flag_telegram_send_worker and not overnight:            
 
             self.telegram_send_worker.start()
             self.telegram_send_worker.daemon = True
@@ -19372,7 +19376,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             opt_time = dt.hour * 3600 + dt.minute * 60 + dt.second
 
-            if not flag_telegram_send_worker:            
+            if TELEGRAM_SERVICE == 'ON' and not flag_telegram_send_worker:            
 
                 self.telegram_send_worker.start()
                 self.telegram_send_worker.daemon = True
@@ -25150,7 +25154,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         flag_telegram_on = not flag_telegram_on
         
-        if not flag_telegram_send_worker:
+        if TELEGRAM_SERVICE == 'ON' and not flag_telegram_send_worker:
 
             # 가끔 send worker가 오동작함(쓰레드 재시작...)
             self.telegram_send_worker.start()
@@ -25190,7 +25194,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass               
 
-        if flag_telegram_on:
+        if TELEGRAM_SERVICE == 'ON' and flag_telegram_on:
             
             str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)
             self.textBrowser.append(str)
