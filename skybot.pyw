@@ -19351,7 +19351,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         저가 = call_result['저가']
         고가 = call_result['고가']
 
-        if index == atm_index:
+        if not overnight and index == atm_index:
             콜등락율 = call_result['등락율']
             df_plotdata_call_drate[opt_x_idx] = call_result['등락율']
         else:
@@ -19449,13 +19449,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 저가 != 고가 and not call_open[index]:
 
             # 등가 check & coloring
-            atm_str = self.get_atm_str(fut_realdata['KP200'])
-            atm_index = opt_actval.index(atm_str)
+            if not overnight:
+                atm_str = self.get_atm_str(fut_realdata['KP200'])
+                atm_index = opt_actval.index(atm_str)
 
-            if index == atm_index:
-                self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
+                if index == atm_index:
+                    self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
+                else:
+                    self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
             else:
-                self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
+                pass
 
             call_open[index] = True
             
@@ -19470,7 +19473,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 (int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
             self.textBrowser.append(str)
             
-            if index > atm_index:
+            if not overnight and index > atm_index:
                 call_itm_count += 1
             else:
                 pass
@@ -19641,7 +19644,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 콜 외가(등가포함) 대비 저장
-            if index <= atm_index and 콜시가 > 0.1 and 콜저가 < 콜고가:
+            if not overnight and index <= atm_index and 콜시가 > 0.1 and 콜저가 < 콜고가:
                 call_otm_db[index] = 콜대비
                 call_otm_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
             else:
@@ -20741,7 +20744,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         저가 = put_result['저가']
         고가 = put_result['고가']
         
-        if index == atm_index:
+        if not overnight and index == atm_index:
             풋등락율 = put_result['등락율']
             df_plotdata_put_drate[opt_x_idx] = put_result['등락율']
         else:
@@ -20762,13 +20765,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 저가 != 고가 and not put_open[index]:
 
             # 등가 check & coloring
-            atm_str = self.get_atm_str(fut_realdata['KP200'])
-            atm_index = opt_actval.index(atm_str)
+            if not overnight:
+                atm_str = self.get_atm_str(fut_realdata['KP200'])
+                atm_index = opt_actval.index(atm_str)
 
-            if index == atm_index:
-                self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
+                if index == atm_index:
+                    self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
+                else:
+                    self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
             else:
-                self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
+                pass
 
             put_open[index] = True
             
@@ -20783,7 +20789,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 (int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
             self.textBrowser.append(str)
             
-            if index < atm_index:
+            if not overnight and index < atm_index:
                 put_itm_count += 1
             else:
                 pass
@@ -20954,7 +20960,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             
             # 풋 외가(등가포함) 대비 저장
-            if index >= atm_index and 풋시가 > 0.1 and 풋저가 < 풋고가:
+            if not overnight and index >= atm_index and 풋시가 > 0.1 and 풋저가 < 풋고가:
                 put_otm_db[index] = 풋대비
                 put_otm_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
             else:
