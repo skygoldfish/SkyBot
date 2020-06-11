@@ -8879,8 +8879,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] 탐색된 진성맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, new_list)
             self.textBrowser.append(str)
         else:
-            str = '[{0:02d}:{1:02d}:{2:02d}] 진성맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
-            self.textBrowser.append(str)
+            #str = '[{0:02d}:{1:02d}:{2:02d}] 진성맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
+            #self.textBrowser.append(str)
+            pass
 
     def market_type_display(self, blink):
 
@@ -14559,7 +14560,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         시가 = 0.0
                         시가갭 = 0.0
-                        대비 = 0
+                        대비 = 0.0
 
                         item = QTableWidgetItem("{0:0.2f}".format(시가))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -14842,7 +14843,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         시가 = 0.0
                         시가갭 = 0.0
-                        대비 = 0
+                        대비 = 0.0
 
                         item = QTableWidgetItem("{0:0.2f}".format(시가))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -15381,23 +15382,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             put_open_list.append(i)
                         else:
                             pass
-                    '''
-                    str = '[{0:02d}:{1:02d}:{2:02d}] df_call_저가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, df_call['저가'])
-                    self.textBrowser.append(str)
-                    print(str)
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] df_call_고가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, df_call['고가'])
-                    self.textBrowser.append(str)
-                    print(str)
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] df_put_저가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, df_put['저가'])
-                    self.textBrowser.append(str)
-                    print(str)
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] df_put_고가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, df_put['고가'])
-                    self.textBrowser.append(str)
-                    print(str)
-                    '''
+                    
                     call_시가 = df_call['시가'].values.tolist()
                     call_시가_node_list = self.make_node_list(call_시가)
 
@@ -15451,8 +15436,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             저가 = df['저가'][i]
                             고가 = df['고가'][i]                        
                         else:
-                            저가 = 0
-                            고가 = 0
+                            저가 = 0.0
+                            고가 = 0.0
                         
                         df_call.at[i, '저가'] = 저가
                         빈도수 = moving_list.count(저가)
@@ -15484,8 +15469,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             저가 = df1['저가'][i]
                             고가 = df1['고가'][i]                        
                         else:
-                            저가 = 0
-                            고가 = 0
+                            저가 = 0.0
+                            고가 = 0.0
                         
                         df_put.at[i, '저가'] = 저가
                         빈도수 = moving_list.count(저가)
@@ -16111,8 +16096,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         저가 = df['저가'][i]
                         고가 = df['고가'][i]
                     else:
-                        저가 = 0
-                        고가 = 0
+                        저가 = 0.0
+                        고가 = 0.0
                     
                     df_call.at[i, '저가'] = 저가
                     
@@ -16218,7 +16203,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         시가 = 0.0
                         피봇 = 0.0
                         시가갭 = 0.0
-                        대비 = 0
+                        대비 = 0.0
 
                         item = QTableWidgetItem("{0:0.2f}".format(시가))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -16362,8 +16347,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         저가 = df1['저가'][i]
                         고가 = df1['고가'][i]
                     else:
-                        저가 = 0
-                        고가 = 0
+                        저가 = 0.0
+                        고가 = 0.0
                     
                     df_put.at[i, '저가'] = 저가
 
@@ -16470,7 +16455,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         시가 = 0.0
                         피봇 = 0.0
                         시가갭 = 0.0
-                        대비 = 0
+                        대비 = 0.0
 
                         item = QTableWidgetItem("{0:0.2f}".format(시가))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -16574,13 +16559,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 call_시가 = df_call['시가'].values.tolist()
                 call_시가_node_list = self.make_node_list(call_시가)
-
+                '''
                 call_저가 = df_call['저가'].values.tolist()
                 call_저가_node_list = self.make_node_list(call_저가)
 
                 call_고가 = df_call['고가'].values.tolist()
                 call_고가_node_list = self.make_node_list(call_고가)
-
+                '''
                 call_진폭 = df_call['진폭'].values.tolist()
                 진폭최대값 = max(call_진폭)
                 max_str = '{0:0.2f}'.format(진폭최대값)
@@ -16602,13 +16587,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 put_시가 = df_put['시가'].values.tolist()
                 put_시가_node_list = self.make_node_list(put_시가)
-
+                '''
                 put_저가 = df_put['저가'].values.tolist()
                 put_저가_node_list = self.make_node_list(put_저가)
 
                 put_고가 = df_put['고가'].values.tolist()
                 put_고가_node_list = self.make_node_list(put_고가)
-
+                '''
                 put_진폭 = df_put['진폭'].values.tolist()
                 진폭최대값 = max(put_진폭)
                 max_str = '{0:0.2f}'.format(진폭최대값)
@@ -16847,8 +16832,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         저가 = df['저가'][i]
                         고가 = df['고가'][i]
                     else:
-                        저가 = 0
-                        고가 = 0
+                        저가 = 0.0
+                        고가 = 0.0
 
                     df_call.at[i, '저가'] = 저가
 
@@ -16917,8 +16902,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         저가 = df1['저가'][i]
                         고가 = df1['고가'][i]
                     else:
-                        저가 = 0
-                        고가 = 0
+                        저가 = 0.0
+                        고가 = 0.0
                     
                     df_put.at[i, '저가'] = 저가
 
@@ -16945,25 +16930,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 call_피봇 = df_call['피봇'].values.tolist()
                 call_피봇_node_list = self.make_node_list(call_피봇)
-
+                '''
                 call_저가 = df_call['저가'].values.tolist()
                 call_저가_node_list = self.make_node_list(call_저가)
 
                 call_고가 = df_call['고가'].values.tolist()
                 call_고가_node_list = self.make_node_list(call_고가)
-
+                '''
                 put_시가 = df_put['시가'].values.tolist()
                 put_시가_node_list = self.make_node_list(put_시가)
 
                 put_피봇 = df_put['피봇'].values.tolist()
                 put_피봇_node_list = self.make_node_list(put_피봇)
-
+                '''
                 put_저가 = df_put['저가'].values.tolist()
                 put_저가_node_list = self.make_node_list(put_저가)
 
                 put_고가 = df_put['고가'].values.tolist()
                 put_고가_node_list = self.make_node_list(put_고가)
-                
+                '''
                 self.opt_high_low_list_update()
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2835 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
@@ -16976,8 +16961,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         저가 = df['저가'][i]
                         고가 = df['고가'][i]
                     else:
-                        저가 = 0
-                        고가 = 0
+                        저가 = 0.0
+                        고가 = 0.0
 
                     df_call.at[i, '저가'] = 저가
                     빈도수 = moving_list.count(저가)                    
@@ -17009,8 +16994,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         저가 = df1['저가'][i]
                         고가 = df1['고가'][i]
                     else:
-                        저가 = 0
-                        고가 = 0
+                        저가 = 0.0
+                        고가 = 0.0
                     
                     df_put.at[i, '저가'] = 저가
                     빈도수 = moving_list.count(저가)                    
