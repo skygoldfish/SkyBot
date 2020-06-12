@@ -642,7 +642,6 @@ else:
 
 # 전역변수
 ########################################################################################################################
-SELF_ID = ''
 모니터번호 = 0
 nRowCount = int(행사가갯수)
 
@@ -28081,8 +28080,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     # ------------------------------------------------------------------------------------------------------------------
     def MyLogin(self):
 
-        global SELF_ID
-
         계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
         주식계좌정보 = 계좌정보.query("구분 == '거래'")
 
@@ -28092,7 +28089,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.계좌번호 = 주식계좌정보['계좌번호'].values[0].strip()
             self.id = 주식계좌정보['사용자ID'].values[0].strip()
-            SELF_ID = self.id
             self.pwd = 주식계좌정보['비밀번호'].values[0].strip()
             self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()
             self.거래비밀번호 = 주식계좌정보['거래비밀번호'].values[0].strip()
@@ -28131,9 +28127,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if TARGET_MONTH_SELECT == 1 and token != '' and chat_id != 0:
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 로그인 했습니다.'.format( \
-                    dt.hour, dt.minute, dt.second, SELF_ID, token, chat_id)                
+                    dt.hour, dt.minute, dt.second, self.id, token, chat_id)                
             else:
-                str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second, SELF_ID)
+                str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second, self.id)
             
             TelegramToMe(str)
             
