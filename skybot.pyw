@@ -8322,12 +8322,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         put_high_list = put_고가[index1:index2]
 
         high_low_list = call_low_list + call_high_list + put_low_list + put_high_list
-        '''
-        str = '[{0:02d}:{1:02d}:{2:02d}] high low list update = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
-        self.textBrowser.append(str)
-        print(str)     
-        '''
+        high_low_list.sort()
+        
         moving_list = FILE_HIGH_LOW_LIST + high_low_list
+        moving_list.sort()
 
     def get_value_frequency(self, value):
 
@@ -8373,7 +8371,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         OLD_진성맥점 = 진성맥점[:]
 
         self.opt_high_low_list_update()
-
+        '''
         if not flag_first_search:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] call_저가 list = {3}\r'.format(dt.hour, dt.minute, dt.second, call_저가)
@@ -8411,7 +8409,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             flag_first_search = True
         else:
             pass
-
+        '''
         str = '[{0:02d}:{1:02d}:{2:02d}] high low list in search_moving_node = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
         self.textBrowser.append(str)
         print(str)        
@@ -8538,333 +8536,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     self.tableWidget_fut.setItem(2, i - 4, item)
             else:
-                pass
-
-        '''
-        item_str = "{0}\n({1})".format(new_node[0][0], new_node[0][1])
-        item = QTableWidgetItem(item_str)
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(lime))
-
-        if overnight:
-            self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
-        else:
-            self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)        
-
-        item_str = "{0}\n({1})".format(new_node[1][0], new_node[1][1])
-        item = QTableWidgetItem(item_str)
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(lime))
-
-        if overnight:
-            self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
-        else:
-            self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)     
-
-        item_str = "{0}\n({1})".format(new_node[2][0], new_node[2][1])
-        item = QTableWidgetItem(item_str)
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(lime))
-
-        if overnight:
-            self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
-        else:
-            self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)  
-
-        item_str = "{0}\n({1})".format(new_node[3][0], new_node[3][1])
-        item = QTableWidgetItem(item_str)
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(lime))
-
-        if overnight:
-            self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
-        else:
-            self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item) 
-
-        item_str = "{0}\n({1})".format(new_node[4][0], new_node[4][1])
-        item = QTableWidgetItem(item_str)
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(lime))
-
-        if overnight:
-            self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
-        else:
-            self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item)
-
-        item_str = "{0}\n({1})".format(new_node[5][0], new_node[5][1])
-        item = QTableWidgetItem(item_str)
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(lime))
-
-        if overnight:
-            self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
-        else:
-            self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)        
-
-        item_str = "{0}\n({1})".format(new_node[6][0], new_node[6][1])
-        item = QTableWidgetItem(item_str)
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(lime))
-        self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)    
-
-        item_str = "{0}\n({1})".format(new_node[7][0], new_node[7][1])
-        item = QTableWidgetItem(item_str)
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(lime))
-        self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)  
-
-        item_str = "{0}\n({1})".format(new_node[8][0], new_node[8][1])
-        item = QTableWidgetItem(item_str)
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(lime))
-        self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
-
-        item_str = "{0}\n({1})".format(new_node[9][0], new_node[9][1])
-        item = QTableWidgetItem(item_str)
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(lime))
-        self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
-
-        item_str = "{0}\n({1})".format(new_node[10][0], new_node[10][1])
-        item = QTableWidgetItem(item_str)
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(lime))
-        self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)
-
-        item_str = "{0}\n({1})".format(new_node[11][0], new_node[11][1])
-        item = QTableWidgetItem(item_str)
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(lime))
-        self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
-        
-        if new_node[0][0] in high_low_list:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
-                (dt.hour, dt.minute, dt.second, new_node[0][0], new_node[0][1])
-            self.textBrowser.append(str)
-            print(str)
-
-            진성맥점.append(new_node[0][0])
-
-            item_str = "{0}\n({1})✓".format(new_node[0][0], new_node[0][1])
-            item = QTableWidgetItem(item_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
-
-            if overnight:
-                self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
-            else:
-                self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
-        else:
-            pass            
-
-        if new_node[1][0] in high_low_list:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
-                (dt.hour, dt.minute, dt.second, new_node[1][0], new_node[1][1])
-            self.textBrowser.append(str)
-            print(str)
-
-            진성맥점.append(new_node[1][0])
-
-            item_str = "{0}\n({1})✓".format(new_node[1][0], new_node[1][1])
-            item = QTableWidgetItem(item_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
-
-            if overnight:
-                self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
-            else:
-                self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
-        else:
-            pass             
-
-        if new_node[2][0] in high_low_list:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
-                (dt.hour, dt.minute, dt.second, new_node[2][0], new_node[2][1])
-            self.textBrowser.append(str)
-            print(str)
-
-            진성맥점.append(new_node[2][0])
-
-            item_str = "{0}\n({1})✓".format(new_node[2][0], new_node[2][1])
-            item = QTableWidgetItem(item_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
-
-            if overnight:
-                self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
-            else:
-                self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
-        else:
-            pass            
-
-        if new_node[3][0] in high_low_list:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 4th 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
-                (dt.hour, dt.minute, dt.second, new_node[3][0], new_node[3][1])
-            self.textBrowser.append(str)
-            print(str)
-
-            진성맥점.append(new_node[3][0])
-
-            item_str = "{0}\n({1})✓".format(new_node[3][0], new_node[3][1])
-            item = QTableWidgetItem(item_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
-
-            if overnight:
-                self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
-            else:
-                self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
-        else:
-            pass            
-
-        if new_node[4][0] in high_low_list:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 5th 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
-                (dt.hour, dt.minute, dt.second, new_node[4][0], new_node[4][1])
-            self.textBrowser.append(str)
-            print(str)
-
-            진성맥점.append(new_node[4][0])
-
-            item_str = "{0}\n({1})✓".format(new_node[4][0], new_node[4][1])
-            item = QTableWidgetItem(item_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
-
-            if overnight:
-                self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
-            else:
-                self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item) 
-        else:
-            pass           
-
-        if new_node[5][0] in high_low_list:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 6th 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
-                (dt.hour, dt.minute, dt.second, new_node[5][0], new_node[5][1])
-            self.textBrowser.append(str)
-            print(str)
-
-            진성맥점.append(new_node[5][0])
-
-            item_str = "{0}\n({1})✓".format(new_node[5][0], new_node[5][1])
-            item = QTableWidgetItem(item_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
-
-            if overnight:
-                self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
-            else:
-                self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
-        else:
-            pass
-
-        if new_node[6][0] in high_low_list:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 7th 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
-                (dt.hour, dt.minute, dt.second, new_node[6][0], new_node[6][1])
-            self.textBrowser.append(str)
-            print(str)
-
-            진성맥점.append(new_node[6][0])
-
-            item_str = "{0}\n({1})✓".format(new_node[6][0], new_node[6][1])
-            item = QTableWidgetItem(item_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
-            self.tableWidget_fut.setItem(2, Futures_column.매수건수.value, item)
-        else:
-            pass            
-
-        if new_node[7][0] in high_low_list:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 8th 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
-                (dt.hour, dt.minute, dt.second, new_node[7][0], new_node[7][1])
-            self.textBrowser.append(str)
-            print(str)
-
-            진성맥점.append(new_node[7][0])
-
-            item_str = "{0}\n({1})✓".format(new_node[7][0], new_node[7][1])
-            item = QTableWidgetItem(item_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
-            self.tableWidget_fut.setItem(2, Futures_column.매도건수.value, item)
-        else:
-            pass             
-
-        if new_node[8][0] in high_low_list:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 9th 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
-                (dt.hour, dt.minute, dt.second, new_node[8][0], new_node[8][1])
-            self.textBrowser.append(str)
-            print(str)
-
-            진성맥점.append(new_node[8][0])
-
-            item_str = "{0}\n({1})✓".format(new_node[8][0], new_node[8][1])
-            item = QTableWidgetItem(item_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
-            self.tableWidget_fut.setItem(2, Futures_column.매수잔량.value, item)
-        else:
-            pass            
-
-        if new_node[9][0] in high_low_list:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 10th 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
-                (dt.hour, dt.minute, dt.second, new_node[9][0], new_node[9][1])
-            self.textBrowser.append(str)
-            print(str)
-
-            진성맥점.append(new_node[9][0])
-
-            item_str = "{0}\n({1})✓".format(new_node[9][0], new_node[9][1])
-            item = QTableWidgetItem(item_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
-            self.tableWidget_fut.setItem(2, Futures_column.매도잔량.value, item)
-        else:
-            pass            
-
-        if new_node[10][0] in high_low_list:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 11th 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
-                (dt.hour, dt.minute, dt.second, new_node[10][0], new_node[10][1])
-            self.textBrowser.append(str)
-            print(str)
-
-            진성맥점.append(new_node[10][0])
-
-            item_str = "{0}\n({1})✓".format(new_node[10][0], new_node[10][1])
-            item = QTableWidgetItem(item_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
-            self.tableWidget_fut.setItem(2, Futures_column.건수비.value, item)
-        else:
-            pass           
-
-        if new_node[11][0] in high_low_list:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 12th 동적맥점 {3}(빈도수 = {4}) 발생 !!!\r'.format \
-                (dt.hour, dt.minute, dt.second, new_node[11][0], new_node[11][1])
-            self.textBrowser.append(str)
-            print(str)
-
-            진성맥점.append(new_node[11][0])
-
-            item_str = "{0}\n({1})✓".format(new_node[11][0], new_node[11][1])
-            item = QTableWidgetItem(item_str)
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
-            self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
-        else:
-            pass
-        '''
+                pass        
         
         진성맥점 = list(set(진성맥점))
         진성맥점.sort()            
@@ -8878,9 +8550,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] 탐색된 진성맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, new_list)
             self.textBrowser.append(str)
         else:
-            #str = '[{0:02d}:{1:02d}:{2:02d}] 진성맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
-            #self.textBrowser.append(str)
-            pass
+            pass            
 
     def market_type_display(self, blink):
 
