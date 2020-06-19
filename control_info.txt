@@ -19,10 +19,10 @@ UI = Horizontal_Large_View.ui
 Target Month Select = 1
 
 [5]. << CME Index Code(H/M/U/Z) >>
-S&P 500 = ESM20
-DOW = YMM20
-NASDAQ = NQM20
-WTI = CLN20
+S&P 500 = ESU20
+DOW = YMU20
+NASDAQ = NQU20
+WTI = CLO20
 
 [6]. << Telegram >>
 Telegram service = ON
