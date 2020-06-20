@@ -1643,6 +1643,9 @@ DOW_진폭비 = 0
 
 flag_first_search = False
 
+DOW_주간_시작가 = 0
+WTI_주간_시작가 = 0
+
 DOW_야간_시작가 = 0
 WTI_야간_시작가 = 0
 
@@ -3710,8 +3713,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
         self.tableWidget_call.verticalHeader().setVisible(False)
 
-        self.tableWidget_call.setAlternatingRowColors(True)
-
         cell_widget = []
 
         for i in range(nRowCount):
@@ -3735,8 +3736,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_put.setHorizontalHeaderLabels(['P', '행사가', '▲:▼', '기준가', '월저', '월고', '전저', '전고', 
         '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
         self.tableWidget_put.verticalHeader().setVisible(False)
-
-        self.tableWidget_put.setAlternatingRowColors(True)
 
         cell_widget = []
 
@@ -3788,8 +3787,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             ['F', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'MDHR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가',
              '현재가', '고가', '시가갭', '대비', '진폭', 'CPMS', 'FR', 'OI', 'OI↕'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
-
-        self.tableWidget_fut.setAlternatingRowColors(True)
 
         item = QTableWidgetItem("{0}".format('CME'))
         item.setTextAlignment(Qt.AlignCenter)
@@ -21868,6 +21865,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global df_plotdata_dow_drate, df_plotdata_fut_drate
             global NASDAQ_장마감일, DOW_장마감일, SP500_장마감일, WTI_장마감일
             global DOW_진폭비
+            global DOW_주간_시작가, WTI_주간_시작가
             global DOW_야간_시작가, WTI_야간_시작가
 
             start_time = timeit.default_timer()
@@ -21906,6 +21904,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     yoc_stop = not yoc_stop
 
                     market_service = True
+
+                    DOW_주간_시작가 = DOW_현재가
+                    WTI_주간_시작가 = WTI_현재가
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간장이 시작됩니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
                     self.textBrowser.append(str)
