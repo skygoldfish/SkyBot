@@ -3713,6 +3713,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
         self.tableWidget_call.verticalHeader().setVisible(False)
 
+        self.tableWidget_call.setAlternatingRowColors(True)
+
         cell_widget = []
 
         for i in range(nRowCount):
@@ -3736,6 +3738,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_put.setHorizontalHeaderLabels(['P', '행사가', '▲:▼', '기준가', '월저', '월고', '전저', '전고', 
         '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
         self.tableWidget_put.verticalHeader().setVisible(False)
+
+        self.tableWidget_put.setAlternatingRowColors(True)
 
         cell_widget = []
 
@@ -3787,6 +3791,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             ['F', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'MDHR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가',
              '현재가', '고가', '시가갭', '대비', '진폭', 'CPMS', 'FR', 'OI', 'OI↕'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
+
+        self.tableWidget_fut.setAlternatingRowColors(True)
 
         item = QTableWidgetItem("{0}".format('CME'))
         item.setTextAlignment(Qt.AlignCenter)
