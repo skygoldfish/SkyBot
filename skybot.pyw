@@ -3687,7 +3687,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.label_samsung.setText("SAMSUNG: 가격 (전일대비, 등락율)")
         self.label_samsung.setStyleSheet('background-color: black ; color: yellow')
 
-        self.label_1st.setText("S&P 500: 가격 (전일대비, 등락율)")
+        self.label_1st.setText("WTI: 가격 (전일대비, 등락율)")
         self.label_1st.setStyleSheet('background-color: black ; color: yellow')
         self.label_2nd.setText("DOW: 가격 (전일대비, 등락율, 진폭)")
         self.label_2nd.setStyleSheet('background-color: black ; color: yellow')
@@ -4351,7 +4351,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot1_ovc_high_line = self.Plot1.addLine(x=None, pen=pink_pen)  
 
         plot1_fut_drate_curve = self.Plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot1_dow_drate_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)  
+        plot1_dow_drate_curve = self.Plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)  
 
         plot1_call_drate_curve = self.Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot1_put_drate_curve = self.Plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
@@ -4367,7 +4367,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot1_put_rr_curve = self.Plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         plot1_fut_price_curve = self.Plot1.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        plot1_kp200_curve = self.Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
+        plot1_kp200_curve = self.Plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
         plot1_sp500_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         plot1_dow_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
@@ -4391,7 +4391,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             mv_line.append(self.Plot2.addLine(x=None, pen=mvpen)) 
 
         plot2_fut_drate_curve = self.Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot2_dow_drate_curve = self.Plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
+        plot2_dow_drate_curve = self.Plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
 
         plot2_call_drate_curve = self.Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot2_put_drate_curve = self.Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
@@ -4412,8 +4412,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot2_wti_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         
         for i in range(nRowCount):
-            call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
-            put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))
+            call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
+            put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
         
         if UI_STYLE == 'Vertical_View.ui':
 
@@ -4476,8 +4476,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot4_fv_plus_curve = self.Plot4.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
             plot4_fv_minus_curve = self.Plot4.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
 
-            plot4_price_curve = self.Plot4.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)             
-            plot4_kp200_curve = self.Plot4.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
+            plot4_price_curve = self.Plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)             
+            plot4_kp200_curve = self.Plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
             if overnight:
 
@@ -10012,7 +10012,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.label_samsung.setStyleSheet('background-color: white; color: black')
         else:
             pass 
-
+        '''
         if not overnight:
 
             if comboindex1 == 8 or comboindex2 == 8:
@@ -10048,7 +10048,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     self.label_1st.setStyleSheet('background-color: white; color: black')
             else:
-                pass        
+                pass
+        '''
+
+        if wti_text_color != '':
+
+            if wti_text_color == 'red':
+                self.label_1st.setStyleSheet('background-color: white; color: red')
+            elif wti_text_color == 'blue':
+                self.label_1st.setStyleSheet('background-color: white; color: blue')
+            else:
+                self.label_1st.setStyleSheet('background-color: white; color: black')
+        else:
+            pass        
 
         if dow_text_color != '':
 
@@ -24082,8 +24094,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                    self.label_1st.setText(jisu_str)
-                                    self.label_1st.setStyleSheet('background-color: pink; color: blue')
+                                    #self.label_1st.setText(jisu_str)
+                                    #self.label_1st.setStyleSheet('background-color: pink; color: blue')
                                     sp500_text_color = 'blue'
                                 else:
                                     if comboindex1 != 8 and comboindex2 != 8:
@@ -24093,8 +24105,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         else:
                                             jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                        self.label_1st.setText(jisu_str)
-                                        self.label_1st.setStyleSheet('background-color: pink; color: blue')
+                                        #self.label_1st.setText(jisu_str)
+                                        #self.label_1st.setStyleSheet('background-color: pink; color: blue')
                                         sp500_text_color = 'blue'
                                     else:
                                         pass                                
@@ -24108,8 +24120,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                    self.label_1st.setText(jisu_str)
-                                    self.label_1st.setStyleSheet('background-color: pink; color: red')
+                                    #self.label_1st.setText(jisu_str)
+                                    #self.label_1st.setStyleSheet('background-color: pink; color: red')
                                     sp500_text_color = 'red'
                                 else:
                                     if comboindex1 != 8 and comboindex2 != 8:
@@ -24119,8 +24131,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         else:
                                             jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                        self.label_1st.setText(jisu_str)
-                                        self.label_1st.setStyleSheet('background-color: pink; color: red')
+                                        #self.label_1st.setText(jisu_str)
+                                        #self.label_1st.setStyleSheet('background-color: pink; color: red')
                                         sp500_text_color = 'red'
                                     else:
                                         pass
@@ -24138,8 +24150,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                    self.label_1st.setText(jisu_str)
-                                    self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
+                                    #self.label_1st.setText(jisu_str)
+                                    #self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
                                     sp500_text_color = 'blue'
                                 else:
                                     if comboindex1 != 8 and comboindex2 != 8:
@@ -24149,8 +24161,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         else:
                                             jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                        self.label_1st.setText(jisu_str)
-                                        self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
+                                        #self.label_1st.setText(jisu_str)
+                                        #self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
                                         sp500_text_color = 'blue'
                                     else:
                                         pass                                
@@ -24164,8 +24176,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                    self.label_1st.setText(jisu_str)
-                                    self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
+                                    #self.label_1st.setText(jisu_str)
+                                    #self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
                                     sp500_text_color = 'red'
                                 else:
                                     if comboindex1 != 8 and comboindex2 != 8:
@@ -24175,8 +24187,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         else:
                                             jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                        self.label_1st.setText(jisu_str)
-                                        self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
+                                        #self.label_1st.setText(jisu_str)
+                                        #self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
                                         sp500_text_color = 'red'
                                     else:
                                         pass                                
@@ -24398,13 +24410,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.label_samsung.setStyleSheet('background-color: pink; color: blue')
                                     wti_text_color = 'blue'
                                 else:
+                                    self.label_1st.setText(jisu_str)
+                                    self.label_1st.setStyleSheet('background-color: pink; color: blue')
+                                    wti_text_color = 'blue'
+                                    '''
                                     if comboindex1 == 8 or comboindex2 == 8:
 
                                         self.label_1st.setText(jisu_str)
                                         self.label_1st.setStyleSheet('background-color: pink; color: blue')
                                         wti_text_color = 'blue'                                            
                                     else:
-                                        pass                                
+                                        pass
+                                    '''                                
 
                             elif WTI_등락율 > 0:
 
@@ -24419,13 +24436,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.label_samsung.setStyleSheet('background-color: pink; color: red')
                                     wti_text_color = 'red'
                                 else:
+                                    self.label_1st.setText(jisu_str)
+                                    self.label_1st.setStyleSheet('background-color: pink; color: red')
+                                    wti_text_color = 'red'
+                                    ''' 
                                     if comboindex1 == 8 or comboindex2 == 8:                                    
 
                                         self.label_1st.setText(jisu_str)
                                         self.label_1st.setStyleSheet('background-color: pink; color: red')
                                         wti_text_color = 'red'                                        
                                     else:
-                                        pass                                                               
+                                        pass
+                                    '''                                                               
                             else:
                                 pass
                             
@@ -24444,13 +24466,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.label_samsung.setStyleSheet('background-color: lightskyblue; color: blue')
                                     wti_text_color = 'blue'
                                 else:
+                                    self.label_1st.setText(jisu_str)
+                                    self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
+                                    wti_text_color = 'blue' 
+                                    '''
                                     if comboindex1 == 8 or comboindex2 == 8:
 
                                         self.label_1st.setText(jisu_str)
                                         self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
                                         wti_text_color = 'blue'                                            
                                     else:
-                                        pass                                                               
+                                        pass
+                                    '''                                                               
 
                             elif WTI_등락율 > 0:
 
@@ -24465,13 +24492,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.label_samsung.setStyleSheet('background-color: lightskyblue; color: red')
                                     wti_text_color = 'red'
                                 else:
+                                    self.label_1st.setText(jisu_str)
+                                    self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
+                                    wti_text_color = 'red' 
+                                    '''
                                     if comboindex1 == 8 or comboindex2 == 8:
 
                                         self.label_1st.setText(jisu_str)
                                         self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
                                         wti_text_color = 'red'                                            
                                     else:
-                                        pass                                
+                                        pass
+                                    '''                                
                             else:
                                 pass                            
                         else:
@@ -25185,7 +25217,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_ovc_high_line = self.bc_Plot1.addLine(x=None, pen=pink_pen) 
 
         bc_plot1_fut_drate_curve = self.bc_Plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot1_dow_drate_curve = self.bc_Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
+        bc_plot1_dow_drate_curve = self.bc_Plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
 
         bc_plot1_call_drate_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot1_put_drate_curve = self.bc_Plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3) 
@@ -25200,8 +25232,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_call_rr_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot1_put_rr_curve = self.bc_Plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
-        bc_plot1_fut_price_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot1_kp200_curve = self.bc_Plot1.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3)
+        bc_plot1_fut_price_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot1_kp200_curve = self.bc_Plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
         bc_plot1_sp500_curve = self.bc_Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot1_dow_curve = self.bc_Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
@@ -25225,7 +25257,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_mv_line.append(self.bc_Plot2.addLine(x=None, pen=mvpen)) 
 
         bc_plot2_fut_drate_curve = self.bc_Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot2_dow_drate_curve = self.bc_Plot2.plot(pen=gpen, symbolBrush=magenta, symbolPen='w', symbol='h', symbolSize=3) 
+        bc_plot2_dow_drate_curve = self.bc_Plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
 
         bc_plot2_call_drate_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot2_put_drate_curve = self.bc_Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3) 
@@ -25246,8 +25278,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_wti_curve = self.bc_Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         
         for i in range(nRowCount):
-            bc_call_curve.append(self.bc_Plot2.plot(pen=rpen, symbolBrush='r', symbolPen='w', symbol='o', symbolSize=3))
-            bc_put_curve.append(self.bc_Plot2.plot(pen=bpen, symbolBrush='b', symbolPen='w', symbol='o', symbolSize=3))            
+            bc_call_curve.append(self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
+            bc_put_curve.append(self.bc_Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))            
 
         if overnight:
             # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
