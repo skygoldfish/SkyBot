@@ -21915,11 +21915,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     DOW_야간_시작가 = DOW_현재가
                     WTI_야간_시작가 = WTI_현재가
 
-                    jisu_str = "DOW_야간_시작가 : {0}".format(DOW_야간_시작가)
+                    jisu_str = "DOW 야간시작가 : {0}".format(DOW_야간_시작가)
                     self.label_kospi.setText(jisu_str)
                     self.label_kospi.setStyleSheet('background-color: black ; color: yellow')
 
-                    jisu_str = "WTI_야간_시작가 : {0}".format(WTI_야간_시작가)
+                    jisu_str = "WTI 야간시작가 : {0}".format(WTI_야간_시작가)
                     self.label_kosdaq.setText(jisu_str)
                     self.label_kosdaq.setStyleSheet('background-color: black ; color: yellow')
 
@@ -21934,11 +21934,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     DOW_야간_시작가 = DOW_현재가
                     WTI_야간_시작가 = WTI_현재가
 
-                    jisu_str = "DOW_야간_시작가 : {0}".format(DOW_야간_시작가)
+                    jisu_str = "DOW 야간시작가 : {0}".format(DOW_야간_시작가)
                     self.label_kospi.setText(jisu_str)
                     self.label_kospi.setStyleSheet('background-color: black ; color: yellow')
 
-                    jisu_str = "WTI_야간_시작가 : {0}".format(WTI_야간_시작가)
+                    jisu_str = "WTI 야간시작가 : {0}".format(WTI_야간_시작가)
                     self.label_kosdaq.setText(jisu_str)
                     self.label_kosdaq.setStyleSheet('background-color: black ; color: yellow')
 
