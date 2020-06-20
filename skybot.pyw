@@ -1643,6 +1643,9 @@ DOW_진폭비 = 0
 
 flag_first_search = False
 
+DOW_야간_시작가 = 0
+WTI_야간_시작가 = 0
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -21859,6 +21862,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global df_plotdata_dow_drate, df_plotdata_fut_drate
             global NASDAQ_장마감일, DOW_장마감일, SP500_장마감일, WTI_장마감일
             global DOW_진폭비
+            global DOW_야간_시작가, WTI_야간_시작가
 
             start_time = timeit.default_timer()
 
@@ -21908,11 +21912,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물장이 시작됩니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
 
+                    DOW_야간_시작가 = DOW_현재가
+                    WTI_야간_시작가 = WTI_현재가
+
+                    jisu_str = "DOW_야간_시작가 : {0}".format(DOW_야간_시작가)
+                    self.label_kospi.setText(jisu_str)
+                    self.label_kospi.setStyleSheet('background-color: black ; color: yellow')
+
+                    jisu_str = "WTI_야간_시작가 : {0}".format(WTI_야간_시작가)
+                    self.label_kosdaq.setText(jisu_str)
+                    self.label_kosdaq.setStyleSheet('background-color: black ; color: yellow')
+
                 # 야간 옵션장 시작
                 elif result['장구분'] == '8' and result['장상태'] == '21':
 
+                    market_service = True
+
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 시작됩니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
+
+                    DOW_야간_시작가 = DOW_현재가
+                    WTI_야간_시작가 = WTI_현재가
+
+                    jisu_str = "DOW_야간_시작가 : {0}".format(DOW_야간_시작가)
+                    self.label_kospi.setText(jisu_str)
+                    self.label_kospi.setStyleSheet('background-color: black ; color: yellow')
+
+                    jisu_str = "WTI_야간_시작가 : {0}".format(WTI_야간_시작가)
+                    self.label_kosdaq.setText(jisu_str)
+                    self.label_kosdaq.setStyleSheet('background-color: black ; color: yellow')
 
                 # 현물 장마감 5분전
                 elif result['장구분'] == '1' and result['장상태'] == '44':
@@ -24404,16 +24432,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "WTI: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
 
+                                self.label_1st.setText(jisu_str)
+                                self.label_1st.setStyleSheet('background-color: pink; color: blue')
+                                wti_text_color = 'blue'
+                                '''
                                 if overnight:
 
                                     self.label_samsung.setText(jisu_str)
                                     self.label_samsung.setStyleSheet('background-color: pink; color: blue')
                                     wti_text_color = 'blue'
-                                else:
-                                    self.label_1st.setText(jisu_str)
-                                    self.label_1st.setStyleSheet('background-color: pink; color: blue')
-                                    wti_text_color = 'blue'
-                                    '''
+                                else:                                    
                                     if comboindex1 == 8 or comboindex2 == 8:
 
                                         self.label_1st.setText(jisu_str)
@@ -24421,7 +24449,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         wti_text_color = 'blue'                                            
                                     else:
                                         pass
-                                    '''                                
+                                '''                           
 
                             elif WTI_등락율 > 0:
 
@@ -24430,24 +24458,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "WTI: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
 
+                                self.label_1st.setText(jisu_str)
+                                self.label_1st.setStyleSheet('background-color: pink; color: red')
+                                wti_text_color = 'red'
+                                '''
                                 if overnight:
 
                                     self.label_samsung.setText(jisu_str)
                                     self.label_samsung.setStyleSheet('background-color: pink; color: red')
                                     wti_text_color = 'red'
                                 else:
-                                    self.label_1st.setText(jisu_str)
-                                    self.label_1st.setStyleSheet('background-color: pink; color: red')
-                                    wti_text_color = 'red'
-                                    ''' 
                                     if comboindex1 == 8 or comboindex2 == 8:                                    
 
                                         self.label_1st.setText(jisu_str)
                                         self.label_1st.setStyleSheet('background-color: pink; color: red')
                                         wti_text_color = 'red'                                        
                                     else:
-                                        pass
-                                    '''                                                               
+                                        pass 
+                                '''                                                         
                             else:
                                 pass
                             
@@ -24460,16 +24488,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "WTI: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
 
+                                self.label_1st.setText(jisu_str)
+                                self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
+                                wti_text_color = 'blue' 
+                                '''
                                 if overnight:
 
                                     self.label_samsung.setText(jisu_str)
                                     self.label_samsung.setStyleSheet('background-color: lightskyblue; color: blue')
                                     wti_text_color = 'blue'
                                 else:
-                                    self.label_1st.setText(jisu_str)
-                                    self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
-                                    wti_text_color = 'blue' 
-                                    '''
                                     if comboindex1 == 8 or comboindex2 == 8:
 
                                         self.label_1st.setText(jisu_str)
@@ -24477,7 +24505,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         wti_text_color = 'blue'                                            
                                     else:
                                         pass
-                                    '''                                                               
+                                '''                                                         
 
                             elif WTI_등락율 > 0:
 
@@ -24486,16 +24514,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     jisu_str = "WTI: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
 
+                                self.label_1st.setText(jisu_str)
+                                self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
+                                wti_text_color = 'red' 
+                                '''
                                 if overnight:
 
                                     self.label_samsung.setText(jisu_str)
                                     self.label_samsung.setStyleSheet('background-color: lightskyblue; color: red')
                                     wti_text_color = 'red'
                                 else:
-                                    self.label_1st.setText(jisu_str)
-                                    self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
-                                    wti_text_color = 'red' 
-                                    '''
                                     if comboindex1 == 8 or comboindex2 == 8:
 
                                         self.label_1st.setText(jisu_str)
@@ -24503,7 +24531,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         wti_text_color = 'red'                                            
                                     else:
                                         pass
-                                    '''                                
+                                '''                          
                             else:
                                 pass                            
                         else:
