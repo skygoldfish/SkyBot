@@ -1369,11 +1369,9 @@ lightskyblue = QColor(0x87, 0xCE, 0xFA)
 
 대맥점색 = lawngreen
 
-futpen = pg.mkPen('r', width=2, style=QtCore.Qt.SolidLine)
 rpen = pg.mkPen('r', width=2, style=QtCore.Qt.SolidLine)
 bpen = pg.mkPen('b', width=2, style=QtCore.Qt.SolidLine)
 gpen = pg.mkPen('g', width=2, style=QtCore.Qt.SolidLine)
-ypen1 = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
 ypen = pg.mkPen('y', width=2, style=QtCore.Qt.SolidLine)
 mvpen = pg.mkPen('g', width=1, style=QtCore.Qt.DotLine)
 tpen = pg.mkPen(lightyellow, width=1, style=QtCore.Qt.DotLine)
@@ -4381,10 +4379,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot1_fut_price_curve = self.Plot1.plot(pen=rpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         plot1_kp200_curve = self.Plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
-        plot1_sp500_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot1_dow_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot1_nasdaq_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot1_wti_curve = self.Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)   
+        plot1_sp500_curve = self.Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        plot1_dow_curve = self.Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        plot1_nasdaq_curve = self.Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        plot1_wti_curve = self.Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)   
 
         # Line & Curve of the Plot2
         plot2_time_line_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
@@ -4418,10 +4416,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot2_fut_volume_plus_curve = self.Plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
         plot2_fut_volume_minus_curve = self.Plot2.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
 
-        plot2_sp500_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        plot2_dow_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        plot2_nasdaq_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        plot2_wti_curve = self.Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        plot2_sp500_curve = self.Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        plot2_dow_curve = self.Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        plot2_nasdaq_curve = self.Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        plot2_wti_curve = self.Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         
         for i in range(nRowCount):
             call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
@@ -4470,7 +4468,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot3_ovc_low_line = self.Plot3.addLine(x=None, pen=skyblue_pen)
             plot3_ovc_high_line = self.Plot3.addLine(x=None, pen=yellow_pen)
             
-            plot3_curve = self.Plot3.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+            plot3_curve = self.Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
             
             plot4_time_line = self.Plot4.addLine(x=0, y=None, pen=tpen1)  
             plot4_time_line_start = self.Plot4.addLine(x=0, y=None, pen=tpen)
@@ -25276,10 +25274,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_fut_price_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot1_kp200_curve = self.bc_Plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
-        bc_plot1_sp500_curve = self.bc_Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot1_dow_curve = self.bc_Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot1_nasdaq_curve = self.bc_Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3) 
-        bc_plot1_wti_curve = self.bc_Plot1.plot(pen=futpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)  
+        bc_plot1_sp500_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot1_dow_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot1_nasdaq_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
+        bc_plot1_wti_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)  
 
         # Line & Curve of the Plot2
         bc_plot2_time_line_start = self.bc_Plot2.addLine(x=0, y=None, pen=tpen)
@@ -25313,10 +25311,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_fut_volume_plus_curve = self.bc_Plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
         bc_plot2_fut_volume_minus_curve = self.bc_Plot2.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
 
-        bc_plot2_sp500_curve = self.bc_Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot2_dow_curve = self.bc_Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot2_nasdaq_curve = self.bc_Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot2_wti_curve = self.bc_Plot2.plot(pen=futpen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot2_sp500_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot2_dow_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot2_nasdaq_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot2_wti_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         
         for i in range(nRowCount):
             bc_call_curve.append(self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
