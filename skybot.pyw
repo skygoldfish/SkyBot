@@ -32,6 +32,7 @@ import copy
 import locale
 import collections
 import operator
+import platform
 
 #import sqlite3
 #import inspect
@@ -79,6 +80,9 @@ DATABASE = 'DATA\\mymoneybot.sqlite'
 UI_DIR = "UI\\"
 
 np.warnings.filterwarnings('ignore')
+
+os_type = platform.platform()
+print('OS 유형 :', os_type)
 
 콜등락율 = 0
 풋등락율 = 0
@@ -4584,6 +4588,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.FUT_HO = FH0(parent=self) 
 
         dt = datetime.datetime.now() 
+
+        str = str = '[{0:02d}:{1:02d}:{2:02d}] OS Type : {3}\r'.format(dt.hour, dt.minute, dt.second, os_type)
+        self.textBrowser.append(str)
         
         if int(current_str[0:2]) < 12:
             str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Morning! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
