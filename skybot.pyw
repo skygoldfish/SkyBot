@@ -1651,6 +1651,8 @@ WTI_주간_시작가 = 0
 DOW_야간_시작가 = 0
 WTI_야간_시작가 = 0
 
+장시작_양합 = 0
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -8892,7 +8894,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.label_atm.setStyleSheet('background-color: yellow; color: black')
             self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        str = '{0}({1}:{2})'.format(basis, atm_zero_sum, abs(atm_zero_cha))
+        if 장시작_양합 > 0:
+            str = '{0}({1}:{2})'.format(basis, 장시작_양합, abs(atm_zero_cha))
+        else :
+            str = '{0}({1}:{2})'.format(basis, atm_zero_sum, abs(atm_zero_cha))
 
         self.label_atm.setText(str)
 
@@ -21878,6 +21883,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global DOW_진폭비
             global DOW_주간_시작가, WTI_주간_시작가
             global DOW_야간_시작가, WTI_야간_시작가
+            global 장시작_양합
 
             start_time = timeit.default_timer()
 
@@ -22886,7 +22892,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             atm_val = float(atm_str) + 0.5
                         else:
-                            atm_val = float(atm_str)                     
+                            atm_val = float(atm_str)
+
+                        장시작_양합 = df_call.at[atm_index, '현재가'] + df_put.at[atm_index, '현재가']                     
 
                         # kp200 맥점 10개를 리스트로 만듬
                         global kp200_coreval
