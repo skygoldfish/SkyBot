@@ -81,6 +81,8 @@ UI_DIR = "UI\\"
 
 np.warnings.filterwarnings('ignore')
 
+SLEFID = ''
+
 os_type = platform.platform()
 print('OS 유형 :', os_type)
 
@@ -3509,7 +3511,10 @@ class telegram_listen_worker(QThread):
             if TELEGRAM_SERVICE == 'ON' and flag_telegram_on:
 
                 # 텔레그램 메시지 수신
-                str = FromTelegram()
+                if SELFID == 'soojin65':
+                    str = TelegramControl()
+                else:
+                    str = FromTelegram()
             else:
                 str = 'Stopped by Tool...'
 
@@ -19116,6 +19121,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH_SELECT == 1:
 
                         ToTelegram("CM 텔레그램 Polling이 시작됩니다.")
+                        
+                        if SLEFID == 'soojin65':
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] {3}님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second, SLEFID)
+                            TelegramToMe(str)
+                        else:
+                            pass
 
                     elif TARGET_MONTH_SELECT == 2:
 
@@ -27836,6 +27848,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     # ------------------------------------------------------------------------------------------------------------------
     def MyLogin(self):
 
+        global SLEFID
+
         계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
         주식계좌정보 = 계좌정보.query("구분 == '거래'")
 
@@ -27845,6 +27859,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.계좌번호 = 주식계좌정보['계좌번호'].values[0].strip()
             self.id = 주식계좌정보['사용자ID'].values[0].strip()
+            SLEFID = self.id
             self.pwd = 주식계좌정보['비밀번호'].values[0].strip()
             self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()
             self.거래비밀번호 = 주식계좌정보['거래비밀번호'].values[0].strip()

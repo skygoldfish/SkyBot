@@ -95,6 +95,30 @@ def TelegramToMe(str):
     bot = telegram.Bot(token=MY_TELEGRAM_TOKEN)
     bot.sendMessage(chat_id=MY_CHAT_ID, text=str)
 
+def TelegramControl():
+
+    import telegram
+
+    MY_TELEGRAM_TOKEN = '1036288207:AAHCTnfiEh2YgcHabXzt3fZ7mxOXzXf-Jxw'
+    MY_CHAT_ID = '61361737'
+
+    bot = telegram.Bot(token=MY_TELEGRAM_TOKEN)
+
+    try:
+        updates = bot.getUpdates(offset=-1)
+        last_message = None
+
+        for u in updates:
+            if u is not None:
+                last_message = u
+        
+        #print(last_message.message.text)
+
+        return last_message.message.text
+
+    except Exception as e:
+        pass
+
 def Speak(str):
     speak = wincl.Dispatch("SAPI.SpVoice")
     speak.Speak(str)
