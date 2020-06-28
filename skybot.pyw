@@ -237,8 +237,8 @@ with open('control_info.txt', mode='r') as control_file:
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
-    OPTION_UPDATE_THREAD_INTERVAL = int(temp[5])
-    print('OPTION_UPDATE_THREAD_INTERVAL =', OPTION_UPDATE_THREAD_INTERVAL)
+    야간선물_기준시간 = int(temp[4])
+    #print('야간선물_기준시간 =', 야간선물_기준시간)
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
@@ -666,8 +666,6 @@ yesterday_str = yesterday.strftime('%Y%m%d')
 current_month = int(CURRENT_MONTH[4:6])
 next_month = int(NEXT_MONTH[4:6])
 month_after_next = int(MONTH_AFTER_NEXT[4:6])
-
-야간선물_기준시간 = 17
 
 if 4 < int(current_str[0:2]) < 야간선물_기준시간:
     overnight = False
@@ -3231,7 +3229,7 @@ class call_update_worker(QThread):
             str = 'Call Update Start...'
 
             self.finished.emit(str)
-            self.msleep(OPTION_UPDATE_THREAD_INTERVAL)
+            self.msleep(10)
 ########################################################################################################################
 
 ########################################################################################################################
@@ -3246,7 +3244,7 @@ class put_update_worker(QThread):
             str = 'Put Update Start...'
 
             self.finished.emit(str)
-            self.msleep(OPTION_UPDATE_THREAD_INTERVAL)
+            self.msleep(10)
 ########################################################################################################################
 
 ########################################################################################################################
