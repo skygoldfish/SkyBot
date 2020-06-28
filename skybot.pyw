@@ -3513,6 +3513,7 @@ class telegram_listen_worker(QThread):
                 # 텔레그램 메시지 수신
                 if SELFID == 'soojin65':
                     str = TelegramControl()
+                    print('client str =', str)
                 else:
                     str = FromTelegram()
             else:
@@ -7067,7 +7068,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             telegram_command = str
 
             if market_service:
-                str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)
+                
+                if SELFID == 'soojin65':
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)
+                else:
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)
+
+                self.textBrowser.append(str)
                 print(str)
             else:
                 pass
@@ -19118,16 +19126,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.telegram_listen_worker.start()
                     self.telegram_listen_worker.daemon = True
 
-                    if TARGET_MONTH_SELECT == 1:
-
-                        ToTelegram("CM 텔레그램 Polling이 시작됩니다.")
+                    if TARGET_MONTH_SELECT == 1:                        
                         
                         if SLEFID == 'soojin65':
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] {3}님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second, SLEFID)
                             TelegramToMe(str)
                         else:
-                            pass
+                            ToTelegram("CM 텔레그램 Polling이 시작됩니다.")
 
                     elif TARGET_MONTH_SELECT == 2:
 

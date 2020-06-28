@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 import os
 import win32com.client as wincl
+import telegram
 
-# TELEGRAM_TOKEN = '1036288207:AAHCTnfiEh2YgcHabXzt3fZ7mxOXzXf-Jxw'
 TELEGRAM_TOKEN = ''
 CHAT_ID = ''
+
+MY_TELEGRAM_TOKEN = '1036288207:AAHCTnfiEh2YgcHabXzt3fZ7mxOXzXf-Jxw'
+MY_CHAT_ID = '61361737'
 
 # pip install python-telegram-bot or pip install python-telegram-bot --upgrade
 def ToTelegram(str):
@@ -16,7 +19,6 @@ def ToTelegram(str):
             TELEGRAM_TOKEN = tokenfile.readline().strip()
 
     if TELEGRAM_TOKEN is not "":
-        import telegram
 
         bot = telegram.Bot(token=TELEGRAM_TOKEN)
 
@@ -57,7 +59,6 @@ def FromTelegram():
             TELEGRAM_TOKEN = tokenfile.readline().strip()
 
     if TELEGRAM_TOKEN is not "":
-        import telegram
 
         bot = telegram.Bot(token=TELEGRAM_TOKEN)
 
@@ -86,21 +87,11 @@ def FromTelegram():
                 pass
 
 def TelegramToMe(str):
-    
-    import telegram
-
-    MY_TELEGRAM_TOKEN = '1036288207:AAHCTnfiEh2YgcHabXzt3fZ7mxOXzXf-Jxw'
-    MY_CHAT_ID = '61361737'
 
     bot = telegram.Bot(token=MY_TELEGRAM_TOKEN)
     bot.sendMessage(chat_id=MY_CHAT_ID, text=str)
 
 def TelegramControl():
-
-    import telegram
-
-    MY_TELEGRAM_TOKEN = '1036288207:AAHCTnfiEh2YgcHabXzt3fZ7mxOXzXf-Jxw'
-    MY_CHAT_ID = '61361737'
 
     bot = telegram.Bot(token=MY_TELEGRAM_TOKEN)
 
