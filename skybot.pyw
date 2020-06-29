@@ -81,7 +81,7 @@ UI_DIR = "UI\\"
 
 np.warnings.filterwarnings('ignore')
 
-SLEFID = ''
+SELFID = ''
 
 os_type = platform.platform()
 print('OS 유형 :', os_type)
@@ -27852,7 +27852,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     # ------------------------------------------------------------------------------------------------------------------
     def MyLogin(self):
 
-        global SLEFID
+        global SELFID
 
         계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
         주식계좌정보 = 계좌정보.query("구분 == '거래'")
@@ -27863,7 +27863,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.계좌번호 = 주식계좌정보['계좌번호'].values[0].strip()
             self.id = 주식계좌정보['사용자ID'].values[0].strip()
-            SLEFID = self.id
+            SELFID = self.id
             self.pwd = 주식계좌정보['비밀번호'].values[0].strip()
             self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()
             self.거래비밀번호 = 주식계좌정보['거래비밀번호'].values[0].strip()
