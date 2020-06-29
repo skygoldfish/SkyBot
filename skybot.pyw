@@ -3328,169 +3328,169 @@ class telegram_send_worker(QThread):
 
                 for i in range(command_count):
 
-                    command.append(element[i])  
-            else:
-                pass             
+                    command.append(element[i])
 
-            if command_count == 1 and command[0] == '/start':
+                if command_count == 1 and command[0] == '/start':
 
-                FLAG_ASYM = True
-                FLAG_NODE = True
-                FLAG_OLOH = True
+                    FLAG_ASYM = True
+                    FLAG_NODE = True
+                    FLAG_OLOH = True
 
-            elif command_count == 2 and command[0] == 'Go':
+                elif command_count == 2 and command[0] == 'Go':
 
-                if command[1] == 'a':                    
+                    if command[1] == 'a':                    
+
+                        FLAG_ASYM = True
+                        FLAG_NODE = False
+                        FLAG_OLOH = False
+
+                    elif command[1] == 'n':
+
+                        FLAG_ASYM = False
+                        FLAG_NODE = True
+                        FLAG_OLOH = False
+
+                    elif command[1] == 'o':
+
+                        FLAG_ASYM = False
+                        FLAG_NODE = False
+                        FLAG_OLOH = True
+
+                    elif command[1] == 'an':
+
+                        FLAG_ASYM = True
+                        FLAG_NODE = True
+                        FLAG_OLOH = False
+
+                    elif command[1] == 'ao':
+
+                        FLAG_ASYM = True
+                        FLAG_NODE = False
+                        FLAG_OLOH = True
+
+                    elif command[1] == 'no':
+
+                        FLAG_ASYM = False
+                        FLAG_NODE = True
+                        FLAG_OLOH = True
+
+                    elif command[1] == 'ano':
+
+                        FLAG_ASYM = True
+                        FLAG_NODE = True
+                        FLAG_OLOH = True                
+                    else:
+                        FLAG_ASYM = False
+                        FLAG_NODE = False
+                        FLAG_OLOH = False
+                else:
+                    FLAG_ASYM = False
+                    FLAG_NODE = False
+                    FLAG_OLOH = False          
+
+                if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (command[0] == 'Go' or command[0] == '/start'):
+
+                    if telegram_toggle:
+
+                        # 선물 OL/OH 알람
+                        if fut_oloh_str != '' and FLAG_OLOH:
+
+                            str = fut_oloh_str
+                            ToTelegram(str)
+                        else:
+                            pass
+
+                        # 옵션맥점 발생 알람
+                        '''
+                        if call_low_node_str != '' and FLAG_NODE:
+
+                            str = call_low_node_str
+                            ToTelegram(str)
+                        else:
+                            pass
+
+                        if call_high_node_str != '' and FLAG_NODE:
+
+                            str = call_high_node_str
+                            ToTelegram(str)
+                        else:
+                            pass
+
+                        if put_low_node_str != '' and FLAG_NODE:
+
+                            str = put_low_node_str
+                            ToTelegram(str)
+                        else:
+                            pass
+
+                        if put_high_node_str != '' and FLAG_NODE:
+
+                            str = put_high_node_str
+                            ToTelegram(str)
+                        else:
+                            pass
+                        '''
+
+                        if telegram_send_str_call_low != '' and FLAG_NODE:
+
+                            str = telegram_send_str_call_low
+                            ToTelegram(str)
+                        else:
+                            pass
+
+                        if telegram_send_str_call_high != '' and FLAG_NODE:
+
+                            str = telegram_send_str_call_high
+                            ToTelegram(str)
+                        else:
+                            pass
+
+                        if telegram_send_str_put_low != '' and FLAG_NODE:
+
+                            str = telegram_send_str_put_low
+                            ToTelegram(str)
+                        else:
+                            pass
+
+                        if telegram_send_str_put_high != '' and FLAG_NODE:
+
+                            str = telegram_send_str_put_high
+                            ToTelegram(str)
+                        else:
+                            pass                               
+
+                        # 비대칭장(장의 형태) 알람
+                        if 비대칭장 != '' and FLAG_ASYM:
+
+                            str = 비대칭장
+                            ToTelegram(str)
+                        else:
+                            pass
+                    else:
+                        pass                
                     
-                    FLAG_ASYM = True
-                    FLAG_NODE = False
-                    FLAG_OLOH = False
+                    if TARGET_MONTH_SELECT == 1:
 
-                elif command[1] == 'n':
+                        # kp200 맥점 알람
+                        if kp200_low_node_str != '' and FLAG_NODE:
 
-                    FLAG_ASYM = False
-                    FLAG_NODE = True
-                    FLAG_OLOH = False
+                            str = kp200_low_node_str
+                            ToTelegram(str)
+                        else:
+                            pass
 
-                elif command[1] == 'o':
+                        if kp200_high_node_str != '' and FLAG_NODE:
 
-                    FLAG_ASYM = False
-                    FLAG_NODE = False
-                    FLAG_OLOH = True
-
-                elif command[1] == 'an':
-
-                    FLAG_ASYM = True
-                    FLAG_NODE = True
-                    FLAG_OLOH = False
-
-                elif command[1] == 'ao':
-
-                    FLAG_ASYM = True
-                    FLAG_NODE = False
-                    FLAG_OLOH = True
-
-                elif command[1] == 'no':
-
-                    FLAG_ASYM = False
-                    FLAG_NODE = True
-                    FLAG_OLOH = True
-
-                elif command[1] == 'ano':
-
-                    FLAG_ASYM = True
-                    FLAG_NODE = True
-                    FLAG_OLOH = True                
+                            str = kp200_high_node_str
+                            ToTelegram(str)
+                        else:
+                            pass
+                    else:
+                        pass                
                 else:
-                    FLAG_ASYM = False
-                    FLAG_NODE = False
-                    FLAG_OLOH = False
+                    pass  
             else:
-                FLAG_ASYM = False
-                FLAG_NODE = False
-                FLAG_OLOH = False          
-
-            if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (command[0] == 'Go' or command[0] == '/start'):
-
-                if telegram_toggle:
-
-                    # 선물 OL/OH 알람
-                    if fut_oloh_str != '' and FLAG_OLOH:
-
-                        str = fut_oloh_str
-                        ToTelegram(str)
-                    else:
-                        pass
-
-                    # 옵션맥점 발생 알람
-                    '''
-                    if call_low_node_str != '' and FLAG_NODE:
-
-                        str = call_low_node_str
-                        ToTelegram(str)
-                    else:
-                        pass
-
-                    if call_high_node_str != '' and FLAG_NODE:
-
-                        str = call_high_node_str
-                        ToTelegram(str)
-                    else:
-                        pass
-
-                    if put_low_node_str != '' and FLAG_NODE:
-
-                        str = put_low_node_str
-                        ToTelegram(str)
-                    else:
-                        pass
-
-                    if put_high_node_str != '' and FLAG_NODE:
-
-                        str = put_high_node_str
-                        ToTelegram(str)
-                    else:
-                        pass
-                    '''
-
-                    if telegram_send_str_call_low != '' and FLAG_NODE:
-
-                        str = telegram_send_str_call_low
-                        ToTelegram(str)
-                    else:
-                        pass
-
-                    if telegram_send_str_call_high != '' and FLAG_NODE:
-
-                        str = telegram_send_str_call_high
-                        ToTelegram(str)
-                    else:
-                        pass
-
-                    if telegram_send_str_put_low != '' and FLAG_NODE:
-
-                        str = telegram_send_str_put_low
-                        ToTelegram(str)
-                    else:
-                        pass
-
-                    if telegram_send_str_put_high != '' and FLAG_NODE:
-
-                        str = telegram_send_str_put_high
-                        ToTelegram(str)
-                    else:
-                        pass                               
-
-                    # 비대칭장(장의 형태) 알람
-                    if 비대칭장 != '' and FLAG_ASYM:
-
-                        str = 비대칭장
-                        ToTelegram(str)
-                    else:
-                        pass
-                else:
-                    pass                
-                
-                if TARGET_MONTH_SELECT == 1:
-
-                    # kp200 맥점 알람
-                    if kp200_low_node_str != '' and FLAG_NODE:
-
-                        str = kp200_low_node_str
-                        ToTelegram(str)
-                    else:
-                        pass
-
-                    if kp200_high_node_str != '' and FLAG_NODE:
-
-                        str = kp200_high_node_str
-                        ToTelegram(str)
-                    else:
-                        pass
-                else:
-                    pass                
-            else:
-                pass
+                pass            
 
             self.finished.emit(str)
             self.msleep(1000 * TELEGRAM_SEND_INTERVAL)
@@ -3510,11 +3510,12 @@ class telegram_listen_worker(QThread):
 
                 # 텔레그램 메시지 수신
                 if SELFID == 'soojin65':
-                    #str = TelegramControl()
-                    #print('client str =', str)
+                    str = TelegramControl()
+                    print('client str =', str)
                     pass
                 else:
                     str = FromTelegram()
+                    print('텔레그램 수신 메시지 =', str)
             else:
                 str = 'Stopped by Tool...'
 
@@ -7064,15 +7065,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             global telegram_command
 
-            telegram_command = str
-
             if market_service:
                 
-                if SELFID == 'soojin65':
+                if str != '':
+                    telegram_command = str
+                    
+                    if SELFID == 'soojin65':
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)
+                    else:
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)
                 else:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command is None\r'.format(dt.hour, dt.minute, dt.second)
 
                 self.textBrowser.append(str)
                 print(str)
@@ -24911,6 +24915,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global flag_telegram_on
         global flag_telegram_listen_worker, flag_telegram_send_worker
+        global telegram_command
 
         dt = datetime.datetime.now()
 
@@ -24957,6 +24962,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass               
 
         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on:
+
+            telegram_command = '/start'
             
             str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)
             self.textBrowser.append(str)
@@ -24995,6 +25002,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.pushButton_remove.setStyleSheet("background-color: lawngreen")
             print('flag_telegram_on =', flag_telegram_on)
         else:
+            telegram_command = ''
+
             self.pushButton_remove.setStyleSheet("background-color: lightGray")
             print('flag_telegram_on =', flag_telegram_on)        
 
