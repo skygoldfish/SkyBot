@@ -8906,7 +8906,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
 
         if 장시작_양합 > 0:
-            str = '{0}({1}:{2})'.format(basis, 장시작_양합, abs(atm_zero_cha))
+            str = '{0}({1:0.2f}:{2})'.format(basis, 장시작_양합, abs(atm_zero_cha))
         else :
             str = '{0}({1}:{2})'.format(basis, atm_zero_sum, abs(atm_zero_cha))
 
