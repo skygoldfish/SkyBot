@@ -3510,8 +3510,9 @@ class telegram_listen_worker(QThread):
 
                 # 텔레그램 메시지 수신
                 if SELFID == 'soojin65':
-                    str = TelegramControl()
-                    print('client str =', str)
+                    #str = TelegramControl()
+                    #print('client str =', str)
+                    pass
                 else:
                     str = FromTelegram()
             else:
