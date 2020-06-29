@@ -668,9 +668,12 @@ next_month = int(NEXT_MONTH[4:6])
 month_after_next = int(MONTH_AFTER_NEXT[4:6])
 
 if 4 < int(current_str[0:2]) < 야간선물_기준시간:
+
     overnight = False
+    선물장간_시간차 = 60
 else:
     overnight = True
+    선물장간_시간차 = 60 * (18 - 야간선물_기준시간)
 
 server_date = ''
 server_time = ''
@@ -960,9 +963,6 @@ call_itm_count = 0
 put_itm_count = 0
 
 every_5sec = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
-
-# 국내선물과 해외선물간 시간차
-선물장간_시간차 = 60
 
 pre_start = False
 
