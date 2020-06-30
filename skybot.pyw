@@ -688,7 +688,7 @@ OVC_START_HOUR = KSE_START_HOUR - 1
 시스템_서버_시간차 = 0
 
 day_timespan = 395 + 10
-overnight_timespan = 660 + 60 + 10
+overnight_timespan = 660 + 선물장간_시간차 + 10
 
 flag_offline = False
 
@@ -3537,11 +3537,11 @@ class telegram_listen_worker(QThread):
                 # 텔레그램 메시지 수신
                 if SELFID == 'soojin65':
                     str = TelegramControl()
-                    print('client str =', str)
+                    print('텔레그램 수신 메시지 =', str)
                     pass
                 else:
                     str = FromTelegram()
-                    print('텔레그램 수신 메시지 =', str)
+                    #print('텔레그램 수신 메시지 =', str)
             else:
                 str = 'Stopped by Tool...'
 
