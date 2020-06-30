@@ -19157,9 +19157,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if TARGET_MONTH_SELECT == 1:                        
                         
-                        if SLEFID == 'soojin65':
+                        if SELFID == 'soojin65':
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] {3}님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second, SLEFID)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] {3}님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second, SELFID)
                             TelegramToMe(str)
                         else:
                             ToTelegram("CM 텔레그램 Polling이 시작됩니다.")
