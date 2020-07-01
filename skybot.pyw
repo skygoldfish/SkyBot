@@ -19170,7 +19170,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         if SELFID == 'soojin65':
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] {3}님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second, SELFID)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
                             TelegramToMe(str)
                         else:
                             ToTelegram("CM 텔레그램 Polling이 시작됩니다.")
@@ -27980,7 +27980,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 ({4}/{5}) 로그인 했습니다.'.format( \
                         dt.hour, dt.minute, dt.second, self.id, token, chat_id) 
                 else:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second, self.id)
+                    if SELFID == 'soojin65':
+                        str = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그인 했습니다.'.format(dt.hour, dt.minute, dt.second)
+                    else:
+                        pass
                 
                 TelegramToMe(str)
             else:
