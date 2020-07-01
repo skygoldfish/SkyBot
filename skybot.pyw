@@ -24957,20 +24957,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
 
         flag_telegram_on = not flag_telegram_on
-
-        chk_webhook = Check_Webhook()
-
-        str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook = {3}\r'.format(dt.hour, dt.minute, dt.second, chk_webhook)
-        self.textBrowser.append(str)
-
-        if chk_webhook.url != '':
-            # Webhook을 삭제한다.
-            Delete_Webhook()
-            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook을 삭제합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)
-        else:
-            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook이 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)
         
         if TELEGRAM_SERVICE == 'ON' and not flag_telegram_send_worker:
 
@@ -25008,14 +24994,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             self.pushButton_remove.setStyleSheet("background-color: lawngreen")
             
-            flag_telegram_listen_worker = True            
+            flag_telegram_listen_worker = True                       
         else:
             pass               
-
+        
         if TELEGRAM_SERVICE == 'ON' and flag_telegram_on:
+            
+            chk_webhook = Check_Webhook()
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook = {3}\r'.format(dt.hour, dt.minute, dt.second, chk_webhook)
+            self.textBrowser.append(str)
+
+            if chk_webhook.url != '':
+                # Webhook을 삭제한다.
+                Delete_Webhook()
+                str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook을 삭제합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+            else:
+                str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook이 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str) 
 
             telegram_command = '/start'
-            
+            '''
             str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)
             self.textBrowser.append(str)
             print(str)
@@ -25049,11 +25049,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.capture_screenshot()
             else:
                 pass
-
+            '''
             self.pushButton_remove.setStyleSheet("background-color: lawngreen")
             print('flag_telegram_on =', flag_telegram_on)
         else:
             telegram_command = ''
+
+            if TARGET_MONTH_SELECT == 1:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램 Polling을 중지합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+
+            elif TARGET_MONTH_SELECT == 2:
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램 Polling을 중지합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+
+            else:
+                str = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램 Polling을 중지합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
 
             self.pushButton_remove.setStyleSheet("background-color: lightGray")
             print('flag_telegram_on =', flag_telegram_on)        
