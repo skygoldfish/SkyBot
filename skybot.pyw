@@ -20403,7 +20403,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem(oloh_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
                 self.tableWidget_put.setItem(index, Option_column.OLOH.value, item)
 
                 self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(청색))
