@@ -86,6 +86,38 @@ def FromTelegram():
             except Exception as e:
                 pass
 
+def Check_Webhook():
+
+    global TELEGRAM_TOKEN
+    global CHAT_ID
+
+    if TELEGRAM_TOKEN == '':
+        with open('secret/telegram_token.txt', mode='r') as tokenfile:
+            TELEGRAM_TOKEN = tokenfile.readline().strip()
+
+    if TELEGRAM_TOKEN is not "":
+
+        bot = telegram.Bot(token=TELEGRAM_TOKEN)
+        return bot.getWebhookInfo()
+    else:
+        pass
+
+def Delete_Webhook():
+
+    global TELEGRAM_TOKEN
+    global CHAT_ID
+
+    if TELEGRAM_TOKEN == '':
+        with open('secret/telegram_token.txt', mode='r') as tokenfile:
+            TELEGRAM_TOKEN = tokenfile.readline().strip()
+
+    if TELEGRAM_TOKEN is not "":
+
+        bot = telegram.Bot(token=TELEGRAM_TOKEN)
+        return bot.deleteWebhook()
+    else:
+        pass
+
 def TelegramToMe(str):
 
     bot = telegram.Bot(token=MY_TELEGRAM_TOKEN)

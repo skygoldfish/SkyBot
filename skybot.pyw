@@ -3633,6 +3633,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if TELEGRAM_SERVICE == 'ON':
 
+            chk_webhook = Check_Webhook()
+
+            print('telegram webhook =', chk_webhook)
+
+            if chk_webhook.url != '':
+                # Webhook을 삭제한다.
+                Delete_Webhook()
+                print('텔레그램 웹훅을 삭제합니다.')
+            else:
+                print('텔레그램 웹훅이 없습니다.')
+
             if not overnight:
 
                 if TARGET_MONTH_SELECT == 1:
@@ -24946,6 +24957,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
 
         flag_telegram_on = not flag_telegram_on
+
+        chk_webhook = Check_Webhook()
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook = {3}\r'.format(dt.hour, dt.minute, dt.second, chk_webhook)
+        self.textBrowser.append(str)
+
+        if chk_webhook.url != '':
+            # Webhook을 삭제한다.
+            Delete_Webhook()
+            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook을 삭제합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
+        else:
+            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook이 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
         
         if TELEGRAM_SERVICE == 'ON' and not flag_telegram_send_worker:
 
