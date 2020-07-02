@@ -7109,14 +7109,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     if SELFID == 'soojin65':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)                        
+                        print(str)
                     else:
                         str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)
+                        self.textBrowser.append(str)
                 else:
                     str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command is None\r'.format(dt.hour, dt.minute, dt.second)
-
-                self.textBrowser.append(str)
-                print(str)
+                    self.textBrowser.append(str)                
             else:
                 pass
         except:
@@ -27994,6 +27994,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dt = datetime.datetime.now()
 
         if code == '0000':
+
+            #global SELFID
+            #SELFID = 'soojin65'
 
             token = ''
             chat_id = 0
