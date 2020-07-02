@@ -23725,8 +23725,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if result['단축코드'][0:3] == '201':
 
-                    call_result = copy.deepcopy(result)                        
-                    self.call_display() 
+                    call_result = copy.deepcopy(result)
+
+                    if FLAG_SJ:                        
+                        self.call_display()
+                    else:
+                        pass 
 
                     '''
                     if result['현재가'] != OC0_콜현재가:
