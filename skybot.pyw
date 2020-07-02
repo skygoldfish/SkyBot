@@ -17817,6 +17817,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, current_month, fut_code)
                 self.textBrowser.append(str)
                 print(str)
+                
+                fut_realdata['전저'] = df.at[0, '전일저가']
+                선물_전저 = df.at[0, '전일저가']
+
+                item = QTableWidgetItem("{0:0.2f}".format(df.at[0, '전일저가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(1, Futures_column.전저.value, item)
+
+                fut_realdata['전고'] = df.at[0, '전일고가']
+                선물_전고 = df.at[0, '전일고가']
+
+                item = QTableWidgetItem("{0:0.2f}".format(df.at[0, '전일고가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(1, Futures_column.전고.value, item)
+
+                fut_realdata['종가'] = df.at[0, '전일종가']
+                선물_종가 = df.at[0, '전일종가']
+
+                item = QTableWidgetItem("{0:0.2f}".format(df.at[0, '전일종가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
 
             elif TARGET_MONTH_SELECT == 2:
 
@@ -17825,32 +17846,53 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(str)
                 print(str)
 
+                fut_realdata['전저'] = df.at[1, '전일저가']
+                선물_전저 = df.at[0, '전일저가']
+
+                item = QTableWidgetItem("{0:0.2f}".format(df.at[1, '전일저가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(1, Futures_column.전저.value, item)
+
+                fut_realdata['전고'] = df.at[1, '전일고가']
+                선물_전고 = df.at[0, '전일고가']
+
+                item = QTableWidgetItem("{0:0.2f}".format(df.at[1, '전일고가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(1, Futures_column.전고.value, item)
+
+                fut_realdata['종가'] = df.at[1, '전일종가']
+                선물_종가 = df.at[1, '전일종가']
+
+                item = QTableWidgetItem("{0:0.2f}".format(df.at[1, '전일종가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
+
             else:
                 fut_code = ccmshcode
                 str = '[{0:02d}:{1:02d}:{2:02d}] 차차월물({3:02d}월물, {4}) 선물 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, month_after_next, fut_code)
                 self.textBrowser.append(str)
-                print(str)
-            
-            fut_realdata['전저'] = df.at[0, '전일저가']
-            선물_전저 = df.at[0, '전일저가']
+                print(str) 
 
-            item = QTableWidgetItem("{0:0.2f}".format(df.at[0, '전일저가']))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(1, Futures_column.전저.value, item)
+                fut_realdata['전저'] = df.at[2, '전일저가']
+                선물_전저 = df.at[0, '전일저가']
 
-            fut_realdata['전고'] = df.at[0, '전일고가']
-            선물_전고 = df.at[0, '전일고가']
+                item = QTableWidgetItem("{0:0.2f}".format(df.at[2, '전일저가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(1, Futures_column.전저.value, item)
 
-            item = QTableWidgetItem("{0:0.2f}".format(df.at[0, '전일고가']))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(1, Futures_column.전고.value, item)
+                fut_realdata['전고'] = df.at[2, '전일고가']
+                선물_전고 = df.at[0, '전일고가']
 
-            fut_realdata['종가'] = df.at[0, '전일종가']
-            선물_종가 = df.at[0, '전일종가']
+                item = QTableWidgetItem("{0:0.2f}".format(df.at[2, '전일고가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(1, Futures_column.전고.value, item)
 
-            item = QTableWidgetItem("{0:0.2f}".format(df.at[0, '전일종가']))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
+                fut_realdata['종가'] = df.at[2, '전일종가']
+                선물_종가 = df.at[2, '전일종가']
+
+                item = QTableWidgetItem("{0:0.2f}".format(df.at[2, '전일종가']))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)           
 
             if os.path.isfile('kp200_info.txt'):
 
