@@ -25112,7 +25112,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(str)
 
             self.pushButton_remove.setStyleSheet("background-color: lightGray")
-            print('flag_telegram_on =', flag_telegram_on)        
+            
+            if SELFID == 'soojin65':
+                flag_telegram_on = True
+            else:
+                pass
+
+            print('flag_telegram_on =', flag_telegram_on)
 
     def high_low_list_save_to_file(self):
         
