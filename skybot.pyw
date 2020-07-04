@@ -3775,7 +3775,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             lay_out.setAlignment(Qt.AlignCenter)          
             cell_widget[i].setLayout(lay_out)         
             self.tableWidget_call.setCellWidget(i, 0, cell_widget[i])
-            
+
+        #self.tableWidget_call.resizeRowsToContents()  
         self.tableWidget_call.resizeColumnsToContents()
 
         # put tablewidget 초기화
@@ -3802,6 +3803,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             cell_widget[i].setLayout(lay_out)
             self.tableWidget_put.setCellWidget(i, 0, cell_widget[i])
 
+        #self.tableWidget_put.resizeRowsToContents()
         self.tableWidget_put.resizeColumnsToContents()
         
         for i in range(nRowCount):
@@ -4160,6 +4162,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item = QTableWidgetItem("{0}".format('Scale\nFactor'))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(2, Futures_column.진폭.value, item)
+
+        #self.tableWidget_fut.resizeRowsToContents()
+        #self.tableWidget_fut.resizeColumnsToContents()
 
         # Quote tablewidget 초기화
         self.tableWidget_quote.setRowCount(1)
@@ -4678,415 +4683,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if overnight:
                     self.tableWidget_fut.setItem(1, 2 + i, item)
                 else:
-                    self.tableWidget_fut.setItem(0, 2 + i, item)
-            '''
-            if len(new_node) == 1:
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[0][0], new_node[0][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[0][0], new_node[0][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
-            else:
-                pass
-
-            if len(new_node) == 2:
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[0][0], new_node[0][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[0][0], new_node[0][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[1][0], new_node[1][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[1][0], new_node[1][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
-            else:
-                pass
-
-            if len(new_node) == 3:
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[0][0], new_node[0][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[0][0], new_node[0][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[1][0], new_node[1][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[1][0], new_node[1][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[2][0], new_node[2][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[2][0], new_node[2][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
-            else:
-                pass
-
-            if len(new_node) == 4:
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[0][0], new_node[0][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[0][0], new_node[0][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[1][0], new_node[1][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[1][0], new_node[1][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[2][0], new_node[2][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[2][0], new_node[2][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 4th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[3][0], new_node[3][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[3][0], new_node[3][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
-            else:
-                pass
-
-            if len(new_node) == 5:
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[0][0], new_node[0][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[0][0], new_node[0][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[1][0], new_node[1][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[1][0], new_node[1][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[2][0], new_node[2][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[2][0], new_node[2][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 4th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[3][0], new_node[3][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[3][0], new_node[3][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 5th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[4][0], new_node[4][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[4][0], new_node[4][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item)
-            else:
-                pass
-
-            if len(new_node) == 6:
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[0][0], new_node[0][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[0][0], new_node[0][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[1][0], new_node[1][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[1][0], new_node[1][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[2][0], new_node[2][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[2][0], new_node[2][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 4th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[3][0], new_node[3][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[3][0], new_node[3][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 5th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[4][0], new_node[4][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[4][0], new_node[4][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item)
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 6th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                    (dt.hour, dt.minute, dt.second, new_node[5][0], new_node[5][1])
-                self.textBrowser.append(str)
-
-                item = QTableWidgetItem("{0}\n({1})".format(new_node[5][0], new_node[5][1]))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(lime))
-
-                if overnight:
-                    self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
-                else:
-                    self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
-            else:
-                pass
-            '''
+                    self.tableWidget_fut.setItem(0, 2 + i, item)            
         else:
             pass
 
-        self.tableWidget_fut.resizeColumnsToContents()
-
-        '''
-        if bms_node_list[0]:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 1st 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                (dt.hour, dt.minute, dt.second, bms_node_list[0], bms_node_frequency_list[0])
-            self.textBrowser.append(str)
-            
-            item = QTableWidgetItem("{0}\n({1})".format(bms_node_list[0], bms_node_frequency_list[0]))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
-
-            if overnight:
-                self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
-            else:
-                self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
-        else:
-            pass
-
-        if bms_node_list[1]:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 2nd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                (dt.hour, dt.minute, dt.second, bms_node_list[1], bms_node_frequency_list[1])
-            self.textBrowser.append(str)
-
-            item = QTableWidgetItem("{0}\n({1})".format(bms_node_list[1], bms_node_frequency_list[1]))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
-
-            if overnight:
-                self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
-            else:
-                self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
-        else:
-            pass 
-
-        if bms_node_list[2]:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 3rd 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                (dt.hour, dt.minute, dt.second, bms_node_list[2], bms_node_frequency_list[2])
-            self.textBrowser.append(str)
-
-            item = QTableWidgetItem("{0}\n({1})".format(bms_node_list[2], bms_node_frequency_list[2]))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
-
-            if overnight:
-                self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
-            else:
-                self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
-        else:
-            pass
-
-        if bms_node_list[3]:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 4th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                (dt.hour, dt.minute, dt.second, bms_node_list[3], bms_node_frequency_list[3])
-            self.textBrowser.append(str)
-
-            item = QTableWidgetItem("{0}\n({1})".format(bms_node_list[3], bms_node_frequency_list[3]))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
-
-            if overnight:
-                self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
-            else:
-                self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
-        else:
-            pass
-
-        if bms_node_list[4]:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 5th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                (dt.hour, dt.minute, dt.second, bms_node_list[4], bms_node_frequency_list[4])
-            self.textBrowser.append(str)
-
-            item = QTableWidgetItem("{0}\n({1})".format(bms_node_list[4], bms_node_frequency_list[4]))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
-
-            if overnight:
-                self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
-            else:
-                self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item)
-        else:
-            pass
-
-        if bms_node_list[5]:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 6th 동적맥점 {3}(발생빈도수 = {4}) 추가됨...\r'.format \
-                (dt.hour, dt.minute, dt.second, bms_node_list[5], bms_node_frequency_list[5])
-            self.textBrowser.append(str)
-
-            item = QTableWidgetItem("{0}\n({1})".format(bms_node_list[5], bms_node_frequency_list[5]))
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(lime))
-
-            if overnight:
-                self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
-            else:
-                self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
-        else:
-            pass
-        
-        self.tableWidget_fut.resizeColumnsToContents() 
-        '''
+        self.tableWidget_fut.resizeRowsToContents()
+        self.tableWidget_fut.resizeColumnsToContents()        
 
         if bms_node_list:
             bms_node_list.sort()
@@ -5131,8 +4733,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 다중모니터 스크린샷 함수
     def capture_screenshot(self):
 
+        if SELFID == 'soojin65':
+            self.tableWidget_call.resizeRowsToContents()
+        else:
+            pass
         self.tableWidget_call.resizeColumnsToContents()
+
+        if SELFID == 'soojin65':
+            self.tableWidget_put.resizeRowsToContents()
+        else:
+            pass
         self.tableWidget_put.resizeColumnsToContents()
+
+        if SELFID == 'soojin65':
+            self.tableWidget_fut.resizeRowsToContents()
+        else:
+            pass
         self.tableWidget_fut.resizeColumnsToContents()
 
         # Capture entire screen
@@ -6509,6 +6125,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
+        if SELFID == 'soojin65':
+            self.tableWidget_call.resizeRowsToContents()
+        else:
+            pass
         self.tableWidget_call.resizeColumnsToContents()
 
     @pyqtSlot(int)
@@ -6636,6 +6256,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
+        if SELFID == 'soojin65':
+            self.tableWidget_put.resizeRowsToContents()
+        else:
+            pass
         self.tableWidget_put.resizeColumnsToContents()
 
     @pyqtSlot(int)
@@ -6643,6 +6267,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # cell focus 이동
         self.tableWidget_fut.setCurrentCell(3, Futures_column.OID.value)
+
+        if SELFID == 'soojin65':
+            self.tableWidget_fut.resizeRowsToContents()
+        else:
+            pass
         self.tableWidget_fut.resizeColumnsToContents()
 
     @pyqtSlot(int)
@@ -6650,6 +6279,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # cell focus 이동
         self.tableWidget_supply.setCurrentCell(1, Supply_column.프로그램.value)
+
+        if SELFID == 'soojin65':
+            self.tableWidget_supply.resizeRowsToContents()
+        else:
+            pass
         self.tableWidget_supply.resizeColumnsToContents()
 
     @pyqtSlot(int)
@@ -6657,6 +6291,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # cell focus 이동
         self.tableWidget_quote.setCurrentCell(1, Quote_column.미결종합.value)
+
+        if SELFID == 'soojin65':
+            self.tableWidget_quote.resizeRowsToContents()
+        else:
+            pass
         self.tableWidget_quote.resizeColumnsToContents()
 
     @pyqtSlot(int, int)
@@ -6704,6 +6343,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
+        if SELFID == 'soojin65':
+            self.tableWidget_call.resizeRowsToContents()
+        else:
+            pass
         self.tableWidget_call.resizeColumnsToContents()
 
     @pyqtSlot(int, int)
@@ -6750,6 +6393,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
+        if SELFID == 'soojin65':
+            self.tableWidget_put.resizeRowsToContents()
+        else:
+            pass
         self.tableWidget_put.resizeColumnsToContents()
 
     @pyqtSlot(int, int)
@@ -6879,6 +6526,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # cell focus 이동
             self.tableWidget_fut.setCurrentCell(3, Futures_column.OID.value)
+
+            if SELFID == 'soojin65':
+                self.tableWidget_fut.resizeRowsToContents()
+            else:
+                pass
             self.tableWidget_fut.resizeColumnsToContents()             
         else:
             pass
@@ -6895,6 +6547,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # cell focus 이동
             self.tableWidget_supply.setCurrentCell(1, 5)
+
+            if SELFID == 'soojin65':
+                self.tableWidget_supply.resizeRowsToContents()
+            else:
+                pass
             self.tableWidget_supply.resizeColumnsToContents()
         else:
             pass
@@ -6911,6 +6568,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # cell focus 이동
             self.tableWidget_quote.setCurrentCell(1, Quote_column.미결종합.value - 1)
+
+            if SELFID == 'soojin65':
+                self.tableWidget_quote.resizeRowsToContents()
+            else:
+                pass
             self.tableWidget_quote.resizeColumnsToContents()
         else:
             pass
@@ -6939,6 +6601,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         elif call_scroll_begin_position > option_pairs_count:
             pass
 
+        if SELFID == 'soojin65':
+            self.tableWidget_call.resizeRowsToContents()
+        else:
+            pass
         self.tableWidget_call.resizeColumnsToContents()
 
     @pyqtSlot(int)
@@ -6965,6 +6631,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         elif put_scroll_begin_position > option_pairs_count:
             pass
 
+        if SELFID == 'soojin65':
+            self.tableWidget_put.resizeRowsToContents()
+        else:
+            pass
         self.tableWidget_put.resizeColumnsToContents()
     
     def all_node_set(self):
@@ -8618,6 +8288,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 진성맥점 != OLD_진성맥점:
             
+            if SELFID == 'soojin65':
+                self.tableWidget_fut.resizeRowsToContents()
+            else:
+                pass
             self.tableWidget_fut.resizeColumnsToContents()
 
             new_list = list(set(진성맥점) - set(DEFAULT_NODE_LIST))
@@ -10551,6 +10225,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
                 item = QTableWidgetItem('★')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+                #self.tableWidget_call.resizeRowsToContents()
                 self.tableWidget_call.resizeColumnsToContents()
 
                 telegram_send_str_call_low = ''
@@ -10563,21 +10239,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
                 item = QTableWidgetItem('★ 2')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+                #self.tableWidget_call.resizeRowsToContents()
                 self.tableWidget_call.resizeColumnsToContents()
 
                 if TARGET_MONTH_SELECT == 1 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 2 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 3 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass  
@@ -10590,21 +10274,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
                 item = QTableWidgetItem('★ 3')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+                #self.tableWidget_call.resizeRowsToContents()
                 self.tableWidget_call.resizeColumnsToContents()
 
                 if TARGET_MONTH_SELECT == 1 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 2 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 3 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass  
@@ -10617,21 +10309,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
                 item = QTableWidgetItem('★ +')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+                #self.tableWidget_call.resizeRowsToContents()
                 self.tableWidget_call.resizeColumnsToContents()
 
                 if TARGET_MONTH_SELECT == 1 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 2 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 3 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass  
@@ -10705,6 +10405,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
                 item = QTableWidgetItem('★')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+                #self.tableWidget_call.resizeRowsToContents()
                 self.tableWidget_call.resizeColumnsToContents()
 
                 telegram_send_str_call_high = '' 
@@ -10717,21 +10419,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
                 item = QTableWidgetItem('★ 2')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+                #self.tableWidget_call.resizeRowsToContents()
                 self.tableWidget_call.resizeColumnsToContents()
 
                 if TARGET_MONTH_SELECT == 1 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 2 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 3 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass  
@@ -10744,21 +10454,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
                 item = QTableWidgetItem('★ 3')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+                #self.tableWidget_call.resizeRowsToContents()
                 self.tableWidget_call.resizeColumnsToContents()
 
                 if TARGET_MONTH_SELECT == 1 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 2 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 3 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass 
@@ -10771,21 +10489,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
                 item = QTableWidgetItem('★ +')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+                #self.tableWidget_call.resizeRowsToContents()
                 self.tableWidget_call.resizeColumnsToContents()
 
                 if TARGET_MONTH_SELECT == 1 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 2 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 3 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass 
@@ -13099,6 +12825,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
                 item = QTableWidgetItem('★')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+                #self.tableWidget_put.resizeRowsToContents()
                 self.tableWidget_put.resizeColumnsToContents()
 
                 telegram_send_str_put_low = ''
@@ -13111,21 +12839,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
                 item = QTableWidgetItem('★ 2')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+                #self.tableWidget_put.resizeRowsToContents()
                 self.tableWidget_put.resizeColumnsToContents()
 
                 if TARGET_MONTH_SELECT == 1 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 2 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 3 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass
@@ -13138,21 +12874,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
                 item = QTableWidgetItem('★ 3')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+                #self.tableWidget_put.resizeRowsToContents()
                 self.tableWidget_put.resizeColumnsToContents()
 
                 if TARGET_MONTH_SELECT == 1 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 2 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 3 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass
@@ -13165,21 +12909,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
                 item = QTableWidgetItem('★ +')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
+
+                #self.tableWidget_put.resizeRowsToContents()
                 self.tableWidget_put.resizeColumnsToContents()
 
                 if TARGET_MONTH_SELECT == 1 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 2 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 3 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass
@@ -13253,6 +13005,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
                 item = QTableWidgetItem('★')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+                #self.tableWidget_put.resizeRowsToContents()
                 self.tableWidget_put.resizeColumnsToContents()
 
                 telegram_send_str_put_high = ''
@@ -13265,21 +13019,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
                 item = QTableWidgetItem('★ 2')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+                #self.tableWidget_put.resizeRowsToContents()
                 self.tableWidget_put.resizeColumnsToContents()
 
                 if TARGET_MONTH_SELECT == 1 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 2 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 3 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 ★ 2 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass
@@ -13292,21 +13054,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
                 item = QTableWidgetItem('★ 3')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+                #self.tableWidget_put.resizeRowsToContents()
                 self.tableWidget_put.resizeColumnsToContents()
 
                 if TARGET_MONTH_SELECT == 1 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 2 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 3 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 ★ 3 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass
@@ -13318,21 +13088,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
                 item = QTableWidgetItem('★ +')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
+
+                #self.tableWidget_put.resizeRowsToContents()
                 self.tableWidget_put.resizeColumnsToContents()
 
                 if TARGET_MONTH_SELECT == 1 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 2 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
 
                 elif TARGET_MONTH_SELECT == 3 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 ★ + 발생".format(dt.hour, dt.minute, dt.second)
+
+                    #self.tableWidget_fut.resizeRowsToContents()
                     self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass
@@ -14035,6 +13813,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
             
+            if SELFID == 'soojin65':
+                self.tableWidget_fut.resizeRowsToContents()
+            else:
+                pass
             self.tableWidget_fut.resizeColumnsToContents()
 
         elif szTrCode == 't2301':
@@ -15281,7 +15063,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)                    
             
+            if SELFID == 'soojin65':
+                self.tableWidget_call.resizeRowsToContents()
+            else:
+                pass
             self.tableWidget_call.resizeColumnsToContents()
+
+            if SELFID == 'soojin65':
+                self.tableWidget_put.resizeRowsToContents()
+            else:
+                pass
             self.tableWidget_put.resizeColumnsToContents()
 
         elif szTrCode == 't2801':
@@ -15662,6 +15453,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.tableWidget_fut.setItem(0, Futures_column.OID.value, item)                        
 
+            if SELFID == 'soojin65':
+                self.tableWidget_fut.resizeRowsToContents()
+            else:
+                pass
             self.tableWidget_fut.resizeColumnsToContents()
 
             columns = ['KP200', '전저', '전고', '종가', '피봇', '시가', '시가갭', '저가',
@@ -15684,7 +15479,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.kp200_high_node_coloring()
             else:
                 pass
-              
+
+            if SELFID == 'soojin65':  
+                self.tableWidget_fut.resizeRowsToContents()
+            else:
+                pass
             self.tableWidget_fut.resizeColumnsToContents()             
 
             if refresh_flag:
@@ -15695,7 +15494,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.opt_all_node_coloring()    
                 
+                if SELFID == 'soojin65':
+                    self.tableWidget_call.resizeRowsToContents()
+                else:
+                    pass
                 self.tableWidget_call.resizeColumnsToContents()
+
+                if SELFID == 'soojin65':
+                    self.tableWidget_put.resizeRowsToContents()
+                else:
+                    pass
                 self.tableWidget_put.resizeColumnsToContents()           
             else:
                 pass
@@ -16521,8 +16329,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(str)
                 print(str)
 
+                if SELFID == 'soojin65':
+                    self.tableWidget_call.resizeRowsToContents()
+                else:
+                    pass
                 self.tableWidget_call.resizeColumnsToContents()
-                self.tableWidget_put.resizeColumnsToContents()  
+
+                if SELFID == 'soojin65':
+                    self.tableWidget_put.resizeRowsToContents()
+                else:
+                    pass
+                self.tableWidget_put.resizeColumnsToContents()
+
+                if SELFID == 'soojin65':
+                    self.tableWidget_fut.resizeRowsToContents()
+                else:
+                    pass  
                 self.tableWidget_fut.resizeColumnsToContents()
                 
                 self.screen_update_worker.start()
@@ -16780,8 +16602,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     item.setBackground(QBrush(옅은회색))
                     self.tableWidget_put.setItem(i, Option_column.고가.value, item)
-                        
+
+            if SELFID == 'soojin65':
+                self.tableWidget_call.resizeRowsToContents()
+            else:
+                pass        
             self.tableWidget_call.resizeColumnsToContents()
+
+            if SELFID == 'soojin65':
+                self.tableWidget_put.resizeRowsToContents()
+            else:
+                pass
             self.tableWidget_put.resizeColumnsToContents()
 
             # 주야간 선물전광판 데이타 요청
@@ -16891,12 +16722,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setHorizontalHeaderItem(0, item)
+
+                if SELFID == 'soojin65':
+                    self.tableWidget_call.resizeRowsToContents()
+                else:
+                    pass
                 self.tableWidget_call.resizeColumnsToContents()
 
                 item_str = '{0:d}'.format(option_pairs_count)
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(0, item) 
+
+                if SELFID == 'soojin65':
+                    self.tableWidget_put.resizeRowsToContents()
+                else:
+                    pass
                 self.tableWidget_put.resizeColumnsToContents()
             else:
                 pass
@@ -16919,12 +16760,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setHorizontalHeaderItem(0, item)
+
+                    if SELFID == 'soojin65':
+                        self.tableWidget_call.resizeRowsToContents()
+                    else:
+                        pass
                     self.tableWidget_call.resizeColumnsToContents()
 
                     item_str = '+' + '{0:d}'.format(new_actval_up_count) + '\n' + '({0:d})'.format(option_pairs_count)
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setHorizontalHeaderItem(0, item)
+
+                    if SELFID == 'soojin65':
+                        self.tableWidget_put.resizeRowsToContents()
+                    else:
+                        pass
                     self.tableWidget_put.resizeColumnsToContents()
                 else:
                     pass
@@ -16942,12 +16793,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setHorizontalHeaderItem(0, item)
+
+                    if SELFID == 'soojin65':
+                        self.tableWidget_call.resizeRowsToContents()
+                    else:
+                        pass
                     self.tableWidget_call.resizeColumnsToContents()
 
                     item_str = '+' + '{0:d}'.format(new_actval_down_count) + '\n' + '({0:d})'.format(option_pairs_count)
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_put.setHorizontalHeaderItem(0, item)                    
+                    self.tableWidget_put.setHorizontalHeaderItem(0, item) 
+
+                    if SELFID == 'soojin65':
+                        self.tableWidget_put.resizeRowsToContents()
+                    else:
+                        pass                   
                     self.tableWidget_put.resizeColumnsToContents()                  
 
                     if t8416_call_count == option_pairs_count - new_actval_down_count:
@@ -17106,6 +16967,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
+                    if SELFID == 'soojin65':
+                        self.tableWidget_fut.resizeRowsToContents()
+                    else:
+                        pass
                     self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass
@@ -17510,6 +17375,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_저가_node_list = self.make_node_list(put_저가)
                     put_고가_node_list = self.make_node_list(put_고가)
                     
+                    if SELFID == 'soojin65':
+                        self.tableWidget_put.resizeRowsToContents()
+                    else:
+                        pass
                     self.tableWidget_put.resizeColumnsToContents()
 
                     if self.t8416_putworker.isRunning():
@@ -17772,8 +17641,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         self.opt_all_node_coloring() 
 
+                        if SELFID == 'soojin65':
+                            self.tableWidget_call.resizeRowsToContents()
+                        else:
+                            pass
                         self.tableWidget_call.resizeColumnsToContents()
-                        self.tableWidget_put.resizeColumnsToContents()  
+
+                        if SELFID == 'soojin65':
+                            self.tableWidget_put.resizeRowsToContents()
+                        else:
+                            pass
+                        self.tableWidget_put.resizeColumnsToContents()
+
+                        if SELFID == 'soojin65':
+                            self.tableWidget_fut.resizeRowsToContents()
+                        else:
+                            pass
                         self.tableWidget_fut.resizeColumnsToContents()    
 
                         self.screen_update_worker.start()
@@ -17909,6 +17792,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass            
 
+            if SELFID == 'soojin65':
+                self.tableWidget_fut.resizeRowsToContents()
+            else:
+                pass
             self.tableWidget_fut.resizeColumnsToContents()
 
         elif szTrCode == 't8433':            
@@ -19854,6 +19741,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.대비.value).text():
                 item = QTableWidgetItem(call_str)
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
+
+                if SELFID == 'soojin65':
+                    self.tableWidget_call.resizeRowsToContents()
+                else:
+                    pass
                 self.tableWidget_call.resizeColumnsToContents()
             else:
                 pass                               
@@ -21171,6 +21063,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem(put_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
+
+                if SELFID == 'soojin65':
+                    self.tableWidget_put.resizeRowsToContents()
+                else:
+                    pass
                 self.tableWidget_put.resizeColumnsToContents()
             else:
                 pass            
@@ -22519,6 +22416,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     item = QTableWidgetItem(gap_str)
                                     item.setTextAlignment(Qt.AlignCenter)
                                     self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
+
+                                    if SELFID == 'soojin65':
+                                        self.tableWidget_call.resizeRowsToContents()
+                                    else:
+                                        pass
                                     self.tableWidget_call.resizeColumnsToContents()
                                 else:
                                     pass
@@ -22555,6 +22457,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if call_str != self.tableWidget_call.horizontalHeaderItem(Option_column.시가갭.value).text():
                                 item = QTableWidgetItem(call_str)
                                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
+
+                                if SELFID == 'soojin65':
+                                    self.tableWidget_call.resizeRowsToContents()
+                                else:
+                                    pass
                                 self.tableWidget_call.resizeColumnsToContents()
                             else:
                                 pass
@@ -22626,6 +22533,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     item = QTableWidgetItem(gap_str)
                                     item.setTextAlignment(Qt.AlignCenter)
                                     self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
+
+                                    if SELFID == 'soojin65':
+                                        self.tableWidget_put.resizeRowsToContents()
+                                    else:
+                                        pas
                                     self.tableWidget_put.resizeColumnsToContents()
                                 else:
                                     pass
@@ -22662,6 +22574,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if put_str != self.tableWidget_put.horizontalHeaderItem(Option_column.시가갭.value).text():
                                 item = QTableWidgetItem(put_str)
                                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
+
+                                if SELFID == 'soojin65':
+                                    self.tableWidget_put.resizeRowsToContents()
+                                else:
+                                    pass
                                 self.tableWidget_put.resizeColumnsToContents()
                             else:
                                 pass
@@ -24002,6 +23919,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if pre_start:
+                    if SELFID == 'soojin65':
+                        self.tableWidget_fut.resizeRowsToContents()
+                    else:
+                        pass
                     self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass
