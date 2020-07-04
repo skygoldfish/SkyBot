@@ -100,7 +100,7 @@ def Check_Webhook():
         bot = telegram.Bot(token=TELEGRAM_TOKEN)
         return bot.getWebhookInfo()
     else:
-        pass
+        return None
 
 def Delete_Webhook():
 
@@ -116,7 +116,7 @@ def Delete_Webhook():
         bot = telegram.Bot(token=TELEGRAM_TOKEN)
         return bot.deleteWebhook()
     else:
-        pass
+        return None
 
 def TelegramToMe(str):
 

@@ -3637,12 +3637,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             print('telegram webhook =', chk_webhook)
 
-            if chk_webhook.url != '':
-                # Webhook을 삭제한다.
-                Delete_Webhook()
-                print('텔레그램 웹훅을 삭제합니다.')
+            if chk_webhook is not None:
+                if chk_webhook.url != '':
+                    # Webhook을 삭제한다.
+                    Delete_Webhook()
+                    print('텔레그램 웹훅을 삭제합니다.')
+                else:
+                    print('텔레그램 웹훅이 없습니다.')
             else:
-                print('텔레그램 웹훅이 없습니다.')
+                pass
 
             if not overnight:
 
@@ -27853,7 +27856,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             if TARGET_MONTH_SELECT == 1:
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그아웃 했습니다.'.format(dt.hour, dt.minute, dt.second, self.id)
+                if SELFID == 'soojin65':
+                    str = '[{0:02d}:{1:02d}:{2:02d}] ***님이 로그아웃 했습니다.'.format(dt.hour, dt.minute, dt.second)
+                else:
+                    str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그아웃 했습니다.'.format(dt.hour, dt.minute, dt.second, SELFID)
+
                 TelegramToMe(str)
             else:
                 pass
