@@ -18570,10 +18570,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 cme_realdata['현재가'] = 선물_현재가
 
                 if 선물_현재가 < float(fut_price):
-                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
+                    item = QTableWidgetItem(현재가 + '\n' + '▼')
                     item.setBackground(QBrush(lightskyblue))
                 elif 선물_현재가 > float(fut_price):
-                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
+                    item = QTableWidgetItem(현재가 + '\n' + '▲')
                     item.setBackground(QBrush(pink))
                 else:    
                     item = QTableWidgetItem(현재가)
@@ -18587,15 +18587,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(0, Futures_column.현재가.value, item)
+
+                if ResizeRowsToContents:
+                    self.tableWidget_fut.resizeRowToContents(0)
+                else:
+                    pass
             else:
                 df_fut.at[1, '현재가'] = 선물_현재가
                 fut_realdata['현재가'] = 선물_현재가 
 
                 if 선물_현재가 < float(fut_price):
-                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[0])
+                    item = QTableWidgetItem(현재가 + '\n' + '▼')
                     item.setBackground(QBrush(lightskyblue))
                 elif 선물_현재가 > float(fut_price):
-                    item = QTableWidgetItem(현재가 + '\n' + self.상태그림[1])
+                    item = QTableWidgetItem(현재가 + '\n' + '▲')
                     item.setBackground(QBrush(pink))
                 else:    
                     item = QTableWidgetItem(현재가)
@@ -18609,6 +18614,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)
+
+                if ResizeRowsToContents:
+                    self.tableWidget_fut.resizeRowToContents(1)
+                else:
+                    pass
             
             item = QTableWidgetItem("DOW\n({0:0.2f}%)".format(DOW_등락율))
             item.setTextAlignment(Qt.AlignCenter)
@@ -19303,6 +19313,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setItem(index, Option_column.현재가.value, item)
+
+            if ResizeRowsToContents:
+                self.tableWidget_call.resizeRowToContents(index)
+            else:
+                pass
                         
             콜대비 = 콜현재가 - 콜시가
             df_call.at[index, '대비'] = 콜대비
@@ -20624,6 +20639,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setItem(index, Option_column.현재가.value, item)
+
+            if ResizeRowsToContents:
+                self.tableWidget_put.resizeRowToContents(index)
+            else:
+                pass
                         
             풋대비 = 풋현재가 - 풋시가
             df_put.at[index, '대비'] = 풋대비
@@ -22838,10 +22858,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_plotdata_kp200.iat[0, x_idx] = float(result['지수'])
 
                         if float(result['지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]):
-                            item = QTableWidgetItem(result['지수'] + '\n' + self.상태그림[0])
+                            item = QTableWidgetItem(result['지수'] + '\n' + '▼')
                             item.setBackground(QBrush(lightskyblue))
                         elif float(result['지수']) > float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]):
-                            item = QTableWidgetItem(result['지수'] + '\n' + self.상태그림[1])
+                            item = QTableWidgetItem(result['지수'] + '\n' + '▲')
                             item.setBackground(QBrush(pink))
                         else:    
                             item = QTableWidgetItem(result['지수'])
@@ -22856,6 +22876,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
+
+                        if ResizeRowsToContents:
+                            self.tableWidget_fut.resizeRowToContents(2)
+                        else:
+                            pass
                     else:
                         pass
 
