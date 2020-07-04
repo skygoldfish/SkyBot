@@ -237,6 +237,11 @@ with open('control_info.txt', mode='r') as control_file:
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
+    ResizeRowsToContents = temp[5]
+    #print('ResizeRowsToContents =', ResizeRowsToContents)
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
     야간선물_기준시간 = int(temp[4])
     #print('야간선물_기준시간 =', 야간선물_기준시간)
 
@@ -4733,19 +4738,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 다중모니터 스크린샷 함수
     def capture_screenshot(self):
 
-        if SELFID == 'soojin65':
+        if ResizeRowsToContents:
             self.tableWidget_call.resizeRowsToContents()
         else:
             pass
         self.tableWidget_call.resizeColumnsToContents()
 
-        if SELFID == 'soojin65':
+        if ResizeRowsToContents:
             self.tableWidget_put.resizeRowsToContents()
         else:
             pass
         self.tableWidget_put.resizeColumnsToContents()
 
-        if SELFID == 'soojin65':
+        if ResizeRowsToContents:
             self.tableWidget_fut.resizeRowsToContents()
         else:
             pass
@@ -6125,7 +6130,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if SELFID == 'soojin65':
+        if ResizeRowsToContents:
             self.tableWidget_call.resizeRowsToContents()
         else:
             pass
@@ -6256,7 +6261,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if SELFID == 'soojin65':
+        if ResizeRowsToContents:
             self.tableWidget_put.resizeRowsToContents()
         else:
             pass
@@ -6268,7 +6273,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # cell focus 이동
         self.tableWidget_fut.setCurrentCell(3, Futures_column.OID.value)
 
-        if SELFID == 'soojin65':
+        if ResizeRowsToContents:
             self.tableWidget_fut.resizeRowsToContents()
         else:
             pass
@@ -6280,7 +6285,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # cell focus 이동
         self.tableWidget_supply.setCurrentCell(1, Supply_column.프로그램.value)
 
-        if SELFID == 'soojin65':
+        if ResizeRowsToContents:
             self.tableWidget_supply.resizeRowsToContents()
         else:
             pass
@@ -6292,7 +6297,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # cell focus 이동
         self.tableWidget_quote.setCurrentCell(1, Quote_column.미결종합.value)
 
-        if SELFID == 'soojin65':
+        if ResizeRowsToContents:
             self.tableWidget_quote.resizeRowsToContents()
         else:
             pass
@@ -6343,7 +6348,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if SELFID == 'soojin65':
+        if ResizeRowsToContents:
             self.tableWidget_call.resizeRowsToContents()
         else:
             pass
@@ -6393,7 +6398,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if SELFID == 'soojin65':
+        if ResizeRowsToContents:
             self.tableWidget_put.resizeRowsToContents()
         else:
             pass
@@ -6527,7 +6532,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # cell focus 이동
             self.tableWidget_fut.setCurrentCell(3, Futures_column.OID.value)
 
-            if SELFID == 'soojin65':
+            if ResizeRowsToContents:
                 self.tableWidget_fut.resizeRowsToContents()
             else:
                 pass
@@ -6548,7 +6553,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # cell focus 이동
             self.tableWidget_supply.setCurrentCell(1, 5)
 
-            if SELFID == 'soojin65':
+            if ResizeRowsToContents:
                 self.tableWidget_supply.resizeRowsToContents()
             else:
                 pass
@@ -6569,7 +6574,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # cell focus 이동
             self.tableWidget_quote.setCurrentCell(1, Quote_column.미결종합.value - 1)
 
-            if SELFID == 'soojin65':
+            if ResizeRowsToContents:
                 self.tableWidget_quote.resizeRowsToContents()
             else:
                 pass
@@ -6601,7 +6606,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         elif call_scroll_begin_position > option_pairs_count:
             pass
 
-        if SELFID == 'soojin65':
+        if ResizeRowsToContents:
             self.tableWidget_call.resizeRowsToContents()
         else:
             pass
@@ -6631,7 +6636,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         elif put_scroll_begin_position > option_pairs_count:
             pass
 
-        if SELFID == 'soojin65':
+        if ResizeRowsToContents:
             self.tableWidget_put.resizeRowsToContents()
         else:
             pass
@@ -8288,7 +8293,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 진성맥점 != OLD_진성맥점:
             
-            if SELFID == 'soojin65':
+            if ResizeRowsToContents:
                 self.tableWidget_fut.resizeRowsToContents()
             else:
                 pass
@@ -13813,7 +13818,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
             
-            if SELFID == 'soojin65':
+            if ResizeRowsToContents:
                 self.tableWidget_fut.resizeRowsToContents()
             else:
                 pass
@@ -15063,13 +15068,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)                    
             
-            if SELFID == 'soojin65':
+            if ResizeRowsToContents:
                 self.tableWidget_call.resizeRowsToContents()
             else:
                 pass
             self.tableWidget_call.resizeColumnsToContents()
 
-            if SELFID == 'soojin65':
+            if ResizeRowsToContents:
                 self.tableWidget_put.resizeRowsToContents()
             else:
                 pass
@@ -15453,7 +15458,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.tableWidget_fut.setItem(0, Futures_column.OID.value, item)                        
 
-            if SELFID == 'soojin65':
+            if ResizeRowsToContents:
                 self.tableWidget_fut.resizeRowsToContents()
             else:
                 pass
@@ -15480,7 +15485,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if SELFID == 'soojin65':  
+            if ResizeRowsToContents:  
                 self.tableWidget_fut.resizeRowsToContents()
             else:
                 pass
@@ -15494,13 +15499,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.opt_all_node_coloring()    
                 
-                if SELFID == 'soojin65':
+                if ResizeRowsToContents:
                     self.tableWidget_call.resizeRowsToContents()
                 else:
                     pass
                 self.tableWidget_call.resizeColumnsToContents()
 
-                if SELFID == 'soojin65':
+                if ResizeRowsToContents:
                     self.tableWidget_put.resizeRowsToContents()
                 else:
                     pass
@@ -16329,19 +16334,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(str)
                 print(str)
 
-                if SELFID == 'soojin65':
+                if ResizeRowsToContents:
                     self.tableWidget_call.resizeRowsToContents()
                 else:
                     pass
                 self.tableWidget_call.resizeColumnsToContents()
 
-                if SELFID == 'soojin65':
+                if ResizeRowsToContents:
                     self.tableWidget_put.resizeRowsToContents()
                 else:
                     pass
                 self.tableWidget_put.resizeColumnsToContents()
 
-                if SELFID == 'soojin65':
+                if ResizeRowsToContents:
                     self.tableWidget_fut.resizeRowsToContents()
                 else:
                     pass  
@@ -16603,13 +16608,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setBackground(QBrush(옅은회색))
                     self.tableWidget_put.setItem(i, Option_column.고가.value, item)
 
-            if SELFID == 'soojin65':
+            if ResizeRowsToContents:
                 self.tableWidget_call.resizeRowsToContents()
             else:
                 pass        
             self.tableWidget_call.resizeColumnsToContents()
 
-            if SELFID == 'soojin65':
+            if ResizeRowsToContents:
                 self.tableWidget_put.resizeRowsToContents()
             else:
                 pass
@@ -16723,7 +16728,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setHorizontalHeaderItem(0, item)
 
-                if SELFID == 'soojin65':
+                if ResizeRowsToContents:
                     self.tableWidget_call.resizeRowsToContents()
                 else:
                     pass
@@ -16734,7 +16739,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(0, item) 
 
-                if SELFID == 'soojin65':
+                if ResizeRowsToContents:
                     self.tableWidget_put.resizeRowsToContents()
                 else:
                     pass
@@ -16761,7 +16766,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setHorizontalHeaderItem(0, item)
 
-                    if SELFID == 'soojin65':
+                    if ResizeRowsToContents:
                         self.tableWidget_call.resizeRowsToContents()
                     else:
                         pass
@@ -16772,7 +16777,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setHorizontalHeaderItem(0, item)
 
-                    if SELFID == 'soojin65':
+                    if ResizeRowsToContents:
                         self.tableWidget_put.resizeRowsToContents()
                     else:
                         pass
@@ -16794,7 +16799,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setHorizontalHeaderItem(0, item)
 
-                    if SELFID == 'soojin65':
+                    if ResizeRowsToContents:
                         self.tableWidget_call.resizeRowsToContents()
                     else:
                         pass
@@ -16805,7 +16810,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setHorizontalHeaderItem(0, item) 
 
-                    if SELFID == 'soojin65':
+                    if ResizeRowsToContents:
                         self.tableWidget_put.resizeRowsToContents()
                     else:
                         pass                   
@@ -16967,7 +16972,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    if SELFID == 'soojin65':
+                    if ResizeRowsToContents:
                         self.tableWidget_fut.resizeRowsToContents()
                     else:
                         pass
@@ -17375,7 +17380,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_저가_node_list = self.make_node_list(put_저가)
                     put_고가_node_list = self.make_node_list(put_고가)
                     
-                    if SELFID == 'soojin65':
+                    if ResizeRowsToContents:
                         self.tableWidget_put.resizeRowsToContents()
                     else:
                         pass
@@ -17641,19 +17646,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         self.opt_all_node_coloring() 
 
-                        if SELFID == 'soojin65':
+                        if ResizeRowsToContents:
                             self.tableWidget_call.resizeRowsToContents()
                         else:
                             pass
                         self.tableWidget_call.resizeColumnsToContents()
 
-                        if SELFID == 'soojin65':
+                        if ResizeRowsToContents:
                             self.tableWidget_put.resizeRowsToContents()
                         else:
                             pass
                         self.tableWidget_put.resizeColumnsToContents()
 
-                        if SELFID == 'soojin65':
+                        if ResizeRowsToContents:
                             self.tableWidget_fut.resizeRowsToContents()
                         else:
                             pass
@@ -17792,7 +17797,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass            
 
-            if SELFID == 'soojin65':
+            if ResizeRowsToContents:
                 self.tableWidget_fut.resizeRowsToContents()
             else:
                 pass
@@ -19742,7 +19747,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem(call_str)
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
 
-                if SELFID == 'soojin65':
+                if ResizeRowsToContents:
                     self.tableWidget_call.resizeRowsToContents()
                 else:
                     pass
@@ -21064,7 +21069,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
 
-                if SELFID == 'soojin65':
+                if ResizeRowsToContents:
                     self.tableWidget_put.resizeRowsToContents()
                 else:
                     pass
@@ -22417,7 +22422,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     item.setTextAlignment(Qt.AlignCenter)
                                     self.tableWidget_call.setItem(index, Option_column.시가갭.value, item)
 
-                                    if SELFID == 'soojin65':
+                                    if ResizeRowsToContents:
                                         self.tableWidget_call.resizeRowsToContents()
                                     else:
                                         pass
@@ -22458,7 +22463,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 item = QTableWidgetItem(call_str)
                                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-                                if SELFID == 'soojin65':
+                                if ResizeRowsToContents:
                                     self.tableWidget_call.resizeRowsToContents()
                                 else:
                                     pass
@@ -22534,7 +22539,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     item.setTextAlignment(Qt.AlignCenter)
                                     self.tableWidget_put.setItem(index, Option_column.시가갭.value, item)
 
-                                    if SELFID == 'soojin65':
+                                    if ResizeRowsToContents:
                                         self.tableWidget_put.resizeRowsToContents()
                                     else:
                                         pas
@@ -22575,7 +22580,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 item = QTableWidgetItem(put_str)
                                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.시가갭.value, item)
 
-                                if SELFID == 'soojin65':
+                                if ResizeRowsToContents:
                                     self.tableWidget_put.resizeRowsToContents()
                                 else:
                                     pass
@@ -23919,7 +23924,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if pre_start:
-                    if SELFID == 'soojin65':
+                    if ResizeRowsToContents:
                         self.tableWidget_fut.resizeRowsToContents()
                     else:
                         pass
