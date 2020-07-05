@@ -15484,11 +15484,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.kp200_high_node_coloring()
             else:
                 pass
-
+            
             if ResizeRowsToContents:  
                 self.tableWidget_fut.resizeRowsToContents()
             else:
-                pass
+                pass                        
             self.tableWidget_fut.resizeColumnsToContents()             
 
             if refresh_flag:
@@ -15509,7 +15509,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.resizeRowsToContents()
                 else:
                     pass
-                self.tableWidget_put.resizeColumnsToContents()           
+                self.tableWidget_put.resizeColumnsToContents() 
+
+                self.tableWidget_fut.resizeRowsToContents()          
             else:
                 pass
 
