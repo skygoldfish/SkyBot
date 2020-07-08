@@ -17903,14 +17903,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if overnight:
 
                 self.tableWidget_fut.item(0, Futures_column.시가.value).setBackground(QBrush(적색))
-                self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(검정색))
+                self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(흰색))
                 self.tableWidget_fut.item(0, Futures_column.저가.value).setBackground(QBrush(적색))
-                self.tableWidget_fut.item(0, Futures_column.저가.value).setForeground(QBrush(검정색))
+                self.tableWidget_fut.item(0, Futures_column.저가.value).setForeground(QBrush(흰색))
             else:
                 self.tableWidget_fut.item(1, Futures_column.시가.value).setBackground(QBrush(적색))
-                self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(검정색))
+                self.tableWidget_fut.item(1, Futures_column.시가.value).setForeground(QBrush(흰색))
                 self.tableWidget_fut.item(1, Futures_column.저가.value).setBackground(QBrush(적색))
-                self.tableWidget_fut.item(1, Futures_column.저가.value).setForeground(QBrush(검정색))
+                self.tableWidget_fut.item(1, Futures_column.저가.value).setForeground(QBrush(흰색))
 
             if TARGET_MONTH_SELECT == 1 and not flag_fut_ol and not flag_fut_oloh:
 
