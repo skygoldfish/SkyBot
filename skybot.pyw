@@ -788,7 +788,7 @@ FLAG_ASYM = False
 FLAG_NODE = False
 FLAG_OLOH = False
 
-FLAG_SJ = True
+FLAG_GUEST = True
 
 fut_oloh_str = ''
 flag_fut_oloh = False
@@ -3319,7 +3319,7 @@ class telegram_send_worker(QThread):
             dt = datetime.datetime.now()
             
             global telegram_toggle, FLAG_ASYM, FLAG_NODE, FLAG_OLOH
-            global FLAG_SJ  
+            global FLAG_GUEST  
 
             telegram_toggle = not telegram_toggle
 
@@ -3344,13 +3344,13 @@ class telegram_send_worker(QThread):
                     FLAG_NODE = True
                     FLAG_OLOH = True
 
-                elif command_count == 1 and command[0] == 'Sjstop':
+                elif command_count == 1 and command[0] == 'Allstop':
 
                     FLAG_ASYM = True
                     FLAG_NODE = True
                     FLAG_OLOH = True
 
-                elif command_count == 1 and command[0] == 'Sjgo':
+                elif command_count == 1 and command[0] == 'Allgo':
 
                     FLAG_ASYM = True
                     FLAG_NODE = True
@@ -3410,10 +3410,10 @@ class telegram_send_worker(QThread):
 
                 if SELFID == 'soojin65':
                     
-                    if command[0] == 'Sjstop':
-                        FLAG_SJ = False
-                    elif command[0] == 'Sjgo':
-                        FLAG_SJ = True
+                    if command[0] == 'Allstop':
+                        FLAG_GUEST = False
+                    elif command[0] == 'Allgo':
+                        FLAG_GUEST = True
                     else:
                         pass
                 else:
@@ -6842,7 +6842,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.market_type_display(self.alternate_flag)
             
             # 실시간 서비스                     
-            if FLAG_SJ and (receive_real_ovc or market_service):
+            if FLAG_GUEST and (receive_real_ovc or market_service):
                 
                 # 옵션 등락율 scale factor 읽어들임
                 drate_scale_factor = float(self.tableWidget_fut.item(2, Futures_column.진폭.value).text())
@@ -23680,7 +23680,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     call_result = copy.deepcopy(result)
 
-                    if FLAG_SJ:                        
+                    if FLAG_GUEST:                        
                         self.call_display()
                     else:
                         pass 
