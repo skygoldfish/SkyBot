@@ -25122,23 +25122,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.list_to_file_write(list_final_to_file, file_name, sep = ' ')
 
-    def list_to_file_write(self, list, fname, sep):  
-        
-        if os.path.isfile('HL-List.txt'):
-            print("Yes. Here is the file...")
-            file = open(fname, 'a')
-        else:
-            print("Nothing...")
-            file = open(fname, 'w')        
+    def list_to_file_write(self, list, fname, sep):
         
         vstr = ''
 
         for a in list:
-            vstr = vstr + str(a) + sep
+            vstr = vstr + str(a) + sep  
         
-        #vstr = vstr.rstrip(sep)
+        if os.path.isfile('HL-List.txt'):
+            file = open(fname, 'a')
+            strr = '\n' + vstr
+        else:
+            print("New file Creation...")
+            file = open(fname, 'w')
+            
+            strr = vstr        
 
-        file.writelines(vstr)
+        file.write(strr)
         file.close()
 
         #print('파일쓰기 성공!!!')
