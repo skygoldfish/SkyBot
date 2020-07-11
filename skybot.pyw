@@ -237,6 +237,11 @@ with open('control_info.txt', mode='r') as control_file:
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
+    HL_Depth = int(temp[4])
+    #print('HL_Depth =', HL_Depth)
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
     ResizeRowsToContents = temp[5]
     #print('ResizeRowsToContents =', ResizeRowsToContents)
 
@@ -289,11 +294,12 @@ with open('control_info.txt', mode='r') as control_file:
             
             # 한줄씩 읽어서 리스트에 저장
             file_list = []
+            hlfile_line_number = 0
 
             while True:
     
                 line = hlfile.readline().strip()
-                #print(line)
+                hlfile_line_number += 1
 
                 temp = line.split()
 
@@ -302,6 +308,8 @@ with open('control_info.txt', mode='r') as control_file:
                     file_list.append(float(temp[i]))
 
                 if not line: break
+            
+            hlfile_line_number = hlfile_line_number - 1
             
             '''
             tmp = hlfile.readline().strip()
@@ -314,7 +322,7 @@ with open('control_info.txt', mode='r') as control_file:
                 file_list.append(float(temp[i]))
             '''
 
-            print('file_list =', file_list)
+            #print('file_list =', file_list)
 
             pre_high_low_list = file_list[:]
             FILE_HIGH_LOW_LIST = file_list[:]
@@ -4707,14 +4715,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.FUT_HO = FH0(parent=self) 
 
         dt = datetime.datetime.now() 
-
-        str = '[{0:02d}:{1:02d}:{2:02d}] OS Type : {3}\r'.format(dt.hour, dt.minute, dt.second, os_type)
-        self.textBrowser.append(str)
         
         if int(current_str[0:2]) < 12:
             str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Morning! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
         else:
             str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Afternoon! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(str)
+        
+        str = '[{0:02d}:{1:02d}:{2:02d}] OS Type : {3}\r'.format(dt.hour, dt.minute, dt.second, os_type)
+        self.textBrowser.append(str)
+        
+        str = '[{0:02d}:{1:02d}:{2:02d}] HL File Length = {3}\r'.format(dt.hour, dt.minute, dt.second, hlfile_line_number)
         self.textBrowser.append(str)
 
         if SELFID == 'soojin65':
@@ -25199,7 +25210,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             with open(fname, 'r') as f:
                 lines = f.readlines()
 
-                if TARGET_MONTH_SELECT == 1:
+                if hlfile_line_number > HL_Depth - 1:
                     lines.pop(0)
                 else:
                     pass

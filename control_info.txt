@@ -5,6 +5,7 @@ First Day of the Current Month = 20200710
 Mangi Yagan = NO
 
 [2]. << Initial Value >>
+HL List Depth = 40
 Resize Rows To Contents = False
 Overnight Pre-Start Time = 17
 Actval count of the option pairs = 100
