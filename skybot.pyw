@@ -25144,11 +25144,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if os.path.isfile('HL-List.txt'):
 
             #기존 파일에서 첫번째 라인 삭제후 임시파일에 저장
-            ff = open("temp.txt",'w')
+            ff = open("tmp.txt",'w')
 
             with open(fname, 'r') as f:
                 lines = f.readlines()
-                lines.pop(0)
+
+                if TARGET_MONTH_SELECT == 1:
+                    lines.pop(0)
+                else:
+                    pass
                 ff.writelines(lines)
 
             ff.close()  
@@ -25159,7 +25163,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             for a in list:
                 vstr = vstr + str(a) + sep 
 
-            file = open("temp.txt", 'a')
+            file = open("tmp.txt", 'a')
             strr = '\n' + vstr
             
             file.write(strr)
@@ -25167,7 +25171,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             #기존 파일삭제후 임시파일명 변경
             os.remove('HL-List.txt')
-            os.rename('temp.txt', 'HL-List.txt')
+            os.rename('tmp.txt', 'HL-List.txt')
         else:
             pass
             '''
