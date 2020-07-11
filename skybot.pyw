@@ -1574,7 +1574,7 @@ bc_plot2_ovc_open_line = None
 bc_plot2_ovc_low_line = None
 bc_plot2_ovc_high_line = None
 
-bc_mv_line = []
+bc_plot2_mv_line = []
 
 bc_plot2_fut_volume_curve = None
 bc_plot2_fut_volume_plus_curve = None
@@ -1590,8 +1590,46 @@ bc_plot2_dow_curve = None
 bc_plot2_nasdaq_curve = None
 bc_plot2_wti_curve = None
 
-bc_call_curve = []
-bc_put_curve = []
+bc_plot2_call_curve = []
+bc_plot2_put_curve = []
+
+# Big Chart Plot3
+bc_plot3_time_line = None
+bc_plot3_time_line_start = None
+bc_plot3_time_line_yagan_start = None
+
+bc_plot3_fut_drate_curve = None
+bc_plot3_dow_drate_curve = None
+
+bc_plot3_call_drate_curve = None
+bc_plot3_put_drate_curve = None
+
+bc_plot3_ovc_jl_line = None
+bc_plot3_ovc_jh_line = None
+bc_plot3_ovc_close_line = None
+bc_plot3_ovc_pivot_line = None
+bc_plot3_ovc_open_line = None
+bc_plot3_ovc_low_line = None
+bc_plot3_ovc_high_line = None
+
+bc_plot3_mv_line = []
+
+bc_plot3_fut_volume_curve = None
+bc_plot3_fut_volume_plus_curve = None
+bc_plot3_fut_volume_minus_curve = None
+bc_plot3_call_volume_curve = None
+bc_plot3_put_volume_curve = None
+
+bc_plot3_call_rr_curve = None
+bc_plot3_put_rr_curve = None
+
+bc_plot3_sp500_curve = None
+bc_plot3_dow_curve = None
+bc_plot3_nasdaq_curve = None
+bc_plot3_wti_curve = None
+
+bc_plot3_call_curve = []
+bc_plot3_put_curve = []
 
 yoc_stop = False
 
@@ -25244,6 +25282,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.bc_comboBox1.setStyleSheet("background-color: white")
         self.bc_comboBox2.setStyleSheet("background-color: white")
+        self.bc_comboBox3.setStyleSheet("background-color: white")
         
         if not overnight:
 
@@ -25348,11 +25387,47 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_16.setStyleSheet('background-color: pink ; color: black')
         self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
 
+        # Plot3 가격표시
+        self.label_17.setText(" 전저 : 가격 ")
+        self.label_17.setStyleSheet('background-color: goldenrod ; color: black')
+        self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_18.setText(" 전고 : 가격 ")
+        self.label_18.setStyleSheet('background-color: gold ; color: black')
+        self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_19.setText(" 종가 : 가격 ")
+        self.label_19.setStyleSheet('background-color: lime ; color: black')
+        self.label_19.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_20.setText(" 피봇 : 가격 ")
+        self.label_20.setStyleSheet('background-color: magenta ; color: black')
+        self.label_20.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_21.setText(" 시가 : 가격 ")
+        self.label_21.setStyleSheet('background-color: red ; color: white')
+        self.label_21.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_22.setText(" 저가 : 가격 ")
+        self.label_22.setStyleSheet('background-color: skyblue ; color: black')
+        self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_23.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
+        self.label_23.setStyleSheet('background-color: black ; color: yellow')
+        self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_24.setText(" 고가 : 가격 ")
+        self.label_24.setStyleSheet('background-color: pink ; color: black')
+        self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
+
         self.bc_comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션잔량비', '⓸ 등락율비', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
         self.bc_comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
         self.bc_comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션잔량비', '⓷ 선물체결', '⓸ 등락율비', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
-        self.bc_comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)            
+        self.bc_comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
+
+        self.bc_comboBox3.addItems(['⓵ 옵션체결', '⓶ 옵션잔량비', '⓷ 선물체결', '⓸ 등락율비', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
+        self.bc_comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)             
 
         global bc_plot1_time_line_start, bc_plot1_time_line_yagan_start, bc_plot1_time_line, bc_plot1_fut_price_curve, bc_plot1_kp200_curve
         global bc_plot1_fut_jl_line, bc_plot1_fut_jh_line, bc_plot1_fut_close_line, bc_plot1_fut_open_line, bc_plot1_fut_pivot_line, bc_plot1_fut_low_line, bc_plot1_fut_high_line    
@@ -25372,7 +25447,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot2_sp500_curve, bc_plot2_dow_curve, bc_plot2_nasdaq_curve, bc_plot2_wti_curve        
         global bc_plot2_time_line_start, bc_plot2_time_line_yagan_start, bc_plot2_time_line
         global bc_plot2_ovc_jl_line, bc_plot2_ovc_jh_line, bc_plot2_ovc_close_line, bc_plot2_ovc_open_line, bc_plot2_ovc_pivot_line, bc_plot2_ovc_low_line, bc_plot2_ovc_high_line
-        global bc_call_curve, bc_put_curve, bc_mv_line
+        global bc_plot2_mv_line, bc_plot2_call_curve, bc_plot2_put_curve
+
+        global bc_plot3_fut_volume_curve, bc_plot3_fut_volume_plus_curve, bc_plot3_fut_volume_minus_curve        
+        global bc_plot3_call_rr_curve, bc_plot3_put_rr_curve        
+        global bc_plot3_call_volume_curve, bc_plot3_put_volume_curve
+        global bc_plot3_fut_drate_curve, bc_plot3_dow_drate_curve
+        global bc_plot3_call_drate_curve, bc_plot3_put_drate_curve
+        global bc_plot3_sp500_curve, bc_plot3_dow_curve, bc_plot3_nasdaq_curve, bc_plot3_wti_curve        
+        global bc_plot3_time_line_start, bc_plot3_time_line_yagan_start, bc_plot3_time_line
+        global bc_plot3_ovc_jl_line, bc_plot3_ovc_jh_line, bc_plot3_ovc_close_line, bc_plot3_ovc_open_line, bc_plot3_ovc_pivot_line, bc_plot3_ovc_low_line, bc_plot3_ovc_high_line
+        global bc_plot3_mv_line, bc_plot3_call_curve, bc_plot3_put_curve  
 
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
@@ -25385,6 +25470,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.bc_Plot2.plotItem.showGrid(True, True, 0.5)
         self.bc_Plot2.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
         self.bc_Plot2.setXLink(self.bc_Plot1)
+
+        self.bc_Plot3.enableAutoRange('y', True)
+        self.bc_Plot3.plotItem.showGrid(True, True, 0.5)
+        self.bc_Plot3.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+        self.bc_Plot3.setXLink(self.bc_Plot1)
 
         # Line & Curve of the Plot1 
         bc_plot1_time_line_start = self.bc_Plot1.addLine(x=0, y=None, pen=tpen)
@@ -25445,7 +25535,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_ovc_high_line = self.bc_Plot2.addLine(x=None, pen=pink_pen)
         
         for i in range(9):
-            bc_mv_line.append(self.bc_Plot2.addLine(x=None, pen=mvpen)) 
+            bc_plot2_mv_line.append(self.bc_Plot2.addLine(x=None, pen=mvpen)) 
 
         bc_plot2_fut_drate_curve = self.bc_Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot2_dow_drate_curve = self.bc_Plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
@@ -25469,8 +25559,49 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_wti_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         
         for i in range(nRowCount):
-            bc_call_curve.append(self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
-            bc_put_curve.append(self.bc_Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))            
+            bc_plot2_call_curve.append(self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
+            bc_plot2_put_curve.append(self.bc_Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)) 
+
+        # Line & Curve of the Plot3
+        bc_plot3_time_line_start = self.bc_Plot3.addLine(x=0, y=None, pen=tpen)
+        bc_plot3_time_line_yagan_start = self.bc_Plot3.addLine(x=0, y=None, pen=tpen)
+        bc_plot3_time_line = self.bc_Plot3.addLine(x=0, y=None, pen=tpen1)
+        
+        bc_plot3_ovc_jl_line = self.bc_Plot3.addLine(x=None, pen=goldenrod_pen)
+        bc_plot3_ovc_jh_line = self.bc_Plot3.addLine(x=None, pen=gold_pen)  
+        bc_plot3_ovc_close_line = self.bc_Plot3.addLine(x=None, pen=lime_pen)
+        bc_plot3_ovc_open_line = self.bc_Plot3.addLine(x=None, pen=red_pen)
+        bc_plot3_ovc_pivot_line = self.bc_Plot3.addLine(x=None, pen=fut_pvt_pen)
+        bc_plot3_ovc_low_line = self.bc_Plot3.addLine(x=None, pen=skyblue_pen)
+        bc_plot3_ovc_high_line = self.bc_Plot3.addLine(x=None, pen=pink_pen)
+        
+        for i in range(9):
+            bc_plot3_mv_line.append(self.bc_Plot3.addLine(x=None, pen=mvpen)) 
+
+        bc_plot3_fut_drate_curve = self.bc_Plot3.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot3_dow_drate_curve = self.bc_Plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
+
+        bc_plot3_call_drate_curve = self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot3_put_drate_curve = self.bc_Plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3) 
+
+        bc_plot3_call_rr_curve = self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot3_put_rr_curve = self.bc_Plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        bc_plot3_call_volume_curve = self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot3_put_volume_curve = self.bc_Plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        bc_plot3_fut_volume_curve = self.bc_Plot3.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        bc_plot3_fut_volume_plus_curve = self.bc_Plot3.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        bc_plot3_fut_volume_minus_curve = self.bc_Plot3.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+
+        bc_plot3_sp500_curve = self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot3_dow_curve = self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot3_nasdaq_curve = self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot3_wti_curve = self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        
+        for i in range(nRowCount):
+            bc_plot3_call_curve.append(self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
+            bc_plot3_put_curve.append(self.bc_Plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))           
 
         if overnight:
             # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
@@ -25480,11 +25611,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.bc_Plot2.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
             bc_plot2_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
 
+            self.bc_Plot3.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
+            bc_plot3_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
+
             # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
             bc_plot1_time_line_start.setValue(선물장간_시간차 + 1)
             bc_plot2_time_line_start.setValue(선물장간_시간차 + 1)
+            bc_plot3_time_line_start.setValue(선물장간_시간차 + 1)
+
             bc_plot1_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
             bc_plot2_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+            bc_plot3_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
         else:
             self.bc_Plot1.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
             bc_plot1_time_line.setValue(선물장간_시간차 + day_timespan - 1)
@@ -25492,9 +25629,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.bc_Plot2.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
             bc_plot2_time_line.setValue(선물장간_시간차 + day_timespan - 1)
 
+            self.bc_Plot3.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+            bc_plot3_time_line.setValue(선물장간_시간차 + day_timespan - 1)
+
             # 시작시간 X축 표시(index 60은 시가)
             bc_plot1_time_line_start.setValue(선물장간_시간차)
             bc_plot2_time_line_start.setValue(선물장간_시간차)
+            bc_plot3_time_line_start.setValue(선물장간_시간차)
 
         if receive_real_ovc or market_service:
 
@@ -26185,7 +26326,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     def cb2_selectionChanged(self):
 
         global bc_comboindex2
-        global bc_call_curve, bc_put_curve, bc_plot2_fut_volume_curve, bc_plot2_fut_volume_plus_curve, bc_plot2_fut_volume_minus_curve
+        global bc_plot2_call_curve, bc_plot2_put_curve, bc_plot2_fut_volume_curve, bc_plot2_fut_volume_plus_curve, bc_plot2_fut_volume_minus_curve
         global bc_plot2_call_volume_curve, bc_plot2_put_volume_curve
         global bc_plot2_call_rr_curve, bc_plot2_put_rr_curve
         global bc_plot2_fut_drate_curve, bc_plot2_dow_drate_curve, bc_plot2_call_drate_curve, bc_plot2_put_drate_curve
@@ -26220,8 +26361,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_put_drate_curve.clear()
                         
             for i in range(nRowCount):
-                bc_call_curve[i].clear()
-                bc_put_curve[i].clear()
+                bc_plot2_call_curve[i].clear()
+                bc_plot2_put_curve[i].clear()
             
             bc_plot2_sp500_curve.clear()
             bc_plot2_dow_curve.clear()
@@ -26229,7 +26370,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_wti_curve.clear()
 
             for i in range(9):
-                bc_mv_line[i].setValue(0)
+                bc_plot2_mv_line[i].setValue(0)
             
             bc_plot2_ovc_close_line.setValue(0)
             bc_plot2_ovc_open_line.setValue(0)
@@ -26262,8 +26403,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_put_drate_curve.clear()
 
             for i in range(nRowCount):
-                bc_call_curve[i].clear()
-                bc_put_curve[i].clear()
+                bc_plot2_call_curve[i].clear()
+                bc_plot2_put_curve[i].clear()
 
             bc_plot2_sp500_curve.clear()
             bc_plot2_dow_curve.clear()
@@ -26271,7 +26412,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_wti_curve.clear()
 
             for i in range(9):
-                bc_mv_line[i].setValue(0)
+                bc_plot2_mv_line[i].setValue(0)
 
             bc_plot2_ovc_close_line.setValue(0)
             bc_plot2_ovc_open_line.setValue(0)
@@ -26304,8 +26445,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
-                bc_call_curve[i].clear()
-                bc_put_curve[i].clear()                
+                bc_plot2_call_curve[i].clear()
+                bc_plot2_put_curve[i].clear()                
 
             bc_plot2_sp500_curve.clear()
             bc_plot2_dow_curve.clear()
@@ -26313,7 +26454,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_wti_curve.clear()
 
             for i in range(9):
-                bc_mv_line[i].setValue(0)
+                bc_plot2_mv_line[i].setValue(0)
 
             bc_plot2_ovc_close_line.setValue(0)
             bc_plot2_ovc_open_line.setValue(0)
@@ -26344,8 +26485,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_fut_volume_minus_curve.clear()
             
             for i in range(nRowCount):
-                bc_call_curve[i].clear()
-                bc_put_curve[i].clear()                
+                bc_plot2_call_curve[i].clear()
+                bc_plot2_put_curve[i].clear()                
 
             bc_plot2_sp500_curve.clear()
             bc_plot2_dow_curve.clear()
@@ -26353,7 +26494,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_wti_curve.clear()
 
             for i in range(9):
-                bc_mv_line[i].setValue(0)
+                bc_plot2_mv_line[i].setValue(0)
 
             bc_plot2_ovc_close_line.setValue(0)
             bc_plot2_ovc_open_line.setValue(0)
@@ -26402,15 +26543,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_ovc_high_line.setValue(0)
 
             # 대맥점 표시
-            bc_mv_line[0].setValue(1.2)
-            bc_mv_line[1].setValue(2.5)
-            bc_mv_line[2].setValue(3.5)
-            bc_mv_line[3].setValue(0)
-            bc_mv_line[4].setValue(0)
-            bc_mv_line[5].setValue(0)
-            bc_mv_line[6].setValue(0)
-            bc_mv_line[7].setValue(0)
-            bc_mv_line[8].setValue(0)
+            bc_plot2_mv_line[0].setValue(1.2)
+            bc_plot2_mv_line[1].setValue(2.5)
+            bc_plot2_mv_line[2].setValue(3.5)
+            bc_plot2_mv_line[3].setValue(0)
+            bc_plot2_mv_line[4].setValue(0)
+            bc_plot2_mv_line[5].setValue(0)
+            bc_plot2_mv_line[6].setValue(0)
+            bc_plot2_mv_line[7].setValue(0)
+            bc_plot2_mv_line[8].setValue(0)
 
         elif bc_comboindex2 == 5:
 
@@ -26429,15 +26570,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
-                bc_call_curve[i].clear()                
-                bc_put_curve[i].clear()
+                bc_plot2_call_curve[i].clear()                
+                bc_plot2_put_curve[i].clear()
 
             bc_plot2_dow_curve.clear()
             bc_plot2_nasdaq_curve.clear()
             bc_plot2_wti_curve.clear()
 
             for i in range(9):
-                bc_mv_line[i].setValue(SP500_종가)
+                bc_plot2_mv_line[i].setValue(SP500_종가)
             
             if SP500_전저 == 0:
                 SP500_전저 = SP500_종가
@@ -26521,15 +26662,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
-                bc_call_curve[i].clear()
-                bc_put_curve[i].clear()                
+                bc_plot2_call_curve[i].clear()
+                bc_plot2_put_curve[i].clear()                
 
             bc_plot2_sp500_curve.clear()
             bc_plot2_nasdaq_curve.clear()
             bc_plot2_wti_curve.clear()
 
             for i in range(9):
-                bc_mv_line[i].setValue(DOW_종가)
+                bc_plot2_mv_line[i].setValue(DOW_종가)
             
             if DOW_전저 == 0:
                 DOW_전저 = DOW_종가
@@ -26613,15 +26754,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
-                bc_call_curve[i].clear()
-                bc_put_curve[i].clear()                
+                bc_plot2_call_curve[i].clear()
+                bc_plot2_put_curve[i].clear()                
                 
             bc_plot2_sp500_curve.clear()
             bc_plot2_dow_curve.clear() 
             bc_plot2_wti_curve.clear()
 
             for i in range(9):
-                bc_mv_line[i].setValue(NASDAQ_종가)
+                bc_plot2_mv_line[i].setValue(NASDAQ_종가)
             
             if NASDAQ_전저 == 0:
                 NASDAQ_전저 = NASDAQ_종가
@@ -26705,15 +26846,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
-                bc_call_curve[i].clear()
-                bc_put_curve[i].clear()                
+                bc_plot2_call_curve[i].clear()
+                bc_plot2_put_curve[i].clear()                
                 
             bc_plot2_sp500_curve.clear()
             bc_plot2_dow_curve.clear()
             bc_plot2_nasdaq_curve.clear()  
 
             for i in range(9):
-                bc_mv_line[i].setValue(WTI_종가)
+                bc_plot2_mv_line[i].setValue(WTI_종가)
             
             if WTI_전저 == 0:
                 WTI_전저 = WTI_종가
@@ -26781,6 +26922,606 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_ovc_high_line.setValue(WTI_고가)            
         else:
             pass
+    
+    def cb3_selectionChanged(self):
+
+        global bc_comboindex3
+        global bc_plot3_call_curve, bc_plot3_put_curve, bc_plot3_fut_volume_curve, bc_plot3_fut_volume_plus_curve, bc_plot3_fut_volume_minus_curve
+        global bc_plot3_call_volume_curve, bc_plot3_put_volume_curve
+        global bc_plot3_call_rr_curve, bc_plot3_put_rr_curve
+        global bc_plot3_fut_drate_curve, bc_plot3_dow_drate_curve, bc_plot3_call_drate_curve, bc_plot3_put_drate_curve
+        global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
+        global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
+        global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
+        global WTI_전저, WTI_전고, WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가
+
+        txt = self.bc_comboBox3.currentText()
+        bc_comboindex3 = self.bc_comboBox3.currentIndex()
+
+        if bc_comboindex3 == 0:
+
+            self.label_17.setText(" 전저 : 가격 ")
+            self.label_18.setText(" 전고 : 가격 ")
+            self.label_19.setText(" 종가 : 가격 ")
+            self.label_20.setText(" 피봇 : 가격 ")
+            self.label_21.setText(" 시가 : 가격 ")
+            self.label_22.setText(" 저가 : 가격 ")
+            self.label_23.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_24.setText(" 고가 : 가격 ")
+            
+            bc_plot3_call_rr_curve.clear()
+            bc_plot3_put_rr_curve.clear()
+
+            bc_plot3_fut_volume_plus_curve.clear()
+            bc_plot3_fut_volume_minus_curve.clear()
+
+            bc_plot3_fut_drate_curve.clear()
+            bc_plot3_dow_drate_curve.clear()
+            bc_plot3_call_drate_curve.clear()
+            bc_plot3_put_drate_curve.clear()
+                        
+            for i in range(nRowCount):
+                bc_plot3_call_curve[i].clear()
+                bc_plot3_put_curve[i].clear()
+            
+            bc_plot3_sp500_curve.clear()
+            bc_plot3_dow_curve.clear()
+            bc_plot3_nasdaq_curve.clear()
+            bc_plot3_wti_curve.clear()
+
+            for i in range(9):
+                bc_plot3_mv_line[i].setValue(0)
+            
+            bc_plot3_ovc_close_line.setValue(0)
+            bc_plot3_ovc_open_line.setValue(0)
+            bc_plot3_ovc_jl_line.setValue(0)
+            bc_plot3_ovc_jh_line.setValue(0)
+            bc_plot3_ovc_pivot_line.setValue(0)
+            bc_plot3_ovc_low_line.setValue(0)
+            bc_plot3_ovc_high_line.setValue(0)
+            
+        elif bc_comboindex3 == 1:
+
+            self.label_17.setText(" 전저 : 가격 ")
+            self.label_18.setText(" 전고 : 가격 ")
+            self.label_19.setText(" 종가 : 가격 ")
+            self.label_20.setText(" 피봇 : 가격 ")
+            self.label_21.setText(" 시가 : 가격 ")
+            self.label_22.setText(" 저가 : 가격 ")
+            self.label_23.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_24.setText(" 고가 : 가격 ")
+                        
+            bc_plot3_call_volume_curve.clear()
+            bc_plot3_put_volume_curve.clear()
+
+            bc_plot3_fut_volume_plus_curve.clear()
+            bc_plot3_fut_volume_minus_curve.clear()
+
+            bc_plot3_fut_drate_curve.clear()
+            bc_plot3_dow_drate_curve.clear()
+            bc_plot3_call_drate_curve.clear()
+            bc_plot3_put_drate_curve.clear()
+
+            for i in range(nRowCount):
+                bc_plot3_call_curve[i].clear()
+                bc_plot3_put_curve[i].clear()
+
+            bc_plot3_sp500_curve.clear()
+            bc_plot3_dow_curve.clear()
+            bc_plot3_nasdaq_curve.clear()
+            bc_plot3_wti_curve.clear()
+
+            for i in range(9):
+                bc_plot3_mv_line[i].setValue(0)
+
+            bc_plot3_ovc_close_line.setValue(0)
+            bc_plot3_ovc_open_line.setValue(0)
+            bc_plot3_ovc_jl_line.setValue(0)
+            bc_plot3_ovc_jh_line.setValue(0)
+            bc_plot3_ovc_pivot_line.setValue(0)
+            bc_plot3_ovc_low_line.setValue(0)
+            bc_plot3_ovc_high_line.setValue(0)                      
+
+        elif bc_comboindex3 == 2:
+
+            self.label_17.setText(" 전저 : 가격 ")
+            self.label_18.setText(" 전고 : 가격 ")
+            self.label_19.setText(" 종가 : 가격 ")
+            self.label_20.setText(" 피봇 : 가격 ")
+            self.label_21.setText(" 시가 : 가격 ")
+            self.label_22.setText(" 저가 : 가격 ")
+            self.label_23.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_24.setText(" 고가 : 가격 ")
+
+            bc_plot3_call_rr_curve.clear()
+            bc_plot3_put_rr_curve.clear()
+
+            bc_plot3_call_volume_curve.clear()
+            bc_plot3_put_volume_curve.clear()
+
+            bc_plot3_fut_drate_curve.clear()
+            bc_plot3_dow_drate_curve.clear()
+            bc_plot3_call_drate_curve.clear()
+            bc_plot3_put_drate_curve.clear()
+            
+            for i in range(nRowCount):
+                bc_plot3_call_curve[i].clear()
+                bc_plot3_put_curve[i].clear()                
+
+            bc_plot3_sp500_curve.clear()
+            bc_plot3_dow_curve.clear()
+            bc_plot3_nasdaq_curve.clear() 
+            bc_plot3_wti_curve.clear()
+
+            for i in range(9):
+                bc_plot3_mv_line[i].setValue(0)
+
+            bc_plot3_ovc_close_line.setValue(0)
+            bc_plot3_ovc_open_line.setValue(0)
+            bc_plot3_ovc_jl_line.setValue(0)
+            bc_plot3_ovc_jh_line.setValue(0)
+            bc_plot3_ovc_pivot_line.setValue(0)
+            bc_plot3_ovc_low_line.setValue(0)
+            bc_plot3_ovc_high_line.setValue(0)
+                    
+        elif bc_comboindex3 == 3:
+
+            self.label_17.setText(" 전저 : 가격 ")
+            self.label_18.setText(" 전고 : 가격 ")
+            self.label_19.setText(" 종가 : 가격 ")
+            self.label_20.setText(" 피봇 : 가격 ")
+            self.label_21.setText(" 시가 : 가격 ")
+            self.label_22.setText(" 저가 : 가격 ")
+            self.label_23.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_24.setText(" 고가 : 가격 ")
+
+            bc_plot3_call_rr_curve.clear()
+            bc_plot3_put_rr_curve.clear()   
+
+            bc_plot3_call_volume_curve.clear()
+            bc_plot3_put_volume_curve.clear()
+
+            bc_plot3_fut_volume_plus_curve.clear()
+            bc_plot3_fut_volume_minus_curve.clear()
+            
+            for i in range(nRowCount):
+                bc_plot3_call_curve[i].clear()
+                bc_plot3_put_curve[i].clear()                
+
+            bc_plot3_sp500_curve.clear()
+            bc_plot3_dow_curve.clear()
+            bc_plot3_nasdaq_curve.clear()
+            bc_plot3_wti_curve.clear()
+
+            for i in range(9):
+                bc_plot3_mv_line[i].setValue(0)
+
+            bc_plot3_ovc_close_line.setValue(0)
+            bc_plot3_ovc_open_line.setValue(0)
+            bc_plot3_ovc_jl_line.setValue(0)
+            bc_plot3_ovc_jh_line.setValue(0)
+            bc_plot3_ovc_pivot_line.setValue(0)
+            bc_plot3_ovc_low_line.setValue(0)
+            bc_plot3_ovc_high_line.setValue(0)
+
+        elif bc_comboindex3 == 4:
+
+            self.label_17.setText(" 전저 : 가격 ")
+            self.label_18.setText(" 전고 : 가격 ")
+            self.label_19.setText(" 종가 : 가격 ")
+            self.label_20.setText(" 피봇 : 가격 ")
+            self.label_21.setText(" 시가 : 가격 ")
+            self.label_22.setText(" 저가 : 가격 ")
+            self.label_23.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_24.setText(" 고가 : 가격 ")
+
+            bc_plot3_call_rr_curve.clear()
+            bc_plot3_put_rr_curve.clear()   
+
+            bc_plot3_call_volume_curve.clear()
+            bc_plot3_put_volume_curve.clear()
+
+            bc_plot3_fut_volume_plus_curve.clear()
+            bc_plot3_fut_volume_minus_curve.clear()
+
+            bc_plot3_fut_drate_curve.clear()
+            bc_plot3_dow_drate_curve.clear()
+            bc_plot3_call_drate_curve.clear()
+            bc_plot3_put_drate_curve.clear()
+            
+            bc_plot3_sp500_curve.clear()
+            bc_plot3_dow_curve.clear()
+            bc_plot3_nasdaq_curve.clear()
+            bc_plot3_wti_curve.clear()
+            
+            bc_plot3_ovc_close_line.setValue(0)
+            bc_plot3_ovc_open_line.setValue(0)
+            bc_plot3_ovc_jl_line.setValue(0)
+            bc_plot3_ovc_jh_line.setValue(0)
+            bc_plot3_ovc_pivot_line.setValue(0)
+            bc_plot3_ovc_low_line.setValue(0)
+            bc_plot3_ovc_high_line.setValue(0)
+
+            # 대맥점 표시
+            bc_plot3_mv_line[0].setValue(1.2)
+            bc_plot3_mv_line[1].setValue(2.5)
+            bc_plot3_mv_line[2].setValue(3.5)
+            bc_plot3_mv_line[3].setValue(0)
+            bc_plot3_mv_line[4].setValue(0)
+            bc_plot3_mv_line[5].setValue(0)
+            bc_plot3_mv_line[6].setValue(0)
+            bc_plot3_mv_line[7].setValue(0)
+            bc_plot3_mv_line[8].setValue(0)
+
+        elif bc_comboindex3 == 5:
+
+            bc_plot3_call_rr_curve.clear()
+            bc_plot3_put_rr_curve.clear()   
+
+            bc_plot3_call_volume_curve.clear()
+            bc_plot3_put_volume_curve.clear()
+
+            bc_plot3_fut_volume_plus_curve.clear()
+            bc_plot3_fut_volume_minus_curve.clear()
+
+            bc_plot3_fut_drate_curve.clear()
+            bc_plot3_dow_drate_curve.clear()
+            bc_plot3_call_drate_curve.clear()
+            bc_plot3_put_drate_curve.clear()
+            
+            for i in range(nRowCount):
+                bc_plot3_call_curve[i].clear()                
+                bc_plot3_put_curve[i].clear()
+
+            bc_plot3_dow_curve.clear()
+            bc_plot3_nasdaq_curve.clear()
+            bc_plot3_wti_curve.clear()
+
+            for i in range(9):
+                bc_plot3_mv_line[i].setValue(SP500_종가)
+            
+            if SP500_전저 == 0:
+                SP500_전저 = SP500_종가
+            else:
+                pass
+
+            if SP500_전고 == 0:
+                SP500_전고 = SP500_종가
+            else:
+                pass
+
+            if SP500_종가 == 0:
+                SP500_전고 = SP500_종가
+            else:
+                pass
+
+            if SP500_피봇 == 0:
+                SP500_피봇 = SP500_종가
+            else:
+                pass
+
+            if SP500_시가 == 0:
+                SP500_시가 = SP500_종가
+            else:
+                pass
+
+            if SP500_저가 == 0:
+                SP500_저가 = SP500_종가
+            else:
+                pass
+
+            if SP500_고가 == 0:
+                SP500_고가 = SP500_종가
+            else:
+                pass
+                
+            str = ' 전저 : {0} '.format(format(SP500_전저, ','))
+            self.label_17.setText(str)
+            bc_plot3_ovc_jl_line.setValue(SP500_전저)
+
+            str = ' 전고 : {0} '.format(format(SP500_전고, ','))
+            self.label_18.setText(str)
+            bc_plot3_ovc_jh_line.setValue(SP500_전고)
+            
+            str = ' 종가 : {0} '.format(format(SP500_종가, ','))
+            self.label_19.setText(str)
+            bc_plot3_ovc_close_line.setValue(SP500_종가)
+
+            str = ' 피봇 : {0} '.format(format(SP500_피봇, ','))
+            self.label_20.setText(str)
+            bc_plot3_ovc_pivot_line.setValue(SP500_피봇)
+            
+            str = ' 시가 : {0} '.format(format(SP500_시가, ','))
+            self.label_21.setText(str)
+            bc_plot3_ovc_open_line.setValue(SP500_시가)
+
+            str = ' 저가 : {0} '.format(format(SP500_저가, ','))
+            self.label_22.setText(str)
+            bc_plot3_ovc_low_line.setValue(SP500_저가)
+
+            self.label_23.setText(" 현재가 : 0,000.00 (전일대비, 등락율, 진폭) ")
+
+            str = ' 고가 : {0} '.format(format(SP500_고가, ','))
+            self.label_24.setText(str)
+            bc_plot3_ovc_high_line.setValue(SP500_고가)
+
+        elif bc_comboindex3 == 6:
+
+            bc_plot3_call_rr_curve.clear()
+            bc_plot3_put_rr_curve.clear()   
+
+            bc_plot3_call_volume_curve.clear()
+            bc_plot3_put_volume_curve.clear()
+
+            bc_plot3_fut_volume_plus_curve.clear()
+            bc_plot3_fut_volume_minus_curve.clear()
+
+            bc_plot3_fut_drate_curve.clear()
+            bc_plot3_dow_drate_curve.clear()
+            bc_plot3_call_drate_curve.clear()
+            bc_plot3_put_drate_curve.clear()
+            
+            for i in range(nRowCount):
+                bc_plot3_call_curve[i].clear()
+                bc_plot3_put_curve[i].clear()                
+
+            bc_plot3_sp500_curve.clear()
+            bc_plot3_nasdaq_curve.clear()
+            bc_plot3_wti_curve.clear()
+
+            for i in range(9):
+                bc_plot3_mv_line[i].setValue(DOW_종가)
+            
+            if DOW_전저 == 0:
+                DOW_전저 = DOW_종가
+            else:
+                pass
+
+            if DOW_전고 == 0:
+                DOW_전고 = DOW_종가
+            else:
+                pass
+
+            if DOW_종가 == 0:
+                DOW_전고 = DOW_종가
+            else:
+                pass
+
+            if DOW_피봇 == 0:
+                DOW_피봇 = DOW_종가
+            else:
+                pass
+
+            if DOW_시가 == 0:
+                DOW_시가 = DOW_종가
+            else:
+                pass
+
+            if DOW_저가 == 0:
+                DOW_저가 = DOW_종가
+            else:
+                pass
+
+            if DOW_고가 == 0:
+                DOW_고가 = DOW_종가
+            else:
+                pass
+                
+            str = ' 전저 : {0} '.format(format(DOW_전저, ','))
+            self.label_17.setText(str)
+            bc_plot3_ovc_jl_line.setValue(DOW_전저)
+
+            str = ' 전고 : {0} '.format(format(DOW_전고, ','))
+            self.label_18.setText(str)
+            bc_plot3_ovc_jh_line.setValue(DOW_전고)
+            
+            str = ' 종가 : {0} '.format(format(DOW_종가, ','))
+            self.label_19.setText(str)
+            bc_plot3_ovc_close_line.setValue(DOW_종가)
+
+            str = ' 피봇 : {0} '.format(format(DOW_피봇, ','))
+            self.label_20.setText(str)
+            bc_plot3_ovc_pivot_line.setValue(DOW_피봇)
+            
+            str = ' 시가 : {0} '.format(format(DOW_시가, ','))
+            self.label_21.setText(str)
+            bc_plot3_ovc_open_line.setValue(DOW_시가)
+
+            str = ' 저가 : {0} '.format(format(DOW_저가, ','))
+            self.label_22.setText(str)
+            bc_plot3_ovc_low_line.setValue(DOW_저가)
+
+            self.label_23.setText(" 현재가 : 00,000 (전일대비, 등락율, 진폭) ")
+
+            str = ' 고가 : {0} '.format(format(DOW_고가, ','))
+            self.label_24.setText(str)
+            bc_plot3_ovc_high_line.setValue(DOW_고가)
+
+        elif bc_comboindex3 == 7:
+
+            bc_plot3_call_rr_curve.clear()
+            bc_plot3_put_rr_curve.clear()   
+
+            bc_plot3_call_volume_curve.clear()
+            bc_plot3_put_volume_curve.clear()
+
+            bc_plot3_fut_volume_plus_curve.clear()
+            bc_plot3_fut_volume_minus_curve.clear()
+
+            bc_plot3_fut_drate_curve.clear()
+            bc_plot3_dow_drate_curve.clear()
+            bc_plot3_call_drate_curve.clear()
+            bc_plot3_put_drate_curve.clear()
+            
+            for i in range(nRowCount):
+                bc_plot3_call_curve[i].clear()
+                bc_plot3_put_curve[i].clear()                
+                
+            bc_plot3_sp500_curve.clear()
+            bc_plot3_dow_curve.clear() 
+            bc_plot3_wti_curve.clear()
+
+            for i in range(9):
+                bc_plot3_mv_line[i].setValue(NASDAQ_종가)
+            
+            if NASDAQ_전저 == 0:
+                NASDAQ_전저 = NASDAQ_종가
+            else:
+                pass
+
+            if NASDAQ_전고 == 0:
+                NASDAQ_전고 = NASDAQ_종가
+            else:
+                pass
+
+            if NASDAQ_종가 == 0:
+                NASDAQ_전고 = NASDAQ_종가
+            else:
+                pass
+
+            if NASDAQ_피봇 == 0:
+                NASDAQ_피봇 = NASDAQ_종가
+            else:
+                pass
+
+            if NASDAQ_시가 == 0:
+                NASDAQ_시가 = NASDAQ_종가
+            else:
+                pass
+
+            if NASDAQ_저가 == 0:
+                NASDAQ_저가 = NASDAQ_종가
+            else:
+                pass
+
+            if NASDAQ_고가 == 0:
+                NASDAQ_고가 = NASDAQ_종가
+            else:
+                pass
+                
+            str = ' 전저 : {0} '.format(format(NASDAQ_전저, ','))
+            self.label_17.setText(str)
+            bc_plot3_ovc_jl_line.setValue(NASDAQ_전저)
+
+            str = ' 전고 : {0} '.format(format(NASDAQ_전고, ','))
+            self.label_18.setText(str)
+            bc_plot3_ovc_jh_line.setValue(NASDAQ_전고)
+            
+            str = ' 종가 : {0} '.format(format(NASDAQ_종가, ','))
+            self.label_19.setText(str)
+            bc_plot3_ovc_close_line.setValue(NASDAQ_종가)
+
+            str = ' 피봇 : {0} '.format(format(NASDAQ_피봇, ','))
+            self.label_20.setText(str)
+            bc_plot3_ovc_pivot_line.setValue(NASDAQ_피봇)
+            
+            str = ' 시가 : {0} '.format(format(NASDAQ_시가, ','))
+            self.label_21.setText(str)
+            bc_plot3_ovc_open_line.setValue(NASDAQ_시가)
+
+            str = ' 저가 : {0} '.format(format(NASDAQ_저가, ','))
+            self.label_22.setText(str)
+            bc_plot3_ovc_low_line.setValue(NASDAQ_저가)
+
+            self.label_23.setText(" 현재가 : 0,000.00 (전일대비, 등락율, 진폭) ")
+
+            str = ' 고가 : {0} '.format(format(NASDAQ_고가, ','))
+            self.label_24.setText(str)
+            bc_plot3_ovc_high_line.setValue(NASDAQ_고가)            
+
+        elif bc_comboindex3 == 8:
+
+            bc_plot3_call_rr_curve.clear()
+            bc_plot3_put_rr_curve.clear()   
+
+            bc_plot3_call_volume_curve.clear()
+            bc_plot3_put_volume_curve.clear()
+
+            bc_plot3_fut_volume_plus_curve.clear()
+            bc_plot3_fut_volume_minus_curve.clear()
+
+            bc_plot3_fut_drate_curve.clear()
+            bc_plot3_dow_drate_curve.clear()
+            bc_plot3_call_drate_curve.clear()
+            bc_plot3_put_drate_curve.clear()
+            
+            for i in range(nRowCount):
+                bc_plot3_call_curve[i].clear()
+                bc_plot3_put_curve[i].clear()                
+                
+            bc_plot3_sp500_curve.clear()
+            bc_plot3_dow_curve.clear()
+            bc_plot3_nasdaq_curve.clear()  
+
+            for i in range(9):
+                bc_plot3_mv_line[i].setValue(WTI_종가)
+            
+            if WTI_전저 == 0:
+                WTI_전저 = WTI_종가
+            else:
+                pass
+
+            if WTI_전고 == 0:
+                WTI_전고 = WTI_종가
+            else:
+                pass
+
+            if WTI_종가 == 0:
+                WTI_전고 = WTI_종가
+            else:
+                pass
+
+            if WTI_피봇 == 0:
+                WTI_피봇 = WTI_종가
+            else:
+                pass
+
+            if WTI_시가 == 0:
+                WTI_시가 = WTI_종가
+            else:
+                pass
+
+            if WTI_저가 == 0:
+                WTI_저가 = WTI_종가
+            else:
+                pass
+
+            if WTI_고가 == 0:
+                WTI_고가 = WTI_종가
+            else:
+                pass
+                
+            str = ' 전저 : {0} '.format(format(WTI_전저, ','))
+            self.label_17.setText(str)
+            bc_plot3_ovc_jl_line.setValue(WTI_전저)
+
+            str = ' 전고 : {0} '.format(format(WTI_전고, ','))
+            self.label_18.setText(str)
+            bc_plot3_ovc_jh_line.setValue(WTI_전고)
+            
+            str = ' 종가 : {0} '.format(format(WTI_종가, ','))
+            self.label_19.setText(str)
+            bc_plot3_ovc_close_line.setValue(WTI_종가)
+
+            str = ' 피봇 : {0} '.format(format(WTI_피봇, ','))
+            self.label_20.setText(str)
+            bc_plot3_ovc_pivot_line.setValue(WTI_피봇)
+            
+            str = ' 시가 : {0} '.format(format(WTI_시가, ','))
+            self.label_21.setText(str)
+            bc_plot3_ovc_open_line.setValue(WTI_시가)
+
+            str = ' 저가 : {0} '.format(format(WTI_저가, ','))
+            self.label_22.setText(str)
+            bc_plot3_ovc_low_line.setValue(WTI_저가)
+
+            self.label_23.setText(" 현재가 : 00.00 (전일대비, 등락율, 진폭) ")
+
+            str = ' 고가 : {0} '.format(format(WTI_고가, ','))
+            self.label_24.setText(str)
+            bc_plot3_ovc_high_line.setValue(WTI_고가)            
+        else:
+            pass
 
     @pyqtSlot(str)
     def update_bigchart(self):
@@ -26798,38 +27539,38 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
         
-        # 옵션그래프 초기화 및 데이타 가져오기
+        # Plot2 옵션그래프 초기화 및 데이타 가져오기
         if bc_comboindex2 == 4:                            
 
             if selected_opt_list != old_selected_opt_list:
 
                 # 전체 행사가 그래프 클리어
                 for index in range(option_pairs_count):
-                    bc_call_curve[index].clear()
-                    bc_put_curve[index].clear()
+                    bc_plot2_call_curve[index].clear()
+                    bc_plot2_put_curve[index].clear()
             else:
                 # 선택된 행사가 그래프 클리어
                 for index in range(option_pairs_count):
 
                     if index in selected_call:
-                        bc_call_curve[index].clear()
+                        bc_plot2_call_curve[index].clear()
                     else:
                         pass
 
                     if index in selected_put:
-                        bc_put_curve[index].clear()
+                        bc_plot2_put_curve[index].clear()
                     else:
                         pass
 
-            bc_mv_line[0].setValue(1.2)
-            bc_mv_line[1].setValue(2.5)
-            bc_mv_line[2].setValue(3.5)
-            bc_mv_line[3].setValue(0)
-            bc_mv_line[4].setValue(0)
-            bc_mv_line[5].setValue(0)
-            bc_mv_line[6].setValue(0)
-            bc_mv_line[7].setValue(0)
-            bc_mv_line[8].setValue(0)
+            bc_plot2_mv_line[0].setValue(1.2)
+            bc_plot2_mv_line[1].setValue(2.5)
+            bc_plot2_mv_line[2].setValue(3.5)
+            bc_plot2_mv_line[3].setValue(0)
+            bc_plot2_mv_line[4].setValue(0)
+            bc_plot2_mv_line[5].setValue(0)
+            bc_plot2_mv_line[6].setValue(0)
+            bc_plot2_mv_line[7].setValue(0)
+            bc_plot2_mv_line[8].setValue(0)
 
             for index in range(option_pairs_count):
 
@@ -26837,7 +27578,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 for i in range(len(selected_call)):
 
                     if index == selected_call[i]:
-                        bc_call_curve[i].setData(call_plot_data[index])
+                        bc_plot2_call_curve[i].setData(call_plot_data[index])
                     else:
                         pass                    
 
@@ -26845,7 +27586,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 for i in range(len(selected_put)):
 
                     if index == selected_put[i]:
-                        bc_put_curve[i].setData(put_plot_data[index])
+                        bc_plot2_put_curve[i].setData(put_plot_data[index])
                     else:
                         pass
 
@@ -26854,46 +27595,141 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             # 최대값내의 의미가 그리기
             if 4.0 <= axY.range[1] < 5.0:
-                bc_mv_line[3].setValue(4.85)
-                bc_mv_line[4].setValue(0)
-                bc_mv_line[5].setValue(0)
-                bc_mv_line[6].setValue(0)
-                bc_mv_line[7].setValue(0)
-                bc_mv_line[8].setValue(0)
+                bc_plot2_mv_line[3].setValue(4.85)
+                bc_plot2_mv_line[4].setValue(0)
+                bc_plot2_mv_line[5].setValue(0)
+                bc_plot2_mv_line[6].setValue(0)
+                bc_plot2_mv_line[7].setValue(0)
+                bc_plot2_mv_line[8].setValue(0)
             elif 5.0 <= axY.range[1] < 6.0:
-                bc_mv_line[3].setValue(4.85)
-                bc_mv_line[4].setValue(5.1)
-                bc_mv_line[5].setValue(5.5)
-                bc_mv_line[6].setValue(0)
-                bc_mv_line[7].setValue(0)
-                bc_mv_line[8].setValue(0)
+                bc_plot2_mv_line[3].setValue(4.85)
+                bc_plot2_mv_line[4].setValue(5.1)
+                bc_plot2_mv_line[5].setValue(5.5)
+                bc_plot2_mv_line[6].setValue(0)
+                bc_plot2_mv_line[7].setValue(0)
+                bc_plot2_mv_line[8].setValue(0)
             elif 6.0 <= axY.range[1] < 7.1:
-                bc_mv_line[3].setValue(4.85)
-                bc_mv_line[4].setValue(5.1)
-                bc_mv_line[5].setValue(5.5)
-                bc_mv_line[6].setValue(6.85)
-                bc_mv_line[7].setValue(0)
-                bc_mv_line[8].setValue(0)
+                bc_plot2_mv_line[3].setValue(4.85)
+                bc_plot2_mv_line[4].setValue(5.1)
+                bc_plot2_mv_line[5].setValue(5.5)
+                bc_plot2_mv_line[6].setValue(6.85)
+                bc_plot2_mv_line[7].setValue(0)
+                bc_plot2_mv_line[8].setValue(0)
             elif 7.1 <= axY.range[1] < 8.1:
-                bc_mv_line[3].setValue(4.85)
-                bc_mv_line[4].setValue(5.1)
-                bc_mv_line[5].setValue(5.5)
-                bc_mv_line[6].setValue(6.85)
-                bc_mv_line[7].setValue(7.1)
-                bc_mv_line[8].setValue(0)
+                bc_plot2_mv_line[3].setValue(4.85)
+                bc_plot2_mv_line[4].setValue(5.1)
+                bc_plot2_mv_line[5].setValue(5.5)
+                bc_plot2_mv_line[6].setValue(6.85)
+                bc_plot2_mv_line[7].setValue(7.1)
+                bc_plot2_mv_line[8].setValue(0)
             elif axY.range[1] >= 8.1:
-                bc_mv_line[3].setValue(4.85)
-                bc_mv_line[4].setValue(5.1)
-                bc_mv_line[5].setValue(5.5)
-                bc_mv_line[6].setValue(6.85)
-                bc_mv_line[7].setValue(7.1)
-                bc_mv_line[8].setValue(8.1)
+                bc_plot2_mv_line[3].setValue(4.85)
+                bc_plot2_mv_line[4].setValue(5.1)
+                bc_plot2_mv_line[5].setValue(5.5)
+                bc_plot2_mv_line[6].setValue(6.85)
+                bc_plot2_mv_line[7].setValue(7.1)
+                bc_plot2_mv_line[8].setValue(8.1)
             else:
                 pass
         else:
             pass            
 
-        # Plot 1 x축 타임라인 그리기
+        # Plot3 옵션그래프 초기화 및 데이타 가져오기
+        if bc_comboindex3 == 4:                            
+
+            if selected_opt_list != old_selected_opt_list:
+
+                # 전체 행사가 그래프 클리어
+                for index in range(option_pairs_count):
+                    bc_plot3_call_curve[index].clear()
+                    bc_plot3_put_curve[index].clear()
+            else:
+                # 선택된 행사가 그래프 클리어
+                for index in range(option_pairs_count):
+
+                    if index in selected_call:
+                        bc_plot3_call_curve[index].clear()
+                    else:
+                        pass
+
+                    if index in selected_put:
+                        bc_plot3_put_curve[index].clear()
+                    else:
+                        pass
+
+            bc_plot3_mv_line[0].setValue(1.2)
+            bc_plot3_mv_line[1].setValue(2.5)
+            bc_plot3_mv_line[2].setValue(3.5)
+            bc_plot3_mv_line[3].setValue(0)
+            bc_plot3_mv_line[4].setValue(0)
+            bc_plot3_mv_line[5].setValue(0)
+            bc_plot3_mv_line[6].setValue(0)
+            bc_plot3_mv_line[7].setValue(0)
+            bc_plot3_mv_line[8].setValue(0)
+
+            for index in range(option_pairs_count):
+
+                # 선택된 콜그래프 그리기
+                for i in range(len(selected_call)):
+
+                    if index == selected_call[i]:
+                        bc_plot3_call_curve[i].setData(call_plot_data[index])
+                    else:
+                        pass                    
+
+                # 선택된 풋그래프 그리기
+                for i in range(len(selected_put)):
+
+                    if index == selected_put[i]:
+                        bc_plot3_put_curve[i].setData(put_plot_data[index])
+                    else:
+                        pass
+
+            # 옵션 Y축 최대값 구하기
+            axY = self.bc_Plot3.getAxis('left')
+
+            # 최대값내의 의미가 그리기
+            if 4.0 <= axY.range[1] < 5.0:
+                bc_plot3_mv_line[3].setValue(4.85)
+                bc_plot3_mv_line[4].setValue(0)
+                bc_plot3_mv_line[5].setValue(0)
+                bc_plot3_mv_line[6].setValue(0)
+                bc_plot3_mv_line[7].setValue(0)
+                bc_plot3_mv_line[8].setValue(0)
+            elif 5.0 <= axY.range[1] < 6.0:
+                bc_plot3_mv_line[3].setValue(4.85)
+                bc_plot3_mv_line[4].setValue(5.1)
+                bc_plot3_mv_line[5].setValue(5.5)
+                bc_plot3_mv_line[6].setValue(0)
+                bc_plot3_mv_line[7].setValue(0)
+                bc_plot3_mv_line[8].setValue(0)
+            elif 6.0 <= axY.range[1] < 7.1:
+                bc_plot3_mv_line[3].setValue(4.85)
+                bc_plot3_mv_line[4].setValue(5.1)
+                bc_plot3_mv_line[5].setValue(5.5)
+                bc_plot3_mv_line[6].setValue(6.85)
+                bc_plot3_mv_line[7].setValue(0)
+                bc_plot3_mv_line[8].setValue(0)
+            elif 7.1 <= axY.range[1] < 8.1:
+                bc_plot3_mv_line[3].setValue(4.85)
+                bc_plot3_mv_line[4].setValue(5.1)
+                bc_plot3_mv_line[5].setValue(5.5)
+                bc_plot3_mv_line[6].setValue(6.85)
+                bc_plot3_mv_line[7].setValue(7.1)
+                bc_plot3_mv_line[8].setValue(0)
+            elif axY.range[1] >= 8.1:
+                bc_plot3_mv_line[3].setValue(4.85)
+                bc_plot3_mv_line[4].setValue(5.1)
+                bc_plot3_mv_line[5].setValue(5.5)
+                bc_plot3_mv_line[6].setValue(6.85)
+                bc_plot3_mv_line[7].setValue(7.1)
+                bc_plot3_mv_line[8].setValue(8.1)
+            else:
+                pass
+        else:
+            pass            
+
+        # Plot1 x축 타임라인 그리기
         if bc_comboindex1 == 0 or bc_comboindex1 == 4:
 
             bc_plot1_time_line.setValue(x_idx)
@@ -26904,12 +27740,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             bc_plot1_time_line.setValue(opt_x_idx)
 
-        # Plot 2 x축 타임라인 그리기
+        # Plot2 x축 타임라인 그리기
         if bc_comboindex2 == 5 or bc_comboindex2 == 6 or bc_comboindex2 == 7 or bc_comboindex2 == 8:
 
             bc_plot2_time_line.setValue(ovc_x_idx)
         else:
             bc_plot2_time_line.setValue(opt_x_idx)
+
+        # Plot3 x축 타임라인 그리기
+        if bc_comboindex3 == 5 or bc_comboindex3 == 6 or bc_comboindex3 == 7 or bc_comboindex3 == 8:
+
+            bc_plot3_time_line.setValue(ovc_x_idx)
+        else:
+            bc_plot3_time_line.setValue(opt_x_idx)
 
         # 선택된 plot1 그래프 그리기
         if bc_comboindex1 == 0:
@@ -27691,6 +28534,372 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_16.setText(str)    
 
             bc_plot2_wti_curve.setData(plot_data14)
+        else:
+            pass        
+        
+        # 선택된 plot3 그래프 그리기
+        if bc_comboindex3 == 0:
+
+            bc_plot3_call_volume_curve.setData(plot_data2)
+            bc_plot3_put_volume_curve.setData(plot_data3)
+
+        elif bc_comboindex3 == 1:
+
+            bc_plot3_call_rr_curve.setData(plot_data5)
+            bc_plot3_put_rr_curve.setData(plot_data6)        
+
+        elif bc_comboindex3 == 2:
+
+            if fut_volume_power > 0:
+                bc_plot3_fut_volume_plus_curve.setData(plot_data1)
+            else:
+                bc_plot3_fut_volume_minus_curve.setData(plot_data1)
+
+        elif bc_comboindex3 == 3:
+
+            bc_plot3_fut_drate_curve.setData(plot_data7)
+            bc_plot3_dow_drate_curve.setData(plot_data8)
+            bc_plot3_call_drate_curve.setData(plot_data15)
+            bc_plot3_put_drate_curve.setData(plot_data16)
+
+        elif bc_comboindex3 == 4:
+
+            pass
+
+        elif bc_comboindex3 == 5:
+            
+            if SP500_전저 > 0:
+                bc_plot3_ovc_jl_line.setValue(SP500_전저)
+            else:
+                pass 
+
+            if SP500_전고 > 0:
+                bc_plot3_ovc_jh_line.setValue(SP500_전고)
+            else:
+                pass
+
+            if SP500_종가 > 0:
+                bc_plot3_ovc_close_line.setValue(SP500_종가)
+            else:
+                pass 
+            
+            if SP500_시가 > 0:
+                bc_plot3_ovc_open_line.setValue(SP500_시가)
+            else:
+                pass
+
+            if SP500_피봇 > 0:
+                bc_plot3_ovc_pivot_line.setValue(SP500_피봇)
+            else:
+                pass
+
+            if SP500_저가 > 0:
+                bc_plot3_ovc_low_line.setValue(SP500_저가)
+            else:
+                pass
+
+            if SP500_고가 > 0:
+                bc_plot3_ovc_high_line.setValue(SP500_고가)
+            else:
+                pass
+
+            str = ' 저가 : {0} '.format(format(SP500_저가, ','))
+            self.label_22.setStyleSheet('background-color: skyblue ; color: blue')
+            self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
+            self.label_22.setText(str)
+
+            tmp = self.label_23.text().split()[2]
+            value = tmp.replace(',', '')                
+
+            if SP500_현재가 > float(value):
+
+                str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+                
+                if SP500_전일대비 > 0:
+                    self.label_23.setStyleSheet('background-color: pink ; color: red')
+                elif SP500_전일대비 < 0:
+                    self.label_23.setStyleSheet('background-color: pink ; color: blue')
+                else:
+                    self.label_23.setStyleSheet('background-color: pink ; color: black')
+
+                self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_23.setText(str)
+
+            elif SP500_현재가 < float(value):
+
+                str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                if SP500_전일대비 > 0:
+                    self.label_23.setStyleSheet('background-color: skyblue ; color: red')
+                elif SP500_전일대비 < 0:
+                    self.label_23.setStyleSheet('background-color: skyblue ; color: blue')
+                else:
+                    self.label_23.setStyleSheet('background-color: skyblue ; color: black')
+
+                self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_23.setText(str)
+            else:
+                pass
+
+            str = ' 고가 : {0} '.format(format(SP500_고가, ','))
+            self.label_24.setStyleSheet('background-color: pink ; color: red')
+            self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
+            self.label_24.setText(str) 
+            
+            bc_plot3_sp500_curve.setData(plot_data11) 
+
+        elif bc_comboindex3 == 6: 
+            
+            if DOW_전저 > 0:
+                bc_plot3_ovc_jl_line.setValue(DOW_전저)
+            else:
+                pass 
+            
+            if DOW_전고 > 0:
+                bc_plot3_ovc_jh_line.setValue(DOW_전고)
+            else:
+                pass
+            
+            if DOW_종가 > 0:
+                bc_plot3_ovc_close_line.setValue(DOW_종가)
+            else:
+                pass
+            
+            if DOW_시가 > 0:
+                bc_plot3_ovc_open_line.setValue(DOW_시가)
+            else:
+                pass
+            
+            if DOW_피봇 > 0:
+                bc_plot3_ovc_pivot_line.setValue(DOW_피봇)
+            else:
+                pass
+            
+            if DOW_저가 > 0:
+                bc_plot3_ovc_low_line.setValue(DOW_저가)
+            else:
+                pass
+
+            if DOW_고가 > 0:
+                bc_plot3_ovc_high_line.setValue(DOW_고가)
+            else:
+                pass
+
+            str = ' 저가 : {0} '.format(format(DOW_저가, ','))
+            self.label_22.setStyleSheet('background-color: skyblue ; color: blue')
+            self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
+            self.label_22.setText(str)  
+
+            tmp = self.label_23.text().split()[2]
+            value = tmp.replace(',', '')               
+
+            if DOW_현재가 > float(value):
+
+                str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                if DOW_전일대비 > 0:
+                    self.label_23.setStyleSheet('background-color: pink ; color: red')
+                elif DOW_전일대비 < 0:
+                    self.label_23.setStyleSheet('background-color: pink ; color: blue')
+                else:
+                    self.label_23.setStyleSheet('background-color: pink ; color: black')
+
+                self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_23.setText(str)
+
+            elif DOW_현재가 < float(value):
+
+                str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                if DOW_전일대비 > 0:
+                    self.label_23.setStyleSheet('background-color: skyblue ; color: red')
+                elif DOW_전일대비 < 0:
+                    self.label_23.setStyleSheet('background-color: skyblue ; color: blue')
+                else:
+                    self.label_23.setStyleSheet('background-color: skyblue ; color: black')
+
+                self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_23.setText(str)
+            else:
+                pass
+
+            str = ' 고가 : {0} '.format(format(DOW_고가, ','))
+            self.label_24.setStyleSheet('background-color: pink ; color: red')
+            self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
+            self.label_24.setText(str)                  
+            
+            bc_plot3_dow_curve.setData(plot_data12) 
+
+        elif bc_comboindex3 == 7:
+            
+            if NASDAQ_전저 > 0:
+                bc_plot3_ovc_jl_line.setValue(NASDAQ_전저)
+            else:
+                pass 
+
+            if NASDAQ_전고 > 0:
+                bc_plot3_ovc_jh_line.setValue(NASDAQ_전고)
+            else:
+                pass
+
+            if NASDAQ_종가 > 0:
+                bc_plot3_ovc_close_line.setValue(NASDAQ_종가)
+            else:
+                pass
+            
+            if NASDAQ_시가 > 0:
+                bc_plot3_ovc_open_line.setValue(NASDAQ_시가)
+            else:
+                pass   
+
+            if NASDAQ_피봇 > 0:
+                bc_plot3_ovc_pivot_line.setValue(NASDAQ_피봇)
+            else:
+                pass
+
+            if NASDAQ_저가 > 0:
+                bc_plot3_ovc_low_line.setValue(NASDAQ_저가)
+            else:
+                pass
+
+            if NASDAQ_고가 > 0:
+                bc_plot3_ovc_high_line.setValue(NASDAQ_고가)
+            else:
+                pass
+
+            str = ' 저가 : {0} '.format(format(NASDAQ_저가, ','))
+            self.label_22.setStyleSheet('background-color: skyblue ; color: blue')
+            self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
+            self.label_22.setText(str)
+
+            tmp = self.label_23.text().split()[2]
+            value = tmp.replace(',', '')                
+
+            if NASDAQ_현재가 > float(value):
+
+                str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+
+                if NASDAQ_전일대비 > 0:
+                    self.label_23.setStyleSheet('background-color: pink ; color: red')
+                elif NASDAQ_전일대비 < 0:
+                    self.label_23.setStyleSheet('background-color: pink ; color: blue')
+                else:
+                    self.label_23.setStyleSheet('background-color: pink ; color: black')
+
+                self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_23.setText(str)
+
+            elif NASDAQ_현재가 < float(value):
+
+                str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+
+                if NASDAQ_전일대비 > 0:
+                    self.label_23.setStyleSheet('background-color: skyblue ; color: red')
+                elif NASDAQ_전일대비 < 0:
+                    self.label_23.setStyleSheet('background-color: skyblue ; color: blue')
+                else:
+                    self.label_23.setStyleSheet('background-color: skyblue ; color: black')
+
+                self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_23.setText(str)
+            else:
+                pass
+
+            str = ' 고가 : {0} '.format(format(NASDAQ_고가, ','))
+            self.label_24.setStyleSheet('background-color: pink ; color: red')
+            self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
+            self.label_24.setText(str)    
+
+            bc_plot3_nasdaq_curve.setData(plot_data13)
+
+        elif bc_comboindex3 == 8:
+            
+            if WTI_전저 > 0:
+                bc_plot3_ovc_jl_line.setValue(WTI_전저)
+            else:
+                pass 
+
+            if WTI_전고 > 0:
+                bc_plot3_ovc_jh_line.setValue(WTI_전고)
+            else:
+                pass
+
+            if WTI_종가 > 0:
+                bc_plot3_ovc_close_line.setValue(WTI_종가)
+            else:
+                pass
+            
+            if WTI_시가 > 0:
+                bc_plot3_ovc_open_line.setValue(WTI_시가)
+            else:
+                pass   
+
+            if WTI_피봇 > 0:
+                bc_plot3_ovc_pivot_line.setValue(WTI_피봇)
+            else:
+                pass
+
+            if WTI_저가 > 0:
+                bc_plot3_ovc_low_line.setValue(WTI_저가)
+            else:
+                pass
+
+            if WTI_고가 > 0:
+                bc_plot3_ovc_high_line.setValue(WTI_고가)
+            else:
+                pass
+
+            str = ' 저가 : {0} '.format(format(WTI_저가, ','))
+            self.label_22.setStyleSheet('background-color: skyblue ; color: blue')
+            self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
+            self.label_22.setText(str)
+
+            value = self.label_23.text().split()[2]             
+
+            if WTI_현재가 > float(value):
+
+                str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+
+                if WTI_전일대비 > 0:
+                    self.label_23.setStyleSheet('background-color: pink ; color: red')
+                elif WTI_전일대비 < 0:
+                    self.label_23.setStyleSheet('background-color: pink ; color: blue')
+                else:
+                    self.label_23.setStyleSheet('background-color: pink ; color: black')
+
+                self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_23.setText(str)
+
+            elif WTI_현재가 < float(value):
+
+                str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+
+                if WTI_전일대비 > 0:
+                    self.label_23.setStyleSheet('background-color: skyblue ; color: red')
+                elif WTI_전일대비 < 0:
+                    self.label_23.setStyleSheet('background-color: skyblue ; color: blue')
+                else:
+                    self.label_23.setStyleSheet('background-color: skyblue ; color: black')
+
+                self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_23.setText(str)
+            else:
+                pass
+
+            str = ' 고가 : {0} '.format(format(WTI_고가, ','))
+            self.label_24.setStyleSheet('background-color: pink ; color: red')
+            self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
+            self.label_24.setText(str)    
+
+            bc_plot3_wti_curve.setData(plot_data14)
         else:
             pass        
         
