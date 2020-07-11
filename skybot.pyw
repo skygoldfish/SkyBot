@@ -286,7 +286,24 @@ with open('control_info.txt', mode='r') as control_file:
 
         # 저가, 고가 리스트에서 맥점 추출
         with open('HL-List.txt', mode='r') as hlfile:
+            
+            # 한줄씩 읽어서 리스트에 저장
+            file_list = []
 
+            while True:
+    
+                line = hlfile.readline().strip()
+                #print(line)
+
+                temp = line.split()
+
+                for i in range(len(temp)):
+
+                    file_list.append(float(temp[i]))
+
+                if not line: break
+            
+            '''
             tmp = hlfile.readline().strip()
             temp = tmp.split()
 
@@ -295,6 +312,9 @@ with open('control_info.txt', mode='r') as control_file:
             for i in range(len(temp)):
                 
                 file_list.append(float(temp[i]))
+            '''
+
+            print('file_list =', file_list)
 
             pre_high_low_list = file_list[:]
             FILE_HIGH_LOW_LIST = file_list[:]
@@ -25117,31 +25137,44 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         print('list_final =', list_final_to_file)
 
-        #file_name = "HL-List {}.txt".format(times)
-        file_name = "HL-List.txt"
+        self.list_to_file_write(list_final_to_file, "HL-List.txt", sep = ' ')
 
-        self.list_to_file_write(list_final_to_file, file_name, sep = ' ')
-
-    def list_to_file_write(self, list, fname, sep):
-        
-        vstr = ''
-
-        for a in list:
-            vstr = vstr + str(a) + sep  
+    def list_to_file_write(self, list, fname, sep):               
         
         if os.path.isfile('HL-List.txt'):
-            file = open(fname, 'a')
+
+            #기존 파일에서 첫번째 라인 삭제후 임시파일에 저장
+            ff = open("temp.txt",'w')
+
+            with open(fname, 'r') as f:
+                lines = f.readlines()
+                lines.pop(0)
+                ff.writelines(lines)
+
+            ff.close()  
+
+            #새로운 저고리스트를 임시파일에 추가후 저장
+            vstr = ''
+
+            for a in list:
+                vstr = vstr + str(a) + sep 
+
+            file = open("temp.txt", 'a')
             strr = '\n' + vstr
-        else:
-            print("New file Creation...")
-            file = open(fname, 'w')
             
-            strr = vstr        
+            file.write(strr)
+            file.close()
 
-        file.write(strr)
-        file.close()
-
-        #print('파일쓰기 성공!!!')
+            #기존 파일삭제후 임시파일명 변경
+            os.remove('HL-List.txt')
+            os.rename('temp.txt', 'HL-List.txt')
+        else:
+            pass
+            '''
+            print("New file Creation...")
+            file = open(fname, 'w')            
+            strr = vstr
+            '''
 
     def closeEvent(self,event):
 
