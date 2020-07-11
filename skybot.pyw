@@ -1162,10 +1162,8 @@ jgubun = ''
 start_time = 0
 start_time1 = 0
 
-global_blink = True
-
-coreval = []
-kp200_coreval = []
+COREVAL = []
+KP200_COREVAL = []
 
 call_행사가 = []
 call_기준가 = []
@@ -4613,7 +4611,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         call_node_state = {'기준가': False, '월저': False, '월고': False, '전저': False, '전고': False, '종가': True, '피봇': True, '시가': True, '대비': False, '미결': False, '미결증감': False}
         put_node_state = {'기준가': False, '월저': False, '월고': False, '전저': False, '전고': False, '종가': True, '피봇': True, '시가': True, '대비': False, '미결': False, '미결증감': False}
 
-        global coreval
+        global COREVAL
 
         list_low1 = []
         list_low2 = []
@@ -4641,10 +4639,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             list_high4.append(round(DEFAULT_NODE_LIST[i] + 0.04, 2))
             list_high5.append(round(DEFAULT_NODE_LIST[i] + 0.05, 2))
 
-        coreval = DEFAULT_NODE_LIST + list_low1 + list_low2 + list_low3 + list_low4 + list_low5 + list_high1 + list_high2 + list_high3 + list_high4 + list_high5
-        coreval.sort()
+        if SELFID == 'soojin65':
+            global ResizeRowsToContents
 
-        #print('coreval =', coreval)
+            ResizeRowsToContents = True
+            COREVAL = DEFAULT_NODE_LIST
+        else:
+            COREVAL = DEFAULT_NODE_LIST + list_low1 + list_low2 + list_low3 + list_low4 + list_low5 + list_high1 + list_high2 + list_high3 + list_high4 + list_high5
+        
+        COREVAL.sort()
                         
         self.JIF = JIF(parent=self)
 
@@ -4667,7 +4670,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now() 
 
-        str = str = '[{0:02d}:{1:02d}:{2:02d}] OS Type : {3}\r'.format(dt.hour, dt.minute, dt.second, os_type)
+        str = '[{0:02d}:{1:02d}:{2:02d}] OS Type : {3}\r'.format(dt.hour, dt.minute, dt.second, os_type)
         self.textBrowser.append(str)
         
         if int(current_str[0:2]) < 12:
@@ -4675,6 +4678,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Afternoon! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
+
+        if SELFID == 'soojin65':
+            str = '[{0:02d}:{1:02d}:{2:02d}] COREVAL = {3}\r'.format(dt.hour, dt.minute, dt.second, COREVAL)
+            self.textBrowser.append(str)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] ResizeRowsToContents = {3}\r'.format(dt.hour, dt.minute, dt.second, ResizeRowsToContents)
+            self.textBrowser.append(str)
+        else:
+            pass
 
         global 진성맥점
 
@@ -10577,14 +10589,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if opt_coreval_search_start_value < 시가 < opt_search_end_value:
 
-                if 시가 in coreval:
+                if 시가 in COREVAL:
 
                     self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
                 else:
                     pass
 
-                if 저가 in coreval:
+                if 저가 in COREVAL:
 
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
@@ -10615,7 +10627,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if 고가 in coreval:
+                if 고가 in COREVAL:
 
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
@@ -10719,14 +10731,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if opt_coreval_search_start_value < 시가 < opt_search_end_value:
 
-                if 시가 in coreval:
+                if 시가 in COREVAL:
 
                     self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
                 else:
                     pass
 
-                if 저가 in coreval:
+                if 저가 in COREVAL:
 
                     self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
@@ -10772,14 +10784,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if opt_coreval_search_start_value < 시가 < opt_search_end_value:
 
-                if 시가 in coreval:
+                if 시가 in COREVAL:
 
                     self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
                 else:
                     pass                
 
-                if 고가 in coreval:
+                if 고가 in COREVAL:
 
                     self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
@@ -11081,7 +11093,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 콜시가가 맥점에 있는지 검사
     def check_call_open_isin_coreval_list(self, x):
 
-        if x > 0.3 and x in coreval:
+        if x > 0.3 and x in COREVAL:
 
             i = call_시가.index(x) + 1
 
@@ -11707,7 +11719,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         시가 = df_call.at[i, '시가']
 
-                        if 시가 in coreval:
+                        if 시가 in COREVAL:
 
                             self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                             self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -12028,7 +12040,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 풋시가가 맥점에 있는지 검사
     def check_put_open_isin_coreval_list(self, x):
 
-        if x > 0.3 and x in coreval:
+        if x > 0.3 and x in COREVAL:
 
             i = put_시가.index(x) + 1
 
@@ -12654,7 +12666,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         시가 = df_put.at[i, '시가']
 
-                        if 시가 in coreval:
+                        if 시가 in COREVAL:
 
                             self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                             self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -13176,14 +13188,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if opt_coreval_search_start_value < 시가 < opt_search_end_value:
 
-                if 시가 in coreval:
+                if 시가 in COREVAL:
 
                     self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
                 else:
                     pass
 
-                if 저가 in coreval:
+                if 저가 in COREVAL:
 
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
@@ -13214,7 +13226,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if 고가 in coreval:
+                if 고가 in COREVAL:
 
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
@@ -13318,14 +13330,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if opt_coreval_search_start_value < 시가 < opt_search_end_value:
 
-                if 시가 in coreval:
+                if 시가 in COREVAL:
 
                     self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
                 else:
                     pass
 
-                if 저가 in coreval:
+                if 저가 in COREVAL:
 
                     self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
@@ -13371,14 +13383,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if opt_coreval_search_start_value < 시가 < opt_search_end_value:
 
-                if 시가 in coreval:
+                if 시가 in COREVAL:
 
                     self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
                 else:
                     pass                
 
-                if 고가 in coreval:
+                if 고가 in COREVAL:
 
                     self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(대맥점색))
                     self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
@@ -14057,7 +14069,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.tableWidget_call.setItem(i, Option_column.시가.value, item)
 
-                        if 시가 in coreval:
+                        if 시가 in COREVAL:
 
                             self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                             self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -14340,7 +14352,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.tableWidget_put.setItem(i, Option_column.시가.value, item)
 
-                        if 시가 in coreval:
+                        if 시가 in COREVAL:
 
                             self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                             self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -15105,7 +15117,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
 
-            # kp200 coreval 리스트 만듬
+            # kp200 COREVAL 리스트 만듬
             if KP200_종가 == 0:
 
                 KP200_종가 = df['KOSPI200지수']
@@ -15164,21 +15176,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass                    
 
             # kp200 맥점 10개를 리스트로 만듬
-            global kp200_coreval
+            global KP200_COREVAL
 
-            # kp200_coreval 리스트 기존데이타 삭제(초기화)
-            del kp200_coreval[:]
+            # KP200_COREVAL 리스트 기존데이타 삭제(초기화)
+            del KP200_COREVAL[:]
 
             for i in range(6):
 
-                kp200_coreval.append(atm_val - 2.5 * i + 1.25) 
+                KP200_COREVAL.append(atm_val - 2.5 * i + 1.25) 
 
             for i in range(1, 5):
 
-                kp200_coreval.append(atm_val + 2.5 * i + 1.25)
+                KP200_COREVAL.append(atm_val + 2.5 * i + 1.25)
 
-            kp200_coreval.sort()
-            print('t2801 kp200_coreval', kp200_coreval)
+            KP200_COREVAL.sort()
+            print('t2801 KP200_COREVAL', KP200_COREVAL)
 
             atm_str = self.get_atm_str(KP200_종가)
 
@@ -15726,7 +15738,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.tableWidget_call.setItem(i, Option_column.시가.value, item)
 
-                        if 시가 in coreval:
+                        if 시가 in COREVAL:
 
                             self.tableWidget_call.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                             self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -15978,7 +15990,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.tableWidget_put.setItem(i, Option_column.시가.value, item)
 
-                        if 시가 in coreval:
+                        if 시가 in COREVAL:
 
                             self.tableWidget_put.item(i, Option_column.시가.value).setBackground(QBrush(대맥점색))
                             self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -17846,7 +17858,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         for i in range(10):
 
-            if self.is_within_n_tick(kp200_realdata['저가'], kp200_coreval[i], 10):
+            if self.is_within_n_tick(kp200_realdata['저가'], KP200_COREVAL[i], 10):
                 
                 self.tableWidget_fut.item(2, Futures_column.저가.value).setBackground(QBrush(대맥점색))
                 self.tableWidget_fut.item(2, Futures_column.저가.value).setForeground(QBrush(검정색))
@@ -17872,7 +17884,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         for i in range(10):
 
-            if self.is_within_n_tick(kp200_realdata['고가'], kp200_coreval[i], 10):
+            if self.is_within_n_tick(kp200_realdata['고가'], KP200_COREVAL[i], 10):
                 
                 self.tableWidget_fut.item(2, Futures_column.고가.value).setBackground(QBrush(대맥점색))
                 self.tableWidget_fut.item(2, Futures_column.고가.value).setForeground(QBrush(검정색))
@@ -19259,7 +19271,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 print('call_gap_percent_local is empty...')
 
-            if 콜시가 in coreval:
+            if 콜시가 in COREVAL:
                 self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
                 self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
             else:
@@ -20585,7 +20597,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 print('put_gap_percent_local is empty...')
 
-            if 풋시가 in coreval:
+            if 풋시가 in COREVAL:
                 self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
                 self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
             else:
@@ -22423,7 +22435,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             self.tableWidget_call.setItem(index, Option_column.시가.value, item)
 
-                            if float(result['예상체결가격']) in coreval:
+                            if float(result['예상체결가격']) in COREVAL:
 
                                 self.tableWidget_call.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
                                 self.tableWidget_call.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -22540,7 +22552,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             self.tableWidget_put.setItem(index, Option_column.시가.value, item)
 
-                            if float(result['예상체결가격']) in coreval:
+                            if float(result['예상체결가격']) in COREVAL:
 
                                 self.tableWidget_put.item(index, Option_column.시가.value).setBackground(QBrush(대맥점색))
                                 self.tableWidget_put.item(index, Option_column.시가.value).setForeground(QBrush(검정색))
@@ -22958,26 +22970,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         장시작_양합 = df_call.at[atm_index, '현재가'] + df_put.at[atm_index, '현재가']                     
 
                         # kp200 맥점 10개를 리스트로 만듬
-                        global kp200_coreval
+                        global KP200_COREVAL
 
-                        # kp200_coreval 리스트 기존데이타 삭제(초기화)
-                        del kp200_coreval[:]
+                        # KP200_COREVAL 리스트 기존데이타 삭제(초기화)
+                        del KP200_COREVAL[:]
 
                         for i in range(6):
 
-                            kp200_coreval.append(atm_val - 2.5 * i + 1.25) 
+                            KP200_COREVAL.append(atm_val - 2.5 * i + 1.25) 
 
                         for i in range(1, 5):
 
-                            kp200_coreval.append(atm_val + 2.5 * i + 1.25)
+                            KP200_COREVAL.append(atm_val + 2.5 * i + 1.25)
 
-                        kp200_coreval.sort()
+                        KP200_COREVAL.sort()
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] KP200 맥점리스트 = {3}\r'.format(
                             int(result['시간'][0:2]),
                             int(result['시간'][2:4]),
                             int(result['시간'][4:6]),
-                            kp200_coreval)
+                            KP200_COREVAL)
                         self.textBrowser.append(str)                         
                     else:
                         pass
