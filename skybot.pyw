@@ -3445,7 +3445,7 @@ class telegram_send_worker(QThread):
                         if fut_oloh_str != '' and FLAG_OLOH:
 
                             str = fut_oloh_str
-                            ToTelegram(str)
+                            ToYourTelegram(str)
                         else:
                             pass
 
@@ -3454,28 +3454,28 @@ class telegram_send_worker(QThread):
                         if call_low_node_str != '' and FLAG_NODE:
 
                             str = call_low_node_str
-                            ToTelegram(str)
+                            ToYourTelegram(str)
                         else:
                             pass
 
                         if call_high_node_str != '' and FLAG_NODE:
 
                             str = call_high_node_str
-                            ToTelegram(str)
+                            ToYourTelegram(str)
                         else:
                             pass
 
                         if put_low_node_str != '' and FLAG_NODE:
 
                             str = put_low_node_str
-                            ToTelegram(str)
+                            ToYourTelegram(str)
                         else:
                             pass
 
                         if put_high_node_str != '' and FLAG_NODE:
 
                             str = put_high_node_str
-                            ToTelegram(str)
+                            ToYourTelegram(str)
                         else:
                             pass
                         '''
@@ -3483,28 +3483,28 @@ class telegram_send_worker(QThread):
                         if telegram_send_str_call_low != '' and FLAG_NODE:
 
                             str = telegram_send_str_call_low
-                            ToTelegram(str)
+                            ToYourTelegram(str)
                         else:
                             pass
 
                         if telegram_send_str_call_high != '' and FLAG_NODE:
 
                             str = telegram_send_str_call_high
-                            ToTelegram(str)
+                            ToYourTelegram(str)
                         else:
                             pass
 
                         if telegram_send_str_put_low != '' and FLAG_NODE:
 
                             str = telegram_send_str_put_low
-                            ToTelegram(str)
+                            ToYourTelegram(str)
                         else:
                             pass
 
                         if telegram_send_str_put_high != '' and FLAG_NODE:
 
                             str = telegram_send_str_put_high
-                            ToTelegram(str)
+                            ToYourTelegram(str)
                         else:
                             pass                               
 
@@ -3512,7 +3512,7 @@ class telegram_send_worker(QThread):
                         if 비대칭장 != '' and FLAG_ASYM:
 
                             str = 비대칭장
-                            ToTelegram(str)
+                            ToYourTelegram(str)
                         else:
                             pass
                     else:
@@ -3524,14 +3524,14 @@ class telegram_send_worker(QThread):
                         if kp200_low_node_str != '' and FLAG_NODE:
 
                             str = kp200_low_node_str
-                            ToTelegram(str)
+                            ToYourTelegram(str)
                         else:
                             pass
 
                         if kp200_high_node_str != '' and FLAG_NODE:
 
                             str = kp200_high_node_str
-                            ToTelegram(str)
+                            ToYourTelegram(str)
                         else:
                             pass
                     else:
@@ -3559,11 +3559,11 @@ class telegram_listen_worker(QThread):
 
                 # 텔레그램 메시지 수신
                 if SELFID == 'soojin65':
-                    str = TelegramControl()
+                    str = FromMyTelegram()
                     print('텔레그램 수신 메시지 =', str)
                     pass
                 else:
-                    str = FromTelegram()
+                    str = FromYourTelegram()
                     #print('텔레그램 수신 메시지 =', str)
             else:
                 str = 'Stopped by Tool...'
@@ -3675,16 +3675,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if TARGET_MONTH_SELECT == 1:
 
                     widget_title = repr(current_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                    ToTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
+                    ToYourTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
 
                 elif TARGET_MONTH_SELECT == 2:
 
                     widget_title = repr(next_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                    ToTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
+                    ToYourTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
 
                 else:
                     widget_title = repr(month_after_next) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                    ToTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
+                    ToYourTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
             else:
                 KSE_START_HOUR = 18            
 
@@ -3693,30 +3693,30 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH_SELECT == 1:
 
                         widget_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                        ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
+                        ToYourTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
 
                         print('next_month =', next_month)
 
                     elif TARGET_MONTH_SELECT == 2:
 
                         widget_title = repr(month_after_next) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                        ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
+                        ToYourTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
                     else:
                         pass
                 else:
                     if TARGET_MONTH_SELECT == 1:
 
                         widget_title = repr(current_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                        ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
+                        ToYourTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
 
                     elif TARGET_MONTH_SELECT == 2:
 
                         widget_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                        ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
+                        ToYourTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
 
                     else:
                         widget_title = repr(month_after_next) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
-                        ToTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
+                        ToYourTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
         else:
             pass        
 
@@ -18364,23 +18364,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if TARGET_MONTH_SELECT == 1:
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                ToTelegram(str)
+                ToYourTelegram(str)
 
             elif TARGET_MONTH_SELECT == 2:
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                ToTelegram(str)
+                ToYourTelegram(str)
 
             elif TARGET_MONTH_SELECT == 3:
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                ToTelegram(str)
+                ToYourTelegram(str)
 
                 self.telegram_listen_worker.start()
                 self.telegram_listen_worker.daemon = True
 
                 # 차차월물은 시작과 동시에 Polling 시작
-                ToTelegram("MAN 텔레그램 Polling이 시작됩니다.")
+                ToYourTelegram("MAN 텔레그램 Polling이 시작됩니다.")
 
                 self.pushButton_remove.setStyleSheet("background-color: lawngreen")
 
@@ -18405,13 +18405,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if SELFID == 'soojin65':
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
-                        TelegramToMe(str)
+                        ToMyTelegram(str)
                     else:
-                        ToTelegram("CM 텔레그램 Polling이 시작됩니다.")
+                        ToYourTelegram("CM 텔레그램 Polling이 시작됩니다.")
 
                 elif TARGET_MONTH_SELECT == 2:
 
-                    ToTelegram("NM 텔레그램 Polling이 시작됩니다.")
+                    ToYourTelegram("NM 텔레그램 Polling이 시작됩니다.")
                 else:
                     pass
                 
@@ -19100,23 +19100,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if TARGET_MONTH_SELECT == 1:
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    ToTelegram(str)
+                    ToYourTelegram(str)
 
                 elif TARGET_MONTH_SELECT == 2:
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    ToTelegram(str)
+                    ToYourTelegram(str)
 
                 elif TARGET_MONTH_SELECT == 3:
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    ToTelegram(str)
+                    ToYourTelegram(str)
 
                     self.telegram_listen_worker.start()
                     self.telegram_listen_worker.daemon = True
 
                     # 차차월물은 시작과 동시에 Polling 시작
-                    ToTelegram("MAN 텔레그램 Polling이 시작됩니다.")
+                    ToYourTelegram("MAN 텔레그램 Polling이 시작됩니다.")
 
                     self.pushButton_remove.setStyleSheet("background-color: lawngreen")
 
@@ -19141,13 +19141,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if SELFID == 'soojin65':
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
-                            TelegramToMe(str)
+                            ToMyTelegram(str)
                         else:
-                            ToTelegram("CM 텔레그램 Polling이 시작됩니다.")
+                            ToYourTelegram("CM 텔레그램 Polling이 시작됩니다.")
 
                     elif TARGET_MONTH_SELECT == 2:
 
-                        ToTelegram("NM 텔레그램 Polling이 시작됩니다.")
+                        ToYourTelegram("NM 텔레그램 Polling이 시작됩니다.")
                     else:
                         pass
                     
@@ -25006,14 +25006,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if TARGET_MONTH_SELECT == 1:
 
-                ToTelegram("CM 텔레그램 Polling이 시작됩니다.")
+                ToYourTelegram("CM 텔레그램 Polling이 시작됩니다.")
 
             elif TARGET_MONTH_SELECT == 2:
 
-                ToTelegram("NM 텔레그램 Polling이 시작됩니다.")
+                ToYourTelegram("NM 텔레그램 Polling이 시작됩니다.")
 
             else:
-                ToTelegram("MAN 텔레그램 Polling이 시작됩니다.")
+                ToYourTelegram("MAN 텔레그램 Polling이 시작됩니다.")
             
             self.pushButton_remove.setStyleSheet("background-color: lawngreen")
             
@@ -27830,7 +27830,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.RobotView()
 
             if current_str[3:] in ['00:00', '30:00']:
-                #ToTelegram("%s : 로봇 %s개가 실행중입니다. ([%s])" % (current_str, len(_temp), ','.join(_temp)))
+                #ToYourTelegram("%s : 로봇 %s개가 실행중입니다. ([%s])" % (current_str, len(_temp), ','.join(_temp)))
                 pass
             '''
             if current.minute % 10 == 0: # 매 10 분
@@ -27852,7 +27852,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그아웃 했습니다.'.format(dt.hour, dt.minute, dt.second, SELFID)
 
-                TelegramToMe(str)
+                ToMyTelegram(str)
             else:
                 pass
 
@@ -28038,7 +28038,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
                 
-                TelegramToMe(str)
+                ToMyTelegram(str)
             else:
                 pass            
             
@@ -28545,7 +28545,7 @@ if __name__ == "__main__":
     # Window 7은 한글을 못읽음
     # Speak("스카이봇이 시작됩니다.")
 
-    #ToTelegram("SkyBot이 실행되었습니다.")
+    #ToYourTelegram("SkyBot이 실행되었습니다.")
 
     # 1.로그 인스턴스를 만든다.
     logger = logging.getLogger('mymoneybot')
