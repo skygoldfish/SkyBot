@@ -226,7 +226,7 @@ with open('control_info.txt', mode='r') as control_file:
     temp = tmp.split()
     MONTH_FIRSTDAY = temp[7]
 
-    # 만기일 야간옵션은 control_info.txt에서 mangi_yagan을 NO -> YES로 변경 
+    # 만기일 야간옵션은 control_info.txt에서 Mangi Yagan을 False -> True로 변경 
     tmp = control_file.readline().strip()
     temp = tmp.split()
     MANGI_YAGAN = temp[3]
@@ -3483,7 +3483,7 @@ class telegram_send_worker(QThread):
                 else:
                     pass                
 
-                if TELEGRAM_SERVICE == 'ON' and flag_telegram_on and (command[0] == 'Go' or command[0] == '/start'):
+                if TELEGRAM_SERVICE and flag_telegram_on and (command[0] == 'Go' or command[0] == '/start'):
 
                     if telegram_toggle:
 
@@ -3601,7 +3601,7 @@ class telegram_listen_worker(QThread):
 
         while True:
 
-            if TELEGRAM_SERVICE == 'ON' and flag_telegram_on:
+            if TELEGRAM_SERVICE and flag_telegram_on:
 
                 # 텔레그램 메시지 수신
                 if SELFID == 'soojin65':
@@ -3700,7 +3700,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #self.telegram_flag = True
         self.pushButton_remove.setStyleSheet("background-color: lightGray")
 
-        if TELEGRAM_SERVICE == 'ON':
+        if TELEGRAM_SERVICE:
 
             chk_webhook = Check_Webhook()
 
@@ -3734,7 +3734,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 KSE_START_HOUR = 18            
 
-                if MANGI_YAGAN == 'YES':
+                if MANGI_YAGAN:
 
                     if TARGET_MONTH_SELECT == 1:
 
@@ -17501,7 +17501,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if TARGET_MONTH_SELECT == 1:
 
-                            if MANGI_YAGAN == 'YES':
+                            if MANGI_YAGAN:
                                 t2835_month_info = NEXT_MONTH
                             else:
                                 t2835_month_info = CURRENT_MONTH
@@ -17511,7 +17511,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         elif TARGET_MONTH_SELECT == 2:
 
-                            if MANGI_YAGAN == 'YES':
+                            if MANGI_YAGAN:
                                 t2835_month_info = MONTH_AFTER_NEXT
                             else:
                                 t2835_month_info = NEXT_MONTH
@@ -17520,7 +17520,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.textBrowser.append(str)
 
                         else:
-                            if MANGI_YAGAN == 'YES':
+                            if MANGI_YAGAN:
                                 # to be checked !!!
                                 pass
                             else:
@@ -17755,7 +17755,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             차월물선물코드 = df.at[1, '단축코드']
             차차월물선물코드 = df.at[2, '단축코드']
 
-            if MANGI_YAGAN == 'YES':
+            if MANGI_YAGAN:
 
                 if current_month == 3 or current_month == 6 or current_month == 9 or current_month == 12:
                     gmshcode = 차월물선물코드
@@ -18399,7 +18399,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         fut_time = dt.hour * 3600 + dt.minute * 60 + dt.second         
 
-        if TELEGRAM_SERVICE == 'ON' and not flag_telegram_send_worker and not overnight:            
+        if TELEGRAM_SERVICE and not flag_telegram_send_worker and not overnight:            
 
             self.telegram_send_worker.start()
             self.telegram_send_worker.daemon = True
@@ -18444,7 +18444,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # Telegram Send Worker 시작 후 TELEGRAM_START_TIME분에 Telegram Listen을 위한 Polling Thread 시작 !!!
         if not flag_telegram_listen_worker and fut_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME and not overnight:
 
-            if TELEGRAM_SERVICE == 'ON':
+            if TELEGRAM_SERVICE:
 
                 self.telegram_listen_worker.start()
                 self.telegram_listen_worker.daemon = True
@@ -19135,7 +19135,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             opt_time = dt.hour * 3600 + dt.minute * 60 + dt.second
 
-            if TELEGRAM_SERVICE == 'ON' and not flag_telegram_send_worker:            
+            if TELEGRAM_SERVICE and not flag_telegram_send_worker:            
 
                 self.telegram_send_worker.start()
                 self.telegram_send_worker.daemon = True
@@ -19180,7 +19180,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # Telegram Send Worker 시작 후 TELEGRAM_START_TIME분에 Telegram Listen을 위한 Polling Thread 시작 !!!
             if not flag_telegram_listen_worker and opt_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME:
 
-                if TELEGRAM_SERVICE == 'ON':
+                if TELEGRAM_SERVICE:
 
                     self.telegram_listen_worker.start()
                     self.telegram_listen_worker.daemon = True
@@ -24731,7 +24731,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if TARGET_MONTH_SELECT == 1:
 
-            if MANGI_YAGAN == 'YES':
+            if MANGI_YAGAN:
                 t2301_month_info = NEXT_MONTH
             else:
                 t2301_month_info = CURRENT_MONTH
@@ -24741,7 +24741,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         elif TARGET_MONTH_SELECT == 2:
 
-            if MANGI_YAGAN == 'YES':
+            if MANGI_YAGAN:
                 t2301_month_info = MONTH_AFTER_NEXT
             else:
                 t2301_month_info = NEXT_MONTH   
@@ -24751,7 +24751,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         elif TARGET_MONTH_SELECT == 3:
 
-            if MANGI_YAGAN == 'YES':
+            if MANGI_YAGAN:
                 t2301_month_info = MONTH_AFTER_NEXT
             else:
                 t2301_month_info = MONTH_AFTER_NEXT 
@@ -24918,7 +24918,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if TARGET_MONTH_SELECT == 1:
 
-                if MANGI_YAGAN == 'YES':
+                if MANGI_YAGAN:
                     t2301_month_info = NEXT_MONTH
                 else:
                     t2301_month_info = CURRENT_MONTH
@@ -24928,7 +24928,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif TARGET_MONTH_SELECT == 2:
 
-                if MANGI_YAGAN == 'YES':
+                if MANGI_YAGAN:
                     t2301_month_info = MONTH_AFTER_NEXT
                 else:
                     t2301_month_info = NEXT_MONTH   
@@ -24938,7 +24938,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif TARGET_MONTH_SELECT == 3:
 
-                if MANGI_YAGAN == 'YES':
+                if MANGI_YAGAN:
                     t2301_month_info = MONTH_AFTER_NEXT
                 else:
                     t2301_month_info = MONTH_AFTER_NEXT 
@@ -25030,7 +25030,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         flag_telegram_on = not flag_telegram_on
         
-        if TELEGRAM_SERVICE == 'ON' and not flag_telegram_send_worker:
+        if TELEGRAM_SERVICE and not flag_telegram_send_worker:
 
             # 가끔 send worker가 오동작함(쓰레드 재시작...)
             self.telegram_send_worker.start()
@@ -25043,7 +25043,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        if TELEGRAM_SERVICE == 'ON' and not flag_telegram_listen_worker:
+        if TELEGRAM_SERVICE and not flag_telegram_listen_worker:
 
             flag_telegram_on = True
 
@@ -25070,7 +25070,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass               
         
-        if TELEGRAM_SERVICE == 'ON' and flag_telegram_on:
+        if TELEGRAM_SERVICE and flag_telegram_on:
             
             chk_webhook = Check_Webhook()
 
@@ -25307,7 +25307,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 widget_title = repr(month_after_next) + '월 만기 주간 Big Chart'
         else:
-            if MANGI_YAGAN == 'YES':
+            if MANGI_YAGAN:
 
                 if TARGET_MONTH_SELECT == 1:
 

@@ -2,7 +2,7 @@
 KSE Start Hour = 9
 Current Month = 202008
 First Day of the Current Month = 20200710
-Mangi Yagan = NO
+Mangi Yagan = False
 
 [2]. << Initial Value >>
 HL List Depth = 40
@@ -27,7 +27,7 @@ NASDAQ = NQU20
 WTI = CLQ20
 
 [6]. << Telegram >>
-Telegram service = ON
+Telegram service = True
 Telegram polling start time(minute) after service = 5
 Telegram polling interval(second) = 10
 Telegram send interval(second) = 5
