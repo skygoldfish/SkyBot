@@ -229,8 +229,14 @@ with open('control_info.txt', mode='r') as control_file:
     # 만기일 야간옵션은 control_info.txt에서 Mangi Yagan을 False -> True로 변경 
     tmp = control_file.readline().strip()
     temp = tmp.split()
-    MANGI_YAGAN = temp[3]
-    #print('MANGI_YAGAN =', MANGI_YAGAN)
+    temp_str = temp[3]
+
+    if temp_str == 'True' or temp_str == 'true':
+        MANGI_YAGAN = True 
+    else:
+        MANGI_YAGAN = False
+
+    print('MANGI_YAGAN =', MANGI_YAGAN)
 
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
@@ -242,8 +248,14 @@ with open('control_info.txt', mode='r') as control_file:
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
-    ResizeRowsToContents = temp[5]
-    #print('ResizeRowsToContents =', ResizeRowsToContents)
+    temp_str = temp[5]
+
+    if temp_str == 'True' or temp_str == 'true':
+        ResizeRowsToContents = True
+    else:
+        ResizeRowsToContents = False
+
+    print('ResizeRowsToContents =', ResizeRowsToContents)
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
@@ -514,8 +526,14 @@ with open('control_info.txt', mode='r') as control_file:
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
-    TELEGRAM_SERVICE = temp[3]
-    #print('TELEGRAM_SERVICE =', TELEGRAM_SERVICE)
+    temp_str = temp[3]
+
+    if temp_str == 'True' or temp_str == 'true':
+        TELEGRAM_SERVICE = True
+    else:
+        TELEGRAM_SERVICE = False
+
+    print('TELEGRAM_SERVICE =', TELEGRAM_SERVICE)
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
@@ -3635,7 +3653,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global 모니터번호
         
-        global MANGI_YAGAN, TARGET_MONTH_SELECT, MONTH_FIRSTDAY
+        global TARGET_MONTH_SELECT, MONTH_FIRSTDAY
         global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, fut_code
         global KSE_START_HOUR, OVC_START_HOUR
         
