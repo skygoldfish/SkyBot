@@ -21863,6 +21863,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setForeground(QBrush(검정색))
 
             self.tableWidget_quote.setItem(0, 12, item)
+
+            if ResizeRowsToContents:
+                self.tableWidget_quote.resizeRowsToContents()
+                self.tableWidget_quote.resizeColumnsToContents()
+            else:
+                pass            
         else:
             pass        
 
@@ -23520,6 +23526,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem(item_str)
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_supply.setItem(0, 5, item)
+
+                        if ResizeRowsToContents:
+                            self.tableWidget_supply.resizeRowsToContents()
+                            self.tableWidget_supply.resizeColumnsToContents()
+                        else:
+                            pass                        
                     else:
                         pass
                 else:
