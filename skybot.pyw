@@ -6372,10 +6372,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # cell focus 이동
         self.tableWidget_fut.setCurrentCell(3, Futures_column.OID.value)
 
-        if ResizeRowsToContents:
-            self.tableWidget_fut.resizeRowsToContents()
-        else:
-            pass
+        self.tableWidget_fut.resizeRowsToContents()
         self.tableWidget_fut.resizeColumnsToContents()
 
     @pyqtSlot(int)
@@ -6384,10 +6381,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # cell focus 이동
         self.tableWidget_supply.setCurrentCell(1, Supply_column.프로그램.value)
 
-        if ResizeRowsToContents:
-            self.tableWidget_supply.resizeRowsToContents()
-        else:
-            pass
+        self.tableWidget_supply.resizeRowsToContents()
         self.tableWidget_supply.resizeColumnsToContents()
 
     @pyqtSlot(int)
@@ -6396,10 +6390,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # cell focus 이동
         self.tableWidget_quote.setCurrentCell(1, Quote_column.미결종합.value)
 
-        if ResizeRowsToContents:
-            self.tableWidget_quote.resizeRowsToContents()
-        else:
-            pass
+        self.tableWidget_quote.resizeRowsToContents()
         self.tableWidget_quote.resizeColumnsToContents()
 
     @pyqtSlot(int, int)
@@ -6652,10 +6643,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # cell focus 이동
             self.tableWidget_supply.setCurrentCell(1, 5)
 
-            if ResizeRowsToContents:
-                self.tableWidget_supply.resizeRowsToContents()
-            else:
-                pass
+            self.tableWidget_supply.resizeRowsToContents()
             self.tableWidget_supply.resizeColumnsToContents()
         else:
             pass
@@ -6673,10 +6661,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # cell focus 이동
             self.tableWidget_quote.setCurrentCell(1, Quote_column.미결종합.value - 1)
 
-            if ResizeRowsToContents:
-                self.tableWidget_quote.resizeRowsToContents()
-            else:
-                pass
+            self.tableWidget_quote.resizeRowsToContents()
             self.tableWidget_quote.resizeColumnsToContents()
         else:
             pass
@@ -21861,12 +21846,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setForeground(QBrush(검정색))
 
             self.tableWidget_quote.setItem(0, 12, item)
-
+            '''
             if ResizeRowsToContents:
                 self.tableWidget_quote.resizeRowsToContents()
                 self.tableWidget_quote.resizeColumnsToContents()
             else:
-                pass            
+                pass 
+            '''           
         else:
             pass        
 
@@ -23522,12 +23508,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem(item_str)
                         item.setTextAlignment(Qt.AlignCenter)
                         self.tableWidget_supply.setItem(0, 5, item)
-
+                        '''
                         if ResizeRowsToContents:
                             self.tableWidget_supply.resizeRowsToContents()
                             self.tableWidget_supply.resizeColumnsToContents()
                         else:
-                            pass                        
+                            pass
+                        '''                        
                     else:
                         pass
                 else:
