@@ -1323,6 +1323,7 @@ comboindex4 = 0
 
 bc_comboindex1 = 0
 bc_comboindex2 = 0
+bc_comboindex3 = 0
 
 FC0_선물현재가 = 0
 OC0_콜현재가 = ''
