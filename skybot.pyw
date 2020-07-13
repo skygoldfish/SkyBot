@@ -18679,6 +18679,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(0, Futures_column.현재가.value, item)
 
                 self.tableWidget_fut.resizeRowToContents(0)
+                self.tableWidget_fut.resizeColumnToContents(Futures_column.대비.value)
             else:
                 df_fut.at[1, '현재가'] = 선물_현재가
                 fut_realdata['현재가'] = 선물_현재가 
@@ -18703,6 +18704,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)
 
                 self.tableWidget_fut.resizeRowToContents(1)
+                self.tableWidget_fut.resizeColumnToContents(Futures_column.대비.value)
             
             item = QTableWidgetItem("DOW\n({0:0.2f}%)".format(DOW_등락율))
             item.setTextAlignment(Qt.AlignCenter)
@@ -22968,6 +22970,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
 
                         self.tableWidget_fut.resizeRowToContents(2)
+                        #self.tableWidget_fut.resizeColumnToContents(Futures_column.대비.value)
                     else:
                         pass
 
