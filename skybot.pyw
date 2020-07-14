@@ -22785,16 +22785,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item = QTableWidgetItem("DOW\n({0:0.2f}%)".format(DOW_등락율))
                         item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)                             
+                        self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)
+
+                        self.tableWidget_fut.resizeRowsToContents()
+                        self.tableWidget_fut.resizeColumnsToContents()                             
                         
                         str = '[{0:02d}:{1:02d}:{2:02d}] 선물 등락율 = {3:0.2f}, DOW 등락율 = {4:0.2f}\r'.format(\
                                         int(result['예상체결시간'][0:2]),
                                         int(result['예상체결시간'][2:4]),
                                         int(result['예상체결시간'][4:6]),
                                         선물_등락율, DOW_등락율)
-                        self.textBrowser.append(str)
-                        
-                        #self.tableWidget_fut.resizeColumnsToContents()
+                        self.textBrowser.append(str)                        
                     else:
                         pass
                 else:
