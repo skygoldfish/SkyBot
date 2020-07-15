@@ -24462,7 +24462,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         dow_직전대비.extend([dow_delta - old_dow_delta])
                         대비리스트 = list(dow_직전대비)
 
-                        DOW_현재가 = result['체결가격']
+                        DOW_현재가 = int(result['체결가격'])
                         
                         if 체결가격 > DOW_과거가:
 
