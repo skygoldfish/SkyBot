@@ -6623,10 +6623,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # cell focus 이동
             self.tableWidget_fut.setCurrentCell(3, Futures_column.OID.value)
 
-            if ResizeRowsToContents:
-                self.tableWidget_fut.resizeRowsToContents()
-            else:
-                pass
+            self.tableWidget_fut.resizeRowsToContents()
             self.tableWidget_fut.resizeColumnsToContents()             
         else:
             pass
