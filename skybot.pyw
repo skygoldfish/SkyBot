@@ -834,7 +834,7 @@ FLAG_ASYM = False
 FLAG_NODE = False
 FLAG_OLOH = False
 
-FLAG_GUEST = True
+FLAG_GUEST_CONTROL = True
 
 fut_oloh_str = ''
 flag_fut_oloh = False
@@ -3402,7 +3402,7 @@ class telegram_send_worker(QThread):
             dt = datetime.datetime.now()
             
             global telegram_toggle, FLAG_ASYM, FLAG_NODE, FLAG_OLOH
-            global FLAG_GUEST  
+            global FLAG_GUEST_CONTROL  
 
             telegram_toggle = not telegram_toggle
 
@@ -3494,9 +3494,9 @@ class telegram_send_worker(QThread):
                 if SELFID == 'soojin65':
                     
                     if command[0] == 'Allstop':
-                        FLAG_GUEST = False
+                        FLAG_GUEST_CONTROL = False
                     elif command[0] == 'Allgo':
-                        FLAG_GUEST = True
+                        FLAG_GUEST_CONTROL = True
                     else:
                         pass
                 else:
@@ -6924,7 +6924,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.market_type_display(self.alternate_flag)
             
             # 실시간 서비스                     
-            if FLAG_GUEST and (receive_real_ovc or market_service):
+            if FLAG_GUEST_CONTROL and (receive_real_ovc or market_service):
                 
                 # 옵션 등락율 scale factor 읽어들임
                 drate_scale_factor = float(self.tableWidget_fut.item(2, Futures_column.진폭.value).text())
@@ -23405,7 +23405,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     call_result = copy.deepcopy(result)
 
-                    if FLAG_GUEST:                        
+                    if FLAG_GUEST_CONTROL:                        
                         self.call_display()
                     else:
                         pass 
