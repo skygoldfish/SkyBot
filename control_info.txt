@@ -5,6 +5,7 @@ First Day of the Current Month = 20200710
 Mangi Yagan = False
 
 [2]. << Initial Value >>
+Auto Start = True
 HL List Depth = 40
 Resize Rows To Contents = False
 Overnight Pre-Start Hour = 17

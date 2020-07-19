@@ -243,6 +243,15 @@ with open('control_info.txt', mode='r') as control_file:
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
+    temp_str = temp[3]
+
+    if temp_str == 'True' or temp_str == 'true':
+        AUTO_START = True
+    else:
+        AUTO_START = False
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
     HL_Depth = int(temp[4])
     #print('HL_Depth =', HL_Depth)
 
@@ -28920,20 +28929,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             self.statusbar.showMessage("로그인 되었습니다.")
 
-            # 옵션전광판 자동 켜짐
-            if self.dialog.get('당월물옵션전광판') is not None:
+            if AUTO_START:
+                # 옵션전광판 자동 켜짐
+                if self.dialog.get('당월물옵션전광판') is not None:
 
-                try:
-                    self.dialog['당월물옵션전광판'].show()
-                except Exception as e:
+                    try:
+                        self.dialog['당월물옵션전광판'].show()
+                    except Exception as e:
+                        self.dialog['당월물옵션전광판'] = 화면_선물옵션전광판(parent=self)
+                        self.dialog['당월물옵션전광판'].show()
+                else:
                     self.dialog['당월물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                     self.dialog['당월물옵션전광판'].show()
-            else:
-                self.dialog['당월물옵션전광판'] = 화면_선물옵션전광판(parent=self)
-                self.dialog['당월물옵션전광판'].show()
 
-            time.sleep(0.1)
-            self.dialog['당월물옵션전광판'].AddCode()
+                time.sleep(0.1)
+                self.dialog['당월물옵션전광판'].AddCode()
+            else:
+                pass
         else:
             self.statusbar.showMessage("%s %s" % (code, msg))
 
