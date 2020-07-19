@@ -28929,8 +28929,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             self.statusbar.showMessage("로그인 되었습니다.")
 
-            if AUTO_START:
-                # 옵션전광판 자동 켜짐
+            # 옵션전광판 자동 시작
+            if AUTO_START:                
                 if self.dialog.get('당월물옵션전광판') is not None:
 
                     try:
