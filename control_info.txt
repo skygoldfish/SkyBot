@@ -25,7 +25,7 @@ Target Month Select = 1
 S&P 500 = ESU20
 DOW = YMU20
 NASDAQ = NQU20
-WTI = CLQ20
+WTI = CLU20
 
 [6]. << Telegram >>
 Telegram service = True
