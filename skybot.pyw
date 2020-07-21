@@ -24410,8 +24410,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
                     else:
-                        pass
-                    
+                        pass                    
                 elif result['종목코드'] == EUROFX:
                     #print('EUROFX 수신 =', result['체결가격'])
                     pass
