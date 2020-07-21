@@ -528,7 +528,11 @@ with open('control_info.txt', mode='r') as control_file:
     tmp = control_file.readline().strip()
     temp = tmp.split()
     WTI = temp[2]
-    #print('WTI =',WTI)
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    EUROFX = temp[2]
+    print('EUROFX =',EUROFX)
     
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
