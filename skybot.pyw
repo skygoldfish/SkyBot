@@ -108,7 +108,6 @@ drate_scale_factor = 1
 선물_등락율 = 0
 
 선물_고가 = 0
-
 선물_진폭 = 0
 
 SP500_전저 = 0
@@ -126,7 +125,6 @@ SP500_전일대비 = 0
 SP500_등락율 = 0
 
 SP500_고가 = 0
-
 SP500_진폭 = 0
 
 DOW_전저 = 0
@@ -144,7 +142,6 @@ DOW_전일대비 = 0
 DOW_등락율 = 0
 
 DOW_고가 = 0
-
 DOW_진폭 = 0
 
 NASDAQ_전저 = 0
@@ -162,7 +159,6 @@ NASDAQ_전일대비 = 0
 NASDAQ_등락율 = 0
 
 NASDAQ_고가 = 0
-
 NASDAQ_진폭 = 0
 
 WTI_전저 = 0
@@ -180,14 +176,31 @@ WTI_전일대비 = 0
 WTI_등락율 = 0
 
 WTI_고가 = 0
-
 WTI_진폭 = 0
+
+EUROFX_전저 = 0
+EUROFX_전고 = 0
+EUROFX_종가 = 0
+EUROFX_피봇 = 0
+EUROFX_시가 = 0
+
+EUROFX_저가 = 0
+
+EUROFX_현재가 = 0
+EUROFX_과거가 = 0
+EUROFX_대비 = 0
+EUROFX_전일대비 = 0
+EUROFX_등락율 = 0
+
+EUROFX_고가 = 0
+EUROFX_진폭 = 0
 
 CME_당일종가 = 0
 DOW_당일종가 = 0
 SP500_당일종가 = 0
 NASDAQ_당일종가 = 0
 WTI_당일종가 = 0
+EUROFX_당일종가 = 0
 
 FILE_HIGH_LOW_LIST = []
 
@@ -647,6 +660,21 @@ if os.path.isfile('overnight_info.txt'):
         temp = tmp.split()
         WTI_종가 = float(temp[4])
         print('WTI 종가 =', WTI_종가)
+
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        EUROFX_전저 = float(temp[4])
+        print('EUROFX 전저 =', EUROFX_전저)
+
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        EUROFX_전고 = float(temp[4])
+        print('EUROFX 전고 =', EUROFX_전고)
+        
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        EUROFX_종가 = float(temp[4])
+        print('EUROFX 종가 =', EUROFX_종가)
 else:
     CME_종가 = 0
     SP500_전저 = 0
@@ -658,6 +686,12 @@ else:
     NASDAQ_전저 = 0
     NASDAQ_전고 = 0
     NASDAQ_종가 = 0
+    WTI_전저 = 0
+    WTI_전고 = 0
+    WTI_종가 = 0
+    EUROFX_전저 = 0
+    EUROFX_전고 = 0
+    EUROFX_종가 = 0
 
 KP200_전저 = 0
 KP200_전고 = 0
@@ -6928,7 +6962,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global plot_data1, plot_data2, plot_data3, plot_data4, plot_data5, plot_data6, plot_data7
             global plot_data8, plot_data9, plot_data10, plot_data11, plot_data12, plot_data13, plot_data14, plot_data15, plot_data16
             global selected_call, selected_put, selected_opt_list
-            global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가
+            global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가
             global drate_scale_factor 
             
             self.alternate_flag = not self.alternate_flag
@@ -8099,6 +8133,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             file_str = 'WTI Last High = {0}\n'.format(WTI_고가)
                             overnight_file.write(file_str)
                             file_str = 'WTI Last Close = {0}\n'.format(WTI_당일종가)
+                            overnight_file.write(file_str)
+                            file_str = 'EUROFX Last Low = {0}\n'.format(EUROFX_저가)
+                            overnight_file.write(file_str)
+                            file_str = 'EUROFX Last High = {0}\n'.format(EUROFX_고가)
+                            overnight_file.write(file_str)
+                            file_str = 'EUROFX Last Close = {0}\n'.format(EUROFX_당일종가)
                             overnight_file.write(file_str)
                             overnight_file.close()
 
@@ -14717,6 +14757,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.OVC.AdviseRealData(종목코드=DOW)
                 self.OVC.AdviseRealData(종목코드=NASDAQ)
                 self.OVC.AdviseRealData(종목코드=WTI)
+                self.OVC.AdviseRealData(종목코드=EUROFX)
 
                 XQ = t2101(parent=self)
                 XQ.Query(종목코드=fut_code)
@@ -24369,7 +24410,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
                     else:
-                        pass                 
+                        pass
+                elif result['종목코드'] == EUROFX:
+                    #print('EUROFX 수신 =', result['체결가격'])
+                    pass
                 else:
                     pass
             else:
