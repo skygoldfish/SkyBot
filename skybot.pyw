@@ -4504,10 +4504,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.comboBox1.setStyleSheet("background-color: white")
         self.comboBox2.setStyleSheet("background-color: white")
 
-        self.comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션잔량비', '⓸ 등락율비', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
+        self.comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션잔량비', '⓸ 등락율비', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil', '⓾ EUROFX'])
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션잔량비', '⓷ 선물체결', '⓸ 등락율비', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
+        self.comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션잔량비', '⓷ 선물체결', '⓸ 등락율비', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil', '⓾ EUROFX'])
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)            
 
         global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
@@ -24007,8 +24007,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                    #self.label_1st.setText(jisu_str)
-                                    #self.label_1st.setStyleSheet('background-color: pink; color: blue')
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: pink; color: blue')
                                     sp500_text_color = 'blue'
                                 else:
                                     if comboindex1 != 8 and comboindex2 != 8:
@@ -24018,8 +24018,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         else:
                                             jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                        #self.label_1st.setText(jisu_str)
-                                        #self.label_1st.setStyleSheet('background-color: pink; color: blue')
+                                        self.label_3rd.setText(jisu_str)
+                                        self.label_3rd.setStyleSheet('background-color: pink; color: blue')
                                         sp500_text_color = 'blue'
                                     else:
                                         pass                                
@@ -24033,8 +24033,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                    #self.label_1st.setText(jisu_str)
-                                    #self.label_1st.setStyleSheet('background-color: pink; color: red')
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: pink; color: red')
                                     sp500_text_color = 'red'
                                 else:
                                     if comboindex1 != 8 and comboindex2 != 8:
@@ -24044,8 +24044,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         else:
                                             jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                        #self.label_1st.setText(jisu_str)
-                                        #self.label_1st.setStyleSheet('background-color: pink; color: red')
+                                        self.label_3rd.setText(jisu_str)
+                                        self.label_3rd.setStyleSheet('background-color: pink; color: red')
                                         sp500_text_color = 'red'
                                     else:
                                         pass
@@ -24063,8 +24063,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                    #self.label_1st.setText(jisu_str)
-                                    #self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: lightskyblue; color: blue')
                                     sp500_text_color = 'blue'
                                 else:
                                     if comboindex1 != 8 and comboindex2 != 8:
@@ -24074,8 +24074,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         else:
                                             jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                        #self.label_1st.setText(jisu_str)
-                                        #self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
+                                        self.label_3rd.setText(jisu_str)
+                                        self.label_3rd.setStyleSheet('background-color: lightskyblue; color: blue')
                                         sp500_text_color = 'blue'
                                     else:
                                         pass                                
@@ -24089,8 +24089,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                    #self.label_1st.setText(jisu_str)
-                                    #self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: lightskyblue; color: red')
                                     sp500_text_color = 'red'
                                 else:
                                     if comboindex1 != 8 and comboindex2 != 8:
@@ -24100,8 +24100,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                         else:
                                             jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                        #self.label_1st.setText(jisu_str)
-                                        #self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
+                                        self.label_3rd.setText(jisu_str)
+                                        self.label_3rd.setStyleSheet('background-color: lightskyblue; color: red')
                                         sp500_text_color = 'red'
                                     else:
                                         pass                                
@@ -24405,7 +24405,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass 
 
-                    EUROFX_전일대비 = round((result['체결가격'] - EUROFX_종가), 4)
+                    EUROFX_전일대비 = round((result['체결가격'] - EUROFX_종가), 5)
                     
                     if EUROFX_피봇 == 0:
                         
@@ -24434,9 +24434,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if EUROFX_등락율 < 0:
 
                                 if min(대비리스트) > 0:
-                                    jisu_str = "EUROFX: {0} ({1:0.5f}, {2:0.2f}%)⬈".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                                    jisu_str = "EUROFX: {0:0.5f} ({1:0.5f}, {2:0.2f}%)⬈".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
                                 else:
-                                    jisu_str = "EUROFX: {0} ▲ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+                                    jisu_str = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
 
                                 self.label_1st.setText(jisu_str)
                                 self.label_1st.setStyleSheet('background-color: pink; color: blue')
@@ -24445,9 +24445,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             elif EUROFX_등락율 > 0:
 
                                 if min(대비리스트) > 0:
-                                    jisu_str = "EUROFX: {0} ▲ ({1:0.5f}, {2:0.2f}%)⬈".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                                    jisu_str = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:0.2f}%)⬈".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
                                 else:
-                                    jisu_str = "EUROFX: {0} ▲ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+                                    jisu_str = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
 
                                 self.label_1st.setText(jisu_str)
                                 self.label_1st.setStyleSheet('background-color: pink; color: red')
@@ -24460,9 +24460,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if EUROFX_등락율 < 0:
 
                                 if max(대비리스트) < 0:
-                                    jisu_str = "EUROFX: {0} ({1:0.5f}, {2:0.2f}%)⬊".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                                    jisu_str = "EUROFX: {0:0.5f} ({1:0.5f}, {2:0.2f}%)⬊".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
                                 else:
-                                    jisu_str = "EUROFX: {0} ▼ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+                                    jisu_str = "EUROFX: {0:0.5f} ▼ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
 
                                 self.label_1st.setText(jisu_str)
                                 self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
@@ -24471,9 +24471,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             elif EUROFX_등락율 > 0:
 
                                 if max(대비리스트) < 0:
-                                    jisu_str = "EUROFX: {0} ({1:0.5f}, {2:0.2f}%)⬊".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                                    jisu_str = "EUROFX: {0:0.5f} ({1:0.5f}, {2:0.2f}%)⬊".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
                                 else:
-                                    jisu_str = "EUROFX: {0} ▼ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+                                    jisu_str = "EUROFX: {0:0.5f} ▼ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
 
                                 self.label_1st.setText(jisu_str)
                                 self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
@@ -25221,13 +25221,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_24.setStyleSheet('background-color: pink ; color: black')
         self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.bc_comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션잔량비', '⓸ 등락율비', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
+        self.bc_comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션잔량비', '⓸ 등락율비', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil', '⓾ EUROFX'])
         self.bc_comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.bc_comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션잔량비', '⓷ 선물체결', '⓸ 등락율비', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
+        self.bc_comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션잔량비', '⓷ 선물체결', '⓸ 등락율비', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil', '⓾ EUROFX'])
         self.bc_comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
-        self.bc_comboBox3.addItems(['⓵ 옵션체결', '⓶ 옵션잔량비', '⓷ 선물체결', '⓸ 등락율비', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil'])
+        self.bc_comboBox3.addItems(['⓵ 옵션체결', '⓶ 옵션잔량비', '⓷ 선물체결', '⓸ 등락율비', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil', '⓾ EUROFX'])
         self.bc_comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)             
 
         global bc_plot1_time_line_start, bc_plot1_time_line_yagan_start, bc_plot1_time_line, bc_plot1_fut_price_curve, bc_plot1_kp200_curve
