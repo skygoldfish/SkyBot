@@ -741,6 +741,10 @@ if os.path.isfile('kp200_info.txt'):
         tmp = kp200_file.readline().strip()
         temp = tmp.split()
         WTI_전일종가 = float(temp[4])
+
+        tmp = kp200_file.readline().strip()
+        temp = tmp.split()
+        EUROFX_전일종가 = float(temp[4])
 else:
     pass
 
@@ -1135,6 +1139,7 @@ sp500_직전대비 = collections.deque([0, 0, 0], 5)
 dow_직전대비 = collections.deque([0, 0, 0], 5)
 nasdaq_직전대비 = collections.deque([0, 0, 0], 5)
 wti_직전대비 = collections.deque([0, 0, 0], 5)
+eurofx_직전대비 = collections.deque([0, 0, 0], 5)
 
 opt_total_list = []
 call_open_list = []
@@ -1213,6 +1218,7 @@ df_plotdata_sp500 = pd.DataFrame()
 df_plotdata_dow = pd.DataFrame()
 df_plotdata_nasdaq = pd.DataFrame()
 df_plotdata_wti = pd.DataFrame()
+df_plotdata_eurofx = pd.DataFrame()
 
 call_quote = pd.Series()
 put_quote = pd.Series()
@@ -1362,6 +1368,9 @@ old_nasdaq_delta = 0
 
 wti_delta = 0
 old_wti_delta = 0
+
+eurofx_delta = 0
+old_eurofx_delta = 0
 
 comboindex1 = 0
 comboindex2 = 0
@@ -1718,6 +1727,7 @@ sp500_text_color = ''
 dow_text_color = ''
 nasdaq_text_color = ''
 wti_text_color = ''
+eurofx_text_color = ''
 
 call_max_actval = False
 put_max_actval = False
@@ -1776,6 +1786,7 @@ NASDAQ_장마감일 = ''
 DOW_장마감일 = ''
 SP500_장마감일 = ''
 WTI_장마감일 = ''
+EUROFX_장마감일 = ''
 
 DOW_진폭비 = 0
 선물_진폭비 = 0
@@ -13654,7 +13665,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_plotdata_call_drate, df_plotdata_put_drate
         global start_time_str, end_time_str
 
-        global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti
+        global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti, df_plotdata_eurofx
         global view_actval
         
         global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_현재가, 선물_고가
@@ -14033,6 +14044,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_wti = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_eurofx = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                 else:
                     df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + day_timespan))
@@ -14057,6 +14069,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_wti = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_eurofx = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
 
                 # 콜처리
                 for i in range(option_pairs_count):
@@ -21655,12 +21668,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             global yoc_stop
             global OVC_체결시간, 호가시간
-            global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti
+            global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti, df_plotdata_eurofx
 
             global sp500_delta, old_sp500_delta, sp500_직전대비, sp500_text_color
             global dow_delta, old_dow_delta, dow_직전대비, dow_text_color
             global nasdaq_delta, old_nasdaq_delta, nasdaq_직전대비, nasdaq_text_color
             global wti_delta, old_wti_delta, wti_직전대비, wti_text_color
+            global eurofx_delta, old_eurofx_delta, eurofx_직전대비, eurofx_text_color
             global receive_real_ovc
             global x_idx, ovc_x_idx
             
@@ -21673,14 +21687,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_현재가, DOW_전일대비, DOW_등락율, DOW_진폭, DOW_고가
             global NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_현재가, NASDAQ_전일대비, NASDAQ_등락율, NASDAQ_진폭, NASDAQ_고가
             global WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭, WTI_고가
+            global EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭, EUROFX_고가
 
-            global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가 
+            global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EUROFX_과거가 
 
-            global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가
+            global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가
             global 시스템시간, 서버시간, 시스템_서버_시간차
             global kp200_시가, kp200_피봇, kp200_저가, kp200_현재가, kp200_고가
             global df_plotdata_dow_drate, df_plotdata_fut_drate
-            global NASDAQ_장마감일, DOW_장마감일, SP500_장마감일, WTI_장마감일
+            global NASDAQ_장마감일, DOW_장마감일, SP500_장마감일, WTI_장마감일, EUROFX_장마감일
             global DOW_진폭비
             global DOW_주간_시작가, WTI_주간_시작가
             global DOW_야간_시작가, WTI_야간_시작가
@@ -21863,6 +21878,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         kp200_file.write(file_str)
                         file_str = 'WTI Day Close = {0}\n'.format(WTI_현재가)
                         kp200_file.write(file_str)
+                        file_str = 'EUROFX Day Close = {0}\n'.format(EUROFX_현재가)
+                        kp200_file.write(file_str)
                         file_str = '################### < Expiration Date of the CME Index > #####################\n'
                         kp200_file.write(file_str)
                         file_str = 'SP500 Expiration Date = {0}\n'.format(SP500_장마감일)
@@ -21872,6 +21889,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         file_str = 'NASDAQ Expiration Date = {0}\n'.format(NASDAQ_장마감일)
                         kp200_file.write(file_str)
                         file_str = 'WTI Expiration Date = {0}\n'.format(WTI_장마감일)
+                        kp200_file.write(file_str)
+                        file_str = 'EUROFX Expiration Date = {0}\n'.format(EUROFX_장마감일)
                         kp200_file.write(file_str)
                         kp200_file.close()
 
@@ -24233,7 +24252,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                 elif result['종목코드'] == WTI:
-
+                    
                     if WTI_장마감일 == '':
                         WTI_장마감일 = result['장마감일']
                     else:
@@ -24300,22 +24319,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 self.label_1st.setText(jisu_str)
                                 self.label_1st.setStyleSheet('background-color: pink; color: blue')
-                                wti_text_color = 'blue'
-                                '''
-                                if overnight:
-
-                                    self.label_samsung.setText(jisu_str)
-                                    self.label_samsung.setStyleSheet('background-color: pink; color: blue')
-                                    wti_text_color = 'blue'
-                                else:                                    
-                                    if comboindex1 == 8 or comboindex2 == 8:
-
-                                        self.label_1st.setText(jisu_str)
-                                        self.label_1st.setStyleSheet('background-color: pink; color: blue')
-                                        wti_text_color = 'blue'                                            
-                                    else:
-                                        pass
-                                '''                           
+                                wti_text_color = 'blue'  
 
                             elif WTI_등락율 > 0:
 
@@ -24326,22 +24330,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 self.label_1st.setText(jisu_str)
                                 self.label_1st.setStyleSheet('background-color: pink; color: red')
-                                wti_text_color = 'red'
-                                '''
-                                if overnight:
-
-                                    self.label_samsung.setText(jisu_str)
-                                    self.label_samsung.setStyleSheet('background-color: pink; color: red')
-                                    wti_text_color = 'red'
-                                else:
-                                    if comboindex1 == 8 or comboindex2 == 8:                                    
-
-                                        self.label_1st.setText(jisu_str)
-                                        self.label_1st.setStyleSheet('background-color: pink; color: red')
-                                        wti_text_color = 'red'                                        
-                                    else:
-                                        pass 
-                                '''                                                         
+                                wti_text_color = 'red'                                    
                             else:
                                 pass
                             
@@ -24356,22 +24345,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 self.label_1st.setText(jisu_str)
                                 self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
-                                wti_text_color = 'blue' 
-                                '''
-                                if overnight:
-
-                                    self.label_samsung.setText(jisu_str)
-                                    self.label_samsung.setStyleSheet('background-color: lightskyblue; color: blue')
-                                    wti_text_color = 'blue'
-                                else:
-                                    if comboindex1 == 8 or comboindex2 == 8:
-
-                                        self.label_1st.setText(jisu_str)
-                                        self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
-                                        wti_text_color = 'blue'                                            
-                                    else:
-                                        pass
-                                '''                                                         
+                                wti_text_color = 'blue'                                    
 
                             elif WTI_등락율 > 0:
 
@@ -24383,21 +24357,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.label_1st.setText(jisu_str)
                                 self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
                                 wti_text_color = 'red' 
-                                '''
-                                if overnight:
-
-                                    self.label_samsung.setText(jisu_str)
-                                    self.label_samsung.setStyleSheet('background-color: lightskyblue; color: red')
-                                    wti_text_color = 'red'
-                                else:
-                                    if comboindex1 == 8 or comboindex2 == 8:
-
-                                        self.label_1st.setText(jisu_str)
-                                        self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
-                                        wti_text_color = 'red'                                            
-                                    else:
-                                        pass
-                                '''                          
                             else:
                                 pass                            
                         else:
@@ -24410,10 +24369,128 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
                     else:
-                        pass                    
+                        pass
+                    
                 elif result['종목코드'] == EUROFX:
-                    #print('EUROFX 수신 =', result['체결가격'])
-                    pass
+                                     
+                    if EUROFX_장마감일 == '':
+                        EUROFX_장마감일 = result['장마감일']
+                    else:
+                        pass
+
+                    EUROFX_저가 =  result['저가']
+                    EUROFX_고가 =  result['고가']
+                    
+                    EUROFX_진폭 = round((result['고가'] - result['저가']), 2)
+
+                    if EUROFX_전일종가 > 0:
+                        if not overnight:
+                            EUROFX_등락율 = ((result['체결가격'] - EUROFX_전일종가) / EUROFX_전일종가) * 100
+                        else:
+                            EUROFX_등락율 = result['등락율']
+                    else:
+                        EUROFX_등락율 = result['등락율']
+                    
+                    if EUROFX_시가 == 0:
+                        
+                        if result['전일대비기호'] == '5':
+
+                            EUROFX_종가 = round((result['체결가격'] + result['전일대비']), 5)
+                        else:
+                            EUROFX_종가 = round((result['체결가격'] - result['전일대비']), 5)
+                        
+                        df_plotdata_eurofx.iat[0, 0] = EUROFX_종가
+                        df_plotdata_eurofx.iat[0, 1] = result['시가']
+                        EUROFX_시가 = result['시가']
+                    else:
+                        pass 
+
+                    EUROFX_전일대비 = round((result['체결가격'] - EUROFX_종가), 4)
+                    
+                    if EUROFX_피봇 == 0:
+                        
+                        if EUROFX_전저 > 0 and EUROFX_전고 > 0:
+
+                            EUROFX_피봇 = self.calc_pivot(EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_시가)
+                        else:
+                            pass
+                    else:
+                        pass
+                    
+                    if result['체결가격'] != EUROFX_과거가:
+                        
+                        old_eurofx_delta = eurofx_delta
+                        eurofx_delta = result['체결가격']
+                        eurofx_직전대비.extend([eurofx_delta - old_eurofx_delta])
+                        대비리스트 = list(eurofx_직전대비)
+
+                        EUROFX_현재가 = result['체결가격']
+                                                
+                        #체결가격 = locale.format('%.2f', result['체결가격'], 1)
+                        체결가격 = result['체결가격']
+                        
+                        if result['체결가격'] > EUROFX_과거가:
+                            
+                            if EUROFX_등락율 < 0:
+
+                                if min(대비리스트) > 0:
+                                    jisu_str = "EUROFX: {0} ({1:0.5f}, {2:0.2f}%)⬈".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                                else:
+                                    jisu_str = "EUROFX: {0} ▲ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+
+                                self.label_1st.setText(jisu_str)
+                                self.label_1st.setStyleSheet('background-color: pink; color: blue')
+                                eurofx_text_color = 'blue'                                           
+
+                            elif EUROFX_등락율 > 0:
+
+                                if min(대비리스트) > 0:
+                                    jisu_str = "EUROFX: {0} ▲ ({1:0.5f}, {2:0.2f}%)⬈".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                                else:
+                                    jisu_str = "EUROFX: {0} ▲ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+
+                                self.label_1st.setText(jisu_str)
+                                self.label_1st.setStyleSheet('background-color: pink; color: red')
+                                eurofx_text_color = 'red'                                                                             
+                            else:
+                                pass
+                            
+                        elif result['체결가격'] < EUROFX_과거가:
+                            
+                            if EUROFX_등락율 < 0:
+
+                                if max(대비리스트) < 0:
+                                    jisu_str = "EUROFX: {0} ({1:0.5f}, {2:0.2f}%)⬊".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                                else:
+                                    jisu_str = "EUROFX: {0} ▼ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+
+                                self.label_1st.setText(jisu_str)
+                                self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
+                                eurofx_text_color = 'blue'
+
+                            elif EUROFX_등락율 > 0:
+
+                                if max(대비리스트) < 0:
+                                    jisu_str = "EUROFX: {0} ({1:0.5f}, {2:0.2f}%)⬊".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                                else:
+                                    jisu_str = "EUROFX: {0} ▼ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+
+                                self.label_1st.setText(jisu_str)
+                                self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
+                                eurofx_text_color = 'red'
+                            else:
+                                pass                            
+                        else:
+                            pass
+
+                        EUROFX_과거가 = result['체결가격']
+                        
+                        if 2 <= ovc_x_idx <= overnight_timespan - 1:
+                            df_plotdata_eurofx.iat[0, ovc_x_idx] = result['체결가격']
+                        else:
+                            pass
+                    else:
+                        pass             
                 else:
                     pass
             else:
