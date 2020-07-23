@@ -14769,12 +14769,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 장운영정보 요청
                 self.JIF.AdviseRealData('0')
 
-                # S&P 500, DOW, NASDAQ, WTI 요청
+                # 해외선물 실시간 요청
                 self.OVC.AdviseRealData(종목코드=SP500)
                 self.OVC.AdviseRealData(종목코드=DOW)
                 self.OVC.AdviseRealData(종목코드=NASDAQ)
                 self.OVC.AdviseRealData(종목코드=WTI)
                 self.OVC.AdviseRealData(종목코드=EUROFX)
+                self.OVC.AdviseRealData(종목코드=HANGSENG)
 
                 XQ = t2101(parent=self)
                 XQ.Query(종목코드=fut_code)
@@ -24494,7 +24495,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
                     else:
-                        pass             
+                        pass
+
+                elif result['종목코드'] == HANGSENG:
+                    print('HANGSENG =', result['체결가격'])
                 else:
                     pass
             else:
