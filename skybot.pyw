@@ -24491,8 +24491,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         대비리스트 = list(eurofx_직전대비)
 
                         EUROFX_현재가 = result['체결가격']
-                                                
-                        #체결가격 = locale.format('%.2f', result['체결가격'], 1)
+                        
                         체결가격 = result['체결가격']
                         
                         if result['체결가격'] > EUROFX_과거가:
@@ -24584,9 +24583,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         if result['전일대비기호'] == '5':
 
-                            HANGSENG_종가 = round((result['체결가격'] + result['전일대비']), 5)
+                            HANGSENG_종가 = round((result['체결가격'] + result['전일대비']), 0)
                         else:
-                            HANGSENG_종가 = round((result['체결가격'] - result['전일대비']), 5)
+                            HANGSENG_종가 = round((result['체결가격'] - result['전일대비']), 0)
                         
                         df_plotdata_hangseng.iat[0, 0] = HANGSENG_종가
                         df_plotdata_hangseng.iat[0, 1] = result['시가']
@@ -24594,7 +24593,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass 
 
-                    HANGSENG_전일대비 = round((result['체결가격'] - HANGSENG_종가), 5)
+                    HANGSENG_전일대비 = int(result['체결가격'] - HANGSENG_종가)
                     
                     if HANGSENG_피봇 == 0:
                         
@@ -24615,17 +24614,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         HANGSENG_현재가 = result['체결가격']
                                                 
-                        #체결가격 = locale.format('%.2f', result['체결가격'], 1)
-                        체결가격 = result['체결가격']
+                        체결가격 = locale.format('%d', result['체결가격'], 1)
                         
                         if result['체결가격'] > HANGSENG_과거가:
                             
                             if HANGSENG_등락율 < 0:
 
                                 if min(대비리스트) > 0:
-                                    jisu_str = "HANGSENG: {0:0.5f} ({1:0.5f}, {2:0.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                    jisu_str = "HANGSENG: {0} ({1}, {2:0.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
                                 else:
-                                    jisu_str = "HANGSENG: {0:0.5f} ▲ ({1:0.5f}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                                    jisu_str = "HANGSENG: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
                                 self.label_1st.setText(jisu_str)
                                 self.label_1st.setStyleSheet('background-color: pink; color: blue')
@@ -24634,9 +24632,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             elif HANGSENG_등락율 > 0:
 
                                 if min(대비리스트) > 0:
-                                    jisu_str = "HANGSENG: {0:0.5f} ▲ ({1:0.5f}, {2:0.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                    jisu_str = "HANGSENG: {0} ▲ ({1}, {2:0.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
                                 else:
-                                    jisu_str = "HANGSENG: {0:0.5f} ▲ ({1:0.5f}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                                    jisu_str = "HANGSENG: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
                                 self.label_1st.setText(jisu_str)
                                 self.label_1st.setStyleSheet('background-color: pink; color: red')
@@ -24649,9 +24647,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             if HANGSENG_등락율 < 0:
 
                                 if max(대비리스트) < 0:
-                                    jisu_str = "HANGSENG: {0:0.5f} ({1:0.5f}, {2:0.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                    jisu_str = "HANGSENG: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
                                 else:
-                                    jisu_str = "HANGSENG: {0:0.5f} ▼ ({1:0.5f}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                                    jisu_str = "HANGSENG: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
                                 self.label_1st.setText(jisu_str)
                                 self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
@@ -24660,9 +24658,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             elif HANGSENG_등락율 > 0:
 
                                 if max(대비리스트) < 0:
-                                    jisu_str = "HANGSENG: {0:0.5f} ({1:0.5f}, {2:0.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                    jisu_str = "HANGSENG: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
                                 else:
-                                    jisu_str = "HANGSENG: {0:0.5f} ▼ ({1:0.5f}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                                    jisu_str = "HANGSENG: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
 
                                 self.label_1st.setText(jisu_str)
                                 self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
