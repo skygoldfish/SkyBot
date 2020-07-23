@@ -195,12 +195,30 @@ EUROFX_등락율 = 0
 EUROFX_고가 = 0
 EUROFX_진폭 = 0
 
+HANGSENG_전저 = 0
+HANGSENG_전고 = 0
+HANGSENG_종가 = 0
+HANGSENG_피봇 = 0
+HANGSENG_시가 = 0
+
+HANGSENG_저가 = 0
+
+HANGSENG_현재가 = 0
+HANGSENG_과거가 = 0
+HANGSENG_대비 = 0
+HANGSENG_전일대비 = 0
+HANGSENG_등락율 = 0
+
+HANGSENG_고가 = 0
+HANGSENG_진폭 = 0
+
 CME_당일종가 = 0
 DOW_당일종가 = 0
 SP500_당일종가 = 0
 NASDAQ_당일종가 = 0
 WTI_당일종가 = 0
 EUROFX_당일종가 = 0
+HANGSENG_당일종가 = 0
 
 FILE_HIGH_LOW_LIST = []
 
@@ -679,6 +697,21 @@ if os.path.isfile('overnight_info.txt'):
         temp = tmp.split()
         EUROFX_종가 = float(temp[4])
         print('EUROFX 종가 =', EUROFX_종가)
+
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        HANGSENG_전저 = float(temp[4])
+        print('HANGSENG 전저 =', HANGSENG_전저)
+
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        HANGSENG_전고 = float(temp[4])
+        print('HANGSENG 전고 =', HANGSENG_전고)
+        
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        HANGSENG_종가 = float(temp[4])
+        print('HANGSENG 종가 =', HANGSENG_종가)
 else:
     CME_종가 = 0
     SP500_전저 = 0
@@ -696,6 +729,9 @@ else:
     EUROFX_전저 = 0
     EUROFX_전고 = 0
     EUROFX_종가 = 0
+    HANGSENG_전저 = 0
+    HANGSENG_전고 = 0
+    HANGSENG_종가 = 0
 
 KP200_전저 = 0
 KP200_전고 = 0
@@ -749,6 +785,10 @@ if os.path.isfile('kp200_info.txt'):
         tmp = kp200_file.readline().strip()
         temp = tmp.split()
         EUROFX_전일종가 = float(temp[4])
+
+        tmp = kp200_file.readline().strip()
+        temp = tmp.split()
+        HANGSENG_전일종가 = float(temp[4])
 else:
     pass
 
@@ -1144,6 +1184,7 @@ dow_직전대비 = collections.deque([0, 0, 0], 5)
 nasdaq_직전대비 = collections.deque([0, 0, 0], 5)
 wti_직전대비 = collections.deque([0, 0, 0], 5)
 eurofx_직전대비 = collections.deque([0, 0, 0], 5)
+hangseng_직전대비 = collections.deque([0, 0, 0], 5)
 
 opt_total_list = []
 call_open_list = []
@@ -1223,6 +1264,7 @@ df_plotdata_dow = pd.DataFrame()
 df_plotdata_nasdaq = pd.DataFrame()
 df_plotdata_wti = pd.DataFrame()
 df_plotdata_eurofx = pd.DataFrame()
+df_plotdata_hangseng = pd.DataFrame()
 
 call_quote = pd.Series()
 put_quote = pd.Series()
@@ -1375,6 +1417,9 @@ old_wti_delta = 0
 
 eurofx_delta = 0
 old_eurofx_delta = 0
+
+hangseng_delta = 0
+old_hangseng_delta = 0
 
 comboindex1 = 0
 comboindex2 = 0
@@ -1732,6 +1777,7 @@ dow_text_color = ''
 nasdaq_text_color = ''
 wti_text_color = ''
 eurofx_text_color = ''
+hangseng_text_color = ''
 
 call_max_actval = False
 put_max_actval = False
@@ -1791,6 +1837,7 @@ DOW_장마감일 = ''
 SP500_장마감일 = ''
 WTI_장마감일 = ''
 EUROFX_장마감일 = ''
+HANGSENG_장마감일 = ''
 
 DOW_진폭비 = 0
 선물_진폭비 = 0
@@ -4508,10 +4555,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.comboBox1.setStyleSheet("background-color: white")
         self.comboBox2.setStyleSheet("background-color: white")
 
-        self.comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX'])
+        self.comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG'])
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX'])
+        self.comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG'])
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)            
 
         global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
@@ -6977,7 +7024,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global plot_data1, plot_data2, plot_data3, plot_data4, plot_data5, plot_data6, plot_data7
             global plot_data8, plot_data9, plot_data10, plot_data11, plot_data12, plot_data13, plot_data14, plot_data15, plot_data16
             global selected_call, selected_put, selected_opt_list
-            global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가
+            global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가
             global drate_scale_factor 
             
             self.alternate_flag = not self.alternate_flag
@@ -8154,6 +8201,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             file_str = 'EUROFX Last High = {0}\n'.format(EUROFX_고가)
                             overnight_file.write(file_str)
                             file_str = 'EUROFX Last Close = {0}\n'.format(EUROFX_당일종가)
+                            overnight_file.write(file_str)
+                            file_str = 'HANGSENG Last Low = {0}\n'.format(HANGSENG_저가)
+                            overnight_file.write(file_str)
+                            file_str = 'HANGSENG Last High = {0}\n'.format(HANGSENG_고가)
+                            overnight_file.write(file_str)
+                            file_str = 'HANGSENG Last Close = {0}\n'.format(HANGSENG_당일종가)
                             overnight_file.write(file_str)
                             overnight_file.close()
 
@@ -13669,7 +13722,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_plotdata_call_drate, df_plotdata_put_drate
         global start_time_str, end_time_str
 
-        global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti, df_plotdata_eurofx
+        global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti, df_plotdata_eurofx, df_plotdata_hangseng
         global view_actval
         
         global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_현재가, 선물_고가
@@ -14049,6 +14102,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_wti = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_eurofx = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_hangseng = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                 else:
                     df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + day_timespan))
@@ -14074,6 +14128,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_wti = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_eurofx = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_hangseng = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
 
                 # 콜처리
                 for i in range(option_pairs_count):
@@ -21673,13 +21728,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             global yoc_stop
             global OVC_체결시간, 호가시간
-            global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti, df_plotdata_eurofx
+            global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti, df_plotdata_eurofx, df_plotdata_hangseng
 
             global sp500_delta, old_sp500_delta, sp500_직전대비, sp500_text_color
             global dow_delta, old_dow_delta, dow_직전대비, dow_text_color
             global nasdaq_delta, old_nasdaq_delta, nasdaq_직전대비, nasdaq_text_color
             global wti_delta, old_wti_delta, wti_직전대비, wti_text_color
             global eurofx_delta, old_eurofx_delta, eurofx_직전대비, eurofx_text_color
+            global hangseng_delta, old_hangseng_delta, hangseng_직전대비, hangseng_text_color
             global receive_real_ovc
             global x_idx, ovc_x_idx
             
@@ -21693,14 +21749,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_현재가, NASDAQ_전일대비, NASDAQ_등락율, NASDAQ_진폭, NASDAQ_고가
             global WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭, WTI_고가
             global EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭, EUROFX_고가
+            global HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭, HANGSENG_고가
 
-            global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EUROFX_과거가 
+            global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EUROFX_과거가, HANGSENG_과거가 
 
-            global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가
+            global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가
             global 시스템시간, 서버시간, 시스템_서버_시간차
             global kp200_시가, kp200_피봇, kp200_저가, kp200_현재가, kp200_고가
             global df_plotdata_dow_drate, df_plotdata_fut_drate
-            global NASDAQ_장마감일, DOW_장마감일, SP500_장마감일, WTI_장마감일, EUROFX_장마감일
+            global NASDAQ_장마감일, DOW_장마감일, SP500_장마감일, WTI_장마감일, EUROFX_장마감일, HANGSENG_장마감일
             global DOW_진폭비
             global DOW_주간_시작가, WTI_주간_시작가
             global DOW_야간_시작가, WTI_야간_시작가
@@ -21885,6 +21942,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         kp200_file.write(file_str)
                         file_str = 'EUROFX Day Close = {0}\n'.format(EUROFX_현재가)
                         kp200_file.write(file_str)
+                        file_str = 'HANGSENG Day Close = {0}\n'.format(HANGSENG_현재가)
+                        kp200_file.write(file_str)
                         file_str = '################### < Expiration Date of the CME Index > #####################\n'
                         kp200_file.write(file_str)
                         file_str = 'SP500 Expiration Date = {0}\n'.format(SP500_장마감일)
@@ -21896,6 +21955,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         file_str = 'WTI Expiration Date = {0}\n'.format(WTI_장마감일)
                         kp200_file.write(file_str)
                         file_str = 'EUROFX Expiration Date = {0}\n'.format(EUROFX_장마감일)
+                        kp200_file.write(file_str)
+                        file_str = 'HANGSENG Expiration Date = {0}\n'.format(HANGSENG_장마감일)
                         kp200_file.write(file_str)
                         kp200_file.close()
 
@@ -24498,7 +24559,127 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                 elif result['종목코드'] == HANGSENG:
+
                     print('HANGSENG =', result['체결가격'])
+
+                    if HANGSENG_장마감일 == '':
+                        HANGSENG_장마감일 = result['장마감일']
+                    else:
+                        pass
+
+                    HANGSENG_저가 =  result['저가']
+                    HANGSENG_고가 =  result['고가']
+                    
+                    HANGSENG_진폭 = round((result['고가'] - result['저가']), 2)
+
+                    if HANGSENG_전일종가 > 0:
+                        if not overnight:
+                            HANGSENG_등락율 = ((result['체결가격'] - HANGSENG_전일종가) / HANGSENG_전일종가) * 100
+                        else:
+                            HANGSENG_등락율 = result['등락율']
+                    else:
+                        HANGSENG_등락율 = result['등락율']
+                    
+                    if HANGSENG_시가 == 0:
+                        
+                        if result['전일대비기호'] == '5':
+
+                            HANGSENG_종가 = round((result['체결가격'] + result['전일대비']), 5)
+                        else:
+                            HANGSENG_종가 = round((result['체결가격'] - result['전일대비']), 5)
+                        
+                        df_plotdata_hangseng.iat[0, 0] = HANGSENG_종가
+                        df_plotdata_hangseng.iat[0, 1] = result['시가']
+                        HANGSENG_시가 = result['시가']
+                    else:
+                        pass 
+
+                    HANGSENG_전일대비 = round((result['체결가격'] - HANGSENG_종가), 5)
+                    
+                    if HANGSENG_피봇 == 0:
+                        
+                        if HANGSENG_전저 > 0 and HANGSENG_전고 > 0:
+
+                            HANGSENG_피봇 = self.calc_pivot(HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_시가)
+                        else:
+                            pass
+                    else:
+                        pass
+                    
+                    if result['체결가격'] != HANGSENG_과거가:
+                        
+                        old_hangseng_delta = hangseng_delta
+                        hangseng_delta = result['체결가격']
+                        hangseng_직전대비.extend([hangseng_delta - old_hangseng_delta])
+                        대비리스트 = list(hangseng_직전대비)
+
+                        HANGSENG_현재가 = result['체결가격']
+                                                
+                        #체결가격 = locale.format('%.2f', result['체결가격'], 1)
+                        체결가격 = result['체결가격']
+                        
+                        if result['체결가격'] > HANGSENG_과거가:
+                            
+                            if HANGSENG_등락율 < 0:
+
+                                if min(대비리스트) > 0:
+                                    jisu_str = "HANGSENG: {0:0.5f} ({1:0.5f}, {2:0.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                else:
+                                    jisu_str = "HANGSENG: {0:0.5f} ▲ ({1:0.5f}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+
+                                self.label_1st.setText(jisu_str)
+                                self.label_1st.setStyleSheet('background-color: pink; color: blue')
+                                hangseng_text_color = 'blue'                                           
+
+                            elif HANGSENG_등락율 > 0:
+
+                                if min(대비리스트) > 0:
+                                    jisu_str = "HANGSENG: {0:0.5f} ▲ ({1:0.5f}, {2:0.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                else:
+                                    jisu_str = "HANGSENG: {0:0.5f} ▲ ({1:0.5f}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+
+                                self.label_1st.setText(jisu_str)
+                                self.label_1st.setStyleSheet('background-color: pink; color: red')
+                                hangseng_text_color = 'red'                                                                             
+                            else:
+                                pass
+                            
+                        elif result['체결가격'] < HANGSENG_과거가:
+                            
+                            if HANGSENG_등락율 < 0:
+
+                                if max(대비리스트) < 0:
+                                    jisu_str = "HANGSENG: {0:0.5f} ({1:0.5f}, {2:0.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                else:
+                                    jisu_str = "HANGSENG: {0:0.5f} ▼ ({1:0.5f}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+
+                                self.label_1st.setText(jisu_str)
+                                self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
+                                hangseng_text_color = 'blue'
+
+                            elif HANGSENG_등락율 > 0:
+
+                                if max(대비리스트) < 0:
+                                    jisu_str = "HANGSENG: {0:0.5f} ({1:0.5f}, {2:0.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                else:
+                                    jisu_str = "HANGSENG: {0:0.5f} ▼ ({1:0.5f}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+
+                                self.label_1st.setText(jisu_str)
+                                self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
+                                hangseng_text_color = 'red'
+                            else:
+                                pass                            
+                        else:
+                            pass
+
+                        HANGSENG_과거가 = result['체결가격']
+                        
+                        if 2 <= ovc_x_idx <= overnight_timespan - 1:
+                            df_plotdata_hangseng.iat[0, ovc_x_idx] = result['체결가격']
+                        else:
+                            pass
+                    else:
+                        pass
                 else:
                     pass
             else:
@@ -25229,13 +25410,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_24.setStyleSheet('background-color: pink ; color: black')
         self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.bc_comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX'])
+        self.bc_comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG'])
         self.bc_comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.bc_comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX'])
+        self.bc_comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG'])
         self.bc_comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
-        self.bc_comboBox3.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX'])
+        self.bc_comboBox3.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG'])
         self.bc_comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)             
 
         global bc_plot1_time_line_start, bc_plot1_time_line_yagan_start, bc_plot1_time_line, bc_plot1_fut_price_curve, bc_plot1_kp200_curve
