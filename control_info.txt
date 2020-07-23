@@ -21,7 +21,7 @@ UI = Horizontal_Large_View.ui
 [4]. << Target Month Select : current month = 1, next month = 2 >>
 Target Month Select = 1
 
-[5]. << CME Index Code(H/M/U/Z) >>
+[5]. << Code of the Foreign Futures (H/M/U/Z) >>
 S&P 500 = ESU20
 DOW = YMU20
 NASDAQ = NQU20
