@@ -24559,17 +24559,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif result['종목코드'] == HANGSENG:
 
-                    print('HANGSENG =', result['체결가격'])
+                    #print('HANGSENG =', result['체결가격'])
 
                     if HANGSENG_장마감일 == '':
                         HANGSENG_장마감일 = result['장마감일']
                     else:
                         pass
 
-                    HANGSENG_저가 =  result['저가']
-                    HANGSENG_고가 =  result['고가']
+                    HANGSENG_저가 =  int(result['저가'])
+                    HANGSENG_고가 =  int(result['고가'])
                     
-                    HANGSENG_진폭 = round((result['고가'] - result['저가']), 2)
+                    HANGSENG_진폭 = int(result['고가'] - result['저가'])
 
                     if HANGSENG_전일종가 > 0:
                         if not overnight:
@@ -24583,13 +24583,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         if result['전일대비기호'] == '5':
 
-                            HANGSENG_종가 = round((result['체결가격'] + result['전일대비']), 0)
+                            HANGSENG_종가 = int(result['체결가격'] + result['전일대비'])
                         else:
-                            HANGSENG_종가 = round((result['체결가격'] - result['전일대비']), 0)
+                            HANGSENG_종가 = int(result['체결가격'] - result['전일대비'])
                         
                         df_plotdata_hangseng.iat[0, 0] = HANGSENG_종가
                         df_plotdata_hangseng.iat[0, 1] = result['시가']
-                        HANGSENG_시가 = result['시가']
+                        HANGSENG_시가 = int(result['시가'])
                     else:
                         pass 
 
@@ -24612,7 +24612,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         hangseng_직전대비.extend([hangseng_delta - old_hangseng_delta])
                         대비리스트 = list(hangseng_직전대비)
 
-                        HANGSENG_현재가 = result['체결가격']
+                        HANGSENG_현재가 = int(result['체결가격'])
                                                 
                         체결가격 = locale.format('%d', result['체결가격'], 1)
                         
@@ -24670,7 +24670,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        HANGSENG_과거가 = result['체결가격']
+                        HANGSENG_과거가 = int(result['체결가격'])
                         
                         if 2 <= ovc_x_idx <= overnight_timespan - 1:
                             df_plotdata_hangseng.iat[0, ovc_x_idx] = result['체결가격']
