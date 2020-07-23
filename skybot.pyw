@@ -4508,10 +4508,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.comboBox1.setStyleSheet("background-color: white")
         self.comboBox2.setStyleSheet("background-color: white")
 
-        self.comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션잔량비', '⓸ 등락율비', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil', '⓾ EUROFX'])
+        self.comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX'])
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션잔량비', '⓷ 선물체결', '⓸ 등락율비', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil', '⓾ EUROFX'])
+        self.comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX'])
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)            
 
         global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
@@ -25229,13 +25229,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_24.setStyleSheet('background-color: pink ; color: black')
         self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.bc_comboBox1.addItems(['⓵ 선물체결', '⓶ 옵션체결', '⓷ 옵션잔량비', '⓸ 등락율비', '⓹ 선물가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil', '⓾ EUROFX'])
+        self.bc_comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX'])
         self.bc_comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.bc_comboBox2.addItems(['⓵ 옵션체결', '⓶ 옵션잔량비', '⓷ 선물체결', '⓸ 등락율비', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil', '⓾ EUROFX'])
+        self.bc_comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX'])
         self.bc_comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
-        self.bc_comboBox3.addItems(['⓵ 옵션체결', '⓶ 옵션잔량비', '⓷ 선물체결', '⓸ 등락율비', '⓹ 옵션가격', '⓺ S&P 500', '⓻ DOW', '⓼ NASDAQ', '⓽ WTI Oil', '⓾ EUROFX'])
+        self.bc_comboBox3.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX'])
         self.bc_comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)             
 
         global bc_plot1_time_line_start, bc_plot1_time_line_yagan_start, bc_plot1_time_line, bc_plot1_fut_price_curve, bc_plot1_kp200_curve
