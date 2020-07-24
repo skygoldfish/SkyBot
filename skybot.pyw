@@ -21946,6 +21946,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         kp200_file.write(file_str)
                         file_str = 'HANGSENG Day Close = {0}\n'.format(HANGSENG_현재가)
                         kp200_file.write(file_str)
+                        '''
                         file_str = '################### < Expiration Date of the CME Index > #####################\n'
                         kp200_file.write(file_str)
                         file_str = 'SP500 Expiration Date = {0}\n'.format(SP500_장마감일)
@@ -21960,6 +21961,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         kp200_file.write(file_str)
                         file_str = 'HANGSENG Expiration Date = {0}\n'.format(HANGSENG_장마감일)
                         kp200_file.write(file_str)
+                        '''
                         kp200_file.close()
 
                     if market_service:
