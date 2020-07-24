@@ -1098,8 +1098,8 @@ put_result = dict()
 call_oi_init_value = 0
 put_oi_init_value = 0
 
-call_volume_total = 0
-put_volume_total = 0
+call_volume_power = 0
+put_volume_power = 0
 option_volume_power = 0
 
 opt_x_idx = 0
@@ -13717,7 +13717,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_ol
         global put_oh
 
-        global call_volume_total, put_volume_total
+        global call_volume_power, put_volume_power
         global 콜시가리스트, 콜저가리스트, 콜고가리스트, 풋시가리스트, 풋저가리스트, 풋고가리스트
 
         global df_plotdata_fut_drate, df_plotdata_dow_drate
@@ -19216,7 +19216,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_시가, call_시가_node_list, call_피봇, call_피봇_node_list, 콜시가리스트
         global call_저가, call_저가_node_list, call_고가, call_고가_node_list
         global opt_callreal_update_counter
-        global df_call_volume, call_volume_total, df_plotdata_call_volume
+        global df_call_volume, call_volume_power, df_plotdata_call_volume
         global node_coloring
         global call_open_list
         global call_max_actval, call_open, call_ol, call_oh
@@ -19860,7 +19860,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     
     def call_volume_power_update(self):
 
-        global df_call, df_call_volume, call_volume_total, df_plotdata_call_volume, call_volume    
+        global df_call, df_call_volume, call_volume_power, df_plotdata_call_volume, call_volume    
         global 콜_순매수_체결량
 
         index = call_행사가.index(call_result['단축코드'][5:8])
@@ -19928,10 +19928,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass        
 
-        call_volume_total = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
-        df_plotdata_call_volume.iat[0, opt_x_idx] = call_volume_total
+        call_volume_power = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
+        df_plotdata_call_volume.iat[0, opt_x_idx] = call_volume_power
 
-        순매수누적체결량 = format(call_volume_total, ',')
+        순매수누적체결량 = format(call_volume_power, ',')
 
         if 순매수누적체결량 != self.tableWidget_call.horizontalHeaderItem(Option_column.VP.value).text():
             item = QTableWidgetItem(순매수누적체결량)
@@ -20447,7 +20447,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_시가, put_시가_node_list, put_피봇, put_피봇_node_list, 풋시가리스트
         global put_저가, put_저가_node_list, put_고가, put_고가_node_list
         global opt_putreal_update_counter
-        global df_put_volume, put_volume_total, df_plotdata_put_volume, df_plotdata_volume_cha
+        global df_put_volume, put_volume_power, df_plotdata_put_volume, df_plotdata_volume_cha
         global put_open_list
         global put_max_actval, put_open, put_ol, put_oh
         global 풋_인덱스, 풋_시가, 풋_현재가, 풋_저가, 풋_고가
@@ -21009,7 +21009,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
     def put_volume_power_update(self):
 
-        global df_put, df_put_volume, put_volume_total, df_plotdata_put_volume, df_plotdata_volume_cha, put_volume
+        global df_put, df_put_volume, put_volume_power, df_plotdata_put_volume, df_plotdata_volume_cha, put_volume
         global 풋_순매수_체결량, option_volume_power
 
         index = put_행사가.index(put_result['단축코드'][5:8])
@@ -21077,13 +21077,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass        
 
-        put_volume_total = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
-        df_plotdata_put_volume.iat[0, opt_x_idx] = put_volume_total
+        put_volume_power = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
+        df_plotdata_put_volume.iat[0, opt_x_idx] = put_volume_power
         
-        option_volume_power = call_volume_total - put_volume_total
+        option_volume_power = call_volume_power - put_volume_power
         df_plotdata_volume_cha.iat[0, opt_x_idx] = option_volume_power
 
-        순매수누적체결량 = format(put_volume_total, ',')
+        순매수누적체결량 = format(put_volume_power, ',')
 
         if 순매수누적체결량 != self.tableWidget_put.horizontalHeaderItem(Option_column.VP.value).text():
             item = QTableWidgetItem(순매수누적체결량)
@@ -21663,6 +21663,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             item = QTableWidgetItem(item_str)
             item.setTextAlignment(Qt.AlignCenter)
+
+            if fut_volume_power > 0:
+
+                if call_volume_power > put_volume_power and 콜잔량비 > 풋잔량비:
+
+                    item.setBackground(QBrush(적색))
+                    item.setForeground(QBrush(흰색))
+                else:
+                    pass
+            else:
+                if call_volume_power < put_volume_power and 콜잔량비 < 풋잔량비:
+
+                    item.setBackground(QBrush(청색))
+                    item.setForeground(QBrush(흰색))
+                else:
+                    pass
 
             self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
         else:
