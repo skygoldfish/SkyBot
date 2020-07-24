@@ -21659,30 +21659,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         item_str = '{0:0.1f}%\n{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
-        if item_str != self.tableWidget_quote.item(0, Quote_column.미결종합.value - 1).text():
+        item = QTableWidgetItem(item_str)
+        item.setTextAlignment(Qt.AlignCenter)
 
-            item = QTableWidgetItem(item_str)
-            item.setTextAlignment(Qt.AlignCenter)
+        if fut_volume_power > 0:
 
-            if fut_volume_power > 0:
+            if call_volume_power > put_volume_power and 콜잔량비 > 풋잔량비:
 
-                if call_volume_power > put_volume_power and 콜잔량비 > 풋잔량비:
-
-                    item.setBackground(QBrush(적색))
-                    item.setForeground(QBrush(흰색))
-                else:
-                    pass
+                item.setBackground(QBrush(적색))
+                item.setForeground(QBrush(흰색))
             else:
-                if call_volume_power < put_volume_power and 콜잔량비 < 풋잔량비:
-
-                    item.setBackground(QBrush(청색))
-                    item.setForeground(QBrush(흰색))
-                else:
-                    pass
-
-            self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
+                pass
         else:
-            pass
+            if call_volume_power < put_volume_power and 콜잔량비 < 풋잔량비:
+
+                item.setBackground(QBrush(청색))
+                item.setForeground(QBrush(흰색))
+            else:
+                pass
+
+        self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
 
     def OnReceiveRealData(self, szTrCode, result):
 
