@@ -8106,6 +8106,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         DOW_당일종가 = DOW_현재가
                         NASDAQ_당일종가 = NASDAQ_현재가
                         WTI_당일종가 = WTI_현재가
+                        EUROFX_당일종가 = EUROFX_현재가
+                        HANGSENG_당일종가 = HANGSENG_현재가
 
                         # 다음날 해외선물 피봇계산을 위해 종료시(5시 59분 57초 ?) 마지막 값 저장
                         str = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:0.2f}\r'.format \
