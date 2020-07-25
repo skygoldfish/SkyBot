@@ -742,11 +742,17 @@ kp200_저가 = 0
 kp200_현재가 = 0
 kp200_고가 = 0
 
+CENTER_VAL = 0
+
 if os.path.isfile('kp200_info.txt'):
 
     with open('kp200_info.txt', mode='r') as kp200_file:
 
         tmp = kp200_file.readline().strip()
+
+        tmp = kp200_file.readline().strip()
+        temp = tmp.split()
+        CENTER_VAL = float(temp[3])
 
         tmp = kp200_file.readline().strip()
         temp = tmp.split()
@@ -1266,6 +1272,8 @@ df_plotdata_wti = pd.DataFrame()
 df_plotdata_eurofx = pd.DataFrame()
 df_plotdata_hangseng = pd.DataFrame()
 
+df_plotdata_centerval = pd.DataFrame()
+
 call_quote = pd.Series()
 put_quote = pd.Series()
 
@@ -1643,6 +1651,8 @@ plot2_wti_curve = None
 call_curve = []
 put_curve = []
 
+plot2_center_val_curve = None
+
 # Big Chart Plot1
 bc_plot1_time_line = None
 bc_plot1_time_line_start = None
@@ -1725,6 +1735,8 @@ bc_plot2_wti_curve = None
 bc_plot2_call_curve = []
 bc_plot2_put_curve = []
 
+bc_plot2_center_val_curve = None
+
 # Big Chart Plot3
 bc_plot3_time_line = None
 bc_plot3_time_line_start = None
@@ -1763,6 +1775,8 @@ bc_plot3_wti_curve = None
 bc_plot3_call_curve = []
 bc_plot3_put_curve = []
 
+bc_plot3_center_val_curve = None
+
 yoc_stop = False
 
 kospi_price = 0.0
@@ -1799,6 +1813,8 @@ flag_fut_oh = False
 
 call_plot_data = [0] * nRowCount
 put_plot_data = [0] * nRowCount
+
+centerval_plot_data = []
 
 plot_data1 = []
 plot_data2 = []
@@ -3346,6 +3362,7 @@ class screen_update_worker(QThread):
 
             call_curve_data = df_plotdata_call.iloc[index].values.tolist()
             put_curve_data = df_plotdata_put.iloc[index].values.tolist()
+            centerval_data = df_plotdata_centerval.iloc[index].values.tolist()
 
             data1 = df_plotdata_fut_volume.iloc[0].values.tolist()
             data2 = df_plotdata_call_volume.iloc[0].values.tolist()
@@ -3400,19 +3417,19 @@ class screen_update_worker(QThread):
             
             if UI_STYLE == 'Vertical_View.ui':
 
-                return call_curve_data, put_curve_data, data1, data2, data3, data4, \
+                return call_curve_data, put_curve_data, centerval_data, data1, data2, data3, data4, \
                     data5, data6, data7, data8, data9, data10, data11, data12, data13, data14, plot3_data, plot4_1_data, plot4_2_data, data15, data16                
             else:
-                return call_curve_data, put_curve_data, data1, data2, data3, data4, \
+                return call_curve_data, put_curve_data, centerval_data, data1, data2, data3, data4, \
                     data5, data6, data7, data8, data9, data10, data11, data12, data13, data14, data15, data16
         except:
 
             if UI_STYLE == 'Vertical_View.ui':
 
-                return None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
+                return None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
 
             else:
-                return None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
+                return None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
 
 ########################################################################################################################
 
@@ -4444,6 +4461,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global plot2_ovc_jl_line, plot2_ovc_jh_line, plot2_ovc_close_line, plot2_ovc_open_line, plot2_ovc_pivot_line, plot2_ovc_low_line, plot2_ovc_high_line
         global call_curve, put_curve, mv_line
         global plot2_call_drate_curve, plot2_put_drate_curve
+        global plot2_center_val_curve
         
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
@@ -4516,7 +4534,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot2_ovc_high_line = self.Plot2.addLine(x=None, pen=pink_pen)
         
         for i in range(9):
-            mv_line.append(self.Plot2.addLine(x=None, pen=mvpen)) 
+            mv_line.append(self.Plot2.addLine(x=None, pen=mvpen))
 
         plot2_fut_drate_curve = self.Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         plot2_dow_drate_curve = self.Plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
@@ -4542,6 +4560,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         for i in range(nRowCount):
             call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+        
+        plot2_center_val_curve = self.Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         
         if UI_STYLE == 'Vertical_View.ui':
 
@@ -5541,6 +5561,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             for i in range(nRowCount):
                 call_curve[i].clear()
                 put_curve[i].clear()
+
+            plot2_center_val_curve.clear()
             
             plot2_sp500_curve.clear()
             plot2_dow_curve.clear()
@@ -5575,6 +5597,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 call_curve[i].clear()
                 put_curve[i].clear()
 
+            plot2_center_val_curve.clear()
+
             plot2_sp500_curve.clear()
             plot2_dow_curve.clear()
             plot2_nasdaq_curve.clear()
@@ -5606,7 +5630,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             for i in range(nRowCount):
                 call_curve[i].clear()
-                put_curve[i].clear()                
+                put_curve[i].clear()
+
+            plot2_center_val_curve.clear()                
 
             plot2_sp500_curve.clear()
             plot2_dow_curve.clear()
@@ -5637,7 +5663,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             for i in range(nRowCount):
                 call_curve[i].clear()
-                put_curve[i].clear()                
+                put_curve[i].clear()
+
+            plot2_center_val_curve.clear()                
 
             plot2_sp500_curve.clear()
             plot2_dow_curve.clear()
@@ -5715,6 +5743,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 call_curve[i].clear()                
                 put_curve[i].clear()
 
+            plot2_center_val_curve.clear()
+
             plot2_dow_curve.clear()
             plot2_nasdaq_curve.clear()
             plot2_wti_curve.clear()
@@ -5783,7 +5813,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             for i in range(nRowCount):
                 call_curve[i].clear()
-                put_curve[i].clear()                
+                put_curve[i].clear()
+
+            plot2_center_val_curve.clear()                
 
             plot2_sp500_curve.clear()
             plot2_nasdaq_curve.clear()
@@ -5853,7 +5885,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             for i in range(nRowCount):
                 call_curve[i].clear()
-                put_curve[i].clear()                
+                put_curve[i].clear()
+
+            plot2_center_val_curve.clear()                
                 
             plot2_sp500_curve.clear()
             plot2_dow_curve.clear()
@@ -5923,7 +5957,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             for i in range(nRowCount):
                 call_curve[i].clear()
-                put_curve[i].clear()                
+                put_curve[i].clear()
+
+            plot2_center_val_curve.clear()                
                 
             plot2_sp500_curve.clear()
             plot2_dow_curve.clear()
@@ -7001,7 +7037,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global flag_offline, receive_real_ovc
             global 시스템시간
 
-            global call_plot_data, put_plot_data
+            global call_plot_data, put_plot_data, centerval_plot_data
             global plot_data1, plot_data2, plot_data3, plot_data4, plot_data5, plot_data6, plot_data7
             global plot_data8, plot_data9, plot_data10, plot_data11, plot_data12, plot_data13, plot_data14, plot_data15, plot_data16
             global selected_call, selected_put, selected_opt_list
@@ -7103,6 +7139,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
+                    # 중심가 그리기
+                    centerval_plot_data = infos[2]
+                    plot2_center_val_curve.setData(infos[2])
+
                     # 그외 데이타 가져오기
                     if index == option_pairs_count - 1:
                         
@@ -7120,28 +7160,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        plot_data1 = infos[2]
-                        plot_data2 = infos[3] 
-                        plot_data3 = infos[4]
-                        plot_data4 = infos[5]
-                        plot_data5 = infos[6]
-                        plot_data6 = infos[7]
-                        plot_data7 = infos[8]
-                        plot_data8 = infos[9] 
-                        plot_data9 = infos[10]
-                        plot_data10 = infos[11]
-                        plot_data11 = infos[12]
-                        plot_data12 = infos[13]
-                        plot_data13 = infos[14]
-                        plot_data14 = infos[15]
-                        plot_data15 = infos[16]
-                        plot_data16 = infos[17]
+                        plot_data1 = infos[3]
+                        plot_data2 = infos[4] 
+                        plot_data3 = infos[5]
+                        plot_data4 = infos[6]
+                        plot_data5 = infos[7]
+                        plot_data6 = infos[8]
+                        plot_data7 = infos[9]
+                        plot_data8 = infos[10] 
+                        plot_data9 = infos[11]
+                        plot_data10 = infos[12]
+                        plot_data11 = infos[13]
+                        plot_data12 = infos[14]
+                        plot_data13 = infos[15]
+                        plot_data14 = infos[16]
+                        plot_data15 = infos[17]
+                        plot_data16 = infos[18]
 
                         if UI_STYLE == 'Vertical_View.ui':
 
-                            plot3_data = infos[15]
-                            plot4_1_data = infos[16]
-                            plot4_2_data = infos[17]
+                            plot3_data = infos[16]
+                            plot4_1_data = infos[17]
+                            plot4_2_data = infos[18]
                         else:
                             pass
                     else:
@@ -9377,18 +9417,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def display_centerval(self):
 
+        global CENTER_VAL, df_plotdata_centerval
+
+        dt = datetime.datetime.now()
+
         # 예상 중심가 표시
         if call_atm_value > put_atm_value:
 
-            center = put_atm_value + atm_zero_cha / 2
+            CENTER_VAL = put_atm_value + atm_zero_cha / 2
 
         elif put_atm_value > call_atm_value:
 
-            center = call_atm_value - atm_zero_cha / 2
+            CENTER_VAL = call_atm_value - atm_zero_cha / 2
         else:
-            center = call_atm_value
+            CENTER_VAL = call_atm_value
         
-        item = QTableWidgetItem("{0:0.2f}".format(center))
+        item = QTableWidgetItem("{0:0.2f}".format(CENTER_VAL))
         item.setTextAlignment(Qt.AlignCenter)
 
         if abs(atm_zero_cha) <= 0.02:
@@ -9400,6 +9444,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setForeground(QBrush(검정색))
 
         self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
+
+        df_plotdata_centerval.iat[0, x_idx] = CENTER_VAL
         
         if abs(atm_zero_cha) <= 0.02:
 
@@ -13734,6 +13780,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 콜대비_퍼센트_평균, 풋대비_퍼센트_평균
         global atm_zero_sum, atm_zero_cha
         global 선물_전일종가
+        global df_plotdata_centerval
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -13870,6 +13917,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_plotdata_kp200.iat[0, 0] = fut_realdata['KP200']
                 df_plotdata_fut.iat[0, 0] = fut_realdata['종가']
+                df_plotdata_centerval.iat[0, 0] = CENTER_VAL
 
                 if fut_realdata['시가'] > 0:
                     df_plotdata_fut.iat[0, 선물장간_시간차] = fut_realdata['시가']
@@ -14100,6 +14148,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_wti = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_eurofx = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_hangseng = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_centerval = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                 else:
                     df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + day_timespan))
@@ -14126,6 +14175,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_wti = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_eurofx = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_hangseng = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_centerval = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
 
                 # 콜처리
                 for i in range(option_pairs_count):
@@ -22051,7 +22101,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # KP200의 주요정보를 저장
                     with open('kp200_info.txt', mode='w') as kp200_file:
 
-                        file_str = '################# < KP200 Index of the Last Day > ###################\n'
+                        file_str = '################# < KP200 Index of the Last Day > ###################\n'                        
+                        kp200_file.write(file_str)
+                        file_str = 'Center Value = {0}\n'.format(CENTER_VAL)
                         kp200_file.write(file_str)                            
                         file_str = 'KP200 Close = {0}\n'.format(kp200_realdata['현재가'])
                         kp200_file.write(file_str)
@@ -25566,7 +25618,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot2_sp500_curve, bc_plot2_dow_curve, bc_plot2_nasdaq_curve, bc_plot2_wti_curve        
         global bc_plot2_time_line_start, bc_plot2_time_line_yagan_start, bc_plot2_time_line
         global bc_plot2_ovc_jl_line, bc_plot2_ovc_jh_line, bc_plot2_ovc_close_line, bc_plot2_ovc_open_line, bc_plot2_ovc_pivot_line, bc_plot2_ovc_low_line, bc_plot2_ovc_high_line
-        global bc_plot2_mv_line, bc_plot2_call_curve, bc_plot2_put_curve
+        global bc_plot2_mv_line, bc_plot2_call_curve, bc_plot2_put_curve, bc_plot2_center_val_curve
 
         global bc_plot3_fut_volume_curve, bc_plot3_fut_volume_plus_curve, bc_plot3_fut_volume_minus_curve        
         global bc_plot3_call_rr_curve, bc_plot3_put_rr_curve        
@@ -25576,7 +25628,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot3_sp500_curve, bc_plot3_dow_curve, bc_plot3_nasdaq_curve, bc_plot3_wti_curve        
         global bc_plot3_time_line_start, bc_plot3_time_line_yagan_start, bc_plot3_time_line
         global bc_plot3_ovc_jl_line, bc_plot3_ovc_jh_line, bc_plot3_ovc_close_line, bc_plot3_ovc_open_line, bc_plot3_ovc_pivot_line, bc_plot3_ovc_low_line, bc_plot3_ovc_high_line
-        global bc_plot3_mv_line, bc_plot3_call_curve, bc_plot3_put_curve  
+        global bc_plot3_mv_line, bc_plot3_call_curve, bc_plot3_put_curve, bc_plot3_center_val_curve  
 
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
@@ -25654,7 +25706,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_ovc_high_line = self.bc_Plot2.addLine(x=None, pen=pink_pen)
         
         for i in range(9):
-            bc_plot2_mv_line.append(self.bc_Plot2.addLine(x=None, pen=mvpen)) 
+            bc_plot2_mv_line.append(self.bc_Plot2.addLine(x=None, pen=mvpen))
 
         bc_plot2_fut_drate_curve = self.bc_Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot2_dow_drate_curve = self.bc_Plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
@@ -25679,7 +25731,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
         for i in range(nRowCount):
             bc_plot2_call_curve.append(self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
-            bc_plot2_put_curve.append(self.bc_Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)) 
+            bc_plot2_put_curve.append(self.bc_Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+        
+        bc_plot2_center_val_curve = self.bc_Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3) 
 
         # Line & Curve of the Plot3
         bc_plot3_time_line_start = self.bc_Plot3.addLine(x=0, y=None, pen=tpen)
@@ -25695,7 +25749,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot3_ovc_high_line = self.bc_Plot3.addLine(x=None, pen=pink_pen)
         
         for i in range(9):
-            bc_plot3_mv_line.append(self.bc_Plot3.addLine(x=None, pen=mvpen)) 
+            bc_plot3_mv_line.append(self.bc_Plot3.addLine(x=None, pen=mvpen))
 
         bc_plot3_fut_drate_curve = self.bc_Plot3.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot3_dow_drate_curve = self.bc_Plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
@@ -25720,7 +25774,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
         for i in range(nRowCount):
             bc_plot3_call_curve.append(self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
-            bc_plot3_put_curve.append(self.bc_Plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))           
+            bc_plot3_put_curve.append(self.bc_Plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+        
+        bc_plot3_center_val_curve = self.bc_Plot3.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)          
 
         if overnight:
             # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
@@ -26482,6 +26538,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             for i in range(nRowCount):
                 bc_plot2_call_curve[i].clear()
                 bc_plot2_put_curve[i].clear()
+
+            bc_plot2_center_val_curve.clear()
             
             bc_plot2_sp500_curve.clear()
             bc_plot2_dow_curve.clear()
@@ -26525,6 +26583,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot2_call_curve[i].clear()
                 bc_plot2_put_curve[i].clear()
 
+            bc_plot2_center_val_curve.clear()
+
             bc_plot2_sp500_curve.clear()
             bc_plot2_dow_curve.clear()
             bc_plot2_nasdaq_curve.clear()
@@ -26565,7 +26625,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(nRowCount):
                 bc_plot2_call_curve[i].clear()
-                bc_plot2_put_curve[i].clear()                
+                bc_plot2_put_curve[i].clear()
+
+            bc_plot2_center_val_curve.clear()                
 
             bc_plot2_sp500_curve.clear()
             bc_plot2_dow_curve.clear()
@@ -26605,7 +26667,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(nRowCount):
                 bc_plot2_call_curve[i].clear()
-                bc_plot2_put_curve[i].clear()                
+                bc_plot2_put_curve[i].clear()
+
+            bc_plot2_center_val_curve.clear()                
 
             bc_plot2_sp500_curve.clear()
             bc_plot2_dow_curve.clear()
@@ -26691,6 +26755,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             for i in range(nRowCount):
                 bc_plot2_call_curve[i].clear()                
                 bc_plot2_put_curve[i].clear()
+
+            bc_plot2_center_val_curve.clear()
 
             bc_plot2_dow_curve.clear()
             bc_plot2_nasdaq_curve.clear()
@@ -26782,7 +26848,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(nRowCount):
                 bc_plot2_call_curve[i].clear()
-                bc_plot2_put_curve[i].clear()                
+                bc_plot2_put_curve[i].clear()
+
+            bc_plot2_center_val_curve.clear()                
 
             bc_plot2_sp500_curve.clear()
             bc_plot2_nasdaq_curve.clear()
@@ -26874,7 +26942,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(nRowCount):
                 bc_plot2_call_curve[i].clear()
-                bc_plot2_put_curve[i].clear()                
+                bc_plot2_put_curve[i].clear()
+
+            bc_plot2_center_val_curve.clear()                
                 
             bc_plot2_sp500_curve.clear()
             bc_plot2_dow_curve.clear() 
@@ -26966,7 +27036,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(nRowCount):
                 bc_plot2_call_curve[i].clear()
-                bc_plot2_put_curve[i].clear()                
+                bc_plot2_put_curve[i].clear()
+
+            bc_plot2_center_val_curve.clear()                
                 
             bc_plot2_sp500_curve.clear()
             bc_plot2_dow_curve.clear()
@@ -27082,6 +27154,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             for i in range(nRowCount):
                 bc_plot3_call_curve[i].clear()
                 bc_plot3_put_curve[i].clear()
+
+            bc_plot3_center_val_curve.clear()
             
             bc_plot3_sp500_curve.clear()
             bc_plot3_dow_curve.clear()
@@ -27125,6 +27199,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot3_call_curve[i].clear()
                 bc_plot3_put_curve[i].clear()
 
+            bc_plot3_center_val_curve.clear()
+
             bc_plot3_sp500_curve.clear()
             bc_plot3_dow_curve.clear()
             bc_plot3_nasdaq_curve.clear()
@@ -27165,7 +27241,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(nRowCount):
                 bc_plot3_call_curve[i].clear()
-                bc_plot3_put_curve[i].clear()                
+                bc_plot3_put_curve[i].clear()
+
+            bc_plot3_center_val_curve.clear()                
 
             bc_plot3_sp500_curve.clear()
             bc_plot3_dow_curve.clear()
@@ -27205,7 +27283,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(nRowCount):
                 bc_plot3_call_curve[i].clear()
-                bc_plot3_put_curve[i].clear()                
+                bc_plot3_put_curve[i].clear()
+
+            bc_plot3_center_val_curve.clear()                
 
             bc_plot3_sp500_curve.clear()
             bc_plot3_dow_curve.clear()
@@ -27291,6 +27371,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             for i in range(nRowCount):
                 bc_plot3_call_curve[i].clear()                
                 bc_plot3_put_curve[i].clear()
+
+            bc_plot3_center_val_curve.clear()
 
             bc_plot3_dow_curve.clear()
             bc_plot3_nasdaq_curve.clear()
@@ -27382,7 +27464,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(nRowCount):
                 bc_plot3_call_curve[i].clear()
-                bc_plot3_put_curve[i].clear()                
+                bc_plot3_put_curve[i].clear()
+
+            bc_plot3_center_val_curve.clear()                
 
             bc_plot3_sp500_curve.clear()
             bc_plot3_nasdaq_curve.clear()
@@ -27474,7 +27558,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(nRowCount):
                 bc_plot3_call_curve[i].clear()
-                bc_plot3_put_curve[i].clear()                
+                bc_plot3_put_curve[i].clear()
+
+            bc_plot3_center_val_curve.clear()                
                 
             bc_plot3_sp500_curve.clear()
             bc_plot3_dow_curve.clear() 
@@ -27566,7 +27652,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(nRowCount):
                 bc_plot3_call_curve[i].clear()
-                bc_plot3_put_curve[i].clear()                
+                bc_plot3_put_curve[i].clear()
+
+            bc_plot3_center_val_curve.clear()                
                 
             bc_plot3_sp500_curve.clear()
             bc_plot3_dow_curve.clear()
@@ -27709,6 +27797,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         pass
 
+                # 중심가 그리기
+                bc_plot2_center_val_curve.setData(centerval_plot_data)
+
             # 옵션 Y축 최대값 구하기
             axY = self.bc_Plot2.getAxis('left')
 
@@ -27803,6 +27894,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         bc_plot3_put_curve[i].setData(put_plot_data[index])
                     else:
                         pass
+
+                # 중심가 그리기
+                bc_plot3_center_val_curve.setData(centerval_plot_data)
 
             # 옵션 Y축 최대값 구하기
             axY = self.bc_Plot3.getAxis('left')
