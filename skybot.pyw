@@ -4895,8 +4895,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.telegram_listen_worker.finished.connect(self.listen_telegram_message)
         
         self.tableWidget_call.resizeColumnsToContents()
-        self.tableWidget_put.resizeColumnsToContents()        
-        self.tableWidget_fut.resizeColumnsToContents()   
+        self.tableWidget_put.resizeColumnsToContents()
+        '''        
+        self.tableWidget_fut.resizeColumnsToContents()
+        '''   
 
     ## list에서 i번째 아이템을 리턴한다.
     def get_list_item(self, list, i):
