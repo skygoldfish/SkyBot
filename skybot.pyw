@@ -10135,11 +10135,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
-            self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+            if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
+                self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
 
-            self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
-            self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+                self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
+                self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+            else:
+                self.tableWidget_call.item(i, Option_column.저가.value).setBackground(QBrush(흰색))
+                self.tableWidget_call.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+
+                self.tableWidget_call.item(i, Option_column.고가.value).setBackground(QBrush(흰색))
+                self.tableWidget_call.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
    
     def call_cross_color_update(self):
 
@@ -12943,11 +12950,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
-            self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+            if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(옅은회색))
+                self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
 
-            self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
-            self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+                self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(옅은회색))
+                self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
+            else:
+                self.tableWidget_put.item(i, Option_column.저가.value).setBackground(QBrush(흰색))
+                self.tableWidget_put.item(i, Option_column.저가.value).setForeground(QBrush(검정색))
+
+                self.tableWidget_put.item(i, Option_column.고가.value).setBackground(QBrush(흰색))
+                self.tableWidget_put.item(i, Option_column.고가.value).setForeground(QBrush(검정색))
       
     def put_low_coreval_color_blink(self, blink):
 
@@ -14181,12 +14195,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem("{0:0.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(옅은회색))
+
+                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        item.setBackground(QBrush(옅은회색))
+                    else:
+                        item.setBackground(QBrush(흰색))
+
                     self.tableWidget_call.setItem(i, Option_column.저가.value, item)
 
                     item = QTableWidgetItem("{0:0.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(옅은회색))
+
+                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        item.setBackground(QBrush(옅은회색))
+                    else:
+                        item.setBackground(QBrush(흰색))
+
                     self.tableWidget_call.setItem(i, Option_column.고가.value, item)
 
                     if not overnight:
@@ -14464,12 +14488,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem("{0:0.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(옅은회색))
+
+                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        item.setBackground(QBrush(옅은회색))
+                    else:
+                        item.setBackground(QBrush(흰색))
+
                     self.tableWidget_put.setItem(i, Option_column.저가.value, item)
 
                     item = QTableWidgetItem("{0:0.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(옅은회색))
+
+                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        item.setBackground(QBrush(옅은회색))
+                    else:
+                        item.setBackground(QBrush(흰색))
+
                     self.tableWidget_put.setItem(i, Option_column.고가.value, item)
 
                     if not overnight:
@@ -14997,14 +15031,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item = QTableWidgetItem("{0:0.2f}".format(저가))
                         item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(옅은회색))
+
+                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                            item.setBackground(QBrush(옅은회색))
+                        else:
+                            item.setBackground(QBrush(흰색))
+
                         self.tableWidget_call.setItem(i, Option_column.저가.value, item)
 
                         df_call.at[i, '고가'] = 고가
 
                         item = QTableWidgetItem("{0:0.2f}".format(고가))
                         item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(옅은회색))
+
+                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                            item.setBackground(QBrush(옅은회색))
+                        else:
+                            item.setBackground(QBrush(흰색))
+
                         self.tableWidget_call.setItem(i, Option_column.고가.value, item)
                         
                         if 시가 > opt_search_start_value and df['저가'][i] < df['고가'][i]:
@@ -15084,14 +15128,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item = QTableWidgetItem("{0:0.2f}".format(저가))
                         item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(옅은회색))
+
+                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                            item.setBackground(QBrush(옅은회색))
+                        else:
+                            item.setBackground(QBrush(흰색))
+
                         self.tableWidget_put.setItem(i, Option_column.저가.value, item)
 
                         df_put.at[i, '고가'] = 고가
 
                         item = QTableWidgetItem("{0:0.2f}".format(고가))
                         item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(옅은회색))
+
+                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                            item.setBackground(QBrush(옅은회색))
+                        else:
+                            item.setBackground(QBrush(흰색))
+
                         self.tableWidget_put.setItem(i, Option_column.고가.value, item)
                         
                         if 시가 > opt_search_start_value and df1['저가'][i] < df1['고가'][i]:
@@ -15164,7 +15218,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item = QTableWidgetItem("{0:0.2f}".format(저가))
 
                         item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(옅은회색))
+
+                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                            item.setBackground(QBrush(옅은회색))
+                        else:
+                            item.setBackground(QBrush(흰색))
+
                         self.tableWidget_call.setItem(i, Option_column.저가.value, item)
 
                         df_call.at[i, '고가'] = 고가
@@ -15177,7 +15236,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item = QTableWidgetItem("{0:0.2f}".format(고가))
 
                         item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(옅은회색))
+
+                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                            item.setBackground(QBrush(옅은회색))
+                        else:
+                            item.setBackground(QBrush(흰색))
+
                         self.tableWidget_call.setItem(i, Option_column.고가.value, item)
 
                         if df1['저가'][i] < df1['고가'][i]:
@@ -15197,7 +15261,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item = QTableWidgetItem("{0:0.2f}".format(저가))
 
                         item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(옅은회색))
+
+                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                            item.setBackground(QBrush(옅은회색))
+                        else:
+                            item.setBackground(QBrush(흰색))
+
                         self.tableWidget_put.setItem(i, Option_column.저가.value, item)
 
                         df_put.at[i, '고가'] = 고가
@@ -15210,7 +15279,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item = QTableWidgetItem("{0:0.2f}".format(고가))
 
                         item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(옅은회색))
+
+                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                            item.setBackground(QBrush(옅은회색))
+                        else:
+                            item.setBackground(QBrush(흰색))
+
                         self.tableWidget_put.setItem(i, Option_column.고가.value, item)
                     
                     # 주야간 선물전광판 데이타 요청
@@ -15852,14 +15926,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     item = QTableWidgetItem("{0:0.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(옅은회색))
+
+                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        item.setBackground(QBrush(옅은회색))
+                    else:
+                        item.setBackground(QBrush(흰색))
+
                     self.tableWidget_call.setItem(i, Option_column.저가.value, item)
 
                     df_call.at[i, '고가'] = 고가
                     
                     item = QTableWidgetItem("{0:0.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(옅은회색))
+
+                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        item.setBackground(QBrush(옅은회색))
+                    else:
+                        item.setBackground(QBrush(흰색))
+
                     self.tableWidget_call.setItem(i, Option_column.고가.value, item)
 
                     if overnight:
@@ -16103,14 +16187,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem("{0:0.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(옅은회색))
+
+                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        item.setBackground(QBrush(옅은회색))
+                    else:
+                        item.setBackground(QBrush(흰색))
+
                     self.tableWidget_put.setItem(i, Option_column.저가.value, item)
 
                     df_put.at[i, '고가'] = 고가
                     
                     item = QTableWidgetItem("{0:0.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(옅은회색))
+
+                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        item.setBackground(QBrush(옅은회색))
+                    else:
+                        item.setBackground(QBrush(흰색))
+
                     self.tableWidget_put.setItem(i, Option_column.고가.value, item)
 
                     if overnight:
@@ -16602,14 +16696,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem("{0:0.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(옅은회색))
+
+                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        item.setBackground(QBrush(옅은회색))
+                    else:
+                        item.setBackground(QBrush(흰색))
+
                     self.tableWidget_call.setItem(i, Option_column.저가.value, item)
 
                     df_call.at[i, '고가'] = 고가
 
                     item = QTableWidgetItem("{0:0.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(옅은회색))
+
+                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        item.setBackground(QBrush(옅은회색))
+                    else:
+                        item.setBackground(QBrush(흰색))
+
                     self.tableWidget_call.setItem(i, Option_column.고가.value, item)
                     
                     if 시가 > 0 and df['저가'][i] < df['고가'][i]:
@@ -16672,14 +16776,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem("{0:0.2f}".format(저가))
                     item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(옅은회색))
+
+                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        item.setBackground(QBrush(옅은회색))
+                    else:
+                        item.setBackground(QBrush(흰색))
+
                     self.tableWidget_put.setItem(i, Option_column.저가.value, item)
 
                     df_put.at[i, '고가'] = 고가
 
                     item = QTableWidgetItem("{0:0.2f}".format(고가))
                     item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(옅은회색))
+
+                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        item.setBackground(QBrush(옅은회색))
+                    else:
+                        item.setBackground(QBrush(흰색))
+
                     self.tableWidget_put.setItem(i, Option_column.고가.value, item)
                     
                     if 시가 > 0 and df1['저가'][i] < df1['고가'][i]:
@@ -16737,7 +16851,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem("{0:0.2f}".format(저가))
 
                     item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(옅은회색))
+
+                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        item.setBackground(QBrush(옅은회색))
+                    else:
+                        item.setBackground(QBrush(흰색))
+
                     self.tableWidget_call.setItem(i, Option_column.저가.value, item)
 
                     df_call.at[i, '고가'] = 고가
@@ -16750,7 +16869,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem("{0:0.2f}".format(고가))
 
                     item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(옅은회색))
+
+                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        item.setBackground(QBrush(옅은회색))
+                    else:
+                        item.setBackground(QBrush(흰색))
+
                     self.tableWidget_call.setItem(i, Option_column.고가.value, item)
 
                     if df1['저가'][i] < df1['고가'][i]:
@@ -16770,7 +16894,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem("{0:0.2f}".format(저가))
 
                     item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(옅은회색))
+
+                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        item.setBackground(QBrush(옅은회색))
+                    else:
+                        item.setBackground(QBrush(흰색))
+
                     self.tableWidget_put.setItem(i, Option_column.저가.value, item)
 
                     df_put.at[i, '고가'] = 고가
@@ -16783,7 +16912,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem("{0:0.2f}".format(고가))
 
                     item.setTextAlignment(Qt.AlignCenter)
-                    item.setBackground(QBrush(옅은회색))
+
+                    if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                        item.setBackground(QBrush(옅은회색))
+                    else:
+                        item.setBackground(QBrush(흰색))
+
                     self.tableWidget_put.setItem(i, Option_column.고가.value, item)
 
             if ResizeRowsToContents:
