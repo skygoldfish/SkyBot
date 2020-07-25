@@ -3900,28 +3900,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.setWindowTitle(widget_title)
         
-        # 쓰레드 시작은 start(), 종료는 terminate()
-        self.t8416_callworker = t8416_Call_Worker()
-        self.t8416_callworker.finished.connect(self.t8416_call_request)
-
-        self.t8416_putworker = t8416_Put_Worker()
-        self.t8416_putworker.finished.connect(self.t8416_put_request)
-
-        self.screen_update_worker = screen_update_worker()
-        self.screen_update_worker.finished.connect(self.update_screen)
-        '''
-        self.call_update_worker = call_update_worker()
-        self.call_update_worker.finished.connect(self.call_update)
-
-        self.put_update_worker = put_update_worker()
-        self.put_update_worker.finished.connect(self.put_update)
-        '''
-        self.telegram_send_worker = telegram_send_worker()
-        self.telegram_send_worker.finished.connect(self.send_telegram_message)
-
-        self.telegram_listen_worker = telegram_listen_worker()
-        self.telegram_listen_worker.finished.connect(self.listen_telegram_message)
-
         # 위젯 선언 및 초기화
         self.pushButton_add.setStyleSheet("background-color: lightGray")
         
@@ -4916,6 +4894,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass        
 
         self.XingAdminCheck()
+        
+        # 쓰레드 시작은 start(), 종료는 terminate()
+        self.t8416_callworker = t8416_Call_Worker()
+        self.t8416_callworker.finished.connect(self.t8416_call_request)
+
+        self.t8416_putworker = t8416_Put_Worker()
+        self.t8416_putworker.finished.connect(self.t8416_put_request)
+
+        self.screen_update_worker = screen_update_worker()
+        self.screen_update_worker.finished.connect(self.update_screen)
+        '''
+        self.call_update_worker = call_update_worker()
+        self.call_update_worker.finished.connect(self.call_update)
+
+        self.put_update_worker = put_update_worker()
+        self.put_update_worker.finished.connect(self.put_update)
+        '''
+        self.telegram_send_worker = telegram_send_worker()
+        self.telegram_send_worker.finished.connect(self.send_telegram_message)
+
+        self.telegram_listen_worker = telegram_listen_worker()
+        self.telegram_listen_worker.finished.connect(self.listen_telegram_message)
 
     ## list에서 i번째 아이템을 리턴한다.
     def get_list_item(self, list, i):
@@ -29270,7 +29270,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.dialog['당월물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                     self.dialog['당월물옵션전광판'].show()
 
-                time.sleep(0.1)
+                #time.sleep(0.1)
                 self.dialog['당월물옵션전광판'].AddCode()
             else:
                 pass
