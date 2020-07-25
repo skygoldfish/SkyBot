@@ -526,6 +526,11 @@ with open('control_info.txt', mode='r') as control_file:
     #print('ONEWAY_RATIO =', ONEWAY_RATIO)
 
     tmp = control_file.readline().strip()
+    temp = tmp.split()
+    CENTERVAL_RANGE = float(temp[5])
+    print('CENTERVAL_RANGE =', CENTERVAL_RANGE)
+
+    tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
 
     tmp = control_file.readline().strip()    
@@ -1076,8 +1081,6 @@ fut_volume_power = 0
 oloh_cutoff = 0.10
 nodelist_low_cutoff = 0.09
 nodelist_high_cutoff = 10.0
-
-centerval_threshold = 0.60
 
 update_start = 0.3
 update_end = 10.0
@@ -8839,7 +8842,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         atm_minus_2 = round((df_call.at[atm_index - 2, '현재가'] + df_put.at[atm_index - 2, '현재가']), 2)
         atm_minus_1 = round((df_call.at[atm_index - 1, '현재가'] + df_put.at[atm_index - 1, '현재가']) , 2)
         atm_zero_sum = round((df_call.at[atm_index, '현재가'] + df_put.at[atm_index, '현재가']) , 2)
-        atm_zero_cha = round((call_atm_value - put_atm_value) , 2)
+
+        if call_atm_value >= put_atm_value:
+            atm_zero_cha = round((call_atm_value - put_atm_value) , 2)
+        else:
+            atm_zero_cha = round((put_atm_value - call_atm_value) , 2)
+
         atm_plus_1 = round((df_call.at[atm_index + 1, '현재가'] + df_put.at[atm_index + 1, '현재가']) , 2)
         atm_plus_2 = round((df_call.at[atm_index + 2, '현재가'] + df_put.at[atm_index + 2, '현재가']) , 2)
         atm_plus_3 = round((df_call.at[atm_index + 3, '현재가'] + df_put.at[atm_index + 3, '현재가']) , 2)
@@ -9424,21 +9432,30 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 예상 중심가 표시
         if call_atm_value > put_atm_value:
 
-            CENTER_VAL = put_atm_value + atm_zero_cha / 2
+            CENTER_VAL = round((put_atm_value + atm_zero_cha / 2), 2)
 
         elif put_atm_value > call_atm_value:
 
-            CENTER_VAL = call_atm_value - atm_zero_cha / 2
+            CENTER_VAL = round((call_atm_value + atm_zero_cha / 2), 2)
         else:
             CENTER_VAL = call_atm_value
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, atm_str, CENTER_VAL)
+            self.textBrowser.append(str)
         
         item = QTableWidgetItem("{0:0.2f}".format(CENTER_VAL))
         item.setTextAlignment(Qt.AlignCenter)
 
-        if abs(atm_zero_cha) <= 0.02:
+        if abs(atm_zero_cha) <= CENTERVAL_RANGE:
 
-            item.setBackground(QBrush(검정색))
-            item.setForeground(QBrush(대맥점색))
+            if self.centerval_flag:
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(대맥점색))
+            else:
+                item.setBackground(QBrush(대맥점색))
+                item.setForeground(QBrush(검정색))
+
+            self.centerval_flag = not self.centerval_flag
         else:
             item.setBackground(QBrush(대맥점색))
             item.setForeground(QBrush(검정색))
@@ -9446,27 +9463,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
 
         df_plotdata_centerval.iat[0, opt_x_idx] = CENTER_VAL
-        
+        '''
         if abs(atm_zero_cha) <= 0.02:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, atm_str, call_atm_value)
             self.textBrowser.append(str)            
         else:
             pass
-
-        if abs(atm_zero_cha) <= centerval_threshold:
-                        
-            if self.centerval_flag:
-
-                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(적색))
-                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(적색))
-            else:
-                self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-                self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-
-            self.centerval_flag = not self.centerval_flag                        
-        else:
-            pass
+        '''
 
     def asym_detect(self, blink):
         
