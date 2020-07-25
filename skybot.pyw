@@ -4663,7 +4663,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 plot1_time_line_start.setValue(선물장간_시간차)
                 plot2_time_line_start.setValue(선물장간_시간차)
 
-        self.color_flag = True
         self.alternate_flag = True
         self.centerval_flag = True
 
@@ -6219,20 +6218,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
         str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
         self.label_msg.setText(str)
-
-    def label_blink(self, widget, color1, color2, blink_set):
-
-        if blink_set:
-            if self.color_flag:
-                stylesheet = "background-color: {0}; color: {1}".format(color1, color2)
-                widget.setStyleSheet(stylesheet)
-            else:
-                stylesheet = "background-color: {0}; color: {1}".format(color2, color1)
-                widget.setStyleSheet(stylesheet)
-            self.color_flag = not self.color_flag
-        else:
-            stylesheet = "background-color: {0}; color: {1}".format(color1, color2)
-            widget.setStyleSheet(stylesheet)
 
     @pyqtSlot(int)
     def call_horizontal_header_clicked(self, idx):
