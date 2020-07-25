@@ -25,8 +25,7 @@ class XASessionEvents(object):
         if self.parent != None:
             self.parent.OnDisconnect()
 
-
-class XASession:
+class XASession(object):
     def __init__(self, parent=None):
         self.ActiveX = win32com.client.DispatchWithEvents("XA_Session.XASession", XASessionEvents)
         self.ActiveX.SetMode("_XINGAPI7_", "TRUE")

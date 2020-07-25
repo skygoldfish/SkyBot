@@ -32,9 +32,9 @@ class XARealEvents(object):
         if self.parent != None:
             self.parent.OnReceiveChartRealData(szTrCode)
 
-    def OnRecieveLinkData(self, szLinkName, szData, szFiller):
+    def OnReceiveLinkData(self, szLinkName, szData, szFiller):
         if self.parent != None:
-            self.parent.OnRecieveLinkData(szLinkName, szData, szFiller)
+            self.parent.OnReceiveLinkData(szLinkName, szData, szFiller)
 
 class XAReal(object):
     def __init__(self, parent=None, 식별자='식별자'):
@@ -65,7 +65,7 @@ class XAReal(object):
     def UnAdviseLinkFromHTS(self):
         self.ActiveX.UnAdviseLinkFromHTS()
 
-    def OnRecieveLinkData(self, szLinkName, szData, szFiller):
+    def OnReceiveLinkData(self, szLinkName, szData, szFiller):
         print(szLinkName, szData, szFiller)
 
 
