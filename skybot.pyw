@@ -3847,7 +3847,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_call.verticalHeader().setVisible(False)
 
         self.tableWidget_call.setAlternatingRowColors(True)
-
+        
         cell_widget = []
 
         for i in range(nRowCount):
@@ -3858,8 +3858,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             lay_out.setAlignment(Qt.AlignCenter)          
             cell_widget[i].setLayout(lay_out)         
             self.tableWidget_call.setCellWidget(i, 0, cell_widget[i])
-
-        #self.tableWidget_call.resizeRowsToContents()  
+          
         self.tableWidget_call.resizeColumnsToContents()
 
         # put tablewidget 초기화
@@ -3886,7 +3885,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             cell_widget[i].setLayout(lay_out)
             self.tableWidget_put.setCellWidget(i, 0, cell_widget[i])
 
-        #self.tableWidget_put.resizeRowsToContents()
         self.tableWidget_put.resizeColumnsToContents()
         
         for i in range(nRowCount):
@@ -3895,12 +3893,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_call.setItem(i, 0, item)
             self.tableWidget_call.item(i, 0).setBackground(QBrush(검정색))
 
+            item = QTableWidgetItem("{0}".format(''))
+            self.tableWidget_put.setItem(i, 0, item)
+            self.tableWidget_put.item(i, 0).setBackground(QBrush(검정색))
+
+            for j in range(self.tableWidget_call.columnCount() - 1):
+
+                item = QTableWidgetItem("{0}".format(''))
+                self.tableWidget_call.setItem(i, j + 1, item)
+                self.tableWidget_call.item(i, j + 1).setBackground(QBrush(검정색))
+
+            for j in range(self.tableWidget_put.columnCount() - 1):
+
+                item = QTableWidgetItem("{0}".format(''))
+                self.tableWidget_put.setItem(i, j + 1, item)
+                self.tableWidget_put.item(i, j + 1).setBackground(QBrush(검정색))
+        '''
         for i in range(nRowCount):
 
             item = QTableWidgetItem("{0}".format(''))
             self.tableWidget_put.setItem(i, 0, item)
             self.tableWidget_put.item(i, 0).setBackground(QBrush(검정색))
-
+        
         for i in range(nRowCount):
             for j in range(self.tableWidget_call.columnCount() - 1):
 
@@ -3914,7 +3928,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem("{0}".format(''))
                 self.tableWidget_put.setItem(i, j + 1, item)
                 self.tableWidget_put.item(i, j + 1).setBackground(QBrush(검정색))
-
+        '''
         # 선물 tablewidget 초기화
         self.tableWidget_fut.setRowCount(3)
         self.tableWidget_fut.setColumnCount(Futures_column.OID.value + 1)
