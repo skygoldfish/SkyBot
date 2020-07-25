@@ -29123,14 +29123,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 # 메인
 ########################################################################################################################
 if TARGET_MONTH_SELECT == 1:
-
-    Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+"mymoneybot_cm.ui")
-
+    ui_type = "mymoneybot_cm.ui"
 elif TARGET_MONTH_SELECT == 2:
-
-    Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+"mymoneybot_nm.ui")
+    ui_type = "mymoneybot_nm.ui"
 else:
-    Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+"mymoneybot_man.ui")
+    ui_type = "mymoneybot_man.ui"
+
+Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+ui_type)
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
