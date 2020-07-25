@@ -3847,19 +3847,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_call.verticalHeader().setVisible(False)
 
         self.tableWidget_call.setAlternatingRowColors(True)
-        
-        cell_widget = []
-
-        for i in range(nRowCount):
-            
-            cell_widget.append(QWidget())            
-            lay_out = QHBoxLayout(cell_widget[i])
-            lay_out.addWidget(QCheckBox())
-            lay_out.setAlignment(Qt.AlignCenter)          
-            cell_widget[i].setLayout(lay_out)         
-            self.tableWidget_call.setCellWidget(i, 0, cell_widget[i])
-          
-        self.tableWidget_call.resizeColumnsToContents()
 
         # put tablewidget 초기화
         self.tableWidget_put.setRowCount(nRowCount)
@@ -3873,21 +3860,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_put.verticalHeader().setVisible(False)
 
         self.tableWidget_put.setAlternatingRowColors(True)
-
-        cell_widget = []
-
-        for i in range(nRowCount):
-
-            cell_widget.append(QWidget())            
-            lay_out = QHBoxLayout(cell_widget[i])
-            lay_out.addWidget(QCheckBox())
-            lay_out.setAlignment(Qt.AlignCenter)           
-            cell_widget[i].setLayout(lay_out)
-            self.tableWidget_put.setCellWidget(i, 0, cell_widget[i])
-
-        self.tableWidget_put.resizeColumnsToContents()
+        
+        call_cell_widget = []
+        put_cell_widget = []
         
         for i in range(nRowCount):
+
+            call_cell_widget.append(QWidget())            
+            lay_out = QHBoxLayout(call_cell_widget[i])
+            lay_out.addWidget(QCheckBox())
+            lay_out.setAlignment(Qt.AlignCenter)          
+            call_cell_widget[i].setLayout(lay_out)         
+            self.tableWidget_call.setCellWidget(i, 0, call_cell_widget[i])
+
+            put_cell_widget.append(QWidget())            
+            lay_out = QHBoxLayout(put_cell_widget[i])
+            lay_out.addWidget(QCheckBox())
+            lay_out.setAlignment(Qt.AlignCenter)           
+            put_cell_widget[i].setLayout(lay_out)
+            self.tableWidget_put.setCellWidget(i, 0, put_cell_widget[i])
 
             item = QTableWidgetItem("{0}".format(''))
             self.tableWidget_call.setItem(i, 0, item)
@@ -3903,32 +3894,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setItem(i, j + 1, item)
                 self.tableWidget_call.item(i, j + 1).setBackground(QBrush(검정색))
 
-            for j in range(self.tableWidget_put.columnCount() - 1):
-
                 item = QTableWidgetItem("{0}".format(''))
                 self.tableWidget_put.setItem(i, j + 1, item)
                 self.tableWidget_put.item(i, j + 1).setBackground(QBrush(검정색))
-        '''
-        for i in range(nRowCount):
 
-            item = QTableWidgetItem("{0}".format(''))
-            self.tableWidget_put.setItem(i, 0, item)
-            self.tableWidget_put.item(i, 0).setBackground(QBrush(검정색))
-        
-        for i in range(nRowCount):
-            for j in range(self.tableWidget_call.columnCount() - 1):
-
-                item = QTableWidgetItem("{0}".format(''))
-                self.tableWidget_call.setItem(i, j + 1, item)
-                self.tableWidget_call.item(i, j + 1).setBackground(QBrush(검정색))
-
-        for i in range(nRowCount):
-            for j in range(self.tableWidget_put.columnCount() - 1):
-
-                item = QTableWidgetItem("{0}".format(''))
-                self.tableWidget_put.setItem(i, j + 1, item)
-                self.tableWidget_put.item(i, j + 1).setBackground(QBrush(검정색))
-        '''
         # 선물 tablewidget 초기화
         self.tableWidget_fut.setRowCount(3)
         self.tableWidget_fut.setColumnCount(Futures_column.OID.value + 1)
@@ -4259,9 +4228,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item = QTableWidgetItem("{0}".format('Scale\nFactor'))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(2, Futures_column.진폭.value, item)
-
-        #self.tableWidget_fut.resizeRowsToContents()
-        #self.tableWidget_fut.resizeColumnsToContents()
 
         # Quote tablewidget 초기화
         self.tableWidget_quote.setRowCount(1)
@@ -4891,10 +4857,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     self.tableWidget_fut.setItem(0, 2 + i, item)            
         else:
-            pass
-
-        self.tableWidget_fut.resizeRowsToContents()
-        self.tableWidget_fut.resizeColumnsToContents()        
+            pass    
 
         if bms_node_list:
             bms_node_list.sort()
@@ -4930,6 +4893,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.telegram_listen_worker = telegram_listen_worker()
         self.telegram_listen_worker.finished.connect(self.listen_telegram_message)
+        
+        self.tableWidget_call.resizeColumnsToContents()
+        self.tableWidget_put.resizeColumnsToContents()        
+        self.tableWidget_fut.resizeColumnsToContents()   
 
     ## list에서 i번째 아이템을 리턴한다.
     def get_list_item(self, list, i):
