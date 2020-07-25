@@ -9445,7 +9445,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
 
-        df_plotdata_centerval.iat[0, x_idx] = CENTER_VAL
+        df_plotdata_centerval.iat[0, opt_x_idx] = CENTER_VAL
         
         if abs(atm_zero_cha) <= 0.02:
 
