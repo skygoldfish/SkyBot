@@ -3800,16 +3800,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.setGeometry(left, top + 30, width, height - 60)
 
-        self.showMaximized()
-        
-        #self.telegram_flag = True
-        self.pushButton_remove.setStyleSheet("background-color: lightGray")
+        self.showMaximized()               
 
         OVC_START_HOUR = KSE_START_HOUR - 1
         print('주,야간 변경 기준시간 =', OVC_START_HOUR)
         
         # 위젯 선언 및 초기화
         self.pushButton_add.setStyleSheet("background-color: lightGray")
+        self.pushButton_remove.setStyleSheet("background-color: lightGray")
         
         self.label_msg.setText("🕘")
         self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
