@@ -7819,13 +7819,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if receive_quote:
 
                     self.quote_display()
-                    '''
-                    if self.alternate_flag:
-
-                        self.quote_display()
-                    else:
-                        pass
-                    '''
                 else:
                     pass
 
@@ -8074,18 +8067,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass                    
                     
                     # 원웨이장 표시(주간만) --> 비대칭장으로 파악(CM + NM + MAN)
+                    '''
                     if not overnight and not dongsi_hoga:
 
                         if TARGET_MONTH_SELECT == 1:
 
                             #self.check_oneway(self.alternate_flag)
                             self.display_centerval()
-
                         else:
                             pass
                     else:
                         pass
-                                                    
+                    '''                                
                 else:
                     pass          
             else:
@@ -8811,6 +8804,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global atm_str, atm_index, old_atm_index, call_atm_value, put_atm_value 
         global atm_zero_sum, atm_zero_cha
         
+        global CENTER_VAL, df_plotdata_centerval
+
+        dt = datetime.datetime.now()
+        
         # 등가 check & coloring        
         old_atm_index = atm_index
 
@@ -8863,6 +8860,41 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = '{0}({1}:{2})'.format(basis, atm_zero_sum, abs(atm_zero_cha))
 
         self.label_atm.setText(str)
+
+        # 예상 중심가 표시
+        if call_atm_value > put_atm_value:
+
+            CENTER_VAL = round((put_atm_value + atm_zero_cha / 2), 2)
+
+        elif put_atm_value > call_atm_value:
+
+            CENTER_VAL = round((call_atm_value + atm_zero_cha / 2), 2)
+        else:
+            CENTER_VAL = call_atm_value
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, atm_str, CENTER_VAL)
+            self.textBrowser.append(str)
+        
+        item = QTableWidgetItem("{0:0.2f}".format(CENTER_VAL))
+        item.setTextAlignment(Qt.AlignCenter)
+
+        if abs(atm_zero_cha) <= CENTERVAL_RANGE:
+
+            if self.centerval_flag:
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(대맥점색))
+            else:
+                item.setBackground(QBrush(대맥점색))
+                item.setForeground(QBrush(검정색))
+
+            self.centerval_flag = not self.centerval_flag
+        else:
+            item.setBackground(QBrush(대맥점색))
+            item.setForeground(QBrush(검정색))
+
+        self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
+
+        df_plotdata_centerval.iat[0, opt_x_idx] = CENTER_VAL
 
         atm_list = []
         atm_list.append(atm_minus_3)
@@ -9457,14 +9489,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
 
         df_plotdata_centerval.iat[0, opt_x_idx] = CENTER_VAL
-        '''
-        if abs(atm_zero_cha) <= 0.02:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, atm_str, call_atm_value)
-            self.textBrowser.append(str)            
-        else:
-            pass
-        '''
 
     def asym_detect(self, blink):
         
