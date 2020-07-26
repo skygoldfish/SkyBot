@@ -7127,10 +7127,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                    # 중심가 그리기
-                    centerval_plot_data = infos[2]
-                    plot2_center_val_curve.setData(infos[2])
-
                     # 그외 데이타 가져오기
                     if index == option_pairs_count - 1:
                         
@@ -7148,6 +7144,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
+                        centerval_plot_data = infos[2]
                         plot_data1 = infos[3]
                         plot_data2 = infos[4] 
                         plot_data3 = infos[5]
@@ -7219,6 +7216,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         mv_line[8].setValue(8.1)
                     else:
                         pass
+
+                    # 중심가 그리기
+                    plot2_center_val_curve.setData(infos[2])
                 else:
                     pass
                 
@@ -27786,9 +27786,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         pass
 
-                # 중심가 그리기
-                bc_plot2_center_val_curve.setData(centerval_plot_data)
-
             # 옵션 Y축 최대값 구하기
             axY = self.bc_Plot2.getAxis('left')
 
@@ -27830,6 +27827,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot2_mv_line[8].setValue(8.1)
             else:
                 pass
+            
+            # 중심가 그리기
+            bc_plot2_center_val_curve.setData(centerval_plot_data)
         else:
             pass            
 
@@ -27884,9 +27884,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         pass
 
-                # 중심가 그리기
-                bc_plot3_center_val_curve.setData(centerval_plot_data)
-
             # 옵션 Y축 최대값 구하기
             axY = self.bc_Plot3.getAxis('left')
 
@@ -27928,6 +27925,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot3_mv_line[8].setValue(8.1)
             else:
                 pass
+            
+            # 중심가 그리기
+            bc_plot3_center_val_curve.setData(centerval_plot_data)
         else:
             pass            
 
