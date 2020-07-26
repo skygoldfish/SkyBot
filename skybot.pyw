@@ -8880,14 +8880,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if abs(atm_zero_cha) <= CENTERVAL_RANGE:
 
-            if self.centerval_flag:
+            if blink:
                 item.setBackground(QBrush(검정색))
                 item.setForeground(QBrush(대맥점색))
             else:
                 item.setBackground(QBrush(대맥점색))
                 item.setForeground(QBrush(검정색))
 
-            self.centerval_flag = not self.centerval_flag
+            #self.centerval_flag = not self.centerval_flag
         else:
             item.setBackground(QBrush(대맥점색))
             item.setForeground(QBrush(검정색))
