@@ -7482,7 +7482,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
                     
                     # 중심가 그리기
-                    plot2_center_val_curve.setData(infos[2])
+                    plot2_center_val_curve.setData(centerval_plot_data)
 
                 elif comboindex2 == 5:
                     
