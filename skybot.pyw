@@ -1656,6 +1656,10 @@ plot2_put_curve = []
 
 plot2_center_val_curve = None
 
+plot2_center_val_upper_line = None
+plot2_center_val_line = None
+plot2_center_val_lower_line = None
+
 # Big Chart Plot1
 bc_plot1_time_line = None
 bc_plot1_time_line_start = None
@@ -1740,6 +1744,10 @@ bc_plot2_put_curve = []
 
 bc_plot2_center_val_curve = None
 
+bc_plot2_center_val_upper_line = None
+bc_plot2_center_val_line = None
+bc_plot2_center_val_lower_line = None
+
 # Big Chart Plot3
 bc_plot3_time_line = None
 bc_plot3_time_line_start = None
@@ -1779,6 +1787,10 @@ bc_plot3_call_curve = []
 bc_plot3_put_curve = []
 
 bc_plot3_center_val_curve = None
+
+bc_plot2_center_val_upper_line = None
+bc_plot2_center_val_line = None
+bc_plot2_center_val_lower_line = None
 
 yoc_stop = False
 
@@ -4465,6 +4477,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global plot2_call_curve, plot2_put_curve, mv_line
         global plot2_call_drate_curve, plot2_put_drate_curve
         global plot2_center_val_curve
+        global plot2_center_val_line, plot2_center_val_upper_line, plot2_center_val_lower_line
         
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
@@ -4565,6 +4578,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
         
         plot2_center_val_curve = self.Plot2.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+
+        plot2_center_val_lower_line = self.Plot2.addLine(x=None, pen=skyblue_pen)
+        plot2_center_val_line = self.Plot2.addLine(x=None, pen=gold_pen)
+        plot2_center_val_upper_line = self.Plot2.addLine(x=None, pen=pink_pen)
         
         if UI_STYLE == 'Vertical_View.ui':
 
@@ -5581,6 +5598,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_ovc_pivot_line.setValue(0)
             plot2_ovc_low_line.setValue(0)
             plot2_ovc_high_line.setValue(0)
+
+            plot2_center_val_lower_line.setValue(0)
+            plot2_center_val_line.setValue(0)
+            plot2_center_val_upper_line.setValue(0)
             
         elif comboindex2 == 1:
                         
@@ -5615,7 +5636,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_ovc_jh_line.setValue(0)
             plot2_ovc_pivot_line.setValue(0)
             plot2_ovc_low_line.setValue(0)
-            plot2_ovc_high_line.setValue(0)                     
+            plot2_ovc_high_line.setValue(0)
+
+            plot2_center_val_lower_line.setValue(0)
+            plot2_center_val_line.setValue(0)
+            plot2_center_val_upper_line.setValue(0)                     
 
         elif comboindex2 == 2:
 
@@ -5651,6 +5676,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_ovc_pivot_line.setValue(0)
             plot2_ovc_low_line.setValue(0)
             plot2_ovc_high_line.setValue(0)
+
+            plot2_center_val_lower_line.setValue(0)
+            plot2_center_val_line.setValue(0)
+            plot2_center_val_upper_line.setValue(0)
                     
         elif comboindex2 == 3:
 
@@ -5685,6 +5714,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_ovc_low_line.setValue(0)
             plot2_ovc_high_line.setValue(0)
 
+            plot2_center_val_lower_line.setValue(0)
+            plot2_center_val_line.setValue(0)
+            plot2_center_val_upper_line.setValue(0)
+
         elif comboindex2 == 4:
 
             plot2_call_rr_curve.clear()
@@ -5715,6 +5748,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_ovc_high_line.setValue(0)
 
             # 대맥점 표시
+            '''
             mv_line[0].setValue(1.2)
             mv_line[1].setValue(2.5)
             mv_line[2].setValue(3.5)
@@ -5724,6 +5758,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             mv_line[6].setValue(0)
             mv_line[7].setValue(0)
             mv_line[8].setValue(0)
+            '''
+
+            plot2_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+            plot2_center_val_line.setValue(CENTER_VAL)
+            plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
 
         elif comboindex2 == 5:
 
@@ -5750,6 +5789,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_dow_curve.clear()
             plot2_nasdaq_curve.clear()
             plot2_wti_curve.clear()
+
+            plot2_center_val_lower_line.setValue(SP500_종가)
+            plot2_center_val_line.setValue(SP500_종가)
+            plot2_center_val_upper_line.setValue(SP500_종가)
 
             for i in range(9):
                 mv_line[i].setValue(SP500_종가)
@@ -5823,6 +5866,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_nasdaq_curve.clear()
             plot2_wti_curve.clear()
 
+            plot2_center_val_lower_line.setValue(DOW_종가)
+            plot2_center_val_line.setValue(DOW_종가)
+            plot2_center_val_upper_line.setValue(DOW_종가)
+
             for i in range(9):
                 mv_line[i].setValue(DOW_종가)
             
@@ -5895,6 +5942,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_dow_curve.clear()
             plot2_wti_curve.clear()
 
+            plot2_center_val_lower_line.setValue(NASDAQ_종가)
+            plot2_center_val_line.setValue(NASDAQ_종가)
+            plot2_center_val_upper_line.setValue(NASDAQ_종가)
+
             for i in range(9):
                 mv_line[i].setValue(NASDAQ_종가)
             
@@ -5965,7 +6016,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
             plot2_sp500_curve.clear()
             plot2_dow_curve.clear()
-            plot2_nasdaq_curve.clear() 
+            plot2_nasdaq_curve.clear()
+
+            plot2_center_val_lower_line.setValue(WTI_종가)
+            plot2_center_val_line.setValue(WTI_종가)
+            plot2_center_val_upper_line.setValue(WTI_종가) 
 
             for i in range(9):
                 mv_line[i].setValue(WTI_종가)
@@ -7437,11 +7492,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass                    
 
                     plot2_center_val_curve.clear()                    
-                    
+                    '''
                     mv_line[0].setValue(1.2)
                     mv_line[1].setValue(2.5)
                     mv_line[2].setValue(3.5)     
-                    
+                    '''
                     # 콜/풋 그래프 그리기
                     for index in range(option_pairs_count):
 
@@ -7460,7 +7515,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 plot2_put_curve[i].setData(put_plot_data[index])
                             else:
                                 pass
-
+                    '''
                     # 옵션 Y축 최대값 구하기
                     axY = self.Plot2.getAxis('left')
                     #print('옵션 y axis range: {}'.format(axY.range[1]))
@@ -7503,9 +7558,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         mv_line[8].setValue(8.1)
                     else:
                         pass
-                    
+                    '''
+                    # 프리가 그리기
+                    plot2_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+                    plot2_center_val_line.setValue(CENTER_VAL)
+                    plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
+
                     # 중심가 그리기
-                    plot2_center_val_curve.setData(centerval_plot_data)
+                    plot2_center_val_curve.setData(centerval_plot_data)                    
 
                 elif comboindex2 == 5:
                     
@@ -25681,7 +25741,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot2_sp500_curve, bc_plot2_dow_curve, bc_plot2_nasdaq_curve, bc_plot2_wti_curve        
         global bc_plot2_time_line_start, bc_plot2_time_line_yagan_start, bc_plot2_time_line
         global bc_plot2_ovc_jl_line, bc_plot2_ovc_jh_line, bc_plot2_ovc_close_line, bc_plot2_ovc_open_line, bc_plot2_ovc_pivot_line, bc_plot2_ovc_low_line, bc_plot2_ovc_high_line
-        global bc_plot2_mv_line, bc_plot2_call_curve, bc_plot2_put_curve, bc_plot2_center_val_curve
+        global bc_plot2_mv_line, bc_plot2_call_curve, bc_plot2_put_curve
+        global bc_plot2_center_val_curve
+        global bc_plot2_center_val_line, bc_plot2_center_val_upper_line, bc_plot2_center_val_lower_line
 
         global bc_plot3_fut_volume_curve, bc_plot3_fut_volume_plus_curve, bc_plot3_fut_volume_minus_curve        
         global bc_plot3_call_rr_curve, bc_plot3_put_rr_curve        
@@ -25691,7 +25753,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot3_sp500_curve, bc_plot3_dow_curve, bc_plot3_nasdaq_curve, bc_plot3_wti_curve        
         global bc_plot3_time_line_start, bc_plot3_time_line_yagan_start, bc_plot3_time_line
         global bc_plot3_ovc_jl_line, bc_plot3_ovc_jh_line, bc_plot3_ovc_close_line, bc_plot3_ovc_open_line, bc_plot3_ovc_pivot_line, bc_plot3_ovc_low_line, bc_plot3_ovc_high_line
-        global bc_plot3_mv_line, bc_plot3_call_curve, bc_plot3_put_curve, bc_plot3_center_val_curve  
+        global bc_plot3_mv_line, bc_plot3_call_curve, bc_plot3_put_curve
+        global bc_plot3_center_val_curve
+        global bc_plot3_center_val_line, bc_plot3_center_val_upper_line, bc_plot3_center_val_lower_line  
 
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
@@ -25796,7 +25860,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_call_curve.append(self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             bc_plot2_put_curve.append(self.bc_Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
         
-        bc_plot2_center_val_curve = self.bc_Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3) 
+        bc_plot2_center_val_curve = self.bc_Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+
+        bc_plot2_center_val_lower_line = self.bc_Plot2.addLine(x=None, pen=skyblue_pen)
+        bc_plot2_center_val_line = self.bc_Plot2.addLine(x=None, pen=gold_pen)
+        bc_plot2_center_val_upper_line = self.bc_Plot2.addLine(x=None, pen=pink_pen) 
 
         # Line & Curve of the Plot3
         bc_plot3_time_line_start = self.bc_Plot3.addLine(x=0, y=None, pen=tpen)
@@ -25839,7 +25907,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_call_curve.append(self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             bc_plot3_put_curve.append(self.bc_Plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
         
-        bc_plot3_center_val_curve = self.bc_Plot3.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)          
+        bc_plot3_center_val_curve = self.bc_Plot3.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3) 
+
+        bc_plot3_center_val_lower_line = self.bc_Plot3.addLine(x=None, pen=skyblue_pen)
+        bc_plot3_center_val_line = self.bc_Plot3.addLine(x=None, pen=gold_pen)
+        bc_plot3_center_val_upper_line = self.bc_Plot3.addLine(x=None, pen=pink_pen)          
 
         if overnight:
             # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
@@ -26619,6 +26691,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_ovc_pivot_line.setValue(0)
             bc_plot2_ovc_low_line.setValue(0)
             bc_plot2_ovc_high_line.setValue(0)
+
+            bc_plot2_center_val_lower_line.setValue(0)
+            bc_plot2_center_val_line.setValue(0)
+            bc_plot2_center_val_upper_line.setValue(0)
             
         elif bc_comboindex2 == 1:
 
@@ -26662,7 +26738,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_ovc_jh_line.setValue(0)
             bc_plot2_ovc_pivot_line.setValue(0)
             bc_plot2_ovc_low_line.setValue(0)
-            bc_plot2_ovc_high_line.setValue(0)                      
+            bc_plot2_ovc_high_line.setValue(0)
+
+            bc_plot2_center_val_lower_line.setValue(0)
+            bc_plot2_center_val_line.setValue(0)
+            bc_plot2_center_val_upper_line.setValue(0)                      
 
         elif bc_comboindex2 == 2:
 
@@ -26707,6 +26787,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_ovc_pivot_line.setValue(0)
             bc_plot2_ovc_low_line.setValue(0)
             bc_plot2_ovc_high_line.setValue(0)
+
+            bc_plot2_center_val_lower_line.setValue(0)
+            bc_plot2_center_val_line.setValue(0)
+            bc_plot2_center_val_upper_line.setValue(0)
                     
         elif bc_comboindex2 == 3:
 
@@ -26750,6 +26834,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_ovc_low_line.setValue(0)
             bc_plot2_ovc_high_line.setValue(0)
 
+            bc_plot2_center_val_lower_line.setValue(0)
+            bc_plot2_center_val_line.setValue(0)
+            bc_plot2_center_val_upper_line.setValue(0)
+
         elif bc_comboindex2 == 4:
 
             self.label_9.setText(" 전저 : 가격 ")
@@ -26789,6 +26877,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_ovc_high_line.setValue(0)
 
             # 대맥점 표시
+            '''
             bc_plot2_mv_line[0].setValue(1.2)
             bc_plot2_mv_line[1].setValue(2.5)
             bc_plot2_mv_line[2].setValue(3.5)
@@ -26798,6 +26887,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_mv_line[6].setValue(0)
             bc_plot2_mv_line[7].setValue(0)
             bc_plot2_mv_line[8].setValue(0)
+            '''
+            bc_plot2_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+            bc_plot2_center_val_line.setValue(CENTER_VAL)
+            bc_plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
 
         elif bc_comboindex2 == 5:
 
@@ -26824,6 +26917,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_dow_curve.clear()
             bc_plot2_nasdaq_curve.clear()
             bc_plot2_wti_curve.clear()
+
+            bc_plot2_center_val_lower_line.setValue(SP500_종가)
+            bc_plot2_center_val_line.setValue(SP500_종가)
+            bc_plot2_center_val_upper_line.setValue(SP500_종가)
 
             for i in range(9):
                 bc_plot2_mv_line[i].setValue(SP500_종가)
@@ -26919,6 +27016,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_nasdaq_curve.clear()
             bc_plot2_wti_curve.clear()
 
+            bc_plot2_center_val_lower_line.setValue(DOW_종가)
+            bc_plot2_center_val_line.setValue(DOW_종가)
+            bc_plot2_center_val_upper_line.setValue(DOW_종가)
+
             for i in range(9):
                 bc_plot2_mv_line[i].setValue(DOW_종가)
             
@@ -27013,6 +27114,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_dow_curve.clear() 
             bc_plot2_wti_curve.clear()
 
+            bc_plot2_center_val_lower_line.setValue(NASDAQ_종가)
+            bc_plot2_center_val_line.setValue(NASDAQ_종가)
+            bc_plot2_center_val_upper_line.setValue(NASDAQ_종가)
+
             for i in range(9):
                 bc_plot2_mv_line[i].setValue(NASDAQ_종가)
             
@@ -27105,7 +27210,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
             bc_plot2_sp500_curve.clear()
             bc_plot2_dow_curve.clear()
-            bc_plot2_nasdaq_curve.clear()  
+            bc_plot2_nasdaq_curve.clear()
+
+            bc_plot2_center_val_lower_line.setValue(WTI_종가)
+            bc_plot2_center_val_line.setValue(WTI_종가)
+            bc_plot2_center_val_upper_line.setValue(WTI_종가)  
 
             for i in range(9):
                 bc_plot2_mv_line[i].setValue(WTI_종가)
@@ -27235,6 +27344,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_ovc_pivot_line.setValue(0)
             bc_plot3_ovc_low_line.setValue(0)
             bc_plot3_ovc_high_line.setValue(0)
+
+            bc_plot3_center_val_lower_line.setValue(0)
+            bc_plot3_center_val_line.setValue(0)
+            bc_plot3_center_val_upper_line.setValue(0)
             
         elif bc_comboindex3 == 1:
 
@@ -27278,7 +27391,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_ovc_jh_line.setValue(0)
             bc_plot3_ovc_pivot_line.setValue(0)
             bc_plot3_ovc_low_line.setValue(0)
-            bc_plot3_ovc_high_line.setValue(0)                      
+            bc_plot3_ovc_high_line.setValue(0)
+
+            bc_plot3_center_val_lower_line.setValue(0)
+            bc_plot3_center_val_line.setValue(0)
+            bc_plot3_center_val_upper_line.setValue(0)                      
 
         elif bc_comboindex3 == 2:
 
@@ -27323,6 +27440,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_ovc_pivot_line.setValue(0)
             bc_plot3_ovc_low_line.setValue(0)
             bc_plot3_ovc_high_line.setValue(0)
+
+            bc_plot3_center_val_lower_line.setValue(0)
+            bc_plot3_center_val_line.setValue(0)
+            bc_plot3_center_val_upper_line.setValue(0)
                     
         elif bc_comboindex3 == 3:
 
@@ -27366,6 +27487,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_ovc_low_line.setValue(0)
             bc_plot3_ovc_high_line.setValue(0)
 
+            bc_plot3_center_val_lower_line.setValue(0)
+            bc_plot3_center_val_line.setValue(0)
+            bc_plot3_center_val_upper_line.setValue(0)
+
         elif bc_comboindex3 == 4:
 
             self.label_17.setText(" 전저 : 가격 ")
@@ -27405,6 +27530,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_ovc_high_line.setValue(0)
 
             # 대맥점 표시
+            '''
             bc_plot3_mv_line[0].setValue(1.2)
             bc_plot3_mv_line[1].setValue(2.5)
             bc_plot3_mv_line[2].setValue(3.5)
@@ -27414,6 +27540,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_mv_line[6].setValue(0)
             bc_plot3_mv_line[7].setValue(0)
             bc_plot3_mv_line[8].setValue(0)
+            '''
+            bc_plot3_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+            bc_plot3_center_val_line.setValue(CENTER_VAL)
+            bc_plot3_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
 
         elif bc_comboindex3 == 5:
 
@@ -27440,6 +27570,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_dow_curve.clear()
             bc_plot3_nasdaq_curve.clear()
             bc_plot3_wti_curve.clear()
+
+            bc_plot3_center_val_lower_line.setValue(SP500_종가)
+            bc_plot3_center_val_line.setValue(SP500_종가)
+            bc_plot3_center_val_upper_line.setValue(SP500_종가)
 
             for i in range(9):
                 bc_plot3_mv_line[i].setValue(SP500_종가)
@@ -27535,6 +27669,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_nasdaq_curve.clear()
             bc_plot3_wti_curve.clear()
 
+            bc_plot3_center_val_lower_line.setValue(DOW_종가)
+            bc_plot3_center_val_line.setValue(DOW_종가)
+            bc_plot3_center_val_upper_line.setValue(DOW_종가)
+
             for i in range(9):
                 bc_plot3_mv_line[i].setValue(DOW_종가)
             
@@ -27629,6 +27767,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_dow_curve.clear() 
             bc_plot3_wti_curve.clear()
 
+            bc_plot3_center_val_lower_line.setValue(NASDAQ_종가)
+            bc_plot3_center_val_line.setValue(NASDAQ_종가)
+            bc_plot3_center_val_upper_line.setValue(NASDAQ_종가)
+
             for i in range(9):
                 bc_plot3_mv_line[i].setValue(NASDAQ_종가)
             
@@ -27721,7 +27863,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 
             bc_plot3_sp500_curve.clear()
             bc_plot3_dow_curve.clear()
-            bc_plot3_nasdaq_curve.clear()  
+            bc_plot3_nasdaq_curve.clear() 
+
+            bc_plot3_center_val_lower_line.setValue(WTI_종가)
+            bc_plot3_center_val_line.setValue(WTI_종가)
+            bc_plot3_center_val_upper_line.setValue(WTI_종가) 
 
             for i in range(9):
                 bc_plot3_mv_line[i].setValue(WTI_종가)
@@ -27833,11 +27979,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         pass
 
             bc_plot2_center_val_curve.clear()
-
+            '''
             bc_plot2_mv_line[0].setValue(1.2)
             bc_plot2_mv_line[1].setValue(2.5)
             bc_plot2_mv_line[2].setValue(3.5)
-
+            '''
             for index in range(option_pairs_count):
 
                 # 선택된 콜그래프 그리기
@@ -27855,7 +28001,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         bc_plot2_put_curve[i].setData(put_plot_data[index])
                     else:
                         pass
-
+            '''
             # 옵션 Y축 최대값 구하기
             axY = self.bc_Plot2.getAxis('left')
 
@@ -27897,7 +28043,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot2_mv_line[8].setValue(8.1)
             else:
                 pass
-            
+            '''
+            bc_plot2_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+            bc_plot2_center_val_line.setValue(CENTER_VAL)
+            bc_plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
+
             # 중심가 그리기
             bc_plot2_center_val_curve.setData(centerval_plot_data)
         else:
@@ -27927,11 +28077,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         pass
 
             bc_plot3_center_val_curve.clear()
-
+            '''
             bc_plot3_mv_line[0].setValue(1.2)
             bc_plot3_mv_line[1].setValue(2.5)
             bc_plot3_mv_line[2].setValue(3.5)
-
+            '''
             for index in range(option_pairs_count):
 
                 # 선택된 콜그래프 그리기
@@ -27949,7 +28099,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         bc_plot3_put_curve[i].setData(put_plot_data[index])
                     else:
                         pass
-
+            '''
             # 옵션 Y축 최대값 구하기
             axY = self.bc_Plot3.getAxis('left')
 
@@ -27991,6 +28141,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot3_mv_line[8].setValue(8.1)
             else:
                 pass
+            '''
+            bc_plot3_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+            bc_plot3_center_val_line.setValue(CENTER_VAL)
+            bc_plot3_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
             
             # 중심가 그리기
             bc_plot3_center_val_curve.setData(centerval_plot_data)
