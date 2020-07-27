@@ -8903,9 +8903,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if abs(atm_zero_cha) <= CENTERVAL_RANGE:
 
-            if blink:
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(대맥점색))
+            if SELFID != 'soojin65':
+                if blink:
+                    item.setBackground(QBrush(검정색))
+                    item.setForeground(QBrush(대맥점색))
+                else:
+                    item.setBackground(QBrush(대맥점색))
+                    item.setForeground(QBrush(검정색))
             else:
                 item.setBackground(QBrush(대맥점색))
                 item.setForeground(QBrush(검정색))
@@ -9032,17 +9036,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if min_index != atm_index:
 
-            if blink:
-
-                self.tableWidget_call.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
-                self.tableWidget_call.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
-                self.tableWidget_put.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
-                self.tableWidget_put.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
-            else:
-                self.tableWidget_call.item(min_index, Option_column.기준가.value).setBackground(QBrush(노란색))
-                self.tableWidget_call.item(min_index, Option_column.기준가.value).setForeground(QBrush(검정색))
-                self.tableWidget_put.item(min_index, Option_column.기준가.value).setBackground(QBrush(노란색))
-                self.tableWidget_put.item(min_index, Option_column.기준가.value).setForeground(QBrush(검정색))
+            self.tableWidget_call.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
+            self.tableWidget_call.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
+            self.tableWidget_put.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
+            self.tableWidget_put.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
         else:
             pass
 
