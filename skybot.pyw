@@ -3365,7 +3365,7 @@ class screen_update_worker(QThread):
 
             call_curve_data = df_plotdata_call.iloc[index].values.tolist()
             put_curve_data = df_plotdata_put.iloc[index].values.tolist()
-            centerval_data = df_plotdata_centerval.iloc[index].values.tolist()
+            centerval_data = df_plotdata_centerval.iloc[0].values.tolist()
 
             data1 = df_plotdata_fut_volume.iloc[0].values.tolist()
             data2 = df_plotdata_call_volume.iloc[0].values.tolist()
@@ -7190,7 +7190,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # Plot 4 x축 타임라인 그리기
                     plot4_time_line.setValue(x_idx) 
                 else:
-                    pass
+                    pass               
                 
                 # 선택된 plot1 그래프 그리기
                 if comboindex1 == 0:
@@ -7386,7 +7386,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     plot1_wti_curve.setData(plot_data14)
                 else:
-                    pass   
+                    pass 
 
                 # 선택된 plot2 그래프 그리기
                 if comboindex2 == 0:
