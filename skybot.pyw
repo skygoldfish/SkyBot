@@ -7074,7 +7074,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # 마지막 행사가 추가해야 쓰레드 정상동작함(?)
                 selected_opt_list.append(opt_actval[option_pairs_count-1])
-
+                '''
                 if comboindex2 == 4 and selected_opt_list != old_selected_opt_list:
 
                     # 전체 행사가 그래프 클리어
@@ -7085,13 +7085,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     plot2_center_val_curve.clear()
                 else:
                     pass   
-                
+                '''
                 # 전체 행사가 검색 및 저장, 그리기
                 for actval, infos in data.items():
 
                     index = opt_actval.index(actval)
 
                     # 옵션그래프 초기화 및 옵션데이타 가져오기
+                    '''
                     if comboindex2 == 4 and selected_opt_list == old_selected_opt_list:
 
                         # 선택된 행사가 그래프 클리어
@@ -7102,7 +7103,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         plot2_center_val_curve.clear()
                     else:
                         pass                
-
+                    '''
                     # 선택된 콜그래프 저장 및 그리기
                     for i in range(len(selected_call)):
 
@@ -7415,9 +7416,50 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif comboindex2 == 4:
 
+                    if selected_opt_list != old_selected_opt_list:
+
+                        # 전체 행사가 그래프 클리어
+                        for index in range(option_pairs_count):
+                            call_curve[index].clear()
+                            put_curve[index].clear()
+                    else:
+                        # 선택된 행사가 그래프 클리어
+                        for index in range(option_pairs_count):
+
+                            if index in selected_call:
+                                call_curve[index].clear()
+                            else:
+                                pass
+
+                            if index in selected_put:
+                                put_curve[index].clear()
+                            else:
+                                pass                    
+
+                    plot2_center_val_curve.clear()                    
+                    
                     mv_line[0].setValue(1.2)
                     mv_line[1].setValue(2.5)
-                    mv_line[2].setValue(3.5)
+                    mv_line[2].setValue(3.5)     
+                    
+                    # 콜/풋 그래프 그리기
+                    for index in range(option_pairs_count):
+
+                        # 선택된 콜그래프 그리기
+                        for i in range(len(selected_call)):
+
+                            if index == selected_call[i]:
+                                call_curve[i].setData(call_plot_data[index])
+                            else:
+                                pass                    
+
+                        # 선택된 풋그래프 그리기
+                        for i in range(len(selected_put)):
+
+                            if index == selected_put[i]:
+                                put_curve[i].setData(put_plot_data[index])
+                            else:
+                                pass
 
                     # 옵션 Y축 최대값 구하기
                     axY = self.Plot2.getAxis('left')
@@ -7461,25 +7503,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         mv_line[8].setValue(8.1)
                     else:
                         pass
-
-                    # 콜/풋 그래프 그리기
-                    for index in range(option_pairs_count):
-
-                        # 선택된 콜그래프 그리기
-                        for i in range(len(selected_call)):
-
-                            if index == selected_call[i]:
-                                plot2_call_curve[i].setData(call_plot_data[index])
-                            else:
-                                pass                    
-
-                        # 선택된 풋그래프 그리기
-                        for i in range(len(selected_put)):
-
-                            if index == selected_put[i]:
-                                plot2_put_curve[i].setData(put_plot_data[index])
-                            else:
-                                pass
                     
                     # 중심가 그리기
                     plot2_center_val_curve.setData(centerval_plot_data)
@@ -27796,12 +27819,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_mv_line[0].setValue(1.2)
             bc_plot2_mv_line[1].setValue(2.5)
             bc_plot2_mv_line[2].setValue(3.5)
-            bc_plot2_mv_line[3].setValue(0)
-            bc_plot2_mv_line[4].setValue(0)
-            bc_plot2_mv_line[5].setValue(0)
-            bc_plot2_mv_line[6].setValue(0)
-            bc_plot2_mv_line[7].setValue(0)
-            bc_plot2_mv_line[8].setValue(0)
 
             for index in range(option_pairs_count):
 
@@ -27896,12 +27913,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_mv_line[0].setValue(1.2)
             bc_plot3_mv_line[1].setValue(2.5)
             bc_plot3_mv_line[2].setValue(3.5)
-            bc_plot3_mv_line[3].setValue(0)
-            bc_plot3_mv_line[4].setValue(0)
-            bc_plot3_mv_line[5].setValue(0)
-            bc_plot3_mv_line[6].setValue(0)
-            bc_plot3_mv_line[7].setValue(0)
-            bc_plot3_mv_line[8].setValue(0)
 
             for index in range(option_pairs_count):
 
