@@ -1651,8 +1651,8 @@ plot2_dow_curve = None
 plot2_nasdaq_curve = None
 plot2_wti_curve = None
 
-call_curve = []
-put_curve = []
+plot2_call_curve = []
+plot2_put_curve = []
 
 plot2_center_val_curve = None
 
@@ -4462,7 +4462,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global plot2_sp500_curve, plot2_dow_curve, plot2_nasdaq_curve, plot2_wti_curve        
         global plot2_time_line_start, plot2_time_line_yagan_start, plot2_time_line
         global plot2_ovc_jl_line, plot2_ovc_jh_line, plot2_ovc_close_line, plot2_ovc_open_line, plot2_ovc_pivot_line, plot2_ovc_low_line, plot2_ovc_high_line
-        global call_curve, put_curve, mv_line
+        global plot2_call_curve, plot2_put_curve, mv_line
         global plot2_call_drate_curve, plot2_put_drate_curve
         global plot2_center_val_curve
         
@@ -4561,10 +4561,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot2_wti_curve = self.Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         
         for i in range(nRowCount):
-            call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
-            put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+            plot2_call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
+            plot2_put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
         
-        plot2_center_val_curve = self.Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        plot2_center_val_curve = self.Plot2.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
         
         if UI_STYLE == 'Vertical_View.ui':
 
@@ -5535,7 +5535,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def cb2_selectionChanged(self):
 
         global comboindex2
-        global call_curve, put_curve, plot2_fut_volume_curve, plot2_fut_volume_plus_curve, plot2_fut_volume_minus_curve
+        global plot2_call_curve, plot2_put_curve, plot2_fut_volume_curve, plot2_fut_volume_plus_curve, plot2_fut_volume_minus_curve
         global plot2_call_volume_curve, plot2_put_volume_curve
         global plot2_call_rr_curve, plot2_put_rr_curve
         global plot2_fut_drate_curve, plot2_dow_drate_curve, plot2_call_drate_curve, plot2_put_drate_curve
@@ -5561,8 +5561,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_put_drate_curve.clear()
                         
             for i in range(nRowCount):
-                call_curve[i].clear()
-                put_curve[i].clear()
+                plot2_call_curve[i].clear()
+                plot2_put_curve[i].clear()
 
             plot2_center_val_curve.clear()
             
@@ -5596,8 +5596,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_put_drate_curve.clear()
 
             for i in range(nRowCount):
-                call_curve[i].clear()
-                put_curve[i].clear()
+                plot2_call_curve[i].clear()
+                plot2_put_curve[i].clear()
 
             plot2_center_val_curve.clear()
 
@@ -5631,8 +5631,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
-                call_curve[i].clear()
-                put_curve[i].clear()
+                plot2_call_curve[i].clear()
+                plot2_put_curve[i].clear()
 
             plot2_center_val_curve.clear()                
 
@@ -5664,8 +5664,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_fut_volume_minus_curve.clear()
             
             for i in range(nRowCount):
-                call_curve[i].clear()
-                put_curve[i].clear()
+                plot2_call_curve[i].clear()
+                plot2_put_curve[i].clear()
 
             plot2_center_val_curve.clear()                
 
@@ -5742,8 +5742,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
-                call_curve[i].clear()                
-                put_curve[i].clear()
+                plot2_call_curve[i].clear()                
+                plot2_put_curve[i].clear()
 
             plot2_center_val_curve.clear()
 
@@ -5814,8 +5814,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
-                call_curve[i].clear()
-                put_curve[i].clear()
+                plot2_call_curve[i].clear()
+                plot2_put_curve[i].clear()
 
             plot2_center_val_curve.clear()                
 
@@ -5886,8 +5886,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
-                call_curve[i].clear()
-                put_curve[i].clear()
+                plot2_call_curve[i].clear()
+                plot2_put_curve[i].clear()
 
             plot2_center_val_curve.clear()                
                 
@@ -5958,8 +5958,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_put_drate_curve.clear()
             
             for i in range(nRowCount):
-                call_curve[i].clear()
-                put_curve[i].clear()
+                plot2_call_curve[i].clear()
+                plot2_put_curve[i].clear()
 
             plot2_center_val_curve.clear()                
                 
@@ -7079,8 +7079,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # 전체 행사가 그래프 클리어
                     for i in range(option_pairs_count):
-                        call_curve[i].clear()
-                        put_curve[i].clear()
+                        plot2_call_curve[i].clear()
+                        plot2_put_curve[i].clear()
 
                     plot2_center_val_curve.clear()
                 else:
@@ -7097,8 +7097,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         # 선택된 행사가 그래프 클리어
                         for actval in selected_opt_list:
-                            call_curve[index].clear()
-                            put_curve[index].clear()
+                            plot2_call_curve[index].clear()
+                            plot2_put_curve[index].clear()
 
                         plot2_center_val_curve.clear()
                     else:
@@ -7112,7 +7112,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             call_plot_data[index] = infos[0]
                             '''
                             if comboindex2 == 4:
-                                call_curve[i].setData(infos[0])
+                                plot2_call_curve[i].setData(infos[0])
                             else:
                                 pass
                             '''
@@ -7127,7 +7127,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             put_plot_data[index] = infos[1]
                             '''
                             if comboindex2 == 4:
-                                put_curve[i].setData(infos[1])
+                                plot2_put_curve[i].setData(infos[1])
                             else:
                                 pass
                             '''
@@ -7420,19 +7420,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         # 전체 행사가 그래프 클리어
                         for index in range(option_pairs_count):
-                            call_curve[index].clear()
-                            put_curve[index].clear()
+                            plot2_call_curve[index].clear()
+                            plot2_put_curve[index].clear()
                     else:
                         # 선택된 행사가 그래프 클리어
                         for index in range(option_pairs_count):
 
                             if index in selected_call:
-                                call_curve[index].clear()
+                                plot2_call_curve[index].clear()
                             else:
                                 pass
 
                             if index in selected_put:
-                                put_curve[index].clear()
+                                plot2_put_curve[index].clear()
                             else:
                                 pass                    
 
@@ -7449,7 +7449,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         for i in range(len(selected_call)):
 
                             if index == selected_call[i]:
-                                call_curve[i].setData(call_plot_data[index])
+                                plot2_call_curve[i].setData(call_plot_data[index])
                             else:
                                 pass                    
 
@@ -7457,7 +7457,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         for i in range(len(selected_put)):
 
                             if index == selected_put[i]:
-                                put_curve[i].setData(put_plot_data[index])
+                                plot2_put_curve[i].setData(put_plot_data[index])
                             else:
                                 pass
 
