@@ -22140,54 +22140,65 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 WTI 지수 = {3}\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), WTI_현재가)
                     self.textBrowser.append(str)
 
-                    # KP200의 주요정보를 저장
-                    with open('kp200_info.txt', mode='w') as kp200_file:
-
-                        file_str = '################# < KP200 Index of the Last Day > ###################\n'                        
-                        kp200_file.write(file_str)
-                        file_str = 'Center Value = {0}\n'.format(CENTER_VAL)
-                        kp200_file.write(file_str)                            
-                        file_str = 'KP200 Close = {0}\n'.format(kp200_realdata['현재가'])
-                        kp200_file.write(file_str)
-                        file_str = 'KP200 Low = {0}\n'.format(kp200_realdata['저가'])
-                        kp200_file.write(file_str)
-                        file_str = 'KP200 High = {0}\n'.format(kp200_realdata['고가'])
-                        kp200_file.write(file_str)
-                        file_str = '################### < CME Index of the Day > #####################\n'
-                        kp200_file.write(file_str)
-                        file_str = 'SP500 Day Close = {0}\n'.format(SP500_현재가)
-                        kp200_file.write(file_str)
-                        file_str = 'DOW Day Close = {0}\n'.format(DOW_현재가)
-                        kp200_file.write(file_str)
-                        file_str = 'NASDAQ Day Close = {0}\n'.format(NASDAQ_현재가)
-                        kp200_file.write(file_str)
-                        file_str = 'WTI Day Close = {0}\n'.format(WTI_현재가)
-                        kp200_file.write(file_str)
-                        file_str = 'EUROFX Day Close = {0}\n'.format(EUROFX_현재가)
-                        kp200_file.write(file_str)
-                        file_str = 'HANGSENG Day Close = {0}\n'.format(HANGSENG_현재가)
-                        kp200_file.write(file_str)
-                        '''
-                        file_str = '################### < Expiration Date of the CME Index > #####################\n'
-                        kp200_file.write(file_str)
-                        file_str = 'SP500 Expiration Date = {0}\n'.format(SP500_장마감일)
-                        kp200_file.write(file_str)
-                        file_str = 'DOW Expiration Date = {0}\n'.format(DOW_장마감일)
-                        kp200_file.write(file_str)
-                        file_str = 'NASDAQ Expiration Date = {0}\n'.format(NASDAQ_장마감일)
-                        kp200_file.write(file_str)
-                        file_str = 'WTI Expiration Date = {0}\n'.format(WTI_장마감일)
-                        kp200_file.write(file_str)
-                        file_str = 'EUROFX Expiration Date = {0}\n'.format(EUROFX_장마감일)
-                        kp200_file.write(file_str)
-                        file_str = 'HANGSENG Expiration Date = {0}\n'.format(HANGSENG_장마감일)
-                        kp200_file.write(file_str)
-                        '''
-                        kp200_file.close()
-
                     if market_service:
 
-                        self.SaveResult()     
+                        self.SaveResult()
+
+                        call_atm_value = df_call.at[atm_index, '현재가']
+                        put_atm_value = df_put.at[atm_index, '현재가']
+
+                        # 저장을 위한 중심가 계산 및 표시
+                        if call_atm_value >= put_atm_value:
+                            atm_zero_cha = round((call_atm_value - put_atm_value) , 2)
+                        else:
+                            atm_zero_cha = round((put_atm_value - call_atm_value) , 2)
+
+                        if call_atm_value > put_atm_value:
+
+                            CENTER_VAL = round((put_atm_value + atm_zero_cha / 2), 2)
+
+                        elif put_atm_value > call_atm_value:
+
+                            CENTER_VAL = round((call_atm_value + atm_zero_cha / 2), 2)
+                        else:
+                            CENTER_VAL = call_atm_value
+
+                        item = QTableWidgetItem("{0:0.2f}".format(CENTER_VAL))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(대맥점색))
+                        item.setForeground(QBrush(검정색))
+
+                        self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
+                        
+                        # KP200의 주요정보를 저장
+                        with open('kp200_info.txt', mode='w') as kp200_file:
+
+                            file_str = '################# < KP200 Index of the Last Day > ###################\n'                        
+                            kp200_file.write(file_str)
+                            file_str = 'Center Value = {0}\n'.format(CENTER_VAL)
+                            kp200_file.write(file_str)                            
+                            file_str = 'KP200 Close = {0}\n'.format(kp200_realdata['현재가'])
+                            kp200_file.write(file_str)
+                            file_str = 'KP200 Low = {0}\n'.format(kp200_realdata['저가'])
+                            kp200_file.write(file_str)
+                            file_str = 'KP200 High = {0}\n'.format(kp200_realdata['고가'])
+                            kp200_file.write(file_str)
+                            file_str = '################### < CME Index of the Day > #####################\n'
+                            kp200_file.write(file_str)
+                            file_str = 'SP500 Day Close = {0}\n'.format(SP500_현재가)
+                            kp200_file.write(file_str)
+                            file_str = 'DOW Day Close = {0}\n'.format(DOW_현재가)
+                            kp200_file.write(file_str)
+                            file_str = 'NASDAQ Day Close = {0}\n'.format(NASDAQ_현재가)
+                            kp200_file.write(file_str)
+                            file_str = 'WTI Day Close = {0}\n'.format(WTI_현재가)
+                            kp200_file.write(file_str)
+                            file_str = 'EUROFX Day Close = {0}\n'.format(EUROFX_현재가)
+                            kp200_file.write(file_str)
+                            file_str = 'HANGSENG Day Close = {0}\n'.format(HANGSENG_현재가)
+                            kp200_file.write(file_str)
+
+                            kp200_file.close()
 
                         market_service = False
                         service_terminate = True
@@ -22216,7 +22227,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             self.capture_screenshot()
                         else:
-                            pass                    
+                            pass
+
+                        file = open('skybot.log', 'w')
+                        text = self.textBrowser.toPlainText()
+                        file.write(text)
+                        file.close()                    
                     else:
                         pass                                               
 
@@ -22294,6 +22310,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.capture_screenshot()
                         else:
                             pass
+                        
+                        file = open('skybot.log', 'w')
+                        text = self.textBrowser.toPlainText()
+                        file.write(text)
+                        file.close()
                     else:
                         pass                    
 
@@ -22302,6 +22323,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 종료되었습니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
+
+                    file = open('skybot.log', 'w')
+                    text = self.textBrowser.toPlainText()
+                    file.write(text)
+                    file.close()
                 else:
                     pass
 
@@ -25162,11 +25188,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # 저장전 전체 데이타를 다시 내려받음
         self.AddCode()
-
-        file = open('skybot.log', 'w')
-        text = self.textBrowser.toPlainText()
-        file.write(text)
-        file.close()
 
         str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장했습니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
