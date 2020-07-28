@@ -749,6 +749,17 @@ kp200_고가 = 0
 
 CENTER_VAL = 0
 
+CENTER_VAL1 = 0
+CENTER_VAL2 = 0
+CENTER_VAL3 = 0
+CENTER_VAL4 = 0
+CENTER_VAL5 = 0
+CENTER_VAL6 = 0
+CENTER_VAL7 = 0
+CENTER_VAL8 = 0
+CENTER_VAL9 = 0
+CENTER_VAL10 = 0
+
 if os.path.isfile('kp200_info.txt'):
 
     with open('kp200_info.txt', mode='r') as kp200_file:
@@ -8895,7 +8906,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         atm_plus_1 = round((df_call.at[atm_index + 1, '현재가'] + df_put.at[atm_index + 1, '현재가']) , 2)
         atm_plus_2 = round((df_call.at[atm_index + 2, '현재가'] + df_put.at[atm_index + 2, '현재가']) , 2)
-        atm_plus_3 = round((df_call.at[atm_index + 3, '현재가'] + df_put.at[atm_index + 3, '현재가']) , 2)
+        atm_plus_3 = round((df_call.at[atm_index + 3, '현재가'] + df_put.at[atm_index + 3, '현재가']) , 2)        
         
         #df_plotdata_fut_drate[opt_x_idx] = atm_zero_sum
         #df_plotdata_dow_drate[opt_x_idx] = atm_zero_cha
@@ -8963,59 +8974,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         atm_list.append(atm_plus_2)
         atm_list.append(atm_plus_3)   
 
-        min_index = atm_list.index(min(atm_list)) + atm_index - 3        
+        min_index = atm_list.index(min(atm_list)) + atm_index - 3
 
-        # 콜 양합표시
-        val = df_call.at[atm_index - 3, '기준가']
-        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_minus_3))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(라임))
-        item.setForeground(QBrush(검정색))
-        self.tableWidget_call.setItem(atm_index - 3, Option_column.기준가.value, item) 
-
-        val = df_call.at[atm_index - 2, '기준가']
-        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_minus_2))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(라임))
-        item.setForeground(QBrush(검정색))
-        self.tableWidget_call.setItem(atm_index - 2, Option_column.기준가.value, item)  
-
-        val = df_call.at[atm_index - 1, '기준가']
-        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_minus_1))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(라임))
-        item.setForeground(QBrush(검정색))
-        self.tableWidget_call.setItem(atm_index - 1, Option_column.기준가.value, item)            
-
-        val = df_call.at[atm_index, '기준가']
-        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_zero_sum))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(노란색))
-        item.setForeground(QBrush(검정색))
-        self.tableWidget_call.setItem(atm_index, Option_column.기준가.value, item)            
-
-        val = df_call.at[atm_index + 1, '기준가']
-        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_plus_1))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(라임))
-        item.setForeground(QBrush(검정색))
-        self.tableWidget_call.setItem(atm_index + 1, Option_column.기준가.value, item)
-
-        val = df_call.at[atm_index + 2, '기준가']
-        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_plus_2))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(라임))
-        item.setForeground(QBrush(검정색))
-        self.tableWidget_call.setItem(atm_index + 2, Option_column.기준가.value, item)
-
-        val = df_call.at[atm_index + 3, '기준가']
-        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_plus_3))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(라임))
-        item.setForeground(QBrush(검정색))
-        self.tableWidget_call.setItem(atm_index + 3, Option_column.기준가.value, item)
-
-        # 풋 양합표시
+        # 풋에만 양합표시(콜에는 중심가 표시)
         val = df_put.at[atm_index - 3, '기준가']
         item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_minus_3))
         item.setTextAlignment(Qt.AlignCenter)
@@ -13854,6 +13815,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global atm_zero_sum, atm_zero_cha
         global 선물_전일종가
         global df_plotdata_centerval
+        global CENTER_VAL, CENTER_VAL1, CENTER_VAL2, CENTER_VAL3, CENTER_VAL4, CENTER_VAL5, CENTER_VAL6, CENTER_VAL7, CENTER_VAL8, CENTER_VAL9, CENTER_VAL10
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -16574,7 +16536,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2835 = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
                 self.textBrowser.append(str)
                 print(str) 
-
+                '''
                 # 옵션 양합표시
                 atm_minus_3 = round((df_call.at[atm_index - 3, '현재가'] + df_put.at[atm_index - 3, '현재가']), 2)
                 atm_minus_2 = round((df_call.at[atm_index - 2, '현재가'] + df_put.at[atm_index - 2, '현재가']), 2)
@@ -16595,7 +16557,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 atm_list.append(atm_plus_3)   
 
                 min_index = atm_list.index(min(atm_list)) + atm_index - 3
-
+                
                 # 콜 양합표시
                 val = df_call.at[atm_index - 3, '기준가']
                 item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_minus_3))
@@ -16704,7 +16666,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
                 else:
                     pass
-
+                '''
                 # 실시간테이타 요청                
                 str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
@@ -17862,7 +17824,178 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(str)                  
                     
                     str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 만기일은 {3}일 남았습니다.\r'.format(dt.hour, dt.minute, dt.second, 옵션잔존일)
-                    self.textBrowser.append(str)  
+                    self.textBrowser.append(str)
+
+                    #중심가 계산
+                    CENTER_VAL1 = round((df_call.at[atm_index - 5, '종가'] + df_put.at[atm_index - 5, '종가'])/2, 2)
+                    CENTER_VAL2 = round((df_call.at[atm_index - 4, '종가'] + df_put.at[atm_index - 4, '종가'])/2, 2)
+                    CENTER_VAL3 = round((df_call.at[atm_index - 3, '종가'] + df_put.at[atm_index - 3, '종가'])/2, 2)
+                    CENTER_VAL4 = round((df_call.at[atm_index - 2, '종가'] + df_put.at[atm_index - 2, '종가'])/2, 2)
+                    CENTER_VAL5 = round((df_call.at[atm_index - 1, '종가'] + df_put.at[atm_index - 1, '종가'])/2 , 2)
+                    CENTER_VAL = round((df_call.at[atm_index, '종가'] + df_put.at[atm_index, '종가'])/2 , 2)
+                    CENTER_VAL6 = round((df_call.at[atm_index + 1, '종가'] + df_put.at[atm_index + 1, '종가'])/2 , 2)
+                    CENTER_VAL7 = round((df_call.at[atm_index + 2, '종가'] + df_put.at[atm_index + 2, '종가'])/2 , 2)
+                    CENTER_VAL8 = round((df_call.at[atm_index + 3, '종가'] + df_put.at[atm_index + 3, '종가'])/2 , 2)
+                    CENTER_VAL9 = round((df_call.at[atm_index + 4, '종가'] + df_put.at[atm_index + 4, '종가'])/2 , 2)
+                    CENTER_VAL10 = round((df_call.at[atm_index + 5, '종가'] + df_put.at[atm_index + 5, '종가'])/2 , 2)
+                    
+                    # 옵션 양합표시
+                    atm_minus_3 = round((df_call.at[atm_index - 3, '현재가'] + df_put.at[atm_index - 3, '현재가']), 2)
+                    atm_minus_2 = round((df_call.at[atm_index - 2, '현재가'] + df_put.at[atm_index - 2, '현재가']), 2)
+                    atm_minus_1 = round((df_call.at[atm_index - 1, '현재가'] + df_put.at[atm_index - 1, '현재가']) , 2)
+                    atm_zero_sum = round((df_call.at[atm_index, '현재가'] + df_put.at[atm_index, '현재가']) , 2)
+                    atm_zero_cha = round((df_call.at[atm_index, '현재가'] - df_put.at[atm_index, '현재가']) , 2)
+                    atm_plus_1 = round((df_call.at[atm_index + 1, '현재가'] + df_put.at[atm_index + 1, '현재가']) , 2)
+                    atm_plus_2 = round((df_call.at[atm_index + 2, '현재가'] + df_put.at[atm_index + 2, '현재가']) , 2)
+                    atm_plus_3 = round((df_call.at[atm_index + 3, '현재가'] + df_put.at[atm_index + 3, '현재가']) , 2)
+                    
+                    atm_list = []
+                    atm_list.append(atm_minus_3)
+                    atm_list.append(atm_minus_2)
+                    atm_list.append(atm_minus_1)
+                    atm_list.append(atm_zero_sum)
+                    atm_list.append(atm_plus_1)
+                    atm_list.append(atm_plus_2)
+                    atm_list.append(atm_plus_3)   
+
+                    min_index = atm_list.index(min(atm_list)) + atm_index - 3
+
+                    # 콜에 중심가 표시
+                    val = df_call.at[atm_index - 5, '기준가']
+                    item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL1))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(라임))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_call.setItem(atm_index - 5, Option_column.기준가.value, item) 
+
+                    val = df_call.at[atm_index - 4, '기준가']
+                    item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL2))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(라임))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_call.setItem(atm_index - 4, Option_column.기준가.value, item) 
+
+                    val = df_call.at[atm_index - 3, '기준가']
+                    item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL3))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(라임))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_call.setItem(atm_index - 3, Option_column.기준가.value, item) 
+
+                    val = df_call.at[atm_index - 2, '기준가']
+                    item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL4))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(라임))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_call.setItem(atm_index - 2, Option_column.기준가.value, item)  
+
+                    val = df_call.at[atm_index - 1, '기준가']
+                    item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL5))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(라임))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_call.setItem(atm_index - 1, Option_column.기준가.value, item)            
+
+                    val = df_call.at[atm_index, '기준가']
+                    item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(노란색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_call.setItem(atm_index, Option_column.기준가.value, item)            
+
+                    val = df_call.at[atm_index + 1, '기준가']
+                    item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL6))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(라임))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_call.setItem(atm_index + 1, Option_column.기준가.value, item)
+
+                    val = df_call.at[atm_index + 2, '기준가']
+                    item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL7))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(라임))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_call.setItem(atm_index + 2, Option_column.기준가.value, item)
+
+                    val = df_call.at[atm_index + 3, '기준가']
+                    item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL8))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(라임))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_call.setItem(atm_index + 3, Option_column.기준가.value, item)
+
+                    val = df_call.at[atm_index + 4, '기준가']
+                    item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL9))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(라임))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_call.setItem(atm_index + 4, Option_column.기준가.value, item)
+
+                    val = df_call.at[atm_index + 5, '기준가']
+                    item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL10))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(라임))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_call.setItem(atm_index + 5, Option_column.기준가.value, item)
+
+                    # 풋 양합표시
+                    val = df_put.at[atm_index - 3, '기준가']
+                    item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_minus_3))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(라임))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_put.setItem(atm_index - 3, Option_column.기준가.value, item)
+
+                    val = df_put.at[atm_index - 2, '기준가']
+                    item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_minus_2))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(라임))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_put.setItem(atm_index - 2, Option_column.기준가.value, item)    
+
+                    val = df_put.at[atm_index - 1, '기준가']
+                    item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_minus_1))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(라임))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_put.setItem(atm_index - 1, Option_column.기준가.value, item)            
+
+                    val = df_put.at[atm_index, '기준가']
+                    item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_zero_sum))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(노란색))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_put.setItem(atm_index, Option_column.기준가.value, item)            
+
+                    val = df_put.at[atm_index + 1, '기준가']
+                    item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_plus_1))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(라임))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_put.setItem(atm_index + 1, Option_column.기준가.value, item)
+
+                    val = df_put.at[atm_index + 2, '기준가']
+                    item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_plus_2))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(라임))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_put.setItem(atm_index + 2, Option_column.기준가.value, item)
+
+                    val = df_put.at[atm_index + 3, '기준가']
+                    item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_plus_3))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(라임))
+                    item.setForeground(QBrush(검정색))
+                    self.tableWidget_put.setItem(atm_index + 3, Option_column.기준가.value, item)
+
+                    if min_index != atm_index:
+
+                        self.tableWidget_call.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
+                        self.tableWidget_call.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
+                        self.tableWidget_put.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
+                        self.tableWidget_put.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
+                    else:
+                        pass
 
                     if overnight:                        
 
@@ -17945,137 +18078,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             item = QTableWidgetItem(temp)
                             item.setTextAlignment(Qt.AlignCenter)
-                            self.tableWidget_put.setItem(i, Option_column.OID.value, item)
-                        
-                        # 옵션 양합표시
-                        atm_minus_3 = round((df_call.at[atm_index - 3, '현재가'] + df_put.at[atm_index - 3, '현재가']), 2)
-                        atm_minus_2 = round((df_call.at[atm_index - 2, '현재가'] + df_put.at[atm_index - 2, '현재가']), 2)
-                        atm_minus_1 = round((df_call.at[atm_index - 1, '현재가'] + df_put.at[atm_index - 1, '현재가']) , 2)
-                        atm_zero_sum = round((df_call.at[atm_index, '현재가'] + df_put.at[atm_index, '현재가']) , 2)
-                        atm_zero_cha = round((df_call.at[atm_index, '현재가'] - df_put.at[atm_index, '현재가']) , 2)
-                        atm_plus_1 = round((df_call.at[atm_index + 1, '현재가'] + df_put.at[atm_index + 1, '현재가']) , 2)
-                        atm_plus_2 = round((df_call.at[atm_index + 2, '현재가'] + df_put.at[atm_index + 2, '현재가']) , 2)
-                        atm_plus_3 = round((df_call.at[atm_index + 3, '현재가'] + df_put.at[atm_index + 3, '현재가']) , 2)
-                        
-                        atm_list = []
-                        atm_list.append(atm_minus_3)
-                        atm_list.append(atm_minus_2)
-                        atm_list.append(atm_minus_1)
-                        atm_list.append(atm_zero_sum)
-                        atm_list.append(atm_plus_1)
-                        atm_list.append(atm_plus_2)
-                        atm_list.append(atm_plus_3)   
-
-                        min_index = atm_list.index(min(atm_list)) + atm_index - 3
-
-                        # 콜 양합표시
-                        val = df_call.at[atm_index - 3, '기준가']
-                        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_minus_3))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(라임))
-                        item.setForeground(QBrush(검정색))
-                        self.tableWidget_call.setItem(atm_index - 3, Option_column.기준가.value, item) 
-
-                        val = df_call.at[atm_index - 2, '기준가']
-                        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_minus_2))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(라임))
-                        item.setForeground(QBrush(검정색))
-                        self.tableWidget_call.setItem(atm_index - 2, Option_column.기준가.value, item)  
-
-                        val = df_call.at[atm_index - 1, '기준가']
-                        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_minus_1))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(라임))
-                        item.setForeground(QBrush(검정색))
-                        self.tableWidget_call.setItem(atm_index - 1, Option_column.기준가.value, item)            
-
-                        val = df_call.at[atm_index, '기준가']
-                        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_zero_sum))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(노란색))
-                        item.setForeground(QBrush(검정색))
-                        self.tableWidget_call.setItem(atm_index, Option_column.기준가.value, item)            
-
-                        val = df_call.at[atm_index + 1, '기준가']
-                        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_plus_1))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(라임))
-                        item.setForeground(QBrush(검정색))
-                        self.tableWidget_call.setItem(atm_index + 1, Option_column.기준가.value, item)
-
-                        val = df_call.at[atm_index + 2, '기준가']
-                        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_plus_2))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(라임))
-                        item.setForeground(QBrush(검정색))
-                        self.tableWidget_call.setItem(atm_index + 2, Option_column.기준가.value, item)
-
-                        val = df_call.at[atm_index + 3, '기준가']
-                        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_plus_3))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(라임))
-                        item.setForeground(QBrush(검정색))
-                        self.tableWidget_call.setItem(atm_index + 3, Option_column.기준가.value, item)
-
-                        # 풋 양합표시
-                        val = df_put.at[atm_index - 3, '기준가']
-                        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_minus_3))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(라임))
-                        item.setForeground(QBrush(검정색))
-                        self.tableWidget_put.setItem(atm_index - 3, Option_column.기준가.value, item)
-
-                        val = df_put.at[atm_index - 2, '기준가']
-                        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_minus_2))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(라임))
-                        item.setForeground(QBrush(검정색))
-                        self.tableWidget_put.setItem(atm_index - 2, Option_column.기준가.value, item)    
-
-                        val = df_put.at[atm_index - 1, '기준가']
-                        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_minus_1))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(라임))
-                        item.setForeground(QBrush(검정색))
-                        self.tableWidget_put.setItem(atm_index - 1, Option_column.기준가.value, item)            
-
-                        val = df_put.at[atm_index, '기준가']
-                        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_zero_sum))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(노란색))
-                        item.setForeground(QBrush(검정색))
-                        self.tableWidget_put.setItem(atm_index, Option_column.기준가.value, item)            
-
-                        val = df_put.at[atm_index + 1, '기준가']
-                        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_plus_1))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(라임))
-                        item.setForeground(QBrush(검정색))
-                        self.tableWidget_put.setItem(atm_index + 1, Option_column.기준가.value, item)
-
-                        val = df_put.at[atm_index + 2, '기준가']
-                        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_plus_2))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(라임))
-                        item.setForeground(QBrush(검정색))
-                        self.tableWidget_put.setItem(atm_index + 2, Option_column.기준가.value, item)
-
-                        val = df_put.at[atm_index + 3, '기준가']
-                        item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_plus_3))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        item.setBackground(QBrush(라임))
-                        item.setForeground(QBrush(검정색))
-                        self.tableWidget_put.setItem(atm_index + 3, Option_column.기준가.value, item)
-
-                        if min_index != atm_index:
-
-                            self.tableWidget_call.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
-                            self.tableWidget_call.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
-                            self.tableWidget_put.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
-                            self.tableWidget_put.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
-                        else:
-                            pass
+                            self.tableWidget_put.setItem(i, Option_column.OID.value, item)                        
 
                         # 옵션 맥점 컬러링
                         str = '[{0:02d}:{1:02d}:{2:02d}] t8416종료 주간 옵션 맥점 컬러링을 시작합니다.\r'.format(dt.hour, dt.minute, dt.second)
