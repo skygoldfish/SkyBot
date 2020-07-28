@@ -5803,9 +5803,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_nasdaq_curve.clear()
             plot2_wti_curve.clear()
 
-            plot2_center_val_lower_line.setValue(SP500_종가)
-            plot2_center_val_line.setValue(SP500_종가)
-            plot2_center_val_upper_line.setValue(SP500_종가)
+            plot2_center_val_lower_line.setValue(SP500_고가)
+            plot2_center_val_line.setValue(SP500_고가)
+            plot2_center_val_upper_line.setValue(SP500_고가)
 
             for i in range(9):
                 mv_line[i].setValue(SP500_종가)
@@ -5879,9 +5879,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_nasdaq_curve.clear()
             plot2_wti_curve.clear()
 
-            plot2_center_val_lower_line.setValue(DOW_종가)
-            plot2_center_val_line.setValue(DOW_종가)
-            plot2_center_val_upper_line.setValue(DOW_종가)
+            plot2_center_val_lower_line.setValue(DOW_고가)
+            plot2_center_val_line.setValue(DOW_고가)
+            plot2_center_val_upper_line.setValue(DOW_고가)
 
             for i in range(9):
                 mv_line[i].setValue(DOW_종가)
@@ -5955,9 +5955,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_dow_curve.clear()
             plot2_wti_curve.clear()
 
-            plot2_center_val_lower_line.setValue(NASDAQ_종가)
-            plot2_center_val_line.setValue(NASDAQ_종가)
-            plot2_center_val_upper_line.setValue(NASDAQ_종가)
+            plot2_center_val_lower_line.setValue(NASDAQ_고가)
+            plot2_center_val_line.setValue(NASDAQ_고가)
+            plot2_center_val_upper_line.setValue(NASDAQ_고가)
 
             for i in range(9):
                 mv_line[i].setValue(NASDAQ_종가)
@@ -6031,9 +6031,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_dow_curve.clear()
             plot2_nasdaq_curve.clear()
 
-            plot2_center_val_lower_line.setValue(WTI_종가)
-            plot2_center_val_line.setValue(WTI_종가)
-            plot2_center_val_upper_line.setValue(WTI_종가) 
+            plot2_center_val_lower_line.setValue(WTI_고가)
+            plot2_center_val_line.setValue(WTI_고가)
+            plot2_center_val_upper_line.setValue(WTI_고가) 
 
             for i in range(9):
                 mv_line[i].setValue(WTI_종가)
@@ -15431,7 +15431,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            # 주간 데이타를 가져옴            
+            # 주간 데이타를 가져옴
+            KP200_야간현재가 = df['KOSPI200지수']           
             item = QTableWidgetItem("{0:0.2f}".format(df['KOSPI200지수']))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
@@ -15449,7 +15450,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
             
-            atm_str = self.get_atm_str(KP200_종가)
+            if not overnight:
+                atm_str = self.get_atm_str(KP200_종가)
+            else:
+                atm_str = self.get_atm_str(KP200_야간현재가)
+
             atm_index = opt_actval.index(atm_str)
             
             # update 쓰레드 시간단축 목적 !!!
@@ -15511,7 +15516,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             KP200_COREVAL.sort()
             print('t2801 KP200_COREVAL', KP200_COREVAL)
 
-            atm_str = self.get_atm_str(KP200_종가)
+            #atm_str = self.get_atm_str(KP200_종가)
 
             if atm_str[-1] == '2' or atm_str[-1] == '7':
 
@@ -16460,12 +16465,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print('\r')
                 print('t2835 put open list = ', put_open_list, len(put_open_list))
                 print('\r')
-
+                '''
                 self.tableWidget_call.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
                 self.tableWidget_call.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
                 self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
                 self.tableWidget_put.item(atm_index, Option_column.행사가.value).setForeground(QBrush(검정색))
-                
+                '''
                 call_atm_value = df_call.at[atm_index, '현재가']
                 put_atm_value = df_put.at[atm_index, '현재가']
 
@@ -16535,8 +16540,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2835 = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
                 self.textBrowser.append(str)
-                print(str) 
-                '''
+                print(str)
+
+                #중심가 계산
+                CENTER_VAL1 = round((df_call.at[atm_index - 5, '종가'] + df_put.at[atm_index - 5, '종가'])/2, 2)
+                CENTER_VAL2 = round((df_call.at[atm_index - 4, '종가'] + df_put.at[atm_index - 4, '종가'])/2, 2)
+                CENTER_VAL3 = round((df_call.at[atm_index - 3, '종가'] + df_put.at[atm_index - 3, '종가'])/2, 2)
+                CENTER_VAL4 = round((df_call.at[atm_index - 2, '종가'] + df_put.at[atm_index - 2, '종가'])/2, 2)
+                CENTER_VAL5 = round((df_call.at[atm_index - 1, '종가'] + df_put.at[atm_index - 1, '종가'])/2 , 2)
+                CENTER_VAL = round((df_call.at[atm_index, '종가'] + df_put.at[atm_index, '종가'])/2 , 2)
+                CENTER_VAL6 = round((df_call.at[atm_index + 1, '종가'] + df_put.at[atm_index + 1, '종가'])/2 , 2)
+                CENTER_VAL7 = round((df_call.at[atm_index + 2, '종가'] + df_put.at[atm_index + 2, '종가'])/2 , 2)
+                CENTER_VAL8 = round((df_call.at[atm_index + 3, '종가'] + df_put.at[atm_index + 3, '종가'])/2 , 2)
+                CENTER_VAL9 = round((df_call.at[atm_index + 4, '종가'] + df_put.at[atm_index + 4, '종가'])/2 , 2)
+                CENTER_VAL10 = round((df_call.at[atm_index + 5, '종가'] + df_put.at[atm_index + 5, '종가'])/2 , 2)
+                
                 # 옵션 양합표시
                 atm_minus_3 = round((df_call.at[atm_index - 3, '현재가'] + df_put.at[atm_index - 3, '현재가']), 2)
                 atm_minus_2 = round((df_call.at[atm_index - 2, '현재가'] + df_put.at[atm_index - 2, '현재가']), 2)
@@ -16557,56 +16575,84 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 atm_list.append(atm_plus_3)   
 
                 min_index = atm_list.index(min(atm_list)) + atm_index - 3
-                
-                # 콜 양합표시
+
+                # 콜에 중심가 표시
+                val = df_call.at[atm_index - 5, '기준가']
+                item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL1))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(라임))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_call.setItem(atm_index - 5, Option_column.기준가.value, item) 
+
+                val = df_call.at[atm_index - 4, '기준가']
+                item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL2))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(라임))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_call.setItem(atm_index - 4, Option_column.기준가.value, item) 
+
                 val = df_call.at[atm_index - 3, '기준가']
-                item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_minus_3))
+                item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL3))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_call.setItem(atm_index - 3, Option_column.기준가.value, item) 
 
                 val = df_call.at[atm_index - 2, '기준가']
-                item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_minus_2))
+                item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL4))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_call.setItem(atm_index - 2, Option_column.기준가.value, item)  
 
                 val = df_call.at[atm_index - 1, '기준가']
-                item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_minus_1))
+                item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL5))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_call.setItem(atm_index - 1, Option_column.기준가.value, item)            
 
                 val = df_call.at[atm_index, '기준가']
-                item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_zero_sum))
+                item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(노란색))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_call.setItem(atm_index, Option_column.기준가.value, item)            
 
                 val = df_call.at[atm_index + 1, '기준가']
-                item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_plus_1))
+                item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL6))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_call.setItem(atm_index + 1, Option_column.기준가.value, item)
 
                 val = df_call.at[atm_index + 2, '기준가']
-                item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_plus_2))
+                item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL7))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_call.setItem(atm_index + 2, Option_column.기준가.value, item)
 
                 val = df_call.at[atm_index + 3, '기준가']
-                item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, atm_plus_3))
+                item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL8))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(라임))
                 item.setForeground(QBrush(검정색))
                 self.tableWidget_call.setItem(atm_index + 3, Option_column.기준가.value, item)
+
+                val = df_call.at[atm_index + 4, '기준가']
+                item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL9))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(라임))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_call.setItem(atm_index + 4, Option_column.기준가.value, item)
+
+                val = df_call.at[atm_index + 5, '기준가']
+                item = QTableWidgetItem("{0:0.2f}\n({1})".format(val, CENTER_VAL10))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(라임))
+                item.setForeground(QBrush(검정색))
+                self.tableWidget_call.setItem(atm_index + 5, Option_column.기준가.value, item)
 
                 # 풋 양합표시
                 val = df_put.at[atm_index - 3, '기준가']
@@ -16666,7 +16712,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
                 else:
                     pass
-                '''
+
                 # 실시간테이타 요청                
                 str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
@@ -26897,9 +26943,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_nasdaq_curve.clear()
             bc_plot2_wti_curve.clear()
 
-            bc_plot2_center_val_lower_line.setValue(SP500_종가)
-            bc_plot2_center_val_line.setValue(SP500_종가)
-            bc_plot2_center_val_upper_line.setValue(SP500_종가)
+            bc_plot2_center_val_lower_line.setValue(SP500_고가)
+            bc_plot2_center_val_line.setValue(SP500_고가)
+            bc_plot2_center_val_upper_line.setValue(SP500_고가)
 
             for i in range(9):
                 bc_plot2_mv_line[i].setValue(SP500_종가)
@@ -26995,9 +27041,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_nasdaq_curve.clear()
             bc_plot2_wti_curve.clear()
 
-            bc_plot2_center_val_lower_line.setValue(DOW_종가)
-            bc_plot2_center_val_line.setValue(DOW_종가)
-            bc_plot2_center_val_upper_line.setValue(DOW_종가)
+            bc_plot2_center_val_lower_line.setValue(DOW_고가)
+            bc_plot2_center_val_line.setValue(DOW_고가)
+            bc_plot2_center_val_upper_line.setValue(DOW_고가)
 
             for i in range(9):
                 bc_plot2_mv_line[i].setValue(DOW_종가)
@@ -27093,9 +27139,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_dow_curve.clear() 
             bc_plot2_wti_curve.clear()
 
-            bc_plot2_center_val_lower_line.setValue(NASDAQ_종가)
-            bc_plot2_center_val_line.setValue(NASDAQ_종가)
-            bc_plot2_center_val_upper_line.setValue(NASDAQ_종가)
+            bc_plot2_center_val_lower_line.setValue(NASDAQ_고가)
+            bc_plot2_center_val_line.setValue(NASDAQ_고가)
+            bc_plot2_center_val_upper_line.setValue(NASDAQ_고가)
 
             for i in range(9):
                 bc_plot2_mv_line[i].setValue(NASDAQ_종가)
@@ -27191,9 +27237,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_dow_curve.clear()
             bc_plot2_nasdaq_curve.clear()
 
-            bc_plot2_center_val_lower_line.setValue(WTI_종가)
-            bc_plot2_center_val_line.setValue(WTI_종가)
-            bc_plot2_center_val_upper_line.setValue(WTI_종가)  
+            bc_plot2_center_val_lower_line.setValue(WTI_고가)
+            bc_plot2_center_val_line.setValue(WTI_고가)
+            bc_plot2_center_val_upper_line.setValue(WTI_고가)  
 
             for i in range(9):
                 bc_plot2_mv_line[i].setValue(WTI_종가)
@@ -27553,9 +27599,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_nasdaq_curve.clear()
             bc_plot3_wti_curve.clear()
 
-            bc_plot3_center_val_lower_line.setValue(SP500_종가)
-            bc_plot3_center_val_line.setValue(SP500_종가)
-            bc_plot3_center_val_upper_line.setValue(SP500_종가)
+            bc_plot3_center_val_lower_line.setValue(SP500_고가)
+            bc_plot3_center_val_line.setValue(SP500_고가)
+            bc_plot3_center_val_upper_line.setValue(SP500_고가)
 
             for i in range(9):
                 bc_plot3_mv_line[i].setValue(SP500_종가)
@@ -27651,9 +27697,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_nasdaq_curve.clear()
             bc_plot3_wti_curve.clear()
 
-            bc_plot3_center_val_lower_line.setValue(DOW_종가)
-            bc_plot3_center_val_line.setValue(DOW_종가)
-            bc_plot3_center_val_upper_line.setValue(DOW_종가)
+            bc_plot3_center_val_lower_line.setValue(DOW_고가)
+            bc_plot3_center_val_line.setValue(DOW_고가)
+            bc_plot3_center_val_upper_line.setValue(DOW_고가)
 
             for i in range(9):
                 bc_plot3_mv_line[i].setValue(DOW_종가)
@@ -27749,9 +27795,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_dow_curve.clear() 
             bc_plot3_wti_curve.clear()
 
-            bc_plot3_center_val_lower_line.setValue(NASDAQ_종가)
-            bc_plot3_center_val_line.setValue(NASDAQ_종가)
-            bc_plot3_center_val_upper_line.setValue(NASDAQ_종가)
+            bc_plot3_center_val_lower_line.setValue(NASDAQ_고가)
+            bc_plot3_center_val_line.setValue(NASDAQ_고가)
+            bc_plot3_center_val_upper_line.setValue(NASDAQ_고가)
 
             for i in range(9):
                 bc_plot3_mv_line[i].setValue(NASDAQ_종가)
@@ -27847,9 +27893,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_dow_curve.clear()
             bc_plot3_nasdaq_curve.clear() 
 
-            bc_plot3_center_val_lower_line.setValue(WTI_종가)
-            bc_plot3_center_val_line.setValue(WTI_종가)
-            bc_plot3_center_val_upper_line.setValue(WTI_종가) 
+            bc_plot3_center_val_lower_line.setValue(WTI_고가)
+            bc_plot3_center_val_line.setValue(WTI_고가)
+            bc_plot3_center_val_upper_line.setValue(WTI_고가) 
 
             for i in range(9):
                 bc_plot3_mv_line[i].setValue(WTI_종가)
