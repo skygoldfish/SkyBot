@@ -5759,6 +5759,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             mv_line[7].setValue(0)
             mv_line[8].setValue(0)
             '''
+            for i in range(9):
+                mv_line[i].setValue(3.5)
 
             plot2_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
             plot2_center_val_line.setValue(CENTER_VAL)
@@ -7129,48 +7131,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # 마지막 행사가 추가해야 쓰레드 정상동작함(?)
                 selected_opt_list.append(opt_actval[option_pairs_count-1])
-                '''
-                if comboindex2 == 4 and selected_opt_list != old_selected_opt_list:
-
-                    # 전체 행사가 그래프 클리어
-                    for i in range(option_pairs_count):
-                        plot2_call_curve[i].clear()
-                        plot2_put_curve[i].clear()
-
-                    plot2_center_val_curve.clear()
-                else:
-                    pass   
-                '''
+                
                 # 전체 행사가 검색 및 저장, 그리기
                 for actval, infos in data.items():
 
                     index = opt_actval.index(actval)
 
                     # 옵션그래프 초기화 및 옵션데이타 가져오기
-                    '''
-                    if comboindex2 == 4 and selected_opt_list == old_selected_opt_list:
-
-                        # 선택된 행사가 그래프 클리어
-                        for actval in selected_opt_list:
-                            plot2_call_curve[index].clear()
-                            plot2_put_curve[index].clear()
-
-                        plot2_center_val_curve.clear()
-                    else:
-                        pass                
-                    '''
+                    
                     # 선택된 콜그래프 저장 및 그리기
                     for i in range(len(selected_call)):
 
                         if index == selected_call[i]:
 
-                            call_plot_data[index] = infos[0]
-                            '''
-                            if comboindex2 == 4:
-                                plot2_call_curve[i].setData(infos[0])
-                            else:
-                                pass
-                            '''
+                            call_plot_data[index] = infos[0]                            
                         else:
                             pass                    
 
@@ -7180,12 +7154,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if index == selected_put[i]:
 
                             put_plot_data[index] = infos[1]
-                            '''
-                            if comboindex2 == 4:
-                                plot2_put_curve[i].setData(infos[1])
-                            else:
-                                pass
-                            '''
                         else:
                             pass
 
@@ -7497,6 +7465,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     mv_line[1].setValue(2.5)
                     mv_line[2].setValue(3.5)     
                     '''
+                    for i in range(9):
+                        mv_line[i].setValue(3.5)
+
                     # 콜/풋 그래프 그리기
                     for index in range(option_pairs_count):
 
@@ -15593,16 +15564,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if not refresh_flag:
 
-                self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                #self.tableWidget_call.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
                 self.tableWidget_call.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                self.tableWidget_call.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                #self.tableWidget_call.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
 
-                self.tableWidget_put.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                #self.tableWidget_put.cellWidget(atm_index - 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
                 self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
-                self.tableWidget_put.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
+                #self.tableWidget_put.cellWidget(atm_index + 1, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
 
-                selected_call = [atm_index - 1, atm_index, atm_index + 1]
-                selected_put = [atm_index - 1, atm_index, atm_index + 1]
+                #selected_call = [atm_index - 1, atm_index, atm_index + 1]
+                #selected_put = [atm_index - 1, atm_index, atm_index + 1]
+                selected_call = atm_index
+                selected_put = atm_index
             else:
                 pass
 
@@ -26876,6 +26849,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_ovc_low_line.setValue(0)
             bc_plot2_ovc_high_line.setValue(0)
 
+            for i in range(9):
+                bc_plot2_mv_line[i].setValue(3.5)
+
             # 대맥점 표시
             '''
             bc_plot2_mv_line[0].setValue(1.2)
@@ -27528,6 +27504,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_ovc_pivot_line.setValue(0)
             bc_plot3_ovc_low_line.setValue(0)
             bc_plot3_ovc_high_line.setValue(0)
+
+            for i in range(9):
+                bc_plot3_mv_line[i].setValue(3.5)
 
             # 대맥점 표시
             '''
