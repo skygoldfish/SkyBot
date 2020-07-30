@@ -19746,16 +19746,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 저가 != 고가 and not call_open[index]:
 
             # 등가 check & coloring
-            if not overnight:
-                atm_str = self.get_atm_str(fut_realdata['KP200'])
-                atm_index = opt_actval.index(atm_str)
-
-                if index == atm_index:
-                    self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
-                else:
-                    self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
-            else:
-                pass
+            self.tableWidget_call.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
 
             call_open[index] = True
             
@@ -20894,16 +20885,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 저가 != 고가 and not put_open[index]:
 
             # 등가 check & coloring
-            if not overnight:
-                atm_str = self.get_atm_str(fut_realdata['KP200'])
-                atm_index = opt_actval.index(atm_str)
-
-                if index == atm_index:
-                    self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(노란색))
-                else:
-                    self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
-            else:
-                pass
+            self.tableWidget_put.item(index, Option_column.행사가.value).setBackground(QBrush(라임))
 
             put_open[index] = True
             
