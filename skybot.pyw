@@ -13930,7 +13930,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if atm_str in opt_actval:
 
                 atm_index = opt_actval.index(atm_str)
-                old_atm_index = atm_index
+                #old_atm_index = atm_index
 
                 view_actval = opt_actval[atm_index-5:atm_index+6]
 
@@ -15499,7 +15499,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 atm_str = self.get_atm_str(kp200_현재가)
 
             atm_index = opt_actval.index(atm_str)
-            old_atm_index = atm_index
+            #old_atm_index = atm_index
             
             # update 쓰레드 시간단축 목적 !!!
             selected_opt_list.append(opt_actval[option_pairs_count-1])
