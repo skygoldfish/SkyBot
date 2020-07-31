@@ -3377,7 +3377,7 @@ class screen_update_worker(QThread):
             # 같은 파일내 다른 클래스의 함수를 호출할 경우 classmethod 사용!!!
             화면_선물옵션전광판.test_classmethod()
             '''
-
+            # 500ms 마다 갱신
             self.finished.emit(data)  
             self.msleep(500)
 
