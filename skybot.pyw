@@ -3818,7 +3818,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         global TARGET_MONTH_SELECT, MONTH_FIRSTDAY
         global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, fut_code
-        global KSE_START_HOUR, OVC_START_HOUR
+        global KSE_START_HOUR, OVC_START_HOUR        
+        global call_node_state, put_node_state, COREVAL
         
         self.상태그림 = ['▼', '▲']
         self.상태문자 = ['매도', '대기', '매수']
@@ -4476,7 +4477,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
         self.comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG'])
-        self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)            
+        self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
         global plot1_fut_jl_line, plot1_fut_jh_line, plot1_fut_close_line, plot1_fut_open_line, plot1_fut_pivot_line, plot1_fut_low_line, plot1_fut_high_line    
@@ -4702,14 +4703,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 plot2_time_line_start.setValue(선물장간_시간차)
 
         self.alternate_flag = True
-        self.centerval_flag = True
-
-        global call_node_state, put_node_state
 
         call_node_state = {'기준가': False, '월저': False, '월고': False, '전저': False, '전고': False, '종가': True, '피봇': True, '시가': True, '대비': False, '미결': False, '미결증감': False}
         put_node_state = {'기준가': False, '월저': False, '월고': False, '전저': False, '전고': False, '종가': True, '피봇': True, '시가': True, '대비': False, '미결': False, '미결증감': False}
-
-        global COREVAL
 
         list_low1 = []
         list_low2 = []
@@ -8965,8 +8961,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 item.setBackground(QBrush(대맥점색))
                 item.setForeground(QBrush(검정색))
-
-            #self.centerval_flag = not self.centerval_flag
         else:
             item.setBackground(QBrush(대맥점색))
             item.setForeground(QBrush(검정색))
@@ -9501,49 +9495,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
             else:
                 pass
-    '''
-    '''
-    def display_centerval(self):
-
-        global CENTER_VAL, df_plotdata_centerval
-
-        dt = datetime.datetime.now()
-
-        # 예상 중심가 표시
-        if call_atm_value > put_atm_value:
-
-            CENTER_VAL = round((put_atm_value + atm_zero_cha / 2), 2)
-
-        elif put_atm_value > call_atm_value:
-
-            CENTER_VAL = round((call_atm_value + atm_zero_cha / 2), 2)
-        else:
-            CENTER_VAL = call_atm_value
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 등가 {3}에서 교차 중심가 {4} 발생 !!!\r'.format(dt.hour, dt.minute, dt.second, atm_str, CENTER_VAL)
-            self.textBrowser.append(str)
-        
-        item = QTableWidgetItem("{0:0.2f}".format(CENTER_VAL))
-        item.setTextAlignment(Qt.AlignCenter)
-
-        if abs(atm_zero_cha) <= CENTERVAL_RANGE:
-
-            if self.centerval_flag:
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(대맥점색))
-            else:
-                item.setBackground(QBrush(대맥점색))
-                item.setForeground(QBrush(검정색))
-
-            self.centerval_flag = not self.centerval_flag
-        else:
-            item.setBackground(QBrush(대맥점색))
-            item.setForeground(QBrush(검정색))
-
-        self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
-
-        df_plotdata_centerval.iat[0, opt_x_idx] = CENTER_VAL
-    '''
+    '''    
 
     def asym_detect(self, blink):
         
