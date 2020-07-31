@@ -30,7 +30,7 @@ DOW = YMU20
 NASDAQ = NQU20
 WTI = CLU20
 EUROFX = UROU20
-HANGSENG = HSIN20
+HANGSENG = HSIQ20
 
 [6]. << Telegram >>
 Telegram service = True
