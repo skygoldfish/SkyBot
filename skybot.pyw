@@ -3948,7 +3948,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.tableWidget_fut.setHorizontalHeaderLabels(
             ['F', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'MDHR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가',
-             '현재가', '고가', '시가갭', '대비', '진폭', 'CPMS', 'FR', 'OI', 'OI↕'])
+             '현재가', '고가', '시가갭', '대비', '진폭', '체결', 'FR', 'OI', 'OI↕'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
 
         self.tableWidget_fut.setAlternatingRowColors(True)
@@ -4588,7 +4588,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_call_curve.append(self.Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             plot2_put_curve.append(self.Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
         
-        plot2_center_val_curve = self.Plot2.plot(pen=ypen, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        plot2_center_val_curve = self.Plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
         plot2_center_val_lower_line = self.Plot2.addLine(x=None, pen=skyblue_pen)
         plot2_center_val_line = self.Plot2.addLine(x=None, pen=gold_pen)
@@ -7471,13 +7471,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass                    
 
                     plot2_center_val_curve.clear()                    
-                    '''
-                    mv_line[0].setValue(1.2)
+                    
+                    mv_line[0].setValue(0)
                     mv_line[1].setValue(2.5)
-                    mv_line[2].setValue(3.5)     
-                    '''
-                    for i in range(9):
-                        mv_line[i].setValue(3.5)
+                    mv_line[2].setValue(3.5)    
+                    mv_line[3].setValue(4.85)
+                    mv_line[4].setValue(0)
+                    mv_line[5].setValue(0)
+                    mv_line[6].setValue(0)
+                    mv_line[7].setValue(0)
+                    mv_line[8].setValue(0)                    
 
                     # 콜/풋 그래프 그리기
                     for index in range(option_pairs_count):
@@ -8129,21 +8132,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.asym_detect(self.alternate_flag)
                     else:
-                        pass                    
-                    
-                    # 원웨이장 표시(주간만) --> 비대칭장으로 파악(CM + NM + MAN)
-                    '''
-                    if not overnight and not dongsi_hoga:
-
-                        if TARGET_MONTH_SELECT == 1:
-
-                            #self.check_oneway(self.alternate_flag)
-                            self.display_centerval()
-                        else:
-                            pass
-                    else:
-                        pass
-                    '''                                
+                        pass                                              
                 else:
                     pass          
             else:
@@ -9503,7 +9492,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
     '''
-
+    '''
     def display_centerval(self):
 
         global CENTER_VAL, df_plotdata_centerval
@@ -9544,6 +9533,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
 
         df_plotdata_centerval.iat[0, opt_x_idx] = CENTER_VAL
+    '''
 
     def asym_detect(self, blink):
         
@@ -25671,8 +25661,9 @@ class bigchart_update_worker(QThread):
 
             str = 'Big Chart Update...'                
 
+            # 고속처리를 위해 500 -> 250 수정
             self.finished.emit(str)
-            self.msleep(500)
+            self.msleep(250)
 
 ########################################################################################################################
 # Big Chart UI Class
@@ -25980,7 +25971,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_call_curve.append(self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             bc_plot2_put_curve.append(self.bc_Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
         
-        bc_plot2_center_val_curve = self.bc_Plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot2_center_val_curve = self.bc_Plot2.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
         bc_plot2_center_val_lower_line = self.bc_Plot2.addLine(x=None, pen=skyblue_pen)
         bc_plot2_center_val_line = self.bc_Plot2.addLine(x=None, pen=gold_pen)
@@ -26027,7 +26018,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_call_curve.append(self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             bc_plot3_put_curve.append(self.bc_Plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
         
-        bc_plot3_center_val_curve = self.bc_Plot3.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3) 
+        bc_plot3_center_val_curve = self.bc_Plot3.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
 
         bc_plot3_center_val_lower_line = self.bc_Plot3.addLine(x=None, pen=skyblue_pen)
         bc_plot3_center_val_line = self.bc_Plot3.addLine(x=None, pen=gold_pen)
@@ -26996,21 +26987,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_ovc_low_line.setValue(0)
             bc_plot2_ovc_high_line.setValue(0)
 
-            for i in range(9):
-                bc_plot2_mv_line[i].setValue(3.5)
-
             # 대맥점 표시
-            '''
-            bc_plot2_mv_line[0].setValue(1.2)
+            bc_plot2_mv_line[0].setValue(0)
             bc_plot2_mv_line[1].setValue(2.5)
             bc_plot2_mv_line[2].setValue(3.5)
-            bc_plot2_mv_line[3].setValue(0)
+            bc_plot2_mv_line[3].setValue(4.85)
             bc_plot2_mv_line[4].setValue(0)
             bc_plot2_mv_line[5].setValue(0)
             bc_plot2_mv_line[6].setValue(0)
             bc_plot2_mv_line[7].setValue(0)
             bc_plot2_mv_line[8].setValue(0)
-            '''
+            
             bc_plot2_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
             bc_plot2_center_val_line.setValue(CENTER_VAL)
             bc_plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
@@ -27652,21 +27639,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_ovc_low_line.setValue(0)
             bc_plot3_ovc_high_line.setValue(0)
 
-            for i in range(9):
-                bc_plot3_mv_line[i].setValue(3.5)
-
             # 대맥점 표시
-            '''
-            bc_plot3_mv_line[0].setValue(1.2)
+            bc_plot3_mv_line[0].setValue(0)
             bc_plot3_mv_line[1].setValue(2.5)
             bc_plot3_mv_line[2].setValue(3.5)
-            bc_plot3_mv_line[3].setValue(0)
+            bc_plot3_mv_line[3].setValue(4.85)
             bc_plot3_mv_line[4].setValue(0)
             bc_plot3_mv_line[5].setValue(0)
             bc_plot3_mv_line[6].setValue(0)
             bc_plot3_mv_line[7].setValue(0)
             bc_plot3_mv_line[8].setValue(0)
-            '''
+
             bc_plot3_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
             bc_plot3_center_val_line.setValue(CENTER_VAL)
             bc_plot3_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
