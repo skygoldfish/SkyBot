@@ -15,6 +15,8 @@ My coreval = 3.50
 Asymmetric Market Ratio = 2
 OneWay Market Ratio = 3
 Center Value Alarm Range = 0.60
+Main Update Interval(msec) = 500
+Big Chart Update Interval(msec) = 250
 
 [3]. << UI Select : Horizontal_Large_View.ui, Horizontal_Small_View.ui, Vertical_View.ui >>
 UI = Horizontal_Large_View.ui

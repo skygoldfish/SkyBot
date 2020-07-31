@@ -528,7 +528,17 @@ with open('control_info.txt', mode='r') as control_file:
     tmp = control_file.readline().strip()
     temp = tmp.split()
     CENTERVAL_RANGE = float(temp[5])
-    print('CENTERVAL_RANGE =', CENTERVAL_RANGE)
+    #print('CENTERVAL_RANGE =', CENTERVAL_RANGE)
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    MAIN_UPDATE_INTERVAL = float(temp[4])
+    print('MAIN_UPDATE_INTERVAL =', MAIN_UPDATE_INTERVAL)
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    BIGCHART_UPDATE_INTERVAL = float(temp[5])
+    print('BIGCHART_UPDATE_INTERVAL =', BIGCHART_UPDATE_INTERVAL)
 
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
@@ -3379,7 +3389,7 @@ class screen_update_worker(QThread):
             '''
             # 500ms 마다 갱신
             self.finished.emit(data)  
-            self.msleep(500)
+            self.msleep(MAIN_UPDATE_INTERVAL)
 
     def get_data_infos(self, actval):
 
@@ -25661,9 +25671,8 @@ class bigchart_update_worker(QThread):
 
             str = 'Big Chart Update...'                
 
-            # 고속처리를 위해 500 -> 250 수정
             self.finished.emit(str)
-            self.msleep(250)
+            self.msleep(BIGCHART_UPDATE_INTERVAL)
 
 ########################################################################################################################
 # Big Chart UI Class
