@@ -26951,10 +26951,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex2 == 4:
 
-            self.label_9.setText(" 전저 : 가격 ")
-            self.label_10.setText(" 전고 : 가격 ")
-            self.label_11.setText(" 종가 : 가격 ")
-            self.label_12.setText(" 피봇 : 가격 ")
+            self.label_9.setText(" 등가 : 행사가 ")
+            self.label_10.setText(" 중심가 하단 : 가격 ")
+            self.label_11.setText(" 중심가 : 가격 ")
+            self.label_12.setText(" 중심가 상단 : 가격 ")
             self.label_13.setText(" 시가 : 가격 ")
             self.label_14.setText(" 저가 : 가격 ")
             self.label_15.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
@@ -27603,10 +27603,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex3 == 4:
 
-            self.label_17.setText(" 전저 : 가격 ")
-            self.label_18.setText(" 전고 : 가격 ")
-            self.label_19.setText(" 종가 : 가격 ")
-            self.label_20.setText(" 피봇 : 가격 ")
+            self.label_17.setText(" 등가 : 행사가 ")
+            self.label_18.setText(" 중심가 하단 : 가격 ")
+            self.label_19.setText(" 중심가 : 가격 ")
+            self.label_20.setText(" 중심가 상단 : 가격 ")
             self.label_21.setText(" 시가 : 가격 ")
             self.label_22.setText(" 저가 : 가격 ")
             self.label_23.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
@@ -28062,203 +28062,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.bigchart_update_worker.terminate()
         else:
-            pass
-        
-        # Plot2 옵션그래프 초기화 및 데이타 가져오기
-        if bc_comboindex2 == 4:                            
-
-            if selected_opt_list != old_selected_opt_list:
-
-                # 전체 행사가 그래프 클리어
-                for index in range(option_pairs_count):
-                    bc_plot2_call_curve[index].clear()
-                    bc_plot2_put_curve[index].clear()                    
-            else:
-                # 선택된 행사가 그래프 클리어
-                for index in range(option_pairs_count):
-
-                    if index in selected_call:
-                        bc_plot2_call_curve[index].clear()
-                    else:
-                        pass
-
-                    if index in selected_put:
-                        bc_plot2_put_curve[index].clear()
-                    else:
-                        pass
-
-            bc_plot2_center_val_curve.clear()
-            '''
-            bc_plot2_mv_line[0].setValue(1.2)
-            bc_plot2_mv_line[1].setValue(2.5)
-            bc_plot2_mv_line[2].setValue(3.5)
-            '''
-            for index in range(option_pairs_count):
-
-                # 선택된 콜그래프 그리기
-                for i in range(len(selected_call)):
-
-                    if index == selected_call[i]:
-                        bc_plot2_call_curve[i].setData(call_plot_data[index])
-                    else:
-                        pass                    
-
-                # 선택된 풋그래프 그리기
-                for i in range(len(selected_put)):
-
-                    if index == selected_put[i]:
-                        bc_plot2_put_curve[i].setData(put_plot_data[index])
-                    else:
-                        pass
-            '''
-            # 옵션 Y축 최대값 구하기
-            axY = self.bc_Plot2.getAxis('left')
-
-            # 최대값내의 의미가 그리기
-            if 4.0 <= axY.range[1] < 5.0:
-                bc_plot2_mv_line[3].setValue(4.85)
-                bc_plot2_mv_line[4].setValue(0)
-                bc_plot2_mv_line[5].setValue(0)
-                bc_plot2_mv_line[6].setValue(0)
-                bc_plot2_mv_line[7].setValue(0)
-                bc_plot2_mv_line[8].setValue(0)
-            elif 5.0 <= axY.range[1] < 6.0:
-                bc_plot2_mv_line[3].setValue(4.85)
-                bc_plot2_mv_line[4].setValue(5.1)
-                bc_plot2_mv_line[5].setValue(5.5)
-                bc_plot2_mv_line[6].setValue(0)
-                bc_plot2_mv_line[7].setValue(0)
-                bc_plot2_mv_line[8].setValue(0)
-            elif 6.0 <= axY.range[1] < 7.1:
-                bc_plot2_mv_line[3].setValue(4.85)
-                bc_plot2_mv_line[4].setValue(5.1)
-                bc_plot2_mv_line[5].setValue(5.5)
-                bc_plot2_mv_line[6].setValue(6.85)
-                bc_plot2_mv_line[7].setValue(0)
-                bc_plot2_mv_line[8].setValue(0)
-            elif 7.1 <= axY.range[1] < 8.1:
-                bc_plot2_mv_line[3].setValue(4.85)
-                bc_plot2_mv_line[4].setValue(5.1)
-                bc_plot2_mv_line[5].setValue(5.5)
-                bc_plot2_mv_line[6].setValue(6.85)
-                bc_plot2_mv_line[7].setValue(7.1)
-                bc_plot2_mv_line[8].setValue(0)
-            elif axY.range[1] >= 8.1:
-                bc_plot2_mv_line[3].setValue(4.85)
-                bc_plot2_mv_line[4].setValue(5.1)
-                bc_plot2_mv_line[5].setValue(5.5)
-                bc_plot2_mv_line[6].setValue(6.85)
-                bc_plot2_mv_line[7].setValue(7.1)
-                bc_plot2_mv_line[8].setValue(8.1)
-            else:
-                pass
-            '''
-            bc_plot2_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
-            bc_plot2_center_val_line.setValue(CENTER_VAL)
-            bc_plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
-
-            # 중심가 그리기
-            bc_plot2_center_val_curve.setData(centerval_plot_data)
-        else:
-            pass            
-
-        # Plot3 옵션그래프 초기화 및 데이타 가져오기
-        if bc_comboindex3 == 4:                            
-
-            if selected_opt_list != old_selected_opt_list:
-
-                # 전체 행사가 그래프 클리어
-                for index in range(option_pairs_count):
-                    bc_plot3_call_curve[index].clear()
-                    bc_plot3_put_curve[index].clear()
-            else:
-                # 선택된 행사가 그래프 클리어
-                for index in range(option_pairs_count):
-
-                    if index in selected_call:
-                        bc_plot3_call_curve[index].clear()
-                    else:
-                        pass
-
-                    if index in selected_put:
-                        bc_plot3_put_curve[index].clear()
-                    else:
-                        pass
-
-            bc_plot3_center_val_curve.clear()
-            '''
-            bc_plot3_mv_line[0].setValue(1.2)
-            bc_plot3_mv_line[1].setValue(2.5)
-            bc_plot3_mv_line[2].setValue(3.5)
-            '''
-            for index in range(option_pairs_count):
-
-                # 선택된 콜그래프 그리기
-                for i in range(len(selected_call)):
-
-                    if index == selected_call[i]:
-                        bc_plot3_call_curve[i].setData(call_plot_data[index])
-                    else:
-                        pass                    
-
-                # 선택된 풋그래프 그리기
-                for i in range(len(selected_put)):
-
-                    if index == selected_put[i]:
-                        bc_plot3_put_curve[i].setData(put_plot_data[index])
-                    else:
-                        pass
-            '''
-            # 옵션 Y축 최대값 구하기
-            axY = self.bc_Plot3.getAxis('left')
-
-            # 최대값내의 의미가 그리기
-            if 4.0 <= axY.range[1] < 5.0:
-                bc_plot3_mv_line[3].setValue(4.85)
-                bc_plot3_mv_line[4].setValue(0)
-                bc_plot3_mv_line[5].setValue(0)
-                bc_plot3_mv_line[6].setValue(0)
-                bc_plot3_mv_line[7].setValue(0)
-                bc_plot3_mv_line[8].setValue(0)
-            elif 5.0 <= axY.range[1] < 6.0:
-                bc_plot3_mv_line[3].setValue(4.85)
-                bc_plot3_mv_line[4].setValue(5.1)
-                bc_plot3_mv_line[5].setValue(5.5)
-                bc_plot3_mv_line[6].setValue(0)
-                bc_plot3_mv_line[7].setValue(0)
-                bc_plot3_mv_line[8].setValue(0)
-            elif 6.0 <= axY.range[1] < 7.1:
-                bc_plot3_mv_line[3].setValue(4.85)
-                bc_plot3_mv_line[4].setValue(5.1)
-                bc_plot3_mv_line[5].setValue(5.5)
-                bc_plot3_mv_line[6].setValue(6.85)
-                bc_plot3_mv_line[7].setValue(0)
-                bc_plot3_mv_line[8].setValue(0)
-            elif 7.1 <= axY.range[1] < 8.1:
-                bc_plot3_mv_line[3].setValue(4.85)
-                bc_plot3_mv_line[4].setValue(5.1)
-                bc_plot3_mv_line[5].setValue(5.5)
-                bc_plot3_mv_line[6].setValue(6.85)
-                bc_plot3_mv_line[7].setValue(7.1)
-                bc_plot3_mv_line[8].setValue(0)
-            elif axY.range[1] >= 8.1:
-                bc_plot3_mv_line[3].setValue(4.85)
-                bc_plot3_mv_line[4].setValue(5.1)
-                bc_plot3_mv_line[5].setValue(5.5)
-                bc_plot3_mv_line[6].setValue(6.85)
-                bc_plot3_mv_line[7].setValue(7.1)
-                bc_plot3_mv_line[8].setValue(8.1)
-            else:
-                pass
-            '''
-            bc_plot3_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
-            bc_plot3_center_val_line.setValue(CENTER_VAL)
-            bc_plot3_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
-            
-            # 중심가 그리기
-            bc_plot3_center_val_curve.setData(centerval_plot_data)
-        else:
-            pass            
+            pass              
 
         # Plot1 x축 타임라인 그리기
         if bc_comboindex1 == 0 or bc_comboindex1 == 4:
@@ -28285,7 +28089,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             bc_plot3_time_line.setValue(opt_x_idx)
 
-        # 선택된 plot1 그래프 그리기
+        # Plot1 그래프 그리기
         if bc_comboindex1 == 0:
 
             if fut_volume_power > 0:
@@ -28702,7 +28506,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass   
 
-        # 선택된 plot2 그래프 그리기
+        # Plot2 그래프 그리기
         if bc_comboindex2 == 0:
 
             bc_plot2_call_volume_curve.setData(plot_data2)
@@ -28729,7 +28533,69 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex2 == 4:
 
-            pass
+            if selected_opt_list != old_selected_opt_list:
+
+                # 전체 행사가 그래프 클리어
+                for index in range(option_pairs_count):
+                    bc_plot2_call_curve[index].clear()
+                    bc_plot2_put_curve[index].clear()                    
+            else:
+                # 선택된 행사가 그래프 클리어
+                for index in range(option_pairs_count):
+
+                    if index in selected_call:
+                        bc_plot2_call_curve[index].clear()
+                    else:
+                        pass
+
+                    if index in selected_put:
+                        bc_plot2_put_curve[index].clear()
+                    else:
+                        pass
+
+            bc_plot2_center_val_curve.clear()
+
+            bc_plot2_mv_line[1].setValue(2.5)
+            bc_plot2_mv_line[2].setValue(3.5)
+            bc_plot2_mv_line[3].setValue(4.85)
+
+            for index in range(option_pairs_count):
+
+                # 선택된 콜그래프 그리기
+                for i in range(len(selected_call)):
+
+                    if index == selected_call[i]:
+                        bc_plot2_call_curve[i].setData(call_plot_data[index])
+                    else:
+                        pass                    
+
+                # 선택된 풋그래프 그리기
+                for i in range(len(selected_put)):
+
+                    if index == selected_put[i]:
+                        bc_plot2_put_curve[i].setData(put_plot_data[index])
+                    else:
+                        pass
+            
+            bc_plot2_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+            bc_plot2_center_val_line.setValue(CENTER_VAL)
+            bc_plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
+
+            # 중심가 그리기
+            bc_plot2_center_val_curve.setData(centerval_plot_data)
+
+            # 등가표시
+            str = ' 등가 : {0} '.format(atm_str)
+            self.label_9.setText(str)
+
+            str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_RANGE)
+            self.label_10.setText(str)
+
+            str = ' 중심가 : {0:0.2f} '.format(CENTER_VAL)
+            self.label_11.setText(str)
+
+            str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_RANGE)
+            self.label_12.setText(str)
 
         elif bc_comboindex2 == 5:
             
@@ -29068,7 +28934,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass        
         
-        # 선택된 plot3 그래프 그리기
+        # Plot3 그래프 그리기
         if bc_comboindex3 == 0:
 
             bc_plot3_call_volume_curve.setData(plot_data2)
@@ -29095,7 +28961,69 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex3 == 4:
 
-            pass
+            if selected_opt_list != old_selected_opt_list:
+
+                # 전체 행사가 그래프 클리어
+                for index in range(option_pairs_count):
+                    bc_plot3_call_curve[index].clear()
+                    bc_plot3_put_curve[index].clear()
+            else:
+                # 선택된 행사가 그래프 클리어
+                for index in range(option_pairs_count):
+
+                    if index in selected_call:
+                        bc_plot3_call_curve[index].clear()
+                    else:
+                        pass
+
+                    if index in selected_put:
+                        bc_plot3_put_curve[index].clear()
+                    else:
+                        pass
+
+            bc_plot3_center_val_curve.clear()
+
+            bc_plot3_mv_line[1].setValue(2.5)
+            bc_plot3_mv_line[2].setValue(3.5)
+            bc_plot3_mv_line[3].setValue(4.85)
+
+            for index in range(option_pairs_count):
+
+                # 선택된 콜그래프 그리기
+                for i in range(len(selected_call)):
+
+                    if index == selected_call[i]:
+                        bc_plot3_call_curve[i].setData(call_plot_data[index])
+                    else:
+                        pass                    
+
+                # 선택된 풋그래프 그리기
+                for i in range(len(selected_put)):
+
+                    if index == selected_put[i]:
+                        bc_plot3_put_curve[i].setData(put_plot_data[index])
+                    else:
+                        pass
+            
+            bc_plot3_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+            bc_plot3_center_val_line.setValue(CENTER_VAL)
+            bc_plot3_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
+            
+            # 중심가 그리기
+            bc_plot3_center_val_curve.setData(centerval_plot_data)
+
+            # 등가표시
+            str = ' 등가 : {0} '.format(atm_str)
+            self.label_17.setText(str)
+
+            str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_RANGE)
+            self.label_18.setText(str)
+
+            str = ' 중심가 : {0:0.2f} '.format(CENTER_VAL)
+            self.label_19.setText(str)
+
+            str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_RANGE)
+            self.label_20.setText(str)
 
         elif bc_comboindex3 == 5:
             
