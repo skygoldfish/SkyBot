@@ -1093,7 +1093,6 @@ flag_kp200_high = False
 옵션잔존일 = 0
 
 OVC_체결시간 = '000000'
-호가시간 = '000000'
 
 night_time = 0
 
@@ -4556,8 +4555,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot1_sp500_curve = self.Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot1_dow_curve = self.Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot1_nasdaq_curve = self.Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        plot1_wti_curve = self.Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)   
+        plot1_wti_curve = self.Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        '''
+        #cross hair
+        vLine = pg.InfiniteLine(angle=90, movable=False)
+        hLine = pg.InfiniteLine(angle=0, movable=False)
+        self.Plot1.addItem(vLine, ignoreBounds=True)
+        self.Plot1.addItem(hLine, ignoreBounds=True)
 
+        vb = self.Plot1.plotItem.vb   
+        '''
         # Line & Curve of the Plot2
         plot2_time_line_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
         plot2_time_line_yagan_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
@@ -6710,42 +6717,42 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 콜매수 != '콜매수':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 콜매수 {3} 진입...\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), 콜매수)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 콜매수 {3} 진입...\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), 콜매수)
                         self.textBrowser.append(str)
                     else:
                         pass
 
                     if 콜매도 != '콜매도':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 콜매도 {3} 진입...\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), 콜매도)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 콜매도 {3} 진입...\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), 콜매도)
                         self.textBrowser.append(str)
                     else:
                         pass
 
                     if 풋매수 != '풋매수':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 풋매수 {3} 진입...\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), 풋매수)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 풋매수 {3} 진입...\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), 풋매수)
                         self.textBrowser.append(str)
                     else:
                         pass
 
                     if 풋매도 != '풋매도':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 풋매도 {3} 진입...\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), 풋매도)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 풋매도 {3} 진입...\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), 풋매도)
                         self.textBrowser.append(str)
                     else:
                         pass
 
                     if 손절 != '손절':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 손절 {3}틱 설정됨\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), 손절)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 손절 {3}틱 설정됨\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), 손절)
                         self.textBrowser.append(str)
                     else:
                         pass
 
                     if 익절 != '익절':
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 익절 {3}틱 설정됨\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), 익절)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 익절 {3}틱 설정됨\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), 익절)
                         self.textBrowser.append(str)
                     else:
                         pass
@@ -6754,7 +6761,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_fut.setItem(2, Futures_column.OLOH.value, item)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송이 예약되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송이 예약되었습니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
 
                     #self.telegram_flag = not self.telegram_flag
@@ -6801,7 +6808,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setForeground(QBrush(흰색))
                     self.tableWidget_fut.setItem(2, Futures_column.잔량비.value, item)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송예약이 취소되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송예약이 취소되었습니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
 
                     #self.telegram_flag = not self.telegram_flag
@@ -7110,7 +7117,30 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # Market 유형을 시간과 함께 표시
             self.market_type_display(self.alternate_flag)
+
+            '''
+            #cross hair
+            def mouseMoved(evt): 
+                print("-->> def mouseMoved(evt):", evt)
+                print("\tevt.x()=`{}`, evt.y()=`{}`".format(evt.x(), evt.y()))
+                pos = evt[0]
+                if self.Plot1.sceneBoundingRect().contains(pos):
+                    mousePoint = vb.mapSceneToView(pos)
+                    index = int(mousePoint.x())
+                    if index > 0 and index < len(900):
+                        label.setText("<span style='font-size: 12pt'>x=%0.1f, <span style='color: red'>y1=%0.1f</span>" % (mousePoint.x(), y[index], 100))
+                    vLine.setPos(mousePoint.x())
+                    hLine.setPos(mousePoint.y())                              
+
+            self.source = self.Plot1.scene().sigMouseMoved
+            proxy = pg.SignalProxy(self.source, rateLimit=60, slot=mouseMoved)
             
+            if self.source is None:
+                pass
+            else:
+                proxy.signal.connect(mouseMoved)
+            '''
+
             # 실시간 서비스                     
             if FLAG_GUEST_CONTROL and (receive_real_ovc or market_service):
                 
@@ -21545,7 +21575,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_put.setHorizontalHeaderItem(2, item)
             self.tableWidget_put.resizeColumnsToContents()
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put OLOH 갱신 !!!\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+            str = '[{0:02d}:{1:02d}:{2:02d}] Put OLOH 갱신 !!!\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
             self.textBrowser.append(str)
 
             # 차월물에서 OLOH 판단
@@ -22080,7 +22110,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global market_service, service_terminate, jugan_service_terminate, yagan_service_terminate
 
             global yoc_stop
-            global OVC_체결시간, 호가시간
+            global OVC_체결시간
             global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti, df_plotdata_eurofx, df_plotdata_hangseng
 
             global sp500_delta, old_sp500_delta, sp500_직전대비, sp500_text_color
@@ -22131,19 +22161,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 장시작 10분전
                 if result['장구분'] == '5' and result['장상태'] == '25':
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 장시작 10분전입니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 장시작 10분전입니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
 
                 # 현물장 시작 10초전
                 elif result['장구분'] == '1' and result['장상태'] == '22':
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 현물장 시작 10초전입니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 현물장 시작 10초전입니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
 
                 # 선물장 시작 10초전
                 elif result['장구분'] == '5' and result['장상태'] == '22':
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 선물장 시작 10초전입니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 선물장 시작 10초전입니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
 
                 # 주간 선물/옵션장 시작
@@ -22156,7 +22186,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     DOW_주간_시작가 = DOW_현재가
                     WTI_주간_시작가 = WTI_현재가
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장이 시작됩니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장이 시작됩니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
+                    self.textBrowser.append(str)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] DOW 주간시작가 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), DOW_주간_시작가)
+                    self.textBrowser.append(str)
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] WTI 주간시작가 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), WTI_주간_시작가)
                     self.textBrowser.append(str)
 
                 # 야간 선물장 시작
@@ -22174,9 +22210,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.label_kospi.setText(jisu_str)
                     self.label_kospi.setStyleSheet('background-color: black ; color: yellow')
 
+                    str = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), DOW_야간_시작가)
+                    self.textBrowser.append(str)
+
                     jisu_str = "WTI 야간시작가: {0}".format(WTI_야간_시작가)
                     self.label_kosdaq.setText(jisu_str)
                     self.label_kosdaq.setStyleSheet('background-color: black ; color: yellow')
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), WTI_야간_시작가)
+                    self.textBrowser.append(str)
 
                 # 야간 옵션장 시작
                 elif result['장구분'] == '8' and result['장상태'] == '21':
@@ -22193,55 +22235,61 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.label_kospi.setText(jisu_str)
                     self.label_kospi.setStyleSheet('background-color: black ; color: yellow')
 
+                    str = '[{0:02d}:{1:02d}:{2:02d}] DOW 야간시작가 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), DOW_야간_시작가)
+                    self.textBrowser.append(str)
+
                     jisu_str = "WTI 야간시작가: {0}".format(WTI_야간_시작가)
                     self.label_kosdaq.setText(jisu_str)
                     self.label_kosdaq.setStyleSheet('background-color: black ; color: yellow')
 
+                    str = '[{0:02d}:{1:02d}:{2:02d}] WTI 야간시작가 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), WTI_야간_시작가)
+                    self.textBrowser.append(str)
+
                 # 현물 장마감 5분전
                 elif result['장구분'] == '1' and result['장상태'] == '44':
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 5분전입니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 5분전입니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
 
                 # 현물 장마감 1분전
                 elif result['장구분'] == '1' and result['장상태'] == '43':
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 1분전입니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 1분전입니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
 
                     # FUTURES/KOSPI200 예상지수 요청취소
                     self.YJ.UnadviseRealData()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] FUTURES/KOSPI200 예상지수 요청을 취소합니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] FUTURES/KOSPI200 예상지수 요청을 취소합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
 
                     # 지수선물예상체결 요청취소
                     self.YFC.UnadviseRealData()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수선물 예상체결 요청을 취소합니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수선물 예상체결 요청을 취소합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
 
                     # KOSPI예상체결 요청취소
                     self.YS3.UnadviseRealData()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] KOSPI 예상체결 요청을 취소합니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] KOSPI 예상체결 요청을 취소합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
 
                     # 지수옵션예상체결 요청취소
                     self.YOC.UnadviseRealData()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
 
                 # 장후 동시호가 시작
                 elif result['장구분'] == '5' and result['장상태'] == '31':
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 장후 동시호가가 시작되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 장후 동시호가가 시작되었습니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
 
                     dongsi_hoga = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 스레드를 종료합니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 스레드를 종료합니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
 
                     if self.telegram_send_worker.isRunning():
@@ -22257,19 +22305,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 주간 선물/옵션장 종료
                 elif result['장구분'] == '5' and result['장상태'] == '41':
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물/옵션장이 종료되었습니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                     self.textBrowser.append(str)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 S&P 500 지수 = {3}\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), SP500_현재가)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 S&P 500 지수 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), SP500_현재가)
                     self.textBrowser.append(str)
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 DOW 지수 = {3}\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), DOW_현재가)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 DOW 지수 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), DOW_현재가)
                     self.textBrowser.append(str)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 NASDAQ 지수 = {3}\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), NASDAQ_현재가)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 NASDAQ 지수 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), NASDAQ_현재가)
                     self.textBrowser.append(str)
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 WTI 지수 = {3}\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]), WTI_현재가)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간장 종료시 WTI 지수 = {3}\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]), WTI_현재가)
                     self.textBrowser.append(str)
 
                     if market_service:
@@ -23783,7 +23831,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         market_service = True
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 주간 선물 데이타를 수신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 주간 선물 데이타를 수신했습니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                         self.textBrowser.append(str)
                     else:
                         pass
@@ -23796,7 +23844,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         market_service = True
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 야간 선물 데이타를 수신했습니다.\r'.format(int(호가시간[0:2]), int(호가시간[2:4]), int(호가시간[4:6]))
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 야간 선물 데이타를 수신했습니다.\r'.format(int(OVC_체결시간[0:2]), int(OVC_체결시간[2:4]), int(OVC_체결시간[4:6]))
                         self.textBrowser.append(str)
                     else:
                         pass
@@ -24097,8 +24145,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 '''
 
             elif szTrCode == 'FH0' or szTrCode == 'NH0':
-                
-                호가시간 = result['호가시간']
 
                 # 선물호가 갱신
                 item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
