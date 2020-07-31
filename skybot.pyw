@@ -28023,1303 +28023,1307 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.bigchart_update_worker.terminate()
         else:
-            pass              
+            pass
 
-        # Plot1 x축 타임라인 그리기
-        if bc_comboindex1 == 0 or bc_comboindex1 == 4:
+        if FLAG_GUEST_CONTROL:
 
-            bc_plot1_time_line.setValue(x_idx)
+            # Plot1 x축 타임라인 그리기
+            if bc_comboindex1 == 0 or bc_comboindex1 == 4:
 
-        elif bc_comboindex1 == 5 or bc_comboindex1 == 6 or bc_comboindex1 == 7 or bc_comboindex1 == 8:
+                bc_plot1_time_line.setValue(x_idx)
 
-            bc_plot1_time_line.setValue(ovc_x_idx)
-        else:
-            bc_plot1_time_line.setValue(opt_x_idx)
+            elif bc_comboindex1 == 5 or bc_comboindex1 == 6 or bc_comboindex1 == 7 or bc_comboindex1 == 8:
 
-        # Plot2 x축 타임라인 그리기
-        if bc_comboindex2 == 5 or bc_comboindex2 == 6 or bc_comboindex2 == 7 or bc_comboindex2 == 8:
-
-            bc_plot2_time_line.setValue(ovc_x_idx)
-        else:
-            bc_plot2_time_line.setValue(opt_x_idx)
-
-        # Plot3 x축 타임라인 그리기
-        if bc_comboindex3 == 5 or bc_comboindex3 == 6 or bc_comboindex3 == 7 or bc_comboindex3 == 8:
-
-            bc_plot3_time_line.setValue(ovc_x_idx)
-        else:
-            bc_plot3_time_line.setValue(opt_x_idx)
-
-        # Plot1 그래프 그리기
-        if bc_comboindex1 == 0:
-
-            if fut_volume_power > 0:
-                bc_plot1_fut_volume_plus_curve.setData(plot_data1)
+                bc_plot1_time_line.setValue(ovc_x_idx)
             else:
-                bc_plot1_fut_volume_minus_curve.setData(plot_data1)
+                bc_plot1_time_line.setValue(opt_x_idx)
 
-        elif bc_comboindex1 == 1:                      
+            # Plot2 x축 타임라인 그리기
+            if bc_comboindex2 == 5 or bc_comboindex2 == 6 or bc_comboindex2 == 7 or bc_comboindex2 == 8:
 
-            bc_plot1_call_volume_curve.setData(plot_data2)
-            bc_plot1_put_volume_curve.setData(plot_data3)
+                bc_plot2_time_line.setValue(ovc_x_idx)
+            else:
+                bc_plot2_time_line.setValue(opt_x_idx)
 
-        elif bc_comboindex1 == 2:
+            # Plot3 x축 타임라인 그리기
+            if bc_comboindex3 == 5 or bc_comboindex3 == 6 or bc_comboindex3 == 7 or bc_comboindex3 == 8:
 
-            bc_plot1_call_rr_curve.setData(plot_data5)
-            bc_plot1_put_rr_curve.setData(plot_data6)
+                bc_plot3_time_line.setValue(ovc_x_idx)
+            else:
+                bc_plot3_time_line.setValue(opt_x_idx)
 
-        elif bc_comboindex1 == 3:
+            # Plot1 그래프 그리기
+            if bc_comboindex1 == 0:
 
-            bc_plot1_fut_drate_curve.setData(plot_data7)
-            bc_plot1_dow_drate_curve.setData(plot_data8)
-            bc_plot1_call_drate_curve.setData(plot_data15)
-            bc_plot1_put_drate_curve.setData(plot_data16)
-
-        elif bc_comboindex1 == 4:
-
-            bc_plot1_fut_jl_line.setValue(선물_전저)
-            bc_plot1_fut_jh_line.setValue(선물_전고)
-            bc_plot1_fut_close_line.setValue(선물_종가)
-            bc_plot1_fut_pivot_line.setValue(선물_피봇)
-            bc_plot1_fut_open_line.setValue(선물_시가)
-            bc_plot1_fut_low_line.setValue(선물_저가)
-            bc_plot1_fut_high_line.setValue(선물_고가)
-
-            str = ' 저가 : {0} '.format(선물_저가)
-            self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
-            self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_6.setText(str)       
-
-            value = self.label_7.text().split()[2]
-            
-            if 선물_현재가 > float(value):
-
-                str = " 현재가 : {0} ▲ ({1:0.2f}, {2:0.2f}%, {3:0.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
-
-                if 선물_전일대비 > 0:
-                    self.label_7.setStyleSheet('background-color: pink ; color: red')
-                elif 선물_전일대비 < 0:
-                    self.label_7.setStyleSheet('background-color: pink ; color: blue')
+                if fut_volume_power > 0:
+                    bc_plot1_fut_volume_plus_curve.setData(plot_data1)
                 else:
-                    self.label_7.setStyleSheet('background-color: pink ; color: black')
+                    bc_plot1_fut_volume_minus_curve.setData(plot_data1)
 
-                self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_7.setText(str)
+            elif bc_comboindex1 == 1:                      
 
-            elif 선물_현재가 < float(value):
+                bc_plot1_call_volume_curve.setData(plot_data2)
+                bc_plot1_put_volume_curve.setData(plot_data3)
 
-                str = " 현재가 : {0} ▼ ({1:0.2f}, {2:0.2f}%, {3:0.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+            elif bc_comboindex1 == 2:
 
-                if 선물_전일대비 > 0:
-                    self.label_7.setStyleSheet('background-color: skyblue ; color: red')
-                if 선물_전일대비 < 0:
-                    self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
+                bc_plot1_call_rr_curve.setData(plot_data5)
+                bc_plot1_put_rr_curve.setData(plot_data6)
+
+            elif bc_comboindex1 == 3:
+
+                bc_plot1_fut_drate_curve.setData(plot_data7)
+                bc_plot1_dow_drate_curve.setData(plot_data8)
+                bc_plot1_call_drate_curve.setData(plot_data15)
+                bc_plot1_put_drate_curve.setData(plot_data16)
+
+            elif bc_comboindex1 == 4:
+
+                bc_plot1_fut_jl_line.setValue(선물_전저)
+                bc_plot1_fut_jh_line.setValue(선물_전고)
+                bc_plot1_fut_close_line.setValue(선물_종가)
+                bc_plot1_fut_pivot_line.setValue(선물_피봇)
+                bc_plot1_fut_open_line.setValue(선물_시가)
+                bc_plot1_fut_low_line.setValue(선물_저가)
+                bc_plot1_fut_high_line.setValue(선물_고가)
+
+                str = ' 저가 : {0} '.format(선물_저가)
+                self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_6.setText(str)       
+
+                value = self.label_7.text().split()[2]
+
+                if 선물_현재가 > float(value):
+
+                    str = " 현재가 : {0} ▲ ({1:0.2f}, {2:0.2f}%, {3:0.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+
+                    if 선물_전일대비 > 0:
+                        self.label_7.setStyleSheet('background-color: pink ; color: red')
+                    elif 선물_전일대비 < 0:
+                        self.label_7.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_7.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_7.setText(str)
+
+                elif 선물_현재가 < float(value):
+
+                    str = " 현재가 : {0} ▼ ({1:0.2f}, {2:0.2f}%, {3:0.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+
+                    if 선물_전일대비 > 0:
+                        self.label_7.setStyleSheet('background-color: skyblue ; color: red')
+                    if 선물_전일대비 < 0:
+                        self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_7.setText(str)
                 else:
-                    self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+                    pass
 
-                self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_7.setText(str)
-            else:
-                pass
+                str = ' 고가 : {0} '.format(선물_고가)
+                self.label_8.setStyleSheet('background-color: pink ; color: red')
+                self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_8.setText(str)   
 
-            str = ' 고가 : {0} '.format(선물_고가)
-            self.label_8.setStyleSheet('background-color: pink ; color: red')
-            self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_8.setText(str)   
+                bc_plot1_kp200_curve.setData(plot_data9)
+                bc_plot1_fut_price_curve.setData(plot_data10)
 
-            bc_plot1_kp200_curve.setData(plot_data9)
-            bc_plot1_fut_price_curve.setData(plot_data10)
+            elif bc_comboindex1 == 5:
 
-        elif bc_comboindex1 == 5:
-            
-            if SP500_전저 > 0:
-                bc_plot1_ovc_jl_line.setValue(SP500_전저)
-            else:
-                pass 
-
-            if SP500_전고 > 0:
-                bc_plot1_ovc_jh_line.setValue(SP500_전고)
-            else:
-                pass
-
-            if SP500_종가 > 0:
-                bc_plot1_ovc_close_line.setValue(SP500_종가)
-            else:
-                pass 
-            
-            if SP500_시가 > 0:
-                bc_plot1_ovc_open_line.setValue(SP500_시가)
-            else:
-                pass
-
-            if SP500_피봇 > 0:
-                bc_plot1_ovc_pivot_line.setValue(SP500_피봇)
-            else:
-                pass
-
-            if SP500_저가 > 0:
-                bc_plot1_ovc_low_line.setValue(SP500_저가)
-            else:
-                pass
-
-            if SP500_고가 > 0:
-                bc_plot1_ovc_high_line.setValue(SP500_고가)
-            else:
-                pass
-
-            str = ' 저가 : {0} '.format(format(SP500_저가, ','))
-            self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
-            self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_6.setText(str) 
-
-            tmp = self.label_7.text().split()[2]
-            value = tmp.replace(',', '')               
-            
-            if SP500_현재가 > float(value):
-
-                str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
-                    format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
-
-                if SP500_전일대비 > 0:
-                    self.label_7.setStyleSheet('background-color: pink ; color: red')
-                elif SP500_전일대비 < 0:
-                    self.label_7.setStyleSheet('background-color: pink ; color: blue')
+                if SP500_전저 > 0:
+                    bc_plot1_ovc_jl_line.setValue(SP500_전저)
                 else:
-                    self.label_7.setStyleSheet('background-color: pink ; color: black')
+                    pass 
 
-                self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_7.setText(str)
+                if SP500_전고 > 0:
+                    bc_plot1_ovc_jh_line.setValue(SP500_전고)
+                else:
+                    pass
 
-            elif SP500_현재가 < float(value):
-
-                str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
-                    format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+                if SP500_종가 > 0:
+                    bc_plot1_ovc_close_line.setValue(SP500_종가)
+                else:
+                    pass 
                 
-                if SP500_전일대비 > 0:
-                    self.label_7.setStyleSheet('background-color: skyblue ; color: red')
-                elif SP500_전일대비 < 0:
-                    self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
+                if SP500_시가 > 0:
+                    bc_plot1_ovc_open_line.setValue(SP500_시가)
                 else:
-                    self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+                    pass
 
-                self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_7.setText(str)
-            else:
-                pass
-
-            str = ' 고가 : {0} '.format(format(SP500_고가, ','))
-            self.label_8.setStyleSheet('background-color: pink ; color: red')
-            self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_8.setText(str)   
-
-            bc_plot1_sp500_curve.setData(plot_data11)
-
-        elif bc_comboindex1 == 6:
-            
-            if DOW_전저 > 0:
-                bc_plot1_ovc_jl_line.setValue(DOW_전저)
-            else:
-                pass 
-            
-            if DOW_전고 > 0:
-                bc_plot1_ovc_jh_line.setValue(DOW_전고)
-            else:
-                pass
-            
-            if DOW_종가 > 0:
-                bc_plot1_ovc_close_line.setValue(DOW_종가)
-            else:
-                pass
-            
-            if DOW_시가 > 0:
-                bc_plot1_ovc_open_line.setValue(DOW_시가)
-            else:
-                pass
-            
-            if DOW_피봇 > 0:
-                bc_plot1_ovc_pivot_line.setValue(DOW_피봇)
-            else:
-                pass
-            
-            if DOW_저가 > 0:
-                bc_plot1_ovc_low_line.setValue(DOW_저가)
-            else:
-                pass
-
-            if DOW_고가 > 0:
-                bc_plot1_ovc_high_line.setValue(DOW_고가)
-            else:
-                pass
-
-            str = ' 저가 : {0} '.format(format(DOW_저가, ','))
-            self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
-            self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_6.setText(str)
-
-            tmp = self.label_7.text().split()[2]
-            value = tmp.replace(',', '')
-            
-            if DOW_현재가 > float(value):
-
-                str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
-                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-
-                if DOW_전일대비 > 0:
-                    self.label_7.setStyleSheet('background-color: pink ; color: red')
-                elif DOW_전일대비 < 0:
-                    self.label_7.setStyleSheet('background-color: pink ; color: blue')
+                if SP500_피봇 > 0:
+                    bc_plot1_ovc_pivot_line.setValue(SP500_피봇)
                 else:
-                    self.label_7.setStyleSheet('background-color: pink ; color: black')
+                    pass
 
-                self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_7.setText(str)
-
-            elif DOW_현재가 < float(value):
-
-                str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
-                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-
-                if DOW_전일대비 > 0:
-                    self.label_7.setStyleSheet('background-color: skyblue ; color: red')
-                elif DOW_전일대비 < 0:
-                    self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
+                if SP500_저가 > 0:
+                    bc_plot1_ovc_low_line.setValue(SP500_저가)
                 else:
-                    self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+                    pass
 
-                self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_7.setText(str)
-            else:
-                pass
-            
-            str = ' 고가 : {0} '.format(format(DOW_고가, ','))
-            self.label_8.setStyleSheet('background-color: pink ; color: red')
-            self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_8.setText(str)                      
-            
-            bc_plot1_dow_curve.setData(plot_data12)
+                if SP500_고가 > 0:
+                    bc_plot1_ovc_high_line.setValue(SP500_고가)
+                else:
+                    pass
 
-        elif bc_comboindex1 == 7:
-            
-            if NASDAQ_전저 > 0:
-                bc_plot1_ovc_jl_line.setValue(NASDAQ_전저)
-            else:
-                pass 
+                str = ' 저가 : {0} '.format(format(SP500_저가, ','))
+                self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_6.setText(str) 
 
-            if NASDAQ_전고 > 0:
-                bc_plot1_ovc_jh_line.setValue(NASDAQ_전고)
-            else:
-                pass
+                tmp = self.label_7.text().split()[2]
+                value = tmp.replace(',', '')               
 
-            if NASDAQ_종가 > 0:
-                bc_plot1_ovc_close_line.setValue(NASDAQ_종가)
-            else:
-                pass
-            
-            if NASDAQ_시가 > 0:
-                bc_plot1_ovc_open_line.setValue(NASDAQ_시가)
+                if SP500_현재가 > float(value):
+
+                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                    if SP500_전일대비 > 0:
+                        self.label_7.setStyleSheet('background-color: pink ; color: red')
+                    elif SP500_전일대비 < 0:
+                        self.label_7.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_7.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_7.setText(str)
+
+                elif SP500_현재가 < float(value):
+
+                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                    if SP500_전일대비 > 0:
+                        self.label_7.setStyleSheet('background-color: skyblue ; color: red')
+                    elif SP500_전일대비 < 0:
+                        self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_7.setText(str)
+                else:
+                    pass
+
+                str = ' 고가 : {0} '.format(format(SP500_고가, ','))
+                self.label_8.setStyleSheet('background-color: pink ; color: red')
+                self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_8.setText(str)   
+
+                bc_plot1_sp500_curve.setData(plot_data11)
+
+            elif bc_comboindex1 == 6:
+
+                if DOW_전저 > 0:
+                    bc_plot1_ovc_jl_line.setValue(DOW_전저)
+                else:
+                    pass 
+                
+                if DOW_전고 > 0:
+                    bc_plot1_ovc_jh_line.setValue(DOW_전고)
+                else:
+                    pass
+                
+                if DOW_종가 > 0:
+                    bc_plot1_ovc_close_line.setValue(DOW_종가)
+                else:
+                    pass
+                
+                if DOW_시가 > 0:
+                    bc_plot1_ovc_open_line.setValue(DOW_시가)
+                else:
+                    pass
+                
+                if DOW_피봇 > 0:
+                    bc_plot1_ovc_pivot_line.setValue(DOW_피봇)
+                else:
+                    pass
+                
+                if DOW_저가 > 0:
+                    bc_plot1_ovc_low_line.setValue(DOW_저가)
+                else:
+                    pass
+
+                if DOW_고가 > 0:
+                    bc_plot1_ovc_high_line.setValue(DOW_고가)
+                else:
+                    pass
+
+                str = ' 저가 : {0} '.format(format(DOW_저가, ','))
+                self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_6.setText(str)
+
+                tmp = self.label_7.text().split()[2]
+                value = tmp.replace(',', '')
+
+                if DOW_현재가 > float(value):
+
+                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                    if DOW_전일대비 > 0:
+                        self.label_7.setStyleSheet('background-color: pink ; color: red')
+                    elif DOW_전일대비 < 0:
+                        self.label_7.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_7.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_7.setText(str)
+
+                elif DOW_현재가 < float(value):
+
+                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                    if DOW_전일대비 > 0:
+                        self.label_7.setStyleSheet('background-color: skyblue ; color: red')
+                    elif DOW_전일대비 < 0:
+                        self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_7.setText(str)
+                else:
+                    pass
+                
+                str = ' 고가 : {0} '.format(format(DOW_고가, ','))
+                self.label_8.setStyleSheet('background-color: pink ; color: red')
+                self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_8.setText(str)                      
+
+                bc_plot1_dow_curve.setData(plot_data12)
+
+            elif bc_comboindex1 == 7:
+
+                if NASDAQ_전저 > 0:
+                    bc_plot1_ovc_jl_line.setValue(NASDAQ_전저)
+                else:
+                    pass 
+
+                if NASDAQ_전고 > 0:
+                    bc_plot1_ovc_jh_line.setValue(NASDAQ_전고)
+                else:
+                    pass
+
+                if NASDAQ_종가 > 0:
+                    bc_plot1_ovc_close_line.setValue(NASDAQ_종가)
+                else:
+                    pass
+                
+                if NASDAQ_시가 > 0:
+                    bc_plot1_ovc_open_line.setValue(NASDAQ_시가)
+                else:
+                    pass   
+
+                if NASDAQ_피봇 > 0:
+                    bc_plot1_ovc_pivot_line.setValue(NASDAQ_피봇)
+                else:
+                    pass
+
+                if NASDAQ_저가 > 0:
+                    bc_plot1_ovc_low_line.setValue(NASDAQ_저가)
+                else:
+                    pass
+
+                if NASDAQ_고가 > 0:
+                    bc_plot1_ovc_high_line.setValue(NASDAQ_고가)
+                else:
+                    pass
+
+                str = ' 저가 : {0} '.format(format(NASDAQ_저가, ','))
+                self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_6.setText(str)
+
+                tmp = self.label_7.text().split()[2]
+                value = tmp.replace(',', '')                
+
+                if NASDAQ_현재가 > float(value):
+
+                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+
+                    if NASDAQ_전일대비 > 0:
+                        self.label_7.setStyleSheet('background-color: pink ; color: red')
+                    elif NASDAQ_전일대비 < 0:
+                        self.label_7.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_7.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_7.setText(str)
+
+                elif NASDAQ_현재가 < float(value):
+
+                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+
+                    if NASDAQ_전일대비 > 0:
+                        self.label_7.setStyleSheet('background-color: skyblue ; color: red')
+                    elif NASDAQ_전일대비 < 0:
+                        self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_7.setText(str)
+                else:
+                    pass
+
+                str = ' 고가 : {0} '.format(format(NASDAQ_고가, ','))
+                self.label_8.setStyleSheet('background-color: pink ; color: red')
+                self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_8.setText(str) 
+
+                bc_plot1_nasdaq_curve.setData(plot_data13)
+
+            elif bc_comboindex1 == 8:
+
+                if WTI_전저 > 0:
+                    bc_plot1_ovc_jl_line.setValue(WTI_전저)
+                else:
+                    pass 
+
+                if WTI_전고 > 0:
+                    bc_plot1_ovc_jh_line.setValue(WTI_전고)
+                else:
+                    pass
+
+                if WTI_종가 > 0:
+                    bc_plot1_ovc_close_line.setValue(WTI_종가)
+                else:
+                    pass
+                
+                if WTI_시가 > 0:
+                    bc_plot1_ovc_open_line.setValue(WTI_시가)
+                else:
+                    pass   
+
+                if WTI_피봇 > 0:
+                    bc_plot1_ovc_pivot_line.setValue(WTI_피봇)
+                else:
+                    pass
+
+                if WTI_저가 > 0:
+                    bc_plot1_ovc_low_line.setValue(WTI_저가)
+                else:
+                    pass
+
+                if WTI_고가 > 0:
+                    bc_plot1_ovc_high_line.setValue(WTI_고가)
+                else:
+                    pass
+
+                str = ' 저가 : {0} '.format(format(WTI_저가, ','))
+                self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_6.setText(str)
+
+                value = self.label_7.text().split()[2]     
+
+                if WTI_현재가 > float(value):
+
+                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+
+                    if WTI_전일대비 > 0:
+                        self.label_7.setStyleSheet('background-color: pink ; color: red')
+                    elif WTI_전일대비 < 0:
+                        self.label_7.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_7.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_7.setText(str)
+
+                elif WTI_현재가 < float(value):
+
+                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+
+                    if WTI_전일대비 > 0:
+                        self.label_7.setStyleSheet('background-color: skyblue ; color: red')
+                    elif WTI_전일대비 < 0:
+                        self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_7.setText(str)
+                else:
+                    pass
+
+                str = ' 고가 : {0} '.format(format(WTI_고가, ','))
+                self.label_8.setStyleSheet('background-color: pink ; color: red')
+                self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_8.setText(str) 
+
+                bc_plot1_wti_curve.setData(plot_data14)
             else:
                 pass   
 
-            if NASDAQ_피봇 > 0:
-                bc_plot1_ovc_pivot_line.setValue(NASDAQ_피봇)
-            else:
-                pass
+            # Plot2 그래프 그리기
+            if bc_comboindex2 == 0:
 
-            if NASDAQ_저가 > 0:
-                bc_plot1_ovc_low_line.setValue(NASDAQ_저가)
-            else:
-                pass
+                bc_plot2_call_volume_curve.setData(plot_data2)
+                bc_plot2_put_volume_curve.setData(plot_data3)
 
-            if NASDAQ_고가 > 0:
-                bc_plot1_ovc_high_line.setValue(NASDAQ_고가)
-            else:
-                pass
+            elif bc_comboindex2 == 1:
 
-            str = ' 저가 : {0} '.format(format(NASDAQ_저가, ','))
-            self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
-            self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_6.setText(str)
+                bc_plot2_call_rr_curve.setData(plot_data5)
+                bc_plot2_put_rr_curve.setData(plot_data6)        
 
-            tmp = self.label_7.text().split()[2]
-            value = tmp.replace(',', '')                
-            
-            if NASDAQ_현재가 > float(value):
+            elif bc_comboindex2 == 2:
 
-                str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
-                    format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
-
-                if NASDAQ_전일대비 > 0:
-                    self.label_7.setStyleSheet('background-color: pink ; color: red')
-                elif NASDAQ_전일대비 < 0:
-                    self.label_7.setStyleSheet('background-color: pink ; color: blue')
+                if fut_volume_power > 0:
+                    bc_plot2_fut_volume_plus_curve.setData(plot_data1)
                 else:
-                    self.label_7.setStyleSheet('background-color: pink ; color: black')
+                    bc_plot2_fut_volume_minus_curve.setData(plot_data1)
 
-                self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_7.setText(str)
+            elif bc_comboindex2 == 3:
 
-            elif NASDAQ_현재가 < float(value):
+                bc_plot2_fut_drate_curve.setData(plot_data7)
+                bc_plot2_dow_drate_curve.setData(plot_data8)
+                bc_plot2_call_drate_curve.setData(plot_data15)
+                bc_plot2_put_drate_curve.setData(plot_data16)
 
-                str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
-                    format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+            elif bc_comboindex2 == 4:
 
-                if NASDAQ_전일대비 > 0:
-                    self.label_7.setStyleSheet('background-color: skyblue ; color: red')
-                elif NASDAQ_전일대비 < 0:
-                    self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
-                else:
-                    self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+                if selected_opt_list != old_selected_opt_list:
 
-                self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_7.setText(str)
-            else:
-                pass
-
-            str = ' 고가 : {0} '.format(format(NASDAQ_고가, ','))
-            self.label_8.setStyleSheet('background-color: pink ; color: red')
-            self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_8.setText(str) 
-            
-            bc_plot1_nasdaq_curve.setData(plot_data13)
-
-        elif bc_comboindex1 == 8:
-            
-            if WTI_전저 > 0:
-                bc_plot1_ovc_jl_line.setValue(WTI_전저)
-            else:
-                pass 
-
-            if WTI_전고 > 0:
-                bc_plot1_ovc_jh_line.setValue(WTI_전고)
-            else:
-                pass
-
-            if WTI_종가 > 0:
-                bc_plot1_ovc_close_line.setValue(WTI_종가)
-            else:
-                pass
-            
-            if WTI_시가 > 0:
-                bc_plot1_ovc_open_line.setValue(WTI_시가)
-            else:
-                pass   
-
-            if WTI_피봇 > 0:
-                bc_plot1_ovc_pivot_line.setValue(WTI_피봇)
-            else:
-                pass
-
-            if WTI_저가 > 0:
-                bc_plot1_ovc_low_line.setValue(WTI_저가)
-            else:
-                pass
-
-            if WTI_고가 > 0:
-                bc_plot1_ovc_high_line.setValue(WTI_고가)
-            else:
-                pass
-
-            str = ' 저가 : {0} '.format(format(WTI_저가, ','))
-            self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
-            self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_6.setText(str)
-
-            value = self.label_7.text().split()[2]     
-            
-            if WTI_현재가 > float(value):
-
-                str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
-                    format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
-
-                if WTI_전일대비 > 0:
-                    self.label_7.setStyleSheet('background-color: pink ; color: red')
-                elif WTI_전일대비 < 0:
-                    self.label_7.setStyleSheet('background-color: pink ; color: blue')
-                else:
-                    self.label_7.setStyleSheet('background-color: pink ; color: black')
-
-                self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_7.setText(str)
-
-            elif WTI_현재가 < float(value):
-
-                str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
-                    format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
-
-                if WTI_전일대비 > 0:
-                    self.label_7.setStyleSheet('background-color: skyblue ; color: red')
-                elif WTI_전일대비 < 0:
-                    self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
-                else:
-                    self.label_7.setStyleSheet('background-color: skyblue ; color: black')
-
-                self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_7.setText(str)
-            else:
-                pass
-
-            str = ' 고가 : {0} '.format(format(WTI_고가, ','))
-            self.label_8.setStyleSheet('background-color: pink ; color: red')
-            self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_8.setText(str) 
-            
-            bc_plot1_wti_curve.setData(plot_data14)
-        else:
-            pass   
-
-        # Plot2 그래프 그리기
-        if bc_comboindex2 == 0:
-
-            bc_plot2_call_volume_curve.setData(plot_data2)
-            bc_plot2_put_volume_curve.setData(plot_data3)
-
-        elif bc_comboindex2 == 1:
-
-            bc_plot2_call_rr_curve.setData(plot_data5)
-            bc_plot2_put_rr_curve.setData(plot_data6)        
-
-        elif bc_comboindex2 == 2:
-
-            if fut_volume_power > 0:
-                bc_plot2_fut_volume_plus_curve.setData(plot_data1)
-            else:
-                bc_plot2_fut_volume_minus_curve.setData(plot_data1)
-
-        elif bc_comboindex2 == 3:
-
-            bc_plot2_fut_drate_curve.setData(plot_data7)
-            bc_plot2_dow_drate_curve.setData(plot_data8)
-            bc_plot2_call_drate_curve.setData(plot_data15)
-            bc_plot2_put_drate_curve.setData(plot_data16)
-
-        elif bc_comboindex2 == 4:
-
-            if selected_opt_list != old_selected_opt_list:
-
-                # 전체 행사가 그래프 클리어
-                for index in range(option_pairs_count):
-                    bc_plot2_call_curve[index].clear()
-                    bc_plot2_put_curve[index].clear()                    
-            else:
-                # 선택된 행사가 그래프 클리어
-                for index in range(option_pairs_count):
-
-                    if index in selected_call:
+                    # 전체 행사가 그래프 클리어
+                    for index in range(option_pairs_count):
                         bc_plot2_call_curve[index].clear()
-                    else:
-                        pass
+                        bc_plot2_put_curve[index].clear()                    
+                else:
+                    # 선택된 행사가 그래프 클리어
+                    for index in range(option_pairs_count):
 
-                    if index in selected_put:
-                        bc_plot2_put_curve[index].clear()
-                    else:
-                        pass
+                        if index in selected_call:
+                            bc_plot2_call_curve[index].clear()
+                        else:
+                            pass
 
-            bc_plot2_center_val_curve.clear()
+                        if index in selected_put:
+                            bc_plot2_put_curve[index].clear()
+                        else:
+                            pass
 
-            bc_plot2_mv_line[1].setValue(2.5)
-            bc_plot2_mv_line[2].setValue(3.5)
-            bc_plot2_mv_line[3].setValue(4.85)
+                bc_plot2_center_val_curve.clear()
 
-            for index in range(option_pairs_count):
+                bc_plot2_mv_line[1].setValue(2.5)
+                bc_plot2_mv_line[2].setValue(3.5)
+                bc_plot2_mv_line[3].setValue(4.85)
 
-                # 선택된 콜그래프 그리기
-                for i in range(len(selected_call)):
+                for index in range(option_pairs_count):
 
-                    if index == selected_call[i]:
-                        bc_plot2_call_curve[i].setData(call_plot_data[index])
-                    else:
-                        pass                    
+                    # 선택된 콜그래프 그리기
+                    for i in range(len(selected_call)):
 
-                # 선택된 풋그래프 그리기
-                for i in range(len(selected_put)):
+                        if index == selected_call[i]:
+                            bc_plot2_call_curve[i].setData(call_plot_data[index])
+                        else:
+                            pass                    
 
-                    if index == selected_put[i]:
-                        bc_plot2_put_curve[i].setData(put_plot_data[index])
-                    else:
-                        pass
-            
-            bc_plot2_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
-            bc_plot2_center_val_line.setValue(CENTER_VAL)
-            bc_plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
+                    # 선택된 풋그래프 그리기
+                    for i in range(len(selected_put)):
 
-            # 중심가 그리기
-            bc_plot2_center_val_curve.setData(centerval_plot_data)
+                        if index == selected_put[i]:
+                            bc_plot2_put_curve[i].setData(put_plot_data[index])
+                        else:
+                            pass
+                        
+                bc_plot2_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+                bc_plot2_center_val_line.setValue(CENTER_VAL)
+                bc_plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
 
-            # 등가표시
-            str = ' 등가 : {0} '.format(atm_str)
-            self.label_9.setText(str)
+                # 중심가 그리기
+                bc_plot2_center_val_curve.setData(centerval_plot_data)
 
-            str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_RANGE)
-            self.label_10.setText(str)
+                # 등가표시
+                str = ' 등가 : {0} '.format(atm_str)
+                self.label_9.setText(str)
 
-            str = ' 중심가 : {0:0.2f} '.format(CENTER_VAL)
-            self.label_11.setText(str)
+                str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_RANGE)
+                self.label_10.setText(str)
 
-            str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_RANGE)
-            self.label_12.setText(str)
+                str = ' 중심가 : {0:0.2f} '.format(CENTER_VAL)
+                self.label_11.setText(str)
 
-        elif bc_comboindex2 == 5:
-            
-            if SP500_전저 > 0:
-                bc_plot2_ovc_jl_line.setValue(SP500_전저)
-            else:
-                pass 
+                str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_RANGE)
+                self.label_12.setText(str)
 
-            if SP500_전고 > 0:
-                bc_plot2_ovc_jh_line.setValue(SP500_전고)
-            else:
-                pass
+            elif bc_comboindex2 == 5:
 
-            if SP500_종가 > 0:
-                bc_plot2_ovc_close_line.setValue(SP500_종가)
-            else:
-                pass 
-            
-            if SP500_시가 > 0:
-                bc_plot2_ovc_open_line.setValue(SP500_시가)
-            else:
-                pass
+                if SP500_전저 > 0:
+                    bc_plot2_ovc_jl_line.setValue(SP500_전저)
+                else:
+                    pass 
 
-            if SP500_피봇 > 0:
-                bc_plot2_ovc_pivot_line.setValue(SP500_피봇)
-            else:
-                pass
+                if SP500_전고 > 0:
+                    bc_plot2_ovc_jh_line.setValue(SP500_전고)
+                else:
+                    pass
 
-            if SP500_저가 > 0:
-                bc_plot2_ovc_low_line.setValue(SP500_저가)
-            else:
-                pass
-
-            if SP500_고가 > 0:
-                bc_plot2_ovc_high_line.setValue(SP500_고가)
-            else:
-                pass
-
-            str = ' 저가 : {0} '.format(format(SP500_저가, ','))
-            self.label_14.setStyleSheet('background-color: skyblue ; color: blue')
-            self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_14.setText(str)
-
-            tmp = self.label_15.text().split()[2]
-            value = tmp.replace(',', '')                
-
-            if SP500_현재가 > float(value):
-
-                str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
-                    format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+                if SP500_종가 > 0:
+                    bc_plot2_ovc_close_line.setValue(SP500_종가)
+                else:
+                    pass 
                 
-                if SP500_전일대비 > 0:
-                    self.label_15.setStyleSheet('background-color: pink ; color: red')
-                elif SP500_전일대비 < 0:
-                    self.label_15.setStyleSheet('background-color: pink ; color: blue')
+                if SP500_시가 > 0:
+                    bc_plot2_ovc_open_line.setValue(SP500_시가)
                 else:
-                    self.label_15.setStyleSheet('background-color: pink ; color: black')
+                    pass
 
-                self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_15.setText(str)
-
-            elif SP500_현재가 < float(value):
-
-                str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
-                    format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
-
-                if SP500_전일대비 > 0:
-                    self.label_15.setStyleSheet('background-color: skyblue ; color: red')
-                elif SP500_전일대비 < 0:
-                    self.label_15.setStyleSheet('background-color: skyblue ; color: blue')
+                if SP500_피봇 > 0:
+                    bc_plot2_ovc_pivot_line.setValue(SP500_피봇)
                 else:
-                    self.label_15.setStyleSheet('background-color: skyblue ; color: black')
+                    pass
 
-                self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_15.setText(str)
-            else:
-                pass
-
-            str = ' 고가 : {0} '.format(format(SP500_고가, ','))
-            self.label_16.setStyleSheet('background-color: pink ; color: red')
-            self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_16.setText(str) 
-            
-            bc_plot2_sp500_curve.setData(plot_data11) 
-
-        elif bc_comboindex2 == 6: 
-            
-            if DOW_전저 > 0:
-                bc_plot2_ovc_jl_line.setValue(DOW_전저)
-            else:
-                pass 
-            
-            if DOW_전고 > 0:
-                bc_plot2_ovc_jh_line.setValue(DOW_전고)
-            else:
-                pass
-            
-            if DOW_종가 > 0:
-                bc_plot2_ovc_close_line.setValue(DOW_종가)
-            else:
-                pass
-            
-            if DOW_시가 > 0:
-                bc_plot2_ovc_open_line.setValue(DOW_시가)
-            else:
-                pass
-            
-            if DOW_피봇 > 0:
-                bc_plot2_ovc_pivot_line.setValue(DOW_피봇)
-            else:
-                pass
-            
-            if DOW_저가 > 0:
-                bc_plot2_ovc_low_line.setValue(DOW_저가)
-            else:
-                pass
-
-            if DOW_고가 > 0:
-                bc_plot2_ovc_high_line.setValue(DOW_고가)
-            else:
-                pass
-
-            str = ' 저가 : {0} '.format(format(DOW_저가, ','))
-            self.label_14.setStyleSheet('background-color: skyblue ; color: blue')
-            self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_14.setText(str)  
-
-            tmp = self.label_15.text().split()[2]
-            value = tmp.replace(',', '')               
-
-            if DOW_현재가 > float(value):
-
-                str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
-                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-
-                if DOW_전일대비 > 0:
-                    self.label_15.setStyleSheet('background-color: pink ; color: red')
-                elif DOW_전일대비 < 0:
-                    self.label_15.setStyleSheet('background-color: pink ; color: blue')
+                if SP500_저가 > 0:
+                    bc_plot2_ovc_low_line.setValue(SP500_저가)
                 else:
-                    self.label_15.setStyleSheet('background-color: pink ; color: black')
+                    pass
 
-                self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_15.setText(str)
-
-            elif DOW_현재가 < float(value):
-
-                str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
-                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-
-                if DOW_전일대비 > 0:
-                    self.label_15.setStyleSheet('background-color: skyblue ; color: red')
-                elif DOW_전일대비 < 0:
-                    self.label_15.setStyleSheet('background-color: skyblue ; color: blue')
+                if SP500_고가 > 0:
+                    bc_plot2_ovc_high_line.setValue(SP500_고가)
                 else:
-                    self.label_15.setStyleSheet('background-color: skyblue ; color: black')
+                    pass
 
-                self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_15.setText(str)
-            else:
-                pass
+                str = ' 저가 : {0} '.format(format(SP500_저가, ','))
+                self.label_14.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_14.setText(str)
 
-            str = ' 고가 : {0} '.format(format(DOW_고가, ','))
-            self.label_16.setStyleSheet('background-color: pink ; color: red')
-            self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_16.setText(str)                  
-            
-            bc_plot2_dow_curve.setData(plot_data12) 
+                tmp = self.label_15.text().split()[2]
+                value = tmp.replace(',', '')                
 
-        elif bc_comboindex2 == 7:
-            
-            if NASDAQ_전저 > 0:
-                bc_plot2_ovc_jl_line.setValue(NASDAQ_전저)
-            else:
-                pass 
+                if SP500_현재가 > float(value):
 
-            if NASDAQ_전고 > 0:
-                bc_plot2_ovc_jh_line.setValue(NASDAQ_전고)
-            else:
-                pass
+                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
-            if NASDAQ_종가 > 0:
-                bc_plot2_ovc_close_line.setValue(NASDAQ_종가)
-            else:
-                pass
-            
-            if NASDAQ_시가 > 0:
-                bc_plot2_ovc_open_line.setValue(NASDAQ_시가)
-            else:
-                pass   
+                    if SP500_전일대비 > 0:
+                        self.label_15.setStyleSheet('background-color: pink ; color: red')
+                    elif SP500_전일대비 < 0:
+                        self.label_15.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_15.setStyleSheet('background-color: pink ; color: black')
 
-            if NASDAQ_피봇 > 0:
-                bc_plot2_ovc_pivot_line.setValue(NASDAQ_피봇)
-            else:
-                pass
+                    self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_15.setText(str)
 
-            if NASDAQ_저가 > 0:
-                bc_plot2_ovc_low_line.setValue(NASDAQ_저가)
-            else:
-                pass
+                elif SP500_현재가 < float(value):
 
-            if NASDAQ_고가 > 0:
-                bc_plot2_ovc_high_line.setValue(NASDAQ_고가)
-            else:
-                pass
+                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
-            str = ' 저가 : {0} '.format(format(NASDAQ_저가, ','))
-            self.label_14.setStyleSheet('background-color: skyblue ; color: blue')
-            self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_14.setText(str)
+                    if SP500_전일대비 > 0:
+                        self.label_15.setStyleSheet('background-color: skyblue ; color: red')
+                    elif SP500_전일대비 < 0:
+                        self.label_15.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_15.setStyleSheet('background-color: skyblue ; color: black')
 
-            tmp = self.label_15.text().split()[2]
-            value = tmp.replace(',', '')                
-
-            if NASDAQ_현재가 > float(value):
-
-                str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
-                    format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
-
-                if NASDAQ_전일대비 > 0:
-                    self.label_15.setStyleSheet('background-color: pink ; color: red')
-                elif NASDAQ_전일대비 < 0:
-                    self.label_15.setStyleSheet('background-color: pink ; color: blue')
+                    self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_15.setText(str)
                 else:
-                    self.label_15.setStyleSheet('background-color: pink ; color: black')
+                    pass
 
-                self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_15.setText(str)
+                str = ' 고가 : {0} '.format(format(SP500_고가, ','))
+                self.label_16.setStyleSheet('background-color: pink ; color: red')
+                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_16.setText(str) 
 
-            elif NASDAQ_현재가 < float(value):
+                bc_plot2_sp500_curve.setData(plot_data11) 
 
-                str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
-                    format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+            elif bc_comboindex2 == 6: 
 
-                if NASDAQ_전일대비 > 0:
-                    self.label_15.setStyleSheet('background-color: skyblue ; color: red')
-                elif NASDAQ_전일대비 < 0:
-                    self.label_15.setStyleSheet('background-color: skyblue ; color: blue')
+                if DOW_전저 > 0:
+                    bc_plot2_ovc_jl_line.setValue(DOW_전저)
                 else:
-                    self.label_15.setStyleSheet('background-color: skyblue ; color: black')
+                    pass 
+                
+                if DOW_전고 > 0:
+                    bc_plot2_ovc_jh_line.setValue(DOW_전고)
+                else:
+                    pass
+                
+                if DOW_종가 > 0:
+                    bc_plot2_ovc_close_line.setValue(DOW_종가)
+                else:
+                    pass
+                
+                if DOW_시가 > 0:
+                    bc_plot2_ovc_open_line.setValue(DOW_시가)
+                else:
+                    pass
+                
+                if DOW_피봇 > 0:
+                    bc_plot2_ovc_pivot_line.setValue(DOW_피봇)
+                else:
+                    pass
+                
+                if DOW_저가 > 0:
+                    bc_plot2_ovc_low_line.setValue(DOW_저가)
+                else:
+                    pass
 
-                self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_15.setText(str)
+                if DOW_고가 > 0:
+                    bc_plot2_ovc_high_line.setValue(DOW_고가)
+                else:
+                    pass
+
+                str = ' 저가 : {0} '.format(format(DOW_저가, ','))
+                self.label_14.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_14.setText(str)  
+
+                tmp = self.label_15.text().split()[2]
+                value = tmp.replace(',', '')               
+
+                if DOW_현재가 > float(value):
+
+                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                    if DOW_전일대비 > 0:
+                        self.label_15.setStyleSheet('background-color: pink ; color: red')
+                    elif DOW_전일대비 < 0:
+                        self.label_15.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_15.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_15.setText(str)
+
+                elif DOW_현재가 < float(value):
+
+                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                    if DOW_전일대비 > 0:
+                        self.label_15.setStyleSheet('background-color: skyblue ; color: red')
+                    elif DOW_전일대비 < 0:
+                        self.label_15.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_15.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_15.setText(str)
+                else:
+                    pass
+
+                str = ' 고가 : {0} '.format(format(DOW_고가, ','))
+                self.label_16.setStyleSheet('background-color: pink ; color: red')
+                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_16.setText(str)                  
+
+                bc_plot2_dow_curve.setData(plot_data12) 
+
+            elif bc_comboindex2 == 7:
+
+                if NASDAQ_전저 > 0:
+                    bc_plot2_ovc_jl_line.setValue(NASDAQ_전저)
+                else:
+                    pass 
+
+                if NASDAQ_전고 > 0:
+                    bc_plot2_ovc_jh_line.setValue(NASDAQ_전고)
+                else:
+                    pass
+
+                if NASDAQ_종가 > 0:
+                    bc_plot2_ovc_close_line.setValue(NASDAQ_종가)
+                else:
+                    pass
+                
+                if NASDAQ_시가 > 0:
+                    bc_plot2_ovc_open_line.setValue(NASDAQ_시가)
+                else:
+                    pass   
+
+                if NASDAQ_피봇 > 0:
+                    bc_plot2_ovc_pivot_line.setValue(NASDAQ_피봇)
+                else:
+                    pass
+
+                if NASDAQ_저가 > 0:
+                    bc_plot2_ovc_low_line.setValue(NASDAQ_저가)
+                else:
+                    pass
+
+                if NASDAQ_고가 > 0:
+                    bc_plot2_ovc_high_line.setValue(NASDAQ_고가)
+                else:
+                    pass
+
+                str = ' 저가 : {0} '.format(format(NASDAQ_저가, ','))
+                self.label_14.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_14.setText(str)
+
+                tmp = self.label_15.text().split()[2]
+                value = tmp.replace(',', '')                
+
+                if NASDAQ_현재가 > float(value):
+
+                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+
+                    if NASDAQ_전일대비 > 0:
+                        self.label_15.setStyleSheet('background-color: pink ; color: red')
+                    elif NASDAQ_전일대비 < 0:
+                        self.label_15.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_15.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_15.setText(str)
+
+                elif NASDAQ_현재가 < float(value):
+
+                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+
+                    if NASDAQ_전일대비 > 0:
+                        self.label_15.setStyleSheet('background-color: skyblue ; color: red')
+                    elif NASDAQ_전일대비 < 0:
+                        self.label_15.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_15.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_15.setText(str)
+                else:
+                    pass
+
+                str = ' 고가 : {0} '.format(format(NASDAQ_고가, ','))
+                self.label_16.setStyleSheet('background-color: pink ; color: red')
+                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_16.setText(str)    
+
+                bc_plot2_nasdaq_curve.setData(plot_data13)
+
+            elif bc_comboindex2 == 8:
+
+                if WTI_전저 > 0:
+                    bc_plot2_ovc_jl_line.setValue(WTI_전저)
+                else:
+                    pass 
+
+                if WTI_전고 > 0:
+                    bc_plot2_ovc_jh_line.setValue(WTI_전고)
+                else:
+                    pass
+
+                if WTI_종가 > 0:
+                    bc_plot2_ovc_close_line.setValue(WTI_종가)
+                else:
+                    pass
+                
+                if WTI_시가 > 0:
+                    bc_plot2_ovc_open_line.setValue(WTI_시가)
+                else:
+                    pass   
+
+                if WTI_피봇 > 0:
+                    bc_plot2_ovc_pivot_line.setValue(WTI_피봇)
+                else:
+                    pass
+
+                if WTI_저가 > 0:
+                    bc_plot2_ovc_low_line.setValue(WTI_저가)
+                else:
+                    pass
+
+                if WTI_고가 > 0:
+                    bc_plot2_ovc_high_line.setValue(WTI_고가)
+                else:
+                    pass
+
+                str = ' 저가 : {0} '.format(format(WTI_저가, ','))
+                self.label_14.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_14.setText(str)
+
+                value = self.label_15.text().split()[2]             
+
+                if WTI_현재가 > float(value):
+
+                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+
+                    if WTI_전일대비 > 0:
+                        self.label_15.setStyleSheet('background-color: pink ; color: red')
+                    elif WTI_전일대비 < 0:
+                        self.label_15.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_15.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_15.setText(str)
+
+                elif WTI_현재가 < float(value):
+
+                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+
+                    if WTI_전일대비 > 0:
+                        self.label_15.setStyleSheet('background-color: skyblue ; color: red')
+                    elif WTI_전일대비 < 0:
+                        self.label_15.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_15.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_15.setText(str)
+                else:
+                    pass
+
+                str = ' 고가 : {0} '.format(format(WTI_고가, ','))
+                self.label_16.setStyleSheet('background-color: pink ; color: red')
+                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_16.setText(str)    
+
+                bc_plot2_wti_curve.setData(plot_data14)
             else:
-                pass
-
-            str = ' 고가 : {0} '.format(format(NASDAQ_고가, ','))
-            self.label_16.setStyleSheet('background-color: pink ; color: red')
-            self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_16.setText(str)    
-
-            bc_plot2_nasdaq_curve.setData(plot_data13)
-
-        elif bc_comboindex2 == 8:
+                pass        
             
-            if WTI_전저 > 0:
-                bc_plot2_ovc_jl_line.setValue(WTI_전저)
-            else:
-                pass 
+            # Plot3 그래프 그리기
+            if bc_comboindex3 == 0:
 
-            if WTI_전고 > 0:
-                bc_plot2_ovc_jh_line.setValue(WTI_전고)
-            else:
-                pass
+                bc_plot3_call_volume_curve.setData(plot_data2)
+                bc_plot3_put_volume_curve.setData(plot_data3)
 
-            if WTI_종가 > 0:
-                bc_plot2_ovc_close_line.setValue(WTI_종가)
-            else:
-                pass
-            
-            if WTI_시가 > 0:
-                bc_plot2_ovc_open_line.setValue(WTI_시가)
-            else:
-                pass   
+            elif bc_comboindex3 == 1:
 
-            if WTI_피봇 > 0:
-                bc_plot2_ovc_pivot_line.setValue(WTI_피봇)
-            else:
-                pass
+                bc_plot3_call_rr_curve.setData(plot_data5)
+                bc_plot3_put_rr_curve.setData(plot_data6)        
 
-            if WTI_저가 > 0:
-                bc_plot2_ovc_low_line.setValue(WTI_저가)
-            else:
-                pass
+            elif bc_comboindex3 == 2:
 
-            if WTI_고가 > 0:
-                bc_plot2_ovc_high_line.setValue(WTI_고가)
-            else:
-                pass
-
-            str = ' 저가 : {0} '.format(format(WTI_저가, ','))
-            self.label_14.setStyleSheet('background-color: skyblue ; color: blue')
-            self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_14.setText(str)
-
-            value = self.label_15.text().split()[2]             
-
-            if WTI_현재가 > float(value):
-
-                str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
-                    format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
-
-                if WTI_전일대비 > 0:
-                    self.label_15.setStyleSheet('background-color: pink ; color: red')
-                elif WTI_전일대비 < 0:
-                    self.label_15.setStyleSheet('background-color: pink ; color: blue')
+                if fut_volume_power > 0:
+                    bc_plot3_fut_volume_plus_curve.setData(plot_data1)
                 else:
-                    self.label_15.setStyleSheet('background-color: pink ; color: black')
+                    bc_plot3_fut_volume_minus_curve.setData(plot_data1)
 
-                self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_15.setText(str)
+            elif bc_comboindex3 == 3:
 
-            elif WTI_현재가 < float(value):
+                bc_plot3_fut_drate_curve.setData(plot_data7)
+                bc_plot3_dow_drate_curve.setData(plot_data8)
+                bc_plot3_call_drate_curve.setData(plot_data15)
+                bc_plot3_put_drate_curve.setData(plot_data16)
 
-                str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
-                    format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+            elif bc_comboindex3 == 4:
 
-                if WTI_전일대비 > 0:
-                    self.label_15.setStyleSheet('background-color: skyblue ; color: red')
-                elif WTI_전일대비 < 0:
-                    self.label_15.setStyleSheet('background-color: skyblue ; color: blue')
-                else:
-                    self.label_15.setStyleSheet('background-color: skyblue ; color: black')
+                if selected_opt_list != old_selected_opt_list:
 
-                self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_15.setText(str)
-            else:
-                pass
-
-            str = ' 고가 : {0} '.format(format(WTI_고가, ','))
-            self.label_16.setStyleSheet('background-color: pink ; color: red')
-            self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_16.setText(str)    
-
-            bc_plot2_wti_curve.setData(plot_data14)
-        else:
-            pass        
-        
-        # Plot3 그래프 그리기
-        if bc_comboindex3 == 0:
-
-            bc_plot3_call_volume_curve.setData(plot_data2)
-            bc_plot3_put_volume_curve.setData(plot_data3)
-
-        elif bc_comboindex3 == 1:
-
-            bc_plot3_call_rr_curve.setData(plot_data5)
-            bc_plot3_put_rr_curve.setData(plot_data6)        
-
-        elif bc_comboindex3 == 2:
-
-            if fut_volume_power > 0:
-                bc_plot3_fut_volume_plus_curve.setData(plot_data1)
-            else:
-                bc_plot3_fut_volume_minus_curve.setData(plot_data1)
-
-        elif bc_comboindex3 == 3:
-
-            bc_plot3_fut_drate_curve.setData(plot_data7)
-            bc_plot3_dow_drate_curve.setData(plot_data8)
-            bc_plot3_call_drate_curve.setData(plot_data15)
-            bc_plot3_put_drate_curve.setData(plot_data16)
-
-        elif bc_comboindex3 == 4:
-
-            if selected_opt_list != old_selected_opt_list:
-
-                # 전체 행사가 그래프 클리어
-                for index in range(option_pairs_count):
-                    bc_plot3_call_curve[index].clear()
-                    bc_plot3_put_curve[index].clear()
-            else:
-                # 선택된 행사가 그래프 클리어
-                for index in range(option_pairs_count):
-
-                    if index in selected_call:
+                    # 전체 행사가 그래프 클리어
+                    for index in range(option_pairs_count):
                         bc_plot3_call_curve[index].clear()
-                    else:
-                        pass
-
-                    if index in selected_put:
                         bc_plot3_put_curve[index].clear()
-                    else:
-                        pass
+                else:
+                    # 선택된 행사가 그래프 클리어
+                    for index in range(option_pairs_count):
 
-            bc_plot3_center_val_curve.clear()
+                        if index in selected_call:
+                            bc_plot3_call_curve[index].clear()
+                        else:
+                            pass
 
-            bc_plot3_mv_line[1].setValue(2.5)
-            bc_plot3_mv_line[2].setValue(3.5)
-            bc_plot3_mv_line[3].setValue(4.85)
+                        if index in selected_put:
+                            bc_plot3_put_curve[index].clear()
+                        else:
+                            pass
 
-            for index in range(option_pairs_count):
+                bc_plot3_center_val_curve.clear()
 
-                # 선택된 콜그래프 그리기
-                for i in range(len(selected_call)):
+                bc_plot3_mv_line[1].setValue(2.5)
+                bc_plot3_mv_line[2].setValue(3.5)
+                bc_plot3_mv_line[3].setValue(4.85)
 
-                    if index == selected_call[i]:
-                        bc_plot3_call_curve[i].setData(call_plot_data[index])
-                    else:
-                        pass                    
+                for index in range(option_pairs_count):
 
-                # 선택된 풋그래프 그리기
-                for i in range(len(selected_put)):
+                    # 선택된 콜그래프 그리기
+                    for i in range(len(selected_call)):
 
-                    if index == selected_put[i]:
-                        bc_plot3_put_curve[i].setData(put_plot_data[index])
-                    else:
-                        pass
-            
-            bc_plot3_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
-            bc_plot3_center_val_line.setValue(CENTER_VAL)
-            bc_plot3_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
-            
-            # 중심가 그리기
-            bc_plot3_center_val_curve.setData(centerval_plot_data)
+                        if index == selected_call[i]:
+                            bc_plot3_call_curve[i].setData(call_plot_data[index])
+                        else:
+                            pass                    
 
-            # 등가표시
-            str = ' 등가 : {0} '.format(atm_str)
-            self.label_17.setText(str)
+                    # 선택된 풋그래프 그리기
+                    for i in range(len(selected_put)):
 
-            str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_RANGE)
-            self.label_18.setText(str)
+                        if index == selected_put[i]:
+                            bc_plot3_put_curve[i].setData(put_plot_data[index])
+                        else:
+                            pass
+                        
+                bc_plot3_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+                bc_plot3_center_val_line.setValue(CENTER_VAL)
+                bc_plot3_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
 
-            str = ' 중심가 : {0:0.2f} '.format(CENTER_VAL)
-            self.label_19.setText(str)
+                # 중심가 그리기
+                bc_plot3_center_val_curve.setData(centerval_plot_data)
 
-            str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_RANGE)
-            self.label_20.setText(str)
+                # 등가표시
+                str = ' 등가 : {0} '.format(atm_str)
+                self.label_17.setText(str)
 
-        elif bc_comboindex3 == 5:
-            
-            if SP500_전저 > 0:
-                bc_plot3_ovc_jl_line.setValue(SP500_전저)
-            else:
-                pass 
+                str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_RANGE)
+                self.label_18.setText(str)
 
-            if SP500_전고 > 0:
-                bc_plot3_ovc_jh_line.setValue(SP500_전고)
-            else:
-                pass
+                str = ' 중심가 : {0:0.2f} '.format(CENTER_VAL)
+                self.label_19.setText(str)
 
-            if SP500_종가 > 0:
-                bc_plot3_ovc_close_line.setValue(SP500_종가)
-            else:
-                pass 
-            
-            if SP500_시가 > 0:
-                bc_plot3_ovc_open_line.setValue(SP500_시가)
-            else:
-                pass
+                str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_RANGE)
+                self.label_20.setText(str)
 
-            if SP500_피봇 > 0:
-                bc_plot3_ovc_pivot_line.setValue(SP500_피봇)
-            else:
-                pass
+            elif bc_comboindex3 == 5:
 
-            if SP500_저가 > 0:
-                bc_plot3_ovc_low_line.setValue(SP500_저가)
-            else:
-                pass
+                if SP500_전저 > 0:
+                    bc_plot3_ovc_jl_line.setValue(SP500_전저)
+                else:
+                    pass 
 
-            if SP500_고가 > 0:
-                bc_plot3_ovc_high_line.setValue(SP500_고가)
-            else:
-                pass
+                if SP500_전고 > 0:
+                    bc_plot3_ovc_jh_line.setValue(SP500_전고)
+                else:
+                    pass
 
-            str = ' 저가 : {0} '.format(format(SP500_저가, ','))
-            self.label_22.setStyleSheet('background-color: skyblue ; color: blue')
-            self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_22.setText(str)
-
-            tmp = self.label_23.text().split()[2]
-            value = tmp.replace(',', '')                
-
-            if SP500_현재가 > float(value):
-
-                str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
-                    format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+                if SP500_종가 > 0:
+                    bc_plot3_ovc_close_line.setValue(SP500_종가)
+                else:
+                    pass 
                 
-                if SP500_전일대비 > 0:
-                    self.label_23.setStyleSheet('background-color: pink ; color: red')
-                elif SP500_전일대비 < 0:
-                    self.label_23.setStyleSheet('background-color: pink ; color: blue')
+                if SP500_시가 > 0:
+                    bc_plot3_ovc_open_line.setValue(SP500_시가)
                 else:
-                    self.label_23.setStyleSheet('background-color: pink ; color: black')
+                    pass
 
-                self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_23.setText(str)
-
-            elif SP500_현재가 < float(value):
-
-                str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
-                    format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
-
-                if SP500_전일대비 > 0:
-                    self.label_23.setStyleSheet('background-color: skyblue ; color: red')
-                elif SP500_전일대비 < 0:
-                    self.label_23.setStyleSheet('background-color: skyblue ; color: blue')
+                if SP500_피봇 > 0:
+                    bc_plot3_ovc_pivot_line.setValue(SP500_피봇)
                 else:
-                    self.label_23.setStyleSheet('background-color: skyblue ; color: black')
+                    pass
 
-                self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_23.setText(str)
-            else:
-                pass
-
-            str = ' 고가 : {0} '.format(format(SP500_고가, ','))
-            self.label_24.setStyleSheet('background-color: pink ; color: red')
-            self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_24.setText(str) 
-            
-            bc_plot3_sp500_curve.setData(plot_data11) 
-
-        elif bc_comboindex3 == 6: 
-            
-            if DOW_전저 > 0:
-                bc_plot3_ovc_jl_line.setValue(DOW_전저)
-            else:
-                pass 
-            
-            if DOW_전고 > 0:
-                bc_plot3_ovc_jh_line.setValue(DOW_전고)
-            else:
-                pass
-            
-            if DOW_종가 > 0:
-                bc_plot3_ovc_close_line.setValue(DOW_종가)
-            else:
-                pass
-            
-            if DOW_시가 > 0:
-                bc_plot3_ovc_open_line.setValue(DOW_시가)
-            else:
-                pass
-            
-            if DOW_피봇 > 0:
-                bc_plot3_ovc_pivot_line.setValue(DOW_피봇)
-            else:
-                pass
-            
-            if DOW_저가 > 0:
-                bc_plot3_ovc_low_line.setValue(DOW_저가)
-            else:
-                pass
-
-            if DOW_고가 > 0:
-                bc_plot3_ovc_high_line.setValue(DOW_고가)
-            else:
-                pass
-
-            str = ' 저가 : {0} '.format(format(DOW_저가, ','))
-            self.label_22.setStyleSheet('background-color: skyblue ; color: blue')
-            self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_22.setText(str)  
-
-            tmp = self.label_23.text().split()[2]
-            value = tmp.replace(',', '')               
-
-            if DOW_현재가 > float(value):
-
-                str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
-                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-
-                if DOW_전일대비 > 0:
-                    self.label_23.setStyleSheet('background-color: pink ; color: red')
-                elif DOW_전일대비 < 0:
-                    self.label_23.setStyleSheet('background-color: pink ; color: blue')
+                if SP500_저가 > 0:
+                    bc_plot3_ovc_low_line.setValue(SP500_저가)
                 else:
-                    self.label_23.setStyleSheet('background-color: pink ; color: black')
+                    pass
 
-                self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_23.setText(str)
-
-            elif DOW_현재가 < float(value):
-
-                str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
-                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-
-                if DOW_전일대비 > 0:
-                    self.label_23.setStyleSheet('background-color: skyblue ; color: red')
-                elif DOW_전일대비 < 0:
-                    self.label_23.setStyleSheet('background-color: skyblue ; color: blue')
+                if SP500_고가 > 0:
+                    bc_plot3_ovc_high_line.setValue(SP500_고가)
                 else:
-                    self.label_23.setStyleSheet('background-color: skyblue ; color: black')
+                    pass
 
-                self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_23.setText(str)
-            else:
-                pass
+                str = ' 저가 : {0} '.format(format(SP500_저가, ','))
+                self.label_22.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_22.setText(str)
 
-            str = ' 고가 : {0} '.format(format(DOW_고가, ','))
-            self.label_24.setStyleSheet('background-color: pink ; color: red')
-            self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_24.setText(str)                  
-            
-            bc_plot3_dow_curve.setData(plot_data12) 
+                tmp = self.label_23.text().split()[2]
+                value = tmp.replace(',', '')                
 
-        elif bc_comboindex3 == 7:
-            
-            if NASDAQ_전저 > 0:
-                bc_plot3_ovc_jl_line.setValue(NASDAQ_전저)
-            else:
-                pass 
+                if SP500_현재가 > float(value):
 
-            if NASDAQ_전고 > 0:
-                bc_plot3_ovc_jh_line.setValue(NASDAQ_전고)
-            else:
-                pass
+                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
-            if NASDAQ_종가 > 0:
-                bc_plot3_ovc_close_line.setValue(NASDAQ_종가)
-            else:
-                pass
-            
-            if NASDAQ_시가 > 0:
-                bc_plot3_ovc_open_line.setValue(NASDAQ_시가)
-            else:
-                pass   
+                    if SP500_전일대비 > 0:
+                        self.label_23.setStyleSheet('background-color: pink ; color: red')
+                    elif SP500_전일대비 < 0:
+                        self.label_23.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_23.setStyleSheet('background-color: pink ; color: black')
 
-            if NASDAQ_피봇 > 0:
-                bc_plot3_ovc_pivot_line.setValue(NASDAQ_피봇)
-            else:
-                pass
+                    self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_23.setText(str)
 
-            if NASDAQ_저가 > 0:
-                bc_plot3_ovc_low_line.setValue(NASDAQ_저가)
-            else:
-                pass
+                elif SP500_현재가 < float(value):
 
-            if NASDAQ_고가 > 0:
-                bc_plot3_ovc_high_line.setValue(NASDAQ_고가)
-            else:
-                pass
+                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
-            str = ' 저가 : {0} '.format(format(NASDAQ_저가, ','))
-            self.label_22.setStyleSheet('background-color: skyblue ; color: blue')
-            self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_22.setText(str)
+                    if SP500_전일대비 > 0:
+                        self.label_23.setStyleSheet('background-color: skyblue ; color: red')
+                    elif SP500_전일대비 < 0:
+                        self.label_23.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_23.setStyleSheet('background-color: skyblue ; color: black')
 
-            tmp = self.label_23.text().split()[2]
-            value = tmp.replace(',', '')                
-
-            if NASDAQ_현재가 > float(value):
-
-                str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
-                    format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
-
-                if NASDAQ_전일대비 > 0:
-                    self.label_23.setStyleSheet('background-color: pink ; color: red')
-                elif NASDAQ_전일대비 < 0:
-                    self.label_23.setStyleSheet('background-color: pink ; color: blue')
+                    self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_23.setText(str)
                 else:
-                    self.label_23.setStyleSheet('background-color: pink ; color: black')
+                    pass
 
-                self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_23.setText(str)
+                str = ' 고가 : {0} '.format(format(SP500_고가, ','))
+                self.label_24.setStyleSheet('background-color: pink ; color: red')
+                self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_24.setText(str) 
 
-            elif NASDAQ_현재가 < float(value):
+                bc_plot3_sp500_curve.setData(plot_data11) 
 
-                str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
-                    format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+            elif bc_comboindex3 == 6: 
 
-                if NASDAQ_전일대비 > 0:
-                    self.label_23.setStyleSheet('background-color: skyblue ; color: red')
-                elif NASDAQ_전일대비 < 0:
-                    self.label_23.setStyleSheet('background-color: skyblue ; color: blue')
+                if DOW_전저 > 0:
+                    bc_plot3_ovc_jl_line.setValue(DOW_전저)
                 else:
-                    self.label_23.setStyleSheet('background-color: skyblue ; color: black')
-
-                self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_23.setText(str)
-            else:
-                pass
-
-            str = ' 고가 : {0} '.format(format(NASDAQ_고가, ','))
-            self.label_24.setStyleSheet('background-color: pink ; color: red')
-            self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_24.setText(str)    
-
-            bc_plot3_nasdaq_curve.setData(plot_data13)
-
-        elif bc_comboindex3 == 8:
-            
-            if WTI_전저 > 0:
-                bc_plot3_ovc_jl_line.setValue(WTI_전저)
-            else:
-                pass 
-
-            if WTI_전고 > 0:
-                bc_plot3_ovc_jh_line.setValue(WTI_전고)
-            else:
-                pass
-
-            if WTI_종가 > 0:
-                bc_plot3_ovc_close_line.setValue(WTI_종가)
-            else:
-                pass
-            
-            if WTI_시가 > 0:
-                bc_plot3_ovc_open_line.setValue(WTI_시가)
-            else:
-                pass   
-
-            if WTI_피봇 > 0:
-                bc_plot3_ovc_pivot_line.setValue(WTI_피봇)
-            else:
-                pass
-
-            if WTI_저가 > 0:
-                bc_plot3_ovc_low_line.setValue(WTI_저가)
-            else:
-                pass
-
-            if WTI_고가 > 0:
-                bc_plot3_ovc_high_line.setValue(WTI_고가)
-            else:
-                pass
-
-            str = ' 저가 : {0} '.format(format(WTI_저가, ','))
-            self.label_22.setStyleSheet('background-color: skyblue ; color: blue')
-            self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_22.setText(str)
-
-            value = self.label_23.text().split()[2]             
-
-            if WTI_현재가 > float(value):
-
-                str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
-                    format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
-
-                if WTI_전일대비 > 0:
-                    self.label_23.setStyleSheet('background-color: pink ; color: red')
-                elif WTI_전일대비 < 0:
-                    self.label_23.setStyleSheet('background-color: pink ; color: blue')
+                    pass 
+                
+                if DOW_전고 > 0:
+                    bc_plot3_ovc_jh_line.setValue(DOW_전고)
                 else:
-                    self.label_23.setStyleSheet('background-color: pink ; color: black')
-
-                self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_23.setText(str)
-
-            elif WTI_현재가 < float(value):
-
-                str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
-                    format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
-
-                if WTI_전일대비 > 0:
-                    self.label_23.setStyleSheet('background-color: skyblue ; color: red')
-                elif WTI_전일대비 < 0:
-                    self.label_23.setStyleSheet('background-color: skyblue ; color: blue')
+                    pass
+                
+                if DOW_종가 > 0:
+                    bc_plot3_ovc_close_line.setValue(DOW_종가)
                 else:
-                    self.label_23.setStyleSheet('background-color: skyblue ; color: black')
+                    pass
+                
+                if DOW_시가 > 0:
+                    bc_plot3_ovc_open_line.setValue(DOW_시가)
+                else:
+                    pass
+                
+                if DOW_피봇 > 0:
+                    bc_plot3_ovc_pivot_line.setValue(DOW_피봇)
+                else:
+                    pass
+                
+                if DOW_저가 > 0:
+                    bc_plot3_ovc_low_line.setValue(DOW_저가)
+                else:
+                    pass
 
-                self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_23.setText(str)
+                if DOW_고가 > 0:
+                    bc_plot3_ovc_high_line.setValue(DOW_고가)
+                else:
+                    pass
+
+                str = ' 저가 : {0} '.format(format(DOW_저가, ','))
+                self.label_22.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_22.setText(str)  
+
+                tmp = self.label_23.text().split()[2]
+                value = tmp.replace(',', '')               
+
+                if DOW_현재가 > float(value):
+
+                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                    if DOW_전일대비 > 0:
+                        self.label_23.setStyleSheet('background-color: pink ; color: red')
+                    elif DOW_전일대비 < 0:
+                        self.label_23.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_23.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_23.setText(str)
+
+                elif DOW_현재가 < float(value):
+
+                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                    if DOW_전일대비 > 0:
+                        self.label_23.setStyleSheet('background-color: skyblue ; color: red')
+                    elif DOW_전일대비 < 0:
+                        self.label_23.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_23.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_23.setText(str)
+                else:
+                    pass
+
+                str = ' 고가 : {0} '.format(format(DOW_고가, ','))
+                self.label_24.setStyleSheet('background-color: pink ; color: red')
+                self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_24.setText(str)                  
+
+                bc_plot3_dow_curve.setData(plot_data12) 
+
+            elif bc_comboindex3 == 7:
+
+                if NASDAQ_전저 > 0:
+                    bc_plot3_ovc_jl_line.setValue(NASDAQ_전저)
+                else:
+                    pass 
+
+                if NASDAQ_전고 > 0:
+                    bc_plot3_ovc_jh_line.setValue(NASDAQ_전고)
+                else:
+                    pass
+
+                if NASDAQ_종가 > 0:
+                    bc_plot3_ovc_close_line.setValue(NASDAQ_종가)
+                else:
+                    pass
+                
+                if NASDAQ_시가 > 0:
+                    bc_plot3_ovc_open_line.setValue(NASDAQ_시가)
+                else:
+                    pass   
+
+                if NASDAQ_피봇 > 0:
+                    bc_plot3_ovc_pivot_line.setValue(NASDAQ_피봇)
+                else:
+                    pass
+
+                if NASDAQ_저가 > 0:
+                    bc_plot3_ovc_low_line.setValue(NASDAQ_저가)
+                else:
+                    pass
+
+                if NASDAQ_고가 > 0:
+                    bc_plot3_ovc_high_line.setValue(NASDAQ_고가)
+                else:
+                    pass
+
+                str = ' 저가 : {0} '.format(format(NASDAQ_저가, ','))
+                self.label_22.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_22.setText(str)
+
+                tmp = self.label_23.text().split()[2]
+                value = tmp.replace(',', '')                
+
+                if NASDAQ_현재가 > float(value):
+
+                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+
+                    if NASDAQ_전일대비 > 0:
+                        self.label_23.setStyleSheet('background-color: pink ; color: red')
+                    elif NASDAQ_전일대비 < 0:
+                        self.label_23.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_23.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_23.setText(str)
+
+                elif NASDAQ_현재가 < float(value):
+
+                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+
+                    if NASDAQ_전일대비 > 0:
+                        self.label_23.setStyleSheet('background-color: skyblue ; color: red')
+                    elif NASDAQ_전일대비 < 0:
+                        self.label_23.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_23.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_23.setText(str)
+                else:
+                    pass
+
+                str = ' 고가 : {0} '.format(format(NASDAQ_고가, ','))
+                self.label_24.setStyleSheet('background-color: pink ; color: red')
+                self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_24.setText(str)    
+
+                bc_plot3_nasdaq_curve.setData(plot_data13)
+
+            elif bc_comboindex3 == 8:
+
+                if WTI_전저 > 0:
+                    bc_plot3_ovc_jl_line.setValue(WTI_전저)
+                else:
+                    pass 
+
+                if WTI_전고 > 0:
+                    bc_plot3_ovc_jh_line.setValue(WTI_전고)
+                else:
+                    pass
+
+                if WTI_종가 > 0:
+                    bc_plot3_ovc_close_line.setValue(WTI_종가)
+                else:
+                    pass
+                
+                if WTI_시가 > 0:
+                    bc_plot3_ovc_open_line.setValue(WTI_시가)
+                else:
+                    pass   
+
+                if WTI_피봇 > 0:
+                    bc_plot3_ovc_pivot_line.setValue(WTI_피봇)
+                else:
+                    pass
+
+                if WTI_저가 > 0:
+                    bc_plot3_ovc_low_line.setValue(WTI_저가)
+                else:
+                    pass
+
+                if WTI_고가 > 0:
+                    bc_plot3_ovc_high_line.setValue(WTI_고가)
+                else:
+                    pass
+
+                str = ' 저가 : {0} '.format(format(WTI_저가, ','))
+                self.label_22.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_22.setText(str)
+
+                value = self.label_23.text().split()[2]             
+
+                if WTI_현재가 > float(value):
+
+                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+
+                    if WTI_전일대비 > 0:
+                        self.label_23.setStyleSheet('background-color: pink ; color: red')
+                    elif WTI_전일대비 < 0:
+                        self.label_23.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_23.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_23.setText(str)
+
+                elif WTI_현재가 < float(value):
+
+                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+
+                    if WTI_전일대비 > 0:
+                        self.label_23.setStyleSheet('background-color: skyblue ; color: red')
+                    elif WTI_전일대비 < 0:
+                        self.label_23.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_23.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_23.setText(str)
+                else:
+                    pass
+
+                str = ' 고가 : {0} '.format(format(WTI_고가, ','))
+                self.label_24.setStyleSheet('background-color: pink ; color: red')
+                self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_24.setText(str)    
+
+                bc_plot3_wti_curve.setData(plot_data14)
             else:
                 pass
-
-            str = ' 고가 : {0} '.format(format(WTI_고가, ','))
-            self.label_24.setStyleSheet('background-color: pink ; color: red')
-            self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_24.setText(str)    
-
-            bc_plot3_wti_curve.setData(plot_data14)
         else:
             pass        
         
