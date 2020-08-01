@@ -7163,6 +7163,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global drate_scale_factor 
             
             self.alternate_flag = not self.alternate_flag
+            
+            # Market 유형을 시간과 함께 표시
+            self.market_type_display(self.alternate_flag)
 
             #cross hair1
             source1 = self.Plot1.scene().sigMouseMoved            
@@ -7180,10 +7183,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 proxy = pg.SignalProxy(source2, rateLimit=60, slot=self.mouseMoved2)
                 proxy.signal.connect(self.mouseMoved2)
             else:
-                pass
-
-            # Market 유형을 시간과 함께 표시
-            self.market_type_display(self.alternate_flag)         
+                pass      
 
             # 실시간 서비스                     
             if FLAG_GUEST_CONTROL and (receive_real_ovc or market_service):
