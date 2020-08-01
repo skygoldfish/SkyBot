@@ -1733,6 +1733,9 @@ bc_plot1_wti_curve = None
 bc_vLine1 = None
 bc_hLine1 = None
 
+bc_plot1_x = 0
+bc_plot1_y = 0
+
 # Big Chart Plot2
 bc_plot2_time_line = None
 bc_plot2_time_line_start = None
@@ -1780,6 +1783,9 @@ bc_plot2_center_val_lower_line = None
 bc_vLine2 = None
 bc_hLine2 = None
 
+bc_plot2_x = 0
+bc_plot2_y = 0
+
 # Big Chart Plot3
 bc_plot3_time_line = None
 bc_plot3_time_line_start = None
@@ -1826,6 +1832,9 @@ bc_plot3_center_val_lower_line = None
 
 bc_vLine3 = None
 bc_hLine3 = None
+
+bc_plot3_x = 0
+bc_plot3_y = 0
 
 yoc_stop = False
 
@@ -7131,7 +7140,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             hLine1.setPos(mousePoint.y())
         else:
             pass
-
+        
     def mouseMoved2(self, evt):
 
         pos = evt
@@ -7168,26 +7177,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             # Market 유형을 시간과 함께 표시
             self.market_type_display(self.alternate_flag)
-
-            '''
-            #cross hair1            
-            source1 = self.Plot1.scene().sigMouseMoved            
-            
-            if source1 is not None:
-                proxy = pg.SignalProxy(source1, rateLimit=60, slot=self.mouseMoved1)
-                proxy.signal.connect(self.mouseMoved1)
-            else:
-                pass
-            
-            #cross hair2
-            source2 = self.Plot2.scene().sigMouseMoved            
-            
-            if source2 is not None:
-                proxy = pg.SignalProxy(source2, rateLimit=60, slot=self.mouseMoved2)
-                proxy.signal.connect(self.mouseMoved2)
-            else:
-                pass      
-            '''
 
             # 실시간 서비스                     
             if FLAG_GUEST_CONTROL and (receive_real_ovc or market_service):
@@ -25994,7 +25983,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.bc_Plot1.addItem(bc_vLine1, ignoreBounds=True)
         self.bc_Plot1.addItem(bc_hLine1, ignoreBounds=True)
         self.bc_Plot1.setMouseTracking(True)
-        self.bc_Plot1.scene().sigMouseMoved.connect(self.bc_mouseMoved1)  
+        self.bc_Plot1.scene().sigMouseMoved.connect(self.bc_mouseMoved1)
+        self.bc_Plot1.scene().sigMouseClicked.connect(self.bc_mouse1_clicked)  
 
         # Line & Curve of the Plot2
         bc_plot2_time_line_start = self.bc_Plot2.addLine(x=0, y=None, pen=tpen)
@@ -26049,7 +26039,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.bc_Plot2.addItem(bc_vLine2, ignoreBounds=True)
         self.bc_Plot2.addItem(bc_hLine2, ignoreBounds=True)
         self.bc_Plot2.setMouseTracking(True)
-        self.bc_Plot2.scene().sigMouseMoved.connect(self.bc_mouseMoved2) 
+        self.bc_Plot2.scene().sigMouseMoved.connect(self.bc_mouseMoved2)
+        self.bc_Plot2.scene().sigMouseClicked.connect(self.bc_mouse2_clicked) 
 
         # Line & Curve of the Plot3
         bc_plot3_time_line_start = self.bc_Plot3.addLine(x=0, y=None, pen=tpen)
@@ -26104,7 +26095,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.bc_Plot3.addItem(bc_vLine3, ignoreBounds=True)
         self.bc_Plot3.addItem(bc_hLine3, ignoreBounds=True)
         self.bc_Plot3.setMouseTracking(True)
-        self.bc_Plot3.scene().sigMouseMoved.connect(self.bc_mouseMoved3)          
+        self.bc_Plot3.scene().sigMouseMoved.connect(self.bc_mouseMoved3)
+        self.bc_Plot3.scene().sigMouseClicked.connect(self.bc_mouse3_clicked)         
 
         if overnight:
             # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
@@ -26147,39 +26139,69 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     #cross hair
     def bc_mouseMoved1(self, evt):
 
+        global bc_plot1_x, bc_plot1_y
+
         pos = evt
 
         if self.bc_Plot1.sceneBoundingRect().contains(pos):
             mousePoint = self.bc_Plot1.plotItem.vb.mapSceneToView(pos)
-            self.label_1.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: red'>가격: %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
+            #self.label_1.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: red'>가격: %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
             bc_vLine1.setPos(mousePoint.x())
             bc_hLine1.setPos(mousePoint.y())
+            bc_plot1_x = mousePoint.x()
+            bc_plot1_y = mousePoint.y()
         else:
             pass
 
     def bc_mouseMoved2(self, evt):
 
+        global bc_plot2_x, bc_plot2_y
+
         pos = evt
 
         if self.bc_Plot2.sceneBoundingRect().contains(pos):
             mousePoint = self.bc_Plot2.plotItem.vb.mapSceneToView(pos)
-            self.label_9.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: red'>가격: %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
+            #self.label_9.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: red'>가격: %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
             bc_vLine2.setPos(mousePoint.x())
             bc_hLine2.setPos(mousePoint.y())
+            bc_plot2_x = mousePoint.x()
+            bc_plot2_y = mousePoint.y()
         else:
             pass
 
     def bc_mouseMoved3(self, evt):
 
+        global bc_plot3_x, bc_plot3_y
+
         pos = evt
 
         if self.bc_Plot3.sceneBoundingRect().contains(pos):
             mousePoint = self.bc_Plot3.plotItem.vb.mapSceneToView(pos)
-            self.label_17.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: red'>가격: %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
+            #self.label_17.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: red'>가격: %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
             bc_vLine3.setPos(mousePoint.x())
             bc_hLine3.setPos(mousePoint.y())
+            bc_plot3_x = mousePoint.x()
+            bc_plot3_y = mousePoint.y()
         else:
-            pass                  
+            pass
+
+    def bc_mouse1_clicked(self, evt):
+
+        self.label_1.setStyleSheet('background-color: goldenrod ; color: red')
+        self.label_1.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_1.setText(" 시간: %d, 가격: %0.2f " % (bc_plot1_x, bc_plot1_y))
+
+    def bc_mouse2_clicked(self, evt):
+
+        self.label_9.setStyleSheet('background-color: goldenrod ; color: red')
+        self.label_9.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_9.setText(" 시간: %d, 가격: %0.2f " % (bc_plot2_x, bc_plot2_y))
+
+    def bc_mouse3_clicked(self, evt):
+
+        self.label_17.setStyleSheet('background-color: goldenrod ; color: red')
+        self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_17.setText(" 시간: %d, 가격: %0.2f " % (bc_plot3_x, bc_plot3_y))                
     
     def cb1_selectionChanged(self):
 
@@ -26200,6 +26222,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if bc_comboindex1 == 0:
 
             self.label_1.setText(" 전저 : 가격 ")
+            self.label_1.setStyleSheet('background-color: goldenrod ; color: black')
+            self.label_1.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_2.setText(" 전고 : 가격 ")
             self.label_3.setText(" 종가 : 가격 ")
             self.label_4.setText(" 피봇 : 가격 ")
@@ -26246,6 +26271,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif bc_comboindex1 == 1:
 
             self.label_1.setText(" 전저 : 가격 ")
+            self.label_1.setStyleSheet('background-color: goldenrod ; color: black')
+            self.label_1.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_2.setText(" 전고 : 가격 ")
             self.label_3.setText(" 종가 : 가격 ")
             self.label_4.setText(" 피봇 : 가격 ")
@@ -26292,6 +26320,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif bc_comboindex1 == 2:
 
             self.label_1.setText(" 전저 : 가격 ")
+            self.label_1.setStyleSheet('background-color: goldenrod ; color: black')
+            self.label_1.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_2.setText(" 전고 : 가격 ")
             self.label_3.setText(" 종가 : 가격 ")
             self.label_4.setText(" 피봇 : 가격 ")
@@ -26338,6 +26369,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif bc_comboindex1 == 3:
 
             self.label_1.setText(" 전저 : 가격 ")
+            self.label_1.setStyleSheet('background-color: goldenrod ; color: black')
+            self.label_1.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_2.setText(" 전고 : 가격 ")
             self.label_3.setText(" 종가 : 가격 ")
             self.label_4.setText(" 피봇 : 가격 ")
@@ -26877,6 +26911,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if bc_comboindex2 == 0:
 
             self.label_9.setText(" 전저 : 가격 ")
+            self.label_9.setStyleSheet('background-color: goldenrod ; color: black')
+            self.label_9.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_10.setText(" 전고 : 가격 ")
             self.label_11.setText(" 종가 : 가격 ")
             self.label_12.setText(" 피봇 : 가격 ")
@@ -26925,6 +26962,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif bc_comboindex2 == 1:
 
             self.label_9.setText(" 전저 : 가격 ")
+            self.label_9.setStyleSheet('background-color: goldenrod ; color: black')
+            self.label_9.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_10.setText(" 전고 : 가격 ")
             self.label_11.setText(" 종가 : 가격 ")
             self.label_12.setText(" 피봇 : 가격 ")
@@ -26973,6 +27013,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif bc_comboindex2 == 2:
 
             self.label_9.setText(" 전저 : 가격 ")
+            self.label_9.setStyleSheet('background-color: goldenrod ; color: black')
+            self.label_9.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_10.setText(" 전고 : 가격 ")
             self.label_11.setText(" 종가 : 가격 ")
             self.label_12.setText(" 피봇 : 가격 ")
@@ -27021,6 +27064,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif bc_comboindex2 == 3:
 
             self.label_9.setText(" 전저 : 가격 ")
+            self.label_9.setStyleSheet('background-color: goldenrod ; color: black')
+            self.label_9.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_10.setText(" 전고 : 가격 ")
             self.label_11.setText(" 종가 : 가격 ")
             self.label_12.setText(" 피봇 : 가격 ")
@@ -27067,6 +27113,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif bc_comboindex2 == 4:
 
             self.label_9.setText(" 등가 : 행사가 ")
+            self.label_9.setStyleSheet('background-color: goldenrod ; color: black')
+            self.label_9.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_10.setText(" 중심가 하단 : 가격 ")
             self.label_11.setText(" 중심가 : 가격 ")
             self.label_12.setText(" 중심가 상단 : 가격 ")
@@ -27529,6 +27578,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if bc_comboindex3 == 0:
 
             self.label_17.setText(" 전저 : 가격 ")
+            self.label_17.setStyleSheet('background-color: goldenrod ; color: black')
+            self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_18.setText(" 전고 : 가격 ")
             self.label_19.setText(" 종가 : 가격 ")
             self.label_20.setText(" 피봇 : 가격 ")
@@ -27577,6 +27629,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif bc_comboindex3 == 1:
 
             self.label_17.setText(" 전저 : 가격 ")
+            self.label_17.setStyleSheet('background-color: goldenrod ; color: black')
+            self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_18.setText(" 전고 : 가격 ")
             self.label_19.setText(" 종가 : 가격 ")
             self.label_20.setText(" 피봇 : 가격 ")
@@ -27625,6 +27680,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif bc_comboindex3 == 2:
 
             self.label_17.setText(" 전저 : 가격 ")
+            self.label_17.setStyleSheet('background-color: goldenrod ; color: black')
+            self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_18.setText(" 전고 : 가격 ")
             self.label_19.setText(" 종가 : 가격 ")
             self.label_20.setText(" 피봇 : 가격 ")
@@ -27673,6 +27731,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif bc_comboindex3 == 3:
 
             self.label_17.setText(" 전저 : 가격 ")
+            self.label_17.setStyleSheet('background-color: goldenrod ; color: black')
+            self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_18.setText(" 전고 : 가격 ")
             self.label_19.setText(" 종가 : 가격 ")
             self.label_20.setText(" 피봇 : 가격 ")
@@ -27719,6 +27780,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif bc_comboindex3 == 4:
 
             self.label_17.setText(" 등가 : 행사가 ")
+            self.label_17.setStyleSheet('background-color: goldenrod ; color: black')
+            self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_18.setText(" 중심가 하단 : 가격 ")
             self.label_19.setText(" 중심가 : 가격 ")
             self.label_20.setText(" 중심가 상단 : 가격 ")
@@ -28178,35 +28242,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.bigchart_update_worker.terminate()
         else:
             pass
-
-        '''
-        #cross hair1
-        source1 = self.bc_Plot1.scene().sigMouseMoved            
-        
-        if source1 is not None:
-            proxy = pg.SignalProxy(source1, rateLimit=60, slot=self.bc_mouseMoved1)
-            proxy.signal.connect(self.bc_mouseMoved1)
-        else:
-            pass
-
-        #cross hair2
-        source2 = self.bc_Plot2.scene().sigMouseMoved            
-        
-        if source2 is not None:
-            proxy = pg.SignalProxy(source2, rateLimit=60, slot=self.bc_mouseMoved2)
-            proxy.signal.connect(self.bc_mouseMoved2)
-        else:
-            pass
-
-        #cross hair3
-        source3 = self.bc_Plot3.scene().sigMouseMoved            
-        
-        if source3 is not None:
-            proxy = pg.SignalProxy(source3, rateLimit=60, slot=self.bc_mouseMoved3)
-            proxy.signal.connect(self.bc_mouseMoved3)
-        else:
-            pass   
-        '''
 
         if FLAG_GUEST_CONTROL:
 
