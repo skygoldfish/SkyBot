@@ -1636,8 +1636,8 @@ plot1_dow_curve = None
 plot1_nasdaq_curve = None
 plot1_wti_curve = None
 
-vLine1 = None
-hLine1 = None
+plot1_vLine = None
+plot1_hLine = None
 
 # Plot2
 plot2_time_line = None
@@ -1683,8 +1683,8 @@ plot2_center_val_upper_line = None
 plot2_center_val_line = None
 plot2_center_val_lower_line = None
 
-vLine2 = None
-hLine2 = None
+plot2_vLine = None
+plot2_hLine = None
 
 # Big Chart Plot1
 bc_plot1_time_line = None
@@ -1730,8 +1730,8 @@ bc_plot1_dow_curve = None
 bc_plot1_nasdaq_curve = None
 bc_plot1_wti_curve = None
 
-bc_vLine1 = None
-bc_hLine1 = None
+bc_plot1_vLine = None
+bc_plot1_hLine = None
 
 bc_plot1_x = 0
 bc_plot1_y = 0
@@ -1780,8 +1780,8 @@ bc_plot2_center_val_upper_line = None
 bc_plot2_center_val_line = None
 bc_plot2_center_val_lower_line = None
 
-bc_vLine2 = None
-bc_hLine2 = None
+bc_plot2_vLine = None
+bc_plot2_hLine = None
 
 bc_plot2_x = 0
 bc_plot2_y = 0
@@ -1830,8 +1830,8 @@ bc_plot3_center_val_upper_line = None
 bc_plot3_center_val_line = None
 bc_plot3_center_val_lower_line = None
 
-bc_vLine3 = None
-bc_hLine3 = None
+bc_plot3_vLine = None
+bc_plot3_hLine = None
 
 bc_plot3_x = 0
 bc_plot3_y = 0
@@ -4511,7 +4511,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global plot1_fut_drate_curve, plot1_dow_drate_curve        
         global plot1_sp500_curve, plot1_dow_curve, plot1_nasdaq_curve, plot1_wti_curve
         global plot1_call_drate_curve, plot1_put_drate_curve
-        global vLine1, hLine1
+        global plot1_vLine, plot1_hLine
 
         global plot2_fut_volume_curve, plot2_fut_volume_plus_curve, plot2_fut_volume_minus_curve        
         global plot2_call_rr_curve, plot2_put_rr_curve        
@@ -4524,7 +4524,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global plot2_call_drate_curve, plot2_put_drate_curve
         global plot2_center_val_curve
         global plot2_center_val_line, plot2_center_val_upper_line, plot2_center_val_lower_line
-        global vLine2, hLine2
+        global plot2_vLine, plot2_hLine
         
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
@@ -4584,10 +4584,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot1_wti_curve = self.Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         #cross hair
-        vLine1 = pg.InfiniteLine(angle=90, movable=False)
-        hLine1 = pg.InfiniteLine(angle=0, movable=False)
-        self.Plot1.addItem(vLine1, ignoreBounds=True)
-        self.Plot1.addItem(hLine1, ignoreBounds=True)
+        plot1_vLine = pg.InfiniteLine(angle=90, movable=False)
+        plot1_hLine = pg.InfiniteLine(angle=0, movable=False)
+        self.Plot1.addItem(plot1_vLine, ignoreBounds=True)
+        self.Plot1.addItem(plot1_hLine, ignoreBounds=True)
         self.Plot1.setMouseTracking(True)
         self.Plot1.scene().sigMouseMoved.connect(self.plot1_mouseMoved)
                 
@@ -4639,13 +4639,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot2_center_val_upper_line = self.Plot2.addLine(x=None, pen=pink_pen)
 
         #cross hair
-        vLine2 = pg.InfiniteLine(angle=90, movable=False)
-        hLine2 = pg.InfiniteLine(angle=0, movable=False)
-        self.Plot2.addItem(vLine2, ignoreBounds=True)
-        self.Plot2.addItem(hLine2, ignoreBounds=True)
+        plot2_vLine = pg.InfiniteLine(angle=90, movable=False)
+        plot2_hLine = pg.InfiniteLine(angle=0, movable=False)
+        self.Plot2.addItem(plot2_vLine, ignoreBounds=True)
+        self.Plot2.addItem(plot2_hLine, ignoreBounds=True)
         self.Plot2.setMouseTracking(True)
         self.Plot2.scene().sigMouseMoved.connect(self.plot2_mouseMoved)
-        
+
+        # 라인 초기화 필요?
+                
         if UI_STYLE == 'Vertical_View.ui':
 
             self.comboBox3.setStyleSheet("background-color: white")
@@ -5277,7 +5279,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             if 선물_종가 == 0:
-                선물_전고 = CME_종가
+                pass
             else:
                 pass
 
@@ -5351,7 +5353,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             if SP500_종가 == 0:
-                SP500_전고 = SP500_종가
+                pass
             else:
                 pass
 
@@ -5425,7 +5427,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             if DOW_종가 == 0:
-                DOW_전고 = DOW_종가
+                pass
             else:
                 pass
 
@@ -5499,7 +5501,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             if NASDAQ_종가 == 0:
-                NASDAQ_전고 = NASDAQ_종가
+                pass
             else:
                 pass
 
@@ -5573,7 +5575,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             if WTI_종가 == 0:
-                WTI_전고 = WTI_종가
+                pass
             else:
                 pass
 
@@ -5645,7 +5647,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_dow_curve.clear()
             plot2_nasdaq_curve.clear()
             plot2_wti_curve.clear()
-
+            
             for i in range(9):
                 mv_line[i].setValue(0)
             
@@ -5868,7 +5870,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             if SP500_종가 == 0:
-                SP500_전고 = SP500_종가
+                pass
             else:
                 pass
 
@@ -5944,7 +5946,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             if DOW_종가 == 0:
-                DOW_전고 = DOW_종가
+                pass
             else:
                 pass
 
@@ -6020,7 +6022,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             if NASDAQ_종가 == 0:
-                NASDAQ_전고 = NASDAQ_종가
+                pass
             else:
                 pass
 
@@ -6096,7 +6098,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             if WTI_종가 == 0:
-                WTI_전고 = WTI_종가
+                pass
             else:
                 pass
 
@@ -6330,6 +6332,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         pass
 
     def timeout(self):
+        
         dt = datetime.datetime.now()
         str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
         self.label_msg.setText(str)
@@ -7136,8 +7139,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if self.Plot1.sceneBoundingRect().contains(pos):
             mousePoint = self.Plot1.plotItem.vb.mapSceneToView(pos)
             self.label_atm.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: red'>가격: %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
-            vLine1.setPos(mousePoint.x())
-            hLine1.setPos(mousePoint.y())
+            plot1_vLine.setPos(mousePoint.x())
+            plot1_hLine.setPos(mousePoint.y())
         else:
             pass
         
@@ -7148,8 +7151,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if self.Plot2.sceneBoundingRect().contains(pos):
             mousePoint = self.Plot2.plotItem.vb.mapSceneToView(pos)
             self.label_atm.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: red'>가격: %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
-            vLine2.setPos(mousePoint.x())
-            hLine2.setPos(mousePoint.y())
+            plot2_vLine.setPos(mousePoint.x())
+            plot2_hLine.setPos(mousePoint.y())
         else:
             pass    
 
@@ -7179,7 +7182,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.market_type_display(self.alternate_flag)
 
             # 실시간 서비스                     
-            if FLAG_GUEST_CONTROL and (receive_real_ovc or market_service):
+            if FLAG_GUEST_CONTROL and receive_real_ovc:
                 
                 # 옵션 등락율 scale factor 읽어들임
                 drate_scale_factor = float(self.tableWidget_fut.item(2, Futures_column.진폭.value).text())
@@ -7273,22 +7276,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                 
                 # Plot 1 x축 타임라인 그리기
-                if comboindex1 == 0 or comboindex1 == 4:
-
-                    plot1_time_line.setValue(x_idx)
-
-                elif comboindex1 == 5 or comboindex1 == 6 or comboindex1 == 7 or comboindex1 == 8:
-
-                    plot1_time_line.setValue(ovc_x_idx)
-                else:
-                    plot1_time_line.setValue(opt_x_idx)
+                plot1_time_line.setValue(ovc_x_idx)
 
                 # Plot 2 x축 타임라인 그리기
-                if comboindex2 == 5 or comboindex2 == 6 or comboindex2 == 7 or comboindex2 == 8:
-
-                    plot2_time_line.setValue(ovc_x_idx)
-                else:
-                    plot2_time_line.setValue(opt_x_idx)                    
+                plot2_time_line.setValue(ovc_x_idx)                   
 
                 if UI_STYLE == 'Vertical_View.ui':
 
@@ -7296,36 +7287,36 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     plot3_time_line.setValue(ovc_x_idx)
 
                     # Plot 4 x축 타임라인 그리기
-                    plot4_time_line.setValue(x_idx) 
+                    plot4_time_line.setValue(ovc_x_idx) 
                 else:
                     pass               
                 
                 # 선택된 plot1 그래프 그리기
-                if comboindex1 == 0:
+                if comboindex1 == 0 and market_service:
 
                     if fut_volume_power > 0:
                         plot1_fut_volume_plus_curve.setData(plot_data1)
                     else:
                         plot1_fut_volume_minus_curve.setData(plot_data1)
 
-                elif comboindex1 == 1:                      
+                elif comboindex1 == 1 and market_service:                      
 
                     plot1_call_volume_curve.setData(plot_data2)
                     plot1_put_volume_curve.setData(plot_data3)
 
-                elif comboindex1 == 2:
+                elif comboindex1 == 2 and market_service:
 
                     plot1_call_rr_curve.setData(plot_data5)
                     plot1_put_rr_curve.setData(plot_data6)
 
-                elif comboindex1 == 3:
+                elif comboindex1 == 3 and market_service:
 
                     plot1_fut_drate_curve.setData(plot_data7)
                     plot1_dow_drate_curve.setData(plot_data8)
                     plot1_call_drate_curve.setData(plot_data15)
                     plot1_put_drate_curve.setData(plot_data16)
 
-                elif comboindex1 == 4:
+                elif comboindex1 == 4 and market_service:
 
                     plot1_fut_jl_line.setValue(선물_전저)
                     plot1_fut_jh_line.setValue(선물_전고)
@@ -7497,31 +7488,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass 
 
                 # 선택된 plot2 그래프 그리기
-                if comboindex2 == 0:
+                if comboindex2 == 0 and market_service:
 
                     plot2_call_volume_curve.setData(plot_data2)
                     plot2_put_volume_curve.setData(plot_data3) 
 
-                elif comboindex2 == 1:
+                elif comboindex2 == 1 and market_service:
 
                     plot2_call_rr_curve.setData(plot_data5)
                     plot2_put_rr_curve.setData(plot_data6)         
 
-                elif comboindex2 == 2:
+                elif comboindex2 == 2 and market_service:
 
                     if fut_volume_power > 0:
                         plot2_fut_volume_plus_curve.setData(plot_data1)
                     else:
                         plot2_fut_volume_minus_curve.setData(plot_data1)
 
-                elif comboindex2 == 3:
+                elif comboindex2 == 3 and market_service:
 
                     plot2_fut_drate_curve.setData(plot_data7)
                     plot2_dow_drate_curve.setData(plot_data8)
                     plot2_call_drate_curve.setData(plot_data15)
                     plot2_put_drate_curve.setData(plot_data16)
 
-                elif comboindex2 == 4:
+                elif comboindex2 == 4 and market_service:
 
                     if selected_opt_list != old_selected_opt_list:
 
@@ -7617,7 +7608,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
                     '''
-                    # 프리가 그리기
+                    # 중심가 상하단 그리기
                     plot2_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
                     plot2_center_val_line.setValue(CENTER_VAL)
                     plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
@@ -7958,7 +7949,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # 호가 갱신
                 if receive_quote:
-
                     self.quote_display()
                 else:
                     pass
@@ -8953,8 +8943,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_put.item(atm_index, Option_column.행사가.value).setBackground(QBrush(노란색))
             self.tableWidget_put.cellWidget(atm_index, 0).findChild(type(QCheckBox())).setCheckState(Qt.Checked)
 
-            selected_call = atm_index
-            selected_put = atm_index
+            selected_call = [atm_index]
+            selected_put = [atm_index]
         else:
             pass
 
@@ -15604,8 +15594,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 #selected_call = [atm_index - 1, atm_index, atm_index + 1]
                 #selected_put = [atm_index - 1, atm_index, atm_index + 1]
-                selected_call = atm_index
-                selected_put = atm_index
+                selected_call = [atm_index]
+                selected_put = [atm_index]
             else:
                 pass
 
@@ -25870,13 +25860,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.bc_comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG'])
-        self.bc_comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
+        self.bc_comboBox1.currentIndexChanged.connect(self.bc_cb1_selectionChanged)
 
         self.bc_comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG'])
-        self.bc_comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
+        self.bc_comboBox2.currentIndexChanged.connect(self.bc_cb2_selectionChanged)
 
         self.bc_comboBox3.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG'])
-        self.bc_comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)             
+        self.bc_comboBox3.currentIndexChanged.connect(self.bc_cb3_selectionChanged)             
 
         global bc_plot1_time_line_start, bc_plot1_time_line_yagan_start, bc_plot1_time_line, bc_plot1_fut_price_curve, bc_plot1_kp200_curve
         global bc_plot1_fut_jl_line, bc_plot1_fut_jh_line, bc_plot1_fut_close_line, bc_plot1_fut_open_line, bc_plot1_fut_pivot_line, bc_plot1_fut_low_line, bc_plot1_fut_high_line    
@@ -25887,7 +25877,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot1_fut_drate_curve, bc_plot1_dow_drate_curve
         global bc_plot1_call_drate_curve, bc_plot1_put_drate_curve        
         global bc_plot1_sp500_curve, bc_plot1_dow_curve, bc_plot1_nasdaq_curve, bc_plot1_wti_curve        
-        global bc_vLine1, bc_hLine1        
+        global bc_plot1_vLine, bc_plot1_hLine        
 
         global bc_plot2_fut_volume_curve, bc_plot2_fut_volume_plus_curve, bc_plot2_fut_volume_minus_curve        
         global bc_plot2_call_rr_curve, bc_plot2_put_rr_curve        
@@ -25900,7 +25890,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot2_mv_line, bc_plot2_call_curve, bc_plot2_put_curve
         global bc_plot2_center_val_curve
         global bc_plot2_center_val_line, bc_plot2_center_val_upper_line, bc_plot2_center_val_lower_line
-        global bc_vLine2, bc_hLine2
+        global bc_plot2_vLine, bc_plot2_hLine
 
         global bc_plot3_fut_volume_curve, bc_plot3_fut_volume_plus_curve, bc_plot3_fut_volume_minus_curve        
         global bc_plot3_call_rr_curve, bc_plot3_put_rr_curve        
@@ -25913,7 +25903,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot3_mv_line, bc_plot3_call_curve, bc_plot3_put_curve
         global bc_plot3_center_val_curve
         global bc_plot3_center_val_line, bc_plot3_center_val_upper_line, bc_plot3_center_val_lower_line
-        global bc_vLine3, bc_hLine3  
+        global bc_plot3_vLine, bc_plot3_hLine  
 
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
@@ -25978,13 +25968,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_wti_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         
         #cross hair
-        bc_vLine1 = pg.InfiniteLine(angle=90, movable=False)
-        bc_hLine1 = pg.InfiniteLine(angle=0, movable=False)
-        self.bc_Plot1.addItem(bc_vLine1, ignoreBounds=True)
-        self.bc_Plot1.addItem(bc_hLine1, ignoreBounds=True)
+        bc_plot1_vLine = pg.InfiniteLine(angle=90, movable=False)
+        bc_plot1_hLine = pg.InfiniteLine(angle=0, movable=False)
+        self.bc_Plot1.addItem(bc_plot1_vLine, ignoreBounds=True)
+        self.bc_Plot1.addItem(bc_plot1_hLine, ignoreBounds=True)
         self.bc_Plot1.setMouseTracking(True)
         self.bc_Plot1.scene().sigMouseMoved.connect(self.bc_plot1_mouseMoved)
-        self.bc_Plot1.scene().sigMouseClicked.connect(self.bc_plot1_mouse_clicked)  
+        self.bc_Plot1.scene().sigMouseClicked.connect(self.bc_plot1_mouseClicked)  
 
         # Line & Curve of the Plot2
         bc_plot2_time_line_start = self.bc_Plot2.addLine(x=0, y=None, pen=tpen)
@@ -26034,13 +26024,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_center_val_upper_line = self.bc_Plot2.addLine(x=None, pen=pink_pen)
 
         #cross hair
-        bc_vLine2 = pg.InfiniteLine(angle=90, movable=False)
-        bc_hLine2 = pg.InfiniteLine(angle=0, movable=False)
-        self.bc_Plot2.addItem(bc_vLine2, ignoreBounds=True)
-        self.bc_Plot2.addItem(bc_hLine2, ignoreBounds=True)
+        bc_plot2_vLine = pg.InfiniteLine(angle=90, movable=False)
+        bc_plot2_hLine = pg.InfiniteLine(angle=0, movable=False)
+        self.bc_Plot2.addItem(bc_plot2_vLine, ignoreBounds=True)
+        self.bc_Plot2.addItem(bc_plot2_hLine, ignoreBounds=True)
         self.bc_Plot2.setMouseTracking(True)
         self.bc_Plot2.scene().sigMouseMoved.connect(self.bc_plot2_mouseMoved)
-        self.bc_Plot2.scene().sigMouseClicked.connect(self.bc_plot2_mouse_clicked) 
+        self.bc_Plot2.scene().sigMouseClicked.connect(self.bc_plot2_mouseClicked) 
 
         # Line & Curve of the Plot3
         bc_plot3_time_line_start = self.bc_Plot3.addLine(x=0, y=None, pen=tpen)
@@ -26090,13 +26080,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot3_center_val_upper_line = self.bc_Plot3.addLine(x=None, pen=pink_pen)
 
         #cross hair
-        bc_vLine3 = pg.InfiniteLine(angle=90, movable=False)
-        bc_hLine3 = pg.InfiniteLine(angle=0, movable=False)
-        self.bc_Plot3.addItem(bc_vLine3, ignoreBounds=True)
-        self.bc_Plot3.addItem(bc_hLine3, ignoreBounds=True)
+        bc_plot3_vLine = pg.InfiniteLine(angle=90, movable=False)
+        bc_plot3_hLine = pg.InfiniteLine(angle=0, movable=False)
+        self.bc_Plot3.addItem(bc_plot3_vLine, ignoreBounds=True)
+        self.bc_Plot3.addItem(bc_plot3_hLine, ignoreBounds=True)
         self.bc_Plot3.setMouseTracking(True)
         self.bc_Plot3.scene().sigMouseMoved.connect(self.bc_plot3_mouseMoved)
-        self.bc_Plot3.scene().sigMouseClicked.connect(self.bc_plot3_mouse_clicked)         
+        self.bc_Plot3.scene().sigMouseClicked.connect(self.bc_plot3_mouseClicked)         
 
         if overnight:
             # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
@@ -26145,9 +26135,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if self.bc_Plot1.sceneBoundingRect().contains(pos):
             mousePoint = self.bc_Plot1.plotItem.vb.mapSceneToView(pos)
-            #self.label_1.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: red'>가격: %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
-            bc_vLine1.setPos(mousePoint.x())
-            bc_hLine1.setPos(mousePoint.y())
+            self.label_1.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: black'>가격: %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
+            bc_plot1_vLine.setPos(mousePoint.x())
+            bc_plot1_hLine.setPos(mousePoint.y())
             bc_plot1_x = mousePoint.x()
             bc_plot1_y = mousePoint.y()
         else:
@@ -26161,9 +26151,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if self.bc_Plot2.sceneBoundingRect().contains(pos):
             mousePoint = self.bc_Plot2.plotItem.vb.mapSceneToView(pos)
-            #self.label_9.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: red'>가격: %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
-            bc_vLine2.setPos(mousePoint.x())
-            bc_hLine2.setPos(mousePoint.y())
+            self.label_9.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: black'>가격: %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
+            bc_plot2_vLine.setPos(mousePoint.x())
+            bc_plot2_hLine.setPos(mousePoint.y())
             bc_plot2_x = mousePoint.x()
             bc_plot2_y = mousePoint.y()
         else:
@@ -26177,33 +26167,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if self.bc_Plot3.sceneBoundingRect().contains(pos):
             mousePoint = self.bc_Plot3.plotItem.vb.mapSceneToView(pos)
-            #self.label_17.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: red'>가격: %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
-            bc_vLine3.setPos(mousePoint.x())
-            bc_hLine3.setPos(mousePoint.y())
+            self.label_17.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: black'>가격: %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
+            bc_plot3_vLine.setPos(mousePoint.x())
+            bc_plot3_hLine.setPos(mousePoint.y())
             bc_plot3_x = mousePoint.x()
             bc_plot3_y = mousePoint.y()
         else:
             pass
 
-    def bc_plot1_mouse_clicked(self, evt):
+    def bc_plot1_mouseClicked(self, evt):
 
-        self.label_1.setStyleSheet('background-color: goldenrod ; color: red')
-        self.label_1.setFont(QFont("Consolas", 9, QFont.Bold))
-        self.label_1.setText(" 시간: %d, 가격: %0.2f " % (bc_plot1_x, bc_plot1_y))
+        self.label_2.setStyleSheet('background-color: gold ; color: red')
+        self.label_2.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_2.setText(" 시간: %d, 가격: %0.2f " % (bc_plot1_x, bc_plot1_y))
 
-    def bc_plot2_mouse_clicked(self, evt):
+    def bc_plot2_mouseClicked(self, evt):
 
-        self.label_9.setStyleSheet('background-color: goldenrod ; color: red')
-        self.label_9.setFont(QFont("Consolas", 9, QFont.Bold))
-        self.label_9.setText(" 시간: %d, 가격: %0.2f " % (bc_plot2_x, bc_plot2_y))
+        self.label_10.setStyleSheet('background-color: gold ; color: red')
+        self.label_10.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_10.setText(" 시간: %d, 가격: %0.2f " % (bc_plot2_x, bc_plot2_y))
 
-    def bc_plot3_mouse_clicked(self, evt):
+    def bc_plot3_mouseClicked(self, evt):
 
-        self.label_17.setStyleSheet('background-color: goldenrod ; color: red')
-        self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
-        self.label_17.setText(" 시간: %d, 가격: %0.2f " % (bc_plot3_x, bc_plot3_y))                
+        self.label_18.setStyleSheet('background-color: gold ; color: red')
+        self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_18.setText(" 시간: %d, 가격: %0.2f " % (bc_plot3_x, bc_plot3_y))                
     
-    def cb1_selectionChanged(self):
+    def bc_cb1_selectionChanged(self):
 
         global bc_comboindex1
         global bc_plot1_fut_price_curve, bc_plot1_kp200_curve, bc_plot1_fut_volume_curve, bc_plot1_fut_volume_plus_curve, bc_plot1_fut_volume_minus_curve
@@ -26226,6 +26216,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
             self.label_2.setText(" 전고 : 가격 ")
+            self.label_2.setStyleSheet('background-color: gold ; color: black')
+            self.label_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_3.setText(" 종가 : 가격 ")
             self.label_4.setText(" 피봇 : 가격 ")
             self.label_5.setText(" 시가 : 가격 ")
@@ -26275,6 +26268,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
             self.label_2.setText(" 전고 : 가격 ")
+            self.label_2.setStyleSheet('background-color: gold ; color: black')
+            self.label_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_3.setText(" 종가 : 가격 ")
             self.label_4.setText(" 피봇 : 가격 ")
             self.label_5.setText(" 시가 : 가격 ")
@@ -26324,6 +26320,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
             self.label_2.setText(" 전고 : 가격 ")
+            self.label_2.setStyleSheet('background-color: gold ; color: black')
+            self.label_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_3.setText(" 종가 : 가격 ")
             self.label_4.setText(" 피봇 : 가격 ")
             self.label_5.setText(" 시가 : 가격 ")
@@ -26373,6 +26372,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
             self.label_2.setText(" 전고 : 가격 ")
+            self.label_2.setStyleSheet('background-color: gold ; color: black')
+            self.label_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_3.setText(" 종가 : 가격 ")
             self.label_4.setText(" 피봇 : 가격 ")
             self.label_5.setText(" 시가 : 가격 ")
@@ -26549,7 +26551,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             if SP500_종가 == 0:
-                SP500_전고 = SP500_종가
+                pass
             else:
                 pass
 
@@ -26645,7 +26647,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             if DOW_종가 == 0:
-                DOW_전고 = DOW_종가
+                pass
             else:
                 pass
 
@@ -26741,7 +26743,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             if NASDAQ_종가 == 0:
-                NASDAQ_전고 = NASDAQ_종가
+                pass
             else:
                 pass
 
@@ -26837,7 +26839,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             if WTI_종가 == 0:
-                WTI_전고 = WTI_종가
+                pass
             else:
                 pass
 
@@ -26893,7 +26895,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
-    def cb2_selectionChanged(self):
+    def bc_cb2_selectionChanged(self):
 
         global bc_comboindex2
         global bc_plot2_call_curve, bc_plot2_put_curve, bc_plot2_fut_volume_curve, bc_plot2_fut_volume_plus_curve, bc_plot2_fut_volume_minus_curve
@@ -26915,6 +26917,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_9.setFont(QFont("Consolas", 9, QFont.Bold))
 
             self.label_10.setText(" 전고 : 가격 ")
+            self.label_10.setStyleSheet('background-color: gold ; color: black')
+            self.label_10.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_11.setText(" 종가 : 가격 ")
             self.label_12.setText(" 피봇 : 가격 ")
             self.label_13.setText(" 시가 : 가격 ")
@@ -26966,6 +26971,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_9.setFont(QFont("Consolas", 9, QFont.Bold))
 
             self.label_10.setText(" 전고 : 가격 ")
+            self.label_10.setStyleSheet('background-color: gold ; color: black')
+            self.label_10.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_11.setText(" 종가 : 가격 ")
             self.label_12.setText(" 피봇 : 가격 ")
             self.label_13.setText(" 시가 : 가격 ")
@@ -27017,6 +27025,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_9.setFont(QFont("Consolas", 9, QFont.Bold))
 
             self.label_10.setText(" 전고 : 가격 ")
+            self.label_10.setStyleSheet('background-color: gold ; color: black')
+            self.label_10.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_11.setText(" 종가 : 가격 ")
             self.label_12.setText(" 피봇 : 가격 ")
             self.label_13.setText(" 시가 : 가격 ")
@@ -27068,6 +27079,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_9.setFont(QFont("Consolas", 9, QFont.Bold))
 
             self.label_10.setText(" 전고 : 가격 ")
+            self.label_10.setStyleSheet('background-color: gold ; color: black')
+            self.label_10.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_11.setText(" 종가 : 가격 ")
             self.label_12.setText(" 피봇 : 가격 ")
             self.label_13.setText(" 시가 : 가격 ")
@@ -27117,6 +27131,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_9.setFont(QFont("Consolas", 9, QFont.Bold))
 
             self.label_10.setText(" 중심가 하단 : 가격 ")
+            self.label_10.setStyleSheet('background-color: gold ; color: black')
+            self.label_10.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_11.setText(" 중심가 : 가격 ")
             self.label_12.setText(" 중심가 상단 : 가격 ")
             self.label_13.setText(" 시가 : 가격 ")
@@ -27210,7 +27227,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             if SP500_종가 == 0:
-                SP500_전고 = SP500_종가
+                pass
             else:
                 pass
 
@@ -27308,7 +27325,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             if DOW_종가 == 0:
-                DOW_전고 = DOW_종가
+                pass
             else:
                 pass
 
@@ -27387,11 +27404,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_sp500_curve.clear()
             bc_plot2_dow_curve.clear() 
             bc_plot2_wti_curve.clear()
-
+            
             bc_plot2_center_val_lower_line.setValue(NASDAQ_고가)
             bc_plot2_center_val_line.setValue(NASDAQ_고가)
             bc_plot2_center_val_upper_line.setValue(NASDAQ_고가)
-
+            
             for i in range(9):
                 bc_plot2_mv_line[i].setValue(NASDAQ_종가)
             
@@ -27406,7 +27423,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             if NASDAQ_종가 == 0:
-                NASDAQ_전고 = NASDAQ_종가
+                pass
             else:
                 pass
 
@@ -27429,7 +27446,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 NASDAQ_고가 = NASDAQ_종가
             else:
                 pass
-                
+            
             str = ' 전저 : {0} '.format(format(NASDAQ_전저, ','))
             self.label_9.setText(str)
             bc_plot2_ovc_jl_line.setValue(NASDAQ_전저)
@@ -27459,7 +27476,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             str = ' 고가 : {0} '.format(format(NASDAQ_고가, ','))
             self.label_16.setText(str)
             bc_plot2_ovc_high_line.setValue(NASDAQ_고가)            
-
+            
         elif bc_comboindex2 == 8:
 
             bc_plot2_call_rr_curve.clear()
@@ -27504,7 +27521,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             if WTI_종가 == 0:
-                WTI_전고 = WTI_종가
+                pass
             else:
                 pass
 
@@ -27560,7 +27577,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
     
-    def cb3_selectionChanged(self):
+    def bc_cb3_selectionChanged(self):
 
         global bc_comboindex3
         global bc_plot3_call_curve, bc_plot3_put_curve, bc_plot3_fut_volume_curve, bc_plot3_fut_volume_plus_curve, bc_plot3_fut_volume_minus_curve
@@ -27582,6 +27599,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
 
             self.label_18.setText(" 전고 : 가격 ")
+            self.label_18.setStyleSheet('background-color: gold ; color: black')
+            self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_19.setText(" 종가 : 가격 ")
             self.label_20.setText(" 피봇 : 가격 ")
             self.label_21.setText(" 시가 : 가격 ")
@@ -27633,6 +27653,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
 
             self.label_18.setText(" 전고 : 가격 ")
+            self.label_18.setStyleSheet('background-color: gold ; color: black')
+            self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_19.setText(" 종가 : 가격 ")
             self.label_20.setText(" 피봇 : 가격 ")
             self.label_21.setText(" 시가 : 가격 ")
@@ -27684,6 +27707,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
 
             self.label_18.setText(" 전고 : 가격 ")
+            self.label_18.setStyleSheet('background-color: gold ; color: black')
+            self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_19.setText(" 종가 : 가격 ")
             self.label_20.setText(" 피봇 : 가격 ")
             self.label_21.setText(" 시가 : 가격 ")
@@ -27735,6 +27761,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
 
             self.label_18.setText(" 전고 : 가격 ")
+            self.label_18.setStyleSheet('background-color: gold ; color: black')
+            self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_19.setText(" 종가 : 가격 ")
             self.label_20.setText(" 피봇 : 가격 ")
             self.label_21.setText(" 시가 : 가격 ")
@@ -27784,6 +27813,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
 
             self.label_18.setText(" 중심가 하단 : 가격 ")
+            self.label_18.setStyleSheet('background-color: gold ; color: black')
+            self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+
             self.label_19.setText(" 중심가 : 가격 ")
             self.label_20.setText(" 중심가 상단 : 가격 ")
             self.label_21.setText(" 시가 : 가격 ")
@@ -27877,7 +27909,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             if SP500_종가 == 0:
-                SP500_전고 = SP500_종가
+                pass
             else:
                 pass
 
@@ -27975,7 +28007,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             if DOW_종가 == 0:
-                DOW_전고 = DOW_종가
+                pass
             else:
                 pass
 
@@ -28073,7 +28105,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             if NASDAQ_종가 == 0:
-                NASDAQ_전고 = NASDAQ_종가
+                pass
             else:
                 pass
 
@@ -28171,7 +28203,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             if WTI_종가 == 0:
-                WTI_전고 = WTI_종가
+                pass
             else:
                 pass
 
@@ -28243,59 +28275,43 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
-        if FLAG_GUEST_CONTROL:
+        if FLAG_GUEST_CONTROL and receive_real_ovc:
 
             # Plot1 x축 타임라인 그리기
-            if bc_comboindex1 == 0 or bc_comboindex1 == 4:
-
-                bc_plot1_time_line.setValue(x_idx)
-
-            elif bc_comboindex1 == 5 or bc_comboindex1 == 6 or bc_comboindex1 == 7 or bc_comboindex1 == 8:
-
-                bc_plot1_time_line.setValue(ovc_x_idx)
-            else:
-                bc_plot1_time_line.setValue(opt_x_idx)
+            bc_plot1_time_line.setValue(ovc_x_idx)
 
             # Plot2 x축 타임라인 그리기
-            if bc_comboindex2 == 5 or bc_comboindex2 == 6 or bc_comboindex2 == 7 or bc_comboindex2 == 8:
-
-                bc_plot2_time_line.setValue(ovc_x_idx)
-            else:
-                bc_plot2_time_line.setValue(opt_x_idx)
+            bc_plot2_time_line.setValue(ovc_x_idx)
 
             # Plot3 x축 타임라인 그리기
-            if bc_comboindex3 == 5 or bc_comboindex3 == 6 or bc_comboindex3 == 7 or bc_comboindex3 == 8:
-
-                bc_plot3_time_line.setValue(ovc_x_idx)
-            else:
-                bc_plot3_time_line.setValue(opt_x_idx)
+            bc_plot3_time_line.setValue(ovc_x_idx)
 
             # Plot1 그래프 그리기
-            if bc_comboindex1 == 0:
+            if bc_comboindex1 == 0 and market_service:
 
                 if fut_volume_power > 0:
                     bc_plot1_fut_volume_plus_curve.setData(plot_data1)
                 else:
                     bc_plot1_fut_volume_minus_curve.setData(plot_data1)
 
-            elif bc_comboindex1 == 1:                      
+            elif bc_comboindex1 == 1 and market_service:                      
 
                 bc_plot1_call_volume_curve.setData(plot_data2)
                 bc_plot1_put_volume_curve.setData(plot_data3)
 
-            elif bc_comboindex1 == 2:
+            elif bc_comboindex1 == 2 and market_service:
 
                 bc_plot1_call_rr_curve.setData(plot_data5)
                 bc_plot1_put_rr_curve.setData(plot_data6)
 
-            elif bc_comboindex1 == 3:
+            elif bc_comboindex1 == 3 and market_service:
 
                 bc_plot1_fut_drate_curve.setData(plot_data7)
                 bc_plot1_dow_drate_curve.setData(plot_data8)
                 bc_plot1_call_drate_curve.setData(plot_data15)
                 bc_plot1_put_drate_curve.setData(plot_data16)
 
-            elif bc_comboindex1 == 4:
+            elif bc_comboindex1 == 4 and market_service:
 
                 bc_plot1_fut_jl_line.setValue(선물_전저)
                 bc_plot1_fut_jh_line.setValue(선물_전고)
@@ -28688,31 +28704,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass   
 
             # Plot2 그래프 그리기
-            if bc_comboindex2 == 0:
+            if bc_comboindex2 == 0 and market_service:
 
                 bc_plot2_call_volume_curve.setData(plot_data2)
                 bc_plot2_put_volume_curve.setData(plot_data3)
 
-            elif bc_comboindex2 == 1:
+            elif bc_comboindex2 == 1 and market_service:
 
                 bc_plot2_call_rr_curve.setData(plot_data5)
                 bc_plot2_put_rr_curve.setData(plot_data6)        
 
-            elif bc_comboindex2 == 2:
+            elif bc_comboindex2 == 2 and market_service:
 
                 if fut_volume_power > 0:
                     bc_plot2_fut_volume_plus_curve.setData(plot_data1)
                 else:
                     bc_plot2_fut_volume_minus_curve.setData(plot_data1)
 
-            elif bc_comboindex2 == 3:
+            elif bc_comboindex2 == 3 and market_service:
 
                 bc_plot2_fut_drate_curve.setData(plot_data7)
                 bc_plot2_dow_drate_curve.setData(plot_data8)
                 bc_plot2_call_drate_curve.setData(plot_data15)
                 bc_plot2_put_drate_curve.setData(plot_data16)
 
-            elif bc_comboindex2 == 4:
+            elif bc_comboindex2 == 4 and market_service:
 
                 if selected_opt_list != old_selected_opt_list:
 
@@ -29116,31 +29132,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass        
             
             # Plot3 그래프 그리기
-            if bc_comboindex3 == 0:
+            if bc_comboindex3 == 0 and market_service:
 
                 bc_plot3_call_volume_curve.setData(plot_data2)
                 bc_plot3_put_volume_curve.setData(plot_data3)
 
-            elif bc_comboindex3 == 1:
+            elif bc_comboindex3 == 1 and market_service:
 
                 bc_plot3_call_rr_curve.setData(plot_data5)
                 bc_plot3_put_rr_curve.setData(plot_data6)        
 
-            elif bc_comboindex3 == 2:
+            elif bc_comboindex3 == 2 and market_service:
 
                 if fut_volume_power > 0:
                     bc_plot3_fut_volume_plus_curve.setData(plot_data1)
                 else:
                     bc_plot3_fut_volume_minus_curve.setData(plot_data1)
 
-            elif bc_comboindex3 == 3:
+            elif bc_comboindex3 == 3 and market_service:
 
                 bc_plot3_fut_drate_curve.setData(plot_data7)
                 bc_plot3_dow_drate_curve.setData(plot_data8)
                 bc_plot3_call_drate_curve.setData(plot_data15)
                 bc_plot3_put_drate_curve.setData(plot_data16)
 
-            elif bc_comboindex3 == 4:
+            elif bc_comboindex3 == 4 and market_service:
 
                 if selected_opt_list != old_selected_opt_list:
 
