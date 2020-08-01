@@ -4580,6 +4580,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.Plot1.addItem(vLine1, ignoreBounds=True)
         self.Plot1.addItem(hLine1, ignoreBounds=True)
         self.Plot1.setMouseTracking(True)
+        self.Plot1.scene().sigMouseMoved.connect(self.mouseMoved1)
                 
         # Line & Curve of the Plot2
         plot2_time_line_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
@@ -4634,6 +4635,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.Plot2.addItem(vLine2, ignoreBounds=True)
         self.Plot2.addItem(hLine2, ignoreBounds=True)
         self.Plot2.setMouseTracking(True)
+        self.Plot2.scene().sigMouseMoved.connect(self.mouseMoved2)
         
         if UI_STYLE == 'Vertical_View.ui':
 
@@ -7167,7 +7169,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # Market 유형을 시간과 함께 표시
             self.market_type_display(self.alternate_flag)
 
-            #cross hair1
+            '''
+            #cross hair1            
             source1 = self.Plot1.scene().sigMouseMoved            
             
             if source1 is not None:
@@ -7175,7 +7178,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 proxy.signal.connect(self.mouseMoved1)
             else:
                 pass
-
+            
             #cross hair2
             source2 = self.Plot2.scene().sigMouseMoved            
             
@@ -7184,6 +7187,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 proxy.signal.connect(self.mouseMoved2)
             else:
                 pass      
+            '''
 
             # 실시간 서비스                     
             if FLAG_GUEST_CONTROL and (receive_real_ovc or market_service):
@@ -25989,7 +25993,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_hLine1 = pg.InfiniteLine(angle=0, movable=False)
         self.bc_Plot1.addItem(bc_vLine1, ignoreBounds=True)
         self.bc_Plot1.addItem(bc_hLine1, ignoreBounds=True)
-        self.bc_Plot1.setMouseTracking(True)  
+        self.bc_Plot1.setMouseTracking(True)
+        self.bc_Plot1.scene().sigMouseMoved.connect(self.bc_mouseMoved1)  
 
         # Line & Curve of the Plot2
         bc_plot2_time_line_start = self.bc_Plot2.addLine(x=0, y=None, pen=tpen)
@@ -26043,7 +26048,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_hLine2 = pg.InfiniteLine(angle=0, movable=False)
         self.bc_Plot2.addItem(bc_vLine2, ignoreBounds=True)
         self.bc_Plot2.addItem(bc_hLine2, ignoreBounds=True)
-        self.bc_Plot2.setMouseTracking(True) 
+        self.bc_Plot2.setMouseTracking(True)
+        self.bc_Plot2.scene().sigMouseMoved.connect(self.bc_mouseMoved2) 
 
         # Line & Curve of the Plot3
         bc_plot3_time_line_start = self.bc_Plot3.addLine(x=0, y=None, pen=tpen)
@@ -26097,7 +26103,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_hLine3 = pg.InfiniteLine(angle=0, movable=False)
         self.bc_Plot3.addItem(bc_vLine3, ignoreBounds=True)
         self.bc_Plot3.addItem(bc_hLine3, ignoreBounds=True)
-        self.bc_Plot3.setMouseTracking(True)          
+        self.bc_Plot3.setMouseTracking(True)
+        self.bc_Plot3.scene().sigMouseMoved.connect(self.bc_mouseMoved3)          
 
         if overnight:
             # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
@@ -28172,6 +28179,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
+        '''
         #cross hair1
         source1 = self.bc_Plot1.scene().sigMouseMoved            
         
@@ -28198,6 +28206,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             proxy.signal.connect(self.bc_mouseMoved3)
         else:
             pass   
+        '''
 
         if FLAG_GUEST_CONTROL:
 
