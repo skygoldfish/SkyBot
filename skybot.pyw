@@ -26144,7 +26144,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if self.bc_Plot1.sceneBoundingRect().contains(pos):
             mousePoint = self.bc_Plot1.plotItem.vb.mapSceneToView(pos)
-            self.label_1.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: red'>가격: %d</span>" % (mousePoint.x(), mousePoint.y()))            
+            self.label_1.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: red'>가격: %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
             bc_vLine1.setPos(mousePoint.x())
             bc_hLine1.setPos(mousePoint.y())
         else:
