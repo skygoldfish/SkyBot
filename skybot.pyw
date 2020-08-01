@@ -1636,6 +1636,9 @@ plot1_dow_curve = None
 plot1_nasdaq_curve = None
 plot1_wti_curve = None
 
+vLine1 = None
+hLine1 = None
+
 # Plot2
 plot2_time_line = None
 plot2_time_line_start = None
@@ -1679,6 +1682,9 @@ plot2_center_val_curve = None
 plot2_center_val_upper_line = None
 plot2_center_val_line = None
 plot2_center_val_lower_line = None
+
+vLine2 = None
+hLine2 = None
 
 # Big Chart Plot1
 bc_plot1_time_line = None
@@ -1724,8 +1730,8 @@ bc_plot1_dow_curve = None
 bc_plot1_nasdaq_curve = None
 bc_plot1_wti_curve = None
 
-vLine1 = None
-hLine1 = None
+bc_vLine1 = None
+bc_hLine1 = None
 
 # Big Chart Plot2
 bc_plot2_time_line = None
@@ -1771,8 +1777,8 @@ bc_plot2_center_val_upper_line = None
 bc_plot2_center_val_line = None
 bc_plot2_center_val_lower_line = None
 
-vLine2 = None
-hLine2 = None
+bc_vLine2 = None
+bc_hLine2 = None
 
 # Big Chart Plot3
 bc_plot3_time_line = None
@@ -1818,8 +1824,8 @@ bc_plot3_center_val_upper_line = None
 bc_plot3_center_val_line = None
 bc_plot3_center_val_lower_line = None
 
-vLine3 = None
-hLine3 = None
+bc_vLine3 = None
+bc_hLine3 = None
 
 yoc_stop = False
 
@@ -4496,6 +4502,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global plot1_fut_drate_curve, plot1_dow_drate_curve        
         global plot1_sp500_curve, plot1_dow_curve, plot1_nasdaq_curve, plot1_wti_curve
         global plot1_call_drate_curve, plot1_put_drate_curve
+        global vLine1, hLine1
 
         global plot2_fut_volume_curve, plot2_fut_volume_plus_curve, plot2_fut_volume_minus_curve        
         global plot2_call_rr_curve, plot2_put_rr_curve        
@@ -4508,6 +4515,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global plot2_call_drate_curve, plot2_put_drate_curve
         global plot2_center_val_curve
         global plot2_center_val_line, plot2_center_val_upper_line, plot2_center_val_lower_line
+        global vLine2, hLine2
         
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
@@ -4565,6 +4573,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot1_dow_curve = self.Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot1_nasdaq_curve = self.Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot1_wti_curve = self.Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+
+        #cross hair
+        vLine1 = pg.InfiniteLine(angle=90, movable=False)
+        hLine1 = pg.InfiniteLine(angle=0, movable=False)
+        self.Plot1.addItem(vLine1, ignoreBounds=True)
+        self.Plot1.addItem(hLine1, ignoreBounds=True)
+        self.Plot1.setMouseTracking(True)
                 
         # Line & Curve of the Plot2
         plot2_time_line_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
@@ -4612,6 +4627,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot2_center_val_lower_line = self.Plot2.addLine(x=None, pen=skyblue_pen)
         plot2_center_val_line = self.Plot2.addLine(x=None, pen=gold_pen)
         plot2_center_val_upper_line = self.Plot2.addLine(x=None, pen=pink_pen)
+
+        #cross hair
+        vLine2 = pg.InfiniteLine(angle=90, movable=False)
+        hLine2 = pg.InfiniteLine(angle=0, movable=False)
+        self.Plot2.addItem(vLine2, ignoreBounds=True)
+        self.Plot2.addItem(hLine2, ignoreBounds=True)
+        self.Plot2.setMouseTracking(True)
         
         if UI_STYLE == 'Vertical_View.ui':
 
@@ -7093,7 +7115,32 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.put_display()
         except:
             pass
-    '''    
+    '''  
+
+    #cross hair
+    def mouseMoved1(self, evt):
+
+        pos = evt
+
+        if self.Plot1.sceneBoundingRect().contains(pos):
+            mousePoint = self.Plot1.plotItem.vb.mapSceneToView(pos)
+            self.label_atm.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: red'>가격: %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
+            vLine1.setPos(mousePoint.x())
+            hLine1.setPos(mousePoint.y())
+        else:
+            pass
+
+    def mouseMoved2(self, evt):
+
+        pos = evt
+
+        if self.Plot2.sceneBoundingRect().contains(pos):
+            mousePoint = self.Plot2.plotItem.vb.mapSceneToView(pos)
+            self.label_atm.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: red'>가격: %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
+            vLine2.setPos(mousePoint.x())
+            hLine2.setPos(mousePoint.y())
+        else:
+            pass    
 
     @pyqtSlot(dict)
     def update_screen(self, data):
@@ -7116,6 +7163,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global drate_scale_factor 
             
             self.alternate_flag = not self.alternate_flag
+
+            #cross hair1
+            source1 = self.Plot1.scene().sigMouseMoved            
+            
+            if source1 is not None:
+                proxy = pg.SignalProxy(source1, rateLimit=60, slot=self.mouseMoved1)
+                proxy.signal.connect(self.mouseMoved1)
+            else:
+                pass
+
+            #cross hair2
+            source2 = self.Plot2.scene().sigMouseMoved            
+            
+            if source2 is not None:
+                proxy = pg.SignalProxy(source2, rateLimit=60, slot=self.mouseMoved2)
+                proxy.signal.connect(self.mouseMoved2)
+            else:
+                pass
 
             # Market 유형을 시간과 함께 표시
             self.market_type_display(self.alternate_flag)         
@@ -25829,7 +25894,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot1_fut_drate_curve, bc_plot1_dow_drate_curve
         global bc_plot1_call_drate_curve, bc_plot1_put_drate_curve        
         global bc_plot1_sp500_curve, bc_plot1_dow_curve, bc_plot1_nasdaq_curve, bc_plot1_wti_curve        
-        global vLine1, hLine1        
+        global bc_vLine1, bc_hLine1        
 
         global bc_plot2_fut_volume_curve, bc_plot2_fut_volume_plus_curve, bc_plot2_fut_volume_minus_curve        
         global bc_plot2_call_rr_curve, bc_plot2_put_rr_curve        
@@ -25842,7 +25907,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot2_mv_line, bc_plot2_call_curve, bc_plot2_put_curve
         global bc_plot2_center_val_curve
         global bc_plot2_center_val_line, bc_plot2_center_val_upper_line, bc_plot2_center_val_lower_line
-        global vLine2, hLine2
+        global bc_vLine2, bc_hLine2
 
         global bc_plot3_fut_volume_curve, bc_plot3_fut_volume_plus_curve, bc_plot3_fut_volume_minus_curve        
         global bc_plot3_call_rr_curve, bc_plot3_put_rr_curve        
@@ -25855,7 +25920,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot3_mv_line, bc_plot3_call_curve, bc_plot3_put_curve
         global bc_plot3_center_val_curve
         global bc_plot3_center_val_line, bc_plot3_center_val_upper_line, bc_plot3_center_val_lower_line
-        global vLine3, hLine3  
+        global bc_vLine3, bc_hLine3  
 
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
@@ -25920,10 +25985,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_wti_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         
         #cross hair
-        vLine1 = pg.InfiniteLine(angle=90, movable=False)
-        hLine1 = pg.InfiniteLine(angle=0, movable=False)
-        self.bc_Plot1.addItem(vLine1, ignoreBounds=True)
-        self.bc_Plot1.addItem(hLine1, ignoreBounds=True)
+        bc_vLine1 = pg.InfiniteLine(angle=90, movable=False)
+        bc_hLine1 = pg.InfiniteLine(angle=0, movable=False)
+        self.bc_Plot1.addItem(bc_vLine1, ignoreBounds=True)
+        self.bc_Plot1.addItem(bc_hLine1, ignoreBounds=True)
         self.bc_Plot1.setMouseTracking(True)  
 
         # Line & Curve of the Plot2
@@ -25974,10 +26039,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_center_val_upper_line = self.bc_Plot2.addLine(x=None, pen=pink_pen)
 
         #cross hair
-        vLine2 = pg.InfiniteLine(angle=90, movable=False)
-        hLine2 = pg.InfiniteLine(angle=0, movable=False)
-        self.bc_Plot2.addItem(vLine2, ignoreBounds=True)
-        self.bc_Plot2.addItem(hLine2, ignoreBounds=True)
+        bc_vLine2 = pg.InfiniteLine(angle=90, movable=False)
+        bc_hLine2 = pg.InfiniteLine(angle=0, movable=False)
+        self.bc_Plot2.addItem(bc_vLine2, ignoreBounds=True)
+        self.bc_Plot2.addItem(bc_hLine2, ignoreBounds=True)
         self.bc_Plot2.setMouseTracking(True) 
 
         # Line & Curve of the Plot3
@@ -26028,10 +26093,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot3_center_val_upper_line = self.bc_Plot3.addLine(x=None, pen=pink_pen)
 
         #cross hair
-        vLine3 = pg.InfiniteLine(angle=90, movable=False)
-        hLine3 = pg.InfiniteLine(angle=0, movable=False)
-        self.bc_Plot3.addItem(vLine3, ignoreBounds=True)
-        self.bc_Plot3.addItem(hLine3, ignoreBounds=True)
+        bc_vLine3 = pg.InfiniteLine(angle=90, movable=False)
+        bc_hLine3 = pg.InfiniteLine(angle=0, movable=False)
+        self.bc_Plot3.addItem(bc_vLine3, ignoreBounds=True)
+        self.bc_Plot3.addItem(bc_hLine3, ignoreBounds=True)
         self.bc_Plot3.setMouseTracking(True)          
 
         if overnight:
@@ -26068,13 +26133,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_time_line_start.setValue(선물장간_시간차)
             bc_plot3_time_line_start.setValue(선물장간_시간차)
 
-        if receive_real_ovc or market_service:
-
-            # 쓰레드 시작...
-            self.bigchart_update_worker.start()
-            self.bigchart_update_worker.daemon = True
-        else:
-            pass
+        # 쓰레드 시작...
+        self.bigchart_update_worker.start()
+        self.bigchart_update_worker.daemon = True
 
     #cross hair
     def bc_mouseMoved1(self, evt):
@@ -26083,9 +26144,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if self.bc_Plot1.sceneBoundingRect().contains(pos):
             mousePoint = self.bc_Plot1.plotItem.vb.mapSceneToView(pos)
-            self.label_1.setText("<span style='font-size: 9pt'>시간 = %d, <span style='color: red'>가격 = %d</span>" % (mousePoint.x(), mousePoint.y()))            
-            vLine1.setPos(mousePoint.x())
-            hLine1.setPos(mousePoint.y())
+            self.label_1.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: red'>가격: %d</span>" % (mousePoint.x(), mousePoint.y()))            
+            bc_vLine1.setPos(mousePoint.x())
+            bc_hLine1.setPos(mousePoint.y())
         else:
             pass
 
@@ -26095,9 +26156,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if self.bc_Plot2.sceneBoundingRect().contains(pos):
             mousePoint = self.bc_Plot2.plotItem.vb.mapSceneToView(pos)
-            self.label_9.setText("<span style='font-size: 9pt'>시간 = %d, <span style='color: red'>가격 = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
-            vLine2.setPos(mousePoint.x())
-            hLine2.setPos(mousePoint.y())
+            self.label_9.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: red'>가격: %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
+            bc_vLine2.setPos(mousePoint.x())
+            bc_hLine2.setPos(mousePoint.y())
         else:
             pass
 
@@ -26107,9 +26168,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if self.bc_Plot3.sceneBoundingRect().contains(pos):
             mousePoint = self.bc_Plot3.plotItem.vb.mapSceneToView(pos)
-            self.label_17.setText("<span style='font-size: 9pt'>시간 = %d, <span style='color: red'>가격 = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
-            vLine3.setPos(mousePoint.x())
-            hLine3.setPos(mousePoint.y())
+            self.label_17.setText("<span style='font-size: 9pt'>시간: %d, <span style='color: red'>가격: %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
+            bc_vLine3.setPos(mousePoint.x())
+            bc_hLine3.setPos(mousePoint.y())
         else:
             pass                  
     
@@ -28111,34 +28172,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
+        #cross hair1
+        source1 = self.bc_Plot1.scene().sigMouseMoved            
+        
+        if source1 is not None:
+            proxy = pg.SignalProxy(source1, rateLimit=60, slot=self.bc_mouseMoved1)
+            proxy.signal.connect(self.bc_mouseMoved1)
+        else:
+            pass
+
+        #cross hair2
+        source2 = self.bc_Plot2.scene().sigMouseMoved            
+        
+        if source2 is not None:
+            proxy = pg.SignalProxy(source2, rateLimit=60, slot=self.bc_mouseMoved2)
+            proxy.signal.connect(self.bc_mouseMoved2)
+        else:
+            pass
+
+        #cross hair3
+        source3 = self.bc_Plot3.scene().sigMouseMoved            
+        
+        if source3 is not None:
+            proxy = pg.SignalProxy(source3, rateLimit=60, slot=self.bc_mouseMoved3)
+            proxy.signal.connect(self.bc_mouseMoved3)
+        else:
+            pass   
+
         if FLAG_GUEST_CONTROL:
-            
-            #cross hair1
-            source1 = self.bc_Plot1.scene().sigMouseMoved            
-            
-            if source1 is not None:
-                proxy = pg.SignalProxy(source1, rateLimit=60, slot=self.bc_mouseMoved1)
-                proxy.signal.connect(self.bc_mouseMoved1)
-            else:
-                pass
-
-            #cross hair2
-            source2 = self.bc_Plot2.scene().sigMouseMoved            
-            
-            if source2 is not None:
-                proxy = pg.SignalProxy(source2, rateLimit=60, slot=self.bc_mouseMoved2)
-                proxy.signal.connect(self.bc_mouseMoved2)
-            else:
-                pass
-
-            #cross hair3
-            source3 = self.bc_Plot3.scene().sigMouseMoved            
-            
-            if source3 is not None:
-                proxy = pg.SignalProxy(source3, rateLimit=60, slot=self.bc_mouseMoved3)
-                proxy.signal.connect(self.bc_mouseMoved3)
-            else:
-                pass   
 
             # Plot1 x축 타임라인 그리기
             if bc_comboindex1 == 0 or bc_comboindex1 == 4:
