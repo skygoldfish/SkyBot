@@ -4589,7 +4589,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.Plot1.addItem(vLine1, ignoreBounds=True)
         self.Plot1.addItem(hLine1, ignoreBounds=True)
         self.Plot1.setMouseTracking(True)
-        self.Plot1.scene().sigMouseMoved.connect(self.mouseMoved1)
+        self.Plot1.scene().sigMouseMoved.connect(self.plot1_mouseMoved)
                 
         # Line & Curve of the Plot2
         plot2_time_line_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
@@ -4644,7 +4644,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.Plot2.addItem(vLine2, ignoreBounds=True)
         self.Plot2.addItem(hLine2, ignoreBounds=True)
         self.Plot2.setMouseTracking(True)
-        self.Plot2.scene().sigMouseMoved.connect(self.mouseMoved2)
+        self.Plot2.scene().sigMouseMoved.connect(self.plot2_mouseMoved)
         
         if UI_STYLE == 'Vertical_View.ui':
 
@@ -7129,7 +7129,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     '''  
 
     #cross hair
-    def mouseMoved1(self, evt):
+    def plot1_mouseMoved(self, evt):
 
         pos = evt
 
@@ -7141,7 +7141,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-    def mouseMoved2(self, evt):
+    def plot2_mouseMoved(self, evt):
 
         pos = evt
 
@@ -25983,8 +25983,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.bc_Plot1.addItem(bc_vLine1, ignoreBounds=True)
         self.bc_Plot1.addItem(bc_hLine1, ignoreBounds=True)
         self.bc_Plot1.setMouseTracking(True)
-        self.bc_Plot1.scene().sigMouseMoved.connect(self.bc_mouseMoved1)
-        self.bc_Plot1.scene().sigMouseClicked.connect(self.bc_mouse1_clicked)  
+        self.bc_Plot1.scene().sigMouseMoved.connect(self.bc_plot1_mouseMoved)
+        self.bc_Plot1.scene().sigMouseClicked.connect(self.bc_plot1_mouse_clicked)  
 
         # Line & Curve of the Plot2
         bc_plot2_time_line_start = self.bc_Plot2.addLine(x=0, y=None, pen=tpen)
@@ -26039,8 +26039,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.bc_Plot2.addItem(bc_vLine2, ignoreBounds=True)
         self.bc_Plot2.addItem(bc_hLine2, ignoreBounds=True)
         self.bc_Plot2.setMouseTracking(True)
-        self.bc_Plot2.scene().sigMouseMoved.connect(self.bc_mouseMoved2)
-        self.bc_Plot2.scene().sigMouseClicked.connect(self.bc_mouse2_clicked) 
+        self.bc_Plot2.scene().sigMouseMoved.connect(self.bc_plot2_mouseMoved)
+        self.bc_Plot2.scene().sigMouseClicked.connect(self.bc_plot2_mouse_clicked) 
 
         # Line & Curve of the Plot3
         bc_plot3_time_line_start = self.bc_Plot3.addLine(x=0, y=None, pen=tpen)
@@ -26095,8 +26095,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.bc_Plot3.addItem(bc_vLine3, ignoreBounds=True)
         self.bc_Plot3.addItem(bc_hLine3, ignoreBounds=True)
         self.bc_Plot3.setMouseTracking(True)
-        self.bc_Plot3.scene().sigMouseMoved.connect(self.bc_mouseMoved3)
-        self.bc_Plot3.scene().sigMouseClicked.connect(self.bc_mouse3_clicked)         
+        self.bc_Plot3.scene().sigMouseMoved.connect(self.bc_plot3_mouseMoved)
+        self.bc_Plot3.scene().sigMouseClicked.connect(self.bc_plot3_mouse_clicked)         
 
         if overnight:
             # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
@@ -26137,7 +26137,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.bigchart_update_worker.daemon = True
 
     #cross hair
-    def bc_mouseMoved1(self, evt):
+    def bc_plot1_mouseMoved(self, evt):
 
         global bc_plot1_x, bc_plot1_y
 
@@ -26153,7 +26153,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
-    def bc_mouseMoved2(self, evt):
+    def bc_plot2_mouseMoved(self, evt):
 
         global bc_plot2_x, bc_plot2_y
 
@@ -26169,7 +26169,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
-    def bc_mouseMoved3(self, evt):
+    def bc_plot3_mouseMoved(self, evt):
 
         global bc_plot3_x, bc_plot3_y
 
@@ -26185,19 +26185,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
-    def bc_mouse1_clicked(self, evt):
+    def bc_plot1_mouse_clicked(self, evt):
 
         self.label_1.setStyleSheet('background-color: goldenrod ; color: red')
         self.label_1.setFont(QFont("Consolas", 9, QFont.Bold))
         self.label_1.setText(" 시간: %d, 가격: %0.2f " % (bc_plot1_x, bc_plot1_y))
 
-    def bc_mouse2_clicked(self, evt):
+    def bc_plot2_mouse_clicked(self, evt):
 
         self.label_9.setStyleSheet('background-color: goldenrod ; color: red')
         self.label_9.setFont(QFont("Consolas", 9, QFont.Bold))
         self.label_9.setText(" 시간: %d, 가격: %0.2f " % (bc_plot2_x, bc_plot2_y))
 
-    def bc_mouse3_clicked(self, evt):
+    def bc_plot3_mouse_clicked(self, evt):
 
         self.label_17.setStyleSheet('background-color: goldenrod ; color: red')
         self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
