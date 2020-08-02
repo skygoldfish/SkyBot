@@ -846,7 +846,6 @@ next_month = int(NEXT_MONTH[4:6])
 month_after_next = int(MONTH_AFTER_NEXT[4:6])
 
 if 4 < int(current_str[0:2]) < 야간선물_기준시간:
-
     overnight = False
     선물장간_시간차 = 60
 else:
