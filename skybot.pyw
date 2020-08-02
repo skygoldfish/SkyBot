@@ -4662,6 +4662,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.Plot2.scene().sigMouseMoved.connect(self.plot2_mouseMoved)
 
         # 라인 초기화 필요?
+        for i in range(9):
+            mv_line[i].setValue(0)
+        
+        plot2_ovc_close_line.setValue(0)
+        plot2_ovc_open_line.setValue(0)
+        plot2_ovc_jl_line.setValue(0)
+        plot2_ovc_jh_line.setValue(0)
+        plot2_ovc_pivot_line.setValue(0)
+        plot2_ovc_low_line.setValue(0)
+        plot2_ovc_high_line.setValue(0)
+
+        plot2_center_val_lower_line.setValue(0)
+        plot2_center_val_line.setValue(0)
+        plot2_center_val_upper_line.setValue(0)
                 
         if UI_STYLE == 'Vertical_View.ui':
 
@@ -5911,11 +5925,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_dow_curve.clear()
             plot2_nasdaq_curve.clear()
             plot2_wti_curve.clear()
-
-            plot2_center_val_lower_line.setValue(SP500_고가)
-            plot2_center_val_line.setValue(SP500_고가)
-            plot2_center_val_upper_line.setValue(SP500_고가)
-
+            
             for i in range(9):
                 mv_line[i].setValue(SP500_종가)
             
@@ -5953,6 +5963,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 SP500_고가 = SP500_종가
             else:
                 pass
+            
+            plot2_center_val_lower_line.setValue(SP500_고가)
+            plot2_center_val_line.setValue(SP500_고가)
+            plot2_center_val_upper_line.setValue(SP500_고가)
 
             plot2_ovc_jl_line.setValue(SP500_전저)
             plot2_ovc_jh_line.setValue(SP500_전고)
@@ -5961,7 +5975,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_ovc_open_line.setValue(SP500_시가)
             plot2_ovc_low_line.setValue(SP500_저가)
             plot2_ovc_high_line.setValue(SP500_고가)    
-
+            
         elif comboindex2 == 6:
 
             plot2_call_rr_curve.clear()
@@ -5987,11 +6001,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_sp500_curve.clear()
             plot2_nasdaq_curve.clear()
             plot2_wti_curve.clear()
-
-            plot2_center_val_lower_line.setValue(DOW_고가)
-            plot2_center_val_line.setValue(DOW_고가)
-            plot2_center_val_upper_line.setValue(DOW_고가)
-
+            
             for i in range(9):
                 mv_line[i].setValue(DOW_종가)
             
@@ -6029,6 +6039,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 DOW_고가 = DOW_종가
             else:
                 pass
+            
+            plot2_center_val_lower_line.setValue(DOW_고가)
+            plot2_center_val_line.setValue(DOW_고가)
+            plot2_center_val_upper_line.setValue(DOW_고가)
 
             plot2_ovc_jl_line.setValue(DOW_전저)
             plot2_ovc_jh_line.setValue(DOW_전고)
@@ -6063,11 +6077,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_sp500_curve.clear()
             plot2_dow_curve.clear()
             plot2_wti_curve.clear()
-
-            plot2_center_val_lower_line.setValue(NASDAQ_고가)
-            plot2_center_val_line.setValue(NASDAQ_고가)
-            plot2_center_val_upper_line.setValue(NASDAQ_고가)
-
+            
             for i in range(9):
                 mv_line[i].setValue(NASDAQ_종가)
             
@@ -6105,6 +6115,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 NASDAQ_고가 = NASDAQ_종가
             else:
                 pass
+            
+            plot2_center_val_lower_line.setValue(NASDAQ_고가)
+            plot2_center_val_line.setValue(NASDAQ_고가)
+            plot2_center_val_upper_line.setValue(NASDAQ_고가)
 
             plot2_ovc_jl_line.setValue(NASDAQ_전저)
             plot2_ovc_jh_line.setValue(NASDAQ_전고)
@@ -6139,11 +6153,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_sp500_curve.clear()
             plot2_dow_curve.clear()
             plot2_nasdaq_curve.clear()
-
-            plot2_center_val_lower_line.setValue(WTI_고가)
-            plot2_center_val_line.setValue(WTI_고가)
-            plot2_center_val_upper_line.setValue(WTI_고가) 
-
+            
             for i in range(9):
                 mv_line[i].setValue(WTI_종가)
             
@@ -6181,6 +6191,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 WTI_고가 = WTI_종가
             else:
                 pass
+            
+            plot2_center_val_lower_line.setValue(WTI_고가)
+            plot2_center_val_line.setValue(WTI_고가)
+            plot2_center_val_upper_line.setValue(WTI_고가) 
 
             plot2_ovc_jl_line.setValue(WTI_전저)
             plot2_ovc_jh_line.setValue(WTI_전고)
@@ -27295,10 +27309,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_nasdaq_curve.clear()
             bc_plot2_wti_curve.clear()
 
-            bc_plot2_center_val_lower_line.setValue(SP500_고가)
-            bc_plot2_center_val_line.setValue(SP500_고가)
-            bc_plot2_center_val_upper_line.setValue(SP500_고가)
-
             for i in range(9):
                 bc_plot2_mv_line[i].setValue(SP500_종가)
             
@@ -27336,6 +27346,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 SP500_고가 = SP500_종가
             else:
                 pass
+            
+            bc_plot2_center_val_lower_line.setValue(SP500_고가)
+            bc_plot2_center_val_line.setValue(SP500_고가)
+            bc_plot2_center_val_upper_line.setValue(SP500_고가)
                 
             str = ' 전저 : {0} '.format(format(SP500_전저, ','))
             self.label_9.setText(str)
@@ -27393,10 +27407,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_nasdaq_curve.clear()
             bc_plot2_wti_curve.clear()
 
-            bc_plot2_center_val_lower_line.setValue(DOW_고가)
-            bc_plot2_center_val_line.setValue(DOW_고가)
-            bc_plot2_center_val_upper_line.setValue(DOW_고가)
-
             for i in range(9):
                 bc_plot2_mv_line[i].setValue(DOW_종가)
             
@@ -27434,6 +27444,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 DOW_고가 = DOW_종가
             else:
                 pass
+            
+            bc_plot2_center_val_lower_line.setValue(DOW_고가)
+            bc_plot2_center_val_line.setValue(DOW_고가)
+            bc_plot2_center_val_upper_line.setValue(DOW_고가)
                 
             str = ' 전저 : {0} '.format(format(DOW_전저, ','))
             self.label_9.setText(str)
@@ -27490,11 +27504,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_sp500_curve.clear()
             bc_plot2_dow_curve.clear() 
             bc_plot2_wti_curve.clear()
-            
-            bc_plot2_center_val_lower_line.setValue(NASDAQ_고가)
-            bc_plot2_center_val_line.setValue(NASDAQ_고가)
-            bc_plot2_center_val_upper_line.setValue(NASDAQ_고가)
-            
+                        
             for i in range(9):
                 bc_plot2_mv_line[i].setValue(NASDAQ_종가)
             
@@ -27532,6 +27542,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 NASDAQ_고가 = NASDAQ_종가
             else:
                 pass
+            
+            bc_plot2_center_val_lower_line.setValue(NASDAQ_고가)
+            bc_plot2_center_val_line.setValue(NASDAQ_고가)
+            bc_plot2_center_val_upper_line.setValue(NASDAQ_고가)
             
             str = ' 전저 : {0} '.format(format(NASDAQ_전저, ','))
             self.label_9.setText(str)
@@ -27589,10 +27603,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_dow_curve.clear()
             bc_plot2_nasdaq_curve.clear()
 
-            bc_plot2_center_val_lower_line.setValue(WTI_고가)
-            bc_plot2_center_val_line.setValue(WTI_고가)
-            bc_plot2_center_val_upper_line.setValue(WTI_고가)  
-
             for i in range(9):
                 bc_plot2_mv_line[i].setValue(WTI_종가)
             
@@ -27630,6 +27640,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 WTI_고가 = WTI_종가
             else:
                 pass
+            
+            bc_plot2_center_val_lower_line.setValue(WTI_고가)
+            bc_plot2_center_val_line.setValue(WTI_고가)
+            bc_plot2_center_val_upper_line.setValue(WTI_고가) 
                 
             str = ' 전저 : {0} '.format(format(WTI_전저, ','))
             self.label_9.setText(str)
@@ -27947,10 +27961,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_nasdaq_curve.clear()
             bc_plot3_wti_curve.clear()
 
-            bc_plot3_center_val_lower_line.setValue(SP500_고가)
-            bc_plot3_center_val_line.setValue(SP500_고가)
-            bc_plot3_center_val_upper_line.setValue(SP500_고가)
-
             for i in range(9):
                 bc_plot3_mv_line[i].setValue(SP500_종가)
             
@@ -27988,6 +27998,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 SP500_고가 = SP500_종가
             else:
                 pass
+            
+            bc_plot3_center_val_lower_line.setValue(SP500_고가)
+            bc_plot3_center_val_line.setValue(SP500_고가)
+            bc_plot3_center_val_upper_line.setValue(SP500_고가)
                 
             str = ' 전저 : {0} '.format(format(SP500_전저, ','))
             self.label_17.setText(str)
@@ -28045,10 +28059,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_nasdaq_curve.clear()
             bc_plot3_wti_curve.clear()
 
-            bc_plot3_center_val_lower_line.setValue(DOW_고가)
-            bc_plot3_center_val_line.setValue(DOW_고가)
-            bc_plot3_center_val_upper_line.setValue(DOW_고가)
-
             for i in range(9):
                 bc_plot3_mv_line[i].setValue(DOW_종가)
             
@@ -28086,6 +28096,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 DOW_고가 = DOW_종가
             else:
                 pass
+            
+            bc_plot3_center_val_lower_line.setValue(DOW_고가)
+            bc_plot3_center_val_line.setValue(DOW_고가)
+            bc_plot3_center_val_upper_line.setValue(DOW_고가)
                 
             str = ' 전저 : {0} '.format(format(DOW_전저, ','))
             self.label_17.setText(str)
@@ -28143,10 +28157,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_dow_curve.clear() 
             bc_plot3_wti_curve.clear()
 
-            bc_plot3_center_val_lower_line.setValue(NASDAQ_고가)
-            bc_plot3_center_val_line.setValue(NASDAQ_고가)
-            bc_plot3_center_val_upper_line.setValue(NASDAQ_고가)
-
             for i in range(9):
                 bc_plot3_mv_line[i].setValue(NASDAQ_종가)
             
@@ -28184,6 +28194,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 NASDAQ_고가 = NASDAQ_종가
             else:
                 pass
+            
+            bc_plot3_center_val_lower_line.setValue(NASDAQ_고가)
+            bc_plot3_center_val_line.setValue(NASDAQ_고가)
+            bc_plot3_center_val_upper_line.setValue(NASDAQ_고가)
                 
             str = ' 전저 : {0} '.format(format(NASDAQ_전저, ','))
             self.label_17.setText(str)
@@ -28241,10 +28255,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_dow_curve.clear()
             bc_plot3_nasdaq_curve.clear() 
 
-            bc_plot3_center_val_lower_line.setValue(WTI_고가)
-            bc_plot3_center_val_line.setValue(WTI_고가)
-            bc_plot3_center_val_upper_line.setValue(WTI_고가) 
-
             for i in range(9):
                 bc_plot3_mv_line[i].setValue(WTI_종가)
             
@@ -28282,6 +28292,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 WTI_고가 = WTI_종가
             else:
                 pass
+            
+            bc_plot3_center_val_lower_line.setValue(WTI_고가)
+            bc_plot3_center_val_line.setValue(WTI_고가)
+            bc_plot3_center_val_upper_line.setValue(WTI_고가) 
                 
             str = ' 전저 : {0} '.format(format(WTI_전저, ','))
             self.label_17.setText(str)
