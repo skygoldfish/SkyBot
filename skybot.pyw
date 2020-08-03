@@ -5112,10 +5112,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def cb1_selectionChanged(self):
 
         global comboindex1
+        '''
         global plot1_fut_price_curve, plot1_kp200_curve, plot1_fut_volume_curve, plot1_fut_volume_plus_curve, plot1_fut_volume_minus_curve
         global plot1_call_volume_curve, plot1_put_volume_curve
         global plot1_call_rr_curve, plot1_put_rr_curve
         global plot1_fut_drate_curve, plot1_dow_drate_curve, plot1_call_drate_curve, plot1_put_drate_curve
+        '''
         global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_고가
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
@@ -5689,10 +5691,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def cb2_selectionChanged(self):
 
         global comboindex2
+        '''
         global plot2_call_curve, plot2_put_curve, plot2_fut_volume_curve, plot2_fut_volume_plus_curve, plot2_fut_volume_minus_curve
         global plot2_call_volume_curve, plot2_put_volume_curve
         global plot2_call_rr_curve, plot2_put_rr_curve
         global plot2_fut_drate_curve, plot2_dow_drate_curve, plot2_call_drate_curve, plot2_put_drate_curve
+        '''
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
         global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
@@ -7757,6 +7761,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     if SP500_고가 > 0:
+                        plot2_center_val_lower_line.setValue(SP500_고가)
+                        plot2_center_val_line.setValue(SP500_고가)
+                        plot2_center_val_upper_line.setValue(SP500_고가)
                         plot2_ovc_high_line.setValue(SP500_고가)
                     else:
                         pass
@@ -7796,6 +7803,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     if DOW_고가 > 0:
+                        plot2_center_val_lower_line.setValue(DOW_고가)
+                        plot2_center_val_line.setValue(DOW_고가)
+                        plot2_center_val_upper_line.setValue(DOW_고가)
                         plot2_ovc_high_line.setValue(DOW_고가)
                     else:
                         pass                
@@ -7835,6 +7845,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     if NASDAQ_고가 > 0:
+                        plot2_center_val_lower_line.setValue(NASDAQ_고가)
+                        plot2_center_val_line.setValue(NASDAQ_고가)
+                        plot2_center_val_upper_line.setValue(NASDAQ_고가)
                         plot2_ovc_high_line.setValue(NASDAQ_고가)
                     else:
                         pass 
@@ -7874,6 +7887,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     if WTI_고가 > 0:
+                        plot2_center_val_lower_line.setValue(WTI_고가)
+                        plot2_center_val_line.setValue(WTI_고가)
+                        plot2_center_val_upper_line.setValue(WTI_고가)
                         plot2_ovc_high_line.setValue(WTI_고가)
                     else:
                         pass 
@@ -26380,10 +26396,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     def bc_cb1_selectionChanged(self):
 
         global bc_comboindex1
+        '''
         global bc_plot1_fut_price_curve, bc_plot1_kp200_curve, bc_plot1_fut_volume_curve, bc_plot1_fut_volume_plus_curve, bc_plot1_fut_volume_minus_curve
         global bc_plot1_call_volume_curve, bc_plot1_put_volume_curve
         global bc_plot1_call_rr_curve, bc_plot1_put_rr_curve
         global bc_plot1_fut_drate_curve, bc_plot1_dow_drate_curve, bc_plot1_call_drate_curve, bc_plot1_put_drate_curve
+        '''
         global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_고가
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
@@ -27103,10 +27121,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     def bc_cb2_selectionChanged(self):
 
         global bc_comboindex2
+        '''
         global bc_plot2_call_curve, bc_plot2_put_curve, bc_plot2_fut_volume_curve, bc_plot2_fut_volume_plus_curve, bc_plot2_fut_volume_minus_curve
         global bc_plot2_call_volume_curve, bc_plot2_put_volume_curve
         global bc_plot2_call_rr_curve, bc_plot2_put_rr_curve
         global bc_plot2_fut_drate_curve, bc_plot2_dow_drate_curve, bc_plot2_call_drate_curve, bc_plot2_put_drate_curve
+        '''
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
         global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
@@ -27755,10 +27775,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     def bc_cb3_selectionChanged(self):
 
         global bc_comboindex3
+        '''
         global bc_plot3_call_curve, bc_plot3_put_curve, bc_plot3_fut_volume_curve, bc_plot3_fut_volume_plus_curve, bc_plot3_fut_volume_minus_curve
         global bc_plot3_call_volume_curve, bc_plot3_put_volume_curve
         global bc_plot3_call_rr_curve, bc_plot3_put_rr_curve
         global bc_plot3_fut_drate_curve, bc_plot3_dow_drate_curve, bc_plot3_call_drate_curve, bc_plot3_put_drate_curve
+        '''
         global SP500_전저, SP500_전고, SP500_종가, SP500_피봇, SP500_시가, SP500_저가, SP500_고가
         global DOW_전저, DOW_전고, DOW_종가, DOW_피봇, DOW_시가, DOW_저가, DOW_고가
         global NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_피봇, NASDAQ_시가, NASDAQ_저가, NASDAQ_고가
@@ -28977,6 +28999,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
                 if SP500_고가 > 0:
+                    bc_plot2_center_val_lower_line.setValue(SP500_고가)
+                    bc_plot2_center_val_line.setValue(SP500_고가)
+                    bc_plot2_center_val_upper_line.setValue(SP500_고가)
                     bc_plot2_ovc_high_line.setValue(SP500_고가)
                 else:
                     pass
@@ -29061,6 +29086,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
                 if DOW_고가 > 0:
+                    bc_plot2_center_val_lower_line.setValue(DOW_고가)
+                    bc_plot2_center_val_line.setValue(DOW_고가)
+                    bc_plot2_center_val_upper_line.setValue(DOW_고가)
                     bc_plot2_ovc_high_line.setValue(DOW_고가)
                 else:
                     pass
@@ -29145,6 +29173,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
                 if NASDAQ_고가 > 0:
+                    bc_plot2_center_val_lower_line.setValue(NASDAQ_고가)
+                    bc_plot2_center_val_line.setValue(NASDAQ_고가)
+                    bc_plot2_center_val_upper_line.setValue(NASDAQ_고가)
                     bc_plot2_ovc_high_line.setValue(NASDAQ_고가)
                 else:
                     pass
@@ -29229,6 +29260,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
                 if WTI_고가 > 0:
+                    bc_plot2_center_val_lower_line.setValue(WTI_고가)
+                    bc_plot2_center_val_line.setValue(WTI_고가)
+                    bc_plot2_center_val_upper_line.setValue(WTI_고가)
                     bc_plot2_ovc_high_line.setValue(WTI_고가)
                 else:
                     pass
@@ -29405,6 +29439,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
                 if SP500_고가 > 0:
+                    bc_plot3_center_val_lower_line.setValue(SP500_고가)
+                    bc_plot3_center_val_line.setValue(SP500_고가)
+                    bc_plot3_center_val_upper_line.setValue(SP500_고가)
                     bc_plot3_ovc_high_line.setValue(SP500_고가)
                 else:
                     pass
@@ -29489,6 +29526,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
                 if DOW_고가 > 0:
+                    bc_plot3_center_val_lower_line.setValue(DOW_고가)
+                    bc_plot3_center_val_line.setValue(DOW_고가)
+                    bc_plot3_center_val_upper_line.setValue(DOW_고가)
                     bc_plot3_ovc_high_line.setValue(DOW_고가)
                 else:
                     pass
@@ -29573,6 +29613,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
                 if NASDAQ_고가 > 0:
+                    bc_plot3_center_val_lower_line.setValue(NASDAQ_고가)
+                    bc_plot3_center_val_line.setValue(NASDAQ_고가)
+                    bc_plot3_center_val_upper_line.setValue(NASDAQ_고가)
                     bc_plot3_ovc_high_line.setValue(NASDAQ_고가)
                 else:
                     pass
@@ -29657,6 +29700,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
                 if WTI_고가 > 0:
+                    bc_plot3_center_val_lower_line.setValue(WTI_고가)
+                    bc_plot3_center_val_line.setValue(WTI_고가)
+                    bc_plot3_center_val_upper_line.setValue(WTI_고가)
                     bc_plot3_ovc_high_line.setValue(WTI_고가)
                 else:
                     pass
