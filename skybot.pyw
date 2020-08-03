@@ -1565,6 +1565,7 @@ bpen = pg.mkPen('b', width=2, style=QtCore.Qt.SolidLine)
 gpen = pg.mkPen('g', width=2, style=QtCore.Qt.SolidLine)
 ypen = pg.mkPen('y', width=2, style=QtCore.Qt.SolidLine)
 mvpen = pg.mkPen('g', width=1, style=QtCore.Qt.DotLine)
+kp200_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DotLine)
 tpen = pg.mkPen(lightyellow, width=1, style=QtCore.Qt.DotLine)
 tpen1 = pg.mkPen('w', width=1, style=QtCore.Qt.DotLine)
 
@@ -4561,10 +4562,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot1_fut_low_line = self.Plot1.addLine(x=None, pen=skyblue_pen)
         plot1_fut_high_line = self.Plot1.addLine(x=None, pen=pink_pen)
 
-        plot1_kp200_3_line = self.Plot1.addLine(x=None, pen=mvpen)
-        plot1_kp200_4_line = self.Plot1.addLine(x=None, pen=mvpen)
-        plot1_kp200_5_line = self.Plot1.addLine(x=None, pen=mvpen)
-        plot1_kp200_6_line = self.Plot1.addLine(x=None, pen=mvpen)   
+        plot1_kp200_3_line = self.Plot1.addLine(x=None, pen=kp200_pen)
+        plot1_kp200_4_line = self.Plot1.addLine(x=None, pen=kp200_pen)
+        plot1_kp200_5_line = self.Plot1.addLine(x=None, pen=kp200_pen)
+        plot1_kp200_6_line = self.Plot1.addLine(x=None, pen=kp200_pen)   
 
         plot1_ovc_jl_line = self.Plot1.addLine(x=None, pen=goldenrod_pen)
         plot1_ovc_jh_line = self.Plot1.addLine(x=None, pen=gold_pen)  
@@ -26039,10 +26040,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_fut_low_line = self.bc_Plot1.addLine(x=None, pen=skyblue_pen)
         bc_plot1_fut_high_line = self.bc_Plot1.addLine(x=None, pen=pink_pen)
 
-        bc_plot1_kp200_3_line = self.bc_Plot1.addLine(x=None, pen=mvpen)
-        bc_plot1_kp200_4_line = self.bc_Plot1.addLine(x=None, pen=mvpen)
-        bc_plot1_kp200_5_line = self.bc_Plot1.addLine(x=None, pen=mvpen)
-        bc_plot1_kp200_6_line = self.bc_Plot1.addLine(x=None, pen=mvpen)   
+        bc_plot1_kp200_3_line = self.bc_Plot1.addLine(x=None, pen=kp200_pen)
+        bc_plot1_kp200_4_line = self.bc_Plot1.addLine(x=None, pen=kp200_pen)
+        bc_plot1_kp200_5_line = self.bc_Plot1.addLine(x=None, pen=kp200_pen)
+        bc_plot1_kp200_6_line = self.bc_Plot1.addLine(x=None, pen=kp200_pen)   
 
         bc_plot1_ovc_jl_line = self.bc_Plot1.addLine(x=None, pen=goldenrod_pen)
         bc_plot1_ovc_jh_line = self.bc_Plot1.addLine(x=None, pen=gold_pen)  
