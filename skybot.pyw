@@ -9080,22 +9080,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         atm_plus_5 = round((df_call.at[atm_index + 5, '현재가'] + df_put.at[atm_index + 5, '현재가']) , 2)        
         
         #df_plotdata_fut_drate[opt_x_idx] = atm_zero_sum
-        #df_plotdata_dow_drate[opt_x_idx] = atm_zero_cha
-        
-        if basis < 0:
-
-            self.label_atm.setStyleSheet('background-color: black; color: yellow')
-            self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
-        else:
-            self.label_atm.setStyleSheet('background-color: yellow; color: black')
-            self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        if 장시작_양합 > 0:
-            str = '{0}({1:0.2f}:{2})'.format(basis, 장시작_양합, abs(atm_zero_cha))
-        else :
-            str = '{0}({1}:{2})'.format(basis, atm_zero_sum, abs(atm_zero_cha))
+        #df_plotdata_dow_drate[opt_x_idx] = atm_zero_cha        
 
         if FLAG_ATM:
+            if basis < 0:
+                self.label_atm.setStyleSheet('background-color: black; color: yellow')
+                self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
+            else:
+                self.label_atm.setStyleSheet('background-color: yellow; color: black')
+                self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            if 장시작_양합 > 0:
+                str = '{0}({1:0.2f}:{2})'.format(basis, 장시작_양합, abs(atm_zero_cha))
+            else :
+                str = '{0}({1}:{2})'.format(basis, atm_zero_sum, abs(atm_zero_cha))
+
             self.label_atm.setText(str)
         else:
             pass
