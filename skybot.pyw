@@ -1567,7 +1567,7 @@ bpen = pg.mkPen('b', width=2, style=QtCore.Qt.SolidLine)
 gpen = pg.mkPen('g', width=2, style=QtCore.Qt.SolidLine)
 ypen = pg.mkPen('y', width=2, style=QtCore.Qt.SolidLine)
 mvpen = pg.mkPen('g', width=1, style=QtCore.Qt.DotLine)
-kp200_pen = pg.mkPen('g', width=2, style=QtCore.Qt.DotLine)
+kp200_pen = pg.mkPen('w', width=2, style=QtCore.Qt.DotLine)
 tpen = pg.mkPen(lightyellow, width=1, style=QtCore.Qt.DotLine)
 tpen1 = pg.mkPen('w', width=1, style=QtCore.Qt.DotLine)
 
