@@ -26288,6 +26288,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_hLine.setPos(mousePoint.y())
             bc_plot1_x = mousePoint.x()
             bc_plot1_y = mousePoint.y()
+            '''
+            if bc_comboindex1 == 5:
+                bc_plot1_y = plot_data11[bc_plot1_x]
+            elif bc_comboindex1 == 6:
+                bc_plot1_y = plot_data12[bc_plot1_x]
+            elif bc_comboindex1 == 7:
+                bc_plot1_y = plot_data13[bc_plot1_x]
+            elif bc_comboindex1 == 8:
+                bc_plot1_y = plot_data14[bc_plot1_x]
+            else:
+                bc_plot1_y = mousePoint.y()
+            '''
         else:
             pass
 
@@ -26304,6 +26316,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_hLine.setPos(mousePoint.y())
             bc_plot2_x = mousePoint.x()
             bc_plot2_y = mousePoint.y()
+            '''
+            if bc_comboindex2 == 5:
+                bc_plot2_y = plot_data11[bc_plot2_x]
+            elif bc_comboindex2 == 6:
+                bc_plot2_y = plot_data12[bc_plot2_x]
+            elif bc_comboindex2 == 7:
+                bc_plot2_y = plot_data13[bc_plot2_x]
+            elif bc_comboindex1 == 8:
+                bc_plot2_y = plot_data14[bc_plot2_x]
+            else:
+                bc_plot2_y = mousePoint.y()
+            '''
         else:
             pass
 
@@ -26320,6 +26344,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_hLine.setPos(mousePoint.y())
             bc_plot3_x = mousePoint.x()
             bc_plot3_y = mousePoint.y()
+            '''
+            if bc_comboindex3 == 5:
+                bc_plot3_y = plot_data11[bc_plot3_x]
+            elif bc_comboindex2 == 6:
+                bc_plot3_y = plot_data12[bc_plot3_x]
+            elif bc_comboindex2 == 7:
+                bc_plot3_y = plot_data13[bc_plot3_x]
+            elif bc_comboindex1 == 8:
+                bc_plot3_y = plot_data14[bc_plot3_x]
+            else:
+                bc_plot3_y = mousePoint.y()
+            '''
         else:
             pass
 
