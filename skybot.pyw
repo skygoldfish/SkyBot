@@ -18903,10 +18903,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if overnight:
 
-                    self.tableWidget_fut.item(0, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
-                    self.tableWidget_fut.item(0, Futures_column.피봇.value).setForeground(QBrush(검정색))
-                    self.tableWidget_fut.item(0, Futures_column.저가.value).setBackground(QBrush(콜피봇색))
-                    self.tableWidget_fut.item(0, Futures_column.저가.value).setForeground(QBrush(검정색))
+                    # 임시대응
+                    if market_service:
+                        self.tableWidget_fut.item(0, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
+                        self.tableWidget_fut.item(0, Futures_column.피봇.value).setForeground(QBrush(검정색))
+                        self.tableWidget_fut.item(0, Futures_column.저가.value).setBackground(QBrush(콜피봇색))
+                        self.tableWidget_fut.item(0, Futures_column.저가.value).setForeground(QBrush(검정색))
+                    else:
+                        pass
                 else:
                     self.tableWidget_fut.item(1, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
                     self.tableWidget_fut.item(1, Futures_column.피봇.value).setForeground(QBrush(검정색))
@@ -18970,11 +18974,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if self.is_within_n_tick(선물_피봇, 선물_고가, 10):                
 
                 if overnight:
-
-                    self.tableWidget_fut.item(0, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
-                    self.tableWidget_fut.item(0, Futures_column.피봇.value).setForeground(QBrush(검정색))
-                    self.tableWidget_fut.item(0, Futures_column.고가.value).setBackground(QBrush(콜피봇색))
-                    self.tableWidget_fut.item(0, Futures_column.고가.value).setForeground(QBrush(검정색))
+                    
+                    # 임시대응
+                    if market_service:
+                        self.tableWidget_fut.item(0, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
+                        self.tableWidget_fut.item(0, Futures_column.피봇.value).setForeground(QBrush(검정색))
+                        self.tableWidget_fut.item(0, Futures_column.고가.value).setBackground(QBrush(콜피봇색))
+                        self.tableWidget_fut.item(0, Futures_column.고가.value).setForeground(QBrush(검정색))
+                    else:
+                        pass
                 else:
                     self.tableWidget_fut.item(1, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
                     self.tableWidget_fut.item(1, Futures_column.피봇.value).setForeground(QBrush(검정색))
