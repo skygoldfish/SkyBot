@@ -956,6 +956,8 @@ flag_telegram_on = True
 
 telegram_send_message = 'None'
 
+FLAG_ATM = True
+
 FLAG_ASYM = False
 FLAG_NODE = False
 FLAG_OLOH = False
@@ -7209,25 +7211,51 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     #cross hair
     def plot1_mouseMoved(self, evt):
 
+        global FLAG_ATM
+
         pos = evt
 
         if self.Plot1.sceneBoundingRect().contains(pos):
             mousePoint = self.Plot1.plotItem.vb.mapSceneToView(pos)
-            self.label_atm.setText("<span style='font-size: 9pt'>X = %d, <span style='color: red'>Y = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
+            self.label_atm.setText("<span style='font-size: 9pt'>X = %d, <span style='color: red'>Y = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))
+
+            if overnight:
+                timespan = overnight_timespan
+            else:
+                timespan = day_timespan
+               
+            if 선물장간_시간차 < mousePoint.x() < timespan:
+                FLAG_ATM = False
+            else:
+                FLAG_ATM = True
+            
             plot1_vLine.setPos(mousePoint.x())
-            plot1_hLine.setPos(mousePoint.y())
+            plot1_hLine.setPos(mousePoint.y())            
         else:
             pass
         
     def plot2_mouseMoved(self, evt):
 
+        global FLAG_ATM
+
         pos = evt
 
         if self.Plot2.sceneBoundingRect().contains(pos):
             mousePoint = self.Plot2.plotItem.vb.mapSceneToView(pos)
-            self.label_atm.setText("<span style='font-size: 9pt'>X = %d, <span style='color: red'>Y = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
+            self.label_atm.setText("<span style='font-size: 9pt'>X = %d, <span style='color: red'>Y = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))
+
+            if overnight:
+                timespan = overnight_timespan
+            else:
+                timespan = day_timespan
+
+            if 선물장간_시간차 < mousePoint.x() < timespan:
+                FLAG_ATM = False
+            else:
+                FLAG_ATM = True
+            
             plot2_vLine.setPos(mousePoint.x())
-            plot2_hLine.setPos(mousePoint.y())
+            plot2_hLine.setPos(mousePoint.y()) 
         else:
             pass    
 
@@ -9067,7 +9095,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else :
             str = '{0}({1}:{2})'.format(basis, atm_zero_sum, abs(atm_zero_cha))
 
-        self.label_atm.setText(str)
+        if FLAG_ATM:
+            self.label_atm.setText(str)
+        else:
+            pass
 
         # 예상 중심가 표시
         if call_atm_value > put_atm_value:
