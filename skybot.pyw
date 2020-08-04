@@ -1607,10 +1607,12 @@ plot1_fut_pivot_line = None
 plot1_fut_low_line = None
 plot1_fut_high_line = None  
 
+plot1_kp200_2_line = None
 plot1_kp200_3_line = None
 plot1_kp200_4_line = None
 plot1_kp200_5_line = None
 plot1_kp200_6_line = None
+plot1_kp200_7_line = None
 
 kp200_line = []
 
@@ -1708,10 +1710,12 @@ bc_plot1_fut_pivot_line = None
 bc_plot1_fut_low_line = None
 bc_plot1_fut_high_line = None
 
+bc_plot1_kp200_2_line = None
 bc_plot1_kp200_3_line = None
 bc_plot1_kp200_4_line = None
 bc_plot1_kp200_5_line = None
-bc_plot1_kp200_6_line = None 
+bc_plot1_kp200_6_line = None
+bc_plot1_kp200_7_line = None 
 
 bc_kp200_line = []
 
@@ -4528,7 +4532,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global plot1_sp500_curve, plot1_dow_curve, plot1_nasdaq_curve, plot1_wti_curve
         global plot1_call_drate_curve, plot1_put_drate_curve
         global plot1_vLine, plot1_hLine
-        global kp200_line, plot1_kp200_3_line, plot1_kp200_4_line, plot1_kp200_5_line, plot1_kp200_6_line
+        global kp200_line, plot1_kp200_2_line, plot1_kp200_3_line, plot1_kp200_4_line, plot1_kp200_5_line, plot1_kp200_6_line, plot1_kp200_7_line
 
         global plot2_fut_volume_curve, plot2_fut_volume_plus_curve, plot2_fut_volume_minus_curve        
         global plot2_call_rr_curve, plot2_put_rr_curve        
@@ -4567,14 +4571,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot1_fut_pivot_line = self.Plot1.addLine(x=None, pen=fut_pvt_pen)
         plot1_fut_low_line = self.Plot1.addLine(x=None, pen=skyblue_pen)
         plot1_fut_high_line = self.Plot1.addLine(x=None, pen=pink_pen)
-
+        '''
         for i in range(10):
             kp200_line.append(self.Plot1.addLine(x=None, pen=kp200_pen))
-
+        '''
+        plot1_kp200_2_line = self.Plot1.addLine(x=None, pen=kp200_pen)
         plot1_kp200_3_line = self.Plot1.addLine(x=None, pen=kp200_pen)
         plot1_kp200_4_line = self.Plot1.addLine(x=None, pen=kp200_pen)
         plot1_kp200_5_line = self.Plot1.addLine(x=None, pen=kp200_pen)
-        plot1_kp200_6_line = self.Plot1.addLine(x=None, pen=kp200_pen)   
+        plot1_kp200_6_line = self.Plot1.addLine(x=None, pen=kp200_pen)
+        plot1_kp200_7_line = self.Plot1.addLine(x=None, pen=kp200_pen)   
 
         plot1_ovc_jl_line = self.Plot1.addLine(x=None, pen=goldenrod_pen)
         plot1_ovc_jh_line = self.Plot1.addLine(x=None, pen=gold_pen)  
@@ -5158,14 +5164,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_fut_low_line.setValue(0)
             plot1_fut_high_line.setValue(0)
             
-            #plot1_kp200_3_line.setValue(0)
-            #plot1_kp200_4_line.setValue(0)
-            #plot1_kp200_5_line.setValue(0)
-            #plot1_kp200_6_line.setValue(0)
-            
+            plot1_kp200_2_line.setValue(0)
+            plot1_kp200_3_line.setValue(0)
+            plot1_kp200_4_line.setValue(0)
+            plot1_kp200_5_line.setValue(0)
+            plot1_kp200_6_line.setValue(0)
+            plot1_kp200_7_line.setValue(0)
+            '''
             for i in range(10):
                 kp200_line[i].setValue(0)
-            
+            '''
             plot1_ovc_close_line.setValue(0)
             plot1_ovc_open_line.setValue(0)
             plot1_ovc_jl_line.setValue(0)
@@ -5203,14 +5211,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_fut_low_line.setValue(0)
             plot1_fut_high_line.setValue(0)
 
-            #plot1_kp200_3_line.setValue(0)
-            #plot1_kp200_4_line.setValue(0)
-            #plot1_kp200_5_line.setValue(0)
-            #plot1_kp200_6_line.setValue(0)
-
+            plot1_kp200_2_line.setValue(0)
+            plot1_kp200_3_line.setValue(0)
+            plot1_kp200_4_line.setValue(0)
+            plot1_kp200_5_line.setValue(0)
+            plot1_kp200_6_line.setValue(0)
+            plot1_kp200_7_line.setValue(0)
+            '''
             for i in range(10):
                 kp200_line[i].setValue(0)
-            
+            '''
             plot1_ovc_close_line.setValue(0)
             plot1_ovc_open_line.setValue(0)
             plot1_ovc_jl_line.setValue(0)
@@ -5248,14 +5258,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_fut_low_line.setValue(0)
             plot1_fut_high_line.setValue(0)
 
-            #plot1_kp200_3_line.setValue(0)
-            #plot1_kp200_4_line.setValue(0)
-            #plot1_kp200_5_line.setValue(0)
-            #plot1_kp200_6_line.setValue(0)
-
+            plot1_kp200_2_line.setValue(0)
+            plot1_kp200_3_line.setValue(0)
+            plot1_kp200_4_line.setValue(0)
+            plot1_kp200_5_line.setValue(0)
+            plot1_kp200_6_line.setValue(0)
+            plot1_kp200_7_line.setValue(0)
+            '''
             for i in range(10):
                 kp200_line[i].setValue(0)
-            
+            '''
             plot1_ovc_close_line.setValue(0)
             plot1_ovc_open_line.setValue(0)
             plot1_ovc_jl_line.setValue(0)
@@ -5291,14 +5303,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_fut_low_line.setValue(0)
             plot1_fut_high_line.setValue(0)
 
-            #plot1_kp200_3_line.setValue(0)
-            #plot1_kp200_4_line.setValue(0)
-            #plot1_kp200_5_line.setValue(0)
-            #plot1_kp200_6_line.setValue(0)
-
+            plot1_kp200_2_line.setValue(0)
+            plot1_kp200_3_line.setValue(0)
+            plot1_kp200_4_line.setValue(0)
+            plot1_kp200_5_line.setValue(0)
+            plot1_kp200_6_line.setValue(0)
+            plot1_kp200_7_line.setValue(0)
+            '''
             for i in range(10):
                 kp200_line[i].setValue(0)
-            
+            '''
             plot1_ovc_close_line.setValue(0)
             plot1_ovc_open_line.setValue(0)
             plot1_ovc_jl_line.setValue(0)
@@ -5327,6 +5341,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_dow_curve.clear()
             plot1_nasdaq_curve.clear()
             plot1_wti_curve.clear()
+            plot1_ovc_close_line.setValue(340)
             
             plot1_ovc_close_line.setValue(CME_종가)
             plot1_ovc_open_line.setValue(CME_종가)
@@ -5335,6 +5350,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_ovc_pivot_line.setValue(CME_종가)
             plot1_ovc_low_line.setValue(CME_종가)
             plot1_ovc_high_line.setValue(CME_종가)
+            
+            plot1_kp200_2_line.setValue(KP200_COREVAL[3])
+            plot1_kp200_3_line.setValue(KP200_COREVAL[3])
+            plot1_kp200_4_line.setValue(KP200_COREVAL[4])
+            plot1_kp200_5_line.setValue(KP200_COREVAL[5])
+            plot1_kp200_6_line.setValue(KP200_COREVAL[6])
+            plot1_kp200_7_line.setValue(KP200_COREVAL[6])
+
+            '''            
+            kp200_line[0].setValue(KP200_COREVAL[3])
+            kp200_line[1].setValue(KP200_COREVAL[3])
+            kp200_line[2].setValue(KP200_COREVAL[3])
+            kp200_line[3].setValue(KP200_COREVAL[3])
+            kp200_line[4].setValue(KP200_COREVAL[4])
+            kp200_line[5].setValue(KP200_COREVAL[5])
+            kp200_line[6].setValue(KP200_COREVAL[6])
+            kp200_line[7].setValue(KP200_COREVAL[6])
+            kp200_line[8].setValue(KP200_COREVAL[6])
+            kp200_line[9].setValue(KP200_COREVAL[6])
+            '''
 
             if 선물_전저 == 0:
                 선물_전저 = CME_종가
@@ -5370,23 +5405,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 선물_고가 = CME_종가
             else:
                 pass
-
-            #plot1_kp200_3_line.setValue(KP200_COREVAL[3])
-            #plot1_kp200_4_line.setValue(KP200_COREVAL[4])
-            #plot1_kp200_5_line.setValue(KP200_COREVAL[5])
-            #plot1_kp200_6_line.setValue(KP200_COREVAL[6])
-
-            kp200_line[0].setValue(KP200_COREVAL[3])
-            kp200_line[1].setValue(KP200_COREVAL[3])
-            kp200_line[2].setValue(KP200_COREVAL[3])
-            kp200_line[3].setValue(KP200_COREVAL[3])
-            kp200_line[4].setValue(KP200_COREVAL[4])
-            kp200_line[5].setValue(KP200_COREVAL[5])
-            kp200_line[6].setValue(KP200_COREVAL[6])
-            kp200_line[7].setValue(KP200_COREVAL[6])
-            kp200_line[8].setValue(KP200_COREVAL[6])
-            kp200_line[9].setValue(KP200_COREVAL[6])
-
+                        
             plot1_fut_jl_line.setValue(선물_전저)            
             plot1_fut_jh_line.setValue(선물_전고)            
             plot1_fut_close_line.setValue(선물_종가)
@@ -5426,14 +5445,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_fut_low_line.setValue(SP500_종가)
             plot1_fut_high_line.setValue(SP500_종가)
 
-            #plot1_kp200_3_line.setValue(SP500_종가)
-            #plot1_kp200_4_line.setValue(SP500_종가)
-            #plot1_kp200_5_line.setValue(SP500_종가)
-            #plot1_kp200_6_line.setValue(SP500_종가)
-
+            plot1_kp200_2_line.setValue(SP500_종가)
+            plot1_kp200_3_line.setValue(SP500_종가)
+            plot1_kp200_4_line.setValue(SP500_종가)
+            plot1_kp200_5_line.setValue(SP500_종가)
+            plot1_kp200_6_line.setValue(SP500_종가)
+            plot1_kp200_7_line.setValue(SP500_종가)
+            '''
             for i in range(10):
                 kp200_line[i].setValue(SP500_종가)
-
+            '''
             if SP500_전저 == 0:
                 SP500_전저 = SP500_종가
             else:
@@ -5508,14 +5529,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_fut_low_line.setValue(DOW_종가)
             plot1_fut_high_line.setValue(DOW_종가)
 
-            #plot1_kp200_3_line.setValue(DOW_종가)
-            #plot1_kp200_4_line.setValue(DOW_종가)
-            #plot1_kp200_5_line.setValue(DOW_종가)
-            #plot1_kp200_6_line.setValue(DOW_종가)
-
+            plot1_kp200_2_line.setValue(DOW_종가)
+            plot1_kp200_3_line.setValue(DOW_종가)
+            plot1_kp200_4_line.setValue(DOW_종가)
+            plot1_kp200_5_line.setValue(DOW_종가)
+            plot1_kp200_6_line.setValue(DOW_종가)
+            plot1_kp200_7_line.setValue(DOW_종가)
+            '''
             for i in range(10):
                 kp200_line[i].setValue(DOW_종가)
-
+            '''
             if DOW_전저 == 0:
                 DOW_전저 = DOW_종가
             else:
@@ -5590,14 +5613,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_fut_low_line.setValue(NASDAQ_종가)
             plot1_fut_high_line.setValue(NASDAQ_종가)
 
-            #plot1_kp200_3_line.setValue(NASDAQ_종가)
-            #plot1_kp200_4_line.setValue(NASDAQ_종가)
-            #plot1_kp200_5_line.setValue(NASDAQ_종가)
-            #plot1_kp200_6_line.setValue(NASDAQ_종가)
-
+            plot1_kp200_2_line.setValue(NASDAQ_종가)
+            plot1_kp200_3_line.setValue(NASDAQ_종가)
+            plot1_kp200_4_line.setValue(NASDAQ_종가)
+            plot1_kp200_5_line.setValue(NASDAQ_종가)
+            plot1_kp200_6_line.setValue(NASDAQ_종가)
+            plot1_kp200_7_line.setValue(NASDAQ_종가)
+            '''
             for i in range(10):
                 kp200_line[i].setValue(NASDAQ_종가)
-
+            '''
             if NASDAQ_전저 == 0:
                 NASDAQ_전저 = NASDAQ_종가
             else:
@@ -5672,14 +5697,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_fut_low_line.setValue(WTI_종가)
             plot1_fut_high_line.setValue(WTI_종가)
 
-            #plot1_kp200_3_line.setValue(WTI_종가)
-            #plot1_kp200_4_line.setValue(WTI_종가)
-            #plot1_kp200_5_line.setValue(WTI_종가)
-            #plot1_kp200_6_line.setValue(WTI_종가)
-
+            plot1_kp200_2_line.setValue(WTI_종가)
+            plot1_kp200_3_line.setValue(WTI_종가)
+            plot1_kp200_4_line.setValue(WTI_종가)
+            plot1_kp200_5_line.setValue(WTI_종가)
+            plot1_kp200_6_line.setValue(WTI_종가)
+            plot1_kp200_7_line.setValue(WTI_종가)
+            '''
             for i in range(10):
                 kp200_line[i].setValue(WTI_종가)
-
+            '''
             if WTI_전저 == 0:
                 WTI_전저 = WTI_종가
             else:
@@ -7457,11 +7484,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif comboindex1 == 4 and market_service:
                     
-                    #plot1_kp200_3_line.setValue(KP200_COREVAL[3])
-                    #plot1_kp200_4_line.setValue(KP200_COREVAL[4])
-                    #plot1_kp200_5_line.setValue(KP200_COREVAL[5])
-                    #plot1_kp200_6_line.setValue(KP200_COREVAL[6])
-                    
+                    plot1_kp200_3_line.setValue(KP200_COREVAL[3])
+                    plot1_kp200_4_line.setValue(KP200_COREVAL[4])
+                    plot1_kp200_5_line.setValue(KP200_COREVAL[5])
+                    plot1_kp200_6_line.setValue(KP200_COREVAL[6])
+
+                    if 선물_전고 > KP200_COREVAL[6]:
+                        plot1_kp200_7_line.setValue(KP200_COREVAL[7])
+                    else:
+                        plot1_kp200_7_line.setValue(KP200_COREVAL[6])
+
+                    if 선물_전저 < KP200_COREVAL[3]:
+                        plot1_kp200_2_line.setValue(KP200_COREVAL[2])
+                    else:
+                        plot1_kp200_2_line.setValue(KP200_COREVAL[3])
+
+                    '''
                     kp200_line[3].setValue(KP200_COREVAL[3])
                     kp200_line[4].setValue(KP200_COREVAL[4])
                     kp200_line[5].setValue(KP200_COREVAL[5])
@@ -7476,7 +7514,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         kp200_line[2].setValue(KP200_COREVAL[2])
                     else:
                         pass
-
+                    '''
                     plot1_fut_jl_line.setValue(선물_전저)
                     plot1_fut_jh_line.setValue(선물_전고)
                     plot1_fut_close_line.setValue(선물_종가)
@@ -25768,7 +25806,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot1_call_drate_curve, bc_plot1_put_drate_curve        
         global bc_plot1_sp500_curve, bc_plot1_dow_curve, bc_plot1_nasdaq_curve, bc_plot1_wti_curve        
         global bc_plot1_vLine, bc_plot1_hLine
-        global bc_kp200_line, bc_plot1_kp200_3_line, bc_plot1_kp200_4_line, bc_plot1_kp200_5_line, bc_plot1_kp200_6_line        
+        global bc_kp200_line, bc_plot1_kp200_2_line, bc_plot1_kp200_3_line, bc_plot1_kp200_4_line, bc_plot1_kp200_5_line, bc_plot1_kp200_6_line, bc_plot1_kp200_7_line        
 
         global bc_plot2_fut_volume_curve, bc_plot2_fut_volume_plus_curve, bc_plot2_fut_volume_minus_curve        
         global bc_plot2_call_rr_curve, bc_plot2_put_rr_curve        
@@ -25825,14 +25863,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_fut_pivot_line = self.bc_Plot1.addLine(x=None, pen=fut_pvt_pen)
         bc_plot1_fut_low_line = self.bc_Plot1.addLine(x=None, pen=skyblue_pen)
         bc_plot1_fut_high_line = self.bc_Plot1.addLine(x=None, pen=pink_pen)
-
+        '''
         for i in range(10):
             bc_kp200_line.append(self.bc_Plot1.addLine(x=None, pen=kp200_pen))
-
+        '''
+        bc_plot1_kp200_2_line = self.bc_Plot1.addLine(x=None, pen=kp200_pen)
         bc_plot1_kp200_3_line = self.bc_Plot1.addLine(x=None, pen=kp200_pen)
         bc_plot1_kp200_4_line = self.bc_Plot1.addLine(x=None, pen=kp200_pen)
         bc_plot1_kp200_5_line = self.bc_Plot1.addLine(x=None, pen=kp200_pen)
-        bc_plot1_kp200_6_line = self.bc_Plot1.addLine(x=None, pen=kp200_pen)   
+        bc_plot1_kp200_6_line = self.bc_Plot1.addLine(x=None, pen=kp200_pen)
+        bc_plot1_kp200_7_line = self.bc_Plot1.addLine(x=None, pen=kp200_pen)   
 
         bc_plot1_ovc_jl_line = self.bc_Plot1.addLine(x=None, pen=goldenrod_pen)
         bc_plot1_ovc_jh_line = self.bc_Plot1.addLine(x=None, pen=gold_pen)  
@@ -26211,14 +26251,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_open_line.setValue(0)
             bc_plot1_fut_low_line.setValue(0)
             bc_plot1_fut_high_line.setValue(0)
-
+            '''
             for i in range(10):
                 bc_kp200_line[i].setValue(0)
-
-            #bc_plot1_kp200_3_line.setValue(0)
-            #bc_plot1_kp200_4_line.setValue(0)
-            #bc_plot1_kp200_5_line.setValue(0)
-            #bc_plot1_kp200_6_line.setValue(0)
+            '''
+            bc_plot1_kp200_2_line.setValue(0)
+            bc_plot1_kp200_3_line.setValue(0)
+            bc_plot1_kp200_4_line.setValue(0)
+            bc_plot1_kp200_5_line.setValue(0)
+            bc_plot1_kp200_6_line.setValue(0)
+            bc_plot1_kp200_7_line.setValue(0)
             
             bc_plot1_ovc_close_line.setValue(0)
             bc_plot1_ovc_open_line.setValue(0)
@@ -26265,14 +26307,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_open_line.setValue(0)
             bc_plot1_fut_low_line.setValue(0)
             bc_plot1_fut_high_line.setValue(0)
-
+            '''
             for i in range(10):
                 bc_kp200_line[i].setValue(0)
-
-            #bc_plot1_kp200_3_line.setValue(0)
-            #bc_plot1_kp200_4_line.setValue(0)
-            #bc_plot1_kp200_5_line.setValue(0)
-            #bc_plot1_kp200_6_line.setValue(0)
+            '''
+            bc_plot1_kp200_2_line.setValue(0)
+            bc_plot1_kp200_3_line.setValue(0)
+            bc_plot1_kp200_4_line.setValue(0)
+            bc_plot1_kp200_5_line.setValue(0)
+            bc_plot1_kp200_6_line.setValue(0)
+            bc_plot1_kp200_7_line.setValue(0)
             
             bc_plot1_ovc_close_line.setValue(0)
             bc_plot1_ovc_open_line.setValue(0)
@@ -26319,14 +26363,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_open_line.setValue(0)
             bc_plot1_fut_low_line.setValue(0)
             bc_plot1_fut_high_line.setValue(0)
-
+            '''
             for i in range(10):
                 bc_kp200_line[i].setValue(0)
-
-            #bc_plot1_kp200_3_line.setValue(0)
-            #bc_plot1_kp200_4_line.setValue(0)
-            #bc_plot1_kp200_5_line.setValue(0)
-            #bc_plot1_kp200_6_line.setValue(0)
+            '''
+            bc_plot1_kp200_2_line.setValue(0)
+            bc_plot1_kp200_3_line.setValue(0)
+            bc_plot1_kp200_4_line.setValue(0)
+            bc_plot1_kp200_5_line.setValue(0)
+            bc_plot1_kp200_6_line.setValue(0)
+            bc_plot1_kp200_7_line.setValue(0)
             
             bc_plot1_ovc_close_line.setValue(0)
             bc_plot1_ovc_open_line.setValue(0)
@@ -26371,14 +26417,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_open_line.setValue(0)
             bc_plot1_fut_low_line.setValue(0)
             bc_plot1_fut_high_line.setValue(0)
-
+            '''
             for i in range(10):
                 bc_kp200_line[i].setValue(0)
-
-            #bc_plot1_kp200_3_line.setValue(0)
-            #bc_plot1_kp200_4_line.setValue(0)
-            #bc_plot1_kp200_5_line.setValue(0)
-            #bc_plot1_kp200_6_line.setValue(0)
+            '''
+            bc_plot1_kp200_2_line.setValue(0)
+            bc_plot1_kp200_3_line.setValue(0)
+            bc_plot1_kp200_4_line.setValue(0)
+            bc_plot1_kp200_5_line.setValue(0)
+            bc_plot1_kp200_6_line.setValue(0)
+            bc_plot1_kp200_7_line.setValue(0)
             
             bc_plot1_ovc_close_line.setValue(0)
             bc_plot1_ovc_open_line.setValue(0)
@@ -26417,11 +26465,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_ovc_low_line.setValue(CME_종가)
             bc_plot1_ovc_high_line.setValue(CME_종가)
 
-            #bc_plot1_kp200_3_line.setValue(KP200_COREVAL[3])
-            #bc_plot1_kp200_4_line.setValue(KP200_COREVAL[4])
-            #bc_plot1_kp200_5_line.setValue(KP200_COREVAL[5])
-            #bc_plot1_kp200_6_line.setValue(KP200_COREVAL[6])
+            bc_plot1_kp200_2_line.setValue(KP200_COREVAL[3])
+            bc_plot1_kp200_3_line.setValue(KP200_COREVAL[3])
+            bc_plot1_kp200_4_line.setValue(KP200_COREVAL[4])
+            bc_plot1_kp200_5_line.setValue(KP200_COREVAL[5])
+            bc_plot1_kp200_6_line.setValue(KP200_COREVAL[6])
+            bc_plot1_kp200_7_line.setValue(KP200_COREVAL[6])
 
+            '''
             bc_kp200_line[0].setValue(KP200_COREVAL[3])
             bc_kp200_line[1].setValue(KP200_COREVAL[3])
             bc_kp200_line[2].setValue(KP200_COREVAL[3])
@@ -26432,7 +26483,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_kp200_line[7].setValue(KP200_COREVAL[6])
             bc_kp200_line[8].setValue(KP200_COREVAL[6])
             bc_kp200_line[9].setValue(KP200_COREVAL[6])
-
+            '''
             if 선물_전저 == 0:
                 선물_전저 = CME_종가
             else:
@@ -26529,14 +26580,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_low_line.setValue(SP500_종가)
             bc_plot1_fut_high_line.setValue(SP500_종가)
 
-            #bc_plot1_kp200_3_line.setValue(SP500_종가)
-            #bc_plot1_kp200_4_line.setValue(SP500_종가)
-            #bc_plot1_kp200_5_line.setValue(SP500_종가)
-            #bc_plot1_kp200_6_line.setValue(SP500_종가)
-
+            bc_plot1_kp200_2_line.setValue(SP500_종가)
+            bc_plot1_kp200_3_line.setValue(SP500_종가)
+            bc_plot1_kp200_4_line.setValue(SP500_종가)
+            bc_plot1_kp200_5_line.setValue(SP500_종가)
+            bc_plot1_kp200_6_line.setValue(SP500_종가)
+            bc_plot1_kp200_7_line.setValue(SP500_종가)
+            '''
             for i in range(10):
                 bc_kp200_line[i].setValue(SP500_종가)
-
+            '''
             if SP500_전저 == 0:
                 SP500_전저 = SP500_종가
             else:
@@ -26633,14 +26686,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_low_line.setValue(DOW_종가)
             bc_plot1_fut_high_line.setValue(DOW_종가)
 
-            #bc_plot1_kp200_3_line.setValue(DOW_종가)
-            #bc_plot1_kp200_4_line.setValue(DOW_종가)
-            #bc_plot1_kp200_5_line.setValue(DOW_종가)
-            #bc_plot1_kp200_6_line.setValue(DOW_종가)
-
+            bc_plot1_kp200_2_line.setValue(DOW_종가)
+            bc_plot1_kp200_3_line.setValue(DOW_종가)
+            bc_plot1_kp200_4_line.setValue(DOW_종가)
+            bc_plot1_kp200_5_line.setValue(DOW_종가)
+            bc_plot1_kp200_6_line.setValue(DOW_종가)
+            bc_plot1_kp200_7_line.setValue(DOW_종가)
+            '''
             for i in range(10):
                 bc_kp200_line[i].setValue(DOW_종가)
-
+            '''
             if DOW_전저 == 0:
                 DOW_전저 = DOW_종가
             else:
@@ -26737,14 +26792,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_low_line.setValue(NASDAQ_종가)
             bc_plot1_fut_high_line.setValue(NASDAQ_종가)
 
-            #bc_plot1_kp200_3_line.setValue(NASDAQ_종가)
-            #bc_plot1_kp200_4_line.setValue(NASDAQ_종가)
-            #bc_plot1_kp200_5_line.setValue(NASDAQ_종가)
-            #bc_plot1_kp200_6_line.setValue(NASDAQ_종가)
-
+            bc_plot1_kp200_2_line.setValue(NASDAQ_종가)
+            bc_plot1_kp200_3_line.setValue(NASDAQ_종가)
+            bc_plot1_kp200_4_line.setValue(NASDAQ_종가)
+            bc_plot1_kp200_5_line.setValue(NASDAQ_종가)
+            bc_plot1_kp200_6_line.setValue(NASDAQ_종가)
+            bc_plot1_kp200_7_line.setValue(NASDAQ_종가)
+            '''
             for i in range(10):
                 bc_kp200_line[i].setValue(NASDAQ_종가)
-
+            '''
             if NASDAQ_전저 == 0:
                 NASDAQ_전저 = NASDAQ_종가
             else:
@@ -26841,14 +26898,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_low_line.setValue(WTI_종가)
             bc_plot1_fut_high_line.setValue(WTI_종가)
 
-            #bc_plot1_kp200_3_line.setValue(WTI_종가)
-            #bc_plot1_kp200_4_line.setValue(WTI_종가)
-            #bc_plot1_kp200_5_line.setValue(WTI_종가)
-            #bc_plot1_kp200_6_line.setValue(WTI_종가)
-
+            bc_plot1_kp200_2_line.setValue(WTI_종가)
+            bc_plot1_kp200_3_line.setValue(WTI_종가)
+            bc_plot1_kp200_4_line.setValue(WTI_종가)
+            bc_plot1_kp200_5_line.setValue(WTI_종가)
+            bc_plot1_kp200_6_line.setValue(WTI_종가)
+            bc_plot1_kp200_7_line.setValue(WTI_종가)
+            '''
             for i in range(10):
                 bc_kp200_line[i].setValue(WTI_종가)
-
+            '''
             if WTI_전저 == 0:
                 WTI_전저 = WTI_종가
             else:
@@ -28268,11 +28327,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 4 and market_service:
                 
-                #bc_plot1_kp200_3_line.setValue(KP200_COREVAL[3])
-                #bc_plot1_kp200_4_line.setValue(KP200_COREVAL[4])
-                #bc_plot1_kp200_5_line.setValue(KP200_COREVAL[5])
-                #bc_plot1_kp200_6_line.setValue(KP200_COREVAL[6])
-                
+                bc_plot1_kp200_3_line.setValue(KP200_COREVAL[3])
+                bc_plot1_kp200_4_line.setValue(KP200_COREVAL[4])
+                bc_plot1_kp200_5_line.setValue(KP200_COREVAL[5])
+                bc_plot1_kp200_6_line.setValue(KP200_COREVAL[6])
+
+                if 선물_전고 > KP200_COREVAL[6]:
+                    bc_plot1_kp200_7_line.setValue(KP200_COREVAL[7])
+                else:
+                    bc_plot1_kp200_7_line.setValue(KP200_COREVAL[6])
+
+                if 선물_전저 < KP200_COREVAL[3]:
+                    bc_plot1_kp200_2_line.setValue(KP200_COREVAL[2])
+                else:
+                    bc_plot1_kp200_2_line.setValue(KP200_COREVAL[3])
+                '''
                 bc_kp200_line[3].setValue(KP200_COREVAL[3])
                 bc_kp200_line[4].setValue(KP200_COREVAL[4])
                 bc_kp200_line[5].setValue(KP200_COREVAL[5])
@@ -28287,7 +28356,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_kp200_line[2].setValue(KP200_COREVAL[2])
                 else:
                     pass
-
+                '''
                 bc_plot1_fut_jl_line.setValue(선물_전저)
                 bc_plot1_fut_jh_line.setValue(선물_전고)
                 bc_plot1_fut_close_line.setValue(선물_종가)
