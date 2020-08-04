@@ -5435,13 +5435,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_nasdaq_curve.clear()
             plot1_wti_curve.clear()
             
-            plot1_fut_jl_line.setValue(SP500_종가)
-            plot1_fut_jh_line.setValue(SP500_종가)
-            plot1_fut_close_line.setValue(SP500_종가)
-            plot1_fut_pivot_line.setValue(SP500_종가)
-            plot1_fut_open_line.setValue(SP500_종가)
-            plot1_fut_low_line.setValue(SP500_종가)
-            plot1_fut_high_line.setValue(SP500_종가)
             '''
             plot1_kp200_2_line.setValue(SP500_종가)
             plot1_kp200_3_line.setValue(SP500_종가)
@@ -5452,6 +5445,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             '''
             for i in range(10):
                 kp200_line[i].setValue(SP500_종가)
+            
+            plot1_fut_jl_line.setValue(SP500_종가)
+            plot1_fut_jh_line.setValue(SP500_종가)
+            plot1_fut_close_line.setValue(SP500_종가)
+            plot1_fut_pivot_line.setValue(SP500_종가)
+            plot1_fut_open_line.setValue(SP500_종가)
+            plot1_fut_low_line.setValue(SP500_종가)
+            plot1_fut_high_line.setValue(SP500_종가)
             
             if SP500_전저 == 0:
                 SP500_전저 = SP500_종가
@@ -5519,13 +5520,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_nasdaq_curve.clear()
             plot1_wti_curve.clear()  
             
-            plot1_fut_jl_line.setValue(DOW_종가)
-            plot1_fut_jh_line.setValue(DOW_종가)
-            plot1_fut_close_line.setValue(DOW_종가)
-            plot1_fut_pivot_line.setValue(DOW_종가)
-            plot1_fut_open_line.setValue(DOW_종가)
-            plot1_fut_low_line.setValue(DOW_종가)
-            plot1_fut_high_line.setValue(DOW_종가)
             '''
             plot1_kp200_2_line.setValue(DOW_종가)
             plot1_kp200_3_line.setValue(DOW_종가)
@@ -5536,6 +5530,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             '''
             for i in range(10):
                 kp200_line[i].setValue(DOW_종가)
+            
+            plot1_fut_jl_line.setValue(DOW_종가)
+            plot1_fut_jh_line.setValue(DOW_종가)
+            plot1_fut_close_line.setValue(DOW_종가)
+            plot1_fut_pivot_line.setValue(DOW_종가)
+            plot1_fut_open_line.setValue(DOW_종가)
+            plot1_fut_low_line.setValue(DOW_종가)
+            plot1_fut_high_line.setValue(DOW_종가)
             
             if DOW_전저 == 0:
                 DOW_전저 = DOW_종가
@@ -5603,13 +5605,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_dow_curve.clear()
             plot1_wti_curve.clear()  
             
-            plot1_fut_jl_line.setValue(NASDAQ_종가)
-            plot1_fut_jh_line.setValue(NASDAQ_종가)
-            plot1_fut_close_line.setValue(NASDAQ_종가)
-            plot1_fut_pivot_line.setValue(NASDAQ_종가)
-            plot1_fut_open_line.setValue(NASDAQ_종가)
-            plot1_fut_low_line.setValue(NASDAQ_종가)
-            plot1_fut_high_line.setValue(NASDAQ_종가)
             '''
             plot1_kp200_2_line.setValue(NASDAQ_종가)
             plot1_kp200_3_line.setValue(NASDAQ_종가)
@@ -5620,6 +5615,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             '''
             for i in range(10):
                 kp200_line[i].setValue(NASDAQ_종가)
+            
+            plot1_fut_jl_line.setValue(NASDAQ_종가)
+            plot1_fut_jh_line.setValue(NASDAQ_종가)
+            plot1_fut_close_line.setValue(NASDAQ_종가)
+            plot1_fut_pivot_line.setValue(NASDAQ_종가)
+            plot1_fut_open_line.setValue(NASDAQ_종가)
+            plot1_fut_low_line.setValue(NASDAQ_종가)
+            plot1_fut_high_line.setValue(NASDAQ_종가)
             
             if NASDAQ_전저 == 0:
                 NASDAQ_전저 = NASDAQ_종가
@@ -5687,13 +5690,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_dow_curve.clear()
             plot1_nasdaq_curve.clear()  
             
-            plot1_fut_jl_line.setValue(WTI_종가)
-            plot1_fut_jh_line.setValue(WTI_종가)
-            plot1_fut_close_line.setValue(WTI_종가)
-            plot1_fut_pivot_line.setValue(WTI_종가)
-            plot1_fut_open_line.setValue(WTI_종가)
-            plot1_fut_low_line.setValue(WTI_종가)
-            plot1_fut_high_line.setValue(WTI_종가)
             '''
             plot1_kp200_2_line.setValue(WTI_종가)
             plot1_kp200_3_line.setValue(WTI_종가)
@@ -5704,6 +5700,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             '''
             for i in range(10):
                 kp200_line[i].setValue(WTI_종가)
+            
+            plot1_fut_jl_line.setValue(WTI_종가)
+            plot1_fut_jh_line.setValue(WTI_종가)
+            plot1_fut_close_line.setValue(WTI_종가)
+            plot1_fut_pivot_line.setValue(WTI_종가)
+            plot1_fut_open_line.setValue(WTI_종가)
+            plot1_fut_low_line.setValue(WTI_종가)
+            plot1_fut_high_line.setValue(WTI_종가)
             
             if WTI_전저 == 0:
                 WTI_전저 = WTI_종가
@@ -25662,11 +25666,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.setWindowTitle(widget_title)
 
         # Plot1 가격표시
-        self.label_p1_1.setText(" 좌표1 ")
+        self.label_p1_1.setText(" 이동좌표 ")
         self.label_p1_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p1_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p1_2.setText(" 좌표2 ")
+        self.label_p1_2.setText(" 목표좌표 ")
         self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -25703,11 +25707,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
 
         # Plot2 가격표시
-        self.label_p2_1.setText(" 좌표1 ")
+        self.label_p2_1.setText(" 이동좌표 ")
         self.label_p2_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p2_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p2_2.setText(" 좌표2 ")
+        self.label_p2_2.setText(" 목표좌표 ")
         self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -25744,11 +25748,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
 
         # Plot3 가격표시
-        self.label_p3_1.setText(" 좌표1 ")
+        self.label_p3_1.setText(" 이동좌표 ")
         self.label_p3_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p3_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p3_2.setText(" 좌표2 ")
+        self.label_p3_2.setText(" 목표좌표 ")
         self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -26454,13 +26458,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_nasdaq_curve.clear()
             bc_plot1_wti_curve.clear()
             
-            bc_plot1_ovc_close_line.setValue(CME_종가)
-            bc_plot1_ovc_open_line.setValue(CME_종가)
-            bc_plot1_ovc_jl_line.setValue(CME_종가)
-            bc_plot1_ovc_jh_line.setValue(CME_종가)
-            bc_plot1_ovc_pivot_line.setValue(CME_종가)
-            bc_plot1_ovc_low_line.setValue(CME_종가)
-            bc_plot1_ovc_high_line.setValue(CME_종가)
             '''
             bc_plot1_kp200_2_line.setValue(KP200_COREVAL[3])
             bc_plot1_kp200_3_line.setValue(KP200_COREVAL[3])
@@ -26479,6 +26476,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_kp200_line[7].setValue(KP200_COREVAL[6])
             bc_kp200_line[8].setValue(KP200_COREVAL[6])
             bc_kp200_line[9].setValue(KP200_COREVAL[6])
+            
+            bc_plot1_ovc_close_line.setValue(CME_종가)
+            bc_plot1_ovc_open_line.setValue(CME_종가)
+            bc_plot1_ovc_jl_line.setValue(CME_종가)
+            bc_plot1_ovc_jh_line.setValue(CME_종가)
+            bc_plot1_ovc_pivot_line.setValue(CME_종가)
+            bc_plot1_ovc_low_line.setValue(CME_종가)
+            bc_plot1_ovc_high_line.setValue(CME_종가)
             
             if 선물_전저 == 0:
                 선물_전저 = CME_종가
@@ -26568,13 +26573,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_nasdaq_curve.clear()
             bc_plot1_wti_curve.clear()
             
-            bc_plot1_fut_jl_line.setValue(SP500_종가)
-            bc_plot1_fut_jh_line.setValue(SP500_종가)
-            bc_plot1_fut_close_line.setValue(SP500_종가)
-            bc_plot1_fut_pivot_line.setValue(SP500_종가)
-            bc_plot1_fut_open_line.setValue(SP500_종가)
-            bc_plot1_fut_low_line.setValue(SP500_종가)
-            bc_plot1_fut_high_line.setValue(SP500_종가)
             '''
             bc_plot1_kp200_2_line.setValue(SP500_종가)
             bc_plot1_kp200_3_line.setValue(SP500_종가)
@@ -26585,6 +26583,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             '''
             for i in range(10):
                 bc_kp200_line[i].setValue(SP500_종가)
+            
+            bc_plot1_fut_jl_line.setValue(SP500_종가)
+            bc_plot1_fut_jh_line.setValue(SP500_종가)
+            bc_plot1_fut_close_line.setValue(SP500_종가)
+            bc_plot1_fut_pivot_line.setValue(SP500_종가)
+            bc_plot1_fut_open_line.setValue(SP500_종가)
+            bc_plot1_fut_low_line.setValue(SP500_종가)
+            bc_plot1_fut_high_line.setValue(SP500_종가)
             
             if SP500_전저 == 0:
                 SP500_전저 = SP500_종가
@@ -26674,13 +26680,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_nasdaq_curve.clear()
             bc_plot1_wti_curve.clear()  
             
-            bc_plot1_fut_jl_line.setValue(DOW_종가)
-            bc_plot1_fut_jh_line.setValue(DOW_종가)
-            bc_plot1_fut_close_line.setValue(DOW_종가)
-            bc_plot1_fut_pivot_line.setValue(DOW_종가)
-            bc_plot1_fut_open_line.setValue(DOW_종가)
-            bc_plot1_fut_low_line.setValue(DOW_종가)
-            bc_plot1_fut_high_line.setValue(DOW_종가)
             '''
             bc_plot1_kp200_2_line.setValue(DOW_종가)
             bc_plot1_kp200_3_line.setValue(DOW_종가)
@@ -26691,6 +26690,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             '''
             for i in range(10):
                 bc_kp200_line[i].setValue(DOW_종가)
+            
+            bc_plot1_fut_jl_line.setValue(DOW_종가)
+            bc_plot1_fut_jh_line.setValue(DOW_종가)
+            bc_plot1_fut_close_line.setValue(DOW_종가)
+            bc_plot1_fut_pivot_line.setValue(DOW_종가)
+            bc_plot1_fut_open_line.setValue(DOW_종가)
+            bc_plot1_fut_low_line.setValue(DOW_종가)
+            bc_plot1_fut_high_line.setValue(DOW_종가)
             
             if DOW_전저 == 0:
                 DOW_전저 = DOW_종가
@@ -26780,13 +26787,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_dow_curve.clear() 
             bc_plot1_wti_curve.clear() 
             
-            bc_plot1_fut_jl_line.setValue(NASDAQ_종가)
-            bc_plot1_fut_jh_line.setValue(NASDAQ_종가)
-            bc_plot1_fut_close_line.setValue(NASDAQ_종가)
-            bc_plot1_fut_pivot_line.setValue(NASDAQ_종가)
-            bc_plot1_fut_open_line.setValue(NASDAQ_종가)
-            bc_plot1_fut_low_line.setValue(NASDAQ_종가)
-            bc_plot1_fut_high_line.setValue(NASDAQ_종가)
             '''
             bc_plot1_kp200_2_line.setValue(NASDAQ_종가)
             bc_plot1_kp200_3_line.setValue(NASDAQ_종가)
@@ -26797,6 +26797,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             '''
             for i in range(10):
                 bc_kp200_line[i].setValue(NASDAQ_종가)
+            
+            bc_plot1_fut_jl_line.setValue(NASDAQ_종가)
+            bc_plot1_fut_jh_line.setValue(NASDAQ_종가)
+            bc_plot1_fut_close_line.setValue(NASDAQ_종가)
+            bc_plot1_fut_pivot_line.setValue(NASDAQ_종가)
+            bc_plot1_fut_open_line.setValue(NASDAQ_종가)
+            bc_plot1_fut_low_line.setValue(NASDAQ_종가)
+            bc_plot1_fut_high_line.setValue(NASDAQ_종가)
             
             if NASDAQ_전저 == 0:
                 NASDAQ_전저 = NASDAQ_종가
@@ -26886,13 +26894,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_dow_curve.clear()
             bc_plot1_nasdaq_curve.clear()  
             
-            bc_plot1_fut_jl_line.setValue(WTI_종가)
-            bc_plot1_fut_jh_line.setValue(WTI_종가)
-            bc_plot1_fut_close_line.setValue(WTI_종가)
-            bc_plot1_fut_pivot_line.setValue(WTI_종가)
-            bc_plot1_fut_open_line.setValue(WTI_종가)
-            bc_plot1_fut_low_line.setValue(WTI_종가)
-            bc_plot1_fut_high_line.setValue(WTI_종가)
             '''
             bc_plot1_kp200_2_line.setValue(WTI_종가)
             bc_plot1_kp200_3_line.setValue(WTI_종가)
@@ -26903,6 +26904,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             '''
             for i in range(10):
                 bc_kp200_line[i].setValue(WTI_종가)
+            
+            bc_plot1_fut_jl_line.setValue(WTI_종가)
+            bc_plot1_fut_jh_line.setValue(WTI_종가)
+            bc_plot1_fut_close_line.setValue(WTI_종가)
+            bc_plot1_fut_pivot_line.setValue(WTI_종가)
+            bc_plot1_fut_open_line.setValue(WTI_종가)
+            bc_plot1_fut_low_line.setValue(WTI_종가)
+            bc_plot1_fut_high_line.setValue(WTI_종가)
             
             if WTI_전저 == 0:
                 WTI_전저 = WTI_종가
