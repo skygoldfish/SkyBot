@@ -1618,8 +1618,9 @@ gpen = pg.mkPen('g', width=2, style=QtCore.Qt.SolidLine)
 ypen = pg.mkPen('y', width=2, style=QtCore.Qt.SolidLine)
 mvpen = pg.mkPen('g', width=1, style=QtCore.Qt.DotLine)
 kp200_pen = pg.mkPen('w', width=2, style=QtCore.Qt.DotLine)
-tpen = pg.mkPen(lightyellow, width=1, style=QtCore.Qt.DotLine)
+tpen = pg.mkPen('y', width=1, style=QtCore.Qt.DotLine)
 tpen1 = pg.mkPen('w', width=1, style=QtCore.Qt.DotLine)
+yagan_pen = pg.mkPen('g', width=1, style=QtCore.Qt.DotLine)
 
 fut_jl_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 fut_jh_pen = pg.mkPen(orangered, width=2, style=QtCore.Qt.DotLine)
@@ -4613,7 +4614,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         # Line & Curve of the Plot1
         plot1_time_line_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
-        plot1_time_line_yagan_start = self.Plot1.addLine(x=0, y=None, pen=tpen)
+        plot1_time_line_yagan_start = self.Plot1.addLine(x=0, y=None, pen=yagan_pen)
         plot1_time_line = self.Plot1.addLine(x=0, y=None, pen=tpen1)
         
         plot1_fut_jl_line = self.Plot1.addLine(x=None, pen=goldenrod_pen)
@@ -4676,7 +4677,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
         # Line & Curve of the Plot2
         plot2_time_line_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
-        plot2_time_line_yagan_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
+        plot2_time_line_yagan_start = self.Plot2.addLine(x=0, y=None, pen=yagan_pen)
         plot2_time_line = self.Plot2.addLine(x=0, y=None, pen=tpen1)
         
         plot2_ovc_jl_line = self.Plot2.addLine(x=None, pen=goldenrod_pen)
@@ -4777,7 +4778,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             plot3_time_line = self.Plot3.addLine(x=0, y=None, pen=tpen1)
             plot3_time_line_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
-            plot3_time_line_yagan_start = self.Plot3.addLine(x=0, y=None, pen=tpen)
+            plot3_time_line_yagan_start = self.Plot3.addLine(x=0, y=None, pen=yagan_pen)
 
             plot3_ovc_jl_line = self.Plot3.addLine(x=None, pen=goldenrod_pen)
             plot3_ovc_jh_line = self.Plot3.addLine(x=None, pen=gold_pen)  
@@ -4792,7 +4793,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             plot4_time_line = self.Plot4.addLine(x=0, y=None, pen=tpen1)  
             plot4_time_line_start = self.Plot4.addLine(x=0, y=None, pen=tpen)
-            plot4_time_line_yagan_start = self.Plot4.addLine(x=0, y=None, pen=tpen)
+            plot4_time_line_yagan_start = self.Plot4.addLine(x=0, y=None, pen=yagan_pen)
             
             plot4_fut_jl_line = self.Plot4.addLine(x=None, pen=goldenrod_pen)
             plot4_fut_jh_line = self.Plot4.addLine(x=None, pen=gold_pen)  
@@ -26061,7 +26062,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         # Line & Curve of the Plot1 
         bc_plot1_time_line_start = self.bc_Plot1.addLine(x=0, y=None, pen=tpen)
-        bc_plot1_time_line_yagan_start = self.bc_Plot1.addLine(x=0, y=None, pen=tpen)
+        bc_plot1_time_line_yagan_start = self.bc_Plot1.addLine(x=0, y=None, pen=yagan_pen)
         bc_plot1_time_line = self.bc_Plot1.addLine(x=0, y=None, pen=tpen1)
         
         bc_plot1_fut_jl_line = self.bc_Plot1.addLine(x=None, pen=goldenrod_pen)
@@ -26125,7 +26126,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         # Line & Curve of the Plot2
         bc_plot2_time_line_start = self.bc_Plot2.addLine(x=0, y=None, pen=tpen)
-        bc_plot2_time_line_yagan_start = self.bc_Plot2.addLine(x=0, y=None, pen=tpen)
+        bc_plot2_time_line_yagan_start = self.bc_Plot2.addLine(x=0, y=None, pen=yagan_pen)
         bc_plot2_time_line = self.bc_Plot2.addLine(x=0, y=None, pen=tpen1)
         
         bc_plot2_ovc_jl_line = self.bc_Plot2.addLine(x=None, pen=goldenrod_pen)
@@ -26181,7 +26182,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         # Line & Curve of the Plot3
         bc_plot3_time_line_start = self.bc_Plot3.addLine(x=0, y=None, pen=tpen)
-        bc_plot3_time_line_yagan_start = self.bc_Plot3.addLine(x=0, y=None, pen=tpen)
+        bc_plot3_time_line_yagan_start = self.bc_Plot3.addLine(x=0, y=None, pen=yagan_pen)
         bc_plot3_time_line = self.bc_Plot3.addLine(x=0, y=None, pen=tpen1)
         
         bc_plot3_ovc_jl_line = self.bc_Plot3.addLine(x=None, pen=goldenrod_pen)
