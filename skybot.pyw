@@ -5340,16 +5340,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_sp500_curve.clear()
             plot1_dow_curve.clear()
             plot1_nasdaq_curve.clear()
-            plot1_wti_curve.clear()
-            plot1_ovc_close_line.setValue(340)
-            
-            plot1_ovc_close_line.setValue(CME_종가)
-            plot1_ovc_open_line.setValue(CME_종가)
-            plot1_ovc_jl_line.setValue(CME_종가)
-            plot1_ovc_jh_line.setValue(CME_종가)
-            plot1_ovc_pivot_line.setValue(CME_종가)
-            plot1_ovc_low_line.setValue(CME_종가)
-            plot1_ovc_high_line.setValue(CME_종가)
+            plot1_wti_curve.clear()            
             '''
             plot1_kp200_2_line.setValue(KP200_COREVAL[3])
             plot1_kp200_3_line.setValue(KP200_COREVAL[3])
@@ -5403,14 +5394,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 선물_고가 = CME_종가
             else:
                 pass
+            
+            # 종가선 컬러를 살리기위한 임시방편
+            plot1_ovc_open_line.setValue(선물_고가)
+            plot1_ovc_jl_line.setValue(선물_고가)
+            plot1_ovc_jh_line.setValue(선물_고가)
+            plot1_ovc_pivot_line.setValue(선물_고가)
+            plot1_ovc_low_line.setValue(선물_고가)
+            plot1_ovc_high_line.setValue(선물_고가)                        
+            plot1_ovc_close_line.setValue(선물_고가)
                         
             plot1_fut_jl_line.setValue(선물_전저)            
             plot1_fut_jh_line.setValue(선물_전고)            
-            plot1_fut_close_line.setValue(선물_종가)
             plot1_fut_pivot_line.setValue(선물_피봇)
             plot1_fut_open_line.setValue(선물_시가)
             plot1_fut_low_line.setValue(선물_저가)
             plot1_fut_high_line.setValue(선물_고가)
+            plot1_fut_close_line.setValue(선물_종가)
 
         elif comboindex1 == 5:
 
@@ -7506,12 +7506,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     kp200_line[5].setValue(KP200_COREVAL[5])
                     kp200_line[6].setValue(KP200_COREVAL[6])
                     
-                    if 선물_전저 < KP200_COREVAL[3]:
+                    if kp200_저가 < KP200_COREVAL[3]:
                         kp200_line[2].setValue(KP200_COREVAL[2])
                     else:
                         pass
                     
-                    if 선물_전고 > KP200_COREVAL[6]:
+                    if kp200_고가 > KP200_COREVAL[6]:
                         kp200_line[7].setValue(KP200_COREVAL[7])
                     else:
                         pass
@@ -7522,6 +7522,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     plot1_fut_pivot_line.setValue(선물_피봇)
                     plot1_fut_open_line.setValue(선물_시가)
                     plot1_fut_low_line.setValue(선물_저가)
+
+                    # 종가선 컬러를 살리기위한 임시방편
+                    plot1_ovc_open_line.setValue(선물_고가)
+                    plot1_ovc_jl_line.setValue(선물_고가)
+                    plot1_ovc_jh_line.setValue(선물_고가)
+                    plot1_ovc_pivot_line.setValue(선물_고가)
+                    plot1_ovc_low_line.setValue(선물_고가)
+                    plot1_ovc_high_line.setValue(선물_고가)                        
+                    plot1_ovc_close_line.setValue(선물_고가)
                     plot1_fut_high_line.setValue(선물_고가)
                 
                     plot1_kp200_curve.setData(plot_data9)
@@ -23199,6 +23208,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         flag_kp200_low = True
 
                         kp200_realdata['저가'] = round(float(result['저가지수']), 2)
+                        kp200_저가 = round(float(result['저가지수']), 2)
 
                         item = QTableWidgetItem(result['저가지수'])
                         item.setTextAlignment(Qt.AlignCenter)
@@ -23223,6 +23233,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         flag_kp200_high = True
 
                         kp200_realdata['고가'] = round(float(result['고가지수']), 2)
+                        kp200_고가 = round(float(result['고가지수']), 2)
 
                         item = QTableWidgetItem(result['고가지수'])
                         item.setTextAlignment(Qt.AlignCenter)
@@ -26476,15 +26487,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_kp200_line[7].setValue(KP200_COREVAL[6])
             bc_kp200_line[8].setValue(KP200_COREVAL[6])
             bc_kp200_line[9].setValue(KP200_COREVAL[6])
-            
-            bc_plot1_ovc_close_line.setValue(CME_종가)
-            bc_plot1_ovc_open_line.setValue(CME_종가)
-            bc_plot1_ovc_jl_line.setValue(CME_종가)
-            bc_plot1_ovc_jh_line.setValue(CME_종가)
-            bc_plot1_ovc_pivot_line.setValue(CME_종가)
-            bc_plot1_ovc_low_line.setValue(CME_종가)
-            bc_plot1_ovc_high_line.setValue(CME_종가)
-            
+                        
             if 선물_전저 == 0:
                 선물_전저 = CME_종가
             else:
@@ -26496,7 +26499,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             if 선물_종가 == 0:
-                선물_전고 = CME_종가
+                선물_종가 = CME_종가
             else:
                 pass
 
@@ -26519,6 +26522,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 선물_고가 = CME_종가
             else:
                 pass
+            
+            # 종가선 컬러를 살리기위한 임시방편
+            bc_plot1_ovc_open_line.setValue(선물_고가)
+            bc_plot1_ovc_jl_line.setValue(선물_고가)
+            bc_plot1_ovc_jh_line.setValue(선물_고가)
+            bc_plot1_ovc_pivot_line.setValue(선물_고가)
+            bc_plot1_ovc_low_line.setValue(선물_고가)
+            bc_plot1_ovc_high_line.setValue(선물_고가)
+            bc_plot1_ovc_close_line.setValue(선물_고가)
 
             str = ' 전저 : {0} '.format(선물_전저)
             self.label_1.setText(str) 
@@ -26528,10 +26540,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_2.setText(str)
             bc_plot1_fut_jh_line.setValue(선물_전고) 
             
-            str = ' 종가 : {0} '.format(선물_종가)
-            self.label_3.setText(str)
-            bc_plot1_fut_close_line.setValue(선물_종가)
-
             str = ' 피봇 : {0} '.format(선물_피봇)
             self.label_4.setText(str)
             bc_plot1_fut_pivot_line.setValue(선물_피봇)
@@ -26549,6 +26557,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             str = ' 고가 : {0} '.format(선물_고가)
             self.label_8.setText(str)
             bc_plot1_fut_high_line.setValue(선물_고가)
+            
+            str = ' 종가 : {0} '.format(선물_종가)
+            self.label_3.setText(str)
+            bc_plot1_fut_close_line.setValue(선물_종가)
 
         elif bc_comboindex1 == 5:
 
@@ -28352,12 +28364,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_kp200_line[5].setValue(KP200_COREVAL[5])
                 bc_kp200_line[6].setValue(KP200_COREVAL[6])
                 
-                if 선물_전저 < KP200_COREVAL[3]:
+                if kp200_저가 < KP200_COREVAL[3]:
                     bc_kp200_line[2].setValue(KP200_COREVAL[2])
                 else:
                     pass
                 
-                if 선물_전고 > KP200_COREVAL[6]:
+                if kp200_고가 > KP200_COREVAL[6]:
                     bc_kp200_line[7].setValue(KP200_COREVAL[7])
                 else:
                     pass
@@ -28368,6 +28380,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot1_fut_pivot_line.setValue(선물_피봇)
                 bc_plot1_fut_open_line.setValue(선물_시가)
                 bc_plot1_fut_low_line.setValue(선물_저가)
+
+                # 종가선 컬러를 살리기위한 임시방편
+                bc_plot1_ovc_open_line.setValue(선물_고가)
+                bc_plot1_ovc_jl_line.setValue(선물_고가)
+                bc_plot1_ovc_jh_line.setValue(선물_고가)
+                bc_plot1_ovc_pivot_line.setValue(선물_고가)
+                bc_plot1_ovc_low_line.setValue(선물_고가)
+                bc_plot1_ovc_high_line.setValue(선물_고가)
+                bc_plot1_ovc_close_line.setValue(선물_고가)
                 bc_plot1_fut_high_line.setValue(선물_고가)
 
                 str = ' 저가 : {0} '.format(선물_저가)
