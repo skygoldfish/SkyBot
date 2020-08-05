@@ -582,7 +582,12 @@ with open('control_info.txt', mode='r') as control_file:
     tmp = control_file.readline().strip()
     temp = tmp.split()
     HANGSENG = temp[2]
-    print('HANGSENG =',HANGSENG)
+    #print('HANGSENG =',HANGSENG)
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    GOLD = temp[2]
+    print('GOLD =',GOLD)
     
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
@@ -14891,6 +14896,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.OVC.AdviseRealData(종목코드=WTI)
                 self.OVC.AdviseRealData(종목코드=EUROFX)
                 self.OVC.AdviseRealData(종목코드=HANGSENG)
+                self.OVC.AdviseRealData(종목코드=GOLD)
 
                 XQ = t2101(parent=self)
                 XQ.Query(종목코드=fut_code)
@@ -25050,6 +25056,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
                     else:
                         pass
+
+                elif result['종목코드'] == GOLD:
+
+                    print('GOLD =', result['체결가격'])
                 else:
                     pass
             else:

@@ -31,6 +31,7 @@ NASDAQ = NQU20
 WTI = CLU20
 EUROFX = UROU20
 HANGSENG = HSIQ20
+GOLD = GCZ20
 
 [6]. << Telegram >>
 Telegram service = True
