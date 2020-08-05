@@ -212,6 +212,23 @@ HANGSENG_등락율 = 0
 HANGSENG_고가 = 0
 HANGSENG_진폭 = 0
 
+GOLD_전저 = 0
+GOLD_전고 = 0
+GOLD_종가 = 0
+GOLD_피봇 = 0
+GOLD_시가 = 0
+
+GOLD_저가 = 0
+
+GOLD_현재가 = 0
+GOLD_과거가 = 0
+GOLD_대비 = 0
+GOLD_전일대비 = 0
+GOLD_등락율 = 0
+
+GOLD_고가 = 0
+GOLD_진폭 = 0
+
 CME_당일종가 = 0
 DOW_당일종가 = 0
 SP500_당일종가 = 0
@@ -219,6 +236,7 @@ NASDAQ_당일종가 = 0
 WTI_당일종가 = 0
 EUROFX_당일종가 = 0
 HANGSENG_당일종가 = 0
+GOLD_당일종가 = 0
 
 FILE_HIGH_LOW_LIST = []
 
@@ -732,6 +750,21 @@ if os.path.isfile('overnight_info.txt'):
         temp = tmp.split()
         HANGSENG_종가 = float(temp[4])
         print('HANGSENG 종가 =', HANGSENG_종가)
+
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        GOLD_전저 = float(temp[4])
+        print('GOLD 전저 =', GOLD_전저)
+
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        GOLD_전고 = float(temp[4])
+        print('GOLD 전고 =', GOLD_전고)
+        
+        tmp = overnight_file.readline().strip()
+        temp = tmp.split()
+        GOLD_종가 = float(temp[4])
+        print('GOLD 종가 =', GOLD_종가)
 else:
     CME_종가 = 0
     SP500_전저 = 0
@@ -752,6 +785,9 @@ else:
     HANGSENG_전저 = 0
     HANGSENG_전고 = 0
     HANGSENG_종가 = 0
+    GOLD_전저 = 0
+    GOLD_전고 = 0
+    GOLD_종가 = 0
 
 KP200_전저 = 0
 KP200_전고 = 0
@@ -826,6 +862,10 @@ if os.path.isfile('kp200_info.txt'):
         tmp = kp200_file.readline().strip()
         temp = tmp.split()
         HANGSENG_전일종가 = float(temp[4])
+
+        tmp = kp200_file.readline().strip()
+        temp = tmp.split()
+        GOLD_전일종가 = float(temp[4])
 else:
     pass
 
@@ -1220,6 +1260,7 @@ nasdaq_직전대비 = collections.deque([0, 0, 0], 5)
 wti_직전대비 = collections.deque([0, 0, 0], 5)
 eurofx_직전대비 = collections.deque([0, 0, 0], 5)
 hangseng_직전대비 = collections.deque([0, 0, 0], 5)
+gold_직전대비 = collections.deque([0, 0, 0], 5)
 
 opt_total_list = []
 call_open_list = []
@@ -1300,6 +1341,7 @@ df_plotdata_nasdaq = pd.DataFrame()
 df_plotdata_wti = pd.DataFrame()
 df_plotdata_eurofx = pd.DataFrame()
 df_plotdata_hangseng = pd.DataFrame()
+df_plotdata_gold = pd.DataFrame()
 
 df_plotdata_centerval = pd.DataFrame()
 
@@ -1457,6 +1499,9 @@ old_eurofx_delta = 0
 
 hangseng_delta = 0
 old_hangseng_delta = 0
+
+gold_delta = 0
+old_gold_delta = 0
 
 comboindex1 = 0
 comboindex2 = 0
@@ -1876,6 +1921,7 @@ nasdaq_text_color = ''
 wti_text_color = ''
 eurofx_text_color = ''
 hangseng_text_color = ''
+gold_text_color = ''
 
 call_max_actval = False
 put_max_actval = False
@@ -1938,6 +1984,7 @@ SP500_장마감일 = ''
 WTI_장마감일 = ''
 EUROFX_장마감일 = ''
 HANGSENG_장마감일 = ''
+GOLD_장마감일 = ''
 
 DOW_진폭비 = 0
 선물_진폭비 = 0
@@ -7354,7 +7401,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global plot_data1, plot_data2, plot_data3, plot_data4, plot_data5, plot_data6, plot_data7
             global plot_data8, plot_data9, plot_data10, plot_data11, plot_data12, plot_data13, plot_data14, plot_data15, plot_data16
             global selected_call, selected_put, selected_opt_list
-            global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가
+            global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가 
             global drate_scale_factor 
             
             self.alternate_flag = not self.alternate_flag
@@ -8153,6 +8200,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         WTI_당일종가 = WTI_현재가
                         EUROFX_당일종가 = EUROFX_현재가
                         HANGSENG_당일종가 = HANGSENG_현재가
+                        GOLD_당일종가 = GOLD_현재가
 
                         # 다음날 해외선물 피봇계산을 위해 종료시(5시 59분 57초 ?) 마지막 값 저장
                         str = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:0.2f}\r'.format \
@@ -8254,6 +8302,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             file_str = 'HANGSENG Last High = {0}\n'.format(HANGSENG_고가)
                             overnight_file.write(file_str)
                             file_str = 'HANGSENG Last Close = {0}\n'.format(HANGSENG_당일종가)
+                            overnight_file.write(file_str)
+                            file_str = 'GOLD Last Low = {0}\n'.format(GOLD_저가)
+                            overnight_file.write(file_str)
+                            file_str = 'GOLD Last High = {0}\n'.format(GOLD_고가)
+                            overnight_file.write(file_str)
+                            file_str = 'GOLD Last Close = {0}\n'.format(GOLD_당일종가)
                             overnight_file.write(file_str)
                             overnight_file.close()
 
@@ -13770,7 +13824,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_plotdata_call_drate, df_plotdata_put_drate
         global start_time_str, end_time_str
 
-        global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti, df_plotdata_eurofx, df_plotdata_hangseng
+        global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti, df_plotdata_eurofx, df_plotdata_hangseng, df_plotdata_gold
         global view_actval
         
         global 선물_전저, 선물_전고, 선물_종가, 선물_피봇, 선물_시가, 선물_저가, 선물_현재가, 선물_고가
@@ -14154,6 +14208,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_wti = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_eurofx = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_hangseng = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_gold = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_centerval = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                 else:
                     df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + day_timespan))
@@ -14181,6 +14236,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_wti = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_eurofx = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_hangseng = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_gold = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_centerval = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
 
                 # 콜처리
@@ -22066,7 +22122,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             global yoc_stop
             global OVC_체결시간
-            global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti, df_plotdata_eurofx, df_plotdata_hangseng
+            global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti, df_plotdata_eurofx, df_plotdata_hangseng, df_plotdata_gold
 
             global sp500_delta, old_sp500_delta, sp500_직전대비, sp500_text_color
             global dow_delta, old_dow_delta, dow_직전대비, dow_text_color
@@ -22074,6 +22130,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global wti_delta, old_wti_delta, wti_직전대비, wti_text_color
             global eurofx_delta, old_eurofx_delta, eurofx_직전대비, eurofx_text_color
             global hangseng_delta, old_hangseng_delta, hangseng_직전대비, hangseng_text_color
+            global gold_delta, old_gold_delta, gold_직전대비, gold_text_color
             global receive_real_ovc
             global x_idx, ovc_x_idx
             
@@ -22088,14 +22145,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭, WTI_고가
             global EUROFX_종가, EUROFX_피봇, EUROFX_시가, EUROFX_저가, EUROFX_현재가, EUROFX_전일대비, EUROFX_등락율, EUROFX_진폭, EUROFX_고가
             global HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭, HANGSENG_고가
+            global GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭, GOLD_고가
 
-            global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EUROFX_과거가, HANGSENG_과거가 
+            global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EUROFX_과거가, HANGSENG_과거가, GOLD_과거가 
 
-            global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가
+            global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가
             global 시스템시간, 서버시간, 시스템_서버_시간차
             global kp200_시가, kp200_피봇, kp200_저가, kp200_현재가, kp200_고가
             global df_plotdata_dow_drate, df_plotdata_fut_drate
-            global NASDAQ_장마감일, DOW_장마감일, SP500_장마감일, WTI_장마감일, EUROFX_장마감일, HANGSENG_장마감일
+            global NASDAQ_장마감일, DOW_장마감일, SP500_장마감일, WTI_장마감일, EUROFX_장마감일, HANGSENG_장마감일, GOLD_장마감일
             global DOW_진폭비
             global DOW_주간_시작가, WTI_주간_시작가
             global DOW_야간_시작가, WTI_야간_시작가
@@ -22331,6 +22389,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             file_str = 'EUROFX Day Close = {0}\n'.format(EUROFX_현재가)
                             kp200_file.write(file_str)
                             file_str = 'HANGSENG Day Close = {0}\n'.format(HANGSENG_현재가)
+                            kp200_file.write(file_str)
+                            file_str = 'GOLD Day Close = {0}\n'.format(GOLD_현재가)
                             kp200_file.write(file_str)
 
                             kp200_file.close()
@@ -25067,7 +25127,125 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif result['종목코드'] == GOLD:
 
-                    print('GOLD =', result['체결가격'])
+                    #print('GOLD =', result['체결가격'])
+
+                    if GOLD_장마감일 == '':
+                        GOLD_장마감일 = result['장마감일']
+                    else:
+                        pass
+
+                    GOLD_저가 =  result['저가']
+                    GOLD_고가 =  result['고가']
+                    
+                    GOLD_진폭 = result['고가'] - result['저가']
+
+                    if GOLD_전일종가 > 0:
+                        if not overnight:
+                            GOLD_등락율 = ((result['체결가격'] - GOLD_전일종가) / GOLD_전일종가) * 100
+                        else:
+                            GOLD_등락율 = result['등락율']
+                    else:
+                        GOLD_등락율 = result['등락율']
+                    
+                    if GOLD_시가 == 0:
+                        
+                        if result['전일대비기호'] == '5':
+
+                            GOLD_종가 = result['체결가격'] + result['전일대비']
+                        else:
+                            GOLD_종가 = result['체결가격'] - result['전일대비']
+                        
+                        df_plotdata_gold.iat[0, 0] = GOLD_종가
+                        df_plotdata_gold.iat[0, 1] = result['시가']
+                        GOLD_시가 = result['시가']
+                    else:
+                        pass 
+
+                    GOLD_전일대비 = result['체결가격'] - GOLD_종가
+                    
+                    if GOLD_피봇 == 0:
+                        
+                        if GOLD_전저 > 0 and GOLD_전고 > 0:
+
+                            GOLD_피봇 = self.calc_pivot(GOLD_전저, GOLD_전고, GOLD_종가, GOLD_시가)
+                        else:
+                            pass
+                    else:
+                        pass
+                    
+                    if result['체결가격'] != GOLD_과거가:
+                        
+                        old_gold_delta = gold_delta
+                        gold_delta = result['체결가격']
+                        gold_직전대비.extend([gold_delta - old_gold_delta])
+                        대비리스트 = list(gold_직전대비)
+
+                        GOLD_현재가 = result['체결가격']
+                                                
+                        체결가격 = locale.format('%.2f', result['체결가격'], 1)
+                        
+                        if result['체결가격'] > GOLD_과거가:
+                            
+                            if GOLD_등락율 < 0:
+
+                                if min(대비리스트) > 0:
+                                    jisu_str = "GOLD: {0} ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                                else:
+                                    jisu_str = "GOLD: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+
+                                self.label_3rd.setText(jisu_str)
+                                self.label_3rd.setStyleSheet('background-color: pink; color: blue')
+                                gold_text_color = 'blue'                                           
+
+                            elif GOLD_등락율 > 0:
+
+                                if min(대비리스트) > 0:
+                                    jisu_str = "GOLD: {0} ▲ ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                                else:
+                                    jisu_str = "GOLD: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+
+                                self.label_3rd.setText(jisu_str)
+                                self.label_3rd.setStyleSheet('background-color: pink; color: red')
+                                gold_text_color = 'red'                                                                             
+                            else:
+                                pass
+                            
+                        elif result['체결가격'] < GOLD_과거가:
+                            
+                            if GOLD_등락율 < 0:
+
+                                if max(대비리스트) < 0:
+                                    jisu_str = "GOLD: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                                else:
+                                    jisu_str = "GOLD: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+
+                                self.label_3rd.setText(jisu_str)
+                                self.label_3rd.setStyleSheet('background-color: lightskyblue; color: blue')
+                                gold_text_color = 'blue'
+
+                            elif GOLD_등락율 > 0:
+
+                                if max(대비리스트) < 0:
+                                    jisu_str = "GOLD: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                                else:
+                                    jisu_str = "GOLD: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+
+                                self.label_3rd.setText(jisu_str)
+                                self.label_3rd.setStyleSheet('background-color: lightskyblue; color: red')
+                                gold_text_color = 'red'
+                            else:
+                                pass                            
+                        else:
+                            pass
+
+                        GOLD_과거가 = result['체결가격']
+                        
+                        if 2 <= ovc_x_idx <= overnight_timespan - 1:
+                            df_plotdata_gold.iat[0, ovc_x_idx] = result['체결가격']
+                        else:
+                            pass
+                    else:
+                        pass
                 else:
                     pass
             else:
