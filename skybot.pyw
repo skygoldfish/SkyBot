@@ -7287,7 +7287,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if self.Plot1.sceneBoundingRect().contains(pos):
             mousePoint = self.Plot1.plotItem.vb.mapSceneToView(pos)
-            self.label_atm.setText("<span style='font-size: 9pt'>X = %d, <span style='color: red'>Y = %0.2f</span>" % (int(mousePoint.x()), mousePoint.y()))
+
+            if SELFID != 'soojin65':
+                self.label_atm.setText("<span style='font-size: 9pt'>X = %d, <span style='color: red'>Y = %0.2f</span>" % (int(mousePoint.x()), mousePoint.y()))
+            else:
+                pass
 
             if overnight:
                 timespan = overnight_timespan
@@ -7312,7 +7316,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if self.Plot2.sceneBoundingRect().contains(pos):
             mousePoint = self.Plot2.plotItem.vb.mapSceneToView(pos)
-            self.label_atm.setText("<span style='font-size: 9pt'>X = %d, <span style='color: red'>Y = %0.2f</span>" % (int(mousePoint.x()), mousePoint.y()))
+
+            if SELFID != 'soojin65':
+                self.label_atm.setText("<span style='font-size: 9pt'>X = %d, <span style='color: red'>Y = %0.2f</span>" % (int(mousePoint.x()), mousePoint.y()))
+            else:
+                pass
 
             if overnight:
                 timespan = overnight_timespan
@@ -26096,7 +26104,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if self.bc_Plot1.sceneBoundingRect().contains(pos):
             mousePoint = self.bc_Plot1.plotItem.vb.mapSceneToView(pos)
-            self.label_p1_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
+
+            if SELFID != 'soojin65':
+                self.label_p1_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))
+            else:
+                pass
+
             bc_plot1_vLine.setPos(mousePoint.x())
             bc_plot1_hLine.setPos(mousePoint.y())
             bc_plot1_x = int(mousePoint.x())
@@ -26135,7 +26148,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if self.bc_Plot2.sceneBoundingRect().contains(pos):
             mousePoint = self.bc_Plot2.plotItem.vb.mapSceneToView(pos)
-            self.label_p2_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
+
+            if SELFID != 'soojin65':
+                self.label_p2_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))
+            else:
+                pass
+
             bc_plot2_vLine.setPos(mousePoint.x())
             bc_plot2_hLine.setPos(mousePoint.y())
             bc_plot2_x = int(mousePoint.x())
@@ -26174,7 +26192,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if self.bc_Plot3.sceneBoundingRect().contains(pos):
             mousePoint = self.bc_Plot3.plotItem.vb.mapSceneToView(pos)
-            self.label_p3_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))            
+
+            if SELFID != 'soojin65':
+                self.label_p3_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))
+            else:
+                pass
+
             bc_plot3_vLine.setPos(mousePoint.x())
             bc_plot3_hLine.setPos(mousePoint.y())
             bc_plot3_x = int(mousePoint.x())
@@ -26207,21 +26230,30 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
     def bc_plot1_mouseClicked(self, evt):
         
-        self.label_p1_2.setStyleSheet('background-color: yellow ; color: red')
-        self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-        self.label_p1_2.setText("X = %d, Y = %0.2f" % (bc_plot1_x, bc_plot1_y))
+        if SELFID != 'soojin65':
+            self.label_p1_2.setStyleSheet('background-color: yellow ; color: red')
+            self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+            self.label_p1_2.setText("X = %d, Y = %0.2f" % (bc_plot1_x, bc_plot1_y))
+        else:
+            pass
 
     def bc_plot2_mouseClicked(self, evt):
         
-        self.label_p2_2.setStyleSheet('background-color: yellow ; color: red')
-        self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
-        self.label_p2_2.setText("X = %d, Y = %0.2f" % (bc_plot2_x, bc_plot2_y))
+        if SELFID != 'soojin65':
+            self.label_p2_2.setStyleSheet('background-color: yellow ; color: red')
+            self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
+            self.label_p2_2.setText("X = %d, Y = %0.2f" % (bc_plot2_x, bc_plot2_y))
+        else:
+            pass
 
     def bc_plot3_mouseClicked(self, evt):
 
-        self.label_p3_2.setStyleSheet('background-color: yellow ; color: red')
-        self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
-        self.label_p3_2.setText("X = %d, Y = %0.2f" % (bc_plot3_x, bc_plot3_y))                
+        if SELFID != 'soojin65':
+            self.label_p3_2.setStyleSheet('background-color: yellow ; color: red')
+            self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
+            self.label_p3_2.setText("X = %d, Y = %0.2f" % (bc_plot3_x, bc_plot3_y))
+        else:
+            pass                
     
     def bc_cb1_selectionChanged(self):
 
