@@ -26352,7 +26352,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
                 else:
                     bc_plot2_y = plot_data13[bc_plot2_x]
-            elif bc_comboindex1 == 8:
+            elif bc_comboindex2 == 8:
                 if plot_data14[bc_plot2_x] != plot_data14[bc_plot2_x]:
                     pass
                 else:
@@ -26386,17 +26386,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
                 else:
                     bc_plot3_y = plot_data11[bc_plot3_x]
-            elif bc_comboindex2 == 6:
+            elif bc_comboindex3 == 6:
                 if plot_data12[bc_plot3_x] != plot_data12[bc_plot3_x]:
                     pass
                 else:
                     bc_plot3_y = plot_data12[bc_plot3_x]
-            elif bc_comboindex2 == 7:
+            elif bc_comboindex3 == 7:
                 if plot_data13[bc_plot3_x] != plot_data13[bc_plot3_x]:
                     pass
                 else:
                     bc_plot3_y = plot_data13[bc_plot3_x]
-            elif bc_comboindex1 == 8:
+            elif bc_comboindex3 == 8:
                 if plot_data14[bc_plot3_x] != plot_data14[bc_plot3_x]:
                     pass
                 else:
