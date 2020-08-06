@@ -17256,11 +17256,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            print('***단축코드 =', block['단축코드'])
-            print('***t8416 call count =', t8416_call_count)
-            print('***t8416 call new_actval_up_count =', new_actval_up_count)
-            print('***t8416 put count =', t8416_put_count)
-            print('***t8416 call new_actval_down_count =', new_actval_down_count)
+            print('*** t8416 단축코드 =', block['단축코드'])
+            print('*** t8416 call count =', t8416_call_count)
+            print('*** t8416 call new_actval_up_count =', new_actval_up_count)
+            print('*** t8416 put count =', t8416_put_count)
+            print('*** t8416 call new_actval_down_count =', new_actval_down_count)
 
             if block['단축코드'] == '':
 
@@ -17793,6 +17793,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print('Put 과거데이타 %d 개중 %d개 수신...' % (option_pairs_count, t8416_put_count))
 
                 if t8416_put_count == option_pairs_count - new_actval_down_count:
+                    
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Put 과거데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+                    print(str)
 
                     print('\r')
                     print('t8416 Call 전광판\r')
@@ -17833,10 +17837,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if self.t8416_putworker.isRunning():
 
                         self.t8416_putworker.terminate()
-                        
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Put 과거데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
-                        
+                                                
                         if UI_STYLE == 'Horizontal_Large_View.ui':
 
                             put_positionCell = self.tableWidget_put.item(atm_index + 9, 1)
@@ -17855,6 +17856,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
                         self.textBrowser.append(str)
+                        print(str)
                     else:
                         pass
 
@@ -17862,6 +17864,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 하방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_down_count)
                         self.textBrowser.append(str)
+                        print(str)
                     else:
                         pass
                     
@@ -17870,6 +17873,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 만기일은 {3}일 남았습니다.\r'.format(dt.hour, dt.minute, dt.second, 옵션잔존일)
                     self.textBrowser.append(str)
+                    print(str)
 
                     #중심가 계산
                     CENTER_VAL1 = round((df_call.at[atm_index - 5, '종가'] + df_put.at[atm_index - 5, '종가'])/2, 2)
