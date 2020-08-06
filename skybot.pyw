@@ -25819,11 +25819,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.setWindowTitle(widget_title)
 
         # Plot1 가격표시
-        self.label_p1_1.setText(" 이동좌표 ")
+        self.label_p1_1.setText(" 좌표 ")
         self.label_p1_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p1_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p1_2.setText(" 목표좌표 ")
+        self.label_p1_2.setText(" 이동피봇 ")
         self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -25860,11 +25860,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
 
         # Plot2 가격표시
-        self.label_p2_1.setText(" 이동좌표 ")
+        self.label_p2_1.setText(" 좌표 ")
         self.label_p2_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p2_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p2_2.setText(" 목표좌표 ")
+        self.label_p2_2.setText(" 이동피봇 ")
         self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -25901,11 +25901,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
 
         # Plot3 가격표시
-        self.label_p3_1.setText(" 이동좌표 ")
+        self.label_p3_1.setText(" 좌표 ")
         self.label_p3_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p3_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p3_2.setText(" 목표좌표 ")
+        self.label_p3_2.setText(" 이동피봇 ")
         self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -26068,7 +26068,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.bc_Plot1.addItem(bc_plot1_hLine, ignoreBounds=True)
             self.bc_Plot1.setMouseTracking(True)
             self.bc_Plot1.scene().sigMouseMoved.connect(self.bc_plot1_mouseMoved)
-            self.bc_Plot1.scene().sigMouseClicked.connect(self.bc_plot1_mouseClicked)
+            #self.bc_Plot1.scene().sigMouseClicked.connect(self.bc_plot1_mouseClicked)
         else:
             pass  
 
@@ -26127,7 +26127,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.bc_Plot2.addItem(bc_plot2_hLine, ignoreBounds=True)
             self.bc_Plot2.setMouseTracking(True)
             self.bc_Plot2.scene().sigMouseMoved.connect(self.bc_plot2_mouseMoved)
-            self.bc_Plot2.scene().sigMouseClicked.connect(self.bc_plot2_mouseClicked)
+            #self.bc_Plot2.scene().sigMouseClicked.connect(self.bc_plot2_mouseClicked)
         else:
             pass 
 
@@ -26186,7 +26186,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.bc_Plot3.addItem(bc_plot3_hLine, ignoreBounds=True)
             self.bc_Plot3.setMouseTracking(True)
             self.bc_Plot3.scene().sigMouseMoved.connect(self.bc_plot3_mouseMoved)
-            self.bc_Plot3.scene().sigMouseClicked.connect(self.bc_plot3_mouseClicked)
+            #self.bc_Plot3.scene().sigMouseClicked.connect(self.bc_plot3_mouseClicked)
         else:
             pass         
 
@@ -26236,8 +26236,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         pos = evt
 
         if self.bc_Plot1.sceneBoundingRect().contains(pos):
+
             mousePoint = self.bc_Plot1.plotItem.vb.mapSceneToView(pos)
-            self.label_p1_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))
 
             bc_plot1_vLine.setPos(mousePoint.x())
             bc_plot1_hLine.setPos(mousePoint.y())
@@ -26265,7 +26265,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot1_y = plot_data14[bc_plot1_x]
             else:
-                bc_plot1_y = mousePoint.y()            
+                bc_plot1_y = mousePoint.y()
+            
+            self.label_p1_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (bc_plot1_x, bc_plot1_y))            
         else:
             pass
 
@@ -26276,8 +26278,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         pos = evt
 
         if self.bc_Plot2.sceneBoundingRect().contains(pos):
-            mousePoint = self.bc_Plot2.plotItem.vb.mapSceneToView(pos)
-            self.label_p2_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))
+
+            mousePoint = self.bc_Plot2.plotItem.vb.mapSceneToView(pos)            
 
             bc_plot2_vLine.setPos(mousePoint.x())
             bc_plot2_hLine.setPos(mousePoint.y())
@@ -26305,7 +26307,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot2_y = plot_data14[bc_plot2_x]
             else:
-                bc_plot2_y = mousePoint.y()            
+                bc_plot2_y = mousePoint.y()
+
+            self.label_p2_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (bc_plot2_x, bc_plot2_y))            
         else:
             pass
 
@@ -26316,8 +26320,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         pos = evt
 
         if self.bc_Plot3.sceneBoundingRect().contains(pos):
-            mousePoint = self.bc_Plot3.plotItem.vb.mapSceneToView(pos)
-            self.label_p3_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))
+
+            mousePoint = self.bc_Plot3.plotItem.vb.mapSceneToView(pos)            
 
             bc_plot3_vLine.setPos(mousePoint.x())
             bc_plot3_hLine.setPos(mousePoint.y())
@@ -26346,6 +26350,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot3_y = plot_data14[bc_plot3_x]
             else:
                 bc_plot3_y = mousePoint.y()
+
+            self.label_p3_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (bc_plot3_x, bc_plot3_y))
         else:
             pass
 
@@ -28444,6 +28450,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
+    def bc_calc_pivot(self, jl, jh, jc, do):
+
+        if jl > 0 and jh > 0 and jc > 0 and do > 0:
+            tmp = (jl + jh + jc)/3 + (do - jc)
+            pivot = round(tmp, 2)
+
+            return pivot
+        else:
+            return 0
+
     @pyqtSlot(str)
     def update_bigchart(self):
 
@@ -28592,6 +28608,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 5:
 
+                sp500_moving_pivot = self.bc_calc_pivot(SP500_전저, SP500_전고, SP500_시가, SP500_현재가)
+
+                if SP500_현재가 >= sp500_moving_pivot:
+                    self.label_p1_2.setStyleSheet('background-color: yellow ; color: red')
+                else:
+                    self.label_p1_2.setStyleSheet('background-color: yellow ; color: blue')
+
+                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_p1_2.setText("MPVT = %0.2f" % sp500_moving_pivot)
+
                 bc_plot1_ovc_jl_line.setValue(SP500_전저)
                 bc_plot1_ovc_jh_line.setValue(SP500_전고)
                 bc_plot1_ovc_close_line.setValue(SP500_종가)
@@ -28648,6 +28674,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot1_sp500_curve.setData(plot_data11)
 
             elif bc_comboindex1 == 6:
+
+                dow_moving_pivot = int(self.bc_calc_pivot(DOW_전저, DOW_전고, DOW_시가, DOW_현재가))
+
+                if DOW_현재가 >= dow_moving_pivot:
+                    self.label_p1_2.setStyleSheet('background-color: yellow ; color: red')
+                else:
+                    self.label_p1_2.setStyleSheet('background-color: yellow ; color: blue')
+
+                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_p1_2.setText("MPVT = %d" % dow_moving_pivot)
 
                 bc_plot1_ovc_jl_line.setValue(DOW_전저)
                 bc_plot1_ovc_jh_line.setValue(DOW_전고)
@@ -28706,6 +28742,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 7:
 
+                nasdaq_moving_pivot = self.bc_calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_시가, NASDAQ_현재가)
+
+                if NASDAQ_현재가 >= nasdaq_moving_pivot:
+                    self.label_p1_2.setStyleSheet('background-color: yellow ; color: red')
+                else:
+                    self.label_p1_2.setStyleSheet('background-color: yellow ; color: blue')
+                
+                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_p1_2.setText("MPVT = %0.2f" % nasdaq_moving_pivot)
+
                 bc_plot1_ovc_jl_line.setValue(NASDAQ_전저)
                 bc_plot1_ovc_jh_line.setValue(NASDAQ_전고)
                 bc_plot1_ovc_close_line.setValue(NASDAQ_종가)
@@ -28762,6 +28808,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot1_nasdaq_curve.setData(plot_data13)
 
             elif bc_comboindex1 == 8:
+
+                wti_moving_pivot = self.bc_calc_pivot(WTI_전저, WTI_전고, WTI_시가, WTI_현재가)
+
+                if WTI_현재가 >= wti_moving_pivot:
+                    self.label_p1_2.setStyleSheet('background-color: yellow ; color: red')
+                else:
+                    self.label_p1_2.setStyleSheet('background-color: yellow ; color: blue')
+
+                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_p1_2.setText("MPVT = %0.2f" % wti_moving_pivot)
 
                 bc_plot1_ovc_jl_line.setValue(WTI_전저)
                 bc_plot1_ovc_jh_line.setValue(WTI_전고)
@@ -28912,6 +28968,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 5:
 
+                sp500_moving_pivot = self.bc_calc_pivot(SP500_전저, SP500_전고, SP500_시가, SP500_현재가)
+
+                if SP500_현재가 >= sp500_moving_pivot:
+                    self.label_p2_2.setStyleSheet('background-color: yellow ; color: red')
+                else:
+                    self.label_p2_2.setStyleSheet('background-color: yellow ; color: blue')
+
+                self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_p2_2.setText("MPVT = %0.2f" % sp500_moving_pivot)
+
                 bc_plot2_ovc_jl_line.setValue(SP500_전저)
                 bc_plot2_ovc_jh_line.setValue(SP500_전고)
                 bc_plot2_ovc_close_line.setValue(SP500_종가)
@@ -28973,7 +29039,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot2_sp500_curve.setData(plot_data11) 
 
-            elif bc_comboindex2 == 6: 
+            elif bc_comboindex2 == 6:
+
+                dow_moving_pivot = int(self.bc_calc_pivot(DOW_전저, DOW_전고, DOW_시가, DOW_현재가))
+
+                if DOW_현재가 >= dow_moving_pivot:
+                    self.label_p2_2.setStyleSheet('background-color: yellow ; color: red')
+                else:
+                    self.label_p2_2.setStyleSheet('background-color: yellow ; color: blue')
+
+                self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_p2_2.setText("MPVT = %d" % dow_moving_pivot) 
 
                 bc_plot2_ovc_jl_line.setValue(DOW_전저)
                 bc_plot2_ovc_jh_line.setValue(DOW_전고)
@@ -29037,6 +29113,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 7:
 
+                nasdaq_moving_pivot = self.bc_calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_시가, NASDAQ_현재가)
+
+                if NASDAQ_현재가 >= nasdaq_moving_pivot:
+                    self.label_p2_2.setStyleSheet('background-color: yellow ; color: red')
+                else:
+                    self.label_p2_2.setStyleSheet('background-color: yellow ; color: blue')
+
+                self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_p2_2.setText("MPVT = %0.2f" % nasdaq_moving_pivot)
+
                 bc_plot2_ovc_jl_line.setValue(NASDAQ_전저)
                 bc_plot2_ovc_jh_line.setValue(NASDAQ_전고)
                 bc_plot2_ovc_close_line.setValue(NASDAQ_종가)
@@ -29098,6 +29184,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot2_nasdaq_curve.setData(plot_data13)
 
             elif bc_comboindex2 == 8:
+
+                wti_moving_pivot = self.bc_calc_pivot(WTI_전저, WTI_전고, WTI_시가, WTI_현재가)
+
+                if WTI_현재가 >= wti_moving_pivot:
+                    self.label_p2_2.setStyleSheet('background-color: yellow ; color: red')
+                else:
+                    self.label_p2_2.setStyleSheet('background-color: yellow ; color: blue')
+
+                self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_p2_2.setText("MPVT = %0.2f" % wti_moving_pivot)
 
                 bc_plot2_ovc_jl_line.setValue(WTI_전저)
                 bc_plot2_ovc_jh_line.setValue(WTI_전고)
@@ -29253,6 +29349,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 5:
 
+                sp500_moving_pivot = self.bc_calc_pivot(SP500_전저, SP500_전고, SP500_시가, SP500_현재가)
+
+                if SP500_현재가 >= sp500_moving_pivot:
+                    self.label_p3_2.setStyleSheet('background-color: yellow ; color: red')
+                else:
+                    self.label_p3_2.setStyleSheet('background-color: yellow ; color: blue')
+
+                self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_p3_2.setText("MPVT = %0.2f" % sp500_moving_pivot)
+
                 bc_plot3_ovc_jl_line.setValue(SP500_전저)
                 bc_plot3_ovc_jh_line.setValue(SP500_전고)
                 bc_plot3_ovc_close_line.setValue(SP500_종가)
@@ -29316,6 +29422,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 6:
 
+                dow_moving_pivot = int(self.bc_calc_pivot(DOW_전저, DOW_전고, DOW_시가, DOW_현재가))
+
+                if DOW_현재가 >= dow_moving_pivot:
+                    self.label_p3_2.setStyleSheet('background-color: yellow ; color: red')
+                else:
+                    self.label_p3_2.setStyleSheet('background-color: yellow ; color: blue')
+
+                self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_p3_2.setText("MPVT = %d" % dow_moving_pivot)
+
                 bc_plot3_ovc_jl_line.setValue(DOW_전저)
                 bc_plot3_ovc_jh_line.setValue(DOW_전고)
                 bc_plot3_ovc_close_line.setValue(DOW_종가)
@@ -29378,6 +29494,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 7:
 
+                nasdaq_moving_pivot = self.bc_calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_시가, NASDAQ_현재가)
+
+                if NASDAQ_현재가 >= nasdaq_moving_pivot:
+                    self.label_p3_2.setStyleSheet('background-color: yellow ; color: red')
+                else:
+                    self.label_p3_2.setStyleSheet('background-color: yellow ; color: blue')
+
+                self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_p3_2.setText("MPVT = %0.2f" % nasdaq_moving_pivot)
+
                 bc_plot3_ovc_jl_line.setValue(NASDAQ_전저)
                 bc_plot3_ovc_jh_line.setValue(NASDAQ_전고)
                 bc_plot3_ovc_close_line.setValue(NASDAQ_종가)
@@ -29439,6 +29565,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot3_nasdaq_curve.setData(plot_data13)
 
             elif bc_comboindex3 == 8:
+
+                wti_moving_pivot = self.bc_calc_pivot(WTI_전저, WTI_전고, WTI_시가, WTI_현재가)
+
+                if WTI_현재가 >= wti_moving_pivot:
+                    self.label_p3_2.setStyleSheet('background-color: yellow ; color: red')
+                else:
+                    self.label_p3_2.setStyleSheet('background-color: yellow ; color: blue')
+
+                self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_p3_2.setText("MPVT = %0.2f" % wti_moving_pivot)
 
                 bc_plot3_ovc_jl_line.setValue(WTI_전저)
                 bc_plot3_ovc_jh_line.setValue(WTI_전고)
