@@ -3752,13 +3752,21 @@ class telegram_send_worker(QThread):
                 if SELFID == 'soojin65':
                     
                     if command[0] == 'Allstop':
-                        FLAG_GUEST_CONTROL = False
+                        if FLAG_GUEST_CONTROL:
+                            FLAG_GUEST_CONTROL = False
+                            ToMyTelegram('Allstop...')
+                        else:
+                            pass
                     elif command[0] == 'Allgo':
-                        FLAG_GUEST_CONTROL = True
+                        if not FLAG_GUEST_CONTROL:
+                            FLAG_GUEST_CONTROL = True
+                            ToMyTelegram('Allgo...')
+                        else:
+                            pass
                     else:
                         pass
                 else:
-                    pass                
+                    pass                  
 
                 if TELEGRAM_SERVICE and flag_telegram_on and (command[0] == 'Go' or command[0] == '/start'):
 
