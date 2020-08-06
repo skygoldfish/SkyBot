@@ -17255,12 +17255,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.resizeColumnsToContents()
             else:
                 pass
-
-            print('*** t8416 단축코드 =', block['단축코드'])
-            print('*** t8416 call count =', t8416_call_count)
-            print('*** t8416 call new_actval_up_count =', new_actval_up_count)
-            print('*** t8416 put count =', t8416_put_count)
-            print('*** t8416 call new_actval_down_count =', new_actval_down_count)
+            
+            logger.debug('t8416 단축코드 = %s' % block['단축코드'])
+            logger.debug('t8416 call count = %d' % t8416_call_count)
+            logger.debug('t8416 call new_actval_up_count = %d' % new_actval_up_count)
+            logger.debug('t8416 put count = %d' % t8416_put_count)
+            logger.debug('t8416 call new_actval_down_count = %d' % new_actval_down_count)
 
             if block['단축코드'] == '':
 
