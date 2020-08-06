@@ -4668,12 +4668,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot1_wti_curve = self.Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         #cross hair
-        plot1_vLine = pg.InfiniteLine(angle=90, movable=False)
-        plot1_hLine = pg.InfiniteLine(angle=0, movable=False)
-        self.Plot1.addItem(plot1_vLine, ignoreBounds=True)
-        self.Plot1.addItem(plot1_hLine, ignoreBounds=True)
-        self.Plot1.setMouseTracking(True)
-        self.Plot1.scene().sigMouseMoved.connect(self.plot1_mouseMoved)
+        if SELFID != 'soojin65':
+            plot1_vLine = pg.InfiniteLine(angle=90, movable=False)
+            plot1_hLine = pg.InfiniteLine(angle=0, movable=False)
+            self.Plot1.addItem(plot1_vLine, ignoreBounds=True)
+            self.Plot1.addItem(plot1_hLine, ignoreBounds=True)
+            self.Plot1.setMouseTracking(True)
+            self.Plot1.scene().sigMouseMoved.connect(self.plot1_mouseMoved)
+        else:
+            pass
                 
         # Line & Curve of the Plot2
         plot2_time_line_start = self.Plot2.addLine(x=0, y=None, pen=tpen)
@@ -4723,12 +4726,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot2_center_val_upper_line = self.Plot2.addLine(x=None, pen=pink_pen)
 
         #cross hair
-        plot2_vLine = pg.InfiniteLine(angle=90, movable=False)
-        plot2_hLine = pg.InfiniteLine(angle=0, movable=False)
-        self.Plot2.addItem(plot2_vLine, ignoreBounds=True)
-        self.Plot2.addItem(plot2_hLine, ignoreBounds=True)
-        self.Plot2.setMouseTracking(True)
-        self.Plot2.scene().sigMouseMoved.connect(self.plot2_mouseMoved)
+        if SELFID != 'soojin65':
+            plot2_vLine = pg.InfiniteLine(angle=90, movable=False)
+            plot2_hLine = pg.InfiniteLine(angle=0, movable=False)
+            self.Plot2.addItem(plot2_vLine, ignoreBounds=True)
+            self.Plot2.addItem(plot2_hLine, ignoreBounds=True)
+            self.Plot2.setMouseTracking(True)
+            self.Plot2.scene().sigMouseMoved.connect(self.plot2_mouseMoved)
+        else:
+            pass
 
         # 라인 초기화 필요?
         for i in range(9):
@@ -7335,11 +7341,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if self.Plot1.sceneBoundingRect().contains(pos):
             mousePoint = self.Plot1.plotItem.vb.mapSceneToView(pos)
-
-            if SELFID != 'soojin65':
-                self.label_atm.setText("<span style='font-size: 9pt'>X = %d, <span style='color: red'>Y = %0.2f</span>" % (int(mousePoint.x()), mousePoint.y()))
-            else:
-                pass
+            self.label_atm.setText("<span style='font-size: 9pt'>X = %d, <span style='color: red'>Y = %0.2f</span>" % (int(mousePoint.x()), mousePoint.y()))
 
             if overnight:
                 timespan = overnight_timespan
@@ -7364,11 +7366,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if self.Plot2.sceneBoundingRect().contains(pos):
             mousePoint = self.Plot2.plotItem.vb.mapSceneToView(pos)
-
-            if SELFID != 'soojin65':
-                self.label_atm.setText("<span style='font-size: 9pt'>X = %d, <span style='color: red'>Y = %0.2f</span>" % (int(mousePoint.x()), mousePoint.y()))
-            else:
-                pass
+            self.label_atm.setText("<span style='font-size: 9pt'>X = %d, <span style='color: red'>Y = %0.2f</span>" % (int(mousePoint.x()), mousePoint.y()))
 
             if overnight:
                 timespan = overnight_timespan
@@ -17258,7 +17256,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            print('*****단축코드 =', block['단축코드'], t8416_call_count, t8416_put_count, new_actval_up_count, new_actval_down_count)
+            print('***단축코드 =', block['단축코드'])
+            print('***t8416 call count =', t8416_call_count)
+            print('***t8416 call new_actval_up_count =', new_actval_up_count)
+            print('***t8416 put count =', t8416_put_count)
+            print('***t8416 call new_actval_down_count =', new_actval_down_count)
 
             if block['단축코드'] == '':
 
@@ -26047,13 +26049,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_wti_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         
         #cross hair
-        bc_plot1_vLine = pg.InfiniteLine(angle=90, movable=False)
-        bc_plot1_hLine = pg.InfiniteLine(angle=0, movable=False)
-        self.bc_Plot1.addItem(bc_plot1_vLine, ignoreBounds=True)
-        self.bc_Plot1.addItem(bc_plot1_hLine, ignoreBounds=True)
-        self.bc_Plot1.setMouseTracking(True)
-        self.bc_Plot1.scene().sigMouseMoved.connect(self.bc_plot1_mouseMoved)
-        self.bc_Plot1.scene().sigMouseClicked.connect(self.bc_plot1_mouseClicked)  
+        if SELFID != 'soojin65':
+            bc_plot1_vLine = pg.InfiniteLine(angle=90, movable=False)
+            bc_plot1_hLine = pg.InfiniteLine(angle=0, movable=False)
+            self.bc_Plot1.addItem(bc_plot1_vLine, ignoreBounds=True)
+            self.bc_Plot1.addItem(bc_plot1_hLine, ignoreBounds=True)
+            self.bc_Plot1.setMouseTracking(True)
+            self.bc_Plot1.scene().sigMouseMoved.connect(self.bc_plot1_mouseMoved)
+            self.bc_Plot1.scene().sigMouseClicked.connect(self.bc_plot1_mouseClicked)
+        else:
+            pass  
 
         # Line & Curve of the Plot2
         bc_plot2_time_line_start = self.bc_Plot2.addLine(x=0, y=None, pen=tpen)
@@ -26103,13 +26108,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_center_val_upper_line = self.bc_Plot2.addLine(x=None, pen=pink_pen)
 
         #cross hair
-        bc_plot2_vLine = pg.InfiniteLine(angle=90, movable=False)
-        bc_plot2_hLine = pg.InfiniteLine(angle=0, movable=False)
-        self.bc_Plot2.addItem(bc_plot2_vLine, ignoreBounds=True)
-        self.bc_Plot2.addItem(bc_plot2_hLine, ignoreBounds=True)
-        self.bc_Plot2.setMouseTracking(True)
-        self.bc_Plot2.scene().sigMouseMoved.connect(self.bc_plot2_mouseMoved)
-        self.bc_Plot2.scene().sigMouseClicked.connect(self.bc_plot2_mouseClicked) 
+        if SELFID != 'soojin65':
+            bc_plot2_vLine = pg.InfiniteLine(angle=90, movable=False)
+            bc_plot2_hLine = pg.InfiniteLine(angle=0, movable=False)
+            self.bc_Plot2.addItem(bc_plot2_vLine, ignoreBounds=True)
+            self.bc_Plot2.addItem(bc_plot2_hLine, ignoreBounds=True)
+            self.bc_Plot2.setMouseTracking(True)
+            self.bc_Plot2.scene().sigMouseMoved.connect(self.bc_plot2_mouseMoved)
+            self.bc_Plot2.scene().sigMouseClicked.connect(self.bc_plot2_mouseClicked)
+        else:
+            pass 
 
         # Line & Curve of the Plot3
         bc_plot3_time_line_start = self.bc_Plot3.addLine(x=0, y=None, pen=tpen)
@@ -26159,13 +26167,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot3_center_val_upper_line = self.bc_Plot3.addLine(x=None, pen=pink_pen)
 
         #cross hair
-        bc_plot3_vLine = pg.InfiniteLine(angle=90, movable=False)
-        bc_plot3_hLine = pg.InfiniteLine(angle=0, movable=False)
-        self.bc_Plot3.addItem(bc_plot3_vLine, ignoreBounds=True)
-        self.bc_Plot3.addItem(bc_plot3_hLine, ignoreBounds=True)
-        self.bc_Plot3.setMouseTracking(True)
-        self.bc_Plot3.scene().sigMouseMoved.connect(self.bc_plot3_mouseMoved)
-        self.bc_Plot3.scene().sigMouseClicked.connect(self.bc_plot3_mouseClicked)         
+        if SELFID != 'soojin65':
+            bc_plot3_vLine = pg.InfiniteLine(angle=90, movable=False)
+            bc_plot3_hLine = pg.InfiniteLine(angle=0, movable=False)
+            self.bc_Plot3.addItem(bc_plot3_vLine, ignoreBounds=True)
+            self.bc_Plot3.addItem(bc_plot3_hLine, ignoreBounds=True)
+            self.bc_Plot3.setMouseTracking(True)
+            self.bc_Plot3.scene().sigMouseMoved.connect(self.bc_plot3_mouseMoved)
+            self.bc_Plot3.scene().sigMouseClicked.connect(self.bc_plot3_mouseClicked)
+        else:
+            pass         
 
         if overnight:
             # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
@@ -26214,11 +26225,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if self.bc_Plot1.sceneBoundingRect().contains(pos):
             mousePoint = self.bc_Plot1.plotItem.vb.mapSceneToView(pos)
-
-            if SELFID != 'soojin65':
-                self.label_p1_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))
-            else:
-                pass
+            self.label_p1_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))
 
             bc_plot1_vLine.setPos(mousePoint.x())
             bc_plot1_hLine.setPos(mousePoint.y())
@@ -26258,11 +26265,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if self.bc_Plot2.sceneBoundingRect().contains(pos):
             mousePoint = self.bc_Plot2.plotItem.vb.mapSceneToView(pos)
-
-            if SELFID != 'soojin65':
-                self.label_p2_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))
-            else:
-                pass
+            self.label_p2_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))
 
             bc_plot2_vLine.setPos(mousePoint.x())
             bc_plot2_hLine.setPos(mousePoint.y())
@@ -26302,11 +26305,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if self.bc_Plot3.sceneBoundingRect().contains(pos):
             mousePoint = self.bc_Plot3.plotItem.vb.mapSceneToView(pos)
-
-            if SELFID != 'soojin65':
-                self.label_p3_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))
-            else:
-                pass
+            self.label_p3_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (mousePoint.x(), mousePoint.y()))
 
             bc_plot3_vLine.setPos(mousePoint.x())
             bc_plot3_hLine.setPos(mousePoint.y())
@@ -26340,30 +26339,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
     def bc_plot1_mouseClicked(self, evt):
         
-        if SELFID != 'soojin65':
-            self.label_p1_2.setStyleSheet('background-color: yellow ; color: red')
-            self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_p1_2.setText("X = %d, Y = %0.2f" % (bc_plot1_x, bc_plot1_y))
-        else:
-            pass
+        self.label_p1_2.setStyleSheet('background-color: yellow ; color: red')
+        self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_p1_2.setText("X = %d, Y = %0.2f" % (bc_plot1_x, bc_plot1_y))
 
     def bc_plot2_mouseClicked(self, evt):
         
-        if SELFID != 'soojin65':
-            self.label_p2_2.setStyleSheet('background-color: yellow ; color: red')
-            self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_p2_2.setText("X = %d, Y = %0.2f" % (bc_plot2_x, bc_plot2_y))
-        else:
-            pass
+        self.label_p2_2.setStyleSheet('background-color: yellow ; color: red')
+        self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_p2_2.setText("X = %d, Y = %0.2f" % (bc_plot2_x, bc_plot2_y))
 
     def bc_plot3_mouseClicked(self, evt):
 
-        if SELFID != 'soojin65':
-            self.label_p3_2.setStyleSheet('background-color: yellow ; color: red')
-            self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
-            self.label_p3_2.setText("X = %d, Y = %0.2f" % (bc_plot3_x, bc_plot3_y))
-        else:
-            pass                
+        self.label_p3_2.setStyleSheet('background-color: yellow ; color: red')
+        self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_p3_2.setText("X = %d, Y = %0.2f" % (bc_plot3_x, bc_plot3_y))                
     
     def bc_cb1_selectionChanged(self):
 
@@ -29808,9 +29798,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dt = datetime.datetime.now()
 
         if code == '0000':
-
-            #global SELFID
-            #SELFID = 'soojin65'
 
             token = ''
             chat_id = 0
