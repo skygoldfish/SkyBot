@@ -15451,13 +15451,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     jisu_str = "KOSPI: {0} (-{1:0.2f}, {2:0.1f}%)".format(format(df['종합지수'], ','), df['종합지수전일대비'], df['종합지수등락율'])
                     self.label_kospi.setText(jisu_str)
-                    self.label_kospi.setStyleSheet('background-color: black ; color: cyan')
+                    self.label_kospi.setStyleSheet('background-color: black ; color: lightskyblue')
 
                 elif df['종합지수전일대비구분'] == '2':
 
                     jisu_str = "KOSPI: {0} ({1:0.2f}, {2:0.1f}%)".format(format(df['종합지수'], ','), df['종합지수전일대비'], df['종합지수등락율'])
                     self.label_kospi.setText(jisu_str)
-                    self.label_kospi.setStyleSheet('background-color: black ; color: magenta')
+                    self.label_kospi.setStyleSheet('background-color: black ; color: pink')
                 else:
                     pass
             else:
