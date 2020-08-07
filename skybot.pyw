@@ -17285,7 +17285,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print(str) 
 
                     # 추가된 행사가 갯수 표시
-                    item_str = '+' + '{0:d}'.format(new_actval_up_count) + '\n' + '({0:d})'.format(option_pairs_count)
+                    item_str = '(+' + '{0:d})'.format(new_actval_up_count) + '\n' + '{0:d}'.format(option_pairs_count)
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setHorizontalHeaderItem(0, item)
@@ -17296,7 +17296,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                     self.tableWidget_call.resizeColumnsToContents()
 
-                    item_str = '+' + '{0:d}'.format(new_actval_up_count) + '\n' + '({0:d})'.format(option_pairs_count)
+                    item_str = '(+' + '{0:d})'.format(new_actval_up_count) + '\n' + '{0:d}'.format(option_pairs_count)
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setHorizontalHeaderItem(0, item)
@@ -17323,7 +17323,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print(str)  
 
                     # 추가된 행사가 갯수 표시
-                    item_str = '+' + '{0:d}'.format(new_actval_down_count) + '\n' + '({0:d})'.format(option_pairs_count)
+                    item_str =  '{0:d}'.format(option_pairs_count) + '\n' + '(+' + '{0:d})'.format(new_actval_down_count)
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setHorizontalHeaderItem(0, item)
@@ -17334,7 +17334,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                     self.tableWidget_call.resizeColumnsToContents()
 
-                    item_str = '+' + '{0:d}'.format(new_actval_down_count) + '\n' + '({0:d})'.format(option_pairs_count)
+                    item_str = '{0:d}'.format(option_pairs_count) + '\n' + '(+' + '{0:d})'.format(new_actval_down_count)
                     item = QTableWidgetItem(item_str)
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setHorizontalHeaderItem(0, item) 
