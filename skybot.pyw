@@ -8272,7 +8272,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             overnight_file.write(file_str)
                             file_str = '\n'
                             overnight_file.write(file_str)
-                            file_str = '##################### < CME Index of the Last Night > ####################\n'
+                            file_str = '##################### < Foreign Futures Index of the Last Night > ####################\n'
                             overnight_file.write(file_str)
                             file_str = 'S&P 500 Last Low = {0}\n'.format(SP500_저가)
                             overnight_file.write(file_str)
@@ -22322,7 +22322,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             kp200_file.write(file_str)
                             file_str = 'KP200 High = {0}\n'.format(kp200_realdata['고가'])
                             kp200_file.write(file_str)
-                            file_str = '################### < CME Index of the Day > #####################\n'
+                            file_str = '################### < Foreign Futures Index of the Day > #####################\n'
                             kp200_file.write(file_str)
                             file_str = 'SP500 Day Close = {0}\n'.format(SP500_현재가)
                             kp200_file.write(file_str)
