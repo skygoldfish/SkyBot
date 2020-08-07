@@ -4340,7 +4340,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
 
-        item = QTableWidgetItem("{0}".format('-'))
+        item = QTableWidgetItem("{0}".format('중심가'))
         item.setTextAlignment(Qt.AlignCenter)
         self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
 
