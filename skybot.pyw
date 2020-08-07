@@ -659,7 +659,6 @@ if os.path.isfile('overnight_info.txt'):
         print('CME 종가 =', CME_종가)
 
         tmp = overnight_file.readline().strip()
-        tmp = overnight_file.readline().strip()
 
         tmp = overnight_file.readline().strip()
         temp = tmp.split()
@@ -8269,8 +8268,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             file_str = '################# < Futures Index of the Last Night > ###################\n'
                             overnight_file.write(file_str)                            
                             file_str = 'CME FUT Last Close = {0}\n'.format(CME_당일종가)
-                            overnight_file.write(file_str)
-                            file_str = '\n'
                             overnight_file.write(file_str)
                             file_str = '##################### < Foreign Futures Index of the Last Night > ####################\n'
                             overnight_file.write(file_str)
