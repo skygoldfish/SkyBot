@@ -4646,14 +4646,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.comboBox1.setStyleSheet("background-color: white")
         self.comboBox2.setStyleSheet("background-color: white")
 
-        self.comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
-            'SP500잔량비', 'DOW잔량비', 'NASDAQ잔량비', 'WTI잔량비', 'EUROFX잔량비', '항셍잔량비', 'GOLD잔량비'])
+        self.comboBox1.addItems(['선물체결', '옵션체결', '옵션 잔량비', '등락율비', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', '항셍 잔량비', 'GOLD 잔량비'])
         self.comboBox1.insertSeparator(5)
         self.comboBox1.insertSeparator(13)
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)        
 
-        self.comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
-            'SP500잔량비', 'DOW잔량비', 'NASDAQ잔량비', 'WTI잔량비', 'EUROFX잔량비', '항셍잔량비', 'GOLD잔량비', 'BBANDS', 'MACD', '일목균형표', 'SAR', 'SKY TA'])
+        self.comboBox2.addItems(['옵션체결', '옵션 잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', '항셍 잔량비', 'GOLD 잔량비', 'BBANDS', 'MACD', '일목균형표', 'SAR', 'SKY TA'])
         self.comboBox2.insertSeparator(5)
         self.comboBox2.insertSeparator(13)
         self.comboBox2.insertSeparator(21)
@@ -26163,20 +26163,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_24.setStyleSheet('background-color: pink ; color: black')
         self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.bc_comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
-            'SP500잔량비', 'DOW잔량비', 'NASDAQ잔량비', 'WTI잔량비', 'EUROFX잔량비', '항셍잔량비', 'GOLD잔량비'])
+        self.bc_comboBox1.addItems(['선물체결', '옵션체결', '옵션 잔량비', '등락율비', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', '항셍 잔량비', 'GOLD 잔량비'])
         self.bc_comboBox1.insertSeparator(5)
         self.bc_comboBox1.insertSeparator(13)
         self.bc_comboBox1.currentIndexChanged.connect(self.bc_cb1_selectionChanged)
 
-        self.bc_comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
-            'SP500잔량비', 'DOW잔량비', 'NASDAQ잔량비', 'WTI잔량비', 'EUROFX잔량비', '항셍잔량비', 'GOLD잔량비'])
+        self.bc_comboBox2.addItems(['옵션체결', '옵션 잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', '항셍 잔량비', 'GOLD 잔량비'])
         self.bc_comboBox2.insertSeparator(5)
         self.bc_comboBox2.insertSeparator(13)
         self.bc_comboBox2.currentIndexChanged.connect(self.bc_cb2_selectionChanged)
 
-        self.bc_comboBox3.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
-            'SP500잔량비', 'DOW잔량비', 'NASDAQ잔량비', 'WTI잔량비', 'EUROFX잔량비', '항셍잔량비', 'GOLD잔량비', 'BBANDS', 'MACD', '일목균형표', 'SAR', 'SKY TA'])
+        self.bc_comboBox3.addItems(['옵션체결', '옵션 잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', '항셍 잔량비', 'GOLD 잔량비', 'BBANDS', 'MACD', '일목균형표', 'SAR', 'SKY TA'])
         self.bc_comboBox3.insertSeparator(5)
         self.bc_comboBox3.insertSeparator(13)
         self.bc_comboBox3.insertSeparator(21)
