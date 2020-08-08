@@ -2,12 +2,16 @@
 KSE Start Hour = 9
 Current Month = 202008
 First Day of the Current Month = 20200710
-Mangi Yagan = OFF
 
-[2]. << Initial Value >>
+[2]. << User Option = 'ON or OFF' >>
+Telegram service = ON
+Mangi Yagan = OFF
 Auto Start = ON
-HL List Depth = 40
 Resize Rows To Contents = OFF
+Cross Hair Line = ON
+
+[3]. << Initial Value >>
+HL List Depth = 40
 Overnight Pre-Start Hour = 17
 Actval count of the option pairs = 100
 Basic coreval of the options = 1.20 2.50 3.50 4.85 5.10 5.50 6.85 7.10 8.10
@@ -18,13 +22,13 @@ Center Value Alarm Range = 0.60
 Main Update Interval(msec) = 500
 Big Chart Update Interval(msec) = 250
 
-[3]. << UI Select : Horizontal_Large_View.ui, Horizontal_Small_View.ui, Vertical_View.ui >>
+[4]. << UI Select : Horizontal_Large_View.ui, Horizontal_Small_View.ui, Vertical_View.ui >>
 UI = Horizontal_Large_View.ui
 
-[4]. << Target Month Select : current month = 1, next month = 2 >>
+[5]. << Target Month Select : current month = 1, next month = 2 >>
 Target Month Select = 1
 
-[5]. << Code of the Foreign Futures (H/M/U/Z) >>
+[6]. << Code of the Foreign Futures (H/M/U/Z) >>
 S&P 500 = ESU20
 DOW = YMU20
 NASDAQ = NQU20
@@ -33,17 +37,13 @@ EUROFX = UROU20
 HANGSENG = HSIQ20
 GOLD = GCZ20
 
-[6]. << Telegram >>
-Telegram service = ON
+[7]. << Telegram >>
 Telegram polling start time(minute) after service = 5
 Telegram polling interval(second) = 10
 Telegram send interval(second) = 5
 
-[7]. << Rules >>
+[8]. << Rules >>
 Threshold of the institutional party's supply & demand = 2500
-
-[8]. << User Option >>
-Cross Hair Line = ON
 
 
 

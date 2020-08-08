@@ -56,6 +56,8 @@ from bisect import bisect
 from mss import mss
 from collections import Counter
 from PIL import Image
+import talib
+from TAcharts.indicators.ichimoku import Ichimoku
 
 #from subprocess import Popen
 #from PIL import ImageGrab
@@ -84,6 +86,7 @@ np.warnings.filterwarnings('ignore')
 SELFID = ''
 
 os_type = platform.platform()
+print('\r')
 print('OS 유형 :', os_type)
 
 콜등락율 = 0
@@ -243,6 +246,7 @@ FILE_HIGH_LOW_LIST = []
 # control file에서 필요한 정보를 가져옴
 with open('control_info.txt', mode='r') as control_file:
 
+    # [1]. << Month Info >> 
     tmp = control_file.readline().strip()
 
     tmp = control_file.readline().strip()
@@ -274,6 +278,22 @@ with open('control_info.txt', mode='r') as control_file:
     tmp = control_file.readline().strip()
     temp = tmp.split()
     MONTH_FIRSTDAY = temp[7]
+    
+    # [2]. << User Option = 'ON or OFF' >>
+    tmp = control_file.readline().strip()
+    tmp = control_file.readline().strip()
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    temp_str = temp[3]
+
+    if temp_str == 'ON' or temp_str == 'on':
+        TELEGRAM_SERVICE = True
+    else:
+        TELEGRAM_SERVICE = False
+
+    print('\r')
+    print('TELEGRAM_SERVICE =', TELEGRAM_SERVICE)
 
     # 만기일 야간옵션은 control_info.txt에서 Mangi Yagan을 False -> True로 변경 
     tmp = control_file.readline().strip()
@@ -288,9 +308,6 @@ with open('control_info.txt', mode='r') as control_file:
     print('MANGI_YAGAN =', MANGI_YAGAN)
 
     tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-
-    tmp = control_file.readline().strip()
     temp = tmp.split()
     temp_str = temp[3]
 
@@ -298,12 +315,7 @@ with open('control_info.txt', mode='r') as control_file:
         AUTO_START = True
     else:
         AUTO_START = False
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    HL_Depth = int(temp[4])
-    #print('HL_Depth =', HL_Depth)
-
+    
     tmp = control_file.readline().strip()
     temp = tmp.split()
     temp_str = temp[5]
@@ -313,7 +325,28 @@ with open('control_info.txt', mode='r') as control_file:
     else:
         ResizeRowsToContents = False
 
-    print('ResizeRowsToContents =', ResizeRowsToContents)
+    print('ResizeRowsToContents =', ResizeRowsToContents)    
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    temp_str = temp[4]
+
+    if temp_str == 'ON' or temp_str == 'on':
+        CROSS_HAIR = True
+    else:
+        CROSS_HAIR = False
+
+    print('CROSS_HAIR =', CROSS_HAIR)
+    print('\r')    
+
+    # [3]. << Initial Value >>
+    tmp = control_file.readline().strip()
+    tmp = control_file.readline().strip()    
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    HL_Depth = int(temp[4])
+    #print('HL_Depth =', HL_Depth)
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
@@ -558,6 +591,7 @@ with open('control_info.txt', mode='r') as control_file:
     BIGCHART_UPDATE_INTERVAL = float(temp[5])
     print('BIGCHART_UPDATE_INTERVAL =', BIGCHART_UPDATE_INTERVAL)
 
+    # [4]. << UI Select : Horizontal_Large_View.ui, Horizontal_Small_View.ui, Vertical_View.ui >>
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
 
@@ -566,6 +600,7 @@ with open('control_info.txt', mode='r') as control_file:
     UI_STYLE = temp[2]
     #print('UI_STYLE =', UI_STYLE)   
     
+    # [5]. << Target Month Select : current month = 1, next month = 2 >>
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
 
@@ -574,6 +609,7 @@ with open('control_info.txt', mode='r') as control_file:
     TARGET_MONTH_SELECT = int(temp[4])
     #print('TARGET MONTH SELECT =', TARGET_MONTH_SELECT)
 
+    # [6]. << Code of the Foreign Futures (H/M/U/Z) >>
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
 
@@ -607,19 +643,9 @@ with open('control_info.txt', mode='r') as control_file:
     GOLD = temp[2]
     print('GOLD =',GOLD)
     
+    # [7]. << Telegram >>
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    temp_str = temp[3]
-
-    if temp_str == 'ON' or temp_str == 'on':
-        TELEGRAM_SERVICE = True
-    else:
-        TELEGRAM_SERVICE = False
-
-    print('TELEGRAM_SERVICE =', TELEGRAM_SERVICE)
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
@@ -636,27 +662,14 @@ with open('control_info.txt', mode='r') as control_file:
     TELEGRAM_SEND_INTERVAL = int(temp[4])
     #print(TELEGRAM_SEND_INTERVAL)
 
+    # [8]. << Rules >>
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
     ONEWAY_THRESHOLD = int(temp[9])
-    #print('ONEWAY_THRESHOLD =', ONEWAY_THRESHOLD)
-
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    temp_str = temp[4]
-
-    if temp_str == 'ON' or temp_str == 'on':
-        CROSS_HAIR = True
-    else:
-        CROSS_HAIR = False
-
-    print('CROSS_HAIR =', CROSS_HAIR)
+    #print('ONEWAY_THRESHOLD =', ONEWAY_THRESHOLD)    
 
 if os.path.isfile('overnight_info.txt'):
 
