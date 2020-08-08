@@ -280,7 +280,7 @@ with open('control_info.txt', mode='r') as control_file:
     temp = tmp.split()
     temp_str = temp[3]
 
-    if temp_str == 'True' or temp_str == 'true':
+    if temp_str == 'ON' or temp_str == 'on':
         MANGI_YAGAN = True 
     else:
         MANGI_YAGAN = False
@@ -294,7 +294,7 @@ with open('control_info.txt', mode='r') as control_file:
     temp = tmp.split()
     temp_str = temp[3]
 
-    if temp_str == 'True' or temp_str == 'true':
+    if temp_str == 'ON' or temp_str == 'on':
         AUTO_START = True
     else:
         AUTO_START = False
@@ -308,7 +308,7 @@ with open('control_info.txt', mode='r') as control_file:
     temp = tmp.split()
     temp_str = temp[5]
 
-    if temp_str == 'True' or temp_str == 'true':
+    if temp_str == 'ON' or temp_str == 'on':
         ResizeRowsToContents = True
     else:
         ResizeRowsToContents = False
@@ -614,7 +614,7 @@ with open('control_info.txt', mode='r') as control_file:
     temp = tmp.split()
     temp_str = temp[3]
 
-    if temp_str == 'True' or temp_str == 'true':
+    if temp_str == 'ON' or temp_str == 'on':
         TELEGRAM_SERVICE = True
     else:
         TELEGRAM_SERVICE = False
@@ -643,6 +643,20 @@ with open('control_info.txt', mode='r') as control_file:
     temp = tmp.split()
     ONEWAY_THRESHOLD = int(temp[9])
     #print('ONEWAY_THRESHOLD =', ONEWAY_THRESHOLD)
+
+    tmp = control_file.readline().strip()
+    tmp = control_file.readline().strip()
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    temp_str = temp[4]
+
+    if temp_str == 'ON' or temp_str == 'on':
+        CROSS_HAIR = True
+    else:
+        CROSS_HAIR = False
+
+    print('CROSS_HAIR =', CROSS_HAIR)
 
 if os.path.isfile('overnight_info.txt'):
 
@@ -1321,8 +1335,8 @@ df_plotdata_call_volume = pd.DataFrame()
 df_plotdata_put_volume = pd.DataFrame()
 df_plotdata_volume_cha = pd.DataFrame()
 
-df_plotdata_call_rr = pd.DataFrame()
-df_plotdata_put_rr = pd.DataFrame()
+df_plotdata_call_hoga_rr = pd.DataFrame()
+df_plotdata_put_hoga_rr = pd.DataFrame()
 
 df_plotdata_fut_drate = pd.DataFrame()
 df_plotdata_dow_drate = pd.DataFrame()
@@ -1341,6 +1355,14 @@ df_plotdata_wti = pd.DataFrame()
 df_plotdata_eurofx = pd.DataFrame()
 df_plotdata_hangseng = pd.DataFrame()
 df_plotdata_gold = pd.DataFrame()
+
+df_plotdata_sp500_hoga_rr = pd.DataFrame()
+df_plotdata_dow_hoga_rr = pd.DataFrame()
+df_plotdata_nasdaq_hoga_rr = pd.DataFrame()
+df_plotdata_wti_hoga_rr = pd.DataFrame()
+df_plotdata_eurofx_hoga_rr = pd.DataFrame()
+df_plotdata_hangseng_hoga_rr = pd.DataFrame()
+df_plotdata_gold_hoga_rr = pd.DataFrame()
 
 df_plotdata_centerval = pd.DataFrame()
 
@@ -1998,6 +2020,41 @@ DOW_야간_시작가 = 0
 WTI_야간_시작가 = 0
 
 장시작_양합 = 0
+
+NASDAQ_매도호가총건수 = 0
+NASDAQ_매수호가총건수 = 0
+NASDAQ_매도호가총수량 = 0
+NASDAQ_매수호가총수량 = 0
+
+SP500_매도호가총건수 = 0
+SP500_매수호가총건수 = 0
+SP500_매도호가총수량 = 0
+SP500_매수호가총수량 = 0
+
+DOW_매도호가총건수 = 0
+DOW_매수호가총건수 = 0
+DOW_매도호가총수량 = 0
+DOW_매수호가총수량 = 0
+
+WTI_매도호가총건수 = 0
+WTI_매수호가총건수 = 0
+WTI_매도호가총수량 = 0
+WTI_매수호가총수량 = 0
+
+EUROFX_매도호가총건수 = 0
+EUROFX_매수호가총건수 = 0
+EUROFX_매도호가총수량 = 0
+EUROFX_매수호가총수량 = 0
+
+HANGSENG_매도호가총건수 = 0
+HANGSENG_매수호가총건수 = 0
+HANGSENG_매도호가총수량 = 0
+HANGSENG_매수호가총수량 = 0
+
+GOLD_매도호가총건수 = 0
+GOLD_매수호가총건수 = 0
+GOLD_매도호가총수량 = 0
+GOLD_매수호가총수량 = 0
 
 ########################################################################################################################
 
@@ -3499,8 +3556,8 @@ class screen_update_worker(QThread):
             data2 = df_plotdata_call_volume.iloc[0].values.tolist()
             data3 = df_plotdata_put_volume.iloc[0].values.tolist()
             data4 = df_plotdata_volume_cha.iloc[0].values.tolist()
-            data5 = df_plotdata_call_rr.iloc[0].values.tolist()
-            data6 = df_plotdata_put_rr.iloc[0].values.tolist() 
+            data5 = df_plotdata_call_hoga_rr.iloc[0].values.tolist()
+            data6 = df_plotdata_put_hoga_rr.iloc[0].values.tolist() 
             data7 = df_plotdata_fut_drate.iloc[0].values.tolist()
             data8 = df_plotdata_dow_drate.iloc[0].values.tolist()
             data9 = df_plotdata_kp200.iloc[0].values.tolist()
@@ -4576,10 +4633,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.comboBox1.setStyleSheet("background-color: white")
         self.comboBox2.setStyleSheet("background-color: white")
 
-        self.comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG', 'GOLD'])
+        self.comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG', 'GOLD', \
+            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', 'HANGSENG 잔량비', 'GOLD 잔량비'])
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG', 'GOLD'])
+        self.comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG', 'GOLD', \
+            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', 'HANGSENG 잔량비', 'GOLD 잔량비'])
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
@@ -4675,7 +4734,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot1_wti_curve = self.Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
 
         #cross hair
-        if SELFID != 'soojin65':
+        if CROSS_HAIR:
             plot1_vLine = pg.InfiniteLine(angle=90, movable=False)
             plot1_hLine = pg.InfiniteLine(angle=0, movable=False)
             self.Plot1.addItem(plot1_vLine, ignoreBounds=True)
@@ -4733,7 +4792,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot2_center_val_upper_line = self.Plot2.addLine(x=None, pen=pink_pen)
 
         #cross hair
-        if SELFID != 'soojin65':
+        if CROSS_HAIR:
             plot2_vLine = pg.InfiniteLine(angle=90, movable=False)
             plot2_hLine = pg.InfiniteLine(angle=0, movable=False)
             self.Plot2.addItem(plot2_vLine, ignoreBounds=True)
@@ -4910,6 +4969,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.PM = PM_(parent=self)
 
         self.OVC = OVC(parent=self)
+        self.OVH = OVH(parent=self)
 
         self.OPT_REAL = OC0(parent=self)
         self.OPT_HO = OH0(parent=self)
@@ -7308,7 +7368,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     telegram_command = str
                     
                     if SELFID == 'soojin65':
-
                         str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)                        
                         print(str)
                     else:
@@ -13770,7 +13829,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global atm_index, old_atm_index
         global df_plotdata_call, df_plotdata_put
         global df_plotdata_call_volume, df_plotdata_put_volume, df_plotdata_volume_cha
-        global df_plotdata_call_rr, df_plotdata_put_rr
+        global df_plotdata_call_hoga_rr, df_plotdata_put_hoga_rr
         global atm_str, atm_val
 
         global fut_realdata, cme_realdata
@@ -14194,8 +14253,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_volume_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
 
-                    df_plotdata_call_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_put_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_call_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_put_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
 
                     df_plotdata_fut_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_dow_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
@@ -14213,6 +14272,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_eurofx = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_hangseng = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                     df_plotdata_gold = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+
+                    df_plotdata_sp500_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_dow_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_nasdaq_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_wti_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_eurofx_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_hangseng_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_gold_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+
                     df_plotdata_centerval = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
                 else:
                     df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + day_timespan))
@@ -14222,8 +14290,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_volume_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
 
-                    df_plotdata_call_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_put_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_call_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_put_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
 
                     df_plotdata_fut_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_dow_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
@@ -14241,6 +14309,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_eurofx = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_hangseng = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
                     df_plotdata_gold = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+
+                    df_plotdata_sp500_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_dow_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_nasdaq_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_wti_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_eurofx_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_hangseng_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_gold_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+
                     df_plotdata_centerval = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
 
                 # 콜처리
@@ -14912,11 +14989,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_plotdata_put_volume.iat[0, 선물장간_시간차] = 0
                 df_plotdata_volume_cha.iat[0, 선물장간_시간차] = 0
                 
-                df_plotdata_call_rr[0][0] = 0
-                df_plotdata_put_rr[0][0] = 0
+                df_plotdata_call_hoga_rr.iat[0, 0] = 0
+                df_plotdata_put_hoga_rr.iat[0, 0] = 0
 
-                df_plotdata_call_rr[0][선물장간_시간차] = 0
-                df_plotdata_put_rr[0][선물장간_시간차] = 0
+                df_plotdata_call_hoga_rr.iat[0, 선물장간_시간차] = 0 
+                df_plotdata_put_hoga_rr.iat[0, 선물장간_시간차] = 0
+
+                # 해외선물 호가 초기화
+                df_plotdata_sp500_hoga_rr.iat[0, 0] = 0
+                df_plotdata_dow_hoga_rr.iat[0, 0] = 0
+                df_plotdata_nasdaq_hoga_rr.iat[0, 0] = 0
+                df_plotdata_wti_hoga_rr.iat[0, 0] = 0
+                df_plotdata_eurofx_hoga_rr.iat[0, 0] = 0
+                df_plotdata_hangseng_hoga_rr.iat[0, 0] = 0
+                df_plotdata_gold_hoga_rr.iat[0, 0] = 0
                 
                 콜_순미결합 = df_call['순미결'].sum()
                 풋_순미결합 = df_put['순미결'].sum()
@@ -14957,7 +15043,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 장운영정보 요청
                 self.JIF.AdviseRealData('0')
 
-                # 해외선물 실시간 요청
+                # 해외선물 가격 실시간 요청
                 self.OVC.AdviseRealData(종목코드=SP500)
                 self.OVC.AdviseRealData(종목코드=DOW)
                 self.OVC.AdviseRealData(종목코드=NASDAQ)
@@ -14965,6 +15051,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.OVC.AdviseRealData(종목코드=EUROFX)
                 self.OVC.AdviseRealData(종목코드=HANGSENG)
                 self.OVC.AdviseRealData(종목코드=GOLD)
+
+                # 해외선물 호가 실시간 요청
+                self.OVH.AdviseRealData(종목코드=SP500)
+                self.OVH.AdviseRealData(종목코드=DOW)
+                self.OVH.AdviseRealData(종목코드=NASDAQ)
+                self.OVH.AdviseRealData(종목코드=WTI)
+                self.OVH.AdviseRealData(종목코드=EUROFX)
+                self.OVH.AdviseRealData(종목코드=HANGSENG)
+                self.OVH.AdviseRealData(종목코드=GOLD)
 
                 XQ = t2101(parent=self)
                 XQ.Query(종목코드=fut_code)
@@ -18923,7 +19018,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if TARGET_MONTH_SELECT == 1:
 
                     if SELFID == 'soojin65':
-
                         str = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
                         ToMyTelegram(str)
                     else:
@@ -19552,7 +19646,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def call_display(self):
 
         global call_open, call_itm_count
-        global df_call, df_plotdata_call, df_plotdata_call_rr
+        global df_call, df_plotdata_call, df_plotdata_call_hoga_rr
         global atm_str, atm_index, call_atm_value
         global call_시가, call_시가_node_list, call_피봇, call_피봇_node_list, 콜시가리스트
         global call_저가, call_저가_node_list, call_고가, call_고가_node_list
@@ -19657,7 +19751,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH_SELECT == 1:                        
                         
                         if SELFID == 'soojin65':
-
                             str = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
                             ToMyTelegram(str)
                         else:
@@ -20774,7 +20867,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def put_display(self):
 
         global put_open, put_itm_count
-        global df_put, df_plotdata_put, df_plotdata_put_rr
+        global df_put, df_plotdata_put, df_plotdata_put_hoga_rr
         global atm_str, atm_index, put_atm_value
         global put_시가, put_시가_node_list, put_피봇, put_피봇_node_list, 풋시가리스트
         global put_저가, put_저가_node_list, put_고가, put_고가_node_list
@@ -21817,7 +21910,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         global call_quote, put_quote
         global 콜매수잔량, 콜매도잔량, 풋매수잔량, 풋매도잔량, 콜건수비, 콜잔량비, 풋건수비, 풋잔량비
-        global df_plotdata_call_rr, df_plotdata_put_rr
+        global df_plotdata_call_hoga_rr, df_plotdata_put_hoga_rr
 
         call_quote = df_call_hoga.sum()
         put_quote = df_put_hoga.sum()
@@ -21852,8 +21945,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if market_service and opt_x_idx > 0:
 
-            df_plotdata_call_rr.iat[0, opt_x_idx] = 콜잔량비
-            df_plotdata_put_rr.iat[0, opt_x_idx] = 풋잔량비
+            df_plotdata_call_hoga_rr.iat[0, opt_x_idx] = 콜잔량비
+            df_plotdata_put_hoga_rr.iat[0, opt_x_idx] = 풋잔량비
         else:
             pass
 
@@ -21961,8 +22054,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         콜_수정미결합 = df_call['수정미결'].sum()
         풋_수정미결합 = df_put['수정미결'].sum()
                     
-        #df_plotdata_call_rr.iloc[0][opt_x_idx] = 콜_수정미결합
-        #df_plotdata_put_rr.iloc[0][opt_x_idx] = 풋_수정미결합
+        #df_plotdata_call_hoga_rr.iloc[0][opt_x_idx] = 콜_수정미결합
+        #df_plotdata_put_hoga_rr.iloc[0][opt_x_idx] = 풋_수정미결합
 
         old_oi_delta = oi_delta
         oi_delta = 콜_수정미결합 - 풋_수정미결합
@@ -22066,6 +22159,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global yoc_stop
             global OVC_체결시간
             global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti, df_plotdata_eurofx, df_plotdata_hangseng, df_plotdata_gold
+            global df_plotdata_sp500_hoga_rr, df_plotdata_dow_hoga_rr, df_plotdata_nasdaq_hoga_rr 
+            global df_plotdata_wti_hoga_rr, df_plotdata_eurofx_hoga_rr, df_plotdata_hangseng_hoga_rr, df_plotdata_gold_hoga_rr
 
             global sp500_delta, old_sp500_delta, sp500_직전대비, sp500_text_color
             global dow_delta, old_dow_delta, dow_직전대비, dow_text_color
@@ -22090,7 +22185,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global HANGSENG_종가, HANGSENG_피봇, HANGSENG_시가, HANGSENG_저가, HANGSENG_현재가, HANGSENG_전일대비, HANGSENG_등락율, HANGSENG_진폭, HANGSENG_고가
             global GOLD_종가, GOLD_피봇, GOLD_시가, GOLD_저가, GOLD_현재가, GOLD_전일대비, GOLD_등락율, GOLD_진폭, GOLD_고가
 
-            global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EUROFX_과거가, HANGSENG_과거가, GOLD_과거가 
+            global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EUROFX_과거가, HANGSENG_과거가, GOLD_과거가
+
+            global NASDAQ_매도호가총건수, NASDAQ_매수호가총건수, NASDAQ_매도호가총수량, NASDAQ_매수호가총수량
+            global SP500_매도호가총건수, SP500_매수호가총건수, SP500_매도호가총수량, SP500_매수호가총수량
+            global DOW_매도호가총건수, DOW_매수호가총건수, DOW_매도호가총수량, DOW_매수호가총수량
+            global WTI_매도호가총건수, WTI_매수호가총건수, WTI_매도호가총수량, WTI_매수호가총수량
+            global EUROFX_매도호가총건수, EUROFX_매수호가총건수, EUROFX_매도호가총수량, EUROFX_매수호가총수량
+            global HANGSENG_매도호가총건수, HANGSENG_매수호가총건수, HANGSENG_매도호가총수량, HANGSENG_매수호가총수량
+            global GOLD_매도호가총건수, GOLD_매수호가총건수, GOLD_매도호가총수량, GOLD_매수호가총수량
 
             global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가
             global 시스템시간, 서버시간, 시스템_서버_시간차
@@ -25191,6 +25294,94 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                 else:
                     pass
+
+            elif szTrCode == 'OVH':
+
+                if result['종목코드'] == NASDAQ:
+
+                    NASDAQ_매도호가총건수 = result['매도호가총건수']
+                    NASDAQ_매수호가총건수 = result['매수호가총건수']
+                    NASDAQ_매도호가총수량 = result['매도호가총수량']
+                    NASDAQ_매수호가총수량 = result['매수호가총수량']
+
+                    if NASDAQ_매도호가총수량 > 0:
+                        df_plotdata_nasdaq_hoga_rr.iat[0, ovc_x_idx] = float(NASDAQ_매수호가총수량/NASDAQ_매도호가총수량)
+                    else:
+                        pass
+
+                elif result['종목코드'] == SP500:
+
+                    SP500_매도호가총건수 = result['매도호가총건수']
+                    SP500_매수호가총건수 = result['매수호가총건수']
+                    SP500_매도호가총수량 = result['매도호가총수량']
+                    SP500_매수호가총수량 = result['매수호가총수량']
+
+                    if SP500_매도호가총수량 > 0:
+                        df_plotdata_sp500_hoga_rr.iat[0, ovc_x_idx] = float(SP500_매수호가총수량/SP500_매도호가총수량)
+                    else:
+                        pass
+
+                elif result['종목코드'] == DOW:
+
+                    DOW_매도호가총건수 = result['매도호가총건수']
+                    DOW_매수호가총건수 = result['매수호가총건수']
+                    DOW_매도호가총수량 = result['매도호가총수량']
+                    DOW_매수호가총수량 = result['매수호가총수량']
+
+                    if DOW_매도호가총수량 > 0:
+                        df_plotdata_dow_hoga_rr.iat[0, ovc_x_idx] = float(DOW_매수호가총수량/DOW_매도호가총수량)
+                    else:
+                        pass
+
+                elif result['종목코드'] == WTI:
+
+                    WTI_매도호가총건수 = result['매도호가총건수']
+                    WTI_매수호가총건수 = result['매수호가총건수']
+                    WTI_매도호가총수량 = result['매도호가총수량']
+                    WTI_매수호가총수량 = result['매수호가총수량']
+
+                    if WTI_매도호가총수량 > 0:
+                        df_plotdata_wti_hoga_rr.iat[0, ovc_x_idx] = float(WTI_매수호가총수량/WTI_매도호가총수량)
+                    else:
+                        pass
+
+                elif result['종목코드'] == EUROFX:
+
+                    EUROFX_매도호가총건수 = result['매도호가총건수']
+                    EUROFX_매수호가총건수 = result['매수호가총건수']
+                    EUROFX_매도호가총수량 = result['매도호가총수량']
+                    EUROFX_매수호가총수량 = result['매수호가총수량']
+
+                    if EUROFX_매도호가총수량 > 0:
+                        df_plotdata_eurofx_hoga_rr.iat[0, ovc_x_idx] = float(EUROFX_매수호가총수량/EUROFX_매도호가총수량)
+                    else:
+                        pass
+
+                elif result['종목코드'] == HANGSENG:
+
+                    HANGSENG_매도호가총건수 = result['매도호가총건수']
+                    HANGSENG_매수호가총건수 = result['매수호가총건수']
+                    HANGSENG_매도호가총수량 = result['매도호가총수량']
+                    HANGSENG_매수호가총수량 = result['매수호가총수량']
+
+                    if HANGSENG_매도호가총수량 > 0:
+                        df_plotdata_hangseng_hoga_rr.iat[0, ovc_x_idx] = float(HANGSENG_매수호가총수량/HANGSENG_매도호가총수량)
+                    else:
+                        pass
+
+                elif result['종목코드'] == GOLD:
+
+                    GOLD_매도호가총건수 = result['매도호가총건수']
+                    GOLD_매수호가총건수 = result['매수호가총건수']
+                    GOLD_매도호가총수량 = result['매도호가총수량']
+                    GOLD_매수호가총수량 = result['매수호가총수량']
+
+                    if GOLD_매도호가총수량 > 0:
+                        df_plotdata_gold_hoga_rr.iat[0, ovc_x_idx] = float(GOLD_매수호가총수량/GOLD_매도호가총수량)
+                    else:
+                        pass
+                else:
+                    pass
             else:
                 print('요청하지 않은 TR 코드 : ', szTrCode)
             '''
@@ -25938,13 +26129,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_24.setStyleSheet('background-color: pink ; color: black')
         self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.bc_comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG', 'GOLD'])
+        self.bc_comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG', 'GOLD', \
+            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', 'HANGSENG 잔량비', 'GOLD 잔량비'])
         self.bc_comboBox1.currentIndexChanged.connect(self.bc_cb1_selectionChanged)
 
-        self.bc_comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG', 'GOLD'])
+        self.bc_comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG', 'GOLD', \
+            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', 'HANGSENG 잔량비', 'GOLD 잔량비'])
         self.bc_comboBox2.currentIndexChanged.connect(self.bc_cb2_selectionChanged)
 
-        self.bc_comboBox3.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG', 'GOLD'])
+        self.bc_comboBox3.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG', 'GOLD', \
+            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', 'HANGSENG 잔량비', 'GOLD 잔량비'])
         self.bc_comboBox3.currentIndexChanged.connect(self.bc_cb3_selectionChanged)             
 
         global bc_plot1_time_line_start, bc_plot1_time_line_yagan_start, bc_plot1_time_line, bc_plot1_fut_price_curve, bc_plot1_kp200_curve
@@ -26058,7 +26252,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_wti_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         
         #cross hair
-        if SELFID != 'soojin65':
+        if CROSS_HAIR:
             bc_plot1_vLine = pg.InfiniteLine(angle=90, movable=False)
             bc_plot1_hLine = pg.InfiniteLine(angle=0, movable=False)
             self.bc_Plot1.addItem(bc_plot1_vLine, ignoreBounds=True)
@@ -26117,7 +26311,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_center_val_upper_line = self.bc_Plot2.addLine(x=None, pen=pink_pen)
 
         #cross hair
-        if SELFID != 'soojin65':
+        if CROSS_HAIR:
             bc_plot2_vLine = pg.InfiniteLine(angle=90, movable=False)
             bc_plot2_hLine = pg.InfiniteLine(angle=0, movable=False)
             self.bc_Plot2.addItem(bc_plot2_vLine, ignoreBounds=True)
@@ -26176,7 +26370,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot3_center_val_upper_line = self.bc_Plot3.addLine(x=None, pen=pink_pen)
 
         #cross hair
-        if SELFID != 'soojin65':
+        if CROSS_HAIR:
             bc_plot3_vLine = pg.InfiniteLine(angle=90, movable=False)
             bc_plot3_hLine = pg.InfiniteLine(angle=0, movable=False)
             self.bc_Plot3.addItem(bc_plot3_vLine, ignoreBounds=True)
