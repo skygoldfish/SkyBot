@@ -4646,12 +4646,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.comboBox1.setStyleSheet("background-color: white")
         self.comboBox2.setStyleSheet("background-color: white")
 
-        self.comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG', 'GOLD', \
-            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', 'HANGSENG 잔량비', 'GOLD 잔량비'])
-        self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
+        self.comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+            'SP500잔량비', 'DOW잔량비', 'NASDAQ잔량비', 'WTI잔량비', 'EUROFX잔량비', '항셍잔량비', 'GOLD잔량비'])
+        self.comboBox1.insertSeparator(5)
+        self.comboBox1.insertSeparator(13)
+        self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)        
 
-        self.comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG', 'GOLD', \
-            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', 'HANGSENG 잔량비', 'GOLD 잔량비'])
+        self.comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+            'SP500잔량비', 'DOW잔량비', 'NASDAQ잔량비', 'WTI잔량비', 'EUROFX잔량비', '항셍잔량비', 'GOLD잔량비', 'BBANDS', 'MACD', '일목균형표', 'SAR', 'SKY TA'])
+        self.comboBox2.insertSeparator(5)
+        self.comboBox2.insertSeparator(13)
+        self.comboBox2.insertSeparator(21)
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
@@ -5553,6 +5558,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         elif comboindex1 == 5:
 
+            pass
+
+        elif comboindex1 == 6:
+
             plot1_fut_volume_plus_curve.clear()
             plot1_fut_volume_minus_curve.clear()
 
@@ -5636,7 +5645,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_ovc_low_line.setValue(SP500_저가)
             plot1_ovc_high_line.setValue(SP500_고가)
 
-        elif comboindex1 == 6:
+        elif comboindex1 == 7:
 
             plot1_fut_volume_plus_curve.clear()
             plot1_fut_volume_minus_curve.clear()
@@ -5721,7 +5730,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_ovc_low_line.setValue(DOW_저가)
             plot1_ovc_high_line.setValue(DOW_고가)       
 
-        elif comboindex1 == 7:
+        elif comboindex1 == 8:
 
             plot1_fut_volume_plus_curve.clear()
             plot1_fut_volume_minus_curve.clear()
@@ -5806,7 +5815,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot1_ovc_low_line.setValue(NASDAQ_저가)
             plot1_ovc_high_line.setValue(NASDAQ_고가)
 
-        elif comboindex1 == 8:
+        elif comboindex1 == 9:
 
             plot1_fut_volume_plus_curve.clear()
             plot1_fut_volume_minus_curve.clear()
@@ -6109,6 +6118,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         elif comboindex2 == 5:
 
+            put_ms_asymmetric
+
+        elif comboindex2 == 6:
+
             plot2_call_rr_curve.clear()
             plot2_put_rr_curve.clear()   
 
@@ -6183,7 +6196,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_ovc_low_line.setValue(SP500_저가)
             plot2_ovc_high_line.setValue(SP500_고가)    
             
-        elif comboindex2 == 6:
+        elif comboindex2 == 7:
 
             plot2_call_rr_curve.clear()
             plot2_put_rr_curve.clear()   
@@ -6259,7 +6272,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_ovc_low_line.setValue(DOW_저가)
             plot2_ovc_high_line.setValue(DOW_고가)   
 
-        elif comboindex2 == 7:
+        elif comboindex2 == 8:
 
             plot2_call_rr_curve.clear()
             plot2_put_rr_curve.clear()   
@@ -6335,7 +6348,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_ovc_low_line.setValue(NASDAQ_저가)
             plot2_ovc_high_line.setValue(NASDAQ_고가)
 
-        elif comboindex2 == 8:
+        elif comboindex2 == 9:
 
             plot2_call_rr_curve.clear()
             plot2_put_rr_curve.clear()   
@@ -7675,6 +7688,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     plot1_fut_price_curve.setData(plot_data10)
 
                 elif comboindex1 == 5:
+
+                    pass
+
+                elif comboindex1 == 6:
                     
                     plot1_ovc_jl_line.setValue(SP500_전저)
                     plot1_ovc_jh_line.setValue(SP500_전고)
@@ -7686,7 +7703,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     plot1_sp500_curve.setData(plot_data11)
 
-                elif comboindex1 == 6:
+                elif comboindex1 == 7:
 
                     plot1_ovc_jl_line.setValue(DOW_전저)
                     plot1_ovc_jh_line.setValue(DOW_전고)
@@ -7698,7 +7715,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     plot1_dow_curve.setData(plot_data12)
 
-                elif comboindex1 == 7:
+                elif comboindex1 == 8:
 
                     plot1_ovc_jl_line.setValue(NASDAQ_전저)
                     plot1_ovc_jh_line.setValue(NASDAQ_전고)
@@ -7710,7 +7727,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     plot1_nasdaq_curve.setData(plot_data13)
 
-                elif comboindex1 == 8:
+                elif comboindex1 == 9:
 
                     plot1_ovc_jl_line.setValue(WTI_전저)
                     plot1_ovc_jh_line.setValue(WTI_전고)
@@ -7855,6 +7872,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif comboindex2 == 5:
 
+                    pass
+
+                elif comboindex2 == 6:
+
                     plot2_ovc_jl_line.setValue(SP500_전저)
                     plot2_ovc_jh_line.setValue(SP500_전고)
                     plot2_ovc_close_line.setValue(SP500_종가)                    
@@ -7871,7 +7892,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     plot2_sp500_curve.setData(plot_data11) 
 
-                elif comboindex2 == 6: 
+                elif comboindex2 == 7: 
 
                     plot2_ovc_jl_line.setValue(DOW_전저)
                     plot2_ovc_jh_line.setValue(DOW_전고)
@@ -7888,7 +7909,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     plot2_dow_curve.setData(plot_data12) 
 
-                elif comboindex2 == 7:
+                elif comboindex2 == 8:
 
                     plot2_ovc_jl_line.setValue(NASDAQ_전저)
                     plot2_ovc_jh_line.setValue(NASDAQ_전고)
@@ -7905,7 +7926,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     plot2_nasdaq_curve.setData(plot_data13)
 
-                elif comboindex2 == 8:
+                elif comboindex2 == 9:
 
                     plot2_ovc_jl_line.setValue(WTI_전저)
                     plot2_ovc_jh_line.setValue(WTI_전고)
@@ -26142,16 +26163,23 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_24.setStyleSheet('background-color: pink ; color: black')
         self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.bc_comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG', 'GOLD', \
-            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', 'HANGSENG 잔량비', 'GOLD 잔량비'])
+        self.bc_comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+            'SP500잔량비', 'DOW잔량비', 'NASDAQ잔량비', 'WTI잔량비', 'EUROFX잔량비', '항셍잔량비', 'GOLD잔량비'])
+        self.bc_comboBox1.insertSeparator(5)
+        self.bc_comboBox1.insertSeparator(13)
         self.bc_comboBox1.currentIndexChanged.connect(self.bc_cb1_selectionChanged)
 
-        self.bc_comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG', 'GOLD', \
-            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', 'HANGSENG 잔량비', 'GOLD 잔량비'])
+        self.bc_comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+            'SP500잔량비', 'DOW잔량비', 'NASDAQ잔량비', 'WTI잔량비', 'EUROFX잔량비', '항셍잔량비', 'GOLD잔량비'])
+        self.bc_comboBox2.insertSeparator(5)
+        self.bc_comboBox2.insertSeparator(13)
         self.bc_comboBox2.currentIndexChanged.connect(self.bc_cb2_selectionChanged)
 
-        self.bc_comboBox3.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'S&P 500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', 'HANGSENG', 'GOLD', \
-            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', 'HANGSENG 잔량비', 'GOLD 잔량비'])
+        self.bc_comboBox3.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+            'SP500잔량비', 'DOW잔량비', 'NASDAQ잔량비', 'WTI잔량비', 'EUROFX잔량비', '항셍잔량비', 'GOLD잔량비', 'BBANDS', 'MACD', '일목균형표', 'SAR', 'SKY TA'])
+        self.bc_comboBox3.insertSeparator(5)
+        self.bc_comboBox3.insertSeparator(13)
+        self.bc_comboBox3.insertSeparator(21)
         self.bc_comboBox3.currentIndexChanged.connect(self.bc_cb3_selectionChanged)             
 
         global bc_plot1_time_line_start, bc_plot1_time_line_yagan_start, bc_plot1_time_line, bc_plot1_fut_price_curve, bc_plot1_kp200_curve
@@ -26448,22 +26476,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_x = int(mousePoint.x())
             bc_plot1_y = mousePoint.y()
             
-            if bc_comboindex1 == 5:
+            if bc_comboindex1 == 6:
                 if plot_data11[bc_plot1_x] != plot_data11[bc_plot1_x]:
                     pass
                 else:
                     bc_plot1_y = plot_data11[bc_plot1_x]
-            elif bc_comboindex1 == 6:
+            elif bc_comboindex1 == 7:
                 if plot_data12[bc_plot1_x] != plot_data12[bc_plot1_x]:
                     pass
                 else:
                     bc_plot1_y = plot_data12[bc_plot1_x]
-            elif bc_comboindex1 == 7:
+            elif bc_comboindex1 == 8:
                 if plot_data13[bc_plot1_x] != plot_data13[bc_plot1_x]:
                     pass
                 else:
                     bc_plot1_y = plot_data13[bc_plot1_x]
-            elif bc_comboindex1 == 8:
+            elif bc_comboindex1 == 9:
                 if plot_data14[bc_plot1_x] != plot_data14[bc_plot1_x]:
                     pass
                 else:
@@ -26490,22 +26518,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_x = int(mousePoint.x())
             bc_plot2_y = mousePoint.y()
             
-            if bc_comboindex2 == 5:
+            if bc_comboindex2 == 6:
                 if plot_data11[bc_plot2_x] != plot_data11[bc_plot2_x]:
                     pass
                 else:
                     bc_plot2_y = plot_data11[bc_plot2_x]
-            elif bc_comboindex2 == 6:
+            elif bc_comboindex2 == 7:
                 if plot_data12[bc_plot2_x] != plot_data12[bc_plot2_x]:
                     pass
                 else:
                     bc_plot2_y = plot_data12[bc_plot2_x]
-            elif bc_comboindex2 == 7:
+            elif bc_comboindex2 == 8:
                 if plot_data13[bc_plot2_x] != plot_data13[bc_plot2_x]:
                     pass
                 else:
                     bc_plot2_y = plot_data13[bc_plot2_x]
-            elif bc_comboindex2 == 8:
+            elif bc_comboindex2 == 9:
                 if plot_data14[bc_plot2_x] != plot_data14[bc_plot2_x]:
                     pass
                 else:
@@ -26532,22 +26560,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_x = int(mousePoint.x())
             bc_plot3_y = mousePoint.y()
             
-            if bc_comboindex3 == 5:
+            if bc_comboindex3 == 6:
                 if plot_data11[bc_plot3_x] != plot_data11[bc_plot3_x]:
                     pass
                 else:
                     bc_plot3_y = plot_data11[bc_plot3_x]
-            elif bc_comboindex3 == 6:
+            elif bc_comboindex3 == 7:
                 if plot_data12[bc_plot3_x] != plot_data12[bc_plot3_x]:
                     pass
                 else:
                     bc_plot3_y = plot_data12[bc_plot3_x]
-            elif bc_comboindex3 == 7:
+            elif bc_comboindex3 == 8:
                 if plot_data13[bc_plot3_x] != plot_data13[bc_plot3_x]:
                     pass
                 else:
                     bc_plot3_y = plot_data13[bc_plot3_x]
-            elif bc_comboindex3 == 8:
+            elif bc_comboindex3 == 9:
                 if plot_data14[bc_plot3_x] != plot_data14[bc_plot3_x]:
                     pass
                 else:
@@ -26928,6 +26956,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex1 == 5:
 
+            pass
+
+        elif bc_comboindex1 == 6:
+
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
 
@@ -27033,7 +27065,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_8.setText(str)
             bc_plot1_ovc_high_line.setValue(SP500_고가)
             
-        elif bc_comboindex1 == 6:
+        elif bc_comboindex1 == 7:
 
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -27140,7 +27172,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_8.setText(str)
             bc_plot1_ovc_high_line.setValue(DOW_고가)
 
-        elif bc_comboindex1 == 7:
+        elif bc_comboindex1 == 8:
 
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -27247,7 +27279,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_8.setText(str)
             bc_plot1_ovc_high_line.setValue(NASDAQ_고가)            
             
-        elif bc_comboindex1 == 8:
+        elif bc_comboindex1 == 9:
 
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -27613,6 +27645,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex2 == 5:
 
+            pass
+
+        elif bc_comboindex2 == 6:
+
             bc_plot2_call_rr_curve.clear()
             bc_plot2_put_rr_curve.clear()   
 
@@ -27709,7 +27745,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_16.setText(str)
             bc_plot2_ovc_high_line.setValue(SP500_고가)
 
-        elif bc_comboindex2 == 6:
+        elif bc_comboindex2 == 7:
 
             bc_plot2_call_rr_curve.clear()
             bc_plot2_put_rr_curve.clear()   
@@ -27807,7 +27843,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_16.setText(str)
             bc_plot2_ovc_high_line.setValue(DOW_고가)
 
-        elif bc_comboindex2 == 7:
+        elif bc_comboindex2 == 8:
 
             bc_plot2_call_rr_curve.clear()
             bc_plot2_put_rr_curve.clear()   
@@ -27905,7 +27941,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_16.setText(str)
             bc_plot2_ovc_high_line.setValue(NASDAQ_고가)            
             
-        elif bc_comboindex2 == 8:
+        elif bc_comboindex2 == 9:
 
             bc_plot2_call_rr_curve.clear()
             bc_plot2_put_rr_curve.clear()   
@@ -28262,6 +28298,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex3 == 5:
 
+            pass
+
+        elif bc_comboindex3 == 6:
+
             bc_plot3_call_rr_curve.clear()
             bc_plot3_put_rr_curve.clear()   
 
@@ -28358,7 +28398,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_24.setText(str)
             bc_plot3_ovc_high_line.setValue(SP500_고가)
 
-        elif bc_comboindex3 == 6:
+        elif bc_comboindex3 == 7:
 
             bc_plot3_call_rr_curve.clear()
             bc_plot3_put_rr_curve.clear()   
@@ -28456,7 +28496,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_24.setText(str)
             bc_plot3_ovc_high_line.setValue(DOW_고가)
 
-        elif bc_comboindex3 == 7:
+        elif bc_comboindex3 == 8:
 
             bc_plot3_call_rr_curve.clear()
             bc_plot3_put_rr_curve.clear()   
@@ -28554,7 +28594,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_24.setText(str)
             bc_plot3_ovc_high_line.setValue(NASDAQ_고가)            
 
-        elif bc_comboindex3 == 8:
+        elif bc_comboindex3 == 9:
 
             bc_plot3_call_rr_curve.clear()
             bc_plot3_put_rr_curve.clear()   
@@ -28812,6 +28852,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 5:
 
+                pass
+
+            elif bc_comboindex1 == 6:
+
                 sp500_moving_pivot = self.bc_calc_pivot(SP500_전저, SP500_전고, SP500_시가, SP500_현재가)
 
                 if SP500_현재가 >= sp500_moving_pivot:
@@ -28877,7 +28921,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot1_sp500_curve.setData(plot_data11)
 
-            elif bc_comboindex1 == 6:
+            elif bc_comboindex1 == 7:
 
                 dow_moving_pivot = int(self.bc_calc_pivot(DOW_전저, DOW_전고, DOW_시가, DOW_현재가))
 
@@ -28944,7 +28988,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot1_dow_curve.setData(plot_data12)
 
-            elif bc_comboindex1 == 7:
+            elif bc_comboindex1 == 8:
 
                 nasdaq_moving_pivot = self.bc_calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_시가, NASDAQ_현재가)
 
@@ -29011,7 +29055,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot1_nasdaq_curve.setData(plot_data13)
 
-            elif bc_comboindex1 == 8:
+            elif bc_comboindex1 == 9:
 
                 wti_moving_pivot = self.bc_calc_pivot(WTI_전저, WTI_전고, WTI_시가, WTI_현재가)
 
@@ -29172,6 +29216,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 5:
 
+                pass
+
+            elif bc_comboindex2 == 6:
+
                 sp500_moving_pivot = self.bc_calc_pivot(SP500_전저, SP500_전고, SP500_시가, SP500_현재가)
 
                 if SP500_현재가 >= sp500_moving_pivot:
@@ -29243,7 +29291,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot2_sp500_curve.setData(plot_data11) 
 
-            elif bc_comboindex2 == 6:
+            elif bc_comboindex2 == 7:
 
                 dow_moving_pivot = int(self.bc_calc_pivot(DOW_전저, DOW_전고, DOW_시가, DOW_현재가))
 
@@ -29315,7 +29363,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot2_dow_curve.setData(plot_data12) 
 
-            elif bc_comboindex2 == 7:
+            elif bc_comboindex2 == 8:
 
                 nasdaq_moving_pivot = self.bc_calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_시가, NASDAQ_현재가)
 
@@ -29387,7 +29435,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot2_nasdaq_curve.setData(plot_data13)
 
-            elif bc_comboindex2 == 8:
+            elif bc_comboindex2 == 9:
 
                 wti_moving_pivot = self.bc_calc_pivot(WTI_전저, WTI_전고, WTI_시가, WTI_현재가)
 
@@ -29553,6 +29601,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 5:
 
+                pass
+
+            elif bc_comboindex3 == 6:
+
                 sp500_moving_pivot = self.bc_calc_pivot(SP500_전저, SP500_전고, SP500_시가, SP500_현재가)
 
                 if SP500_현재가 >= sp500_moving_pivot:
@@ -29624,7 +29676,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot3_sp500_curve.setData(plot_data11) 
 
-            elif bc_comboindex3 == 6:
+            elif bc_comboindex3 == 7:
 
                 dow_moving_pivot = int(self.bc_calc_pivot(DOW_전저, DOW_전고, DOW_시가, DOW_현재가))
 
@@ -29696,7 +29748,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot3_dow_curve.setData(plot_data12) 
 
-            elif bc_comboindex3 == 7:
+            elif bc_comboindex3 == 8:
 
                 nasdaq_moving_pivot = self.bc_calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_시가, NASDAQ_현재가)
 
@@ -29768,7 +29820,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot3_nasdaq_curve.setData(plot_data13)
 
-            elif bc_comboindex3 == 8:
+            elif bc_comboindex3 == 9:
 
                 wti_moving_pivot = self.bc_calc_pivot(WTI_전저, WTI_전고, WTI_시가, WTI_현재가)
 
