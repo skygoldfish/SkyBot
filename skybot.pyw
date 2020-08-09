@@ -4067,7 +4067,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_call.horizontalHeader().setStyleSheet(stylesheet)
         self.tableWidget_call.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.tableWidget_call.setHorizontalHeaderLabels(['C', '행사가', '▲:▼', '기준가', '월저', '월고', '전저', '전고', 
+        self.tableWidget_call.setHorizontalHeaderLabels(['C', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
         '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
         self.tableWidget_call.verticalHeader().setVisible(False)
 
@@ -4080,7 +4080,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_put.horizontalHeader().setStyleSheet(stylesheet)
         self.tableWidget_put.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.tableWidget_put.setHorizontalHeaderLabels(['P', '행사가', '▲:▼', '기준가', '월저', '월고', '전저', '전고', 
+        self.tableWidget_put.setHorizontalHeaderLabels(['P', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
         '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
         self.tableWidget_put.verticalHeader().setVisible(False)
 
@@ -4647,16 +4647,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.comboBox2.setStyleSheet("background-color: white")
 
         self.comboBox1.addItems(['선물체결', '옵션체결', '옵션 잔량비', '등락율비', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
-            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', '항셍 잔량비', 'GOLD 잔량비'])
+            'SP500 순매수', 'DOW 순매수', 'NASDAQ 순매수', 'WTI 순매수', 'EUROFX 순매수', '항셍 순매수', 'GOLD 순매수'])
         self.comboBox1.insertSeparator(5)
         self.comboBox1.insertSeparator(13)
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)        
 
         self.comboBox2.addItems(['옵션체결', '옵션 잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
-            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', '항셍 잔량비', 'GOLD 잔량비', 'BBANDS', 'MACD', '일목균형표', 'SAR', 'SKY TA'])
+            'SP500 순매수', 'DOW 순매수', 'NASDAQ 순매수', 'WTI 순매수', 'EUROFX 순매수', '항셍 순매수', 'GOLD 순매수'])
         self.comboBox2.insertSeparator(5)
         self.comboBox2.insertSeparator(13)
-        self.comboBox2.insertSeparator(21)
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
@@ -4935,8 +4934,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.alternate_flag = True
 
-        call_node_state = {'기준가': False, '월저': False, '월고': False, '전저': False, '전고': False, '종가': True, '피봇': True, '시가': True, '대비': False, '미결': False, '미결증감': False}
-        put_node_state = {'기준가': False, '월저': False, '월고': False, '전저': False, '전고': False, '종가': True, '피봇': True, '시가': True, '대비': False, '미결': False, '미결증감': False}
+        call_node_state = {'OLOH': True, '기준가': False, '월저': False, '월고': False, '전저': False, '전고': False, '종가': True, '피봇': True, '시가': True, '대비': False, '미결': False, '미결증감': False}
+        put_node_state = {'OLOH': True, '기준가': False, '월저': False, '월고': False, '전저': False, '전고': False, '종가': True, '피봇': True, '시가': True, '대비': False, '미결': False, '미결증감': False}
 
         list_low1 = []
         list_low2 = []
@@ -6636,7 +6635,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_node_state
 
-        if idx == Option_column.기준가.value or idx == Option_column.월저.value or idx == Option_column.월고.value or \
+        if idx == Option_column.OLOH.value or idx == Option_column.기준가.value or idx == Option_column.월저.value or idx == Option_column.월고.value or \
             idx == Option_column.전저.value or idx == Option_column.전고.value or idx == Option_column.종가.value or \
                 idx == Option_column.피봇.value or idx == Option_column.시가.value:
 
@@ -6647,7 +6646,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(idx, item)
                 print("call header column.. ", idx, col_text)
 
-                if idx == Option_column.기준가.value:
+                if idx == Option_column.OLOH.value:
+                    call_node_state['OLOH'] = True
+                elif idx == Option_column.기준가.value:
                     call_node_state['기준가'] = True
                 elif idx == Option_column.월저.value:
                     call_node_state['월저'] = True
@@ -6678,7 +6679,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if idx == Option_column.기준가.value:
+                if idx == Option_column.OLOH.value:
+
+                    call_node_state['OLOH'] = False
+
+                elif idx == Option_column.기준가.value:
 
                     call_node_state['기준가'] = False
 
@@ -6767,7 +6772,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global put_node_state
 
-        if idx == Option_column.기준가.value or idx == Option_column.월저.value or idx == Option_column.월고.value or \
+        if idx == Option_column.OLOH.value or idx == Option_column.기준가.value or idx == Option_column.월저.value or idx == Option_column.월고.value or \
             idx == Option_column.전저.value or idx == Option_column.전고.value or idx == Option_column.종가.value or \
                 idx == Option_column.피봇.value or idx == Option_column.시가.value:
 
@@ -6778,7 +6783,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(idx, item)
                 print("put header column.. ", idx, col_text)
 
-                if idx == Option_column.기준가.value:
+                if idx == Option_column.OLOH.value:
+                    put_node_state['OLOH'] = True
+                elif idx == Option_column.기준가.value:
                     put_node_state['기준가'] = True
                 elif idx == Option_column.월저.value:
                     put_node_state['월저'] = True
@@ -6809,7 +6816,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if idx == Option_column.기준가.value:
+                if idx == Option_column.OLOH.value:
+
+                    put_node_state['OLOH'] = False
+
+                elif idx == Option_column.기준가.value:
 
                     put_node_state['기준가'] = False
 
@@ -16053,7 +16064,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('행사가')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.행사가.value, item)
 
-                item = QTableWidgetItem('▲▼')
+                item = QTableWidgetItem('▲:▼\n✓')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.OLOH.value, item)
 
                 item = QTableWidgetItem('시가갭\n(%)')
@@ -16071,7 +16082,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('행사가')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.행사가.value, item)
 
-                item = QTableWidgetItem('▲▼')
+                item = QTableWidgetItem('▲:▼\n✓')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.OLOH.value, item)
 
                 item = QTableWidgetItem('시가갭\n(%)')
@@ -19667,7 +19678,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         call_ol_count = call_ol.count(True)
         call_oh_count = call_oh.count(True)
 
-        new_oloh = repr(call_ol_count) + ':' + repr(call_oh_count)
+        new_oloh = repr(call_ol_count) + ':' + repr(call_oh_count) + '\n✓'
 
         if new_oloh != self.tableWidget_call.horizontalHeaderItem(2).text():
             item = QTableWidgetItem(new_oloh)
@@ -20626,7 +20637,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 oloh_threshold = 5   
 
                             # call OL/OH count
-                            if self.is_within_n_tick(시가, 저가, oloh_threshold) and not self.is_within_n_tick(시가, 고가, oloh_threshold):
+                            if call_node_state['OLOH'] and self.is_within_n_tick(시가, 저가, oloh_threshold) and not self.is_within_n_tick(시가, 고가, oloh_threshold):
 
                                 oloh_str = '▲'
 
@@ -20644,7 +20655,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 call_ol[index] = True
 
-                            elif self.is_within_n_tick(시가, 고가, oloh_threshold) and not self.is_within_n_tick(시가, 저가, oloh_threshold):
+                            elif call_node_state['OLOH'] and self.is_within_n_tick(시가, 고가, oloh_threshold) and not self.is_within_n_tick(시가, 저가, oloh_threshold):
 
                                 oloh_str = '▼'
 
@@ -20724,17 +20735,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            call_ol_count = call_ol.count(True)
-            call_oh_count = call_oh.count(True)
+            if call_node_state['OLOH']:
+                
+                call_ol_count = call_ol.count(True)
+                call_oh_count = call_oh.count(True)
 
-            new_oloh = repr(call_ol_count) + ':' + repr(call_oh_count)
+                new_oloh = repr(call_ol_count) + ':' + repr(call_oh_count) + '\n✓'
 
-            if new_oloh != self.tableWidget_call.horizontalHeaderItem(2).text():
-                item = QTableWidgetItem(new_oloh)
+                if new_oloh != self.tableWidget_call.horizontalHeaderItem(2).text():
+                    item = QTableWidgetItem(new_oloh)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_call.setHorizontalHeaderItem(2, item)
+                else:
+                    pass
+            else:
+                item = QTableWidgetItem('▲:▼')
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setHorizontalHeaderItem(2, item)
-            else:
-                pass
 
             # 시가갭 갱신
             temp = call_gap_percent[:]
@@ -20888,7 +20905,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         put_ol_count = put_ol.count(True)
         put_oh_count = put_oh.count(True)
 
-        new_oloh = repr(put_ol_count) + ':' + repr(put_oh_count)
+        new_oloh = repr(put_ol_count) + ':' + repr(put_oh_count) + '\n✓'
 
         if new_oloh != self.tableWidget_put.horizontalHeaderItem(2).text():
             item = QTableWidgetItem(new_oloh)
@@ -21770,7 +21787,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 oloh_threshold = 5   
 
                             # put OL/OH count
-                            if self.is_within_n_tick(시가, 저가, oloh_threshold) and not self.is_within_n_tick(시가, 고가, oloh_threshold):
+                            if put_node_state['OLOH'] and self.is_within_n_tick(시가, 저가, oloh_threshold) and not self.is_within_n_tick(시가, 고가, oloh_threshold):
 
                                 oloh_str = '▲'
 
@@ -21788,7 +21805,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 put_ol[index] = True
 
-                            elif self.is_within_n_tick(시가, 고가, oloh_threshold) and not self.is_within_n_tick(시가, 저가, oloh_threshold):
+                            elif put_node_state['OLOH'] and self.is_within_n_tick(시가, 고가, oloh_threshold) and not self.is_within_n_tick(시가, 저가, oloh_threshold):
 
                                 oloh_str = '▼'
 
@@ -21868,17 +21885,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            put_ol_count = put_ol.count(True)
-            put_oh_count = put_oh.count(True)
+            if put_node_state['OLOH']:
+                
+                put_ol_count = put_ol.count(True)
+                put_oh_count = put_oh.count(True)
 
-            new_oloh = repr(put_ol_count) + ':' + repr(put_oh_count)
+                new_oloh = repr(put_ol_count) + ':' + repr(put_oh_count) + '\n✓'
 
-            if new_oloh != self.tableWidget_put.horizontalHeaderItem(2).text():
-                item = QTableWidgetItem(new_oloh)
+                if new_oloh != self.tableWidget_put.horizontalHeaderItem(2).text():
+                    item = QTableWidgetItem(new_oloh)
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget_put.setHorizontalHeaderItem(2, item)
+                else:
+                    pass
+            else:
+                item = QTableWidgetItem('▲:▼')
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(2, item)
-            else:
-                pass
 
             # 시가갭 갱신
             temp = put_gap_percent[:]
@@ -25339,7 +25362,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     NASDAQ_매수호가총수량 = result['매수호가총수량']
 
                     if NASDAQ_매도호가총수량 > 0:
-                        df_plotdata_nasdaq_hoga_rr.iat[0, ovc_x_idx] = float(NASDAQ_매수호가총수량/NASDAQ_매도호가총수량)
+                        df_plotdata_nasdaq_hoga_rr.iat[0, ovc_x_idx] = NASDAQ_매수호가총수량 - NASDAQ_매도호가총수량
                     else:
                         pass
 
@@ -25351,7 +25374,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     SP500_매수호가총수량 = result['매수호가총수량']
 
                     if SP500_매도호가총수량 > 0:
-                        df_plotdata_sp500_hoga_rr.iat[0, ovc_x_idx] = float(SP500_매수호가총수량/SP500_매도호가총수량)
+                        df_plotdata_sp500_hoga_rr.iat[0, ovc_x_idx] = SP500_매수호가총수량 - SP500_매도호가총수량
                     else:
                         pass
 
@@ -25363,7 +25386,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     DOW_매수호가총수량 = result['매수호가총수량']
 
                     if DOW_매도호가총수량 > 0:
-                        df_plotdata_dow_hoga_rr.iat[0, ovc_x_idx] = float(DOW_매수호가총수량/DOW_매도호가총수량)
+                        df_plotdata_dow_hoga_rr.iat[0, ovc_x_idx] = DOW_매수호가총수량 - DOW_매도호가총수량
                     else:
                         pass
 
@@ -25375,7 +25398,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     WTI_매수호가총수량 = result['매수호가총수량']
 
                     if WTI_매도호가총수량 > 0:
-                        df_plotdata_wti_hoga_rr.iat[0, ovc_x_idx] = float(WTI_매수호가총수량/WTI_매도호가총수량)
+                        df_plotdata_wti_hoga_rr.iat[0, ovc_x_idx] = WTI_매수호가총수량 - WTI_매도호가총수량
                     else:
                         pass
 
@@ -25387,7 +25410,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     EUROFX_매수호가총수량 = result['매수호가총수량']
 
                     if EUROFX_매도호가총수량 > 0:
-                        df_plotdata_eurofx_hoga_rr.iat[0, ovc_x_idx] = float(EUROFX_매수호가총수량/EUROFX_매도호가총수량)
+                        df_plotdata_eurofx_hoga_rr.iat[0, ovc_x_idx] = EUROFX_매수호가총수량 - EUROFX_매도호가총수량
                     else:
                         pass
 
@@ -25399,7 +25422,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     HANGSENG_매수호가총수량 = result['매수호가총수량']
 
                     if HANGSENG_매도호가총수량 > 0:
-                        df_plotdata_hangseng_hoga_rr.iat[0, ovc_x_idx] = float(HANGSENG_매수호가총수량/HANGSENG_매도호가총수량)
+                        df_plotdata_hangseng_hoga_rr.iat[0, ovc_x_idx] = HANGSENG_매수호가총수량 - HANGSENG_매도호가총수량
                     else:
                         pass
 
@@ -25411,13 +25434,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     GOLD_매수호가총수량 = result['매수호가총수량']
 
                     if GOLD_매도호가총수량 > 0:
-                        df_plotdata_gold_hoga_rr.iat[0, ovc_x_idx] = float(GOLD_매수호가총수량/GOLD_매도호가총수량)
+                        df_plotdata_gold_hoga_rr.iat[0, ovc_x_idx] = GOLD_매수호가총수량 - GOLD_매도호가총수량
                     else:
                         pass
                 else:
                     pass
             else:
-                print('요청하지 않은 TR 코드 : ', szTrCode)
+                pass
             '''
             process_time = (timeit.default_timer() - start_time) * 1000
 
@@ -26045,7 +26068,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p1_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p1_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p1_2.setText(" 이동피봇 ")
+        self.label_p1_2.setText(" P-SAR ")
         self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -26086,7 +26109,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p2_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p2_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p2_2.setText(" 이동피봇 ")
+        self.label_p2_2.setText(" P-SAR ")
         self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -26127,7 +26150,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p3_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p3_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p3_2.setText(" 이동피봇 ")
+        self.label_p3_2.setText(" P-SAR ")
         self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -26164,22 +26187,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.bc_comboBox1.addItems(['선물체결', '옵션체결', '옵션 잔량비', '등락율비', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
-            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', '항셍 잔량비', 'GOLD 잔량비'])
+            'SP500 순매수', 'DOW 순매수', 'NASDAQ 순매수', 'WTI 순매수', 'EUROFX 순매수', '항셍 순매수', 'GOLD 순매수'])
         self.bc_comboBox1.insertSeparator(5)
         self.bc_comboBox1.insertSeparator(13)
         self.bc_comboBox1.currentIndexChanged.connect(self.bc_cb1_selectionChanged)
 
         self.bc_comboBox2.addItems(['옵션체결', '옵션 잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
-            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', '항셍 잔량비', 'GOLD 잔량비'])
+            'SP500 순매수', 'DOW 순매수', 'NASDAQ 순매수', 'WTI 순매수', 'EUROFX 순매수', '항셍 순매수', 'GOLD 순매수'])
         self.bc_comboBox2.insertSeparator(5)
         self.bc_comboBox2.insertSeparator(13)
         self.bc_comboBox2.currentIndexChanged.connect(self.bc_cb2_selectionChanged)
 
         self.bc_comboBox3.addItems(['옵션체결', '옵션 잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
-            'SP500 잔량비', 'DOW 잔량비', 'NASDAQ 잔량비', 'WTI 잔량비', 'EUROFX 잔량비', '항셍 잔량비', 'GOLD 잔량비', 'BBANDS', 'MACD', '일목균형표', 'SAR', 'SKY TA'])
+            'SP500 순매수', 'DOW 순매수', 'NASDAQ 순매수', 'WTI 순매수', 'EUROFX 순매수', '항셍 순매수', 'GOLD 순매수'])
         self.bc_comboBox3.insertSeparator(5)
         self.bc_comboBox3.insertSeparator(13)
-        self.bc_comboBox3.insertSeparator(21)
         self.bc_comboBox3.currentIndexChanged.connect(self.bc_cb3_selectionChanged)             
 
         global bc_plot1_time_line_start, bc_plot1_time_line_yagan_start, bc_plot1_time_line, bc_plot1_fut_price_curve, bc_plot1_kp200_curve
@@ -26476,22 +26498,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_x = int(mousePoint.x())
             bc_plot1_y = mousePoint.y()
             
-            if bc_comboindex1 == 6:
+            if bc_comboindex1 == 6 and plot_data11:
                 if plot_data11[bc_plot1_x] != plot_data11[bc_plot1_x]:
                     pass
                 else:
                     bc_plot1_y = plot_data11[bc_plot1_x]
-            elif bc_comboindex1 == 7:
+            elif bc_comboindex1 == 7 and plot_data12:
                 if plot_data12[bc_plot1_x] != plot_data12[bc_plot1_x]:
                     pass
                 else:
                     bc_plot1_y = plot_data12[bc_plot1_x]
-            elif bc_comboindex1 == 8:
+            elif bc_comboindex1 == 8 and plot_data13:
                 if plot_data13[bc_plot1_x] != plot_data13[bc_plot1_x]:
                     pass
                 else:
                     bc_plot1_y = plot_data13[bc_plot1_x]
-            elif bc_comboindex1 == 9:
+            elif bc_comboindex1 == 9 and plot_data14:
                 if plot_data14[bc_plot1_x] != plot_data14[bc_plot1_x]:
                     pass
                 else:
@@ -26518,22 +26540,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_x = int(mousePoint.x())
             bc_plot2_y = mousePoint.y()
             
-            if bc_comboindex2 == 6:
+            if bc_comboindex2 == 6 and plot_data11:
                 if plot_data11[bc_plot2_x] != plot_data11[bc_plot2_x]:
                     pass
                 else:
                     bc_plot2_y = plot_data11[bc_plot2_x]
-            elif bc_comboindex2 == 7:
+            elif bc_comboindex2 == 7 and plot_data12:
                 if plot_data12[bc_plot2_x] != plot_data12[bc_plot2_x]:
                     pass
                 else:
                     bc_plot2_y = plot_data12[bc_plot2_x]
-            elif bc_comboindex2 == 8:
+            elif bc_comboindex2 == 8 and plot_data13:
                 if plot_data13[bc_plot2_x] != plot_data13[bc_plot2_x]:
                     pass
                 else:
                     bc_plot2_y = plot_data13[bc_plot2_x]
-            elif bc_comboindex2 == 9:
+            elif bc_comboindex2 == 9 and plot_data14:
                 if plot_data14[bc_plot2_x] != plot_data14[bc_plot2_x]:
                     pass
                 else:
@@ -26560,22 +26582,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_x = int(mousePoint.x())
             bc_plot3_y = mousePoint.y()
             
-            if bc_comboindex3 == 6:
+            if bc_comboindex3 == 6 and plot_data11:
                 if plot_data11[bc_plot3_x] != plot_data11[bc_plot3_x]:
                     pass
                 else:
                     bc_plot3_y = plot_data11[bc_plot3_x]
-            elif bc_comboindex3 == 7:
+            elif bc_comboindex3 == 7 and plot_data12:
                 if plot_data12[bc_plot3_x] != plot_data12[bc_plot3_x]:
                     pass
                 else:
                     bc_plot3_y = plot_data12[bc_plot3_x]
-            elif bc_comboindex3 == 8:
+            elif bc_comboindex3 == 8 and plot_data13:
                 if plot_data13[bc_plot3_x] != plot_data13[bc_plot3_x]:
                     pass
                 else:
                     bc_plot3_y = plot_data13[bc_plot3_x]
-            elif bc_comboindex3 == 9:
+            elif bc_comboindex3 == 9 and plot_data14:
                 if plot_data14[bc_plot3_x] != plot_data14[bc_plot3_x]:
                     pass
                 else:
@@ -26616,7 +26638,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global WTI_전저, WTI_전고, WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가
 
         txt = self.bc_comboBox1.currentText()
-        bc_comboindex1 = self.bc_comboBox1.currentIndex()        
+        bc_comboindex1 = self.bc_comboBox1.currentIndex()  
 
         if bc_comboindex1 == 0:
 
