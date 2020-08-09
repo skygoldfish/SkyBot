@@ -3,14 +3,17 @@ KSE Start Hour = 9
 Current Month = 202008
 First Day of the Current Month = 20200710
 
-[2]. << User Option = 'ON or OFF' >>
+[2]. << Target Month Select : current month = 1, next month = 2 >>
+Target Month Select = 1
+
+[3]. << User Option = 'ON or OFF' >>
 Telegram service = ON
 Mangi Yagan = OFF
 Auto Start = ON
 Resize Rows To Contents = OFF
 Cross Hair Line = ON
 
-[3]. << Initial Value >>
+[4]. << Initial Value >>
 HL List Depth = 40
 Overnight Pre-Start Hour = 17
 Actval count of the option pairs = 100
@@ -22,11 +25,8 @@ Center Value Alarm Range = 0.60
 Main Update Interval(msec) = 500
 Big Chart Update Interval(msec) = 250
 
-[4]. << UI Select : Horizontal_Large_View.ui, Horizontal_Small_View.ui, Vertical_View.ui >>
+[5]. << UI Select : Horizontal_Large_View.ui, Horizontal_Small_View.ui, Vertical_View.ui >>
 UI = Horizontal_Large_View.ui
-
-[5]. << Target Month Select : current month = 1, next month = 2 >>
-Target Month Select = 1
 
 [6]. << Code of the Foreign Futures (H/M/U/Z) >>
 S&P 500 = ESU20

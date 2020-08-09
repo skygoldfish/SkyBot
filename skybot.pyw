@@ -279,7 +279,16 @@ with open('control_info.txt', mode='r') as control_file:
     temp = tmp.split()
     MONTH_FIRSTDAY = temp[7]
     
-    # [2]. << User Option = 'ON or OFF' >>
+    # [2]. << Target Month Select : current month = 1, next month = 2 >>
+    tmp = control_file.readline().strip()
+    tmp = control_file.readline().strip()
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    TARGET_MONTH_SELECT = int(temp[4])
+    #print('TARGET MONTH SELECT =', TARGET_MONTH_SELECT)
+    
+    # [3]. << User Option = 'ON or OFF' >>
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
 
@@ -339,7 +348,7 @@ with open('control_info.txt', mode='r') as control_file:
     print('CROSS_HAIR =', CROSS_HAIR)
     print('\r')    
 
-    # [3]. << Initial Value >>
+    # [4]. << Initial Value >>
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()    
 
@@ -591,7 +600,7 @@ with open('control_info.txt', mode='r') as control_file:
     BIGCHART_UPDATE_INTERVAL = float(temp[5])
     print('BIGCHART_UPDATE_INTERVAL =', BIGCHART_UPDATE_INTERVAL)
 
-    # [4]. << UI Select : Horizontal_Large_View.ui, Horizontal_Small_View.ui, Vertical_View.ui >>
+    # [5]. << UI Select : Horizontal_Large_View.ui, Horizontal_Small_View.ui, Vertical_View.ui >>
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
 
@@ -600,15 +609,6 @@ with open('control_info.txt', mode='r') as control_file:
     UI_STYLE = temp[2]
     #print('UI_STYLE =', UI_STYLE)   
     
-    # [5]. << Target Month Select : current month = 1, next month = 2 >>
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    TARGET_MONTH_SELECT = int(temp[4])
-    #print('TARGET MONTH SELECT =', TARGET_MONTH_SELECT)
-
     # [6]. << Code of the Foreign Futures (H/M/U/Z) >>
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
