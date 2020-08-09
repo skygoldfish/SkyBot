@@ -152,35 +152,42 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QCheckBox" name="checkBox_1">
+         <widget class="QCheckBox" name="checkBox_plot1_bband">
           <property name="text">
            <string>볼린저밴드</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_2">
+         <widget class="QCheckBox" name="checkBox_plot1_psar">
           <property name="text">
            <string>P-SAR</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_3">
+         <widget class="QCheckBox" name="checkBox_plot1_ichimoku">
           <property name="text">
            <string>일목균형표</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_4">
+         <widget class="QCheckBox" name="checkBox_plot1_macd">
           <property name="text">
            <string>MACD</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_5">
+         <widget class="QCheckBox" name="checkBox_plot1_reserve1">
+          <property name="text">
+           <string>Reserved</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_plot1_reserve2">
           <property name="text">
            <string>Reserved</string>
           </property>
@@ -321,35 +328,42 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QCheckBox" name="checkBox_6">
+         <widget class="QCheckBox" name="checkBox_plot2_bband">
           <property name="text">
            <string>볼린저밴드</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_7">
+         <widget class="QCheckBox" name="checkBox_plot2_psar">
           <property name="text">
            <string>P-SAR</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_8">
+         <widget class="QCheckBox" name="checkBox_plot2_ichimoku">
           <property name="text">
            <string>일목균형표</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_9">
+         <widget class="QCheckBox" name="checkBox_plot2_macd">
           <property name="text">
            <string>MACD</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_10">
+         <widget class="QCheckBox" name="checkBox_plot2_reserve1">
+          <property name="text">
+           <string>Reserved</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_plot2_reserve2">
           <property name="text">
            <string>Reserved</string>
           </property>
@@ -490,35 +504,42 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QCheckBox" name="checkBox_11">
+         <widget class="QCheckBox" name="checkBox_plot3_bband">
           <property name="text">
            <string>볼린저밴드</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_12">
+         <widget class="QCheckBox" name="checkBox_plot3_psar">
           <property name="text">
            <string>P-SAR</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_13">
+         <widget class="QCheckBox" name="checkBox_plot3_ichimoku">
           <property name="text">
            <string>일목균형표</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_17">
+         <widget class="QCheckBox" name="checkBox_plot3_macd">
           <property name="text">
            <string>MACD</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_16">
+         <widget class="QCheckBox" name="checkBox_plot3_reserve1">
+          <property name="text">
+           <string>Reserved</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_plot3_reserve2">
           <property name="text">
            <string>Reserved</string>
           </property>
