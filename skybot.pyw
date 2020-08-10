@@ -2034,40 +2034,26 @@ WTI_야간_시작가 = 0
 
 장시작_양합 = 0
 
-NASDAQ_매도호가총건수 = 0
-NASDAQ_매수호가총건수 = 0
-NASDAQ_매도호가총수량 = 0
-NASDAQ_매수호가총수량 = 0
+NASDAQ_순매수 = 0
+NASDAQ_잔량비 = 0
 
-SP500_매도호가총건수 = 0
-SP500_매수호가총건수 = 0
-SP500_매도호가총수량 = 0
-SP500_매수호가총수량 = 0
+SP500_순매수 = 0
+SP500_잔량비 = 0
 
-DOW_매도호가총건수 = 0
-DOW_매수호가총건수 = 0
-DOW_매도호가총수량 = 0
-DOW_매수호가총수량 = 0
+DOW_순매수 = 0
+DOW_잔량비 = 0
 
-WTI_매도호가총건수 = 0
-WTI_매수호가총건수 = 0
-WTI_매도호가총수량 = 0
-WTI_매수호가총수량 = 0
+WTI_순매수 = 0
+WTI_잔량비 = 0
 
-EUROFX_매도호가총건수 = 0
-EUROFX_매수호가총건수 = 0
-EUROFX_매도호가총수량 = 0
-EUROFX_매수호가총수량 = 0
+EUROFX_순매수 = 0
+EUROFX_잔량비 = 0
 
-HANGSENG_매도호가총건수 = 0
-HANGSENG_매수호가총건수 = 0
-HANGSENG_매도호가총수량 = 0
-HANGSENG_매수호가총수량 = 0
+HANGSENG_순매수 = 0
+HANGSENG_잔량비 = 0
 
-GOLD_매도호가총건수 = 0
-GOLD_매수호가총건수 = 0
-GOLD_매도호가총수량 = 0
-GOLD_매수호가총수량 = 0
+GOLD_순매수 = 0
+GOLD_잔량비 = 0
 
 ########################################################################################################################
 
@@ -22244,13 +22230,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             global SP500_과거가, DOW_과거가, NASDAQ_과거가, WTI_과거가, EUROFX_과거가, HANGSENG_과거가, GOLD_과거가
 
-            global NASDAQ_매도호가총건수, NASDAQ_매수호가총건수, NASDAQ_매도호가총수량, NASDAQ_매수호가총수량
-            global SP500_매도호가총건수, SP500_매수호가총건수, SP500_매도호가총수량, SP500_매수호가총수량
-            global DOW_매도호가총건수, DOW_매수호가총건수, DOW_매도호가총수량, DOW_매수호가총수량
-            global WTI_매도호가총건수, WTI_매수호가총건수, WTI_매도호가총수량, WTI_매수호가총수량
-            global EUROFX_매도호가총건수, EUROFX_매수호가총건수, EUROFX_매도호가총수량, EUROFX_매수호가총수량
-            global HANGSENG_매도호가총건수, HANGSENG_매수호가총건수, HANGSENG_매도호가총수량, HANGSENG_매수호가총수량
-            global GOLD_매도호가총건수, GOLD_매수호가총건수, GOLD_매도호가총수량, GOLD_매수호가총수량
+            global NASDAQ_순매수, NASDAQ_잔량비
+            global SP500_순매수, SP500_잔량비
+            global DOW_순매수, DOW_잔량비
+            global WTI_순매수, WTI_잔량비
+            global EUROFX_순매수, EUROFX_잔량비
+            global HANGSENG_순매수, HANGSENG_잔량비
+            global GOLD_순매수, GOLD_잔량비
 
             global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가
             global 시스템시간, 서버시간, 시스템_서버_시간차
@@ -25361,98 +25347,70 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if result['종목코드'] == NASDAQ:
 
-                    NASDAQ_매도호가총건수 = 매도호가총건수
-                    NASDAQ_매수호가총건수 = 매수호가총건수
-                    NASDAQ_매도호가총수량 = 매도호가총수량
-                    NASDAQ_매수호가총수량 = 매수호가총수량
+                    NASDAQ_순매수 = 매수호가총수량 - 매도호가총수량
 
-                    NASDAQ_순매수 = NASDAQ_매수호가총수량 - NASDAQ_매도호가총수량
-
-                    if NASDAQ_매도호가총수량 > 0:
+                    if 매도호가총수량 > 0:
+                        NASDAQ_잔량비 = 매수호가총수량 / 매도호가총수량
                         df_plotdata_nasdaq_hoga_rr.iat[0, ovc_x_idx] = NASDAQ_순매수
                     else:
                         pass
 
                 elif result['종목코드'] == SP500:
 
-                    SP500_매도호가총건수 = 매도호가총건수
-                    SP500_매수호가총건수 = 매수호가총건수
-                    SP500_매도호가총수량 = 매도호가총수량
-                    SP500_매수호가총수량 = 매수호가총수량
+                    SP500_순매수 = 매수호가총수량 - 매도호가총수량
 
-                    SP500_순매수 = SP500_매수호가총수량 - SP500_매도호가총수량
-
-                    if SP500_매도호가총수량 > 0:
+                    if 매도호가총수량 > 0:
+                        SP500_잔량비 = 매수호가총수량 / 매도호가총수량
                         df_plotdata_sp500_hoga_rr.iat[0, ovc_x_idx] = SP500_순매수
                     else:
                         pass
 
                 elif result['종목코드'] == DOW:
 
-                    DOW_매도호가총건수 = 매도호가총건수
-                    DOW_매수호가총건수 = 매수호가총건수
-                    DOW_매도호가총수량 = 매도호가총수량
-                    DOW_매수호가총수량 = 매수호가총수량
+                    DOW_순매수 = 매수호가총수량 - 매도호가총수량
 
-                    DOW_순매수 = DOW_매수호가총수량 - DOW_매도호가총수량
-
-                    if DOW_매도호가총수량 > 0:
+                    if 매도호가총수량 > 0:
+                        DOW_잔량비 = 매수호가총수량 / 매도호가총수량
                         df_plotdata_dow_hoga_rr.iat[0, ovc_x_idx] = DOW_순매수
                     else:
                         pass
 
                 elif result['종목코드'] == WTI:
 
-                    WTI_매도호가총건수 = 매도호가총건수
-                    WTI_매수호가총건수 = 매수호가총건수
-                    WTI_매도호가총수량 = 매도호가총수량
-                    WTI_매수호가총수량 = 매수호가총수량
+                    WTI_순매수 = 매수호가총수량 - 매도호가총수량
 
-                    WTI_순매수 = WTI_매수호가총수량 - WTI_매도호가총수량
-
-                    if WTI_매도호가총수량 > 0:
+                    if 매도호가총수량 > 0:
+                        WTI_잔량비 = 매수호가총수량 / 매도호가총수량
                         df_plotdata_wti_hoga_rr.iat[0, ovc_x_idx] = WTI_순매수
                     else:
                         pass
 
                 elif result['종목코드'] == EUROFX:
 
-                    EUROFX_매도호가총건수 = 매도호가총건수
-                    EUROFX_매수호가총건수 = 매수호가총건수
-                    EUROFX_매도호가총수량 = 매도호가총수량
-                    EUROFX_매수호가총수량 = 매수호가총수량
+                    EUROFX_순매수 = 매수호가총수량 - 매도호가총수량
 
-                    EUROFX_순매수 = EUROFX_매수호가총수량 - EUROFX_매도호가총수량
-
-                    if EUROFX_매도호가총수량 > 0:
+                    if 매도호가총수량 > 0:
+                        EUROFX_잔량비 = 매수호가총수량 / 매도호가총수량
                         df_plotdata_eurofx_hoga_rr.iat[0, ovc_x_idx] = EUROFX_순매수
                     else:
                         pass
 
                 elif result['종목코드'] == HANGSENG:
 
-                    HANGSENG_매도호가총건수 = 매도호가총건수
-                    HANGSENG_매수호가총건수 = 매수호가총건수
-                    HANGSENG_매도호가총수량 = 매도호가총수량
-                    HANGSENG_매수호가총수량 = 매수호가총수량
+                    HANGSENG_순매수 = 매수호가총수량 - 매도호가총수량
 
-                    HANGSENG_순매수 = HANGSENG_매수호가총수량 - HANGSENG_매도호가총수량
-
-                    if HANGSENG_매도호가총수량 > 0:
+                    if 매도호가총수량 > 0:
+                        HANGSENG_잔량비 = 매수호가총수량 / 매도호가총수량
                         df_plotdata_hangseng_hoga_rr.iat[0, ovc_x_idx] = HANGSENG_순매수
                     else:
                         pass
 
                 elif result['종목코드'] == GOLD:
 
-                    GOLD_매도호가총건수 = 매도호가총건수
-                    GOLD_매수호가총건수 = 매수호가총건수
-                    GOLD_매도호가총수량 = 매도호가총수량
-                    GOLD_매수호가총수량 = 매수호가총수량
+                    GOLD_순매수 = 매수호가총수량 - 매도호가총수량
 
-                    GOLD_순매수 = GOLD_매수호가총수량 - GOLD_매도호가총수량
-
-                    if GOLD_매도호가총수량 > 0:
+                    if 매도호가총수량 > 0:
+                        GOLD_잔량비 = 매수호가총수량 / 매도호가총수량
                         df_plotdata_gold_hoga_rr.iat[0, ovc_x_idx] = GOLD_순매수
                     else:
                         pass
