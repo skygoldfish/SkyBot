@@ -2056,48 +2056,56 @@ fut_tick_list = []
 fut_value_list = []
 df_fut_ohlc_1min = pd.DataFrame()
 df_fut_ohlc_5min = pd.DataFrame()
+df_fut_ohlc_15min = pd.DataFrame()
 
 # SP500 OHLC 연산
 sp500_tick_list = []
 sp500_value_list = []
 df_sp500_ohlc_1min = pd.DataFrame()
 df_sp500_ohlc_5min = pd.DataFrame()
+df_sp500_ohlc_15min = pd.DataFrame()
 
 # DOW OHLC 연산
 dow_tick_list = []
 dow_value_list = []
 df_dow_ohlc_1min = pd.DataFrame()
 df_dow_ohlc_5min = pd.DataFrame()
+df_dow_ohlc_15min = pd.DataFrame()
 
 # NASDAQ OHLC 연산
 nasdaq_tick_list = []
 nasdaq_value_list = []
 df_nasdaq_ohlc_1min = pd.DataFrame()
 df_nasdaq_ohlc_5min = pd.DataFrame()
+df_nasdaq_ohlc_15min = pd.DataFrame()
 
 # WTI OHLC 연산
 wti_tick_list = []
 wti_value_list = []
 df_wti_ohlc_1min = pd.DataFrame()
 df_wti_ohlc_5min = pd.DataFrame()
+df_wti_ohlc_15min = pd.DataFrame()
 
 # EUROFX OHLC 연산
 eurofx_tick_list = []
 eurofx_value_list = []
 df_eurofx_ohlc_1min = pd.DataFrame()
 df_eurofx_ohlc_5min = pd.DataFrame()
+df_eurofx_ohlc_15min = pd.DataFrame()
 
 # HANGSENG OHLC 연산
 hangseng_tick_list = []
 hangseng_value_list = []
 df_hangseng_ohlc_1min = pd.DataFrame()
 df_hangseng_ohlc_5min = pd.DataFrame()
+df_hangseng_ohlc_15min = pd.DataFrame()
 
 # GOLD OHLC 연산
 gold_tick_list = []
 gold_value_list = []
 df_gold_ohlc_1min = pd.DataFrame()
 df_gold_ohlc_5min = pd.DataFrame()
+df_gold_ohlc_15min = pd.DataFrame()
 
 ########################################################################################################################
 
@@ -18983,7 +18991,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_fut
         global df_plotdata_fut, df_plotdata_kp200, df_plotdata_fut_volume
         global atm_str, atm_val, atm_index, old_atm_index
-        global fut_tick_list, fut_value_list, df_fut_ohlc_1min, df_fut_ohlc_5min
+        global fut_tick_list, fut_value_list, df_fut_ohlc_1min, df_fut_ohlc_5min, df_fut_ohlc_15min
         global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
         global flag_fut_low, flag_fut_high 
         global fut_volume_power
@@ -19034,6 +19042,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # 5 Minute resample
         df_fut_ohlc_5min = df.resample('5T').ohlc()
+
+        # 15 Minute resample
+        df_fut_ohlc_15min = df.resample('15T').ohlc()
         
         # Plot 데이타프레임 생성
         df_plotdata_fut.iat[0, x_idx] = 선물_현재가
@@ -22294,13 +22305,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global DOW_야간_시작가, WTI_야간_시작가
             global 장시작_양합
 
-            global sp500_tick_list, sp500_value_list, df_sp500_ohlc_1min, df_sp500_ohlc_5min
-            global dow_tick_list, dow_value_list, df_dow_ohlc_1min, df_dow_ohlc_5min
-            global nasdaq_tick_list, nasdaq_value_list, df_nasdaq_ohlc_1min, df_nasdaq_ohlc_5min
-            global wti_tick_list, wti_value_list, df_wti_ohlc_1min, df_wti_ohlc_5min
-            global eurofx_tick_list, eurofx_value_list, df_eurofx_ohlc_1min, df_eurofx_ohlc_5min
-            global hangseng_tick_list, hangseng_value_list, df_hangseng_ohlc_1min, df_hangseng_ohlc_5min
-            global gold_tick_list, gold_value_list, df_gold_ohlc_1min, df_gold_ohlc_5min
+            global sp500_tick_list, sp500_value_list, df_sp500_ohlc_1min, df_sp500_ohlc_5min, df_sp500_ohlc_15min
+            global dow_tick_list, dow_value_list, df_dow_ohlc_1min, df_dow_ohlc_5min, df_dow_ohlc_15min
+            global nasdaq_tick_list, nasdaq_value_list, df_nasdaq_ohlc_1min, df_nasdaq_ohlc_5min, df_nasdaq_ohlc_15min
+            global wti_tick_list, wti_value_list, df_wti_ohlc_1min, df_wti_ohlc_5min, df_wti_ohlc_15min
+            global eurofx_tick_list, eurofx_value_list, df_eurofx_ohlc_1min, df_eurofx_ohlc_5min, df_eurofx_ohlc_15min
+            global hangseng_tick_list, hangseng_value_list, df_hangseng_ohlc_1min, df_hangseng_ohlc_5min, df_hangseng_ohlc_15min
+            global gold_tick_list, gold_value_list, df_gold_ohlc_1min, df_gold_ohlc_5min, df_gold_ohlc_15min
 
             start_time = timeit.default_timer()
 
@@ -24606,6 +24617,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             df_nasdaq_ohlc_1min = df.resample('1T').ohlc()
                             # 5 Minute resample
                             df_nasdaq_ohlc_5min = df.resample('5T').ohlc()
+                            # 15 Minute resample
+                            df_nasdaq_ohlc_15min = df.resample('15T').ohlc()
 
                             df_plotdata_nasdaq.iat[0, ovc_x_idx] = result['체결가격']
                         else:
@@ -24805,6 +24818,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             df_sp500_ohlc_1min = df.resample('1T').ohlc()
                             # 5 Minute resample
                             df_sp500_ohlc_5min = df.resample('5T').ohlc()
+                            # 15 Minute resample
+                            df_sp500_ohlc_15min = df.resample('15T').ohlc()
 
                             df_plotdata_sp500.iat[0, ovc_x_idx] = result['체결가격']
                         else:
@@ -24955,6 +24970,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             #print('\rDOW 틱 데이타 {}\r DOW OHLC {}\r'.format(df, df_dow_ohlc_1min))
                             # 5 Minute resample
                             df_dow_ohlc_5min = df.resample('5T').ohlc()
+                            # 15 Minute resample
+                            df_dow_ohlc_15min = df.resample('15T').ohlc()
 
                             df_plotdata_dow.iat[0, ovc_x_idx] = result['체결가격']
                         else:
@@ -25096,6 +25113,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             df_wti_ohlc_1min = df.resample('1T').ohlc()
                             # 5 Minute resample
                             df_wti_ohlc_5min = df.resample('5T').ohlc()
+                            # 15 Minute resample
+                            df_wti_ohlc_15min = df.resample('15T').ohlc()
 
                             df_plotdata_wti.iat[0, ovc_x_idx] = result['체결가격']
                         else:
@@ -25235,6 +25254,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             df_eurofx_ohlc_1min = df.resample('1T').ohlc()
                             # 5 Minute resample
                             df_eurofx_ohlc_5min = df.resample('5T').ohlc()
+                            # 15 Minute resample
+                            df_eurofx_ohlc_15min = df.resample('15T').ohlc()
 
                             df_plotdata_eurofx.iat[0, ovc_x_idx] = result['체결가격']
                         else:
@@ -25376,6 +25397,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             df_hangseng_ohlc_1min = df.resample('1T').ohlc()
                             # 5 Minute resample
                             df_hangseng_ohlc_5min = df.resample('5T').ohlc()
+                            # 15 Minute resample
+                            df_hangseng_ohlc_15min = df.resample('15T').ohlc()
 
                             df_plotdata_hangseng.iat[0, ovc_x_idx] = result['체결가격']
                         else:
@@ -25517,6 +25540,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             df_gold_ohlc_1min = df.resample('1T').ohlc()
                             # 5 Minute resample
                             df_gold_ohlc_5min = df.resample('5T').ohlc()
+                            # 15 Minute resample
+                            df_gold_ohlc_15min = df.resample('15T').ohlc()
 
                             df_plotdata_gold.iat[0, ovc_x_idx] = result['체결가격']
                         else:
