@@ -24952,7 +24952,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             # 1 Minute resample
                             df_dow_ohlc_1min = df.resample('1T').ohlc()
-                            print('\rDOW 틱 데이타 {}\r DOW OHLC {}\r'.format(df, df_dow_ohlc_1min))
+                            #print('\rDOW 틱 데이타 {}\r DOW OHLC {}\r'.format(df, df_dow_ohlc_1min))
                             # 5 Minute resample
                             df_dow_ohlc_5min = df.resample('5T').ohlc()
 
