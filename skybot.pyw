@@ -2107,6 +2107,8 @@ df_gold_ohlc_1min = pd.DataFrame()
 df_gold_ohlc_5min = pd.DataFrame()
 df_gold_ohlc_15min = pd.DataFrame()
 
+선물_체결시간 = ''
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -7522,7 +7524,192 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_vLine.setPos(mousePoint.x())
             plot2_hLine.setPos(mousePoint.y()) 
         else:
-            pass    
+            pass
+
+    def OHLC_Gen(self):
+
+        global fut_tick_list, fut_value_list, df_fut_ohlc_1min, df_fut_ohlc_5min, df_fut_ohlc_15min        
+        global sp500_tick_list, sp500_value_list, df_sp500_ohlc_1min, df_sp500_ohlc_5min, df_sp500_ohlc_15min
+        global dow_tick_list, dow_value_list, df_dow_ohlc_1min, df_dow_ohlc_5min, df_dow_ohlc_15min
+        global nasdaq_tick_list, nasdaq_value_list, df_nasdaq_ohlc_1min, df_nasdaq_ohlc_5min, df_nasdaq_ohlc_15min
+        global wti_tick_list, wti_value_list, df_wti_ohlc_1min, df_wti_ohlc_5min, df_wti_ohlc_15min
+        global eurofx_tick_list, eurofx_value_list, df_eurofx_ohlc_1min, df_eurofx_ohlc_5min, df_eurofx_ohlc_15min
+        global hangseng_tick_list, hangseng_value_list, df_hangseng_ohlc_1min, df_hangseng_ohlc_5min, df_hangseng_ohlc_15min
+        global gold_tick_list, gold_value_list, df_gold_ohlc_1min, df_gold_ohlc_5min, df_gold_ohlc_15min
+
+
+        # 선물 OHLC 데이타프레임 생성
+        if not overnight:        
+            time_str = 선물_체결시간[0:2] + ':' + 선물_체결시간[2:4] + ':' + 선물_체결시간[4:6]
+            chetime = nowDate + ' ' + time_str
+
+            fut_tick_list.append(chetime)
+            fut_value_list.append(선물_현재가)
+
+            temp_dict = {"value": fut_value_list}
+            df = pd.DataFrame(temp_dict, index=fut_tick_list)
+
+            # Converting the index as DatetimeIndex
+            df.index = pd.to_datetime(df.index)
+
+            # 1 Minute resample
+            df_fut_ohlc_1min = df.resample('1T').ohlc()
+            #print('\r선물 틱 데이타 {}\r 선물 OHLC {}\r'.format(df, df_fut_ohlc_1min))
+            # 5 Minute resample
+            df_fut_ohlc_5min = df.resample('5T').ohlc()
+            # 15 Minute resample
+            df_fut_ohlc_15min = df.resample('15T').ohlc()
+        else:
+            pass
+
+        
+        # SP500 OHLC 데이타프레임 생성        
+        time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        chetime = nowDate + ' ' + time_str
+
+        sp500_tick_list.append(chetime)
+        sp500_value_list.append(SP500_현재가)
+
+        temp_dict = {"value": sp500_value_list}
+        df = pd.DataFrame(temp_dict, index=sp500_tick_list)
+
+        # Converting the index as DatetimeIndex
+        df.index = pd.to_datetime(df.index)
+
+        # 1 Minute resample
+        df_sp500_ohlc_1min = df.resample('1T').ohlc()
+        # 5 Minute resample
+        df_sp500_ohlc_5min = df.resample('5T').ohlc()
+        # 15 Minute resample
+        df_sp500_ohlc_15min = df.resample('15T').ohlc()
+        
+
+        # DOW OHLC 데이타프레임 생성        
+        time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        chetime = nowDate + ' ' + time_str
+
+        dow_tick_list.append(chetime)
+        dow_value_list.append(DOW_현재가)
+
+        temp_dict = {"value": dow_value_list}
+        df = pd.DataFrame(temp_dict, index=dow_tick_list)
+
+        # Converting the index as DatetimeIndex
+        df.index = pd.to_datetime(df.index)
+
+        # 1 Minute resample
+        df_dow_ohlc_1min = df.resample('1T').ohlc()
+        #print('\rDOW 틱 데이타 {}\r DOW OHLC {}\r'.format(df, df_dow_ohlc_1min))
+        # 5 Minute resample
+        df_dow_ohlc_5min = df.resample('5T').ohlc()
+        # 15 Minute resample
+        df_dow_ohlc_15min = df.resample('15T').ohlc()
+
+        
+        # NASDAQ OHLC 데이타프레임 생성        
+        time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        chetime = nowDate + ' ' + time_str
+
+        nasdaq_tick_list.append(chetime)
+        nasdaq_value_list.append(NASDAQ_현재가)
+
+        temp_dict = {"value": nasdaq_value_list}
+        df = pd.DataFrame(temp_dict, index=nasdaq_tick_list)
+
+        # Converting the index as DatetimeIndex
+        df.index = pd.to_datetime(df.index)
+
+        # 1 Minute resample
+        df_nasdaq_ohlc_1min = df.resample('1T').ohlc()
+        # 5 Minute resample
+        df_nasdaq_ohlc_5min = df.resample('5T').ohlc()
+        # 15 Minute resample
+        df_nasdaq_ohlc_15min = df.resample('15T').ohlc()
+
+
+        # WTI OHLC 데이타프레임 생성        
+        time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        chetime = nowDate + ' ' + time_str
+
+        wti_tick_list.append(chetime)
+        wti_value_list.append(WTI_현재가)
+
+        temp_dict = {"value": wti_value_list}
+        df = pd.DataFrame(temp_dict, index=wti_tick_list)
+
+        # Converting the index as DatetimeIndex
+        df.index = pd.to_datetime(df.index)
+
+        # 1 Minute resample
+        df_wti_ohlc_1min = df.resample('1T').ohlc()
+        # 5 Minute resample
+        df_wti_ohlc_5min = df.resample('5T').ohlc()
+        # 15 Minute resample
+        df_wti_ohlc_15min = df.resample('15T').ohlc()
+
+        '''
+        # EUROFX OHLC 데이타프레임 생성        
+        time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        chetime = nowDate + ' ' + time_str
+
+        eurofx_tick_list.append(chetime)
+        eurofx_value_list.append(EUROFX_현재가)
+
+        temp_dict = {"value": eurofx_value_list}
+        df = pd.DataFrame(temp_dict, index=eurofx_tick_list)
+
+        # Converting the index as DatetimeIndex
+        df.index = pd.to_datetime(df.index)
+
+        # 1 Minute resample
+        df_eurofx_ohlc_1min = df.resample('1T').ohlc()
+        # 5 Minute resample
+        #df_eurofx_ohlc_5min = df.resample('5T').ohlc()
+        # 15 Minute resample
+        #df_eurofx_ohlc_15min = df.resample('15T').ohlc()
+
+        
+        # HANGSENG OHLC 데이타프레임 생성        
+        time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        chetime = nowDate + ' ' + time_str
+
+        hangseng_tick_list.append(chetime)
+        hangseng_value_list.append(HANGSENG_현재가)
+
+        temp_dict = {"value": hangseng_value_list}
+        df = pd.DataFrame(temp_dict, index=hangseng_tick_list)
+
+        # Converting the index as DatetimeIndex
+        df.index = pd.to_datetime(df.index)
+
+        # 1 Minute resample
+        df_hangseng_ohlc_1min = df.resample('1T').ohlc()
+        # 5 Minute resample
+        #df_hangseng_ohlc_5min = df.resample('5T').ohlc()
+        # 15 Minute resample
+        #df_hangseng_ohlc_15min = df.resample('15T').ohlc()
+
+
+        # GOLD OHLC 데이타프레임 생성        
+        time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+        chetime = nowDate + ' ' + time_str
+
+        gold_tick_list.append(chetime)
+        gold_value_list.append(GOLD_현재가)
+
+        temp_dict = {"value": gold_value_list}
+        df = pd.DataFrame(temp_dict, index=gold_tick_list)
+
+        # Converting the index as DatetimeIndex
+        df.index = pd.to_datetime(df.index)
+
+        # 1 Minute resample
+        df_gold_ohlc_1min = df.resample('1T').ohlc()
+        # 5 Minute resample
+        #df_gold_ohlc_5min = df.resample('5T').ohlc()
+        # 15 Minute resample
+        #df_gold_ohlc_15min = df.resample('15T').ohlc()
+        '''
 
     @pyqtSlot(dict)
     def update_screen(self, data):
@@ -7554,6 +7741,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 # 옵션 등락율 scale factor 읽어들임
                 drate_scale_factor = float(self.tableWidget_fut.item(2, Futures_column.진폭.value).text())
+
+                # OHLC 데이타프레임 생성
+                self.OHLC_Gen()
                 
                 if not overnight:
                     self.display_atm(self.alternate_flag)
@@ -17439,11 +17629,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
             
-            logger.debug('t8416 단축코드 = %s' % block['단축코드'])
-            logger.debug('t8416 call count = %d' % t8416_call_count)
-            logger.debug('t8416 call new_actval_up_count = %d' % new_actval_up_count)
-            logger.debug('t8416 put count = %d' % t8416_put_count)
-            logger.debug('t8416 call new_actval_down_count = %d' % new_actval_down_count)
+            if new_actval_up_count > 0 or new_actval_down_count > 0:
+                logger.debug('t8416 단축코드 = %s' % block['단축코드'])
+                logger.debug('t8416 call count = %d' % t8416_call_count)
+                logger.debug('t8416 call new_actval_up_count = %d' % new_actval_up_count)
+                logger.debug('t8416 put count = %d' % t8416_put_count)
+                logger.debug('t8416 call new_actval_down_count = %d' % new_actval_down_count)
+            else:
+                pass
 
             if block['단축코드'] == '':
 
@@ -18990,8 +19183,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global cme_realdata, fut_realdata
         global df_fut
         global df_plotdata_fut, df_plotdata_kp200, df_plotdata_fut_volume
-        global atm_str, atm_val, atm_index, old_atm_index
-        global fut_tick_list, fut_value_list, df_fut_ohlc_1min, df_fut_ohlc_5min, df_fut_ohlc_15min
+        global atm_str, atm_val, atm_index, old_atm_index        
         global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
         global flag_fut_low, flag_fut_high 
         global fut_volume_power
@@ -18999,12 +19191,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
         global 선물_저가, 선물_현재가, 선물_대비, 선물_전일대비, 선물_등락율, 선물_고가, 선물_진폭
         global df_plotdata_fut_drate
-        global 선물_진폭비
+        global 선물_진폭비, 선물_체결시간 
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
 
         체결시간 = result['체결시간']
+        선물_체결시간 = result['체결시간']
 
         시가 = result['시가']
         현재가 = result['현재가']
@@ -19021,30 +19214,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         선물_등락율 = result['등락율']
         선물_진폭 = 선물_고가 - 선물_저가
 
-        df_plotdata_fut_drate[x_idx] = result['등락율']
-        
-        # 선물 OHLC 데이타프레임 생성        
-        time_str = 체결시간[0:2] + ':' + 체결시간[2:4] + ':' + 체결시간[4:6]
-        chetime = nowDate + ' ' + time_str
-
-        fut_tick_list.append(chetime)
-        fut_value_list.append(선물_현재가)
-
-        temp_dict = {"value": fut_value_list}
-        df = pd.DataFrame(temp_dict, index=fut_tick_list)
-
-        # Converting the index as DatetimeIndex
-        df.index = pd.to_datetime(df.index)
-
-        # 1 Minute resample
-        df_fut_ohlc_1min = df.resample('1T').ohlc()
-        #print('\r선물 틱 데이타 {}\r 선물 OHLC {}\r'.format(df, df_fut_ohlc_1min))
-
-        # 5 Minute resample
-        df_fut_ohlc_5min = df.resample('5T').ohlc()
-
-        # 15 Minute resample
-        df_fut_ohlc_15min = df.resample('15T').ohlc()
+        df_plotdata_fut_drate[x_idx] = result['등락율']        
         
         # Plot 데이타프레임 생성
         df_plotdata_fut.iat[0, x_idx] = 선물_현재가
@@ -22305,14 +22475,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global DOW_야간_시작가, WTI_야간_시작가
             global 장시작_양합
 
-            global sp500_tick_list, sp500_value_list, df_sp500_ohlc_1min, df_sp500_ohlc_5min, df_sp500_ohlc_15min
-            global dow_tick_list, dow_value_list, df_dow_ohlc_1min, df_dow_ohlc_5min, df_dow_ohlc_15min
-            global nasdaq_tick_list, nasdaq_value_list, df_nasdaq_ohlc_1min, df_nasdaq_ohlc_5min, df_nasdaq_ohlc_15min
-            global wti_tick_list, wti_value_list, df_wti_ohlc_1min, df_wti_ohlc_5min, df_wti_ohlc_15min
-            global eurofx_tick_list, eurofx_value_list, df_eurofx_ohlc_1min, df_eurofx_ohlc_5min, df_eurofx_ohlc_15min
-            global hangseng_tick_list, hangseng_value_list, df_hangseng_ohlc_1min, df_hangseng_ohlc_5min, df_hangseng_ohlc_15min
-            global gold_tick_list, gold_value_list, df_gold_ohlc_1min, df_gold_ohlc_5min, df_gold_ohlc_15min
-
             start_time = timeit.default_timer()
 
             dt = datetime.datetime.now()
@@ -24526,7 +24688,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if NASDAQ_피봇 == 0:
                         
                         if NASDAQ_전저 > 0 and NASDAQ_전고 > 0:
-
                             NASDAQ_피봇 = self.calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_시가)
                         else:
                             pass
@@ -24599,27 +24760,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         NASDAQ_과거가 = result['체결가격']
                                        
                         if 2 <= ovc_x_idx <= overnight_timespan - 1:
-
-                            # NASDAQ OHLC 데이타프레임 생성        
-                            time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
-                            chetime = nowDate + ' ' + time_str
-
-                            nasdaq_tick_list.append(chetime)
-                            nasdaq_value_list.append(NASDAQ_현재가)
-
-                            temp_dict = {"value": nasdaq_value_list}
-                            df = pd.DataFrame(temp_dict, index=nasdaq_tick_list)
-
-                            # Converting the index as DatetimeIndex
-                            df.index = pd.to_datetime(df.index)
-
-                            # 1 Minute resample
-                            df_nasdaq_ohlc_1min = df.resample('1T').ohlc()
-                            # 5 Minute resample
-                            df_nasdaq_ohlc_5min = df.resample('5T').ohlc()
-                            # 15 Minute resample
-                            df_nasdaq_ohlc_15min = df.resample('15T').ohlc()
-
                             df_plotdata_nasdaq.iat[0, ovc_x_idx] = result['체결가격']
                         else:
                             pass
@@ -24665,7 +24805,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if SP500_피봇 == 0:
                         
                         if SP500_전저 > 0 and SP500_전고 > 0:
-
                             SP500_피봇 = self.calc_pivot(SP500_전저, SP500_전고, SP500_종가, SP500_시가)
                         else:
                             pass
@@ -24800,27 +24939,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         SP500_과거가 = result['체결가격']
                         
                         if 2 <= ovc_x_idx <= overnight_timespan - 1:
-
-                            # SP500 OHLC 데이타프레임 생성        
-                            time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
-                            chetime = nowDate + ' ' + time_str
-
-                            sp500_tick_list.append(chetime)
-                            sp500_value_list.append(SP500_현재가)
-
-                            temp_dict = {"value": sp500_value_list}
-                            df = pd.DataFrame(temp_dict, index=sp500_tick_list)
-
-                            # Converting the index as DatetimeIndex
-                            df.index = pd.to_datetime(df.index)
-
-                            # 1 Minute resample
-                            df_sp500_ohlc_1min = df.resample('1T').ohlc()
-                            # 5 Minute resample
-                            df_sp500_ohlc_5min = df.resample('5T').ohlc()
-                            # 15 Minute resample
-                            df_sp500_ohlc_15min = df.resample('15T').ohlc()
-
                             df_plotdata_sp500.iat[0, ovc_x_idx] = result['체결가격']
                         else:
                             pass
@@ -24868,7 +24986,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if DOW_피봇 == 0:
                         
                         if DOW_전저 > 0 and DOW_전고 > 0:
-
                             DOW_피봇 = self.calc_pivot(DOW_전저, DOW_전고, DOW_종가, DOW_시가)
                         else:
                             pass
@@ -24951,28 +25068,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         DOW_과거가 = 체결가격
                         
                         if 2 <= ovc_x_idx <= overnight_timespan - 1:
-
-                            # DOW OHLC 데이타프레임 생성        
-                            time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
-                            chetime = nowDate + ' ' + time_str
-
-                            dow_tick_list.append(chetime)
-                            dow_value_list.append(DOW_현재가)
-
-                            temp_dict = {"value": dow_value_list}
-                            df = pd.DataFrame(temp_dict, index=dow_tick_list)
-
-                            # Converting the index as DatetimeIndex
-                            df.index = pd.to_datetime(df.index)
-
-                            # 1 Minute resample
-                            df_dow_ohlc_1min = df.resample('1T').ohlc()
-                            #print('\rDOW 틱 데이타 {}\r DOW OHLC {}\r'.format(df, df_dow_ohlc_1min))
-                            # 5 Minute resample
-                            df_dow_ohlc_5min = df.resample('5T').ohlc()
-                            # 15 Minute resample
-                            df_dow_ohlc_15min = df.resample('15T').ohlc()
-
                             df_plotdata_dow.iat[0, ovc_x_idx] = result['체결가격']
                         else:
                             pass
@@ -25020,7 +25115,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if WTI_피봇 == 0:
                         
                         if WTI_전저 > 0 and WTI_전고 > 0:
-
                             WTI_피봇 = self.calc_pivot(WTI_전저, WTI_전고, WTI_종가, WTI_시가)
                         else:
                             pass
@@ -25095,27 +25189,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         WTI_과거가 = result['체결가격']
                         
                         if 2 <= ovc_x_idx <= overnight_timespan - 1:
-
-                            # WTI OHLC 데이타프레임 생성        
-                            time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
-                            chetime = nowDate + ' ' + time_str
-
-                            wti_tick_list.append(chetime)
-                            wti_value_list.append(WTI_현재가)
-
-                            temp_dict = {"value": wti_value_list}
-                            df = pd.DataFrame(temp_dict, index=wti_tick_list)
-
-                            # Converting the index as DatetimeIndex
-                            df.index = pd.to_datetime(df.index)
-
-                            # 1 Minute resample
-                            df_wti_ohlc_1min = df.resample('1T').ohlc()
-                            # 5 Minute resample
-                            df_wti_ohlc_5min = df.resample('5T').ohlc()
-                            # 15 Minute resample
-                            df_wti_ohlc_15min = df.resample('15T').ohlc()
-
                             df_plotdata_wti.iat[0, ovc_x_idx] = result['체결가격']
                         else:
                             pass
@@ -25161,7 +25234,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if EUROFX_피봇 == 0:
                         
                         if EUROFX_전저 > 0 and EUROFX_전고 > 0:
-
                             EUROFX_피봇 = self.calc_pivot(EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_시가)
                         else:
                             pass
@@ -25236,27 +25308,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         EUROFX_과거가 = result['체결가격']
                         
                         if 2 <= ovc_x_idx <= overnight_timespan - 1:
-
-                            # EUROFX OHLC 데이타프레임 생성        
-                            time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
-                            chetime = nowDate + ' ' + time_str
-
-                            eurofx_tick_list.append(chetime)
-                            eurofx_value_list.append(EUROFX_현재가)
-
-                            temp_dict = {"value": eurofx_value_list}
-                            df = pd.DataFrame(temp_dict, index=eurofx_tick_list)
-
-                            # Converting the index as DatetimeIndex
-                            df.index = pd.to_datetime(df.index)
-
-                            # 1 Minute resample
-                            df_eurofx_ohlc_1min = df.resample('1T').ohlc()
-                            # 5 Minute resample
-                            df_eurofx_ohlc_5min = df.resample('5T').ohlc()
-                            # 15 Minute resample
-                            df_eurofx_ohlc_15min = df.resample('15T').ohlc()
-
                             df_plotdata_eurofx.iat[0, ovc_x_idx] = result['체결가격']
                         else:
                             pass
@@ -25304,7 +25355,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if HANGSENG_피봇 == 0:
                         
                         if HANGSENG_전저 > 0 and HANGSENG_전고 > 0:
-
                             HANGSENG_피봇 = self.calc_pivot(HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_시가)
                         else:
                             pass
@@ -25379,27 +25429,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         HANGSENG_과거가 = int(result['체결가격'])
                         
                         if 2 <= ovc_x_idx <= overnight_timespan - 1:
-
-                            # HANGSENG OHLC 데이타프레임 생성        
-                            time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
-                            chetime = nowDate + ' ' + time_str
-
-                            hangseng_tick_list.append(chetime)
-                            hangseng_value_list.append(HANGSENG_현재가)
-
-                            temp_dict = {"value": hangseng_value_list}
-                            df = pd.DataFrame(temp_dict, index=hangseng_tick_list)
-
-                            # Converting the index as DatetimeIndex
-                            df.index = pd.to_datetime(df.index)
-
-                            # 1 Minute resample
-                            df_hangseng_ohlc_1min = df.resample('1T').ohlc()
-                            # 5 Minute resample
-                            df_hangseng_ohlc_5min = df.resample('5T').ohlc()
-                            # 15 Minute resample
-                            df_hangseng_ohlc_15min = df.resample('15T').ohlc()
-
                             df_plotdata_hangseng.iat[0, ovc_x_idx] = result['체결가격']
                         else:
                             pass
@@ -25447,7 +25476,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if GOLD_피봇 == 0:
                         
                         if GOLD_전저 > 0 and GOLD_전고 > 0:
-
                             GOLD_피봇 = self.calc_pivot(GOLD_전저, GOLD_전고, GOLD_종가, GOLD_시가)
                         else:
                             pass
@@ -25522,27 +25550,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         GOLD_과거가 = result['체결가격']
                         
                         if 2 <= ovc_x_idx <= overnight_timespan - 1:
-
-                            # GOLD OHLC 데이타프레임 생성        
-                            time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
-                            chetime = nowDate + ' ' + time_str
-
-                            gold_tick_list.append(chetime)
-                            gold_value_list.append(GOLD_현재가)
-
-                            temp_dict = {"value": gold_value_list}
-                            df = pd.DataFrame(temp_dict, index=gold_tick_list)
-
-                            # Converting the index as DatetimeIndex
-                            df.index = pd.to_datetime(df.index)
-
-                            # 1 Minute resample
-                            df_gold_ohlc_1min = df.resample('1T').ohlc()
-                            # 5 Minute resample
-                            df_gold_ohlc_5min = df.resample('5T').ohlc()
-                            # 15 Minute resample
-                            df_gold_ohlc_15min = df.resample('15T').ohlc()
-
                             df_plotdata_gold.iat[0, ovc_x_idx] = result['체결가격']
                         else:
                             pass
