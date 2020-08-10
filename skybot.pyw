@@ -7743,7 +7743,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 drate_scale_factor = float(self.tableWidget_fut.item(2, Futures_column.진폭.value).text())
 
                 # OHLC 데이타프레임 생성
-                self.OHLC_Gen()
+                #self.OHLC_Gen()
                 
                 if not overnight:
                     self.display_atm(self.alternate_flag)
