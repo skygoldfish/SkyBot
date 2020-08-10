@@ -25354,87 +25354,106 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif szTrCode == 'OVH':
 
+                매도호가총건수 = int(result['매도호가총건수'])
+                매수호가총건수 = int(result['매수호가총건수'])
+                매도호가총수량 = int(result['매도호가총수량'])
+                매수호가총수량 = int(result['매수호가총수량'])
+
                 if result['종목코드'] == NASDAQ:
 
-                    NASDAQ_매도호가총건수 = result['매도호가총건수']
-                    NASDAQ_매수호가총건수 = result['매수호가총건수']
-                    NASDAQ_매도호가총수량 = result['매도호가총수량']
-                    NASDAQ_매수호가총수량 = result['매수호가총수량']
+                    NASDAQ_매도호가총건수 = 매도호가총건수
+                    NASDAQ_매수호가총건수 = 매수호가총건수
+                    NASDAQ_매도호가총수량 = 매도호가총수량
+                    NASDAQ_매수호가총수량 = 매수호가총수량
+
+                    NASDAQ_순매수 = NASDAQ_매수호가총수량 - NASDAQ_매도호가총수량
 
                     if NASDAQ_매도호가총수량 > 0:
-                        df_plotdata_nasdaq_hoga_rr.iat[0, ovc_x_idx] = NASDAQ_매수호가총수량 - NASDAQ_매도호가총수량
+                        df_plotdata_nasdaq_hoga_rr.iat[0, ovc_x_idx] = NASDAQ_순매수
                     else:
                         pass
 
                 elif result['종목코드'] == SP500:
 
-                    SP500_매도호가총건수 = result['매도호가총건수']
-                    SP500_매수호가총건수 = result['매수호가총건수']
-                    SP500_매도호가총수량 = result['매도호가총수량']
-                    SP500_매수호가총수량 = result['매수호가총수량']
+                    SP500_매도호가총건수 = 매도호가총건수
+                    SP500_매수호가총건수 = 매수호가총건수
+                    SP500_매도호가총수량 = 매도호가총수량
+                    SP500_매수호가총수량 = 매수호가총수량
+
+                    SP500_순매수 = SP500_매수호가총수량 - SP500_매도호가총수량
 
                     if SP500_매도호가총수량 > 0:
-                        df_plotdata_sp500_hoga_rr.iat[0, ovc_x_idx] = SP500_매수호가총수량 - SP500_매도호가총수량
+                        df_plotdata_sp500_hoga_rr.iat[0, ovc_x_idx] = SP500_순매수
                     else:
                         pass
 
                 elif result['종목코드'] == DOW:
 
-                    DOW_매도호가총건수 = result['매도호가총건수']
-                    DOW_매수호가총건수 = result['매수호가총건수']
-                    DOW_매도호가총수량 = result['매도호가총수량']
-                    DOW_매수호가총수량 = result['매수호가총수량']
+                    DOW_매도호가총건수 = 매도호가총건수
+                    DOW_매수호가총건수 = 매수호가총건수
+                    DOW_매도호가총수량 = 매도호가총수량
+                    DOW_매수호가총수량 = 매수호가총수량
+
+                    DOW_순매수 = DOW_매수호가총수량 - DOW_매도호가총수량
 
                     if DOW_매도호가총수량 > 0:
-                        df_plotdata_dow_hoga_rr.iat[0, ovc_x_idx] = DOW_매수호가총수량 - DOW_매도호가총수량
+                        df_plotdata_dow_hoga_rr.iat[0, ovc_x_idx] = DOW_순매수
                     else:
                         pass
 
                 elif result['종목코드'] == WTI:
 
-                    WTI_매도호가총건수 = result['매도호가총건수']
-                    WTI_매수호가총건수 = result['매수호가총건수']
-                    WTI_매도호가총수량 = result['매도호가총수량']
-                    WTI_매수호가총수량 = result['매수호가총수량']
+                    WTI_매도호가총건수 = 매도호가총건수
+                    WTI_매수호가총건수 = 매수호가총건수
+                    WTI_매도호가총수량 = 매도호가총수량
+                    WTI_매수호가총수량 = 매수호가총수량
+
+                    WTI_순매수 = WTI_매수호가총수량 - WTI_매도호가총수량
 
                     if WTI_매도호가총수량 > 0:
-                        df_plotdata_wti_hoga_rr.iat[0, ovc_x_idx] = WTI_매수호가총수량 - WTI_매도호가총수량
+                        df_plotdata_wti_hoga_rr.iat[0, ovc_x_idx] = WTI_순매수
                     else:
                         pass
 
                 elif result['종목코드'] == EUROFX:
 
-                    EUROFX_매도호가총건수 = result['매도호가총건수']
-                    EUROFX_매수호가총건수 = result['매수호가총건수']
-                    EUROFX_매도호가총수량 = result['매도호가총수량']
-                    EUROFX_매수호가총수량 = result['매수호가총수량']
+                    EUROFX_매도호가총건수 = 매도호가총건수
+                    EUROFX_매수호가총건수 = 매수호가총건수
+                    EUROFX_매도호가총수량 = 매도호가총수량
+                    EUROFX_매수호가총수량 = 매수호가총수량
+
+                    EUROFX_순매수 = EUROFX_매수호가총수량 - EUROFX_매도호가총수량
 
                     if EUROFX_매도호가총수량 > 0:
-                        df_plotdata_eurofx_hoga_rr.iat[0, ovc_x_idx] = EUROFX_매수호가총수량 - EUROFX_매도호가총수량
+                        df_plotdata_eurofx_hoga_rr.iat[0, ovc_x_idx] = EUROFX_순매수
                     else:
                         pass
 
                 elif result['종목코드'] == HANGSENG:
 
-                    HANGSENG_매도호가총건수 = result['매도호가총건수']
-                    HANGSENG_매수호가총건수 = result['매수호가총건수']
-                    HANGSENG_매도호가총수량 = result['매도호가총수량']
-                    HANGSENG_매수호가총수량 = result['매수호가총수량']
+                    HANGSENG_매도호가총건수 = 매도호가총건수
+                    HANGSENG_매수호가총건수 = 매수호가총건수
+                    HANGSENG_매도호가총수량 = 매도호가총수량
+                    HANGSENG_매수호가총수량 = 매수호가총수량
+
+                    HANGSENG_순매수 = HANGSENG_매수호가총수량 - HANGSENG_매도호가총수량
 
                     if HANGSENG_매도호가총수량 > 0:
-                        df_plotdata_hangseng_hoga_rr.iat[0, ovc_x_idx] = HANGSENG_매수호가총수량 - HANGSENG_매도호가총수량
+                        df_plotdata_hangseng_hoga_rr.iat[0, ovc_x_idx] = HANGSENG_순매수
                     else:
                         pass
 
                 elif result['종목코드'] == GOLD:
 
-                    GOLD_매도호가총건수 = result['매도호가총건수']
-                    GOLD_매수호가총건수 = result['매수호가총건수']
-                    GOLD_매도호가총수량 = result['매도호가총수량']
-                    GOLD_매수호가총수량 = result['매수호가총수량']
+                    GOLD_매도호가총건수 = 매도호가총건수
+                    GOLD_매수호가총건수 = 매수호가총건수
+                    GOLD_매도호가총수량 = 매도호가총수량
+                    GOLD_매수호가총수량 = 매수호가총수량
+
+                    GOLD_순매수 = GOLD_매수호가총수량 - GOLD_매도호가총수량
 
                     if GOLD_매도호가총수량 > 0:
-                        df_plotdata_gold_hoga_rr.iat[0, ovc_x_idx] = GOLD_매수호가총수량 - GOLD_매도호가총수량
+                        df_plotdata_gold_hoga_rr.iat[0, ovc_x_idx] = GOLD_순매수
                     else:
                         pass
                 else:
