@@ -24594,7 +24594,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             chetime = nowDate + ' ' + time_str
 
                             nasdaq_tick_list.append(chetime)
-                            nasdaq_value_list.append(선물_현재가)
+                            nasdaq_value_list.append(NASDAQ_현재가)
 
                             temp_dict = {"value": nasdaq_value_list}
                             df = pd.DataFrame(temp_dict, index=nasdaq_tick_list)
@@ -24793,7 +24793,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             chetime = nowDate + ' ' + time_str
 
                             sp500_tick_list.append(chetime)
-                            sp500_value_list.append(선물_현재가)
+                            sp500_value_list.append(SP500_현재가)
 
                             temp_dict = {"value": sp500_value_list}
                             df = pd.DataFrame(temp_dict, index=sp500_tick_list)
@@ -24942,7 +24942,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             chetime = nowDate + ' ' + time_str
 
                             dow_tick_list.append(chetime)
-                            dow_value_list.append(선물_현재가)
+                            dow_value_list.append(DOW_현재가)
 
                             temp_dict = {"value": dow_value_list}
                             df = pd.DataFrame(temp_dict, index=dow_tick_list)
@@ -24952,6 +24952,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             # 1 Minute resample
                             df_dow_ohlc_1min = df.resample('1T').ohlc()
+                            print('\rDOW 틱 데이타 {}\r DOW OHLC {}\r'.format(df, df_dow_ohlc_1min))
                             # 5 Minute resample
                             df_dow_ohlc_5min = df.resample('5T').ohlc()
 
@@ -25083,7 +25084,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             chetime = nowDate + ' ' + time_str
 
                             wti_tick_list.append(chetime)
-                            wti_value_list.append(선물_현재가)
+                            wti_value_list.append(WTI_현재가)
 
                             temp_dict = {"value": wti_value_list}
                             df = pd.DataFrame(temp_dict, index=wti_tick_list)
@@ -25222,7 +25223,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             chetime = nowDate + ' ' + time_str
 
                             eurofx_tick_list.append(chetime)
-                            eurofx_value_list.append(선물_현재가)
+                            eurofx_value_list.append(EUROFX_현재가)
 
                             temp_dict = {"value": eurofx_value_list}
                             df = pd.DataFrame(temp_dict, index=eurofx_tick_list)
@@ -25363,7 +25364,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             chetime = nowDate + ' ' + time_str
 
                             hangseng_tick_list.append(chetime)
-                            hangseng_value_list.append(선물_현재가)
+                            hangseng_value_list.append(HANGSENG_현재가)
 
                             temp_dict = {"value": hangseng_value_list}
                             df = pd.DataFrame(temp_dict, index=hangseng_tick_list)
@@ -25504,7 +25505,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             chetime = nowDate + ' ' + time_str
 
                             gold_tick_list.append(chetime)
-                            gold_value_list.append(선물_현재가)
+                            gold_value_list.append(GOLD_현재가)
 
                             temp_dict = {"value": gold_value_list}
                             df = pd.DataFrame(temp_dict, index=gold_tick_list)
