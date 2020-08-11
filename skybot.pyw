@@ -7526,6 +7526,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
+    # 처리시간 해법필요
     def OHLC_Gen(self):
 
         global fut_tick_list, fut_value_list, df_fut_ohlc_1min, df_fut_ohlc_5min, df_fut_ohlc_15min        
@@ -7556,9 +7557,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_fut_ohlc_1min = df.resample('1T').ohlc()
             #print('\r선물 틱 데이타 {}\r 선물 OHLC {}\r'.format(df, df_fut_ohlc_1min))
             # 5 Minute resample
-            df_fut_ohlc_5min = df.resample('5T').ohlc()
+            #df_fut_ohlc_5min = df.resample('5T').ohlc()
             # 15 Minute resample
-            df_fut_ohlc_15min = df.resample('15T').ohlc()
+            #df_fut_ohlc_15min = df.resample('15T').ohlc()
         else:
             pass
 
@@ -7579,9 +7580,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 1 Minute resample
         df_sp500_ohlc_1min = df.resample('1T').ohlc()
         # 5 Minute resample
-        df_sp500_ohlc_5min = df.resample('5T').ohlc()
+        #df_sp500_ohlc_5min = df.resample('5T').ohlc()
         # 15 Minute resample
-        df_sp500_ohlc_15min = df.resample('15T').ohlc()
+        #df_sp500_ohlc_15min = df.resample('15T').ohlc()
         
 
         # DOW OHLC 데이타프레임 생성        
@@ -7601,9 +7602,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         df_dow_ohlc_1min = df.resample('1T').ohlc()
         #print('\rDOW 틱 데이타 {}\r DOW OHLC {}\r'.format(df, df_dow_ohlc_1min))
         # 5 Minute resample
-        df_dow_ohlc_5min = df.resample('5T').ohlc()
+        #df_dow_ohlc_5min = df.resample('5T').ohlc()
         # 15 Minute resample
-        df_dow_ohlc_15min = df.resample('15T').ohlc()
+        #df_dow_ohlc_15min = df.resample('15T').ohlc()
 
         
         # NASDAQ OHLC 데이타프레임 생성        
@@ -7622,9 +7623,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 1 Minute resample
         df_nasdaq_ohlc_1min = df.resample('1T').ohlc()
         # 5 Minute resample
-        df_nasdaq_ohlc_5min = df.resample('5T').ohlc()
+        #df_nasdaq_ohlc_5min = df.resample('5T').ohlc()
         # 15 Minute resample
-        df_nasdaq_ohlc_15min = df.resample('15T').ohlc()
+        #df_nasdaq_ohlc_15min = df.resample('15T').ohlc()
 
 
         # WTI OHLC 데이타프레임 생성        
@@ -7643,9 +7644,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 1 Minute resample
         df_wti_ohlc_1min = df.resample('1T').ohlc()
         # 5 Minute resample
-        df_wti_ohlc_5min = df.resample('5T').ohlc()
+        #df_wti_ohlc_5min = df.resample('5T').ohlc()
         # 15 Minute resample
-        df_wti_ohlc_15min = df.resample('15T').ohlc()
+        #df_wti_ohlc_15min = df.resample('15T').ohlc()
 
         '''
         # EUROFX OHLC 데이타프레임 생성        
@@ -7664,9 +7665,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 1 Minute resample
         df_eurofx_ohlc_1min = df.resample('1T').ohlc()
         # 5 Minute resample
-        df_eurofx_ohlc_5min = df.resample('5T').ohlc()
+        #df_eurofx_ohlc_5min = df.resample('5T').ohlc()
         # 15 Minute resample
-        df_eurofx_ohlc_15min = df.resample('15T').ohlc()
+        #df_eurofx_ohlc_15min = df.resample('15T').ohlc()
 
         
         # HANGSENG OHLC 데이타프레임 생성        
@@ -7685,9 +7686,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 1 Minute resample
         df_hangseng_ohlc_1min = df.resample('1T').ohlc()
         # 5 Minute resample
-        df_hangseng_ohlc_5min = df.resample('5T').ohlc()
+        #df_hangseng_ohlc_5min = df.resample('5T').ohlc()
         # 15 Minute resample
-        df_hangseng_ohlc_15min = df.resample('15T').ohlc()
+        #df_hangseng_ohlc_15min = df.resample('15T').ohlc()
 
 
         # GOLD OHLC 데이타프레임 생성        
@@ -7706,9 +7707,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 1 Minute resample
         df_gold_ohlc_1min = df.resample('1T').ohlc()
         # 5 Minute resample
-        df_gold_ohlc_5min = df.resample('5T').ohlc()
+        #df_gold_ohlc_5min = df.resample('5T').ohlc()
         # 15 Minute resample
-        df_gold_ohlc_15min = df.resample('15T').ohlc()
+        #df_gold_ohlc_15min = df.resample('15T').ohlc()
         '''
 
     @pyqtSlot(dict)
@@ -19196,7 +19197,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
 
-        체결시간 = result['체결시간']
+        #체결시간 = result['체결시간']
         선물_체결시간 = result['체결시간']
 
         시가 = result['시가']
