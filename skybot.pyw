@@ -19280,11 +19280,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # OHLC 연산목적
         if int(선물_체결시간[4:6]) == 0 or int(OVC_체결시간[4:6]) == 0:
 
-            선물_저가리스트.append(선물_저가리스트[-1])
-            선물_고가리스트.append(선물_고가리스트[-1])
+            if 선물_현재가리스트:
+                선물_저가리스트.append(선물_저가리스트[-1])
+                선물_고가리스트.append(선물_고가리스트[-1])
 
-            del 선물_현재가리스트[:]
-
+                del 선물_현재가리스트[:]
+            else:
+                pass
         else:
             선물_현재가리스트.append(선물_현재가)
             선물_저가리스트[-1] = min(선물_현재가리스트)
@@ -22557,7 +22559,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global DOW_야간_시작가, WTI_야간_시작가
             global 장시작_양합
 
-            global dow_tick_list, dow_value_list, df_dow_ohlc
+            #global dow_tick_list, dow_value_list, df_dow_ohlc
+            global DOW_저가리스트, DOW_현재가리스트, DOW_고가리스트
+            global SP500_저가리스트, SP500_현재가리스트, SP500_고가리스트
+            global NASDAQ_저가리스트, NASDAQ_현재가리스트, NASDAQ_고가리스트
+            global WTI_저가리스트, WTI_현재가리스트, WTI_고가리스트
 
             start_time = timeit.default_timer()
 
@@ -24731,7 +24737,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 서버시간 = int(OVC_체결시간[0:2]) * 3600 + int(OVC_체결시간[2:4]) * 60 + int(OVC_체결시간[4:6])
 
-                시스템_서버_시간차 = 시스템시간 - 서버시간
+                시스템_서버_시간차 = 시스템시간 - 서버시간                
 
                 if result['종목코드'] == NASDAQ:
 
@@ -25076,7 +25082,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass  
                     
-                    체결가격 = int(result['체결가격'])                    
+                    체결가격 = int(result['체결가격'])                  
 
                     if 체결가격 != DOW_과거가:
                         
@@ -25651,7 +25657,94 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
                 else:
-                    pass
+                    pass                    
+                    
+                # OHLC 연산목적 저가, 고가 리스트 생성(기존방식은 실시간지연 발생함!!!)
+                if int(OVC_체결시간[4:6]) == 0:
+
+                    if DOW_현재가리스트:
+                        DOW_저가리스트.append(DOW_저가리스트[-1])
+                        DOW_고가리스트.append(DOW_고가리스트[-1])
+
+                        del DOW_현재가리스트[:]
+
+                        print('DOW_저가리스트 =', OVC_체결시간, DOW_저가리스트)
+                        print('DOW_고가리스트 =', OVC_체결시간, DOW_고가리스트)
+                    else:
+                        pass
+
+                    if SP500_현재가리스트:
+                        SP500_저가리스트.append(SP500_저가리스트[-1])
+                        SP500_고가리스트.append(SP500_고가리스트[-1])
+
+                        del SP500_현재가리스트[:]
+
+                        print('SP500_저가리스트 =', OVC_체결시간, SP500_저가리스트)
+                        print('SP500_고가리스트 =', OVC_체결시간, SP500_고가리스트)
+                    else:
+                        pass
+
+                    if NASDAQ_현재가리스트:
+                        NASDAQ_저가리스트.append(NASDAQ_저가리스트[-1])
+                        NASDAQ_고가리스트.append(NASDAQ_고가리스트[-1])
+
+                        del NASDAQ_현재가리스트[:]
+
+                        print('NASDAQ_저가리스트 =', OVC_체결시간, NASDAQ_저가리스트)
+                        print('NASDAQ_고가리스트 =', OVC_체결시간, NASDAQ_고가리스트)
+                    else:
+                        pass
+
+                    if WTI_현재가리스트:
+                        WTI_저가리스트.append(WTI_저가리스트[-1])
+                        WTI_고가리스트.append(WTI_고가리스트[-1])
+
+                        del WTI_현재가리스트[:]
+
+                        print('WTI_저가리스트 =', OVC_체결시간, WTI_저가리스트)
+                        print('WTI_고가리스트 =', OVC_체결시간, WTI_고가리스트)
+                    else:
+                        pass
+                else:
+                    DOW_현재가리스트.append(DOW_현재가)                    
+                    DOW_고가리스트[-1] = max(DOW_현재가리스트)
+
+                    DOW_저가리스트[-1] = min(DOW_현재가리스트)
+
+                    if DOW_저가리스트[-1] == 0:
+                        DOW_저가리스트[-1] = max(DOW_현재가리스트)
+                    else:
+                        pass
+
+                    SP500_현재가리스트.append(SP500_현재가)                    
+                    SP500_고가리스트[-1] = max(SP500_현재가리스트)
+
+                    SP500_저가리스트[-1] = min(SP500_현재가리스트)
+
+                    if SP500_저가리스트[-1] == 0:
+                        SP500_저가리스트[-1] = max(SP500_현재가리스트)
+                    else:
+                        pass
+
+                    NASDAQ_현재가리스트.append(NASDAQ_현재가)                    
+                    NASDAQ_고가리스트[-1] = max(NASDAQ_현재가리스트)
+
+                    NASDAQ_저가리스트[-1] = min(NASDAQ_현재가리스트)
+
+                    if NASDAQ_저가리스트[-1] == 0:
+                        NASDAQ_저가리스트[-1] = max(NASDAQ_현재가리스트)
+                    else:
+                        pass
+
+                    WTI_현재가리스트.append(WTI_현재가)                    
+                    WTI_고가리스트[-1] = max(WTI_현재가리스트)
+
+                    WTI_저가리스트[-1] = min(WTI_현재가리스트)
+
+                    if WTI_저가리스트[-1] == 0:
+                        WTI_저가리스트[-1] = max(WTI_현재가리스트)
+                    else:
+                        pass
 
             elif szTrCode == 'OVH':
 
