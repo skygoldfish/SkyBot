@@ -7540,7 +7540,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
 
         # 선물 OHLC 데이타프레임 생성
-        if not overnight:        
+        if market_service and not overnight:        
             time_str = 선물_체결시간[0:2] + ':' + 선물_체결시간[2:4] + ':' + 선물_체결시간[4:6]
             chetime = nowDate + ' ' + time_str
 
@@ -7563,7 +7563,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        
+        '''
         # SP500 OHLC 데이타프레임 생성        
         time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
         chetime = nowDate + ' ' + time_str
@@ -7648,7 +7648,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 15 Minute resample
         #df_wti_ohlc_15min = df.resample('15T').ohlc()
 
-        '''
+        
         # EUROFX OHLC 데이타프레임 생성        
         time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
         chetime = nowDate + ' ' + time_str
