@@ -2054,6 +2054,7 @@ GOLD_잔량비 = 0
 # 선물 OHLC 연산
 fut_tick_list = []
 fut_value_list = []
+df_fut_ohlc = pd.DataFrame()
 df_fut_ohlc_1min = pd.DataFrame()
 df_fut_ohlc_5min = pd.DataFrame()
 df_fut_ohlc_15min = pd.DataFrame()
@@ -2061,6 +2062,7 @@ df_fut_ohlc_15min = pd.DataFrame()
 # SP500 OHLC 연산
 sp500_tick_list = []
 sp500_value_list = []
+df_sp500_ohlc = pd.DataFrame()
 df_sp500_ohlc_1min = pd.DataFrame()
 df_sp500_ohlc_5min = pd.DataFrame()
 df_sp500_ohlc_15min = pd.DataFrame()
@@ -2068,6 +2070,7 @@ df_sp500_ohlc_15min = pd.DataFrame()
 # DOW OHLC 연산
 dow_tick_list = []
 dow_value_list = []
+df_dow_ohlc = pd.DataFrame()
 df_dow_ohlc_1min = pd.DataFrame()
 df_dow_ohlc_5min = pd.DataFrame()
 df_dow_ohlc_15min = pd.DataFrame()
@@ -2075,6 +2078,7 @@ df_dow_ohlc_15min = pd.DataFrame()
 # NASDAQ OHLC 연산
 nasdaq_tick_list = []
 nasdaq_value_list = []
+df_nasdaq_ohlc = pd.DataFrame()
 df_nasdaq_ohlc_1min = pd.DataFrame()
 df_nasdaq_ohlc_5min = pd.DataFrame()
 df_nasdaq_ohlc_15min = pd.DataFrame()
@@ -2082,6 +2086,7 @@ df_nasdaq_ohlc_15min = pd.DataFrame()
 # WTI OHLC 연산
 wti_tick_list = []
 wti_value_list = []
+df_wti_ohlc = pd.DataFrame()
 df_wti_ohlc_1min = pd.DataFrame()
 df_wti_ohlc_5min = pd.DataFrame()
 df_wti_ohlc_15min = pd.DataFrame()
@@ -2089,6 +2094,7 @@ df_wti_ohlc_15min = pd.DataFrame()
 # EUROFX OHLC 연산
 eurofx_tick_list = []
 eurofx_value_list = []
+df_eurofx_ohlc = pd.DataFrame()
 df_eurofx_ohlc_1min = pd.DataFrame()
 df_eurofx_ohlc_5min = pd.DataFrame()
 df_eurofx_ohlc_15min = pd.DataFrame()
@@ -2096,6 +2102,7 @@ df_eurofx_ohlc_15min = pd.DataFrame()
 # HANGSENG OHLC 연산
 hangseng_tick_list = []
 hangseng_value_list = []
+df_hangseng_ohlc = pd.DataFrame()
 df_hangseng_ohlc_1min = pd.DataFrame()
 df_hangseng_ohlc_5min = pd.DataFrame()
 df_hangseng_ohlc_15min = pd.DataFrame()
@@ -2103,6 +2110,7 @@ df_hangseng_ohlc_15min = pd.DataFrame()
 # GOLD OHLC 연산
 gold_tick_list = []
 gold_value_list = []
+df_gold_ohlc = pd.DataFrame()
 df_gold_ohlc_1min = pd.DataFrame()
 df_gold_ohlc_5min = pd.DataFrame()
 df_gold_ohlc_15min = pd.DataFrame()
@@ -7529,18 +7537,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 처리시간 해법필요
     def OHLC_Gen(self):
 
-        global fut_tick_list, fut_value_list, df_fut_ohlc_1min, df_fut_ohlc_5min, df_fut_ohlc_15min        
-        global sp500_tick_list, sp500_value_list, df_sp500_ohlc_1min, df_sp500_ohlc_5min, df_sp500_ohlc_15min
-        global dow_tick_list, dow_value_list, df_dow_ohlc_1min, df_dow_ohlc_5min, df_dow_ohlc_15min
-        global nasdaq_tick_list, nasdaq_value_list, df_nasdaq_ohlc_1min, df_nasdaq_ohlc_5min, df_nasdaq_ohlc_15min
-        global wti_tick_list, wti_value_list, df_wti_ohlc_1min, df_wti_ohlc_5min, df_wti_ohlc_15min
-        global eurofx_tick_list, eurofx_value_list, df_eurofx_ohlc_1min, df_eurofx_ohlc_5min, df_eurofx_ohlc_15min
-        global hangseng_tick_list, hangseng_value_list, df_hangseng_ohlc_1min, df_hangseng_ohlc_5min, df_hangseng_ohlc_15min
-        global gold_tick_list, gold_value_list, df_gold_ohlc_1min, df_gold_ohlc_5min, df_gold_ohlc_15min
+        global fut_tick_list, fut_value_list, df_fut_ohlc, df_fut_ohlc_1min, df_fut_ohlc_5min, df_fut_ohlc_15min        
+        global sp500_tick_list, sp500_value_list, df_sp500_ohlc, df_sp500_ohlc_1min, df_sp500_ohlc_5min, df_sp500_ohlc_15min
+        global dow_tick_list, dow_value_list, df_dow_ohlc, df_dow_ohlc_1min, df_dow_ohlc_5min, df_dow_ohlc_15min
+        global nasdaq_tick_list, nasdaq_value_list, df_nasdaq_ohlc, df_nasdaq_ohlc_1min, df_nasdaq_ohlc_5min, df_nasdaq_ohlc_15min
+        global wti_tick_list, wti_value_list, df_wti_ohlc, df_wti_ohlc_1min, df_wti_ohlc_5min, df_wti_ohlc_15min
+        global eurofx_tick_list, eurofx_value_list, df_eurofx_ohlc, df_eurofx_ohlc_1min, df_eurofx_ohlc_5min, df_eurofx_ohlc_15min
+        global hangseng_tick_list, hangseng_value_list, df_hangseng_ohlc, df_hangseng_ohlc_1min, df_hangseng_ohlc_5min, df_hangseng_ohlc_15min
+        global gold_tick_list, gold_value_list, df_gold_ohlc, df_gold_ohlc_1min, df_gold_ohlc_5min, df_gold_ohlc_15min
 
+        start_time = timeit.default_timer()            
+        dt = datetime.datetime.now()
 
         # 선물 OHLC 데이타프레임 생성
-        if market_service and not overnight:        
+        if market_service and not overnight:
+                  
             time_str = 선물_체결시간[0:2] + ':' + 선물_체결시간[2:4] + ':' + 선물_체결시간[4:6]
             chetime = nowDate + ' ' + time_str
 
@@ -7548,13 +7559,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             fut_value_list.append(선물_현재가)
 
             temp_dict = {"value": fut_value_list}
-            df = pd.DataFrame(temp_dict, index=fut_tick_list)
-
+            df_fut_ohlc = pd.DataFrame(temp_dict, index=fut_tick_list)
+            
             # Converting the index as DatetimeIndex
-            df.index = pd.to_datetime(df.index)
+            df_fut_ohlc.index = pd.to_datetime(df_fut_ohlc.index)
 
             # 1 Minute resample
-            df_fut_ohlc_1min = df.resample('1T').ohlc()
+            df_fut_ohlc_1min = df_fut_ohlc.resample('1T').ohlc()
             #print('\r선물 틱 데이타 {}\r 선물 OHLC {}\r'.format(df, df_fut_ohlc_1min))
             # 5 Minute resample
             #df_fut_ohlc_5min = df.resample('5T').ohlc()
@@ -7562,6 +7573,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             #df_fut_ohlc_15min = df.resample('15T').ohlc()
         else:
             pass
+
 
         '''
         # SP500 OHLC 데이타프레임 생성        
@@ -7711,6 +7723,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 15 Minute resample
         #df_gold_ohlc_15min = df.resample('15T').ohlc()
         '''
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] OHLC_Gen Update : {3:0.2f} ms...\r'.format(\
+                    dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
+        print(str)
 
     @pyqtSlot(dict)
     def update_screen(self, data):
@@ -19192,7 +19208,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
         global 선물_저가, 선물_현재가, 선물_대비, 선물_전일대비, 선물_등락율, 선물_고가, 선물_진폭
         global df_plotdata_fut_drate
-        global 선물_진폭비, 선물_체결시간 
+        global 선물_진폭비, 선물_체결시간
+        global fut_tick_list, fut_value_list, df_fut_ohlc 
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -19604,6 +19621,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
             else:
                 self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
+            '''
+            # OHLC 데이타프레임 생성
+            time_str = 선물_체결시간[0:2] + ':' + 선물_체결시간[2:4] + ':' + 선물_체결시간[4:6]
+            chetime = nowDate + ' ' + time_str
+
+            fut_tick_list.append(chetime)
+            fut_value_list.append(선물_현재가)
+
+            temp_dict = {"value": fut_value_list}
+            df_fut_ohlc = pd.DataFrame(temp_dict, index=fut_tick_list)
+            '''
         else:
             pass        
                 
@@ -22476,6 +22504,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global DOW_야간_시작가, WTI_야간_시작가
             global 장시작_양합
 
+            global dow_tick_list, dow_value_list, df_dow_ohlc
+
             start_time = timeit.default_timer()
 
             dt = datetime.datetime.now()
@@ -25070,6 +25100,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         if 2 <= ovc_x_idx <= overnight_timespan - 1:
                             df_plotdata_dow.iat[0, ovc_x_idx] = result['체결가격']
+                            '''
+                            # DOW OHLC 데이타프레임 생성        
+                            time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
+                            chetime = nowDate + ' ' + time_str
+
+                            dow_tick_list.append(chetime)
+                            dow_value_list.append(DOW_현재가)
+
+                            temp_dict = {"value": dow_value_list}
+                            df_dow_ohlc = pd.DataFrame(temp_dict, index=dow_tick_list)
+                            '''
                         else:
                             pass
                         
