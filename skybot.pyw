@@ -2117,6 +2117,26 @@ df_gold_ohlc_15min = pd.DataFrame()
 
 선물_체결시간 = ''
 
+선물_저가리스트 = []
+선물_현재가리스트 = []
+선물_고가리스트 = []
+
+DOW_저가리스트 = []
+DOW_현재가리스트 = []
+DOW_고가리스트 = []
+
+SP500_저가리스트 = []
+SP500_현재가리스트 = []
+SP500_고가리스트 = []
+
+NASDAQ_저가리스트 = []
+NASDAQ_현재가리스트 = []
+NASDAQ_고가리스트 = []
+
+WTI_저가리스트 = []
+WTI_현재가리스트 = []
+WTI_고가리스트 = []
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -5155,6 +5175,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(str)
         else:
             pass
+
+        # OHLC 연산목적
+        global 선물_저가리스트, 선물_고가리스트, DOW_저가리스트, DOW_고가리스트, SP500_저가리스트, SP500_고가리스트 
+        global NASDAQ_저가리스트, NASDAQ_고가리스트, WTI_저가리스트, WTI_고가리스트
+
+        선물_저가리스트.append(0)
+        선물_고가리스트.append(0)
+
+        DOW_저가리스트.append(0)
+        DOW_고가리스트.append(0)
+
+        SP500_저가리스트.append(0)
+        SP500_고가리스트.append(0)
+
+        NASDAQ_저가리스트.append(0)
+        NASDAQ_고가리스트.append(0)
+
+        WTI_저가리스트.append(0)
+        WTI_고가리스트.append(0)
 
         global 진성맥점
 
@@ -19209,7 +19248,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 선물_저가, 선물_현재가, 선물_대비, 선물_전일대비, 선물_등락율, 선물_고가, 선물_진폭
         global df_plotdata_fut_drate
         global 선물_진폭비, 선물_체결시간
-        global fut_tick_list, fut_value_list, df_fut_ohlc 
+        global fut_tick_list, fut_value_list, df_fut_ohlc
+        global 선물_저가리스트, 선물_현재가리스트, 선물_고가리스트 
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -19236,6 +19276,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         # Plot 데이타프레임 생성
         df_plotdata_fut.iat[0, x_idx] = 선물_현재가
+
+        # OHLC 연산목적
+        if int(선물_체결시간[4:6]) == 0 or int(OVC_체결시간[4:6]) == 0:
+
+            선물_저가리스트.append(선물_저가리스트[-1])
+            선물_고가리스트.append(선물_고가리스트[-1])
+
+            del 선물_현재가리스트[:]
+
+        else:
+            선물_현재가리스트.append(선물_현재가)
+            선물_저가리스트[-1] = min(선물_현재가리스트)
+            선물_고가리스트[-1] = max(선물_현재가리스트)
 
         #print('fut_first_arrive = {0}, first_refresh = {1}, market_service = {2}\r'.format(fut_first_arrive, first_refresh, market_service))
 
@@ -25944,6 +25997,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         str = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 저장했습니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
 
+        '''
         dow_ohlc_csv = "DOW OHLC 1Min{}{}".format(times, '.csv')
         df_dow_ohlc_1min.to_csv(dow_ohlc_csv, encoding='ms949')
 
@@ -25964,6 +26018,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 OHLC파일을 저장했습니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
+        '''
 
         '''
         if df_fut.empty:
