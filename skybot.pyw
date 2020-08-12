@@ -2137,6 +2137,28 @@ WTI_저가리스트 = []
 WTI_현재가리스트 = []
 WTI_고가리스트 = []
 
+선물_저가시리즈 = pd.Series()
+선물_현재가시리즈 = pd.Series()
+선물_고가시리즈 = pd.Series()
+
+DOW_저가시리즈 = pd.Series()
+DOW_현재가시리즈 = pd.Series()
+DOW_고가시리즈 = pd.Series()
+
+SP500_저가시리즈 = pd.Series()
+SP500_현재가시리즈 = pd.Series()
+SP500_고가시리즈 = pd.Series()
+
+NASDAQ_저가시리즈 = pd.Series()
+NASDAQ_현재가시리즈 = pd.Series()
+NASDAQ_고가시리즈 = pd.Series()
+
+WTI_저가시리즈 = pd.Series()
+WTI_현재가시리즈 = pd.Series()
+WTI_고가시리즈 = pd.Series()
+
+ovc_index_list = []
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -7798,7 +7820,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 옵션 등락율 scale factor 읽어들임
                 drate_scale_factor = float(self.tableWidget_fut.item(2, Futures_column.진폭.value).text())
 
-                # OHLC 데이타프레임 생성
+                # OHLC 데이타프레임 생성(처리시간 해법필요)
                 #self.OHLC_Gen()
                 
                 if not overnight:
@@ -19249,7 +19271,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_plotdata_fut_drate
         global 선물_진폭비, 선물_체결시간
         global fut_tick_list, fut_value_list, df_fut_ohlc
-        global 선물_저가리스트, 선물_현재가리스트, 선물_고가리스트 
+        global 선물_저가리스트, 선물_현재가리스트, 선물_고가리스트, 선물_저가시리즈, 선물_현재가시리즈, 선물_고가시리즈 
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -19276,21 +19298,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         # Plot 데이타프레임 생성
         df_plotdata_fut.iat[0, x_idx] = 선물_현재가
-
-        # OHLC 연산목적
-        if int(선물_체결시간[4:6]) == 0 or int(OVC_체결시간[4:6]) == 0:
-
-            if 선물_현재가리스트:
-                선물_저가리스트.append(선물_저가리스트[-1])
-                선물_고가리스트.append(선물_고가리스트[-1])
-
-                del 선물_현재가리스트[:]
-            else:
-                pass
-        else:
-            선물_현재가리스트.append(선물_현재가)
-            선물_저가리스트[-1] = min(선물_현재가리스트)
-            선물_고가리스트[-1] = max(선물_현재가리스트)
 
         #print('fut_first_arrive = {0}, first_refresh = {1}, market_service = {2}\r'.format(fut_first_arrive, first_refresh, market_service))
 
@@ -19878,9 +19885,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)              
         else:
-            pass
+            pass        
         
-        #self.tableWidget_fut.resizeColumnsToContents() 
+        # OHLC 연산목적
+        if int(OVC_체결시간[4:6]) == 0:
+
+            if 선물_현재가리스트:
+                선물_저가리스트.append(선물_저가리스트[-1])
+                선물_고가리스트.append(선물_고가리스트[-1])
+
+                del 선물_현재가리스트[:]
+            else:
+                pass
+        else:
+            선물_현재가리스트.append(선물_현재가)
+            선물_저가리스트[-1] = min(선물_현재가리스트)
+            선물_고가리스트[-1] = max(선물_현재가리스트)
+
+            if 선물_저가리스트[-1] == 0:
+                선물_저가리스트[-1] = max(선물_현재가리스트)
+            else:
+                pass
+        '''
+        선물_저가시리즈 = pd.Series(선물_저가리스트, index=ovc_index_list)
+        선물_고가시리즈 = pd.Series(선물_고가리스트, index=ovc_index_list)
+        '''
 
     def check_call_oloh(self):
 
@@ -22564,6 +22593,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global SP500_저가리스트, SP500_현재가리스트, SP500_고가리스트
             global NASDAQ_저가리스트, NASDAQ_현재가리스트, NASDAQ_고가리스트
             global WTI_저가리스트, WTI_현재가리스트, WTI_고가리스트
+
+            global DOW_저가시리즈, DOW_현재가시리즈, DOW_고가시리즈
+            global SP500_저가시리즈, SP500_현재가시리즈, SP500_고가시리즈
+            global NASDAQ_저가시리즈, NASDAQ_현재가시리즈, NASDAQ_고가시리즈
+            global WTI_저가시리즈, WTI_현재가시리즈, WTI_고가시리즈
+
+            global ovc_index_list
 
             start_time = timeit.default_timer()
 
@@ -25657,19 +25693,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
                 else:
-                    pass                    
+                    pass
                     
                 # OHLC 연산목적 저가, 고가 리스트 생성(기존방식은 실시간지연 발생함!!!)
-                if int(OVC_체결시간[4:6]) == 0:
 
+                # 시리즈 생성을위한 인덱스 리스트 작성
+                if not ovc_index_list:
+                    ovc_index_list.append(ovc_x_idx)
+                else:
+                    pass
+
+                if int(OVC_체결시간[4:6]) == 0:
+                    
                     if DOW_현재가리스트:
+                        
+                        ovc_index_list.append(ovc_x_idx)
                         DOW_저가리스트.append(DOW_저가리스트[-1])
                         DOW_고가리스트.append(DOW_고가리스트[-1])
 
                         del DOW_현재가리스트[:]
-
-                        print('DOW_저가리스트 =', OVC_체결시간, DOW_저가리스트)
-                        print('DOW_고가리스트 =', OVC_체결시간, DOW_고가리스트)
                     else:
                         pass
 
@@ -25678,9 +25720,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         SP500_고가리스트.append(SP500_고가리스트[-1])
 
                         del SP500_현재가리스트[:]
-
-                        print('SP500_저가리스트 =', OVC_체결시간, SP500_저가리스트)
-                        print('SP500_고가리스트 =', OVC_체결시간, SP500_고가리스트)
                     else:
                         pass
 
@@ -25689,9 +25728,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         NASDAQ_고가리스트.append(NASDAQ_고가리스트[-1])
 
                         del NASDAQ_현재가리스트[:]
-
-                        print('NASDAQ_저가리스트 =', OVC_체결시간, NASDAQ_저가리스트)
-                        print('NASDAQ_고가리스트 =', OVC_체결시간, NASDAQ_고가리스트)
                     else:
                         pass
 
@@ -25700,9 +25736,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         WTI_고가리스트.append(WTI_고가리스트[-1])
 
                         del WTI_현재가리스트[:]
-
-                        print('WTI_저가리스트 =', OVC_체결시간, WTI_저가리스트)
-                        print('WTI_고가리스트 =', OVC_체결시간, WTI_고가리스트)
                     else:
                         pass
                 else:
@@ -25745,6 +25778,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         WTI_저가리스트[-1] = max(WTI_현재가리스트)
                     else:
                         pass
+                
+                # 향후를 위해 시리즈로 만듬
+                '''
+                DOW_저가시리즈 = pd.Series(DOW_저가리스트, index=ovc_index_list)                
+                DOW_고가시리즈 = pd.Series(DOW_고가리스트, index=ovc_index_list)
+
+                SP500_저가시리즈 = pd.Series(SP500_저가리스트, index=ovc_index_list)
+                SP500_고가시리즈 = pd.Series(SP500_고가리스트, index=ovc_index_list)
+
+                NASDAQ_저가시리즈 = pd.Series(NASDAQ_저가리스트, index=ovc_index_list)
+                NASDAQ_고가시리즈 = pd.Series(NASDAQ_고가리스트, index=ovc_index_list)
+
+                WTI_저가시리즈 = pd.Series(WTI_저가리스트, index=ovc_index_list)
+                WTI_고가시리즈 = pd.Series(WTI_고가리스트, index=ovc_index_list)
+                #print('DOW_저가시리즈 =', DOW_저가시리즈)
+                '''
 
             elif szTrCode == 'OVH':
 
