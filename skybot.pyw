@@ -25789,19 +25789,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
                 
-                np_real_data = np.array(DOW_현재가리스트, dtype=float)
+                np_real_dow_data = np.array(DOW_현재가리스트, dtype=float)
 
                 # nan 삭제
-                np_real_data = np_real_data[~np.isnan(np_real_data)]
-                #print('DOW_현재가리스트', np_real_data)
+                np_real_dow_data = np_real_dow_data[~np.isnan(np_real_dow_data)]
 
-                mama, fama = talib.MAMA(np_real_data, 0.5, 0.05)
+                mama, fama = talib.MAMA(np_real_dow_data, 0.5, 0.05)
 
                 DOW_MAMA = mama.tolist()
                 DOW_FAMA = fama.tolist()
                 
-                print('DOW_MAMA', DOW_MAMA)
-                #print('DOW_FAMA', DOW_FAMA)                
+                print('DOW_MAMA, DOW_FAMA', DOW_MAMA, DOW_FAMA)
                 
                 # 향후를 위해 시리즈로 만듬
                 '''
