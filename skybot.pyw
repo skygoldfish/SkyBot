@@ -2164,14 +2164,29 @@ WTI_고가시리즈 = pd.Series()
 
 ovc_index_list = []
 
-DOW_MAMA = []
-DOW_FAMA = []
-SP500_MAMA = []
-SP500_FAMA = []
-NASDAQ_MAMA = []
-NASDAQ_FAMA = []
-WTI_MAMA = []
-WTI_FAMA = []
+선물_MAMA_리스트 = []
+선물_FAMA_리스트 = []
+
+DOW_MAMA_리스트 = []
+DOW_FAMA_리스트 = []
+SP500_MAMA_리스트 = []
+SP500_FAMA_리스트 = []
+NASDAQ_MAMA_리스트 = []
+NASDAQ_FAMA_리스트 = []
+WTI_MAMA_리스트 = []
+WTI_FAMA_리스트 = []
+
+선물_MAMA_시리즈 = pd.Series()
+선물_FAMA_시리즈 = pd.Series()
+
+DOW_MAMA_시리즈 = pd.Series()
+DOW_FAMA_시리즈 = pd.Series()
+SP500_MAMA_시리즈 = pd.Series()
+SP500_FAMA_시리즈 = pd.Series()
+NASDAQ_MAMA_시리즈 = pd.Series()
+NASDAQ_FAMA_시리즈 = pd.Series()
+WTI_MAMA_시리즈 = pd.Series()
+WTI_FAMA_시리즈 = pd.Series()
 
 ########################################################################################################################
 
@@ -19285,7 +19300,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global df_plotdata_fut_drate
         global 선물_진폭비, 선물_체결시간
         global fut_tick_list, fut_value_list, df_fut_ohlc
-        global 선물_저가리스트, 선물_현재가_버퍼, 선물_현재가리스트, 선물_고가리스트, 선물_저가시리즈, 선물_현재가시리즈, 선물_고가시리즈 
+        global 선물_저가리스트, 선물_현재가_버퍼, 선물_현재가리스트, 선물_고가리스트, 선물_저가시리즈, 선물_현재가시리즈, 선물_고가시리즈
+        global 선물_MAMA_리스트, 선물_FAMA_리스트, 선물_MAMA_시리즈, 선물_FAMA_시리즈
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -22614,7 +22630,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global NASDAQ_저가시리즈, NASDAQ_현재가시리즈, NASDAQ_고가시리즈
             global WTI_저가시리즈, WTI_현재가시리즈, WTI_고가시리즈
 
-            global DOW_MAMA, DOW_FAMA, SP500_MAMA, SP500_FAMA, NASDAQ_MAMA, NASDAQ_FAMA, WTI_MAMA, WTI_FAMA
+            global DOW_MAMA_리스트, DOW_FAMA_리스트, SP500_MAMA_리스트, SP500_FAMA_리스트, NASDAQ_MAMA_리스트, NASDAQ_FAMA_리스트, WTI_MAMA_리스트, WTI_FAMA_리스트
+            global DOW_MAMA_시리즈, DOW_FAMA_시리즈, SP500_MAMA_시리즈, SP500_FAMA_시리즈, NASDAQ_MAMA_시리즈, NASDAQ_FAMA_시리즈, WTI_MAMA_시리즈, WTI_FAMA_시리즈
 
             global ovc_index_list
 
@@ -25788,6 +25805,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         WTI_저가리스트[-1] = max(WTI_현재가_버퍼)
                     else:
                         pass
+
+                DOW_현재가시리즈 = pd.Series(DOW_현재가리스트, index=ovc_index_list) 
                 
                 np_real_dow_data = np.array(DOW_현재가리스트, dtype=float)
 
@@ -25796,10 +25815,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 mama, fama = talib.MAMA(np_real_dow_data, 0.5, 0.05)
 
-                DOW_MAMA = mama.tolist()
-                DOW_FAMA = fama.tolist()
+                DOW_MAMA_리스트 = mama.tolist()
+                DOW_FAMA_리스트 = fama.tolist()
                 
-                print('DOW_MAMA, DOW_FAMA', DOW_MAMA, DOW_FAMA)
+                print('DOW_MAMA_리스트', DOW_MAMA_리스트)
+                print('DOW_FAMA_리스트', DOW_FAMA_리스트)
+
+                DOW_MAMA_시리즈 = pd.Series(DOW_MAMA_리스트, index=ovc_index_list)
+                DOW_FAMA_시리즈 = pd.Series(DOW_FAMA_리스트, index=ovc_index_list)
                 
                 # 향후를 위해 시리즈로 만듬
                 '''
