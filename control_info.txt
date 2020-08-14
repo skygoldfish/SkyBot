@@ -1,7 +1,7 @@
 [1]. << Month Info >> 
 KSE Start Hour = 9
-Current Month = 202008
-First Day of the Current Month = 20200710
+Current Month = 202009
+First Day of the Current Month = 20200814
 
 [2]. << Target Month Select : current month = 1, next month = 2 >>
 Target Month Select = 1
