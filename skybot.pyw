@@ -19481,6 +19481,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global fut_tick_list, fut_value_list, df_fut_ohlc
         global 선물_저가리스트, 선물_현재가_버퍼, 선물_현재가리스트, 선물_고가리스트, 선물_저가시리즈, 선물_현재가시리즈, 선물_고가시리즈
         global 선물_MAMA_리스트, 선물_FAMA_리스트, 선물_MAMA_시리즈, 선물_FAMA_시리즈
+        global flag_futures_open
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -20124,6 +20125,58 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         선물_저가시리즈 = pd.Series(선물_저가리스트, index=ovc_index_list)
         선물_고가시리즈 = pd.Series(선물_고가리스트, index=ovc_index_list)
         '''
+
+        # 1T OHLC 생성
+        if int(OVC_체결시간[4:6]) == 0:
+            
+            if not flag_futures_open:
+                
+                df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
+                
+                del 선물_현재가_버퍼[:]
+                
+                flag_futures_open = True
+            else:
+                선물_현재가_버퍼.append(선물_현재가)
+        else:
+            선물_현재가_버퍼.append(선물_현재가)
+
+            df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
+
+            if min(선물_현재가_버퍼) == 0:
+                df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
+            else:
+                df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
+
+            df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
+
+            flag_futures_open = False
+
+        # Bollinger Bands
+        upper, middle, lower = talib.BBANDS(np.array(df_futures_graph['close']), timeperiod=20, nbdevup=2, nbdevdn=2, matype=0)
+
+        df_futures_graph['BBAND_Upper'] = upper
+        df_futures_graph['BBAND_Middle'] = middle
+        df_futures_graph['BBAND_Low'] = lower
+
+        # MACD 
+        macd, macdsignal, macdhist = talib.MACD(np.array(df_futures_graph['close']), fastperiod=12, slowperiod=26, signalperiod=9)
+
+        df_futures_graph['MACD'] = macd
+        df_futures_graph['MACD_SIG'] = macdsignal
+        df_futures_graph['MACD_HIST'] = macdhist
+
+        # Parabolic SAR
+        parabolic_sar = talib.SAR(np.array(df_futures_graph['high']), np.array(df_futures_graph['low']), acceleration=0.02, maximum=0.2)
+
+        df_futures_graph['P_SAR'] = parabolic_sar
+
+        # MAMA
+        mama, fama = talib.MAMA(np.array(df_futures_graph['close']), fastlimit=0.5, slowlimit=0.05)
+
+        df_futures_graph['MAMA'] = mama
+        df_futures_graph['FAMA'] = fama
+
 
     def check_call_oloh(self):
 
@@ -25990,7 +26043,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_dow_graph.at[ovc_x_idx, 'open'] = DOW_현재가
                         
                         del DOW_현재가_버퍼[:]
-                        
+
                         flag_dow_open = True
                     else:
                         DOW_현재가_버퍼.append(DOW_현재가)
@@ -26008,7 +26061,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     flag_dow_open = False
 
-                # Bolinger Bands
+                # Bollinger Bands
                 upper, middle, lower = talib.BBANDS(np.array(df_dow_graph['close']), timeperiod=20, nbdevup=2, nbdevdn=2, matype=0)
 
                 df_dow_graph['BBAND_Upper'] = upper
@@ -26412,6 +26465,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         str = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 저장했습니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
+
+        futures_graph_csv = "Futures Graph Data {}{}".format(times, '.csv')
+        df_futures_graph.to_csv(futures_graph_csv, encoding='ms949')
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] 국내선물 Graph 파일을 저장했습니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(str)  
 
         dow_graph_csv = "DOW Graph Data {}{}".format(times, '.csv')
         df_dow_graph.to_csv(dow_graph_csv, encoding='ms949')
