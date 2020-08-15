@@ -918,10 +918,10 @@ month_after_next = int(MONTH_AFTER_NEXT[4:6])
 
 if 4 < int(current_str[0:2]) < 야간선물_기준시간:
     NightTime = False
-    선물장간_시간차 = 60
+    GuardTime = 60
 else:
     NightTime = True
-    선물장간_시간차 = 60 * (18 - 야간선물_기준시간)
+    GuardTime = 60 * (18 - 야간선물_기준시간)
 
 server_date = ''
 server_time = ''
@@ -936,10 +936,10 @@ OVC_START_HOUR = KSE_START_HOUR - 1
 시스템_서버_시간차 = 0
 
 day_timespan = 6 * 60 + 35 + 10
-nighttime_timespan = 11 * 60 + 선물장간_시간차 + 10
+nighttime_timespan = 11 * 60 + GuardTime + 10
 
-jugan_timespan = 선물장간_시간차 + day_timespan
-yagan_timespan = 선물장간_시간차 + nighttime_timespan
+jugan_timespan = GuardTime + day_timespan
+yagan_timespan = GuardTime + nighttime_timespan
 
 flag_offline = False
 
@@ -5059,35 +5059,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if NightTime:
 
                 # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
-                plot1_time_line_start.setValue(선물장간_시간차 + 1)
-                plot2_time_line_start.setValue(선물장간_시간차 + 1)
-                plot1_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-                plot2_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+                plot1_time_line_start.setValue(GuardTime + 1)
+                plot2_time_line_start.setValue(GuardTime + 1)
+                plot1_time_line_yagan_start.setValue(GuardTime + 4 * GuardTime + 30)
+                plot2_time_line_yagan_start.setValue(GuardTime + 4 * GuardTime + 30)
 
-                plot3_time_line_start.setValue(선물장간_시간차 + 1)
-                plot4_time_line_start.setValue(선물장간_시간차 + 1)
-                plot3_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-                plot4_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+                plot3_time_line_start.setValue(GuardTime + 1)
+                plot4_time_line_start.setValue(GuardTime + 1)
+                plot3_time_line_yagan_start.setValue(GuardTime + 4 * GuardTime + 30)
+                plot4_time_line_yagan_start.setValue(GuardTime + 4 * GuardTime + 30)
             else:
                 # 시작시간 X축 표시(index 60은 시가)
-                plot1_time_line_start.setValue(선물장간_시간차)
-                plot2_time_line_start.setValue(선물장간_시간차)
+                plot1_time_line_start.setValue(GuardTime)
+                plot2_time_line_start.setValue(GuardTime)
 
-                plot3_time_line_start.setValue(선물장간_시간차)
-                plot4_time_line_start.setValue(선물장간_시간차)
+                plot3_time_line_start.setValue(GuardTime)
+                plot4_time_line_start.setValue(GuardTime)
 
         else:
             if NightTime:
 
                 # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
-                plot1_time_line_start.setValue(선물장간_시간차 + 1)
-                plot2_time_line_start.setValue(선물장간_시간차 + 1)
-                plot1_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-                plot2_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+                plot1_time_line_start.setValue(GuardTime + 1)
+                plot2_time_line_start.setValue(GuardTime + 1)
+                plot1_time_line_yagan_start.setValue(GuardTime + 4 * GuardTime + 30)
+                plot2_time_line_yagan_start.setValue(GuardTime + 4 * GuardTime + 30)
             else:
                 # 시작시간 X축 표시(index 60은 시가)
-                plot1_time_line_start.setValue(선물장간_시간차)
-                plot2_time_line_start.setValue(선물장간_시간차)
+                plot1_time_line_start.setValue(GuardTime)
+                plot2_time_line_start.setValue(GuardTime)
 
         self.alternate_flag = True
 
@@ -7628,7 +7628,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 timespan = day_timespan
                
-            if 선물장간_시간차 < mousePoint.x() < timespan:
+            if GuardTime < mousePoint.x() < timespan:
                 FLAG_ATM = False
             else:
                 FLAG_ATM = True
@@ -7653,7 +7653,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 timespan = day_timespan
 
-            if 선물장간_시간차 < mousePoint.x() < timespan:
+            if GuardTime < mousePoint.x() < timespan:
                 FLAG_ATM = False
             else:
                 FLAG_ATM = True
@@ -8404,7 +8404,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if market_service:                                      
                     
                     # 시작과 동시에 컬러링 갱신
-                    if opt_x_idx > 선물장간_시간차:
+                    if opt_x_idx > GuardTime:
 
                         # 선물, 콜, 풋 현재가 클리어
                         #self.cv_color_clear()
@@ -14417,18 +14417,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_plotdata_fut_drate[0][0] = call_atm_value + put_atm_value
                 df_plotdata_dow_drate[0][0] = call_atm_value - put_atm_value
 
-                df_plotdata_fut_drate[0][선물장간_시간차] = call_atm_value + put_atm_value
-                df_plotdata_dow_drate[0][선물장간_시간차] = call_atm_value - put_atm_value
+                df_plotdata_fut_drate[0][GuardTime] = call_atm_value + put_atm_value
+                df_plotdata_dow_drate[0][GuardTime] = call_atm_value - put_atm_value
                 '''
                 #df_plotdata_fut_drate[0][0] = 0
                 df_futures_graph.at[0, 'drate'] = 0
                 df_plotdata_dow_drate[0][0] = 0
                 df_dow_graph.at[0, 'drate'] = 0
 
-                #df_plotdata_fut_drate[0][선물장간_시간차] = 0
-                df_futures_graph.at[선물장간_시간차, 'drate'] = 0
-                df_plotdata_dow_drate[0][선물장간_시간차] = 0
-                df_dow_graph.at[선물장간_시간차, 'drate'] = 0
+                #df_plotdata_fut_drate[0][GuardTime] = 0
+                df_futures_graph.at[GuardTime, 'drate'] = 0
+                df_plotdata_dow_drate[0][GuardTime] = 0
+                df_dow_graph.at[GuardTime, 'drate'] = 0
 
                 df_plotdata_call_drate[0][0] = 0
                 df_plotdata_put_drate[0][0] = 0
@@ -14436,11 +14436,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_call_info_graph.at[0, 'drate'] = 0
                 df_put_info_graph.at[0, 'drate'] = 0
 
-                df_plotdata_call_drate[0][선물장간_시간차] = 0
-                df_plotdata_put_drate[0][선물장간_시간차] = 0
+                df_plotdata_call_drate[0][GuardTime] = 0
+                df_plotdata_put_drate[0][GuardTime] = 0
 
-                df_call_info_graph.at[선물장간_시간차, 'drate'] = 0
-                df_put_info_graph.at[선물장간_시간차, 'drate'] = 0
+                df_call_info_graph.at[GuardTime, 'drate'] = 0
+                df_put_info_graph.at[GuardTime, 'drate'] = 0
 
                 item_str = '{0:0.1f}%\n{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
@@ -14483,16 +14483,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_futures_graph.at[0, 'price'] = fut_realdata['종가']
 
                 if fut_realdata['시가'] > 0:
-                    #df_plotdata_fut.iat[0, 선물장간_시간차] = fut_realdata['시가']
-                    df_futures_graph.at[선물장간_시간차, 'price'] = fut_realdata['시가']
+                    #df_plotdata_fut.iat[0, GuardTime] = fut_realdata['시가']
+                    df_futures_graph.at[GuardTime, 'price'] = fut_realdata['시가']
                 else:
                     pass
 
                 #df_plotdata_fut_volume.iat[0, 0] = 0
-                #df_plotdata_fut_volume.iat[0, 선물장간_시간차] = 0
+                #df_plotdata_fut_volume.iat[0, GuardTime] = 0
 
                 df_futures_graph.at[0, 'volume'] = 0
-                df_futures_graph.at[선물장간_시간차, 'volume'] = 0
+                df_futures_graph.at[GuardTime, 'volume'] = 0
 
             else:
                 pass
@@ -14946,8 +14946,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         if not NightTime:
-                            #df_plotdata_call.iat[i, 선물장간_시간차] = 시가
-                            df_call_price_graph.iat[선물장간_시간차, i] = 시가
+                            #df_plotdata_call.iat[i, GuardTime] = 시가
+                            df_call_price_graph.iat[GuardTime, i] = 시가
                         else:
                             pass
 
@@ -15241,8 +15241,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         if not NightTime:
-                            #df_plotdata_put.iat[i, 선물장간_시간차] = 시가
-                            df_put_price_graph.iat[선물장간_시간차, i] = 시가
+                            #df_plotdata_put.iat[i, GuardTime] = 시가
+                            df_put_price_graph.iat[GuardTime, i] = 시가
                         else:
                             pass
 
@@ -15485,12 +15485,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_call_info_graph.at[0, 'volume'] = 0
                 df_put_info_graph.at[0, 'volume'] = 0
 
-                df_plotdata_call_volume.iat[0, 선물장간_시간차] = 0                
-                df_plotdata_put_volume.iat[0, 선물장간_시간차] = 0
-                df_plotdata_volume_cha.iat[0, 선물장간_시간차] = 0
+                df_plotdata_call_volume.iat[0, GuardTime] = 0                
+                df_plotdata_put_volume.iat[0, GuardTime] = 0
+                df_plotdata_volume_cha.iat[0, GuardTime] = 0
 
-                df_call_info_graph.at[선물장간_시간차, 'volume'] = 0
-                df_put_info_graph.at[선물장간_시간차, 'volume'] = 0
+                df_call_info_graph.at[GuardTime, 'volume'] = 0
+                df_put_info_graph.at[GuardTime, 'volume'] = 0
                 
                 df_plotdata_call_hoga_rr.iat[0, 0] = 0
                 df_plotdata_put_hoga_rr.iat[0, 0] = 0
@@ -15498,11 +15498,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_call_info_graph.at[0, 'hoga'] = 0
                 df_put_info_graph.at[0, 'hoga'] = 0
 
-                df_plotdata_call_hoga_rr.iat[0, 선물장간_시간차] = 0 
-                df_plotdata_put_hoga_rr.iat[0, 선물장간_시간차] = 0
+                df_plotdata_call_hoga_rr.iat[0, GuardTime] = 0 
+                df_plotdata_put_hoga_rr.iat[0, GuardTime] = 0
 
-                df_call_info_graph.at[선물장간_시간차, 'hoga'] = 0
-                df_put_info_graph.at[선물장간_시간차, 'hoga'] = 0
+                df_call_info_graph.at[GuardTime, 'hoga'] = 0
+                df_put_info_graph.at[GuardTime, 'hoga'] = 0
 
                 # 해외선물 호가 초기화
                 df_plotdata_sp500_hoga_rr.iat[0, 0] = 0
@@ -16229,14 +16229,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 #df_plotdata_fut_volume.iat[0, 0] = 0
-                #df_plotdata_fut_volume.iat[0, 선물장간_시간차] = 0
+                #df_plotdata_fut_volume.iat[0, GuardTime] = 0
 
                 df_futures_graph.at[0, 'volume'] = 0
-                df_futures_graph.at[선물장간_시간차, 'volume'] = 0
+                df_futures_graph.at[GuardTime, 'volume'] = 0
 
                 if df['시가'] > 0:
-                    #df_plotdata_fut.iat[0, 선물장간_시간차] = df['시가']
-                    df_futures_graph.at[선물장간_시간차, 'price'] = df['시가']
+                    #df_plotdata_fut.iat[0, GuardTime] = df['시가']
+                    df_futures_graph.at[GuardTime, 'price'] = df['시가']
                 else:
                     pass
 
@@ -16401,16 +16401,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_futures_graph.at[0, 'price'] = cme_realdata['종가']
 
                 if cme_realdata['시가'] > 0:
-                    #df_plotdata_fut.iat[0, 선물장간_시간차] = cme_realdata['시가']
-                    df_futures_graph.at[선물장간_시간차, 'price'] = cme_realdata['시가']
+                    #df_plotdata_fut.iat[0, GuardTime] = cme_realdata['시가']
+                    df_futures_graph.at[GuardTime, 'price'] = cme_realdata['시가']
                 else:
                     pass
 
                 #df_plotdata_fut_volume.iat[0, 0] = 0
-                #df_plotdata_fut_volume.iat[0, 선물장간_시간차] = 0
+                #df_plotdata_fut_volume.iat[0, GuardTime] = 0
 
                 df_futures_graph.at[0, 'volume'] = 0
-                df_futures_graph.at[선물장간_시간차, 'volume'] = 0
+                df_futures_graph.at[GuardTime, 'volume'] = 0
             else:
                 pass
 
@@ -16740,8 +16740,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        #df_plotdata_call.iat[i, 선물장간_시간차] = 시가
-                        df_call_price_graph.iat[선물장간_시간차, i] = 시가
+                        #df_plotdata_call.iat[i, GuardTime] = 시가
+                        df_call_price_graph.iat[GuardTime, i] = 시가
 
                         시가갭 = 시가 - 종가
                         df_call.at[i, '시가갭'] = 시가갭
@@ -16849,10 +16849,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.setItem(i, Option_column.OID.value, item)
 
                     df_plotdata_call_volume.iat[0, 0] = 0
-                    df_plotdata_call_volume.iat[0, 선물장간_시간차] = 0
+                    df_plotdata_call_volume.iat[0, GuardTime] = 0
 
                     df_call_info_graph.at[0, 'volume'] = 0
-                    df_call_info_graph.at[선물장간_시간차, 'volume'] = 0
+                    df_call_info_graph.at[GuardTime, 'volume'] = 0
 
                     # Put 처리
                     df_put.at[i, '시가갭'] = 0
@@ -17007,8 +17007,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        #df_plotdata_put.iat[i, 선물장간_시간차] = 시가
-                        df_put_price_graph.iat[선물장간_시간차, i] = 시가
+                        #df_plotdata_put.iat[i, GuardTime] = 시가
+                        df_put_price_graph.iat[GuardTime, i] = 시가
 
                         시가갭 = 시가 - 종가
                         df_put.at[i, '시가갭'] = 시가갭
@@ -17120,10 +17120,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_put_info_graph.at[0, 'volume'] = 0
 
-                    df_plotdata_put_volume.iat[0, 선물장간_시간차] = 0
-                    df_plotdata_volume_cha.iat[0, 선물장간_시간차] = 0
+                    df_plotdata_put_volume.iat[0, GuardTime] = 0
+                    df_plotdata_volume_cha.iat[0, GuardTime] = 0
 
-                    df_put_info_graph.at[선물장간_시간차, 'volume'] = 0
+                    df_put_info_graph.at[GuardTime, 'volume'] = 0
                 
                 print('\r')
                 print('t2835 야간 전광판 콜 데이타 = ', df_call)
@@ -19604,8 +19604,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 시가 != fut_open:
 
-            #df_plotdata_fut.iat[0, 선물장간_시간차] = 선물_시가
-            df_futures_graph.at[선물장간_시간차, 'price'] = 선물_시가
+            #df_plotdata_fut.iat[0, GuardTime] = 선물_시가
+            df_futures_graph.at[GuardTime, 'price'] = 선물_시가
 
             선물_피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
 
@@ -20437,8 +20437,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
             df_call.at[index, '시가'] = 콜시가
-            #df_plotdata_call.iat[index, 선물장간_시간차] = 콜시가
-            df_call_price_graph.iat[선물장간_시간차, index] = 콜시가
+            #df_plotdata_call.iat[index, GuardTime] = 콜시가
+            df_call_price_graph.iat[GuardTime, index] = 콜시가
             
             item = QTableWidgetItem(시가)
             item.setTextAlignment(Qt.AlignCenter)
@@ -21587,8 +21587,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
             
             df_put.at[index, '시가'] = 풋시가
-            #df_plotdata_put.iat[index, 선물장간_시간차] = 풋시가
-            df_put_price_graph.iat[선물장간_시간차, index] = 풋시가
+            #df_plotdata_put.iat[index, GuardTime] = 풋시가
+            df_put_price_graph.iat[GuardTime, index] = 풋시가
             
             item = QTableWidgetItem(시가)
             item.setTextAlignment(Qt.AlignCenter)
@@ -23411,8 +23411,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if result['예상체결가격'] != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
-                            #df_plotdata_call.iat[index, 선물장간_시간차] = float(result['예상체결가격'])
-                            df_call_price_graph.iat[선물장간_시간차, index] = float(result['예상체결가격'])
+                            #df_plotdata_call.iat[index, GuardTime] = float(result['예상체결가격'])
+                            df_call_price_graph.iat[GuardTime, index] = float(result['예상체결가격'])
                             df_call.at[index, '시가'] = float(result['예상체결가격'])
 
                             전저 = df_call.at[index, '전저']
@@ -23529,8 +23529,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if result['예상체결가격'] != self.tableWidget_put.item(index, Option_column.시가.value).text():
 
-                            #df_plotdata_put.iat[index, 선물장간_시간차] = float(result['예상체결가격'])
-                            df_put_price_graph.iat[선물장간_시간차, index] = float(result['예상체결가격'])
+                            #df_plotdata_put.iat[index, GuardTime] = float(result['예상체결가격'])
+                            df_put_price_graph.iat[GuardTime, index] = float(result['예상체결가격'])
                             df_put.at[index, '시가'] = float(result['예상체결가격'])
 
                             전저 = df_put.at[index, '전저']
@@ -23914,8 +23914,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         kp200_시가 = float(result['시가지수'])
                         kp200_realdata['시가'] = float(result['시가지수'])
-                        #df_plotdata_kp200.iat[0, 선물장간_시간차] = float(result['시가지수'])
-                        df_futures_graph.at[선물장간_시간차, 'kp200'] = float(result['시가지수'])
+                        #df_plotdata_kp200.iat[0, GuardTime] = float(result['시가지수'])
+                        df_futures_graph.at[GuardTime, 'kp200'] = float(result['시가지수'])
 
                         item = QTableWidgetItem(result['시가지수'])
                         item.setTextAlignment(Qt.AlignCenter)
@@ -24598,15 +24598,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        x_idx = 선물장간_시간차 + (nighttime - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
+                        x_idx = GuardTime + (nighttime - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
                     else:
-                        x_idx = 선물장간_시간차 + 1
+                        x_idx = GuardTime + 1
                 else:
 
                     if result['체결시간'] != '':
-                        x_idx = 선물장간_시간차 + (int(result['체결시간'][0:2]) - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
+                        x_idx = GuardTime + (int(result['체결시간'][0:2]) - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
                     else:
-                        x_idx = 선물장간_시간차 + 1
+                        x_idx = GuardTime + 1
 
                 self.futures_display(result)
 
@@ -24684,15 +24684,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        opt_x_idx = 선물장간_시간차 + (nighttime - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
+                        opt_x_idx = GuardTime + (nighttime - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
                     else:
-                        opt_x_idx = 선물장간_시간차 + 1
+                        opt_x_idx = GuardTime + 1
                 else:
 
                     if result['체결시간'] != '':
-                        opt_x_idx = 선물장간_시간차 + (int(result['체결시간'][0:2]) - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
+                        opt_x_idx = GuardTime + (int(result['체결시간'][0:2]) - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
                     else:
-                        opt_x_idx = 선물장간_시간차 + 1
+                        opt_x_idx = GuardTime + 1
 
                 '''
                 str = '[{0:02d}:{1:02d}:{2:02d}] opt_x_idx = {3} \r'.format(
@@ -27201,13 +27201,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_time_line.setValue(yagan_timespan - 1)
 
             # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
-            bc_plot1_time_line_start.setValue(선물장간_시간차 + 1)
-            bc_plot2_time_line_start.setValue(선물장간_시간차 + 1)
-            bc_plot3_time_line_start.setValue(선물장간_시간차 + 1)
+            bc_plot1_time_line_start.setValue(GuardTime + 1)
+            bc_plot2_time_line_start.setValue(GuardTime + 1)
+            bc_plot3_time_line_start.setValue(GuardTime + 1)
 
-            bc_plot1_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-            bc_plot2_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
-            bc_plot3_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
+            bc_plot1_time_line_yagan_start.setValue(GuardTime + 4 * GuardTime + 30)
+            bc_plot2_time_line_yagan_start.setValue(GuardTime + 4 * GuardTime + 30)
+            bc_plot3_time_line_yagan_start.setValue(GuardTime + 4 * GuardTime + 30)
         else:
             self.bc_Plot1.setRange(xRange=[0, jugan_timespan], padding=0)
             bc_plot1_time_line.setValue(jugan_timespan - 1)
@@ -27219,9 +27219,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_time_line.setValue(jugan_timespan - 1)
 
             # 시작시간 X축 표시(index 60은 시가)
-            bc_plot1_time_line_start.setValue(선물장간_시간차)
-            bc_plot2_time_line_start.setValue(선물장간_시간차)
-            bc_plot3_time_line_start.setValue(선물장간_시간차)
+            bc_plot1_time_line_start.setValue(GuardTime)
+            bc_plot2_time_line_start.setValue(GuardTime)
+            bc_plot3_time_line_start.setValue(GuardTime)
 
         # 쓰레드 시작...
         self.bigchart_update_worker.start()
