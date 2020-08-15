@@ -2163,6 +2163,7 @@ WTI_현재가_버퍼 = []
 WTI_현재가리스트 = []
 WTI_고가리스트 = []
 
+'''
 선물_저가시리즈 = pd.Series()
 선물_현재가시리즈 = pd.Series()
 선물_고가시리즈 = pd.Series()
@@ -2208,6 +2209,7 @@ NASDAQ_MAMA_시리즈 = pd.Series()
 NASDAQ_FAMA_시리즈 = pd.Series()
 WTI_MAMA_시리즈 = pd.Series()
 WTI_FAMA_시리즈 = pd.Series()
+'''
 
 flag_futures_ohlc_open = False
 flag_dow_ohlc_open = False
@@ -19479,8 +19481,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #global df_plotdata_fut_drate
         global 선물_진폭비, 선물_체결시간
         global fut_tick_list, fut_value_list, df_fut_ohlc
-        global 선물_저가리스트, 선물_현재가_버퍼, 선물_현재가리스트, 선물_고가리스트, 선물_저가시리즈, 선물_현재가시리즈, 선물_고가시리즈
-        global 선물_MAMA_리스트, 선물_FAMA_리스트, 선물_MAMA_시리즈, 선물_FAMA_시리즈
+        global 선물_저가리스트, 선물_현재가_버퍼, 선물_현재가리스트, 선물_고가리스트
         global flag_futures_ohlc_open
 
         dt = datetime.datetime.now()
@@ -22876,7 +22877,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global SP500_저가리스트, SP500_현재가_버퍼, SP500_현재가리스트, SP500_고가리스트
             global NASDAQ_저가리스트, NASDAQ_현재가_버퍼, NASDAQ_현재가리스트, NASDAQ_고가리스트
             global WTI_저가리스트, WTI_현재가_버퍼, WTI_현재가리스트, WTI_고가리스트
-
+            '''
             global DOW_저가시리즈, DOW_현재가시리즈, DOW_고가시리즈
             global SP500_저가시리즈, SP500_현재가시리즈, SP500_고가시리즈
             global NASDAQ_저가시리즈, NASDAQ_현재가시리즈, NASDAQ_고가시리즈
@@ -22886,7 +22887,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global DOW_MAMA_시리즈, DOW_FAMA_시리즈, SP500_MAMA_시리즈, SP500_FAMA_시리즈, NASDAQ_MAMA_시리즈, NASDAQ_FAMA_시리즈, WTI_MAMA_시리즈, WTI_FAMA_시리즈
 
             global ovc_index_list
-
+            '''
             global df_futures_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
             global flag_dow_ohlc_open, flag_sp500_open, flag_nasdaq_open, flag_wti_open, flag_eurofx_open, flag_hangseng_open, flag_gold_open
 
