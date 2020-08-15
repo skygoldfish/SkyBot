@@ -1340,14 +1340,24 @@ df_put_hoga = pd.DataFrame()
 df_call_volume = pd.DataFrame()
 df_put_volume = pd.DataFrame()
 
-# 모든 plot 데이타를 하나의 데이타 프레임으로 처리
+# NEW 데이타프레임
 df_futures_graph = pd.DataFrame()
 
 df_call_price_graph = pd.DataFrame()
-df_put_price_graph = pd.DataFrame()
 df_call_info_graph = pd.DataFrame()
+
+df_put_price_graph = pd.DataFrame()
 df_put_info_graph = pd.DataFrame()
 
+df_sp500_graph = pd.DataFrame()
+df_dow_graph = pd.DataFrame()
+df_nasdaq_graph = pd.DataFrame()
+df_wti_graph = pd.DataFrame()
+df_eurofx_graph = pd.DataFrame()
+df_hangseng_graph = pd.DataFrame()
+df_gold_graph = pd.DataFrame()
+
+# OLD 데이타프레임
 df_plotdata_call = pd.DataFrame()
 df_plotdata_put = pd.DataFrame()
 
@@ -1383,14 +1393,6 @@ df_plotdata_wti_hoga_rr = pd.DataFrame()
 df_plotdata_eurofx_hoga_rr = pd.DataFrame()
 df_plotdata_hangseng_hoga_rr = pd.DataFrame()
 df_plotdata_gold_hoga_rr = pd.DataFrame()
-
-df_sp500_graph = pd.DataFrame()
-df_dow_graph = pd.DataFrame()
-df_nasdaq_graph = pd.DataFrame()
-df_wti_graph = pd.DataFrame()
-df_eurofx_graph = pd.DataFrame()
-df_hangseng_graph = pd.DataFrame()
-df_gold_graph = pd.DataFrame()
 
 df_plotdata_centerval = pd.DataFrame()
 
@@ -14699,9 +14701,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, yagan_timespan))
                     df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, yagan_timespan))
 
-                    df_call_price_graph = DataFrame(index=range(0, yagan_timespan), columns=range(0, option_pairs_count))
-                    df_put_price_graph = DataFrame(index=range(0, yagan_timespan), columns=range(0, option_pairs_count))
-
                     df_plotdata_call_volume = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
                     df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
                     df_plotdata_volume_cha = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
@@ -14713,10 +14712,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_dow_drate = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
                     df_plotdata_call_drate = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
                     df_plotdata_put_drate = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-
-                    df_call_info_graph = DataFrame(index=range(0, yagan_timespan), columns=['volume', 'hoga', 'drate', 'centerval'])
-                    df_put_info_graph = DataFrame(index=range(0, yagan_timespan), columns=['volume', 'hoga', 'drate', 'yanghap'])
-
+                    df_plotdata_centerval = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    
                     #df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
                     #df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
                     #df_plotdata_fut_volume = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
@@ -14736,24 +14733,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_eurofx_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
                     df_plotdata_hangseng_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
                     df_plotdata_gold_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    
+                    # NEW 데이타프레임
+                    df_call_price_graph = DataFrame(index=range(0, yagan_timespan), columns=range(0, option_pairs_count))
+                    df_put_price_graph = DataFrame(index=range(0, yagan_timespan), columns=range(0, option_pairs_count))
+                    df_call_info_graph = DataFrame(index=range(0, yagan_timespan), columns=['volume', 'hoga', 'drate', 'centerval'])
+                    df_put_info_graph = DataFrame(index=range(0, yagan_timespan), columns=['volume', 'hoga', 'drate', 'yanghap'])
 
-                    df_plotdata_centerval = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    df_futures_graph = DataFrame(index=range(0, yagan_timespan), \
+                        columns=['kp200', 'price', 'open', 'high', 'low', 'close', 'volume', 'drate', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
 
-                    df_futures_graph = DataFrame(index=range(0, yagan_timespan), columns=['kp200', 'price', 'volume', 'drate'])
-
-                    df_sp500_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'hoga'])
-                    df_dow_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'hoga', 'drate'])
-                    df_nasdaq_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'hoga'])
-                    df_wti_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'hoga'])
-                    df_eurofx_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'hoga'])
-                    df_hangseng_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'hoga'])
-                    df_gold_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'hoga'])
+                    df_sp500_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
+                    df_dow_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'drate', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
+                    df_nasdaq_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
+                    df_wti_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
+                    df_eurofx_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
+                    df_hangseng_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
+                    df_gold_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
                 else:
                     df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, jugan_timespan))
                     df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, jugan_timespan))
-
-                    df_call_price_graph = DataFrame(index=range(0, jugan_timespan), columns=range(0, option_pairs_count))
-                    df_put_price_graph = DataFrame(index=range(0, jugan_timespan), columns=range(0, option_pairs_count))
 
                     df_plotdata_call_volume = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
                     df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
@@ -14766,9 +14765,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_dow_drate = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
                     df_plotdata_call_drate = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
                     df_plotdata_put_drate = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-
-                    df_call_info_graph = DataFrame(index=range(0, jugan_timespan), columns=['volume', 'hoga', 'drate'])
-                    df_put_info_graph = DataFrame(index=range(0, jugan_timespan), columns=['volume', 'hoga', 'drate'])
+                    df_plotdata_centerval = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
 
                     #df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
                     #df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
@@ -14789,18 +14786,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_plotdata_eurofx_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
                     df_plotdata_hangseng_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
                     df_plotdata_gold_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    
+                    # NEW 데이타프레임
+                    df_call_price_graph = DataFrame(index=range(0, jugan_timespan), columns=range(0, option_pairs_count))
+                    df_put_price_graph = DataFrame(index=range(0, jugan_timespan), columns=range(0, option_pairs_count))
+                    df_call_info_graph = DataFrame(index=range(0, jugan_timespan), columns=['volume', 'hoga', 'drate', 'centerval'])
+                    df_put_info_graph = DataFrame(index=range(0, jugan_timespan), columns=['volume', 'hoga', 'drate', 'yanghap'])
 
-                    df_plotdata_centerval = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    df_futures_graph = DataFrame(index=range(0, jugan_timespan), \
+                        columns=['kp200', 'price', 'open', 'high', 'low', 'close', 'volume', 'drate', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
 
-                    df_futures_graph = DataFrame(index=range(0, jugan_timespan), columns=['kp200', 'price', 'volume', 'drate'])
-
-                    df_sp500_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'hoga'])
-                    df_dow_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'hoga', 'drate'])
-                    df_nasdaq_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'hoga'])
-                    df_wti_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'hoga'])
-                    df_eurofx_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'hoga'])
-                    df_hangseng_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'hoga'])
-                    df_gold_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'hoga'])
+                    df_sp500_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
+                    df_dow_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'drate', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
+                    df_nasdaq_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
+                    df_wti_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
+                    df_eurofx_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
+                    df_hangseng_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
+                    df_gold_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
 
                 # 콜처리
                 for i in range(option_pairs_count):
