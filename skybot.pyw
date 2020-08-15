@@ -671,123 +671,123 @@ with open('control_info.txt', mode='r') as control_file:
     ONEWAY_THRESHOLD = int(temp[9])
     #print('ONEWAY_THRESHOLD =', ONEWAY_THRESHOLD)    
 
-if os.path.isfile('overnight_info.txt'):
+if os.path.isfile('nighttime.txt'):
 
     # 야간시장의 데이타를 가져옴
-    with open('overnight_info.txt', mode='r') as overnight_file:
+    with open('nighttime.txt', mode='r') as nighttime_file:
 
-        tmp = overnight_file.readline().strip()
-        tmp = overnight_file.readline().strip()
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         CME_종가 = float(temp[5])
         print('CME 종가 =', CME_종가)
 
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
 
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         SP500_전저 = float(temp[5])
         print('SP500 전저 =', SP500_전저)
 
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         SP500_전고 = float(temp[5])
         print('SP500 전고 =', SP500_전고)
         
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         SP500_종가 = float(temp[5])
         print('SP500 종가 =', SP500_종가)
 
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         DOW_전저 = float(temp[4])
         print('DOW 전저 =', DOW_전저)
 
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         DOW_전고 = float(temp[4])
         print('DOW 전고 =', DOW_전고)
         
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         DOW_종가 = float(temp[4])
         print('DOW 종가 =', DOW_종가)
 
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         NASDAQ_전저 = float(temp[4])
         print('NASDAQ 전저 =', NASDAQ_전저)
 
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         NASDAQ_전고 = float(temp[4])
         print('NASDAQ 전고 =', NASDAQ_전고)
         
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         NASDAQ_종가 = float(temp[4])
         print('NASDAQ 종가 =', NASDAQ_종가)
 
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         WTI_전저 = float(temp[4])
         print('WTI 전저 =', WTI_전저)
 
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         WTI_전고 = float(temp[4])
         print('WTI 전고 =', WTI_전고)
         
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         WTI_종가 = float(temp[4])
         print('WTI 종가 =', WTI_종가)
 
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         EUROFX_전저 = float(temp[4])
         print('EUROFX 전저 =', EUROFX_전저)
 
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         EUROFX_전고 = float(temp[4])
         print('EUROFX 전고 =', EUROFX_전고)
         
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         EUROFX_종가 = float(temp[4])
         print('EUROFX 종가 =', EUROFX_종가)
 
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         HANGSENG_전저 = float(temp[4])
         print('HANGSENG 전저 =', HANGSENG_전저)
 
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         HANGSENG_전고 = float(temp[4])
         print('HANGSENG 전고 =', HANGSENG_전고)
         
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         HANGSENG_종가 = float(temp[4])
         print('HANGSENG 종가 =', HANGSENG_종가)
 
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         GOLD_전저 = float(temp[4])
         print('GOLD 전저 =', GOLD_전저)
 
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         GOLD_전고 = float(temp[4])
         print('GOLD 전고 =', GOLD_전고)
         
-        tmp = overnight_file.readline().strip()
+        tmp = nighttime_file.readline().strip()
         temp = tmp.split()
         GOLD_종가 = float(temp[4])
         print('GOLD 종가 =', GOLD_종가)
@@ -837,9 +837,9 @@ CENTER_VAL8 = 0
 CENTER_VAL9 = 0
 CENTER_VAL10 = 0
 
-if os.path.isfile('kp200_info.txt'):
+if os.path.isfile('daytime.txt'):
 
-    with open('kp200_info.txt', mode='r') as kp200_file:
+    with open('daytime.txt', mode='r') as kp200_file:
 
         tmp = kp200_file.readline().strip()
 
@@ -936,10 +936,10 @@ OVC_START_HOUR = KSE_START_HOUR - 1
 시스템_서버_시간차 = 0
 
 day_timespan = 6 * 60 + 35 + 10
-overnight_timespan = 11 * 60 + 선물장간_시간차 + 10
+nighttime_timespan = 11 * 60 + 선물장간_시간차 + 10
 
 jugan_timespan = 선물장간_시간차 + day_timespan
-yagan_timespan = 선물장간_시간차 + overnight_timespan
+yagan_timespan = 선물장간_시간차 + nighttime_timespan
 
 flag_offline = False
 
@@ -7640,7 +7640,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.label_atm.setText("<span style='font-size: 9pt'>X = %d, <span style='color: red'>Y = %0.2f</span>" % (int(mousePoint.x()), mousePoint.y()))
 
             if NightTime:
-                timespan = overnight_timespan
+                timespan = nighttime_timespan
             else:
                 timespan = day_timespan
                
@@ -7665,7 +7665,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.label_atm.setText("<span style='font-size: 9pt'>X = %d, <span style='color: red'>Y = %0.2f</span>" % (int(mousePoint.x()), mousePoint.y()))
 
             if NightTime:
-                timespan = overnight_timespan
+                timespan = nighttime_timespan
             else:
                 timespan = day_timespan
 
@@ -8748,7 +8748,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         print(str)
                         
                         # 야간장의 주요정보를 저장
-                        with open('overnight_info.txt', mode='w') as overnight_file:
+                        with open('nighttime.txt', mode='w') as nighttime_file:
 
                             now = time.localtime()
 
@@ -8756,58 +8756,58 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
 
                             file_str = '{}\n'.format(times)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = '\n'
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = '################# < Futures Index of the Last Night > ###################\n'
-                            overnight_file.write(file_str)                            
+                            nighttime_file.write(file_str)                            
                             file_str = 'CME FUT Last Close = {0}\n'.format(CME_당일종가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = '##################### < Foreign Futures Index of the Last Night > ####################\n'
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'S&P 500 Last Low = {0}\n'.format(SP500_저가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'S&P 500 Last High = {0}\n'.format(SP500_고가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'S&P 500 Last Close = {0}\n'.format(SP500_당일종가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'DOW Last Low = {0}\n'.format(DOW_저가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'DOW Last High = {0}\n'.format(DOW_고가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'DOW Last Close = {0}\n'.format(DOW_당일종가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'NASDAQ Last Low = {0}\n'.format(NASDAQ_저가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'NASDAQ Last High = {0}\n'.format(NASDAQ_고가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'NASDAQ Last Close = {0}\n'.format(NASDAQ_당일종가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'WTI Last Low = {0}\n'.format(WTI_저가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'WTI Last High = {0}\n'.format(WTI_고가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'WTI Last Close = {0}\n'.format(WTI_당일종가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'EUROFX Last Low = {0}\n'.format(EUROFX_저가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'EUROFX Last High = {0}\n'.format(EUROFX_고가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'EUROFX Last Close = {0}\n'.format(EUROFX_당일종가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'HANGSENG Last Low = {0}\n'.format(HANGSENG_저가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'HANGSENG Last High = {0}\n'.format(HANGSENG_고가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'HANGSENG Last Close = {0}\n'.format(HANGSENG_당일종가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'GOLD Last Low = {0}\n'.format(GOLD_저가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'GOLD Last High = {0}\n'.format(GOLD_고가)
-                            overnight_file.write(file_str)
+                            nighttime_file.write(file_str)
                             file_str = 'GOLD Last Close = {0}\n'.format(GOLD_당일종가)
-                            overnight_file.write(file_str)
-                            overnight_file.close()
+                            nighttime_file.write(file_str)
+                            nighttime_file.close()
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
@@ -14750,15 +14750,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_put_info_graph = DataFrame(index=range(0, yagan_timespan), columns=['volume', 'hoga', 'drate', 'yanghap'])
 
                     df_futures_graph = DataFrame(index=range(0, yagan_timespan), \
-                        columns=['kp200', 'price', 'open', 'high', 'low', 'close', 'volume', 'drate', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
+                        columns=['kp200', 'price', 'open', 'high', 'low', 'close', 'volume', 'drate', \
+                            'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_SIG', 'MACD_HIST', 'MAMA', 'FAMA'])
 
-                    df_sp500_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
-                    df_dow_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'drate', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
-                    df_nasdaq_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
-                    df_wti_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
-                    df_eurofx_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
-                    df_hangseng_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
-                    df_gold_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
+                    df_sp500_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', \
+                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_SIG', 'MACD_HIST', 'MAMA', 'FAMA'])
+                    df_dow_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'drate', \
+                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_SIG', 'MACD_HIST', 'MAMA', 'FAMA'])
+                    df_nasdaq_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', \
+                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_SIG', 'MACD_HIST', 'MAMA', 'FAMA'])
+                    df_wti_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', \
+                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_SIG', 'MACD_HIST', 'MAMA', 'FAMA'])
+                    df_eurofx_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', \
+                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_SIG', 'MACD_HIST', 'MAMA', 'FAMA'])
+                    df_hangseng_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', \
+                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_SIG', 'MACD_HIST', 'MAMA', 'FAMA'])
+                    df_gold_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', \
+                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_SIG', 'MACD_HIST', 'MAMA', 'FAMA'])
                 else:
                     df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, jugan_timespan))
                     df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, jugan_timespan))
@@ -14803,15 +14811,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_put_info_graph = DataFrame(index=range(0, jugan_timespan), columns=['volume', 'hoga', 'drate', 'yanghap'])
 
                     df_futures_graph = DataFrame(index=range(0, jugan_timespan), \
-                        columns=['kp200', 'price', 'open', 'high', 'low', 'close', 'volume', 'drate', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
+                        columns=['kp200', 'price', 'open', 'high', 'low', 'close', 'volume', 'drate', \
+                            'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_SIG', 'MACD_HIST', 'MAMA', 'FAMA'])
 
-                    df_sp500_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
-                    df_dow_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'drate', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
-                    df_nasdaq_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
-                    df_wti_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
-                    df_eurofx_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
-                    df_hangseng_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
-                    df_gold_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'BBAND', 'P-SAR', 'MACD', 'MAMA'])
+                    df_sp500_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', \
+                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_SIG', 'MACD_HIST', 'MAMA', 'FAMA'])
+                    df_dow_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', 'drate', \
+                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_SIG', 'MACD_HIST', 'MAMA', 'FAMA'])
+                    df_nasdaq_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', \
+                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_SIG', 'MACD_HIST', 'MAMA', 'FAMA'])
+                    df_wti_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', \
+                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_SIG', 'MACD_HIST', 'MAMA', 'FAMA'])
+                    df_eurofx_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', \
+                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_SIG', 'MACD_HIST', 'MAMA', 'FAMA'])
+                    df_hangseng_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', \
+                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_SIG', 'MACD_HIST', 'MAMA', 'FAMA'])
+                    df_gold_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'hoga', \
+                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_SIG', 'MACD_HIST', 'MAMA', 'FAMA'])
 
                 # 콜처리
                 for i in range(option_pairs_count):
@@ -18956,7 +18972,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)           
 
-            if os.path.isfile('kp200_info.txt'):
+            if os.path.isfile('daytime.txt'):
 
                 item = QTableWidgetItem("{0:0.2f}".format(KP200_전저))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -23027,7 +23043,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
                         
                         # KP200의 주요정보를 저장
-                        with open('kp200_info.txt', mode='w') as kp200_file:
+                        with open('daytime.txt', mode='w') as kp200_file:
 
                             file_str = '################# < KP200 Index of the Last Day > ###################\n'                        
                             kp200_file.write(file_str)
@@ -25117,7 +25133,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         NASDAQ_과거가 = result['체결가격']
                                        
-                        if 2 <= ovc_x_idx <= overnight_timespan - 1:
+                        if 2 <= ovc_x_idx <= nighttime_timespan - 1:
                             df_plotdata_nasdaq.iat[0, ovc_x_idx] = result['체결가격']
                             df_nasdaq_graph.at[ovc_x_idx, 'price'] = result['체결가격']
 
@@ -25303,7 +25319,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         SP500_과거가 = result['체결가격']
                         
-                        if 2 <= ovc_x_idx <= overnight_timespan - 1:
+                        if 2 <= ovc_x_idx <= nighttime_timespan - 1:
                             df_plotdata_sp500.iat[0, ovc_x_idx] = result['체결가격']
                             df_sp500_graph.at[ovc_x_idx, 'price'] = result['체결가격']
 
@@ -25440,7 +25456,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         DOW_과거가 = 체결가격
                         
-                        if 2 <= ovc_x_idx <= overnight_timespan - 1:
+                        if 2 <= ovc_x_idx <= nighttime_timespan - 1:
                             df_plotdata_dow.iat[0, ovc_x_idx] = result['체결가격']
                             df_dow_graph.at[ovc_x_idx, 'price'] = result['체결가격']
 
@@ -25568,7 +25584,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         WTI_과거가 = result['체결가격']
                         
-                        if 2 <= ovc_x_idx <= overnight_timespan - 1:
+                        if 2 <= ovc_x_idx <= nighttime_timespan - 1:
                             df_plotdata_wti.iat[0, ovc_x_idx] = result['체결가격']
                             df_wti_graph.at[ovc_x_idx, 'price'] = result['체결가격']
 
@@ -25694,7 +25710,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         EUROFX_과거가 = result['체결가격']
                         
-                        if 2 <= ovc_x_idx <= overnight_timespan - 1:
+                        if 2 <= ovc_x_idx <= nighttime_timespan - 1:
                             df_plotdata_eurofx.iat[0, ovc_x_idx] = result['체결가격']
                             df_eurofx_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                         else:
@@ -25820,7 +25836,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         HANGSENG_과거가 = int(result['체결가격'])
                         
-                        if 2 <= ovc_x_idx <= overnight_timespan - 1:
+                        if 2 <= ovc_x_idx <= nighttime_timespan - 1:
                             df_plotdata_hangseng.iat[0, ovc_x_idx] = result['체결가격']
                             df_hangseng_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                         else:
@@ -25946,7 +25962,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         GOLD_과거가 = result['체결가격']
                         
-                        if 2 <= ovc_x_idx <= overnight_timespan - 1:
+                        if 2 <= ovc_x_idx <= nighttime_timespan - 1:
                             df_plotdata_gold.iat[0, ovc_x_idx] = result['체결가격']
                             df_gold_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                         else:
@@ -25990,8 +26006,33 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
 
                     flag_dow_open = False
-                    
 
+                # Bolinger Bands
+                upper, middle, lower = talib.BBANDS(np.array(df_dow_graph['close']), timeperiod=20, nbdevup=2, nbdevdn=2, matype=0)
+
+                df_dow_graph['BBAND_Upper'] = upper
+                df_dow_graph['BBAND_Middle'] = middle
+                df_dow_graph['BBAND_Low'] = lower
+
+                # MACD 
+                macd, macdsignal, macdhist = talib.MACD(np.array(df_dow_graph['close']), fastperiod=12, slowperiod=26, signalperiod=9)
+
+                df_dow_graph['MACD'] = macd
+                df_dow_graph['MACD_SIG'] = macdsignal
+                df_dow_graph['MACD_HIST'] = macdhist
+
+                # Parabolic SAR
+                parabolic_sar = talib.SAR(np.array(df_dow_graph['high']), np.array(df_dow_graph['low']), acceleration=0.02, maximum=0.2)
+
+                df_dow_graph['P_SAR'] = parabolic_sar
+
+                # MAMA
+                mama, fama = talib.MAMA(np.array(df_dow_graph['close']), fastlimit=0.5, slowlimit=0.05)
+
+                df_dow_graph['MAMA'] = mama
+                df_dow_graph['FAMA'] = fama
+
+                '''
                 #DOW_현재가시리즈 = pd.Series(DOW_현재가리스트, index=ovc_index_list) 
                 
                 np_real_dow_data = np.array(DOW_현재가리스트, dtype=float)
@@ -26011,7 +26052,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 #DOW_FAMA_시리즈 = pd.Series(DOW_FAMA_리스트, index=ovc_index_list)
                 
                 # 향후를 위해 시리즈로 만듬
-                '''
+                
                 DOW_저가시리즈 = pd.Series(DOW_저가리스트, index=ovc_index_list)                
                 DOW_고가시리즈 = pd.Series(DOW_고가리스트, index=ovc_index_list)
 
@@ -26757,7 +26798,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p1_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p1_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p1_2.setText(" P-SAR ")
+        self.label_p1_2.setText(" P_SAR ")
         self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -26798,7 +26839,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p2_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p2_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p2_2.setText(" P-SAR ")
+        self.label_p2_2.setText(" P_SAR ")
         self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -26839,7 +26880,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p3_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p3_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p3_2.setText(" P-SAR ")
+        self.label_p3_2.setText(" P_SAR ")
         self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
