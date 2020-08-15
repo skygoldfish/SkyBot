@@ -2209,14 +2209,14 @@ NASDAQ_FAMA_시리즈 = pd.Series()
 WTI_MAMA_시리즈 = pd.Series()
 WTI_FAMA_시리즈 = pd.Series()
 
-flag_futures_open = False
-flag_dow_open = False
-flag_sp500_open = False
-flag_nasdaq_open = False
-flag_wti_open = False
-flag_eurofx_open = False
-flag_hangseng_open = False
-flag_gold_open = False
+flag_futures_ohlc_open = False
+flag_dow_ohlc_open = False
+flag_sp500_ohlc_open = False
+flag_nasdaq_ohlc_open = False
+flag_wti_ohlc_open = False
+flag_eurofx_ohlc_open = False
+flag_hangseng_ohlc_open = False
+flag_gold_ohlc_open = False
 
 ########################################################################################################################
 
@@ -19481,7 +19481,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global fut_tick_list, fut_value_list, df_fut_ohlc
         global 선물_저가리스트, 선물_현재가_버퍼, 선물_현재가리스트, 선물_고가리스트, 선물_저가시리즈, 선물_현재가시리즈, 선물_고가시리즈
         global 선물_MAMA_리스트, 선물_FAMA_리스트, 선물_MAMA_시리즈, 선물_FAMA_시리즈
-        global flag_futures_open
+        global flag_futures_ohlc_open
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -20128,13 +20128,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 1T OHLC 생성
         if int(OVC_체결시간[4:6]) == 0:
             
-            if not flag_futures_open:
+            if not flag_futures_ohlc_open:
                 
                 df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
                 
                 del 선물_현재가_버퍼[:]
                 
-                flag_futures_open = True
+                flag_futures_ohlc_open = True
             else:
                 선물_현재가_버퍼.append(선물_현재가)
         else:
@@ -20149,29 +20149,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
 
-            flag_futures_open = False
+            flag_futures_ohlc_open = False
 
         # Bollinger Bands
-        upper, middle, lower = talib.BBANDS(np.array(df_futures_graph['close']), timeperiod=20, nbdevup=2, nbdevdn=2, matype=0)
+        upper, middle, lower = talib.BBANDS(np.array(df_futures_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=0)
 
         df_futures_graph['BBAND_Upper'] = upper
         df_futures_graph['BBAND_Middle'] = middle
         df_futures_graph['BBAND_Low'] = lower
 
         # MACD 
-        macd, macdsignal, macdhist = talib.MACD(np.array(df_futures_graph['close']), fastperiod=12, slowperiod=26, signalperiod=9)
+        macd, macdsignal, macdhist = talib.MACD(np.array(df_futures_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9)
 
         df_futures_graph['MACD'] = macd
         df_futures_graph['MACD_SIG'] = macdsignal
         df_futures_graph['MACD_HIST'] = macdhist
 
         # Parabolic SAR
-        parabolic_sar = talib.SAR(np.array(df_futures_graph['high']), np.array(df_futures_graph['low']), acceleration=0.02, maximum=0.2)
+        parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
         df_futures_graph['P_SAR'] = parabolic_sar
 
         # MAMA
-        mama, fama = talib.MAMA(np.array(df_futures_graph['close']), fastlimit=0.5, slowlimit=0.05)
+        mama, fama = talib.MAMA(np.array(df_futures_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
         df_futures_graph['MAMA'] = mama
         df_futures_graph['FAMA'] = fama
@@ -22888,7 +22888,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global ovc_index_list
 
             global df_futures_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
-            global flag_dow_open, flag_sp500_open, flag_nasdaq_open, flag_wti_open, flag_eurofx_open, flag_hangseng_open, flag_gold_open
+            global flag_dow_ohlc_open, flag_sp500_open, flag_nasdaq_open, flag_wti_open, flag_eurofx_open, flag_hangseng_open, flag_gold_open
 
             start_time = timeit.default_timer()
 
@@ -26025,13 +26025,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 1T OHLC 생성
                 if int(OVC_체결시간[4:6]) == 0:
                     
-                    if not flag_dow_open:
+                    if not flag_dow_ohlc_open:
                         
                         df_dow_graph.at[ovc_x_idx, 'open'] = DOW_현재가
                         
                         del DOW_현재가_버퍼[:]
 
-                        flag_dow_open = True
+                        flag_dow_ohlc_open = True
                     else:
                         DOW_현재가_버퍼.append(DOW_현재가)
                 else:
@@ -26046,29 +26046,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
 
-                    flag_dow_open = False
+                    flag_dow_ohlc_open = False
 
                 # Bollinger Bands
-                upper, middle, lower = talib.BBANDS(np.array(df_dow_graph['close']), timeperiod=20, nbdevup=2, nbdevdn=2, matype=0)
+                upper, middle, lower = talib.BBANDS(np.array(df_dow_graph['close'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=0)
 
                 df_dow_graph['BBAND_Upper'] = upper
                 df_dow_graph['BBAND_Middle'] = middle
                 df_dow_graph['BBAND_Low'] = lower
 
                 # MACD 
-                macd, macdsignal, macdhist = talib.MACD(np.array(df_dow_graph['close']), fastperiod=12, slowperiod=26, signalperiod=9)
+                macd, macdsignal, macdhist = talib.MACD(np.array(df_dow_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9)
 
                 df_dow_graph['MACD'] = macd
                 df_dow_graph['MACD_SIG'] = macdsignal
                 df_dow_graph['MACD_HIST'] = macdhist
 
                 # Parabolic SAR
-                parabolic_sar = talib.SAR(np.array(df_dow_graph['high']), np.array(df_dow_graph['low']), acceleration=0.02, maximum=0.2)
+                parabolic_sar = talib.SAR(np.array(df_dow_graph['high'], dtype=float), np.array(df_dow_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
                 df_dow_graph['P_SAR'] = parabolic_sar
 
                 # MAMA
-                mama, fama = talib.MAMA(np.array(df_dow_graph['close']), fastlimit=0.5, slowlimit=0.05)
+                mama, fama = talib.MAMA(np.array(df_dow_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
                 df_dow_graph['MAMA'] = mama
                 df_dow_graph['FAMA'] = fama
