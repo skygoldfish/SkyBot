@@ -5061,13 +5061,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
                 plot1_time_line_start.setValue(GuardTime + 1)
                 plot2_time_line_start.setValue(GuardTime + 1)
-                plot1_time_line_yagan_start.setValue(GuardTime + 4 * GuardTime + 30)
-                plot2_time_line_yagan_start.setValue(GuardTime + 4 * GuardTime + 30)
+                plot1_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
+                plot2_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
 
                 plot3_time_line_start.setValue(GuardTime + 1)
                 plot4_time_line_start.setValue(GuardTime + 1)
-                plot3_time_line_yagan_start.setValue(GuardTime + 4 * GuardTime + 30)
-                plot4_time_line_yagan_start.setValue(GuardTime + 4 * GuardTime + 30)
+                plot3_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
+                plot4_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
             else:
                 # 시작시간 X축 표시(index 60은 시가)
                 plot1_time_line_start.setValue(GuardTime)
@@ -5082,8 +5082,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
                 plot1_time_line_start.setValue(GuardTime + 1)
                 plot2_time_line_start.setValue(GuardTime + 1)
-                plot1_time_line_yagan_start.setValue(GuardTime + 4 * GuardTime + 30)
-                plot2_time_line_yagan_start.setValue(GuardTime + 4 * GuardTime + 30)
+                plot1_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
+                plot2_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
             else:
                 # 시작시간 X축 표시(index 60은 시가)
                 plot1_time_line_start.setValue(GuardTime)
@@ -27205,9 +27205,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_time_line_start.setValue(GuardTime + 1)
             bc_plot3_time_line_start.setValue(GuardTime + 1)
 
-            bc_plot1_time_line_yagan_start.setValue(GuardTime + 4 * GuardTime + 30)
-            bc_plot2_time_line_yagan_start.setValue(GuardTime + 4 * GuardTime + 30)
-            bc_plot3_time_line_yagan_start.setValue(GuardTime + 4 * GuardTime + 30)
+            bc_plot1_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
+            bc_plot2_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
+            bc_plot3_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
         else:
             self.bc_Plot1.setRange(xRange=[0, jugan_timespan], padding=0)
             bc_plot1_time_line.setValue(jugan_timespan - 1)
