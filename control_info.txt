@@ -13,7 +13,19 @@ Auto Start = ON
 Resize Rows To Contents = OFF
 Cross Hair Line = ON
 
-[4]. << Initial Value >>
+[4]. << Moving Average Type >>
+# 0: MA_Type.SMA (simple)  
+# 1: MA_Type.EMA (exponential)  
+# 2: MA_Type.WMA (weighted)  
+# 3: MA_Type.DEMA (double exponential)  
+# 4: MA_Type.TEMA (triple exponential)  
+# 5: MA_Type.TRIMA (triangular)  
+# 6: MA_Type.KAMA (Kaufman adaptive)  
+# 7: MA_Type.MAMA (Mesa adaptive)  
+# 8: MA_Type.T3 (triple exponential T3)
+MA Type = MA_Type.EMA
+
+[5]. << Initial Value >>
 HL List Depth = 40
 Overnight Pre-Start Hour = 17
 Actval count of the option pairs = 100
@@ -25,10 +37,10 @@ Center Value Alarm Range = 0.60
 Main Update Interval(msec) = 500
 Big Chart Update Interval(msec) = 500
 
-[5]. << UI Select : Horizontal_Large_View.ui, Horizontal_Small_View.ui, Vertical_View.ui >>
+[6]. << UI Select : Horizontal_Large_View.ui, Horizontal_Small_View.ui, Vertical_View.ui >>
 UI = Horizontal_Large_View.ui
 
-[6]. << Code of the Foreign Futures (H/M/U/Z) >>
+[7]. << Code of the Foreign Futures (H/M/U/Z) >>
 S&P 500 = ESU20
 DOW = YMU20
 NASDAQ = NQU20
@@ -37,12 +49,12 @@ EUROFX = UROU20
 HANGSENG = HSIQ20
 GOLD = GCZ20
 
-[7]. << Telegram >>
+[8]. << Telegram >>
 Telegram polling start time(minute) after service = 5
 Telegram polling interval(second) = 10
 Telegram send interval(second) = 5
 
-[8]. << Rules >>
+[9]. << Rules >>
 Threshold of the institutional party's supply & demand = 2500
 
 
