@@ -917,10 +917,10 @@ next_month = int(NEXT_MONTH[4:6])
 month_after_next = int(MONTH_AFTER_NEXT[4:6])
 
 if 4 < int(current_str[0:2]) < 야간선물_기준시간:
-    overnight = False
+    NightTime = False
     선물장간_시간차 = 60
 else:
-    overnight = True
+    NightTime = True
     선물장간_시간차 = 60 * (18 - 야간선물_기준시간)
 
 server_date = ''
@@ -935,8 +935,11 @@ OVC_START_HOUR = KSE_START_HOUR - 1
 서버시간 = 0
 시스템_서버_시간차 = 0
 
-day_timespan = 395 + 10
-overnight_timespan = 660 + 선물장간_시간차 + 10
+day_timespan = 6 * 60 + 35 + 10
+overnight_timespan = 11 * 60 + 선물장간_시간차 + 10
+
+jugan_timespan = 선물장간_시간차 + day_timespan
+yagan_timespan = 선물장간_시간차 + overnight_timespan
 
 flag_offline = False
 
@@ -3698,44 +3701,43 @@ class screen_update_worker(QThread):
 
             #call_curve_data = df_plotdata_call.iloc[index].values.tolist()
             #put_curve_data = df_plotdata_put.iloc[index].values.tolist()
-            call_curve_data = df_call_price_graph[index].tolist()
-            put_curve_data = df_put_price_graph[index].tolist()
-
             #centerval_data = df_plotdata_centerval.iloc[0].values.tolist()
-            centerval_data = df_call_info_graph['centerval'].tolist()
-
-            #data1 = df_plotdata_fut_volume.iloc[0].values.tolist()
-            data1 = df_futures_graph['volume'].tolist()
+            #data1 = df_plotdata_fut_volume.iloc[0].values.tolist()            
             #data2 = df_plotdata_call_volume.iloc[0].values.tolist()
-            #data3 = df_plotdata_put_volume.iloc[0].values.tolist()
-            data2 = df_call_info_graph['volume'].tolist()
-            data3 = df_put_info_graph['volume'].tolist()
-            #data4 = df_plotdata_volume_cha.iloc[0].values.tolist()
-            data4 = None
+            #data3 = df_plotdata_put_volume.iloc[0].values.tolist()            
+            #data4 = df_plotdata_volume_cha.iloc[0].values.tolist()            
             #data5 = df_plotdata_call_hoga_rr.iloc[0].values.tolist()
-            #data6 = df_plotdata_put_hoga_rr.iloc[0].values.tolist()
-            data5 = df_call_info_graph['hoga'].tolist()
-            data6 = df_put_info_graph['hoga'].tolist()
-            #data7 = df_plotdata_fut_drate.iloc[0].values.tolist()
-            data7 = df_futures_graph['drate'].tolist()
-            #data8 = df_plotdata_dow_drate.iloc[0].values.tolist()
-            data8 = df_dow_graph['drate'].tolist()
+            #data6 = df_plotdata_put_hoga_rr.iloc[0].values.tolist()            
+            #data7 = df_plotdata_fut_drate.iloc[0].values.tolist()            
+            #data8 = df_plotdata_dow_drate.iloc[0].values.tolist()            
             #data9 = df_plotdata_kp200.iloc[0].values.tolist()
-            #data10 = df_plotdata_fut.iloc[0].values.tolist()
-            data9 = df_futures_graph['kp200'].tolist()
-            data10 = df_futures_graph['price'].tolist()
+            #data10 = df_plotdata_fut.iloc[0].values.tolist()            
             #data11 = df_plotdata_sp500.iloc[0].values.tolist()
             #data12 = df_plotdata_dow.iloc[0].values.tolist()
             #data13 = df_plotdata_nasdaq.iloc[0].values.tolist()
-            #data14 = df_plotdata_wti.iloc[0].values.tolist() 
+            #data14 = df_plotdata_wti.iloc[0].values.tolist()              
+            #data15 = np.array(df_plotdata_call_drate.iloc[0].values.tolist()) / drate_scale_factor            
+            #data16 = np.array(df_plotdata_put_drate.iloc[0].values.tolist()) / drate_scale_factor
+
+            call_curve_data = df_call_price_graph[index].tolist()
+            put_curve_data = df_put_price_graph[index].tolist()
+            centerval_data = df_call_info_graph['centerval'].tolist()
+            data1 = df_futures_graph['volume'].tolist()
+            data2 = df_call_info_graph['volume'].tolist()
+            data3 = df_put_info_graph['volume'].tolist()
+            data4 = None
+            data5 = df_call_info_graph['hoga'].tolist()
+            data6 = df_put_info_graph['hoga'].tolist()
+            data7 = df_futures_graph['drate'].tolist()
+            data8 = df_dow_graph['drate'].tolist()
+            data9 = df_futures_graph['kp200'].tolist()
+            data10 = df_futures_graph['price'].tolist()
             data11 = df_sp500_graph['price'].tolist()
             data12 = df_dow_graph['price'].tolist()
             data13 = df_nasdaq_graph['price'].tolist()
-            data14 = df_wti_graph['price'].tolist()  
-            #data15 = np.array(df_plotdata_call_drate.iloc[0].values.tolist()) / drate_scale_factor
+            data14 = df_wti_graph['price'].tolist()
             data15 = np.array(df_call_info_graph['drate'].tolist()) / drate_scale_factor
             data15 = data15.tolist()
-            #data16 = np.array(df_plotdata_put_drate.iloc[0].values.tolist()) / drate_scale_factor
             data16 = np.array(df_put_info_graph['drate'].tolist()) / drate_scale_factor
             data16 = data16.tolist()         
 
@@ -3744,15 +3746,18 @@ class screen_update_worker(QThread):
                 # COMBO 3
                 if comboindex3 == 0:
 
-                    plot3_data = df_plotdata_dow.iloc[0].values.tolist()
+                    #plot3_data = df_plotdata_dow.iloc[0].values.tolist()
+                    plot3_data = df_dow_graph['price'].tolist()
 
                 elif comboindex3 == 1:                             
 
-                    plot3_data = df_plotdata_sp500.iloc[0].values.tolist()
+                    #plot3_data = df_plotdata_sp500.iloc[0].values.tolist()
+                    plot3_data = df_sp500_graph['price'].tolist()
 
                 elif comboindex3 == 2:
 
-                    plot3_data = df_plotdata_nasdaq.iloc[0].values.tolist()
+                    #plot3_data = df_plotdata_nasdaq.iloc[0].values.tolist()
+                    plot3_data = df_nasdaq_graph['price'].tolist()
                 else:
                     pass
 
@@ -4846,11 +4851,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.Plot1.enableAutoRange('y', True)
         self.Plot1.plotItem.showGrid(True, True, 0.5)
-        self.Plot1.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)        
+        self.Plot1.setRange(xRange=[0, jugan_timespan], padding=0)        
 
         self.Plot2.enableAutoRange('y', True)
         self.Plot2.plotItem.showGrid(True, True, 0.5)
-        self.Plot2.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+        self.Plot2.setRange(xRange=[0, jugan_timespan], padding=0)
         self.Plot2.setXLink(self.Plot1)
         
         # Line & Curve of the Plot1
@@ -5006,12 +5011,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.Plot3.enableAutoRange('y', True)
             self.Plot3.plotItem.showGrid(True, True, 0.5)
-            self.Plot3.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+            self.Plot3.setRange(xRange=[0, jugan_timespan], padding=0)
             self.Plot3.setXLink(self.Plot1)
 
             self.Plot4.enableAutoRange('y', True)
             self.Plot4.plotItem.showGrid(True, True, 0.5)
-            self.Plot4.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+            self.Plot4.setRange(xRange=[0, jugan_timespan], padding=0)
             self.Plot4.setXLink(self.Plot1)
 
             global plot3_time_line, plot3_time_line_start, plot3_time_line_yagan_start 
@@ -5057,7 +5062,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot4_price_curve = self.Plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)             
             plot4_kp200_curve = self.Plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
 
-            if overnight:
+            if NightTime:
 
                 # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
                 plot1_time_line_start.setValue(선물장간_시간차 + 1)
@@ -5078,7 +5083,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 plot4_time_line_start.setValue(선물장간_시간차)
 
         else:
-            if overnight:
+            if NightTime:
 
                 # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
                 plot1_time_line_start.setValue(선물장간_시간차 + 1)
@@ -5190,7 +5195,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if not overnight:
+            if not NightTime:
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -5314,7 +5319,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(lime))
 
-                if overnight:
+                if NightTime:
                     self.tableWidget_fut.setItem(1, 2 + i, item)
                 else:
                     self.tableWidget_fut.setItem(0, 2 + i, item)            
@@ -7623,7 +7628,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             mousePoint = self.Plot1.plotItem.vb.mapSceneToView(pos)
             self.label_atm.setText("<span style='font-size: 9pt'>X = %d, <span style='color: red'>Y = %0.2f</span>" % (int(mousePoint.x()), mousePoint.y()))
 
-            if overnight:
+            if NightTime:
                 timespan = overnight_timespan
             else:
                 timespan = day_timespan
@@ -7648,7 +7653,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             mousePoint = self.Plot2.plotItem.vb.mapSceneToView(pos)
             self.label_atm.setText("<span style='font-size: 9pt'>X = %d, <span style='color: red'>Y = %0.2f</span>" % (int(mousePoint.x()), mousePoint.y()))
 
-            if overnight:
+            if NightTime:
                 timespan = overnight_timespan
             else:
                 timespan = day_timespan
@@ -7679,7 +7684,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
 
         # 선물 OHLC 데이타프레임 생성
-        if market_service and not overnight:
+        if market_service and not NightTime:
                   
             time_str = 선물_체결시간[0:2] + ':' + 선물_체결시간[2:4] + ':' + 선물_체결시간[4:6]
             chetime = nowDate + ' ' + time_str
@@ -7891,7 +7896,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # OHLC 데이타프레임 생성(처리시간 해법필요)
                 #self.OHLC_Gen()
                 
-                if not overnight:
+                if not NightTime:
                     self.display_atm(self.alternate_flag)
                 else:
                     pass
@@ -8535,7 +8540,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             #self.put_state_update()                            
 
-                            if not overnight:
+                            if not NightTime:
 
                                 self.oi_sum_display()
                             else:
@@ -8650,7 +8655,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 오전 6시 10분경 증권사 서버초기화전에 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
-            if overnight:
+            if NightTime:
                 
                 시스템시간 = dt.hour * 3600 + dt.minute * 60 + dt.second
 
@@ -9043,7 +9048,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(lime))
 
             if i < 6:
-                if overnight:
+                if NightTime:
                     self.tableWidget_fut.setItem(1, 2 + i, item)
                 else:
                     self.tableWidget_fut.setItem(0, 2 + i, item)
@@ -9065,7 +9070,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setBackground(QBrush(lime))
 
                 if i < 6:
-                    if overnight:
+                    if NightTime:
                         self.tableWidget_fut.setItem(1, 2 + i, item)
                     else:
                         self.tableWidget_fut.setItem(0, 2 + i, item)
@@ -9669,7 +9674,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 현재가 클리어
     def cv_color_clear(self):
 
-        if overnight:
+        if NightTime:
             self.tableWidget_fut.item(0, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
         else:
             self.tableWidget_fut.item(1, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
@@ -9703,7 +9708,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def price_color_clear(self):
 
         # 선물
-        if overnight:
+        if NightTime:
             self.tableWidget_fut.item(0, Futures_column.현재가.value).setBackground(QBrush(흰색))
         else:
             self.tableWidget_fut.item(1, Futures_column.현재가.value).setBackground(QBrush(흰색))
@@ -9739,7 +9744,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     # 선물 현재가 클리어
     def fut_cv_color_clear(self):
 
-        if overnight:
+        if NightTime:
             self.tableWidget_fut.item(0, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
         else:
             self.tableWidget_fut.item(1, Futures_column.현재가.value).setBackground(QBrush(옅은회색))
@@ -9779,7 +9784,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_oneway_level1, put_oneway_level2, put_oneway_level3, put_oneway_level4, put_oneway_level5
         global oneway_first_touch, oneway_str
 
-        if overnight:
+        if NightTime:
 
             pass
         else:
@@ -10545,7 +10550,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass 
         '''
-        if not overnight:
+        if not NightTime:
 
             if comboindex1 == 8 or comboindex2 == 8:
 
@@ -14197,7 +14202,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def fut_node_color_clear(self):
 
-        if overnight:
+        if NightTime:
 
             self.tableWidget_fut.item(0, Futures_column.전저.value).setBackground(QBrush(흰색))
             self.tableWidget_fut.item(0, Futures_column.전저.value).setForeground(QBrush(검정색))
@@ -14472,7 +14477,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
 
-            if not overnight:
+            if not NightTime:
 
                 #df_plotdata_kp200.iat[0, 0] = fut_realdata['KP200']
                 #df_plotdata_fut.iat[0, 0] = fut_realdata['종가']
@@ -14599,7 +14604,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)            
             
-            if not overnight:
+            if not NightTime:
 
                 #선물_전저 = fut_realdata['전저']
                 #선물_전고 = fut_realdata['전고']
@@ -14635,7 +14640,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 옵션 행사가 갯수
                 option_pairs_count = len(df)
                 
-                if not overnight:
+                if not NightTime:
 
                     call_open = [False] * option_pairs_count
                     put_open = [False] * option_pairs_count
@@ -14654,148 +14659,148 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 callche_result = []
                 putche_result = []
 
-                if not overnight:
+                if not NightTime:
                 
-                    self.Plot1.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
-                    plot1_time_line.setValue(선물장간_시간차 + day_timespan - 1)
+                    self.Plot1.setRange(xRange=[0, jugan_timespan], padding=0)
+                    plot1_time_line.setValue(jugan_timespan - 1)
 
-                    self.Plot2.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
-                    plot2_time_line.setValue(선물장간_시간차 + day_timespan - 1)
+                    self.Plot2.setRange(xRange=[0, jugan_timespan], padding=0)
+                    plot2_time_line.setValue(jugan_timespan - 1)
 
                     if UI_STYLE == 'Vertical_View.ui':
 
-                        self.Plot3.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
-                        plot3_time_line.setValue(선물장간_시간차 + day_timespan - 1)
+                        self.Plot3.setRange(xRange=[0, jugan_timespan], padding=0)
+                        plot3_time_line.setValue(jugan_timespan - 1)
 
-                        self.Plot4.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
-                        plot4_time_line.setValue(선물장간_시간차 + day_timespan - 1)
+                        self.Plot4.setRange(xRange=[0, jugan_timespan], padding=0)
+                        plot4_time_line.setValue(jugan_timespan - 1)
                     else:
                         pass                        
                 else:
                     # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
-                    self.Plot1.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
-                    plot1_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
+                    self.Plot1.setRange(xRange=[0, yagan_timespan], padding=0)
+                    plot1_time_line.setValue(yagan_timespan - 1)
 
-                    self.Plot2.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
-                    plot2_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
+                    self.Plot2.setRange(xRange=[0, yagan_timespan], padding=0)
+                    plot2_time_line.setValue(yagan_timespan - 1)
 
                     if UI_STYLE == 'Vertical_View.ui':
 
-                        self.Plot3.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
-                        plot3_time_line.setValue(선물장간_시간차 +overnight_timespan - 1)
+                        self.Plot3.setRange(xRange=[0, yagan_timespan], padding=0)
+                        plot3_time_line.setValue(yagan_timespan - 1)
 
-                        self.Plot4.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
-                        plot4_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
+                        self.Plot4.setRange(xRange=[0, yagan_timespan], padding=0)
+                        plot4_time_line.setValue(yagan_timespan - 1)
                     else:
                         pass
 
-                if overnight:
+                if NightTime:
 
-                    df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, yagan_timespan))
+                    df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, yagan_timespan))
 
-                    df_call_price_graph = DataFrame(index=range(0, 선물장간_시간차 + overnight_timespan), columns=range(0, option_pairs_count))
-                    df_put_price_graph = DataFrame(index=range(0, 선물장간_시간차 + overnight_timespan), columns=range(0, option_pairs_count))
+                    df_call_price_graph = DataFrame(index=range(0, yagan_timespan), columns=range(0, option_pairs_count))
+                    df_put_price_graph = DataFrame(index=range(0, yagan_timespan), columns=range(0, option_pairs_count))
 
-                    df_plotdata_call_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_volume_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_call_volume = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    df_plotdata_volume_cha = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
 
-                    df_plotdata_call_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_put_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_call_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    df_plotdata_put_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
 
-                    #df_plotdata_fut_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_dow_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_call_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_put_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    #df_plotdata_fut_drate = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    df_plotdata_dow_drate = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    df_plotdata_call_drate = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    df_plotdata_put_drate = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
 
-                    df_call_info_graph = DataFrame(index=range(0, 선물장간_시간차 + overnight_timespan), columns=['volume', 'hoga', 'drate', 'centerval'])
-                    df_put_info_graph = DataFrame(index=range(0, 선물장간_시간차 + overnight_timespan), columns=['volume', 'hoga', 'drate', 'yanghap'])
+                    df_call_info_graph = DataFrame(index=range(0, yagan_timespan), columns=['volume', 'hoga', 'drate', 'centerval'])
+                    df_put_info_graph = DataFrame(index=range(0, yagan_timespan), columns=['volume', 'hoga', 'drate', 'yanghap'])
 
-                    #df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    #df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    #df_plotdata_fut_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    #df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    #df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    #df_plotdata_fut_volume = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
 
-                    df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_wti = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_eurofx = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_hangseng = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_gold = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    df_plotdata_wti = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    df_plotdata_eurofx = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    df_plotdata_hangseng = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    df_plotdata_gold = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
 
-                    df_plotdata_sp500_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_dow_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_nasdaq_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_wti_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_eurofx_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_hangseng_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
-                    df_plotdata_gold_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_sp500_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    df_plotdata_dow_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    df_plotdata_nasdaq_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    df_plotdata_wti_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    df_plotdata_eurofx_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    df_plotdata_hangseng_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                    df_plotdata_gold_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
 
-                    df_plotdata_centerval = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + overnight_timespan))
+                    df_plotdata_centerval = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
 
-                    df_futures_graph = DataFrame(index=range(0, 선물장간_시간차 + overnight_timespan), columns=['kp200', 'price', 'volume', 'drate'])
+                    df_futures_graph = DataFrame(index=range(0, yagan_timespan), columns=['kp200', 'price', 'volume', 'drate'])
 
-                    df_sp500_graph = DataFrame(index=range(0, 선물장간_시간차 + overnight_timespan), columns=['price', 'hoga'])
-                    df_dow_graph = DataFrame(index=range(0, 선물장간_시간차 + overnight_timespan), columns=['price', 'hoga', 'drate'])
-                    df_nasdaq_graph = DataFrame(index=range(0, 선물장간_시간차 + overnight_timespan), columns=['price', 'hoga'])
-                    df_wti_graph = DataFrame(index=range(0, 선물장간_시간차 + overnight_timespan), columns=['price', 'hoga'])
-                    df_eurofx_graph = DataFrame(index=range(0, 선물장간_시간차 + overnight_timespan), columns=['price', 'hoga'])
-                    df_hangseng_graph = DataFrame(index=range(0, 선물장간_시간차 + overnight_timespan), columns=['price', 'hoga'])
-                    df_gold_graph = DataFrame(index=range(0, 선물장간_시간차 + overnight_timespan), columns=['price', 'hoga'])
+                    df_sp500_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'hoga'])
+                    df_dow_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'hoga', 'drate'])
+                    df_nasdaq_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'hoga'])
+                    df_wti_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'hoga'])
+                    df_eurofx_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'hoga'])
+                    df_hangseng_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'hoga'])
+                    df_gold_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'hoga'])
                 else:
-                    df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, jugan_timespan))
+                    df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, jugan_timespan))
 
-                    df_call_price_graph = DataFrame(index=range(0, 선물장간_시간차 + day_timespan), columns=range(0, option_pairs_count))
-                    df_put_price_graph = DataFrame(index=range(0, 선물장간_시간차 + day_timespan), columns=range(0, option_pairs_count))
+                    df_call_price_graph = DataFrame(index=range(0, jugan_timespan), columns=range(0, option_pairs_count))
+                    df_put_price_graph = DataFrame(index=range(0, jugan_timespan), columns=range(0, option_pairs_count))
 
-                    df_plotdata_call_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_volume_cha = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_call_volume = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    df_plotdata_volume_cha = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
 
-                    df_plotdata_call_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_put_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_call_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    df_plotdata_put_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
 
-                    #df_plotdata_fut_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_dow_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_call_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_put_drate = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    #df_plotdata_fut_drate = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    df_plotdata_dow_drate = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    df_plotdata_call_drate = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    df_plotdata_put_drate = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
 
-                    df_call_info_graph = DataFrame(index=range(0, 선물장간_시간차 + day_timespan), columns=['volume', 'hoga', 'drate'])
-                    df_put_info_graph = DataFrame(index=range(0, 선물장간_시간차 + day_timespan), columns=['volume', 'hoga', 'drate'])
+                    df_call_info_graph = DataFrame(index=range(0, jugan_timespan), columns=['volume', 'hoga', 'drate'])
+                    df_put_info_graph = DataFrame(index=range(0, jugan_timespan), columns=['volume', 'hoga', 'drate'])
 
-                    #df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    #df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    #df_plotdata_fut_volume = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    #df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    #df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    #df_plotdata_fut_volume = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
 
-                    df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_wti = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_eurofx = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_hangseng = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_gold = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    df_plotdata_wti = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    df_plotdata_eurofx = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    df_plotdata_hangseng = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    df_plotdata_gold = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
 
-                    df_plotdata_sp500_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_dow_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_nasdaq_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_wti_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_eurofx_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_hangseng_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
-                    df_plotdata_gold_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_sp500_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    df_plotdata_dow_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    df_plotdata_nasdaq_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    df_plotdata_wti_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    df_plotdata_eurofx_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    df_plotdata_hangseng_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
+                    df_plotdata_gold_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
 
-                    df_plotdata_centerval = DataFrame(index=range(0, 1), columns=range(0, 선물장간_시간차 + day_timespan))
+                    df_plotdata_centerval = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
 
-                    df_futures_graph = DataFrame(index=range(0, 선물장간_시간차 + day_timespan), columns=['kp200', 'price', 'volume', 'drate'])
+                    df_futures_graph = DataFrame(index=range(0, jugan_timespan), columns=['kp200', 'price', 'volume', 'drate'])
 
-                    df_sp500_graph = DataFrame(index=range(0, 선물장간_시간차 + day_timespan), columns=['price', 'hoga'])
-                    df_dow_graph = DataFrame(index=range(0, 선물장간_시간차 + day_timespan), columns=['price', 'hoga', 'drate'])
-                    df_nasdaq_graph = DataFrame(index=range(0, 선물장간_시간차 + day_timespan), columns=['price', 'hoga'])
-                    df_wti_graph = DataFrame(index=range(0, 선물장간_시간차 + day_timespan), columns=['price', 'hoga'])
-                    df_eurofx_graph = DataFrame(index=range(0, 선물장간_시간차 + day_timespan), columns=['price', 'hoga'])
-                    df_hangseng_graph = DataFrame(index=range(0, 선물장간_시간차 + day_timespan), columns=['price', 'hoga'])
-                    df_gold_graph = DataFrame(index=range(0, 선물장간_시간차 + day_timespan), columns=['price', 'hoga'])
+                    df_sp500_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'hoga'])
+                    df_dow_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'hoga', 'drate'])
+                    df_nasdaq_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'hoga'])
+                    df_wti_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'hoga'])
+                    df_eurofx_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'hoga'])
+                    df_hangseng_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'hoga'])
+                    df_gold_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'hoga'])
 
                 # 콜처리
                 for i in range(option_pairs_count):
@@ -14884,7 +14889,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_call.setItem(i, Option_column.고가.value, item)
 
-                    if not overnight:
+                    if not NightTime:
 
                         if df['저가'][i] < df['고가'][i]:
                             call_open[i] = True
@@ -14899,7 +14904,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.진폭.value, item)
                     
-                    if not overnight:
+                    if not NightTime:
 
                         if 시가 > opt_search_start_value and df['저가'][i] < df['고가'][i]:
                             call_open_list.append(i)
@@ -14929,7 +14934,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        if not overnight:
+                        if not NightTime:
                             df_plotdata_call.iat[i, 선물장간_시간차] = 시가
                             df_call_price_graph.iat[선물장간_시간차, i] = 시가
                         else:
@@ -14989,7 +14994,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.피봇.value, item)
 
-                    if overnight:
+                    if NightTime:
                         전저 = 저가
                         종가 = 현재가
                         전고 = 고가
@@ -15179,7 +15184,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_put.setItem(i, Option_column.고가.value, item)
 
-                    if not overnight:
+                    if not NightTime:
 
                         if df1['저가'][i] < df1['고가'][i]:
                             put_open[i] = True
@@ -15194,7 +15199,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.진폭.value, item)
                     
-                    if not overnight:
+                    if not NightTime:
 
                         if 시가 > opt_search_start_value and df1['저가'][i] < df1['고가'][i]:
                             put_open_list.append(i)
@@ -15224,7 +15229,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        if not overnight:
+                        if not NightTime:
                             df_plotdata_put.iat[i, 선물장간_시간차] = 시가
                             df_put_price_graph.iat[선물장간_시간차, i] = 시가
                         else:
@@ -15284,7 +15289,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.피봇.value, item)
 
-                    if overnight:
+                    if NightTime:
                         전저 = 저가
                         종가 = 현재가
                         전고 = 고가
@@ -15592,7 +15597,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.textBrowser.append(str)
 
-                if not overnight:        
+                if not NightTime:        
 
                     print('\r')
                     print('t2301 call open list = ', call_open_list, len(call_open_list))
@@ -15657,7 +15662,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             else:
                 # Refresh
-                if not overnight:
+                if not NightTime:
                                     
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
@@ -16077,7 +16082,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
             
-            if not overnight:
+            if not NightTime:
                 #atm_str = self.get_atm_str(KP200_종가)
                 atm_str = self.get_atm_str(kp200_현재가)
             else:
@@ -16186,7 +16191,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 abs(call_atm_value - put_atm_value))
             self.label_atm.setText(str)
             
-            if overnight:
+            if NightTime:
                 
                 item_str = '{0:0.1f}%\n{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
@@ -16311,7 +16316,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if overnight:
+            if NightTime:
                 cme_realdata['현재가'] = df['현재가']
             else:
                 pass            
@@ -16341,7 +16346,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
             
-            if overnight:
+            if NightTime:
 
                 선물_전저 = cme_realdata['전저']
                 선물_전고 = cme_realdata['전고']
@@ -16376,7 +16381,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass    
             
-            if overnight:
+            if NightTime:
 
                 #df_plotdata_kp200.iat[0, 0] = fut_realdata['KP200']
                 #df_plotdata_fut.iat[0, 0] = cme_realdata['종가']
@@ -16512,7 +16517,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not refresh_flag:
 
                 # open, ol/oh 초기화
-                if overnight:
+                if NightTime:
 
                     call_open = [False] * option_pairs_count
                     put_open = [False] * option_pairs_count
@@ -16681,7 +16686,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_call.setItem(i, Option_column.고가.value, item)
 
-                    if overnight:
+                    if NightTime:
 
                         if df['저가'][i] < df['고가'][i]:
                             call_open[i] = True
@@ -16947,7 +16952,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_put.setItem(i, Option_column.고가.value, item)
 
-                    if overnight:
+                    if NightTime:
 
                         if df1['저가'][i] < df1['고가'][i]:
 
@@ -18025,7 +18030,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if block['단축코드'][0:3] == '101':
 
-                if not overnight:
+                if not NightTime:
 
                     item = QTableWidgetItem("{0:0.2f}".format(block['전일저가']))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -18712,7 +18717,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    if overnight:                        
+                    if NightTime:                        
 
                         # EUREX 야간옵션 시세전광판
                         XQ = t2835(parent=self)
@@ -19047,12 +19052,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(적색))
             item.setForeground(QBrush(흰색))
 
-            if overnight:
+            if NightTime:
                 self.tableWidget_fut.setItem(0, Futures_column.OLOH.value, item)
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.OLOH.value, item)
 
-            if overnight:
+            if NightTime:
 
                 self.tableWidget_fut.item(0, Futures_column.시가.value).setBackground(QBrush(적색))
                 self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(흰색))
@@ -19090,12 +19095,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(청색))
             item.setForeground(QBrush(흰색))
 
-            if overnight:
+            if NightTime:
                 self.tableWidget_fut.setItem(0, Futures_column.OLOH.value, item)
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.OLOH.value, item)
 
-            if overnight:
+            if NightTime:
 
                 self.tableWidget_fut.item(0, Futures_column.시가.value).setBackground(QBrush(청색))
                 self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(흰색))
@@ -19134,12 +19139,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             item = QTableWidgetItem('')
 
-            if overnight:
+            if NightTime:
                 self.tableWidget_fut.setItem(0, Futures_column.OLOH.value, item)
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.OLOH.value, item) 
 
-            if overnight:
+            if NightTime:
 
                 self.tableWidget_fut.item(0, Futures_column.시가.value).setBackground(QBrush(흰색))
                 self.tableWidget_fut.item(0, Futures_column.시가.value).setForeground(QBrush(검정색))
@@ -19252,7 +19257,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 선물_현재가 > 선물_시가:
 
-                if overnight:
+                if NightTime:
 
                     self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
                     self.tableWidget_fut.item(0, 0).setForeground(QBrush(검정색))
@@ -19262,7 +19267,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif 선물_현재가 < 선물_시가:
 
-                if overnight:
+                if NightTime:
 
                     self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
                     self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
@@ -19272,7 +19277,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             else:
 
-                if overnight:
+                if NightTime:
 
                     self.tableWidget_fut.item(0, 0).setBackground(QBrush(검정색))
                     self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
@@ -19285,7 +19290,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 전저, 전고, 종가, 피봇 컬러링
         if self.is_within_n_tick(선물_전저, 선물_저가, 10):
 
-            if overnight:
+            if NightTime:
 
                 self.tableWidget_fut.item(0, Futures_column.전저.value).setBackground(QBrush(콜전저색))
                 self.tableWidget_fut.item(0, Futures_column.전저.value).setForeground(QBrush(검정색))
@@ -19301,7 +19306,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if self.is_within_n_tick(선물_전고, 선물_저가, 10):
 
-            if overnight:
+            if NightTime:
 
                 self.tableWidget_fut.item(0, Futures_column.전고.value).setBackground(QBrush(콜전고색))
                 self.tableWidget_fut.item(0, Futures_column.전고.value).setForeground(QBrush(검정색))
@@ -19317,7 +19322,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if self.is_within_n_tick(선물_종가, 선물_저가, 10):
 
-            if overnight:
+            if NightTime:
 
                 self.tableWidget_fut.item(0, Futures_column.종가.value).setBackground(QBrush(콜종가색))
                 self.tableWidget_fut.item(0, Futures_column.종가.value).setForeground(QBrush(검정색))
@@ -19335,7 +19340,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if self.is_within_n_tick(선물_피봇, 선물_저가, 10):
 
-                if overnight:
+                if NightTime:
 
                     # 임시대응
                     if market_service:
@@ -19357,7 +19362,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if self.is_within_n_tick(선물_전저, 선물_고가, 10):
 
-            if overnight:
+            if NightTime:
 
                 self.tableWidget_fut.item(0, Futures_column.전저.value).setBackground(QBrush(콜전저색))
                 self.tableWidget_fut.item(0, Futures_column.전저.value).setForeground(QBrush(검정색))
@@ -19373,7 +19378,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if self.is_within_n_tick(선물_전고, 선물_고가, 10):
 
-            if overnight:
+            if NightTime:
 
                 self.tableWidget_fut.item(0, Futures_column.전고.value).setBackground(QBrush(콜전고색))
                 self.tableWidget_fut.item(0, Futures_column.전고.value).setForeground(QBrush(검정색))
@@ -19389,7 +19394,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if self.is_within_n_tick(선물_종가, 선물_고가, 10):
 
-            if overnight:
+            if NightTime:
 
                 self.tableWidget_fut.item(0, Futures_column.종가.value).setBackground(QBrush(콜종가색))
                 self.tableWidget_fut.item(0, Futures_column.종가.value).setForeground(QBrush(검정색))
@@ -19407,7 +19412,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if self.is_within_n_tick(선물_피봇, 선물_고가, 10):                
 
-                if overnight:
+                if NightTime:
                     
                     # 임시대응
                     if market_service:
@@ -19483,7 +19488,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         fut_time = dt.hour * 3600 + dt.minute * 60 + dt.second         
 
-        if TELEGRAM_SERVICE and not flag_telegram_send_worker and not overnight:            
+        if TELEGRAM_SERVICE and not flag_telegram_send_worker and not NightTime:            
 
             self.telegram_send_worker.start()
             self.telegram_send_worker.daemon = True
@@ -19526,7 +19531,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # Telegram Send Worker 시작 후 TELEGRAM_START_TIME분에 Telegram Listen을 위한 Polling Thread 시작 !!!
-        if not flag_telegram_listen_worker and fut_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME and not overnight:
+        if not flag_telegram_listen_worker and fut_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME and not NightTime:
 
             if TELEGRAM_SERVICE:
 
@@ -19558,7 +19563,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if fut_time == telegram_send_worker_on_time + 2 or fut_time == telegram_send_worker_on_time + 3:
             
             # 선물 시가갭 컬러링(주간 장시작시 표시안되는 오류 대응)
-            if overnight:
+            if NightTime:
 
                 if 선물_시가 > 선물_종가:
                     self.tableWidget_fut.item(0, Futures_column.시가갭.value).setBackground(QBrush(콜기준가색))
@@ -19582,7 +19587,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass        
 
         # 시가 및 피봇 갱신
-        if overnight:
+        if NightTime:
             fut_open = self.tableWidget_fut.item(0, Futures_column.시가.value).text()
         else:
             fut_open = self.tableWidget_fut.item(1, Futures_column.시가.value).text()
@@ -19607,7 +19612,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 item.setForeground(QBrush(검정색))    
 
-            if overnight:
+            if NightTime:
 
                 self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)
 
@@ -19680,7 +19685,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem("{0:0.2f}".format(선물_피봇))
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if overnight:
+                if NightTime:
                     self.tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
                     df_fut.loc[0, '피봇'] = 선물_피봇
                     cme_realdata['피봇'] = 선물_피봇
@@ -19701,7 +19706,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     item.setBackground(QBrush(흰색)) 
 
-                if overnight:
+                if NightTime:
                     self.tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
                     df_fut.loc[0, '시가갭'] = 시가갭
                     cme_realdata['시가갭'] = 시가갭
@@ -19713,14 +19718,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass 
 
         # 현재가 갱신
-        if overnight:
+        if NightTime:
             fut_price = self.tableWidget_fut.item(0, Futures_column.현재가.value).text().split('\n')[0]
         else:
             fut_price = self.tableWidget_fut.item(1, Futures_column.현재가.value).text().split('\n')[0]
 
         if 현재가 != fut_price:
 
-            if overnight:
+            if NightTime:
                 
                 df_fut.at[0, '현재가'] = 선물_현재가
                 cme_realdata['현재가'] = 선물_현재가
@@ -19791,7 +19796,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if overnight:
+            if NightTime:
                 self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
@@ -19807,7 +19812,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if overnight:
+                if NightTime:
 
                     self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
                     self.tableWidget_fut.item(0, 0).setForeground(QBrush(검정색))
@@ -19826,7 +19831,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass  
 
-                if overnight:
+                if NightTime:
 
                     self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
                     self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
@@ -19845,7 +19850,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass  
 
-                if overnight:
+                if NightTime:
 
                     self.tableWidget_fut.item(0, 0).setBackground(QBrush(검정색))
                     self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
@@ -19860,7 +19865,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem("{0:0.2f}".format(선물_DOW_진폭비율))
             item.setTextAlignment(Qt.AlignCenter)
 
-            if overnight:
+            if NightTime:
                 self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
             else:
                 self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
@@ -19879,7 +19884,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass        
                 
         # 저가 갱신
-        if overnight:
+        if NightTime:
             fut_low = self.tableWidget_fut.item(0, Futures_column.저가.value).text()
         else:
             fut_low = self.tableWidget_fut.item(1, Futures_column.저가.value).text()
@@ -19892,7 +19897,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(회색))            
 
-            if overnight:
+            if NightTime:
 
                 self.tableWidget_fut.setItem(0, Futures_column.저가.value, item)
                 df_fut.at[0, '저가'] = 선물_저가
@@ -19911,7 +19916,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setForeground(QBrush(청색))  
 
-                if overnight:           
+                if NightTime:           
                     self.tableWidget_fut.setItem(0, Futures_column.전저.value, item)
                 else:
                     self.tableWidget_fut.setItem(1, Futures_column.전저.value, item)
@@ -19930,7 +19935,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem("{0:0.2f}".format(진폭))
             item.setTextAlignment(Qt.AlignCenter)
 
-            if overnight:
+            if NightTime:
                 self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
                 df_fut.at[0, '진폭'] = 진폭
                 cme_realdata['진폭'] = 진폭
@@ -19942,7 +19947,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # 고가 갱신
-        if overnight:
+        if NightTime:
             fut_high = self.tableWidget_fut.item(0, Futures_column.고가.value).text()
         else:
             fut_high = self.tableWidget_fut.item(1, Futures_column.고가.value).text()
@@ -19955,7 +19960,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(회색))            
 
-            if overnight:
+            if NightTime:
                 
                 self.tableWidget_fut.setItem(0, Futures_column.고가.value, item)
                 df_fut.at[0, '고가'] = 선물_고가
@@ -19974,7 +19979,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setForeground(QBrush(적색))  
 
-                if overnight:           
+                if NightTime:           
                     self.tableWidget_fut.setItem(0, Futures_column.전고.value, item)
                 else:
                     self.tableWidget_fut.setItem(1, Futures_column.전고.value, item)
@@ -19993,7 +19998,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem("{0:0.2f}".format(진폭))
             item.setTextAlignment(Qt.AlignCenter)
 
-            if overnight:
+            if NightTime:
                 self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
                 df_fut.at[0, '진폭'] = 진폭
                 cme_realdata['진폭'] = 진폭
@@ -20026,7 +20031,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setBackground(QBrush(흰색))
             item.setForeground(QBrush(검정색))
 
-        if overnight:
+        if NightTime:
             self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
             df_fut.at[0, '거래량'] = fut_volume_power 
             cme_realdata['거래량'] = fut_volume_power
@@ -20036,7 +20041,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             fut_realdata['거래량'] = fut_volume_power        
         
         # 미결 갱신
-        if not overnight:
+        if not NightTime:
 
             df_fut.at[1, '미결'] = result['미결제약정수량'] 
             fut_realdata['미결'] = result['미결제약정수량']
@@ -20050,7 +20055,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # 미결증감 갱신
-        if not overnight:
+        if not NightTime:
 
             df_fut.at[1, '미결증감'] = result['미결제약정증감']  
             fut_realdata['미결증감'] = result['미결제약정증감']
@@ -20227,7 +20232,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         저가 = call_result['저가']
         고가 = call_result['고가']
 
-        if not overnight and index == atm_index:
+        if not NightTime and index == atm_index:
             콜등락율 = call_result['등락율']
             df_plotdata_call_drate[opt_x_idx] = call_result['등락율']
             df_call_info_graph.at[opt_x_idx, 'drate'] = call_result['등락율']
@@ -20247,7 +20252,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         콜전고 = df_call.at[index, '전고']
                 
         # 야간선물이 없어짐에 따른 텔레그램 기동 대응
-        if overnight:
+        if NightTime:
 
             global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
 
@@ -20345,7 +20350,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 (int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
             self.textBrowser.append(str)
             
-            if not overnight and index > atm_index:
+            if not NightTime and index > atm_index:
                 call_itm_count += 1
             else:
                 pass
@@ -20507,7 +20512,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 콜시가 > 0.1:
                 call_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
 
-                if not overnight:
+                if not NightTime:
 
                     if index == atm_index:
                         gap_str = "{0:0.2f}\n({1:0.2f}%)".format(콜대비, 콜등락율)
@@ -20523,7 +20528,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 콜 외가(등가포함) 대비 저장
-            if not overnight and index <= atm_index and 콜시가 > 0.1 and 콜저가 < 콜고가:
+            if not NightTime and index <= atm_index and 콜시가 > 0.1 and 콜저가 < 콜고가:
                 call_otm_db[index] = 콜대비
                 call_otm_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
             else:
@@ -20614,7 +20619,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if not overnight and 콜기준가 >= 콜저가:
+            if not NightTime and 콜기준가 >= 콜저가:
 
                 if atm_index - 3 <= index <= atm_index + 3:
                     pass
@@ -20861,7 +20866,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 매도누적체결량 = call_result['매도누적체결량'] * 콜현재가
                 매수누적체결량 = call_result['매수누적체결량'] * 콜현재가
 
-                if not overnight:
+                if not NightTime:
 
                     매도누적체결건수 = call_result['매도누적체결건수'] * 콜현재가
                     매수누적체결건수 = call_result['매수누적체결건수'] * 콜현재가
@@ -20872,7 +20877,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 매도누적체결량 = call_result['매도누적체결량'] * (콜현재가 - 콜시가갭)
                 매수누적체결량 = call_result['매수누적체결량'] * (콜현재가 - 콜시가갭)
 
-                if not overnight:
+                if not NightTime:
 
                     매도누적체결건수 = call_result['매도누적체결건수'] * (콜현재가 - 콜시가갭)
                     매수누적체결건수 = call_result['매수누적체결건수'] * (콜현재가 - 콜시가갭)
@@ -20885,7 +20890,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_call_volume.at[index, '매수누적체결량'] = int(매수누적체결량)
             df_call.at[index, '거래량'] = call_result['누적거래량']
 
-            if not overnight:
+            if not NightTime:
 
                 df_call_volume.at[index, '매도누적체결건수'] = int(매도누적체결건수)
                 df_call_volume.at[index, '매수누적체결건수'] = int(매수누적체결건수)
@@ -20928,7 +20933,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         매수잔량 = format(call_volume['매수누적체결량'], ',')
         매도잔량 = format(call_volume['매도누적체결량'], ',')
         
-        if not overnight:
+        if not NightTime:
 
             매수건수 = format(call_volume['매수누적체결건수'], ',')
 
@@ -21458,7 +21463,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         저가 = put_result['저가']
         고가 = put_result['고가']
         
-        if not overnight and index == atm_index:
+        if not NightTime and index == atm_index:
             풋등락율 = put_result['등락율']
             df_plotdata_put_drate[opt_x_idx] = put_result['등락율']
             df_put_info_graph.at[opt_x_idx, 'drate'] = put_result['등락율']
@@ -21495,7 +21500,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 (int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
             self.textBrowser.append(str)
             
-            if not overnight and index < atm_index:
+            if not NightTime and index < atm_index:
                 put_itm_count += 1
             else:
                 pass
@@ -21657,7 +21662,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 풋시가 > 0.1:
                 put_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
 
-                if not overnight:
+                if not NightTime:
 
                     if index == atm_index:
                         gap_str = "{0:0.2f}\n({1:0.2f}%)".format(풋대비, 풋등락율)
@@ -21673,7 +21678,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             
             # 풋 외가(등가포함) 대비 저장
-            if not overnight and index >= atm_index and 풋시가 > 0.1 and 풋저가 < 풋고가:
+            if not NightTime and index >= atm_index and 풋시가 > 0.1 and 풋저가 < 풋고가:
                 put_otm_db[index] = 풋대비
                 put_otm_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
             else:
@@ -21764,7 +21769,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if not overnight and 풋기준가 >= 풋저가:
+            if not NightTime and 풋기준가 >= 풋저가:
 
                 if atm_index - 3 <= index <= atm_index + 3:
                     pass
@@ -22012,7 +22017,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 매도누적체결량 = put_result['매도누적체결량'] * 풋현재가
                 매수누적체결량 = put_result['매수누적체결량'] * 풋현재가
 
-                if not overnight:
+                if not NightTime:
 
                     매도누적체결건수 = put_result['매도누적체결건수'] * 풋현재가
                     매수누적체결건수 = put_result['매수누적체결건수'] * 풋현재가
@@ -22023,7 +22028,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 매도누적체결량 = put_result['매도누적체결량'] * (풋현재가 - 풋시가갭)
                 매수누적체결량 = put_result['매수누적체결량'] * (풋현재가 - 풋시가갭)
 
-                if not overnight:
+                if not NightTime:
 
                     매도누적체결건수 = put_result['매도누적체결건수'] * (풋현재가 - 풋시가갭)
                     매수누적체결건수 = put_result['매수누적체결건수'] * (풋현재가 - 풋시가갭)
@@ -22036,7 +22041,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_put_volume.at[index, '매수누적체결량'] = int(매수누적체결량)
             df_put.at[index, '거래량'] = put_result['누적거래량']
 
-            if not overnight:
+            if not NightTime:
                 
                 df_put_volume.at[index, '매도누적체결건수'] = int(매도누적체결건수)
                 df_put_volume.at[index, '매수누적체결건수'] = int(매수누적체결건수)
@@ -22082,7 +22087,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         매수잔량 = format(put_volume['매수누적체결량'], ',')
         매도잔량 = format(put_volume['매도누적체결량'], ',')
 
-        if not overnight:
+        if not NightTime:
 
             매수건수 = format(put_volume['매수누적체결건수'], ',')
 
@@ -24363,7 +24368,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if overnight:
+                if NightTime:
 
                     선물_거래대금순매수 = FUT_FOREIGNER_거래대금순매수 + FUT_RETAIL_거래대금순매수 + \
                                  FUT_INSTITUTIONAL_거래대금순매수 + FUT_STOCK_거래대금순매수 + FUT_BOHEOM_거래대금순매수 + \
@@ -24522,7 +24527,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass                
 
                 # 세로축 시간 좌표값 계산
-                if overnight:
+                if NightTime:
 
                     if result['체결시간'] != '':
                         nighttime = int(result['체결시간'][0:2])
@@ -24555,7 +24560,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if result['전일동시간대거래량'] > 0:
 
-                            if overnight:
+                            if NightTime:
                                 fut_vr = float(self.tableWidget_fut.item(0, Futures_column.FR.value).text())
                             else:
                                 fut_vr = float(self.tableWidget_fut.item(1, Futures_column.FR.value).text())
@@ -24566,7 +24571,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 item = QTableWidgetItem("{0:0.1f}".format(vr))
                                 item.setTextAlignment(Qt.AlignCenter)
 
-                                if overnight:
+                                if NightTime:
                                     self.tableWidget_fut.setItem(0, Futures_column.FR.value, item)
                                 else:
                                     self.tableWidget_fut.setItem(1, Futures_column.FR.value, item)
@@ -24607,7 +24612,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # X축 시간좌표 계산
-                if overnight:
+                if NightTime:
 
                     if result['체결시간'] != '':
 
@@ -24635,7 +24640,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             int(result['체결시간'][4:6]),
                             opt_x_idx)              
                 
-                if overnight:                    
+                if NightTime:                    
                     self.textBrowser.append(str)
                 else:
                     print(str)
@@ -24820,7 +24825,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if overnight:
+                if NightTime:
                     self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
                 else:
                     self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
@@ -24828,7 +24833,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem("{0}".format(format(result['매도호가총건수'], ',')))
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if overnight:
+                if NightTime:
                     self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
                 else:
                     self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
@@ -24836,7 +24841,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem("{0}".format(format(result['매수호가총수량'], ',')))
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if overnight:
+                if NightTime:
                     self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
                 else:
                     self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
@@ -24844,7 +24849,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem("{0}".format(format(result['매도호가총수량'], ',')))
                 item.setTextAlignment(Qt.AlignCenter)
 
-                if overnight:
+                if NightTime:
                     self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
                 else:
                     self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
@@ -24856,7 +24861,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem("{0:0.2f}".format(fut_cr))
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if overnight:
+                    if NightTime:
                         self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item)
                     else:
                         self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
@@ -24870,14 +24875,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem("{0:0.2f}".format(fut_rr))
                     item.setTextAlignment(Qt.AlignCenter)
 
-                    if overnight:
+                    if NightTime:
                         self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
                     else:
                         self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
                 else:
                     pass
 
-                if not overnight:
+                if not NightTime:
 
                     if fut_cr > 1 and fut_rr > 1:
                         
@@ -24949,7 +24954,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 OVC_체결시간 = result['체결시간_한국']              
 
                 # X축 시간좌표 계산
-                if overnight:
+                if NightTime:
 
                     global night_time
 
@@ -24999,7 +25004,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     NASDAQ_진폭 = result['고가'] - result['저가']
                     
                     if NASDAQ_전일종가 > 0:
-                        if not overnight:
+                        if not NightTime:
                             NASDAQ_등락율 = ((result['체결가격'] - NASDAQ_전일종가) / NASDAQ_전일종가) * 100
                         else:
                             NASDAQ_등락율 = result['등락율']
@@ -25123,7 +25128,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     SP500_진폭 = result['고가'] - result['저가']
 
                     if SP500_전일종가 > 0:
-                        if not overnight:
+                        if not NightTime:
                             SP500_등락율 = ((result['체결가격'] - SP500_전일종가) / SP500_전일종가) * 100
                         else:
                             SP500_등락율 = result['등락율']
@@ -25174,7 +25179,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             
                             if SP500_등락율 < 0:
 
-                                if overnight:
+                                if NightTime:
 
                                     if min(대비리스트) > 0:
                                         jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
@@ -25200,7 +25205,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             elif SP500_등락율 > 0:  
 
-                                if overnight:
+                                if NightTime:
 
                                     if min(대비리스트) > 0:
                                         jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
@@ -25230,7 +25235,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             
                             if SP500_등락율 < 0: 
 
-                                if overnight:
+                                if NightTime:
 
                                     if max(대비리스트) < 0:
                                         jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
@@ -25256,7 +25261,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             elif SP500_등락율 > 0:
 
-                                if overnight:
+                                if NightTime:
 
                                     if max(대비리스트) < 0:
                                         jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
@@ -25309,7 +25314,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     DOW_진폭 = int(result['고가'] - result['저가'])
 
                     if DOW_전일종가 > 0:
-                        if not overnight:
+                        if not NightTime:
                             DOW_등락율 = ((result['체결가격'] - DOW_전일종가) / DOW_전일종가) * 100
                         else:
                             DOW_등락율 = result['등락율']
@@ -25448,7 +25453,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     WTI_진폭 = round((result['고가'] - result['저가']), 2)
 
                     if WTI_전일종가 > 0:
-                        if not overnight:
+                        if not NightTime:
                             WTI_등락율 = ((result['체결가격'] - WTI_전일종가) / WTI_전일종가) * 100
                         else:
                             WTI_등락율 = result['등락율']
@@ -25574,7 +25579,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     EUROFX_진폭 = round((result['고가'] - result['저가']), 2)
 
                     if EUROFX_전일종가 > 0:
-                        if not overnight:
+                        if not NightTime:
                             EUROFX_등락율 = ((result['체결가격'] - EUROFX_전일종가) / EUROFX_전일종가) * 100
                         else:
                             EUROFX_등락율 = result['등락율']
@@ -25700,7 +25705,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     HANGSENG_진폭 = int(result['고가'] - result['저가'])
 
                     if HANGSENG_전일종가 > 0:
-                        if not overnight:
+                        if not NightTime:
                             HANGSENG_등락율 = ((result['체결가격'] - HANGSENG_전일종가) / HANGSENG_전일종가) * 100
                         else:
                             HANGSENG_등락율 = result['등락율']
@@ -25826,7 +25831,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     GOLD_진폭 = result['고가'] - result['저가']
 
                     if GOLD_전일종가 > 0:
-                        if not overnight:
+                        if not NightTime:
                             GOLD_등락율 = ((result['체결가격'] - GOLD_전일종가) / GOLD_전일종가) * 100
                         else:
                             GOLD_등락율 = result['등락율']
@@ -26281,7 +26286,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(lime))
 
-                        if overnight:
+                        if NightTime:
                             self.tableWidget_fut.setItem(1, 2 + i, item)
                         else:
                             self.tableWidget_fut.setItem(0, 2 + i, item)
@@ -26330,7 +26335,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(str)
                 print(str)
 
-            if not overnight:
+            if not NightTime:
 
                 if int(current_str[0:2]) == 7 and int(current_str[3:5]) > 10:
                     pre_start = True
@@ -26746,7 +26751,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.bc_comboBox2.setStyleSheet("background-color: white")
         self.bc_comboBox3.setStyleSheet("background-color: white")
         
-        if not overnight:
+        if not NightTime:
 
             if TARGET_MONTH_SELECT == 1:
 
@@ -26967,16 +26972,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.bc_Plot1.enableAutoRange('y', True)
         self.bc_Plot1.plotItem.showGrid(True, True, 0.5)
-        self.bc_Plot1.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)        
+        self.bc_Plot1.setRange(xRange=[0, jugan_timespan], padding=0)        
 
         self.bc_Plot2.enableAutoRange('y', True)
         self.bc_Plot2.plotItem.showGrid(True, True, 0.5)
-        self.bc_Plot2.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+        self.bc_Plot2.setRange(xRange=[0, jugan_timespan], padding=0)
         self.bc_Plot2.setXLink(self.bc_Plot1)
 
         self.bc_Plot3.enableAutoRange('y', True)
         self.bc_Plot3.plotItem.showGrid(True, True, 0.5)
-        self.bc_Plot3.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
+        self.bc_Plot3.setRange(xRange=[0, jugan_timespan], padding=0)
         self.bc_Plot3.setXLink(self.bc_Plot1)
 
         # Line & Curve of the Plot1 
@@ -27164,16 +27169,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass         
 
-        if overnight:
+        if NightTime:
             # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
-            self.bc_Plot1.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
-            bc_plot1_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
+            self.bc_Plot1.setRange(xRange=[0, yagan_timespan], padding=0)
+            bc_plot1_time_line.setValue(yagan_timespan - 1)
 
-            self.bc_Plot2.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
-            bc_plot2_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
+            self.bc_Plot2.setRange(xRange=[0, yagan_timespan], padding=0)
+            bc_plot2_time_line.setValue(yagan_timespan - 1)
 
-            self.bc_Plot3.setRange(xRange=[0, 선물장간_시간차 + overnight_timespan], padding=0)
-            bc_plot3_time_line.setValue(선물장간_시간차 + overnight_timespan - 1)
+            self.bc_Plot3.setRange(xRange=[0, yagan_timespan], padding=0)
+            bc_plot3_time_line.setValue(yagan_timespan - 1)
 
             # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
             bc_plot1_time_line_start.setValue(선물장간_시간차 + 1)
@@ -27184,14 +27189,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
             bc_plot3_time_line_yagan_start.setValue(선물장간_시간차 + 4 * 선물장간_시간차 + 30)
         else:
-            self.bc_Plot1.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
-            bc_plot1_time_line.setValue(선물장간_시간차 + day_timespan - 1)
+            self.bc_Plot1.setRange(xRange=[0, jugan_timespan], padding=0)
+            bc_plot1_time_line.setValue(jugan_timespan - 1)
 
-            self.bc_Plot2.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
-            bc_plot2_time_line.setValue(선물장간_시간차 + day_timespan - 1)
+            self.bc_Plot2.setRange(xRange=[0, jugan_timespan], padding=0)
+            bc_plot2_time_line.setValue(jugan_timespan - 1)
 
-            self.bc_Plot3.setRange(xRange=[0, 선물장간_시간차 + day_timespan], padding=0)
-            bc_plot3_time_line.setValue(선물장간_시간차 + day_timespan - 1)
+            self.bc_Plot3.setRange(xRange=[0, jugan_timespan], padding=0)
+            bc_plot3_time_line.setValue(jugan_timespan - 1)
 
             # 시작시간 X축 표시(index 60은 시가)
             bc_plot1_time_line_start.setValue(선물장간_시간차)
