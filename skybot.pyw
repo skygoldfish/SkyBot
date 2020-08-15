@@ -57,7 +57,7 @@ from mss import mss
 from collections import Counter
 from PIL import Image
 import talib
-from TAcharts.indicators.ichimoku import Ichimoku
+#from TAcharts.indicators.ichimoku import Ichimoku
 
 #from subprocess import Popen
 #from PIL import ImageGrab

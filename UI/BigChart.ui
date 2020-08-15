@@ -161,14 +161,14 @@
         <item>
          <widget class="QCheckBox" name="checkBox_plot1_psar">
           <property name="text">
-           <string>P-SAR</string>
+           <string>PSAR</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QCheckBox" name="checkBox_plot1_ichimoku">
           <property name="text">
-           <string>일목균형표</string>
+           <string>MAMA</string>
           </property>
          </widget>
         </item>
@@ -337,14 +337,14 @@
         <item>
          <widget class="QCheckBox" name="checkBox_plot2_psar">
           <property name="text">
-           <string>P-SAR</string>
+           <string>PSAR</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QCheckBox" name="checkBox_plot2_ichimoku">
           <property name="text">
-           <string>일목균형표</string>
+           <string>MAMA</string>
           </property>
          </widget>
         </item>
@@ -513,14 +513,14 @@
         <item>
          <widget class="QCheckBox" name="checkBox_plot3_psar">
           <property name="text">
-           <string>P-SAR</string>
+           <string>PSAR</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QCheckBox" name="checkBox_plot3_ichimoku">
           <property name="text">
-           <string>일목균형표</string>
+           <string>MAMA</string>
           </property>
          </widget>
         </item>
