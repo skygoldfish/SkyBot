@@ -1169,7 +1169,7 @@ flag_kp200_high = False
 
 OVC_체결시간 = '000000'
 
-night_time = 0
+#night_time = 0
 
 fut_volume_power = 0
 
@@ -14886,7 +14886,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.종가.value, item)
 
-                    df_plotdata_call.iat[i, 0] = 종가
+                    #df_plotdata_call.iat[i, 0] = 종가
                     df_call_price_graph.iat[0, i] = 종가
 
                     if df['저가'][i] < df['고가'][i]:
@@ -14962,7 +14962,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         if not NightTime:
-                            df_plotdata_call.iat[i, 선물장간_시간차] = 시가
+                            #df_plotdata_call.iat[i, 선물장간_시간차] = 시가
                             df_call_price_graph.iat[선물장간_시간차, i] = 시가
                         else:
                             pass
@@ -15181,7 +15181,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.종가.value, item)
 
-                    df_plotdata_put.iat[i, 0] = 종가
+                    #df_plotdata_put.iat[i, 0] = 종가
                     df_put_price_graph.iat[0, i] = 종가
 
                     if df1['저가'][i] < df1['고가'][i]:
@@ -15257,7 +15257,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         if not NightTime:
-                            df_plotdata_put.iat[i, 선물장간_시간차] = 시가
+                            #df_plotdata_put.iat[i, 선물장간_시간차] = 시가
                             df_put_price_graph.iat[선물장간_시간차, i] = 시가
                         else:
                             pass
@@ -16660,7 +16660,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.종가.value, item)
 
-                    df_plotdata_call.iat[i, 0] = 종가
+                    #df_plotdata_call.iat[i, 0] = 종가
                     df_call_price_graph.iat[0, i] = 종가
 
                     현재가 = df['현재가'][i]
@@ -16756,7 +16756,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        df_plotdata_call.iat[i, 선물장간_시간차] = 시가
+                        #df_plotdata_call.iat[i, 선물장간_시간차] = 시가
                         df_call_price_graph.iat[선물장간_시간차, i] = 시가
 
                         시가갭 = 시가 - 종가
@@ -16926,7 +16926,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.종가.value, item)
 
-                    df_plotdata_put.iat[i, 0] = 종가
+                    #df_plotdata_put.iat[i, 0] = 종가
                     df_put_price_graph.iat[0, i] = 종가
 
                     현재가 = df1['현재가'][i]
@@ -17023,7 +17023,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        df_plotdata_put.iat[i, 선물장간_시간차] = 시가
+                        #df_plotdata_put.iat[i, 선물장간_시간차] = 시가
                         df_put_price_graph.iat[선물장간_시간차, i] = 시가
 
                         시가갭 = 시가 - 종가
@@ -18171,7 +18171,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_call.setItem(t8416_call_count, Option_column.종가.value, item)
 
                     if t8416_call_count < option_pairs_count:
-                        df_plotdata_call.iat[t8416_call_count, 0] = block['전일종가']
+                        #df_plotdata_call.iat[t8416_call_count, 0] = block['전일종가']
                         df_call_price_graph.iat[0, t8416_call_count] = block['전일종가']
                     else:
                         pass
@@ -18386,7 +18386,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_put.setItem(t8416_put_count, Option_column.종가.value, item)
 
                     if t8416_put_count < option_pairs_count:
-                        df_plotdata_put.iat[t8416_put_count, 0] = block['전일종가']
+                        #df_plotdata_put.iat[t8416_put_count, 0] = block['전일종가']
                         df_put_price_graph.iat[0, t8416_put_count] = block['전일종가']
                     else:
                         pass
@@ -19503,14 +19503,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         선물_전일대비 = 선물_현재가 - 선물_종가         
         선물_등락율 = result['등락율']
         선물_진폭 = 선물_고가 - 선물_저가
-
-        #df_plotdata_fut_drate[x_idx] = result['등락율']
-        df_futures_graph.at[x_idx, 'drate'] = result['등락율']
         
         # Plot 데이타프레임 생성
         #df_plotdata_fut.iat[0, x_idx] = 선물_현재가
         df_futures_graph.at[x_idx, 'price'] = 선물_현재가
-        선물_현재가리스트 = df_futures_graph['price'].tolist()        
+        
+        #df_plotdata_fut_drate[x_idx] = result['등락율']
+        df_futures_graph.at[x_idx, 'drate'] = result['등락율']       
 
         #print('fut_first_arrive = {0}, first_refresh = {1}, market_service = {2}\r'.format(fut_first_arrive, first_refresh, market_service))
 
@@ -20314,7 +20313,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if not NightTime and index == atm_index:
             콜등락율 = call_result['등락율']
-            df_plotdata_call_drate[opt_x_idx] = call_result['등락율']
+            #df_plotdata_call_drate[opt_x_idx] = call_result['등락율']
             df_call_info_graph.at[opt_x_idx, 'drate'] = call_result['등락율']
         else:
             pass
@@ -20457,7 +20456,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
             df_call.at[index, '시가'] = 콜시가
-            df_plotdata_call.iat[index, 선물장간_시간차] = 콜시가
+            #df_plotdata_call.iat[index, 선물장간_시간차] = 콜시가
             df_call_price_graph.iat[선물장간_시간차, index] = 콜시가
             
             item = QTableWidgetItem(시가)
@@ -20558,7 +20557,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 현재가 != 콜_현재가:
 
             df_call.at[index, '현재가'] = 콜현재가
-            df_plotdata_call.iat[index, opt_x_idx] = 콜현재가
+            #df_plotdata_call.iat[index, opt_x_idx] = 콜현재가
             df_call_price_graph.iat[opt_x_idx, index] = 콜현재가
 
             if 콜현재가 < float(콜_현재가):
@@ -21607,7 +21606,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
             
             df_put.at[index, '시가'] = 풋시가
-            df_plotdata_put.iat[index, 선물장간_시간차] = 풋시가
+            #df_plotdata_put.iat[index, 선물장간_시간차] = 풋시가
             df_put_price_graph.iat[선물장간_시간차, index] = 풋시가
             
             item = QTableWidgetItem(시가)
@@ -21708,7 +21707,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 현재가 != 풋_현재가:
 
             df_put.at[index, '현재가'] = 풋현재가
-            df_plotdata_put.iat[index, opt_x_idx] = 풋현재가
+            #df_plotdata_put.iat[index, opt_x_idx] = 풋현재가
             df_put_price_graph.iat[opt_x_idx, index] = 풋현재가
 
             if 풋현재가 < float(풋_현재가):
@@ -23431,7 +23430,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if result['예상체결가격'] != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
-                            df_plotdata_call.iat[index, 선물장간_시간차] = float(result['예상체결가격'])
+                            #df_plotdata_call.iat[index, 선물장간_시간차] = float(result['예상체결가격'])
                             df_call_price_graph.iat[선물장간_시간차, index] = float(result['예상체결가격'])
                             df_call.at[index, '시가'] = float(result['예상체결가격'])
 
@@ -23549,7 +23548,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if result['예상체결가격'] != self.tableWidget_put.item(index, Option_column.시가.value).text():
 
-                            df_plotdata_put.iat[index, 선물장간_시간차] = float(result['예상체결가격'])
+                            #df_plotdata_put.iat[index, 선물장간_시간차] = float(result['예상체결가격'])
                             df_put_price_graph.iat[선물장간_시간차, index] = float(result['예상체결가격'])
                             df_put.at[index, '시가'] = float(result['예상체결가격'])
 
@@ -25037,7 +25036,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # X축 시간좌표 계산
                 if NightTime:
 
-                    global night_time
+                    #global night_time
 
                     if result['체결시간_한국'] != '':
 
@@ -25187,10 +25186,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         NASDAQ_과거가 = result['체결가격']
                                        
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            df_plotdata_nasdaq.iat[0, ovc_x_idx] = result['체결가격']
+                            #df_plotdata_nasdaq.iat[0, ovc_x_idx] = result['체결가격']
                             df_nasdaq_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-
-                            NASDAQ_현재가리스트 = df_nasdaq_graph['price'].tolist()
                         else:
                             pass
                     else:
@@ -25373,10 +25370,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         SP500_과거가 = result['체결가격']
                         
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            df_plotdata_sp500.iat[0, ovc_x_idx] = result['체결가격']
+                            #df_plotdata_sp500.iat[0, ovc_x_idx] = result['체결가격']
                             df_sp500_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-
-                            SP500_현재가리스트 = df_sp500_graph['price'].tolist()
                         else:
                             pass
                     else:
@@ -25510,10 +25505,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         DOW_과거가 = 체결가격
                         
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            df_plotdata_dow.iat[0, ovc_x_idx] = result['체결가격']
-                            df_dow_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-
-                            DOW_현재가리스트 = df_dow_graph['price'].tolist()                            
+                            #df_plotdata_dow.iat[0, ovc_x_idx] = result['체결가격']
+                            df_dow_graph.at[ovc_x_idx, 'price'] = result['체결가격']                   
                         else:
                             pass
                         
@@ -25638,10 +25631,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         WTI_과거가 = result['체결가격']
                         
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            df_plotdata_wti.iat[0, ovc_x_idx] = result['체결가격']
+                            #df_plotdata_wti.iat[0, ovc_x_idx] = result['체결가격']
                             df_wti_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-
-                            WTI_현재가리스트 = df_wti_graph['price'].tolist() 
                         else:
                             pass
                     else:
@@ -25764,7 +25755,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         EUROFX_과거가 = result['체결가격']
                         
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            df_plotdata_eurofx.iat[0, ovc_x_idx] = result['체결가격']
+                            #df_plotdata_eurofx.iat[0, ovc_x_idx] = result['체결가격']
                             df_eurofx_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                         else:
                             pass
@@ -25772,8 +25763,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                 elif result['종목코드'] == HANGSENG:
-
-                    #print('HANGSENG =', result['체결가격'])
 
                     if HANGSENG_장마감일 == '':
                         HANGSENG_장마감일 = result['장마감일']
@@ -25890,7 +25879,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         HANGSENG_과거가 = int(result['체결가격'])
                         
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            df_plotdata_hangseng.iat[0, ovc_x_idx] = result['체결가격']
+                            #df_plotdata_hangseng.iat[0, ovc_x_idx] = result['체결가격']
                             df_hangseng_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                         else:
                             pass
@@ -25898,8 +25887,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                 elif result['종목코드'] == GOLD:
-
-                    #print('GOLD =', result['체결가격'])
 
                     if GOLD_장마감일 == '':
                         GOLD_장마감일 = result['장마감일']
@@ -26016,7 +26003,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         GOLD_과거가 = result['체결가격']
                         
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            df_plotdata_gold.iat[0, ovc_x_idx] = result['체결가격']
+                            #df_plotdata_gold.iat[0, ovc_x_idx] = result['체결가격']
                             df_gold_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                         else:
                             pass
