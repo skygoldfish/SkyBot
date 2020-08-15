@@ -2209,6 +2209,15 @@ NASDAQ_FAMA_시리즈 = pd.Series()
 WTI_MAMA_시리즈 = pd.Series()
 WTI_FAMA_시리즈 = pd.Series()
 
+flag_futures_open = False
+flag_dow_open = False
+flag_sp500_open = False
+flag_nasdaq_open = False
+flag_wti_open = False
+flag_eurofx_open = False
+flag_hangseng_open = False
+flag_gold_open = False
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -22810,7 +22819,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             global ovc_index_list
 
-            global df_futures_graph
+            global df_futures_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
+            global flag_dow_open, flag_sp500_open, flag_nasdaq_open, flag_wti_open, flag_eurofx_open, flag_hangseng_open, flag_gold_open
 
             start_time = timeit.default_timer()
 
@@ -25949,88 +25959,40 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # OHLC 연산목적 저가, 고가 리스트 생성(기존방식은 실시간지연 발생함!!!)
 
                 # 시리즈 생성을위한 인덱스 리스트 작성
+                '''
                 if not ovc_index_list:
                     ovc_index_list.append(ovc_x_idx)
                 else:
                     pass
+                '''
 
+                # 1T OHLC 생성
                 if int(OVC_체결시간[4:6]) == 0:
                     
-                    if DOW_현재가_버퍼:
+                    if not flag_dow_open:
                         
-                        ovc_index_list.append(ovc_x_idx)
-                        DOW_저가리스트.append(DOW_저가리스트[-1])
-                        DOW_고가리스트.append(DOW_고가리스트[-1])
-
+                        df_dow_graph.at[ovc_x_idx, 'open'] = DOW_현재가
+                        
                         del DOW_현재가_버퍼[:]
+                        flag_dow_open = True
                     else:
-                        pass
-
-                    if SP500_현재가_버퍼:
-                        SP500_저가리스트.append(SP500_저가리스트[-1])
-                        SP500_고가리스트.append(SP500_고가리스트[-1])
-
-                        del SP500_현재가_버퍼[:]
-                    else:
-                        pass
-
-                    if NASDAQ_현재가_버퍼:
-                        NASDAQ_저가리스트.append(NASDAQ_저가리스트[-1])
-                        NASDAQ_고가리스트.append(NASDAQ_고가리스트[-1])
-
-                        del NASDAQ_현재가_버퍼[:]
-                    else:
-                        pass
-
-                    if WTI_현재가_버퍼:
-                        WTI_저가리스트.append(WTI_저가리스트[-1])
-                        WTI_고가리스트.append(WTI_고가리스트[-1])
-
-                        del WTI_현재가_버퍼[:]
-                    else:
-                        pass
+                        DOW_현재가_버퍼.append(DOW_현재가)
                 else:
-                    DOW_현재가_버퍼.append(DOW_현재가)                    
-                    DOW_고가리스트[-1] = max(DOW_현재가_버퍼)
+                    DOW_현재가_버퍼.append(DOW_현재가)
 
-                    DOW_저가리스트[-1] = min(DOW_현재가_버퍼)
+                    df_dow_graph.at[ovc_x_idx, 'high'] = max(DOW_현재가_버퍼)
 
-                    if DOW_저가리스트[-1] == 0:
-                        DOW_저가리스트[-1] = max(DOW_현재가_버퍼)
+                    if min(DOW_현재가_버퍼) == 0:
+                        df_dow_graph.at[ovc_x_idx, 'low'] = max(DOW_현재가_버퍼)
                     else:
-                        pass
+                        df_dow_graph.at[ovc_x_idx, 'low'] = min(DOW_현재가_버퍼)
 
-                    SP500_현재가_버퍼.append(SP500_현재가)                    
-                    SP500_고가리스트[-1] = max(SP500_현재가_버퍼)
+                    df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
 
-                    SP500_저가리스트[-1] = min(SP500_현재가_버퍼)
+                    flag_dow_open = False
+                    
 
-                    if SP500_저가리스트[-1] == 0:
-                        SP500_저가리스트[-1] = max(SP500_현재가_버퍼)
-                    else:
-                        pass
-
-                    NASDAQ_현재가_버퍼.append(NASDAQ_현재가)                    
-                    NASDAQ_고가리스트[-1] = max(NASDAQ_현재가_버퍼)
-
-                    NASDAQ_저가리스트[-1] = min(NASDAQ_현재가_버퍼)
-
-                    if NASDAQ_저가리스트[-1] == 0:
-                        NASDAQ_저가리스트[-1] = max(NASDAQ_현재가_버퍼)
-                    else:
-                        pass
-
-                    WTI_현재가_버퍼.append(WTI_현재가)                    
-                    WTI_고가리스트[-1] = max(WTI_현재가_버퍼)
-
-                    WTI_저가리스트[-1] = min(WTI_현재가_버퍼)
-
-                    if WTI_저가리스트[-1] == 0:
-                        WTI_저가리스트[-1] = max(WTI_현재가_버퍼)
-                    else:
-                        pass
-
-                DOW_현재가시리즈 = pd.Series(DOW_현재가리스트, index=ovc_index_list) 
+                #DOW_현재가시리즈 = pd.Series(DOW_현재가리스트, index=ovc_index_list) 
                 
                 np_real_dow_data = np.array(DOW_현재가리스트, dtype=float)
 
@@ -26045,8 +26007,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print('DOW_MAMA_리스트', DOW_MAMA_리스트)
                 print('DOW_FAMA_리스트', DOW_FAMA_리스트)
 
-                DOW_MAMA_시리즈 = pd.Series(DOW_MAMA_리스트, index=ovc_index_list)
-                DOW_FAMA_시리즈 = pd.Series(DOW_FAMA_리스트, index=ovc_index_list)
+                #DOW_MAMA_시리즈 = pd.Series(DOW_MAMA_리스트, index=ovc_index_list)
+                #DOW_FAMA_시리즈 = pd.Series(DOW_FAMA_리스트, index=ovc_index_list)
                 
                 # 향후를 위해 시리즈로 만듬
                 '''
