@@ -25990,6 +25990,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_dow_graph.at[ovc_x_idx, 'open'] = DOW_현재가
                         
                         del DOW_현재가_버퍼[:]
+                        
                         flag_dow_open = True
                     else:
                         DOW_현재가_버퍼.append(DOW_현재가)
@@ -26412,28 +26413,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         str = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 저장했습니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
 
-        '''
-        dow_ohlc_csv = "DOW OHLC 1Min{}{}".format(times, '.csv')
-        df_dow_ohlc_1min.to_csv(dow_ohlc_csv, encoding='ms949')
+        dow_graph_csv = "DOW Graph Data {}{}".format(times, '.csv')
+        df_dow_graph.to_csv(dow_graph_csv, encoding='ms949')
 
-        dow_ohlc_csv = "DOW OHLC 5Min{}{}".format(times, '.csv')
-        df_dow_ohlc_5min.to_csv(dow_ohlc_csv, encoding='ms949')
-
-        nasdaq_ohlc_csv = "NASDAQ OHLC 1Min{}{}".format(times, '.csv')
-        df_nasdaq_ohlc_1min.to_csv(nasdaq_ohlc_csv, encoding='ms949')
-
-        nasdaq_ohlc_csv = "NASDAQ OHLC 5Min{}{}".format(times, '.csv')
-        df_nasdaq_ohlc_5min.to_csv(nasdaq_ohlc_csv, encoding='ms949')
-
-        wti_ohlc_csv = "WTI OHLC 1Min{}{}".format(times, '.csv')
-        df_wti_ohlc_1min.to_csv(wti_ohlc_csv, encoding='ms949')
-
-        wti_ohlc_csv = "WTI OHLC 5Min{}{}".format(times, '.csv')
-        df_wti_ohlc_5min.to_csv(wti_ohlc_csv, encoding='ms949')
-
-        str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 OHLC파일을 저장했습니다.\r'.format(dt.hour, dt.minute, dt.second)
-        self.textBrowser.append(str)
-        '''
+        str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 Graph 파일을 저장했습니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(str)        
 
         '''
         if df_fut.empty:
