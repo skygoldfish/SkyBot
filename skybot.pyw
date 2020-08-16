@@ -15604,7 +15604,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 장운영정보 요청
                 self.JIF.AdviseRealData('0')
 
-                # 해외선물 가격 실시간 요청
+                # 해외선물 체결,가격 실시간 요청
                 self.OVC.AdviseRealData(종목코드=SP500)
                 self.OVC.AdviseRealData(종목코드=DOW)
                 self.OVC.AdviseRealData(종목코드=NASDAQ)
@@ -15622,7 +15622,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.OVH.AdviseRealData(종목코드=HANGSENG)
                 self.OVH.AdviseRealData(종목코드=GOLD)
 
-                # 해외선물 체결 실시간 요청
+                # 해외옵션 체결 실시간 요청
+                '''
                 self.WOC.AdviseRealData(종목코드=SP500)
                 self.WOC.AdviseRealData(종목코드=DOW)
                 self.WOC.AdviseRealData(종목코드=NASDAQ)
@@ -15630,6 +15631,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.WOC.AdviseRealData(종목코드=EUROFX)
                 self.WOC.AdviseRealData(종목코드=HANGSENG)
                 self.WOC.AdviseRealData(종목코드=GOLD)
+                '''
 
                 XQ = t2101(parent=self)
                 XQ.Query(종목코드=fut_code)
@@ -25073,6 +25075,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 '''
             
             elif szTrCode == 'OVC':
+
+                global NASDAQ_체결순매수, SP500_체결순매수, DOW_체결순매수, WTI_체결순매수, EUROFX_체결순매수, HANGSENG_체결순매수, GOLD_체결순매수
                 
                 if not receive_real_ovc:
                     receive_real_ovc = True
@@ -25118,9 +25122,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 서버시간 = OVC_HOUR * 3600 + OVC_MIN * 60 + OVC_SEC
 
-                시스템_서버_시간차 = 시스템시간 - 서버시간                
+                시스템_서버_시간차 = 시스템시간 - 서버시간
+
+                매도누적체결수량 = int(result['매도누적체결수량'])
+                매수누적체결수량 = int(result['매수누적체결수량'])
+
+                체결순매수 = 매수누적체결수량 - 매도누적체결수량                
 
                 if result['종목코드'] == NASDAQ:
+
+                    NASDAQ_체결순매수 = 체결순매수
 
                     if NASDAQ_장마감일 == '':
                         NASDAQ_장마감일 = result['장마감일']
@@ -25243,6 +25254,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass                    
 
                 elif result['종목코드'] == SP500:
+
+                    SP500_체결순매수 = 체결순매수
 
                     if SP500_장마감일 == '':
                         SP500_장마감일 = result['장마감일']
@@ -25428,6 +25441,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif result['종목코드'] == DOW:
 
+                    DOW_체결순매수 = 체결순매수
+
                     if DOW_장마감일 == '':
                         DOW_장마감일 = result['장마감일']
                     else:
@@ -25564,6 +25579,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                 elif result['종목코드'] == WTI:
+
+                    WTI_체결순매수 = 체결순매수
                     
                     if WTI_장마감일 == '':
                         WTI_장마감일 = result['장마감일']
@@ -25688,6 +25705,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                     
                 elif result['종목코드'] == EUROFX:
+
+                    EUROFX_체결순매수 = 체결순매수
                                      
                     if EUROFX_장마감일 == '':
                         EUROFX_장마감일 = result['장마감일']
@@ -25813,6 +25832,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif result['종목코드'] == HANGSENG:
 
+                    HANGSENG_체결순매수 = 체결순매수
+
                     if HANGSENG_장마감일 == '':
                         HANGSENG_장마감일 = result['장마감일']
                     else:
@@ -25936,6 +25957,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                 elif result['종목코드'] == GOLD:
+
+                    GOLD_체결순매수 = 체결순매수
 
                     if GOLD_장마감일 == '':
                         GOLD_장마감일 = result['장마감일']
@@ -26257,43 +26280,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif szTrCode == 'WOC':
 
-                global NASDAQ_체결순매수, SP500_체결순매수, DOW_체결순매수, WTI_체결순매수, EUROFX_체결순매수, HANGSENG_체결순매수, GOLD_체결순매수
-
-                매도누적체결수량 = int(result['매도누적체결수량'])
-                매수누적체결수량 = int(result['매수누적체결수량'])
-
-                체결순매수 = 매수누적체결수량 - 매도누적체결수량
-
-                if result['종목코드'] == NASDAQ:
-
-                    NASDAQ_체결순매수 = 체결순매수
-
-                elif result['종목코드'] == SP500:
-
-                    SP500_체결순매수 = 체결순매수
-
-                elif result['종목코드'] == DOW:
-
-                    DOW_체결순매수 = 체결순매수
-
-                elif result['종목코드'] == WTI:
-
-                    WTI_체결순매수 = 체결순매수
-
-                elif result['종목코드'] == EUROFX:
-
-                    EUROFX_체결순매수 = 체결순매수
-
-                elif result['종목코드'] == HANGSENG:
-
-                    HANGSENG_체결순매수 = 체결순매수
-
-                elif result['종목코드'] == GOLD:
-
-                    GOLD_체결순매수 = 체결순매수
-
-                else:
-                    pass
+                pass
             else:
                 pass
             '''
