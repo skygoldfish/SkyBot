@@ -14778,22 +14778,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_put_info_graph = DataFrame(index=range(0, yagan_timespan), columns=['volume', 'hoga', 'drate', 'yanghap'])
 
                     df_futures_graph = DataFrame(index=range(0, yagan_timespan), \
-                        columns=['kp200', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'drate', \
+                        columns=['kp200', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                             'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
 
-                    df_sp500_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'hoga', \
+                    df_sp500_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                         'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
-                    df_dow_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'hoga', 'drate', \
+                    df_dow_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                         'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
-                    df_nasdaq_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'hoga', \
+                    df_nasdaq_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                         'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
-                    df_wti_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'hoga', \
+                    df_wti_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                         'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
-                    df_eurofx_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'hoga', \
+                    df_eurofx_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                         'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
-                    df_hangseng_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'hoga', \
+                    df_hangseng_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                         'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
-                    df_gold_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'hoga', \
+                    df_gold_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                         'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                 else:
                     df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, jugan_timespan))
@@ -14839,22 +14839,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_put_info_graph = DataFrame(index=range(0, jugan_timespan), columns=['volume', 'hoga', 'drate', 'yanghap'])
 
                     df_futures_graph = DataFrame(index=range(0, jugan_timespan), \
-                        columns=['kp200', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'drate', \
+                        columns=['kp200', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                             'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
 
-                    df_sp500_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'hoga', \
+                    df_sp500_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                         'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
-                    df_dow_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'hoga', 'drate', \
+                    df_dow_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                         'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
-                    df_nasdaq_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'hoga', \
+                    df_nasdaq_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                         'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
-                    df_wti_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'hoga', \
+                    df_wti_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                         'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
-                    df_eurofx_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'hoga', \
+                    df_eurofx_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                         'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
-                    df_hangseng_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'hoga', \
+                    df_hangseng_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                         'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
-                    df_gold_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'hoga', \
+                    df_gold_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                         'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
 
                 # 콜처리
