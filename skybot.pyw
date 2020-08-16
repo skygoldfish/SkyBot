@@ -2073,26 +2073,47 @@ WTI_야간_시작가 = 0
 
 장시작_양합 = 0
 
-NASDAQ_순매수 = 0
-NASDAQ_잔량비 = 0
+NASDAQ_호가순매수 = 0
+NASDAQ_호가잔량비 = 0
 
-SP500_순매수 = 0
-SP500_잔량비 = 0
+SP500_호가순매수 = 0
+SP500_호가잔량비 = 0
 
-DOW_순매수 = 0
-DOW_잔량비 = 0
+DOW_호가순매수 = 0
+DOW_호가잔량비 = 0
 
-WTI_순매수 = 0
-WTI_잔량비 = 0
+WTI_호가순매수 = 0
+WTI_호가잔량비 = 0
 
-EUROFX_순매수 = 0
-EUROFX_잔량비 = 0
+EUROFX_호가순매수 = 0
+EUROFX_호가잔량비 = 0
 
-HANGSENG_순매수 = 0
-HANGSENG_잔량비 = 0
+HANGSENG_호가순매수 = 0
+HANGSENG_호가잔량비 = 0
 
-GOLD_순매수 = 0
-GOLD_잔량비 = 0
+GOLD_호가순매수 = 0
+GOLD_호가잔량비 = 0
+
+NASDAQ_체결순매수 = 0
+NASDAQ_체결잔량비 = 0
+
+SP500_체결순매수 = 0
+SP500_체결잔량비 = 0
+
+DOW_체결순매수 = 0
+DOW_체결잔량비 = 0
+
+WTI_체결순매수 = 0
+WTI_체결잔량비 = 0
+
+EUROFX_체결순매수 = 0
+EUROFX_체결잔량비 = 0
+
+HANGSENG_체결순매수 = 0
+HANGSENG_체결잔량비 = 0
+
+GOLD_체결순매수 = 0
+GOLD_체결잔량비 = 0
 
 # 선물 OHLC 연산
 fut_tick_list = []
@@ -5166,6 +5187,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.OVC = OVC(parent=self)
         self.OVH = OVH(parent=self)
+        self.WOC = WOC(parent=self)
 
         self.OPT_REAL = OC0(parent=self)
         self.OPT_HO = OH0(parent=self)
@@ -15599,6 +15621,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.OVH.AdviseRealData(종목코드=EUROFX)
                 self.OVH.AdviseRealData(종목코드=HANGSENG)
                 self.OVH.AdviseRealData(종목코드=GOLD)
+
+                # 해외선물 체결 실시간 요청
+                self.WOC.AdviseRealData(종목코드=SP500)
+                self.WOC.AdviseRealData(종목코드=DOW)
+                self.WOC.AdviseRealData(종목코드=NASDAQ)
+                self.WOC.AdviseRealData(종목코드=WTI)
+                self.WOC.AdviseRealData(종목코드=EUROFX)
+                self.WOC.AdviseRealData(종목코드=HANGSENG)
+                self.WOC.AdviseRealData(종목코드=GOLD)
 
                 XQ = t2101(parent=self)
                 XQ.Query(종목코드=fut_code)
@@ -26142,81 +26173,125 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif szTrCode == 'OVH':
 
+                global NASDAQ_호가순매수, SP500_호가순매수, DOW_호가순매수, WTI_호가순매수, EUROFX_호가순매수, HANGSENG_호가순매수, GOLD_호가순매수
+
                 매도호가총건수 = int(result['매도호가총건수'])
                 매수호가총건수 = int(result['매수호가총건수'])
                 매도호가총수량 = int(result['매도호가총수량'])
                 매수호가총수량 = int(result['매수호가총수량'])
 
+                호가순매수 = 매수호가총수량 - 매도호가총수량
+
                 if result['종목코드'] == NASDAQ:
 
-                    NASDAQ_순매수 = 매수호가총수량 - 매도호가총수량
+                    NASDAQ_호가순매수 = 호가순매수
 
                     if 매도호가총수량 > 0:
                         NASDAQ_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_plotdata_nasdaq_hoga_rr.iat[0, ovc_x_idx] = NASDAQ_순매수
+                        df_plotdata_nasdaq_hoga_rr.iat[0, ovc_x_idx] = NASDAQ_호가순매수
                     else:
                         pass
 
                 elif result['종목코드'] == SP500:
 
-                    SP500_순매수 = 매수호가총수량 - 매도호가총수량
+                    SP500_호가순매수 = 호가순매수
 
                     if 매도호가총수량 > 0:
                         SP500_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_plotdata_sp500_hoga_rr.iat[0, ovc_x_idx] = SP500_순매수
-                        df_sp500_graph.at[ovc_x_idx, 'hoga'] = SP500_순매수
+                        df_plotdata_sp500_hoga_rr.iat[0, ovc_x_idx] = SP500_호가순매수
+                        df_sp500_graph.at[ovc_x_idx, 'hoga'] = SP500_호가순매수
                     else:
                         pass
 
                 elif result['종목코드'] == DOW:
 
-                    DOW_순매수 = 매수호가총수량 - 매도호가총수량
+                    DOW_호가순매수 = 호가순매수
 
                     if 매도호가총수량 > 0:
                         DOW_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_plotdata_dow_hoga_rr.iat[0, ovc_x_idx] = DOW_순매수
+                        df_plotdata_dow_hoga_rr.iat[0, ovc_x_idx] = DOW_호가순매수
                     else:
                         pass
 
                 elif result['종목코드'] == WTI:
 
-                    WTI_순매수 = 매수호가총수량 - 매도호가총수량
+                    WTI_호가순매수 = 호가순매수
 
                     if 매도호가총수량 > 0:
                         WTI_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_plotdata_wti_hoga_rr.iat[0, ovc_x_idx] = WTI_순매수
+                        df_plotdata_wti_hoga_rr.iat[0, ovc_x_idx] = WTI_호가순매수
                     else:
                         pass
 
                 elif result['종목코드'] == EUROFX:
 
-                    EUROFX_순매수 = 매수호가총수량 - 매도호가총수량
+                    EUROFX_호가순매수 = 호가순매수
 
                     if 매도호가총수량 > 0:
                         EUROFX_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_plotdata_eurofx_hoga_rr.iat[0, ovc_x_idx] = EUROFX_순매수
+                        df_plotdata_eurofx_hoga_rr.iat[0, ovc_x_idx] = EUROFX_호가순매수
                     else:
                         pass
 
                 elif result['종목코드'] == HANGSENG:
 
-                    HANGSENG_순매수 = 매수호가총수량 - 매도호가총수량
+                    HANGSENG_호가순매수 = 호가순매수
 
                     if 매도호가총수량 > 0:
                         HANGSENG_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_plotdata_hangseng_hoga_rr.iat[0, ovc_x_idx] = HANGSENG_순매수
+                        df_plotdata_hangseng_hoga_rr.iat[0, ovc_x_idx] = HANGSENG_호가순매수
                     else:
                         pass
 
                 elif result['종목코드'] == GOLD:
 
-                    GOLD_순매수 = 매수호가총수량 - 매도호가총수량
+                    GOLD_호가순매수 = 호가순매수
 
                     if 매도호가총수량 > 0:
                         GOLD_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_plotdata_gold_hoga_rr.iat[0, ovc_x_idx] = GOLD_순매수
+                        df_plotdata_gold_hoga_rr.iat[0, ovc_x_idx] = GOLD_호가순매수
                     else:
                         pass
+                else:
+                    pass
+
+            elif szTrCode == 'WOC':
+
+                global NASDAQ_체결순매수, SP500_체결순매수, DOW_체결순매수, WTI_체결순매수, EUROFX_체결순매수, HANGSENG_체결순매수, GOLD_체결순매수
+
+                매도누적체결수량 = int(result['매도누적체결수량'])
+                매수누적체결수량 = int(result['매수누적체결수량'])
+
+                체결순매수 = 매수누적체결수량 - 매도누적체결수량
+
+                if result['종목코드'] == NASDAQ:
+
+                    NASDAQ_체결순매수 = 체결순매수
+
+                elif result['종목코드'] == SP500:
+
+                    SP500_체결순매수 = 체결순매수
+
+                elif result['종목코드'] == DOW:
+
+                    DOW_체결순매수 = 체결순매수
+
+                elif result['종목코드'] == WTI:
+
+                    WTI_체결순매수 = 체결순매수
+
+                elif result['종목코드'] == EUROFX:
+
+                    EUROFX_체결순매수 = 체결순매수
+
+                elif result['종목코드'] == HANGSENG:
+
+                    HANGSENG_체결순매수 = 체결순매수
+
+                elif result['종목코드'] == GOLD:
+
+                    GOLD_체결순매수 = 체결순매수
+
                 else:
                     pass
             else:
