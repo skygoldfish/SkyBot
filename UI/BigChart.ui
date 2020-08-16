@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1301</width>
+    <width>1747</width>
     <height>905</height>
    </rect>
   </property>
@@ -25,70 +25,56 @@
    <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLabel" name="label_p1_1">
+      <widget class="QLabel" name="label_11">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_p1_2">
+      <widget class="QLabel" name="label_12">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_1">
+      <widget class="QLabel" name="label_13">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="label_14">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="label_15">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_4">
+      <widget class="QLabel" name="label_16">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_5">
+      <widget class="QLabel" name="label_17">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_6">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_7">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_8">
+      <widget class="QLabel" name="label_18">
        <property name="text">
         <string>TextLabel</string>
        </property>
@@ -109,6 +95,92 @@
      </item>
      <item>
       <widget class="QComboBox" name="bc_comboBox1">
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_17">
+     <item>
+      <widget class="QLabel" name="label_41">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_42">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_43">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_44">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_45">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_46">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_47">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_48">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_9">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QComboBox" name="bc_comboBox4">
        <property name="font">
         <font>
          <weight>50</weight>
@@ -166,7 +238,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot1_ichimoku">
+         <widget class="QCheckBox" name="checkBox_plot1_mama">
           <property name="text">
            <string>MAMA</string>
           </property>
@@ -180,16 +252,106 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot1_reserve1">
+         <widget class="QCheckBox" name="checkBox_plot1_reserved">
           <property name="text">
-           <string>Reserved</string>
+           <string>reserved</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot1_reserve2">
+         <widget class="QLabel" name="label_p1_1">
           <property name="text">
-           <string>Reserved</string>
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p1_2">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_7">
+     <item>
+      <widget class="PlotWidget" name="bc_Plot4">
+       <property name="font">
+        <font>
+         <family>Consolas</family>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::WinPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox1_3">
+       <property name="title">
+        <string>TA 지표</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QCheckBox" name="checkBox_plot4_bband">
+          <property name="text">
+           <string>볼린저밴드</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_plot4_psar">
+          <property name="text">
+           <string>PSAR</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_plot4_mama">
+          <property name="text">
+           <string>MAMA</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_plot4_macd">
+          <property name="text">
+           <string>MACD</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_plot4_reserved">
+          <property name="text">
+           <string>reserved</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p4_1">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p4_2">
+          <property name="text">
+           <string>TextLabel</string>
           </property>
          </widget>
         </item>
@@ -201,70 +363,56 @@
    <item row="2" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QLabel" name="label_p2_1">
+      <widget class="QLabel" name="label_21">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_p2_2">
+      <widget class="QLabel" name="label_22">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_9">
+      <widget class="QLabel" name="label_23">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_10">
+      <widget class="QLabel" name="label_24">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_11">
+      <widget class="QLabel" name="label_25">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_12">
+      <widget class="QLabel" name="label_26">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_13">
+      <widget class="QLabel" name="label_27">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_14">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_15">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_16">
+      <widget class="QLabel" name="label_28">
        <property name="text">
         <string>TextLabel</string>
        </property>
@@ -285,6 +433,92 @@
      </item>
      <item>
       <widget class="QComboBox" name="bc_comboBox2">
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_19">
+     <item>
+      <widget class="QLabel" name="label_51">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_52">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_53">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_54">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_55">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_56">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_57">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_58">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_10">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QComboBox" name="bc_comboBox5">
        <property name="font">
         <font>
          <weight>50</weight>
@@ -342,7 +576,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot2_ichimoku">
+         <widget class="QCheckBox" name="checkBox_plot2_mama">
           <property name="text">
            <string>MAMA</string>
           </property>
@@ -356,16 +590,106 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot2_reserve1">
+         <widget class="QCheckBox" name="checkBox_plot2_reserved">
           <property name="text">
-           <string>Reserved</string>
+           <string>reserved</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot2_reserve2">
+         <widget class="QLabel" name="label_p2_1">
           <property name="text">
-           <string>Reserved</string>
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p2_2">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_8">
+     <item>
+      <widget class="PlotWidget" name="bc_Plot5">
+       <property name="font">
+        <font>
+         <family>Consolas</family>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::WinPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox2_3">
+       <property name="title">
+        <string>TA 지표</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QCheckBox" name="checkBox_plot5_bband">
+          <property name="text">
+           <string>볼린저밴드</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_plot5_psar">
+          <property name="text">
+           <string>PSAR</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_plot5_mama">
+          <property name="text">
+           <string>MAMA</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_plot5_macd">
+          <property name="text">
+           <string>MACD</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_plot5_reserved">
+          <property name="text">
+           <string>reserved</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p5_1">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p5_2">
+          <property name="text">
+           <string>TextLabel</string>
           </property>
          </widget>
         </item>
@@ -377,70 +701,56 @@
    <item row="4" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <widget class="QLabel" name="label_p3_1">
+      <widget class="QLabel" name="label_31">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_p3_2">
+      <widget class="QLabel" name="label_32">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_17">
+      <widget class="QLabel" name="label_33">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_18">
+      <widget class="QLabel" name="label_34">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_19">
+      <widget class="QLabel" name="label_35">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_20">
+      <widget class="QLabel" name="label_36">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_21">
+      <widget class="QLabel" name="label_37">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_22">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_23">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_24">
+      <widget class="QLabel" name="label_38">
        <property name="text">
         <string>TextLabel</string>
        </property>
@@ -461,6 +771,92 @@
      </item>
      <item>
       <widget class="QComboBox" name="bc_comboBox3">
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_21">
+     <item>
+      <widget class="QLabel" name="label_61">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_62">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_63">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_64">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_65">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_66">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_67">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_68">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_11">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QComboBox" name="bc_comboBox6">
        <property name="font">
         <font>
          <weight>50</weight>
@@ -518,7 +914,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot3_ichimoku">
+         <widget class="QCheckBox" name="checkBox_plot3_mama">
           <property name="text">
            <string>MAMA</string>
           </property>
@@ -532,16 +928,106 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot3_reserve1">
+         <widget class="QCheckBox" name="checkBox_plot3_reserved">
           <property name="text">
-           <string>Reserved</string>
+           <string>reserved</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot3_reserve2">
+         <widget class="QLabel" name="label_p3_1">
           <property name="text">
-           <string>Reserved</string>
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p3_2">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="5" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_9">
+     <item>
+      <widget class="PlotWidget" name="bc_Plot6">
+       <property name="font">
+        <font>
+         <family>Consolas</family>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::WinPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox3_5">
+       <property name="title">
+        <string>TA 지표</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <widget class="QCheckBox" name="checkBox_plot6_bband">
+          <property name="text">
+           <string>볼린저밴드</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_plot6_psar">
+          <property name="text">
+           <string>PSAR</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_plot6_mama">
+          <property name="text">
+           <string>MAMA</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_plot6_macd">
+          <property name="text">
+           <string>MACD</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_plot6_reserved">
+          <property name="text">
+           <string>reserved</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p6_1">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p6_2">
+          <property name="text">
+           <string>TextLabel</string>
           </property>
          </widget>
         </item>

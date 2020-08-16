@@ -26930,37 +26930,37 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_1.setText(" 전저 : 가격 ")
-        self.label_1.setStyleSheet('background-color: goldenrod ; color: black')
-        self.label_1.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_11.setText(" 전저: 가격 ")
+        self.label_11.setStyleSheet('background-color: goldenrod ; color: black')
+        self.label_11.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_2.setText(" 전고 : 가격 ")
-        self.label_2.setStyleSheet('background-color: gold ; color: black')
-        self.label_2.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_12.setText(" 전고: 가격 ")
+        self.label_12.setStyleSheet('background-color: gold ; color: black')
+        self.label_12.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_3.setText(" 종가 : 가격 ")
-        self.label_3.setStyleSheet('background-color: lime ; color: black')
-        self.label_3.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_13.setText(" 종가: 가격 ")
+        self.label_13.setStyleSheet('background-color: lime ; color: black')
+        self.label_13.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_4.setText(" 피봇 : 가격 ")
-        self.label_4.setStyleSheet('background-color: magenta ; color: black')
-        self.label_4.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_14.setText(" 피봇: 가격 ")
+        self.label_14.setStyleSheet('background-color: magenta ; color: black')
+        self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_5.setText(" 시가 : 가격 ")
-        self.label_5.setStyleSheet('background-color: red ; color: white')
-        self.label_5.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_15.setText(" 시가: 가격 ")
+        self.label_15.setStyleSheet('background-color: red ; color: white')
+        self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_6.setText(" 저가 : 가격 ")
-        self.label_6.setStyleSheet('background-color: skyblue ; color: black')
-        self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_16.setText(" 저가: 가격 ")
+        self.label_16.setStyleSheet('background-color: skyblue ; color: black')
+        self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_7.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
-        self.label_7.setStyleSheet('background-color: black ; color: yellow')
-        self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_17.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+        self.label_17.setStyleSheet('background-color: black ; color: yellow')
+        self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_8.setText(" 고가 : 가격 ")
-        self.label_8.setStyleSheet('background-color: pink ; color: black')
-        self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_18.setText(" 고가: 가격 ")
+        self.label_18.setStyleSheet('background-color: pink ; color: black')
+        self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
 
         # Plot2 가격표시
         self.label_p2_1.setText(" 좌표 ")
@@ -26971,37 +26971,37 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_9.setText(" 전저 : 가격 ")
-        self.label_9.setStyleSheet('background-color: goldenrod ; color: black')
-        self.label_9.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_21.setText(" 전저: 가격 ")
+        self.label_21.setStyleSheet('background-color: goldenrod ; color: black')
+        self.label_21.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_10.setText(" 전고 : 가격 ")
-        self.label_10.setStyleSheet('background-color: gold ; color: black')
-        self.label_10.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_22.setText(" 전고: 가격 ")
+        self.label_22.setStyleSheet('background-color: gold ; color: black')
+        self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_11.setText(" 종가 : 가격 ")
-        self.label_11.setStyleSheet('background-color: lime ; color: black')
-        self.label_11.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_23.setText(" 종가: 가격 ")
+        self.label_23.setStyleSheet('background-color: lime ; color: black')
+        self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_12.setText(" 피봇 : 가격 ")
-        self.label_12.setStyleSheet('background-color: magenta ; color: black')
-        self.label_12.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_24.setText(" 피봇: 가격 ")
+        self.label_24.setStyleSheet('background-color: magenta ; color: black')
+        self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_13.setText(" 시가 : 가격 ")
-        self.label_13.setStyleSheet('background-color: red ; color: white')
-        self.label_13.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_25.setText(" 시가: 가격 ")
+        self.label_25.setStyleSheet('background-color: red ; color: white')
+        self.label_25.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_14.setText(" 저가 : 가격 ")
-        self.label_14.setStyleSheet('background-color: skyblue ; color: black')
-        self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_26.setText(" 저가: 가격 ")
+        self.label_26.setStyleSheet('background-color: skyblue ; color: black')
+        self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_15.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
-        self.label_15.setStyleSheet('background-color: black ; color: yellow')
-        self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+        self.label_27.setStyleSheet('background-color: black ; color: yellow')
+        self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_16.setText(" 고가 : 가격 ")
-        self.label_16.setStyleSheet('background-color: pink ; color: black')
-        self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_28.setText(" 고가: 가격 ")
+        self.label_28.setStyleSheet('background-color: pink ; color: black')
+        self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
 
         # Plot3 가격표시
         self.label_p3_1.setText(" 좌표 ")
@@ -27012,37 +27012,37 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_17.setText(" 전저 : 가격 ")
-        self.label_17.setStyleSheet('background-color: goldenrod ; color: black')
-        self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_31.setText(" 전저: 가격 ")
+        self.label_31.setStyleSheet('background-color: goldenrod ; color: black')
+        self.label_31.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_18.setText(" 전고 : 가격 ")
-        self.label_18.setStyleSheet('background-color: gold ; color: black')
-        self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_32.setText(" 전고: 가격 ")
+        self.label_32.setStyleSheet('background-color: gold ; color: black')
+        self.label_32.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_19.setText(" 종가 : 가격 ")
-        self.label_19.setStyleSheet('background-color: lime ; color: black')
-        self.label_19.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_33.setText(" 종가: 가격 ")
+        self.label_33.setStyleSheet('background-color: lime ; color: black')
+        self.label_33.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_20.setText(" 피봇 : 가격 ")
-        self.label_20.setStyleSheet('background-color: magenta ; color: black')
-        self.label_20.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_34.setText(" 피봇: 가격 ")
+        self.label_34.setStyleSheet('background-color: magenta ; color: black')
+        self.label_34.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_21.setText(" 시가 : 가격 ")
-        self.label_21.setStyleSheet('background-color: red ; color: white')
-        self.label_21.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_35.setText(" 시가: 가격 ")
+        self.label_35.setStyleSheet('background-color: red ; color: white')
+        self.label_35.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_22.setText(" 저가 : 가격 ")
-        self.label_22.setStyleSheet('background-color: skyblue ; color: black')
-        self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_36.setText(" 저가: 가격 ")
+        self.label_36.setStyleSheet('background-color: skyblue ; color: black')
+        self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_23.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
-        self.label_23.setStyleSheet('background-color: black ; color: yellow')
-        self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+        self.label_37.setStyleSheet('background-color: black ; color: yellow')
+        self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_24.setText(" 고가 : 가격 ")
-        self.label_24.setStyleSheet('background-color: pink ; color: black')
-        self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_38.setText(" 고가: 가격 ")
+        self.label_38.setStyleSheet('background-color: pink ; color: black')
+        self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.bc_comboBox1.addItems(['선물체결', '옵션체결', '옵션 잔량비', '등락율비', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'SP500 순매수', 'DOW 순매수', 'NASDAQ 순매수', 'WTI 순매수', 'EUROFX 순매수', '항셍 순매수', 'GOLD 순매수'])
@@ -27500,14 +27500,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if bc_comboindex1 == 0:
 
-            self.label_1.setText(" 전저 : 가격 ")
-            self.label_2.setText(" 전고 : 가격 ")
-            self.label_3.setText(" 종가 : 가격 ")
-            self.label_4.setText(" 피봇 : 가격 ")
-            self.label_5.setText(" 시가 : 가격 ")
-            self.label_6.setText(" 저가 : 가격 ")
-            self.label_7.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_8.setText(" 고가 : 가격 ")
+            self.label_11.setText(" 전저: 가격 ")
+            self.label_12.setText(" 전고: 가격 ")
+            self.label_13.setText(" 종가: 가격 ")
+            self.label_14.setText(" 피봇: 가격 ")
+            self.label_15.setText(" 시가: 가격 ")
+            self.label_16.setText(" 저가: 가격 ")
+            self.label_17.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_18.setText(" 고가: 가격 ")
 
             bc_plot1_call_rr_curve.clear()
             bc_plot1_put_rr_curve.clear()
@@ -27556,14 +27556,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex1 == 1:
 
-            self.label_1.setText(" 전저 : 가격 ")
-            self.label_2.setText(" 전고 : 가격 ")
-            self.label_3.setText(" 종가 : 가격 ")
-            self.label_4.setText(" 피봇 : 가격 ")
-            self.label_5.setText(" 시가 : 가격 ")
-            self.label_6.setText(" 저가 : 가격 ")
-            self.label_7.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_8.setText(" 고가 : 가격 ")            
+            self.label_11.setText(" 전저: 가격 ")
+            self.label_12.setText(" 전고: 가격 ")
+            self.label_13.setText(" 종가: 가격 ")
+            self.label_14.setText(" 피봇: 가격 ")
+            self.label_15.setText(" 시가: 가격 ")
+            self.label_16.setText(" 저가: 가격 ")
+            self.label_17.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_18.setText(" 고가: 가격 ")            
             
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -27612,14 +27612,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex1 == 2:
 
-            self.label_1.setText(" 전저 : 가격 ")
-            self.label_2.setText(" 전고 : 가격 ")
-            self.label_3.setText(" 종가 : 가격 ")
-            self.label_4.setText(" 피봇 : 가격 ")
-            self.label_5.setText(" 시가 : 가격 ")
-            self.label_6.setText(" 저가 : 가격 ")
-            self.label_7.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_8.setText(" 고가 : 가격 ")
+            self.label_11.setText(" 전저: 가격 ")
+            self.label_12.setText(" 전고: 가격 ")
+            self.label_13.setText(" 종가: 가격 ")
+            self.label_14.setText(" 피봇: 가격 ")
+            self.label_15.setText(" 시가: 가격 ")
+            self.label_16.setText(" 저가: 가격 ")
+            self.label_17.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_18.setText(" 고가: 가격 ")
             
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -27668,14 +27668,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
         elif bc_comboindex1 == 3:
 
-            self.label_1.setText(" 전저 : 가격 ")
-            self.label_2.setText(" 전고 : 가격 ")
-            self.label_3.setText(" 종가 : 가격 ")
-            self.label_4.setText(" 피봇 : 가격 ")
-            self.label_5.setText(" 시가 : 가격 ")
-            self.label_6.setText(" 저가 : 가격 ")
-            self.label_7.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_8.setText(" 고가 : 가격 ")
+            self.label_11.setText(" 전저: 가격 ")
+            self.label_12.setText(" 전고: 가격 ")
+            self.label_13.setText(" 종가: 가격 ")
+            self.label_14.setText(" 피봇: 가격 ")
+            self.label_15.setText(" 시가: 가격 ")
+            self.label_16.setText(" 저가: 가격 ")
+            self.label_17.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_18.setText(" 고가: 가격 ")
 
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -27804,34 +27804,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_ovc_high_line.setValue(선물_고가)
             bc_plot1_ovc_close_line.setValue(선물_고가)
 
-            str = ' 전저 : {0} '.format(선물_전저)
-            self.label_1.setText(str) 
+            str = ' {0} '.format(선물_전저)
+            self.label_11.setText(str) 
             bc_plot1_fut_jl_line.setValue(선물_전저)
             
-            str = ' 전고 : {0} '.format(선물_전고)
-            self.label_2.setText(str)
+            str = ' {0} '.format(선물_전고)
+            self.label_12.setText(str)
             bc_plot1_fut_jh_line.setValue(선물_전고) 
             
-            str = ' 피봇 : {0} '.format(선물_피봇)
-            self.label_4.setText(str)
+            str = ' {0} '.format(선물_피봇)
+            self.label_14.setText(str)
             bc_plot1_fut_pivot_line.setValue(선물_피봇)
 
-            str = ' 시가 : {0} '.format(선물_시가)
-            self.label_5.setText(str)
+            str = ' {0} '.format(선물_시가)
+            self.label_15.setText(str)
             bc_plot1_fut_open_line.setValue(선물_시가)
 
-            str = ' 저가 : {0} '.format(선물_저가)
-            self.label_6.setText(str)
+            str = ' {0} '.format(선물_저가)
+            self.label_16.setText(str)
             bc_plot1_fut_low_line.setValue(선물_저가)
             
-            self.label_7.setText(" 현재가 : 000.00 (전일대비, 등락율, 진폭) ")
+            self.label_17.setText(" 000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' 고가 : {0} '.format(선물_고가)
-            self.label_8.setText(str)
+            str = ' {0} '.format(선물_고가)
+            self.label_18.setText(str)
             bc_plot1_fut_high_line.setValue(선물_고가)
             
-            str = ' 종가 : {0} '.format(선물_종가)
-            self.label_3.setText(str)
+            str = ' {0} '.format(선물_종가)
+            self.label_13.setText(str)
             bc_plot1_fut_close_line.setValue(선물_종가)
 
         elif bc_comboindex1 == 5:
@@ -27915,34 +27915,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
                 
-            str = ' 전저 : {0} '.format(format(SP500_전저, ','))
-            self.label_1.setText(str)
+            str = ' {0} '.format(format(SP500_전저, ','))
+            self.label_11.setText(str)
             bc_plot1_ovc_jl_line.setValue(SP500_전저)
 
-            str = ' 전고 : {0} '.format(format(SP500_전고, ','))
-            self.label_2.setText(str)
+            str = ' {0} '.format(format(SP500_전고, ','))
+            self.label_12.setText(str)
             bc_plot1_ovc_jh_line.setValue(SP500_전고)
             
-            str = ' 종가 : {0} '.format(format(SP500_종가, ','))
-            self.label_3.setText(str)
+            str = ' {0} '.format(format(SP500_종가, ','))
+            self.label_13.setText(str)
             bc_plot1_ovc_close_line.setValue(SP500_종가)
 
-            str = ' 피봇 : {0} '.format(format(SP500_피봇, ','))
-            self.label_4.setText(str)
+            str = ' {0} '.format(format(SP500_피봇, ','))
+            self.label_14.setText(str)
             bc_plot1_ovc_pivot_line.setValue(SP500_피봇)
             
-            str = ' 시가 : {0} '.format(format(SP500_시가, ','))
-            self.label_5.setText(str)
+            str = ' {0} '.format(format(SP500_시가, ','))
+            self.label_15.setText(str)
             bc_plot1_ovc_open_line.setValue(SP500_시가)
 
-            str = ' 저가 : {0} '.format(format(SP500_저가, ','))
-            self.label_6.setText(str)
+            str = ' {0} '.format(format(SP500_저가, ','))
+            self.label_16.setText(str)
             bc_plot1_ovc_low_line.setValue(SP500_저가)
 
-            self.label_7.setText(" 현재가 : 0,000.00 (전일대비, 등락율, 진폭) ")
+            self.label_17.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' 고가 : {0} '.format(format(SP500_고가, ','))
-            self.label_8.setText(str)
+            str = ' {0} '.format(format(SP500_고가, ','))
+            self.label_18.setText(str)
             bc_plot1_ovc_high_line.setValue(SP500_고가)
             
         elif bc_comboindex1 == 7:
@@ -28022,34 +28022,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
                 
-            str = ' 전저 : {0} '.format(format(DOW_전저, ','))
-            self.label_1.setText(str)
+            str = ' {0} '.format(format(DOW_전저, ','))
+            self.label_11.setText(str)
             bc_plot1_ovc_jl_line.setValue(DOW_전저)
 
-            str = ' 전고 : {0} '.format(format(DOW_전고, ','))
-            self.label_2.setText(str)
+            str = ' {0} '.format(format(DOW_전고, ','))
+            self.label_12.setText(str)
             bc_plot1_ovc_jh_line.setValue(DOW_전고)
             
-            str = ' 종가 : {0} '.format(format(DOW_종가, ','))
-            self.label_3.setText(str)
+            str = ' {0} '.format(format(DOW_종가, ','))
+            self.label_13.setText(str)
             bc_plot1_ovc_close_line.setValue(DOW_종가)
 
-            str = ' 피봇 : {0} '.format(format(DOW_피봇, ','))
-            self.label_4.setText(str)
+            str = ' {0} '.format(format(DOW_피봇, ','))
+            self.label_14.setText(str)
             bc_plot1_ovc_pivot_line.setValue(DOW_피봇)
             
-            str = ' 시가 : {0} '.format(format(DOW_시가, ','))
-            self.label_5.setText(str)
+            str = ' {0} '.format(format(DOW_시가, ','))
+            self.label_15.setText(str)
             bc_plot1_ovc_open_line.setValue(DOW_시가)
 
-            str = ' 저가 : {0} '.format(format(DOW_저가, ','))
-            self.label_6.setText(str)
+            str = ' {0} '.format(format(DOW_저가, ','))
+            self.label_16.setText(str)
             bc_plot1_ovc_low_line.setValue(DOW_저가)
 
-            self.label_7.setText(" 현재가 : 00,000 (전일대비, 등락율, 진폭) ")
+            self.label_17.setText(" 00,000 (전일대비, 등락율, 진폭) ")
 
-            str = ' 고가 : {0} '.format(format(DOW_고가, ','))
-            self.label_8.setText(str)
+            str = ' {0} '.format(format(DOW_고가, ','))
+            self.label_18.setText(str)
             bc_plot1_ovc_high_line.setValue(DOW_고가)
 
         elif bc_comboindex1 == 8:
@@ -28129,34 +28129,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
                 
-            str = ' 전저 : {0} '.format(format(NASDAQ_전저, ','))
-            self.label_1.setText(str)
+            str = ' {0} '.format(format(NASDAQ_전저, ','))
+            self.label_11.setText(str)
             bc_plot1_ovc_jl_line.setValue(NASDAQ_전저)
 
-            str = ' 전고 : {0} '.format(format(NASDAQ_전고, ','))
-            self.label_2.setText(str)
+            str = ' {0} '.format(format(NASDAQ_전고, ','))
+            self.label_12.setText(str)
             bc_plot1_ovc_jh_line.setValue(NASDAQ_전고)
             
-            str = ' 종가 : {0} '.format(format(NASDAQ_종가, ','))
-            self.label_3.setText(str)
+            str = ' {0} '.format(format(NASDAQ_종가, ','))
+            self.label_13.setText(str)
             bc_plot1_ovc_close_line.setValue(NASDAQ_종가)
 
-            str = ' 피봇 : {0} '.format(format(NASDAQ_피봇, ','))
-            self.label_4.setText(str)
+            str = ' {0} '.format(format(NASDAQ_피봇, ','))
+            self.label_14.setText(str)
             bc_plot1_ovc_pivot_line.setValue(NASDAQ_피봇)
             
-            str = ' 시가 : {0} '.format(format(NASDAQ_시가, ','))
-            self.label_5.setText(str)
+            str = ' {0} '.format(format(NASDAQ_시가, ','))
+            self.label_15.setText(str)
             bc_plot1_ovc_open_line.setValue(NASDAQ_시가)
 
-            str = ' 저가 : {0} '.format(format(NASDAQ_저가, ','))
-            self.label_6.setText(str)
+            str = ' {0} '.format(format(NASDAQ_저가, ','))
+            self.label_16.setText(str)
             bc_plot1_ovc_low_line.setValue(NASDAQ_저가)
 
-            self.label_7.setText(" 현재가 : 0,000.00 (전일대비, 등락율, 진폭) ")
+            self.label_17.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' 고가 : {0} '.format(format(NASDAQ_고가, ','))
-            self.label_8.setText(str)
+            str = ' {0} '.format(format(NASDAQ_고가, ','))
+            self.label_18.setText(str)
             bc_plot1_ovc_high_line.setValue(NASDAQ_고가)            
             
         elif bc_comboindex1 == 9:
@@ -28236,34 +28236,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
                 
-            str = ' 전저 : {0} '.format(format(WTI_전저, ','))
-            self.label_1.setText(str)
+            str = ' {0} '.format(format(WTI_전저, ','))
+            self.label_11.setText(str)
             bc_plot1_ovc_jl_line.setValue(WTI_전저)
 
-            str = ' 전고 : {0} '.format(format(WTI_전고, ','))
-            self.label_2.setText(str)
+            str = ' {0} '.format(format(WTI_전고, ','))
+            self.label_12.setText(str)
             bc_plot1_ovc_jh_line.setValue(WTI_전고)
             
-            str = ' 종가 : {0} '.format(format(WTI_종가, ','))
-            self.label_3.setText(str)
+            str = ' {0} '.format(format(WTI_종가, ','))
+            self.label_13.setText(str)
             bc_plot1_ovc_close_line.setValue(WTI_종가)
 
-            str = ' 피봇 : {0} '.format(format(WTI_피봇, ','))
-            self.label_4.setText(str)
+            str = ' {0} '.format(format(WTI_피봇, ','))
+            self.label_14.setText(str)
             bc_plot1_ovc_pivot_line.setValue(WTI_피봇)
             
-            str = ' 시가 : {0} '.format(format(WTI_시가, ','))
-            self.label_5.setText(str)
+            str = ' {0} '.format(format(WTI_시가, ','))
+            self.label_15.setText(str)
             bc_plot1_ovc_open_line.setValue(WTI_시가)
 
-            str = ' 저가 : {0} '.format(format(WTI_저가, ','))
-            self.label_6.setText(str)
+            str = ' {0} '.format(format(WTI_저가, ','))
+            self.label_16.setText(str)
             bc_plot1_ovc_low_line.setValue(WTI_저가)
 
-            self.label_7.setText(" 현재가 : 00.00 (전일대비, 등락율, 진폭) ")
+            self.label_17.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' 고가 : {0} '.format(format(WTI_고가, ','))
-            self.label_8.setText(str)
+            str = ' {0} '.format(format(WTI_고가, ','))
+            self.label_18.setText(str)
             bc_plot1_ovc_high_line.setValue(WTI_고가)
         else:
             pass
@@ -28282,14 +28282,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if bc_comboindex2 == 0:
 
-            self.label_9.setText(" 전저 : 가격 ")
-            self.label_10.setText(" 전고 : 가격 ")
-            self.label_11.setText(" 종가 : 가격 ")
-            self.label_12.setText(" 피봇 : 가격 ")
-            self.label_13.setText(" 시가 : 가격 ")
-            self.label_14.setText(" 저가 : 가격 ")
-            self.label_15.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_16.setText(" 고가 : 가격 ")
+            self.label_21.setText(" 전저: 가격 ")
+            self.label_22.setText(" 전고: 가격 ")
+            self.label_23.setText(" 종가: 가격 ")
+            self.label_24.setText(" 피봇: 가격 ")
+            self.label_25.setText(" 시가: 가격 ")
+            self.label_26.setText(" 저가: 가격 ")
+            self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_28.setText(" 고가: 가격 ")
             
             bc_plot2_call_rr_curve.clear()
             bc_plot2_put_rr_curve.clear()
@@ -28330,14 +28330,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
         elif bc_comboindex2 == 1:
 
-            self.label_9.setText(" 전저 : 가격 ")
-            self.label_10.setText(" 전고 : 가격 ")
-            self.label_11.setText(" 종가 : 가격 ")
-            self.label_12.setText(" 피봇 : 가격 ")
-            self.label_13.setText(" 시가 : 가격 ")
-            self.label_14.setText(" 저가 : 가격 ")
-            self.label_15.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_16.setText(" 고가 : 가격 ")
+            self.label_21.setText(" 전저: 가격 ")
+            self.label_22.setText(" 전고: 가격 ")
+            self.label_23.setText(" 종가: 가격 ")
+            self.label_24.setText(" 피봇: 가격 ")
+            self.label_25.setText(" 시가: 가격 ")
+            self.label_26.setText(" 저가: 가격 ")
+            self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_28.setText(" 고가: 가격 ")
                         
             bc_plot2_call_volume_curve.clear()
             bc_plot2_put_volume_curve.clear()
@@ -28378,14 +28378,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex2 == 2:
 
-            self.label_9.setText(" 전저 : 가격 ")
-            self.label_10.setText(" 전고 : 가격 ")
-            self.label_11.setText(" 종가 : 가격 ")
-            self.label_12.setText(" 피봇 : 가격 ")
-            self.label_13.setText(" 시가 : 가격 ")
-            self.label_14.setText(" 저가 : 가격 ")
-            self.label_15.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_16.setText(" 고가 : 가격 ")
+            self.label_21.setText(" 전저: 가격 ")
+            self.label_22.setText(" 전고: 가격 ")
+            self.label_23.setText(" 종가: 가격 ")
+            self.label_24.setText(" 피봇: 가격 ")
+            self.label_25.setText(" 시가: 가격 ")
+            self.label_26.setText(" 저가: 가격 ")
+            self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_28.setText(" 고가: 가격 ")
 
             bc_plot2_call_rr_curve.clear()
             bc_plot2_put_rr_curve.clear()
@@ -28426,14 +28426,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     
         elif bc_comboindex2 == 3:
 
-            self.label_9.setText(" 전저 : 가격 ")
-            self.label_10.setText(" 전고 : 가격 ")
-            self.label_11.setText(" 종가 : 가격 ")
-            self.label_12.setText(" 피봇 : 가격 ")
-            self.label_13.setText(" 시가 : 가격 ")
-            self.label_14.setText(" 저가 : 가격 ")
-            self.label_15.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_16.setText(" 고가 : 가격 ")
+            self.label_21.setText(" 전저: 가격 ")
+            self.label_22.setText(" 전고: 가격 ")
+            self.label_23.setText(" 종가: 가격 ")
+            self.label_24.setText(" 피봇: 가격 ")
+            self.label_25.setText(" 시가: 가격 ")
+            self.label_26.setText(" 저가: 가격 ")
+            self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_28.setText(" 고가: 가격 ")
 
             bc_plot2_call_rr_curve.clear()
             bc_plot2_put_rr_curve.clear()   
@@ -28472,14 +28472,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex2 == 4:
 
-            self.label_9.setText(" 등가 : 행사가 ")
-            self.label_10.setText(" 중심가 하단 : 가격 ")
-            self.label_11.setText(" 중심가 : 가격 ")
-            self.label_12.setText(" 중심가 상단 : 가격 ")
-            self.label_13.setText(" 시가 : 가격 ")
-            self.label_14.setText(" 저가 : 가격 ")
-            self.label_15.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_16.setText(" 고가 : 가격 ")
+            self.label_21.setText(" 등가 : 행사가 ")
+            self.label_22.setText(" 중심가 하단 : 가격 ")
+            self.label_23.setText(" 중심가 : 가격 ")
+            self.label_24.setText(" 중심가 상단 : 가격 ")
+            self.label_25.setText(" 시가: 가격 ")
+            self.label_26.setText(" 저가: 가격 ")
+            self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_28.setText(" 고가: 가격 ")
 
             bc_plot2_call_rr_curve.clear()
             bc_plot2_put_rr_curve.clear()   
@@ -28595,34 +28595,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_center_val_line.setValue(SP500_고가)
             bc_plot2_center_val_upper_line.setValue(SP500_고가)
                 
-            str = ' 전저 : {0} '.format(format(SP500_전저, ','))
-            self.label_9.setText(str)
+            str = ' {0} '.format(format(SP500_전저, ','))
+            self.label_21.setText(str)
             bc_plot2_ovc_jl_line.setValue(SP500_전저)
 
-            str = ' 전고 : {0} '.format(format(SP500_전고, ','))
-            self.label_10.setText(str)
+            str = ' {0} '.format(format(SP500_전고, ','))
+            self.label_22.setText(str)
             bc_plot2_ovc_jh_line.setValue(SP500_전고)
             
-            str = ' 종가 : {0} '.format(format(SP500_종가, ','))
-            self.label_11.setText(str)
+            str = ' {0} '.format(format(SP500_종가, ','))
+            self.label_23.setText(str)
             bc_plot2_ovc_close_line.setValue(SP500_종가)
 
-            str = ' 피봇 : {0} '.format(format(SP500_피봇, ','))
-            self.label_12.setText(str)
+            str = ' {0} '.format(format(SP500_피봇, ','))
+            self.label_24.setText(str)
             bc_plot2_ovc_pivot_line.setValue(SP500_피봇)
             
-            str = ' 시가 : {0} '.format(format(SP500_시가, ','))
-            self.label_13.setText(str)
+            str = ' {0} '.format(format(SP500_시가, ','))
+            self.label_25.setText(str)
             bc_plot2_ovc_open_line.setValue(SP500_시가)
 
-            str = ' 저가 : {0} '.format(format(SP500_저가, ','))
-            self.label_14.setText(str)
+            str = ' {0} '.format(format(SP500_저가, ','))
+            self.label_26.setText(str)
             bc_plot2_ovc_low_line.setValue(SP500_저가)
 
-            self.label_15.setText(" 현재가 : 0,000.00 (전일대비, 등락율, 진폭) ")
+            self.label_27.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' 고가 : {0} '.format(format(SP500_고가, ','))
-            self.label_16.setText(str)
+            str = ' {0} '.format(format(SP500_고가, ','))
+            self.label_28.setText(str)
             bc_plot2_ovc_high_line.setValue(SP500_고가)
 
         elif bc_comboindex2 == 7:
@@ -28693,34 +28693,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_center_val_line.setValue(DOW_고가)
             bc_plot2_center_val_upper_line.setValue(DOW_고가)
                 
-            str = ' 전저 : {0} '.format(format(DOW_전저, ','))
-            self.label_9.setText(str)
+            str = ' {0} '.format(format(DOW_전저, ','))
+            self.label_21.setText(str)
             bc_plot2_ovc_jl_line.setValue(DOW_전저)
 
-            str = ' 전고 : {0} '.format(format(DOW_전고, ','))
-            self.label_10.setText(str)
+            str = ' {0} '.format(format(DOW_전고, ','))
+            self.label_22.setText(str)
             bc_plot2_ovc_jh_line.setValue(DOW_전고)
             
-            str = ' 종가 : {0} '.format(format(DOW_종가, ','))
-            self.label_11.setText(str)
+            str = ' {0} '.format(format(DOW_종가, ','))
+            self.label_23.setText(str)
             bc_plot2_ovc_close_line.setValue(DOW_종가)
 
-            str = ' 피봇 : {0} '.format(format(DOW_피봇, ','))
-            self.label_12.setText(str)
+            str = ' {0} '.format(format(DOW_피봇, ','))
+            self.label_24.setText(str)
             bc_plot2_ovc_pivot_line.setValue(DOW_피봇)
             
-            str = ' 시가 : {0} '.format(format(DOW_시가, ','))
-            self.label_13.setText(str)
+            str = ' {0} '.format(format(DOW_시가, ','))
+            self.label_25.setText(str)
             bc_plot2_ovc_open_line.setValue(DOW_시가)
 
-            str = ' 저가 : {0} '.format(format(DOW_저가, ','))
-            self.label_14.setText(str)
+            str = ' {0} '.format(format(DOW_저가, ','))
+            self.label_26.setText(str)
             bc_plot2_ovc_low_line.setValue(DOW_저가)
 
-            self.label_15.setText(" 현재가 : 00,000 (전일대비, 등락율, 진폭) ")
+            self.label_27.setText(" 00,000 (전일대비, 등락율, 진폭) ")
 
-            str = ' 고가 : {0} '.format(format(DOW_고가, ','))
-            self.label_16.setText(str)
+            str = ' {0} '.format(format(DOW_고가, ','))
+            self.label_28.setText(str)
             bc_plot2_ovc_high_line.setValue(DOW_고가)
 
         elif bc_comboindex2 == 8:
@@ -28791,34 +28791,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_center_val_line.setValue(NASDAQ_고가)
             bc_plot2_center_val_upper_line.setValue(NASDAQ_고가)
             
-            str = ' 전저 : {0} '.format(format(NASDAQ_전저, ','))
-            self.label_9.setText(str)
+            str = ' {0} '.format(format(NASDAQ_전저, ','))
+            self.label_21.setText(str)
             bc_plot2_ovc_jl_line.setValue(NASDAQ_전저)
 
-            str = ' 전고 : {0} '.format(format(NASDAQ_전고, ','))
-            self.label_10.setText(str)
+            str = ' {0} '.format(format(NASDAQ_전고, ','))
+            self.label_22.setText(str)
             bc_plot2_ovc_jh_line.setValue(NASDAQ_전고)
             
-            str = ' 종가 : {0} '.format(format(NASDAQ_종가, ','))
-            self.label_11.setText(str)
+            str = ' {0} '.format(format(NASDAQ_종가, ','))
+            self.label_23.setText(str)
             bc_plot2_ovc_close_line.setValue(NASDAQ_종가)
 
-            str = ' 피봇 : {0} '.format(format(NASDAQ_피봇, ','))
-            self.label_12.setText(str)
+            str = ' {0} '.format(format(NASDAQ_피봇, ','))
+            self.label_24.setText(str)
             bc_plot2_ovc_pivot_line.setValue(NASDAQ_피봇)
             
-            str = ' 시가 : {0} '.format(format(NASDAQ_시가, ','))
-            self.label_13.setText(str)
+            str = ' {0} '.format(format(NASDAQ_시가, ','))
+            self.label_25.setText(str)
             bc_plot2_ovc_open_line.setValue(NASDAQ_시가)
 
-            str = ' 저가 : {0} '.format(format(NASDAQ_저가, ','))
-            self.label_14.setText(str)
+            str = ' {0} '.format(format(NASDAQ_저가, ','))
+            self.label_26.setText(str)
             bc_plot2_ovc_low_line.setValue(NASDAQ_저가)
 
-            self.label_15.setText(" 현재가 : 0,000.00 (전일대비, 등락율, 진폭) ")
+            self.label_27.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' 고가 : {0} '.format(format(NASDAQ_고가, ','))
-            self.label_16.setText(str)
+            str = ' {0} '.format(format(NASDAQ_고가, ','))
+            self.label_28.setText(str)
             bc_plot2_ovc_high_line.setValue(NASDAQ_고가)            
             
         elif bc_comboindex2 == 9:
@@ -28889,34 +28889,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_center_val_line.setValue(WTI_고가)
             bc_plot2_center_val_upper_line.setValue(WTI_고가) 
                 
-            str = ' 전저 : {0} '.format(format(WTI_전저, ','))
-            self.label_9.setText(str)
+            str = ' {0} '.format(format(WTI_전저, ','))
+            self.label_21.setText(str)
             bc_plot2_ovc_jl_line.setValue(WTI_전저)
 
-            str = ' 전고 : {0} '.format(format(WTI_전고, ','))
-            self.label_10.setText(str)
+            str = ' {0} '.format(format(WTI_전고, ','))
+            self.label_22.setText(str)
             bc_plot2_ovc_jh_line.setValue(WTI_전고)
             
-            str = ' 종가 : {0} '.format(format(WTI_종가, ','))
-            self.label_11.setText(str)
+            str = ' {0} '.format(format(WTI_종가, ','))
+            self.label_23.setText(str)
             bc_plot2_ovc_close_line.setValue(WTI_종가)
 
-            str = ' 피봇 : {0} '.format(format(WTI_피봇, ','))
-            self.label_12.setText(str)
+            str = ' {0} '.format(format(WTI_피봇, ','))
+            self.label_24.setText(str)
             bc_plot2_ovc_pivot_line.setValue(WTI_피봇)
             
-            str = ' 시가 : {0} '.format(format(WTI_시가, ','))
-            self.label_13.setText(str)
+            str = ' {0} '.format(format(WTI_시가, ','))
+            self.label_25.setText(str)
             bc_plot2_ovc_open_line.setValue(WTI_시가)
 
-            str = ' 저가 : {0} '.format(format(WTI_저가, ','))
-            self.label_14.setText(str)
+            str = ' {0} '.format(format(WTI_저가, ','))
+            self.label_26.setText(str)
             bc_plot2_ovc_low_line.setValue(WTI_저가)
 
-            self.label_15.setText(" 현재가 : 00.00 (전일대비, 등락율, 진폭) ")
+            self.label_27.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' 고가 : {0} '.format(format(WTI_고가, ','))
-            self.label_16.setText(str)
+            str = ' {0} '.format(format(WTI_고가, ','))
+            self.label_28.setText(str)
             bc_plot2_ovc_high_line.setValue(WTI_고가)            
         else:
             pass
@@ -28935,14 +28935,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if bc_comboindex3 == 0:
 
-            self.label_17.setText(" 전저 : 가격 ")
-            self.label_18.setText(" 전고 : 가격 ")
-            self.label_19.setText(" 종가 : 가격 ")
-            self.label_20.setText(" 피봇 : 가격 ")
-            self.label_21.setText(" 시가 : 가격 ")
-            self.label_22.setText(" 저가 : 가격 ")
-            self.label_23.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_24.setText(" 고가 : 가격 ")
+            self.label_31.setText(" 전저: 가격 ")
+            self.label_32.setText(" 전고: 가격 ")
+            self.label_33.setText(" 종가: 가격 ")
+            self.label_34.setText(" 피봇: 가격 ")
+            self.label_35.setText(" 시가: 가격 ")
+            self.label_36.setText(" 저가: 가격 ")
+            self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_38.setText(" 고가: 가격 ")
             
             bc_plot3_call_rr_curve.clear()
             bc_plot3_put_rr_curve.clear()
@@ -28983,14 +28983,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
         elif bc_comboindex3 == 1:
 
-            self.label_17.setText(" 전저 : 가격 ")
-            self.label_18.setText(" 전고 : 가격 ")
-            self.label_19.setText(" 종가 : 가격 ")
-            self.label_20.setText(" 피봇 : 가격 ")
-            self.label_21.setText(" 시가 : 가격 ")
-            self.label_22.setText(" 저가 : 가격 ")
-            self.label_23.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_24.setText(" 고가 : 가격 ")
+            self.label_31.setText(" 전저: 가격 ")
+            self.label_32.setText(" 전고: 가격 ")
+            self.label_33.setText(" 종가: 가격 ")
+            self.label_34.setText(" 피봇: 가격 ")
+            self.label_35.setText(" 시가: 가격 ")
+            self.label_36.setText(" 저가: 가격 ")
+            self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_38.setText(" 고가: 가격 ")
                         
             bc_plot3_call_volume_curve.clear()
             bc_plot3_put_volume_curve.clear()
@@ -29031,14 +29031,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex3 == 2:
 
-            self.label_17.setText(" 전저 : 가격 ")
-            self.label_18.setText(" 전고 : 가격 ")
-            self.label_19.setText(" 종가 : 가격 ")
-            self.label_20.setText(" 피봇 : 가격 ")
-            self.label_21.setText(" 시가 : 가격 ")
-            self.label_22.setText(" 저가 : 가격 ")
-            self.label_23.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_24.setText(" 고가 : 가격 ")
+            self.label_31.setText(" 전저: 가격 ")
+            self.label_32.setText(" 전고: 가격 ")
+            self.label_33.setText(" 종가: 가격 ")
+            self.label_34.setText(" 피봇: 가격 ")
+            self.label_35.setText(" 시가: 가격 ")
+            self.label_36.setText(" 저가: 가격 ")
+            self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_38.setText(" 고가: 가격 ")
 
             bc_plot3_call_rr_curve.clear()
             bc_plot3_put_rr_curve.clear()
@@ -29079,14 +29079,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     
         elif bc_comboindex3 == 3:
 
-            self.label_17.setText(" 전저 : 가격 ")
-            self.label_18.setText(" 전고 : 가격 ")
-            self.label_19.setText(" 종가 : 가격 ")
-            self.label_20.setText(" 피봇 : 가격 ")
-            self.label_21.setText(" 시가 : 가격 ")
-            self.label_22.setText(" 저가 : 가격 ")
-            self.label_23.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_24.setText(" 고가 : 가격 ")
+            self.label_31.setText(" 전저: 가격 ")
+            self.label_32.setText(" 전고: 가격 ")
+            self.label_33.setText(" 종가: 가격 ")
+            self.label_34.setText(" 피봇: 가격 ")
+            self.label_35.setText(" 시가: 가격 ")
+            self.label_36.setText(" 저가: 가격 ")
+            self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_38.setText(" 고가: 가격 ")
 
             bc_plot3_call_rr_curve.clear()
             bc_plot3_put_rr_curve.clear()   
@@ -29125,14 +29125,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex3 == 4:
 
-            self.label_17.setText(" 등가 : 행사가 ")
-            self.label_18.setText(" 중심가 하단 : 가격 ")
-            self.label_19.setText(" 중심가 : 가격 ")
-            self.label_20.setText(" 중심가 상단 : 가격 ")
-            self.label_21.setText(" 시가 : 가격 ")
-            self.label_22.setText(" 저가 : 가격 ")
-            self.label_23.setText(" 현재가 : 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_24.setText(" 고가 : 가격 ")
+            self.label_31.setText(" 등가 : 행사가 ")
+            self.label_32.setText(" 중심가 하단 : 가격 ")
+            self.label_33.setText(" 중심가 : 가격 ")
+            self.label_34.setText(" 중심가 상단 : 가격 ")
+            self.label_35.setText(" 시가: 가격 ")
+            self.label_36.setText(" 저가: 가격 ")
+            self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_38.setText(" 고가: 가격 ")
 
             bc_plot3_call_rr_curve.clear()
             bc_plot3_put_rr_curve.clear()   
@@ -29248,34 +29248,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_center_val_line.setValue(SP500_고가)
             bc_plot3_center_val_upper_line.setValue(SP500_고가)
                 
-            str = ' 전저 : {0} '.format(format(SP500_전저, ','))
-            self.label_17.setText(str)
+            str = ' {0} '.format(format(SP500_전저, ','))
+            self.label_31.setText(str)
             bc_plot3_ovc_jl_line.setValue(SP500_전저)
 
-            str = ' 전고 : {0} '.format(format(SP500_전고, ','))
-            self.label_18.setText(str)
+            str = ' {0} '.format(format(SP500_전고, ','))
+            self.label_32.setText(str)
             bc_plot3_ovc_jh_line.setValue(SP500_전고)
             
-            str = ' 종가 : {0} '.format(format(SP500_종가, ','))
-            self.label_19.setText(str)
+            str = ' {0} '.format(format(SP500_종가, ','))
+            self.label_33.setText(str)
             bc_plot3_ovc_close_line.setValue(SP500_종가)
 
-            str = ' 피봇 : {0} '.format(format(SP500_피봇, ','))
-            self.label_20.setText(str)
+            str = ' {0} '.format(format(SP500_피봇, ','))
+            self.label_34.setText(str)
             bc_plot3_ovc_pivot_line.setValue(SP500_피봇)
             
-            str = ' 시가 : {0} '.format(format(SP500_시가, ','))
-            self.label_21.setText(str)
+            str = ' {0} '.format(format(SP500_시가, ','))
+            self.label_35.setText(str)
             bc_plot3_ovc_open_line.setValue(SP500_시가)
 
-            str = ' 저가 : {0} '.format(format(SP500_저가, ','))
-            self.label_22.setText(str)
+            str = ' {0} '.format(format(SP500_저가, ','))
+            self.label_36.setText(str)
             bc_plot3_ovc_low_line.setValue(SP500_저가)
 
-            self.label_23.setText(" 현재가 : 0,000.00 (전일대비, 등락율, 진폭) ")
+            self.label_37.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' 고가 : {0} '.format(format(SP500_고가, ','))
-            self.label_24.setText(str)
+            str = ' {0} '.format(format(SP500_고가, ','))
+            self.label_38.setText(str)
             bc_plot3_ovc_high_line.setValue(SP500_고가)
 
         elif bc_comboindex3 == 7:
@@ -29346,34 +29346,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_center_val_line.setValue(DOW_고가)
             bc_plot3_center_val_upper_line.setValue(DOW_고가)
                 
-            str = ' 전저 : {0} '.format(format(DOW_전저, ','))
-            self.label_17.setText(str)
+            str = ' {0} '.format(format(DOW_전저, ','))
+            self.label_31.setText(str)
             bc_plot3_ovc_jl_line.setValue(DOW_전저)
 
-            str = ' 전고 : {0} '.format(format(DOW_전고, ','))
-            self.label_18.setText(str)
+            str = ' {0} '.format(format(DOW_전고, ','))
+            self.label_32.setText(str)
             bc_plot3_ovc_jh_line.setValue(DOW_전고)
             
-            str = ' 종가 : {0} '.format(format(DOW_종가, ','))
-            self.label_19.setText(str)
+            str = ' {0} '.format(format(DOW_종가, ','))
+            self.label_33.setText(str)
             bc_plot3_ovc_close_line.setValue(DOW_종가)
 
-            str = ' 피봇 : {0} '.format(format(DOW_피봇, ','))
-            self.label_20.setText(str)
+            str = ' {0} '.format(format(DOW_피봇, ','))
+            self.label_34.setText(str)
             bc_plot3_ovc_pivot_line.setValue(DOW_피봇)
             
-            str = ' 시가 : {0} '.format(format(DOW_시가, ','))
-            self.label_21.setText(str)
+            str = ' {0} '.format(format(DOW_시가, ','))
+            self.label_35.setText(str)
             bc_plot3_ovc_open_line.setValue(DOW_시가)
 
-            str = ' 저가 : {0} '.format(format(DOW_저가, ','))
-            self.label_22.setText(str)
+            str = ' {0} '.format(format(DOW_저가, ','))
+            self.label_36.setText(str)
             bc_plot3_ovc_low_line.setValue(DOW_저가)
 
-            self.label_23.setText(" 현재가 : 00,000 (전일대비, 등락율, 진폭) ")
+            self.label_37.setText(" 00,000 (전일대비, 등락율, 진폭) ")
 
-            str = ' 고가 : {0} '.format(format(DOW_고가, ','))
-            self.label_24.setText(str)
+            str = ' {0} '.format(format(DOW_고가, ','))
+            self.label_38.setText(str)
             bc_plot3_ovc_high_line.setValue(DOW_고가)
 
         elif bc_comboindex3 == 8:
@@ -29444,34 +29444,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_center_val_line.setValue(NASDAQ_고가)
             bc_plot3_center_val_upper_line.setValue(NASDAQ_고가)
                 
-            str = ' 전저 : {0} '.format(format(NASDAQ_전저, ','))
-            self.label_17.setText(str)
+            str = ' {0} '.format(format(NASDAQ_전저, ','))
+            self.label_31.setText(str)
             bc_plot3_ovc_jl_line.setValue(NASDAQ_전저)
 
-            str = ' 전고 : {0} '.format(format(NASDAQ_전고, ','))
-            self.label_18.setText(str)
+            str = ' {0} '.format(format(NASDAQ_전고, ','))
+            self.label_32.setText(str)
             bc_plot3_ovc_jh_line.setValue(NASDAQ_전고)
             
-            str = ' 종가 : {0} '.format(format(NASDAQ_종가, ','))
-            self.label_19.setText(str)
+            str = ' {0} '.format(format(NASDAQ_종가, ','))
+            self.label_33.setText(str)
             bc_plot3_ovc_close_line.setValue(NASDAQ_종가)
 
-            str = ' 피봇 : {0} '.format(format(NASDAQ_피봇, ','))
-            self.label_20.setText(str)
+            str = ' {0} '.format(format(NASDAQ_피봇, ','))
+            self.label_34.setText(str)
             bc_plot3_ovc_pivot_line.setValue(NASDAQ_피봇)
             
-            str = ' 시가 : {0} '.format(format(NASDAQ_시가, ','))
-            self.label_21.setText(str)
+            str = ' {0} '.format(format(NASDAQ_시가, ','))
+            self.label_35.setText(str)
             bc_plot3_ovc_open_line.setValue(NASDAQ_시가)
 
-            str = ' 저가 : {0} '.format(format(NASDAQ_저가, ','))
-            self.label_22.setText(str)
+            str = ' {0} '.format(format(NASDAQ_저가, ','))
+            self.label_36.setText(str)
             bc_plot3_ovc_low_line.setValue(NASDAQ_저가)
 
-            self.label_23.setText(" 현재가 : 0,000.00 (전일대비, 등락율, 진폭) ")
+            self.label_37.setText(" 0,000.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' 고가 : {0} '.format(format(NASDAQ_고가, ','))
-            self.label_24.setText(str)
+            str = ' {0} '.format(format(NASDAQ_고가, ','))
+            self.label_38.setText(str)
             bc_plot3_ovc_high_line.setValue(NASDAQ_고가)            
 
         elif bc_comboindex3 == 9:
@@ -29542,34 +29542,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_center_val_line.setValue(WTI_고가)
             bc_plot3_center_val_upper_line.setValue(WTI_고가) 
                 
-            str = ' 전저 : {0} '.format(format(WTI_전저, ','))
-            self.label_17.setText(str)
+            str = ' {0} '.format(format(WTI_전저, ','))
+            self.label_31.setText(str)
             bc_plot3_ovc_jl_line.setValue(WTI_전저)
 
-            str = ' 전고 : {0} '.format(format(WTI_전고, ','))
-            self.label_18.setText(str)
+            str = ' {0} '.format(format(WTI_전고, ','))
+            self.label_32.setText(str)
             bc_plot3_ovc_jh_line.setValue(WTI_전고)
             
-            str = ' 종가 : {0} '.format(format(WTI_종가, ','))
-            self.label_19.setText(str)
+            str = ' {0} '.format(format(WTI_종가, ','))
+            self.label_33.setText(str)
             bc_plot3_ovc_close_line.setValue(WTI_종가)
 
-            str = ' 피봇 : {0} '.format(format(WTI_피봇, ','))
-            self.label_20.setText(str)
+            str = ' {0} '.format(format(WTI_피봇, ','))
+            self.label_34.setText(str)
             bc_plot3_ovc_pivot_line.setValue(WTI_피봇)
             
-            str = ' 시가 : {0} '.format(format(WTI_시가, ','))
-            self.label_21.setText(str)
+            str = ' {0} '.format(format(WTI_시가, ','))
+            self.label_35.setText(str)
             bc_plot3_ovc_open_line.setValue(WTI_시가)
 
-            str = ' 저가 : {0} '.format(format(WTI_저가, ','))
-            self.label_22.setText(str)
+            str = ' {0} '.format(format(WTI_저가, ','))
+            self.label_36.setText(str)
             bc_plot3_ovc_low_line.setValue(WTI_저가)
 
-            self.label_23.setText(" 현재가 : 00.00 (전일대비, 등락율, 진폭) ")
+            self.label_37.setText(" 00.00 (전일대비, 등락율, 진폭) ")
 
-            str = ' 고가 : {0} '.format(format(WTI_고가, ','))
-            self.label_24.setText(str)
+            str = ' {0} '.format(format(WTI_고가, ','))
+            self.label_38.setText(str)
             bc_plot3_ovc_high_line.setValue(WTI_고가)            
         else:
             pass
@@ -29685,47 +29685,47 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot1_ovc_close_line.setValue(선물_고가)
                 bc_plot1_fut_high_line.setValue(선물_고가)
 
-                str = ' 저가 : {0} '.format(선물_저가)
-                self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_6.setText(str)       
+                str = ' {0} '.format(선물_저가)
+                self.label_16.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_16.setText(str)       
 
-                value = self.label_7.text().split()[2]
+                value = self.label_17.text().split()[2]
 
                 if 선물_현재가 > float(value):
 
-                    str = " 현재가 : {0} ▲ ({1:0.2f}, {2:0.2f}%, {3:0.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    str = " {0} ▲ ({1:0.2f}, {2:0.2f}%, {3:0.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
 
                     if 선물_전일대비 > 0:
-                        self.label_7.setStyleSheet('background-color: pink ; color: red')
+                        self.label_17.setStyleSheet('background-color: pink ; color: red')
                     elif 선물_전일대비 < 0:
-                        self.label_7.setStyleSheet('background-color: pink ; color: blue')
+                        self.label_17.setStyleSheet('background-color: pink ; color: blue')
                     else:
-                        self.label_7.setStyleSheet('background-color: pink ; color: black')
+                        self.label_17.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_7.setText(str)
+                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_17.setText(str)
 
                 elif 선물_현재가 < float(value):
 
-                    str = " 현재가 : {0} ▼ ({1:0.2f}, {2:0.2f}%, {3:0.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    str = " {0} ▼ ({1:0.2f}, {2:0.2f}%, {3:0.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
 
                     if 선물_전일대비 > 0:
-                        self.label_7.setStyleSheet('background-color: skyblue ; color: red')
+                        self.label_17.setStyleSheet('background-color: skyblue ; color: red')
                     if 선물_전일대비 < 0:
-                        self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
+                        self.label_17.setStyleSheet('background-color: skyblue ; color: blue')
                     else:
-                        self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+                        self.label_17.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_7.setText(str)
+                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_17.setText(str)
                 else:
                     pass
 
-                str = ' 고가 : {0} '.format(선물_고가)
-                self.label_8.setStyleSheet('background-color: pink ; color: red')
-                self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_8.setText(str)   
+                str = ' {0} '.format(선물_고가)
+                self.label_18.setStyleSheet('background-color: pink ; color: red')
+                self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_18.setText(str)   
 
                 bc_plot1_kp200_curve.setData(plot_data9)
                 bc_plot1_fut_price_curve.setData(plot_data10)
@@ -29754,50 +29754,50 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot1_ovc_low_line.setValue(SP500_저가)
                 bc_plot1_ovc_high_line.setValue(SP500_고가)
 
-                str = ' 저가 : {0} '.format(format(SP500_저가, ','))
-                self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_6.setText(str) 
+                str = ' {0} '.format(format(SP500_저가, ','))
+                self.label_16.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_16.setText(str) 
 
-                tmp = self.label_7.text().split()[2]
+                tmp = self.label_17.text().split()[2]
                 value = tmp.replace(',', '')               
 
                 if SP500_현재가 > float(value):
 
-                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
-                        self.label_7.setStyleSheet('background-color: pink ; color: red')
+                        self.label_17.setStyleSheet('background-color: pink ; color: red')
                     elif SP500_전일대비 < 0:
-                        self.label_7.setStyleSheet('background-color: pink ; color: blue')
+                        self.label_17.setStyleSheet('background-color: pink ; color: blue')
                     else:
-                        self.label_7.setStyleSheet('background-color: pink ; color: black')
+                        self.label_17.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_7.setText(str)
+                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_17.setText(str)
 
                 elif SP500_현재가 < float(value):
 
-                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
-                        self.label_7.setStyleSheet('background-color: skyblue ; color: red')
+                        self.label_17.setStyleSheet('background-color: skyblue ; color: red')
                     elif SP500_전일대비 < 0:
-                        self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
+                        self.label_17.setStyleSheet('background-color: skyblue ; color: blue')
                     else:
-                        self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+                        self.label_17.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_7.setText(str)
+                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_17.setText(str)
                 else:
                     pass
 
-                str = ' 고가 : {0} '.format(format(SP500_고가, ','))
-                self.label_8.setStyleSheet('background-color: pink ; color: red')
-                self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_8.setText(str)   
+                str = ' {0} '.format(format(SP500_고가, ','))
+                self.label_18.setStyleSheet('background-color: pink ; color: red')
+                self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_18.setText(str)   
 
                 bc_plot1_sp500_curve.setData(plot_data11)
 
@@ -29821,50 +29821,50 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot1_ovc_low_line.setValue(DOW_저가)
                 bc_plot1_ovc_high_line.setValue(DOW_고가)
 
-                str = ' 저가 : {0} '.format(format(DOW_저가, ','))
-                self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_6.setText(str)
+                str = ' {0} '.format(format(DOW_저가, ','))
+                self.label_16.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_16.setText(str)
 
-                tmp = self.label_7.text().split()[2]
+                tmp = self.label_17.text().split()[2]
                 value = tmp.replace(',', '')
 
                 if DOW_현재가 > float(value):
 
-                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
-                        self.label_7.setStyleSheet('background-color: pink ; color: red')
+                        self.label_17.setStyleSheet('background-color: pink ; color: red')
                     elif DOW_전일대비 < 0:
-                        self.label_7.setStyleSheet('background-color: pink ; color: blue')
+                        self.label_17.setStyleSheet('background-color: pink ; color: blue')
                     else:
-                        self.label_7.setStyleSheet('background-color: pink ; color: black')
+                        self.label_17.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_7.setText(str)
+                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_17.setText(str)
 
                 elif DOW_현재가 < float(value):
 
-                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
-                        self.label_7.setStyleSheet('background-color: skyblue ; color: red')
+                        self.label_17.setStyleSheet('background-color: skyblue ; color: red')
                     elif DOW_전일대비 < 0:
-                        self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
+                        self.label_17.setStyleSheet('background-color: skyblue ; color: blue')
                     else:
-                        self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+                        self.label_17.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_7.setText(str)
+                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_17.setText(str)
                 else:
                     pass
                 
-                str = ' 고가 : {0} '.format(format(DOW_고가, ','))
-                self.label_8.setStyleSheet('background-color: pink ; color: red')
-                self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_8.setText(str)                      
+                str = ' {0} '.format(format(DOW_고가, ','))
+                self.label_18.setStyleSheet('background-color: pink ; color: red')
+                self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_18.setText(str)                      
 
                 bc_plot1_dow_curve.setData(plot_data12)
 
@@ -29888,50 +29888,50 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot1_ovc_low_line.setValue(NASDAQ_저가)
                 bc_plot1_ovc_high_line.setValue(NASDAQ_고가)
 
-                str = ' 저가 : {0} '.format(format(NASDAQ_저가, ','))
-                self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_6.setText(str)
+                str = ' {0} '.format(format(NASDAQ_저가, ','))
+                self.label_16.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_16.setText(str)
 
-                tmp = self.label_7.text().split()[2]
+                tmp = self.label_17.text().split()[2]
                 value = tmp.replace(',', '')                
 
                 if NASDAQ_현재가 > float(value):
 
-                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
-                        self.label_7.setStyleSheet('background-color: pink ; color: red')
+                        self.label_17.setStyleSheet('background-color: pink ; color: red')
                     elif NASDAQ_전일대비 < 0:
-                        self.label_7.setStyleSheet('background-color: pink ; color: blue')
+                        self.label_17.setStyleSheet('background-color: pink ; color: blue')
                     else:
-                        self.label_7.setStyleSheet('background-color: pink ; color: black')
+                        self.label_17.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_7.setText(str)
+                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_17.setText(str)
 
                 elif NASDAQ_현재가 < float(value):
 
-                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
-                        self.label_7.setStyleSheet('background-color: skyblue ; color: red')
+                        self.label_17.setStyleSheet('background-color: skyblue ; color: red')
                     elif NASDAQ_전일대비 < 0:
-                        self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
+                        self.label_17.setStyleSheet('background-color: skyblue ; color: blue')
                     else:
-                        self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+                        self.label_17.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_7.setText(str)
+                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_17.setText(str)
                 else:
                     pass
 
-                str = ' 고가 : {0} '.format(format(NASDAQ_고가, ','))
-                self.label_8.setStyleSheet('background-color: pink ; color: red')
-                self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_8.setText(str) 
+                str = ' {0} '.format(format(NASDAQ_고가, ','))
+                self.label_18.setStyleSheet('background-color: pink ; color: red')
+                self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_18.setText(str) 
 
                 bc_plot1_nasdaq_curve.setData(plot_data13)
 
@@ -29955,49 +29955,49 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot1_ovc_low_line.setValue(WTI_저가)
                 bc_plot1_ovc_high_line.setValue(WTI_고가)
 
-                str = ' 저가 : {0} '.format(format(WTI_저가, ','))
-                self.label_6.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_6.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_6.setText(str)
+                str = ' {0} '.format(format(WTI_저가, ','))
+                self.label_16.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_16.setText(str)
 
-                value = self.label_7.text().split()[2]     
+                value = self.label_17.text().split()[2]     
 
                 if WTI_현재가 > float(value):
 
-                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
-                        self.label_7.setStyleSheet('background-color: pink ; color: red')
+                        self.label_17.setStyleSheet('background-color: pink ; color: red')
                     elif WTI_전일대비 < 0:
-                        self.label_7.setStyleSheet('background-color: pink ; color: blue')
+                        self.label_17.setStyleSheet('background-color: pink ; color: blue')
                     else:
-                        self.label_7.setStyleSheet('background-color: pink ; color: black')
+                        self.label_17.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_7.setText(str)
+                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_17.setText(str)
 
                 elif WTI_현재가 < float(value):
 
-                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
-                        self.label_7.setStyleSheet('background-color: skyblue ; color: red')
+                        self.label_17.setStyleSheet('background-color: skyblue ; color: red')
                     elif WTI_전일대비 < 0:
-                        self.label_7.setStyleSheet('background-color: skyblue ; color: blue')
+                        self.label_17.setStyleSheet('background-color: skyblue ; color: blue')
                     else:
-                        self.label_7.setStyleSheet('background-color: skyblue ; color: black')
+                        self.label_17.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_7.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_7.setText(str)
+                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_17.setText(str)
                 else:
                     pass
 
-                str = ' 고가 : {0} '.format(format(WTI_고가, ','))
-                self.label_8.setStyleSheet('background-color: pink ; color: red')
-                self.label_8.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_8.setText(str) 
+                str = ' {0} '.format(format(WTI_고가, ','))
+                self.label_18.setStyleSheet('background-color: pink ; color: red')
+                self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_18.setText(str) 
 
                 bc_plot1_wti_curve.setData(plot_data14)
             else:
@@ -30083,16 +30083,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 # 등가표시
                 str = ' 등가 : {0} '.format(atm_str)
-                self.label_9.setText(str)
+                self.label_21.setText(str)
 
                 str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_RANGE)
-                self.label_10.setText(str)
+                self.label_22.setText(str)
 
                 str = ' 중심가 : {0:0.2f} '.format(CENTER_VAL)
-                self.label_11.setText(str)
+                self.label_23.setText(str)
 
                 str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_RANGE)
-                self.label_12.setText(str)
+                self.label_24.setText(str)
 
             elif bc_comboindex2 == 5:
 
@@ -30124,47 +30124,47 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot2_center_val_upper_line.setValue(SP500_고가)
                 bc_plot2_ovc_high_line.setValue(SP500_고가)
 
-                str = ' 저가 : {0} '.format(format(SP500_저가, ','))
-                self.label_14.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_14.setText(str)
+                str = ' {0} '.format(format(SP500_저가, ','))
+                self.label_26.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_26.setText(str)
 
-                tmp = self.label_15.text().split()[2]
+                tmp = self.label_27.text().split()[2]
                 value = tmp.replace(',', '')                
 
                 if SP500_현재가 > float(value):
 
-                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
-                        self.label_15.setStyleSheet('background-color: pink ; color: red')
+                        self.label_27.setStyleSheet('background-color: pink ; color: red')
                     elif SP500_전일대비 < 0:
-                        self.label_15.setStyleSheet('background-color: pink ; color: blue')
+                        self.label_27.setStyleSheet('background-color: pink ; color: blue')
                     else:
-                        self.label_15.setStyleSheet('background-color: pink ; color: black')
+                        self.label_27.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_15.setText(str)
+                    self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_27.setText(str)
 
                 elif SP500_현재가 < float(value):
 
-                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
-                        self.label_15.setStyleSheet('background-color: skyblue ; color: red')
+                        self.label_27.setStyleSheet('background-color: skyblue ; color: red')
                     elif SP500_전일대비 < 0:
-                        self.label_15.setStyleSheet('background-color: skyblue ; color: blue')
+                        self.label_27.setStyleSheet('background-color: skyblue ; color: blue')
                     else:
-                        self.label_15.setStyleSheet('background-color: skyblue ; color: black')
+                        self.label_27.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_15.setText(str)
+                    self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_27.setText(str)
                 else:
                     pass
 
-                str = ' 고가 : {0} '.format(format(SP500_고가, ','))
+                str = ' {0} '.format(format(SP500_고가, ','))
                 self.label_16.setStyleSheet('background-color: pink ; color: red')
                 self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_16.setText(str) 
@@ -30196,47 +30196,47 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot2_center_val_upper_line.setValue(DOW_고가)
                 bc_plot2_ovc_high_line.setValue(DOW_고가)
 
-                str = ' 저가 : {0} '.format(format(DOW_저가, ','))
-                self.label_14.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_14.setText(str)  
+                str = ' {0} '.format(format(DOW_저가, ','))
+                self.label_26.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_26.setText(str)  
 
-                tmp = self.label_15.text().split()[2]
+                tmp = self.label_27.text().split()[2]
                 value = tmp.replace(',', '')               
 
                 if DOW_현재가 > float(value):
 
-                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
-                        self.label_15.setStyleSheet('background-color: pink ; color: red')
+                        self.label_27.setStyleSheet('background-color: pink ; color: red')
                     elif DOW_전일대비 < 0:
-                        self.label_15.setStyleSheet('background-color: pink ; color: blue')
+                        self.label_27.setStyleSheet('background-color: pink ; color: blue')
                     else:
-                        self.label_15.setStyleSheet('background-color: pink ; color: black')
+                        self.label_27.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_15.setText(str)
+                    self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_27.setText(str)
 
                 elif DOW_현재가 < float(value):
 
-                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
-                        self.label_15.setStyleSheet('background-color: skyblue ; color: red')
+                        self.label_27.setStyleSheet('background-color: skyblue ; color: red')
                     elif DOW_전일대비 < 0:
-                        self.label_15.setStyleSheet('background-color: skyblue ; color: blue')
+                        self.label_27.setStyleSheet('background-color: skyblue ; color: blue')
                     else:
-                        self.label_15.setStyleSheet('background-color: skyblue ; color: black')
+                        self.label_27.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_15.setText(str)
+                    self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_27.setText(str)
                 else:
                     pass
 
-                str = ' 고가 : {0} '.format(format(DOW_고가, ','))
+                str = ' {0} '.format(format(DOW_고가, ','))
                 self.label_16.setStyleSheet('background-color: pink ; color: red')
                 self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_16.setText(str)                  
@@ -30268,47 +30268,47 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot2_center_val_upper_line.setValue(NASDAQ_고가)
                 bc_plot2_ovc_high_line.setValue(NASDAQ_고가)
 
-                str = ' 저가 : {0} '.format(format(NASDAQ_저가, ','))
-                self.label_14.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_14.setText(str)
+                str = ' {0} '.format(format(NASDAQ_저가, ','))
+                self.label_26.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_26.setText(str)
 
-                tmp = self.label_15.text().split()[2]
+                tmp = self.label_27.text().split()[2]
                 value = tmp.replace(',', '')                
 
                 if NASDAQ_현재가 > float(value):
 
-                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
-                        self.label_15.setStyleSheet('background-color: pink ; color: red')
+                        self.label_27.setStyleSheet('background-color: pink ; color: red')
                     elif NASDAQ_전일대비 < 0:
-                        self.label_15.setStyleSheet('background-color: pink ; color: blue')
+                        self.label_27.setStyleSheet('background-color: pink ; color: blue')
                     else:
-                        self.label_15.setStyleSheet('background-color: pink ; color: black')
+                        self.label_27.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_15.setText(str)
+                    self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_27.setText(str)
 
                 elif NASDAQ_현재가 < float(value):
 
-                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
-                        self.label_15.setStyleSheet('background-color: skyblue ; color: red')
+                        self.label_27.setStyleSheet('background-color: skyblue ; color: red')
                     elif NASDAQ_전일대비 < 0:
-                        self.label_15.setStyleSheet('background-color: skyblue ; color: blue')
+                        self.label_27.setStyleSheet('background-color: skyblue ; color: blue')
                     else:
-                        self.label_15.setStyleSheet('background-color: skyblue ; color: black')
+                        self.label_27.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_15.setText(str)
+                    self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_27.setText(str)
                 else:
                     pass
 
-                str = ' 고가 : {0} '.format(format(NASDAQ_고가, ','))
+                str = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_16.setStyleSheet('background-color: pink ; color: red')
                 self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_16.setText(str)    
@@ -30340,49 +30340,49 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot2_center_val_upper_line.setValue(WTI_고가)
                 bc_plot2_ovc_high_line.setValue(WTI_고가)
 
-                str = ' 저가 : {0} '.format(format(WTI_저가, ','))
-                self.label_14.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_14.setText(str)
+                str = ' {0} '.format(format(WTI_저가, ','))
+                self.label_26.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_26.setText(str)
 
-                value = self.label_15.text().split()[2]             
+                value = self.label_27.text().split()[2]             
 
                 if WTI_현재가 > float(value):
 
-                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
-                        self.label_15.setStyleSheet('background-color: pink ; color: red')
+                        self.label_27.setStyleSheet('background-color: pink ; color: red')
                     elif WTI_전일대비 < 0:
-                        self.label_15.setStyleSheet('background-color: pink ; color: blue')
+                        self.label_27.setStyleSheet('background-color: pink ; color: blue')
                     else:
-                        self.label_15.setStyleSheet('background-color: pink ; color: black')
+                        self.label_27.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_15.setText(str)
+                    self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_27.setText(str)
 
                 elif WTI_현재가 < float(value):
 
-                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
-                        self.label_15.setStyleSheet('background-color: skyblue ; color: red')
+                        self.label_27.setStyleSheet('background-color: skyblue ; color: red')
                     elif WTI_전일대비 < 0:
-                        self.label_15.setStyleSheet('background-color: skyblue ; color: blue')
+                        self.label_27.setStyleSheet('background-color: skyblue ; color: blue')
                     else:
-                        self.label_15.setStyleSheet('background-color: skyblue ; color: black')
+                        self.label_27.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_15.setText(str)
+                    self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_27.setText(str)
                 else:
                     pass
 
-                str = ' 고가 : {0} '.format(format(WTI_고가, ','))
-                self.label_16.setStyleSheet('background-color: pink ; color: red')
-                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_16.setText(str)    
+                str = ' {0} '.format(format(WTI_고가, ','))
+                self.label_28.setStyleSheet('background-color: pink ; color: red')
+                self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_28.setText(str)    
 
                 bc_plot2_wti_curve.setData(plot_data14)
             else:
@@ -30468,16 +30468,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 # 등가표시
                 str = ' 등가 : {0} '.format(atm_str)
-                self.label_17.setText(str)
+                self.label_31.setText(str)
 
                 str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_RANGE)
-                self.label_18.setText(str)
+                self.label_32.setText(str)
 
                 str = ' 중심가 : {0:0.2f} '.format(CENTER_VAL)
-                self.label_19.setText(str)
+                self.label_33.setText(str)
 
                 str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_RANGE)
-                self.label_20.setText(str)
+                self.label_34.setText(str)
 
             elif bc_comboindex3 == 5:
 
@@ -30509,50 +30509,50 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot3_center_val_upper_line.setValue(SP500_고가)
                 bc_plot3_ovc_high_line.setValue(SP500_고가)
 
-                str = ' 저가 : {0} '.format(format(SP500_저가, ','))
-                self.label_22.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_22.setText(str)
+                str = ' {0} '.format(format(SP500_저가, ','))
+                self.label_36.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_36.setText(str)
 
-                tmp = self.label_23.text().split()[2]
+                tmp = self.label_37.text().split()[2]
                 value = tmp.replace(',', '')                
 
                 if SP500_현재가 > float(value):
 
-                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
-                        self.label_23.setStyleSheet('background-color: pink ; color: red')
+                        self.label_37.setStyleSheet('background-color: pink ; color: red')
                     elif SP500_전일대비 < 0:
-                        self.label_23.setStyleSheet('background-color: pink ; color: blue')
+                        self.label_37.setStyleSheet('background-color: pink ; color: blue')
                     else:
-                        self.label_23.setStyleSheet('background-color: pink ; color: black')
+                        self.label_37.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_23.setText(str)
+                    self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_37.setText(str)
 
                 elif SP500_현재가 < float(value):
 
-                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
-                        self.label_23.setStyleSheet('background-color: skyblue ; color: red')
+                        self.label_37.setStyleSheet('background-color: skyblue ; color: red')
                     elif SP500_전일대비 < 0:
-                        self.label_23.setStyleSheet('background-color: skyblue ; color: blue')
+                        self.label_37.setStyleSheet('background-color: skyblue ; color: blue')
                     else:
-                        self.label_23.setStyleSheet('background-color: skyblue ; color: black')
+                        self.label_37.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_23.setText(str)
+                    self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_37.setText(str)
                 else:
                     pass
 
-                str = ' 고가 : {0} '.format(format(SP500_고가, ','))
-                self.label_24.setStyleSheet('background-color: pink ; color: red')
-                self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_24.setText(str) 
+                str = ' {0} '.format(format(SP500_고가, ','))
+                self.label_38.setStyleSheet('background-color: pink ; color: red')
+                self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_38.setText(str) 
 
                 bc_plot3_sp500_curve.setData(plot_data11) 
 
@@ -30581,50 +30581,50 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot3_center_val_upper_line.setValue(DOW_고가)
                 bc_plot3_ovc_high_line.setValue(DOW_고가)
 
-                str = ' 저가 : {0} '.format(format(DOW_저가, ','))
-                self.label_22.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_22.setText(str)  
+                str = ' {0} '.format(format(DOW_저가, ','))
+                self.label_36.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_36.setText(str)  
 
-                tmp = self.label_23.text().split()[2]
+                tmp = self.label_37.text().split()[2]
                 value = tmp.replace(',', '')               
 
                 if DOW_현재가 > float(value):
 
-                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
-                        self.label_23.setStyleSheet('background-color: pink ; color: red')
+                        self.label_37.setStyleSheet('background-color: pink ; color: red')
                     elif DOW_전일대비 < 0:
-                        self.label_23.setStyleSheet('background-color: pink ; color: blue')
+                        self.label_37.setStyleSheet('background-color: pink ; color: blue')
                     else:
-                        self.label_23.setStyleSheet('background-color: pink ; color: black')
+                        self.label_37.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_23.setText(str)
+                    self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_37.setText(str)
 
                 elif DOW_현재가 < float(value):
 
-                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
-                        self.label_23.setStyleSheet('background-color: skyblue ; color: red')
+                        self.label_37.setStyleSheet('background-color: skyblue ; color: red')
                     elif DOW_전일대비 < 0:
-                        self.label_23.setStyleSheet('background-color: skyblue ; color: blue')
+                        self.label_37.setStyleSheet('background-color: skyblue ; color: blue')
                     else:
-                        self.label_23.setStyleSheet('background-color: skyblue ; color: black')
+                        self.label_37.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_23.setText(str)
+                    self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_37.setText(str)
                 else:
                     pass
 
-                str = ' 고가 : {0} '.format(format(DOW_고가, ','))
-                self.label_24.setStyleSheet('background-color: pink ; color: red')
-                self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_24.setText(str)                  
+                str = ' {0} '.format(format(DOW_고가, ','))
+                self.label_38.setStyleSheet('background-color: pink ; color: red')
+                self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_38.setText(str)                  
 
                 bc_plot3_dow_curve.setData(plot_data12) 
 
@@ -30653,50 +30653,50 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot3_center_val_upper_line.setValue(NASDAQ_고가)
                 bc_plot3_ovc_high_line.setValue(NASDAQ_고가)
 
-                str = ' 저가 : {0} '.format(format(NASDAQ_저가, ','))
-                self.label_22.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_22.setText(str)
+                str = ' {0} '.format(format(NASDAQ_저가, ','))
+                self.label_36.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_36.setText(str)
 
-                tmp = self.label_23.text().split()[2]
+                tmp = self.label_37.text().split()[2]
                 value = tmp.replace(',', '')                
 
                 if NASDAQ_현재가 > float(value):
 
-                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
-                        self.label_23.setStyleSheet('background-color: pink ; color: red')
+                        self.label_37.setStyleSheet('background-color: pink ; color: red')
                     elif NASDAQ_전일대비 < 0:
-                        self.label_23.setStyleSheet('background-color: pink ; color: blue')
+                        self.label_37.setStyleSheet('background-color: pink ; color: blue')
                     else:
-                        self.label_23.setStyleSheet('background-color: pink ; color: black')
+                        self.label_37.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_23.setText(str)
+                    self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_37.setText(str)
 
                 elif NASDAQ_현재가 < float(value):
 
-                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
-                        self.label_23.setStyleSheet('background-color: skyblue ; color: red')
+                        self.label_37.setStyleSheet('background-color: skyblue ; color: red')
                     elif NASDAQ_전일대비 < 0:
-                        self.label_23.setStyleSheet('background-color: skyblue ; color: blue')
+                        self.label_37.setStyleSheet('background-color: skyblue ; color: blue')
                     else:
-                        self.label_23.setStyleSheet('background-color: skyblue ; color: black')
+                        self.label_37.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_23.setText(str)
+                    self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_37.setText(str)
                 else:
                     pass
 
-                str = ' 고가 : {0} '.format(format(NASDAQ_고가, ','))
-                self.label_24.setStyleSheet('background-color: pink ; color: red')
-                self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_24.setText(str)    
+                str = ' {0} '.format(format(NASDAQ_고가, ','))
+                self.label_38.setStyleSheet('background-color: pink ; color: red')
+                self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_38.setText(str)    
 
                 bc_plot3_nasdaq_curve.setData(plot_data13)
 
@@ -30725,49 +30725,49 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot3_center_val_upper_line.setValue(WTI_고가)
                 bc_plot3_ovc_high_line.setValue(WTI_고가)
 
-                str = ' 저가 : {0} '.format(format(WTI_저가, ','))
-                self.label_22.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_22.setText(str)
+                str = ' {0} '.format(format(WTI_저가, ','))
+                self.label_36.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_36.setText(str)
 
-                value = self.label_23.text().split()[2]             
+                value = self.label_37.text().split()[2]             
 
                 if WTI_현재가 > float(value):
 
-                    str = " 현재가 : {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
-                        self.label_23.setStyleSheet('background-color: pink ; color: red')
+                        self.label_37.setStyleSheet('background-color: pink ; color: red')
                     elif WTI_전일대비 < 0:
-                        self.label_23.setStyleSheet('background-color: pink ; color: blue')
+                        self.label_37.setStyleSheet('background-color: pink ; color: blue')
                     else:
-                        self.label_23.setStyleSheet('background-color: pink ; color: black')
+                        self.label_37.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_23.setText(str)
+                    self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_37.setText(str)
 
                 elif WTI_현재가 < float(value):
 
-                    str = " 현재가 : {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
-                        self.label_23.setStyleSheet('background-color: skyblue ; color: red')
+                        self.label_37.setStyleSheet('background-color: skyblue ; color: red')
                     elif WTI_전일대비 < 0:
-                        self.label_23.setStyleSheet('background-color: skyblue ; color: blue')
+                        self.label_37.setStyleSheet('background-color: skyblue ; color: blue')
                     else:
-                        self.label_23.setStyleSheet('background-color: skyblue ; color: black')
+                        self.label_37.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_23.setText(str)
+                    self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_37.setText(str)
                 else:
                     pass
 
-                str = ' 고가 : {0} '.format(format(WTI_고가, ','))
-                self.label_24.setStyleSheet('background-color: pink ; color: red')
-                self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_24.setText(str)    
+                str = ' {0} '.format(format(WTI_고가, ','))
+                self.label_38.setStyleSheet('background-color: pink ; color: red')
+                self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_38.setText(str)    
 
                 bc_plot3_wti_curve.setData(plot_data14)
             else:
