@@ -3710,19 +3710,6 @@ class 화면_버전(QDialog, Ui_버전):
 ########################################################################################################################
 class screen_update_worker(QThread):
 
-    finished = pyqtSignal(str)
-
-    def run(self):
-
-        while True:
-
-            str = 'Main Update...'                
-
-            self.finished.emit(str)
-            self.msleep(MAIN_UPDATE_INTERVAL)
-'''
-class screen_update_worker(QThread):
-
     finished = pyqtSignal(dict)
     
     def run(self):
@@ -3770,6 +3757,8 @@ class screen_update_worker(QThread):
 
             call_curve_data = df_call_price_graph[index].tolist()
             put_curve_data = df_put_price_graph[index].tolist()
+            
+            '''
             centerval_data = df_call_info_graph['centerval'].tolist()
             data1 = df_futures_graph['volume'].tolist()
             data2 = df_call_info_graph['volume'].tolist()
@@ -3835,15 +3824,19 @@ class screen_update_worker(QThread):
             else:
                 return call_curve_data, put_curve_data, centerval_data, data1, data2, data3, data4, \
                     data5, data6, data7, data8, data9, data10, data11, data12, data13, data14, data15, data16
+            '''
+            return call_curve_data, put_curve_data
         except:
-
+            '''
             if UI_STYLE == 'Vertical_View.ui':
 
                 return None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
 
             else:
                 return None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
-'''
+            '''
+            return None, None
+
 
 ########################################################################################################################
 
@@ -4871,9 +4864,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.comboBox2.insertSeparator(5)
         self.comboBox2.insertSeparator(13)
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
-        '''
-
-        '''
+        
         global plot1_time_line_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
         global plot1_fut_jl_line, plot1_fut_jh_line, plot1_fut_close_line, plot1_fut_open_line, plot1_fut_pivot_line, plot1_fut_low_line, plot1_fut_high_line    
         global plot1_ovc_jl_line, plot1_ovc_jh_line, plot1_ovc_close_line, plot1_ovc_open_line, plot1_ovc_pivot_line, plot1_ovc_low_line, plot1_ovc_high_line    
@@ -4923,20 +4914,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         plot1_fut_pivot_line = self.Plot1.addLine(x=None, pen=fut_pvt_pen)
         plot1_fut_low_line = self.Plot1.addLine(x=None, pen=skyblue_pen)
         plot1_fut_high_line = self.Plot1.addLine(x=None, pen=pink_pen)
-        '''
 
         #for i in range(10):
             #kp200_line.append(self.Plot1.addLine(x=None, pen=kp200_pen))
-        '''
+        
         plot1_kp200_2_line = self.Plot1.addLine(x=None, pen=kp200_pen)
         plot1_kp200_3_line = self.Plot1.addLine(x=None, pen=kp200_pen)
         plot1_kp200_4_line = self.Plot1.addLine(x=None, pen=kp200_pen)
         plot1_kp200_5_line = self.Plot1.addLine(x=None, pen=kp200_pen)
         plot1_kp200_6_line = self.Plot1.addLine(x=None, pen=kp200_pen)
         plot1_kp200_7_line = self.Plot1.addLine(x=None, pen=kp200_pen)   
-        '''
-
-        '''
+        
         plot1_ovc_jl_line = self.Plot1.addLine(x=None, pen=goldenrod_pen)
         plot1_ovc_jh_line = self.Plot1.addLine(x=None, pen=gold_pen)  
         plot1_ovc_close_line = self.Plot1.addLine(x=None, pen=lime_pen)
@@ -5328,27 +5316,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(str)
         else:
             pass
-
-        # OHLC 연산목적
-        '''
-        global 선물_저가리스트, 선물_고가리스트, DOW_저가리스트, DOW_고가리스트, SP500_저가리스트, SP500_고가리스트 
-        global NASDAQ_저가리스트, NASDAQ_고가리스트, WTI_저가리스트, WTI_고가리스트
-
-        선물_저가리스트.append(0)
-        선물_고가리스트.append(0)
-
-        DOW_저가리스트.append(0)
-        DOW_고가리스트.append(0)
-
-        SP500_저가리스트.append(0)
-        SP500_고가리스트.append(0)
-
-        NASDAQ_저가리스트.append(0)
-        NASDAQ_고가리스트.append(0)
-
-        WTI_저가리스트.append(0)
-        WTI_고가리스트.append(0)
-        '''
+        
         global 진성맥점
 
         진성맥점 = pre_진성맥점[:]
@@ -5422,9 +5390,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         self.tableWidget_call.resizeColumnsToContents()
         self.tableWidget_put.resizeColumnsToContents()
-        '''        
-        self.tableWidget_fut.resizeColumnsToContents()
-        '''   
+          
 
     ## list에서 i번째 아이템을 리턴한다.
     def get_list_item(self, list, i):
@@ -6589,8 +6555,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot2_ovc_high_line.setValue(WTI_고가)
         else:
             pass
-    '''
-    '''
+
     if UI_STYLE == 'Vertical_View.ui':
 
         def cb3_selectionChanged(self):
@@ -7584,23 +7549,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
         except:
             pass
-    '''
-    @pyqtSlot(str)
-    def call_update(self, str):
-
-        try:
-            self.call_display()
-        except:
-            pass
-
-    @pyqtSlot(str)
-    def put_update(self, str):
-
-        try:
-            self.put_display()
-        except:
-            pass
-    '''  
 
     '''
     #cross hair
@@ -7694,7 +7642,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             #df_fut_ohlc_15min = df.resample('15T').ohlc()
         else:
             pass
-
 
         '''
         # SP500 OHLC 데이타프레임 생성        
@@ -7849,7 +7796,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
         print(str)
 
-    @pyqtSlot(str)
+    @pyqtSlot(dict)
     def update_screen(self, data):
 
         try:
@@ -7913,17 +7860,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 selected_put = put_idx
 
                 # 마지막 행사가 추가해야 쓰레드 정상동작함(?)
-                selected_opt_list.append(opt_actval[option_pairs_count-1])
+                selected_opt_list.append(opt_actval[option_pairs_count-1])                
                 
-                '''
-                # 전체 행사가 검색 및 저장, 그리기
+                # 전체 행사가 검색 및 저장
                 for actval, infos in data.items():
 
                     index = opt_actval.index(actval)
 
                     # 옵션그래프 초기화 및 옵션데이타 가져오기
                     
-                    # 선택된 콜그래프 저장 및 그리기
+                    # 선택된 콜그래프 저장
                     for i in range(len(selected_call)):
 
                         if index == selected_call[i]:
@@ -7932,7 +7878,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass                    
 
-                    # 선택된 풋그래프 저장 및 그리기
+                    # 선택된 풋그래프 저장
                     for i in range(len(selected_put)):
 
                         if index == selected_put[i]:
@@ -7941,6 +7887,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
+                '''
                     # 그외 데이타 가져오기
                     if index == option_pairs_count - 1:
                         
@@ -8264,9 +8211,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     plot2_wti_curve.setData(plot_data14)
                 else:
                     pass
-                '''
 
-                '''
                 # Plot 3, Plot4 그리기
                 if UI_STYLE == 'Vertical_View.ui':
 
@@ -8743,7 +8688,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
             else:
-                pass    
+                pass   
             
             if not flag_offline:
 
@@ -9418,7 +9363,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
 
-        df_plotdata_centerval.iat[0, opt_x_idx] = CENTER_VAL
+        #df_plotdata_centerval.iat[0, opt_x_idx] = CENTER_VAL
         df_call_info_graph.at[opt_x_idx, 'centerval'] = CENTER_VAL
 
         atm_list = []
@@ -26451,15 +26396,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_futures_graph.to_csv(futures_graph_csv, encoding='ms949')
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 국내선물 Graph 파일을 저장했습니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)  
-
-            dow_graph_csv = "DOW Graph Data {}{}".format(times, '.csv')
-            df_dow_graph.to_csv(dow_graph_csv, encoding='ms949')
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 Graph 파일을 저장했습니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(str)
         else:
-            pass        
+            pass  
+
+        dow_graph_csv = "DOW Graph Data {}{}".format(times, '.csv')
+        df_dow_graph.to_csv(dow_graph_csv, encoding='ms949')
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 Graph 파일을 저장했습니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(str)
 
         '''
         if df_fut.empty:
@@ -26745,7 +26690,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 ########################################################################################################################
 # Big Chart Update Thread
 ########################################################################################################################
-'''
 class bigchart_update_worker(QThread):
 
     finished = pyqtSignal(str)
@@ -26759,7 +26703,6 @@ class bigchart_update_worker(QThread):
             self.finished.emit(str)
             self.msleep(BIGCHART_UPDATE_INTERVAL)
 '''
-
 class bigchart_update_worker(QThread):
 
     finished = pyqtSignal(dict)
@@ -26789,6 +26732,7 @@ class bigchart_update_worker(QThread):
 
             call_curve_data = df_call_price_graph[index].tolist()
             put_curve_data = df_put_price_graph[index].tolist()
+            
             centerval_data = df_call_info_graph['centerval'].tolist()
             data1 = df_futures_graph['volume'].tolist()
             data2 = df_call_info_graph['volume'].tolist()
@@ -26811,10 +26755,13 @@ class bigchart_update_worker(QThread):
             
             return call_curve_data, put_curve_data, centerval_data, data1, data2, data3, data4, \
                     data5, data6, data7, data8, data9, data10, data11, data12, data13, data14, data15, data16
+            
+            return call_curve_data, put_curve_data
         except:
 
-            return None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
-
+            #return None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
+            return None, None
+'''
 
 ########################################################################################################################
 # Big Chart UI Class
@@ -29540,7 +29487,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             return 0
 
-    @pyqtSlot(dict)
+    @pyqtSlot(str)
     def update_bigchart(self):
 
         dt = datetime.datetime.now()
@@ -29571,44 +29518,29 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             if bc_comboindex1 == 0 and market_service:
 
                 if fut_volume_power > 0:
-                    bc_plot1_fut_volume_plus_curve.setData(plot_data1)
+                    bc_plot1_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
                 else:
-                    bc_plot1_fut_volume_minus_curve.setData(plot_data1)
+                    bc_plot1_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex1 == 1 and market_service:                      
 
-                bc_plot1_call_volume_curve.setData(plot_data2)
-                bc_plot1_put_volume_curve.setData(plot_data3)
+                bc_plot1_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
+                bc_plot1_put_volume_curve.setData(df_put_info_graph['volume'].tolist())
 
             elif bc_comboindex1 == 2 and market_service:
 
-                bc_plot1_call_rr_curve.setData(plot_data5)
-                bc_plot1_put_rr_curve.setData(plot_data6)
+                bc_plot1_call_rr_curve.setData(df_call_info_graph['hoga'].tolist())
+                bc_plot1_put_rr_curve.setData(df_put_info_graph['hoga'].tolist())
 
             elif bc_comboindex1 == 3 and market_service:
 
-                bc_plot1_fut_drate_curve.setData(plot_data7)
-                bc_plot1_dow_drate_curve.setData(plot_data8)
-                bc_plot1_call_drate_curve.setData(plot_data15)
-                bc_plot1_put_drate_curve.setData(plot_data16)
+                bc_plot1_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
+                bc_plot1_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
+                bc_plot1_call_drate_curve.setData(df_call_info_graph['drate'].tolist())
+                bc_plot1_put_drate_curve.setData(df_put_info_graph['drate'].tolist())
 
             elif bc_comboindex1 == 4 and market_service:
-                '''
-                bc_plot1_kp200_3_line.setValue(KP200_COREVAL[3])
-                bc_plot1_kp200_4_line.setValue(KP200_COREVAL[4])
-                bc_plot1_kp200_5_line.setValue(KP200_COREVAL[5])
-                bc_plot1_kp200_6_line.setValue(KP200_COREVAL[6])
                 
-                if 선물_전저 < KP200_COREVAL[3]:
-                    bc_plot1_kp200_2_line.setValue(KP200_COREVAL[2])
-                else:
-                    bc_plot1_kp200_2_line.setValue(KP200_COREVAL[3])
-
-                if 선물_전고 > KP200_COREVAL[6]:
-                    bc_plot1_kp200_7_line.setValue(KP200_COREVAL[7])
-                else:
-                    bc_plot1_kp200_7_line.setValue(KP200_COREVAL[6])
-                '''
                 bc_kp200_line[3].setValue(KP200_COREVAL[3])
                 bc_kp200_line[4].setValue(KP200_COREVAL[4])
                 bc_kp200_line[5].setValue(KP200_COREVAL[5])
@@ -29683,8 +29615,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_18.setText(str)   
 
-                bc_plot1_kp200_curve.setData(plot_data9)
-                bc_plot1_fut_price_curve.setData(plot_data10)
+                bc_plot1_kp200_curve.setData(df_futures_graph['kp200'].tolist())
+                bc_plot1_fut_price_curve.setData(df_futures_graph['price'].tolist())
 
             elif bc_comboindex1 == 5:
 
@@ -29755,7 +29687,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_18.setText(str)   
 
-                bc_plot1_sp500_curve.setData(plot_data11)
+                bc_plot1_sp500_curve.setData(df_sp500_graph['price'].tolist())
 
             elif bc_comboindex1 == 7:
 
@@ -29822,7 +29754,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_18.setText(str)                      
 
-                bc_plot1_dow_curve.setData(plot_data12)
+                bc_plot1_dow_curve.setData(df_dow_graph['price'].tolist())
 
             elif bc_comboindex1 == 8:
 
@@ -29889,7 +29821,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_18.setText(str) 
 
-                bc_plot1_nasdaq_curve.setData(plot_data13)
+                bc_plot1_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
 
             elif bc_comboindex1 == 9:
 
@@ -29955,34 +29887,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_18.setText(str) 
 
-                bc_plot1_wti_curve.setData(plot_data14)
+                bc_plot1_wti_curve.setData(df_wti_graph['price'].tolist())
             else:
                 pass   
 
             # Plot2 그래프 그리기
             if bc_comboindex2 == 0 and market_service:
 
-                bc_plot2_call_volume_curve.setData(plot_data2)
-                bc_plot2_put_volume_curve.setData(plot_data3)
+                bc_plot2_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
+                bc_plot2_put_volume_curve.setData(df_put_info_graph['volume'].tolist())
 
             elif bc_comboindex2 == 1 and market_service:
 
-                bc_plot2_call_rr_curve.setData(plot_data5)
-                bc_plot2_put_rr_curve.setData(plot_data6)        
+                bc_plot2_call_rr_curve.setData(df_call_info_graph['hoga'].tolist())
+                bc_plot2_put_rr_curve.setData(df_put_info_graph['hoga'].tolist())        
 
             elif bc_comboindex2 == 2 and market_service:
 
                 if fut_volume_power > 0:
-                    bc_plot2_fut_volume_plus_curve.setData(plot_data1)
+                    bc_plot2_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
                 else:
-                    bc_plot2_fut_volume_minus_curve.setData(plot_data1)
+                    bc_plot2_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex2 == 3 and market_service:
 
-                bc_plot2_fut_drate_curve.setData(plot_data7)
-                bc_plot2_dow_drate_curve.setData(plot_data8)
-                bc_plot2_call_drate_curve.setData(plot_data15)
-                bc_plot2_put_drate_curve.setData(plot_data16)
+                bc_plot2_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
+                bc_plot2_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
+                bc_plot2_call_drate_curve.setData(df_call_info_graph['drate'].tolist())
+                bc_plot2_put_drate_curve.setData(df_put_info_graph['drate'].tolist())
 
             elif bc_comboindex2 == 4 and market_service:
 
@@ -30035,7 +29967,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
 
                 # 중심가 그리기
-                bc_plot2_center_val_curve.setData(centerval_plot_data)
+                bc_plot2_center_val_curve.setData(df_call_info_graph['centerval'].tolist())
 
                 # 등가표시
                 str = ' 등가 : {0} '.format(atm_str)
@@ -30125,7 +30057,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_16.setText(str) 
 
-                bc_plot2_sp500_curve.setData(plot_data11) 
+                bc_plot2_sp500_curve.setData(df_sp500_graph['price'].tolist()) 
 
             elif bc_comboindex2 == 7:
 
@@ -30197,7 +30129,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_16.setText(str)                  
 
-                bc_plot2_dow_curve.setData(plot_data12) 
+                bc_plot2_dow_curve.setData(df_dow_graph['price'].tolist()) 
 
             elif bc_comboindex2 == 8:
 
@@ -30269,7 +30201,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_16.setText(str)    
 
-                bc_plot2_nasdaq_curve.setData(plot_data13)
+                bc_plot2_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
 
             elif bc_comboindex2 == 9:
 
@@ -30340,34 +30272,34 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_28.setText(str)    
 
-                bc_plot2_wti_curve.setData(plot_data14)
+                bc_plot2_wti_curve.setData(df_wti_graph['price'].tolist())
             else:
                 pass        
             
             # Plot3 그래프 그리기
             if bc_comboindex3 == 0 and market_service:
 
-                bc_plot3_call_volume_curve.setData(plot_data2)
-                bc_plot3_put_volume_curve.setData(plot_data3)
+                bc_plot3_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
+                bc_plot3_put_volume_curve.setData(df_put_info_graph['volume'].tolist())
 
             elif bc_comboindex3 == 1 and market_service:
 
-                bc_plot3_call_rr_curve.setData(plot_data5)
-                bc_plot3_put_rr_curve.setData(plot_data6)        
+                bc_plot3_call_rr_curve.setData(df_call_info_graph['hoga'].tolist())
+                bc_plot3_put_rr_curve.setData(df_put_info_graph['hoga'].tolist())        
 
             elif bc_comboindex3 == 2 and market_service:
 
                 if fut_volume_power > 0:
-                    bc_plot3_fut_volume_plus_curve.setData(plot_data1)
+                    bc_plot3_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
                 else:
-                    bc_plot3_fut_volume_minus_curve.setData(plot_data1)
+                    bc_plot3_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex3 == 3 and market_service:
 
-                bc_plot3_fut_drate_curve.setData(plot_data7)
-                bc_plot3_dow_drate_curve.setData(plot_data8)
-                bc_plot3_call_drate_curve.setData(plot_data15)
-                bc_plot3_put_drate_curve.setData(plot_data16)
+                bc_plot3_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
+                bc_plot3_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
+                bc_plot3_call_drate_curve.setData(df_call_info_graph['drate'].tolist())
+                bc_plot3_put_drate_curve.setData(df_put_info_graph['drate'].tolist())
 
             elif bc_comboindex3 == 4 and market_service:
 
@@ -30420,7 +30352,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot3_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
 
                 # 중심가 그리기
-                bc_plot3_center_val_curve.setData(centerval_plot_data)
+                bc_plot3_center_val_curve.setData(df_call_info_graph['centerval'].tolist())
 
                 # 등가표시
                 str = ' 등가 : {0} '.format(atm_str)
@@ -30510,7 +30442,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_38.setText(str) 
 
-                bc_plot3_sp500_curve.setData(plot_data11) 
+                bc_plot3_sp500_curve.setData(df_sp500_graph['price'].tolist()) 
 
             elif bc_comboindex3 == 7:
 
@@ -30582,7 +30514,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_38.setText(str)                  
 
-                bc_plot3_dow_curve.setData(plot_data12) 
+                bc_plot3_dow_curve.setData(df_dow_graph['price'].tolist()) 
 
             elif bc_comboindex3 == 8:
 
@@ -30654,7 +30586,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_38.setText(str)    
 
-                bc_plot3_nasdaq_curve.setData(plot_data13)
+                bc_plot3_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
 
             elif bc_comboindex3 == 9:
 
@@ -30725,7 +30657,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_38.setText(str)    
 
-                bc_plot3_wti_curve.setData(plot_data14)
+                bc_plot3_wti_curve.setData(df_wti_graph['price'].tolist())
             else:
                 pass
         else:
