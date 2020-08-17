@@ -3757,7 +3757,7 @@ class screen_update_worker(QThread):
 
             call_curve_data = df_call_price_graph[index].tolist()
             put_curve_data = df_put_price_graph[index].tolist()
-            
+
             '''
             centerval_data = df_call_info_graph['centerval'].tolist()
             data1 = df_futures_graph['volume'].tolist()
@@ -30197,9 +30197,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
                 str = ' {0} '.format(format(NASDAQ_고가, ','))
-                self.label_16.setStyleSheet('background-color: pink ; color: red')
-                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_16.setText(str)    
+                self.label_28.setStyleSheet('background-color: pink ; color: red')
+                self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_28.setText(str)    
 
                 bc_plot2_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
 
