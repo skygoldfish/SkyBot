@@ -6,7 +6,7 @@ First Day of the Current Month = 20200814
 [2]. << Target Month Select : current month = 1, next month = 2 >>
 Target Month Select = 1
 
-[3]. << User Option = 'ON or OFF' >>
+[3]. << User Switch = 'ON or OFF' >>
 Telegram service = ON
 Mangi Yagan = OFF
 Auto Start = ON
