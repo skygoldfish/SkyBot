@@ -3724,7 +3724,7 @@ class screen_update_worker(QThread):
                 data[actval] = self.get_data_infos(actval)
             
             # 같은 파일내 다른 클래스의 함수를 호출할 경우 classmethod 사용!!!
-            #화면_선물옵션전광판.test_classmethod()
+            # 화면_선물옵션전광판.test_classmethod()
             
             # 500ms 마다 갱신
             self.finished.emit(data)  
@@ -3757,84 +3757,10 @@ class screen_update_worker(QThread):
 
             call_curve_data = df_call_price_graph[index].tolist()
             put_curve_data = df_put_price_graph[index].tolist()
-
-            '''
-            centerval_data = df_call_info_graph['centerval'].tolist()
-            data1 = df_futures_graph['volume'].tolist()
-            data2 = df_call_info_graph['volume'].tolist()
-            data3 = df_put_info_graph['volume'].tolist()
-            data4 = None
-            data5 = df_call_info_graph['hoga'].tolist()
-            data6 = df_put_info_graph['hoga'].tolist()
-            data7 = df_futures_graph['drate'].tolist()
-            data8 = df_dow_graph['drate'].tolist()
-            data9 = df_futures_graph['kp200'].tolist()
-            data10 = df_futures_graph['price'].tolist()
-            data11 = df_sp500_graph['price'].tolist()
-            data12 = df_dow_graph['price'].tolist()
-            data13 = df_nasdaq_graph['price'].tolist()
-            data14 = df_wti_graph['price'].tolist()
-            data15 = np.array(df_call_info_graph['drate'].tolist()) / drate_scale_factor
-            data15 = data15.tolist()
-            data16 = np.array(df_put_info_graph['drate'].tolist()) / drate_scale_factor
-            data16 = data16.tolist()         
-
-            if UI_STYLE == 'Vertical_View.ui':
-
-                # COMBO 3
-                if comboindex3 == 0:
-
-                    #plot3_data = df_plotdata_dow.iloc[0].values.tolist()
-                    plot3_data = df_dow_graph['price'].tolist()
-
-                elif comboindex3 == 1:                             
-
-                    #plot3_data = df_plotdata_sp500.iloc[0].values.tolist()
-                    plot3_data = df_sp500_graph['price'].tolist()
-
-                elif comboindex3 == 2:
-
-                    #plot3_data = df_plotdata_nasdaq.iloc[0].values.tolist()
-                    plot3_data = df_nasdaq_graph['price'].tolist()
-                else:
-                    pass
-
-                # COMBO 4
-                if comboindex4 == 0:
-
-                    #plot4_1_data = df_plotdata_fut.iloc[0].values.tolist()
-                    #plot4_2_data = df_plotdata_kp200.iloc[0].values.tolist()
-                    plot4_1_data = df_futures_graph['price']
-                    plot4_2_data = df_futures_graph['kp200']
-
-                elif comboindex4 == 1:                             
-
-                    #plot4_1_data = df_plotdata_fut_volume.iloc[0].values.tolist()
-                    plot4_1_data = df_futures_graph['volume']
-                    plot4_2_data = None
-                else:
-                    pass 
-            else:
-                pass
             
-            if UI_STYLE == 'Vertical_View.ui':
-
-                return call_curve_data, put_curve_data, centerval_data, data1, data2, data3, data4, \
-                    data5, data6, data7, data8, data9, data10, data11, data12, data13, data14, plot3_data, plot4_1_data, plot4_2_data, data15, data16                
-            else:
-                return call_curve_data, put_curve_data, centerval_data, data1, data2, data3, data4, \
-                    data5, data6, data7, data8, data9, data10, data11, data12, data13, data14, data15, data16
-            '''
             return call_curve_data, put_curve_data
         except:
-            '''
-            if UI_STYLE == 'Vertical_View.ui':
-
-                return None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
-
-            else:
-                return None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
-            '''
+            
             return None, None
 
 
@@ -26087,12 +26013,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_dow_graph['MAMA'] = mama
                 df_dow_graph['FAMA'] = fama
 
-                '''
-                if not np.isnan(df_dow_graph['MAMA'].tolist()).all():
-                    print('MAMA', df_dow_graph['MAMA'].tolist())
-                else:
-                    pass
-                '''
 
                 # SP500
                 # Bollinger Bands
@@ -26173,7 +26093,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_wti_graph['MAMA'] = mama
                 df_wti_graph['FAMA'] = fama
-
+                
+                '''
+                if not np.isnan(df_wti_graph['MAMA'].tolist()).all():
+                    print('MAMA', df_wti_graph['MAMA'].tolist())
+                else:
+                    print('WTI MAMA...')                
+                '''
 
             elif szTrCode == 'OVH':
 
@@ -26308,11 +26234,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         XQ.Query(업종코드=KOSDAQ,구분1='',구분2='1',CTS일자='',조회건수='0001',비중구분='', 연속조회=False)
 
         if service_terminate:
-
-            file = open('skybot.log', 'w')
-            text = self.textBrowser.toPlainText()
-            file.write(text)
-            file.close()
 
             if TARGET_MONTH_SELECT == 1:
                 self.capture_screenshot()
@@ -26480,12 +26401,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 저장전 전체 데이타를 다시 내려받음
         self.AddCode()
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장했습니다.\r'.format(dt.hour, dt.minute, dt.second)
-        self.textBrowser.append(str)
-
         self.high_low_list_save_to_file()
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 저장했습니다.\r'.format(dt.hour, dt.minute, dt.second)
+        str = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 갱신했습니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
 
         if not NightTime:
@@ -26501,54 +26419,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dow_graph_csv = "DOW Graph Data {}{}".format(times, '.csv')
         df_dow_graph.to_csv(dow_graph_csv, encoding='ms949')
 
+        dow_sp500_csv = "SP500 Graph Data {}{}".format(times, '.csv')
+        df_dow_graph.to_csv(dow_sp500_csv, encoding='ms949')
+
+        dow_nasdaq_csv = "NASDAQ Graph Data {}{}".format(times, '.csv')
+        df_dow_graph.to_csv(dow_nasdaq_csv, encoding='ms949')
+
+        dow_wti_csv = "WTI Graph Data {}{}".format(times, '.csv')
+        df_dow_graph.to_csv(dow_wti_csv, encoding='ms949')
+
         str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 Graph 파일을 저장했습니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
-
-        '''
-        if df_fut.empty:
-
-            pass
-        else:
-            fut_csv = "Futures 전광판 {}{}".format(times, '.csv')
-            # temp = df_cme.append(df_fut, ignore_index=True)
-            # temp = pd.concat([df_cme, df_fut], ignore_index=True)
-            df_fut.to_csv(fut_csv, encoding='ms949')
-
-            fut_ohlc_csv = "Futures OHLC {}{}".format(times, '.csv')
-            df_fut_ohlc.to_csv(fut_ohlc_csv, encoding='ms949')
-
-            kp200_graph_csv = "KP200 Graph {}{}".format(times, '.csv')
-            df_plotdata_kp200.to_csv(kp200_graph_csv, encoding='ms949')
-
-            fut_graph_csv = "Fut Graph {}{}".format(times, '.csv')
-            df_plotdata_fut.to_csv(fut_graph_csv, encoding='ms949')
-
-        if df_call.empty:
-
-            pass
-        else:
-            self.call_open_check()
-
-            call_csv = "Call 전광판 {}{}".format(times, '.csv')
-            df_call.loc[0:, '행사가':].to_csv(call_csv, encoding='ms949')
-
-            call_graph_csv = "Call Graph {}{}".format(times, '.csv')
-            df_plotdata_call.to_csv(call_graph_csv, encoding='ms949')
-
-            self.put_open_check()
-
-            put_csv = "Put 전광판 {}{}".format(times, '.csv')
-            df_put.loc[0:, '행사가':].to_csv(put_csv, encoding='ms949')
-
-            put_graph_csv = "Put Graph {}{}".format(times, '.csv')
-            df_plotdata_put.to_csv(put_graph_csv, encoding='ms949')
-
-            call_volume_csv = "Call Volume {}{}".format(times, '.csv')
-            df_plotdata_call_volume.to_csv(call_volume_csv, encoding='ms949')
-
-            put_volume_csv = "Put Volume {}{}".format(times, '.csv')
-            df_plotdata_put_volume.to_csv(put_volume_csv, encoding='ms949')
-        '''        
+        
+        str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(str)
+        
+        file = open('skybot.log', 'w')
+        text = self.textBrowser.toPlainText()
+        file.write(text)
+        file.close()
+        
 
     def RemoveCode(self):
 
@@ -26800,66 +26690,6 @@ class bigchart_update_worker(QThread):
 
             self.finished.emit(str)
             self.msleep(BIGCHART_UPDATE_INTERVAL)
-'''
-class bigchart_update_worker(QThread):
-
-    finished = pyqtSignal(dict)
-    
-    def run(self):
-        
-        while True:
-
-            data = {}
-
-            # 선택된 콜,풋 만으로 loop를 돌림
-            for actval in selected_opt_list:
-
-                data[actval] = self.get_data_infos(actval)
-            
-            # 같은 파일내 다른 클래스의 함수를 호출할 경우 classmethod 사용!!!
-            #화면_선물옵션전광판.test_classmethod()
-            
-            # 500ms 마다 갱신
-            self.finished.emit(data)  
-            self.msleep(BIGCHART_UPDATE_INTERVAL)
-
-    def get_data_infos(self, actval):
-
-        try:
-            index = opt_actval.index(actval)
-
-            call_curve_data = df_call_price_graph[index].tolist()
-            put_curve_data = df_put_price_graph[index].tolist()
-            
-            centerval_data = df_call_info_graph['centerval'].tolist()
-            data1 = df_futures_graph['volume'].tolist()
-            data2 = df_call_info_graph['volume'].tolist()
-            data3 = df_put_info_graph['volume'].tolist()
-            data4 = None
-            data5 = df_call_info_graph['hoga'].tolist()
-            data6 = df_put_info_graph['hoga'].tolist()
-            data7 = df_futures_graph['drate'].tolist()
-            data8 = df_dow_graph['drate'].tolist()
-            data9 = df_futures_graph['kp200'].tolist()
-            data10 = df_futures_graph['price'].tolist()
-            data11 = df_sp500_graph['price'].tolist()
-            data12 = df_dow_graph['price'].tolist()
-            data13 = df_nasdaq_graph['price'].tolist()
-            data14 = df_wti_graph['price'].tolist()
-            data15 = np.array(df_call_info_graph['drate'].tolist()) / drate_scale_factor
-            data15 = data15.tolist()
-            data16 = np.array(df_put_info_graph['drate'].tolist()) / drate_scale_factor
-            data16 = data16.tolist()
-            
-            return call_curve_data, put_curve_data, centerval_data, data1, data2, data3, data4, \
-                    data5, data6, data7, data8, data9, data10, data11, data12, data13, data14, data15, data16
-            
-            return call_curve_data, put_curve_data
-        except:
-
-            #return None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
-            return None, None
-'''
 
 ########################################################################################################################
 # Big Chart UI Class
