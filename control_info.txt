@@ -23,7 +23,7 @@ Cross Hair Line = ON
 # 6: MA_Type.KAMA (Kaufman adaptive)  
 # 7: MA_Type.MAMA (Mesa adaptive)  
 # 8: MA_Type.T3 (triple exponential T3)
-MA Type = MA_Type.EMA
+MA Type = 1
 
 [5]. << Initial Value >>
 HL List Depth = 40

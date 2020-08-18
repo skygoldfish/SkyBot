@@ -363,7 +363,7 @@ with open('control_info.txt', mode='r') as control_file:
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
-    MA_TYPE = temp[3]
+    MA_TYPE = int(temp[3])
     print('MA_TYPE =', MA_TYPE)
     print('\r')   
 
@@ -20039,15 +20039,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # MACD
         # list of values for the Moving Average Type:  
-        #0: MA_Type.SMA (simple)  
-        #1: MA_Type.EMA (exponential)  
-        #2: MA_Type.WMA (weighted)  
-        #3: MA_Type.DEMA (double exponential)  
-        #4: MA_Type.TEMA (triple exponential)  
-        #5: MA_Type.TRIMA (triangular)  
-        #6: MA_Type.KAMA (Kaufman adaptive)  
-        #7: MA_Type.MAMA (Mesa adaptive)  
-        #8: MA_Type.T3 (triple exponential T3)
+        # 0: MA_Type.SMA (simple)  
+        # 1: MA_Type.EMA (exponential)  
+        # 2: MA_Type.WMA (weighted)  
+        # 3: MA_Type.DEMA (double exponential)  
+        # 4: MA_Type.TEMA (triple exponential)  
+        # 5: MA_Type.TRIMA (triangular)  
+        # 6: MA_Type.KAMA (Kaufman adaptive)  
+        # 7: MA_Type.MAMA (Mesa adaptive)  
+        # 8: MA_Type.T3 (triple exponential T3)
            
         macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_futures_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
             fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
@@ -25940,6 +25940,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 1T OHLC 생성
                 if OVC_SEC == 0:
                     
+                    # DOW
                     if not flag_dow_ohlc_open:
                         
                         df_dow_graph.at[ovc_x_idx, 'open'] = DOW_현재가
@@ -25949,7 +25950,42 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         flag_dow_ohlc_open = True
                     else:
                         DOW_현재가_버퍼.append(DOW_현재가)
+
+                    # SP500
+                    if not flag_sp500_ohlc_open:
+                        
+                        df_sp500_graph.at[ovc_x_idx, 'open'] = SP500_현재가
+                        
+                        del SP500_현재가_버퍼[:]
+
+                        flag_sp500_ohlc_open = True
+                    else:
+                        SP500_현재가_버퍼.append(SP500_현재가)
+
+                    # NASDAQ
+                    if not flag_nasdaq_ohlc_open:
+                        
+                        df_nasdaq_graph.at[ovc_x_idx, 'open'] = NASDAQ_현재가
+                        
+                        del NASDAQ_현재가_버퍼[:]
+
+                        flag_nasdaq_ohlc_open = True
+                    else:
+                        NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
+
+                    # WTI
+                    if not flag_wti_ohlc_open:
+                        
+                        df_wti_graph.at[ovc_x_idx, 'open'] = WTI_현재가
+                        
+                        del WTI_현재가_버퍼[:]
+
+                        flag_wti_ohlc_open = True
+                    else:
+                        WTI_현재가_버퍼.append(WTI_현재가)
+
                 else:
+                    # DOW
                     DOW_현재가_버퍼.append(DOW_현재가)
 
                     df_dow_graph.at[ovc_x_idx, 'high'] = max(DOW_현재가_버퍼)
@@ -25965,77 +26001,179 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     flag_dow_ohlc_open = False
 
+                    # SP500
+                    SP500_현재가_버퍼.append(SP500_현재가)
+
+                    df_sp500_graph.at[ovc_x_idx, 'high'] = max(SP500_현재가_버퍼)
+
+                    if min(SP500_현재가_버퍼) == 0:
+                        df_sp500_graph.at[ovc_x_idx, 'low'] = max(SP500_현재가_버퍼)
+                    else:
+                        df_sp500_graph.at[ovc_x_idx, 'low'] = min(SP500_현재가_버퍼)
+
+                    df_sp500_graph.at[ovc_x_idx, 'close'] = SP500_현재가
+
+                    df_sp500_graph.at[ovc_x_idx, 'middle'] = (df_sp500_graph.at[ovc_x_idx, 'high'] + df_sp500_graph.at[ovc_x_idx, 'low']) / 2
+
+                    flag_sp500_ohlc_open = False
+
+                    # NASDAQ
+                    NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
+
+                    df_nasdaq_graph.at[ovc_x_idx, 'high'] = max(NASDAQ_현재가_버퍼)
+
+                    if min(NASDAQ_현재가_버퍼) == 0:
+                        df_nasdaq_graph.at[ovc_x_idx, 'low'] = max(NASDAQ_현재가_버퍼)
+                    else:
+                        df_nasdaq_graph.at[ovc_x_idx, 'low'] = min(NASDAQ_현재가_버퍼)
+
+                    df_nasdaq_graph.at[ovc_x_idx, 'close'] = NASDAQ_현재가
+
+                    df_nasdaq_graph.at[ovc_x_idx, 'middle'] = (df_nasdaq_graph.at[ovc_x_idx, 'high'] + df_nasdaq_graph.at[ovc_x_idx, 'low']) / 2
+
+                    flag_nasdaq_ohlc_open = False
+
+                    # WTI
+                    WTI_현재가_버퍼.append(WTI_현재가)
+
+                    df_wti_graph.at[ovc_x_idx, 'high'] = max(WTI_현재가_버퍼)
+
+                    if min(WTI_현재가_버퍼) == 0:
+                        df_wti_graph.at[ovc_x_idx, 'low'] = max(WTI_현재가_버퍼)
+                    else:
+                        df_wti_graph.at[ovc_x_idx, 'low'] = min(WTI_현재가_버퍼)
+
+                    df_wti_graph.at[ovc_x_idx, 'close'] = WTI_현재가
+
+                    df_wti_graph.at[ovc_x_idx, 'middle'] = (df_wti_graph.at[ovc_x_idx, 'high'] + df_wti_graph.at[ovc_x_idx, 'low']) / 2
+
+                    flag_wti_ohlc_open = False
+                
+                # MACD
+                # list of values for the Moving Average Type:  
+                # 0: MA_Type.SMA (simple)  
+                # 1: MA_Type.EMA (exponential)  
+                # 2: MA_Type.WMA (weighted)  
+                # 3: MA_Type.DEMA (double exponential)  
+                # 4: MA_Type.TEMA (triple exponential)  
+                # 5: MA_Type.TRIMA (triangular)  
+                # 6: MA_Type.KAMA (Kaufman adaptive)  
+                # 7: MA_Type.MAMA (Mesa adaptive)  
+                # 8: MA_Type.T3 (triple exponential T3)  
+
+                # DOW
                 # Bollinger Bands
                 upper, middle, lower = talib.BBANDS(np.array(df_dow_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
                 df_dow_graph['BBAND_Upper'] = upper
                 df_dow_graph['BBAND_Middle'] = middle
-                df_dow_graph['BBAND_Low'] = lower
-
-                # MACD
-                # list of values for the Moving Average Type:  
-                #0: MA_Type.SMA (simple)  
-                #1: MA_Type.EMA (exponential)  
-                #2: MA_Type.WMA (weighted)  
-                #3: MA_Type.DEMA (double exponential)  
-                #4: MA_Type.TEMA (triple exponential)  
-                #5: MA_Type.TRIMA (triangular)  
-                #6: MA_Type.KAMA (Kaufman adaptive)  
-                #7: MA_Type.MAMA (Mesa adaptive)  
-                #8: MA_Type.T3 (triple exponential T3)
+                df_dow_graph['BBAND_Low'] = lower            
 
                 macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_dow_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
                     fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
 
                 df_dow_graph['MACD'] = macd
                 df_dow_graph['MACD_Sig'] = macdsignal
-                df_dow_graph['MACD_Hist'] = macdhist
+                df_dow_graph['MACD_Hist'] = macdhist           
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_dow_graph['high'], dtype=float), np.array(df_dow_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
 
                 df_dow_graph['P_SAR'] = parabolic_sar
 
-                # MAMA
+                # MAMA(약 32분후에 출력값이 나옴)
                 mama, fama = talib.MAMA(np.array(df_dow_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
                 df_dow_graph['MAMA'] = mama
                 df_dow_graph['FAMA'] = fama
 
                 '''
-                #DOW_현재가시리즈 = pd.Series(DOW_현재가리스트, index=ovc_index_list) 
-                
-                np_real_dow_data = np.array(DOW_현재가리스트, dtype=float)
-
-                # nan 삭제
-                np_real_dow_data = np_real_dow_data[~np.isnan(np_real_dow_data)]
-
-                mama, fama = talib.MAMA(np_real_dow_data, 0.5, 0.05)
-
-                DOW_MAMA_리스트 = mama.tolist()
-                DOW_FAMA_리스트 = fama.tolist()
-                
-                print('DOW_MAMA_리스트', DOW_MAMA_리스트)
-                print('DOW_FAMA_리스트', DOW_FAMA_리스트)
-
-                #DOW_MAMA_시리즈 = pd.Series(DOW_MAMA_리스트, index=ovc_index_list)
-                #DOW_FAMA_시리즈 = pd.Series(DOW_FAMA_리스트, index=ovc_index_list)
-                
-                # 향후를 위해 시리즈로 만듬
-                
-                DOW_저가시리즈 = pd.Series(DOW_저가리스트, index=ovc_index_list)                
-                DOW_고가시리즈 = pd.Series(DOW_고가리스트, index=ovc_index_list)
-
-                SP500_저가시리즈 = pd.Series(SP500_저가리스트, index=ovc_index_list)
-                SP500_고가시리즈 = pd.Series(SP500_고가리스트, index=ovc_index_list)
-
-                NASDAQ_저가시리즈 = pd.Series(NASDAQ_저가리스트, index=ovc_index_list)
-                NASDAQ_고가시리즈 = pd.Series(NASDAQ_고가리스트, index=ovc_index_list)
-
-                WTI_저가시리즈 = pd.Series(WTI_저가리스트, index=ovc_index_list)
-                WTI_고가시리즈 = pd.Series(WTI_고가리스트, index=ovc_index_list)
-                #print('DOW_저가시리즈 =', DOW_저가시리즈)
+                if not np.isnan(df_dow_graph['MAMA'].tolist()).all():
+                    print('MAMA', df_dow_graph['MAMA'].tolist())
+                else:
+                    pass
                 '''
+
+                # SP500
+                # Bollinger Bands
+                upper, middle, lower = talib.BBANDS(np.array(df_sp500_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+                df_sp500_graph['BBAND_Upper'] = upper
+                df_sp500_graph['BBAND_Middle'] = middle
+                df_sp500_graph['BBAND_Low'] = lower            
+
+                macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_sp500_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
+                    fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
+
+                df_sp500_graph['MACD'] = macd
+                df_sp500_graph['MACD_Sig'] = macdsignal
+                df_sp500_graph['MACD_Hist'] = macdhist           
+
+                # Parabolic SAR
+                parabolic_sar = talib.SAR(np.array(df_sp500_graph['high'], dtype=float), np.array(df_sp500_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+                df_sp500_graph['P_SAR'] = parabolic_sar
+
+                # MAMA(약 32분후에 출력값이 나옴)
+                mama, fama = talib.MAMA(np.array(df_sp500_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+                df_sp500_graph['MAMA'] = mama
+                df_sp500_graph['FAMA'] = fama
+                
+
+                # NASDAQ
+                # Bollinger Bands
+                upper, middle, lower = talib.BBANDS(np.array(df_nasdaq_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+                df_nasdaq_graph['BBAND_Upper'] = upper
+                df_nasdaq_graph['BBAND_Middle'] = middle
+                df_nasdaq_graph['BBAND_Low'] = lower            
+
+                macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_nasdaq_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
+                    fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
+
+                df_nasdaq_graph['MACD'] = macd
+                df_nasdaq_graph['MACD_Sig'] = macdsignal
+                df_nasdaq_graph['MACD_Hist'] = macdhist           
+
+                # Parabolic SAR
+                parabolic_sar = talib.SAR(np.array(df_nasdaq_graph['high'], dtype=float), np.array(df_nasdaq_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+                df_nasdaq_graph['P_SAR'] = parabolic_sar
+
+                # MAMA(약 32분후에 출력값이 나옴)
+                mama, fama = talib.MAMA(np.array(df_nasdaq_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+                df_nasdaq_graph['MAMA'] = mama
+                df_nasdaq_graph['FAMA'] = fama
+
+
+                # WTI
+                # Bollinger Bands
+                upper, middle, lower = talib.BBANDS(np.array(df_wti_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+                df_wti_graph['BBAND_Upper'] = upper
+                df_wti_graph['BBAND_Middle'] = middle
+                df_wti_graph['BBAND_Low'] = lower            
+
+                macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_wti_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
+                    fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
+
+                df_wti_graph['MACD'] = macd
+                df_wti_graph['MACD_Sig'] = macdsignal
+                df_wti_graph['MACD_Hist'] = macdhist           
+
+                # Parabolic SAR
+                parabolic_sar = talib.SAR(np.array(df_wti_graph['high'], dtype=float), np.array(df_wti_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+                df_wti_graph['P_SAR'] = parabolic_sar
+
+                # MAMA(약 32분후에 출력값이 나옴)
+                mama, fama = talib.MAMA(np.array(df_wti_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+                df_wti_graph['MAMA'] = mama
+                df_wti_graph['FAMA'] = fama
+
 
             elif szTrCode == 'OVH':
 
@@ -26144,47 +26282,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         except Exception as e:
             pass
 
-    '''
-    def TableUpdate(self):
-
-        # 옵션 전광판 요청(주간=FC0/OC0, 야간=NC0/EC0)
-        XQ = t2301(parent=self)
-
-        if TARGET_MONTH_SELECT == 1:
-
-            if MANGI_YAGAN:
-                t2301_month_info = NEXT_MONTH
-            else:
-                t2301_month_info = CURRENT_MONTH
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
-            self.textBrowser.append(str)
-
-        elif TARGET_MONTH_SELECT == 2:
-
-            if MANGI_YAGAN:
-                t2301_month_info = MONTH_AFTER_NEXT
-            else:
-                t2301_month_info = NEXT_MONTH   
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
-            self.textBrowser.append(str)
-
-        elif TARGET_MONTH_SELECT == 3:
-
-            if MANGI_YAGAN:
-                t2301_month_info = MONTH_AFTER_NEXT
-            else:
-                t2301_month_info = MONTH_AFTER_NEXT 
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 차차월물({3}) 주간옵션 전광판 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, t2301_month_info)
-            self.textBrowser.append(str)
-        else:
-            pass
-
-        XQ.Query(월물=t2301_month_info, 미니구분='G')
-    '''
-
+    
     def AddCode(self):
 
         global pre_start
