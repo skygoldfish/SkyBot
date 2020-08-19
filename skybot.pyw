@@ -22935,8 +22935,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(str)
 
                     if market_service:
-
-                        self.SaveResult()
+                        
+                        market_service = False
+                        service_terminate = True
+                        jugan_service_terminate = True
 
                         call_atm_value = df_call.at[atm_index, '현재가']
                         put_atm_value = df_put.at[atm_index, '현재가']
@@ -22996,10 +22998,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             kp200_file.close()
 
-                        market_service = False
-                        service_terminate = True
-                        jugan_service_terminate = True
-
                         receive_quote = False
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 종료합니다.\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
@@ -23016,7 +23014,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
                         '''
                         self.pushButton_add.setText('ScrShot')
-
+                        '''
                         self.opt_all_node_coloring()
 
                         if TARGET_MONTH_SELECT == 1:
@@ -23028,7 +23026,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         file = open('skybot.log', 'w')
                         text = self.textBrowser.toPlainText()
                         file.write(text)
-                        file.close()                    
+                        file.close()
+                        '''
+                        self.SaveResult()                    
                     else:
                         pass                                               
 
@@ -23063,12 +23063,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if market_service:
 
-                        self.SaveResult()
-
                         market_service = False
                         service_terminate = True
                         yagan_service_terminate = True
-
+                        
                         receive_quote = False
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 종료합니다.\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
@@ -23098,7 +23096,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.telegram_listen_worker.terminate()
                         else:
                             pass
-
+                        '''
                         self.opt_all_node_coloring()
 
                         if TARGET_MONTH_SELECT == 1:
@@ -23111,6 +23109,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         text = self.textBrowser.toPlainText()
                         file.write(text)
                         file.close()
+                        '''
+                        self.SaveResult()
                     else:
                         pass                    
 
