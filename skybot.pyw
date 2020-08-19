@@ -22689,7 +22689,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global 장시작_양합
 
             global df_futures_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
-            global flag_dow_ohlc_open, flag_sp500_open, flag_nasdaq_open, flag_wti_open, flag_eurofx_open, flag_hangseng_open, flag_gold_open
+            global flag_dow_ohlc_open, flag_sp500_ohlc_open, flag_nasdaq_ohlc_open, flag_wti_ohlc_open, flag_eurofx_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open
 
             global DOW_현재가_버퍼
             global SP500_현재가_버퍼
