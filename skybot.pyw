@@ -29619,7 +29619,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p1_2.setStyleSheet('background-color: yellow ; color: blue')
 
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_p1_2.setText("MPVT = %0.2f" % sp500_moving_pivot)
+
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
+                    str = " MACD {0:0.2f}, Sig {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    self.label_p1_2.setText(str)
+                else:
+                    pass
 
                 bc_plot1_ovc_jl_line.setValue(SP500_전저)
                 bc_plot1_ovc_jh_line.setValue(SP500_전고)
@@ -29686,7 +29691,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p1_2.setStyleSheet('background-color: yellow ; color: blue')
 
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_p1_2.setText("MPVT = %d" % dow_moving_pivot)
+
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
+                    self.label_p1_2.setText("MACD Osc = %0.2f" % df_dow_graph.at[ovc_x_idx, 'MACD'] - df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
+                else:
+                    pass
 
                 bc_plot1_ovc_jl_line.setValue(DOW_전저)
                 bc_plot1_ovc_jh_line.setValue(DOW_전고)
@@ -29753,7 +29762,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p1_2.setStyleSheet('background-color: yellow ; color: blue')
                 
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_p1_2.setText("MPVT = %0.2f" % nasdaq_moving_pivot)
+
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
+                    self.label_p1_2.setText("MACD Osc = %0.2f" % df_nasdaq_graph.at[ovc_x_idx, 'MACD'] - df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
+                else:
+                    pass
 
                 bc_plot1_ovc_jl_line.setValue(NASDAQ_전저)
                 bc_plot1_ovc_jh_line.setValue(NASDAQ_전고)
@@ -29820,7 +29833,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p1_2.setStyleSheet('background-color: yellow ; color: blue')
 
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_p1_2.setText("MPVT = %0.2f" % wti_moving_pivot)
+
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
+                    self.label_p1_2.setText("MACD Osc = %0.2f" % df_wti_graph.at[ovc_x_idx, 'MACD'] - df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
+                else:
+                    pass
 
                 bc_plot1_ovc_jl_line.setValue(WTI_전저)
                 bc_plot1_ovc_jh_line.setValue(WTI_전고)
@@ -29983,7 +30000,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p2_2.setStyleSheet('background-color: yellow ; color: blue')
 
                 self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_p2_2.setText("MPVT = %0.2f" % sp500_moving_pivot)
+
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
+                    self.label_p2_2.setText("MACD Osc = %0.2f" % df_sp500_graph.at[ovc_x_idx, 'MACD'] - df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
+                else:
+                    pass
 
                 bc_plot2_ovc_jl_line.setValue(SP500_전저)
                 bc_plot2_ovc_jh_line.setValue(SP500_전고)
@@ -30056,7 +30077,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p2_2.setStyleSheet('background-color: yellow ; color: blue')
 
                 self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_p2_2.setText("MPVT = %d" % dow_moving_pivot) 
+
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
+                    self.label_p2_2.setText("MACD Osc = %0.2f" % df_dow_graph.at[ovc_x_idx, 'MACD'] - df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
+                else:
+                    pass 
 
                 bc_plot2_ovc_jl_line.setValue(DOW_전저)
                 bc_plot2_ovc_jh_line.setValue(DOW_전고)
@@ -30128,7 +30153,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p2_2.setStyleSheet('background-color: yellow ; color: blue')
 
                 self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_p2_2.setText("MPVT = %0.2f" % nasdaq_moving_pivot)
+
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
+                    self.label_p2_2.setText("MACD Osc = %0.2f" % df_nasdaq_graph.at[ovc_x_idx, 'MACD'] - df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
+                else:
+                    pass
 
                 bc_plot2_ovc_jl_line.setValue(NASDAQ_전저)
                 bc_plot2_ovc_jh_line.setValue(NASDAQ_전고)
@@ -30200,7 +30229,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p2_2.setStyleSheet('background-color: yellow ; color: blue')
 
                 self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_p2_2.setText("MPVT = %0.2f" % wti_moving_pivot)
+
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
+                    self.label_p2_2.setText("MACD Osc = %0.2f" % df_wti_graph.at[ovc_x_idx, 'MACD'] - df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
+                else:
+                    pass
 
                 bc_plot2_ovc_jl_line.setValue(WTI_전저)
                 bc_plot2_ovc_jh_line.setValue(WTI_전고)
@@ -30368,7 +30401,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p3_2.setStyleSheet('background-color: yellow ; color: blue')
 
                 self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_p3_2.setText("MPVT = %0.2f" % sp500_moving_pivot)
+
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
+                    self.label_p3_2.setText("MACD Osc = %0.2f" % df_sp500_graph.at[ovc_x_idx, 'MACD'] - df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
+                else:
+                    pass
 
                 bc_plot3_ovc_jl_line.setValue(SP500_전저)
                 bc_plot3_ovc_jh_line.setValue(SP500_전고)
@@ -30441,7 +30478,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p3_2.setStyleSheet('background-color: yellow ; color: blue')
 
                 self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_p3_2.setText("MPVT = %d" % dow_moving_pivot)
+
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
+                    self.label_p3_2.setText("MACD Osc = %0.2f" % df_dow_graph.at[ovc_x_idx, 'MACD'] - df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
+                else:
+                    pass
 
                 bc_plot3_ovc_jl_line.setValue(DOW_전저)
                 bc_plot3_ovc_jh_line.setValue(DOW_전고)
@@ -30513,7 +30554,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p3_2.setStyleSheet('background-color: yellow ; color: blue')
 
                 self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_p3_2.setText("MPVT = %0.2f" % nasdaq_moving_pivot)
+
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
+                    self.label_p3_2.setText("MACD Osc = %0.2f" % df_nasdaq_graph.at[ovc_x_idx, 'MACD'] - df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
+                else:
+                    pass
 
                 bc_plot3_ovc_jl_line.setValue(NASDAQ_전저)
                 bc_plot3_ovc_jh_line.setValue(NASDAQ_전고)
@@ -30585,7 +30630,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p3_2.setStyleSheet('background-color: yellow ; color: blue')
 
                 self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_p3_2.setText("MPVT = %0.2f" % wti_moving_pivot)
+               
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
+                    self.label_p3_2.setText("MACD Osc = %0.2f" % df_wti_graph.at[ovc_x_idx, 'MACD'] - df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
+                else:
+                    pass
 
                 bc_plot3_ovc_jl_line.setValue(WTI_전저)
                 bc_plot3_ovc_jh_line.setValue(WTI_전고)
