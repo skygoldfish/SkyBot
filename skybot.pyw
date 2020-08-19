@@ -20012,7 +20012,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # Bollinger Bands
         upper, middle, lower = talib.BBANDS(np.array(df_futures_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
-        df_futures_graph['BBAND_Upper'] = upper
+        df_futures_graph['BBAND_High'] = upper
         df_futures_graph['BBAND_Middle'] = middle
         df_futures_graph['BBAND_Low'] = lower
 
@@ -26044,7 +26044,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # Bollinger Bands
                 upper, middle, lower = talib.BBANDS(np.array(df_dow_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
-                df_dow_graph['BBAND_Upper'] = upper
+                df_dow_graph['BBAND_High'] = upper
                 df_dow_graph['BBAND_Middle'] = middle
                 df_dow_graph['BBAND_Low'] = lower            
 
@@ -26071,7 +26071,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # Bollinger Bands
                 upper, middle, lower = talib.BBANDS(np.array(df_sp500_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
-                df_sp500_graph['BBAND_Upper'] = upper
+                df_sp500_graph['BBAND_High'] = upper
                 df_sp500_graph['BBAND_Middle'] = middle
                 df_sp500_graph['BBAND_Low'] = lower            
 
@@ -26098,7 +26098,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # Bollinger Bands
                 upper, middle, lower = talib.BBANDS(np.array(df_nasdaq_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
-                df_nasdaq_graph['BBAND_Upper'] = upper
+                df_nasdaq_graph['BBAND_High'] = upper
                 df_nasdaq_graph['BBAND_Middle'] = middle
                 df_nasdaq_graph['BBAND_Low'] = lower            
 
@@ -26125,7 +26125,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # Bollinger Bands
                 upper, middle, lower = talib.BBANDS(np.array(df_wti_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
-                df_wti_graph['BBAND_Upper'] = upper
+                df_wti_graph['BBAND_High'] = upper
                 df_wti_graph['BBAND_Middle'] = middle
                 df_wti_graph['BBAND_Low'] = lower            
 
