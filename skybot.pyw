@@ -26943,7 +26943,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot1_call_drate_curve, bc_plot1_put_drate_curve        
         global bc_plot1_sp500_curve, bc_plot1_dow_curve, bc_plot1_nasdaq_curve, bc_plot1_wti_curve        
         global bc_plot1_vLine, bc_plot1_hLine
-        global bc_kp200_line, bc_plot1_kp200_2_line, bc_plot1_kp200_3_line, bc_plot1_kp200_4_line, bc_plot1_kp200_5_line, bc_plot1_kp200_6_line, bc_plot1_kp200_7_line        
+        global bc_kp200_line, bc_plot1_kp200_2_line, bc_plot1_kp200_3_line, bc_plot1_kp200_4_line, bc_plot1_kp200_5_line, bc_plot1_kp200_6_line, bc_plot1_kp200_7_line
+        global bc_plot1_bollinger_upper_curve, bc_plot1_bollinger_middle_curve, bc_plot1_bollinger_lower_curve, bc_plot1_sar_curve
+        global bc_plot1_macd_curve, bc_plot1_macdsig_curve, bc_plot1_macdhist_curve, bc_plot1_mama_curve, bc_plot1_fama_curve          
 
         global bc_plot2_fut_volume_curve, bc_plot2_fut_volume_plus_curve, bc_plot2_fut_volume_minus_curve        
         global bc_plot2_call_rr_curve, bc_plot2_put_rr_curve        
@@ -26957,6 +26959,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot2_center_val_curve
         global bc_plot2_center_val_line, bc_plot2_center_val_upper_line, bc_plot2_center_val_lower_line
         global bc_plot2_vLine, bc_plot2_hLine
+        global bc_plot2_bollinger_upper_curve, bc_plot2_bollinger_middle_curve, bc_plot2_bollinger_lower_curve, bc_plot2_sar_curve
+        global bc_plot2_macd_curve, bc_plot2_macdsig_curve, bc_plot2_macdhist_curve, bc_plot2_mama_curve, bc_plot2_fama_curve
 
         global bc_plot3_fut_volume_curve, bc_plot3_fut_volume_plus_curve, bc_plot3_fut_volume_minus_curve        
         global bc_plot3_call_rr_curve, bc_plot3_put_rr_curve        
@@ -26969,7 +26973,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot3_mv_line, bc_plot3_call_curve, bc_plot3_put_curve
         global bc_plot3_center_val_curve
         global bc_plot3_center_val_line, bc_plot3_center_val_upper_line, bc_plot3_center_val_lower_line
-        global bc_plot3_vLine, bc_plot3_hLine  
+        global bc_plot3_vLine, bc_plot3_hLine
+        global bc_plot3_bollinger_upper_curve, bc_plot3_bollinger_middle_curve, bc_plot3_bollinger_lower_curve, bc_plot3_sar_curve
+        global bc_plot3_macd_curve, bc_plot3_macdsig_curve, bc_plot3_macdhist_curve, bc_plot3_mama_curve, bc_plot3_fama_curve 
 
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
