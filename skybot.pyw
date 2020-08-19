@@ -1880,6 +1880,19 @@ bc_plot1_hLine = None
 bc_plot1_x = 0
 bc_plot1_y = 0
 
+bc_plot1_bollinger_upper_curve = None
+bc_plot1_bollinger_middle_curve = None
+bc_plot1_bollinger_lower_curve = None
+
+bc_plot1_sar_curve = None
+
+bc_plot1_macd_curve = None
+bc_plot1_macdsig_curve = None
+bc_plot1_macdhist_curve = None
+
+bc_plot1_mama_curve = None
+bc_plot1_fama_curve = None
+
 # Big Chart Plot2
 bc_plot2_time_line = None
 bc_plot2_time_line_start = None
@@ -1930,6 +1943,19 @@ bc_plot2_hLine = None
 bc_plot2_x = 0
 bc_plot2_y = 0
 
+bc_plot2_bollinger_upper_curve = None
+bc_plot2_bollinger_middle_curve = None
+bc_plot2_bollinger_lower_curve = None
+
+bc_plot2_sar_curve = None
+
+bc_plot2_macd_curve = None
+bc_plot2_macdsig_curve = None
+bc_plot2_macdhist_curve = None
+
+bc_plot2_mama_curve = None
+bc_plot2_fama_curve = None
+
 # Big Chart Plot3
 bc_plot3_time_line = None
 bc_plot3_time_line_start = None
@@ -1979,6 +2005,20 @@ bc_plot3_hLine = None
 
 bc_plot3_x = 0
 bc_plot3_y = 0
+
+bc_plot3_bollinger_upper_curve = None
+bc_plot3_bollinger_middle_curve = None
+bc_plot3_bollinger_lower_curve = None
+
+bc_plot3_sar_curve = None
+
+bc_plot3_macd_curve = None
+bc_plot3_macdsig_curve = None
+bc_plot3_macdhist_curve = None
+
+bc_plot3_mama_curve = None
+bc_plot3_fama_curve = None
+
 
 yoc_stop = False
 
