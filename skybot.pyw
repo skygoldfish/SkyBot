@@ -14599,22 +14599,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_futures_graph = DataFrame(index=range(0, yagan_timespan), \
                         columns=['kp200', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                            'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                            'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
 
                     df_sp500_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                        'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                     df_dow_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                        'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                     df_nasdaq_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                        'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                     df_wti_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                        'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                     df_eurofx_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                        'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                     df_hangseng_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                        'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                     df_gold_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                        'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                 else:
                     df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, jugan_timespan))
                     df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, jugan_timespan))
@@ -14660,22 +14660,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_futures_graph = DataFrame(index=range(0, jugan_timespan), \
                         columns=['kp200', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                            'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                            'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
 
                     df_sp500_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                        'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                     df_dow_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                        'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                     df_nasdaq_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                        'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                     df_wti_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                        'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                     df_eurofx_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                        'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                     df_hangseng_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                        'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                     df_gold_graph = DataFrame(index=range(0, jugan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                        'BBAND_Low', 'BBAND_Middle', 'BBAND_High', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                        'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'P_SAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
 
                 # 콜처리
                 for i in range(option_pairs_count):
@@ -20012,9 +20012,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # Bollinger Bands
         upper, middle, lower = talib.BBANDS(np.array(df_futures_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
-        df_futures_graph['BBAND_High'] = upper
+        df_futures_graph['BBAND_Upper'] = upper
         df_futures_graph['BBAND_Middle'] = middle
-        df_futures_graph['BBAND_Low'] = lower
+        df_futures_graph['BBAND_Lower'] = lower
 
         # MACD
         # list of values for the Moving Average Type:  
@@ -26044,9 +26044,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # Bollinger Bands
                 upper, middle, lower = talib.BBANDS(np.array(df_dow_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
-                df_dow_graph['BBAND_High'] = upper
+                df_dow_graph['BBAND_Upper'] = upper
                 df_dow_graph['BBAND_Middle'] = middle
-                df_dow_graph['BBAND_Low'] = lower            
+                df_dow_graph['BBAND_Lower'] = lower            
 
                 macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_dow_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
                     fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
@@ -26071,9 +26071,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # Bollinger Bands
                 upper, middle, lower = talib.BBANDS(np.array(df_sp500_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
-                df_sp500_graph['BBAND_High'] = upper
+                df_sp500_graph['BBAND_Upper'] = upper
                 df_sp500_graph['BBAND_Middle'] = middle
-                df_sp500_graph['BBAND_Low'] = lower            
+                df_sp500_graph['BBAND_Lower'] = lower            
 
                 macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_sp500_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
                     fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
@@ -26098,9 +26098,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # Bollinger Bands
                 upper, middle, lower = talib.BBANDS(np.array(df_nasdaq_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
-                df_nasdaq_graph['BBAND_High'] = upper
+                df_nasdaq_graph['BBAND_Upper'] = upper
                 df_nasdaq_graph['BBAND_Middle'] = middle
-                df_nasdaq_graph['BBAND_Low'] = lower            
+                df_nasdaq_graph['BBAND_Lower'] = lower            
 
                 macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_nasdaq_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
                     fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
@@ -26125,9 +26125,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # Bollinger Bands
                 upper, middle, lower = talib.BBANDS(np.array(df_wti_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
-                df_wti_graph['BBAND_High'] = upper
+                df_wti_graph['BBAND_Upper'] = upper
                 df_wti_graph['BBAND_Middle'] = middle
-                df_wti_graph['BBAND_Low'] = lower            
+                df_wti_graph['BBAND_Lower'] = lower            
 
                 macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_wti_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
                     fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
