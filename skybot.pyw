@@ -19364,10 +19364,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         # Plot 데이타프레임 생성
         #df_plotdata_fut.iat[0, x_idx] = 선물_현재가
-        df_futures_graph.at[x_idx, 'price'] = 선물_현재가
+        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
         
         #df_plotdata_fut_drate[x_idx] = result['등락율']
-        df_futures_graph.at[x_idx, 'drate'] = result['등락율']       
+        df_futures_graph.at[ovc_x_idx, 'drate'] = result['등락율']       
 
         #print('fut_first_arrive = {0}, first_refresh = {1}, market_service = {2}\r'.format(fut_first_arrive, first_refresh, market_service))
 
@@ -19897,7 +19897,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 장중 거래량 갱신, 장중 거래량은 누적거래��이 아닌 수정거래량 임
         fut_volume_power = result['매수누적체결량'] - result['매도누적체결량']
         #df_plotdata_fut_volume.iat[0, x_idx] = fut_volume_power
-        df_futures_graph.at[x_idx, 'volume'] = fut_volume_power
+        df_futures_graph.at[ovc_x_idx, 'volume'] = fut_volume_power
 
         temp = format(fut_volume_power, ',')
 
@@ -23145,7 +23145,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             fut_realdata['KP200'] = result['예상지수']
 
                             #df_plotdata_kp200.iat[0, x_yj_idx] = result['예상지수']
-                            df_futures_graph.at[x_yj_idx, 'kp200'] = result['예상지수']
+                            df_futures_graph.at[ovc_x_idx, 'kp200'] = result['예상지수']
 
                             item = QTableWidgetItem("{0:0.2f}".format(result['예상지수']))
                             item.setTextAlignment(Qt.AlignCenter)
@@ -23774,7 +23774,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_fut.at[2, '현재가'] = float(result['지수'])
                         
                         #df_plotdata_kp200.iat[0, x_idx] = float(result['지수'])
-                        df_futures_graph.at[x_idx, 'kp200'] = float(result['지수'])
+                        df_futures_graph.at[ovc_x_idx, 'kp200'] = float(result['지수'])
 
                         if float(result['지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]):
                             item = QTableWidgetItem(result['지수'] + '\n' + '▼')
