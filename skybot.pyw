@@ -23544,23 +23544,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if result['단축코드'] == gmshcode:
 
                     global 선물_시가, 선물_피봇
-
+                    '''
                     if result['예상체결시간'] != '':
                         x_yfc_idx = int(result['예상체결시간'][2:4]) + 1
                         x_idx = x_yfc_idx
                     else:
                         pass
-
+                    '''
                     if result['예상체결가격'] != float(self.tableWidget_fut.item(1, Futures_column.시가.value).text()):
 
                         선물_시가 = result['예상체결가격']
                         fut_realdata['시가'] = result['예상체결가격']
 
+                        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_시가
+
+                        '''
                         if x_yfc_idx > 0:
                             #df_plotdata_fut.iat[0, x_yfc_idx] = 선물_시가
                             df_futures_graph.at[x_yfc_idx, 'price'] = 선물_시가
                         else:
                             pass
+                        '''
 
                         item = QTableWidgetItem("{0:0.2f}".format(선물_시가))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -29526,7 +29530,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot1_call_drate_curve.setData(df_call_info_graph['drate'].tolist())
                 bc_plot1_put_drate_curve.setData(df_put_info_graph['drate'].tolist())
 
-            elif bc_comboindex1 == 4 and market_service:
+            elif bc_comboindex1 == 4 and market_service:                
+
+                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'P_SAR']):
+
+                    if df_futures_graph.at[ovc_x_idx, 'P_SAR'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p1_2.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " PSAR: {0:0.2f}\n MAMA: {1:0.2f}\n FAMA: {2:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'P_SAR'], \
+                        df_futures_graph.at[ovc_x_idx, 'MAMA'], df_futures_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p1_2.setText(str)
+                else:
+                    pass
                 
                 bc_kp200_line[3].setValue(KP200_COREVAL[3])
                 bc_kp200_line[4].setValue(KP200_COREVAL[4])
@@ -29609,19 +29628,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 pass
 
-            elif bc_comboindex1 == 6:
+            elif bc_comboindex1 == 6:                
 
-                sp500_moving_pivot = self.bc_calc_pivot(SP500_전저, SP500_전고, SP500_시가, SP500_현재가)
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'P_SAR']):
 
-                if SP500_현재가 >= sp500_moving_pivot:
-                    self.label_p1_2.setStyleSheet('background-color: yellow ; color: red')
-                else:
-                    self.label_p1_2.setStyleSheet('background-color: yellow ; color: blue')
+                    if df_sp500_graph.at[ovc_x_idx, 'P_SAR'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p1_2.setStyleSheet('background-color: red ; color: white')
 
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
-                    str = " MACD {0:0.2f}, Sig {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " PSAR: {0:0.2f}\n MAMA: {1:0.2f}\n FAMA: {2:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'P_SAR'], \
+                        df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p1_2.setText(str)
                 else:
                     pass
@@ -29681,19 +29700,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot1_sp500_curve.setData(df_sp500_graph['price'].tolist())
 
-            elif bc_comboindex1 == 7:
+            elif bc_comboindex1 == 7:                
 
-                dow_moving_pivot = int(self.bc_calc_pivot(DOW_전저, DOW_전고, DOW_시가, DOW_현재가))
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'P_SAR']):
 
-                if DOW_현재가 >= dow_moving_pivot:
-                    self.label_p1_2.setStyleSheet('background-color: yellow ; color: red')
-                else:
-                    self.label_p1_2.setStyleSheet('background-color: yellow ; color: blue')
+                    if df_dow_graph.at[ovc_x_idx, 'P_SAR'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p1_2.setStyleSheet('background-color: red ; color: white')
 
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
-                    self.label_p1_2.setText("MACD Osc = %0.2f" % df_dow_graph.at[ovc_x_idx, 'MACD'] - df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " PSAR: {0:0.2f}\n MAMA: {1:0.2f}\n FAMA: {2:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'P_SAR'], \
+                        df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p1_2.setText(str)
                 else:
                     pass
 
@@ -29752,19 +29772,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot1_dow_curve.setData(df_dow_graph['price'].tolist())
 
-            elif bc_comboindex1 == 8:
+            elif bc_comboindex1 == 8:                
 
-                nasdaq_moving_pivot = self.bc_calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_시가, NASDAQ_현재가)
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'P_SAR']):
 
-                if NASDAQ_현재가 >= nasdaq_moving_pivot:
-                    self.label_p1_2.setStyleSheet('background-color: yellow ; color: red')
-                else:
-                    self.label_p1_2.setStyleSheet('background-color: yellow ; color: blue')
-                
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    if df_nasdaq_graph.at[ovc_x_idx, 'P_SAR'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p1_2.setStyleSheet('background-color: red ; color: white')
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
-                    self.label_p1_2.setText("MACD Osc = %0.2f" % df_nasdaq_graph.at[ovc_x_idx, 'MACD'] - df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " PSAR: {0:0.2f}\n MAMA: {1:0.2f}\n FAMA: {2:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'P_SAR'], \
+                        df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p1_2.setText(str)
                 else:
                     pass
 
@@ -29823,19 +29844,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot1_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
 
-            elif bc_comboindex1 == 9:
+            elif bc_comboindex1 == 9:                
 
-                wti_moving_pivot = self.bc_calc_pivot(WTI_전저, WTI_전고, WTI_시가, WTI_현재가)
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'P_SAR']):
 
-                if WTI_현재가 >= wti_moving_pivot:
-                    self.label_p1_2.setStyleSheet('background-color: yellow ; color: red')
-                else:
-                    self.label_p1_2.setStyleSheet('background-color: yellow ; color: blue')
+                    if df_wti_graph.at[ovc_x_idx, 'P_SAR'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                        self.label_p1_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p1_2.setStyleSheet('background-color: red ; color: white')
 
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
-                    self.label_p1_2.setText("MACD Osc = %0.2f" % df_wti_graph.at[ovc_x_idx, 'MACD'] - df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " PSAR: {0:0.2f}\n MAMA: {1:0.2f}\n FAMA: {2:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'P_SAR'], \
+                        df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p1_2.setText(str)
                 else:
                     pass
 
@@ -29990,19 +30012,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 pass
 
-            elif bc_comboindex2 == 6:
+            elif bc_comboindex2 == 6:                
 
-                sp500_moving_pivot = self.bc_calc_pivot(SP500_전저, SP500_전고, SP500_시가, SP500_현재가)
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'P_SAR']):
 
-                if SP500_현재가 >= sp500_moving_pivot:
-                    self.label_p2_2.setStyleSheet('background-color: yellow ; color: red')
-                else:
-                    self.label_p2_2.setStyleSheet('background-color: yellow ; color: blue')
+                    if df_sp500_graph.at[ovc_x_idx, 'P_SAR'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                        self.label_p2_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p2_2.setStyleSheet('background-color: red ; color: white')
 
-                self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
-                    self.label_p2_2.setText("MACD Osc = %0.2f" % df_sp500_graph.at[ovc_x_idx, 'MACD'] - df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " PSAR: {0:0.2f}\n MAMA: {1:0.2f}\n FAMA: {2:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'P_SAR'], \
+                        df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p2_2.setText(str)
                 else:
                     pass
 
@@ -30067,21 +30090,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot2_sp500_curve.setData(df_sp500_graph['price'].tolist()) 
 
-            elif bc_comboindex2 == 7:
+            elif bc_comboindex2 == 7:                
 
-                dow_moving_pivot = int(self.bc_calc_pivot(DOW_전저, DOW_전고, DOW_시가, DOW_현재가))
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'P_SAR']):
 
-                if DOW_현재가 >= dow_moving_pivot:
-                    self.label_p2_2.setStyleSheet('background-color: yellow ; color: red')
+                    if df_dow_graph.at[ovc_x_idx, 'P_SAR'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                        self.label_p2_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p2_2.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " PSAR: {0:0.2f}\n MAMA: {1:0.2f}\n FAMA: {2:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'P_SAR'], \
+                        df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p2_2.setText(str)
                 else:
-                    self.label_p2_2.setStyleSheet('background-color: yellow ; color: blue')
-
-                self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
-                    self.label_p2_2.setText("MACD Osc = %0.2f" % df_dow_graph.at[ovc_x_idx, 'MACD'] - df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
-                else:
-                    pass 
+                    pass
 
                 bc_plot2_ovc_jl_line.setValue(DOW_전저)
                 bc_plot2_ovc_jh_line.setValue(DOW_전고)
@@ -30143,19 +30167,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot2_dow_curve.setData(df_dow_graph['price'].tolist()) 
 
-            elif bc_comboindex2 == 8:
+            elif bc_comboindex2 == 8:                
 
-                nasdaq_moving_pivot = self.bc_calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_시가, NASDAQ_현재가)
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'P_SAR']):
 
-                if NASDAQ_현재가 >= nasdaq_moving_pivot:
-                    self.label_p2_2.setStyleSheet('background-color: yellow ; color: red')
-                else:
-                    self.label_p2_2.setStyleSheet('background-color: yellow ; color: blue')
+                    if df_nasdaq_graph.at[ovc_x_idx, 'P_SAR'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                        self.label_p2_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p2_2.setStyleSheet('background-color: red ; color: white')
 
-                self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
-                    self.label_p2_2.setText("MACD Osc = %0.2f" % df_nasdaq_graph.at[ovc_x_idx, 'MACD'] - df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " PSAR: {0:0.2f}\n MAMA: {1:0.2f}\n FAMA: {2:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'P_SAR'], \
+                        df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p2_2.setText(str)
                 else:
                     pass
 
@@ -30219,19 +30244,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot2_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
 
-            elif bc_comboindex2 == 9:
+            elif bc_comboindex2 == 9:                
 
-                wti_moving_pivot = self.bc_calc_pivot(WTI_전저, WTI_전고, WTI_시가, WTI_현재가)
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'P_SAR']):
 
-                if WTI_현재가 >= wti_moving_pivot:
-                    self.label_p2_2.setStyleSheet('background-color: yellow ; color: red')
-                else:
-                    self.label_p2_2.setStyleSheet('background-color: yellow ; color: blue')
+                    if df_wti_graph.at[ovc_x_idx, 'P_SAR'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                        self.label_p2_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p2_2.setStyleSheet('background-color: red ; color: white')
 
-                self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
-                    self.label_p2_2.setText("MACD Osc = %0.2f" % df_wti_graph.at[ovc_x_idx, 'MACD'] - df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " PSAR: {0:0.2f}\n MAMA: {1:0.2f}\n FAMA: {2:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'P_SAR'], \
+                        df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p2_2.setText(str)
                 else:
                     pass
 
@@ -30391,19 +30417,20 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 pass
 
-            elif bc_comboindex3 == 6:
+            elif bc_comboindex3 == 6:                
 
-                sp500_moving_pivot = self.bc_calc_pivot(SP500_전저, SP500_전고, SP500_시가, SP500_현재가)
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'P_SAR']):
 
-                if SP500_현재가 >= sp500_moving_pivot:
-                    self.label_p3_2.setStyleSheet('background-color: yellow ; color: red')
-                else:
-                    self.label_p3_2.setStyleSheet('background-color: yellow ; color: blue')
+                    if df_sp500_graph.at[ovc_x_idx, 'P_SAR'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                        self.label_p3_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p3_2.setStyleSheet('background-color: red ; color: white')
 
-                self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
-                    self.label_p3_2.setText("MACD Osc = %0.2f" % df_sp500_graph.at[ovc_x_idx, 'MACD'] - df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " PSAR: {0:0.2f}\n MAMA: {1:0.2f}\n FAMA: {2:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'P_SAR'], \
+                        df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p3_2.setText(str)
                 else:
                     pass
 
@@ -30470,17 +30497,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 7:
 
-                dow_moving_pivot = int(self.bc_calc_pivot(DOW_전저, DOW_전고, DOW_시가, DOW_현재가))
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'P_SAR']):
 
-                if DOW_현재가 >= dow_moving_pivot:
-                    self.label_p3_2.setStyleSheet('background-color: yellow ; color: red')
-                else:
-                    self.label_p3_2.setStyleSheet('background-color: yellow ; color: blue')
+                    if df_dow_graph.at[ovc_x_idx, 'P_SAR'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                        self.label_p3_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p3_2.setStyleSheet('background-color: red ; color: white')
 
-                self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
-                    self.label_p3_2.setText("MACD Osc = %0.2f" % df_dow_graph.at[ovc_x_idx, 'MACD'] - df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " PSAR: {0:0.2f}\n MAMA: {1:0.2f}\n FAMA: {2:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'P_SAR'], \
+                        df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p3_2.setText(str)
                 else:
                     pass
 
@@ -30546,17 +30574,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 8:
 
-                nasdaq_moving_pivot = self.bc_calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_시가, NASDAQ_현재가)
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'P_SAR']):
 
-                if NASDAQ_현재가 >= nasdaq_moving_pivot:
-                    self.label_p3_2.setStyleSheet('background-color: yellow ; color: red')
-                else:
-                    self.label_p3_2.setStyleSheet('background-color: yellow ; color: blue')
+                    if df_nasdaq_graph.at[ovc_x_idx, 'P_SAR'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                        self.label_p3_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p3_2.setStyleSheet('background-color: red ; color: white')
 
-                self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
-                    self.label_p3_2.setText("MACD Osc = %0.2f" % df_nasdaq_graph.at[ovc_x_idx, 'MACD'] - df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " PSAR: {0:0.2f}\n MAMA: {1:0.2f}\n FAMA: {2:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'P_SAR'], \
+                        df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p3_2.setText(str)
                 else:
                     pass
 
@@ -30622,17 +30651,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 9:
 
-                wti_moving_pivot = self.bc_calc_pivot(WTI_전저, WTI_전고, WTI_시가, WTI_현재가)
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'P_SAR']):
 
-                if WTI_현재가 >= wti_moving_pivot:
-                    self.label_p3_2.setStyleSheet('background-color: yellow ; color: red')
-                else:
-                    self.label_p3_2.setStyleSheet('background-color: yellow ; color: blue')
+                    if df_wti_graph.at[ovc_x_idx, 'P_SAR'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                        self.label_p3_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p3_2.setStyleSheet('background-color: red ; color: white')
 
-                self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
-               
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
-                    self.label_p3_2.setText("MACD Osc = %0.2f" % df_wti_graph.at[ovc_x_idx, 'MACD'] - df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " PSAR: {0:0.2f}\n MAMA: {1:0.2f}\n FAMA: {2:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'P_SAR'], \
+                        df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p3_2.setText(str)
                 else:
                     pass
 
