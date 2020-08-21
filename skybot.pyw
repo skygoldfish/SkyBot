@@ -1379,45 +1379,6 @@ df_eurofx_graph = pd.DataFrame()
 df_hangseng_graph = pd.DataFrame()
 df_gold_graph = pd.DataFrame()
 
-# OLD 데이타프레임
-df_plotdata_call = pd.DataFrame()
-df_plotdata_put = pd.DataFrame()
-
-df_plotdata_call_volume = pd.DataFrame()
-df_plotdata_put_volume = pd.DataFrame()
-#df_plotdata_volume_cha = pd.DataFrame()
-
-df_plotdata_call_hoga_rr = pd.DataFrame()
-df_plotdata_put_hoga_rr = pd.DataFrame()
-
-#df_plotdata_fut_drate = pd.DataFrame()
-df_plotdata_dow_drate = pd.DataFrame()
-
-df_plotdata_call_drate = pd.DataFrame()
-df_plotdata_put_drate = pd.DataFrame()
-
-#df_plotdata_fut = pd.DataFrame()
-#df_plotdata_fut_volume = pd.DataFrame()
-#df_plotdata_kp200 = pd.DataFrame()
-
-df_plotdata_sp500 = pd.DataFrame()
-df_plotdata_dow = pd.DataFrame()
-df_plotdata_nasdaq = pd.DataFrame()
-df_plotdata_wti = pd.DataFrame()
-df_plotdata_eurofx = pd.DataFrame()
-df_plotdata_hangseng = pd.DataFrame()
-df_plotdata_gold = pd.DataFrame()
-
-df_plotdata_sp500_hoga_rr = pd.DataFrame()
-df_plotdata_dow_hoga_rr = pd.DataFrame()
-df_plotdata_nasdaq_hoga_rr = pd.DataFrame()
-df_plotdata_wti_hoga_rr = pd.DataFrame()
-df_plotdata_eurofx_hoga_rr = pd.DataFrame()
-df_plotdata_hangseng_hoga_rr = pd.DataFrame()
-df_plotdata_gold_hoga_rr = pd.DataFrame()
-
-df_plotdata_centerval = pd.DataFrame()
-
 call_quote = pd.Series()
 put_quote = pd.Series()
 
@@ -3795,25 +3756,8 @@ class screen_update_worker(QThread):
         try:
             index = opt_actval.index(actval)
 
-            #call_curve_data = df_plotdata_call.iloc[index].values.tolist()
-            #put_curve_data = df_plotdata_put.iloc[index].values.tolist()
-            #centerval_data = df_plotdata_centerval.iloc[0].values.tolist()
-            #data1 = df_plotdata_fut_volume.iloc[0].values.tolist()            
-            #data2 = df_plotdata_call_volume.iloc[0].values.tolist()
-            #data3 = df_plotdata_put_volume.iloc[0].values.tolist()            
-            #data4 = None            
-            #data5 = df_plotdata_call_hoga_rr.iloc[0].values.tolist()
-            #data6 = df_plotdata_put_hoga_rr.iloc[0].values.tolist()            
-            #data7 = df_plotdata_fut_drate.iloc[0].values.tolist()            
-            #data8 = df_plotdata_dow_drate.iloc[0].values.tolist()            
-            #data9 = df_plotdata_kp200.iloc[0].values.tolist()
-            #data10 = df_plotdata_fut.iloc[0].values.tolist()            
-            #data11 = df_plotdata_sp500.iloc[0].values.tolist()
-            #data12 = df_plotdata_dow.iloc[0].values.tolist()
-            #data13 = df_plotdata_nasdaq.iloc[0].values.tolist()
-            #data14 = df_plotdata_wti.iloc[0].values.tolist()              
-            #data15 = np.array(df_plotdata_call_drate.iloc[0].values.tolist()) / drate_scale_factor            
-            #data16 = np.array(df_plotdata_put_drate.iloc[0].values.tolist()) / drate_scale_factor
+            #data4 = None           
+            #data7 = df_plotdata_fut_drate.iloc[0].values.tolist()
 
             call_curve_data = df_call_price_graph[index].tolist()
             put_curve_data = df_put_price_graph[index].tolist()
@@ -9240,11 +9184,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def display_atm(self, blink):
 
         #global df_plotdata_fut_drate 
-        global df_plotdata_dow_drate, basis
+        global basis
         global atm_str, atm_index, old_atm_index, call_atm_value, put_atm_value 
         global atm_zero_sum, atm_zero_cha
         
-        global CENTER_VAL, df_plotdata_centerval, df_call_info_graph 
+        global CENTER_VAL, df_call_info_graph 
 
         dt = datetime.datetime.now()
         
@@ -9292,10 +9236,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         atm_plus_2 = round((df_call.at[atm_index + 2, '현재가'] + df_put.at[atm_index + 2, '현재가']) , 2)
         atm_plus_3 = round((df_call.at[atm_index + 3, '현재가'] + df_put.at[atm_index + 3, '현재가']) , 2)
         atm_plus_4 = round((df_call.at[atm_index + 4, '현재가'] + df_put.at[atm_index + 4, '현재가']) , 2)
-        atm_plus_5 = round((df_call.at[atm_index + 5, '현재가'] + df_put.at[atm_index + 5, '현재가']) , 2)        
-        
-        #df_plotdata_fut_drate[opt_x_idx] = atm_zero_sum
-        #df_plotdata_dow_drate[opt_x_idx] = atm_zero_cha        
+        atm_plus_5 = round((df_call.at[atm_index + 5, '현재가'] + df_put.at[atm_index + 5, '현재가']) , 2)             
 
         if FLAG_ATM:
             if basis < 0:
@@ -9349,7 +9290,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
 
-        #df_plotdata_centerval.iat[0, opt_x_idx] = CENTER_VAL
         df_call_info_graph.at[opt_x_idx, 'centerval'] = CENTER_VAL
 
         atm_list = []
@@ -14115,12 +14055,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global gmshcode, cmshcode, ccmshcode, fut_code
         global call_code, put_code
         global opt_actval
-        #global df_plotdata_fut
         global atm_index, old_atm_index
-        global df_plotdata_call, df_plotdata_put
-        global df_call_price_graph, df_put_price_graph, df_call_info_graph, df_put_info_graph 
-        global df_plotdata_call_volume, df_plotdata_put_volume
-        global df_plotdata_call_hoga_rr, df_plotdata_put_hoga_rr
+        global df_call_price_graph, df_put_price_graph, df_call_info_graph, df_put_info_graph
         global atm_str, atm_val
 
         global fut_realdata, cme_realdata
@@ -14149,7 +14085,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global option_pairs_count
 
-        #global df_plotdata_fut, df_plotdata_kp200, df_plotdata_fut_volume
         global 콜_순미결합, 풋_순미결합, 콜_순미결퍼센트, 풋_순미결퍼센트
         global 콜_수정미결합, 풋_수정미결합, 콜_수정미결퍼센트, 풋_수정미결퍼센트
         global call_atm_value, put_atm_value
@@ -14174,12 +14109,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_volume_power, put_volume_power
         global 콜시가리스트, 콜저가리스트, 콜고가리스트, 풋시가리스트, 풋저가리스트, 풋고가리스트
 
-        #global df_plotdata_fut_drate 
-        global df_plotdata_dow_drate
-        global df_plotdata_call_drate, df_plotdata_put_drate
         global start_time_str, end_time_str
 
-        global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti, df_plotdata_eurofx, df_plotdata_hangseng, df_plotdata_gold
         global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
         global view_actval
         
@@ -14195,7 +14126,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 콜대비_퍼센트_평균, 풋대비_퍼센트_평균
         global atm_zero_sum, atm_zero_cha
         global 선물_전일종가
-        global df_plotdata_centerval
         global CENTER_VAL, CENTER_VAL1, CENTER_VAL2, CENTER_VAL3, CENTER_VAL4, CENTER_VAL5, CENTER_VAL6, CENTER_VAL7, CENTER_VAL8, CENTER_VAL9, CENTER_VAL10
 
         global df_futures_graph
@@ -14281,32 +14211,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     fut_realdata['현재가'] - fut_realdata['KP200'],
                     call_atm_value + put_atm_value,
                     abs(call_atm_value - put_atm_value))
-                self.label_atm.setText(str)                
-                '''
-                df_plotdata_fut_drate[0][0] = call_atm_value + put_atm_value
-                df_plotdata_dow_drate[0][0] = call_atm_value - put_atm_value
-
-                df_plotdata_fut_drate[0][GuardTime] = call_atm_value + put_atm_value
-                df_plotdata_dow_drate[0][GuardTime] = call_atm_value - put_atm_value
-                '''
-                #df_plotdata_fut_drate[0][0] = 0
+                self.label_atm.setText(str) 
+                
                 df_futures_graph.at[0, 'drate'] = 0
-                df_plotdata_dow_drate[0][0] = 0
                 df_dow_graph.at[0, 'drate'] = 0
 
-                #df_plotdata_fut_drate[0][GuardTime] = 0
                 df_futures_graph.at[GuardTime, 'drate'] = 0
-                df_plotdata_dow_drate[0][GuardTime] = 0
                 df_dow_graph.at[GuardTime, 'drate'] = 0
-
-                df_plotdata_call_drate[0][0] = 0
-                df_plotdata_put_drate[0][0] = 0
 
                 df_call_info_graph.at[0, 'drate'] = 0
                 df_put_info_graph.at[0, 'drate'] = 0
-
-                df_plotdata_call_drate[0][GuardTime] = 0
-                df_plotdata_put_drate[0][GuardTime] = 0
 
                 df_call_info_graph.at[GuardTime, 'drate'] = 0
                 df_put_info_graph.at[GuardTime, 'drate'] = 0
@@ -14343,22 +14257,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if not NightTime:
 
-                #df_plotdata_kp200.iat[0, 0] = fut_realdata['KP200']
-                #df_plotdata_fut.iat[0, 0] = fut_realdata['종가']
-                df_plotdata_centerval.iat[0, 0] = CENTER_VAL
                 df_call_info_graph.at[0, 'centerval'] = CENTER_VAL
 
                 df_futures_graph.at[0, 'kp200'] = fut_realdata['KP200']
                 df_futures_graph.at[0, 'price'] = fut_realdata['종가']
 
                 if fut_realdata['시가'] > 0:
-                    #df_plotdata_fut.iat[0, GuardTime] = fut_realdata['시가']
                     df_futures_graph.at[GuardTime, 'price'] = fut_realdata['시가']
                 else:
                     pass
-
-                #df_plotdata_fut_volume.iat[0, 0] = 0
-                #df_plotdata_fut_volume.iat[0, GuardTime] = 0
 
                 df_futures_graph.at[0, 'volume'] = 0
                 df_futures_graph.at[GuardTime, 'volume'] = 0
@@ -14560,43 +14467,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                 '''
 
-                if NightTime:
-
-                    df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, yagan_timespan))
-                    df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, yagan_timespan))
-
-                    df_plotdata_call_volume = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    #df_plotdata_volume_cha = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-
-                    df_plotdata_call_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    df_plotdata_put_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-
-                    #df_plotdata_fut_drate = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    df_plotdata_dow_drate = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    df_plotdata_call_drate = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    df_plotdata_put_drate = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    df_plotdata_centerval = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    
-                    #df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    #df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    #df_plotdata_fut_volume = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-
-                    df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    df_plotdata_wti = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    df_plotdata_eurofx = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    df_plotdata_hangseng = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    df_plotdata_gold = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-
-                    df_plotdata_sp500_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    df_plotdata_dow_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    df_plotdata_nasdaq_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    df_plotdata_wti_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    df_plotdata_eurofx_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    df_plotdata_hangseng_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
-                    df_plotdata_gold_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, yagan_timespan))
+                if NightTime:                    
                     
                     # NEW 데이타프레임
                     df_call_price_graph = DataFrame(index=range(0, yagan_timespan), columns=range(0, option_pairs_count))
@@ -14622,43 +14493,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'PSAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                     df_gold_graph = DataFrame(index=range(0, yagan_timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                         'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'PSAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
-                else:
-                    df_plotdata_call = DataFrame(index=range(0, option_pairs_count), columns=range(0, jugan_timespan))
-                    df_plotdata_put = DataFrame(index=range(0, option_pairs_count), columns=range(0, jugan_timespan))
-
-                    df_plotdata_call_volume = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    df_plotdata_put_volume = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    #df_plotdata_volume_cha = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-
-                    df_plotdata_call_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    df_plotdata_put_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-
-                    #df_plotdata_fut_drate = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    df_plotdata_dow_drate = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    df_plotdata_call_drate = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    df_plotdata_put_drate = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    df_plotdata_centerval = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-
-                    #df_plotdata_fut = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    #df_plotdata_kp200 = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    #df_plotdata_fut_volume = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-
-                    df_plotdata_sp500 = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    df_plotdata_dow = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    df_plotdata_nasdaq = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    df_plotdata_wti = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    df_plotdata_eurofx = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    df_plotdata_hangseng = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    df_plotdata_gold = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-
-                    df_plotdata_sp500_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    df_plotdata_dow_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    df_plotdata_nasdaq_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    df_plotdata_wti_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    df_plotdata_eurofx_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    df_plotdata_hangseng_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    df_plotdata_gold_hoga_rr = DataFrame(index=range(0, 1), columns=range(0, jugan_timespan))
-                    
+                else:                    
                     # NEW 데이타프레임
                     df_call_price_graph = DataFrame(index=range(0, jugan_timespan), columns=range(0, option_pairs_count))
                     df_put_price_graph = DataFrame(index=range(0, jugan_timespan), columns=range(0, option_pairs_count))
@@ -14741,7 +14576,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.종가.value, item)
 
-                    #df_plotdata_call.iat[i, 0] = 종가
                     df_call_price_graph.iat[0, i] = 종가
 
                     if df['저가'][i] < df['고가'][i]:
@@ -14817,7 +14651,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         if not NightTime:
-                            #df_plotdata_call.iat[i, GuardTime] = 시가
                             df_call_price_graph.iat[GuardTime, i] = 시가
                         else:
                             pass
@@ -15036,7 +14869,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.종가.value, item)
 
-                    #df_plotdata_put.iat[i, 0] = 종가
                     df_put_price_graph.iat[0, i] = 종가
 
                     if df1['저가'][i] < df1['고가'][i]:
@@ -15112,7 +14944,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         if not NightTime:
-                            #df_plotdata_put.iat[i, GuardTime] = 시가
                             df_put_price_graph.iat[GuardTime, i] = 시가
                         else:
                             pass
@@ -15349,41 +15180,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(str)
                 print(str) 
 
-                df_plotdata_call_volume.iat[0, 0] = 0                
-                df_plotdata_put_volume.iat[0, 0] = 0
-                #df_plotdata_volume_cha.iat[0, 0] = 0
-
                 df_call_info_graph.at[0, 'volume'] = 0
                 df_put_info_graph.at[0, 'volume'] = 0
-
-                df_plotdata_call_volume.iat[0, GuardTime] = 0                
-                df_plotdata_put_volume.iat[0, GuardTime] = 0
-                #df_plotdata_volume_cha.iat[0, GuardTime] = 0
 
                 df_call_info_graph.at[GuardTime, 'volume'] = 0
                 df_put_info_graph.at[GuardTime, 'volume'] = 0
                 
-                df_plotdata_call_hoga_rr.iat[0, 0] = 0
-                df_plotdata_put_hoga_rr.iat[0, 0] = 0
-
                 df_call_info_graph.at[0, 'hoga'] = 0
                 df_put_info_graph.at[0, 'hoga'] = 0
-
-                df_plotdata_call_hoga_rr.iat[0, GuardTime] = 0 
-                df_plotdata_put_hoga_rr.iat[0, GuardTime] = 0
 
                 df_call_info_graph.at[GuardTime, 'hoga'] = 0
                 df_put_info_graph.at[GuardTime, 'hoga'] = 0
 
                 # 해외선물 호가 초기화
-                df_plotdata_sp500_hoga_rr.iat[0, 0] = 0
-                df_plotdata_dow_hoga_rr.iat[0, 0] = 0
-                df_plotdata_nasdaq_hoga_rr.iat[0, 0] = 0
-                df_plotdata_wti_hoga_rr.iat[0, 0] = 0
-                df_plotdata_eurofx_hoga_rr.iat[0, 0] = 0
-                df_plotdata_hangseng_hoga_rr.iat[0, 0] = 0
-                df_plotdata_gold_hoga_rr.iat[0, 0] = 0
-
                 df_sp500_graph.at[0, 'hoga'] = 0
                 df_dow_graph.at[0, 'hoga'] = 0
                 df_nasdaq_graph.at[0, 'hoga'] = 0
@@ -16092,11 +15901,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
 
-                #df_plotdata_kp200.iat[0, 0] = KP200_종가
                 df_futures_graph.at[0, 'kp200'] = KP200_종가
 
-                # 주간 현재가가 야간 종가임 
-                #df_plotdata_fut.iat[0, 0] = fut_realdata['현재가']
+                # 주간 현재가가 야간 종가임
                 df_futures_graph.at[0, 'price'] = fut_realdata['현재가']
 
                 if UI_STYLE == 'Vertical_View.ui':
@@ -16110,14 +15917,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                #df_plotdata_fut_volume.iat[0, 0] = 0
-                #df_plotdata_fut_volume.iat[0, GuardTime] = 0
-
                 df_futures_graph.at[0, 'volume'] = 0
                 df_futures_graph.at[GuardTime, 'volume'] = 0
 
                 if df['시가'] > 0:
-                    #df_plotdata_fut.iat[0, GuardTime] = df['시가']
                     df_futures_graph.at[GuardTime, 'price'] = df['시가']
                 else:
                     pass
@@ -16276,20 +16079,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if NightTime:
 
-                #df_plotdata_kp200.iat[0, 0] = fut_realdata['KP200']
-                #df_plotdata_fut.iat[0, 0] = cme_realdata['종가']
-
                 df_futures_graph.at[0, 'kp200'] = fut_realdata['KP200']
                 df_futures_graph.at[0, 'price'] = cme_realdata['종가']
 
                 if cme_realdata['시가'] > 0:
-                    #df_plotdata_fut.iat[0, GuardTime] = cme_realdata['시가']
                     df_futures_graph.at[GuardTime, 'price'] = cme_realdata['시가']
                 else:
                     pass
-
-                #df_plotdata_fut_volume.iat[0, 0] = 0
-                #df_plotdata_fut_volume.iat[0, GuardTime] = 0
 
                 df_futures_graph.at[0, 'volume'] = 0
                 df_futures_graph.at[GuardTime, 'volume'] = 0
@@ -16526,7 +16322,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.종가.value, item)
 
-                    #df_plotdata_call.iat[i, 0] = 종가
                     df_call_price_graph.iat[0, i] = 종가
 
                     현재가 = df['현재가'][i]
@@ -16622,7 +16417,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        #df_plotdata_call.iat[i, GuardTime] = 시가
                         df_call_price_graph.iat[GuardTime, i] = 시가
 
                         시가갭 = 시가 - 종가
@@ -16730,9 +16524,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.OID.value, item)
 
-                    df_plotdata_call_volume.iat[0, 0] = 0
-                    df_plotdata_call_volume.iat[0, GuardTime] = 0
-
                     df_call_info_graph.at[0, 'volume'] = 0
                     df_call_info_graph.at[GuardTime, 'volume'] = 0
 
@@ -16792,7 +16583,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.종가.value, item)
 
-                    #df_plotdata_put.iat[i, 0] = 종가
                     df_put_price_graph.iat[0, i] = 종가
 
                     현재가 = df1['현재가'][i]
@@ -16889,7 +16679,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        #df_plotdata_put.iat[i, GuardTime] = 시가
                         df_put_price_graph.iat[GuardTime, i] = 시가
 
                         시가갭 = 시가 - 종가
@@ -16997,14 +16786,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.OID.value, item)
 
-                    df_plotdata_put_volume.iat[0, 0] = 0
-                    #df_plotdata_volume_cha.iat[0, 0] = 0
-
                     df_put_info_graph.at[0, 'volume'] = 0
-
-                    df_plotdata_put_volume.iat[0, GuardTime] = 0
-                    #df_plotdata_volume_cha.iat[0, GuardTime] = 0
-
                     df_put_info_graph.at[GuardTime, 'volume'] = 0
                 
                 print('\r')
@@ -18037,7 +17819,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_call.setItem(t8416_call_count, Option_column.종가.value, item)
 
                     if t8416_call_count < option_pairs_count:
-                        #df_plotdata_call.iat[t8416_call_count, 0] = block['전일종가']
                         df_call_price_graph.iat[0, t8416_call_count] = block['전일종가']
                     else:
                         pass
@@ -18252,7 +18033,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_put.setItem(t8416_put_count, Option_column.종가.value, item)
 
                     if t8416_put_count < option_pairs_count:
-                        #df_plotdata_put.iat[t8416_put_count, 0] = block['전일종가']
                         df_put_price_graph.iat[0, t8416_put_count] = block['전일종가']
                     else:
                         pass
@@ -19334,7 +19114,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global cme_realdata, fut_realdata
         global df_fut
-        #global df_plotdata_fut, df_plotdata_kp200, df_plotdata_fut_volume
         global atm_str, atm_val, atm_index, old_atm_index        
         global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
         global flag_fut_low, flag_fut_high 
@@ -19370,7 +19149,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         선물_진폭 = 선물_고가 - 선물_저가
         
         # Plot 데이타프레임 생성
-        #df_plotdata_fut.iat[0, x_idx] = 선물_현재가
         df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
         
         #df_plotdata_fut_drate[x_idx] = result['등락율']
@@ -19486,7 +19264,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 시가 != fut_open:
 
-            #df_plotdata_fut.iat[0, GuardTime] = 선물_시가
             df_futures_graph.at[GuardTime, 'price'] = 선물_시가
 
             선물_피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
@@ -19903,7 +19680,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # 장중 거래량 갱신, 장중 거래량은 누적거래��이 아닌 수정거래량 임
         fut_volume_power = result['매수누적체결량'] - result['매도누적체결량']
-        #df_plotdata_fut_volume.iat[0, x_idx] = fut_volume_power
         df_futures_graph.at[ovc_x_idx, 'volume'] = fut_volume_power
 
         temp = format(fut_volume_power, ',')
@@ -20160,13 +19936,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def call_display(self):
 
         global call_open, call_itm_count
-        global df_call, df_plotdata_call, df_plotdata_call_hoga_rr
+        global df_call
         global df_call_price_graph
         global atm_str, atm_index, call_atm_value
         global call_시가, call_시가_node_list, call_피봇, call_피봇_node_list, 콜시가리스트
         global call_저가, call_저가_node_list, call_고가, call_고가_node_list
         global opt_callreal_update_counter
-        global df_call_volume, call_volume_power, df_plotdata_call_volume, df_call_info_graph
+        global df_call_volume, call_volume_power, df_call_info_graph
         global node_coloring
         global call_open_list
         global call_max_actval, call_open, call_ol, call_oh
@@ -20174,7 +19950,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_call_low_update, flag_call_high_update
         global call_gap_percent, call_db_percent, call_otm_db, call_otm_db_percent 
         global 콜대비_퍼센트_평균
-        global df_plotdata_call_drate
         global 콜등락율       
 
         start_time = timeit.default_timer()
@@ -20190,7 +19965,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if not NightTime and index == atm_index:
             콜등락율 = call_result['등락율']
-            #df_plotdata_call_drate[opt_x_idx] = call_result['등락율']
             df_call_info_graph.at[opt_x_idx, 'drate'] = call_result['등락율']
         else:
             pass
@@ -20333,7 +20107,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
             df_call.at[index, '시가'] = 콜시가
-            #df_plotdata_call.iat[index, GuardTime] = 콜시가
             df_call_price_graph.iat[GuardTime, index] = 콜시가
             
             item = QTableWidgetItem(시가)
@@ -20434,7 +20207,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 현재가 != 콜_현재가:
 
             df_call.at[index, '현재가'] = 콜현재가
-            #df_plotdata_call.iat[index, opt_x_idx] = 콜현재가
             df_call_price_graph.iat[opt_x_idx, index] = 콜현재가
 
             if 콜현재가 < float(콜_현재가):
@@ -20803,7 +20575,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     
     def call_volume_power_update(self):
 
-        global df_call, df_call_volume, call_volume_power, df_plotdata_call_volume, call_volume, df_call_info_graph   
+        global df_call, df_call_volume, call_volume_power, call_volume, df_call_info_graph   
         global 콜_순매수_체결량
 
         index = call_행사가.index(call_result['단축코드'][5:8])
@@ -20872,7 +20644,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass        
 
         call_volume_power = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
-        df_plotdata_call_volume.iat[0, opt_x_idx] = call_volume_power
         df_call_info_graph.at[opt_x_idx, 'volume'] = call_volume_power
 
         순매수누적체결량 = format(call_volume_power, ',')
@@ -21392,20 +21163,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def put_display(self):
 
         global put_open, put_itm_count
-        global df_put, df_plotdata_put, df_plotdata_put_hoga_rr
+        global df_put
         global df_put_price_graph
         global atm_str, atm_index, put_atm_value
         global put_시가, put_시가_node_list, put_피봇, put_피봇_node_list, 풋시가리스트
         global put_저가, put_저가_node_list, put_고가, put_고가_node_list
         global opt_putreal_update_counter
-        global df_put_volume, put_volume_power, df_plotdata_put_volume, df_put_info_graph
+        global df_put_volume, put_volume_power, df_put_info_graph
         global put_open_list
         global put_max_actval, put_open, put_ol, put_oh
         global 풋_인덱스, 풋_시가, 풋_현재가, 풋_저가, 풋_고가
         global flag_put_low_update, flag_put_high_update
         global put_gap_percent, put_db_percent, put_otm_db, put_otm_db_percent
         global 풋대비_퍼센트_평균
-        global df_plotdata_put_drate
         global 풋등락율
 
         start_time = timeit.default_timer()
@@ -21421,7 +21191,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         if not NightTime and index == atm_index:
             풋등락율 = put_result['등락율']
-            df_plotdata_put_drate[opt_x_idx] = put_result['등락율']
             df_put_info_graph.at[opt_x_idx, 'drate'] = put_result['등락율']
         else:
             pass
@@ -21483,7 +21252,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
             
             df_put.at[index, '시가'] = 풋시가
-            #df_plotdata_put.iat[index, GuardTime] = 풋시가
             df_put_price_graph.iat[GuardTime, index] = 풋시가
             
             item = QTableWidgetItem(시가)
@@ -21584,7 +21352,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 현재가 != 풋_현재가:
 
             df_put.at[index, '현재가'] = 풋현재가
-            #df_plotdata_put.iat[index, opt_x_idx] = 풋현재가
             df_put_price_graph.iat[opt_x_idx, index] = 풋현재가
 
             if 풋현재가 < float(풋_현재가):
@@ -21954,7 +21721,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
     def put_volume_power_update(self):
 
-        global df_put, df_put_volume, put_volume_power, df_plotdata_put_volume, put_volume, df_put_info_graph
+        global df_put, df_put_volume, put_volume_power, put_volume, df_put_info_graph
         global 풋_순매수_체결량, option_volume_power
 
         index = put_행사가.index(put_result['단축코드'][5:8])
@@ -22023,7 +21790,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass        
 
         put_volume_power = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
-        df_plotdata_put_volume.iat[0, opt_x_idx] = put_volume_power
         df_put_info_graph.at[opt_x_idx, 'volume'] = put_volume_power
         
         option_volume_power = call_volume_power - put_volume_power
@@ -22446,7 +22212,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         global call_quote, put_quote
         global 콜매수잔량, 콜매도잔량, 풋매수잔량, 풋매도잔량, 콜건수비, 콜잔량비, 풋건수비, 풋잔량비
-        global df_plotdata_call_hoga_rr, df_plotdata_put_hoga_rr, df_call_info_graph, df_put_info_graph
+        global df_call_info_graph, df_put_info_graph
 
         call_quote = df_call_hoga.sum()
         put_quote = df_put_hoga.sum()
@@ -22480,9 +22246,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         풋잔량비 = put_remainder_ratio
 
         if market_service and opt_x_idx > 0:
-
-            df_plotdata_call_hoga_rr.iat[0, opt_x_idx] = 콜잔량비
-            df_plotdata_put_hoga_rr.iat[0, opt_x_idx] = 풋잔량비
 
             df_call_info_graph.at[opt_x_idx, 'hoga'] = 콜잔량비
             df_put_info_graph.at[opt_x_idx, 'hoga'] = 풋잔량비
@@ -22592,10 +22355,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         콜_수정미결합 = df_call['수정미결'].sum()
         풋_수정미결합 = df_put['수정미결'].sum()
-                    
-        #df_plotdata_call_hoga_rr.iloc[0][opt_x_idx] = 콜_수정미결합
-        #df_plotdata_put_hoga_rr.iloc[0][opt_x_idx] = 풋_수정미결합
-
+        
         old_oi_delta = oi_delta
         oi_delta = 콜_수정미결합 - 풋_수정미결합
         
@@ -22647,8 +22407,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global df_call, df_put
             global df_call_hoga, df_put_hoga
 
-            #global df_plotdata_fut, df_plotdata_kp200
-            global df_plotdata_call, df_plotdata_put
             global df_call_price_graph, df_put_price_graph 
 
             global opt_callreal_update_counter, opt_putreal_update_counter
@@ -22698,9 +22456,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             global yoc_stop
             global OVC_체결시간, OVC_HOUR, OVC_MIN, OVC_SEC
-            global df_plotdata_sp500, df_plotdata_dow, df_plotdata_nasdaq, df_plotdata_wti, df_plotdata_eurofx, df_plotdata_hangseng, df_plotdata_gold
-            global df_plotdata_sp500_hoga_rr, df_plotdata_dow_hoga_rr, df_plotdata_nasdaq_hoga_rr 
-            global df_plotdata_wti_hoga_rr, df_plotdata_eurofx_hoga_rr, df_plotdata_hangseng_hoga_rr, df_plotdata_gold_hoga_rr
 
             global df_sp500_graph, df_dow_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
 
@@ -22740,8 +22495,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가
             global 시스템시간, 서버시간, 시스템_서버_시간차
             global kp200_시가, kp200_피봇, kp200_저가, kp200_현재가, kp200_고가
-            global df_plotdata_dow_drate
-            #global df_plotdata_fut_drate
             global NASDAQ_장마감일, DOW_장마감일, SP500_장마감일, WTI_장마감일, EUROFX_장마감일, HANGSENG_장마감일, GOLD_장마감일
             global DOW_진폭비
             global DOW_주간_시작가, WTI_주간_시작가
@@ -23151,7 +22904,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             kp200_realdata['시가'] = result['예상지수']
                             fut_realdata['KP200'] = result['예상지수']
 
-                            #df_plotdata_kp200.iat[0, x_yj_idx] = result['예상지수']
                             df_futures_graph.at[ovc_x_idx, 'kp200'] = result['예상지수']
 
                             item = QTableWidgetItem("{0:0.2f}".format(result['예상지수']))
@@ -23307,7 +23059,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if result['예상체결가격'] != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
-                            #df_plotdata_call.iat[index, GuardTime] = float(result['예상체결가격'])
                             df_call_price_graph.iat[GuardTime, index] = float(result['예상체결가격'])
                             df_call.at[index, '시가'] = float(result['예상체결가격'])
 
@@ -23425,7 +23176,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if result['예상체결가격'] != self.tableWidget_put.item(index, Option_column.시가.value).text():
 
-                            #df_plotdata_put.iat[index, GuardTime] = float(result['예상체결가격'])
                             df_put_price_graph.iat[GuardTime, index] = float(result['예상체결가격'])
                             df_put.at[index, '시가'] = float(result['예상체결가격'])
 
@@ -23835,7 +23585,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         kp200_realdata['현재가'] = float(result['지수'])
                         df_fut.at[2, '현재가'] = float(result['지수'])
                         
-                        #df_plotdata_kp200.iat[0, x_idx] = float(result['지수'])
                         df_futures_graph.at[ovc_x_idx, 'kp200'] = float(result['지수'])
 
                         if float(result['지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]):
@@ -23869,7 +23618,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         kp200_시가 = float(result['시가지수'])
                         kp200_realdata['시가'] = float(result['시가지수'])
-                        #df_plotdata_kp200.iat[0, GuardTime] = float(result['시가지수'])
                         df_futures_graph.at[GuardTime, 'kp200'] = float(result['시가지수'])
 
                         item = QTableWidgetItem(result['시가지수'])
@@ -25047,9 +24795,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             NASDAQ_종가 = result['체결가격'] - result['전일대비']
 
-                        df_plotdata_nasdaq.iat[0, 0] = NASDAQ_종가
-                        df_plotdata_nasdaq.iat[0, 1] = result['시가']
-
                         df_nasdaq_graph.at[0, 'price'] = NASDAQ_종가
                         df_nasdaq_graph.at[1, 'price'] = result['시가']
 
@@ -25134,7 +24879,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         NASDAQ_과거가 = result['체결가격']
                                        
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            #df_plotdata_nasdaq.iat[0, ovc_x_idx] = result['체결가격']
                             df_nasdaq_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                         else:
                             pass
@@ -25170,9 +24914,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             SP500_종가 = result['체결가격'] + result['전일대비']
                         else:
                             SP500_종가 = result['체결가격'] - result['전일대비']
-
-                        df_plotdata_sp500.iat[0, 0] = SP500_종가
-                        df_plotdata_sp500.iat[0, 1] = result['시가']
 
                         df_sp500_graph.at[0, 'price'] = SP500_종가
                         df_sp500_graph.at[1, 'price'] = result['시가']
@@ -25320,7 +25061,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         SP500_과거가 = result['체결가격']
                         
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            #df_plotdata_sp500.iat[0, ovc_x_idx] = result['체결가격']
                             df_sp500_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                         else:
                             pass
@@ -25349,7 +25089,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         DOW_등락율 = result['등락율']
 
-                    df_plotdata_dow_drate[ovc_x_idx] = DOW_등락율  
                     df_dow_graph.at[ovc_x_idx, 'drate'] = DOW_등락율                                  
 
                     if DOW_시가 == 0:
@@ -25359,10 +25098,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             DOW_종가 = int(result['체결가격'] + result['전일대비'])
                         else:
                             DOW_종가 = int(result['체결가격'] - result['전일대비'])
-                            
-                        df_plotdata_dow.iat[0, 0] = DOW_종가
-                        df_plotdata_dow.iat[0, 1] = result['시가']
-
+                        
                         df_dow_graph.at[0, 'price'] = DOW_종가
                         df_dow_graph.at[1, 'price'] = result['시가']
 
@@ -25457,7 +25193,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         DOW_과거가 = 체결가격
                         
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            #df_plotdata_dow.iat[0, ovc_x_idx] = result['체결가격']
                             df_dow_graph.at[ovc_x_idx, 'price'] = result['체결가격']                   
                         else:
                             pass
@@ -25496,9 +25231,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             WTI_종가 = round((result['체결가격'] - result['전일대비']), 2)
                         
-                        df_plotdata_wti.iat[0, 0] = WTI_종가
-                        df_plotdata_wti.iat[0, 1] = result['시가']
-
                         df_wti_graph.at[0, 'price'] = WTI_종가
                         df_wti_graph.at[1, 'price'] = result['시가']
 
@@ -25585,7 +25317,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         WTI_과거가 = result['체결가격']
                         
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            #df_plotdata_wti.iat[0, ovc_x_idx] = result['체결가격']
                             df_wti_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                         else:
                             pass
@@ -25622,9 +25353,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             EUROFX_종가 = round((result['체결가격'] - result['전일대비']), 5)
                         
-                        df_plotdata_eurofx.iat[0, 0] = EUROFX_종가
-                        df_plotdata_eurofx.iat[0, 1] = result['시가']
-
                         df_eurofx_graph.at[0, 'price'] = EUROFX_종가
                         df_eurofx_graph.at[1, 'price'] = result['시가']
 
@@ -25711,7 +25439,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         EUROFX_과거가 = result['체결가격']
                         
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            #df_plotdata_eurofx.iat[0, ovc_x_idx] = result['체결가격']
                             df_eurofx_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                         else:
                             pass
@@ -25748,9 +25475,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             HANGSENG_종가 = int(result['체결가격'] - result['전일대비'])
                         
-                        df_plotdata_hangseng.iat[0, 0] = HANGSENG_종가
-                        df_plotdata_hangseng.iat[0, 1] = result['시가']
-
                         df_hangseng_graph.at[0, 'price'] = HANGSENG_종가
                         df_hangseng_graph.at[1, 'price'] = result['시가']
 
@@ -25837,7 +25561,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         HANGSENG_과거가 = int(result['체결가격'])
                         
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            #df_plotdata_hangseng.iat[0, ovc_x_idx] = result['체결가격']
                             df_hangseng_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                         else:
                             pass
@@ -25874,9 +25597,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             GOLD_종가 = result['체결가격'] - result['전일대비']
                         
-                        df_plotdata_gold.iat[0, 0] = GOLD_종가
-                        df_plotdata_gold.iat[0, 1] = result['시가']
-
                         df_gold_graph.at[0, 'price'] = GOLD_종가
                         df_gold_graph.at[1, 'price'] = result['시가']
 
@@ -25963,7 +25683,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         GOLD_과거가 = result['체결가격']
                         
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            #df_plotdata_gold.iat[0, ovc_x_idx] = result['체결가격']
                             df_gold_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                         else:
                             pass
@@ -26237,7 +25956,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 매도호가총수량 > 0:
                         NASDAQ_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_plotdata_nasdaq_hoga_rr.iat[0, ovc_x_idx] = NASDAQ_호가순매수
+                        df_nasdaq_graph.at[ovc_x_idx, 'hoga'] = NASDAQ_호가순매수
                     else:
                         pass
 
@@ -26247,7 +25966,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 매도호가총수량 > 0:
                         SP500_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_plotdata_sp500_hoga_rr.iat[0, ovc_x_idx] = SP500_호가순매수
                         df_sp500_graph.at[ovc_x_idx, 'hoga'] = SP500_호가순매수
                     else:
                         pass
@@ -26258,7 +25976,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 매도호가총수량 > 0:
                         DOW_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_plotdata_dow_hoga_rr.iat[0, ovc_x_idx] = DOW_호가순매수
+                        df_dow_graph.at[ovc_x_idx, 'hoga'] = DOW_호가순매수
                     else:
                         pass
 
@@ -26268,7 +25986,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 매도호가총수량 > 0:
                         WTI_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_plotdata_wti_hoga_rr.iat[0, ovc_x_idx] = WTI_호가순매수
+                        df_wti_graph.at[ovc_x_idx, 'hoga'] = WTI_호가순매수
                     else:
                         pass
 
@@ -26278,7 +25996,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 매도호가총수량 > 0:
                         EUROFX_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_plotdata_eurofx_hoga_rr.iat[0, ovc_x_idx] = EUROFX_호가순매수
+                        df_eurofx_graph.at[ovc_x_idx, 'hoga'] = EUROFX_호가순매수
                     else:
                         pass
 
@@ -26288,7 +26006,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 매도호가총수량 > 0:
                         HANGSENG_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_plotdata_hangseng_hoga_rr.iat[0, ovc_x_idx] = HANGSENG_호가순매수
+                        df_hangseng_graph.at[ovc_x_idx, 'hoga'] = HANGSENG_호가순매수
                     else:
                         pass
 
@@ -26298,7 +26016,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 매도호가총수량 > 0:
                         GOLD_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_plotdata_gold_hoga_rr.iat[0, ovc_x_idx] = GOLD_호가순매수
+                        df_gold_graph.at[ovc_x_idx, 'hoga'] = GOLD_호가순매수
                     else:
                         pass
                 else:
