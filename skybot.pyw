@@ -26884,11 +26884,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p1_3.setText(" MAMA ")
+        self.label_p1_3.setText(" MACD ")
         self.label_p1_3.setStyleSheet('background-color: yellow ; color: black')
         self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p1_4.setText(" MACD ")
+        self.label_p1_4.setText(" MAMA ")
         self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
         self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -26933,11 +26933,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p2_3.setText(" MAMA ")
+        self.label_p2_3.setText(" MACD ")
         self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
         self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p2_4.setText(" MACD ")
+        self.label_p2_4.setText(" MAMA ")
         self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
         self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -26982,11 +26982,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p3_3.setText(" MAMA ")
+        self.label_p3_3.setText(" MACD ")
         self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
         self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p3_4.setText(" MACD ")
+        self.label_p3_4.setText(" MAMA ")
         self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
         self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -29686,31 +29686,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p1_2.setText(str)
                 else:
                     pass
+                
+                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACD_Sig']):
 
-                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'FAMA']):
-
-                    if df_futures_graph.at[ovc_x_idx, 'MAMA'] < df_futures_graph.at[ovc_x_idx, 'FAMA']:
+                    if df_futures_graph.at[ovc_x_idx, 'MACD'] < df_futures_graph.at[ovc_x_idx, 'MACD_Sig']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MAMA'], df_futures_graph.at[ovc_x_idx, 'FAMA'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MACD'], df_futures_graph.at[ovc_x_idx, 'MACD_Sig'])
                     self.label_p1_3.setText(str)
                 else:
                     pass
 
-                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_futures_graph.at[ovc_x_idx, 'MACD'] < df_futures_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_futures_graph.at[ovc_x_idx, 'MAMA'] < df_futures_graph.at[ovc_x_idx, 'FAMA']:
                         self.label_p1_4.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_4.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MACD'], df_futures_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MAMA'], df_futures_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p1_4.setText(str)
                 else:
                     pass
@@ -29821,31 +29821,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p1_2.setText(str)
                 else:
                     pass
+                
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']):
-
-                    if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
                     self.label_p1_3.setText(str)
                 else:
                     pass
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
                         self.label_p1_4.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_4.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p1_4.setText(str)
                 else:
                     pass
@@ -29930,31 +29930,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p1_2.setText(str)
                 else:
                     pass
+                
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']):
-
-                    if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACD_Sig']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
                     self.label_p1_3.setText(str)
                 else:
                     pass
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
                         self.label_p1_4.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_4.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p1_4.setText(str)
                 else:
                     pass
@@ -30039,31 +30039,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p1_2.setText(str)
                 else:
                     pass
+                
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']):
-
-                    if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
                     self.label_p1_3.setText(str)
                 else:
                     pass
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
                         self.label_p1_4.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_4.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p1_4.setText(str)
                 else:
                     pass
@@ -30148,31 +30148,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p1_2.setText(str)
                 else:
                     pass
+                
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']):
-
-                    if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACD_Sig']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
                     self.label_p1_3.setText(str)
                 else:
                     pass
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
                         self.label_p1_4.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_4.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p1_4.setText(str)
                 else:
                     pass
@@ -30353,31 +30353,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p2_2.setText(str)
                 else:
                     pass
+                
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']):
-
-                    if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']:
                         self.label_p2_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
                     self.label_p2_3.setText(str)
                 else:
                     pass
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
                         self.label_p2_4.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_4.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p2_4.setText(str)
                 else:
                     pass
@@ -30468,31 +30468,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p2_2.setText(str)
                 else:
                     pass
+                
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']):
-
-                    if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACD_Sig']:
                         self.label_p2_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
                     self.label_p2_3.setText(str)
                 else:
                     pass
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
                         self.label_p2_4.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_4.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p2_4.setText(str)
                 else:
                     pass
@@ -30582,31 +30582,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p2_2.setText(str)
                 else:
                     pass
+                
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']):
-
-                    if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']:
                         self.label_p2_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
                     self.label_p2_3.setText(str)
                 else:
                     pass
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
                         self.label_p2_4.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_4.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p2_4.setText(str)
                 else:
                     pass
@@ -30696,31 +30696,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p2_2.setText(str)
                 else:
                     pass
+                
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']):
-
-                    if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACD_Sig']:
                         self.label_p2_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
                     self.label_p2_3.setText(str)
                 else:
                     pass
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
                         self.label_p2_4.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_4.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p2_4.setText(str)
                 else:
                     pass
@@ -30906,31 +30906,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p3_2.setText(str)
                 else:
                     pass
+                
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']):
-
-                    if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']:
                         self.label_p3_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
                     self.label_p3_3.setText(str)
                 else:
                     pass
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
                         self.label_p3_4.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_4.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p3_4.setText(str)
                 else:
                     pass
@@ -31021,31 +31021,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p3_2.setText(str)
                 else:
                     pass
+                
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']):
-
-                    if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACD_Sig']:
                         self.label_p3_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
                     self.label_p3_3.setText(str)
                 else:
                     pass
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
                         self.label_p3_4.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_4.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p3_4.setText(str)
                 else:
                     pass
@@ -31135,31 +31135,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p3_2.setText(str)
                 else:
                     pass
+                
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']):
-
-                    if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']:
                         self.label_p3_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
                     self.label_p3_3.setText(str)
                 else:
                     pass
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
                         self.label_p3_4.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_4.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p3_4.setText(str)
                 else:
                     pass
@@ -31249,31 +31249,31 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_p3_2.setText(str)
                 else:
                     pass
+                
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']):
-
-                    if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACD_Sig']:
                         self.label_p3_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
                     self.label_p3_3.setText(str)
                 else:
                     pass
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
                         self.label_p3_4.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_4.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p3_4.setText(str)
                 else:
                     pass
