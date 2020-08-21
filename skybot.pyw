@@ -23629,6 +23629,73 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.textBrowser.append(str)                        
                     else:
                         pass
+
+                    global 선물_현재가_버퍼, flag_futures_ohlc_open
+
+                    # 1T OHLC 생성
+                    if OVC_SEC == 0:
+
+                        if not flag_futures_ohlc_open:
+
+                            df_futures_graph.at[ovc_x_idx, 'open'] = 선물_시가
+
+                            del 선물_현재가_버퍼[:]
+
+                            flag_futures_ohlc_open = True
+                        else:
+                            선물_현재가_버퍼.append(선물_현재가)
+                    else:
+                        선물_현재가_버퍼.append(선물_현재가)
+
+                        df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
+
+                        if min(선물_현재가_버퍼) == 0:
+                            df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
+                        else:
+                            df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
+
+                        df_futures_graph.at[ovc_x_idx, 'close'] = 선물_시가
+
+                        df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
+
+                        flag_futures_ohlc_open = False
+
+                    # Bollinger Bands
+                    upper, middle, lower = talib.BBANDS(np.array(df_futures_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+                    df_futures_graph['BBAND_Upper'] = upper
+                    df_futures_graph['BBAND_Middle'] = middle
+                    df_futures_graph['BBAND_Lower'] = lower
+
+                    # MACD
+                    # list of values for the Moving Average Type:  
+                    # 0: MA_Type.SMA (simple)  
+                    # 1: MA_Type.EMA (exponential)  
+                    # 2: MA_Type.WMA (weighted)  
+                    # 3: MA_Type.DEMA (double exponential)  
+                    # 4: MA_Type.TEMA (triple exponential)  
+                    # 5: MA_Type.TRIMA (triangular)  
+                    # 6: MA_Type.KAMA (Kaufman adaptive)  
+                    # 7: MA_Type.MAMA (Mesa adaptive)  
+                    # 8: MA_Type.T3 (triple exponential T3)
+
+                    macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_futures_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
+                        fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
+
+                    df_futures_graph['MACD'] = macd
+                    df_futures_graph['MACD_Sig'] = macdsignal
+                    df_futures_graph['MACD_Hist'] = macdhist
+
+                    # Parabolic SAR
+                    parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+                    df_futures_graph['PSAR'] = parabolic_sar
+
+                    # MAMA
+                    mama, fama = talib.MAMA(np.array(df_futures_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+                    df_futures_graph['MAMA'] = mama
+                    df_futures_graph['FAMA'] = fama
                 else:
                     pass
 
