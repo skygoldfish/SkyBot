@@ -26569,6 +26569,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         flag_telegram_on = not flag_telegram_on
         
+        chk_webhook = Check_Webhook()
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook = {3}\r'.format(dt.hour, dt.minute, dt.second, chk_webhook)
+        self.textBrowser.append(str)
+
+        if chk_webhook.url != '':
+            # Webhook을 삭제한다.
+            Delete_Webhook()
+            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook을 삭제합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
+        else:
+            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook이 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str) 
+        
         if TELEGRAM_SERVICE and not flag_telegram_send_worker:
 
             # 가끔 send worker가 오동작함(쓰레드 재시작...)
@@ -26611,56 +26625,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         if TELEGRAM_SERVICE and flag_telegram_on:
             
-            chk_webhook = Check_Webhook()
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook = {3}\r'.format(dt.hour, dt.minute, dt.second, chk_webhook)
-            self.textBrowser.append(str)
-
-            if chk_webhook.url != '':
-                # Webhook을 삭제한다.
-                Delete_Webhook()
-                str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook을 삭제합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
-            else:
-                str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook이 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str) 
-
             telegram_command = '/start'
-            '''
-            str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)
-            self.textBrowser.append(str)
-            print(str)
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] OL/OH : {3}\r'.format(dt.hour, dt.minute, dt.second, fut_oloh_str)
-            self.textBrowser.append(str)
-            print(str)
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 비대칭장 : {3}\r'.format(dt.hour, dt.minute, dt.second, 비대칭장)
-            self.textBrowser.append(str)
-            print(str)
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] call_low_node_str : {3}\r'.format(dt.hour, dt.minute, dt.second, call_low_node_str)
-            self.textBrowser.append(str)
-            print(str)
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] call_high_node_str : {3}\r'.format(dt.hour, dt.minute, dt.second, call_high_node_str)
-            self.textBrowser.append(str)
-            print(str)
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] put_low_node_str : {3}\r'.format(dt.hour, dt.minute, dt.second, put_low_node_str)
-            self.textBrowser.append(str)
-            print(str)
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] put_high_node_str : {3}\r'.format(dt.hour, dt.minute, dt.second, put_high_node_str)
-            self.textBrowser.append(str)
-            print(str)
             
-            if TARGET_MONTH_SELECT == 1:
-
-                self.capture_screenshot()
-            else:
-                pass
-            '''
             self.pushButton_remove.setStyleSheet("background-color: lawngreen")
             print('flag_telegram_on =', flag_telegram_on)
         else:
