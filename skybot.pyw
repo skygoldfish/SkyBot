@@ -26571,12 +26571,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         chk_webhook = Check_Webhook()
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook = {3}\r'.format(dt.hour, dt.minute, dt.second, chk_webhook)
-        self.textBrowser.append(str)
-
         if chk_webhook.url != '':
+            
+            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook = {3}\r'.format(dt.hour, dt.minute, dt.second, chk_webhook)
+            self.textBrowser.append(str)
+
             # Webhook을 삭제한다.
             Delete_Webhook()
+            
             str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Webhook을 삭제합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(str)
         else:
