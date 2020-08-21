@@ -195,7 +195,7 @@
     </layout>
    </item>
    <item row="1" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_6">
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
       <widget class="PlotWidget" name="bc_Plot1">
        <property name="font">
@@ -231,34 +231,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot1_psar">
-          <property name="text">
-           <string>PSAR</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_plot1_mama">
-          <property name="text">
-           <string>MAMA</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_plot1_macd">
-          <property name="text">
-           <string>MACD</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_plot1_reserved">
-          <property name="text">
-           <string>reserved</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QLabel" name="label_p1_1">
           <property name="text">
            <string>TextLabel</string>
@@ -267,6 +239,20 @@
         </item>
         <item>
          <widget class="QLabel" name="label_p1_2">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p1_3">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p1_4">
           <property name="text">
            <string>TextLabel</string>
           </property>
@@ -314,34 +300,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot4_psar">
-          <property name="text">
-           <string>PSAR</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_plot4_mama">
-          <property name="text">
-           <string>MAMA</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_plot4_macd">
-          <property name="text">
-           <string>MACD</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_plot4_reserved">
-          <property name="text">
-           <string>reserved</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QLabel" name="label_p4_1">
           <property name="text">
            <string>TextLabel</string>
@@ -350,6 +308,20 @@
         </item>
         <item>
          <widget class="QLabel" name="label_p4_2">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p4_3">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p4_4">
           <property name="text">
            <string>TextLabel</string>
           </property>
@@ -569,34 +541,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot2_psar">
-          <property name="text">
-           <string>PSAR</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_plot2_mama">
-          <property name="text">
-           <string>MAMA</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_plot2_macd">
-          <property name="text">
-           <string>MACD</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_plot2_reserved">
-          <property name="text">
-           <string>reserved</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QLabel" name="label_p2_1">
           <property name="text">
            <string>TextLabel</string>
@@ -605,6 +549,20 @@
         </item>
         <item>
          <widget class="QLabel" name="label_p2_2">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p2_3">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p2_4">
           <property name="text">
            <string>TextLabel</string>
           </property>
@@ -652,34 +610,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot5_psar">
-          <property name="text">
-           <string>PSAR</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_plot5_mama">
-          <property name="text">
-           <string>MAMA</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_plot5_macd">
-          <property name="text">
-           <string>MACD</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_plot5_reserved">
-          <property name="text">
-           <string>reserved</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QLabel" name="label_p5_1">
           <property name="text">
            <string>TextLabel</string>
@@ -688,6 +618,20 @@
         </item>
         <item>
          <widget class="QLabel" name="label_p5_2">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p5_3">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p5_4">
           <property name="text">
            <string>TextLabel</string>
           </property>
@@ -871,7 +815,7 @@
     </layout>
    </item>
    <item row="5" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
      <item>
       <widget class="PlotWidget" name="bc_Plot3">
        <property name="font">
@@ -907,34 +851,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot3_psar">
-          <property name="text">
-           <string>PSAR</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_plot3_mama">
-          <property name="text">
-           <string>MAMA</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_plot3_macd">
-          <property name="text">
-           <string>MACD</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_plot3_reserved">
-          <property name="text">
-           <string>reserved</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QLabel" name="label_p3_1">
           <property name="text">
            <string>TextLabel</string>
@@ -943,6 +859,20 @@
         </item>
         <item>
          <widget class="QLabel" name="label_p3_2">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p3_3">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p3_4">
           <property name="text">
            <string>TextLabel</string>
           </property>
@@ -990,34 +920,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot6_psar">
-          <property name="text">
-           <string>PSAR</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_plot6_mama">
-          <property name="text">
-           <string>MAMA</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_plot6_macd">
-          <property name="text">
-           <string>MACD</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_plot6_reserved">
-          <property name="text">
-           <string>reserved</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QLabel" name="label_p6_1">
           <property name="text">
            <string>TextLabel</string>
@@ -1026,6 +928,20 @@
         </item>
         <item>
          <widget class="QLabel" name="label_p6_2">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p6_3">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_p6_4">
           <property name="text">
            <string>TextLabel</string>
           </property>
