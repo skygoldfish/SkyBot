@@ -1719,7 +1719,7 @@ goldenrod_pen = pg.mkPen(goldenrod, width=2, style=QtCore.Qt.DotLine)
 gold_pen = pg.mkPen(gold, width=2, style=QtCore.Qt.DotLine)
 
 bb_upper_pen = pg.mkPen(magenta, width=1, style=QtCore.Qt.SolidLine)
-bb_middle_pen = pg.mkPen(orange, width=1, style=QtCore.Qt.SolidLine)
+bb_middle_pen = pg.mkPen(lime, width=1, style=QtCore.Qt.SolidLine)
 bb_lower_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
 
 psar_pen = pg.mkPen('w', width=1, style=QtCore.Qt.DotLine)
@@ -26835,6 +26835,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.bc_comboBox3.setStyleSheet("background-color: white")
 
         self.checkBox_plot1_bband.stateChanged.connect(self.checkBox_plot1_bband_checkState)
+        self.checkBox_plot2_bband.stateChanged.connect(self.checkBox_plot2_bband_checkState)
+        self.checkBox_plot3_bband.stateChanged.connect(self.checkBox_plot3_bband_checkState)
         
         if not NightTime:
 
@@ -27153,6 +27155,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_dow_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot1_nasdaq_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
         bc_plot1_wti_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+
+        bc_plot1_bollinger_upper_curve = self.bc_Plot1.plot(pen=bb_upper_pen)
+        bc_plot1_bollinger_middle_curve = self.bc_Plot1.plot(pen=bb_middle_pen)
+        bc_plot1_bollinger_lower_curve = self.bc_Plot1.plot(pen=bb_lower_pen)
         
         #cross hair
         if CROSS_HAIR:
@@ -27197,11 +27203,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_fut_volume_curve = self.bc_Plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
         bc_plot2_fut_volume_plus_curve = self.bc_Plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
         bc_plot2_fut_volume_minus_curve = self.bc_Plot2.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
-
-        bc_plot2_sp500_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot2_dow_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot2_nasdaq_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot2_wti_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         
         for i in range(nRowCount):
             bc_plot2_call_curve.append(self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
@@ -27212,6 +27213,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_center_val_lower_line = self.bc_Plot2.addLine(x=None, pen=skyblue_pen)
         bc_plot2_center_val_line = self.bc_Plot2.addLine(x=None, pen=gold_pen)
         bc_plot2_center_val_upper_line = self.bc_Plot2.addLine(x=None, pen=pink_pen)
+        
+        bc_plot2_sp500_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot2_dow_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot2_nasdaq_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot2_wti_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+
+        bc_plot2_bollinger_upper_curve = self.bc_Plot2.plot(pen=bb_upper_pen)
+        bc_plot2_bollinger_middle_curve = self.bc_Plot2.plot(pen=bb_middle_pen)
+        bc_plot2_bollinger_lower_curve = self.bc_Plot2.plot(pen=bb_lower_pen)
 
         #cross hair
         if CROSS_HAIR:
@@ -27256,11 +27266,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot3_fut_volume_curve = self.bc_Plot3.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
         bc_plot3_fut_volume_plus_curve = self.bc_Plot3.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
         bc_plot3_fut_volume_minus_curve = self.bc_Plot3.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
-
-        bc_plot3_sp500_curve = self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot3_dow_curve = self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot3_nasdaq_curve = self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot3_wti_curve = self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         
         for i in range(nRowCount):
             bc_plot3_call_curve.append(self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
@@ -27271,6 +27276,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot3_center_val_lower_line = self.bc_Plot3.addLine(x=None, pen=skyblue_pen)
         bc_plot3_center_val_line = self.bc_Plot3.addLine(x=None, pen=gold_pen)
         bc_plot3_center_val_upper_line = self.bc_Plot3.addLine(x=None, pen=pink_pen)
+        
+        bc_plot3_sp500_curve = self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot3_dow_curve = self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot3_nasdaq_curve = self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot3_wti_curve = self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+
+        bc_plot3_bollinger_upper_curve = self.bc_Plot3.plot(pen=bb_upper_pen)
+        bc_plot3_bollinger_middle_curve = self.bc_Plot3.plot(pen=bb_middle_pen)
+        bc_plot3_bollinger_lower_curve = self.bc_Plot3.plot(pen=bb_lower_pen)
 
         #cross hair
         if CROSS_HAIR:
@@ -27474,7 +27488,25 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if self.checkBox_plot1_bband.isChecked() == True:
             flag_checkBox_plot1_bband = True
         else:
-            flag_checkBox_plot1_bband = False             
+            flag_checkBox_plot1_bband = False
+
+    def checkBox_plot2_bband_checkState(self):
+
+        global flag_checkBox_plot2_bband
+
+        if self.checkBox_plot2_bband.isChecked() == True:
+            flag_checkBox_plot2_bband = True
+        else:
+            flag_checkBox_plot2_bband = False 
+
+    def checkBox_plot3_bband_checkState(self):
+
+        global flag_checkBox_plot3_bband
+
+        if self.checkBox_plot3_bband.isChecked() == True:
+            flag_checkBox_plot3_bband = True
+        else:
+            flag_checkBox_plot3_bband = False              
     
     def bc_cb1_selectionChanged(self):
 
@@ -27487,7 +27519,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global WTI_전저, WTI_전고, WTI_종가, WTI_피봇, WTI_시가, WTI_저가, WTI_고가
 
         txt = self.bc_comboBox1.currentText()
-        bc_comboindex1 = self.bc_comboBox1.currentIndex()  
+        bc_comboindex1 = self.bc_comboBox1.currentIndex()
+
+        bc_plot1_bollinger_upper_curve.clear()
+        bc_plot1_bollinger_middle_curve.clear()
+        bc_plot1_bollinger_lower_curve.clear()  
 
         if bc_comboindex1 == 0:
 
@@ -28271,6 +28307,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         txt = self.bc_comboBox2.currentText()
         bc_comboindex2 = self.bc_comboBox2.currentIndex()
 
+        bc_plot2_bollinger_upper_curve.clear()
+        bc_plot2_bollinger_middle_curve.clear()
+        bc_plot2_bollinger_lower_curve.clear()
+
         if bc_comboindex2 == 0:
 
             self.label_21.setText(" 전저: 가격 ")
@@ -28923,6 +28963,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         txt = self.bc_comboBox3.currentText()
         bc_comboindex3 = self.bc_comboBox3.currentIndex()
+
+        bc_plot3_bollinger_upper_curve.clear()
+        bc_plot3_bollinger_middle_curve.clear()
+        bc_plot3_bollinger_lower_curve.clear()
 
         if bc_comboindex3 == 0:
 
@@ -29748,6 +29792,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot1_kp200_curve.setData(df_futures_graph['kp200'].tolist())
                 bc_plot1_fut_price_curve.setData(df_futures_graph['price'].tolist())
 
+                if flag_checkBox_plot1_bband:
+
+                    bc_plot1_bollinger_upper_curve.setData(df_futures_graph['BBAND_Upper'].tolist())
+                    bc_plot1_bollinger_middle_curve.setData(df_futures_graph['BBAND_Middle'].tolist())
+                    bc_plot1_bollinger_lower_curve.setData(df_futures_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot1_bollinger_upper_curve.clear()
+                    bc_plot1_bollinger_middle_curve.clear()
+                    bc_plot1_bollinger_lower_curve.clear()
+
             elif bc_comboindex1 == 5:
 
                 pass
@@ -29851,6 +29905,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot1_sp500_curve.setData(df_sp500_graph['price'].tolist())
 
+                if flag_checkBox_plot1_bband:
+
+                    bc_plot1_bollinger_upper_curve.setData(df_sp500_graph['BBAND_Upper'].tolist())
+                    bc_plot1_bollinger_middle_curve.setData(df_sp500_graph['BBAND_Middle'].tolist())
+                    bc_plot1_bollinger_lower_curve.setData(df_sp500_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot1_bollinger_upper_curve.clear()
+                    bc_plot1_bollinger_middle_curve.clear()
+                    bc_plot1_bollinger_lower_curve.clear()
+
             elif bc_comboindex1 == 7:                
 
                 if not math.isnan(df_dow_graph.at[ovc_x_idx, 'PSAR']):
@@ -29949,6 +30013,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_18.setText(str)                      
 
                 bc_plot1_dow_curve.setData(df_dow_graph['price'].tolist())
+
+                if flag_checkBox_plot1_bband:
+
+                    bc_plot1_bollinger_upper_curve.setData(df_dow_graph['BBAND_Upper'].tolist())
+                    bc_plot1_bollinger_middle_curve.setData(df_dow_graph['BBAND_Middle'].tolist())
+                    bc_plot1_bollinger_lower_curve.setData(df_dow_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot1_bollinger_upper_curve.clear()
+                    bc_plot1_bollinger_middle_curve.clear()
+                    bc_plot1_bollinger_lower_curve.clear()
 
             elif bc_comboindex1 == 8:                
 
@@ -30049,6 +30123,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot1_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
 
+                if flag_checkBox_plot1_bband:
+
+                    bc_plot1_bollinger_upper_curve.setData(df_nasdaq_graph['BBAND_Upper'].tolist())
+                    bc_plot1_bollinger_middle_curve.setData(df_nasdaq_graph['BBAND_Middle'].tolist())
+                    bc_plot1_bollinger_lower_curve.setData(df_nasdaq_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot1_bollinger_upper_curve.clear()
+                    bc_plot1_bollinger_middle_curve.clear()
+                    bc_plot1_bollinger_lower_curve.clear()
+
             elif bc_comboindex1 == 9:                
 
                 if not math.isnan(df_wti_graph.at[ovc_x_idx, 'PSAR']):
@@ -30146,6 +30230,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_18.setText(str) 
 
                 bc_plot1_wti_curve.setData(df_wti_graph['price'].tolist())
+
+                if flag_checkBox_plot1_bband:
+
+                    bc_plot1_bollinger_upper_curve.setData(df_wti_graph['BBAND_Upper'].tolist())
+                    bc_plot1_bollinger_middle_curve.setData(df_wti_graph['BBAND_Middle'].tolist())
+                    bc_plot1_bollinger_lower_curve.setData(df_wti_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot1_bollinger_upper_curve.clear()
+                    bc_plot1_bollinger_middle_curve.clear()
+                    bc_plot1_bollinger_lower_curve.clear()
             else:
                 pass   
 
@@ -30347,7 +30441,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_16.setText(str) 
 
-                bc_plot2_sp500_curve.setData(df_sp500_graph['price'].tolist()) 
+                bc_plot2_sp500_curve.setData(df_sp500_graph['price'].tolist())
+
+                if flag_checkBox_plot2_bband:
+
+                    bc_plot2_bollinger_upper_curve.setData(df_sp500_graph['BBAND_Upper'].tolist())
+                    bc_plot2_bollinger_middle_curve.setData(df_sp500_graph['BBAND_Middle'].tolist())
+                    bc_plot2_bollinger_lower_curve.setData(df_sp500_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot2_bollinger_upper_curve.clear()
+                    bc_plot2_bollinger_middle_curve.clear()
+                    bc_plot2_bollinger_lower_curve.clear() 
 
             elif bc_comboindex2 == 7:                
 
@@ -30451,7 +30555,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_16.setText(str)                  
 
-                bc_plot2_dow_curve.setData(df_dow_graph['price'].tolist()) 
+                bc_plot2_dow_curve.setData(df_dow_graph['price'].tolist())
+
+                if flag_checkBox_plot2_bband:
+
+                    bc_plot2_bollinger_upper_curve.setData(df_dow_graph['BBAND_Upper'].tolist())
+                    bc_plot2_bollinger_middle_curve.setData(df_dow_graph['BBAND_Middle'].tolist())
+                    bc_plot2_bollinger_lower_curve.setData(df_dow_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot2_bollinger_upper_curve.clear()
+                    bc_plot2_bollinger_middle_curve.clear()
+                    bc_plot2_bollinger_lower_curve.clear()  
 
             elif bc_comboindex2 == 8:                
 
@@ -30557,6 +30671,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot2_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
 
+                if flag_checkBox_plot2_bband:
+
+                    bc_plot2_bollinger_upper_curve.setData(df_nasdaq_graph['BBAND_Upper'].tolist())
+                    bc_plot2_bollinger_middle_curve.setData(df_nasdaq_graph['BBAND_Middle'].tolist())
+                    bc_plot2_bollinger_lower_curve.setData(df_nasdaq_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot2_bollinger_upper_curve.clear()
+                    bc_plot2_bollinger_middle_curve.clear()
+                    bc_plot2_bollinger_lower_curve.clear() 
+
             elif bc_comboindex2 == 9:                
 
                 if not math.isnan(df_wti_graph.at[ovc_x_idx, 'PSAR']):
@@ -30659,6 +30783,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_28.setText(str)    
 
                 bc_plot2_wti_curve.setData(df_wti_graph['price'].tolist())
+
+                if flag_checkBox_plot2_bband:
+
+                    bc_plot2_bollinger_upper_curve.setData(df_wti_graph['BBAND_Upper'].tolist())
+                    bc_plot2_bollinger_middle_curve.setData(df_wti_graph['BBAND_Middle'].tolist())
+                    bc_plot2_bollinger_lower_curve.setData(df_wti_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot2_bollinger_upper_curve.clear()
+                    bc_plot2_bollinger_middle_curve.clear()
+                    bc_plot2_bollinger_lower_curve.clear() 
             else:
                 pass        
             
@@ -30860,7 +30994,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_38.setText(str) 
 
-                bc_plot3_sp500_curve.setData(df_sp500_graph['price'].tolist()) 
+                bc_plot3_sp500_curve.setData(df_sp500_graph['price'].tolist())
+
+                if flag_checkBox_plot3_bband:
+
+                    bc_plot3_bollinger_upper_curve.setData(df_sp500_graph['BBAND_Upper'].tolist())
+                    bc_plot3_bollinger_middle_curve.setData(df_sp500_graph['BBAND_Middle'].tolist())
+                    bc_plot3_bollinger_lower_curve.setData(df_sp500_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot3_bollinger_upper_curve.clear()
+                    bc_plot3_bollinger_middle_curve.clear()
+                    bc_plot3_bollinger_lower_curve.clear()  
 
             elif bc_comboindex3 == 7:
 
@@ -30964,7 +31108,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_38.setText(str)                  
 
-                bc_plot3_dow_curve.setData(df_dow_graph['price'].tolist()) 
+                bc_plot3_dow_curve.setData(df_dow_graph['price'].tolist())
+
+                if flag_checkBox_plot3_bband:
+
+                    bc_plot3_bollinger_upper_curve.setData(df_dow_graph['BBAND_Upper'].tolist())
+                    bc_plot3_bollinger_middle_curve.setData(df_dow_graph['BBAND_Middle'].tolist())
+                    bc_plot3_bollinger_lower_curve.setData(df_dow_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot3_bollinger_upper_curve.clear()
+                    bc_plot3_bollinger_middle_curve.clear()
+                    bc_plot3_bollinger_lower_curve.clear()   
 
             elif bc_comboindex3 == 8:
 
@@ -31070,6 +31224,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 bc_plot3_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
 
+                if flag_checkBox_plot3_bband:
+
+                    bc_plot3_bollinger_upper_curve.setData(df_nasdaq_graph['BBAND_Upper'].tolist())
+                    bc_plot3_bollinger_middle_curve.setData(df_nasdaq_graph['BBAND_Middle'].tolist())
+                    bc_plot3_bollinger_lower_curve.setData(df_nasdaq_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot3_bollinger_upper_curve.clear()
+                    bc_plot3_bollinger_middle_curve.clear()
+                    bc_plot3_bollinger_lower_curve.clear()  
+
             elif bc_comboindex3 == 9:
 
                 if not math.isnan(df_wti_graph.at[ovc_x_idx, 'PSAR']):
@@ -31172,6 +31336,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_38.setText(str)    
 
                 bc_plot3_wti_curve.setData(df_wti_graph['price'].tolist())
+
+                if flag_checkBox_plot3_bband:
+
+                    bc_plot3_bollinger_upper_curve.setData(df_wti_graph['BBAND_Upper'].tolist())
+                    bc_plot3_bollinger_middle_curve.setData(df_wti_graph['BBAND_Middle'].tolist())
+                    bc_plot3_bollinger_lower_curve.setData(df_wti_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot3_bollinger_upper_curve.clear()
+                    bc_plot3_bollinger_middle_curve.clear()
+                    bc_plot3_bollinger_lower_curve.clear()  
             else:
                 pass
         else:
