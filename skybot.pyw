@@ -23544,27 +23544,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if result['단축코드'] == gmshcode:
 
                     global 선물_시가, 선물_피봇
-                    '''
-                    if result['예상체결시간'] != '':
-                        x_yfc_idx = int(result['예상체결시간'][2:4]) + 1
-                        x_idx = x_yfc_idx
-                    else:
-                        pass
-                    '''
+
+                    market_service = True
+                    
                     if result['예상체결가격'] != float(self.tableWidget_fut.item(1, Futures_column.시가.value).text()):
 
                         선물_시가 = result['예상체결가격']
                         fut_realdata['시가'] = result['예상체결가격']
 
                         df_futures_graph.at[ovc_x_idx, 'price'] = 선물_시가
-
-                        '''
-                        if x_yfc_idx > 0:
-                            #df_plotdata_fut.iat[0, x_yfc_idx] = 선물_시가
-                            df_futures_graph.at[x_yfc_idx, 'price'] = 선물_시가
-                        else:
-                            pass
-                        '''
 
                         item = QTableWidgetItem("{0:0.2f}".format(선물_시가))
                         item.setTextAlignment(Qt.AlignCenter)
