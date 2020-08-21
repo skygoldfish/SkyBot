@@ -4839,13 +4839,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.comboBox1.setStyleSheet("background-color: white")
         self.comboBox2.setStyleSheet("background-color: white")
 
-        self.comboBox1.addItems(['선물체결', '옵션체결', '옵션 잔량비', '등락율비', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+        self.comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'SP500 순매수', 'DOW 순매수', 'NASDAQ 순매수', 'WTI 순매수', 'EUROFX 순매수', '항셍 순매수', 'GOLD 순매수'])
         self.comboBox1.insertSeparator(5)
         self.comboBox1.insertSeparator(13)
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)        
 
-        self.comboBox2.addItems(['옵션체결', '옵션 잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+        self.comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'SP500 순매수', 'DOW 순매수', 'NASDAQ 순매수', 'WTI 순매수', 'EUROFX 순매수', '항셍 순매수', 'GOLD 순매수'])
         self.comboBox2.insertSeparator(5)
         self.comboBox2.insertSeparator(13)
@@ -26953,19 +26953,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_38.setStyleSheet('background-color: pink ; color: black')
         self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.bc_comboBox1.addItems(['선물체결', '옵션체결', '옵션 잔량비', '등락율비', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+        self.bc_comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'SP500 순매수', 'DOW 순매수', 'NASDAQ 순매수', 'WTI 순매수', 'EUROFX 순매수', '항셍 순매수', 'GOLD 순매수'])
         self.bc_comboBox1.insertSeparator(5)
         self.bc_comboBox1.insertSeparator(13)
         self.bc_comboBox1.currentIndexChanged.connect(self.bc_cb1_selectionChanged)
 
-        self.bc_comboBox2.addItems(['옵션체결', '옵션 잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+        self.bc_comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'SP500 순매수', 'DOW 순매수', 'NASDAQ 순매수', 'WTI 순매수', 'EUROFX 순매수', '항셍 순매수', 'GOLD 순매수'])
         self.bc_comboBox2.insertSeparator(5)
         self.bc_comboBox2.insertSeparator(13)
         self.bc_comboBox2.currentIndexChanged.connect(self.bc_cb2_selectionChanged)
 
-        self.bc_comboBox3.addItems(['옵션체결', '옵션 잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+        self.bc_comboBox3.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'SP500 순매수', 'DOW 순매수', 'NASDAQ 순매수', 'WTI 순매수', 'EUROFX 순매수', '항셍 순매수', 'GOLD 순매수'])
         self.bc_comboBox3.insertSeparator(5)
         self.bc_comboBox3.insertSeparator(13)
@@ -29585,7 +29585,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MAMA: {0:0.2f}\n FAMA: {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MAMA'], df_futures_graph.at[ovc_x_idx, 'FAMA'])
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MAMA'], df_futures_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p1_3.setText(str)
                 else:
                     pass
@@ -29599,7 +29599,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MACD'], df_futures_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MACD'], df_futures_graph.at[ovc_x_idx, 'MACD_Sig'])
                     self.label_p1_4.setText(str)
                 else:
                     pass
