@@ -29180,6 +29180,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot3 x축 타임라인 그리기
             bc_plot3_time_line.setValue(ovc_x_idx)
 
+            # Plot4 x축 타임라인 그리기
+            bc_plot4_time_line.setValue(ovc_x_idx)
+
+            # Plot5 x축 타임라인 그리기
+            bc_plot5_time_line.setValue(ovc_x_idx)
+
+            # Plot6 x축 타임라인 그리기
+            bc_plot6_time_line.setValue(ovc_x_idx)
+
             # Plot1 그래프 그리기
             if bc_comboindex1 == 0 and market_service:
 
@@ -29299,7 +29308,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if 선물_현재가 > float(value):
 
-                    str = " {0} ▲ ({1:0.2f}, {2:0.2f}%, {3:0.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    str = " {0} ▲ ({1:0.2f}, {2:0.1f}%, {3:0.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
 
                     if 선물_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: pink ; color: red')
@@ -29313,7 +29322,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif 선물_현재가 < float(value):
 
-                    str = " {0} ▼ ({1:0.2f}, {2:0.2f}%, {3:0.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+                    str = " {0} ▼ ({1:0.2f}, {2:0.1f}%, {3:0.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
 
                     if 선물_전일대비 > 0:
                         self.label_17.setStyleSheet('background-color: skyblue ; color: red')
@@ -29420,7 +29429,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if SP500_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
@@ -29435,7 +29444,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif SP500_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
@@ -29538,7 +29547,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if DOW_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
@@ -29553,7 +29562,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif DOW_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
@@ -29656,7 +29665,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if NASDAQ_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
@@ -29671,7 +29680,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif NASDAQ_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
@@ -29773,7 +29782,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if WTI_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -29788,7 +29797,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif WTI_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -29994,7 +30003,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if SP500_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
@@ -30009,7 +30018,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif SP500_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
@@ -30025,9 +30034,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
                 str = ' {0} '.format(format(SP500_고가, ','))
-                self.label_16.setStyleSheet('background-color: pink ; color: red')
-                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_16.setText(str) 
+                self.label_28.setStyleSheet('background-color: pink ; color: red')
+                self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_28.setText(str) 
 
                 bc_plot2_sp500_curve.setData(df_sp500_graph['price'].tolist())
 
@@ -30117,7 +30126,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if DOW_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
@@ -30132,7 +30141,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif DOW_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
@@ -30148,9 +30157,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     pass
 
                 str = ' {0} '.format(format(DOW_고가, ','))
-                self.label_16.setStyleSheet('background-color: pink ; color: red')
-                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_16.setText(str)                  
+                self.label_28.setStyleSheet('background-color: pink ; color: red')
+                self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_28.setText(str)                  
 
                 bc_plot2_dow_curve.setData(df_dow_graph['price'].tolist())
 
@@ -30240,7 +30249,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if NASDAQ_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
@@ -30255,7 +30264,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif NASDAQ_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
@@ -30362,7 +30371,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if WTI_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -30377,7 +30386,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif WTI_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -30583,7 +30592,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if SP500_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
@@ -30598,7 +30607,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif SP500_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
 
                     if SP500_전일대비 > 0:
@@ -30706,7 +30715,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if DOW_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
@@ -30721,7 +30730,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif DOW_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                     if DOW_전일대비 > 0:
@@ -30829,7 +30838,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if NASDAQ_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
@@ -30844,7 +30853,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif NASDAQ_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
 
                     if NASDAQ_전일대비 > 0:
@@ -30951,7 +30960,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if WTI_현재가 > float(value):
 
-                    str = " {0} ▲ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -30966,7 +30975,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 elif WTI_현재가 < float(value):
 
-                    str = " {0} ▼ ({1}, {2:0.2f}%, {3}) ". \
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
 
                     if WTI_전일대비 > 0:
@@ -31001,10 +31010,1824 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
 
             # Plot4 그래프 그리기
+            if bc_comboindex4 == 0 and market_service:
+
+                if fut_volume_power > 0:
+                    bc_plot4_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                else:
+                    bc_plot4_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
+
+            elif bc_comboindex4 == 1 and market_service:                      
+
+                bc_plot4_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
+                bc_plot4_put_volume_curve.setData(df_put_info_graph['volume'].tolist())
+
+            elif bc_comboindex4 == 2 and market_service:
+
+                bc_plot4_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
+                bc_plot4_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())
+
+            elif bc_comboindex4 == 3 and market_service:
+
+                bc_plot4_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
+                bc_plot4_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
+                bc_plot4_call_drate_curve.setData(df_call_info_graph['drate'].tolist())
+                bc_plot4_put_drate_curve.setData(df_put_info_graph['drate'].tolist())
+
+            elif bc_comboindex4 == 4 and market_service:
+
+                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_futures_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                        self.label_p4_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass               
+
+                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'PSAR']):
+
+                    if df_futures_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                        self.label_p4_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_2.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'BBAND_Middle'], df_futures_graph.at[ovc_x_idx, 'PSAR'])
+                    self.label_p4_2.setText(str)
+                else:
+                    pass
+                
+                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACD_Sig']):
+
+                    if df_futures_graph.at[ovc_x_idx, 'MACD'] < df_futures_graph.at[ovc_x_idx, 'MACD_Sig']:
+                        self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_3.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MACD'], df_futures_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    self.label_p4_3.setText(str)
+                else:
+                    pass
+
+                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'FAMA']):
+
+                    if df_futures_graph.at[ovc_x_idx, 'MAMA'] < df_futures_graph.at[ovc_x_idx, 'FAMA']:
+                        self.label_p4_4.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_4.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MAMA'], df_futures_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p4_4.setText(str)
+                else:
+                    pass
+                
+                bc_plot4_kp200_line[3].setValue(KP200_COREVAL[3])
+                bc_plot4_kp200_line[4].setValue(KP200_COREVAL[4])
+                bc_plot4_kp200_line[5].setValue(KP200_COREVAL[5])
+                bc_plot4_kp200_line[6].setValue(KP200_COREVAL[6])
+                
+                if kp200_저가 < KP200_COREVAL[3]:
+                    bc_plot4_kp200_line[2].setValue(KP200_COREVAL[2])
+                else:
+                    pass
+                
+                if kp200_고가 > KP200_COREVAL[6]:
+                    bc_plot4_kp200_line[7].setValue(KP200_COREVAL[7])
+                else:
+                    pass
+                
+                bc_plot4_fut_jl_line.setValue(선물_전저)
+                bc_plot4_fut_jh_line.setValue(선물_전고)
+                bc_plot4_fut_close_line.setValue(선물_종가)
+                bc_plot4_fut_pivot_line.setValue(선물_피봇)
+                bc_plot4_fut_open_line.setValue(선물_시가)
+                bc_plot4_fut_low_line.setValue(선물_저가)
+
+                # 종가선 컬러를 살리기위한 임시방편
+                bc_plot4_ovc_open_line.setValue(선물_고가)
+                bc_plot4_ovc_jl_line.setValue(선물_고가)
+                bc_plot4_ovc_jh_line.setValue(선물_고가)
+                bc_plot4_ovc_pivot_line.setValue(선물_고가)
+                bc_plot4_ovc_low_line.setValue(선물_고가)
+                bc_plot4_ovc_high_line.setValue(선물_고가)
+                bc_plot4_ovc_close_line.setValue(선물_고가)
+                bc_plot4_fut_high_line.setValue(선물_고가)
+
+                str = ' {0} '.format(선물_저가)
+                self.label_46.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_46.setText(str)       
+
+                value = self.label_47.text().split()[0]
+
+                if 선물_현재가 > float(value):
+
+                    str = " {0} ▲ ({1:0.2f}, {2:0.1f}%, {3:0.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+
+                    if 선물_전일대비 > 0:
+                        self.label_47.setStyleSheet('background-color: pink ; color: red')
+                    elif 선물_전일대비 < 0:
+                        self.label_47.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_47.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_47.setText(str)
+
+                elif 선물_현재가 < float(value):
+
+                    str = " {0} ▼ ({1:0.2f}, {2:0.1f}%, {3:0.2f}) ".format(선물_현재가, 선물_전일대비, 선물_등락율, 선물_진폭)
+
+                    if 선물_전일대비 > 0:
+                        self.label_47.setStyleSheet('background-color: skyblue ; color: red')
+                    if 선물_전일대비 < 0:
+                        self.label_47.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_47.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_47.setText(str)
+                else:
+                    pass
+
+                str = ' {0} '.format(선물_고가)
+                self.label_48.setStyleSheet('background-color: pink ; color: red')
+                self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_48.setText(str)   
+
+                bc_plot4_kp200_curve.setData(df_futures_graph['kp200'].tolist())
+                bc_plot4_fut_price_curve.setData(df_futures_graph['price'].tolist())
+
+                if flag_checkBox_plot4_bband:
+
+                    bc_plot4_bollinger_upper_curve.setData(df_futures_graph['BBAND_Upper'].tolist())
+                    bc_plot4_bollinger_middle_curve.setData(df_futures_graph['BBAND_Middle'].tolist())
+                    bc_plot4_bollinger_lower_curve.setData(df_futures_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot4_bollinger_upper_curve.clear()
+                    bc_plot4_bollinger_middle_curve.clear()
+                    bc_plot4_bollinger_lower_curve.clear()
+
+            elif bc_comboindex4 == 5:
+
+                pass
+
+            elif bc_comboindex4 == 6:
+
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                        self.label_p4_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass                 
+
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'PSAR']):
+
+                    if df_sp500_graph.at[ovc_x_idx, 'PSAR'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                        self.label_p4_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_2.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
+                    self.label_p4_2.setText(str)
+                else:
+                    pass
+                
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
+
+                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']:
+                        self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_3.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    self.label_p4_3.setText(str)
+                else:
+                    pass
+
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']):
+
+                    if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                        self.label_p4_4.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_4.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p4_4.setText(str)
+                else:
+                    pass
+
+                bc_plot4_ovc_jl_line.setValue(SP500_전저)
+                bc_plot4_ovc_jh_line.setValue(SP500_전고)
+                bc_plot4_ovc_close_line.setValue(SP500_종가)
+                bc_plot4_ovc_open_line.setValue(SP500_시가)
+                bc_plot4_ovc_pivot_line.setValue(SP500_피봇)
+                bc_plot4_ovc_low_line.setValue(SP500_저가)
+                bc_plot4_ovc_high_line.setValue(SP500_고가)
+
+                str = ' {0} '.format(format(SP500_저가, ','))
+                self.label_46.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_46.setText(str) 
+
+                tmp = self.label_47.text().split()[0]
+                value = tmp.replace(',', '')               
+
+                if SP500_현재가 > float(value):
+
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                    if SP500_전일대비 > 0:
+                        self.label_47.setStyleSheet('background-color: pink ; color: red')
+                    elif SP500_전일대비 < 0:
+                        self.label_47.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_47.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_47.setText(str)
+
+                elif SP500_현재가 < float(value):
+
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                    if SP500_전일대비 > 0:
+                        self.label_47.setStyleSheet('background-color: skyblue ; color: red')
+                    elif SP500_전일대비 < 0:
+                        self.label_47.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_47.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_47.setText(str)
+                else:
+                    pass
+
+                str = ' {0} '.format(format(SP500_고가, ','))
+                self.label_48.setStyleSheet('background-color: pink ; color: red')
+                self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_48.setText(str)   
+
+                bc_plot4_sp500_curve.setData(df_sp500_graph['price'].tolist())
+
+                if flag_checkBox_plot4_bband:
+
+                    bc_plot4_bollinger_upper_curve.setData(df_sp500_graph['BBAND_Upper'].tolist())
+                    bc_plot4_bollinger_middle_curve.setData(df_sp500_graph['BBAND_Middle'].tolist())
+                    bc_plot4_bollinger_lower_curve.setData(df_sp500_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot4_bollinger_upper_curve.clear()
+                    bc_plot4_bollinger_middle_curve.clear()
+                    bc_plot4_bollinger_lower_curve.clear()
+
+            elif bc_comboindex4 == 7:
+
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                        self.label_p4_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass                 
+
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'PSAR']):
+
+                    if df_dow_graph.at[ovc_x_idx, 'PSAR'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                        self.label_p4_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_2.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
+                    self.label_p4_2.setText(str)
+                else:
+                    pass
+                
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
+
+                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACD_Sig']:
+                        self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_3.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    self.label_p4_3.setText(str)
+                else:
+                    pass
+
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']):
+
+                    if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                        self.label_p4_4.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_4.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p4_4.setText(str)
+                else:
+                    pass
+
+                bc_plot4_ovc_jl_line.setValue(DOW_전저)
+                bc_plot4_ovc_jh_line.setValue(DOW_전고)
+                bc_plot4_ovc_close_line.setValue(DOW_종가)
+                bc_plot4_ovc_open_line.setValue(DOW_시가)
+                bc_plot4_ovc_pivot_line.setValue(DOW_피봇)
+                bc_plot4_ovc_low_line.setValue(DOW_저가)
+                bc_plot4_ovc_high_line.setValue(DOW_고가)
+
+                str = ' {0} '.format(format(DOW_저가, ','))
+                self.label_46.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_46.setText(str)
+
+                tmp = self.label_47.text().split()[0]
+                value = tmp.replace(',', '')
+
+                if DOW_현재가 > float(value):
+
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                    if DOW_전일대비 > 0:
+                        self.label_47.setStyleSheet('background-color: pink ; color: red')
+                    elif DOW_전일대비 < 0:
+                        self.label_47.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_47.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_47.setText(str)
+
+                elif DOW_현재가 < float(value):
+
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                    if DOW_전일대비 > 0:
+                        self.label_47.setStyleSheet('background-color: skyblue ; color: red')
+                    elif DOW_전일대비 < 0:
+                        self.label_47.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_47.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_47.setText(str)
+                else:
+                    pass
+                
+                str = ' {0} '.format(format(DOW_고가, ','))
+                self.label_48.setStyleSheet('background-color: pink ; color: red')
+                self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_48.setText(str)                      
+
+                bc_plot4_dow_curve.setData(df_dow_graph['price'].tolist())
+
+                if flag_checkBox_plot4_bband:
+
+                    bc_plot4_bollinger_upper_curve.setData(df_dow_graph['BBAND_Upper'].tolist())
+                    bc_plot4_bollinger_middle_curve.setData(df_dow_graph['BBAND_Middle'].tolist())
+                    bc_plot4_bollinger_lower_curve.setData(df_dow_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot4_bollinger_upper_curve.clear()
+                    bc_plot4_bollinger_middle_curve.clear()
+                    bc_plot4_bollinger_lower_curve.clear()
+
+            elif bc_comboindex4 == 8:
+
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                        self.label_p4_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass                
+
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'PSAR']):
+
+                    if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                        self.label_p4_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_2.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
+                    self.label_p4_2.setText(str)
+                else:
+                    pass
+                
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
+
+                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']:
+                        self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_3.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    self.label_p4_3.setText(str)
+                else:
+                    pass
+
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']):
+
+                    if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                        self.label_p4_4.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_4.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p4_4.setText(str)
+                else:
+                    pass
+
+                bc_plot4_ovc_jl_line.setValue(NASDAQ_전저)
+                bc_plot4_ovc_jh_line.setValue(NASDAQ_전고)
+                bc_plot4_ovc_close_line.setValue(NASDAQ_종가)
+                bc_plot4_ovc_open_line.setValue(NASDAQ_시가)
+                bc_plot4_ovc_pivot_line.setValue(NASDAQ_피봇)
+                bc_plot4_ovc_low_line.setValue(NASDAQ_저가)
+                bc_plot4_ovc_high_line.setValue(NASDAQ_고가)
+
+                str = ' {0} '.format(format(NASDAQ_저가, ','))
+                self.label_46.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_46.setText(str)
+
+                tmp = self.label_47.text().split()[0]
+                value = tmp.replace(',', '')                
+
+                if NASDAQ_현재가 > float(value):
+
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+
+                    if NASDAQ_전일대비 > 0:
+                        self.label_47.setStyleSheet('background-color: pink ; color: red')
+                    elif NASDAQ_전일대비 < 0:
+                        self.label_47.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_47.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_47.setText(str)
+
+                elif NASDAQ_현재가 < float(value):
+
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+
+                    if NASDAQ_전일대비 > 0:
+                        self.label_47.setStyleSheet('background-color: skyblue ; color: red')
+                    elif NASDAQ_전일대비 < 0:
+                        self.label_47.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_47.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_47.setText(str)
+                else:
+                    pass
+
+                str = ' {0} '.format(format(NASDAQ_고가, ','))
+                self.label_48.setStyleSheet('background-color: pink ; color: red')
+                self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_48.setText(str) 
+
+                bc_plot4_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
+
+                if flag_checkBox_plot4_bband:
+
+                    bc_plot4_bollinger_upper_curve.setData(df_nasdaq_graph['BBAND_Upper'].tolist())
+                    bc_plot4_bollinger_middle_curve.setData(df_nasdaq_graph['BBAND_Middle'].tolist())
+                    bc_plot4_bollinger_lower_curve.setData(df_nasdaq_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot4_bollinger_upper_curve.clear()
+                    bc_plot4_bollinger_middle_curve.clear()
+                    bc_plot4_bollinger_lower_curve.clear()
+
+            elif bc_comboindex4 == 9:
+
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                        self.label_p4_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass                 
+
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'PSAR']):
+
+                    if df_wti_graph.at[ovc_x_idx, 'PSAR'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                        self.label_p4_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_2.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
+                    self.label_p4_2.setText(str)
+                else:
+                    pass
+                
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
+
+                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACD_Sig']:
+                        self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_3.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    self.label_p4_3.setText(str)
+                else:
+                    pass
+
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']):
+
+                    if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                        self.label_p4_4.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p4_4.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p4_4.setText(str)
+                else:
+                    pass
+
+                bc_plot4_ovc_jl_line.setValue(WTI_전저)
+                bc_plot4_ovc_jh_line.setValue(WTI_전고)
+                bc_plot4_ovc_close_line.setValue(WTI_종가)
+                bc_plot4_ovc_open_line.setValue(WTI_시가)
+                bc_plot4_ovc_pivot_line.setValue(WTI_피봇)
+                bc_plot4_ovc_low_line.setValue(WTI_저가)
+                bc_plot4_ovc_high_line.setValue(WTI_고가)
+
+                str = ' {0} '.format(format(WTI_저가, ','))
+                self.label_46.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_46.setText(str)
+
+                value = self.label_47.text().split()[0]     
+
+                if WTI_현재가 > float(value):
+
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+
+                    if WTI_전일대비 > 0:
+                        self.label_47.setStyleSheet('background-color: pink ; color: red')
+                    elif WTI_전일대비 < 0:
+                        self.label_47.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_47.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_47.setText(str)
+
+                elif WTI_현재가 < float(value):
+
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+
+                    if WTI_전일대비 > 0:
+                        self.label_47.setStyleSheet('background-color: skyblue ; color: red')
+                    elif WTI_전일대비 < 0:
+                        self.label_47.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_47.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_47.setText(str)
+                else:
+                    pass
+
+                str = ' {0} '.format(format(WTI_고가, ','))
+                self.label_48.setStyleSheet('background-color: pink ; color: red')
+                self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_48.setText(str) 
+
+                bc_plot4_wti_curve.setData(df_wti_graph['price'].tolist())
+
+                if flag_checkBox_plot4_bband:
+
+                    bc_plot4_bollinger_upper_curve.setData(df_wti_graph['BBAND_Upper'].tolist())
+                    bc_plot4_bollinger_middle_curve.setData(df_wti_graph['BBAND_Middle'].tolist())
+                    bc_plot4_bollinger_lower_curve.setData(df_wti_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot4_bollinger_upper_curve.clear()
+                    bc_plot4_bollinger_middle_curve.clear()
+                    bc_plot4_bollinger_lower_curve.clear()
+            else:
+                pass   
 
             # Plot5 그래프 그리기
+            if bc_comboindex5 == 0 and market_service:
+
+                bc_plot5_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
+                bc_plot5_put_volume_curve.setData(df_put_info_graph['volume'].tolist())
+
+            elif bc_comboindex5 == 1 and market_service:
+
+                bc_plot5_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
+                bc_plot5_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
+
+            elif bc_comboindex5 == 2 and market_service:
+
+                if fut_volume_power > 0:
+                    bc_plot5_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                else:
+                    bc_plot5_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
+
+            elif bc_comboindex5 == 3 and market_service:
+
+                bc_plot5_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
+                bc_plot5_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
+                bc_plot5_call_drate_curve.setData(df_call_info_graph['drate'].tolist())
+                bc_plot5_put_drate_curve.setData(df_put_info_graph['drate'].tolist())
+
+            elif bc_comboindex5 == 4 and market_service:
+
+                if selected_opt_list != old_selected_opt_list:
+
+                    # 전체 행사가 그래프 클리어
+                    for index in range(option_pairs_count):
+                        bc_plot5_call_curve[index].clear()
+                        bc_plot5_put_curve[index].clear()                    
+                else:
+                    # 선택된 행사가 그래프 클리어
+                    for index in range(option_pairs_count):
+
+                        if index in selected_call:
+                            bc_plot5_call_curve[index].clear()
+                        else:
+                            pass
+
+                        if index in selected_put:
+                            bc_plot5_put_curve[index].clear()
+                        else:
+                            pass
+
+                bc_plot5_center_val_curve.clear()
+
+                bc_plot5_mv_line[1].setValue(2.5)
+                bc_plot5_mv_line[2].setValue(3.5)
+                bc_plot5_mv_line[3].setValue(4.85)
+
+                for index in range(option_pairs_count):
+
+                    # 선택된 콜그래프 그리기
+                    for i in range(len(selected_call)):
+
+                        if index == selected_call[i]:
+                            bc_plot5_call_curve[i].setData(call_plot_data[index])
+                        else:
+                            pass                    
+
+                    # 선택된 풋그래프 그리기
+                    for i in range(len(selected_put)):
+
+                        if index == selected_put[i]:
+                            bc_plot5_put_curve[i].setData(put_plot_data[index])
+                        else:
+                            pass
+                        
+                bc_plot5_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+                bc_plot5_center_val_line.setValue(CENTER_VAL)
+                bc_plot5_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
+
+                # 중심가 그리기
+                bc_plot5_center_val_curve.setData(df_call_info_graph['centerval'].tolist())
+
+                # 등가표시
+                str = ' 등가 : {0} '.format(atm_str)
+                self.label_51.setText(str)
+
+                str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_RANGE)
+                self.label_52.setText(str)
+
+                str = ' 중심가 : {0:0.2f} '.format(CENTER_VAL)
+                self.label_53.setText(str)
+
+                str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_RANGE)
+                self.label_54.setText(str)
+
+            elif bc_comboindex5 == 5:
+
+                pass
+
+            elif bc_comboindex5 == 6:
+
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                        self.label_p5_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p5_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass                 
+
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'PSAR']):
+
+                    if df_sp500_graph.at[ovc_x_idx, 'PSAR'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                        self.label_p5_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p5_2.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
+                    self.label_p5_2.setText(str)
+                else:
+                    pass
+                
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
+
+                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']:
+                        self.label_p5_3.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p5_3.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    self.label_p5_3.setText(str)
+                else:
+                    pass
+
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']):
+
+                    if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                        self.label_p5_4.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p5_4.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p5_4.setText(str)
+                else:
+                    pass
+
+                bc_plot5_ovc_jl_line.setValue(SP500_전저)
+                bc_plot5_ovc_jh_line.setValue(SP500_전고)
+                bc_plot5_ovc_close_line.setValue(SP500_종가)
+                bc_plot5_ovc_open_line.setValue(SP500_시가)
+                bc_plot5_ovc_pivot_line.setValue(SP500_피봇)
+                bc_plot5_ovc_low_line.setValue(SP500_저가)
+                bc_plot5_ovc_high_line.setValue(SP500_고가)
+
+                # 고가선 이동시 중심가 3개 선도 같이 이동해야됨(중요)
+                bc_plot5_center_val_lower_line.setValue(SP500_고가)
+                bc_plot5_center_val_line.setValue(SP500_고가)
+                bc_plot5_center_val_upper_line.setValue(SP500_고가)
+                bc_plot5_ovc_high_line.setValue(SP500_고가)
+
+                str = ' {0} '.format(format(SP500_저가, ','))
+                self.label_56.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_56.setText(str)
+
+                tmp = self.label_57.text().split()[0]
+                value = tmp.replace(',', '')                
+
+                if SP500_현재가 > float(value):
+
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                    if SP500_전일대비 > 0:
+                        self.label_57.setStyleSheet('background-color: pink ; color: red')
+                    elif SP500_전일대비 < 0:
+                        self.label_57.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_57.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_57.setText(str)
+
+                elif SP500_현재가 < float(value):
+
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                    if SP500_전일대비 > 0:
+                        self.label_57.setStyleSheet('background-color: skyblue ; color: red')
+                    elif SP500_전일대비 < 0:
+                        self.label_57.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_57.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_57.setText(str)
+                else:
+                    pass
+
+                str = ' {0} '.format(format(SP500_고가, ','))
+                self.label_58.setStyleSheet('background-color: pink ; color: red')
+                self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_58.setText(str) 
+
+                bc_plot5_sp500_curve.setData(df_sp500_graph['price'].tolist())
+
+                if flag_checkBox_plot5_bband:
+
+                    bc_plot5_bollinger_upper_curve.setData(df_sp500_graph['BBAND_Upper'].tolist())
+                    bc_plot5_bollinger_middle_curve.setData(df_sp500_graph['BBAND_Middle'].tolist())
+                    bc_plot5_bollinger_lower_curve.setData(df_sp500_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot5_bollinger_upper_curve.clear()
+                    bc_plot5_bollinger_middle_curve.clear()
+                    bc_plot5_bollinger_lower_curve.clear() 
+
+            elif bc_comboindex5 == 7:
+
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                        self.label_p5_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p5_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass                
+
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'PSAR']):
+
+                    if df_dow_graph.at[ovc_x_idx, 'PSAR'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                        self.label_p5_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p5_2.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
+                    self.label_p5_2.setText(str)
+                else:
+                    pass
+                
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
+
+                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACD_Sig']:
+                        self.label_p5_3.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p5_3.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    self.label_p5_3.setText(str)
+                else:
+                    pass
+
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']):
+
+                    if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                        self.label_p5_4.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p5_4.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p5_4.setText(str)
+                else:
+                    pass
+
+                bc_plot5_ovc_jl_line.setValue(DOW_전저)
+                bc_plot5_ovc_jh_line.setValue(DOW_전고)
+                bc_plot5_ovc_close_line.setValue(DOW_종가)
+                bc_plot5_ovc_open_line.setValue(DOW_시가)
+                bc_plot5_ovc_pivot_line.setValue(DOW_피봇)
+                bc_plot5_ovc_low_line.setValue(DOW_저가)
+                bc_plot5_ovc_high_line.setValue(DOW_고가)
+
+                bc_plot5_center_val_lower_line.setValue(DOW_고가)
+                bc_plot5_center_val_line.setValue(DOW_고가)
+                bc_plot5_center_val_upper_line.setValue(DOW_고가)
+                bc_plot5_ovc_high_line.setValue(DOW_고가)
+
+                str = ' {0} '.format(format(DOW_저가, ','))
+                self.label_56.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_56.setText(str)  
+
+                tmp = self.label_57.text().split()[0]
+                value = tmp.replace(',', '')               
+
+                if DOW_현재가 > float(value):
+
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                    if DOW_전일대비 > 0:
+                        self.label_57.setStyleSheet('background-color: pink ; color: red')
+                    elif DOW_전일대비 < 0:
+                        self.label_57.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_57.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_57.setText(str)
+
+                elif DOW_현재가 < float(value):
+
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                    if DOW_전일대비 > 0:
+                        self.label_57.setStyleSheet('background-color: skyblue ; color: red')
+                    elif DOW_전일대비 < 0:
+                        self.label_57.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_57.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_57.setText(str)
+                else:
+                    pass
+
+                str = ' {0} '.format(format(DOW_고가, ','))
+                self.label_58.setStyleSheet('background-color: pink ; color: red')
+                self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_58.setText(str)                  
+
+                bc_plot5_dow_curve.setData(df_dow_graph['price'].tolist())
+
+                if flag_checkBox_plot5_bband:
+
+                    bc_plot5_bollinger_upper_curve.setData(df_dow_graph['BBAND_Upper'].tolist())
+                    bc_plot5_bollinger_middle_curve.setData(df_dow_graph['BBAND_Middle'].tolist())
+                    bc_plot5_bollinger_lower_curve.setData(df_dow_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot5_bollinger_upper_curve.clear()
+                    bc_plot5_bollinger_middle_curve.clear()
+                    bc_plot5_bollinger_lower_curve.clear()  
+
+            elif bc_comboindex5 == 8:
+
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                        self.label_p5_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p5_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass                
+
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'PSAR']):
+
+                    if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                        self.label_p5_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p5_2.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
+                    self.label_p5_2.setText(str)
+                else:
+                    pass
+                
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
+
+                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']:
+                        self.label_p5_3.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p5_3.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    self.label_p5_3.setText(str)
+                else:
+                    pass
+
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']):
+
+                    if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                        self.label_p5_4.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p5_4.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p5_4.setText(str)
+                else:
+                    pass
+
+                bc_plot5_ovc_jl_line.setValue(NASDAQ_전저)
+                bc_plot5_ovc_jh_line.setValue(NASDAQ_전고)
+                bc_plot5_ovc_close_line.setValue(NASDAQ_종가)
+                bc_plot5_ovc_open_line.setValue(NASDAQ_시가)
+                bc_plot5_ovc_pivot_line.setValue(NASDAQ_피봇)
+                bc_plot5_ovc_low_line.setValue(NASDAQ_저가)
+                bc_plot5_ovc_high_line.setValue(NASDAQ_고가)
+
+                bc_plot5_center_val_lower_line.setValue(NASDAQ_고가)
+                bc_plot5_center_val_line.setValue(NASDAQ_고가)
+                bc_plot5_center_val_upper_line.setValue(NASDAQ_고가)
+                bc_plot5_ovc_high_line.setValue(NASDAQ_고가)
+
+                str = ' {0} '.format(format(NASDAQ_저가, ','))
+                self.label_56.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_56.setText(str)
+
+                tmp = self.label_57.text().split()[0]
+                value = tmp.replace(',', '')                
+
+                if NASDAQ_현재가 > float(value):
+
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+
+                    if NASDAQ_전일대비 > 0:
+                        self.label_57.setStyleSheet('background-color: pink ; color: red')
+                    elif NASDAQ_전일대비 < 0:
+                        self.label_57.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_57.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_57.setText(str)
+
+                elif NASDAQ_현재가 < float(value):
+
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+
+                    if NASDAQ_전일대비 > 0:
+                        self.label_57.setStyleSheet('background-color: skyblue ; color: red')
+                    elif NASDAQ_전일대비 < 0:
+                        self.label_57.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_57.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_57.setText(str)
+                else:
+                    pass
+
+                str = ' {0} '.format(format(NASDAQ_고가, ','))
+                self.label_58.setStyleSheet('background-color: pink ; color: red')
+                self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_58.setText(str)    
+
+                bc_plot5_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
+
+                if flag_checkBox_plot5_bband:
+
+                    bc_plot5_bollinger_upper_curve.setData(df_nasdaq_graph['BBAND_Upper'].tolist())
+                    bc_plot5_bollinger_middle_curve.setData(df_nasdaq_graph['BBAND_Middle'].tolist())
+                    bc_plot5_bollinger_lower_curve.setData(df_nasdaq_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot5_bollinger_upper_curve.clear()
+                    bc_plot5_bollinger_middle_curve.clear()
+                    bc_plot5_bollinger_lower_curve.clear() 
+
+            elif bc_comboindex5 == 9:
+
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                        self.label_p5_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p5_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass                
+
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'PSAR']):
+
+                    if df_wti_graph.at[ovc_x_idx, 'PSAR'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                        self.label_p5_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p5_2.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
+                    self.label_p5_2.setText(str)
+                else:
+                    pass
+                
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
+
+                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACD_Sig']:
+                        self.label_p5_3.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p5_3.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    self.label_p5_3.setText(str)
+                else:
+                    pass
+
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']):
+
+                    if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                        self.label_p5_4.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p5_4.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p5_4.setText(str)
+                else:
+                    pass
+
+                bc_plot5_ovc_jl_line.setValue(WTI_전저)
+                bc_plot5_ovc_jh_line.setValue(WTI_전고)
+                bc_plot5_ovc_close_line.setValue(WTI_종가)
+                bc_plot5_ovc_open_line.setValue(WTI_시가)
+                bc_plot5_ovc_pivot_line.setValue(WTI_피봇)
+                bc_plot5_ovc_low_line.setValue(WTI_저가)
+                bc_plot5_ovc_high_line.setValue(WTI_고가)
+
+                bc_plot5_center_val_lower_line.setValue(WTI_고가)
+                bc_plot5_center_val_line.setValue(WTI_고가)
+                bc_plot5_center_val_upper_line.setValue(WTI_고가)
+                bc_plot5_ovc_high_line.setValue(WTI_고가)
+
+                str = ' {0} '.format(format(WTI_저가, ','))
+                self.label_56.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_56.setText(str)
+
+                value = self.label_57.text().split()[0]             
+
+                if WTI_현재가 > float(value):
+
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+
+                    if WTI_전일대비 > 0:
+                        self.label_57.setStyleSheet('background-color: pink ; color: red')
+                    elif WTI_전일대비 < 0:
+                        self.label_57.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_57.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_57.setText(str)
+
+                elif WTI_현재가 < float(value):
+
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+
+                    if WTI_전일대비 > 0:
+                        self.label_57.setStyleSheet('background-color: skyblue ; color: red')
+                    elif WTI_전일대비 < 0:
+                        self.label_57.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_57.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_57.setText(str)
+                else:
+                    pass
+
+                str = ' {0} '.format(format(WTI_고가, ','))
+                self.label_58.setStyleSheet('background-color: pink ; color: red')
+                self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_58.setText(str)    
+
+                bc_plot5_wti_curve.setData(df_wti_graph['price'].tolist())
+
+                if flag_checkBox_plot5_bband:
+
+                    bc_plot5_bollinger_upper_curve.setData(df_wti_graph['BBAND_Upper'].tolist())
+                    bc_plot5_bollinger_middle_curve.setData(df_wti_graph['BBAND_Middle'].tolist())
+                    bc_plot5_bollinger_lower_curve.setData(df_wti_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot5_bollinger_upper_curve.clear()
+                    bc_plot5_bollinger_middle_curve.clear()
+                    bc_plot5_bollinger_lower_curve.clear() 
+            else:
+                pass
 
             # Plot6 그래프 그리기
+            if bc_comboindex6 == 0 and market_service:
+
+                bc_plot6_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
+                bc_plot6_put_volume_curve.setData(df_put_info_graph['volume'].tolist())
+
+            elif bc_comboindex6 == 1 and market_service:
+
+                bc_plot6_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
+                bc_plot6_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
+
+            elif bc_comboindex6 == 2 and market_service:
+
+                if fut_volume_power > 0:
+                    bc_plot6_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                else:
+                    bc_plot6_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
+
+            elif bc_comboindex6 == 3 and market_service:
+
+                bc_plot6_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
+                bc_plot6_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
+                bc_plot6_call_drate_curve.setData(df_call_info_graph['drate'].tolist())
+                bc_plot6_put_drate_curve.setData(df_put_info_graph['drate'].tolist())
+
+            elif bc_comboindex6 == 4 and market_service:
+
+                if selected_opt_list != old_selected_opt_list:
+
+                    # 전체 행사가 그래프 클리어
+                    for index in range(option_pairs_count):
+                        bc_plot6_call_curve[index].clear()
+                        bc_plot6_put_curve[index].clear()
+                else:
+                    # 선택된 행사가 그래프 클리어
+                    for index in range(option_pairs_count):
+
+                        if index in selected_call:
+                            bc_plot6_call_curve[index].clear()
+                        else:
+                            pass
+
+                        if index in selected_put:
+                            bc_plot6_put_curve[index].clear()
+                        else:
+                            pass
+
+                bc_plot6_center_val_curve.clear()
+
+                bc_plot6_mv_line[1].setValue(2.5)
+                bc_plot6_mv_line[2].setValue(3.5)
+                bc_plot6_mv_line[3].setValue(4.85)
+
+                for index in range(option_pairs_count):
+
+                    # 선택된 콜그래프 그리기
+                    for i in range(len(selected_call)):
+
+                        if index == selected_call[i]:
+                            bc_plot6_call_curve[i].setData(call_plot_data[index])
+                        else:
+                            pass                    
+
+                    # 선택된 풋그래프 그리기
+                    for i in range(len(selected_put)):
+
+                        if index == selected_put[i]:
+                            bc_plot6_put_curve[i].setData(put_plot_data[index])
+                        else:
+                            pass
+                        
+                bc_plot6_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+                bc_plot6_center_val_line.setValue(CENTER_VAL)
+                bc_plot6_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
+
+                # 중심가 그리기
+                bc_plot6_center_val_curve.setData(df_call_info_graph['centerval'].tolist())
+
+                # 등가표시
+                str = ' 등가 : {0} '.format(atm_str)
+                self.label_61.setText(str)
+
+                str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_RANGE)
+                self.label_62.setText(str)
+
+                str = ' 중심가 : {0:0.2f} '.format(CENTER_VAL)
+                self.label_63.setText(str)
+
+                str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_RANGE)
+                self.label_64.setText(str)
+
+            elif bc_comboindex6 == 5:
+
+                pass
+
+            elif bc_comboindex6 == 6:
+
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                        self.label_p6_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p6_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass                 
+
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'PSAR']):
+
+                    if df_sp500_graph.at[ovc_x_idx, 'PSAR'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                        self.label_p6_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p6_2.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
+                    self.label_p6_2.setText(str)
+                else:
+                    pass
+                
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
+
+                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']:
+                        self.label_p6_3.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p6_3.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    self.label_p6_3.setText(str)
+                else:
+                    pass
+
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']):
+
+                    if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                        self.label_p6_4.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p6_4.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p6_4.setText(str)
+                else:
+                    pass
+
+                bc_plot6_ovc_jl_line.setValue(SP500_전저)
+                bc_plot6_ovc_jh_line.setValue(SP500_전고)
+                bc_plot6_ovc_close_line.setValue(SP500_종가)
+                bc_plot6_ovc_open_line.setValue(SP500_시가)
+                bc_plot6_ovc_pivot_line.setValue(SP500_피봇)
+                bc_plot6_ovc_low_line.setValue(SP500_저가)
+                bc_plot6_ovc_high_line.setValue(SP500_고가)
+
+                # 고가선 이동시 중심가 3개 선도 같이 이동해야됨(중요)
+                bc_plot6_center_val_lower_line.setValue(SP500_고가)
+                bc_plot6_center_val_line.setValue(SP500_고가)
+                bc_plot6_center_val_upper_line.setValue(SP500_고가)
+                bc_plot6_ovc_high_line.setValue(SP500_고가)
+
+                str = ' {0} '.format(format(SP500_저가, ','))
+                self.label_66.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_66.setText(str)
+
+                tmp = self.label_67.text().split()[0]
+                value = tmp.replace(',', '')                
+
+                if SP500_현재가 > float(value):
+
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                    if SP500_전일대비 > 0:
+                        self.label_67.setStyleSheet('background-color: pink ; color: red')
+                    elif SP500_전일대비 < 0:
+                        self.label_67.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_67.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_67.setText(str)
+
+                elif SP500_현재가 < float(value):
+
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                    if SP500_전일대비 > 0:
+                        self.label_67.setStyleSheet('background-color: skyblue ; color: red')
+                    elif SP500_전일대비 < 0:
+                        self.label_67.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_67.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_67.setText(str)
+                else:
+                    pass
+
+                str = ' {0} '.format(format(SP500_고가, ','))
+                self.label_68.setStyleSheet('background-color: pink ; color: red')
+                self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_68.setText(str) 
+
+                bc_plot6_sp500_curve.setData(df_sp500_graph['price'].tolist())
+
+                if flag_checkBox_plot6_bband:
+
+                    bc_plot6_bollinger_upper_curve.setData(df_sp500_graph['BBAND_Upper'].tolist())
+                    bc_plot6_bollinger_middle_curve.setData(df_sp500_graph['BBAND_Middle'].tolist())
+                    bc_plot6_bollinger_lower_curve.setData(df_sp500_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot6_bollinger_upper_curve.clear()
+                    bc_plot6_bollinger_middle_curve.clear()
+                    bc_plot6_bollinger_lower_curve.clear()  
+
+            elif bc_comboindex6 == 7:
+
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                        self.label_p6_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p6_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass
+
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'PSAR']):
+
+                    if df_dow_graph.at[ovc_x_idx, 'PSAR'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                        self.label_p6_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p6_2.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
+                    self.label_p6_2.setText(str)
+                else:
+                    pass
+                
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
+
+                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACD_Sig']:
+                        self.label_p6_3.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p6_3.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    self.label_p6_3.setText(str)
+                else:
+                    pass
+
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']):
+
+                    if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                        self.label_p6_4.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p6_4.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p6_4.setText(str)
+                else:
+                    pass
+
+                bc_plot6_ovc_jl_line.setValue(DOW_전저)
+                bc_plot6_ovc_jh_line.setValue(DOW_전고)
+                bc_plot6_ovc_close_line.setValue(DOW_종가)
+                bc_plot6_ovc_open_line.setValue(DOW_시가)
+                bc_plot6_ovc_pivot_line.setValue(DOW_피봇)
+                bc_plot6_ovc_low_line.setValue(DOW_저가)
+                bc_plot6_ovc_high_line.setValue(DOW_고가) 
+
+                bc_plot6_center_val_lower_line.setValue(DOW_고가)
+                bc_plot6_center_val_line.setValue(DOW_고가)
+                bc_plot6_center_val_upper_line.setValue(DOW_고가)
+                bc_plot6_ovc_high_line.setValue(DOW_고가)
+
+                str = ' {0} '.format(format(DOW_저가, ','))
+                self.label_66.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_66.setText(str)  
+
+                tmp = self.label_67.text().split()[0]
+                value = tmp.replace(',', '')               
+
+                if DOW_현재가 > float(value):
+
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                    if DOW_전일대비 > 0:
+                        self.label_67.setStyleSheet('background-color: pink ; color: red')
+                    elif DOW_전일대비 < 0:
+                        self.label_67.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_67.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_67.setText(str)
+
+                elif DOW_현재가 < float(value):
+
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                    if DOW_전일대비 > 0:
+                        self.label_67.setStyleSheet('background-color: skyblue ; color: red')
+                    elif DOW_전일대비 < 0:
+                        self.label_67.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_67.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_67.setText(str)
+                else:
+                    pass
+
+                str = ' {0} '.format(format(DOW_고가, ','))
+                self.label_68.setStyleSheet('background-color: pink ; color: red')
+                self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_68.setText(str)                  
+
+                bc_plot6_dow_curve.setData(df_dow_graph['price'].tolist())
+
+                if flag_checkBox_plot6_bband:
+
+                    bc_plot6_bollinger_upper_curve.setData(df_dow_graph['BBAND_Upper'].tolist())
+                    bc_plot6_bollinger_middle_curve.setData(df_dow_graph['BBAND_Middle'].tolist())
+                    bc_plot6_bollinger_lower_curve.setData(df_dow_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot6_bollinger_upper_curve.clear()
+                    bc_plot6_bollinger_middle_curve.clear()
+                    bc_plot6_bollinger_lower_curve.clear()   
+
+            elif bc_comboindex6 == 8:
+
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                        self.label_p6_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p6_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass
+
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'PSAR']):
+
+                    if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                        self.label_p6_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p6_2.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
+                    self.label_p6_2.setText(str)
+                else:
+                    pass
+                
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
+
+                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']:
+                        self.label_p6_3.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p6_3.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    self.label_p6_3.setText(str)
+                else:
+                    pass
+
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']):
+
+                    if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                        self.label_p6_4.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p6_4.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p6_4.setText(str)
+                else:
+                    pass
+
+                bc_plot6_ovc_jl_line.setValue(NASDAQ_전저)
+                bc_plot6_ovc_jh_line.setValue(NASDAQ_전고)
+                bc_plot6_ovc_close_line.setValue(NASDAQ_종가)
+                bc_plot6_ovc_open_line.setValue(NASDAQ_시가)
+                bc_plot6_ovc_pivot_line.setValue(NASDAQ_피봇)
+                bc_plot6_ovc_low_line.setValue(NASDAQ_저가)
+                bc_plot6_ovc_high_line.setValue(NASDAQ_고가)
+
+                bc_plot6_center_val_lower_line.setValue(NASDAQ_고가)
+                bc_plot6_center_val_line.setValue(NASDAQ_고가)
+                bc_plot6_center_val_upper_line.setValue(NASDAQ_고가)
+                bc_plot6_ovc_high_line.setValue(NASDAQ_고가)
+
+                str = ' {0} '.format(format(NASDAQ_저가, ','))
+                self.label_66.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_66.setText(str)
+
+                tmp = self.label_67.text().split()[0]
+                value = tmp.replace(',', '')                
+
+                if NASDAQ_현재가 > float(value):
+
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+
+                    if NASDAQ_전일대비 > 0:
+                        self.label_67.setStyleSheet('background-color: pink ; color: red')
+                    elif NASDAQ_전일대비 < 0:
+                        self.label_67.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_67.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_67.setText(str)
+
+                elif NASDAQ_현재가 < float(value):
+
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+
+                    if NASDAQ_전일대비 > 0:
+                        self.label_67.setStyleSheet('background-color: skyblue ; color: red')
+                    elif NASDAQ_전일대비 < 0:
+                        self.label_67.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_67.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_67.setText(str)
+                else:
+                    pass
+
+                str = ' {0} '.format(format(NASDAQ_고가, ','))
+                self.label_68.setStyleSheet('background-color: pink ; color: red')
+                self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_68.setText(str)    
+
+                bc_plot6_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
+
+                if flag_checkBox_plot6_bband:
+
+                    bc_plot6_bollinger_upper_curve.setData(df_nasdaq_graph['BBAND_Upper'].tolist())
+                    bc_plot6_bollinger_middle_curve.setData(df_nasdaq_graph['BBAND_Middle'].tolist())
+                    bc_plot6_bollinger_lower_curve.setData(df_nasdaq_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot6_bollinger_upper_curve.clear()
+                    bc_plot6_bollinger_middle_curve.clear()
+                    bc_plot6_bollinger_lower_curve.clear()  
+
+            elif bc_comboindex6 == 9:
+
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                        self.label_p6_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p6_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass
+
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'PSAR']):
+
+                    if df_wti_graph.at[ovc_x_idx, 'PSAR'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                        self.label_p6_2.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p6_2.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
+                    self.label_p6_2.setText(str)
+                else:
+                    pass
+                
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
+
+                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACD_Sig']:
+                        self.label_p6_3.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p6_3.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    self.label_p6_3.setText(str)
+                else:
+                    pass
+
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']):
+
+                    if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                        self.label_p6_4.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p6_4.setStyleSheet('background-color: red ; color: white')
+
+                    self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
+
+                    str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
+                    self.label_p6_4.setText(str)
+                else:
+                    pass
+
+                bc_plot6_ovc_jl_line.setValue(WTI_전저)
+                bc_plot6_ovc_jh_line.setValue(WTI_전고)
+                bc_plot6_ovc_close_line.setValue(WTI_종가)
+                bc_plot6_ovc_open_line.setValue(WTI_시가)
+                bc_plot6_ovc_pivot_line.setValue(WTI_피봇)
+                bc_plot6_ovc_low_line.setValue(WTI_저가)
+                bc_plot6_ovc_high_line.setValue(WTI_고가)
+
+                bc_plot6_center_val_lower_line.setValue(WTI_고가)
+                bc_plot6_center_val_line.setValue(WTI_고가)
+                bc_plot6_center_val_upper_line.setValue(WTI_고가)
+                bc_plot6_ovc_high_line.setValue(WTI_고가)
+
+                str = ' {0} '.format(format(WTI_저가, ','))
+                self.label_66.setStyleSheet('background-color: skyblue ; color: blue')
+                self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_66.setText(str)
+
+                value = self.label_67.text().split()[0]             
+
+                if WTI_현재가 > float(value):
+
+                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+
+                    if WTI_전일대비 > 0:
+                        self.label_67.setStyleSheet('background-color: pink ; color: red')
+                    elif WTI_전일대비 < 0:
+                        self.label_67.setStyleSheet('background-color: pink ; color: blue')
+                    else:
+                        self.label_67.setStyleSheet('background-color: pink ; color: black')
+
+                    self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_67.setText(str)
+
+                elif WTI_현재가 < float(value):
+
+                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+
+                    if WTI_전일대비 > 0:
+                        self.label_67.setStyleSheet('background-color: skyblue ; color: red')
+                    elif WTI_전일대비 < 0:
+                        self.label_67.setStyleSheet('background-color: skyblue ; color: blue')
+                    else:
+                        self.label_67.setStyleSheet('background-color: skyblue ; color: black')
+
+                    self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_67.setText(str)
+                else:
+                    pass
+
+                str = ' {0} '.format(format(WTI_고가, ','))
+                self.label_68.setStyleSheet('background-color: pink ; color: red')
+                self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_68.setText(str)    
+
+                bc_plot6_wti_curve.setData(df_wti_graph['price'].tolist())
+
+                if flag_checkBox_plot6_bband:
+
+                    bc_plot6_bollinger_upper_curve.setData(df_wti_graph['BBAND_Upper'].tolist())
+                    bc_plot6_bollinger_middle_curve.setData(df_wti_graph['BBAND_Middle'].tolist())
+                    bc_plot6_bollinger_lower_curve.setData(df_wti_graph['BBAND_Lower'].tolist())
+                else:
+                    bc_plot6_bollinger_upper_curve.clear()
+                    bc_plot6_bollinger_middle_curve.clear()
+                    bc_plot6_bollinger_lower_curve.clear()  
+            else:
+                pass
 
         else:
             pass        
