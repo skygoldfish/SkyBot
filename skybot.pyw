@@ -23930,7 +23930,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p1_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p1_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p1_2.setText(" PSAR\n BB Middle ")
+        self.label_p1_2.setText(" BB Middle\n PSAR ")
         self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -23979,7 +23979,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p2_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p2_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p2_2.setText(" PSAR\n BB Middle ")
+        self.label_p2_2.setText(" BB Middle\n PSAR ")
         self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -24028,7 +24028,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p3_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p3_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p3_2.setText(" PSAR\n BB Middle ")
+        self.label_p3_2.setText(" BB Middle\n PSAR ")
         self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -24077,7 +24077,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p4_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p4_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p4_2.setText(" PSAR\n BB Middle ")
+        self.label_p4_2.setText(" BB Middle\n PSAR ")
         self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -24126,7 +24126,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p5_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p5_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p5_2.setText(" PSAR\n BB Middle ")
+        self.label_p5_2.setText(" BB Middle\n PSAR ")
         self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -24175,7 +24175,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p6_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p6_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p6_2.setText(" PSAR\n BB Middle ")
+        self.label_p6_2.setText(" BB Middle\n PSAR ")
         self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -27226,7 +27226,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot1_call_drate_curve.setData(df_call_info_graph['drate'].tolist())
                 bc_plot1_put_drate_curve.setData(df_put_info_graph['drate'].tolist())
 
-            elif bc_comboindex1 == 4 and market_service:                
+            elif bc_comboindex1 == 4 and market_service:
+
+                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_futures_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                        self.label_p1_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p1_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass               
 
                 if not math.isnan(df_futures_graph.at[ovc_x_idx, 'PSAR']):
 
@@ -27237,7 +27246,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'PSAR'], df_futures_graph.at[ovc_x_idx, 'BBAND_Middle'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'BBAND_Middle'], df_futures_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p1_2.setText(str)
                 else:
                     pass
@@ -27361,7 +27370,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 pass
 
-            elif bc_comboindex1 == 6:                
+            elif bc_comboindex1 == 6:
+
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                        self.label_p1_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p1_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass                 
 
                 if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'PSAR']):
 
@@ -27372,7 +27390,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'PSAR'], df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p1_2.setText(str)
                 else:
                     pass
@@ -27470,7 +27488,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot1_bollinger_middle_curve.clear()
                     bc_plot1_bollinger_lower_curve.clear()
 
-            elif bc_comboindex1 == 7:                
+            elif bc_comboindex1 == 7:
+
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                        self.label_p1_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p1_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass                 
 
                 if not math.isnan(df_dow_graph.at[ovc_x_idx, 'PSAR']):
 
@@ -27481,7 +27508,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'PSAR'], df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p1_2.setText(str)
                 else:
                     pass
@@ -27579,7 +27606,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot1_bollinger_middle_curve.clear()
                     bc_plot1_bollinger_lower_curve.clear()
 
-            elif bc_comboindex1 == 8:                
+            elif bc_comboindex1 == 8:
+
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                        self.label_p1_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p1_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass                
 
                 if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'PSAR']):
 
@@ -27590,7 +27626,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p1_2.setText(str)
                 else:
                     pass
@@ -27688,7 +27724,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot1_bollinger_middle_curve.clear()
                     bc_plot1_bollinger_lower_curve.clear()
 
-            elif bc_comboindex1 == 9:                
+            elif bc_comboindex1 == 9:
+
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                        self.label_p1_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p1_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass                 
 
                 if not math.isnan(df_wti_graph.at[ovc_x_idx, 'PSAR']):
 
@@ -27699,7 +27744,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'PSAR'], df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p1_2.setText(str)
                 else:
                     pass
@@ -27893,7 +27938,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 pass
 
-            elif bc_comboindex2 == 6:                
+            elif bc_comboindex2 == 6:
+
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                        self.label_p2_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p2_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass                 
 
                 if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'PSAR']):
 
@@ -27904,7 +27958,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'PSAR'], df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p2_2.setText(str)
                 else:
                     pass
@@ -28008,7 +28062,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot2_bollinger_middle_curve.clear()
                     bc_plot2_bollinger_lower_curve.clear() 
 
-            elif bc_comboindex2 == 7:                
+            elif bc_comboindex2 == 7:
+
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                        self.label_p2_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p2_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass                
 
                 if not math.isnan(df_dow_graph.at[ovc_x_idx, 'PSAR']):
 
@@ -28019,7 +28082,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'PSAR'], df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p2_2.setText(str)
                 else:
                     pass
@@ -28122,7 +28185,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot2_bollinger_middle_curve.clear()
                     bc_plot2_bollinger_lower_curve.clear()  
 
-            elif bc_comboindex2 == 8:                
+            elif bc_comboindex2 == 8:
+
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                        self.label_p2_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p2_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass                
 
                 if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'PSAR']):
 
@@ -28133,7 +28205,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p2_2.setText(str)
                 else:
                     pass
@@ -28236,7 +28308,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot2_bollinger_middle_curve.clear()
                     bc_plot2_bollinger_lower_curve.clear() 
 
-            elif bc_comboindex2 == 9:                
+            elif bc_comboindex2 == 9:
+
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                        self.label_p2_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p2_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass                
 
                 if not math.isnan(df_wti_graph.at[ovc_x_idx, 'PSAR']):
 
@@ -28247,7 +28328,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'PSAR'], df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p2_2.setText(str)
                 else:
                     pass
@@ -28446,7 +28527,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 pass
 
-            elif bc_comboindex3 == 6:                
+            elif bc_comboindex3 == 6:
+
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                        self.label_p3_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p3_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass                 
 
                 if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'PSAR']):
 
@@ -28457,7 +28547,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'PSAR'], df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p3_2.setText(str)
                 else:
                     pass
@@ -28563,6 +28653,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 7:
 
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                        self.label_p3_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p3_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass
+
                 if not math.isnan(df_dow_graph.at[ovc_x_idx, 'PSAR']):
 
                     if df_dow_graph.at[ovc_x_idx, 'PSAR'] >= df_dow_graph.at[ovc_x_idx, 'price']:
@@ -28572,7 +28671,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'PSAR'], df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p3_2.setText(str)
                 else:
                     pass
@@ -28677,6 +28776,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 8:
 
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                        self.label_p3_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p3_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass
+
                 if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'PSAR']):
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
@@ -28686,7 +28794,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p3_2.setText(str)
                 else:
                     pass
@@ -28791,6 +28899,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 9:
 
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+                    if df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                        self.label_p3_1.setStyleSheet('background-color: blue ; color: white')
+                    else:
+                        self.label_p3_1.setStyleSheet('background-color: red ; color: white')
+                else:
+                    pass
+
                 if not math.isnan(df_wti_graph.at[ovc_x_idx, 'PSAR']):
 
                     if df_wti_graph.at[ovc_x_idx, 'PSAR'] >= df_wti_graph.at[ovc_x_idx, 'price']:
@@ -28800,7 +28917,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'PSAR'], df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p3_2.setText(str)
                 else:
                     pass
@@ -28909,7 +29026,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot5 그래프 그리기
 
             # Plot6 그래프 그리기
-            
+
         else:
             pass        
         
