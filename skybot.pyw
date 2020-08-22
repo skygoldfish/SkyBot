@@ -1628,7 +1628,6 @@ macd_sig_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
 mama_pen = pg.mkPen(magenta, width=1, style=QtCore.Qt.SolidLine)
 fama_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
 
-
 # Big Chart Plot1
 bc_plot1_time_line = None
 bc_plot1_time_line_start = None
@@ -1649,7 +1648,7 @@ bc_plot1_kp200_5_line = None
 bc_plot1_kp200_6_line = None
 bc_plot1_kp200_7_line = None 
 
-bc_kp200_line = []
+bc_plot1_kp200_line = []
 
 bc_plot1_ovc_jl_line = None
 bc_plot1_ovc_jh_line = None
@@ -1668,8 +1667,8 @@ bc_plot1_kp200_curve = None
 bc_plot1_call_volume_curve = None
 bc_plot1_put_volume_curve = None
 
-bc_plot1_call_rr_curve = None
-bc_plot1_put_rr_curve = None
+bc_plot1_call_hoga_curve = None
+bc_plot1_put_hoga_curve = None
 
 bc_plot1_fut_drate_curve = None
 bc_plot1_dow_drate_curve = None
@@ -1728,8 +1727,8 @@ bc_plot2_fut_volume_minus_curve = None
 bc_plot2_call_volume_curve = None
 bc_plot2_put_volume_curve = None
 
-bc_plot2_call_rr_curve = None
-bc_plot2_put_rr_curve = None
+bc_plot2_call_hoga_curve = None
+bc_plot2_put_hoga_curve = None
 
 bc_plot2_sp500_curve = None
 bc_plot2_dow_curve = None
@@ -1791,8 +1790,8 @@ bc_plot3_fut_volume_minus_curve = None
 bc_plot3_call_volume_curve = None
 bc_plot3_put_volume_curve = None
 
-bc_plot3_call_rr_curve = None
-bc_plot3_put_rr_curve = None
+bc_plot3_call_hoga_curve = None
+bc_plot3_put_hoga_curve = None
 
 bc_plot3_sp500_curve = None
 bc_plot3_dow_curve = None
@@ -1827,6 +1826,203 @@ bc_plot3_macdhist_curve = None
 bc_plot3_mama_curve = None
 bc_plot3_fama_curve = None
 
+# Big Chart Plot4
+bc_plot4_time_line = None
+bc_plot4_time_line_start = None
+bc_plot4_time_line_yagan_start = None
+
+bc_plot4_fut_jl_line = None
+bc_plot4_fut_jh_line = None
+bc_plot4_fut_close_line = None
+bc_plot4_fut_open_line = None    
+bc_plot4_fut_pivot_line = None
+bc_plot4_fut_low_line = None
+bc_plot4_fut_high_line = None
+
+bc_plot4_kp200_2_line = None
+bc_plot4_kp200_3_line = None
+bc_plot4_kp200_4_line = None
+bc_plot4_kp200_5_line = None
+bc_plot4_kp200_6_line = None
+bc_plot4_kp200_7_line = None 
+
+bc_plot4_kp200_line = []
+
+bc_plot4_ovc_jl_line = None
+bc_plot4_ovc_jh_line = None
+bc_plot4_ovc_close_line = None
+bc_plot4_ovc_open_line = None
+bc_plot4_ovc_pivot_line = None
+bc_plot4_ovc_low_line = None
+bc_plot4_ovc_high_line = None
+
+bc_plot4_fut_price_curve = None
+bc_plot4_fut_volume_curve = None
+bc_plot4_fut_volume_plus_curve = None
+bc_plot4_fut_volume_minus_curve = None
+
+bc_plot4_kp200_curve = None
+bc_plot4_call_volume_curve = None
+bc_plot4_put_volume_curve = None
+
+bc_plot4_call_hoga_curve = None
+bc_plot4_put_hoga_curve = None
+
+bc_plot4_fut_drate_curve = None
+bc_plot4_dow_drate_curve = None
+
+bc_plot4_call_drate_curve = None
+bc_plot4_put_drate_curve = None
+
+bc_plot4_sp500_curve = None
+bc_plot4_dow_curve = None
+bc_plot4_nasdaq_curve = None
+bc_plot4_wti_curve = None
+
+bc_plot4_vLine = None
+bc_plot4_hLine = None
+
+bc_plot4_x = 0
+bc_plot4_y = 0
+
+bc_plot4_bollinger_upper_curve = None
+bc_plot4_bollinger_middle_curve = None
+bc_plot4_bollinger_lower_curve = None
+
+bc_plot4_sar_curve = None
+
+bc_plot4_macd_curve = None
+bc_plot4_macdsig_curve = None
+bc_plot4_macdhist_curve = None
+
+bc_plot4_mama_curve = None
+bc_plot4_fama_curve = None
+
+# Big Chart Plot5
+bc_plot5_time_line = None
+bc_plot5_time_line_start = None
+bc_plot5_time_line_yagan_start = None
+
+bc_plot5_fut_drate_curve = None
+bc_plot5_dow_drate_curve = None
+
+bc_plot5_call_drate_curve = None
+bc_plot5_put_drate_curve = None
+
+bc_plot5_ovc_jl_line = None
+bc_plot5_ovc_jh_line = None
+bc_plot5_ovc_close_line = None
+bc_plot5_ovc_pivot_line = None
+bc_plot5_ovc_open_line = None
+bc_plot5_ovc_low_line = None
+bc_plot5_ovc_high_line = None
+
+bc_plot5_mv_line = []
+
+bc_plot5_fut_volume_curve = None
+bc_plot5_fut_volume_plus_curve = None
+bc_plot5_fut_volume_minus_curve = None
+bc_plot5_call_volume_curve = None
+bc_plot5_put_volume_curve = None
+
+bc_plot5_call_hoga_curve = None
+bc_plot5_put_hoga_curve = None
+
+bc_plot5_sp500_curve = None
+bc_plot5_dow_curve = None
+bc_plot5_nasdaq_curve = None
+bc_plot5_wti_curve = None
+
+bc_plot5_call_curve = []
+bc_plot5_put_curve = []
+
+bc_plot5_center_val_curve = None
+
+bc_plot5_center_val_upper_line = None
+bc_plot5_center_val_line = None
+bc_plot5_center_val_lower_line = None
+
+bc_plot5_vLine = None
+bc_plot5_hLine = None
+
+bc_plot5_x = 0
+bc_plot5_y = 0
+
+bc_plot5_bollinger_upper_curve = None
+bc_plot5_bollinger_middle_curve = None
+bc_plot5_bollinger_lower_curve = None
+
+bc_plot5_sar_curve = None
+
+bc_plot5_macd_curve = None
+bc_plot5_macdsig_curve = None
+bc_plot5_macdhist_curve = None
+
+bc_plot5_mama_curve = None
+bc_plot5_fama_curve = None
+
+# Big Chart Plot6
+bc_plot6_time_line = None
+bc_plot6_time_line_start = None
+bc_plot6_time_line_yagan_start = None
+
+bc_plot6_fut_drate_curve = None
+bc_plot6_dow_drate_curve = None
+
+bc_plot6_call_drate_curve = None
+bc_plot6_put_drate_curve = None
+
+bc_plot6_ovc_jl_line = None
+bc_plot6_ovc_jh_line = None
+bc_plot6_ovc_close_line = None
+bc_plot6_ovc_pivot_line = None
+bc_plot6_ovc_open_line = None
+bc_plot6_ovc_low_line = None
+bc_plot6_ovc_high_line = None
+
+bc_plot6_mv_line = []
+
+bc_plot6_fut_volume_curve = None
+bc_plot6_fut_volume_plus_curve = None
+bc_plot6_fut_volume_minus_curve = None
+bc_plot6_call_volume_curve = None
+bc_plot6_put_volume_curve = None
+
+bc_plot6_call_hoga_curve = None
+bc_plot6_put_hoga_curve = None
+
+bc_plot6_sp500_curve = None
+bc_plot6_dow_curve = None
+bc_plot6_nasdaq_curve = None
+bc_plot6_wti_curve = None
+
+bc_plot6_call_curve = []
+bc_plot6_put_curve = []
+
+bc_plot6_center_val_curve = None
+
+bc_plot6_center_val_upper_line = None
+bc_plot6_center_val_line = None
+bc_plot6_center_val_lower_line = None
+
+bc_plot6_vLine = None
+bc_plot6_hLine = None
+
+bc_plot6_x = 0
+bc_plot6_y = 0
+
+bc_plot6_bollinger_upper_curve = None
+bc_plot6_bollinger_middle_curve = None
+bc_plot6_bollinger_lower_curve = None
+
+bc_plot6_sar_curve = None
+
+bc_plot6_macd_curve = None
+bc_plot6_macdsig_curve = None
+bc_plot6_macdhist_curve = None
+
+bc_plot6_mama_curve = None
+bc_plot6_fama_curve = None
 
 yoc_stop = False
 
@@ -23681,10 +23877,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.bc_comboBox1.setStyleSheet("background-color: white")
         self.bc_comboBox2.setStyleSheet("background-color: white")
         self.bc_comboBox3.setStyleSheet("background-color: white")
+        self.bc_comboBox4.setStyleSheet("background-color: white")
+        self.bc_comboBox5.setStyleSheet("background-color: white")
+        self.bc_comboBox6.setStyleSheet("background-color: white")
 
         self.checkBox_plot1_bband.stateChanged.connect(self.checkBox_plot1_bband_checkState)
         self.checkBox_plot2_bband.stateChanged.connect(self.checkBox_plot2_bband_checkState)
         self.checkBox_plot3_bband.stateChanged.connect(self.checkBox_plot3_bband_checkState)
+        self.checkBox_plot4_bband.stateChanged.connect(self.checkBox_plot4_bband_checkState)
+        self.checkBox_plot5_bband.stateChanged.connect(self.checkBox_plot5_bband_checkState)
+        self.checkBox_plot6_bband.stateChanged.connect(self.checkBox_plot6_bband_checkState)
         
         if not NightTime:
 
@@ -23870,6 +24072,153 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_38.setStyleSheet('background-color: pink ; color: black')
         self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
 
+        # Plot4 가격표시
+        self.label_p4_1.setText(" 좌표 ")
+        self.label_p4_1.setStyleSheet('background-color: lime ; color: black')
+        self.label_p4_1.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_p4_2.setText(" PSAR\n BB Middle ")
+        self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
+        self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_p4_3.setText(" MACD ")
+        self.label_p4_3.setStyleSheet('background-color: yellow ; color: black')
+        self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_p4_4.setText(" MAMA ")
+        self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
+        self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_41.setText(" 전저 ")
+        self.label_41.setStyleSheet('background-color: goldenrod ; color: black')
+        self.label_41.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_42.setText(" 전고 ")
+        self.label_42.setStyleSheet('background-color: gold ; color: black')
+        self.label_42.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_43.setText(" 종가 ")
+        self.label_43.setStyleSheet('background-color: lime ; color: black')
+        self.label_43.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_44.setText(" 피봇 ")
+        self.label_44.setStyleSheet('background-color: magenta ; color: black')
+        self.label_44.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_45.setText(" 시가 ")
+        self.label_45.setStyleSheet('background-color: red ; color: white')
+        self.label_45.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_46.setText(" 저가 ")
+        self.label_46.setStyleSheet('background-color: skyblue ; color: black')
+        self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_47.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+        self.label_47.setStyleSheet('background-color: black ; color: yellow')
+        self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_48.setText(" 고가 ")
+        self.label_48.setStyleSheet('background-color: pink ; color: black')
+        self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        # Plot5 가격표시
+        self.label_p5_1.setText(" 좌표 ")
+        self.label_p5_1.setStyleSheet('background-color: lime ; color: black')
+        self.label_p5_1.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_p5_2.setText(" PSAR\n BB Middle ")
+        self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
+        self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_p5_3.setText(" MACD ")
+        self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
+        self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_p5_4.setText(" MAMA ")
+        self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
+        self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_51.setText(" 전저 ")
+        self.label_51.setStyleSheet('background-color: goldenrod ; color: black')
+        self.label_51.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_52.setText(" 전고 ")
+        self.label_52.setStyleSheet('background-color: gold ; color: black')
+        self.label_52.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_53.setText(" 종가 ")
+        self.label_53.setStyleSheet('background-color: lime ; color: black')
+        self.label_53.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_54.setText(" 피봇 ")
+        self.label_54.setStyleSheet('background-color: magenta ; color: black')
+        self.label_54.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_55.setText(" 시가 ")
+        self.label_55.setStyleSheet('background-color: red ; color: white')
+        self.label_55.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_56.setText(" 저가 ")
+        self.label_56.setStyleSheet('background-color: skyblue ; color: black')
+        self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_57.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+        self.label_57.setStyleSheet('background-color: black ; color: yellow')
+        self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_58.setText(" 고가 ")
+        self.label_58.setStyleSheet('background-color: pink ; color: black')
+        self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        # Plot6 가격표시
+        self.label_p6_1.setText(" 좌표 ")
+        self.label_p6_1.setStyleSheet('background-color: lime ; color: black')
+        self.label_p6_1.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_p6_2.setText(" PSAR\n BB Middle ")
+        self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
+        self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_p6_3.setText(" MACD ")
+        self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
+        self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_p6_4.setText(" MAMA ")
+        self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
+        self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_61.setText(" 전저 ")
+        self.label_61.setStyleSheet('background-color: goldenrod ; color: black')
+        self.label_61.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_62.setText(" 전고 ")
+        self.label_62.setStyleSheet('background-color: gold ; color: black')
+        self.label_62.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_63.setText(" 종가 ")
+        self.label_63.setStyleSheet('background-color: lime ; color: black')
+        self.label_63.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_64.setText(" 피봇 ")
+        self.label_64.setStyleSheet('background-color: magenta ; color: black')
+        self.label_64.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_65.setText(" 시가 ")
+        self.label_65.setStyleSheet('background-color: red ; color: white')
+        self.label_65.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_66.setText(" 저가 ")
+        self.label_66.setStyleSheet('background-color: skyblue ; color: black')
+        self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_67.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+        self.label_67.setStyleSheet('background-color: black ; color: yellow')
+        self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+
+        self.label_68.setText(" 고가 ")
+        self.label_68.setStyleSheet('background-color: pink ; color: black')
+        self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
+
         self.bc_comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'SP500 순매수', 'DOW 순매수', 'NASDAQ 순매수', 'WTI 순매수', 'EUROFX 순매수', '항셍 순매수', 'GOLD 순매수'])
         self.bc_comboBox1.insertSeparator(5)
@@ -23886,24 +24235,44 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             'SP500 순매수', 'DOW 순매수', 'NASDAQ 순매수', 'WTI 순매수', 'EUROFX 순매수', '항셍 순매수', 'GOLD 순매수'])
         self.bc_comboBox3.insertSeparator(5)
         self.bc_comboBox3.insertSeparator(13)
-        self.bc_comboBox3.currentIndexChanged.connect(self.bc_cb3_selectionChanged)             
+        self.bc_comboBox3.currentIndexChanged.connect(self.bc_cb3_selectionChanged)
 
+        self.bc_comboBox4.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+            'SP500 순매수', 'DOW 순매수', 'NASDAQ 순매수', 'WTI 순매수', 'EUROFX 순매수', '항셍 순매수', 'GOLD 순매수'])
+        self.bc_comboBox4.insertSeparator(5)
+        self.bc_comboBox4.insertSeparator(13)
+        self.bc_comboBox4.currentIndexChanged.connect(self.bc_cb4_selectionChanged)
+
+        self.bc_comboBox5.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+            'SP500 순매수', 'DOW 순매수', 'NASDAQ 순매수', 'WTI 순매수', 'EUROFX 순매수', '항셍 순매수', 'GOLD 순매수'])
+        self.bc_comboBox5.insertSeparator(5)
+        self.bc_comboBox5.insertSeparator(13)
+        self.bc_comboBox5.currentIndexChanged.connect(self.bc_cb5_selectionChanged)
+
+        self.bc_comboBox6.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+            'SP500 순매수', 'DOW 순매수', 'NASDAQ 순매수', 'WTI 순매수', 'EUROFX 순매수', '항셍 순매수', 'GOLD 순매수'])
+        self.bc_comboBox6.insertSeparator(5)
+        self.bc_comboBox6.insertSeparator(13)
+        self.bc_comboBox6.currentIndexChanged.connect(self.bc_cb6_selectionChanged)             
+
+        # Plot1
         global bc_plot1_time_line_start, bc_plot1_time_line_yagan_start, bc_plot1_time_line, bc_plot1_fut_price_curve, bc_plot1_kp200_curve
         global bc_plot1_fut_jl_line, bc_plot1_fut_jh_line, bc_plot1_fut_close_line, bc_plot1_fut_open_line, bc_plot1_fut_pivot_line, bc_plot1_fut_low_line, bc_plot1_fut_high_line    
         global bc_plot1_ovc_jl_line, bc_plot1_ovc_jh_line, bc_plot1_ovc_close_line, bc_plot1_ovc_open_line, bc_plot1_ovc_pivot_line, bc_plot1_ovc_low_line, bc_plot1_ovc_high_line    
         global bc_plot1_fut_volume_curve, bc_plot1_fut_volume_plus_curve, bc_plot1_fut_volume_minus_curve
-        global bc_plot1_call_rr_curve, bc_plot1_put_rr_curve
+        global bc_plot1_call_hoga_curve, bc_plot1_put_hoga_curve
         global bc_plot1_call_volume_curve, bc_plot1_put_volume_curve
         global bc_plot1_fut_drate_curve, bc_plot1_dow_drate_curve
         global bc_plot1_call_drate_curve, bc_plot1_put_drate_curve        
         global bc_plot1_sp500_curve, bc_plot1_dow_curve, bc_plot1_nasdaq_curve, bc_plot1_wti_curve        
         global bc_plot1_vLine, bc_plot1_hLine
-        global bc_kp200_line, bc_plot1_kp200_2_line, bc_plot1_kp200_3_line, bc_plot1_kp200_4_line, bc_plot1_kp200_5_line, bc_plot1_kp200_6_line, bc_plot1_kp200_7_line
+        global bc_plot1_kp200_line, bc_plot1_kp200_2_line, bc_plot1_kp200_3_line, bc_plot1_kp200_4_line, bc_plot1_kp200_5_line, bc_plot1_kp200_6_line, bc_plot1_kp200_7_line
         global bc_plot1_bollinger_upper_curve, bc_plot1_bollinger_middle_curve, bc_plot1_bollinger_lower_curve, bc_plot1_sar_curve
         global bc_plot1_macd_curve, bc_plot1_macdsig_curve, bc_plot1_macdhist_curve, bc_plot1_mama_curve, bc_plot1_fama_curve          
 
+        # Plot2
         global bc_plot2_fut_volume_curve, bc_plot2_fut_volume_plus_curve, bc_plot2_fut_volume_minus_curve        
-        global bc_plot2_call_rr_curve, bc_plot2_put_rr_curve        
+        global bc_plot2_call_hoga_curve, bc_plot2_put_hoga_curve        
         global bc_plot2_call_volume_curve, bc_plot2_put_volume_curve
         global bc_plot2_fut_drate_curve, bc_plot2_dow_drate_curve
         global bc_plot2_call_drate_curve, bc_plot2_put_drate_curve
@@ -23917,8 +24286,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot2_bollinger_upper_curve, bc_plot2_bollinger_middle_curve, bc_plot2_bollinger_lower_curve, bc_plot2_sar_curve
         global bc_plot2_macd_curve, bc_plot2_macdsig_curve, bc_plot2_macdhist_curve, bc_plot2_mama_curve, bc_plot2_fama_curve
 
+        # Plot3
         global bc_plot3_fut_volume_curve, bc_plot3_fut_volume_plus_curve, bc_plot3_fut_volume_minus_curve        
-        global bc_plot3_call_rr_curve, bc_plot3_put_rr_curve        
+        global bc_plot3_call_hoga_curve, bc_plot3_put_hoga_curve        
         global bc_plot3_call_volume_curve, bc_plot3_put_volume_curve
         global bc_plot3_fut_drate_curve, bc_plot3_dow_drate_curve
         global bc_plot3_call_drate_curve, bc_plot3_put_drate_curve
@@ -23930,24 +24300,85 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot3_center_val_line, bc_plot3_center_val_upper_line, bc_plot3_center_val_lower_line
         global bc_plot3_vLine, bc_plot3_hLine
         global bc_plot3_bollinger_upper_curve, bc_plot3_bollinger_middle_curve, bc_plot3_bollinger_lower_curve, bc_plot3_sar_curve
-        global bc_plot3_macd_curve, bc_plot3_macdsig_curve, bc_plot3_macdhist_curve, bc_plot3_mama_curve, bc_plot3_fama_curve 
+        global bc_plot3_macd_curve, bc_plot3_macdsig_curve, bc_plot3_macdhist_curve, bc_plot3_mama_curve, bc_plot3_fama_curve
+
+        # Plot4
+        global bc_plot4_time_line_start, bc_plot4_time_line_yagan_start, bc_plot4_time_line, bc_plot4_fut_price_curve, bc_plot4_kp200_curve
+        global bc_plot4_fut_jl_line, bc_plot4_fut_jh_line, bc_plot4_fut_close_line, bc_plot4_fut_open_line, bc_plot4_fut_pivot_line, bc_plot4_fut_low_line, bc_plot4_fut_high_line    
+        global bc_plot4_ovc_jl_line, bc_plot4_ovc_jh_line, bc_plot4_ovc_close_line, bc_plot4_ovc_open_line, bc_plot4_ovc_pivot_line, bc_plot4_ovc_low_line, bc_plot4_ovc_high_line    
+        global bc_plot4_fut_volume_curve, bc_plot4_fut_volume_plus_curve, bc_plot4_fut_volume_minus_curve
+        global bc_plot4_call_hoga_curve, bc_plot4_put_hoga_curve
+        global bc_plot4_call_volume_curve, bc_plot4_put_volume_curve
+        global bc_plot4_fut_drate_curve, bc_plot4_dow_drate_curve
+        global bc_plot4_call_drate_curve, bc_plot4_put_drate_curve        
+        global bc_plot4_sp500_curve, bc_plot4_dow_curve, bc_plot4_nasdaq_curve, bc_plot4_wti_curve        
+        global bc_plot4_vLine, bc_plot4_hLine
+        global bc_plot4_kp200_line, bc_plot4_kp200_2_line, bc_plot4_kp200_3_line, bc_plot4_kp200_4_line, bc_plot4_kp200_5_line, bc_plot4_kp200_6_line, bc_plot4_kp200_7_line
+        global bc_plot4_bollinger_upper_curve, bc_plot4_bollinger_middle_curve, bc_plot4_bollinger_lower_curve, bc_plot4_sar_curve
+        global bc_plot4_macd_curve, bc_plot4_macdsig_curve, bc_plot4_macdhist_curve, bc_plot4_mama_curve, bc_plot4_fama_curve          
+
+        # Plot5
+        global bc_plot5_fut_volume_curve, bc_plot5_fut_volume_plus_curve, bc_plot5_fut_volume_minus_curve        
+        global bc_plot5_call_hoga_curve, bc_plot5_put_hoga_curve        
+        global bc_plot5_call_volume_curve, bc_plot5_put_volume_curve
+        global bc_plot5_fut_drate_curve, bc_plot5_dow_drate_curve
+        global bc_plot5_call_drate_curve, bc_plot5_put_drate_curve
+        global bc_plot5_sp500_curve, bc_plot5_dow_curve, bc_plot5_nasdaq_curve, bc_plot5_wti_curve        
+        global bc_plot5_time_line_start, bc_plot5_time_line_yagan_start, bc_plot5_time_line
+        global bc_plot5_ovc_jl_line, bc_plot5_ovc_jh_line, bc_plot5_ovc_close_line, bc_plot5_ovc_open_line, bc_plot5_ovc_pivot_line, bc_plot5_ovc_low_line, bc_plot5_ovc_high_line
+        global bc_plot5_mv_line, bc_plot5_call_curve, bc_plot5_put_curve
+        global bc_plot5_center_val_curve
+        global bc_plot5_center_val_line, bc_plot5_center_val_upper_line, bc_plot5_center_val_lower_line
+        global bc_plot5_vLine, bc_plot5_hLine
+        global bc_plot5_bollinger_upper_curve, bc_plot5_bollinger_middle_curve, bc_plot5_bollinger_lower_curve, bc_plot5_sar_curve
+        global bc_plot5_macd_curve, bc_plot5_macdsig_curve, bc_plot5_macdhist_curve, bc_plot5_mama_curve, bc_plot5_fama_curve
+
+        # Plot6
+        global bc_plot6_fut_volume_curve, bc_plot6_fut_volume_plus_curve, bc_plot6_fut_volume_minus_curve        
+        global bc_plot6_call_hoga_curve, bc_plot6_put_hoga_curve        
+        global bc_plot6_call_volume_curve, bc_plot6_put_volume_curve
+        global bc_plot6_fut_drate_curve, bc_plot6_dow_drate_curve
+        global bc_plot6_call_drate_curve, bc_plot6_put_drate_curve
+        global bc_plot6_sp500_curve, bc_plot6_dow_curve, bc_plot6_nasdaq_curve, bc_plot6_wti_curve        
+        global bc_plot6_time_line_start, bc_plot6_time_line_yagan_start, bc_plot6_time_line
+        global bc_plot6_ovc_jl_line, bc_plot6_ovc_jh_line, bc_plot6_ovc_close_line, bc_plot6_ovc_open_line, bc_plot6_ovc_pivot_line, bc_plot6_ovc_low_line, bc_plot6_ovc_high_line
+        global bc_plot6_mv_line, bc_plot6_call_curve, bc_plot6_put_curve
+        global bc_plot6_center_val_curve
+        global bc_plot6_center_val_line, bc_plot6_center_val_upper_line, bc_plot6_center_val_lower_line
+        global bc_plot6_vLine, bc_plot6_hLine
+        global bc_plot6_bollinger_upper_curve, bc_plot6_bollinger_middle_curve, bc_plot6_bollinger_lower_curve, bc_plot6_sar_curve
+        global bc_plot6_macd_curve, bc_plot6_macdsig_curve, bc_plot6_macdhist_curve, bc_plot6_mama_curve, bc_plot6_fama_curve  
 
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
 
         self.bc_Plot1.enableAutoRange('y', True)
         self.bc_Plot1.plotItem.showGrid(True, True, 0.5)
-        self.bc_Plot1.setRange(xRange=[0, jugan_timespan], padding=0)        
+        #self.bc_Plot1.setRange(xRange=[0, jugan_timespan], padding=0)  
 
         self.bc_Plot2.enableAutoRange('y', True)
         self.bc_Plot2.plotItem.showGrid(True, True, 0.5)
-        self.bc_Plot2.setRange(xRange=[0, jugan_timespan], padding=0)
+        #self.bc_Plot2.setRange(xRange=[0, jugan_timespan], padding=0)
         self.bc_Plot2.setXLink(self.bc_Plot1)
 
         self.bc_Plot3.enableAutoRange('y', True)
         self.bc_Plot3.plotItem.showGrid(True, True, 0.5)
-        self.bc_Plot3.setRange(xRange=[0, jugan_timespan], padding=0)
+        #self.bc_Plot3.setRange(xRange=[0, jugan_timespan], padding=0) 
         self.bc_Plot3.setXLink(self.bc_Plot1)
+
+        self.bc_Plot4.enableAutoRange('y', True)
+        self.bc_Plot4.plotItem.showGrid(True, True, 0.5)
+        #self.bc_Plot4.setRange(xRange=[0, jugan_timespan], padding=0)         
+
+        self.bc_Plot5.enableAutoRange('y', True)
+        self.bc_Plot5.plotItem.showGrid(True, True, 0.5)
+        #self.bc_Plot5.setRange(xRange=[0, jugan_timespan], padding=0) 
+        self.bc_Plot5.setXLink(self.bc_Plot4)
+
+        self.bc_Plot6.enableAutoRange('y', True)
+        self.bc_Plot6.plotItem.showGrid(True, True, 0.5)
+        #self.bc_Plot6.setRange(xRange=[0, jugan_timespan], padding=0) 
+        self.bc_Plot6.setXLink(self.bc_Plot4)
 
         # Line & Curve of the Plot1 
         bc_plot1_time_line_start = self.bc_Plot1.addLine(x=0, y=None, pen=tpen)
@@ -23963,7 +24394,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_fut_high_line = self.bc_Plot1.addLine(x=None, pen=pink_pen)
         
         for i in range(10):
-            bc_kp200_line.append(self.bc_Plot1.addLine(x=None, pen=kp200_pen))
+            bc_plot1_kp200_line.append(self.bc_Plot1.addLine(x=None, pen=kp200_pen))
         
         bc_plot1_ovc_jl_line = self.bc_Plot1.addLine(x=None, pen=goldenrod_pen)
         bc_plot1_ovc_jh_line = self.bc_Plot1.addLine(x=None, pen=gold_pen)  
@@ -23986,8 +24417,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_call_volume_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot1_put_volume_curve = self.bc_Plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
-        bc_plot1_call_rr_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot1_put_rr_curve = self.bc_Plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        bc_plot1_call_hoga_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot1_put_hoga_curve = self.bc_Plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         bc_plot1_fut_price_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot1_kp200_curve = self.bc_Plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
@@ -24035,8 +24466,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_call_drate_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot2_put_drate_curve = self.bc_Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3) 
 
-        bc_plot2_call_rr_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot2_put_rr_curve = self.bc_Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        bc_plot2_call_hoga_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot2_put_hoga_curve = self.bc_Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         bc_plot2_call_volume_curve = self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot2_put_volume_curve = self.bc_Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
@@ -24098,8 +24529,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot3_call_drate_curve = self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot3_put_drate_curve = self.bc_Plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3) 
 
-        bc_plot3_call_rr_curve = self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot3_put_rr_curve = self.bc_Plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+        bc_plot3_call_hoga_curve = self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot3_put_hoga_curve = self.bc_Plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         bc_plot3_call_volume_curve = self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot3_put_volume_curve = self.bc_Plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
@@ -24137,41 +24568,245 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.bc_Plot3.scene().sigMouseMoved.connect(self.bc_plot3_mouseMoved)
             #self.bc_Plot3.scene().sigMouseClicked.connect(self.bc_plot3_mouseClicked)
         else:
-            pass         
+            pass
+
+        # Line & Curve of the Plot4 
+        bc_plot4_time_line_start = self.bc_Plot4.addLine(x=0, y=None, pen=tpen)
+        bc_plot4_time_line_yagan_start = self.bc_Plot4.addLine(x=0, y=None, pen=yagan_pen)
+        bc_plot4_time_line = self.bc_Plot4.addLine(x=0, y=None, pen=tpen1)
+        
+        bc_plot4_fut_jl_line = self.bc_Plot4.addLine(x=None, pen=goldenrod_pen)
+        bc_plot4_fut_jh_line = self.bc_Plot4.addLine(x=None, pen=gold_pen)  
+        bc_plot4_fut_open_line = self.bc_Plot4.addLine(x=None, pen=red_pen)
+        bc_plot4_fut_close_line = self.bc_Plot4.addLine(x=None, pen=lime_pen)
+        bc_plot4_fut_pivot_line = self.bc_Plot4.addLine(x=None, pen=fut_pvt_pen)
+        bc_plot4_fut_low_line = self.bc_Plot4.addLine(x=None, pen=skyblue_pen)
+        bc_plot4_fut_high_line = self.bc_Plot4.addLine(x=None, pen=pink_pen)
+        
+        for i in range(10):
+            bc_plot4_kp200_line.append(self.bc_Plot4.addLine(x=None, pen=kp200_pen))
+        
+        bc_plot4_ovc_jl_line = self.bc_Plot4.addLine(x=None, pen=goldenrod_pen)
+        bc_plot4_ovc_jh_line = self.bc_Plot4.addLine(x=None, pen=gold_pen)  
+        bc_plot4_ovc_close_line = self.bc_Plot4.addLine(x=None, pen=lime_pen)
+        bc_plot4_ovc_open_line = self.bc_Plot4.addLine(x=None, pen=red_pen)
+        bc_plot4_ovc_pivot_line = self.bc_Plot4.addLine(x=None, pen=fut_pvt_pen)
+        bc_plot4_ovc_low_line = self.bc_Plot4.addLine(x=None, pen=skyblue_pen)
+        bc_plot4_ovc_high_line = self.bc_Plot4.addLine(x=None, pen=pink_pen) 
+
+        bc_plot4_fut_drate_curve = self.bc_Plot4.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot4_dow_drate_curve = self.bc_Plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
+
+        bc_plot4_call_drate_curve = self.bc_Plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot4_put_drate_curve = self.bc_Plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3) 
+
+        bc_plot4_fut_volume_curve = self.bc_Plot4.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot4_fut_volume_plus_curve = self.bc_Plot4.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot4_fut_volume_minus_curve = self.bc_Plot4.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
+
+        bc_plot4_call_volume_curve = self.bc_Plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot4_put_volume_curve = self.bc_Plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        bc_plot4_call_hoga_curve = self.bc_Plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot4_put_hoga_curve = self.bc_Plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        bc_plot4_fut_price_curve = self.bc_Plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot4_kp200_curve = self.bc_Plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+
+        bc_plot4_sp500_curve = self.bc_Plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot4_dow_curve = self.bc_Plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot4_nasdaq_curve = self.bc_Plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3) 
+        bc_plot4_wti_curve = self.bc_Plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+
+        bc_plot4_bollinger_upper_curve = self.bc_Plot4.plot(pen=bb_upper_pen)
+        bc_plot4_bollinger_middle_curve = self.bc_Plot4.plot(pen=bb_middle_pen)
+        bc_plot4_bollinger_lower_curve = self.bc_Plot4.plot(pen=bb_lower_pen)
+        
+        #cross hair
+        if CROSS_HAIR:
+            bc_plot4_vLine = pg.InfiniteLine(angle=90, movable=False)
+            bc_plot4_hLine = pg.InfiniteLine(angle=0, movable=False)
+            self.bc_Plot4.addItem(bc_plot4_vLine, ignoreBounds=True)
+            self.bc_Plot4.addItem(bc_plot4_hLine, ignoreBounds=True)
+            self.bc_Plot4.setMouseTracking(True)
+            self.bc_Plot4.scene().sigMouseMoved.connect(self.bc_plot4_mouseMoved)
+            #self.bc_Plot4.scene().sigMouseClicked.connect(self.bc_plot4_mouseClicked)
+        else:
+            pass  
+
+        # Line & Curve of the Plot5
+        bc_plot5_time_line_start = self.bc_Plot5.addLine(x=0, y=None, pen=tpen)
+        bc_plot5_time_line_yagan_start = self.bc_Plot5.addLine(x=0, y=None, pen=yagan_pen)
+        bc_plot5_time_line = self.bc_Plot5.addLine(x=0, y=None, pen=tpen1)
+        
+        bc_plot5_ovc_jl_line = self.bc_Plot5.addLine(x=None, pen=goldenrod_pen)
+        bc_plot5_ovc_jh_line = self.bc_Plot5.addLine(x=None, pen=gold_pen)  
+        bc_plot5_ovc_close_line = self.bc_Plot5.addLine(x=None, pen=lime_pen)
+        bc_plot5_ovc_open_line = self.bc_Plot5.addLine(x=None, pen=red_pen)
+        bc_plot5_ovc_pivot_line = self.bc_Plot5.addLine(x=None, pen=fut_pvt_pen)
+        bc_plot5_ovc_low_line = self.bc_Plot5.addLine(x=None, pen=skyblue_pen)
+        bc_plot5_ovc_high_line = self.bc_Plot5.addLine(x=None, pen=pink_pen)
+        
+        for i in range(9):
+            bc_plot5_mv_line.append(self.bc_Plot5.addLine(x=None, pen=mvpen))
+
+        bc_plot5_fut_drate_curve = self.bc_Plot5.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot5_dow_drate_curve = self.bc_Plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
+
+        bc_plot5_call_drate_curve = self.bc_Plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot5_put_drate_curve = self.bc_Plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3) 
+
+        bc_plot5_call_hoga_curve = self.bc_Plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot5_put_hoga_curve = self.bc_Plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        bc_plot5_call_volume_curve = self.bc_Plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot5_put_volume_curve = self.bc_Plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        bc_plot5_fut_volume_curve = self.bc_Plot5.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        bc_plot5_fut_volume_plus_curve = self.bc_Plot5.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        bc_plot5_fut_volume_minus_curve = self.bc_Plot5.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        
+        for i in range(nRowCount):
+            bc_plot5_call_curve.append(self.bc_Plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
+            bc_plot5_put_curve.append(self.bc_Plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+        
+        bc_plot5_center_val_curve = self.bc_Plot5.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+
+        bc_plot5_center_val_lower_line = self.bc_Plot5.addLine(x=None, pen=skyblue_pen)
+        bc_plot5_center_val_line = self.bc_Plot5.addLine(x=None, pen=gold_pen)
+        bc_plot5_center_val_upper_line = self.bc_Plot5.addLine(x=None, pen=pink_pen)
+        
+        bc_plot5_sp500_curve = self.bc_Plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot5_dow_curve = self.bc_Plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot5_nasdaq_curve = self.bc_Plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot5_wti_curve = self.bc_Plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+
+        bc_plot5_bollinger_upper_curve = self.bc_Plot5.plot(pen=bb_upper_pen)
+        bc_plot5_bollinger_middle_curve = self.bc_Plot5.plot(pen=bb_middle_pen)
+        bc_plot5_bollinger_lower_curve = self.bc_Plot5.plot(pen=bb_lower_pen)
+
+        #cross hair
+        if CROSS_HAIR:
+            bc_plot5_vLine = pg.InfiniteLine(angle=90, movable=False)
+            bc_plot5_hLine = pg.InfiniteLine(angle=0, movable=False)
+            self.bc_Plot5.addItem(bc_plot5_vLine, ignoreBounds=True)
+            self.bc_Plot5.addItem(bc_plot5_hLine, ignoreBounds=True)
+            self.bc_Plot5.setMouseTracking(True)
+            self.bc_Plot5.scene().sigMouseMoved.connect(self.bc_plot5_mouseMoved)
+            #self.bc_Plot5.scene().sigMouseClicked.connect(self.bc_plot5_mouseClicked)
+        else:
+            pass 
+
+        # Line & Curve of the Plot6
+        bc_plot6_time_line_start = self.bc_Plot6.addLine(x=0, y=None, pen=tpen)
+        bc_plot6_time_line_yagan_start = self.bc_Plot6.addLine(x=0, y=None, pen=yagan_pen)
+        bc_plot6_time_line = self.bc_Plot6.addLine(x=0, y=None, pen=tpen1)
+        
+        bc_plot6_ovc_jl_line = self.bc_Plot6.addLine(x=None, pen=goldenrod_pen)
+        bc_plot6_ovc_jh_line = self.bc_Plot6.addLine(x=None, pen=gold_pen)  
+        bc_plot6_ovc_close_line = self.bc_Plot6.addLine(x=None, pen=lime_pen)
+        bc_plot6_ovc_open_line = self.bc_Plot6.addLine(x=None, pen=red_pen)
+        bc_plot6_ovc_pivot_line = self.bc_Plot6.addLine(x=None, pen=fut_pvt_pen)
+        bc_plot6_ovc_low_line = self.bc_Plot6.addLine(x=None, pen=skyblue_pen)
+        bc_plot6_ovc_high_line = self.bc_Plot6.addLine(x=None, pen=pink_pen)
+        
+        for i in range(9):
+            bc_plot6_mv_line.append(self.bc_Plot6.addLine(x=None, pen=mvpen))
+
+        bc_plot6_fut_drate_curve = self.bc_Plot6.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot6_dow_drate_curve = self.bc_Plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
+
+        bc_plot6_call_drate_curve = self.bc_Plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot6_put_drate_curve = self.bc_Plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3) 
+
+        bc_plot6_call_hoga_curve = self.bc_Plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot6_put_hoga_curve = self.bc_Plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        bc_plot6_call_volume_curve = self.bc_Plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot6_put_volume_curve = self.bc_Plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
+
+        bc_plot6_fut_volume_curve = self.bc_Plot6.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        bc_plot6_fut_volume_plus_curve = self.bc_Plot6.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        bc_plot6_fut_volume_minus_curve = self.bc_Plot6.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        
+        for i in range(nRowCount):
+            bc_plot6_call_curve.append(self.bc_Plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
+            bc_plot6_put_curve.append(self.bc_Plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
+        
+        bc_plot6_center_val_curve = self.bc_Plot6.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
+
+        bc_plot6_center_val_lower_line = self.bc_Plot6.addLine(x=None, pen=skyblue_pen)
+        bc_plot6_center_val_line = self.bc_Plot6.addLine(x=None, pen=gold_pen)
+        bc_plot6_center_val_upper_line = self.bc_Plot6.addLine(x=None, pen=pink_pen)
+        
+        bc_plot6_sp500_curve = self.bc_Plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot6_dow_curve = self.bc_Plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot6_nasdaq_curve = self.bc_Plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+        bc_plot6_wti_curve = self.bc_Plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
+
+        bc_plot6_bollinger_upper_curve = self.bc_Plot6.plot(pen=bb_upper_pen)
+        bc_plot6_bollinger_middle_curve = self.bc_Plot6.plot(pen=bb_middle_pen)
+        bc_plot6_bollinger_lower_curve = self.bc_Plot6.plot(pen=bb_lower_pen)
+
+        #cross hair
+        if CROSS_HAIR:
+            bc_plot6_vLine = pg.InfiniteLine(angle=90, movable=False)
+            bc_plot6_hLine = pg.InfiniteLine(angle=0, movable=False)
+            self.bc_Plot6.addItem(bc_plot6_vLine, ignoreBounds=True)
+            self.bc_Plot6.addItem(bc_plot6_hLine, ignoreBounds=True)
+            self.bc_Plot6.setMouseTracking(True)
+            self.bc_Plot6.scene().sigMouseMoved.connect(self.bc_plot6_mouseMoved)
+            #self.bc_Plot6.scene().sigMouseClicked.connect(self.bc_plot6_mouseClicked)
+        else:
+            pass
 
         if NightTime:
-            # 야간옵션은 4시, 야간선물은 5시 장마감됨                    
-            self.bc_Plot1.setRange(xRange=[0, yagan_timespan], padding=0)
-            bc_plot1_time_line.setValue(yagan_timespan - 1)
+            timespan = yagan_timespan
+        else:
+            timespan = jugan_timespan
 
-            self.bc_Plot2.setRange(xRange=[0, yagan_timespan], padding=0)
-            bc_plot2_time_line.setValue(yagan_timespan - 1)
+        self.bc_Plot1.setRange(xRange=[0, timespan], padding=0)
+        bc_plot1_time_line.setValue(timespan - 1)
 
-            self.bc_Plot3.setRange(xRange=[0, yagan_timespan], padding=0)
-            bc_plot3_time_line.setValue(yagan_timespan - 1)
+        self.bc_Plot2.setRange(xRange=[0, timespan], padding=0)
+        bc_plot2_time_line.setValue(timespan - 1)
 
-            # 시작시간 X축 표시(index 0는 종가, index 1은 시가)
+        self.bc_Plot3.setRange(xRange=[0, timespan], padding=0)
+        bc_plot3_time_line.setValue(timespan - 1)
+
+        self.bc_Plot4.setRange(xRange=[0, timespan], padding=0)
+        bc_plot4_time_line.setValue(timespan - 1)
+
+        self.bc_Plot5.setRange(xRange=[0, timespan], padding=0)
+        bc_plot5_time_line.setValue(timespan - 1)
+
+        self.bc_Plot6.setRange(xRange=[0, timespan], padding=0)
+        bc_plot6_time_line.setValue(timespan - 1)          
+
+        if NightTime:
+            # 야간옵션은 4시, 야간선물은 5시 장마감됨, 시작시간 X축 표시(index 0는 종가, index 1은 시가)
             bc_plot1_time_line_start.setValue(GuardTime + 1)
             bc_plot2_time_line_start.setValue(GuardTime + 1)
             bc_plot3_time_line_start.setValue(GuardTime + 1)
+            bc_plot4_time_line_start.setValue(GuardTime + 1)
+            bc_plot5_time_line_start.setValue(GuardTime + 1)
+            bc_plot6_time_line_start.setValue(GuardTime + 1)
 
             bc_plot1_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
             bc_plot2_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
             bc_plot3_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
+            bc_plot4_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
+            bc_plot5_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
+            bc_plot6_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
         else:
-            self.bc_Plot1.setRange(xRange=[0, jugan_timespan], padding=0)
-            bc_plot1_time_line.setValue(jugan_timespan - 1)
-
-            self.bc_Plot2.setRange(xRange=[0, jugan_timespan], padding=0)
-            bc_plot2_time_line.setValue(jugan_timespan - 1)
-
-            self.bc_Plot3.setRange(xRange=[0, jugan_timespan], padding=0)
-            bc_plot3_time_line.setValue(jugan_timespan - 1)
-
             # 시작시간 X축 표시(index 60은 시가)
             bc_plot1_time_line_start.setValue(GuardTime)
             bc_plot2_time_line_start.setValue(GuardTime)
             bc_plot3_time_line_start.setValue(GuardTime)
+
+            bc_plot4_time_line_start.setValue(GuardTime)
+            bc_plot5_time_line_start.setValue(GuardTime)
+            bc_plot6_time_line_start.setValue(GuardTime)
 
         # 쓰레드 시작...
         self.bigchart_update_worker.start()
@@ -24307,6 +24942,133 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
+    def bc_plot4_mouseMoved(self, evt):
+        
+        global bc_plot4_x, bc_plot4_y
+
+        pos = evt
+
+        if self.bc_Plot4.sceneBoundingRect().contains(pos):
+
+            mousePoint = self.bc_Plot4.plotItem.vb.mapSceneToView(pos)
+
+            bc_plot4_vLine.setPos(mousePoint.x())
+            bc_plot4_hLine.setPos(mousePoint.y())
+            bc_plot4_x = int(mousePoint.x())
+            bc_plot4_y = mousePoint.y()
+            '''
+            if bc_comboindex1 == 6 and plot_data11:
+                if plot_data11[bc_plot1_x] != plot_data11[bc_plot1_x]:
+                    pass
+                else:
+                    bc_plot1_y = plot_data11[bc_plot1_x]
+            elif bc_comboindex1 == 7 and plot_data12:
+                if plot_data12[bc_plot1_x] != plot_data12[bc_plot1_x]:
+                    pass
+                else:
+                    bc_plot1_y = plot_data12[bc_plot1_x]
+            elif bc_comboindex1 == 8 and plot_data13:
+                if plot_data13[bc_plot1_x] != plot_data13[bc_plot1_x]:
+                    pass
+                else:
+                    bc_plot1_y = plot_data13[bc_plot1_x]
+            elif bc_comboindex1 == 9 and plot_data14:
+                if plot_data14[bc_plot1_x] != plot_data14[bc_plot1_x]:
+                    pass
+                else:
+                    bc_plot1_y = plot_data14[bc_plot1_x]
+            else:
+                bc_plot1_y = mousePoint.y()
+            '''
+            str = " X: {0:d}\n Y: {1:0.2f} ".format(bc_plot4_x, bc_plot4_y)            
+            self.label_p4_1.setText(str)          
+
+    def bc_plot5_mouseMoved(self, evt):
+
+        global bc_plot5_x, bc_plot5_y
+
+        pos = evt
+
+        if self.bc_Plot5.sceneBoundingRect().contains(pos):
+
+            mousePoint = self.bc_Plot5.plotItem.vb.mapSceneToView(pos)            
+
+            bc_plot5_vLine.setPos(mousePoint.x())
+            bc_plot5_hLine.setPos(mousePoint.y())
+            bc_plot5_x = int(mousePoint.x())
+            bc_plot5_y = mousePoint.y()
+            '''
+            if bc_comboindex2 == 6 and plot_data11:
+                if plot_data11[bc_plot2_x] != plot_data11[bc_plot2_x]:
+                    pass
+                else:
+                    bc_plot2_y = plot_data11[bc_plot2_x]
+            elif bc_comboindex2 == 7 and plot_data12:
+                if plot_data12[bc_plot2_x] != plot_data12[bc_plot2_x]:
+                    pass
+                else:
+                    bc_plot2_y = plot_data12[bc_plot2_x]
+            elif bc_comboindex2 == 8 and plot_data13:
+                if plot_data13[bc_plot2_x] != plot_data13[bc_plot2_x]:
+                    pass
+                else:
+                    bc_plot2_y = plot_data13[bc_plot2_x]
+            elif bc_comboindex2 == 9 and plot_data14:
+                if plot_data14[bc_plot2_x] != plot_data14[bc_plot2_x]:
+                    pass
+                else:
+                    bc_plot2_y = plot_data14[bc_plot2_x]
+            else:
+                bc_plot2_y = mousePoint.y()
+            '''
+            str = " X: {0:d}\n Y: {1:0.2f} ".format(bc_plot5_x, bc_plot5_y)            
+            self.label_p5_1.setText(str)         
+        else:
+            pass
+
+    def bc_plot6_mouseMoved(self, evt):
+
+        global bc_plot6_x, bc_plot6_y
+
+        pos = evt
+
+        if self.bc_Plot6.sceneBoundingRect().contains(pos):
+
+            mousePoint = self.bc_Plot6.plotItem.vb.mapSceneToView(pos)            
+
+            bc_plot6_vLine.setPos(mousePoint.x())
+            bc_plot6_hLine.setPos(mousePoint.y())
+            bc_plot6_x = int(mousePoint.x())
+            bc_plot6_y = mousePoint.y()
+            '''
+            if bc_comboindex3 == 6 and plot_data11:
+                if plot_data11[bc_plot3_x] != plot_data11[bc_plot3_x]:
+                    pass
+                else:
+                    bc_plot3_y = plot_data11[bc_plot3_x]
+            elif bc_comboindex3 == 7 and plot_data12:
+                if plot_data12[bc_plot3_x] != plot_data12[bc_plot3_x]:
+                    pass
+                else:
+                    bc_plot3_y = plot_data12[bc_plot3_x]
+            elif bc_comboindex3 == 8 and plot_data13:
+                if plot_data13[bc_plot3_x] != plot_data13[bc_plot3_x]:
+                    pass
+                else:
+                    bc_plot3_y = plot_data13[bc_plot3_x]
+            elif bc_comboindex3 == 9 and plot_data14:
+                if plot_data14[bc_plot3_x] != plot_data14[bc_plot3_x]:
+                    pass
+                else:
+                    bc_plot3_y = plot_data14[bc_plot3_x]
+            else:
+                bc_plot3_y = mousePoint.y()
+            '''
+            str = " X: {0:d}\n Y: {1:0.2f} ".format(bc_plot6_x, bc_plot6_y)            
+            self.label_p6_1.setText(str)
+        else:
+            pass
+
     def bc_plot1_mouseClicked(self, evt):
         
         self.label_p1_2.setStyleSheet('background-color: yellow ; color: red')
@@ -24350,7 +25112,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if self.checkBox_plot3_bband.isChecked() == True:
             flag_checkBox_plot3_bband = True
         else:
-            flag_checkBox_plot3_bband = False              
+            flag_checkBox_plot3_bband = False
+
+    def checkBox_plot4_bband_checkState(self):
+        pass 
+
+    def checkBox_plot5_bband_checkState(self):
+        pass
+
+    def checkBox_plot6_bband_checkState(self):
+        pass          
     
     def bc_cb1_selectionChanged(self):
 
@@ -24380,8 +25151,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_17.setText(" 0.0 (전일대비, 등락율, 진폭) ")
             self.label_18.setText(" 고가 ")
 
-            bc_plot1_call_rr_curve.clear()
-            bc_plot1_put_rr_curve.clear()
+            bc_plot1_call_hoga_curve.clear()
+            bc_plot1_put_hoga_curve.clear()
 
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
@@ -24408,7 +25179,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_high_line.setValue(0)
             
             for i in range(10):
-                bc_kp200_line[i].setValue(0)
+                bc_plot1_kp200_line[i].setValue(0)
             
             bc_plot1_ovc_close_line.setValue(0)
             bc_plot1_ovc_open_line.setValue(0)
@@ -24432,8 +25203,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
 
-            bc_plot1_call_rr_curve.clear()
-            bc_plot1_put_rr_curve.clear()
+            bc_plot1_call_hoga_curve.clear()
+            bc_plot1_put_hoga_curve.clear()
 
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
@@ -24457,7 +25228,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_high_line.setValue(0)
             
             for i in range(10):
-                bc_kp200_line[i].setValue(0)
+                bc_plot1_kp200_line[i].setValue(0)
             
             bc_plot1_ovc_close_line.setValue(0)
             bc_plot1_ovc_open_line.setValue(0)
@@ -24506,7 +25277,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_high_line.setValue(0)
             
             for i in range(10):
-                bc_kp200_line[i].setValue(0)
+                bc_plot1_kp200_line[i].setValue(0)
             
             bc_plot1_ovc_close_line.setValue(0)
             bc_plot1_ovc_open_line.setValue(0)
@@ -24533,8 +25304,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
 
-            bc_plot1_call_rr_curve.clear()
-            bc_plot1_put_rr_curve.clear()
+            bc_plot1_call_hoga_curve.clear()
+            bc_plot1_put_hoga_curve.clear()
 
             bc_plot1_kp200_curve.clear()
             bc_plot1_fut_price_curve.clear() 
@@ -24553,7 +25324,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_high_line.setValue(0)
             
             for i in range(10):
-                bc_kp200_line[i].setValue(0)
+                bc_plot1_kp200_line[i].setValue(0)
             
             bc_plot1_ovc_close_line.setValue(0)
             bc_plot1_ovc_open_line.setValue(0)
@@ -24568,8 +25339,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
 
-            bc_plot1_call_rr_curve.clear()
-            bc_plot1_put_rr_curve.clear()
+            bc_plot1_call_hoga_curve.clear()
+            bc_plot1_put_hoga_curve.clear()
 
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
@@ -24584,16 +25355,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_nasdaq_curve.clear()
             bc_plot1_wti_curve.clear()
             
-            bc_kp200_line[0].setValue(KP200_COREVAL[3])
-            bc_kp200_line[1].setValue(KP200_COREVAL[3])
-            bc_kp200_line[2].setValue(KP200_COREVAL[3])
-            bc_kp200_line[3].setValue(KP200_COREVAL[3])
-            bc_kp200_line[4].setValue(KP200_COREVAL[4])
-            bc_kp200_line[5].setValue(KP200_COREVAL[5])
-            bc_kp200_line[6].setValue(KP200_COREVAL[6])
-            bc_kp200_line[7].setValue(KP200_COREVAL[6])
-            bc_kp200_line[8].setValue(KP200_COREVAL[6])
-            bc_kp200_line[9].setValue(KP200_COREVAL[6])
+            bc_plot1_kp200_line[0].setValue(KP200_COREVAL[3])
+            bc_plot1_kp200_line[1].setValue(KP200_COREVAL[3])
+            bc_plot1_kp200_line[2].setValue(KP200_COREVAL[3])
+            bc_plot1_kp200_line[3].setValue(KP200_COREVAL[3])
+            bc_plot1_kp200_line[4].setValue(KP200_COREVAL[4])
+            bc_plot1_kp200_line[5].setValue(KP200_COREVAL[5])
+            bc_plot1_kp200_line[6].setValue(KP200_COREVAL[6])
+            bc_plot1_kp200_line[7].setValue(KP200_COREVAL[6])
+            bc_plot1_kp200_line[8].setValue(KP200_COREVAL[6])
+            bc_plot1_kp200_line[9].setValue(KP200_COREVAL[6])
                         
             if 선물_전저 == 0:
                 선물_전저 = CME_종가
@@ -24678,8 +25449,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
 
-            bc_plot1_call_rr_curve.clear()
-            bc_plot1_put_rr_curve.clear()
+            bc_plot1_call_hoga_curve.clear()
+            bc_plot1_put_hoga_curve.clear()
 
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
@@ -24697,7 +25468,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_wti_curve.clear()
             
             for i in range(10):
-                bc_kp200_line[i].setValue(SP500_종가)
+                bc_plot1_kp200_line[i].setValue(SP500_종가)
             
             bc_plot1_fut_jl_line.setValue(SP500_종가)
             bc_plot1_fut_jh_line.setValue(SP500_종가)
@@ -24777,8 +25548,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
 
-            bc_plot1_call_rr_curve.clear()
-            bc_plot1_put_rr_curve.clear()
+            bc_plot1_call_hoga_curve.clear()
+            bc_plot1_put_hoga_curve.clear()
 
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
@@ -24796,7 +25567,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_wti_curve.clear()  
             
             for i in range(10):
-                bc_kp200_line[i].setValue(DOW_종가)
+                bc_plot1_kp200_line[i].setValue(DOW_종가)
             
             bc_plot1_fut_jl_line.setValue(DOW_종가)
             bc_plot1_fut_jh_line.setValue(DOW_종가)
@@ -24876,8 +25647,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
 
-            bc_plot1_call_rr_curve.clear()
-            bc_plot1_put_rr_curve.clear()
+            bc_plot1_call_hoga_curve.clear()
+            bc_plot1_put_hoga_curve.clear()
 
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
@@ -24895,7 +25666,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_wti_curve.clear() 
             
             for i in range(10):
-                bc_kp200_line[i].setValue(NASDAQ_종가)
+                bc_plot1_kp200_line[i].setValue(NASDAQ_종가)
             
             bc_plot1_fut_jl_line.setValue(NASDAQ_종가)
             bc_plot1_fut_jh_line.setValue(NASDAQ_종가)
@@ -24975,8 +25746,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
 
-            bc_plot1_call_rr_curve.clear()
-            bc_plot1_put_rr_curve.clear()
+            bc_plot1_call_hoga_curve.clear()
+            bc_plot1_put_hoga_curve.clear()
 
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
@@ -24994,7 +25765,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_nasdaq_curve.clear()  
             
             for i in range(10):
-                bc_kp200_line[i].setValue(WTI_종가)
+                bc_plot1_kp200_line[i].setValue(WTI_종가)
             
             bc_plot1_fut_jl_line.setValue(WTI_종가)
             bc_plot1_fut_jh_line.setValue(WTI_종가)
@@ -25098,8 +25869,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
             self.label_28.setText(" 고가 ")
             
-            bc_plot2_call_rr_curve.clear()
-            bc_plot2_put_rr_curve.clear()
+            bc_plot2_call_hoga_curve.clear()
+            bc_plot2_put_hoga_curve.clear()
 
             bc_plot2_fut_volume_plus_curve.clear()
             bc_plot2_fut_volume_minus_curve.clear()
@@ -25194,8 +25965,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
             self.label_28.setText(" 고가 ")
 
-            bc_plot2_call_rr_curve.clear()
-            bc_plot2_put_rr_curve.clear()
+            bc_plot2_call_hoga_curve.clear()
+            bc_plot2_put_hoga_curve.clear()
 
             bc_plot2_call_volume_curve.clear()
             bc_plot2_put_volume_curve.clear()
@@ -25242,8 +26013,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
             self.label_28.setText(" 고가 ")
 
-            bc_plot2_call_rr_curve.clear()
-            bc_plot2_put_rr_curve.clear()   
+            bc_plot2_call_hoga_curve.clear()
+            bc_plot2_put_hoga_curve.clear()   
 
             bc_plot2_call_volume_curve.clear()
             bc_plot2_put_volume_curve.clear()
@@ -25288,8 +26059,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
             self.label_28.setText(" 고가 ")
 
-            bc_plot2_call_rr_curve.clear()
-            bc_plot2_put_rr_curve.clear()   
+            bc_plot2_call_hoga_curve.clear()
+            bc_plot2_put_hoga_curve.clear()   
 
             bc_plot2_call_volume_curve.clear()
             bc_plot2_put_volume_curve.clear()
@@ -25336,8 +26107,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex2 == 6:
 
-            bc_plot2_call_rr_curve.clear()
-            bc_plot2_put_rr_curve.clear()   
+            bc_plot2_call_hoga_curve.clear()
+            bc_plot2_put_hoga_curve.clear()   
 
             bc_plot2_call_volume_curve.clear()
             bc_plot2_put_volume_curve.clear()
@@ -25434,8 +26205,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex2 == 7:
 
-            bc_plot2_call_rr_curve.clear()
-            bc_plot2_put_rr_curve.clear()   
+            bc_plot2_call_hoga_curve.clear()
+            bc_plot2_put_hoga_curve.clear()   
 
             bc_plot2_call_volume_curve.clear()
             bc_plot2_put_volume_curve.clear()
@@ -25532,8 +26303,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex2 == 8:
 
-            bc_plot2_call_rr_curve.clear()
-            bc_plot2_put_rr_curve.clear()   
+            bc_plot2_call_hoga_curve.clear()
+            bc_plot2_put_hoga_curve.clear()   
 
             bc_plot2_call_volume_curve.clear()
             bc_plot2_put_volume_curve.clear()
@@ -25630,8 +26401,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
         elif bc_comboindex2 == 9:
 
-            bc_plot2_call_rr_curve.clear()
-            bc_plot2_put_rr_curve.clear()   
+            bc_plot2_call_hoga_curve.clear()
+            bc_plot2_put_hoga_curve.clear()   
 
             bc_plot2_call_volume_curve.clear()
             bc_plot2_put_volume_curve.clear()
@@ -25755,8 +26526,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
             self.label_38.setText(" 고가 ")
             
-            bc_plot3_call_rr_curve.clear()
-            bc_plot3_put_rr_curve.clear()
+            bc_plot3_call_hoga_curve.clear()
+            bc_plot3_put_hoga_curve.clear()
 
             bc_plot3_fut_volume_plus_curve.clear()
             bc_plot3_fut_volume_minus_curve.clear()
@@ -25851,8 +26622,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
             self.label_38.setText(" 고가 ")
 
-            bc_plot3_call_rr_curve.clear()
-            bc_plot3_put_rr_curve.clear()
+            bc_plot3_call_hoga_curve.clear()
+            bc_plot3_put_hoga_curve.clear()
 
             bc_plot3_call_volume_curve.clear()
             bc_plot3_put_volume_curve.clear()
@@ -25899,8 +26670,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
             self.label_38.setText(" 고가 ")
 
-            bc_plot3_call_rr_curve.clear()
-            bc_plot3_put_rr_curve.clear()   
+            bc_plot3_call_hoga_curve.clear()
+            bc_plot3_put_hoga_curve.clear()   
 
             bc_plot3_call_volume_curve.clear()
             bc_plot3_put_volume_curve.clear()
@@ -25945,8 +26716,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
             self.label_38.setText(" 고가 ")
 
-            bc_plot3_call_rr_curve.clear()
-            bc_plot3_put_rr_curve.clear()   
+            bc_plot3_call_hoga_curve.clear()
+            bc_plot3_put_hoga_curve.clear()   
 
             bc_plot3_call_volume_curve.clear()
             bc_plot3_put_volume_curve.clear()
@@ -25993,8 +26764,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex3 == 6:
 
-            bc_plot3_call_rr_curve.clear()
-            bc_plot3_put_rr_curve.clear()   
+            bc_plot3_call_hoga_curve.clear()
+            bc_plot3_put_hoga_curve.clear()   
 
             bc_plot3_call_volume_curve.clear()
             bc_plot3_put_volume_curve.clear()
@@ -26091,8 +26862,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex3 == 7:
 
-            bc_plot3_call_rr_curve.clear()
-            bc_plot3_put_rr_curve.clear()   
+            bc_plot3_call_hoga_curve.clear()
+            bc_plot3_put_hoga_curve.clear()   
 
             bc_plot3_call_volume_curve.clear()
             bc_plot3_put_volume_curve.clear()
@@ -26189,8 +26960,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex3 == 8:
 
-            bc_plot3_call_rr_curve.clear()
-            bc_plot3_put_rr_curve.clear()   
+            bc_plot3_call_hoga_curve.clear()
+            bc_plot3_put_hoga_curve.clear()   
 
             bc_plot3_call_volume_curve.clear()
             bc_plot3_put_volume_curve.clear()
@@ -26287,8 +27058,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex3 == 9:
 
-            bc_plot3_call_rr_curve.clear()
-            bc_plot3_put_rr_curve.clear()   
+            bc_plot3_call_hoga_curve.clear()
+            bc_plot3_put_hoga_curve.clear()   
 
             bc_plot3_call_volume_curve.clear()
             bc_plot3_put_volume_curve.clear()
@@ -26385,6 +27156,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
+    def bc_cb4_selectionChanged(self):
+        pass
+
+    def bc_cb5_selectionChanged(self):
+        pass
+
+    def bc_cb6_selectionChanged(self):
+        pass
+
     def bc_calc_pivot(self, jl, jh, jc, do):
 
         if jl > 0 and jh > 0 and jc > 0 and do > 0:
@@ -26437,8 +27217,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 2 and market_service:
 
-                bc_plot1_call_rr_curve.setData(df_call_info_graph['hoga'].tolist())
-                bc_plot1_put_rr_curve.setData(df_put_info_graph['hoga'].tolist())
+                bc_plot1_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
+                bc_plot1_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())
 
             elif bc_comboindex1 == 3 and market_service:
 
@@ -26491,18 +27271,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                bc_kp200_line[3].setValue(KP200_COREVAL[3])
-                bc_kp200_line[4].setValue(KP200_COREVAL[4])
-                bc_kp200_line[5].setValue(KP200_COREVAL[5])
-                bc_kp200_line[6].setValue(KP200_COREVAL[6])
+                bc_plot1_kp200_line[3].setValue(KP200_COREVAL[3])
+                bc_plot1_kp200_line[4].setValue(KP200_COREVAL[4])
+                bc_plot1_kp200_line[5].setValue(KP200_COREVAL[5])
+                bc_plot1_kp200_line[6].setValue(KP200_COREVAL[6])
                 
                 if kp200_저가 < KP200_COREVAL[3]:
-                    bc_kp200_line[2].setValue(KP200_COREVAL[2])
+                    bc_plot1_kp200_line[2].setValue(KP200_COREVAL[2])
                 else:
                     pass
                 
                 if kp200_고가 > KP200_COREVAL[6]:
-                    bc_kp200_line[7].setValue(KP200_COREVAL[7])
+                    bc_plot1_kp200_line[7].setValue(KP200_COREVAL[7])
                 else:
                     pass
                 
@@ -27027,8 +27807,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 1 and market_service:
 
-                bc_plot2_call_rr_curve.setData(df_call_info_graph['hoga'].tolist())
-                bc_plot2_put_rr_curve.setData(df_put_info_graph['hoga'].tolist())        
+                bc_plot2_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
+                bc_plot2_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
 
             elif bc_comboindex2 == 2 and market_service:
 
@@ -27580,8 +28360,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 1 and market_service:
 
-                bc_plot3_call_rr_curve.setData(df_call_info_graph['hoga'].tolist())
-                bc_plot3_put_rr_curve.setData(df_put_info_graph['hoga'].tolist())        
+                bc_plot3_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
+                bc_plot3_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
 
             elif bc_comboindex3 == 2 and market_service:
 
