@@ -1168,9 +1168,7 @@ call_volume_power = 0
 put_volume_power = 0
 option_volume_power = 0
 
-opt_x_idx = 0
-old_opt_x_idx = 0
-
+# 모든 시간은 해외선물 기준으로 처리
 ovc_x_idx = 0
 
 call_itm_count = 0
@@ -1406,8 +1404,6 @@ call_scroll_end_position = 0
 put_scroll_begin_position = 0
 put_scroll_end_position = 0
 
-x_idx = 0
-
 new_actval_up_count = 0
 new_actval_down_count = 0
 
@@ -1632,108 +1628,6 @@ macd_sig_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
 mama_pen = pg.mkPen(magenta, width=1, style=QtCore.Qt.SolidLine)
 fama_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
 
-# Plot1
-plot1_time_line = None
-plot1_time_line_start = None
-plot1_time_line_yagan_start = None
-
-plot1_fut_jl_line = None
-plot1_fut_jh_line = None
-plot1_fut_close_line = None
-plot1_fut_open_line = None    
-plot1_fut_pivot_line = None
-plot1_fut_low_line = None
-plot1_fut_high_line = None  
-
-plot1_kp200_2_line = None
-plot1_kp200_3_line = None
-plot1_kp200_4_line = None
-plot1_kp200_5_line = None
-plot1_kp200_6_line = None
-plot1_kp200_7_line = None
-
-kp200_line = []
-
-plot1_ovc_jl_line = None
-plot1_ovc_jh_line = None
-plot1_ovc_close_line = None
-plot1_ovc_open_line = None
-plot1_ovc_pivot_line = None
-plot1_ovc_low_line = None
-plot1_ovc_high_line = None
-
-plot1_fut_price_curve = None
-plot1_fut_volume_curve = None
-plot1_fut_volume_plus_curve = None
-plot1_fut_volume_minus_curve = None
-
-plot1_kp200_curve = None
-plot1_call_volume_curve = None
-plot1_put_volume_curve = None
-
-plot1_call_rr_curve = None
-plot1_put_rr_curve = None
-
-plot1_fut_drate_curve = None
-plot1_dow_drate_curve = None
-
-plot1_call_drate_curve = None
-plot1_put_drate_curve = None
-
-plot1_sp500_curve = None
-plot1_dow_curve = None
-plot1_nasdaq_curve = None
-plot1_wti_curve = None
-
-plot1_vLine = None
-plot1_hLine = None
-
-# Plot2
-plot2_time_line = None
-plot2_time_line_start = None
-plot2_time_line_yagan_start = None
-
-plot2_ovc_jl_line = None
-plot2_ovc_jh_line = None
-plot2_ovc_close_line = None
-plot2_ovc_pivot_line = None
-plot2_ovc_open_line = None
-plot2_ovc_low_line = None
-plot2_ovc_high_line = None
-
-mv_line = []
-
-plot2_fut_volume_curve = None
-plot2_fut_volume_plus_curve = None
-plot2_fut_volume_minus_curve = None
-plot2_call_volume_curve = None
-plot2_put_volume_curve = None
-
-plot2_call_rr_curve = None
-plot2_put_rr_curve = None
-
-plot2_fut_drate_curve = None
-plot2_dow_drate_curve = None
-
-plot2_call_drate_curve = None
-plot2_put_drate_curve = None
-
-plot2_sp500_curve = None
-plot2_dow_curve = None
-plot2_nasdaq_curve = None
-plot2_wti_curve = None
-
-plot2_call_curve = []
-plot2_put_curve = []
-
-plot2_center_val_curve = None
-
-plot2_center_val_upper_line = None
-plot2_center_val_line = None
-plot2_center_val_lower_line = None
-
-plot2_vLine = None
-plot2_hLine = None
 
 # Big Chart Plot1
 bc_plot1_time_line = None
@@ -2140,54 +2034,6 @@ DOW_현재가_버퍼 = []
 SP500_현재가_버퍼 = []
 NASDAQ_현재가_버퍼 = []
 WTI_현재가_버퍼 = []
-
-'''
-선물_저가시리즈 = pd.Series()
-선물_현재가시리즈 = pd.Series()
-선물_고가시리즈 = pd.Series()
-
-DOW_저가시리즈 = pd.Series()
-DOW_현재가시리즈 = pd.Series()
-DOW_고가시리즈 = pd.Series()
-
-SP500_저가시리즈 = pd.Series()
-SP500_현재가시리즈 = pd.Series()
-SP500_고가시리즈 = pd.Series()
-
-NASDAQ_저가시리즈 = pd.Series()
-NASDAQ_현재가시리즈 = pd.Series()
-NASDAQ_고가시리즈 = pd.Series()
-
-WTI_저가시리즈 = pd.Series()
-WTI_현재가시리즈 = pd.Series()
-WTI_고가시리즈 = pd.Series()
-
-ovc_index_list = []
-
-선물_MAMA_리스트 = []
-선물_FAMA_리스트 = []
-
-DOW_MAMA_리스트 = []
-DOW_FAMA_리스트 = []
-SP500_MAMA_리스트 = []
-SP500_FAMA_리스트 = []
-NASDAQ_MAMA_리스트 = []
-NASDAQ_FAMA_리스트 = []
-WTI_MAMA_리스트 = []
-WTI_FAMA_리스트 = []
-
-선물_MAMA_시리즈 = pd.Series()
-선물_FAMA_시리즈 = pd.Series()
-
-DOW_MAMA_시리즈 = pd.Series()
-DOW_FAMA_시리즈 = pd.Series()
-SP500_MAMA_시리즈 = pd.Series()
-SP500_FAMA_시리즈 = pd.Series()
-NASDAQ_MAMA_시리즈 = pd.Series()
-NASDAQ_FAMA_시리즈 = pd.Series()
-WTI_MAMA_시리즈 = pd.Series()
-WTI_FAMA_시리즈 = pd.Series()
-'''
 
 flag_futures_ohlc_open = False
 flag_dow_ohlc_open = False
@@ -3696,9 +3542,6 @@ class screen_update_worker(QThread):
         try:
             index = opt_actval.index(actval)
 
-            #data4 = None           
-            #data7 = df_plotdata_fut_drate.iloc[0].values.tolist()
-
             call_curve_data = df_call_price_graph[index].tolist()
             put_curve_data = df_put_price_graph[index].tolist()
             
@@ -3707,37 +3550,6 @@ class screen_update_worker(QThread):
             
             return None, None
 
-
-########################################################################################################################
-
-########################################################################################################################
-class call_update_worker(QThread):
-
-    finished = pyqtSignal(str)
-
-    def run(self):
-        
-        while True:
-
-            str = 'Call Update Start...'
-
-            self.finished.emit(str)
-            self.msleep(10)
-########################################################################################################################
-
-########################################################################################################################
-class put_update_worker(QThread):
-
-    finished = pyqtSignal(str)
-
-    def run(self):
-        
-        while True:
-
-            str = 'Put Update Start...'
-
-            self.finished.emit(str)
-            self.msleep(10)
 ########################################################################################################################
 
 ########################################################################################################################
@@ -4954,13 +4766,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.screen_update_worker = screen_update_worker()
         self.screen_update_worker.finished.connect(self.update_screen)
-        '''
-        self.call_update_worker = call_update_worker()
-        self.call_update_worker.finished.connect(self.call_update)
-
-        self.put_update_worker = put_update_worker()
-        self.put_update_worker.finished.connect(self.put_update)
-        '''
+        
         self.telegram_send_worker = telegram_send_worker()
         self.telegram_send_worker.finished.connect(self.send_telegram_message)
 
@@ -5049,8 +4855,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 화면을 캡처했습니다.\r'.format(now.tm_hour, now.tm_min, now.tm_sec, num)
                 self.textBrowser.append(str)
-                print(str)
-    
+                print(str)    
 
     def timeout(self):
         
@@ -5759,10 +5564,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         except:
             pass
 
-    def plot_data(self):
-
-        pass 
-
     @pyqtSlot(str)
     def send_telegram_message(self, str):
 
@@ -5804,59 +5605,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         except:
             pass
 
-    '''
-    #cross hair
-    def plot1_mouseMoved(self, evt):
-
-        global FLAG_ATM
-
-        pos = evt
-
-        if self.Plot1.sceneBoundingRect().contains(pos):
-            mousePoint = self.Plot1.plotItem.vb.mapSceneToView(pos)
-            self.label_atm.setText("<span style='font-size: 9pt'>X = %d, <span style='color: red'>Y = %0.2f</span>" % (int(mousePoint.x()), mousePoint.y()))
-
-            if NightTime:
-                timespan = nighttime_timespan
-            else:
-                timespan = day_timespan
-               
-            if GuardTime < mousePoint.x() < timespan:
-                FLAG_ATM = False
-            else:
-                FLAG_ATM = True
-            
-            plot1_vLine.setPos(mousePoint.x())
-            plot1_hLine.setPos(mousePoint.y())            
-        else:
-            pass
-        
-    def plot2_mouseMoved(self, evt):
-
-        global FLAG_ATM
-
-        pos = evt
-
-        if self.Plot2.sceneBoundingRect().contains(pos):
-            mousePoint = self.Plot2.plotItem.vb.mapSceneToView(pos)
-            self.label_atm.setText("<span style='font-size: 9pt'>X = %d, <span style='color: red'>Y = %0.2f</span>" % (int(mousePoint.x()), mousePoint.y()))
-
-            if NightTime:
-                timespan = nighttime_timespan
-            else:
-                timespan = day_timespan
-
-            if GuardTime < mousePoint.x() < timespan:
-                FLAG_ATM = False
-            else:
-                FLAG_ATM = True
-            
-            plot2_vLine.setPos(mousePoint.x())
-            plot2_hLine.setPos(mousePoint.y()) 
-        else:
-            pass
-    '''
-
     # 처리시간 해법필요
     def OHLC_Gen(self):
 
@@ -5896,8 +5644,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             #df_fut_ohlc_15min = df.resample('15T').ohlc()
         else:
             pass
-
-        '''
+        
         # SP500 OHLC 데이타프레임 생성        
         time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
         chetime = nowDate + ' ' + time_str
@@ -6043,8 +5790,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 5 Minute resample
         #df_gold_ohlc_5min = df.resample('5T').ohlc()
         # 15 Minute resample
-        #df_gold_ohlc_15min = df.resample('15T').ohlc()
-        '''
+        #df_gold_ohlc_15min = df.resample('15T').ohlc()        
 
         str = '[{0:02d}:{1:02d}:{2:02d}] OHLC_Gen Update : {3:0.2f} ms...\r'.format(\
                     dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
@@ -6150,7 +5896,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if market_service:                                      
                     
                     # 시작과 동시에 컬러링 갱신
-                    if opt_x_idx > GuardTime:
+                    if ovc_x_idx > GuardTime:
 
                         # 선물, 콜, 풋 현재가 클리어
                         #self.cv_color_clear()
@@ -6231,9 +5977,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             # 콜 테이블 데이타 갱신
                             self.call_db_update()
                             self.call_volume_power_update()
-                            self.call_oi_update()                            
-
-                            #self.call_state_update()                            
+                            self.call_oi_update()                          
 
                             # 콜 저가, 고가 맥점 컬러갱신
                             if flag_call_low_update:
@@ -6277,9 +6021,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             # 풋 테이블 데이타 갱신
                             self.put_db_update()
                             self.put_volume_power_update()
-                            self.put_oi_update()                            
-
-                            #self.put_state_update()                            
+                            self.put_oi_update()                          
 
                             if not NightTime:
 
@@ -7116,7 +6858,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def display_atm(self, blink):
 
-        #global df_plotdata_fut_drate 
         global basis
         global atm_str, atm_index, old_atm_index, call_atm_value, put_atm_value 
         global atm_zero_sum, atm_zero_cha
@@ -7223,7 +6964,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
 
-        df_call_info_graph.at[opt_x_idx, 'centerval'] = CENTER_VAL
+        df_call_info_graph.at[ovc_x_idx, 'centerval'] = CENTER_VAL
 
         atm_list = []
         atm_list.append(atm_minus_5)
@@ -16945,7 +16686,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global first_refresh, fut_first_arrive
         global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
         global 선물_저가, 선물_현재가, 선물_대비, 선물_전일대비, 선물_등락율, 선물_고가, 선물_진폭
-        #global df_plotdata_fut_drate
         global 선물_진폭비, 선물_체결시간
         global fut_tick_list, fut_value_list, df_fut_ohlc
         global 선물_현재가_버퍼
@@ -16975,7 +16715,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # Plot 데이타프레임 생성
         df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
         
-        #df_plotdata_fut_drate[x_idx] = result['등락율']
         df_futures_graph.at[ovc_x_idx, 'drate'] = result['등락율']       
 
         #print('fut_first_arrive = {0}, first_refresh = {1}, market_service = {2}\r'.format(fut_first_arrive, first_refresh, market_service))
@@ -17789,7 +17528,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if not NightTime and index == atm_index:
             콜등락율 = call_result['등락율']
-            df_call_info_graph.at[opt_x_idx, 'drate'] = call_result['등락율']
+            df_call_info_graph.at[ovc_x_idx, 'drate'] = call_result['등락율']
         else:
             pass
         
@@ -18031,7 +17770,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 현재가 != 콜_현재가:
 
             df_call.at[index, '현재가'] = 콜현재가
-            df_call_price_graph.iat[opt_x_idx, index] = 콜현재가
+            df_call_price_graph.iat[ovc_x_idx, index] = 콜현재가
 
             if 콜현재가 < float(콜_현재가):
                 item = QTableWidgetItem(현재가 + '\n' + '▼')
@@ -18468,7 +18207,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass        
 
         call_volume_power = df_call_volume['매수누적체결량'].sum() - df_call_volume['매도누적체결량'].sum()
-        df_call_info_graph.at[opt_x_idx, 'volume'] = call_volume_power
+        df_call_info_graph.at[ovc_x_idx, 'volume'] = call_volume_power
 
         순매수누적체결량 = format(call_volume_power, ',')
 
@@ -18562,50 +18301,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_quote.setItem(0, 3, item)
         else:
             pass
-    '''
-    def call_state_update(self):
-
-        global call_open_count
-
-        dt = datetime.datetime.now()
-
-        call_open_count = len(call_open_list)
-
-        if call_open[option_pairs_count - 1]:
-            new_actval = repr(call_itm_count) + '/' + repr(call_open_count) + '*'
-        else:
-            new_actval = repr(call_itm_count) + '/' + repr(call_open_count)
-
-        if new_actval != self.tableWidget_call.horizontalHeaderItem(1).text():
-            item = QTableWidgetItem(new_actval)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_call.setHorizontalHeaderItem(1, item)
-            self.tableWidget_call.resizeColumnsToContents()
-        else:
-            pass 
-
-        new_oloh = repr(call_ol.count(True)) + ':' + repr(call_oh.count(True))
-
-        if new_oloh != self.tableWidget_call.horizontalHeaderItem(2).text():
-
-            item = QTableWidgetItem(new_oloh)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_call.setHorizontalHeaderItem(2, item)
-            self.tableWidget_call.resizeColumnsToContents()
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call OLOH 갱신 !!!\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)
-
-            # 차월물에서 OLOH 판단
-            if fut_code == cmshcode:
-
-                txt = '차월물 콜 오엘 {}개, 오에이치 {}개'.format(call_ol.count(True), call_oh.count(True))
-                #Speak(txt)
-            else:
-                pass           
-        else:
-            pass
-    '''
+    
     def call_open_check(self):
 
         global df_call, call_itm_count
@@ -19015,7 +18711,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         if not NightTime and index == atm_index:
             풋등락율 = put_result['등락율']
-            df_put_info_graph.at[opt_x_idx, 'drate'] = put_result['등락율']
+            df_put_info_graph.at[ovc_x_idx, 'drate'] = put_result['등락율']
         else:
             pass
         
@@ -19176,7 +18872,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 현재가 != 풋_현재가:
 
             df_put.at[index, '현재가'] = 풋현재가
-            df_put_price_graph.iat[opt_x_idx, index] = 풋현재가
+            df_put_price_graph.iat[ovc_x_idx, index] = 풋현재가
 
             if 풋현재가 < float(풋_현재가):
                 item = QTableWidgetItem(현재가 + '\n' + '▼')
@@ -19614,10 +19310,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass        
 
         put_volume_power = df_put_volume['매수누적체결량'].sum() - df_put_volume['매도누적체결량'].sum()
-        df_put_info_graph.at[opt_x_idx, 'volume'] = put_volume_power
+        df_put_info_graph.at[ovc_x_idx, 'volume'] = put_volume_power
         
         option_volume_power = call_volume_power - put_volume_power
-        #df_plotdata_volume_cha.iat[0, opt_x_idx] = option_volume_power
 
         순매수누적체결량 = format(put_volume_power, ',')
 
@@ -19711,50 +19406,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_quote.setItem(0, 7, item)
         else:
             pass
-    '''
-    def put_state_update(self):
-
-        global put_open_count
-
-        dt = datetime.datetime.now()
-
-        put_open_count = len(put_open_list)
-
-        if put_open[0]:
-            new_actval = repr(put_itm_count) + '/' + repr(put_open_count) + '*'
-        else:
-            new_actval = repr(put_itm_count) + '/' + repr(put_open_count)
-
-        if new_actval != self.tableWidget_put.horizontalHeaderItem(1).text():
-            item = QTableWidgetItem(new_actval)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setHorizontalHeaderItem(1, item)
-            self.tableWidget_put.resizeColumnsToContents()
-        else:
-            pass
-
-        new_oloh = repr(put_ol.count(True)) + ':' + repr(put_oh.count(True))
-
-        if new_oloh != self.tableWidget_put.horizontalHeaderItem(2).text():
-
-            item = QTableWidgetItem(new_oloh)
-            item.setTextAlignment(Qt.AlignCenter)
-            self.tableWidget_put.setHorizontalHeaderItem(2, item)
-            self.tableWidget_put.resizeColumnsToContents()
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put OLOH 갱신 !!!\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
-            self.textBrowser.append(str)
-
-            # 차월물에서 OLOH 판단
-            if fut_code == cmshcode:
-
-                txt = '차월물 풋 오엘 {}개, 오에이치 {}개'.format(put_ol.count(True), put_oh.count(True))
-                #Speak(txt)
-            else:
-                pass           
-        else:
-            pass
-    '''
+    
     def put_open_check(self):
 
         global df_put, put_itm_count
@@ -20026,8 +19678,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print('put_db_percent_local is empty...')
 
                 풋대비합 = 0
-
-            #self.tableWidget_put.resizeColumnsToContents()
         else:
             pass
 
@@ -20069,10 +19719,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         풋잔량비 = put_remainder_ratio
 
-        if market_service and opt_x_idx > 0:
+        if market_service and ovc_x_idx > 0:
 
-            df_call_info_graph.at[opt_x_idx, 'hoga'] = 콜잔량비
-            df_put_info_graph.at[opt_x_idx, 'hoga'] = 풋잔량비
+            df_call_info_graph.at[ovc_x_idx, 'hoga'] = 콜잔량비
+            df_put_info_graph.at[ovc_x_idx, 'hoga'] = 풋잔량비
         else:
             pass
 
@@ -20158,14 +19808,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setBackground(QBrush(흰색))
                 item.setForeground(QBrush(검정색))
 
-            self.tableWidget_quote.setItem(0, 12, item)
-            '''
-            if ResizeRowsToContents:
-                self.tableWidget_quote.resizeRowsToContents()
-                self.tableWidget_quote.resizeColumnsToContents()
-            else:
-                pass 
-            '''           
+            self.tableWidget_quote.setItem(0, 12, item)                  
         else:
             pass        
 
@@ -20291,10 +19934,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global hangseng_delta, old_hangseng_delta, hangseng_직전대비, hangseng_text_color
             global gold_delta, old_gold_delta, gold_직전대비, gold_text_color
             global receive_real_ovc
-            global x_idx, ovc_x_idx
+            global ovc_x_idx
             
             global FC0_선물현재가, OC0_콜현재가, OC0_풋현재가
-            global opt_x_idx
             global flag_telegram_send_worker
             global dongsi_hoga
 
@@ -20332,18 +19974,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global SP500_현재가_버퍼
             global NASDAQ_현재가_버퍼
             global WTI_현재가_버퍼
-            '''
-            global DOW_저가시리즈, DOW_현재가시리즈, DOW_고가시리즈
-            global SP500_저가시리즈, SP500_현재가시리즈, SP500_고가시리즈
-            global NASDAQ_저가시리즈, NASDAQ_현재가시리즈, NASDAQ_고가시리즈
-            global WTI_저가시리즈, WTI_현재가시리즈, WTI_고가시리즈
-
-            global DOW_MAMA_리스트, DOW_FAMA_리스트, SP500_MAMA_리스트, SP500_FAMA_리스트, NASDAQ_MAMA_리스트, NASDAQ_FAMA_리스트, WTI_MAMA_리스트, WTI_FAMA_리스트
-            global DOW_MAMA_시리즈, DOW_FAMA_시리즈, SP500_MAMA_시리즈, SP500_FAMA_시리즈, NASDAQ_MAMA_시리즈, NASDAQ_FAMA_시리즈, WTI_MAMA_시리즈, WTI_FAMA_시리즈
-
-            global ovc_index_list
-            '''
-            
+                        
             start_time = timeit.default_timer()
 
             dt = datetime.datetime.now()
@@ -20586,32 +20217,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 종료합니다.\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
                         self.textBrowser.append(str)
-                        '''
-                        if self.call_update_worker.isRunning():
-                            self.call_update_worker.terminate()
-                        else:
-                            pass
-
-                        if self.put_update_worker.isRunning():
-                            self.put_update_worker.terminate()
-                        else:
-                            pass
-                        '''
+                        
                         self.pushButton_add.setText('ScrShot')
-                        '''
-                        self.opt_all_node_coloring()
-
-                        if TARGET_MONTH_SELECT == 1:
-
-                            self.capture_screenshot()
-                        else:
-                            pass
-
-                        file = open('skybot.log', 'w')
-                        text = self.textBrowser.toPlainText()
-                        file.write(text)
-                        file.close()
-                        '''
+                        
                         self.SaveResult()                    
                     else:
                         pass                                               
@@ -20623,12 +20231,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(str)
 
                     CME_당일종가 = cme_realdata['현재가']
-                    '''
-                    SP500_당일종가 = SP500_현재가
-                    DOW_당일종가 = DOW_현재가
-                    NASDAQ_당일종가 = NASDAQ_현재가
-                    WTI_당일종가 = WTI_현재가
-                    '''
+                    
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간장 종료시 S&P 500 지수 = {3}\r'.format \
                         (OVC_HOUR, OVC_MIN, OVC_SEC, SP500_현재가)
                     self.textBrowser.append(str)
@@ -20655,17 +20258,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 종료합니다.\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
                         self.textBrowser.append(str)
-                        '''
-                        if self.call_update_worker.isRunning():
-                            self.call_update_worker.terminate()
-                        else:
-                            pass
-
-                        if self.put_update_worker.isRunning():
-                            self.put_update_worker.terminate()
-                        else:
-                            pass
-                        '''
+                        
                         self.pushButton_add.setText('ScrShot')
                         
                         str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 스레드를 종료합니다.\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
@@ -20680,20 +20273,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.telegram_listen_worker.terminate()
                         else:
                             pass
-                        '''
-                        self.opt_all_node_coloring()
-
-                        if TARGET_MONTH_SELECT == 1:
-
-                            self.capture_screenshot()
-                        else:
-                            pass
                         
-                        file = open('skybot.log', 'w')
-                        text = self.textBrowser.toPlainText()
-                        file.write(text)
-                        file.close()
-                        '''
                         self.SaveResult()
                     else:
                         pass                    
@@ -21181,7 +20761,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         선물_등락율 = ((result['예상체결가격'] - 선물_전일종가) / 선물_전일종가) * 100
 
-                        #df_plotdata_fut_drate[ovc_x_idx] = 선물_등락율
                         df_futures_graph.at[ovc_x_idx, 'drate'] = 선물_등락율
 
                         item = QTableWidgetItem("선물\n({0:0.2f}%)".format(선물_등락율))
@@ -22090,12 +21669,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if szTrCode == 'FC0':
 
-                    if not market_service: 
-
+                    if not market_service:
                         market_service = True
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 주간 선물 데이타를 수신했습니다.\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
-                        self.textBrowser.append(str)
                     else:
                         pass
                 else:
@@ -22103,94 +21678,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if szTrCode == 'NC0':    
 
-                    if not market_service: 
-
+                    if not market_service:
                         market_service = True
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 야간 선물 데이타를 수신했습니다.\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
-                        self.textBrowser.append(str)
                     else:
                         pass
                 else:
                     pass                
 
-                # 세로축 시간 좌표값 계산
-                if NightTime:
-
-                    if result['체결시간'] != '':
-                        nighttime = int(result['체결시간'][0:2])
-
-                        if 0 <= nighttime <= 5:
-                            nighttime = nighttime + 24
-                        else:
-                            pass
-
-                        x_idx = GuardTime + (nighttime - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
-                    else:
-                        x_idx = GuardTime + 1
-                else:
-
-                    if result['체결시간'] != '':
-                        x_idx = GuardTime + (int(result['체결시간'][0:2]) - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
-                    else:
-                        x_idx = GuardTime + 1
-
                 self.futures_display(result)
-
-                '''
-                if result['현재가'] != FC0_선물현재가:
-                       
-                    FC0_선물현재가 = result['현재가']
-
-                    self.futures_display(result)
-                    
-                    if szTrCode == 'FC0':
-
-                        if result['전일동시간대거래량'] > 0:
-
-                            if NightTime:
-                                fut_vr = float(self.tableWidget_fut.item(0, Futures_column.FR.value).text())
-                            else:
-                                fut_vr = float(self.tableWidget_fut.item(1, Futures_column.FR.value).text())
-
-                            vr = result['누적거래량'] / result['전일동시간대거래량']
-
-                            if vr != fut_vr:
-                                item = QTableWidgetItem("{0:0.1f}".format(vr))
-                                item.setTextAlignment(Qt.AlignCenter)
-
-                                if NightTime:
-                                    self.tableWidget_fut.setItem(0, Futures_column.FR.value, item)
-                                else:
-                                    self.tableWidget_fut.setItem(1, Futures_column.FR.value, item)
-                            else:
-                                pass
-                        else:
-                            pass
-                    else:
-                        pass                                    
-                else:
-                    pass
-                '''
 
             elif szTrCode == 'OC0' or szTrCode == 'EC0':
 
-                if not market_service: 
-
+                if not market_service:
                     market_service = True
-                    
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 실시간 옵션 데이타를 수신했습니다.\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
-                    self.textBrowser.append(str)
-                    '''
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 시작합니다.\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
-                    self.textBrowser.append(str)
-                    
-                    self.call_update_worker.start()
-                    self.call_update_worker.daemon = True
-
-                    self.put_update_worker.start()
-                    self.put_update_worker.daemon = True
-                    '''
                 else:
                     pass
 
@@ -22199,41 +21699,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                # X축 시간좌표 계산
-                if NightTime:
-
-                    if result['체결시간'] != '':
-
-                        nighttime = int(result['체결시간'][0:2])
-
-                        if 0 <= nighttime <= 5:
-                            nighttime = nighttime + 24
-                        else:
-                            pass
-
-                        opt_x_idx = GuardTime + (nighttime - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
-                    else:
-                        opt_x_idx = GuardTime + 1
-                else:
-
-                    if result['체결시간'] != '':
-                        opt_x_idx = GuardTime + (int(result['체결시간'][0:2]) - KSE_START_HOUR) * 60 + int(result['체결시간'][2:4]) + 1
-                    else:
-                        opt_x_idx = GuardTime + 1
-
-                '''
-                str = '[{0:02d}:{1:02d}:{2:02d}] opt_x_idx = {3} \r'.format(
-                            int(result['체결시간'][0:2]),
-                            int(result['체결시간'][2:4]),
-                            int(result['체결시간'][4:6]),
-                            opt_x_idx)              
-                
-                if NightTime:                    
-                    self.textBrowser.append(str)
-                else:
-                    print(str)
-                '''
-
                 if result['단축코드'][0:3] == '201':
 
                     call_result = copy.deepcopy(result)
@@ -22241,98 +21706,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if FLAG_GUEST_CONTROL:                        
                         self.call_display()
                     else:
-                        pass 
-
-                    '''
-                    if result['현재가'] != OC0_콜현재가:
-                        
-                        OC0_콜현재가 = result['현재가']
-
-                        call_result = copy.deepcopy(result)                        
-                        self.call_display(result)
-                        
-                        if opt_callreal_update_counter >= 500:
-
-                            opt_callreal_update_counter = 0
-                            opt_putreal_update_counter = 0
-                        else:
-                            pass
-
-                        process_time = (timeit.default_timer() - start_time) * 1000
-
-                        if opt_callreal_update_counter >= opt_putreal_update_counter:
-
-                            str = '[{0:02d}:{1:02d}:{2:02d}] Call {3} 수신, C({4}/{5}) : {6:0.2f} ms... \r'.format(
-                                int(result['체결시간'][0:2]),
-                                int(result['체결시간'][2:4]),
-                                int(result['체결시간'][4:6]),
-                                result['현재가'],
-                                opt_callreal_update_counter,
-                                opt_putreal_update_counter,
-                                process_time)
-                            self.textBrowser.append(str)
-                        else:
-
-                            str = '[{0:02d}:{1:02d}:{2:02d}] Call {3} 수신, P({4}/{5}) : {6:0.2f} ms... \r'.format(
-                                int(result['체결시간'][0:2]),
-                                int(result['체결시간'][2:4]),
-                                int(result['체결시간'][4:6]),
-                                result['현재가'],
-                                opt_callreal_update_counter,
-                                opt_putreal_update_counter,
-                                process_time)
-                            self.textBrowser.append(str)                        
-                    else:
-                        pass
-                    ''' 
+                        pass                    
 
                 elif result['단축코드'][0:3] == '301':
 
                     put_result = copy.deepcopy(result)
-                    self.put_display()
-
-                    '''
-                    if result['현재가'] != OC0_풋현재가:
-
-                        OC0_풋현재가 = result['현재가']
-
-                        put_result = copy.deepcopy(result)
-                        self.put_display(result)
-                        
-                        if opt_putreal_update_counter >= 500:
-
-                            opt_callreal_update_counter = 0
-                            opt_putreal_update_counter = 0
-                        else:
-                            pass
-
-                        process_time = (timeit.default_timer() - start_time) * 1000
-
-                        if opt_callreal_update_counter >= opt_putreal_update_counter:
-
-                            str = '[{0:02d}:{1:02d}:{2:02d}] Put {3} 수신, C({4}/{5}) : {6:0.2f} ms... \r'.format(
-                                int(result['체결시간'][0:2]),
-                                int(result['체결시간'][2:4]),
-                                int(result['체결시간'][4:6]),
-                                result['현재가'],
-                                opt_callreal_update_counter,
-                                opt_putreal_update_counter,
-                                process_time)
-                            self.textBrowser.append(str)
-                        else:
-
-                            str = '[{0:02d}:{1:02d}:{2:02d}] Put {3} 수신, P({4}/{5}) : {6:0.2f} ms... \r'.format(
-                                int(result['체결시간'][0:2]),
-                                int(result['체결시간'][2:4]),
-                                int(result['체결시간'][4:6]),
-                                result['현재가'],
-                                opt_callreal_update_counter,
-                                opt_putreal_update_counter,
-                                process_time)
-                            self.textBrowser.append(str)                           
-                    else:
-                        pass
-                    ''' 
+                    self.put_display()                    
                 else:
                     pass
 
@@ -23516,14 +22895,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
                     
                 # OHLC 연산목적 저가, 고가 리스트 생성(기존방식은 실시간지연 발생함!!!)
-
-                # 시리즈 생성을위한 인덱스 리스트 작성
-                '''
-                if not ovc_index_list:
-                    ovc_index_list.append(ovc_x_idx)
-                else:
-                    pass
-                '''
                 
                 # 1T OHLC 생성
                 if OVC_SEC == 0:
@@ -23669,7 +23040,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_dow_graph['PSAR'] = parabolic_sar
 
-                # MAMA(약 32분후에 출력값이 나옴)
+                # MAMA(약 32 샘플후에 출력값이 나옴)
                 mama, fama = talib.MAMA(np.array(df_dow_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
                 df_dow_graph['MAMA'] = mama
@@ -23696,7 +23067,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_sp500_graph['PSAR'] = parabolic_sar
 
-                # MAMA(약 32분후에 출력값이 나옴)
+                # MAMA(약 32샘플후에 출력값이 나옴)
                 mama, fama = talib.MAMA(np.array(df_sp500_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
                 df_sp500_graph['MAMA'] = mama
@@ -23723,7 +23094,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_nasdaq_graph['PSAR'] = parabolic_sar
 
-                # MAMA(약 32분후에 출력값이 나옴)
+                # MAMA(약 32샘플후에 출력값이 나옴)
                 mama, fama = talib.MAMA(np.array(df_nasdaq_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
                 df_nasdaq_graph['MAMA'] = mama
@@ -23750,19 +23121,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_wti_graph['PSAR'] = parabolic_sar
 
-                # MAMA(약 32분후에 출력값이 나옴)
+                # MAMA(약 32샘플후에 출력값이 나옴)
                 mama, fama = talib.MAMA(np.array(df_wti_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
                 df_wti_graph['MAMA'] = mama
                 df_wti_graph['FAMA'] = fama
                 
-                '''
-                if not np.isnan(df_wti_graph['MAMA'].tolist()).all():
-                    print('MAMA', df_wti_graph['MAMA'].tolist())
-                else:
-                    print('WTI MAMA...')                
-                '''
-
             elif szTrCode == 'OVH':
 
                 global NASDAQ_호가순매수, SP500_호가순매수, DOW_호가순매수, WTI_호가순매수, EUROFX_호가순매수, HANGSENG_호가순매수, GOLD_호가순매수
@@ -23851,20 +23215,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             else:
                 pass
-            '''
-            process_time = (timeit.default_timer() - start_time) * 1000
-
-            if process_time > 0:
-                pass
-                
-                str = '[{0:02d}:{1:02d}:{2:02d}] OnReceiveRealData[{3}] 처리시간 --> {4:0.2f} ms...\r'.format(dt.hour,
-                                                                        dt.minute, dt.second, szTrCode, process_time)
-                self.textBrowser.append(str)
-                print(str)
-                
-            else:
-                pass
-            '''
 
         except Exception as e:
             pass
@@ -23940,11 +23290,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     #print('new node list =', new_node)
 
                     for i in range(len(new_node)):
-                        '''
-                        str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 동적맥점 {4}(발생빈도수 = {5}) 추가됨...\r'.format \
-                            (dt.hour, dt.minute, dt.second, i + 1, new_node[i][0], new_node[i][1])
-                        self.textBrowser.append(str)
-                        '''
+                        
                         item = QTableWidgetItem("{0:0.2f}\n({1})".format(new_node[i][0], new_node[i][1]))
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(lime))
@@ -24201,9 +23547,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def high_low_list_save_to_file(self):
         
-        #now = time.localtime()
-        #times = "%04d-%02d-%02d" % (now.tm_year, now.tm_mon, now.tm_mday)
-
         call_low_list_to_file = []
         call_high_list_to_file = []
         put_low_list_to_file = []
@@ -24283,12 +23626,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             os.remove('HL-List.txt')
             os.rename('tmp.txt', 'HL-List.txt')
         else:
-            pass
-            '''
-            print("New file Creation...")
-            file = open(fname, 'w')            
-            strr = vstr
-            '''
+            pass            
 
     def closeEvent(self,event):
 
@@ -24402,27 +23740,27 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
         self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_11.setText(" 전저: 가격 ")
+        self.label_11.setText(" 전저 ")
         self.label_11.setStyleSheet('background-color: goldenrod ; color: black')
         self.label_11.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_12.setText(" 전고: 가격 ")
+        self.label_12.setText(" 전고 ")
         self.label_12.setStyleSheet('background-color: gold ; color: black')
         self.label_12.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_13.setText(" 종가: 가격 ")
+        self.label_13.setText(" 종가 ")
         self.label_13.setStyleSheet('background-color: lime ; color: black')
         self.label_13.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_14.setText(" 피봇: 가격 ")
+        self.label_14.setText(" 피봇 ")
         self.label_14.setStyleSheet('background-color: magenta ; color: black')
         self.label_14.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_15.setText(" 시가: 가격 ")
+        self.label_15.setText(" 시가 ")
         self.label_15.setStyleSheet('background-color: red ; color: white')
         self.label_15.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_16.setText(" 저가: 가격 ")
+        self.label_16.setText(" 저가 ")
         self.label_16.setStyleSheet('background-color: skyblue ; color: black')
         self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -24430,7 +23768,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_17.setStyleSheet('background-color: black ; color: yellow')
         self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_18.setText(" 고가: 가격 ")
+        self.label_18.setText(" 고가 ")
         self.label_18.setStyleSheet('background-color: pink ; color: black')
         self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -24451,27 +23789,27 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
         self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_21.setText(" 전저: 가격 ")
+        self.label_21.setText(" 전저 ")
         self.label_21.setStyleSheet('background-color: goldenrod ; color: black')
         self.label_21.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_22.setText(" 전고: 가격 ")
+        self.label_22.setText(" 전고 ")
         self.label_22.setStyleSheet('background-color: gold ; color: black')
         self.label_22.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_23.setText(" 종가: 가격 ")
+        self.label_23.setText(" 종가 ")
         self.label_23.setStyleSheet('background-color: lime ; color: black')
         self.label_23.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_24.setText(" 피봇: 가격 ")
+        self.label_24.setText(" 피봇 ")
         self.label_24.setStyleSheet('background-color: magenta ; color: black')
         self.label_24.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_25.setText(" 시가: 가격 ")
+        self.label_25.setText(" 시가 ")
         self.label_25.setStyleSheet('background-color: red ; color: white')
         self.label_25.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_26.setText(" 저가: 가격 ")
+        self.label_26.setText(" 저가 ")
         self.label_26.setStyleSheet('background-color: skyblue ; color: black')
         self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -24479,7 +23817,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_27.setStyleSheet('background-color: black ; color: yellow')
         self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_28.setText(" 고가: 가격 ")
+        self.label_28.setText(" 고가 ")
         self.label_28.setStyleSheet('background-color: pink ; color: black')
         self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -24500,27 +23838,27 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
         self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_31.setText(" 전저: 가격 ")
+        self.label_31.setText(" 전저 ")
         self.label_31.setStyleSheet('background-color: goldenrod ; color: black')
         self.label_31.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_32.setText(" 전고: 가격 ")
+        self.label_32.setText(" 전고 ")
         self.label_32.setStyleSheet('background-color: gold ; color: black')
         self.label_32.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_33.setText(" 종가: 가격 ")
+        self.label_33.setText(" 종가 ")
         self.label_33.setStyleSheet('background-color: lime ; color: black')
         self.label_33.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_34.setText(" 피봇: 가격 ")
+        self.label_34.setText(" 피봇 ")
         self.label_34.setStyleSheet('background-color: magenta ; color: black')
         self.label_34.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_35.setText(" 시가: 가격 ")
+        self.label_35.setText(" 시가 ")
         self.label_35.setStyleSheet('background-color: red ; color: white')
         self.label_35.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_36.setText(" 저가: 가격 ")
+        self.label_36.setText(" 저가 ")
         self.label_36.setStyleSheet('background-color: skyblue ; color: black')
         self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -24528,7 +23866,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_37.setStyleSheet('background-color: black ; color: yellow')
         self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_38.setText(" 고가: 가격 ")
+        self.label_38.setText(" 고가 ")
         self.label_38.setStyleSheet('background-color: pink ; color: black')
         self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -24626,14 +23964,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
         for i in range(10):
             bc_kp200_line.append(self.bc_Plot1.addLine(x=None, pen=kp200_pen))
-        '''
-        bc_plot1_kp200_2_line = self.bc_Plot1.addLine(x=None, pen=kp200_pen)
-        bc_plot1_kp200_3_line = self.bc_Plot1.addLine(x=None, pen=kp200_pen)
-        bc_plot1_kp200_4_line = self.bc_Plot1.addLine(x=None, pen=kp200_pen)
-        bc_plot1_kp200_5_line = self.bc_Plot1.addLine(x=None, pen=kp200_pen)
-        bc_plot1_kp200_6_line = self.bc_Plot1.addLine(x=None, pen=kp200_pen)
-        bc_plot1_kp200_7_line = self.bc_Plot1.addLine(x=None, pen=kp200_pen)   
-        '''
+        
         bc_plot1_ovc_jl_line = self.bc_Plot1.addLine(x=None, pen=goldenrod_pen)
         bc_plot1_ovc_jh_line = self.bc_Plot1.addLine(x=None, pen=gold_pen)  
         bc_plot1_ovc_close_line = self.bc_Plot1.addLine(x=None, pen=lime_pen)
@@ -25040,14 +24371,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if bc_comboindex1 == 0:
 
-            self.label_11.setText(" 전저: 가격 ")
-            self.label_12.setText(" 전고: 가격 ")
-            self.label_13.setText(" 종가: 가격 ")
-            self.label_14.setText(" 피봇: 가격 ")
-            self.label_15.setText(" 시가: 가격 ")
-            self.label_16.setText(" 저가: 가격 ")
+            self.label_11.setText(" 전저 ")
+            self.label_12.setText(" 전고 ")
+            self.label_13.setText(" 종가 ")
+            self.label_14.setText(" 피봇 ")
+            self.label_15.setText(" 시가 ")
+            self.label_16.setText(" 저가 ")
             self.label_17.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_18.setText(" 고가: 가격 ")
+            self.label_18.setText(" 고가 ")
 
             bc_plot1_call_rr_curve.clear()
             bc_plot1_put_rr_curve.clear()
@@ -25078,14 +24409,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(10):
                 bc_kp200_line[i].setValue(0)
-            '''
-            bc_plot1_kp200_2_line.setValue(0)
-            bc_plot1_kp200_3_line.setValue(0)
-            bc_plot1_kp200_4_line.setValue(0)
-            bc_plot1_kp200_5_line.setValue(0)
-            bc_plot1_kp200_6_line.setValue(0)
-            bc_plot1_kp200_7_line.setValue(0)
-            '''
+            
             bc_plot1_ovc_close_line.setValue(0)
             bc_plot1_ovc_open_line.setValue(0)
             bc_plot1_ovc_jl_line.setValue(0)
@@ -25096,14 +24420,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex1 == 1:
 
-            self.label_11.setText(" 전저: 가격 ")
-            self.label_12.setText(" 전고: 가격 ")
-            self.label_13.setText(" 종가: 가격 ")
-            self.label_14.setText(" 피봇: 가격 ")
-            self.label_15.setText(" 시가: 가격 ")
-            self.label_16.setText(" 저가: 가격 ")
+            self.label_11.setText(" 전저 ")
+            self.label_12.setText(" 전고 ")
+            self.label_13.setText(" 종가 ")
+            self.label_14.setText(" 피봇 ")
+            self.label_15.setText(" 시가 ")
+            self.label_16.setText(" 저가 ")
             self.label_17.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_18.setText(" 고가: 가격 ")            
+            self.label_18.setText(" 고가 ")            
             
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -25134,14 +24458,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(10):
                 bc_kp200_line[i].setValue(0)
-            '''
-            bc_plot1_kp200_2_line.setValue(0)
-            bc_plot1_kp200_3_line.setValue(0)
-            bc_plot1_kp200_4_line.setValue(0)
-            bc_plot1_kp200_5_line.setValue(0)
-            bc_plot1_kp200_6_line.setValue(0)
-            bc_plot1_kp200_7_line.setValue(0)
-            '''
+            
             bc_plot1_ovc_close_line.setValue(0)
             bc_plot1_ovc_open_line.setValue(0)
             bc_plot1_ovc_jl_line.setValue(0)
@@ -25152,14 +24469,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex1 == 2:
 
-            self.label_11.setText(" 전저: 가격 ")
-            self.label_12.setText(" 전고: 가격 ")
-            self.label_13.setText(" 종가: 가격 ")
-            self.label_14.setText(" 피봇: 가격 ")
-            self.label_15.setText(" 시가: 가격 ")
-            self.label_16.setText(" 저가: 가격 ")
+            self.label_11.setText(" 전저 ")
+            self.label_12.setText(" 전고 ")
+            self.label_13.setText(" 종가 ")
+            self.label_14.setText(" 피봇 ")
+            self.label_15.setText(" 시가 ")
+            self.label_16.setText(" 저가 ")
             self.label_17.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_18.setText(" 고가: 가격 ")
+            self.label_18.setText(" 고가 ")
             
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -25190,14 +24507,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(10):
                 bc_kp200_line[i].setValue(0)
-            '''
-            bc_plot1_kp200_2_line.setValue(0)
-            bc_plot1_kp200_3_line.setValue(0)
-            bc_plot1_kp200_4_line.setValue(0)
-            bc_plot1_kp200_5_line.setValue(0)
-            bc_plot1_kp200_6_line.setValue(0)
-            bc_plot1_kp200_7_line.setValue(0)
-            '''
+            
             bc_plot1_ovc_close_line.setValue(0)
             bc_plot1_ovc_open_line.setValue(0)
             bc_plot1_ovc_jl_line.setValue(0)
@@ -25208,14 +24518,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         
         elif bc_comboindex1 == 3:
 
-            self.label_11.setText(" 전저: 가격 ")
-            self.label_12.setText(" 전고: 가격 ")
-            self.label_13.setText(" 종가: 가격 ")
-            self.label_14.setText(" 피봇: 가격 ")
-            self.label_15.setText(" 시가: 가격 ")
-            self.label_16.setText(" 저가: 가격 ")
+            self.label_11.setText(" 전저 ")
+            self.label_12.setText(" 전고 ")
+            self.label_13.setText(" 종가 ")
+            self.label_14.setText(" 피봇 ")
+            self.label_15.setText(" 시가 ")
+            self.label_16.setText(" 저가 ")
             self.label_17.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_18.setText(" 고가: 가격 ")
+            self.label_18.setText(" 고가 ")
 
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -25244,14 +24554,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             for i in range(10):
                 bc_kp200_line[i].setValue(0)
-            '''
-            bc_plot1_kp200_2_line.setValue(0)
-            bc_plot1_kp200_3_line.setValue(0)
-            bc_plot1_kp200_4_line.setValue(0)
-            bc_plot1_kp200_5_line.setValue(0)
-            bc_plot1_kp200_6_line.setValue(0)
-            bc_plot1_kp200_7_line.setValue(0)
-            '''
+            
             bc_plot1_ovc_close_line.setValue(0)
             bc_plot1_ovc_open_line.setValue(0)
             bc_plot1_ovc_jl_line.setValue(0)
@@ -25281,14 +24584,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_nasdaq_curve.clear()
             bc_plot1_wti_curve.clear()
             
-            '''
-            bc_plot1_kp200_2_line.setValue(KP200_COREVAL[3])
-            bc_plot1_kp200_3_line.setValue(KP200_COREVAL[3])
-            bc_plot1_kp200_4_line.setValue(KP200_COREVAL[4])
-            bc_plot1_kp200_5_line.setValue(KP200_COREVAL[5])
-            bc_plot1_kp200_6_line.setValue(KP200_COREVAL[6])
-            bc_plot1_kp200_7_line.setValue(KP200_COREVAL[6])
-            '''
             bc_kp200_line[0].setValue(KP200_COREVAL[3])
             bc_kp200_line[1].setValue(KP200_COREVAL[3])
             bc_kp200_line[2].setValue(KP200_COREVAL[3])
@@ -25401,14 +24696,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_nasdaq_curve.clear()
             bc_plot1_wti_curve.clear()
             
-            '''
-            bc_plot1_kp200_2_line.setValue(SP500_종가)
-            bc_plot1_kp200_3_line.setValue(SP500_종가)
-            bc_plot1_kp200_4_line.setValue(SP500_종가)
-            bc_plot1_kp200_5_line.setValue(SP500_종가)
-            bc_plot1_kp200_6_line.setValue(SP500_종가)
-            bc_plot1_kp200_7_line.setValue(SP500_종가)
-            '''
             for i in range(10):
                 bc_kp200_line[i].setValue(SP500_종가)
             
@@ -25508,14 +24795,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_nasdaq_curve.clear()
             bc_plot1_wti_curve.clear()  
             
-            '''
-            bc_plot1_kp200_2_line.setValue(DOW_종가)
-            bc_plot1_kp200_3_line.setValue(DOW_종가)
-            bc_plot1_kp200_4_line.setValue(DOW_종가)
-            bc_plot1_kp200_5_line.setValue(DOW_종가)
-            bc_plot1_kp200_6_line.setValue(DOW_종가)
-            bc_plot1_kp200_7_line.setValue(DOW_종가)
-            '''
             for i in range(10):
                 bc_kp200_line[i].setValue(DOW_종가)
             
@@ -25615,14 +24894,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_dow_curve.clear() 
             bc_plot1_wti_curve.clear() 
             
-            '''
-            bc_plot1_kp200_2_line.setValue(NASDAQ_종가)
-            bc_plot1_kp200_3_line.setValue(NASDAQ_종가)
-            bc_plot1_kp200_4_line.setValue(NASDAQ_종가)
-            bc_plot1_kp200_5_line.setValue(NASDAQ_종가)
-            bc_plot1_kp200_6_line.setValue(NASDAQ_종가)
-            bc_plot1_kp200_7_line.setValue(NASDAQ_종가)
-            '''
             for i in range(10):
                 bc_kp200_line[i].setValue(NASDAQ_종가)
             
@@ -25722,14 +24993,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_dow_curve.clear()
             bc_plot1_nasdaq_curve.clear()  
             
-            '''
-            bc_plot1_kp200_2_line.setValue(WTI_종가)
-            bc_plot1_kp200_3_line.setValue(WTI_종가)
-            bc_plot1_kp200_4_line.setValue(WTI_종가)
-            bc_plot1_kp200_5_line.setValue(WTI_종가)
-            bc_plot1_kp200_6_line.setValue(WTI_종가)
-            bc_plot1_kp200_7_line.setValue(WTI_종가)
-            '''
             for i in range(10):
                 bc_kp200_line[i].setValue(WTI_종가)
             
@@ -25826,14 +25089,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if bc_comboindex2 == 0:
 
-            self.label_21.setText(" 전저: 가격 ")
-            self.label_22.setText(" 전고: 가격 ")
-            self.label_23.setText(" 종가: 가격 ")
-            self.label_24.setText(" 피봇: 가격 ")
-            self.label_25.setText(" 시가: 가격 ")
-            self.label_26.setText(" 저가: 가격 ")
+            self.label_21.setText(" 전저 ")
+            self.label_22.setText(" 전고 ")
+            self.label_23.setText(" 종가 ")
+            self.label_24.setText(" 피봇 ")
+            self.label_25.setText(" 시가 ")
+            self.label_26.setText(" 저가 ")
             self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_28.setText(" 고가: 가격 ")
+            self.label_28.setText(" 고가 ")
             
             bc_plot2_call_rr_curve.clear()
             bc_plot2_put_rr_curve.clear()
@@ -25874,14 +25137,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
         elif bc_comboindex2 == 1:
 
-            self.label_21.setText(" 전저: 가격 ")
-            self.label_22.setText(" 전고: 가격 ")
-            self.label_23.setText(" 종가: 가격 ")
-            self.label_24.setText(" 피봇: 가격 ")
-            self.label_25.setText(" 시가: 가격 ")
-            self.label_26.setText(" 저가: 가격 ")
+            self.label_21.setText(" 전저 ")
+            self.label_22.setText(" 전고 ")
+            self.label_23.setText(" 종가 ")
+            self.label_24.setText(" 피봇 ")
+            self.label_25.setText(" 시가 ")
+            self.label_26.setText(" 저가 ")
             self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_28.setText(" 고가: 가격 ")
+            self.label_28.setText(" 고가 ")
                         
             bc_plot2_call_volume_curve.clear()
             bc_plot2_put_volume_curve.clear()
@@ -25922,14 +25185,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex2 == 2:
 
-            self.label_21.setText(" 전저: 가격 ")
-            self.label_22.setText(" 전고: 가격 ")
-            self.label_23.setText(" 종가: 가격 ")
-            self.label_24.setText(" 피봇: 가격 ")
-            self.label_25.setText(" 시가: 가격 ")
-            self.label_26.setText(" 저가: 가격 ")
+            self.label_21.setText(" 전저 ")
+            self.label_22.setText(" 전고 ")
+            self.label_23.setText(" 종가 ")
+            self.label_24.setText(" 피봇 ")
+            self.label_25.setText(" 시가 ")
+            self.label_26.setText(" 저가 ")
             self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_28.setText(" 고가: 가격 ")
+            self.label_28.setText(" 고가 ")
 
             bc_plot2_call_rr_curve.clear()
             bc_plot2_put_rr_curve.clear()
@@ -25970,14 +25233,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     
         elif bc_comboindex2 == 3:
 
-            self.label_21.setText(" 전저: 가격 ")
-            self.label_22.setText(" 전고: 가격 ")
-            self.label_23.setText(" 종가: 가격 ")
-            self.label_24.setText(" 피봇: 가격 ")
-            self.label_25.setText(" 시가: 가격 ")
-            self.label_26.setText(" 저가: 가격 ")
+            self.label_21.setText(" 전저 ")
+            self.label_22.setText(" 전고 ")
+            self.label_23.setText(" 종가 ")
+            self.label_24.setText(" 피봇 ")
+            self.label_25.setText(" 시가 ")
+            self.label_26.setText(" 저가 ")
             self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_28.setText(" 고가: 가격 ")
+            self.label_28.setText(" 고가 ")
 
             bc_plot2_call_rr_curve.clear()
             bc_plot2_put_rr_curve.clear()   
@@ -26017,13 +25280,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif bc_comboindex2 == 4:
 
             self.label_21.setText(" 등가 : 행사가 ")
-            self.label_22.setText(" 중심가 하단 : 가격 ")
-            self.label_23.setText(" 중심가 : 가격 ")
-            self.label_24.setText(" 중심가 상단 : 가격 ")
-            self.label_25.setText(" 시가: 가격 ")
-            self.label_26.setText(" 저가: 가격 ")
+            self.label_22.setText(" 중심가 하단  ")
+            self.label_23.setText(" 중심가  ")
+            self.label_24.setText(" 중심가 상단  ")
+            self.label_25.setText(" 시가 ")
+            self.label_26.setText(" 저가 ")
             self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_28.setText(" 고가: 가격 ")
+            self.label_28.setText(" 고가 ")
 
             bc_plot2_call_rr_curve.clear()
             bc_plot2_put_rr_curve.clear()   
@@ -26483,14 +25746,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if bc_comboindex3 == 0:
 
-            self.label_31.setText(" 전저: 가격 ")
-            self.label_32.setText(" 전고: 가격 ")
-            self.label_33.setText(" 종가: 가격 ")
-            self.label_34.setText(" 피봇: 가격 ")
-            self.label_35.setText(" 시가: 가격 ")
-            self.label_36.setText(" 저가: 가격 ")
+            self.label_31.setText(" 전저 ")
+            self.label_32.setText(" 전고 ")
+            self.label_33.setText(" 종가 ")
+            self.label_34.setText(" 피봇 ")
+            self.label_35.setText(" 시가 ")
+            self.label_36.setText(" 저가 ")
             self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_38.setText(" 고가: 가격 ")
+            self.label_38.setText(" 고가 ")
             
             bc_plot3_call_rr_curve.clear()
             bc_plot3_put_rr_curve.clear()
@@ -26531,14 +25794,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
         elif bc_comboindex3 == 1:
 
-            self.label_31.setText(" 전저: 가격 ")
-            self.label_32.setText(" 전고: 가격 ")
-            self.label_33.setText(" 종가: 가격 ")
-            self.label_34.setText(" 피봇: 가격 ")
-            self.label_35.setText(" 시가: 가격 ")
-            self.label_36.setText(" 저가: 가격 ")
+            self.label_31.setText(" 전저 ")
+            self.label_32.setText(" 전고 ")
+            self.label_33.setText(" 종가 ")
+            self.label_34.setText(" 피봇 ")
+            self.label_35.setText(" 시가 ")
+            self.label_36.setText(" 저가 ")
             self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_38.setText(" 고가: 가격 ")
+            self.label_38.setText(" 고가 ")
                         
             bc_plot3_call_volume_curve.clear()
             bc_plot3_put_volume_curve.clear()
@@ -26579,14 +25842,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex3 == 2:
 
-            self.label_31.setText(" 전저: 가격 ")
-            self.label_32.setText(" 전고: 가격 ")
-            self.label_33.setText(" 종가: 가격 ")
-            self.label_34.setText(" 피봇: 가격 ")
-            self.label_35.setText(" 시가: 가격 ")
-            self.label_36.setText(" 저가: 가격 ")
+            self.label_31.setText(" 전저 ")
+            self.label_32.setText(" 전고 ")
+            self.label_33.setText(" 종가 ")
+            self.label_34.setText(" 피봇 ")
+            self.label_35.setText(" 시가 ")
+            self.label_36.setText(" 저가 ")
             self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_38.setText(" 고가: 가격 ")
+            self.label_38.setText(" 고가 ")
 
             bc_plot3_call_rr_curve.clear()
             bc_plot3_put_rr_curve.clear()
@@ -26627,14 +25890,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     
         elif bc_comboindex3 == 3:
 
-            self.label_31.setText(" 전저: 가격 ")
-            self.label_32.setText(" 전고: 가격 ")
-            self.label_33.setText(" 종가: 가격 ")
-            self.label_34.setText(" 피봇: 가격 ")
-            self.label_35.setText(" 시가: 가격 ")
-            self.label_36.setText(" 저가: 가격 ")
+            self.label_31.setText(" 전저 ")
+            self.label_32.setText(" 전고 ")
+            self.label_33.setText(" 종가 ")
+            self.label_34.setText(" 피봇 ")
+            self.label_35.setText(" 시가 ")
+            self.label_36.setText(" 저가 ")
             self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_38.setText(" 고가: 가격 ")
+            self.label_38.setText(" 고가 ")
 
             bc_plot3_call_rr_curve.clear()
             bc_plot3_put_rr_curve.clear()   
@@ -26674,13 +25937,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif bc_comboindex3 == 4:
 
             self.label_31.setText(" 등가 : 행사가 ")
-            self.label_32.setText(" 중심가 하단 : 가격 ")
-            self.label_33.setText(" 중심가 : 가격 ")
-            self.label_34.setText(" 중심가 상단 : 가격 ")
-            self.label_35.setText(" 시가: 가격 ")
-            self.label_36.setText(" 저가: 가격 ")
+            self.label_32.setText(" 중심가 하단  ")
+            self.label_33.setText(" 중심가  ")
+            self.label_34.setText(" 중심가 상단  ")
+            self.label_35.setText(" 시가 ")
+            self.label_36.setText(" 저가 ")
             self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_38.setText(" 고가: 가격 ")
+            self.label_38.setText(" 고가 ")
 
             bc_plot3_call_rr_curve.clear()
             bc_plot3_put_rr_curve.clear()   
