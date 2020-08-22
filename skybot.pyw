@@ -4201,7 +4201,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_fut.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_fut.setHorizontalHeaderLabels(
-            ['F', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'MDHR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가',
+            ['SBMD', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'MDHR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가',
              '현재가', '고가', '시가갭', '대비', '진폭', '체결', 'FR', 'OI', 'OI↕'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
 
@@ -4935,7 +4935,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, bms_node_list)
             self.textBrowser.append(str)
         else:
-            pass     
+            pass
 
         self.XingAdminCheck()            
         
@@ -17187,8 +17187,33 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)
 
                 self.tableWidget_fut.resizeRowToContents(1)
-                self.tableWidget_fut.resizeColumnToContents(Futures_column.현재가.value)
+                self.tableWidget_fut.resizeColumnToContents(Futures_column.현재가.value)            
             
+            if 선물_대비 > 0:
+
+                if NightTime:
+                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
+                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+                else:
+                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
+                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+
+            elif 선물_대비 < 0:
+
+                if NightTime:
+                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
+                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+                else:
+                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(청색))
+                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+            else:
+                if NightTime:
+                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+                else:
+                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
+                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+
             item = QTableWidgetItem("DOW\n({0:0.2f}%)".format(DOW_등락율))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)
@@ -17521,54 +17546,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        indicator = fut_psar_symbol + fut_bollinger_symbol + fut_mama_symbol + fut_macd_symbol
-
-        if 선물_대비 > 0:
-
-            if indicator != self.tableWidget_fut.horizontalHeaderItem(0).text():
-                item = QTableWidgetItem(indicator)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setHorizontalHeaderItem(0, item)
-            else:
-                pass
-
-            if NightTime:
-                self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
-                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
-            else:
-                self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
-                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
-
-        elif 선물_대비 < 0:
-
-            if indicator != self.tableWidget_fut.horizontalHeaderItem(0).text():
-                item = QTableWidgetItem(indicator)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setHorizontalHeaderItem(0, item)
-            else:
-                pass  
-
-            if NightTime:
-                self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
-                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
-            else:
-                self.tableWidget_fut.item(1, 0).setBackground(QBrush(청색))
-                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+        indicator = fut_psar_symbol + ' ' + fut_bollinger_symbol + ' ' + fut_mama_symbol + ' ' + fut_macd_symbol
+        
+        if indicator != self.tableWidget_fut.horizontalHeaderItem(0).text():
+            item = QTableWidgetItem(indicator)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_fut.setHorizontalHeaderItem(0, item)
         else:
-            if indicator != self.tableWidget_fut.horizontalHeaderItem(0).text():
-                item = QTableWidgetItem(indicator)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_fut.setHorizontalHeaderItem(0, item)
-            else:
-                pass  
-
-            if NightTime:
-                self.tableWidget_fut.item(0, 0).setBackground(QBrush(검정색))
-                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
-            else:
-                self.tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
-                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
-
+            pass
 
     def check_call_oloh(self):
 
