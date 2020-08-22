@@ -1670,6 +1670,7 @@ bc_plot1_put_volume_curve = None
 bc_plot1_call_hoga_curve = None
 bc_plot1_put_hoga_curve = None
 
+bc_plot1_fut_hoga_curve = None
 bc_plot1_fut_drate_curve = None
 bc_plot1_dow_drate_curve = None
 
@@ -1868,6 +1869,7 @@ bc_plot4_put_volume_curve = None
 bc_plot4_call_hoga_curve = None
 bc_plot4_put_hoga_curve = None
 
+bc_plot4_fut_hoga_curve = None
 bc_plot4_fut_drate_curve = None
 bc_plot4_dow_drate_curve = None
 
@@ -21985,9 +21987,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if result['매도호가총건수'] > 0:
 
-                    fut_cr = result['매수호가총건수'] / result['매도호가총건수']
+                    fut_hoga_cr = result['매수호가총건수'] / result['매도호가총건수']
 
-                    item = QTableWidgetItem("{0:0.2f}".format(fut_cr))
+                    item = QTableWidgetItem("{0:0.2f}".format(fut_hoga_cr))
                     item.setTextAlignment(Qt.AlignCenter)
 
                     if NightTime:
@@ -21999,9 +22001,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if result['매도호가총수량'] > 0:
 
-                    fut_rr = result['매수호가총수량'] / result['매도호가총수량']
+                    if result['매도호가총수량'] > 0:
+                        fut_hoga_rr = result['매수호가총수량'] / result['매도호가총수량']
+                        df_futures_graph.at[ovc_x_idx, 'hoga'] = fut_hoga_rr
+                    else:
+                        pass
 
-                    item = QTableWidgetItem("{0:0.2f}".format(fut_rr))
+                    item = QTableWidgetItem("{0:0.2f}".format(fut_hoga_rr))
                     item.setTextAlignment(Qt.AlignCenter)
 
                     if NightTime:
@@ -22013,9 +22019,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if not NightTime:
 
-                    if fut_cr > 1 and fut_rr > 1:
+                    if fut_hoga_cr > 1 and fut_hoga_rr > 1:
                         
-                        if fut_cr > fut_rr:
+                        if fut_hoga_cr > fut_hoga_rr:
 
                             self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(적색))
                             self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
@@ -22027,9 +22033,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(pink))
                             self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
 
-                    elif fut_cr < 1 and fut_rr < 1:
+                    elif fut_hoga_cr < 1 and fut_hoga_rr < 1:
                         
-                        if fut_cr < fut_rr:
+                        if fut_hoga_cr < fut_hoga_rr:
 
                             self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(청색))
                             self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(흰색))
@@ -24185,10 +24191,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_68.setStyleSheet('background-color: pink ; color: black')
         self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.bc_comboBox1.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+        self.bc_comboBox1.addItems(['선물체결', '선물잔량비', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'SP500 순매수', 'DOW 순매수', 'NASDAQ 순매수', 'WTI 순매수', 'EUROFX 순매수', '항셍 순매수', 'GOLD 순매수'])
-        self.bc_comboBox1.insertSeparator(5)
-        self.bc_comboBox1.insertSeparator(13)
+        self.bc_comboBox1.insertSeparator(6)
+        self.bc_comboBox1.insertSeparator(14)
         self.bc_comboBox1.currentIndexChanged.connect(self.bc_cb1_selectionChanged)
 
         self.bc_comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
@@ -24203,10 +24209,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.bc_comboBox3.insertSeparator(13)
         self.bc_comboBox3.currentIndexChanged.connect(self.bc_cb3_selectionChanged)
 
-        self.bc_comboBox4.addItems(['선물체결', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+        self.bc_comboBox4.addItems(['선물체결', '선물잔량비', '옵션체결', '옵션잔량비', '등락율비', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'SP500 순매수', 'DOW 순매수', 'NASDAQ 순매수', 'WTI 순매수', 'EUROFX 순매수', '항셍 순매수', 'GOLD 순매수'])
-        self.bc_comboBox4.insertSeparator(5)
-        self.bc_comboBox4.insertSeparator(13)
+        self.bc_comboBox4.insertSeparator(6)
+        self.bc_comboBox4.insertSeparator(14)
         self.bc_comboBox4.currentIndexChanged.connect(self.bc_cb4_selectionChanged)
 
         self.bc_comboBox5.addItems(['옵션체결', '옵션잔량비', '선물체결', '등락율비', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
@@ -24228,7 +24234,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot1_fut_volume_curve, bc_plot1_fut_volume_plus_curve, bc_plot1_fut_volume_minus_curve
         global bc_plot1_call_hoga_curve, bc_plot1_put_hoga_curve
         global bc_plot1_call_volume_curve, bc_plot1_put_volume_curve
-        global bc_plot1_fut_drate_curve, bc_plot1_dow_drate_curve
+        global bc_plot1_fut_hoga_curve, bc_plot1_fut_drate_curve, bc_plot1_dow_drate_curve
         global bc_plot1_call_drate_curve, bc_plot1_put_drate_curve        
         global bc_plot1_sp500_curve, bc_plot1_dow_curve, bc_plot1_nasdaq_curve, bc_plot1_wti_curve        
         global bc_plot1_vLine, bc_plot1_hLine
@@ -24275,7 +24281,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot4_fut_volume_curve, bc_plot4_fut_volume_plus_curve, bc_plot4_fut_volume_minus_curve
         global bc_plot4_call_hoga_curve, bc_plot4_put_hoga_curve
         global bc_plot4_call_volume_curve, bc_plot4_put_volume_curve
-        global bc_plot4_fut_drate_curve, bc_plot4_dow_drate_curve
+        global bc_plot4_fut_hoga_curve, bc_plot4_fut_drate_curve, bc_plot4_dow_drate_curve
         global bc_plot4_call_drate_curve, bc_plot4_put_drate_curve        
         global bc_plot4_sp500_curve, bc_plot4_dow_curve, bc_plot4_nasdaq_curve, bc_plot4_wti_curve        
         global bc_plot4_vLine, bc_plot4_hLine
@@ -24370,6 +24376,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_ovc_low_line = self.bc_Plot1.addLine(x=None, pen=skyblue_pen)
         bc_plot1_ovc_high_line = self.bc_Plot1.addLine(x=None, pen=pink_pen) 
 
+        bc_plot1_fut_hoga_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot1_fut_drate_curve = self.bc_Plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot1_dow_drate_curve = self.bc_Plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
 
@@ -24560,6 +24567,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot4_ovc_low_line = self.bc_Plot4.addLine(x=None, pen=skyblue_pen)
         bc_plot4_ovc_high_line = self.bc_Plot4.addLine(x=None, pen=pink_pen) 
 
+        bc_plot4_fut_hoga_curve = self.bc_Plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot4_fut_drate_curve = self.bc_Plot4.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot4_dow_drate_curve = self.bc_Plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3) 
 
@@ -25087,6 +25095,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
 
+            bc_plot1_fut_hoga_curve.clear()
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
             bc_plot1_call_drate_curve.clear()
@@ -25128,6 +25137,55 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_15.setText(" 시가 ")
             self.label_16.setText(" 저가 ")
             self.label_17.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_18.setText(" 고가 ")
+
+            bc_plot1_call_hoga_curve.clear()
+            bc_plot1_put_hoga_curve.clear()
+
+            bc_plot1_call_volume_curve.clear()
+            bc_plot1_put_volume_curve.clear()
+
+            bc_plot1_fut_drate_curve.clear()
+            bc_plot1_dow_drate_curve.clear()
+            bc_plot1_call_drate_curve.clear()
+            bc_plot1_put_drate_curve.clear()           
+            
+            bc_plot1_kp200_curve.clear()
+            bc_plot1_fut_price_curve.clear()
+            
+            bc_plot1_sp500_curve.clear()
+            bc_plot1_dow_curve.clear()
+            bc_plot1_nasdaq_curve.clear()
+            bc_plot1_wti_curve.clear()
+            
+            bc_plot1_fut_jl_line.setValue(0)
+            bc_plot1_fut_jh_line.setValue(0)
+            bc_plot1_fut_close_line.setValue(0)
+            bc_plot1_fut_pivot_line.setValue(0)
+            bc_plot1_fut_open_line.setValue(0)
+            bc_plot1_fut_low_line.setValue(0)
+            bc_plot1_fut_high_line.setValue(0)
+            
+            for i in range(10):
+                bc_plot1_kp200_line[i].setValue(0)
+            
+            bc_plot1_ovc_close_line.setValue(0)
+            bc_plot1_ovc_open_line.setValue(0)
+            bc_plot1_ovc_jl_line.setValue(0)
+            bc_plot1_ovc_jh_line.setValue(0)
+            bc_plot1_ovc_pivot_line.setValue(0)
+            bc_plot1_ovc_low_line.setValue(0)
+            bc_plot1_ovc_high_line.setValue(0)
+
+        elif bc_comboindex1 == 2:
+
+            self.label_11.setText(" 전저 ")
+            self.label_12.setText(" 전고 ")
+            self.label_13.setText(" 종가 ")
+            self.label_14.setText(" 피봇 ")
+            self.label_15.setText(" 시가 ")
+            self.label_16.setText(" 저가 ")
+            self.label_17.setText(" 0.0 (전일대비, 등락율, 진폭) ")
             self.label_18.setText(" 고가 ")            
             
             bc_plot1_fut_volume_plus_curve.clear()
@@ -25136,6 +25194,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_call_hoga_curve.clear()
             bc_plot1_put_hoga_curve.clear()
 
+            bc_plot1_fut_hoga_curve.clear()
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
             bc_plot1_call_drate_curve.clear()
@@ -25168,7 +25227,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_ovc_low_line.setValue(0)
             bc_plot1_ovc_high_line.setValue(0)
 
-        elif bc_comboindex1 == 2:
+        elif bc_comboindex1 == 3:
 
             self.label_11.setText(" 전저 ")
             self.label_12.setText(" 전고 ")
@@ -25185,6 +25244,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
 
+            bc_plot1_fut_hoga_curve.clear()
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
             bc_plot1_call_drate_curve.clear()
@@ -25217,7 +25277,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_ovc_low_line.setValue(0)
             bc_plot1_ovc_high_line.setValue(0) 
         
-        elif bc_comboindex1 == 3:
+        elif bc_comboindex1 == 4:
 
             self.label_11.setText(" 전저 ")
             self.label_12.setText(" 전고 ")
@@ -25264,7 +25324,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_ovc_low_line.setValue(0)
             bc_plot1_ovc_high_line.setValue(0)         
 
-        elif bc_comboindex1 == 4:
+        elif bc_comboindex1 == 5:
                         
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -25275,6 +25335,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
 
+            bc_plot1_fut_hoga_curve.clear()
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
             bc_plot1_call_drate_curve.clear()
@@ -25370,11 +25431,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_13.setText(str)
             bc_plot1_fut_close_line.setValue(선물_종가)
 
-        elif bc_comboindex1 == 5:
+        elif bc_comboindex1 == 6:
 
             pass
 
-        elif bc_comboindex1 == 6:
+        elif bc_comboindex1 == 7:
 
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -25385,6 +25446,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
 
+            bc_plot1_fut_hoga_curve.clear()
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
             bc_plot1_call_drate_curve.clear()
@@ -25473,7 +25535,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_18.setText(str)
             bc_plot1_ovc_high_line.setValue(SP500_고가)
             
-        elif bc_comboindex1 == 7:
+        elif bc_comboindex1 == 8:
 
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -25484,6 +25546,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
 
+            bc_plot1_fut_hoga_curve.clear()
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
             bc_plot1_call_drate_curve.clear()
@@ -25572,7 +25635,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_18.setText(str)
             bc_plot1_ovc_high_line.setValue(DOW_고가)
 
-        elif bc_comboindex1 == 8:
+        elif bc_comboindex1 == 9:
 
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -25583,6 +25646,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
 
+            bc_plot1_fut_hoga_curve.clear()
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
             bc_plot1_call_drate_curve.clear()
@@ -25671,7 +25735,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_18.setText(str)
             bc_plot1_ovc_high_line.setValue(NASDAQ_고가)            
             
-        elif bc_comboindex1 == 9:
+        elif bc_comboindex1 == 10:
 
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -25682,6 +25746,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_call_volume_curve.clear()
             bc_plot1_put_volume_curve.clear()
 
+            bc_plot1_fut_hoga_curve.clear()
             bc_plot1_fut_drate_curve.clear()
             bc_plot1_dow_drate_curve.clear()
             bc_plot1_call_drate_curve.clear()
@@ -27120,6 +27185,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot4_call_volume_curve.clear()
             bc_plot4_put_volume_curve.clear()
 
+            bc_plot4_fut_hoga_curve.clear()
             bc_plot4_fut_drate_curve.clear()
             bc_plot4_dow_drate_curve.clear()
             bc_plot4_call_drate_curve.clear()
@@ -27161,6 +27227,56 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_45.setText(" 시가 ")
             self.label_46.setText(" 저가 ")
             self.label_47.setText(" 0.0 (전일대비, 등락율, 진폭) ")
+            self.label_48.setText(" 고가 ")
+
+            bc_plot4_call_hoga_curve.clear()
+            bc_plot4_put_hoga_curve.clear()
+
+            bc_plot4_call_volume_curve.clear()
+            bc_plot4_put_volume_curve.clear()
+
+            bc_plot4_fut_hoga_curve.clear()
+            bc_plot4_fut_drate_curve.clear()
+            bc_plot4_dow_drate_curve.clear()
+            bc_plot4_call_drate_curve.clear()
+            bc_plot4_put_drate_curve.clear()           
+            
+            bc_plot4_kp200_curve.clear()
+            bc_plot4_fut_price_curve.clear()
+            
+            bc_plot4_sp500_curve.clear()
+            bc_plot4_dow_curve.clear()
+            bc_plot4_nasdaq_curve.clear()
+            bc_plot4_wti_curve.clear()
+            
+            bc_plot4_fut_jl_line.setValue(0)
+            bc_plot4_fut_jh_line.setValue(0)
+            bc_plot4_fut_close_line.setValue(0)
+            bc_plot4_fut_pivot_line.setValue(0)
+            bc_plot4_fut_open_line.setValue(0)
+            bc_plot4_fut_low_line.setValue(0)
+            bc_plot4_fut_high_line.setValue(0)
+            
+            for i in range(10):
+                bc_plot4_kp200_line[i].setValue(0)
+            
+            bc_plot4_ovc_close_line.setValue(0)
+            bc_plot4_ovc_open_line.setValue(0)
+            bc_plot4_ovc_jl_line.setValue(0)
+            bc_plot4_ovc_jh_line.setValue(0)
+            bc_plot4_ovc_pivot_line.setValue(0)
+            bc_plot4_ovc_low_line.setValue(0)
+            bc_plot4_ovc_high_line.setValue(0)
+
+        elif bc_comboindex4 == 2:
+
+            self.label_41.setText(" 전저 ")
+            self.label_42.setText(" 전고 ")
+            self.label_43.setText(" 종가 ")
+            self.label_44.setText(" 피봇 ")
+            self.label_45.setText(" 시가 ")
+            self.label_46.setText(" 저가 ")
+            self.label_47.setText(" 0.0 (전일대비, 등락율, 진폭) ")
             self.label_48.setText(" 고가 ")            
             
             bc_plot4_fut_volume_plus_curve.clear()
@@ -27169,6 +27285,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot4_call_hoga_curve.clear()
             bc_plot4_put_hoga_curve.clear()
 
+            bc_plot4_fut_hoga_curve.clear()
             bc_plot4_fut_drate_curve.clear()
             bc_plot4_dow_drate_curve.clear()
             bc_plot4_call_drate_curve.clear()
@@ -27201,7 +27318,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot4_ovc_low_line.setValue(0)
             bc_plot4_ovc_high_line.setValue(0)
 
-        elif bc_comboindex4 == 2:
+        elif bc_comboindex4 == 3:
 
             self.label_41.setText(" 전저 ")
             self.label_42.setText(" 전고 ")
@@ -27218,6 +27335,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot4_call_volume_curve.clear()
             bc_plot4_put_volume_curve.clear()
 
+            bc_plot4_fut_hoga_curve.clear()
             bc_plot4_fut_drate_curve.clear()
             bc_plot4_dow_drate_curve.clear()
             bc_plot4_call_drate_curve.clear()
@@ -27250,7 +27368,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot4_ovc_low_line.setValue(0)
             bc_plot4_ovc_high_line.setValue(0) 
         
-        elif bc_comboindex4 == 3:
+        elif bc_comboindex4 == 4:
 
             self.label_41.setText(" 전저 ")
             self.label_42.setText(" 전고 ")
@@ -27297,7 +27415,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot4_ovc_low_line.setValue(0)
             bc_plot4_ovc_high_line.setValue(0)         
 
-        elif bc_comboindex4 == 4:
+        elif bc_comboindex4 == 5:
                         
             bc_plot4_fut_volume_plus_curve.clear()
             bc_plot4_fut_volume_minus_curve.clear()
@@ -27308,6 +27426,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot4_call_volume_curve.clear()
             bc_plot4_put_volume_curve.clear()
 
+            bc_plot4_fut_hoga_curve.clear()
             bc_plot4_fut_drate_curve.clear()
             bc_plot4_dow_drate_curve.clear()
             bc_plot4_call_drate_curve.clear()
@@ -27403,11 +27522,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_43.setText(str)
             bc_plot4_fut_close_line.setValue(선물_종가)
 
-        elif bc_comboindex4 == 5:
+        elif bc_comboindex4 == 6:
 
             pass
 
-        elif bc_comboindex4 == 6:
+        elif bc_comboindex4 == 7:
 
             bc_plot4_fut_volume_plus_curve.clear()
             bc_plot4_fut_volume_minus_curve.clear()
@@ -27418,6 +27537,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot4_call_volume_curve.clear()
             bc_plot4_put_volume_curve.clear()
 
+            bc_plot4_fut_hoga_curve.clear()
             bc_plot4_fut_drate_curve.clear()
             bc_plot4_dow_drate_curve.clear()
             bc_plot4_call_drate_curve.clear()
@@ -27506,7 +27626,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_48.setText(str)
             bc_plot4_ovc_high_line.setValue(SP500_고가)
             
-        elif bc_comboindex4 == 7:
+        elif bc_comboindex4 == 8:
 
             bc_plot4_fut_volume_plus_curve.clear()
             bc_plot4_fut_volume_minus_curve.clear()
@@ -27517,6 +27637,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot4_call_volume_curve.clear()
             bc_plot4_put_volume_curve.clear()
 
+            bc_plot4_fut_hoga_curve.clear()
             bc_plot4_fut_drate_curve.clear()
             bc_plot4_dow_drate_curve.clear()
             bc_plot4_call_drate_curve.clear()
@@ -27605,7 +27726,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_48.setText(str)
             bc_plot4_ovc_high_line.setValue(DOW_고가)
 
-        elif bc_comboindex4 == 8:
+        elif bc_comboindex4 == 9:
 
             bc_plot4_fut_volume_plus_curve.clear()
             bc_plot4_fut_volume_minus_curve.clear()
@@ -27616,6 +27737,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot4_call_volume_curve.clear()
             bc_plot4_put_volume_curve.clear()
 
+            bc_plot4_fut_hoga_curve.clear()
             bc_plot4_fut_drate_curve.clear()
             bc_plot4_dow_drate_curve.clear()
             bc_plot4_call_drate_curve.clear()
@@ -27704,7 +27826,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_48.setText(str)
             bc_plot4_ovc_high_line.setValue(NASDAQ_고가)            
             
-        elif bc_comboindex4 == 9:
+        elif bc_comboindex4 == 10:
 
             bc_plot4_fut_volume_plus_curve.clear()
             bc_plot4_fut_volume_minus_curve.clear()
@@ -27715,6 +27837,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot4_call_volume_curve.clear()
             bc_plot4_put_volume_curve.clear()
 
+            bc_plot4_fut_hoga_curve.clear()
             bc_plot4_fut_drate_curve.clear()
             bc_plot4_dow_drate_curve.clear()
             bc_plot4_call_drate_curve.clear()
@@ -29163,24 +29286,28 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot1_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
-            elif bc_comboindex1 == 1 and market_service:                      
+            elif bc_comboindex1 == 1 and market_service:
+
+                bc_plot1_fut_hoga_curve.setData(df_futures_graph['hoga'].tolist())
+
+            elif bc_comboindex1 == 2 and market_service:                      
 
                 bc_plot1_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
                 bc_plot1_put_volume_curve.setData(df_put_info_graph['volume'].tolist())
 
-            elif bc_comboindex1 == 2 and market_service:
+            elif bc_comboindex1 == 3 and market_service:
 
                 bc_plot1_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
                 bc_plot1_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())
 
-            elif bc_comboindex1 == 3 and market_service:
+            elif bc_comboindex1 == 4 and market_service:
 
                 bc_plot1_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
                 bc_plot1_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
                 bc_plot1_call_drate_curve.setData(df_call_info_graph['drate'].tolist())
                 bc_plot1_put_drate_curve.setData(df_put_info_graph['drate'].tolist())
 
-            elif bc_comboindex1 == 4 and market_service:
+            elif bc_comboindex1 == 5 and market_service:
 
                 if not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBAND_Middle']):
 
@@ -29320,11 +29447,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot1_bollinger_middle_curve.clear()
                     bc_plot1_bollinger_lower_curve.clear()
 
-            elif bc_comboindex1 == 5:
+            elif bc_comboindex1 == 6:
 
                 pass
 
-            elif bc_comboindex1 == 6:
+            elif bc_comboindex1 == 7:
 
                 if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle']):
 
@@ -29442,7 +29569,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot1_bollinger_middle_curve.clear()
                     bc_plot1_bollinger_lower_curve.clear()
 
-            elif bc_comboindex1 == 7:
+            elif bc_comboindex1 == 8:
 
                 if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle']):
 
@@ -29560,7 +29687,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot1_bollinger_middle_curve.clear()
                     bc_plot1_bollinger_lower_curve.clear()
 
-            elif bc_comboindex1 == 8:
+            elif bc_comboindex1 == 9:
 
                 if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle']):
 
@@ -29678,7 +29805,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot1_bollinger_middle_curve.clear()
                     bc_plot1_bollinger_lower_curve.clear()
 
-            elif bc_comboindex1 == 9:
+            elif bc_comboindex1 == 10:
 
                 if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle']):
 
@@ -30983,24 +31110,28 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot4_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
-            elif bc_comboindex4 == 1 and market_service:                      
+            elif bc_comboindex4 == 1 and market_service:
+
+                bc_plot4_fut_hoga_curve.setData(df_futures_graph['hoga'].tolist())
+
+            elif bc_comboindex4 == 2 and market_service:                      
 
                 bc_plot4_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
                 bc_plot4_put_volume_curve.setData(df_put_info_graph['volume'].tolist())
 
-            elif bc_comboindex4 == 2 and market_service:
+            elif bc_comboindex4 == 3 and market_service:
 
                 bc_plot4_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
                 bc_plot4_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())
 
-            elif bc_comboindex4 == 3 and market_service:
+            elif bc_comboindex4 == 4 and market_service:
 
                 bc_plot4_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
                 bc_plot4_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
                 bc_plot4_call_drate_curve.setData(df_call_info_graph['drate'].tolist())
                 bc_plot4_put_drate_curve.setData(df_put_info_graph['drate'].tolist())
 
-            elif bc_comboindex4 == 4 and market_service:
+            elif bc_comboindex4 == 5 and market_service:
 
                 if not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBAND_Middle']):
 
@@ -31140,11 +31271,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot4_bollinger_middle_curve.clear()
                     bc_plot4_bollinger_lower_curve.clear()
 
-            elif bc_comboindex4 == 5:
+            elif bc_comboindex4 == 6:
 
                 pass
 
-            elif bc_comboindex4 == 6:
+            elif bc_comboindex4 == 7:
 
                 if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle']):
 
@@ -31262,7 +31393,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot4_bollinger_middle_curve.clear()
                     bc_plot4_bollinger_lower_curve.clear()
 
-            elif bc_comboindex4 == 7:
+            elif bc_comboindex4 == 8:
 
                 if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle']):
 
@@ -31380,7 +31511,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot4_bollinger_middle_curve.clear()
                     bc_plot4_bollinger_lower_curve.clear()
 
-            elif bc_comboindex4 == 8:
+            elif bc_comboindex4 == 9:
 
                 if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle']):
 
@@ -31498,7 +31629,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot4_bollinger_middle_curve.clear()
                     bc_plot4_bollinger_lower_curve.clear()
 
-            elif bc_comboindex4 == 9:
+            elif bc_comboindex4 == 10:
 
                 if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle']):
 
