@@ -37,10 +37,7 @@ Center Value Alarm Range = 0.60
 Main Update Interval(msec) = 500
 Big Chart Update Interval(msec) = 500
 
-[6]. << UI Select : Horizontal_Large_View.ui, Horizontal_Small_View.ui, Vertical_View.ui >>
-UI = Horizontal_Large_View.ui
-
-[7]. << Code of the Foreign Futures (H/M/U/Z) >>
+[6]. << Code of the Foreign Futures (H/M/U/Z) >>
 S&P 500 = ESU20
 DOW = YMU20
 NASDAQ = NQU20
@@ -49,12 +46,12 @@ EUROFX = UROU20
 HANGSENG = HSIQ20
 GOLD = GCZ20
 
-[8]. << Telegram >>
+[7]. << Telegram >>
 Telegram polling start time(minute) after service = 5
 Telegram polling interval(second) = 10
 Telegram send interval(second) = 5
 
-[9]. << Rules >>
+[8]. << Rules >>
 Threshold of the institutional party's supply & demand = 2500
 
 

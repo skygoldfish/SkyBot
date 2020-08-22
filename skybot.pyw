@@ -244,6 +244,8 @@ GOLD_당일종가 = 0
 
 FILE_HIGH_LOW_LIST = []
 
+UI_STYLE = 'Horizontal_Large_View.ui' 
+
 # control file에서 필요한 정보를 가져옴
 with open('control_info.txt', mode='r') as control_file:
 
@@ -442,19 +444,6 @@ with open('control_info.txt', mode='r') as control_file:
             
             hlfile_line_number = hlfile_line_number - 1
             
-            '''
-            tmp = hlfile.readline().strip()
-            temp = tmp.split()
-
-            file_list = []
-
-            for i in range(len(temp)):
-                
-                file_list.append(float(temp[i]))
-            '''
-
-            #print('file_list =', file_list)
-
             pre_high_low_list = file_list[:]
             FILE_HIGH_LOW_LIST = file_list[:]
 
@@ -617,15 +606,7 @@ with open('control_info.txt', mode='r') as control_file:
     tmp = control_file.readline().strip()
     temp = tmp.split()
     BIGCHART_UPDATE_INTERVAL = float(temp[5])
-    print('BIGCHART_UPDATE_INTERVAL =', BIGCHART_UPDATE_INTERVAL)
-
-    # [6]. << UI Select : Horizontal_Large_View.ui, Horizontal_Small_View.ui, Vertical_View.ui >>
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-
-    tmp = control_file.readline().strip()    
-    temp = tmp.split()
-    UI_STYLE = 'Horizontal_Large_View.ui'  
+    print('BIGCHART_UPDATE_INTERVAL =', BIGCHART_UPDATE_INTERVAL)    
     
     # [7]. << Code of the Foreign Futures (H/M/U/Z) >>
     tmp = control_file.readline().strip()
@@ -12392,24 +12373,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_call_info_graph = DataFrame(index=range(0, timespan), columns=['volume', 'hoga', 'drate', 'centerval'])
                 df_put_info_graph = DataFrame(index=range(0, timespan), columns=['volume', 'hoga', 'drate', 'yanghap'])
 
-                df_futures_graph = DataFrame(index=range(0, timespan), \
-                    columns=['kp200', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                        'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'PSAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                df_futures_graph = DataFrame(index=range(0, timespan), columns=['kp200', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
+                        'PSAR', 'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
 
                 df_sp500_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'PSAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                 df_dow_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'PSAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                 df_nasdaq_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'PSAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                 df_wti_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'PSAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                 df_eurofx_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'PSAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                 df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'PSAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
                 df_gold_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'PSAR', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
 
                 # 콜처리
                 for i in range(option_pairs_count):
@@ -24410,7 +24390,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p1_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p1_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p1_2.setText(" PSAR ")
+        self.label_p1_2.setText(" PSAR\n BB Middle ")
         self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -24459,7 +24439,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p2_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p2_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p2_2.setText(" PSAR ")
+        self.label_p2_2.setText(" PSAR\n BB Middle ")
         self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -24508,7 +24488,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p3_1.setStyleSheet('background-color: lime ; color: black')
         self.label_p3_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.label_p3_2.setText(" PSAR ")
+        self.label_p3_2.setText(" PSAR\n BB Middle ")
         self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
         self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -24904,8 +24884,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot1_y = plot_data14[bc_plot1_x]
             else:
                 bc_plot1_y = mousePoint.y()
-            
-            self.label_p1_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (bc_plot1_x, bc_plot1_y))            
+
+            str = " X: {0:d}\n Y: {1:0.2f} ".format(bc_plot1_x, bc_plot1_y)            
+            self.label_p1_1.setText(str)            
         else:
             pass
 
@@ -24947,7 +24928,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 bc_plot2_y = mousePoint.y()
 
-            self.label_p2_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (bc_plot2_x, bc_plot2_y))            
+            str = " X: {0:d}\n Y: {1:0.2f} ".format(bc_plot2_x, bc_plot2_y)            
+            self.label_p2_1.setText(str)         
         else:
             pass
 
@@ -24989,7 +24971,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 bc_plot3_y = mousePoint.y()
 
-            self.label_p3_1.setText("<span style='font-size: 9pt'>X = %d, <span style='color: black'>Y = %0.2f</span>" % (bc_plot3_x, bc_plot3_y))
+            str = " X: {0:d}\n Y: {1:0.2f} ".format(bc_plot3_x, bc_plot3_y)            
+            self.label_p3_1.setText(str)
         else:
             pass
 
@@ -27212,7 +27195,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'PSAR'], df_futures_graph.at[ovc_x_idx, 'BBAND_Middle'])
                     self.label_p1_2.setText(str)
                 else:
                     pass
@@ -27347,7 +27330,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'PSAR'], df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'])
                     self.label_p1_2.setText(str)
                 else:
                     pass
@@ -27456,7 +27439,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'PSAR'], df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'])
                     self.label_p1_2.setText(str)
                 else:
                     pass
@@ -27565,7 +27548,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'])
                     self.label_p1_2.setText(str)
                 else:
                     pass
@@ -27674,7 +27657,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'PSAR'], df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'])
                     self.label_p1_2.setText(str)
                 else:
                     pass
@@ -27879,7 +27862,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'PSAR'], df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'])
                     self.label_p2_2.setText(str)
                 else:
                     pass
@@ -27994,7 +27977,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'PSAR'], df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'])
                     self.label_p2_2.setText(str)
                 else:
                     pass
@@ -28108,7 +28091,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'])
                     self.label_p2_2.setText(str)
                 else:
                     pass
@@ -28222,7 +28205,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'PSAR'], df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'])
                     self.label_p2_2.setText(str)
                 else:
                     pass
@@ -28432,7 +28415,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'PSAR'], df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'])
                     self.label_p3_2.setText(str)
                 else:
                     pass
@@ -28547,7 +28530,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'PSAR'], df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'])
                     self.label_p3_2.setText(str)
                 else:
                     pass
@@ -28661,7 +28644,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'])
                     self.label_p3_2.setText(str)
                 else:
                     pass
@@ -28775,7 +28758,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " PSAR: {0:0.2f}\n BB Mid: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'PSAR'], df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'])
                     self.label_p3_2.setText(str)
                 else:
                     pass
