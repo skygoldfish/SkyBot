@@ -25087,6 +25087,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
         self.label_p3_2.setText("X = %d, Y = %0.2f" % (bc_plot3_x, bc_plot3_y))
 
+    def bc_plot4_mouseClicked(self, evt):
+        pass
+
+    def bc_plot5_mouseClicked(self, evt):
+        pass
+
+    def bc_plot6_mouseClicked(self, evt):
+        pass
+
     def checkBox_plot1_bband_checkState(self):
 
         global flag_checkBox_plot1_bband
@@ -27165,16 +27174,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     def bc_cb6_selectionChanged(self):
         pass
 
-    def bc_calc_pivot(self, jl, jh, jc, do):
-
-        if jl > 0 and jh > 0 and jc > 0 and do > 0:
-            tmp = (jl + jh + jc)/3 + (do - jc)
-            pivot = round(tmp, 2)
-
-            return pivot
-        else:
-            return 0
-
     @pyqtSlot(str)
     def update_bigchart(self):
 
@@ -28904,6 +28903,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot3_bollinger_lower_curve.clear()  
             else:
                 pass
+
+            # Plot4 그래프 그리기
+
+            # Plot5 그래프 그리기
+
+            # Plot6 그래프 그리기
+            
         else:
             pass        
         
