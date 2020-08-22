@@ -5407,7 +5407,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if row < atm_index:
 
-                    put_positionCell = self.tableWidget_put.item(atm_index + 9, 1)
+                    put_positionCell = self.tableWidget_put.item(atm_index + 20, 1)
                 else:
                     put_positionCell = self.tableWidget_put.item(atm_index - 9, 1)
 
@@ -15978,7 +15978,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.t8416_putworker.terminate()
                                                 
-                        put_positionCell = self.tableWidget_put.item(atm_index + 9, 1)
+                        put_positionCell = self.tableWidget_put.item(atm_index + 20, 1)
 
                         self.tableWidget_put.scrollToItem(put_positionCell)
                     else:
