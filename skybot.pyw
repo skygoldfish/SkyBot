@@ -2061,26 +2061,7 @@ flag_fut_oh = False
 
 call_plot_data = [0] * nRowCount
 put_plot_data = [0] * nRowCount
-'''
-centerval_plot_data = []
 
-plot_data1 = []
-plot_data2 = []
-plot_data3 = []
-plot_data4 = []
-plot_data5 = []
-plot_data6 = []
-plot_data7 = []
-plot_data8 = []
-plot_data9 = []
-plot_data10 = []
-plot_data11 = []
-plot_data12 = []
-plot_data13 = []
-plot_data14 = []
-plot_data15 = []
-plot_data16 = []
-'''
 call_scroll = False
 put_scroll = False
 refresh_coloring = False
@@ -2246,6 +2227,11 @@ flag_checkBox_plot3_bband = False
 flag_checkBox_plot4_bband = False
 flag_checkBox_plot5_bband = False
 flag_checkBox_plot6_bband = False
+
+fut_bollinger_symbol = ''
+fut_psar_symbol = ''
+fut_macd_symbol = ''
+fut_mama_symbol = ''
 
 ########################################################################################################################
 
@@ -3308,7 +3294,7 @@ class 화면_호가창정보(QDialog, Ui_호가창정보):
         ]
 
         with sqlite3.connect(DATABASE) as conn:
-            query = 'select 단축코드,종��명,ETF구분,구분 from 종목코드'
+            query = 'select 단축코드,종목명,ETF구분,구분 from 종목코드'
             df = pdsql.read_sql_query(query, con=conn)
 
         self.kospi_codes = df.query("구분=='1'")['단축코드'].values.tolist()
@@ -4949,7 +4935,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] {3} 입니다.\r'.format(dt.hour, dt.minute, dt.second, bms_node_list)
             self.textBrowser.append(str)
         else:
-            pass        
+            pass     
 
         self.XingAdminCheck()            
         
@@ -16890,7 +16876,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
 
-        #체결시간 = result['체결시간']
         선물_체결시간 = result['체결시간']
 
         시가 = result['시가']
@@ -16909,8 +16894,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         선물_진폭 = 선물_고가 - 선물_저가
         
         # Plot 데이타프레임 생성
-        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
-        
+        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가        
         df_futures_graph.at[ovc_x_idx, 'drate'] = result['등락율']       
 
         #print('fut_first_arrive = {0}, first_refresh = {1}, market_service = {2}\r'.format(fut_first_arrive, first_refresh, market_service))
@@ -17227,64 +17211,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if NightTime:
                 self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
             else:
-                self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
-            
-            if 선물_대비 > 0:
-
-                direction = '▲'
-
-                if direction != self.tableWidget_fut.horizontalHeaderItem(0).text():
-                    item = QTableWidgetItem(direction)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_fut.setHorizontalHeaderItem(0, item)
-                else:
-                    pass
-
-                if NightTime:
-
-                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
-                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(검정색))
-                else:
-                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
-                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(검정색))
-
-            elif 선물_대비 < 0:
-
-                direction = '▼'
-
-                if direction != self.tableWidget_fut.horizontalHeaderItem(0).text():
-                    item = QTableWidgetItem(direction)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_fut.setHorizontalHeaderItem(0, item)
-                else:
-                    pass  
-
-                if NightTime:
-
-                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
-                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
-                else:
-                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(청색))
-                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색)) 
-
-            else:
-
-                direction = ''
-
-                if direction != self.tableWidget_fut.horizontalHeaderItem(0).text():
-                    item = QTableWidgetItem(direction)
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_fut.setHorizontalHeaderItem(0, item)
-                else:
-                    pass  
-
-                if NightTime:
-
-                    self.tableWidget_fut.item(0, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
-                else:
-                    self.tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
-                    self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))            
+                self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)                       
 
             선물_진폭비 = (선물_고가 - 선물_저가) / 선물_시가   
             
@@ -17296,18 +17223,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if NightTime:
                 self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
             else:
-                self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
-            '''
-            # OHLC 데이타프레임 생성
-            time_str = 선물_체결시간[0:2] + ':' + 선물_체결시간[2:4] + ':' + 선물_체결시간[4:6]
-            chetime = nowDate + ' ' + time_str
-
-            fut_tick_list.append(chetime)
-            fut_value_list.append(선물_현재가)
-
-            temp_dict = {"value": fut_value_list}
-            df_fut_ohlc = pd.DataFrame(temp_dict, index=fut_tick_list)
-            '''
+                self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)            
         else:
             pass        
                 
@@ -17437,7 +17353,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        # 장중 거래량 갱신, 장중 거래량은 누적거래��이 아닌 수정거래량 임
+        # 장중 거래량 갱신, 장중 거래량은 누적거래량이 아닌 수정거래량 임
         fut_volume_power = result['매수누적체결량'] - result['매도누적체결량']
         df_futures_graph.at[ovc_x_idx, 'volume'] = fut_volume_power
 
@@ -17499,29 +17415,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)              
         else:
-            pass        
-        
-        '''
-        # OHLC 연산목적
-        if OVC_SEC == 0:
-
-            if 선물_현재가_버퍼:
-                선물_저가리스트.append(선물_저가리스트[-1])
-                선물_고가리스트.append(선물_고가리스트[-1])
-
-                del 선물_현재가_버퍼[:]
-            else:
-                pass
-        else:
-            선물_현재가_버퍼.append(선물_현재가)
-            선물_저가리스트[-1] = min(선물_현재가_버퍼)
-            선물_고가리스트[-1] = max(선물_현재가_버퍼)
-
-            if 선물_저가리스트[-1] == 0:
-                선물_저가리스트[-1] = max(선물_현재가_버퍼)
-            else:
-                pass
-        '''
+            pass
 
         # 1T OHLC 생성
         if OVC_SEC == 0:
@@ -17587,6 +17481,93 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         df_futures_graph['MAMA'] = mama
         df_futures_graph['FAMA'] = fama
+
+        # 선물 Up/Down Indicator 표시
+        global fut_bollinger_symbol, fut_psar_symbol, fut_macd_symbol, fut_mama_symbol
+
+        if not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBAND_Middle']):
+
+            if df_futures_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                fut_bollinger_symbol = '▼'
+            else:
+                fut_bollinger_symbol = '▲'
+        else:
+            pass               
+
+        if not math.isnan(df_futures_graph.at[ovc_x_idx, 'PSAR']):
+
+            if df_futures_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                fut_psar_symbol = '▼'
+            else:
+                fut_psar_symbol = '▲'
+        else:
+            pass
+        
+        if not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACD_Sig']):
+
+            if df_futures_graph.at[ovc_x_idx, 'MACD'] < df_futures_graph.at[ovc_x_idx, 'MACD_Sig']:
+                fut_macd_symbol = '▼'
+            else:
+                fut_macd_symbol = '▲'
+        else:
+            pass
+
+        if not math.isnan(df_futures_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'FAMA']):
+
+            if df_futures_graph.at[ovc_x_idx, 'MAMA'] < df_futures_graph.at[ovc_x_idx, 'FAMA']:
+                fut_mama_symbol = '▼'
+            else:
+                fut_mama_symbol = '▲'
+        else:
+            pass
+
+        indicator = fut_psar_symbol + fut_bollinger_symbol + fut_mama_symbol + fut_macd_symbol
+
+        if 선물_대비 > 0:
+
+            if indicator != self.tableWidget_fut.horizontalHeaderItem(0).text():
+                item = QTableWidgetItem(indicator)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setHorizontalHeaderItem(0, item)
+            else:
+                pass
+
+            if NightTime:
+                self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
+                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+            else:
+                self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
+                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+
+        elif 선물_대비 < 0:
+
+            if indicator != self.tableWidget_fut.horizontalHeaderItem(0).text():
+                item = QTableWidgetItem(indicator)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setHorizontalHeaderItem(0, item)
+            else:
+                pass  
+
+            if NightTime:
+                self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
+                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+            else:
+                self.tableWidget_fut.item(1, 0).setBackground(QBrush(청색))
+                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
+        else:
+            if indicator != self.tableWidget_fut.horizontalHeaderItem(0).text():
+                item = QTableWidgetItem(indicator)
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setHorizontalHeaderItem(0, item)
+            else:
+                pass  
+
+            if NightTime:
+                self.tableWidget_fut.item(0, 0).setBackground(QBrush(검정색))
+                self.tableWidget_fut.item(0, 0).setForeground(QBrush(흰색))
+            else:
+                self.tableWidget_fut.item(1, 0).setBackground(QBrush(검정색))
+                self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
 
 
     def check_call_oloh(self):
@@ -33500,7 +33481,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             res = XQ.RequestLinkToHTS("&STOCK_CODE", "069500", "")
 
-        # ��문테스트
+        # 주문테스트
         if _action == "actionOrder":
             if self.dialog.get('주문테스트') is not None:
                 try:
