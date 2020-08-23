@@ -1612,9 +1612,9 @@ skyblue_pen = pg.mkPen(skyblue, width=2, style=QtCore.Qt.DashLine)
 goldenrod_pen = pg.mkPen(goldenrod, width=2, style=QtCore.Qt.DotLine)
 gold_pen = pg.mkPen(gold, width=2, style=QtCore.Qt.DotLine)
 
-bb_upper_pen = pg.mkPen(magenta, width=1, style=QtCore.Qt.SolidLine)
-bb_middle_pen = pg.mkPen(lime, width=1, style=QtCore.Qt.SolidLine)
-bb_lower_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
+bb_upper_pen = pg.mkPen(magenta, width=1, style=QtCore.Qt.DotLine)
+bb_middle_pen = pg.mkPen(lime, width=1, style=QtCore.Qt.DotLine)
+bb_lower_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.DotLine)
 
 psar_pen = pg.mkPen('w', width=1, style=QtCore.Qt.DotLine)
 
