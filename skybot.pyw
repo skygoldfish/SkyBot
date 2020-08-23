@@ -17556,7 +17556,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     fut_mama_symbol = '▲'
             else:
-                pass
+                fut_mama_symbol = '-'
         else:
             pass
 
@@ -29697,7 +29697,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         else:
                             self.label_p1_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p1_4.setStyleSheet('background-color: lime ; color: white')
+                        self.label_p1_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -29853,7 +29853,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         else:
                             self.label_p1_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p1_4.setStyleSheet('background-color: lime ; color: white')
+                        self.label_p1_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -29983,7 +29983,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         else:
                             self.label_p1_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p1_4.setStyleSheet('background-color: lime ; color: white')
+                        self.label_p1_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -30113,7 +30113,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         else:
                             self.label_p1_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p1_4.setStyleSheet('background-color: lime ; color: white')
+                        self.label_p1_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -30243,7 +30243,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         else:
                             self.label_p1_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p1_4.setStyleSheet('background-color: lime ; color: white')
+                        self.label_p1_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -30473,7 +30473,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         else:
                             self.label_p2_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p2_4.setStyleSheet('background-color: lime ; color: white')
+                        self.label_p2_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -30609,7 +30609,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         else:
                             self.label_p2_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p2_4.setStyleSheet('background-color: lime ; color: white')
+                        self.label_p2_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -30744,7 +30744,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         else:
                             self.label_p2_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p2_4.setStyleSheet('background-color: lime ; color: white')
+                        self.label_p2_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -30879,7 +30879,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         else:
                             self.label_p2_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p2_4.setStyleSheet('background-color: lime ; color: white')
+                        self.label_p2_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -31107,10 +31107,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
-                        self.label_p3_4.setStyleSheet('background-color: blue ; color: white')
+                    if df_sp500_graph.at[ovc_x_idx, 'FAMA'] >= df_sp500_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                            self.label_p3_4.setStyleSheet('background-color: blue ; color: white')
+                        else:
+                            self.label_p3_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p3_4.setStyleSheet('background-color: red ; color: white')
+                        self.label_p3_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -31239,10 +31243,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
-                        self.label_p3_4.setStyleSheet('background-color: blue ; color: white')
+                    if df_dow_graph.at[ovc_x_idx, 'FAMA'] >= df_dow_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                            self.label_p3_4.setStyleSheet('background-color: blue ; color: white')
+                        else:
+                            self.label_p3_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p3_4.setStyleSheet('background-color: red ; color: white')
+                        self.label_p3_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -31370,10 +31378,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
-                        self.label_p3_4.setStyleSheet('background-color: blue ; color: white')
+                    if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] >= df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                            self.label_p3_4.setStyleSheet('background-color: blue ; color: white')
+                        else:
+                            self.label_p3_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p3_4.setStyleSheet('background-color: red ; color: white')
+                        self.label_p3_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -31501,10 +31513,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
-                        self.label_p3_4.setStyleSheet('background-color: blue ; color: white')
+                    if df_wti_graph.at[ovc_x_idx, 'FAMA'] >= df_wti_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                            self.label_p3_4.setStyleSheet('background-color: blue ; color: white')
+                        else:
+                            self.label_p3_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p3_4.setStyleSheet('background-color: red ; color: white')
+                        self.label_p3_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -31662,10 +31678,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not math.isnan(df_futures_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_futures_graph.at[ovc_x_idx, 'MAMA'] < df_futures_graph.at[ovc_x_idx, 'FAMA']:
-                        self.label_p4_4.setStyleSheet('background-color: blue ; color: white')
+                    if df_futures_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_futures_graph.at[ovc_x_idx, 'MAMA'] < df_futures_graph.at[ovc_x_idx, 'FAMA']:
+                            self.label_p4_4.setStyleSheet('background-color: blue ; color: white')
+                        else:
+                            self.label_p4_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p4_4.setStyleSheet('background-color: red ; color: white')
+                        self.label_p4_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -31814,10 +31834,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
-                        self.label_p4_4.setStyleSheet('background-color: blue ; color: white')
+                    if df_sp500_graph.at[ovc_x_idx, 'FAMA'] >= df_sp500_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                            self.label_p4_4.setStyleSheet('background-color: blue ; color: white')
+                        else:
+                            self.label_p4_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p4_4.setStyleSheet('background-color: red ; color: white')
+                        self.label_p4_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -31940,10 +31964,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
-                        self.label_p4_4.setStyleSheet('background-color: blue ; color: white')
+                    if df_dow_graph.at[ovc_x_idx, 'FAMA'] >= df_dow_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                            self.label_p4_4.setStyleSheet('background-color: blue ; color: white')
+                        else:
+                            self.label_p4_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p4_4.setStyleSheet('background-color: red ; color: white')
+                        self.label_p4_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -32066,10 +32094,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
-                        self.label_p4_4.setStyleSheet('background-color: blue ; color: white')
+                    if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] >= df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                            self.label_p4_4.setStyleSheet('background-color: blue ; color: white')
+                        else:
+                            self.label_p4_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p4_4.setStyleSheet('background-color: red ; color: white')
+                        self.label_p4_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -32192,10 +32224,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
-                        self.label_p4_4.setStyleSheet('background-color: blue ; color: white')
+                    if df_wti_graph.at[ovc_x_idx, 'FAMA'] >= df_wti_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                            self.label_p4_4.setStyleSheet('background-color: blue ; color: white')
+                        else:
+                            self.label_p4_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p4_4.setStyleSheet('background-color: red ; color: white')
+                        self.label_p4_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -32418,10 +32454,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
-                        self.label_p5_4.setStyleSheet('background-color: blue ; color: white')
+                    if df_sp500_graph.at[ovc_x_idx, 'FAMA'] >= df_sp500_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                            self.label_p5_4.setStyleSheet('background-color: blue ; color: white')
+                        else:
+                            self.label_p5_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p5_4.setStyleSheet('background-color: red ; color: white')
+                        self.label_p5_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -32550,10 +32590,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
-                        self.label_p5_4.setStyleSheet('background-color: blue ; color: white')
+                    if df_dow_graph.at[ovc_x_idx, 'FAMA'] >= df_dow_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                            self.label_p5_4.setStyleSheet('background-color: blue ; color: white')
+                        else:
+                            self.label_p5_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p5_4.setStyleSheet('background-color: red ; color: white')
+                        self.label_p5_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -32681,10 +32725,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
-                        self.label_p5_4.setStyleSheet('background-color: blue ; color: white')
+                    if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] >= df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                            self.label_p5_4.setStyleSheet('background-color: blue ; color: white')
+                        else:
+                            self.label_p5_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p5_4.setStyleSheet('background-color: red ; color: white')
+                        self.label_p5_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -32812,10 +32860,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
-                        self.label_p5_4.setStyleSheet('background-color: blue ; color: white')
+                    if df_wti_graph.at[ovc_x_idx, 'FAMA'] >= df_wti_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                            self.label_p5_4.setStyleSheet('background-color: blue ; color: white')
+                        else:
+                            self.label_p5_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p5_4.setStyleSheet('background-color: red ; color: white')
+                        self.label_p5_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -33043,10 +33095,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
-                        self.label_p6_4.setStyleSheet('background-color: blue ; color: white')
+                    if df_sp500_graph.at[ovc_x_idx, 'FAMA'] >= df_sp500_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_sp500_graph.at[ovc_x_idx, 'MAMA'] < df_sp500_graph.at[ovc_x_idx, 'FAMA']:
+                            self.label_p6_4.setStyleSheet('background-color: blue ; color: white')
+                        else:
+                            self.label_p6_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p6_4.setStyleSheet('background-color: red ; color: white')
+                        self.label_p6_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -33175,10 +33231,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
-                        self.label_p6_4.setStyleSheet('background-color: blue ; color: white')
+                    if df_dow_graph.at[ovc_x_idx, 'FAMA'] >= df_dow_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_dow_graph.at[ovc_x_idx, 'MAMA'] < df_dow_graph.at[ovc_x_idx, 'FAMA']:
+                            self.label_p6_4.setStyleSheet('background-color: blue ; color: white')
+                        else:
+                            self.label_p6_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p6_4.setStyleSheet('background-color: red ; color: white')
+                        self.label_p6_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -33306,10 +33366,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
-                        self.label_p6_4.setStyleSheet('background-color: blue ; color: white')
+                    if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] >= df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
+                            self.label_p6_4.setStyleSheet('background-color: blue ; color: white')
+                        else:
+                            self.label_p6_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p6_4.setStyleSheet('background-color: red ; color: white')
+                        self.label_p6_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
@@ -33437,10 +33501,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
-                        self.label_p6_4.setStyleSheet('background-color: blue ; color: white')
+                    if df_wti_graph.at[ovc_x_idx, 'FAMA'] >= df_wti_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_wti_graph.at[ovc_x_idx, 'MAMA'] < df_wti_graph.at[ovc_x_idx, 'FAMA']:
+                            self.label_p6_4.setStyleSheet('background-color: blue ; color: white')
+                        else:
+                            self.label_p6_4.setStyleSheet('background-color: red ; color: white')
                     else:
-                        self.label_p6_4.setStyleSheet('background-color: red ; color: white')
+                        self.label_p6_4.setStyleSheet('background-color: lime ; color: black')
 
                     self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
