@@ -2231,6 +2231,13 @@ flag_checkBox_plot4_bband = False
 flag_checkBox_plot5_bband = False
 flag_checkBox_plot6_bband = False
 
+flag_checkBox_plot1_mama = False
+flag_checkBox_plot2_mama = False
+flag_checkBox_plot3_mama = False
+flag_checkBox_plot4_mama = False
+flag_checkBox_plot5_mama = False
+flag_checkBox_plot6_mama = False
+
 fut_bollinger_symbol = ''
 fut_psar_symbol = ''
 fut_macd_symbol = ''
@@ -23860,6 +23867,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.checkBox_plot4_bband.stateChanged.connect(self.checkBox_plot4_bband_checkState)
         self.checkBox_plot5_bband.stateChanged.connect(self.checkBox_plot5_bband_checkState)
         self.checkBox_plot6_bband.stateChanged.connect(self.checkBox_plot6_bband_checkState)
+
+        self.checkBox_plot1_mama.stateChanged.connect(self.checkBox_plot1_mama_checkState)
+        self.checkBox_plot2_mama.stateChanged.connect(self.checkBox_plot2_mama_checkState)
+        self.checkBox_plot3_mama.stateChanged.connect(self.checkBox_plot3_mama_checkState)
+        self.checkBox_plot4_mama.stateChanged.connect(self.checkBox_plot4_mama_checkState)
+        self.checkBox_plot5_mama.stateChanged.connect(self.checkBox_plot5_mama_checkState)
+        self.checkBox_plot6_mama.stateChanged.connect(self.checkBox_plot6_mama_checkState)
         
         if not NightTime:
 
@@ -24405,6 +24419,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_bollinger_upper_curve = self.bc_Plot1.plot(pen=bb_upper_pen)
         bc_plot1_bollinger_middle_curve = self.bc_Plot1.plot(pen=bb_middle_pen)
         bc_plot1_bollinger_lower_curve = self.bc_Plot1.plot(pen=bb_lower_pen)
+
+        bc_plot1_mama_curve = self.bc_Plot1.plot(pen=mama_pen)
+        bc_plot1_fama_curve = self.bc_Plot1.plot(pen=fama_pen)
         
         #cross hair
         if CROSS_HAIR:
@@ -24470,6 +24487,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_bollinger_middle_curve = self.bc_Plot2.plot(pen=bb_middle_pen)
         bc_plot2_bollinger_lower_curve = self.bc_Plot2.plot(pen=bb_lower_pen)
 
+        bc_plot2_mama_curve = self.bc_Plot2.plot(pen=mama_pen)
+        bc_plot2_fama_curve = self.bc_Plot2.plot(pen=fama_pen)
+
         #cross hair
         if CROSS_HAIR:
             bc_plot2_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -24533,6 +24553,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot3_bollinger_upper_curve = self.bc_Plot3.plot(pen=bb_upper_pen)
         bc_plot3_bollinger_middle_curve = self.bc_Plot3.plot(pen=bb_middle_pen)
         bc_plot3_bollinger_lower_curve = self.bc_Plot3.plot(pen=bb_lower_pen)
+
+        bc_plot3_mama_curve = self.bc_Plot3.plot(pen=mama_pen)
+        bc_plot3_fama_curve = self.bc_Plot3.plot(pen=fama_pen)
 
         #cross hair
         if CROSS_HAIR:
@@ -24598,6 +24621,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot4_bollinger_upper_curve = self.bc_Plot4.plot(pen=bb_upper_pen)
         bc_plot4_bollinger_middle_curve = self.bc_Plot4.plot(pen=bb_middle_pen)
         bc_plot4_bollinger_lower_curve = self.bc_Plot4.plot(pen=bb_lower_pen)
+
+        bc_plot4_mama_curve = self.bc_Plot4.plot(pen=mama_pen)
+        bc_plot4_fama_curve = self.bc_Plot4.plot(pen=fama_pen)
         
         #cross hair
         if CROSS_HAIR:
@@ -24663,6 +24689,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot5_bollinger_middle_curve = self.bc_Plot5.plot(pen=bb_middle_pen)
         bc_plot5_bollinger_lower_curve = self.bc_Plot5.plot(pen=bb_lower_pen)
 
+        bc_plot5_mama_curve = self.bc_Plot5.plot(pen=mama_pen)
+        bc_plot5_fama_curve = self.bc_Plot5.plot(pen=fama_pen)
+
         #cross hair
         if CROSS_HAIR:
             bc_plot5_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -24726,6 +24755,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot6_bollinger_upper_curve = self.bc_Plot6.plot(pen=bb_upper_pen)
         bc_plot6_bollinger_middle_curve = self.bc_Plot6.plot(pen=bb_middle_pen)
         bc_plot6_bollinger_lower_curve = self.bc_Plot6.plot(pen=bb_lower_pen)
+
+        bc_plot6_mama_curve = self.bc_Plot6.plot(pen=mama_pen)
+        bc_plot6_fama_curve = self.bc_Plot6.plot(pen=fama_pen)
 
         #cross hair
         if CROSS_HAIR:
@@ -25064,7 +25096,62 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         if self.checkBox_plot6_bband.isChecked() == True:
             flag_checkBox_plot6_bband = True
         else:
-            flag_checkBox_plot6_bband = False          
+            flag_checkBox_plot6_bband = False
+
+    def checkBox_plot1_mama_checkState(self):
+
+        global flag_checkBox_plot1_mama
+
+        if self.checkBox_plot1_mama.isChecked() == True:
+            flag_checkBox_plot1_mama = True
+        else:
+            flag_checkBox_plot1_mama = False
+
+    def checkBox_plot2_mama_checkState(self):
+
+        global flag_checkBox_plot2_mama
+
+        if self.checkBox_plot2_mama.isChecked() == True:
+            flag_checkBox_plot2_mama = True
+        else:
+            flag_checkBox_plot2_mama = False
+
+    def checkBox_plot3_mama_checkState(self):
+
+        global flag_checkBox_plot3_mama
+
+        if self.checkBox_plot3_mama.isChecked() == True:
+            flag_checkBox_plot3_mama = True
+        else:
+            flag_checkBox_plot3_mama = False
+
+    def checkBox_plot4_mama_checkState(self):
+
+        global flag_checkBox_plot4_mama
+
+        if self.checkBox_plot4_mama.isChecked() == True:
+            flag_checkBox_plot4_mama = True
+        else:
+            flag_checkBox_plot4_mama = False
+
+    def checkBox_plot5_mama_checkState(self):
+
+        global flag_checkBox_plot5_mama
+
+        if self.checkBox_plot5_mama.isChecked() == True:
+            flag_checkBox_plot5_mama = True
+        else:
+            flag_checkBox_plot5_mama = False
+
+    def checkBox_plot6_mama_checkState(self):
+
+        global flag_checkBox_plot6_mama
+
+        if self.checkBox_plot6_mama.isChecked() == True:
+            flag_checkBox_plot6_mama = True
+        else:
+            flag_checkBox_plot6_mama = False
+
     
     def bc_cb1_selectionChanged(self):
 
@@ -25081,7 +25168,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         bc_plot1_bollinger_upper_curve.clear()
         bc_plot1_bollinger_middle_curve.clear()
-        bc_plot1_bollinger_lower_curve.clear()  
+        bc_plot1_bollinger_lower_curve.clear()
+
+        bc_plot1_mama_curve.clear()
+        bc_plot1_fama_curve.clear()  
 
         if bc_comboindex1 == 0:
 
@@ -25858,6 +25948,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_bollinger_middle_curve.clear()
         bc_plot2_bollinger_lower_curve.clear()
 
+        bc_plot2_mama_curve.clear()
+        bc_plot2_fama_curve.clear()
+
         if bc_comboindex2 == 0:
 
             self.label_21.setText(" 전저 ")
@@ -26572,6 +26665,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot3_bollinger_middle_curve.clear()
         bc_plot3_bollinger_lower_curve.clear()
 
+        bc_plot3_mama_curve.clear()
+        bc_plot3_fama_curve.clear()
+
         if bc_comboindex3 == 0:
 
             self.label_31.setText(" 전저 ")
@@ -27285,7 +27381,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         bc_plot4_bollinger_upper_curve.clear()
         bc_plot4_bollinger_middle_curve.clear()
-        bc_plot4_bollinger_lower_curve.clear()  
+        bc_plot4_bollinger_lower_curve.clear()
+
+        bc_plot4_mama_curve.clear()
+        bc_plot4_fama_curve.clear() 
 
         if bc_comboindex4 == 0:
 
@@ -28063,6 +28162,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot5_bollinger_middle_curve.clear()
         bc_plot5_bollinger_lower_curve.clear()
 
+        bc_plot5_mama_curve.clear()
+        bc_plot5_fama_curve.clear()
+
         if bc_comboindex5 == 0:
 
             self.label_51.setText(" 전저 ")
@@ -28776,6 +28878,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot6_bollinger_upper_curve.clear()
         bc_plot6_bollinger_middle_curve.clear()
         bc_plot6_bollinger_lower_curve.clear()
+
+        bc_plot6_mama_curve.clear()
+        bc_plot6_fama_curve.clear()
 
         if bc_comboindex6 == 0:
 
@@ -29680,6 +29785,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot1_bollinger_middle_curve.clear()
                     bc_plot1_bollinger_lower_curve.clear()
 
+                if flag_checkBox_plot1_mama:
+
+                    bc_plot1_mama_curve.setData(df_futures_graph['MAMA'].tolist())
+                    bc_plot1_fama_curve.setData(df_futures_graph['FAMA'].tolist())
+                else:
+                    bc_plot1_mama_curve.clear()
+                    bc_plot1_fama_curve.clear()
+
             elif bc_comboindex1 == 6:
 
                 pass
@@ -29802,6 +29915,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot1_bollinger_middle_curve.clear()
                     bc_plot1_bollinger_lower_curve.clear()
 
+                if flag_checkBox_plot1_mama:
+
+                    bc_plot1_mama_curve.setData(df_sp500_graph['MAMA'].tolist())
+                    bc_plot1_fama_curve.setData(df_sp500_graph['FAMA'].tolist())
+                else:
+                    bc_plot1_mama_curve.clear()
+                    bc_plot1_fama_curve.clear()
+
             elif bc_comboindex1 == 8:
 
                 if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBMiddle']):
@@ -29919,6 +30040,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot1_bollinger_upper_curve.clear()
                     bc_plot1_bollinger_middle_curve.clear()
                     bc_plot1_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot1_mama:
+
+                    bc_plot1_mama_curve.setData(df_dow_graph['MAMA'].tolist())
+                    bc_plot1_fama_curve.setData(df_dow_graph['FAMA'].tolist())
+                else:
+                    bc_plot1_mama_curve.clear()
+                    bc_plot1_fama_curve.clear()
 
             elif bc_comboindex1 == 9:
 
@@ -30038,6 +30167,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot1_bollinger_middle_curve.clear()
                     bc_plot1_bollinger_lower_curve.clear()
 
+                if flag_checkBox_plot1_mama:
+
+                    bc_plot1_mama_curve.setData(df_nasdaq_graph['MAMA'].tolist())
+                    bc_plot1_fama_curve.setData(df_nasdaq_graph['FAMA'].tolist())
+                else:
+                    bc_plot1_mama_curve.clear()
+                    bc_plot1_fama_curve.clear()
+
             elif bc_comboindex1 == 10:
 
                 if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBMiddle']):
@@ -30154,6 +30291,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot1_bollinger_upper_curve.clear()
                     bc_plot1_bollinger_middle_curve.clear()
                     bc_plot1_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot1_mama:
+
+                    bc_plot1_mama_curve.setData(df_wti_graph['MAMA'].tolist())
+                    bc_plot1_fama_curve.setData(df_wti_graph['FAMA'].tolist())
+                else:
+                    bc_plot1_mama_curve.clear()
+                    bc_plot1_fama_curve.clear()
             else:
                 pass   
 
@@ -30378,7 +30523,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot2_bollinger_upper_curve.clear()
                     bc_plot2_bollinger_middle_curve.clear()
-                    bc_plot2_bollinger_lower_curve.clear() 
+                    bc_plot2_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot2_mama:
+
+                    bc_plot2_mama_curve.setData(df_sp500_graph['MAMA'].tolist())
+                    bc_plot2_fama_curve.setData(df_sp500_graph['FAMA'].tolist())
+                else:
+                    bc_plot2_mama_curve.clear()
+                    bc_plot2_fama_curve.clear() 
 
             elif bc_comboindex2 == 8:
 
@@ -30501,7 +30654,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot2_bollinger_upper_curve.clear()
                     bc_plot2_bollinger_middle_curve.clear()
-                    bc_plot2_bollinger_lower_curve.clear()  
+                    bc_plot2_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot2_mama:
+
+                    bc_plot2_mama_curve.setData(df_dow_graph['MAMA'].tolist())
+                    bc_plot2_fama_curve.setData(df_dow_graph['FAMA'].tolist())
+                else:
+                    bc_plot2_mama_curve.clear()
+                    bc_plot2_fama_curve.clear()   
 
             elif bc_comboindex2 == 9:
 
@@ -30624,7 +30785,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot2_bollinger_upper_curve.clear()
                     bc_plot2_bollinger_middle_curve.clear()
-                    bc_plot2_bollinger_lower_curve.clear() 
+                    bc_plot2_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot2_mama:
+
+                    bc_plot2_mama_curve.setData(df_nasdaq_graph['MAMA'].tolist())
+                    bc_plot2_fama_curve.setData(df_nasdaq_graph['FAMA'].tolist())
+                else:
+                    bc_plot2_mama_curve.clear()
+                    bc_plot2_fama_curve.clear() 
 
             elif bc_comboindex2 == 10:
 
@@ -30746,7 +30915,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot2_bollinger_upper_curve.clear()
                     bc_plot2_bollinger_middle_curve.clear()
-                    bc_plot2_bollinger_lower_curve.clear() 
+                    bc_plot2_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot2_mama:
+
+                    bc_plot2_mama_curve.setData(df_wti_graph['MAMA'].tolist())
+                    bc_plot2_fama_curve.setData(df_wti_graph['FAMA'].tolist())
+                else:
+                    bc_plot2_mama_curve.clear()
+                    bc_plot2_fama_curve.clear()  
             else:
                 pass        
             
@@ -30971,7 +31148,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot3_bollinger_upper_curve.clear()
                     bc_plot3_bollinger_middle_curve.clear()
-                    bc_plot3_bollinger_lower_curve.clear()  
+                    bc_plot3_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot3_mama:
+
+                    bc_plot3_mama_curve.setData(df_sp500_graph['MAMA'].tolist())
+                    bc_plot3_fama_curve.setData(df_sp500_graph['FAMA'].tolist())
+                else:
+                    bc_plot3_mama_curve.clear()
+                    bc_plot3_fama_curve.clear()  
 
             elif bc_comboindex3 == 8:
 
@@ -31094,7 +31279,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot3_bollinger_upper_curve.clear()
                     bc_plot3_bollinger_middle_curve.clear()
-                    bc_plot3_bollinger_lower_curve.clear()   
+                    bc_plot3_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot3_mama:
+
+                    bc_plot3_mama_curve.setData(df_dow_graph['MAMA'].tolist())
+                    bc_plot3_fama_curve.setData(df_dow_graph['FAMA'].tolist())
+                else:
+                    bc_plot3_mama_curve.clear()
+                    bc_plot3_fama_curve.clear()    
 
             elif bc_comboindex3 == 9:
 
@@ -31217,7 +31410,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot3_bollinger_upper_curve.clear()
                     bc_plot3_bollinger_middle_curve.clear()
-                    bc_plot3_bollinger_lower_curve.clear()  
+                    bc_plot3_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot3_mama:
+
+                    bc_plot3_mama_curve.setData(df_nasdaq_graph['MAMA'].tolist())
+                    bc_plot3_fama_curve.setData(df_nasdaq_graph['FAMA'].tolist())
+                else:
+                    bc_plot3_mama_curve.clear()
+                    bc_plot3_fama_curve.clear()  
 
             elif bc_comboindex3 == 10:
 
@@ -31339,7 +31540,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot3_bollinger_upper_curve.clear()
                     bc_plot3_bollinger_middle_curve.clear()
-                    bc_plot3_bollinger_lower_curve.clear()  
+                    bc_plot3_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot3_mama:
+
+                    bc_plot3_mama_curve.setData(df_wti_graph['MAMA'].tolist())
+                    bc_plot3_fama_curve.setData(df_wti_graph['FAMA'].tolist())
+                else:
+                    bc_plot3_mama_curve.clear()
+                    bc_plot3_fama_curve.clear()  
             else:
                 pass
 
@@ -31512,6 +31721,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot4_bollinger_middle_curve.clear()
                     bc_plot4_bollinger_lower_curve.clear()
 
+                if flag_checkBox_plot4_mama:
+
+                    bc_plot4_mama_curve.setData(df_futures_graph['MAMA'].tolist())
+                    bc_plot4_fama_curve.setData(df_futures_graph['FAMA'].tolist())
+                else:
+                    bc_plot4_mama_curve.clear()
+                    bc_plot4_fama_curve.clear()
+
             elif bc_comboindex4 == 6:
 
                 pass
@@ -31634,6 +31851,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot4_bollinger_middle_curve.clear()
                     bc_plot4_bollinger_lower_curve.clear()
 
+                if flag_checkBox_plot4_mama:
+
+                    bc_plot4_mama_curve.setData(df_sp500_graph['MAMA'].tolist())
+                    bc_plot4_fama_curve.setData(df_sp500_graph['FAMA'].tolist())
+                else:
+                    bc_plot4_mama_curve.clear()
+                    bc_plot4_fama_curve.clear()
+
             elif bc_comboindex4 == 8:
 
                 if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBMiddle']):
@@ -31751,6 +31976,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot4_bollinger_upper_curve.clear()
                     bc_plot4_bollinger_middle_curve.clear()
                     bc_plot4_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot4_mama:
+
+                    bc_plot4_mama_curve.setData(df_dow_graph['MAMA'].tolist())
+                    bc_plot4_fama_curve.setData(df_dow_graph['FAMA'].tolist())
+                else:
+                    bc_plot4_mama_curve.clear()
+                    bc_plot4_fama_curve.clear()
 
             elif bc_comboindex4 == 9:
 
@@ -31870,6 +32103,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot4_bollinger_middle_curve.clear()
                     bc_plot4_bollinger_lower_curve.clear()
 
+                if flag_checkBox_plot4_mama:
+
+                    bc_plot4_mama_curve.setData(df_nasdaq_graph['MAMA'].tolist())
+                    bc_plot4_fama_curve.setData(df_nasdaq_graph['FAMA'].tolist())
+                else:
+                    bc_plot4_mama_curve.clear()
+                    bc_plot4_fama_curve.clear()
+
             elif bc_comboindex4 == 10:
 
                 if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBMiddle']):
@@ -31986,6 +32227,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot4_bollinger_upper_curve.clear()
                     bc_plot4_bollinger_middle_curve.clear()
                     bc_plot4_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot4_mama:
+
+                    bc_plot4_mama_curve.setData(df_wti_graph['MAMA'].tolist())
+                    bc_plot4_fama_curve.setData(df_wti_graph['FAMA'].tolist())
+                else:
+                    bc_plot4_mama_curve.clear()
+                    bc_plot4_fama_curve.clear()
             else:
                 pass   
 
@@ -32210,7 +32459,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot5_bollinger_upper_curve.clear()
                     bc_plot5_bollinger_middle_curve.clear()
-                    bc_plot5_bollinger_lower_curve.clear() 
+                    bc_plot5_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot5_mama:
+
+                    bc_plot5_mama_curve.setData(df_sp500_graph['MAMA'].tolist())
+                    bc_plot5_fama_curve.setData(df_sp500_graph['FAMA'].tolist())
+                else:
+                    bc_plot5_mama_curve.clear()
+                    bc_plot5_fama_curve.clear() 
 
             elif bc_comboindex5 == 8:
 
@@ -32333,7 +32590,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot5_bollinger_upper_curve.clear()
                     bc_plot5_bollinger_middle_curve.clear()
-                    bc_plot5_bollinger_lower_curve.clear()  
+                    bc_plot5_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot5_mama:
+
+                    bc_plot5_mama_curve.setData(df_dow_graph['MAMA'].tolist())
+                    bc_plot5_fama_curve.setData(df_dow_graph['FAMA'].tolist())
+                else:
+                    bc_plot5_mama_curve.clear()
+                    bc_plot5_fama_curve.clear()   
 
             elif bc_comboindex5 == 9:
 
@@ -32456,7 +32721,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot5_bollinger_upper_curve.clear()
                     bc_plot5_bollinger_middle_curve.clear()
-                    bc_plot5_bollinger_lower_curve.clear() 
+                    bc_plot5_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot5_mama:
+
+                    bc_plot5_mama_curve.setData(df_nasdaq_graph['MAMA'].tolist())
+                    bc_plot5_fama_curve.setData(df_nasdaq_graph['FAMA'].tolist())
+                else:
+                    bc_plot5_mama_curve.clear()
+                    bc_plot5_fama_curve.clear()  
 
             elif bc_comboindex5 == 10:
 
@@ -32578,7 +32851,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot5_bollinger_upper_curve.clear()
                     bc_plot5_bollinger_middle_curve.clear()
-                    bc_plot5_bollinger_lower_curve.clear() 
+                    bc_plot5_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot5_mama:
+
+                    bc_plot5_mama_curve.setData(df_wti_graph['MAMA'].tolist())
+                    bc_plot5_fama_curve.setData(df_wti_graph['FAMA'].tolist())
+                else:
+                    bc_plot5_mama_curve.clear()
+                    bc_plot5_fama_curve.clear() 
             else:
                 pass
 
@@ -32803,7 +33084,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot6_bollinger_upper_curve.clear()
                     bc_plot6_bollinger_middle_curve.clear()
-                    bc_plot6_bollinger_lower_curve.clear()  
+                    bc_plot6_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot6_mama:
+
+                    bc_plot6_mama_curve.setData(df_sp500_graph['MAMA'].tolist())
+                    bc_plot6_fama_curve.setData(df_sp500_graph['FAMA'].tolist())
+                else:
+                    bc_plot6_mama_curve.clear()
+                    bc_plot6_fama_curve.clear()  
 
             elif bc_comboindex6 == 8:
 
@@ -32926,7 +33215,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot6_bollinger_upper_curve.clear()
                     bc_plot6_bollinger_middle_curve.clear()
-                    bc_plot6_bollinger_lower_curve.clear()   
+                    bc_plot6_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot6_mama:
+
+                    bc_plot6_mama_curve.setData(df_dow_graph['MAMA'].tolist())
+                    bc_plot6_fama_curve.setData(df_dow_graph['FAMA'].tolist())
+                else:
+                    bc_plot6_mama_curve.clear()
+                    bc_plot6_fama_curve.clear()    
 
             elif bc_comboindex6 == 9:
 
@@ -33049,7 +33346,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot6_bollinger_upper_curve.clear()
                     bc_plot6_bollinger_middle_curve.clear()
-                    bc_plot6_bollinger_lower_curve.clear()  
+                    bc_plot6_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot6_mama:
+
+                    bc_plot6_mama_curve.setData(df_nasdaq_graph['MAMA'].tolist())
+                    bc_plot6_fama_curve.setData(df_nasdaq_graph['FAMA'].tolist())
+                else:
+                    bc_plot6_mama_curve.clear()
+                    bc_plot6_fama_curve.clear()  
 
             elif bc_comboindex6 == 10:
 
@@ -33171,10 +33476,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot6_bollinger_upper_curve.clear()
                     bc_plot6_bollinger_middle_curve.clear()
-                    bc_plot6_bollinger_lower_curve.clear()  
+                    bc_plot6_bollinger_lower_curve.clear()
+
+                if flag_checkBox_plot6_mama:
+
+                    bc_plot6_mama_curve.setData(df_wti_graph['MAMA'].tolist())
+                    bc_plot6_fama_curve.setData(df_wti_graph['FAMA'].tolist())
+                else:
+                    bc_plot6_mama_curve.clear()
+                    bc_plot6_fama_curve.clear()  
             else:
                 pass
-
         else:
             pass        
         
