@@ -58,7 +58,7 @@ from collections import Counter
 from PIL import Image
 import talib
 from talib import MA_Type
-#from TAcharts.indicators.ichimoku import Ichimoku
+import ta
 
 #from subprocess import Popen
 #from PIL import ImageGrab
@@ -12307,7 +12307,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_put_info_graph = DataFrame(index=range(0, timespan), columns=['volume', 'hoga', 'drate', 'yanghap'])
 
                 df_futures_graph = DataFrame(index=range(0, timespan), columns=['kp200', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                        'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA'])
+                        'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'SPAN_A', 'SPAN_B'])
 
                 df_sp500_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                     'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA'])
@@ -17516,6 +17516,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         df_futures_graph['MAMA'] = mama
         df_futures_graph['FAMA'] = fama
+
+        # Ichimoku Indicator
+        futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'])
+
+        df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
+        df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
+        ichimoku_base_line = futures_Ichimoku.ichimoku_base_line()
+        ichimoku_conversion_line = futures_Ichimoku.ichimoku_conversion_line()
 
         # 선물 Up/Down Indicator 표시
         global fut_bollinger_symbol, fut_psar_symbol, fut_macd_symbol, fut_mama_symbol
