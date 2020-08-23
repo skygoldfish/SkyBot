@@ -1598,9 +1598,6 @@ fut_pvt_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
 fut_hc_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DashLine)
 opt_hc_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DashLine)
 
-atm_upper_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DashLine)
-atm_lower_pen = pg.mkPen(lawngreen, width=1, style=QtCore.Qt.DashLine)
-
 red_pen = pg.mkPen('r', width=2, style=QtCore.Qt.DotLine)
 aqua_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 aqua_pen1 = pg.mkPen(aqua, width=2, style=QtCore.Qt.SolidLine)
@@ -1623,7 +1620,7 @@ psar_pen = pg.mkPen('w', width=1, style=QtCore.Qt.DotLine)
 
 macd_pen = pg.mkPen(magenta, width=1, style=QtCore.Qt.SolidLine) 
 macd_sig_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
-#macd_hist_pen = 
+# macd_hist_pen = 
 
 mama_pen = pg.mkPen(magenta, width=1, style=QtCore.Qt.SolidLine)
 fama_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
@@ -24398,7 +24395,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_put_hoga_curve = self.bc_Plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         bc_plot1_fut_price_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot1_kp200_curve = self.bc_Plot1.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        bc_plot1_kp200_curve = self.bc_Plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         bc_plot1_sp500_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot1_dow_curve = self.bc_Plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
@@ -24591,7 +24588,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot4_put_hoga_curve = self.bc_Plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         bc_plot4_fut_price_curve = self.bc_Plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
-        bc_plot4_kp200_curve = self.bc_Plot4.plot(pen=gpen, symbolBrush='y', symbolPen='w', symbol='h', symbolSize=3)
+        bc_plot4_kp200_curve = self.bc_Plot4.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         bc_plot4_sp500_curve = self.bc_Plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         bc_plot4_dow_curve = self.bc_Plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
