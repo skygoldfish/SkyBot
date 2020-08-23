@@ -917,17 +917,16 @@ month_after_next = int(MONTH_AFTER_NEXT[4:6])
 
 # 국내장 시작 2시간전에 해외선물장을 시작함.(기술적 지표연산을 위해...)
 OVC_START_HOUR = KSE_START_HOUR - 2
+GuardTime = 60 * 2
 
 if 4 < int(current_str[0:2]) < 야간선물_기준시간:
     # 오전 7시 ~ 오후 3시 30분
-    NightTime = False
-    GuardTime = 60 * 2
+    NightTime = False    
     day_timespan = 6 * 60 + 35 + 10
     jugan_timespan = GuardTime + day_timespan
 else:
     # 오후 6시 ~ 익일 오전 5시
     NightTime = True
-    GuardTime = 60 * 2
     nighttime_timespan = 11 * 60 + 10
     yagan_timespan = GuardTime + nighttime_timespan
 
