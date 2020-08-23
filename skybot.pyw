@@ -915,12 +915,21 @@ current_month = int(CURRENT_MONTH[4:6])
 next_month = int(NEXT_MONTH[4:6])
 month_after_next = int(MONTH_AFTER_NEXT[4:6])
 
+# 국내장 시작 2시간전에 해외선물장을 시작함.(기술적 지표연산을 위해...)
+OVC_START_HOUR = KSE_START_HOUR - 2
+
 if 4 < int(current_str[0:2]) < 야간선물_기준시간:
+    # 오전 7시 ~ 오후 3시 30분
     NightTime = False
-    GuardTime = 60
+    GuardTime = 60 * 2
+    day_timespan = 6 * 60 + 35 + 10
+    jugan_timespan = GuardTime + day_timespan
 else:
+    # 오후 6시 ~ 익일 오전 5시
     NightTime = True
-    GuardTime = 60 * (18 - 야간선물_기준시간)
+    GuardTime = 60 * 2
+    nighttime_timespan = 11 * 60 + 10
+    yagan_timespan = GuardTime + nighttime_timespan
 
 server_date = ''
 server_time = ''
@@ -928,17 +937,9 @@ system_server_timegap = 0
 
 telegram_toggle = True
 
-OVC_START_HOUR = KSE_START_HOUR - 1
-
 시스템시간 = 0
 서버시간 = 0
 시스템_서버_시간차 = 0
-
-day_timespan = 6 * 60 + 35 + 10
-nighttime_timespan = 11 * 60 + GuardTime + 10
-
-jugan_timespan = GuardTime + day_timespan
-yagan_timespan = GuardTime + nighttime_timespan
 
 flag_offline = False
 
@@ -4064,7 +4065,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         global TARGET_MONTH_SELECT, MONTH_FIRSTDAY
         global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, fut_code
-        global KSE_START_HOUR, OVC_START_HOUR        
+        global KSE_START_HOUR        
         global call_node_state, put_node_state, COREVAL
         
         self.상태그림 = ['▼', '▬', '▲']
@@ -4102,8 +4103,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.showMaximized()               
 
-        OVC_START_HOUR = KSE_START_HOUR - 1
-        print('주,야간 변경 기준시간 =', OVC_START_HOUR)
+        #OVC_START_HOUR = KSE_START_HOUR - 1
+        #print('주,야간 변경 기준시간 =', OVC_START_HOUR)
         
         # 위젯 선언 및 초기화
         self.pushButton_add.setStyleSheet("background-color: lightGray")
