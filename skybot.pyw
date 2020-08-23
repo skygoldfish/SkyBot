@@ -1619,8 +1619,8 @@ bb_lower_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
 psar_pen = pg.mkPen('w', width=1, style=QtCore.Qt.DotLine)
 
 macd_pen = pg.mkPen(magenta, width=1, style=QtCore.Qt.SolidLine) 
-macd_sig_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
-# macd_hist_pen = 
+MACDSig_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
+# MACDHist_pen = 
 
 mama_pen = pg.mkPen(magenta, width=1, style=QtCore.Qt.SolidLine)
 fama_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
@@ -4067,10 +4067,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global KSE_START_HOUR, OVC_START_HOUR        
         global call_node_state, put_node_state, COREVAL
         
-        self.상태그림 = ['▼', '▲']
+        self.상태그림 = ['▼', '▬', '▲']
         self.상태문자 = ['매도', '대기', '매수']
         self.특수문자 = \
-        ['☆', '★', '※', '○', '●', '◎', '√', '↗', '⬈', '↘', '⬊', '↑', '⬆', '↓', '⬇', '↕', '♣', '♠', '♥', '◆', 'Δ', '【', '】', '🕘', '✔', '⬍', '⌛', '⬀ ⬁ ⬂ ⬃']
+        ['☆', '★', '※', '○', '●', '◎', '☀', '☁', '√', '↗', '⬈', '↘', '⬊', '↑', '⬆', '↓', '⬇', '↕', '♣', '♠', '♥', '♦', 'Δ', '【', '】', '🕘', '✔', '⬍', '⌛', '⬀ ⬁ ⬂ ⬃']
 
         self.특수문자_숫자 = ['⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼ ⑽ ⓵ ⓶ ⓷ ⓸ ⓹ ⓺ ⓻ ⓼ ⓽ ⓾']
         
@@ -12300,22 +12300,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_put_info_graph = DataFrame(index=range(0, timespan), columns=['volume', 'hoga', 'drate', 'yanghap'])
 
                 df_futures_graph = DataFrame(index=range(0, timespan), columns=['kp200', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                        'PSAR', 'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                        'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA'])
 
                 df_sp500_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA'])
                 df_dow_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA'])
                 df_nasdaq_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA'])
                 df_wti_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA'])
                 df_eurofx_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA'])
                 df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA'])
                 df_gold_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBAND_Lower', 'BBAND_Middle', 'BBAND_Upper', 'MACD', 'MACD_Sig', 'MACD_Hist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA'])
 
                 # 콜처리
                 for i in range(option_pairs_count):
@@ -17476,9 +17476,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # Bollinger Bands
         upper, middle, lower = talib.BBANDS(np.array(df_futures_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
-        df_futures_graph['BBAND_Upper'] = upper
-        df_futures_graph['BBAND_Middle'] = middle
-        df_futures_graph['BBAND_Lower'] = lower
+        df_futures_graph['BBUpper'] = upper
+        df_futures_graph['BBMiddle'] = middle
+        df_futures_graph['BBLower'] = lower
 
         # MACD
         # list of values for the Moving Average Type:  
@@ -17496,8 +17496,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
 
         df_futures_graph['MACD'] = macd
-        df_futures_graph['MACD_Sig'] = macdsignal
-        df_futures_graph['MACD_Hist'] = macdhist
+        df_futures_graph['MACDSig'] = macdsignal
+        df_futures_graph['MACDHist'] = macdhist
 
         # Parabolic SAR
         parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -17513,9 +17513,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 선물 Up/Down Indicator 표시
         global fut_bollinger_symbol, fut_psar_symbol, fut_macd_symbol, fut_mama_symbol
 
-        if not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBAND_Middle']):
+        if not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBMiddle']):
 
-            if df_futures_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+            if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_graph.at[ovc_x_idx, 'price']:
                 fut_bollinger_symbol = '▼'
             else:
                 fut_bollinger_symbol = '▲'
@@ -17531,9 +17531,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        if not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACD_Sig']):
+        if not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACDSig']):
 
-            if df_futures_graph.at[ovc_x_idx, 'MACD'] < df_futures_graph.at[ovc_x_idx, 'MACD_Sig']:
+            if df_futures_graph.at[ovc_x_idx, 'MACD'] < df_futures_graph.at[ovc_x_idx, 'MACDSig']:
                 fut_macd_symbol = '▼'
             else:
                 fut_macd_symbol = '▲'
@@ -20981,9 +20981,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # Bollinger Bands
                     upper, middle, lower = talib.BBANDS(np.array(df_futures_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
-                    df_futures_graph['BBAND_Upper'] = upper
-                    df_futures_graph['BBAND_Middle'] = middle
-                    df_futures_graph['BBAND_Lower'] = lower
+                    df_futures_graph['BBUpper'] = upper
+                    df_futures_graph['BBMiddle'] = middle
+                    df_futures_graph['BBLower'] = lower
 
                     # MACD
                     # list of values for the Moving Average Type:  
@@ -21001,8 +21001,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
 
                     df_futures_graph['MACD'] = macd
-                    df_futures_graph['MACD_Sig'] = macdsignal
-                    df_futures_graph['MACD_Hist'] = macdhist
+                    df_futures_graph['MACDSig'] = macdsignal
+                    df_futures_graph['MACDHist'] = macdhist
 
                     # Parabolic SAR
                     parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -23193,16 +23193,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # Bollinger Bands
                 upper, middle, lower = talib.BBANDS(np.array(df_dow_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
-                df_dow_graph['BBAND_Upper'] = upper
-                df_dow_graph['BBAND_Middle'] = middle
-                df_dow_graph['BBAND_Lower'] = lower            
+                df_dow_graph['BBUpper'] = upper
+                df_dow_graph['BBMiddle'] = middle
+                df_dow_graph['BBLower'] = lower            
 
                 macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_dow_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
                     fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
 
                 df_dow_graph['MACD'] = macd
-                df_dow_graph['MACD_Sig'] = macdsignal
-                df_dow_graph['MACD_Hist'] = macdhist           
+                df_dow_graph['MACDSig'] = macdsignal
+                df_dow_graph['MACDHist'] = macdhist           
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_dow_graph['high'], dtype=float), np.array(df_dow_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -23220,16 +23220,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # Bollinger Bands
                 upper, middle, lower = talib.BBANDS(np.array(df_sp500_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
-                df_sp500_graph['BBAND_Upper'] = upper
-                df_sp500_graph['BBAND_Middle'] = middle
-                df_sp500_graph['BBAND_Lower'] = lower            
+                df_sp500_graph['BBUpper'] = upper
+                df_sp500_graph['BBMiddle'] = middle
+                df_sp500_graph['BBLower'] = lower            
 
                 macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_sp500_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
                     fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
 
                 df_sp500_graph['MACD'] = macd
-                df_sp500_graph['MACD_Sig'] = macdsignal
-                df_sp500_graph['MACD_Hist'] = macdhist           
+                df_sp500_graph['MACDSig'] = macdsignal
+                df_sp500_graph['MACDHist'] = macdhist           
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_sp500_graph['high'], dtype=float), np.array(df_sp500_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -23247,16 +23247,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # Bollinger Bands
                 upper, middle, lower = talib.BBANDS(np.array(df_nasdaq_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
-                df_nasdaq_graph['BBAND_Upper'] = upper
-                df_nasdaq_graph['BBAND_Middle'] = middle
-                df_nasdaq_graph['BBAND_Lower'] = lower            
+                df_nasdaq_graph['BBUpper'] = upper
+                df_nasdaq_graph['BBMiddle'] = middle
+                df_nasdaq_graph['BBLower'] = lower            
 
                 macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_nasdaq_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
                     fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
 
                 df_nasdaq_graph['MACD'] = macd
-                df_nasdaq_graph['MACD_Sig'] = macdsignal
-                df_nasdaq_graph['MACD_Hist'] = macdhist           
+                df_nasdaq_graph['MACDSig'] = macdsignal
+                df_nasdaq_graph['MACDHist'] = macdhist           
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_nasdaq_graph['high'], dtype=float), np.array(df_nasdaq_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -23274,16 +23274,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # Bollinger Bands
                 upper, middle, lower = talib.BBANDS(np.array(df_wti_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
 
-                df_wti_graph['BBAND_Upper'] = upper
-                df_wti_graph['BBAND_Middle'] = middle
-                df_wti_graph['BBAND_Lower'] = lower            
+                df_wti_graph['BBUpper'] = upper
+                df_wti_graph['BBMiddle'] = middle
+                df_wti_graph['BBLower'] = lower            
 
                 macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_wti_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
                     fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
 
                 df_wti_graph['MACD'] = macd
-                df_wti_graph['MACD_Sig'] = macdsignal
-                df_wti_graph['MACD_Hist'] = macdhist           
+                df_wti_graph['MACDSig'] = macdsignal
+                df_wti_graph['MACDHist'] = macdhist           
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_wti_graph['high'], dtype=float), np.array(df_wti_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -29542,9 +29542,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 5 and market_service:
 
-                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_futures_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_graph.at[ovc_x_idx, 'price']:
                         self.label_p1_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_1.setStyleSheet('background-color: red ; color: white')
@@ -29560,21 +29560,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'BBAND_Middle'], df_futures_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p1_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_futures_graph.at[ovc_x_idx, 'MACD'] < df_futures_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_futures_graph.at[ovc_x_idx, 'MACD'] < df_futures_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MACD'], df_futures_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MACD'], df_futures_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p1_3.setText(str)
                 else:
                     pass
@@ -29672,9 +29672,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_bband:
 
-                    bc_plot1_bollinger_upper_curve.setData(df_futures_graph['BBAND_Upper'].tolist())
-                    bc_plot1_bollinger_middle_curve.setData(df_futures_graph['BBAND_Middle'].tolist())
-                    bc_plot1_bollinger_lower_curve.setData(df_futures_graph['BBAND_Lower'].tolist())
+                    bc_plot1_bollinger_upper_curve.setData(df_futures_graph['BBUpper'].tolist())
+                    bc_plot1_bollinger_middle_curve.setData(df_futures_graph['BBMiddle'].tolist())
+                    bc_plot1_bollinger_lower_curve.setData(df_futures_graph['BBLower'].tolist())
                 else:
                     bc_plot1_bollinger_upper_curve.clear()
                     bc_plot1_bollinger_middle_curve.clear()
@@ -29686,9 +29686,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 7:
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                    if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
                         self.label_p1_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_1.setStyleSheet('background-color: red ; color: white')
@@ -29704,21 +29704,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p1_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p1_3.setText(str)
                 else:
                     pass
@@ -29794,9 +29794,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_bband:
 
-                    bc_plot1_bollinger_upper_curve.setData(df_sp500_graph['BBAND_Upper'].tolist())
-                    bc_plot1_bollinger_middle_curve.setData(df_sp500_graph['BBAND_Middle'].tolist())
-                    bc_plot1_bollinger_lower_curve.setData(df_sp500_graph['BBAND_Lower'].tolist())
+                    bc_plot1_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].tolist())
+                    bc_plot1_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].tolist())
+                    bc_plot1_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].tolist())
                 else:
                     bc_plot1_bollinger_upper_curve.clear()
                     bc_plot1_bollinger_middle_curve.clear()
@@ -29804,9 +29804,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 8:
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                    if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
                         self.label_p1_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_1.setStyleSheet('background-color: red ; color: white')
@@ -29822,21 +29822,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p1_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p1_3.setText(str)
                 else:
                     pass
@@ -29912,9 +29912,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_bband:
 
-                    bc_plot1_bollinger_upper_curve.setData(df_dow_graph['BBAND_Upper'].tolist())
-                    bc_plot1_bollinger_middle_curve.setData(df_dow_graph['BBAND_Middle'].tolist())
-                    bc_plot1_bollinger_lower_curve.setData(df_dow_graph['BBAND_Lower'].tolist())
+                    bc_plot1_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].tolist())
+                    bc_plot1_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].tolist())
+                    bc_plot1_bollinger_lower_curve.setData(df_dow_graph['BBLower'].tolist())
                 else:
                     bc_plot1_bollinger_upper_curve.clear()
                     bc_plot1_bollinger_middle_curve.clear()
@@ -29922,9 +29922,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 9:
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
                         self.label_p1_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_1.setStyleSheet('background-color: red ; color: white')
@@ -29940,21 +29940,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p1_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p1_3.setText(str)
                 else:
                     pass
@@ -30030,9 +30030,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_bband:
 
-                    bc_plot1_bollinger_upper_curve.setData(df_nasdaq_graph['BBAND_Upper'].tolist())
-                    bc_plot1_bollinger_middle_curve.setData(df_nasdaq_graph['BBAND_Middle'].tolist())
-                    bc_plot1_bollinger_lower_curve.setData(df_nasdaq_graph['BBAND_Lower'].tolist())
+                    bc_plot1_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].tolist())
+                    bc_plot1_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].tolist())
+                    bc_plot1_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].tolist())
                 else:
                     bc_plot1_bollinger_upper_curve.clear()
                     bc_plot1_bollinger_middle_curve.clear()
@@ -30040,9 +30040,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 10:
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                    if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
                         self.label_p1_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_1.setStyleSheet('background-color: red ; color: white')
@@ -30058,21 +30058,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p1_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p1_3.setText(str)
                 else:
                     pass
@@ -30147,9 +30147,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_bband:
 
-                    bc_plot1_bollinger_upper_curve.setData(df_wti_graph['BBAND_Upper'].tolist())
-                    bc_plot1_bollinger_middle_curve.setData(df_wti_graph['BBAND_Middle'].tolist())
-                    bc_plot1_bollinger_lower_curve.setData(df_wti_graph['BBAND_Lower'].tolist())
+                    bc_plot1_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].tolist())
+                    bc_plot1_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].tolist())
+                    bc_plot1_bollinger_lower_curve.setData(df_wti_graph['BBLower'].tolist())
                 else:
                     bc_plot1_bollinger_upper_curve.clear()
                     bc_plot1_bollinger_middle_curve.clear()
@@ -30258,9 +30258,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 7:
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                    if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
                         self.label_p2_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_1.setStyleSheet('background-color: red ; color: white')
@@ -30276,21 +30276,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p2_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p2_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p2_3.setText(str)
                 else:
                     pass
@@ -30372,9 +30372,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot2_bband:
 
-                    bc_plot2_bollinger_upper_curve.setData(df_sp500_graph['BBAND_Upper'].tolist())
-                    bc_plot2_bollinger_middle_curve.setData(df_sp500_graph['BBAND_Middle'].tolist())
-                    bc_plot2_bollinger_lower_curve.setData(df_sp500_graph['BBAND_Lower'].tolist())
+                    bc_plot2_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].tolist())
+                    bc_plot2_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].tolist())
+                    bc_plot2_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].tolist())
                 else:
                     bc_plot2_bollinger_upper_curve.clear()
                     bc_plot2_bollinger_middle_curve.clear()
@@ -30382,9 +30382,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 8:
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                    if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
                         self.label_p2_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_1.setStyleSheet('background-color: red ; color: white')
@@ -30400,21 +30400,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p2_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p2_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p2_3.setText(str)
                 else:
                     pass
@@ -30495,9 +30495,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot2_bband:
 
-                    bc_plot2_bollinger_upper_curve.setData(df_dow_graph['BBAND_Upper'].tolist())
-                    bc_plot2_bollinger_middle_curve.setData(df_dow_graph['BBAND_Middle'].tolist())
-                    bc_plot2_bollinger_lower_curve.setData(df_dow_graph['BBAND_Lower'].tolist())
+                    bc_plot2_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].tolist())
+                    bc_plot2_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].tolist())
+                    bc_plot2_bollinger_lower_curve.setData(df_dow_graph['BBLower'].tolist())
                 else:
                     bc_plot2_bollinger_upper_curve.clear()
                     bc_plot2_bollinger_middle_curve.clear()
@@ -30505,9 +30505,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 9:
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
                         self.label_p2_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_1.setStyleSheet('background-color: red ; color: white')
@@ -30523,21 +30523,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p2_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p2_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p2_3.setText(str)
                 else:
                     pass
@@ -30618,9 +30618,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot2_bband:
 
-                    bc_plot2_bollinger_upper_curve.setData(df_nasdaq_graph['BBAND_Upper'].tolist())
-                    bc_plot2_bollinger_middle_curve.setData(df_nasdaq_graph['BBAND_Middle'].tolist())
-                    bc_plot2_bollinger_lower_curve.setData(df_nasdaq_graph['BBAND_Lower'].tolist())
+                    bc_plot2_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].tolist())
+                    bc_plot2_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].tolist())
+                    bc_plot2_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].tolist())
                 else:
                     bc_plot2_bollinger_upper_curve.clear()
                     bc_plot2_bollinger_middle_curve.clear()
@@ -30628,9 +30628,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 10:
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                    if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
                         self.label_p2_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_1.setStyleSheet('background-color: red ; color: white')
@@ -30646,21 +30646,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p2_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p2_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p2_3.setText(str)
                 else:
                     pass
@@ -30740,9 +30740,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot2_bband:
 
-                    bc_plot2_bollinger_upper_curve.setData(df_wti_graph['BBAND_Upper'].tolist())
-                    bc_plot2_bollinger_middle_curve.setData(df_wti_graph['BBAND_Middle'].tolist())
-                    bc_plot2_bollinger_lower_curve.setData(df_wti_graph['BBAND_Lower'].tolist())
+                    bc_plot2_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].tolist())
+                    bc_plot2_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].tolist())
+                    bc_plot2_bollinger_lower_curve.setData(df_wti_graph['BBLower'].tolist())
                 else:
                     bc_plot2_bollinger_upper_curve.clear()
                     bc_plot2_bollinger_middle_curve.clear()
@@ -30851,9 +30851,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 7:
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                    if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
                         self.label_p3_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_1.setStyleSheet('background-color: red ; color: white')
@@ -30869,21 +30869,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p3_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p3_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p3_3.setText(str)
                 else:
                     pass
@@ -30965,9 +30965,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot3_bband:
 
-                    bc_plot3_bollinger_upper_curve.setData(df_sp500_graph['BBAND_Upper'].tolist())
-                    bc_plot3_bollinger_middle_curve.setData(df_sp500_graph['BBAND_Middle'].tolist())
-                    bc_plot3_bollinger_lower_curve.setData(df_sp500_graph['BBAND_Lower'].tolist())
+                    bc_plot3_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].tolist())
+                    bc_plot3_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].tolist())
+                    bc_plot3_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].tolist())
                 else:
                     bc_plot3_bollinger_upper_curve.clear()
                     bc_plot3_bollinger_middle_curve.clear()
@@ -30975,9 +30975,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 8:
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                    if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
                         self.label_p3_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_1.setStyleSheet('background-color: red ; color: white')
@@ -30993,21 +30993,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p3_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p3_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p3_3.setText(str)
                 else:
                     pass
@@ -31088,9 +31088,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot3_bband:
 
-                    bc_plot3_bollinger_upper_curve.setData(df_dow_graph['BBAND_Upper'].tolist())
-                    bc_plot3_bollinger_middle_curve.setData(df_dow_graph['BBAND_Middle'].tolist())
-                    bc_plot3_bollinger_lower_curve.setData(df_dow_graph['BBAND_Lower'].tolist())
+                    bc_plot3_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].tolist())
+                    bc_plot3_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].tolist())
+                    bc_plot3_bollinger_lower_curve.setData(df_dow_graph['BBLower'].tolist())
                 else:
                     bc_plot3_bollinger_upper_curve.clear()
                     bc_plot3_bollinger_middle_curve.clear()
@@ -31098,9 +31098,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 9:
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
                         self.label_p3_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_1.setStyleSheet('background-color: red ; color: white')
@@ -31116,21 +31116,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p3_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p3_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p3_3.setText(str)
                 else:
                     pass
@@ -31211,9 +31211,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot3_bband:
 
-                    bc_plot3_bollinger_upper_curve.setData(df_nasdaq_graph['BBAND_Upper'].tolist())
-                    bc_plot3_bollinger_middle_curve.setData(df_nasdaq_graph['BBAND_Middle'].tolist())
-                    bc_plot3_bollinger_lower_curve.setData(df_nasdaq_graph['BBAND_Lower'].tolist())
+                    bc_plot3_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].tolist())
+                    bc_plot3_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].tolist())
+                    bc_plot3_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].tolist())
                 else:
                     bc_plot3_bollinger_upper_curve.clear()
                     bc_plot3_bollinger_middle_curve.clear()
@@ -31221,9 +31221,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 10:
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                    if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
                         self.label_p3_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_1.setStyleSheet('background-color: red ; color: white')
@@ -31239,21 +31239,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p3_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p3_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p3_3.setText(str)
                 else:
                     pass
@@ -31333,9 +31333,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot3_bband:
 
-                    bc_plot3_bollinger_upper_curve.setData(df_wti_graph['BBAND_Upper'].tolist())
-                    bc_plot3_bollinger_middle_curve.setData(df_wti_graph['BBAND_Middle'].tolist())
-                    bc_plot3_bollinger_lower_curve.setData(df_wti_graph['BBAND_Lower'].tolist())
+                    bc_plot3_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].tolist())
+                    bc_plot3_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].tolist())
+                    bc_plot3_bollinger_lower_curve.setData(df_wti_graph['BBLower'].tolist())
                 else:
                     bc_plot3_bollinger_upper_curve.clear()
                     bc_plot3_bollinger_middle_curve.clear()
@@ -31374,9 +31374,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex4 == 5 and market_service:
 
-                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_futures_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_futures_graph.at[ovc_x_idx, 'price']:
+                    if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_graph.at[ovc_x_idx, 'price']:
                         self.label_p4_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p4_1.setStyleSheet('background-color: red ; color: white')
@@ -31392,21 +31392,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'BBAND_Middle'], df_futures_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p4_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_futures_graph.at[ovc_x_idx, 'MACD'] < df_futures_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_futures_graph.at[ovc_x_idx, 'MACD'] < df_futures_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MACD'], df_futures_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MACD'], df_futures_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p4_3.setText(str)
                 else:
                     pass
@@ -31504,9 +31504,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_bband:
 
-                    bc_plot4_bollinger_upper_curve.setData(df_futures_graph['BBAND_Upper'].tolist())
-                    bc_plot4_bollinger_middle_curve.setData(df_futures_graph['BBAND_Middle'].tolist())
-                    bc_plot4_bollinger_lower_curve.setData(df_futures_graph['BBAND_Lower'].tolist())
+                    bc_plot4_bollinger_upper_curve.setData(df_futures_graph['BBUpper'].tolist())
+                    bc_plot4_bollinger_middle_curve.setData(df_futures_graph['BBMiddle'].tolist())
+                    bc_plot4_bollinger_lower_curve.setData(df_futures_graph['BBLower'].tolist())
                 else:
                     bc_plot4_bollinger_upper_curve.clear()
                     bc_plot4_bollinger_middle_curve.clear()
@@ -31518,9 +31518,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex4 == 7:
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                    if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
                         self.label_p4_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p4_1.setStyleSheet('background-color: red ; color: white')
@@ -31536,21 +31536,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p4_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p4_3.setText(str)
                 else:
                     pass
@@ -31626,9 +31626,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_bband:
 
-                    bc_plot4_bollinger_upper_curve.setData(df_sp500_graph['BBAND_Upper'].tolist())
-                    bc_plot4_bollinger_middle_curve.setData(df_sp500_graph['BBAND_Middle'].tolist())
-                    bc_plot4_bollinger_lower_curve.setData(df_sp500_graph['BBAND_Lower'].tolist())
+                    bc_plot4_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].tolist())
+                    bc_plot4_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].tolist())
+                    bc_plot4_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].tolist())
                 else:
                     bc_plot4_bollinger_upper_curve.clear()
                     bc_plot4_bollinger_middle_curve.clear()
@@ -31636,9 +31636,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex4 == 8:
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                    if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
                         self.label_p4_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p4_1.setStyleSheet('background-color: red ; color: white')
@@ -31654,21 +31654,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p4_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p4_3.setText(str)
                 else:
                     pass
@@ -31744,9 +31744,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_bband:
 
-                    bc_plot4_bollinger_upper_curve.setData(df_dow_graph['BBAND_Upper'].tolist())
-                    bc_plot4_bollinger_middle_curve.setData(df_dow_graph['BBAND_Middle'].tolist())
-                    bc_plot4_bollinger_lower_curve.setData(df_dow_graph['BBAND_Lower'].tolist())
+                    bc_plot4_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].tolist())
+                    bc_plot4_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].tolist())
+                    bc_plot4_bollinger_lower_curve.setData(df_dow_graph['BBLower'].tolist())
                 else:
                     bc_plot4_bollinger_upper_curve.clear()
                     bc_plot4_bollinger_middle_curve.clear()
@@ -31754,9 +31754,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex4 == 9:
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
                         self.label_p4_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p4_1.setStyleSheet('background-color: red ; color: white')
@@ -31772,21 +31772,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p4_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p4_3.setText(str)
                 else:
                     pass
@@ -31862,9 +31862,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_bband:
 
-                    bc_plot4_bollinger_upper_curve.setData(df_nasdaq_graph['BBAND_Upper'].tolist())
-                    bc_plot4_bollinger_middle_curve.setData(df_nasdaq_graph['BBAND_Middle'].tolist())
-                    bc_plot4_bollinger_lower_curve.setData(df_nasdaq_graph['BBAND_Lower'].tolist())
+                    bc_plot4_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].tolist())
+                    bc_plot4_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].tolist())
+                    bc_plot4_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].tolist())
                 else:
                     bc_plot4_bollinger_upper_curve.clear()
                     bc_plot4_bollinger_middle_curve.clear()
@@ -31872,9 +31872,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex4 == 10:
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                    if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
                         self.label_p4_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p4_1.setStyleSheet('background-color: red ; color: white')
@@ -31890,21 +31890,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p4_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p4_3.setText(str)
                 else:
                     pass
@@ -31979,9 +31979,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_bband:
 
-                    bc_plot4_bollinger_upper_curve.setData(df_wti_graph['BBAND_Upper'].tolist())
-                    bc_plot4_bollinger_middle_curve.setData(df_wti_graph['BBAND_Middle'].tolist())
-                    bc_plot4_bollinger_lower_curve.setData(df_wti_graph['BBAND_Lower'].tolist())
+                    bc_plot4_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].tolist())
+                    bc_plot4_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].tolist())
+                    bc_plot4_bollinger_lower_curve.setData(df_wti_graph['BBLower'].tolist())
                 else:
                     bc_plot4_bollinger_upper_curve.clear()
                     bc_plot4_bollinger_middle_curve.clear()
@@ -32090,9 +32090,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex5 == 7:
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                    if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
                         self.label_p5_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p5_1.setStyleSheet('background-color: red ; color: white')
@@ -32108,21 +32108,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p5_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p5_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p5_3.setText(str)
                 else:
                     pass
@@ -32204,9 +32204,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot5_bband:
 
-                    bc_plot5_bollinger_upper_curve.setData(df_sp500_graph['BBAND_Upper'].tolist())
-                    bc_plot5_bollinger_middle_curve.setData(df_sp500_graph['BBAND_Middle'].tolist())
-                    bc_plot5_bollinger_lower_curve.setData(df_sp500_graph['BBAND_Lower'].tolist())
+                    bc_plot5_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].tolist())
+                    bc_plot5_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].tolist())
+                    bc_plot5_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].tolist())
                 else:
                     bc_plot5_bollinger_upper_curve.clear()
                     bc_plot5_bollinger_middle_curve.clear()
@@ -32214,9 +32214,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex5 == 8:
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                    if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
                         self.label_p5_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p5_1.setStyleSheet('background-color: red ; color: white')
@@ -32232,21 +32232,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p5_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p5_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p5_3.setText(str)
                 else:
                     pass
@@ -32327,9 +32327,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot5_bband:
 
-                    bc_plot5_bollinger_upper_curve.setData(df_dow_graph['BBAND_Upper'].tolist())
-                    bc_plot5_bollinger_middle_curve.setData(df_dow_graph['BBAND_Middle'].tolist())
-                    bc_plot5_bollinger_lower_curve.setData(df_dow_graph['BBAND_Lower'].tolist())
+                    bc_plot5_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].tolist())
+                    bc_plot5_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].tolist())
+                    bc_plot5_bollinger_lower_curve.setData(df_dow_graph['BBLower'].tolist())
                 else:
                     bc_plot5_bollinger_upper_curve.clear()
                     bc_plot5_bollinger_middle_curve.clear()
@@ -32337,9 +32337,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex5 == 9:
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
                         self.label_p5_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p5_1.setStyleSheet('background-color: red ; color: white')
@@ -32355,21 +32355,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p5_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p5_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p5_3.setText(str)
                 else:
                     pass
@@ -32450,9 +32450,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot5_bband:
 
-                    bc_plot5_bollinger_upper_curve.setData(df_nasdaq_graph['BBAND_Upper'].tolist())
-                    bc_plot5_bollinger_middle_curve.setData(df_nasdaq_graph['BBAND_Middle'].tolist())
-                    bc_plot5_bollinger_lower_curve.setData(df_nasdaq_graph['BBAND_Lower'].tolist())
+                    bc_plot5_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].tolist())
+                    bc_plot5_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].tolist())
+                    bc_plot5_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].tolist())
                 else:
                     bc_plot5_bollinger_upper_curve.clear()
                     bc_plot5_bollinger_middle_curve.clear()
@@ -32460,9 +32460,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex5 == 10:
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                    if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
                         self.label_p5_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p5_1.setStyleSheet('background-color: red ; color: white')
@@ -32478,21 +32478,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p5_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p5_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p5_3.setText(str)
                 else:
                     pass
@@ -32572,9 +32572,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot5_bband:
 
-                    bc_plot5_bollinger_upper_curve.setData(df_wti_graph['BBAND_Upper'].tolist())
-                    bc_plot5_bollinger_middle_curve.setData(df_wti_graph['BBAND_Middle'].tolist())
-                    bc_plot5_bollinger_lower_curve.setData(df_wti_graph['BBAND_Lower'].tolist())
+                    bc_plot5_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].tolist())
+                    bc_plot5_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].tolist())
+                    bc_plot5_bollinger_lower_curve.setData(df_wti_graph['BBLower'].tolist())
                 else:
                     bc_plot5_bollinger_upper_curve.clear()
                     bc_plot5_bollinger_middle_curve.clear()
@@ -32683,9 +32683,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex6 == 7:
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
+                    if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
                         self.label_p6_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p6_1.setStyleSheet('background-color: red ; color: white')
@@ -32701,21 +32701,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBAND_Middle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p6_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_sp500_graph.at[ovc_x_idx, 'MACD'] < df_sp500_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p6_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MACD'], df_sp500_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p6_3.setText(str)
                 else:
                     pass
@@ -32797,9 +32797,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot6_bband:
 
-                    bc_plot6_bollinger_upper_curve.setData(df_sp500_graph['BBAND_Upper'].tolist())
-                    bc_plot6_bollinger_middle_curve.setData(df_sp500_graph['BBAND_Middle'].tolist())
-                    bc_plot6_bollinger_lower_curve.setData(df_sp500_graph['BBAND_Lower'].tolist())
+                    bc_plot6_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].tolist())
+                    bc_plot6_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].tolist())
+                    bc_plot6_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].tolist())
                 else:
                     bc_plot6_bollinger_upper_curve.clear()
                     bc_plot6_bollinger_middle_curve.clear()
@@ -32807,9 +32807,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex6 == 8:
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
+                    if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
                         self.label_p6_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p6_1.setStyleSheet('background-color: red ; color: white')
@@ -32825,21 +32825,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBAND_Middle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p6_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_dow_graph.at[ovc_x_idx, 'MACD'] < df_dow_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p6_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MACD'], df_dow_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p6_3.setText(str)
                 else:
                     pass
@@ -32920,9 +32920,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot6_bband:
 
-                    bc_plot6_bollinger_upper_curve.setData(df_dow_graph['BBAND_Upper'].tolist())
-                    bc_plot6_bollinger_middle_curve.setData(df_dow_graph['BBAND_Middle'].tolist())
-                    bc_plot6_bollinger_lower_curve.setData(df_dow_graph['BBAND_Lower'].tolist())
+                    bc_plot6_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].tolist())
+                    bc_plot6_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].tolist())
+                    bc_plot6_bollinger_lower_curve.setData(df_dow_graph['BBLower'].tolist())
                 else:
                     bc_plot6_bollinger_upper_curve.clear()
                     bc_plot6_bollinger_middle_curve.clear()
@@ -32930,9 +32930,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex6 == 9:
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
                         self.label_p6_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p6_1.setStyleSheet('background-color: red ; color: white')
@@ -32948,21 +32948,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBAND_Middle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p6_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'MACD'] < df_nasdaq_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p6_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MACD'], df_nasdaq_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p6_3.setText(str)
                 else:
                     pass
@@ -33043,9 +33043,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot6_bband:
 
-                    bc_plot6_bollinger_upper_curve.setData(df_nasdaq_graph['BBAND_Upper'].tolist())
-                    bc_plot6_bollinger_middle_curve.setData(df_nasdaq_graph['BBAND_Middle'].tolist())
-                    bc_plot6_bollinger_lower_curve.setData(df_nasdaq_graph['BBAND_Lower'].tolist())
+                    bc_plot6_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].tolist())
+                    bc_plot6_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].tolist())
+                    bc_plot6_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].tolist())
                 else:
                     bc_plot6_bollinger_upper_curve.clear()
                     bc_plot6_bollinger_middle_curve.clear()
@@ -33053,9 +33053,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex6 == 10:
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBMiddle']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
+                    if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
                         self.label_p6_1.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p6_1.setStyleSheet('background-color: red ; color: white')
@@ -33071,21 +33071,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBAND_Middle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {1:0.2f}\n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
                     self.label_p6_2.setText(str)
                 else:
                     pass
                 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD_Sig']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACD']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'MACDSig']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACD_Sig']:
+                    if df_wti_graph.at[ovc_x_idx, 'MACD'] < df_wti_graph.at[ovc_x_idx, 'MACDSig']:
                         self.label_p6_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACD_Sig'])
+                    str = " MACD: {0:0.2f}\n MACD Sig: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MACD'], df_wti_graph.at[ovc_x_idx, 'MACDSig'])
                     self.label_p6_3.setText(str)
                 else:
                     pass
@@ -33165,9 +33165,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot6_bband:
 
-                    bc_plot6_bollinger_upper_curve.setData(df_wti_graph['BBAND_Upper'].tolist())
-                    bc_plot6_bollinger_middle_curve.setData(df_wti_graph['BBAND_Middle'].tolist())
-                    bc_plot6_bollinger_lower_curve.setData(df_wti_graph['BBAND_Lower'].tolist())
+                    bc_plot6_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].tolist())
+                    bc_plot6_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].tolist())
+                    bc_plot6_bollinger_lower_curve.setData(df_wti_graph['BBLower'].tolist())
                 else:
                     bc_plot6_bollinger_upper_curve.clear()
                     bc_plot6_bollinger_middle_curve.clear()
