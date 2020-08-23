@@ -12307,22 +12307,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_put_info_graph = DataFrame(index=range(0, timespan), columns=['volume', 'hoga', 'drate', 'yanghap'])
 
                 df_futures_graph = DataFrame(index=range(0, timespan), columns=['kp200', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                        'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'SPAN_A', 'SPAN_B'])
+                        'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
 
                 df_sp500_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
                 df_dow_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
                 df_nasdaq_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
                 df_wti_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
                 df_eurofx_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
                 df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
                 df_gold_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
 
                 # 콜처리
                 for i in range(option_pairs_count):
@@ -17516,6 +17516,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         df_futures_graph['MAMA'] = mama
         df_futures_graph['FAMA'] = fama
+        df_futures_graph['A_FAMA'] = fama
+
+        if not math.isnan(df_futures_graph.at[ovc_x_idx, 'FAMA']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBLower']):
+
+            if df_futures_graph.at[ovc_x_idx, 'FAMA'] < df_futures_graph.at[ovc_x_idx, 'BBLower']:
+                df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'BBLower']
+            else:
+                pass
+        else:
+            pass
 
         # Ichimoku Indicator
         futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'])
@@ -21033,6 +21043,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_futures_graph['MAMA'] = mama
                     df_futures_graph['FAMA'] = fama
+                    df_futures_graph['A_FAMA'] = fama
+
+                    if not math.isnan(df_futures_graph.at[ovc_x_idx, 'FAMA']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBLower']):
+
+                        if df_futures_graph.at[ovc_x_idx, 'FAMA'] < df_futures_graph.at[ovc_x_idx, 'BBLower']:
+                            df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'BBLower']
+                        else:
+                            pass
+                    else:
+                        pass
 
                     # Ichimoku Indicator
                     futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'])
@@ -23241,6 +23261,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_dow_graph['MAMA'] = mama
                 df_dow_graph['FAMA'] = fama
+                df_dow_graph['A_FAMA'] = fama
+
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBLower']):
+
+                    if df_dow_graph.at[ovc_x_idx, 'FAMA'] < df_dow_graph.at[ovc_x_idx, 'BBLower']:
+                        df_dow_graph.at[ovc_x_idx, 'A_FAMA'] = df_dow_graph.at[ovc_x_idx, 'BBLower']
+                    else:
+                        pass
+                else:
+                    pass
 
                 # Ichimoku Indicator
                 dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_graph['high'], df_dow_graph['low'])
@@ -29843,7 +29873,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot1_mama:
 
                     bc_plot1_mama_curve.setData(df_futures_graph['MAMA'].tolist())
-                    bc_plot1_fama_curve.setData(df_futures_graph['FAMA'].tolist())
+                    bc_plot1_fama_curve.setData(df_futures_graph['A_FAMA'].tolist())
                 else:
                     bc_plot1_mama_curve.clear()
                     bc_plot1_fama_curve.clear()
@@ -30107,7 +30137,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot1_mama:
 
                     bc_plot1_mama_curve.setData(df_dow_graph['MAMA'].tolist())
-                    bc_plot1_fama_curve.setData(df_dow_graph['FAMA'].tolist())
+                    bc_plot1_fama_curve.setData(df_dow_graph['A_FAMA'].tolist())
                 else:
                     bc_plot1_mama_curve.clear()
                     bc_plot1_fama_curve.clear()
@@ -30738,7 +30768,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot2_mama:
 
                     bc_plot2_mama_curve.setData(df_dow_graph['MAMA'].tolist())
-                    bc_plot2_fama_curve.setData(df_dow_graph['FAMA'].tolist())
+                    bc_plot2_fama_curve.setData(df_dow_graph['A_FAMA'].tolist())
                 else:
                     bc_plot2_mama_curve.clear()
                     bc_plot2_fama_curve.clear()   
@@ -31379,7 +31409,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot3_mama:
 
                     bc_plot3_mama_curve.setData(df_dow_graph['MAMA'].tolist())
-                    bc_plot3_fama_curve.setData(df_dow_graph['FAMA'].tolist())
+                    bc_plot3_fama_curve.setData(df_dow_graph['A_FAMA'].tolist())
                 else:
                     bc_plot3_mama_curve.clear()
                     bc_plot3_fama_curve.clear()    
@@ -31831,7 +31861,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot4_mama:
 
                     bc_plot4_mama_curve.setData(df_futures_graph['MAMA'].tolist())
-                    bc_plot4_fama_curve.setData(df_futures_graph['FAMA'].tolist())
+                    bc_plot4_fama_curve.setData(df_futures_graph['A_FAMA'].tolist())
                 else:
                     bc_plot4_mama_curve.clear()
                     bc_plot4_fama_curve.clear()
@@ -32095,7 +32125,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot4_mama:
 
                     bc_plot4_mama_curve.setData(df_dow_graph['MAMA'].tolist())
-                    bc_plot4_fama_curve.setData(df_dow_graph['FAMA'].tolist())
+                    bc_plot4_fama_curve.setData(df_dow_graph['A_FAMA'].tolist())
                 else:
                     bc_plot4_mama_curve.clear()
                     bc_plot4_fama_curve.clear()
@@ -32726,7 +32756,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot5_mama:
 
                     bc_plot5_mama_curve.setData(df_dow_graph['MAMA'].tolist())
-                    bc_plot5_fama_curve.setData(df_dow_graph['FAMA'].tolist())
+                    bc_plot5_fama_curve.setData(df_dow_graph['A_FAMA'].tolist())
                 else:
                     bc_plot5_mama_curve.clear()
                     bc_plot5_fama_curve.clear()   
@@ -33367,7 +33397,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot6_mama:
 
                     bc_plot6_mama_curve.setData(df_dow_graph['MAMA'].tolist())
-                    bc_plot6_fama_curve.setData(df_dow_graph['FAMA'].tolist())
+                    bc_plot6_fama_curve.setData(df_dow_graph['A_FAMA'].tolist())
                 else:
                     bc_plot6_mama_curve.clear()
                     bc_plot6_fama_curve.clear()    
