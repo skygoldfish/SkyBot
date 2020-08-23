@@ -12310,19 +12310,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'SPAN_A', 'SPAN_B'])
 
                 df_sp500_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'SPAN_A', 'SPAN_B'])
                 df_dow_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'SPAN_A', 'SPAN_B'])
                 df_nasdaq_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'SPAN_A', 'SPAN_B'])
                 df_wti_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'SPAN_A', 'SPAN_B'])
                 df_eurofx_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'SPAN_A', 'SPAN_B'])
                 df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'SPAN_A', 'SPAN_B'])
                 df_gold_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'SPAN_A', 'SPAN_B'])
 
                 # 콜처리
                 for i in range(option_pairs_count):
@@ -17522,8 +17522,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
         df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
-        ichimoku_base_line = futures_Ichimoku.ichimoku_base_line()
-        ichimoku_conversion_line = futures_Ichimoku.ichimoku_conversion_line()
+        #ichimoku_base_line = futures_Ichimoku.ichimoku_base_line()
+        #ichimoku_conversion_line = futures_Ichimoku.ichimoku_conversion_line()
 
         # 선물 Up/Down Indicator 표시
         global fut_bollinger_symbol, fut_psar_symbol, fut_macd_symbol, fut_mama_symbol
@@ -21033,6 +21033,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_futures_graph['MAMA'] = mama
                     df_futures_graph['FAMA'] = fama
+
+                    # Ichimoku Indicator
+                    futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'])
+
+                    df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
+                    df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
+                    #ichimoku_base_line = futures_Ichimoku.ichimoku_base_line()
+                    #ichimoku_conversion_line = futures_Ichimoku.ichimoku_conversion_line()
                 else:
                     pass
 
@@ -23234,6 +23242,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_dow_graph['MAMA'] = mama
                 df_dow_graph['FAMA'] = fama
 
+                # Ichimoku Indicator
+                dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_graph['high'], df_dow_graph['low'])
+
+                df_dow_graph['SPAN_A'] = dow_Ichimoku.ichimoku_a()
+                df_dow_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
+                #ichimoku_base_line = dow_Ichimoku.ichimoku_base_line()
+                #ichimoku_conversion_line = dow_Ichimoku.ichimoku_conversion_line()
 
                 # SP500
                 # Bollinger Bands
@@ -23260,7 +23275,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_sp500_graph['MAMA'] = mama
                 df_sp500_graph['FAMA'] = fama
-                
+
+                # Ichimoku Indicator
+                sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_graph['high'], df_sp500_graph['low'])
+
+                df_sp500_graph['SPAN_A'] = sp500_Ichimoku.ichimoku_a()
+                df_sp500_graph['SPAN_B'] = sp500_Ichimoku.ichimoku_b()
+                #ichimoku_base_line = sp500_Ichimoku.ichimoku_base_line()
+                #ichimoku_conversion_line = sp500_Ichimoku.ichimoku_conversion_line()
+
 
                 # NASDAQ
                 # Bollinger Bands
@@ -23288,6 +23311,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_nasdaq_graph['MAMA'] = mama
                 df_nasdaq_graph['FAMA'] = fama
 
+                # Ichimoku Indicator
+                nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'])
+
+                df_nasdaq_graph['SPAN_A'] = nasdaq_Ichimoku.ichimoku_a()
+                df_nasdaq_graph['SPAN_B'] = nasdaq_Ichimoku.ichimoku_b()
+                #ichimoku_base_line = nasdaq_Ichimoku.ichimoku_base_line()
+                #ichimoku_conversion_line = nasdaq_Ichimoku.ichimoku_conversion_line()
+
 
                 # WTI
                 # Bollinger Bands
@@ -23314,6 +23345,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_wti_graph['MAMA'] = mama
                 df_wti_graph['FAMA'] = fama
+
+                # Ichimoku Indicator
+                wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_graph['high'], df_wti_graph['low'])
+
+                df_wti_graph['SPAN_A'] = wti_Ichimoku.ichimoku_a()
+                df_wti_graph['SPAN_B'] = wti_Ichimoku.ichimoku_b()
+                #ichimoku_base_line = wti_Ichimoku.ichimoku_base_line()
+                #ichimoku_conversion_line = wti_Ichimoku.ichimoku_conversion_line()
                 
             elif szTrCode == 'OVH':
 
