@@ -916,7 +916,7 @@ next_month = int(NEXT_MONTH[4:6])
 month_after_next = int(MONTH_AFTER_NEXT[4:6])
 
 # 국내장 시작 2시간전에 해외선물장을 시작함.(기술적 지표연산을 위해...)
-OVC_START_HOUR = KSE_START_HOUR - 2
+주간선물_기준시간 = KSE_START_HOUR - 2
 GuardTime = 60 * 2
 
 if 4 < int(current_str[0:2]) < 야간선물_기준시간:
@@ -4107,8 +4107,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.showMaximized()               
 
-        #OVC_START_HOUR = KSE_START_HOUR - 1
-        #print('주,야간 변경 기준시간 =', OVC_START_HOUR)
+        #주간선물_기준시간 = KSE_START_HOUR - 1
+        #print('주,야간 변경 기준시간 =', 주간선물_기준시간)
         
         # 위젯 선언 및 초기화
         self.pushButton_add.setStyleSheet("background-color: lightGray")
@@ -22153,7 +22153,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        ovc_x_idx = (night_time - (KSE_START_HOUR - 1)) * 60 + OVC_MIN + 1
+                        ovc_x_idx = (night_time - 야간선물_기준시간) * 60 + OVC_MIN + 1
                     else:
                         ovc_x_idx = 1
 
@@ -22167,7 +22167,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:                    
                     # 해외선물 개장시간은 국내시장의 2시간 전
                     if OVC_체결시간 != '':
-                        ovc_x_idx = (OVC_HOUR - OVC_START_HOUR) * 60 + OVC_MIN + 1
+                        ovc_x_idx = (OVC_HOUR - 주간선물_기준시간) * 60 + OVC_MIN + 1
                     else:
                         ovc_x_idx = 1
 
