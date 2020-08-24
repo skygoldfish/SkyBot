@@ -23666,6 +23666,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         str = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 갱신했습니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
 
+        # 해외선물 지수요청 취소                    
+        self.OVC.UnadviseRealData()
+
+        str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(str)
+
         if not NightTime:
 
             futures_graph_csv = "Futures {}{}".format(times, '.csv')
