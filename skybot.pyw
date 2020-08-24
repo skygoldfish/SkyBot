@@ -12995,6 +12995,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_call_info_graph.at[GuardTime, 'hoga'] = 0
                 df_put_info_graph.at[GuardTime, 'hoga'] = 0
 
+                df_futures_graph.at[0, 'hoga'] = 0
+
                 # 해외선물 호가 초기화
                 df_sp500_graph.at[0, 'hoga'] = 0
                 df_dow_graph.at[0, 'hoga'] = 0
