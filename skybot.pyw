@@ -23302,6 +23302,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_sp500_graph['MAMA'] = mama
                 df_sp500_graph['FAMA'] = fama
 
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBLower']):
+
+                    if df_sp500_graph.at[ovc_x_idx, 'FAMA'] < df_sp500_graph.at[ovc_x_idx, 'BBLower']:
+                        df_sp500_graph.at[ovc_x_idx, 'A_FAMA'] = df_sp500_graph.at[ovc_x_idx, 'BBLower']
+                    else:
+                        df_sp500_graph.at[ovc_x_idx, 'A_FAMA'] = df_sp500_graph.at[ovc_x_idx, 'FAMA']
+                else:
+                    pass
+
                 # Ichimoku Indicator
                 sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_graph['high'], df_sp500_graph['low'])
 
@@ -23337,6 +23346,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_nasdaq_graph['MAMA'] = mama
                 df_nasdaq_graph['FAMA'] = fama
 
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBLower']):
+
+                    if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
+                        df_nasdaq_graph.at[ovc_x_idx, 'A_FAMA'] = df_nasdaq_graph.at[ovc_x_idx, 'BBLower']
+                    else:
+                        df_nasdaq_graph.at[ovc_x_idx, 'A_FAMA'] = df_nasdaq_graph.at[ovc_x_idx, 'FAMA']
+                else:
+                    pass
+
                 # Ichimoku Indicator
                 nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'])
 
@@ -23371,6 +23389,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_wti_graph['MAMA'] = mama
                 df_wti_graph['FAMA'] = fama
+
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBLower']):
+
+                    if df_wti_graph.at[ovc_x_idx, 'FAMA'] < df_wti_graph.at[ovc_x_idx, 'BBLower']:
+                        df_wti_graph.at[ovc_x_idx, 'A_FAMA'] = df_wti_graph.at[ovc_x_idx, 'BBLower']
+                    else:
+                        df_wti_graph.at[ovc_x_idx, 'A_FAMA'] = df_wti_graph.at[ovc_x_idx, 'FAMA']
+                else:
+                    pass
 
                 # Ichimoku Indicator
                 wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_graph['high'], df_wti_graph['low'])
@@ -30009,7 +30036,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot1_mama:
 
                     bc_plot1_mama_curve.setData(df_sp500_graph['MAMA'].tolist())
-                    bc_plot1_fama_curve.setData(df_sp500_graph['FAMA'].tolist())
+                    bc_plot1_fama_curve.setData(df_sp500_graph['A_FAMA'].tolist())
                 else:
                     bc_plot1_mama_curve.clear()
                     bc_plot1_fama_curve.clear()
@@ -30269,7 +30296,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot1_mama:
 
                     bc_plot1_mama_curve.setData(df_nasdaq_graph['MAMA'].tolist())
-                    bc_plot1_fama_curve.setData(df_nasdaq_graph['FAMA'].tolist())
+                    bc_plot1_fama_curve.setData(df_nasdaq_graph['A_FAMA'].tolist())
                 else:
                     bc_plot1_mama_curve.clear()
                     bc_plot1_fama_curve.clear()
@@ -30398,7 +30425,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot1_mama:
 
                     bc_plot1_mama_curve.setData(df_wti_graph['MAMA'].tolist())
-                    bc_plot1_fama_curve.setData(df_wti_graph['FAMA'].tolist())
+                    bc_plot1_fama_curve.setData(df_wti_graph['A_FAMA'].tolist())
                 else:
                     bc_plot1_mama_curve.clear()
                     bc_plot1_fama_curve.clear()
@@ -30635,7 +30662,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot2_mama:
 
                     bc_plot2_mama_curve.setData(df_sp500_graph['MAMA'].tolist())
-                    bc_plot2_fama_curve.setData(df_sp500_graph['FAMA'].tolist())
+                    bc_plot2_fama_curve.setData(df_sp500_graph['A_FAMA'].tolist())
                 else:
                     bc_plot2_mama_curve.clear()
                     bc_plot2_fama_curve.clear() 
@@ -30905,7 +30932,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot2_mama:
 
                     bc_plot2_mama_curve.setData(df_nasdaq_graph['MAMA'].tolist())
-                    bc_plot2_fama_curve.setData(df_nasdaq_graph['FAMA'].tolist())
+                    bc_plot2_fama_curve.setData(df_nasdaq_graph['A_FAMA'].tolist())
                 else:
                     bc_plot2_mama_curve.clear()
                     bc_plot2_fama_curve.clear() 
@@ -31039,7 +31066,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot2_mama:
 
                     bc_plot2_mama_curve.setData(df_wti_graph['MAMA'].tolist())
-                    bc_plot2_fama_curve.setData(df_wti_graph['FAMA'].tolist())
+                    bc_plot2_fama_curve.setData(df_wti_graph['A_FAMA'].tolist())
                 else:
                     bc_plot2_mama_curve.clear()
                     bc_plot2_fama_curve.clear()  
@@ -31276,7 +31303,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot3_mama:
 
                     bc_plot3_mama_curve.setData(df_sp500_graph['MAMA'].tolist())
-                    bc_plot3_fama_curve.setData(df_sp500_graph['FAMA'].tolist())
+                    bc_plot3_fama_curve.setData(df_sp500_graph['A_FAMA'].tolist())
                 else:
                     bc_plot3_mama_curve.clear()
                     bc_plot3_fama_curve.clear()  
@@ -31546,7 +31573,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot3_mama:
 
                     bc_plot3_mama_curve.setData(df_nasdaq_graph['MAMA'].tolist())
-                    bc_plot3_fama_curve.setData(df_nasdaq_graph['FAMA'].tolist())
+                    bc_plot3_fama_curve.setData(df_nasdaq_graph['A_FAMA'].tolist())
                 else:
                     bc_plot3_mama_curve.clear()
                     bc_plot3_fama_curve.clear()  
@@ -31680,7 +31707,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot3_mama:
 
                     bc_plot3_mama_curve.setData(df_wti_graph['MAMA'].tolist())
-                    bc_plot3_fama_curve.setData(df_wti_graph['FAMA'].tolist())
+                    bc_plot3_fama_curve.setData(df_wti_graph['A_FAMA'].tolist())
                 else:
                     bc_plot3_mama_curve.clear()
                     bc_plot3_fama_curve.clear()  
@@ -31997,7 +32024,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot4_mama:
 
                     bc_plot4_mama_curve.setData(df_sp500_graph['MAMA'].tolist())
-                    bc_plot4_fama_curve.setData(df_sp500_graph['FAMA'].tolist())
+                    bc_plot4_fama_curve.setData(df_sp500_graph['A_FAMA'].tolist())
                 else:
                     bc_plot4_mama_curve.clear()
                     bc_plot4_fama_curve.clear()
@@ -32257,7 +32284,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot4_mama:
 
                     bc_plot4_mama_curve.setData(df_nasdaq_graph['MAMA'].tolist())
-                    bc_plot4_fama_curve.setData(df_nasdaq_graph['FAMA'].tolist())
+                    bc_plot4_fama_curve.setData(df_nasdaq_graph['A_FAMA'].tolist())
                 else:
                     bc_plot4_mama_curve.clear()
                     bc_plot4_fama_curve.clear()
@@ -32386,7 +32413,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot4_mama:
 
                     bc_plot4_mama_curve.setData(df_wti_graph['MAMA'].tolist())
-                    bc_plot4_fama_curve.setData(df_wti_graph['FAMA'].tolist())
+                    bc_plot4_fama_curve.setData(df_wti_graph['A_FAMA'].tolist())
                 else:
                     bc_plot4_mama_curve.clear()
                     bc_plot4_fama_curve.clear()
@@ -32623,7 +32650,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot5_mama:
 
                     bc_plot5_mama_curve.setData(df_sp500_graph['MAMA'].tolist())
-                    bc_plot5_fama_curve.setData(df_sp500_graph['FAMA'].tolist())
+                    bc_plot5_fama_curve.setData(df_sp500_graph['A_FAMA'].tolist())
                 else:
                     bc_plot5_mama_curve.clear()
                     bc_plot5_fama_curve.clear() 
@@ -32893,7 +32920,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot5_mama:
 
                     bc_plot5_mama_curve.setData(df_nasdaq_graph['MAMA'].tolist())
-                    bc_plot5_fama_curve.setData(df_nasdaq_graph['FAMA'].tolist())
+                    bc_plot5_fama_curve.setData(df_nasdaq_graph['A_FAMA'].tolist())
                 else:
                     bc_plot5_mama_curve.clear()
                     bc_plot5_fama_curve.clear()  
@@ -33027,7 +33054,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot5_mama:
 
                     bc_plot5_mama_curve.setData(df_wti_graph['MAMA'].tolist())
-                    bc_plot5_fama_curve.setData(df_wti_graph['FAMA'].tolist())
+                    bc_plot5_fama_curve.setData(df_wti_graph['A_FAMA'].tolist())
                 else:
                     bc_plot5_mama_curve.clear()
                     bc_plot5_fama_curve.clear() 
@@ -33264,7 +33291,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot6_mama:
 
                     bc_plot6_mama_curve.setData(df_sp500_graph['MAMA'].tolist())
-                    bc_plot6_fama_curve.setData(df_sp500_graph['FAMA'].tolist())
+                    bc_plot6_fama_curve.setData(df_sp500_graph['A_FAMA'].tolist())
                 else:
                     bc_plot6_mama_curve.clear()
                     bc_plot6_fama_curve.clear()  
@@ -33534,7 +33561,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot6_mama:
 
                     bc_plot6_mama_curve.setData(df_nasdaq_graph['MAMA'].tolist())
-                    bc_plot6_fama_curve.setData(df_nasdaq_graph['FAMA'].tolist())
+                    bc_plot6_fama_curve.setData(df_nasdaq_graph['A_FAMA'].tolist())
                 else:
                     bc_plot6_mama_curve.clear()
                     bc_plot6_fama_curve.clear()  
@@ -33668,7 +33695,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 if flag_checkBox_plot6_mama:
 
                     bc_plot6_mama_curve.setData(df_wti_graph['MAMA'].tolist())
-                    bc_plot6_fama_curve.setData(df_wti_graph['FAMA'].tolist())
+                    bc_plot6_fama_curve.setData(df_wti_graph['A_FAMA'].tolist())
                 else:
                     bc_plot6_mama_curve.clear()
                     bc_plot6_fama_curve.clear()  
