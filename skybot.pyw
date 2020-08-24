@@ -1473,14 +1473,12 @@ old_hangseng_delta = 0
 gold_delta = 0
 old_gold_delta = 0
 
-comboindex1 = 0
-comboindex2 = 0
-comboindex3 = 0
-comboindex4 = 0
-
 bc_comboindex1 = 0
 bc_comboindex2 = 0
 bc_comboindex3 = 0
+bc_comboindex4 = 0
+bc_comboindex5 = 0
+bc_comboindex6 = 0
 
 FC0_선물현재가 = 0
 OC0_콜현재가 = ''
@@ -6884,7 +6882,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if market_service:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Call Node Color Check : {3:0.2f} ms\r'.format(\
-                int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
+                OVC_HOUR, OVC_MIN, OVC_SEC, process_time)
             self.textBrowser.append(str)
             print(str)
         else:
@@ -6907,7 +6905,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         process_time = (timeit.default_timer() - start_time) * 1000
 
         str = '[{0:02d}:{1:02d}:{2:02d}] Call Low Node Color Check : {3:0.2f} ms\r'.format(\
-            int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
+            OVC_HOUR, OVC_MIN, OVC_SEC, process_time)
         self.textBrowser.append(str)
 
     def call_high_node_coloring(self):
@@ -6925,7 +6923,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         process_time = (timeit.default_timer() - start_time) * 1000
 
         str = '[{0:02d}:{1:02d}:{2:02d}] Call High Node Color Check : {3:0.2f} ms\r'.format(\
-            int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), process_time)
+            OVC_HOUR, OVC_MIN, OVC_SEC, process_time)
         self.textBrowser.append(str)            
     
     def put_scroll_coloring(self):
@@ -6954,7 +6952,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if market_service:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 Put Node Color Check : {3:0.2f} ms\r'.format(\
-                int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
+                OVC_HOUR, OVC_MIN, OVC_SEC, process_time)
             self.textBrowser.append(str)
             print(str)                                 
         else:
@@ -6978,7 +6976,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         process_time = (timeit.default_timer() - start_time) * 1000
 
         str = '[{0:02d}:{1:02d}:{2:02d}] Put Low Node Color Check : {3:0.2f} ms\r'.format(\
-            int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
+            OVC_HOUR, OVC_MIN, OVC_SEC, process_time)
         self.textBrowser.append(str)
 
     def put_high_node_coloring(self):
@@ -6996,7 +6994,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         process_time = (timeit.default_timer() - start_time) * 1000
 
         str = '[{0:02d}:{1:02d}:{2:02d}] Put High Node Color Check : {3:0.2f} ms\r'.format(\
-            int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), process_time)
+            OVC_HOUR, OVC_MIN, OVC_SEC, process_time)
         self.textBrowser.append(str)            
 
 
@@ -17834,7 +17832,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call Open List = {3}\r'.format \
-                (int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), call_open_list)
+                (OVC_HOUR, OVC_MIN, OVC_SEC, call_open_list)
             self.textBrowser.append(str)
             
             if not NightTime and index > atm_index:
@@ -17945,13 +17943,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             call_피봇_node_list = self.make_node_list(call_피봇)
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call {3:.2f} Open Update !!!\r'.format \
-                (int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜시가)
+                (OVC_HOUR, OVC_MIN, OVC_SEC, 콜시가)
             self.textBrowser.append(str)
             
             if index == option_pairs_count - 1:
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 콜 최대 시작가 {3} 오픈되었습니다.\r'.format \
-                    (int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜시가)
+                    (OVC_HOUR, OVC_MIN, OVC_SEC, 콜시가)
                 self.textBrowser.append(str)
             else:
                 pass
@@ -18046,7 +18044,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             process_time = (timeit.default_timer() - start_time) * 1000
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 현재가 {3} Update : {4:0.2f} ms\r'.format \
-                (int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜현재가, process_time)
+                (OVC_HOUR, OVC_MIN, OVC_SEC, 콜현재가, process_time)
             self.textBrowser.append(str)
             print(str)
             '''         
@@ -18139,7 +18137,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             process_time = (timeit.default_timer() - start_time) * 1000
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 저가 {3} Update : {4:0.2f} ms\r'.format \
-                (int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜저가, process_time)
+                (OVC_HOUR, OVC_MIN, OVC_SEC, 콜저가, process_time)
             self.textBrowser.append(str)
             print(str) 
         else:
@@ -18214,7 +18212,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             process_time = (timeit.default_timer() - start_time) * 1000
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Call 고가 {3} Update : {4:0.2f} ms\r'.format \
-                (int(call_result['체결시간'][0:2]), int(call_result['체결시간'][2:4]), int(call_result['체결시간'][4:6]), 콜고가, process_time)
+                (OVC_HOUR, OVC_MIN, OVC_SEC, 콜고가, process_time)
             self.textBrowser.append(str)
             print(str) 
         else:
@@ -18936,7 +18934,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put Open List = {3}\r'.format \
-                (int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), put_open_list)
+                (OVC_HOUR, OVC_MIN, OVC_SEC, put_open_list)
             self.textBrowser.append(str)
             
             if not NightTime and index < atm_index:
@@ -19047,13 +19045,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             put_피봇_node_list = self.make_node_list(put_피봇)
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put {3:.2f} Open Update !!!\r'.format \
-                (int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 풋시가)
+                (OVC_HOUR, OVC_MIN, OVC_SEC, 풋시가)
             self.textBrowser.append(str)
             
             if index == 0:
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 풋 최대 시작가 {3} 오픈되었습니다.\r'.format \
-                    (int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 시가)
+                    (OVC_HOUR, OVC_MIN, OVC_SEC, 시가)
                 self.textBrowser.append(str)
             else:
                 pass  
@@ -19148,7 +19146,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             process_time = (timeit.default_timer() - start_time) * 1000
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 현재가 {3} Update : {4:0.2f} ms\r'.format \
-                (int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 풋현재가, process_time)
+                (OVC_HOUR, OVC_MIN, OVC_SEC, 풋현재가, process_time)
             self.textBrowser.append(str)
             print(str)
             '''
@@ -19241,7 +19239,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             process_time = (timeit.default_timer() - start_time) * 1000
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 저가 {3} Update : {4:0.2f} ms\r'.format \
-                (int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 풋저가, process_time)
+                (OVC_HOUR, OVC_MIN, OVC_SEC, 풋저가, process_time)
             self.textBrowser.append(str)
             print(str) 
         else:
@@ -19316,7 +19314,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             process_time = (timeit.default_timer() - start_time) * 1000
 
             str = '[{0:02d}:{1:02d}:{2:02d}] Put 고가 {3} Update : {4:0.2f} ms\r'.format \
-                (int(put_result['체결시간'][0:2]), int(put_result['체결시간'][2:4]), int(put_result['체결시간'][4:6]), 풋고가, process_time)
+                (OVC_HOUR, OVC_MIN, OVC_SEC, 풋고가, process_time)
             self.textBrowser.append(str)
             print(str) 
         else:
@@ -22296,11 +22294,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
                         
                         NASDAQ_과거가 = result['체결가격']
-                                       
+                        df_nasdaq_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+                        '''               
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
                             df_nasdaq_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                         else:
                             pass
+                        '''
                     else:
                         pass                    
 
@@ -22378,18 +22378,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.label_3rd.setStyleSheet('background-color: pink; color: blue')
                                     sp500_text_color = 'blue'
                                 else:
-                                    if comboindex1 != 8 and comboindex2 != 8:
-
-                                        if min(대비리스트) > 0:
-                                            jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                        else:
-                                            jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
-
-                                        self.label_3rd.setText(jisu_str)
-                                        self.label_3rd.setStyleSheet('background-color: pink; color: blue')
-                                        sp500_text_color = 'blue'
+                                    if min(대비리스트) > 0:
+                                        jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                     else:
-                                        pass                                
+                                        jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: pink; color: blue')
+                                    sp500_text_color = 'blue'                                
 
                             elif SP500_등락율 > 0:  
 
@@ -22404,18 +22400,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.label_3rd.setStyleSheet('background-color: pink; color: red')
                                     sp500_text_color = 'red'
                                 else:
-                                    if comboindex1 != 8 and comboindex2 != 8:
-
-                                        if min(대비리스트) > 0:
-                                            jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                        else:
-                                            jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
-
-                                        self.label_3rd.setText(jisu_str)
-                                        self.label_3rd.setStyleSheet('background-color: pink; color: red')
-                                        sp500_text_color = 'red'
+                                    if min(대비리스트) > 0:
+                                        jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                     else:
-                                        pass
+                                        jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: pink; color: red')
+                                    sp500_text_color = 'red'
                             else:
                                 pass
                             
@@ -22434,18 +22426,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.label_3rd.setStyleSheet('background-color: lightskyblue; color: blue')
                                     sp500_text_color = 'blue'
                                 else:
-                                    if comboindex1 != 8 and comboindex2 != 8:
-
-                                        if max(대비리스트) < 0:
-                                            jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                        else:
-                                            jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
-
-                                        self.label_3rd.setText(jisu_str)
-                                        self.label_3rd.setStyleSheet('background-color: lightskyblue; color: blue')
-                                        sp500_text_color = 'blue'
+                                    if max(대비리스트) < 0:
+                                        jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                     else:
-                                        pass                                
+                                        jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: lightskyblue; color: blue')
+                                    sp500_text_color = 'blue'                                
 
                             elif SP500_등락율 > 0:
 
@@ -22460,29 +22448,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     self.label_3rd.setStyleSheet('background-color: lightskyblue; color: red')
                                     sp500_text_color = 'red'
                                 else:
-                                    if comboindex1 != 8 and comboindex2 != 8:
-
-                                        if max(대비리스트) < 0:
-                                            jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                        else:
-                                            jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
-
-                                        self.label_3rd.setText(jisu_str)
-                                        self.label_3rd.setStyleSheet('background-color: lightskyblue; color: red')
-                                        sp500_text_color = 'red'
+                                    if max(대비리스트) < 0:
+                                        jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                     else:
-                                        pass                                
+                                        jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: lightskyblue; color: red')
+                                    sp500_text_color = 'red'                                
                             else:
                                 pass                            
                         else:
                             pass
 
                         SP500_과거가 = result['체결가격']
-                        
+                        df_sp500_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+                        '''
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
                             df_sp500_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                         else:
                             pass
+                        '''
                     else:
                         pass                    
 
@@ -22610,11 +22596,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         DOW_과거가 = 체결가격
-                        
+                        df_dow_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+                        '''
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
                             df_dow_graph.at[ovc_x_idx, 'price'] = result['체결가격']                   
                         else:
                             pass
+                        '''
                         
                         DOW_진폭비 = DOW_진폭 / DOW_시가
                     else:
@@ -22734,11 +22722,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         WTI_과거가 = result['체결가격']
-                        
+                        df_wti_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+                        '''
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
                             df_wti_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                         else:
                             pass
+                        '''
                     else:
                         pass
                     
@@ -22856,11 +22846,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         EUROFX_과거가 = result['체결가격']
-                        
+                        df_eurofx_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+                        '''
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
                             df_eurofx_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                         else:
                             pass
+                        '''
                     else:
                         pass
 
@@ -22978,11 +22970,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         HANGSENG_과거가 = int(result['체결가격'])
-                        
+                        df_hangseng_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+                        '''
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
                             df_hangseng_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                         else:
                             pass
+                        '''
                     else:
                         pass
 
@@ -23100,11 +23094,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         GOLD_과거가 = result['체결가격']
-                        
+                        df_gold_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+                        '''
                         if 2 <= ovc_x_idx <= nighttime_timespan - 1:
                             df_gold_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                         else:
                             pass
+                        '''
                     else:
                         pass
                 else:
