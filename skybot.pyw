@@ -17514,14 +17514,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         df_futures_graph['MAMA'] = mama
         df_futures_graph['FAMA'] = fama
-        df_futures_graph['A_FAMA'] = fama
+        #df_futures_graph['A_FAMA'] = fama
 
         if not math.isnan(df_futures_graph.at[ovc_x_idx, 'FAMA']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBLower']):
 
             if df_futures_graph.at[ovc_x_idx, 'FAMA'] < df_futures_graph.at[ovc_x_idx, 'BBLower']:
                 df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'BBLower']
             else:
-                pass
+                df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'FAMA']
         else:
             pass
 
@@ -21041,14 +21041,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_futures_graph['MAMA'] = mama
                     df_futures_graph['FAMA'] = fama
-                    df_futures_graph['A_FAMA'] = fama
+                    #df_futures_graph['A_FAMA'] = fama
 
                     if not math.isnan(df_futures_graph.at[ovc_x_idx, 'FAMA']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBLower']):
 
                         if df_futures_graph.at[ovc_x_idx, 'FAMA'] < df_futures_graph.at[ovc_x_idx, 'BBLower']:
                             df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'BBLower']
                         else:
-                            pass
+                            df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'FAMA']
                     else:
                         pass
 
@@ -23257,14 +23257,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_dow_graph['MAMA'] = mama
                 df_dow_graph['FAMA'] = fama
-                df_dow_graph['A_FAMA'] = fama
+                #df_dow_graph['A_FAMA'] = fama
 
                 if not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBLower']):
 
                     if df_dow_graph.at[ovc_x_idx, 'FAMA'] < df_dow_graph.at[ovc_x_idx, 'BBLower']:
                         df_dow_graph.at[ovc_x_idx, 'A_FAMA'] = df_dow_graph.at[ovc_x_idx, 'BBLower']
                     else:
-                        pass
+                        df_dow_graph.at[ovc_x_idx, 'A_FAMA'] = df_dow_graph.at[ovc_x_idx, 'FAMA']
                 else:
                     pass
 
