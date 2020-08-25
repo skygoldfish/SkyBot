@@ -1610,9 +1610,9 @@ skyblue_pen = pg.mkPen(skyblue, width=2, style=QtCore.Qt.DashLine)
 goldenrod_pen = pg.mkPen(goldenrod, width=2, style=QtCore.Qt.DotLine)
 gold_pen = pg.mkPen(gold, width=2, style=QtCore.Qt.DotLine)
 
-bb_upper_pen = pg.mkPen(magenta, width=1, style=QtCore.Qt.DotLine)
-bb_middle_pen = pg.mkPen(lime, width=1, style=QtCore.Qt.DotLine)
-bb_lower_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.DotLine)
+bb_upper_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.DotLine)
+bb_middle_pen = pg.mkPen(lime, width=2, style=QtCore.Qt.DotLine)
+bb_lower_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 
 psar_pen = pg.mkPen('w', width=1, style=QtCore.Qt.DotLine)
 
@@ -1620,8 +1620,8 @@ macd_pen = pg.mkPen(magenta, width=1, style=QtCore.Qt.SolidLine)
 MACDSig_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
 # MACDHist_pen = 
 
-mama_pen = pg.mkPen(magenta, width=1, style=QtCore.Qt.SolidLine)
-fama_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
+mama_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.SolidLine)
+fama_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.SolidLine)
 
 # Big Chart Plot1
 bc_plot1_time_line = None
