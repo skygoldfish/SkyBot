@@ -27558,6 +27558,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_46.setText(" 저가 ")
             self.label_47.setText(" 0.0 (전일대비, 등락율, 진폭) ")
             self.label_48.setText(" 고가 ")
+            
+            bc_plot4_fut_volume_plus_curve.clear()
+            bc_plot4_fut_volume_minus_curve.clear()
 
             bc_plot4_call_hoga_curve.clear()
             bc_plot4_put_hoga_curve.clear()
