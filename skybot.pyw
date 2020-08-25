@@ -17454,29 +17454,45 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # 1T OHLC 생성
         if OVC_SEC == 0:
-            
+
             if not flag_futures_ohlc_open:
-                
-                df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
-                
+
+                if 선물_시가 > 0:
+                    df_futures_graph.at[ovc_x_idx, 'open'] = 선물_시가
+                else:
+                    pass
+
                 del 선물_현재가_버퍼[:]
-                
+
                 flag_futures_ohlc_open = True
             else:
                 선물_현재가_버퍼.append(선물_현재가)
         else:
             선물_현재가_버퍼.append(선물_현재가)
 
-            df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
+            if max(선물_현재가_버퍼) > 0:
+                df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
+            else:
+                pass
 
             if min(선물_현재가_버퍼) == 0:
-                df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
+
+                if max(선물_현재가_버퍼) > 0:
+                    df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
+                else:
+                    pass
             else:
                 df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
 
-            df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
+            if 선물_시가 > 0:
+                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_시가
+            else:
+                pass
 
-            df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
+            if df_futures_graph.at[ovc_x_idx, 'high'] > 0 and df_futures_graph.at[ovc_x_idx, 'low'] > 0:
+                df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
+            else:
+                pass
 
             flag_futures_ohlc_open = False
 
@@ -20984,7 +21000,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if not flag_futures_ohlc_open:
 
-                            df_futures_graph.at[ovc_x_idx, 'open'] = 선물_시가
+                            if 선물_시가 > 0:
+                                df_futures_graph.at[ovc_x_idx, 'open'] = 선물_시가
+                            else:
+                                pass
 
                             del 선물_현재가_버퍼[:]
 
@@ -20994,16 +21013,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         선물_현재가_버퍼.append(선물_현재가)
 
-                        df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
+                        if max(선물_현재가_버퍼) > 0:
+                            df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
+                        else:
+                            pass
 
                         if min(선물_현재가_버퍼) == 0:
-                            df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
+
+                            if max(선물_현재가_버퍼) > 0:
+                                df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
+                            else:
+                                pass
                         else:
                             df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
 
-                        df_futures_graph.at[ovc_x_idx, 'close'] = 선물_시가
+                        if 선물_시가 > 0:
+                            df_futures_graph.at[ovc_x_idx, 'close'] = 선물_시가
+                        else:
+                            pass
 
-                        df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
+                        if df_futures_graph.at[ovc_x_idx, 'high'] > 0 and df_futures_graph.at[ovc_x_idx, 'low'] > 0:
+                            df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
+                        else:
+                            pass
 
                         flag_futures_ohlc_open = False
 
@@ -23116,7 +23148,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # DOW
                     if not flag_dow_ohlc_open:
                         
-                        df_dow_graph.at[ovc_x_idx, 'open'] = DOW_현재가
+                        if DOW_현재가 > 0:
+                            df_dow_graph.at[ovc_x_idx, 'open'] = DOW_현재가
+                        else:
+                            pass
                         
                         del DOW_현재가_버퍼[:]
 
@@ -23127,7 +23162,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # SP500
                     if not flag_sp500_ohlc_open:
                         
-                        df_sp500_graph.at[ovc_x_idx, 'open'] = SP500_현재가
+                        if SP500_현재가 > 0:
+                            df_sp500_graph.at[ovc_x_idx, 'open'] = SP500_현재가
+                        else:
+                            pass
                         
                         del SP500_현재가_버퍼[:]
 
@@ -23138,7 +23176,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # NASDAQ
                     if not flag_nasdaq_ohlc_open:
                         
-                        df_nasdaq_graph.at[ovc_x_idx, 'open'] = NASDAQ_현재가
+                        if NASDAQ_현재가 > 0:
+                            df_nasdaq_graph.at[ovc_x_idx, 'open'] = NASDAQ_현재가
+                        else:
+                            pass
                         
                         del NASDAQ_현재가_버퍼[:]
 
@@ -23149,7 +23190,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # WTI
                     if not flag_wti_ohlc_open:
                         
-                        df_wti_graph.at[ovc_x_idx, 'open'] = WTI_현재가
+                        if WTI_현재가 > 0:
+                            df_wti_graph.at[ovc_x_idx, 'open'] = WTI_현재가
+                        else:
+                            pass
                         
                         del WTI_현재가_버퍼[:]
 
@@ -23161,64 +23205,116 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # DOW
                     DOW_현재가_버퍼.append(DOW_현재가)
 
-                    df_dow_graph.at[ovc_x_idx, 'high'] = max(DOW_현재가_버퍼)
+                    if max(DOW_현재가_버퍼) > 0:
+                        df_dow_graph.at[ovc_x_idx, 'high'] = max(DOW_현재가_버퍼)
+                    else:
+                        pass
 
                     if min(DOW_현재가_버퍼) == 0:
-                        df_dow_graph.at[ovc_x_idx, 'low'] = max(DOW_현재가_버퍼)
+
+                        if max(DOW_현재가_버퍼) > 0:
+                            df_dow_graph.at[ovc_x_idx, 'low'] = max(DOW_현재가_버퍼)
+                        else:
+                            pass
                     else:
                         df_dow_graph.at[ovc_x_idx, 'low'] = min(DOW_현재가_버퍼)
 
-                    df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
+                    if DOW_현재가 > 0:
+                        df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
+                    else:
+                        pass
 
-                    df_dow_graph.at[ovc_x_idx, 'middle'] = (df_dow_graph.at[ovc_x_idx, 'high'] + df_dow_graph.at[ovc_x_idx, 'low']) / 2
+                    if df_dow_graph.at[ovc_x_idx, 'high'] > 0 and df_dow_graph.at[ovc_x_idx, 'low'] > 0:
+                        df_dow_graph.at[ovc_x_idx, 'middle'] = (df_dow_graph.at[ovc_x_idx, 'high'] + df_dow_graph.at[ovc_x_idx, 'low']) / 2
+                    else:
+                        pass
 
                     flag_dow_ohlc_open = False
 
                     # SP500
                     SP500_현재가_버퍼.append(SP500_현재가)
 
-                    df_sp500_graph.at[ovc_x_idx, 'high'] = max(SP500_현재가_버퍼)
+                    if max(SP500_현재가_버퍼) > 0:
+                        df_sp500_graph.at[ovc_x_idx, 'high'] = max(SP500_현재가_버퍼)
+                    else:
+                        pass
 
                     if min(SP500_현재가_버퍼) == 0:
-                        df_sp500_graph.at[ovc_x_idx, 'low'] = max(SP500_현재가_버퍼)
+
+                        if max(SP500_현재가_버퍼) > 0:
+                            df_sp500_graph.at[ovc_x_idx, 'low'] = max(SP500_현재가_버퍼)
+                        else:
+                            pass
                     else:
                         df_sp500_graph.at[ovc_x_idx, 'low'] = min(SP500_현재가_버퍼)
 
-                    df_sp500_graph.at[ovc_x_idx, 'close'] = SP500_현재가
+                    if SP500_현재가 > 0:
+                        df_sp500_graph.at[ovc_x_idx, 'close'] = SP500_현재가
+                    else:
+                        pass
 
-                    df_sp500_graph.at[ovc_x_idx, 'middle'] = (df_sp500_graph.at[ovc_x_idx, 'high'] + df_sp500_graph.at[ovc_x_idx, 'low']) / 2
+                    if df_sp500_graph.at[ovc_x_idx, 'high'] > 0 and df_sp500_graph.at[ovc_x_idx, 'low'] > 0:
+                        df_sp500_graph.at[ovc_x_idx, 'middle'] = (df_sp500_graph.at[ovc_x_idx, 'high'] + df_sp500_graph.at[ovc_x_idx, 'low']) / 2
+                    else:
+                        pass
 
                     flag_sp500_ohlc_open = False
 
                     # NASDAQ
                     NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
 
-                    df_nasdaq_graph.at[ovc_x_idx, 'high'] = max(NASDAQ_현재가_버퍼)
+                    if max(NASDAQ_현재가_버퍼) > 0:
+                        df_nasdaq_graph.at[ovc_x_idx, 'high'] = max(NASDAQ_현재가_버퍼)
+                    else:
+                        pass
 
                     if min(NASDAQ_현재가_버퍼) == 0:
-                        df_nasdaq_graph.at[ovc_x_idx, 'low'] = max(NASDAQ_현재가_버퍼)
+
+                        if max(NASDAQ_현재가_버퍼) > 0:
+                            df_nasdaq_graph.at[ovc_x_idx, 'low'] = max(NASDAQ_현재가_버퍼)
+                        else:
+                            pass
                     else:
                         df_nasdaq_graph.at[ovc_x_idx, 'low'] = min(NASDAQ_현재가_버퍼)
 
-                    df_nasdaq_graph.at[ovc_x_idx, 'close'] = NASDAQ_현재가
+                    if NASDAQ_현재가 > 0:
+                        df_nasdaq_graph.at[ovc_x_idx, 'close'] = NASDAQ_현재가
+                    else:
+                        pass
 
-                    df_nasdaq_graph.at[ovc_x_idx, 'middle'] = (df_nasdaq_graph.at[ovc_x_idx, 'high'] + df_nasdaq_graph.at[ovc_x_idx, 'low']) / 2
+                    if df_nasdaq_graph.at[ovc_x_idx, 'high'] > 0 and df_nasdaq_graph.at[ovc_x_idx, 'low'] > 0:
+                        df_nasdaq_graph.at[ovc_x_idx, 'middle'] = (df_nasdaq_graph.at[ovc_x_idx, 'high'] + df_nasdaq_graph.at[ovc_x_idx, 'low']) / 2
+                    else:
+                        pass
 
                     flag_nasdaq_ohlc_open = False
 
                     # WTI
                     WTI_현재가_버퍼.append(WTI_현재가)
 
-                    df_wti_graph.at[ovc_x_idx, 'high'] = max(WTI_현재가_버퍼)
+                    if max(WTI_현재가_버퍼) > 0:
+                        df_wti_graph.at[ovc_x_idx, 'high'] = max(WTI_현재가_버퍼)
+                    else:
+                        pass
 
                     if min(WTI_현재가_버퍼) == 0:
-                        df_wti_graph.at[ovc_x_idx, 'low'] = max(WTI_현재가_버퍼)
+
+                        if max(WTI_현재가_버퍼) > 0:
+                            df_wti_graph.at[ovc_x_idx, 'low'] = max(WTI_현재가_버퍼)
+                        else:
+                            pass
                     else:
                         df_wti_graph.at[ovc_x_idx, 'low'] = min(WTI_현재가_버퍼)
 
-                    df_wti_graph.at[ovc_x_idx, 'close'] = WTI_현재가
+                    if WTI_현재가 > 0:
+                        df_wti_graph.at[ovc_x_idx, 'close'] = WTI_현재가
+                    else:
+                        pass
 
-                    df_wti_graph.at[ovc_x_idx, 'middle'] = (df_wti_graph.at[ovc_x_idx, 'high'] + df_wti_graph.at[ovc_x_idx, 'low']) / 2
+                    if df_wti_graph.at[ovc_x_idx, 'high'] > 0 and df_wti_graph.at[ovc_x_idx, 'low'] > 0:
+                        df_wti_graph.at[ovc_x_idx, 'middle'] = (df_wti_graph.at[ovc_x_idx, 'high'] + df_wti_graph.at[ovc_x_idx, 'low']) / 2
+                    else:
+                        pass
 
                     flag_wti_ohlc_open = False
                 
