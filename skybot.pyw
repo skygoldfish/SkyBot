@@ -17457,8 +17457,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if not flag_futures_ohlc_open:
 
-                if 선물_시가 > 0:
-                    df_futures_graph.at[ovc_x_idx, 'open'] = 선물_시가
+                if 선물_현재가 > 0:
+                    df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
                 else:
                     pass
 
@@ -17484,8 +17484,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
 
-            if 선물_시가 > 0:
-                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_시가
+            if 선물_현재가 > 0:
+                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
             else:
                 pass
 
@@ -21009,9 +21009,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             flag_futures_ohlc_open = True
                         else:
-                            선물_현재가_버퍼.append(선물_현재가)
+                            선물_현재가_버퍼.append(선물_시가)
                     else:
-                        선물_현재가_버퍼.append(선물_현재가)
+                        선물_현재가_버퍼.append(선물_시가)
 
                         if max(선물_현재가_버퍼) > 0:
                             df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
