@@ -595,8 +595,8 @@ with open('control_info.txt', mode='r') as control_file:
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
-    CENTERVAL_RANGE = float(temp[5])
-    #print('CENTERVAL_RANGE =', CENTERVAL_RANGE)
+    CENTERVAL_GOLDEN_RATIO = float(temp[4])
+    #print('CENTERVAL_GOLDEN_RATIO =', CENTERVAL_GOLDEN_RATIO)
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
@@ -2240,6 +2240,8 @@ fut_bollinger_symbol = ''
 fut_psar_symbol = ''
 fut_macd_symbol = ''
 fut_mama_symbol = ''
+
+Fibonacci_Golden_Ratio = [0.382, 0.5, 0.618, 0.707, 0.786, 0.886]
 
 ########################################################################################################################
 
@@ -7136,7 +7138,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item = QTableWidgetItem("{0:0.2f}".format(CENTER_VAL))
         item.setTextAlignment(Qt.AlignCenter)
 
-        if abs(atm_zero_cha) <= CENTERVAL_RANGE:
+        if abs(atm_zero_cha) <= CENTERVAL_GOLDEN_RATIO:
 
             if SELFID != 'soojin65':
                 if blink:
@@ -26451,9 +26453,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_mv_line[7].setValue(0)
             bc_plot2_mv_line[8].setValue(0)
             
-            bc_plot2_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+            bc_plot2_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
             bc_plot2_center_val_line.setValue(CENTER_VAL)
-            bc_plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
+            bc_plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
 
         elif bc_comboindex2 == 6:
 
@@ -27168,9 +27170,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_mv_line[7].setValue(0)
             bc_plot3_mv_line[8].setValue(0)
 
-            bc_plot3_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+            bc_plot3_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
             bc_plot3_center_val_line.setValue(CENTER_VAL)
-            bc_plot3_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
+            bc_plot3_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
 
         elif bc_comboindex3 == 6:
 
@@ -28668,9 +28670,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot5_mv_line[7].setValue(0)
             bc_plot5_mv_line[8].setValue(0)
 
-            bc_plot5_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+            bc_plot5_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
             bc_plot5_center_val_line.setValue(CENTER_VAL)
-            bc_plot5_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
+            bc_plot5_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
 
         elif bc_comboindex5 == 6:
 
@@ -29385,9 +29387,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot6_mv_line[7].setValue(0)
             bc_plot6_mv_line[8].setValue(0)
 
-            bc_plot6_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+            bc_plot6_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
             bc_plot6_center_val_line.setValue(CENTER_VAL)
-            bc_plot6_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
+            bc_plot6_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
 
         elif bc_comboindex6 == 6:
 
@@ -30608,9 +30610,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         else:
                             pass
                         
-                bc_plot2_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+                bc_plot2_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
                 bc_plot2_center_val_line.setValue(CENTER_VAL)
-                bc_plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
+                bc_plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
 
                 # 중심가 그리기
                 bc_plot2_center_val_curve.setData(df_call_info_graph['centerval'].tolist())
@@ -30619,13 +30621,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' 등가 : {0} '.format(atm_str)
                 self.label_21.setText(str)
 
-                str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_RANGE)
+                str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
                 self.label_22.setText(str)
 
                 str = ' 중심가 : {0:0.2f} '.format(CENTER_VAL)
                 self.label_23.setText(str)
 
-                str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_RANGE)
+                str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
                 self.label_24.setText(str)
 
             elif bc_comboindex2 == 6:
@@ -31249,9 +31251,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         else:
                             pass
                         
-                bc_plot3_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+                bc_plot3_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
                 bc_plot3_center_val_line.setValue(CENTER_VAL)
-                bc_plot3_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
+                bc_plot3_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
 
                 # 중심가 그리기
                 bc_plot3_center_val_curve.setData(df_call_info_graph['centerval'].tolist())
@@ -31260,13 +31262,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' 등가 : {0} '.format(atm_str)
                 self.label_31.setText(str)
 
-                str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_RANGE)
+                str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
                 self.label_32.setText(str)
 
                 str = ' 중심가 : {0:0.2f} '.format(CENTER_VAL)
                 self.label_33.setText(str)
 
-                str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_RANGE)
+                str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
                 self.label_34.setText(str)
 
             elif bc_comboindex3 == 6:
@@ -32596,9 +32598,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         else:
                             pass
                         
-                bc_plot5_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+                bc_plot5_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
                 bc_plot5_center_val_line.setValue(CENTER_VAL)
-                bc_plot5_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
+                bc_plot5_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
 
                 # 중심가 그리기
                 bc_plot5_center_val_curve.setData(df_call_info_graph['centerval'].tolist())
@@ -32607,13 +32609,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' 등가 : {0} '.format(atm_str)
                 self.label_51.setText(str)
 
-                str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_RANGE)
+                str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
                 self.label_52.setText(str)
 
                 str = ' 중심가 : {0:0.2f} '.format(CENTER_VAL)
                 self.label_53.setText(str)
 
-                str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_RANGE)
+                str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
                 self.label_54.setText(str)
 
             elif bc_comboindex5 == 6:
@@ -33237,9 +33239,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         else:
                             pass
                         
-                bc_plot6_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_RANGE)
+                bc_plot6_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
                 bc_plot6_center_val_line.setValue(CENTER_VAL)
-                bc_plot6_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_RANGE)
+                bc_plot6_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
 
                 # 중심가 그리기
                 bc_plot6_center_val_curve.setData(df_call_info_graph['centerval'].tolist())
@@ -33248,13 +33250,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' 등가 : {0} '.format(atm_str)
                 self.label_61.setText(str)
 
-                str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_RANGE)
+                str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
                 self.label_62.setText(str)
 
                 str = ' 중심가 : {0:0.2f} '.format(CENTER_VAL)
                 self.label_63.setText(str)
 
-                str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_RANGE)
+                str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
                 self.label_64.setText(str)
 
             elif bc_comboindex6 == 6:
