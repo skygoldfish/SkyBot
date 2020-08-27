@@ -29832,21 +29832,61 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot1 그래프 그리기
             if bc_comboindex1 == 0 and market_service:
 
-                if fut_volume_power > 0:
+                str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                    self.label_17.setStyleSheet('background-color: red ; color: white')
+                else:
+                    self.label_17.setStyleSheet('background-color: blue ; color: white')
+
+                self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_17.setText(str)
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
                     bc_plot1_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
                 else:
                     bc_plot1_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex1 == 1 and market_service:
 
+                str = " {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'])
+
+                if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0:
+                    self.label_17.setStyleSheet('background-color: red ; color: white')
+                else:
+                    self.label_17.setStyleSheet('background-color: blue ; color: white')
+
+                self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_17.setText(str)
+
                 bc_plot1_fut_hoga_curve.setData(df_futures_graph['hoga'].tolist())
 
-            elif bc_comboindex1 == 2 and market_service:                      
+            elif bc_comboindex1 == 2 and market_service:
+
+                str = " {0:0.0f} ".format(df_put_info_graph.at[ovc_x_idx, 'volume'])
+                self.label_16.setStyleSheet('background-color: blue ; color: white')
+                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_16.setText(str)
+                
+                str = " {0:0.0f} ".format(df_call_info_graph.at[ovc_x_idx, 'volume'])
+                self.label_18.setStyleSheet('background-color: red ; color: white')
+                self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_18.setText(str)
 
                 bc_plot1_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
                 bc_plot1_put_volume_curve.setData(df_put_info_graph['volume'].tolist())
 
             elif bc_comboindex1 == 3 and market_service:
+                
+                str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
+                self.label_16.setStyleSheet('background-color: blue ; color: white')
+                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_16.setText(str)
+                
+                str = " {0:0.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'hoga'])
+                self.label_18.setStyleSheet('background-color: red ; color: white')
+                self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_18.setText(str)
 
                 bc_plot1_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
                 bc_plot1_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())
@@ -30538,22 +30578,62 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot2 그래프 그리기
             if bc_comboindex2 == 0 and market_service:
 
+                str = " {0:0.0f} ".format(df_put_info_graph.at[ovc_x_idx, 'volume'])
+                self.label_26.setStyleSheet('background-color: blue ; color: white')
+                self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_26.setText(str)
+                
+                str = " {0:0.0f} ".format(df_call_info_graph.at[ovc_x_idx, 'volume'])
+                self.label_28.setStyleSheet('background-color: red ; color: white')
+                self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_28.setText(str)
+
                 bc_plot2_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
                 bc_plot2_put_volume_curve.setData(df_put_info_graph['volume'].tolist())
 
             elif bc_comboindex2 == 1 and market_service:
+
+                str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
+                self.label_26.setStyleSheet('background-color: blue ; color: white')
+                self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_26.setText(str)
+                
+                str = " {0:0.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'hoga'])
+                self.label_28.setStyleSheet('background-color: red ; color: white')
+                self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_28.setText(str)
 
                 bc_plot2_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
                 bc_plot2_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
 
             elif bc_comboindex2 == 2 and market_service:
 
-                if fut_volume_power > 0:
+                str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                    self.label_27.setStyleSheet('background-color: red ; color: white')
+                else:
+                    self.label_27.setStyleSheet('background-color: blue ; color: white')
+
+                self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_27.setText(str)
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
                     bc_plot2_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
                 else:
                     bc_plot2_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex2 == 3 and market_service:
+
+                str = " {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'])
+
+                if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0:
+                    self.label_27.setStyleSheet('background-color: red ; color: white')
+                else:
+                    self.label_27.setStyleSheet('background-color: blue ; color: white')
+
+                self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_27.setText(str)
 
                 bc_plot2_fut_hoga_curve.setData(df_futures_graph['hoga'].tolist())
 
@@ -31179,22 +31259,62 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot3 그래프 그리기
             if bc_comboindex3 == 0 and market_service:
 
+                str = " {0:0.0f} ".format(df_put_info_graph.at[ovc_x_idx, 'volume'])
+                self.label_36.setStyleSheet('background-color: blue ; color: white')
+                self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_36.setText(str)
+                
+                str = " {0:0.0f} ".format(df_call_info_graph.at[ovc_x_idx, 'volume'])
+                self.label_38.setStyleSheet('background-color: red ; color: white')
+                self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_38.setText(str)
+
                 bc_plot3_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
                 bc_plot3_put_volume_curve.setData(df_put_info_graph['volume'].tolist())
 
             elif bc_comboindex3 == 1 and market_service:
+
+                str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
+                self.label_36.setStyleSheet('background-color: blue ; color: white')
+                self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_36.setText(str)
+                
+                str = " {0:0.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'hoga'])
+                self.label_38.setStyleSheet('background-color: red ; color: white')
+                self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_38.setText(str)
 
                 bc_plot3_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
                 bc_plot3_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
 
             elif bc_comboindex3 == 2 and market_service:
 
-                if fut_volume_power > 0:
+                str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                    self.label_37.setStyleSheet('background-color: red ; color: white')
+                else:
+                    self.label_37.setStyleSheet('background-color: blue ; color: white')
+
+                self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_37.setText(str)
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
                     bc_plot3_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
                 else:
                     bc_plot3_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex3 == 3 and market_service:
+
+                str = " {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'])
+
+                if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0:
+                    self.label_37.setStyleSheet('background-color: red ; color: white')
+                else:
+                    self.label_37.setStyleSheet('background-color: blue ; color: white')
+
+                self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_37.setText(str)
 
                 bc_plot3_fut_hoga_curve.setData(df_futures_graph['hoga'].tolist())
 
@@ -31820,21 +31940,61 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot4 그래프 그리기
             if bc_comboindex4 == 0 and market_service:
 
-                if fut_volume_power > 0:
+                str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                    self.label_47.setStyleSheet('background-color: red ; color: white')
+                else:
+                    self.label_47.setStyleSheet('background-color: blue ; color: white')
+
+                self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_47.setText(str)
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
                     bc_plot4_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
                 else:
                     bc_plot4_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex4 == 1 and market_service:
 
+                str = " {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'])
+
+                if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0:
+                    self.label_47.setStyleSheet('background-color: red ; color: white')
+                else:
+                    self.label_47.setStyleSheet('background-color: blue ; color: white')
+
+                self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_47.setText(str)
+
                 bc_plot4_fut_hoga_curve.setData(df_futures_graph['hoga'].tolist())
 
-            elif bc_comboindex4 == 2 and market_service:                      
+            elif bc_comboindex4 == 2 and market_service:
+
+                str = " {0:0.0f} ".format(df_put_info_graph.at[ovc_x_idx, 'volume'])
+                self.label_46.setStyleSheet('background-color: blue ; color: white')
+                self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_46.setText(str)
+                
+                str = " {0:0.0f} ".format(df_call_info_graph.at[ovc_x_idx, 'volume'])
+                self.label_48.setStyleSheet('background-color: red ; color: white')
+                self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_48.setText(str)                      
 
                 bc_plot4_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
                 bc_plot4_put_volume_curve.setData(df_put_info_graph['volume'].tolist())
 
             elif bc_comboindex4 == 3 and market_service:
+
+                str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
+                self.label_46.setStyleSheet('background-color: blue ; color: white')
+                self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_46.setText(str)
+                
+                str = " {0:0.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'hoga'])
+                self.label_48.setStyleSheet('background-color: red ; color: white')
+                self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_48.setText(str)
 
                 bc_plot4_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
                 bc_plot4_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())
@@ -32526,22 +32686,62 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot5 그래프 그리기
             if bc_comboindex5 == 0 and market_service:
 
+                str = " {0:0.0f} ".format(df_put_info_graph.at[ovc_x_idx, 'volume'])
+                self.label_56.setStyleSheet('background-color: blue ; color: white')
+                self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_56.setText(str)
+                
+                str = " {0:0.0f} ".format(df_call_info_graph.at[ovc_x_idx, 'volume'])
+                self.label_58.setStyleSheet('background-color: red ; color: white')
+                self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_58.setText(str)
+
                 bc_plot5_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
                 bc_plot5_put_volume_curve.setData(df_put_info_graph['volume'].tolist())
 
             elif bc_comboindex5 == 1 and market_service:
+
+                str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
+                self.label_56.setStyleSheet('background-color: blue ; color: white')
+                self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_56.setText(str)
+                
+                str = " {0:0.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'hoga'])
+                self.label_58.setStyleSheet('background-color: red ; color: white')
+                self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_58.setText(str)
 
                 bc_plot5_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
                 bc_plot5_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
 
             elif bc_comboindex5 == 2 and market_service:
 
-                if fut_volume_power > 0:
+                str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                    self.label_57.setStyleSheet('background-color: red ; color: white')
+                else:
+                    self.label_57.setStyleSheet('background-color: blue ; color: white')
+
+                self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_57.setText(str)
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
                     bc_plot5_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
                 else:
                     bc_plot5_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex5 == 3 and market_service:
+
+                str = " {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'])
+
+                if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0:
+                    self.label_57.setStyleSheet('background-color: red ; color: white')
+                else:
+                    self.label_57.setStyleSheet('background-color: blue ; color: white')
+
+                self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_57.setText(str)
 
                 bc_plot5_fut_hoga_curve.setData(df_futures_graph['hoga'].tolist())
 
@@ -33167,22 +33367,62 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot6 그래프 그리기
             if bc_comboindex6 == 0 and market_service:
 
+                str = " {0:0.0f} ".format(df_put_info_graph.at[ovc_x_idx, 'volume'])
+                self.label_66.setStyleSheet('background-color: blue ; color: white')
+                self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_66.setText(str)
+                
+                str = " {0:0.0f} ".format(df_call_info_graph.at[ovc_x_idx, 'volume'])
+                self.label_68.setStyleSheet('background-color: red ; color: white')
+                self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_68.setText(str)
+
                 bc_plot6_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
                 bc_plot6_put_volume_curve.setData(df_put_info_graph['volume'].tolist())
 
             elif bc_comboindex6 == 1 and market_service:
+
+                str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
+                self.label_66.setStyleSheet('background-color: blue ; color: white')
+                self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_66.setText(str)
+                
+                str = " {0:0.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'hoga'])
+                self.label_68.setStyleSheet('background-color: red ; color: white')
+                self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_68.setText(str)
 
                 bc_plot6_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
                 bc_plot6_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
 
             elif bc_comboindex6 == 2 and market_service:
 
-                if fut_volume_power > 0:
+                str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                    self.label_67.setStyleSheet('background-color: red ; color: white')
+                else:
+                    self.label_67.setStyleSheet('background-color: blue ; color: white')
+
+                self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_67.setText(str)
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
                     bc_plot6_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
                 else:
                     bc_plot6_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex6 == 3 and market_service:
+
+                str = " {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'])
+
+                if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0:
+                    self.label_67.setStyleSheet('background-color: red ; color: white')
+                else:
+                    self.label_67.setStyleSheet('background-color: blue ; color: white')
+
+                self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                self.label_67.setText(str)
 
                 bc_plot6_fut_hoga_curve.setData(df_futures_graph['hoga'].tolist())
 
