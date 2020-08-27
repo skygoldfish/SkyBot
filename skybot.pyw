@@ -17483,6 +17483,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 선물_현재가_버퍼.append(선물_현재가)
         else:
+            if math.isnan(df_futures_graph.at[ovc_x_idx, 'open']):
+                df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+            else:
+                pass
+
             선물_현재가_버퍼.append(선물_현재가)
 
             if max(선물_현재가_버퍼) > 0:
@@ -21026,6 +21031,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             선물_현재가_버퍼.append(선물_시가)
                     else:
+                        if math.isnan(df_futures_graph.at[ovc_x_idx, 'open']):
+                            df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+                        else:
+                            pass
+
                         선물_현재가_버퍼.append(선물_시가)
 
                         if max(선물_현재가_버퍼) > 0:
@@ -23218,6 +23228,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 else:
                     # DOW
+                    if math.isnan(df_dow_graph.at[ovc_x_idx, 'open']):
+                        df_dow_graph.at[ovc_x_idx, 'open'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
+                    else:
+                        pass
+
                     DOW_현재가_버퍼.append(DOW_현재가)
 
                     if max(DOW_현재가_버퍼) > 0:
@@ -23247,6 +23262,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     flag_dow_ohlc_open = False
 
                     # SP500
+                    if math.isnan(df_sp500_graph.at[ovc_x_idx, 'open']):
+                        df_sp500_graph.at[ovc_x_idx, 'open'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
+                    else:
+                        pass
+
                     SP500_현재가_버퍼.append(SP500_현재가)
 
                     if max(SP500_현재가_버퍼) > 0:
@@ -23276,6 +23296,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     flag_sp500_ohlc_open = False
 
                     # NASDAQ
+                    if math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'open']):
+                        df_nasdaq_graph.at[ovc_x_idx, 'open'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
+                    else:
+                        pass
+
                     NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
 
                     if max(NASDAQ_현재가_버퍼) > 0:
@@ -23305,6 +23330,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     flag_nasdaq_ohlc_open = False
 
                     # WTI
+                    if math.isnan(df_wti_graph.at[ovc_x_idx, 'open']):
+                        df_wti_graph.at[ovc_x_idx, 'open'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
+                    else:
+                        pass
+
                     WTI_현재가_버퍼.append(WTI_현재가)
 
                     if max(WTI_현재가_버퍼) > 0:
