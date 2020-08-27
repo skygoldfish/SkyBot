@@ -25077,36 +25077,73 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot1_vLine.setPos(mousePoint.x())
             bc_plot1_hLine.setPos(mousePoint.y())
-            bc_plot1_x = int(mousePoint.x())
-            bc_plot1_y = mousePoint.y()
+            plot_x = int(mousePoint.x())
+            plot_y = mousePoint.y()          
 
-            '''
-            if bc_comboindex1 == 6 and plot_data11:
-                if plot_data11[bc_plot1_x] != plot_data11[bc_plot1_x]:
+            str = " X: {0:d}\n Y: {1:0.2f} ".format(plot_x, plot_y)            
+            self.label_p1_1.setText(str) 
+
+            if bc_comboindex1 == 5:
+
+                if df_futures_graph.at[plot_x, 'price'] != df_futures_graph.at[plot_x, 'price']:
                     pass
                 else:
-                    bc_plot1_y = plot_data11[bc_plot1_x]
-            elif bc_comboindex1 == 7 and plot_data12:
-                if plot_data12[bc_plot1_x] != plot_data12[bc_plot1_x]:
+                    plot_low = df_futures_graph.at[plot_x, 'low']
+                    plot_high = df_futures_graph.at[plot_x, 'high']
+                    plot_close = df_futures_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p1_1.setText(str) 
+
+            elif bc_comboindex1 == 7:
+
+                if df_sp500_graph.at[plot_x, 'price'] != df_sp500_graph.at[plot_x, 'price']:
                     pass
                 else:
-                    bc_plot1_y = plot_data12[bc_plot1_x]
-            elif bc_comboindex1 == 8 and plot_data13:
-                if plot_data13[bc_plot1_x] != plot_data13[bc_plot1_x]:
+                    plot_low = df_sp500_graph.at[plot_x, 'low']
+                    plot_high = df_sp500_graph.at[plot_x, 'high']
+                    plot_close = df_sp500_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p1_1.setText(str)
+
+            elif bc_comboindex1 == 8:
+
+                if df_dow_graph.at[plot_x, 'price'] != df_dow_graph.at[plot_x, 'price']:
                     pass
                 else:
-                    bc_plot1_y = plot_data13[bc_plot1_x]
-            elif bc_comboindex1 == 9 and plot_data14:
-                if plot_data14[bc_plot1_x] != plot_data14[bc_plot1_x]:
+                    plot_low = df_dow_graph.at[plot_x, 'low']
+                    plot_high = df_dow_graph.at[plot_x, 'high']
+                    plot_close = df_dow_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p1_1.setText(str)
+
+            elif bc_comboindex1 == 9:
+
+                if df_nasdaq_graph.at[plot_x, 'price'] != df_nasdaq_graph.at[plot_x, 'price']:
                     pass
                 else:
-                    bc_plot1_y = plot_data14[bc_plot1_x]
+                    plot_low = df_nasdaq_graph.at[plot_x, 'low']
+                    plot_high = df_nasdaq_graph.at[plot_x, 'high']
+                    plot_close = df_nasdaq_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p1_1.setText(str)
+
+            elif bc_comboindex1 == 10:
+
+                if df_wti_graph.at[plot_x, 'price'] != df_wti_graph.at[plot_x, 'price']:
+                    pass
+                else:
+                    plot_low = df_wti_graph.at[plot_x, 'low']
+                    plot_high = df_wti_graph.at[plot_x, 'high']
+                    plot_close = df_wti_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p1_1.setText(str)
             else:
-                bc_plot1_y = mousePoint.y()
-            '''
-
-            str = " X: {0:d}\n Y: {1:0.2f} ".format(bc_plot1_x, bc_plot1_y)            
-            self.label_p1_1.setText(str)            
+                pass           
         else:
             pass
 
@@ -25122,36 +25159,61 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot2_vLine.setPos(mousePoint.x())
             bc_plot2_hLine.setPos(mousePoint.y())
-            bc_plot2_x = int(mousePoint.x())
-            bc_plot2_y = mousePoint.y()
+            plot_x = int(mousePoint.x())
+            plot_y = mousePoint.y()
 
-            '''
-            if bc_comboindex2 == 6 and plot_data11:
-                if plot_data11[bc_plot2_x] != plot_data11[bc_plot2_x]:
+            str = " X: {0:d}\n Y: {1:0.2f} ".format(plot_x, plot_y)            
+            self.label_p2_1.setText(str)
+
+            if bc_comboindex2 == 7:
+
+                if df_sp500_graph.at[plot_x, 'price'] != df_sp500_graph.at[plot_x, 'price']:
                     pass
                 else:
-                    bc_plot2_y = plot_data11[bc_plot2_x]
-            elif bc_comboindex2 == 7 and plot_data12:
-                if plot_data12[bc_plot2_x] != plot_data12[bc_plot2_x]:
+                    plot_low = df_sp500_graph.at[plot_x, 'low']
+                    plot_high = df_sp500_graph.at[plot_x, 'high']
+                    plot_close = df_sp500_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p2_1.setText(str)
+
+            elif bc_comboindex2 == 8:
+
+                if df_dow_graph.at[plot_x, 'price'] != df_dow_graph.at[plot_x, 'price']:
                     pass
                 else:
-                    bc_plot2_y = plot_data12[bc_plot2_x]
-            elif bc_comboindex2 == 8 and plot_data13:
-                if plot_data13[bc_plot2_x] != plot_data13[bc_plot2_x]:
+                    plot_low = df_dow_graph.at[plot_x, 'low']
+                    plot_high = df_dow_graph.at[plot_x, 'high']
+                    plot_close = df_dow_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p2_1.setText(str)
+
+            elif bc_comboindex2 == 9:
+
+                if df_nasdaq_graph.at[plot_x, 'price'] != df_nasdaq_graph.at[plot_x, 'price']:
                     pass
                 else:
-                    bc_plot2_y = plot_data13[bc_plot2_x]
-            elif bc_comboindex2 == 9 and plot_data14:
-                if plot_data14[bc_plot2_x] != plot_data14[bc_plot2_x]:
+                    plot_low = df_nasdaq_graph.at[plot_x, 'low']
+                    plot_high = df_nasdaq_graph.at[plot_x, 'high']
+                    plot_close = df_nasdaq_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p2_1.setText(str)
+
+            elif bc_comboindex2 == 10:
+
+                if df_wti_graph.at[plot_x, 'price'] != df_wti_graph.at[plot_x, 'price']:
                     pass
                 else:
-                    bc_plot2_y = plot_data14[bc_plot2_x]
+                    plot_low = df_wti_graph.at[plot_x, 'low']
+                    plot_high = df_wti_graph.at[plot_x, 'high']
+                    plot_close = df_wti_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p2_1.setText(str)
             else:
-                bc_plot2_y = mousePoint.y()
-            '''
-
-            str = " X: {0:d}\n Y: {1:0.2f} ".format(bc_plot2_x, bc_plot2_y)            
-            self.label_p2_1.setText(str)         
+                pass                
         else:
             pass
 
@@ -25167,36 +25229,61 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot3_vLine.setPos(mousePoint.x())
             bc_plot3_hLine.setPos(mousePoint.y())
-            bc_plot3_x = int(mousePoint.x())
-            bc_plot3_y = mousePoint.y()
+            plot_x = int(mousePoint.x())
+            plot_y = mousePoint.y()
 
-            '''
-            if bc_comboindex3 == 6 and plot_data11:
-                if plot_data11[bc_plot3_x] != plot_data11[bc_plot3_x]:
-                    pass
-                else:
-                    bc_plot3_y = plot_data11[bc_plot3_x]
-            elif bc_comboindex3 == 7 and plot_data12:
-                if plot_data12[bc_plot3_x] != plot_data12[bc_plot3_x]:
-                    pass
-                else:
-                    bc_plot3_y = plot_data12[bc_plot3_x]
-            elif bc_comboindex3 == 8 and plot_data13:
-                if plot_data13[bc_plot3_x] != plot_data13[bc_plot3_x]:
-                    pass
-                else:
-                    bc_plot3_y = plot_data13[bc_plot3_x]
-            elif bc_comboindex3 == 9 and plot_data14:
-                if plot_data14[bc_plot3_x] != plot_data14[bc_plot3_x]:
-                    pass
-                else:
-                    bc_plot3_y = plot_data14[bc_plot3_x]
-            else:
-                bc_plot3_y = mousePoint.y()
-            '''
-
-            str = " X: {0:d}\n Y: {1:0.2f} ".format(bc_plot3_x, bc_plot3_y)            
+            str = " X: {0:d}\n Y: {1:0.2f} ".format(plot_x, plot_y)            
             self.label_p3_1.setText(str)
+
+            if bc_comboindex3 == 7:
+
+                if df_sp500_graph.at[plot_x, 'price'] != df_sp500_graph.at[plot_x, 'price']:
+                    pass
+                else:
+                    plot_low = df_sp500_graph.at[plot_x, 'low']
+                    plot_high = df_sp500_graph.at[plot_x, 'high']
+                    plot_close = df_sp500_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p3_1.setText(str)
+
+            elif bc_comboindex3 == 8:
+
+                if df_dow_graph.at[plot_x, 'price'] != df_dow_graph.at[plot_x, 'price']:
+                    pass
+                else:
+                    plot_low = df_dow_graph.at[plot_x, 'low']
+                    plot_high = df_dow_graph.at[plot_x, 'high']
+                    plot_close = df_dow_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p3_1.setText(str)
+
+            elif bc_comboindex3 == 9:
+
+                if df_nasdaq_graph.at[plot_x, 'price'] != df_nasdaq_graph.at[plot_x, 'price']:
+                    pass
+                else:
+                    plot_low = df_nasdaq_graph.at[plot_x, 'low']
+                    plot_high = df_nasdaq_graph.at[plot_x, 'high']
+                    plot_close = df_nasdaq_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p3_1.setText(str)
+
+            elif bc_comboindex3 == 10:
+
+                if df_wti_graph.at[plot_x, 'price'] != df_wti_graph.at[plot_x, 'price']:
+                    pass
+                else:
+                    plot_low = df_wti_graph.at[plot_x, 'low']
+                    plot_high = df_wti_graph.at[plot_x, 'high']
+                    plot_close = df_wti_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p3_1.setText(str)
+            else:
+                pass                
         else:
             pass
 
@@ -25212,11 +25299,73 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot4_vLine.setPos(mousePoint.x())
             bc_plot4_hLine.setPos(mousePoint.y())
-            bc_plot4_x = int(mousePoint.x())
-            bc_plot4_y = mousePoint.y()            
-            
-            str = " X: {0:d}\n Y: {1:0.2f} ".format(bc_plot4_x, bc_plot4_y)            
-            self.label_p4_1.setText(str)          
+            plot_x = int(mousePoint.x())
+            plot_y = mousePoint.y()          
+
+            str = " X: {0:d}\n Y: {1:0.2f} ".format(plot_x, plot_y)            
+            self.label_p4_1.setText(str) 
+
+            if bc_comboindex4 == 5:
+
+                if df_futures_graph.at[plot_x, 'price'] != df_futures_graph.at[plot_x, 'price']:
+                    pass
+                else:
+                    plot_low = df_futures_graph.at[plot_x, 'low']
+                    plot_high = df_futures_graph.at[plot_x, 'high']
+                    plot_close = df_futures_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p4_1.setText(str) 
+
+            elif bc_comboindex4 == 7:
+
+                if df_sp500_graph.at[plot_x, 'price'] != df_sp500_graph.at[plot_x, 'price']:
+                    pass
+                else:
+                    plot_low = df_sp500_graph.at[plot_x, 'low']
+                    plot_high = df_sp500_graph.at[plot_x, 'high']
+                    plot_close = df_sp500_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p4_1.setText(str)
+
+            elif bc_comboindex4 == 8:
+
+                if df_dow_graph.at[plot_x, 'price'] != df_dow_graph.at[plot_x, 'price']:
+                    pass
+                else:
+                    plot_low = df_dow_graph.at[plot_x, 'low']
+                    plot_high = df_dow_graph.at[plot_x, 'high']
+                    plot_close = df_dow_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p4_1.setText(str)
+
+            elif bc_comboindex4 == 9:
+
+                if df_nasdaq_graph.at[plot_x, 'price'] != df_nasdaq_graph.at[plot_x, 'price']:
+                    pass
+                else:
+                    plot_low = df_nasdaq_graph.at[plot_x, 'low']
+                    plot_high = df_nasdaq_graph.at[plot_x, 'high']
+                    plot_close = df_nasdaq_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p4_1.setText(str)
+
+            elif bc_comboindex4 == 10:
+
+                if df_wti_graph.at[plot_x, 'price'] != df_wti_graph.at[plot_x, 'price']:
+                    pass
+                else:
+                    plot_low = df_wti_graph.at[plot_x, 'low']
+                    plot_high = df_wti_graph.at[plot_x, 'high']
+                    plot_close = df_wti_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p4_1.setText(str)
+            else:
+                pass                    
 
     def bc_plot5_mouseMoved(self, evt):
 
@@ -25230,11 +25379,61 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot5_vLine.setPos(mousePoint.x())
             bc_plot5_hLine.setPos(mousePoint.y())
-            bc_plot5_x = int(mousePoint.x())
-            bc_plot5_y = mousePoint.y()
-            
-            str = " X: {0:d}\n Y: {1:0.2f} ".format(bc_plot5_x, bc_plot5_y)            
-            self.label_p5_1.setText(str)         
+            plot_x = int(mousePoint.x())
+            plot_y = mousePoint.y()
+
+            str = " X: {0:d}\n Y: {1:0.2f} ".format(plot_x, plot_y)            
+            self.label_p5_1.setText(str)
+
+            if bc_comboindex5 == 7:
+
+                if df_sp500_graph.at[plot_x, 'price'] != df_sp500_graph.at[plot_x, 'price']:
+                    pass
+                else:
+                    plot_low = df_sp500_graph.at[plot_x, 'low']
+                    plot_high = df_sp500_graph.at[plot_x, 'high']
+                    plot_close = df_sp500_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p5_1.setText(str)
+
+            elif bc_comboindex5 == 8:
+
+                if df_dow_graph.at[plot_x, 'price'] != df_dow_graph.at[plot_x, 'price']:
+                    pass
+                else:
+                    plot_low = df_dow_graph.at[plot_x, 'low']
+                    plot_high = df_dow_graph.at[plot_x, 'high']
+                    plot_close = df_dow_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p5_1.setText(str)
+
+            elif bc_comboindex5 == 9:
+
+                if df_nasdaq_graph.at[plot_x, 'price'] != df_nasdaq_graph.at[plot_x, 'price']:
+                    pass
+                else:
+                    plot_low = df_nasdaq_graph.at[plot_x, 'low']
+                    plot_high = df_nasdaq_graph.at[plot_x, 'high']
+                    plot_close = df_nasdaq_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p5_1.setText(str)
+
+            elif bc_comboindex5 == 10:
+
+                if df_wti_graph.at[plot_x, 'price'] != df_wti_graph.at[plot_x, 'price']:
+                    pass
+                else:
+                    plot_low = df_wti_graph.at[plot_x, 'low']
+                    plot_high = df_wti_graph.at[plot_x, 'high']
+                    plot_close = df_wti_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p5_1.setText(str)
+            else:
+                pass                       
         else:
             pass
 
@@ -25250,11 +25449,61 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot6_vLine.setPos(mousePoint.x())
             bc_plot6_hLine.setPos(mousePoint.y())
-            bc_plot6_x = int(mousePoint.x())
-            bc_plot6_y = mousePoint.y()
-            
-            str = " X: {0:d}\n Y: {1:0.2f} ".format(bc_plot6_x, bc_plot6_y)            
+            plot_x = int(mousePoint.x())
+            plot_y = mousePoint.y()
+
+            str = " X: {0:d}\n Y: {1:0.2f} ".format(plot_x, plot_y)            
             self.label_p6_1.setText(str)
+
+            if bc_comboindex6 == 7:
+
+                if df_sp500_graph.at[plot_x, 'price'] != df_sp500_graph.at[plot_x, 'price']:
+                    pass
+                else:
+                    plot_low = df_sp500_graph.at[plot_x, 'low']
+                    plot_high = df_sp500_graph.at[plot_x, 'high']
+                    plot_close = df_sp500_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p6_1.setText(str)
+
+            elif bc_comboindex6 == 8:
+
+                if df_dow_graph.at[plot_x, 'price'] != df_dow_graph.at[plot_x, 'price']:
+                    pass
+                else:
+                    plot_low = df_dow_graph.at[plot_x, 'low']
+                    plot_high = df_dow_graph.at[plot_x, 'high']
+                    plot_close = df_dow_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p6_1.setText(str)
+
+            elif bc_comboindex6 == 9:
+
+                if df_nasdaq_graph.at[plot_x, 'price'] != df_nasdaq_graph.at[plot_x, 'price']:
+                    pass
+                else:
+                    plot_low = df_nasdaq_graph.at[plot_x, 'low']
+                    plot_high = df_nasdaq_graph.at[plot_x, 'high']
+                    plot_close = df_nasdaq_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p6_1.setText(str)
+
+            elif bc_comboindex6 == 10:
+
+                if df_wti_graph.at[plot_x, 'price'] != df_wti_graph.at[plot_x, 'price']:
+                    pass
+                else:
+                    plot_low = df_wti_graph.at[plot_x, 'low']
+                    plot_high = df_wti_graph.at[plot_x, 'high']
+                    plot_close = df_wti_graph.at[plot_x, 'close']
+
+                    str = " X: {0:d}\n L: {1:0.2f}\n H: {2:0.2f}\n C: {3:0.2f} ".format(plot_x, plot_low, plot_high, plot_close)            
+                    self.label_p6_1.setText(str)
+            else:
+                pass                
         else:
             pass
 
