@@ -838,23 +838,23 @@ CENTER_VAL10 = 0
 
 if os.path.isfile('daytime.txt'):
 
-    with open('daytime.txt', mode='r') as kp200_file:
+    with open('daytime.txt', mode='r') as daytime_file:
 
-        tmp = kp200_file.readline().strip()
+        tmp = daytime_file.readline().strip()
 
-        tmp = kp200_file.readline().strip()
+        tmp = daytime_file.readline().strip()
         temp = tmp.split()
         INIT_CENTER_VAL = float(temp[3])
 
-        tmp = kp200_file.readline().strip()
+        tmp = daytime_file.readline().strip()
         temp = tmp.split()
         KP200_종가 = float(temp[3])        
 
-        tmp = kp200_file.readline().strip()
+        tmp = daytime_file.readline().strip()
         temp = tmp.split()
         KP200_전저 = float(temp[3])        
 
-        tmp = kp200_file.readline().strip()
+        tmp = daytime_file.readline().strip()
         temp = tmp.split()
         KP200_전고 = float(temp[3])
 
@@ -862,33 +862,33 @@ if os.path.isfile('daytime.txt'):
         print('KP200 전고 =', KP200_전고)
         print('KP200 종가 =', KP200_종가)
 
-        tmp = kp200_file.readline().strip()
+        tmp = daytime_file.readline().strip()
 
-        tmp = kp200_file.readline().strip()
+        tmp = daytime_file.readline().strip()
         temp = tmp.split()
         SP500_전일종가 = float(temp[4])
 
-        tmp = kp200_file.readline().strip()
+        tmp = daytime_file.readline().strip()
         temp = tmp.split()
         DOW_전일종가 = float(temp[4])
 
-        tmp = kp200_file.readline().strip()
+        tmp = daytime_file.readline().strip()
         temp = tmp.split()
         NASDAQ_전일종가 = float(temp[4])
 
-        tmp = kp200_file.readline().strip()
+        tmp = daytime_file.readline().strip()
         temp = tmp.split()
         WTI_전일종가 = float(temp[4])
 
-        tmp = kp200_file.readline().strip()
+        tmp = daytime_file.readline().strip()
         temp = tmp.split()
         EUROFX_전일종가 = float(temp[4])
 
-        tmp = kp200_file.readline().strip()
+        tmp = daytime_file.readline().strip()
         temp = tmp.split()
         HANGSENG_전일종가 = float(temp[4])
 
-        tmp = kp200_file.readline().strip()
+        tmp = daytime_file.readline().strip()
         temp = tmp.split()
         GOLD_전일종가 = float(temp[4])
 else:
@@ -20462,36 +20462,36 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
                         
                         # KP200의 주요정보를 저장
-                        with open('daytime.txt', mode='w') as kp200_file:
+                        with open('daytime.txt', mode='w') as daytime_file:
 
                             file_str = '################# < KP200 Index of the Last Day > ###################\n'                        
-                            kp200_file.write(file_str)
+                            daytime_file.write(file_str)
                             file_str = 'Center Value = {0}\n'.format(CENTER_VAL)
-                            kp200_file.write(file_str)                            
+                            daytime_file.write(file_str)                            
                             file_str = 'KP200 Close = {0}\n'.format(kp200_realdata['현재가'])
-                            kp200_file.write(file_str)
+                            daytime_file.write(file_str)
                             file_str = 'KP200 Low = {0}\n'.format(kp200_realdata['저가'])
-                            kp200_file.write(file_str)
+                            daytime_file.write(file_str)
                             file_str = 'KP200 High = {0}\n'.format(kp200_realdata['고가'])
-                            kp200_file.write(file_str)
+                            daytime_file.write(file_str)
                             file_str = '################### < Foreign Futures Index of the Day > #####################\n'
-                            kp200_file.write(file_str)
+                            daytime_file.write(file_str)
                             file_str = 'SP500 Day Close = {0}\n'.format(SP500_현재가)
-                            kp200_file.write(file_str)
+                            daytime_file.write(file_str)
                             file_str = 'DOW Day Close = {0}\n'.format(DOW_현재가)
-                            kp200_file.write(file_str)
+                            daytime_file.write(file_str)
                             file_str = 'NASDAQ Day Close = {0}\n'.format(NASDAQ_현재가)
-                            kp200_file.write(file_str)
+                            daytime_file.write(file_str)
                             file_str = 'WTI Day Close = {0}\n'.format(WTI_현재가)
-                            kp200_file.write(file_str)
+                            daytime_file.write(file_str)
                             file_str = 'EUROFX Day Close = {0}\n'.format(EUROFX_현재가)
-                            kp200_file.write(file_str)
+                            daytime_file.write(file_str)
                             file_str = 'HANGSENG Day Close = {0}\n'.format(HANGSENG_현재가)
-                            kp200_file.write(file_str)
+                            daytime_file.write(file_str)
                             file_str = 'GOLD Day Close = {0}\n'.format(GOLD_현재가)
-                            kp200_file.write(file_str)
+                            daytime_file.write(file_str)
 
-                            kp200_file.close()
+                            daytime_file.close()
 
                         receive_quote = False
 
