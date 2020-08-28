@@ -17655,17 +17655,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_call_oloh(self):
 
-        global call_ol, call_oh
-
-        #dt = datetime.datetime.now()
+        global call_ol, call_oh, call_ol_count, call_oh_count
 
         index = call_행사가.index(call_result['단축코드'][5:8])
-        '''
-        시가 = call_result['시가']
-        현재가 = call_result['현재가']
-        저가 = call_result['저가']
-        고가 = call_result['고가']
-        '''
+        
         콜시가 = float(call_result['시가'])
         콜현재가 = float(call_result['현재가'])
         콜저가 = float(call_result['저가'])
@@ -18849,17 +18842,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def check_put_oloh(self):
 
-        global put_ol, put_oh
-
-        #dt = datetime.datetime.now()
+        global put_ol, put_oh, put_ol_count, put_oh_count
 
         index = put_행사가.index(put_result['단축코드'][5:8])
-        '''
-        시가 = put_result['시가']
-        현재가 = put_result['현재가']
-        저가 = put_result['저가']
-        고가 = put_result['고가']
-        '''
+        
         풋시가 = float(put_result['시가'])
         풋현재가 = float(put_result['현재가'])
         풋저가 = float(put_result['저가'])
