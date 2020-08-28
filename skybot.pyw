@@ -2256,6 +2256,8 @@ fut_mama_symbol = ''
 
 Fibonacci_Ratio = [0.382, 0.5, 0.618, 0.707, 0.786, 0.886]
 
+fut_cms_hoga_rr = 0
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -13159,6 +13161,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.FUT_REAL.AdviseRealData(fut_code)
                     self.FUT_HO.AdviseRealData(fut_code)
 
+                    if TARGET_MONTH_SELECT == 1:
+                        # 차월물 호가요청
+                        self.FUT_HO.AdviseRealData(cmshcode)
+                    else:
+                        pass
+
                     # KOSPI/KOSPI200/KOSDAQ 지수요청
                     self.IJ.AdviseRealData(KOSPI)
                     self.IJ.AdviseRealData(KOSPI200)
@@ -22057,132 +22065,126 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif szTrCode == 'FH0' or szTrCode == 'NH0':
 
-                # 선물호가 갱신
-                item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
-                item.setTextAlignment(Qt.AlignCenter)
+                global fut_cms_hoga_rr
 
-                if NightTime:
-                    self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
-                else:
-                    self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
+                if result['단축코드'] == gmshcode:
 
-                item = QTableWidgetItem("{0}".format(format(result['매도호가총건수'], ',')))
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if NightTime:
-                    self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
-                else:
-                    self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
-
-                item = QTableWidgetItem("{0}".format(format(result['매수호가총수량'], ',')))
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if NightTime:
-                    self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
-                else:
-                    self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
-
-                item = QTableWidgetItem("{0}".format(format(result['매도호가총수량'], ',')))
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if NightTime:
-                    self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
-                else:
-                    self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
-
-                if result['매도호가총건수'] > 0:
-
-                    fut_hoga_cr = result['매수호가총건수'] / result['매도호가총건수']
-
-                    item = QTableWidgetItem("{0:0.2f}".format(fut_hoga_cr))
+                        # 선물호가 갱신
+                    item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
                     item.setTextAlignment(Qt.AlignCenter)
 
                     if NightTime:
-                        self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item)
+                        self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
                     else:
-                        self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
-                else:
-                    pass
+                        self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
 
-                if result['매도호가총수량'] > 0:
+                    item = QTableWidgetItem("{0}".format(format(result['매도호가총건수'], ',')))
+                    item.setTextAlignment(Qt.AlignCenter)
+
+                    if NightTime:
+                        self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
+                    else:
+                        self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
+
+                    item = QTableWidgetItem("{0}".format(format(result['매수호가총수량'], ',')))
+                    item.setTextAlignment(Qt.AlignCenter)
+
+                    if NightTime:
+                        self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
+                    else:
+                        self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
+
+                    item = QTableWidgetItem("{0}".format(format(result['매도호가총수량'], ',')))
+                    item.setTextAlignment(Qt.AlignCenter)
+
+                    if NightTime:
+                        self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
+                    else:
+                        self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
+
+                    if result['매도호가총건수'] > 0:
+
+                        fut_hoga_cr = result['매수호가총건수'] / result['매도호가총건수']
+
+                        item = QTableWidgetItem("{0:0.2f}".format(fut_hoga_cr))
+                        item.setTextAlignment(Qt.AlignCenter)
+
+                        if NightTime:
+                            self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item)
+                        else:
+                            self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
+                    else:
+                        pass
 
                     if result['매도호가총수량'] > 0:
+
                         fut_hoga_rr = result['매수호가총수량'] / result['매도호가총수량']
                         df_futures_graph.at[ovc_x_idx, 'hoga'] = fut_hoga_rr
+
+                        item = QTableWidgetItem("{0:0.2f}".format(fut_hoga_rr))
+                        item.setTextAlignment(Qt.AlignCenter)
+
+                        if NightTime:
+                            self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
+                        else:
+                            self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
                     else:
                         pass
 
-                    item = QTableWidgetItem("{0:0.2f}".format(fut_hoga_rr))
-                    item.setTextAlignment(Qt.AlignCenter)
+                    if not NightTime:
 
-                    if NightTime:
-                        self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
-                    else:
-                        self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
-                else:
-                    pass
+                        if fut_hoga_cr > 1 and fut_hoga_rr > 1:
 
-                if not NightTime:
+                            if fut_hoga_cr > fut_hoga_rr:
 
-                    if fut_hoga_cr > 1 and fut_hoga_rr > 1:
-                        
-                        if fut_hoga_cr > fut_hoga_rr:
+                                self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(적색))
+                                self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
+                                self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(적색))
+                                self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
+                            else:
+                                self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(pink))
+                                self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
+                                self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(pink))
+                                self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
 
-                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(적색))
-                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
-                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(적색))
-                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
+                        elif fut_hoga_cr < 1 and fut_hoga_rr < 1:
+
+                            if fut_hoga_cr < fut_hoga_rr:
+
+                                self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(청색))
+                                self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(흰색))
+                                self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(청색))
+                                self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(흰색))
+                            else:
+                                self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(lightskyblue))
+                                self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
+                                self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(lightskyblue))
+                                self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
                         else:
-                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(pink))
+                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(흰색))
                             self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
-                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(pink))
+                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(흰색))
                             self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
-
-                    elif fut_hoga_cr < 1 and fut_hoga_rr < 1:
-                        
-                        if fut_hoga_cr < fut_hoga_rr:
-
-                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(청색))
-                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(흰색))
-                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(청색))
-                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(흰색))
-                        else:
-                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(lightskyblue))
-                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
-                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(lightskyblue))
-                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
-                    else:
-                        self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(흰색))
-                        self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
-                        self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(흰색))
-                        self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
-                else:
-                    pass
-
-                if pre_start:
-                    if ResizeRowsToContents:
-                        self.tableWidget_fut.resizeRowsToContents()
                     else:
                         pass
-                    self.tableWidget_fut.resizeColumnsToContents()
-                else:
-                    pass
 
-                '''
-                process_time = (timeit.default_timer() - start_time) * 1000
+                    if pre_start:
+                        if ResizeRowsToContents:
+                            self.tableWidget_fut.resizeRowsToContents()
+                        else:
+                            pass
+                        self.tableWidget_fut.resizeColumnsToContents()
+                    else:
+                        pass
 
-                if process_time > 0:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] RealData 처리시간 {3} --> {4:0.2f} ms... \r'.format(
-                        dt.hour,
-                        dt.minute,
-                        dt.second,
-                        szTrCode,
-                        process_time)
-                    # self.textBrowser.append(str)
-                    #print(str)
+                elif result['단축코드'] == cmshcode:
+
+                    if result['매도호가총수량'] > 0:
+                        fut_cms_hoga_rr = result['매수호가총수량'] / result['매도호가총수량']
+                    else:
+                        pass
                 else:
-                    pass
-                '''
+                    pass                
             
             elif szTrCode == 'OVC':
 
@@ -26745,7 +26747,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex2 == 5:
 
-            self.label_21.setText(" 등가 : 행사가 ")
+            self.label_21.setText(" 등가: 행사가 ")
             self.label_22.setText(" 중심가 하단  ")
             self.label_23.setText(" 중심가  ")
             self.label_24.setText(" 중심가 상단  ")
@@ -27482,7 +27484,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex3 == 5:
 
-            self.label_31.setText(" 등가 : 행사가 ")
+            self.label_31.setText(" 등가: 행사가 ")
             self.label_32.setText(" 중심가 하단  ")
             self.label_33.setText(" 중심가  ")
             self.label_34.setText(" 중심가 상단  ")
@@ -29022,7 +29024,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex5 == 5:
 
-            self.label_51.setText(" 등가 : 행사가 ")
+            self.label_51.setText(" 등가: 행사가 ")
             self.label_52.setText(" 중심가 하단  ")
             self.label_53.setText(" 중심가  ")
             self.label_54.setText(" 중심가 상단  ")
@@ -29759,7 +29761,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         elif bc_comboindex6 == 5:
 
-            self.label_61.setText(" 등가 : 행사가 ")
+            self.label_61.setText(" 등가: 행사가 ")
             self.label_62.setText(" 중심가 하단  ")
             self.label_63.setText(" 중심가  ")
             self.label_64.setText(" 중심가 상단  ")
@@ -30279,12 +30281,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 1 and market_service:
 
-                str = " {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'])
+                str = " 본월물: {0:0.2f}, 차월물: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'], fut_cms_hoga_rr)
 
-                if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0:
+                if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0 and fut_cms_hoga_rr > 1.0:
                     self.label_17.setStyleSheet('background-color: red ; color: white')
-                else:
+                elif df_futures_graph.at[ovc_x_idx, 'hoga'] < 1.0 and fut_cms_hoga_rr < 1.0:
                     self.label_17.setStyleSheet('background-color: blue ; color: white')
+                else:
+                    self.label_17.setStyleSheet('background-color: yellow ; color: black')
 
                 self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_17.setText(str)
@@ -31055,12 +31059,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 3 and market_service:
 
-                str = " {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'])
+                str = " 본월물: {0:0.2f}, 차월물: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'], fut_cms_hoga_rr)
 
-                if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0:
+                if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0 and fut_cms_hoga_rr > 1.0:
                     self.label_27.setStyleSheet('background-color: red ; color: white')
-                else:
+                elif df_futures_graph.at[ovc_x_idx, 'hoga'] < 1.0 and fut_cms_hoga_rr < 1.0:
                     self.label_27.setStyleSheet('background-color: blue ; color: white')
+                else:
+                    self.label_27.setStyleSheet('background-color: yellow ; color: black')
 
                 self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_27.setText(str)
@@ -31128,17 +31134,26 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot2_center_val_curve.setData(df_call_info_graph['centerval'].tolist())
 
                 # 등가표시
-                str = ' 등가 : {0} '.format(atm_str)
+                str = ' 등가: {0} '.format(atm_str)
                 self.label_21.setText(str)
 
-                str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
+                str = ' 중심가 하단: {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
                 self.label_22.setText(str)
 
-                str = ' 중심가 : {0:0.2f} '.format(CENTER_VAL)
+                str = ' 시작 중심가 '
                 self.label_23.setText(str)
 
-                str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
+                str = ' 중심가 상단: {0:0.2f} '.format(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
                 self.label_24.setText(str)
+
+                str = ' {0:0.2f} '.format(put_atm_value)
+                self.label_26.setText(str)
+
+                str = ' 중심가: {0:0.2f} '.format(CENTER_VAL)
+                self.label_27.setText(str)
+
+                str = ' {0:0.2f} '.format(call_atm_value)
+                self.label_28.setText(str)
 
             elif bc_comboindex2 == 6:
 
@@ -31736,12 +31751,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 3 and market_service:
 
-                str = " {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'])
+                str = " 본월물: {0:0.2f}, 차월물: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'], fut_cms_hoga_rr)
 
-                if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0:
+                if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0 and fut_cms_hoga_rr > 1.0:
                     self.label_37.setStyleSheet('background-color: red ; color: white')
-                else:
+                elif df_futures_graph.at[ovc_x_idx, 'hoga'] < 1.0 and fut_cms_hoga_rr < 1.0:
                     self.label_37.setStyleSheet('background-color: blue ; color: white')
+                else:
+                    self.label_37.setStyleSheet('background-color: yellow ; color: black')
 
                 self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_37.setText(str)
@@ -31809,17 +31826,26 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot3_center_val_curve.setData(df_call_info_graph['centerval'].tolist())
 
                 # 등가표시
-                str = ' 등가 : {0} '.format(atm_str)
+                str = ' 등가: {0} '.format(atm_str)
                 self.label_31.setText(str)
 
-                str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
+                str = ' 중심가 하단: {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
                 self.label_32.setText(str)
 
-                str = ' 중심가 : {0:0.2f} '.format(CENTER_VAL)
+                str = ' 시작 중심가 '
                 self.label_33.setText(str)
 
-                str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
+                str = ' 중심가 상단: {0:0.2f} '.format(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
                 self.label_34.setText(str)
+
+                str = ' {0:0.2f} '.format(put_atm_value)
+                self.label_36.setText(str)
+
+                str = ' 중심가: {0:0.2f} '.format(CENTER_VAL)
+                self.label_37.setText(str)
+
+                str = ' {0:0.2f} '.format(call_atm_value)
+                self.label_38.setText(str)
 
             elif bc_comboindex3 == 6:
 
@@ -32387,12 +32413,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex4 == 1 and market_service:
 
-                str = " {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'])
+                str = " 본월물: {0:0.2f}, 차월물: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'], fut_cms_hoga_rr)
 
-                if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0:
+                if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0 and fut_cms_hoga_rr > 1.0:
                     self.label_47.setStyleSheet('background-color: red ; color: white')
-                else:
+                elif df_futures_graph.at[ovc_x_idx, 'hoga'] < 1.0 and fut_cms_hoga_rr < 1.0:
                     self.label_47.setStyleSheet('background-color: blue ; color: white')
+                else:
+                    self.label_47.setStyleSheet('background-color: yellow ; color: black')
 
                 self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_47.setText(str)
@@ -33163,12 +33191,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex5 == 3 and market_service:
 
-                str = " {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'])
+                str = " 본월물: {0:0.2f}, 차월물: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'], fut_cms_hoga_rr)
 
-                if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0:
+                if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0 and fut_cms_hoga_rr > 1.0:
                     self.label_57.setStyleSheet('background-color: red ; color: white')
-                else:
+                elif df_futures_graph.at[ovc_x_idx, 'hoga'] < 1.0 and fut_cms_hoga_rr < 1.0:
                     self.label_57.setStyleSheet('background-color: blue ; color: white')
+                else:
+                    self.label_57.setStyleSheet('background-color: yellow ; color: black')
 
                 self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_57.setText(str)
@@ -33236,17 +33266,26 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot5_center_val_curve.setData(df_call_info_graph['centerval'].tolist())
 
                 # 등가표시
-                str = ' 등가 : {0} '.format(atm_str)
+                str = ' 등가: {0} '.format(atm_str)
                 self.label_51.setText(str)
 
-                str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
+                str = ' 중심가 하단: {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
                 self.label_52.setText(str)
 
-                str = ' 중심가 : {0:0.2f} '.format(CENTER_VAL)
+                str = ' 시작 중심가 '
                 self.label_53.setText(str)
 
-                str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
+                str = ' 중심가 상단: {0:0.2f} '.format(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
                 self.label_54.setText(str)
+
+                str = ' {0:0.2f} '.format(put_atm_value)
+                self.label_56.setText(str)
+
+                str = ' 중심가: {0:0.2f} '.format(CENTER_VAL)
+                self.label_57.setText(str)
+
+                str = ' {0:0.2f} '.format(call_atm_value)
+                self.label_58.setText(str)
 
             elif bc_comboindex5 == 6:
 
@@ -33844,12 +33883,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex6 == 3 and market_service:
 
-                str = " {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'])
+                str = " 본월물: {0:0.2f}, 차월물: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'], fut_cms_hoga_rr)
 
-                if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0:
+                if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0 and fut_cms_hoga_rr > 1.0:
                     self.label_67.setStyleSheet('background-color: red ; color: white')
-                else:
+                elif df_futures_graph.at[ovc_x_idx, 'hoga'] < 1.0 and fut_cms_hoga_rr < 1.0:
                     self.label_67.setStyleSheet('background-color: blue ; color: white')
+                else:
+                    self.label_67.setStyleSheet('background-color: yellow ; color: black')
 
                 self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_67.setText(str)
@@ -33917,17 +33958,26 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot6_center_val_curve.setData(df_call_info_graph['centerval'].tolist())
 
                 # 등가표시
-                str = ' 등가 : {0} '.format(atm_str)
+                str = ' 등가: {0} '.format(atm_str)
                 self.label_61.setText(str)
 
-                str = ' 중심가 하단 : {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
+                str = ' 중심가 하단: {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
                 self.label_62.setText(str)
 
-                str = ' 중심가 : {0:0.2f} '.format(CENTER_VAL)
+                str = ' 시작 중심가: {0:0.2f} '.format(CENTER_VAL)
                 self.label_63.setText(str)
 
-                str = ' 중심가 상단 : {0:0.2f} '.format(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
+                str = ' 중심가 상단: {0:0.2f} '.format(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
                 self.label_64.setText(str)
+
+                str = ' {0:0.2f} '.format(put_atm_value)
+                self.label_66.setText(str)
+
+                str = ' 중심가: {0:0.2f} '.format(CENTER_VAL)
+                self.label_67.setText(str)
+
+                str = ' {0:0.2f} '.format(call_atm_value)
+                self.label_68.setText(str)
 
             elif bc_comboindex6 == 6:
 
