@@ -18769,7 +18769,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 new_oloh = repr(call_ol_count) + ':' + repr(call_oh_count) + '\n✓'
 
                 if NightTime and TARGET_MONTH_SELECT == 2:
-                    call_oloh_str = 'Call OLOH: ' + repr(call_ol_count) + ':' + repr(call_oh_count)
+
+                    if call_ol_count > 0 or call_oh_count > 0:
+                        call_oloh_str = 'Call OLOH = ' + repr(call_ol_count) + ':' + repr(call_oh_count)
+                    else:
+                        pass
                 else:
                     pass
 
@@ -19881,7 +19885,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 new_oloh = repr(put_ol_count) + ':' + repr(put_oh_count) + '\n✓'
 
                 if NightTime and TARGET_MONTH_SELECT == 2:
-                    put_oloh_str = 'Put OLOH: ' + repr(put_ol_count) + ':' + repr(put_oh_count)
+
+                    if put_ol_count > 0 or put_oh_count > 0: 
+                        put_oloh_str = 'Put OLOH = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
+                    else:
+                        pass
                 else:
                     pass
 
