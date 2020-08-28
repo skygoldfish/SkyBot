@@ -2256,7 +2256,11 @@ fut_mama_symbol = ''
 
 Fibonacci_Ratio = [0.382, 0.5, 0.618, 0.707, 0.786, 0.886]
 
+fut_hoga_cr = 0
+fut_hoga_rr = 0
+fut_cms_hoga_cr = 0
 fut_cms_hoga_rr = 0
+fut_ccms_hoga_cr = 0
 fut_ccms_hoga_rr = 0
 
 ########################################################################################################################
@@ -17425,7 +17429,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if fut_volume_power > 0:
 
             item.setBackground(QBrush(적색))
-            item.setForeground(QBrush(검정색))
+            item.setForeground(QBrush(흰색))
         elif fut_volume_power < 0:
 
             item.setBackground(QBrush(청색))
@@ -22067,7 +22071,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif szTrCode == 'FH0' or szTrCode == 'NH0':
 
-                global fut_cms_hoga_rr, fut_ccms_hoga_rr 
+                global fut_hoga_cr, fut_hoga_rr, fut_cms_hoga_cr, fut_cms_hoga_rr, fut_ccms_hoga_cr, fut_ccms_hoga_rr 
 
                 if result['단축코드'] == gmshcode:
 
@@ -22107,79 +22111,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if result['매도호가총건수'] > 0:
 
                         fut_hoga_cr = result['매수호가총건수'] / result['매도호가총건수']
-
-                        item = QTableWidgetItem("{0:0.2f}".format(fut_hoga_cr))
-                        item.setTextAlignment(Qt.AlignCenter)
-
-                        if NightTime:
-                            self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item)
-                        else:
-                            self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
                     else:
                         pass
 
                     if result['매도호가총수량'] > 0:
 
                         fut_hoga_rr = result['매수호가총수량'] / result['매도호가총수량']
-                        df_futures_graph.at[ovc_x_idx, 'hoga'] = fut_hoga_rr
-
-                        item = QTableWidgetItem("{0:0.2f}".format(fut_hoga_rr))
-                        item.setTextAlignment(Qt.AlignCenter)
-
-                        if NightTime:
-                            self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
-                        else:
-                            self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
-                    else:
-                        pass
-
-                    if not NightTime:
-
-                        if fut_hoga_cr > 1 and fut_hoga_rr > 1:
-
-                            if fut_hoga_cr > fut_hoga_rr:
-
-                                self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(적색))
-                                self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
-                                self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(적색))
-                                self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
-                            else:
-                                self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(pink))
-                                self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
-                                self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(pink))
-                                self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
-
-                        elif fut_hoga_cr < 1 and fut_hoga_rr < 1:
-
-                            if fut_hoga_cr < fut_hoga_rr:
-
-                                self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(청색))
-                                self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(흰색))
-                                self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(청색))
-                                self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(흰색))
-                            else:
-                                self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(lightskyblue))
-                                self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
-                                self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(lightskyblue))
-                                self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
-                        else:
-                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(흰색))
-                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
-                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(흰색))
-                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-
-                    if pre_start:
-                        if ResizeRowsToContents:
-                            self.tableWidget_fut.resizeRowsToContents()
-                        else:
-                            pass
-                        self.tableWidget_fut.resizeColumnsToContents()
+                        df_futures_graph.at[ovc_x_idx, 'hoga'] = fut_hoga_rr                        
                     else:
                         pass
 
                 elif result['단축코드'] == cmshcode:
+
+                    if result['매도호가총건수'] > 0:
+                        fut_cms_hoga_cr = result['매수호가총건수'] / result['매도호가총건수']
+                    else:
+                        pass
 
                     if result['매도호가총수량'] > 0:
                         fut_cms_hoga_rr = result['매수호가총수량'] / result['매도호가총수량']
@@ -22188,12 +22135,85 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 elif result['단축코드'] == ccmshcode:
 
+                    if result['매도호가총건수'] > 0:
+                        fut_ccms_hoga_cr = result['매수호가총건수'] / result['매도호가총건수']
+                    else:
+                        pass
+
                     if result['매도호가총수량'] > 0:
                         fut_ccms_hoga_rr = result['매수호가총수량'] / result['매도호가총수량']
                     else:
                         pass
+
+                    self.tableWidget_fut.resizeColumnsToContents()
+
+                    #print('차차월물 매수호가총수량 =', result['매수호가총수량'])
+                    #print('차차월물 매도호가총수량 =', result['매도호가총수량'])
                 else:
-                    pass                
+                    pass
+                
+                item = QTableWidgetItem("{0:0.2f}\n({1:0.2f})".format(fut_hoga_cr, fut_cms_hoga_cr))
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if NightTime:
+                    self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item)
+                else:
+                    self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
+                
+                item = QTableWidgetItem("{0:0.2f}\n({1:0.2f})".format(fut_hoga_rr, fut_cms_hoga_rr))
+                item.setTextAlignment(Qt.AlignCenter)
+
+                if NightTime:
+                    self.tableWidget_fut.setItem(0, Futures_column.잔량비.value, item)
+                else:
+                    self.tableWidget_fut.setItem(1, Futures_column.잔량비.value, item)
+
+                if not NightTime:
+
+                    if fut_hoga_cr > 1.0 and fut_hoga_rr > 1.0:
+
+                        if fut_hoga_cr > fut_hoga_rr:
+
+                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(적색))
+                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(흰색))
+                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(적색))
+                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(흰색))
+                        else:
+                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(pink))
+                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
+                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(pink))
+                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
+
+                    elif fut_hoga_cr < 1.0 and fut_hoga_rr < 1.0:
+
+                        if fut_hoga_cr < fut_hoga_rr:
+
+                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(청색))
+                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(흰색))
+                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(청색))
+                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(흰색))
+                        else:
+                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(lightskyblue))
+                            self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
+                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(lightskyblue))
+                            self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
+                    else:
+                        self.tableWidget_fut.item(1, Futures_column.건수비.value).setBackground(QBrush(흰색))
+                        self.tableWidget_fut.item(1, Futures_column.건수비.value).setForeground(QBrush(검정색))
+                        self.tableWidget_fut.item(1, Futures_column.잔량비.value).setBackground(QBrush(흰색))
+                        self.tableWidget_fut.item(1, Futures_column.잔량비.value).setForeground(QBrush(검정색))
+                else:
+                    pass
+                
+                if pre_start:
+
+                    if ResizeRowsToContents:
+                        self.tableWidget_fut.resizeRowsToContents()
+                    else:
+                        pass
+                    self.tableWidget_fut.resizeColumnsToContents()
+                else:
+                    pass               
             
             elif szTrCode == 'OVC':
 
