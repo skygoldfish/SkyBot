@@ -2257,6 +2257,7 @@ fut_mama_symbol = ''
 Fibonacci_Ratio = [0.382, 0.5, 0.618, 0.707, 0.786, 0.886]
 
 fut_cms_hoga_rr = 0
+fut_ccms_hoga_rr = 0
 
 ########################################################################################################################
 
@@ -13164,6 +13165,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH_SELECT == 1:
                         # 차월물 호가요청
                         self.FUT_HO.AdviseRealData(cmshcode)
+                        self.FUT_HO.AdviseRealData(ccmshcode)
                     else:
                         pass
 
@@ -22065,7 +22067,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif szTrCode == 'FH0' or szTrCode == 'NH0':
 
-                global fut_cms_hoga_rr
+                global fut_cms_hoga_rr, fut_ccms_hoga_rr 
 
                 if result['단축코드'] == gmshcode:
 
@@ -22181,6 +22183,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if result['매도호가총수량'] > 0:
                         fut_cms_hoga_rr = result['매수호가총수량'] / result['매도호가총수량']
+                    else:
+                        pass
+                
+                elif result['단축코드'] == ccmshcode:
+
+                    if result['매도호가총수량'] > 0:
+                        fut_ccms_hoga_rr = result['매수호가총수량'] / result['매도호가총수량']
                     else:
                         pass
                 else:
@@ -30281,7 +30290,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 1 and market_service:
 
-                str = " 본월물: {0:0.2f}, 차월물: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'], fut_cms_hoga_rr)
+                str = " 본월물: {0:0.2f}, 차월물: {1:0.2f}({2:0.2f}) ".format(df_futures_graph.at[ovc_x_idx, 'hoga'], fut_cms_hoga_rr, fut_ccms_hoga_rr)
 
                 if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0 and fut_cms_hoga_rr > 1.0:
                     self.label_17.setStyleSheet('background-color: red ; color: white')
@@ -31059,7 +31068,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 3 and market_service:
 
-                str = " 본월물: {0:0.2f}, 차월물: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'], fut_cms_hoga_rr)
+                str = " 본월물: {0:0.2f}, 차월물: {1:0.2f}({2:0.2f}) ".format(df_futures_graph.at[ovc_x_idx, 'hoga'], fut_cms_hoga_rr, fut_ccms_hoga_rr)
 
                 if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0 and fut_cms_hoga_rr > 1.0:
                     self.label_27.setStyleSheet('background-color: red ; color: white')
@@ -31751,7 +31760,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 3 and market_service:
 
-                str = " 본월물: {0:0.2f}, 차월물: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'], fut_cms_hoga_rr)
+                str = " 본월물: {0:0.2f}, 차월물: {1:0.2f}({2:0.2f}) ".format(df_futures_graph.at[ovc_x_idx, 'hoga'], fut_cms_hoga_rr, fut_ccms_hoga_rr)
 
                 if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0 and fut_cms_hoga_rr > 1.0:
                     self.label_37.setStyleSheet('background-color: red ; color: white')
@@ -32413,7 +32422,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex4 == 1 and market_service:
 
-                str = " 본월물: {0:0.2f}, 차월물: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'], fut_cms_hoga_rr)
+                str = " 본월물: {0:0.2f}, 차월물: {1:0.2f}({2:0.2f}) ".format(df_futures_graph.at[ovc_x_idx, 'hoga'], fut_cms_hoga_rr, fut_ccms_hoga_rr)
 
                 if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0 and fut_cms_hoga_rr > 1.0:
                     self.label_47.setStyleSheet('background-color: red ; color: white')
@@ -33191,7 +33200,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex5 == 3 and market_service:
 
-                str = " 본월물: {0:0.2f}, 차월물: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'], fut_cms_hoga_rr)
+                str = " 본월물: {0:0.2f}, 차월물: {1:0.2f}({2:0.2f}) ".format(df_futures_graph.at[ovc_x_idx, 'hoga'], fut_cms_hoga_rr, fut_ccms_hoga_rr)
 
                 if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0 and fut_cms_hoga_rr > 1.0:
                     self.label_57.setStyleSheet('background-color: red ; color: white')
@@ -33883,7 +33892,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex6 == 3 and market_service:
 
-                str = " 본월물: {0:0.2f}, 차월물: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'hoga'], fut_cms_hoga_rr)
+                str = " 본월물: {0:0.2f}, 차월물: {1:0.2f}({2:0.2f}) ".format(df_futures_graph.at[ovc_x_idx, 'hoga'], fut_cms_hoga_rr, fut_ccms_hoga_rr)
 
                 if df_futures_graph.at[ovc_x_idx, 'hoga'] > 1.0 and fut_cms_hoga_rr > 1.0:
                     self.label_67.setStyleSheet('background-color: red ; color: white')
