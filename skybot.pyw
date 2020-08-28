@@ -25771,16 +25771,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_mama_curve.clear()
         bc_plot1_fama_curve.clear()  
 
+        # 선물체결
         if bc_comboindex1 == 0:
 
-            self.label_11.setText(" 전저 ")
-            self.label_12.setText(" 전고 ")
-            self.label_13.setText(" 종가 ")
-            self.label_14.setText(" 피봇 ")
-            self.label_15.setText(" 시가 ")
-            self.label_16.setText(" 저가 ")
-            self.label_17.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_18.setText(" 고가 ")
+            self.label_11.setText(" - ")
+            self.label_12.setText(" - ")
+            self.label_13.setText(" - ")
+            self.label_14.setText(" - ")
+            self.label_15.setText(" - ")
+            self.label_16.setText(" - ")
+            self.label_17.setText(" 체결량 ")
+            self.label_18.setText(" - ")
 
             bc_plot1_call_hoga_curve.clear()
             bc_plot1_put_hoga_curve.clear()
@@ -25823,16 +25824,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_ovc_low_line.setValue(0)
             bc_plot1_ovc_high_line.setValue(0)
 
+        # 선물잔량비
         elif bc_comboindex1 == 1:
 
-            self.label_11.setText(" 전저 ")
-            self.label_12.setText(" 전고 ")
-            self.label_13.setText(" 종가 ")
-            self.label_14.setText(" 피봇 ")
-            self.label_15.setText(" 시가 ")
-            self.label_16.setText(" 저가 ")
-            self.label_17.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_18.setText(" 고가 ")
+            self.label_11.setText(" - ")
+            self.label_12.setText(" - ")
+            self.label_13.setText(" - ")
+            self.label_14.setText(" - ")
+            self.label_15.setText(" - ")
+            self.label_16.setText(" - ")
+            self.label_17.setText(" 본월물: 0.00, 차월물: 0.00(차차월물) ")
+            self.label_18.setText(" - ")
 
             bc_plot1_call_hoga_curve.clear()
             bc_plot1_put_hoga_curve.clear()
@@ -25874,16 +25876,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             bc_plot1_fut_hoga_line.setValue(1.0)
 
+        # 옵션체결
         elif bc_comboindex1 == 2:
 
-            self.label_11.setText(" 전저 ")
-            self.label_12.setText(" 전고 ")
-            self.label_13.setText(" 종가 ")
-            self.label_14.setText(" 피봇 ")
-            self.label_15.setText(" 시가 ")
-            self.label_16.setText(" 저가 ")
-            self.label_17.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_18.setText(" 고가 ")            
+            self.label_11.setText(" - ")
+            self.label_12.setText(" - ")
+            self.label_13.setText(" - ")
+            self.label_14.setText(" - ")
+            self.label_15.setText(" - ")
+            self.label_16.setText(" 풋체결량 ")
+            self.label_17.setText(" - ")
+            self.label_18.setText(" 콜체결량 ")            
             
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -25926,16 +25929,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_ovc_low_line.setValue(0)
             bc_plot1_ovc_high_line.setValue(0)
 
+        # 옵션잔량비
         elif bc_comboindex1 == 3:
 
-            self.label_11.setText(" 전저 ")
-            self.label_12.setText(" 전고 ")
-            self.label_13.setText(" 종가 ")
-            self.label_14.setText(" 피봇 ")
-            self.label_15.setText(" 시가 ")
-            self.label_16.setText(" 저가 ")
-            self.label_17.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_18.setText(" 고가 ")
+            self.label_11.setText(" - ")
+            self.label_12.setText(" - ")
+            self.label_13.setText(" - ")
+            self.label_14.setText(" - ")
+            self.label_15.setText(" - ")
+            self.label_16.setText(" 풋잔량비 ")
+            self.label_17.setText(" - ")
+            self.label_18.setText(" 콜잔량비 ")
             
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -25978,16 +25982,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_ovc_low_line.setValue(0)
             bc_plot1_ovc_high_line.setValue(0) 
         
+        # 등락율비
         elif bc_comboindex1 == 4:
 
-            self.label_11.setText(" 전저 ")
-            self.label_12.setText(" 전고 ")
-            self.label_13.setText(" 종가 ")
-            self.label_14.setText(" 피봇 ")
-            self.label_15.setText(" 시가 ")
-            self.label_16.setText(" 저가 ")
-            self.label_17.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_18.setText(" 고가 ")
+            self.label_11.setText(" - ")
+            self.label_12.setText(" - ")
+            self.label_13.setText(" - ")
+            self.label_14.setText(" - ")
+            self.label_15.setText(" 선물등락율 ")
+            self.label_16.setText(" DOW등락율 ")
+            self.label_17.setText(" 풋등락율 ")
+            self.label_18.setText(" 콜등락율 ")
 
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -26027,6 +26032,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot1_ovc_low_line.setValue(0)
             bc_plot1_ovc_high_line.setValue(0)         
 
+        # 선물가격
         elif bc_comboindex1 == 5:
                         
             bc_plot1_fut_volume_plus_curve.clear()
@@ -26136,10 +26142,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_13.setText(str)
             bc_plot1_fut_close_line.setValue(선물_종가)
 
+        # 분리선
         elif bc_comboindex1 == 6:
 
             pass
 
+        # SP500
         elif bc_comboindex1 == 7:
 
             bc_plot1_fut_volume_plus_curve.clear()
@@ -26241,7 +26249,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             str = ' {0} '.format(format(SP500_고가, ','))
             self.label_18.setText(str)
             bc_plot1_ovc_high_line.setValue(SP500_고가)
-            
+
+        # DOW   
         elif bc_comboindex1 == 8:
 
             bc_plot1_fut_volume_plus_curve.clear()
@@ -26344,6 +26353,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_18.setText(str)
             bc_plot1_ovc_high_line.setValue(DOW_고가)
 
+        # NASDAQ
         elif bc_comboindex1 == 9:
 
             bc_plot1_fut_volume_plus_curve.clear()
@@ -26445,7 +26455,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             str = ' {0} '.format(format(NASDAQ_고가, ','))
             self.label_18.setText(str)
             bc_plot1_ovc_high_line.setValue(NASDAQ_고가)            
-            
+
+        # WTI   
         elif bc_comboindex1 == 10:
 
             bc_plot1_fut_volume_plus_curve.clear()
@@ -26569,16 +26580,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_mama_curve.clear()
         bc_plot2_fama_curve.clear()
 
+        # 옵션체결
         if bc_comboindex2 == 0:
 
-            self.label_21.setText(" 전저 ")
-            self.label_22.setText(" 전고 ")
-            self.label_23.setText(" 종가 ")
-            self.label_24.setText(" 피봇 ")
-            self.label_25.setText(" 시가 ")
-            self.label_26.setText(" 저가 ")
-            self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_28.setText(" 고가 ")
+            self.label_21.setText(" - ")
+            self.label_22.setText(" - ")
+            self.label_23.setText(" - ")
+            self.label_24.setText(" - ")
+            self.label_25.setText(" - ")
+            self.label_26.setText(" 풋체결량 ")
+            self.label_27.setText(" - ")
+            self.label_28.setText(" 콜체결량 ")
             
             bc_plot2_call_hoga_curve.clear()
             bc_plot2_put_hoga_curve.clear()
@@ -26619,17 +26631,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_center_val_lower_line.setValue(0)
             bc_plot2_center_val_line.setValue(0)
             bc_plot2_center_val_upper_line.setValue(0)
-            
+
+        # 옵션잔량비   
         elif bc_comboindex2 == 1:
 
-            self.label_21.setText(" 전저 ")
-            self.label_22.setText(" 전고 ")
-            self.label_23.setText(" 종가 ")
-            self.label_24.setText(" 피봇 ")
-            self.label_25.setText(" 시가 ")
-            self.label_26.setText(" 저가 ")
-            self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_28.setText(" 고가 ")
+            self.label_21.setText(" - ")
+            self.label_22.setText(" - ")
+            self.label_23.setText(" - ")
+            self.label_24.setText(" - ")
+            self.label_25.setText(" - ")
+            self.label_26.setText(" 풋잔량비 ")
+            self.label_27.setText(" - ")
+            self.label_28.setText(" 콜잔량비 ")
                         
             bc_plot2_call_volume_curve.clear()
             bc_plot2_put_volume_curve.clear()
@@ -26671,16 +26684,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_center_val_line.setValue(0)
             bc_plot2_center_val_upper_line.setValue(0)                      
 
+        # 선물체결
         elif bc_comboindex2 == 2:
 
-            self.label_21.setText(" 전저 ")
-            self.label_22.setText(" 전고 ")
-            self.label_23.setText(" 종가 ")
-            self.label_24.setText(" 피봇 ")
-            self.label_25.setText(" 시가 ")
-            self.label_26.setText(" 저가 ")
-            self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_28.setText(" 고가 ")
+            self.label_21.setText(" - ")
+            self.label_22.setText(" - ")
+            self.label_23.setText(" - ")
+            self.label_24.setText(" - ")
+            self.label_25.setText(" - ")
+            self.label_26.setText(" - ")
+            self.label_27.setText(" 체결량 ")
+            self.label_28.setText(" - ")
 
             bc_plot2_call_hoga_curve.clear()
             bc_plot2_put_hoga_curve.clear()
@@ -26722,16 +26736,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_center_val_line.setValue(0)
             bc_plot2_center_val_upper_line.setValue(0)
 
+        # 선물잔량비
         elif bc_comboindex2 == 3:
 
-            self.label_21.setText(" 전저 ")
-            self.label_22.setText(" 전고 ")
-            self.label_23.setText(" 종가 ")
-            self.label_24.setText(" 피봇 ")
-            self.label_25.setText(" 시가 ")
-            self.label_26.setText(" 저가 ")
-            self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_28.setText(" 고가 ")
+            self.label_21.setText(" - ")
+            self.label_22.setText(" - ")
+            self.label_23.setText(" - ")
+            self.label_24.setText(" - ")
+            self.label_25.setText(" - ")
+            self.label_26.setText(" - ")
+            self.label_27.setText(" 본월물: 0.00, 차월물: 0.00(차차월물) ")
+            self.label_28.setText(" - ")
 
             bc_plot2_call_hoga_curve.clear()
             bc_plot2_put_hoga_curve.clear()
@@ -26772,16 +26787,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot2_fut_hoga_line.setValue(1.0)
 
+        # 등락율비
         elif bc_comboindex2 == 4:
 
-            self.label_21.setText(" 전저 ")
-            self.label_22.setText(" 전고 ")
-            self.label_23.setText(" 종가 ")
-            self.label_24.setText(" 피봇 ")
-            self.label_25.setText(" 시가 ")
-            self.label_26.setText(" 저가 ")
-            self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_28.setText(" 고가 ")
+            self.label_21.setText(" - ")
+            self.label_22.setText(" - ")
+            self.label_23.setText(" - ")
+            self.label_24.setText(" - ")
+            self.label_25.setText(" 선물등락율 ")
+            self.label_26.setText(" DOW등락율 ")
+            self.label_27.setText(" 풋등락율 ")
+            self.label_28.setText(" 콜등락율 ")
 
             bc_plot2_call_hoga_curve.clear()
             bc_plot2_put_hoga_curve.clear()   
@@ -26821,6 +26837,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_center_val_line.setValue(0)
             bc_plot2_center_val_upper_line.setValue(0)
 
+        # 옵션가격
         elif bc_comboindex2 == 5:
 
             self.label_21.setText(" 등가: 행사가 ")
@@ -26877,10 +26894,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_center_val_line.setValue(CENTER_VAL)
             bc_plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
 
+        # 분리선
         elif bc_comboindex2 == 6:
 
             pass
 
+        # SP500
         elif bc_comboindex2 == 7:
 
             bc_plot2_call_hoga_curve.clear()
@@ -26982,6 +27001,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_28.setText(str)
             bc_plot2_ovc_high_line.setValue(SP500_고가)
 
+        # DOW
         elif bc_comboindex2 == 8:
 
             bc_plot2_call_hoga_curve.clear()
@@ -27083,6 +27103,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_28.setText(str)
             bc_plot2_ovc_high_line.setValue(DOW_고가)
 
+        # NASDAQ
         elif bc_comboindex2 == 9:
 
             bc_plot2_call_hoga_curve.clear()
@@ -27183,7 +27204,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             str = ' {0} '.format(format(NASDAQ_고가, ','))
             self.label_28.setText(str)
             bc_plot2_ovc_high_line.setValue(NASDAQ_고가)            
-            
+
+        # WTI  
         elif bc_comboindex2 == 10:
 
             bc_plot2_call_hoga_curve.clear()
@@ -27306,16 +27328,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot3_mama_curve.clear()
         bc_plot3_fama_curve.clear()
 
+        # 옵션체결
         if bc_comboindex3 == 0:
 
-            self.label_31.setText(" 전저 ")
-            self.label_32.setText(" 전고 ")
-            self.label_33.setText(" 종가 ")
-            self.label_34.setText(" 피봇 ")
-            self.label_35.setText(" 시가 ")
-            self.label_36.setText(" 저가 ")
-            self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_38.setText(" 고가 ")
+            self.label_31.setText(" - ")
+            self.label_32.setText(" - ")
+            self.label_33.setText(" - ")
+            self.label_34.setText(" - ")
+            self.label_35.setText(" - ")
+            self.label_36.setText(" 풋체결량 ")
+            self.label_37.setText(" - ")
+            self.label_38.setText(" 콜체결량 ")
             
             bc_plot3_call_hoga_curve.clear()
             bc_plot3_put_hoga_curve.clear()
@@ -27356,17 +27379,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_center_val_lower_line.setValue(0)
             bc_plot3_center_val_line.setValue(0)
             bc_plot3_center_val_upper_line.setValue(0)
-            
+
+        # 옵션잔량비   
         elif bc_comboindex3 == 1:
 
-            self.label_31.setText(" 전저 ")
-            self.label_32.setText(" 전고 ")
-            self.label_33.setText(" 종가 ")
-            self.label_34.setText(" 피봇 ")
-            self.label_35.setText(" 시가 ")
-            self.label_36.setText(" 저가 ")
-            self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_38.setText(" 고가 ")
+            self.label_31.setText(" - ")
+            self.label_32.setText(" - ")
+            self.label_33.setText(" - ")
+            self.label_34.setText(" - ")
+            self.label_35.setText(" - ")
+            self.label_36.setText(" 풋잔량비 ")
+            self.label_37.setText(" - ")
+            self.label_38.setText(" 콜잔량비 ")
                         
             bc_plot3_call_volume_curve.clear()
             bc_plot3_put_volume_curve.clear()
@@ -27408,16 +27432,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_center_val_line.setValue(0)
             bc_plot3_center_val_upper_line.setValue(0)                      
 
+        # 선물체결
         elif bc_comboindex3 == 2:
 
-            self.label_31.setText(" 전저 ")
-            self.label_32.setText(" 전고 ")
-            self.label_33.setText(" 종가 ")
-            self.label_34.setText(" 피봇 ")
-            self.label_35.setText(" 시가 ")
-            self.label_36.setText(" 저가 ")
-            self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_38.setText(" 고가 ")
+            self.label_31.setText(" - ")
+            self.label_32.setText(" - ")
+            self.label_33.setText(" - ")
+            self.label_34.setText(" - ")
+            self.label_35.setText(" - ")
+            self.label_36.setText(" - ")
+            self.label_37.setText(" 체결량 ")
+            self.label_38.setText(" - ")
 
             bc_plot3_call_hoga_curve.clear()
             bc_plot3_put_hoga_curve.clear()
@@ -27459,16 +27484,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_center_val_line.setValue(0)
             bc_plot3_center_val_upper_line.setValue(0)
 
+        # 선물잔량비
         elif bc_comboindex3 == 3:
 
-            self.label_31.setText(" 전저 ")
-            self.label_32.setText(" 전고 ")
-            self.label_33.setText(" 종가 ")
-            self.label_34.setText(" 피봇 ")
-            self.label_35.setText(" 시가 ")
-            self.label_36.setText(" 저가 ")
-            self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_38.setText(" 고가 ")
+            self.label_31.setText(" - ")
+            self.label_32.setText(" - ")
+            self.label_33.setText(" - ")
+            self.label_34.setText(" - ")
+            self.label_35.setText(" - ")
+            self.label_36.setText(" - ")
+            self.label_37.setText(" 본월물: 0.00, 차월물: 0.00(차차월물) ")
+            self.label_38.setText(" - ")
 
             bc_plot3_call_hoga_curve.clear()
             bc_plot3_put_hoga_curve.clear()
@@ -27509,16 +27535,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot3_fut_hoga_line.setValue(1.0)
 
+        # 등락율비
         elif bc_comboindex3 == 4:
 
-            self.label_31.setText(" 전저 ")
-            self.label_32.setText(" 전고 ")
-            self.label_33.setText(" 종가 ")
-            self.label_34.setText(" 피봇 ")
-            self.label_35.setText(" 시가 ")
-            self.label_36.setText(" 저가 ")
-            self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_38.setText(" 고가 ")
+            self.label_31.setText(" - ")
+            self.label_32.setText(" - ")
+            self.label_33.setText(" - ")
+            self.label_34.setText(" - ")
+            self.label_35.setText(" 선물등락율 ")
+            self.label_36.setText(" DOW등락율 ")
+            self.label_37.setText(" 풋등락율 ")
+            self.label_38.setText(" 콜등락율 ")
 
             bc_plot3_call_hoga_curve.clear()
             bc_plot3_put_hoga_curve.clear()   
@@ -27558,6 +27585,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_center_val_line.setValue(0)
             bc_plot3_center_val_upper_line.setValue(0)
 
+        # 옵션가격
         elif bc_comboindex3 == 5:
 
             self.label_31.setText(" 등가: 행사가 ")
@@ -27614,10 +27642,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_center_val_line.setValue(CENTER_VAL)
             bc_plot3_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
 
+        # 분리선
         elif bc_comboindex3 == 6:
 
             pass
 
+        # SP500
         elif bc_comboindex3 == 7:
 
             bc_plot3_call_hoga_curve.clear()
@@ -27719,6 +27749,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_38.setText(str)
             bc_plot3_ovc_high_line.setValue(SP500_고가)
 
+        # DOW
         elif bc_comboindex3 == 8:
 
             bc_plot3_call_hoga_curve.clear()
@@ -27820,6 +27851,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_38.setText(str)
             bc_plot3_ovc_high_line.setValue(DOW_고가)
 
+        # NASDAQ
         elif bc_comboindex3 == 9:
 
             bc_plot3_call_hoga_curve.clear()
@@ -27921,6 +27953,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_38.setText(str)
             bc_plot3_ovc_high_line.setValue(NASDAQ_고가)            
 
+        # WTI
         elif bc_comboindex3 == 10:
 
             bc_plot3_call_hoga_curve.clear()
@@ -28044,16 +28077,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot4_mama_curve.clear()
         bc_plot4_fama_curve.clear() 
 
+        # 선물체결
         if bc_comboindex4 == 0:
 
-            self.label_41.setText(" 전저 ")
-            self.label_42.setText(" 전고 ")
-            self.label_43.setText(" 종가 ")
-            self.label_44.setText(" 피봇 ")
-            self.label_45.setText(" 시가 ")
-            self.label_46.setText(" 저가 ")
-            self.label_47.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_48.setText(" 고가 ")
+            self.label_41.setText(" - ")
+            self.label_42.setText(" - ")
+            self.label_43.setText(" - ")
+            self.label_44.setText(" - ")
+            self.label_45.setText(" - ")
+            self.label_46.setText(" - ")
+            self.label_47.setText(" 체결량 ")
+            self.label_48.setText(" - ")
 
             bc_plot4_call_hoga_curve.clear()
             bc_plot4_put_hoga_curve.clear()
@@ -28096,16 +28130,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot4_ovc_low_line.setValue(0)
             bc_plot4_ovc_high_line.setValue(0)
 
+        # 선물잔량비
         elif bc_comboindex4 == 1:
 
-            self.label_41.setText(" 전저 ")
-            self.label_42.setText(" 전고 ")
-            self.label_43.setText(" 종가 ")
-            self.label_44.setText(" 피봇 ")
-            self.label_45.setText(" 시가 ")
-            self.label_46.setText(" 저가 ")
-            self.label_47.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_48.setText(" 고가 ")
+            self.label_41.setText(" - ")
+            self.label_42.setText(" - ")
+            self.label_43.setText(" - ")
+            self.label_44.setText(" - ")
+            self.label_45.setText(" - ")
+            self.label_46.setText(" - ")
+            self.label_47.setText(" 본월물: 0.00, 차월물: 0.00(차차월물) ")
+            self.label_48.setText(" - ")
             
             bc_plot4_fut_volume_plus_curve.clear()
             bc_plot4_fut_volume_minus_curve.clear()
@@ -28151,16 +28186,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             bc_plot4_fut_hoga_line.setValue(1.0)
 
+        # 옵션체결
         elif bc_comboindex4 == 2:
 
-            self.label_41.setText(" 전저 ")
-            self.label_42.setText(" 전고 ")
-            self.label_43.setText(" 종가 ")
-            self.label_44.setText(" 피봇 ")
-            self.label_45.setText(" 시가 ")
-            self.label_46.setText(" 저가 ")
-            self.label_47.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_48.setText(" 고가 ")            
+            self.label_41.setText(" - ")
+            self.label_42.setText(" - ")
+            self.label_43.setText(" - ")
+            self.label_44.setText(" - ")
+            self.label_45.setText(" - ")
+            self.label_46.setText(" 풋체결량 ")
+            self.label_47.setText(" - ")
+            self.label_48.setText(" 콜체결량 ")            
             
             bc_plot4_fut_volume_plus_curve.clear()
             bc_plot4_fut_volume_minus_curve.clear()
@@ -28203,16 +28239,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot4_ovc_low_line.setValue(0)
             bc_plot4_ovc_high_line.setValue(0)
 
+        # 옵션잔량비
         elif bc_comboindex4 == 3:
 
-            self.label_41.setText(" 전저 ")
-            self.label_42.setText(" 전고 ")
-            self.label_43.setText(" 종가 ")
-            self.label_44.setText(" 피봇 ")
-            self.label_45.setText(" 시가 ")
-            self.label_46.setText(" 저가 ")
-            self.label_47.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_48.setText(" 고가 ")
+            self.label_41.setText(" - ")
+            self.label_42.setText(" - ")
+            self.label_43.setText(" - ")
+            self.label_44.setText(" - ")
+            self.label_45.setText(" - ")
+            self.label_46.setText(" 풋잔량비 ")
+            self.label_47.setText(" - ")
+            self.label_48.setText(" 콜잔량비 ")
             
             bc_plot4_fut_volume_plus_curve.clear()
             bc_plot4_fut_volume_minus_curve.clear()
@@ -28255,16 +28292,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot4_ovc_low_line.setValue(0)
             bc_plot4_ovc_high_line.setValue(0) 
         
+        # 등락율비
         elif bc_comboindex4 == 4:
 
-            self.label_41.setText(" 전저 ")
-            self.label_42.setText(" 전고 ")
-            self.label_43.setText(" 종가 ")
-            self.label_44.setText(" 피봇 ")
-            self.label_45.setText(" 시가 ")
-            self.label_46.setText(" 저가 ")
-            self.label_47.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_48.setText(" 고가 ")
+            self.label_41.setText(" - ")
+            self.label_42.setText(" - ")
+            self.label_43.setText(" - ")
+            self.label_44.setText(" - ")
+            self.label_45.setText(" 선물등락율 ")
+            self.label_46.setText(" DOW등락율 ")
+            self.label_47.setText(" 풋등락율 ")
+            self.label_48.setText(" 콜등락율 ")
 
             bc_plot4_fut_volume_plus_curve.clear()
             bc_plot4_fut_volume_minus_curve.clear()
@@ -28304,6 +28342,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot4_ovc_low_line.setValue(0)
             bc_plot4_ovc_high_line.setValue(0)         
 
+        # 선물가격
         elif bc_comboindex4 == 5:
                         
             bc_plot4_fut_volume_plus_curve.clear()
@@ -28413,10 +28452,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_43.setText(str)
             bc_plot4_fut_close_line.setValue(선물_종가)
 
+        # 분리선
         elif bc_comboindex4 == 6:
 
             pass
 
+        # SP500
         elif bc_comboindex4 == 7:
 
             bc_plot4_fut_volume_plus_curve.clear()
@@ -28518,7 +28559,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             str = ' {0} '.format(format(SP500_고가, ','))
             self.label_48.setText(str)
             bc_plot4_ovc_high_line.setValue(SP500_고가)
-            
+
+        # DOW    
         elif bc_comboindex4 == 8:
 
             bc_plot4_fut_volume_plus_curve.clear()
@@ -28621,6 +28663,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_48.setText(str)
             bc_plot4_ovc_high_line.setValue(DOW_고가)
 
+        # NASDAQ
         elif bc_comboindex4 == 9:
 
             bc_plot4_fut_volume_plus_curve.clear()
@@ -28722,7 +28765,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             str = ' {0} '.format(format(NASDAQ_고가, ','))
             self.label_48.setText(str)
             bc_plot4_ovc_high_line.setValue(NASDAQ_고가)            
-            
+
+        # WTI    
         elif bc_comboindex4 == 10:
 
             bc_plot4_fut_volume_plus_curve.clear()
@@ -28846,16 +28890,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot5_mama_curve.clear()
         bc_plot5_fama_curve.clear()
 
+        # 옵션체결
         if bc_comboindex5 == 0:
 
-            self.label_51.setText(" 전저 ")
-            self.label_52.setText(" 전고 ")
-            self.label_53.setText(" 종가 ")
-            self.label_54.setText(" 피봇 ")
-            self.label_55.setText(" 시가 ")
-            self.label_56.setText(" 저가 ")
-            self.label_57.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_58.setText(" 고가 ")
+            self.label_51.setText(" - ")
+            self.label_52.setText(" - ")
+            self.label_53.setText(" - ")
+            self.label_54.setText(" - ")
+            self.label_55.setText(" - ")
+            self.label_56.setText(" 풋체결량 ")
+            self.label_57.setText(" - ")
+            self.label_58.setText(" 콜체결량 ")
             
             bc_plot5_call_hoga_curve.clear()
             bc_plot5_put_hoga_curve.clear()
@@ -28896,17 +28941,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot5_center_val_lower_line.setValue(0)
             bc_plot5_center_val_line.setValue(0)
             bc_plot5_center_val_upper_line.setValue(0)
-            
+
+        # 옵션잔량비    
         elif bc_comboindex5 == 1:
 
-            self.label_51.setText(" 전저 ")
-            self.label_52.setText(" 전고 ")
-            self.label_53.setText(" 종가 ")
-            self.label_54.setText(" 피봇 ")
-            self.label_55.setText(" 시가 ")
-            self.label_56.setText(" 저가 ")
-            self.label_57.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_58.setText(" 고가 ")
+            self.label_51.setText(" - ")
+            self.label_52.setText(" - ")
+            self.label_53.setText(" - ")
+            self.label_54.setText(" - ")
+            self.label_55.setText(" - ")
+            self.label_56.setText(" 풋잔량비 ")
+            self.label_57.setText(" - ")
+            self.label_58.setText(" 콜잔량비 ")
                         
             bc_plot5_call_volume_curve.clear()
             bc_plot5_put_volume_curve.clear()
@@ -28948,16 +28994,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot5_center_val_line.setValue(0)
             bc_plot5_center_val_upper_line.setValue(0)                      
 
+        # 선물체결
         elif bc_comboindex5 == 2:
 
-            self.label_51.setText(" 전저 ")
-            self.label_52.setText(" 전고 ")
-            self.label_53.setText(" 종가 ")
-            self.label_54.setText(" 피봇 ")
-            self.label_55.setText(" 시가 ")
-            self.label_56.setText(" 저가 ")
-            self.label_57.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_58.setText(" 고가 ")
+            self.label_51.setText(" - ")
+            self.label_52.setText(" - ")
+            self.label_53.setText(" - ")
+            self.label_54.setText(" - ")
+            self.label_55.setText(" - ")
+            self.label_56.setText(" - ")
+            self.label_57.setText(" 체결량 ")
+            self.label_58.setText(" - ")
 
             bc_plot5_call_hoga_curve.clear()
             bc_plot5_put_hoga_curve.clear()
@@ -28999,16 +29046,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot5_center_val_line.setValue(0)
             bc_plot5_center_val_upper_line.setValue(0)
 
+        # 선물잔량비
         elif bc_comboindex5 == 3:
 
-            self.label_51.setText(" 전저 ")
-            self.label_52.setText(" 전고 ")
-            self.label_53.setText(" 종가 ")
-            self.label_54.setText(" 피봇 ")
-            self.label_55.setText(" 시가 ")
-            self.label_56.setText(" 저가 ")
-            self.label_57.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_58.setText(" 고가 ")
+            self.label_51.setText(" - ")
+            self.label_52.setText(" - ")
+            self.label_53.setText(" - ")
+            self.label_54.setText(" - ")
+            self.label_55.setText(" - ")
+            self.label_56.setText(" - ")
+            self.label_57.setText(" 본월물: 0.00, 차월물: 0.00(차차월물) ")
+            self.label_58.setText(" - ")
 
             bc_plot5_call_hoga_curve.clear()
             bc_plot5_put_hoga_curve.clear()
@@ -29049,16 +29097,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot5_fut_hoga_line.setValue(1.0)
 
+        # 등락율비
         elif bc_comboindex5 == 4:
 
-            self.label_51.setText(" 전저 ")
-            self.label_52.setText(" 전고 ")
-            self.label_53.setText(" 종가 ")
-            self.label_54.setText(" 피봇 ")
-            self.label_55.setText(" 시가 ")
-            self.label_56.setText(" 저가 ")
-            self.label_57.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_58.setText(" 고가 ")
+            self.label_51.setText(" - ")
+            self.label_52.setText(" - ")
+            self.label_53.setText(" - ")
+            self.label_54.setText(" - ")
+            self.label_55.setText(" 선물등락율 ")
+            self.label_56.setText(" DOW등락율 ")
+            self.label_57.setText(" 풋등락율 ")
+            self.label_58.setText(" 콜등락율 ")
 
             bc_plot5_call_hoga_curve.clear()
             bc_plot5_put_hoga_curve.clear()   
@@ -29098,6 +29147,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot5_center_val_line.setValue(0)
             bc_plot5_center_val_upper_line.setValue(0)
 
+        # 옵션가격
         elif bc_comboindex5 == 5:
 
             self.label_51.setText(" 등가: 행사가 ")
@@ -29154,10 +29204,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot5_center_val_line.setValue(CENTER_VAL)
             bc_plot5_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
 
+        # 분리선
         elif bc_comboindex5 == 6:
 
             pass
 
+        # SP500
         elif bc_comboindex5 == 7:
 
             bc_plot5_call_hoga_curve.clear()
@@ -29259,6 +29311,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_58.setText(str)
             bc_plot5_ovc_high_line.setValue(SP500_고가)
 
+        # DOW
         elif bc_comboindex5 == 8:
 
             bc_plot5_call_hoga_curve.clear()
@@ -29360,6 +29413,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_58.setText(str)
             bc_plot5_ovc_high_line.setValue(DOW_고가)
 
+        # NASDAQ
         elif bc_comboindex5 == 9:
 
             bc_plot5_call_hoga_curve.clear()
@@ -29461,6 +29515,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_58.setText(str)
             bc_plot5_ovc_high_line.setValue(NASDAQ_고가)            
 
+        # WTI
         elif bc_comboindex5 == 10:
 
             bc_plot5_call_hoga_curve.clear()
@@ -29583,16 +29638,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot6_mama_curve.clear()
         bc_plot6_fama_curve.clear()
 
+        # 옵션체결
         if bc_comboindex6 == 0:
 
-            self.label_61.setText(" 전저 ")
-            self.label_62.setText(" 전고 ")
-            self.label_63.setText(" 종가 ")
-            self.label_64.setText(" 피봇 ")
-            self.label_65.setText(" 시가 ")
-            self.label_66.setText(" 저가 ")
-            self.label_67.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_68.setText(" 고가 ")
+            self.label_61.setText(" - ")
+            self.label_62.setText(" - ")
+            self.label_63.setText(" - ")
+            self.label_64.setText(" - ")
+            self.label_65.setText(" - ")
+            self.label_66.setText(" 풋체결량 ")
+            self.label_67.setText(" - ")
+            self.label_68.setText(" 콜체결량 ")
             
             bc_plot6_call_hoga_curve.clear()
             bc_plot6_put_hoga_curve.clear()
@@ -29633,17 +29689,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot6_center_val_lower_line.setValue(0)
             bc_plot6_center_val_line.setValue(0)
             bc_plot6_center_val_upper_line.setValue(0)
-            
+
+        # 옵션잔량비    
         elif bc_comboindex6 == 1:
 
-            self.label_61.setText(" 전저 ")
-            self.label_62.setText(" 전고 ")
-            self.label_63.setText(" 종가 ")
-            self.label_64.setText(" 피봇 ")
-            self.label_65.setText(" 시가 ")
-            self.label_66.setText(" 저가 ")
-            self.label_67.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_68.setText(" 고가 ")
+            self.label_61.setText(" - ")
+            self.label_62.setText(" - ")
+            self.label_63.setText(" - ")
+            self.label_64.setText(" - ")
+            self.label_65.setText(" - ")
+            self.label_66.setText(" 풋잔량비 ")
+            self.label_67.setText(" - ")
+            self.label_68.setText(" 콜잔량비 ")
                         
             bc_plot6_call_volume_curve.clear()
             bc_plot6_put_volume_curve.clear()
@@ -29685,16 +29742,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot6_center_val_line.setValue(0)
             bc_plot6_center_val_upper_line.setValue(0)                      
 
+        # 선물체결
         elif bc_comboindex6 == 2:
 
-            self.label_61.setText(" 전저 ")
-            self.label_62.setText(" 전고 ")
-            self.label_63.setText(" 종가 ")
-            self.label_64.setText(" 피봇 ")
-            self.label_65.setText(" 시가 ")
-            self.label_66.setText(" 저가 ")
-            self.label_67.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_68.setText(" 고가 ")
+            self.label_61.setText(" - ")
+            self.label_62.setText(" - ")
+            self.label_63.setText(" - ")
+            self.label_64.setText(" - ")
+            self.label_65.setText(" - ")
+            self.label_66.setText(" - ")
+            self.label_67.setText(" 체결량 ")
+            self.label_68.setText(" - ")
 
             bc_plot6_call_hoga_curve.clear()
             bc_plot6_put_hoga_curve.clear()
@@ -29736,16 +29794,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot6_center_val_line.setValue(0)
             bc_plot6_center_val_upper_line.setValue(0)
 
+        # 선물잔량비
         elif bc_comboindex6 == 3:
 
-            self.label_61.setText(" 전저 ")
-            self.label_62.setText(" 전고 ")
-            self.label_63.setText(" 종가 ")
-            self.label_64.setText(" 피봇 ")
-            self.label_65.setText(" 시가 ")
-            self.label_66.setText(" 저가 ")
-            self.label_67.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_68.setText(" 고가 ")
+            self.label_61.setText(" - ")
+            self.label_62.setText(" - ")
+            self.label_63.setText(" - ")
+            self.label_64.setText(" - ")
+            self.label_65.setText(" - ")
+            self.label_66.setText(" - ")
+            self.label_67.setText(" 본월물: 0.00, 차월물: 0.00(차차월물) ")
+            self.label_68.setText(" - ")
 
             bc_plot6_call_hoga_curve.clear()
             bc_plot6_put_hoga_curve.clear()
@@ -29786,16 +29845,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             bc_plot6_fut_hoga_line.setValue(1.0)
 
+        # 등락율비
         elif bc_comboindex6 == 4:
 
-            self.label_61.setText(" 전저 ")
-            self.label_62.setText(" 전고 ")
-            self.label_63.setText(" 종가 ")
-            self.label_64.setText(" 피봇 ")
-            self.label_65.setText(" 시가 ")
-            self.label_66.setText(" 저가 ")
-            self.label_67.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_68.setText(" 고가 ")
+            self.label_61.setText(" - ")
+            self.label_62.setText(" - ")
+            self.label_63.setText(" - ")
+            self.label_64.setText(" - ")
+            self.label_65.setText(" 선물등락율 ")
+            self.label_66.setText(" DOW등락율 ")
+            self.label_67.setText(" 풋등락율 ")
+            self.label_68.setText(" 콜등락율 ")
 
             bc_plot6_call_hoga_curve.clear()
             bc_plot6_put_hoga_curve.clear()   
@@ -29835,6 +29895,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot6_center_val_line.setValue(0)
             bc_plot6_center_val_upper_line.setValue(0)
 
+        # 옵션가격
         elif bc_comboindex6 == 5:
 
             self.label_61.setText(" 등가: 행사가 ")
@@ -29891,10 +29952,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot6_center_val_line.setValue(CENTER_VAL)
             bc_plot6_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
 
+        # 분리선
         elif bc_comboindex6 == 6:
 
             pass
 
+        # SP500
         elif bc_comboindex6 == 7:
 
             bc_plot6_call_hoga_curve.clear()
@@ -29996,6 +30059,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_68.setText(str)
             bc_plot6_ovc_high_line.setValue(SP500_고가)
 
+        # DOW
         elif bc_comboindex6 == 8:
 
             bc_plot6_call_hoga_curve.clear()
@@ -30097,6 +30161,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_68.setText(str)
             bc_plot6_ovc_high_line.setValue(DOW_고가)
 
+        # NASDAQ
         elif bc_comboindex6 == 9:
 
             bc_plot6_call_hoga_curve.clear()
@@ -30198,6 +30263,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_68.setText(str)
             bc_plot6_ovc_high_line.setValue(NASDAQ_고가)            
 
+        # WTI
         elif bc_comboindex6 == 10:
 
             bc_plot6_call_hoga_curve.clear()
