@@ -2263,6 +2263,9 @@ fut_cms_hoga_rr = 0
 fut_ccms_hoga_cr = 0
 fut_ccms_hoga_rr = 0
 
+call_oloh_str = ''
+put_oloh_str = ''
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -3945,6 +3948,19 @@ class telegram_send_worker(QThread):
                         if fut_oloh_str != '' and FLAG_OLOH:
 
                             str = fut_oloh_str
+                            ToYourTelegram(str)
+                        else:
+                            pass
+
+                        # 차월물 야간옵션 OLOH 보고
+                        if call_oloh_str != '':
+                            str = call_oloh_str
+                            ToYourTelegram(str)
+                        else:
+                            pass
+
+                        if put_oloh_str != '':
+                            str = put_oloh_str
                             ToYourTelegram(str)
                         else:
                             pass
@@ -18556,7 +18572,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 콜대비합, 콜대비합_단위평균
         global call_open_count        
         global 콜시가갭합, 콜시가갭합_퍼센트, 콜시가갭합_단위평균, 콜대비_퍼센트_평균
-        global call_otm_db, call_otm_db_percent 
+        global call_otm_db, call_otm_db_percent
+        global call_oloh_str 
         
         dt = datetime.datetime.now()
 
@@ -18750,6 +18767,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 call_oh_count = call_oh.count(True)
 
                 new_oloh = repr(call_ol_count) + ':' + repr(call_oh_count) + '\n✓'
+
+                if NightTime and TARGET_MONTH_SELECT == 2:
+                    call_oloh_str = 'Call OLOH: ' + repr(call_ol_count) + ':' + repr(call_oh_count)
+                else:
+                    pass
 
                 if new_oloh != self.tableWidget_call.horizontalHeaderItem(2).text():
                     item = QTableWidgetItem(new_oloh)
@@ -19662,6 +19684,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_open_count
         global 풋시가갭합, 풋시가갭합_퍼센트, 풋시가갭합_단위평균, 풋대비_퍼센트_평균
         global put_otm_db, put_otm_db_percent
+        global put_oloh_str
         
         dt = datetime.datetime.now()
 
@@ -19856,6 +19879,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_oh_count = put_oh.count(True)
 
                 new_oloh = repr(put_ol_count) + ':' + repr(put_oh_count) + '\n✓'
+
+                if NightTime and TARGET_MONTH_SELECT == 2:
+                    put_oloh_str = 'Put OLOH: ' + repr(put_ol_count) + ':' + repr(put_oh_count)
+                else:
+                    pass
 
                 if new_oloh != self.tableWidget_put.horizontalHeaderItem(2).text():
                     item = QTableWidgetItem(new_oloh)
