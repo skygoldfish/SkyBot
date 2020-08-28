@@ -844,7 +844,7 @@ if os.path.isfile('daytime.txt'):
 
         tmp = kp200_file.readline().strip()
         temp = tmp.split()
-        CENTER_VAL = float(temp[3])
+        INIT_CENTER_VAL = float(temp[3])
 
         tmp = kp200_file.readline().strip()
         temp = tmp.split()
@@ -23905,7 +23905,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         text = self.textBrowser.toPlainText()
         file.write(text)
         file.close()
-        
+
+        if not NightTime and self.parent.connection.IsConnected() and not flag_offline:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
+            print(str)
+
+            flag_offline = True  
+
+            self.parent.connection.disconnect()
+        else:
+            pass        
 
     def RemoveCode(self):
 
@@ -26777,13 +26788,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif bc_comboindex2 == 5:
 
             self.label_21.setText(" 등가: 행사가 ")
-            self.label_22.setText(" 중심가 하단  ")
-            self.label_23.setText(" 중심가  ")
-            self.label_24.setText(" 중심가 상단  ")
-            self.label_25.setText(" 시가 ")
-            self.label_26.setText(" 저가 ")
-            self.label_27.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_28.setText(" 고가 ")
+            self.label_22.setText(" 시작 중심가 ")
+            self.label_23.setText(" 중심가 하단 ")
+            self.label_24.setText(" 중심가 상단 ")
+            self.label_25.setText(" - ")
+            self.label_26.setText(" 풋현재가 ")
+            self.label_27.setText(" 중심가 ")
+            self.label_28.setText(" 콜현재가 ")
 
             bc_plot2_call_hoga_curve.clear()
             bc_plot2_put_hoga_curve.clear()   
@@ -27514,13 +27525,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif bc_comboindex3 == 5:
 
             self.label_31.setText(" 등가: 행사가 ")
-            self.label_32.setText(" 중심가 하단  ")
-            self.label_33.setText(" 중심가  ")
-            self.label_34.setText(" 중심가 상단  ")
-            self.label_35.setText(" 시가 ")
-            self.label_36.setText(" 저가 ")
-            self.label_37.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_38.setText(" 고가 ")
+            self.label_32.setText(" 시작 중심가 ")
+            self.label_33.setText(" 중심가 하단 ")
+            self.label_34.setText(" 중심가 상단 ")
+            self.label_35.setText(" - ")
+            self.label_36.setText(" 풋현재가 ")
+            self.label_37.setText(" 중심가 ")
+            self.label_38.setText(" 콜현재가 ")
 
             bc_plot3_call_hoga_curve.clear()
             bc_plot3_put_hoga_curve.clear()   
@@ -29054,13 +29065,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif bc_comboindex5 == 5:
 
             self.label_51.setText(" 등가: 행사가 ")
-            self.label_52.setText(" 중심가 하단  ")
-            self.label_53.setText(" 중심가  ")
-            self.label_54.setText(" 중심가 상단  ")
-            self.label_55.setText(" 시가 ")
-            self.label_56.setText(" 저가 ")
-            self.label_57.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_58.setText(" 고가 ")
+            self.label_52.setText(" 시작 중심가 ")
+            self.label_53.setText(" 중심가 하단 ")
+            self.label_54.setText(" 중심가 상단 ")
+            self.label_55.setText(" - ")
+            self.label_56.setText(" 풋현재가 ")
+            self.label_57.setText(" 중심가 ")
+            self.label_58.setText(" 콜현재가 ")
 
             bc_plot5_call_hoga_curve.clear()
             bc_plot5_put_hoga_curve.clear()   
@@ -29791,13 +29802,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif bc_comboindex6 == 5:
 
             self.label_61.setText(" 등가: 행사가 ")
-            self.label_62.setText(" 중심가 하단  ")
-            self.label_63.setText(" 중심가  ")
-            self.label_64.setText(" 중심가 상단  ")
-            self.label_65.setText(" 시가 ")
-            self.label_66.setText(" 저가 ")
-            self.label_67.setText(" 0.0 (전일대비, 등락율, 진폭) ")
-            self.label_68.setText(" 고가 ")
+            self.label_62.setText(" 시작 중심가 ")
+            self.label_63.setText(" 중심가 하단 ")
+            self.label_64.setText(" 중심가 상단 ")
+            self.label_65.setText(" - ")
+            self.label_66.setText(" 풋현재가 ")
+            self.label_67.setText(" 중심가 ")
+            self.label_68.setText(" 콜현재가 ")
 
             bc_plot6_call_hoga_curve.clear()
             bc_plot6_put_hoga_curve.clear()   
@@ -31165,11 +31176,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 # 등가표시
                 str = ' 등가: {0} '.format(atm_str)
                 self.label_21.setText(str)
-
-                str = ' 중심가 하단: {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
+                
+                str = ' 시작 중심가: {0:0.2f} '.format(INIT_CENTER_VAL)
                 self.label_22.setText(str)
 
-                str = ' 시작 중심가 '
+                str = ' 중심가 하단: {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
                 self.label_23.setText(str)
 
                 str = ' 중심가 상단: {0:0.2f} '.format(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
@@ -31858,10 +31869,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' 등가: {0} '.format(atm_str)
                 self.label_31.setText(str)
 
-                str = ' 중심가 하단: {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
+                str = ' 시작 중심가: {0:0.2f} '.format(INIT_CENTER_VAL)
                 self.label_32.setText(str)
 
-                str = ' 시작 중심가 '
+                str = ' 중심가 하단: {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
                 self.label_33.setText(str)
 
                 str = ' 중심가 상단: {0:0.2f} '.format(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
@@ -33298,10 +33309,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' 등가: {0} '.format(atm_str)
                 self.label_51.setText(str)
 
-                str = ' 중심가 하단: {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
+                str = ' 시작 중심가: {0:0.2f} '.format(INIT_CENTER_VAL)
                 self.label_52.setText(str)
 
-                str = ' 시작 중심가 '
+                str = ' 중심가 하단: {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
                 self.label_53.setText(str)
 
                 str = ' 중심가 상단: {0:0.2f} '.format(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
@@ -33990,10 +34001,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' 등가: {0} '.format(atm_str)
                 self.label_61.setText(str)
 
-                str = ' 중심가 하단: {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
+                str = ' 시작 중심가: {0:0.2f} '.format(INIT_CENTER_VAL)
                 self.label_62.setText(str)
 
-                str = ' 시작 중심가: {0:0.2f} '.format(CENTER_VAL)
+                str = ' 중심가 하단: {0:0.2f} '.format(CENTER_VAL - CENTERVAL_GOLDEN_RATIO)
                 self.label_63.setText(str)
 
                 str = ' 중심가 상단: {0:0.2f} '.format(CENTER_VAL + CENTERVAL_GOLDEN_RATIO)
