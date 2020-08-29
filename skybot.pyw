@@ -4940,8 +4940,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         self.setWindowTitle(widget_title)
                 
-        str = '[{0:02d}:{1:02d}:{2:02d}] HL File Length = {3}\r'.format(dt.hour, dt.minute, dt.second, hlfile_line_number)
-        self.textBrowser.append(str)
+        #str = '[{0:02d}:{1:02d}:{2:02d}] HL File Length = {3}\r'.format(dt.hour, dt.minute, dt.second, hlfile_line_number)
+        #self.textBrowser.append(str)
 
         if SELFID == 'soojin65':
             str = '[{0:02d}:{1:02d}:{2:02d}] COREVAL = {3}\r'.format(dt.hour, dt.minute, dt.second, COREVAL)
@@ -4975,7 +4975,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] {3}번째 동적맥점 {4:0.2f}(발생빈도수 = {5}) 추가됨...\r'.format \
                     (dt.hour, dt.minute, dt.second, i + 1, new_node[i][0], new_node[i][1])
-                self.textBrowser.append(str)
+                #self.textBrowser.append(str)
 
                 item = QTableWidgetItem("{0:0.2f}\n({1})".format(new_node[i][0], new_node[i][1]))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -6679,7 +6679,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         '''
         str = '[{0:02d}:{1:02d}:{2:02d}] high low list in search_moving_node = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
-        self.textBrowser.append(str)
+        #self.textBrowser.append(str)
         print(str)        
 
         # 1st search
@@ -12966,25 +12966,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 call_저가 = df_call['저가'].values.tolist()
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] call_저가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, call_저가)
-                self.textBrowser.append(str)
+                #self.textBrowser.append(str)
                 print(str)
 
                 call_고가 = df_call['고가'].values.tolist()
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] call_고가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, call_고가)
-                self.textBrowser.append(str)
+                #self.textBrowser.append(str)
                 print(str)
 
                 put_저가 = df_put['저가'].values.tolist()
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] put_저가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, put_저가)
-                self.textBrowser.append(str)
+                #self.textBrowser.append(str)
                 print(str)
 
                 put_고가 = df_put['고가'].values.tolist()
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] put_고가 list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, put_고가)
-                self.textBrowser.append(str)
+                #self.textBrowser.append(str)
                 print(str)
                 
                 if not pre_start:
@@ -13034,7 +13034,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.opt_high_low_list_update()
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2301 = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
-                self.textBrowser.append(str)
+                #self.textBrowser.append(str)
                 print(str) 
 
                 df_call_info_graph.at[0, 'volume'] = 0
@@ -13468,23 +13468,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.opt_high_low_list_update()
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] call_저가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, call_저가)
-                    self.textBrowser.append(str)
+                    #self.textBrowser.append(str)
                     print(str)
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] call_고가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, call_고가)
-                    self.textBrowser.append(str)
+                    #self.textBrowser.append(str)
                     print(str)
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] put_저가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, put_저가)
-                    self.textBrowser.append(str)
+                    #self.textBrowser.append(str)
                     print(str)
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] put_고가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, put_고가)
-                    self.textBrowser.append(str)
+                    #self.textBrowser.append(str)
                     print(str)
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
-                    self.textBrowser.append(str)
+                    #self.textBrowser.append(str)
                     print(str) 
 
                     for i in range(option_pairs_count):
@@ -14718,7 +14718,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.opt_high_low_list_update()
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2835 = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
-                self.textBrowser.append(str)
+                #self.textBrowser.append(str)
                 print(str)
 
                 #중심가 계산
@@ -15177,7 +15177,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.opt_high_low_list_update()
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2835 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
-                self.textBrowser.append(str)
+                #self.textBrowser.append(str)
                 print(str)
 
                 for i in range(option_pairs_count):
@@ -20197,7 +20197,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global yoc_call_gap_percent, yoc_put_gap_percent
 
             global opt_callreal_update_counter
-            global call_atm_value, call_db_percent
+            global call_atm_value, call_db_percent, atm_zero_cha
             global call_피봇, call_피봇_node_list, call_시가, call_시가_node_list
             global call_저가, call_저가_node_list, call_고가, call_고가_node_list
 
@@ -21403,6 +21403,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         call_atm_value = df_call.at[atm_index, '현재가']
                         put_atm_value = df_put.at[atm_index, '현재가']
+
+                        if call_atm_value >= put_atm_value:
+                            atm_zero_cha = round((call_atm_value - put_atm_value) , 2)
+                        else:
+                            atm_zero_cha = round((put_atm_value - call_atm_value) , 2)
 
                         장시작_양합 = call_atm_value + put_atm_value
 
