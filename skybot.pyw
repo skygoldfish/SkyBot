@@ -1624,7 +1624,7 @@ macd_pen = pg.mkPen(magenta, width=1, style=QtCore.Qt.SolidLine)
 MACDSig_pen = pg.mkPen(aqua, width=1, style=QtCore.Qt.SolidLine)
 # MACDHist_pen = 
 
-mama_pen = pg.mkPen(magenta, width=2, style=QtCore.Qt.SolidLine)
+mama_pen = pg.mkPen(orange, width=2, style=QtCore.Qt.SolidLine)
 fama_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.SolidLine)
 
 # Big Chart Plot1
