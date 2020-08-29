@@ -12359,22 +12359,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_put_info_graph = DataFrame(index=range(0, timespan), columns=['volume', 'hoga', 'drate', 'yanghap'])
 
                 df_futures_graph = DataFrame(index=range(0, timespan), columns=['kp200', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'c_hoga_rr', 'n_hoga_rr',\
-                    'drate', 'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
+                    'drate', 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
 
                 df_sp500_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
                 df_dow_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
                 df_nasdaq_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
                 df_wti_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
                 df_eurofx_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
                 df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                     'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
                 df_gold_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
 
                 # 콜처리
                 for i in range(option_pairs_count):
@@ -13105,12 +13105,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.OVC.AdviseRealData(종목코드=SP500)
                 self.OVC.AdviseRealData(종목코드=DOW)
                 self.OVC.AdviseRealData(종목코드=NASDAQ)
-                self.OVC.AdviseRealData(종목코드=WTI)
-                self.OVC.AdviseRealData(종목코드=EUROFX)
+                self.OVC.AdviseRealData(종목코드=WTI)                
                 self.OVC.AdviseRealData(종목코드=HANGSENG)
-                self.OVC.AdviseRealData(종목코드=GOLD)
+                #self.OVC.AdviseRealData(종목코드=EUROFX)
+                #self.OVC.AdviseRealData(종목코드=GOLD)
 
-                # 해외선물 호가 실시간 요청
+                '''
+                # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)
                 self.OVH.AdviseRealData(종목코드=SP500)
                 self.OVH.AdviseRealData(종목코드=DOW)
                 self.OVH.AdviseRealData(종목코드=NASDAQ)
@@ -13120,7 +13121,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.OVH.AdviseRealData(종목코드=GOLD)
 
                 # 해외옵션 체결 실시간 요청
-                '''
+                
                 self.WOC.AdviseRealData(종목코드=SP500)
                 self.WOC.AdviseRealData(종목코드=DOW)
                 self.WOC.AdviseRealData(종목코드=NASDAQ)
@@ -17592,15 +17593,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # Parabolic SAR
         parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+        ta_psar = ta.trend.PSARIndicator(df_futures_graph['high'], df_futures_graph['low'], df_futures_graph['close'])
 
         df_futures_graph['PSAR'] = parabolic_sar
+        df_futures_graph['TA_PSAR'] = ta_psar.psar()
 
         # MAMA
         mama, fama = talib.MAMA(np.array(df_futures_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
         df_futures_graph['MAMA'] = mama
         df_futures_graph['FAMA'] = fama
-        #df_futures_graph['A_FAMA'] = fama
 
         if not math.isnan(df_futures_graph.at[ovc_x_idx, 'FAMA']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBLower']):
 
@@ -17612,7 +17614,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # Ichimoku Indicator
-        futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'])
+        futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'], n1=9, n2=26, n3=52, visual=True)
 
         df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
         df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
@@ -21148,15 +21150,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # Parabolic SAR
                     parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+                    ta_psar = ta.trend.PSARIndicator(df_futures_graph['high'], df_futures_graph['low'], df_futures_graph['close'])
 
                     df_futures_graph['PSAR'] = parabolic_sar
+                    df_futures_graph['TA_PSAR'] = ta_psar.psar()
 
                     # MAMA
                     mama, fama = talib.MAMA(np.array(df_futures_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
 
                     df_futures_graph['MAMA'] = mama
                     df_futures_graph['FAMA'] = fama
-                    #df_futures_graph['A_FAMA'] = fama
 
                     if not math.isnan(df_futures_graph.at[ovc_x_idx, 'FAMA']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBLower']):
 
@@ -21168,7 +21171,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     # Ichimoku Indicator
-                    futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'])
+                    futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'], n1=9, n2=26, n3=52, visual=True)
 
                     df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
                     df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
@@ -23484,8 +23487,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_dow_graph['high'], dtype=float), np.array(df_dow_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+                ta_psar = ta.trend.PSARIndicator(df_dow_graph['high'], df_dow_graph['low'], df_dow_graph['close'])
 
                 df_dow_graph['PSAR'] = parabolic_sar
+                df_dow_graph['TA_PSAR'] = ta_psar.psar()
 
                 # MAMA(약 32 샘플후에 출력값이 나옴)
                 mama, fama = talib.MAMA(np.array(df_dow_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
@@ -23504,7 +23509,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # Ichimoku Indicator
-                dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_graph['high'], df_dow_graph['low'])
+                dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_graph['high'], df_dow_graph['low'], n1=9, n2=26, n3=52, visual=True)
 
                 df_dow_graph['SPAN_A'] = dow_Ichimoku.ichimoku_a()
                 df_dow_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
@@ -23528,8 +23533,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_sp500_graph['high'], dtype=float), np.array(df_sp500_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+                ta_psar = ta.trend.PSARIndicator(df_sp500_graph['high'], df_sp500_graph['low'], df_sp500_graph['close'])
 
                 df_sp500_graph['PSAR'] = parabolic_sar
+                df_sp500_graph['TA_PSAR'] = ta_psar.psar()
 
                 # MAMA(약 32샘플후에 출력값이 나옴)
                 mama, fama = talib.MAMA(np.array(df_sp500_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
@@ -23547,7 +23554,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # Ichimoku Indicator
-                sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_graph['high'], df_sp500_graph['low'])
+                sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_graph['high'], df_sp500_graph['low'], n1=9, n2=26, n3=52, visual=True)
 
                 df_sp500_graph['SPAN_A'] = sp500_Ichimoku.ichimoku_a()
                 df_sp500_graph['SPAN_B'] = sp500_Ichimoku.ichimoku_b()
@@ -23572,8 +23579,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_nasdaq_graph['high'], dtype=float), np.array(df_nasdaq_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+                ta_psar = ta.trend.PSARIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'], df_nasdaq_graph['close'])
 
                 df_nasdaq_graph['PSAR'] = parabolic_sar
+                df_nasdaq_graph['TA_PSAR'] = ta_psar.psar()
 
                 # MAMA(약 32샘플후에 출력값이 나옴)
                 mama, fama = talib.MAMA(np.array(df_nasdaq_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
@@ -23591,7 +23600,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # Ichimoku Indicator
-                nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'])
+                nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'], n1=9, n2=26, n3=52, visual=True)
 
                 df_nasdaq_graph['SPAN_A'] = nasdaq_Ichimoku.ichimoku_a()
                 df_nasdaq_graph['SPAN_B'] = nasdaq_Ichimoku.ichimoku_b()
@@ -23616,8 +23625,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_wti_graph['high'], dtype=float), np.array(df_wti_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+                ta_psar = ta.trend.PSARIndicator(df_wti_graph['high'], df_wti_graph['low'], df_wti_graph['close'])
 
                 df_wti_graph['PSAR'] = parabolic_sar
+                df_wti_graph['TA_PSAR'] = ta_psar.psar()
 
                 # MAMA(약 32샘플후에 출력값이 나옴)
                 mama, fama = talib.MAMA(np.array(df_wti_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
@@ -23635,7 +23646,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # Ichimoku Indicator
-                wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_graph['high'], df_wti_graph['low'])
+                wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_graph['high'], df_wti_graph['low'], n1=9, n2=26, n3=52, visual=True)
 
                 df_wti_graph['SPAN_A'] = wti_Ichimoku.ichimoku_a()
                 df_wti_graph['SPAN_B'] = wti_Ichimoku.ichimoku_b()
