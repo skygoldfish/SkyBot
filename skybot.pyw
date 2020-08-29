@@ -22014,15 +22014,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if szTrCode == 'FC0':
-
-                    if not market_service:
-                        market_service = True
-                    else:
-                        pass
-                else:
-                    pass
-
                 if szTrCode == 'NC0':    
 
                     if not market_service:
@@ -22035,11 +22026,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.futures_display(result)
 
             elif szTrCode == 'OC0' or szTrCode == 'EC0':
-
-                if not market_service:
-                    market_service = True
-                else:
-                    pass
 
                 if pre_start:
                     pre_start = False
@@ -22135,7 +22121,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif szTrCode == 'FH0' or szTrCode == 'NH0':
 
-                global fut_hoga_cr, fut_hoga_rr, fut_cms_hoga_cr, fut_cms_hoga_rr, fut_ccms_hoga_cr, fut_ccms_hoga_rr 
+                global fut_hoga_cr, fut_hoga_rr, fut_cms_hoga_cr, fut_cms_hoga_rr, fut_ccms_hoga_cr, fut_ccms_hoga_rr
+
+                market_service = True
 
                 if result['단축코드'] == gmshcode:
 
@@ -22449,12 +22437,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         NASDAQ_과거가 = result['체결가격']
                         df_nasdaq_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                        '''               
-                        if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            df_nasdaq_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                        else:
-                            pass
-                        '''
                     else:
                         pass                    
 
@@ -22617,12 +22599,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         SP500_과거가 = result['체결가격']
                         df_sp500_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                        '''
-                        if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            df_sp500_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                        else:
-                            pass
-                        '''
                     else:
                         pass                    
 
@@ -22750,14 +22726,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         DOW_과거가 = 체결가격
-                        df_dow_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                        '''
-                        if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            df_dow_graph.at[ovc_x_idx, 'price'] = result['체결가격']                   
-                        else:
-                            pass
-                        '''
-                        
+                        df_dow_graph.at[ovc_x_idx, 'price'] = result['체결가격']                        
                         DOW_진폭비 = DOW_진폭 / DOW_시가
                     else:
                         pass
@@ -22877,12 +22846,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         WTI_과거가 = result['체결가격']
                         df_wti_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                        '''
-                        if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            df_wti_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                        else:
-                            pass
-                        '''
                     else:
                         pass
                     
@@ -23001,12 +22964,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         EUROFX_과거가 = result['체결가격']
                         df_eurofx_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                        '''
-                        if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            df_eurofx_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                        else:
-                            pass
-                        '''
                     else:
                         pass
 
@@ -23125,12 +23082,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         HANGSENG_과거가 = int(result['체결가격'])
                         df_hangseng_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                        '''
-                        if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            df_hangseng_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                        else:
-                            pass
-                        '''
                     else:
                         pass
 
@@ -23249,12 +23200,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         GOLD_과거가 = result['체결가격']
                         df_gold_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                        '''
-                        if 2 <= ovc_x_idx <= nighttime_timespan - 1:
-                            df_gold_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                        else:
-                            pass
-                        '''
                     else:
                         pass
                 else:
@@ -23469,6 +23414,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 6: MA_Type.KAMA (Kaufman adaptive)  
                 # 7: MA_Type.MAMA (Mesa adaptive)  
                 # 8: MA_Type.T3 (triple exponential T3)  
+                
 
                 # DOW
                 # Bollinger Bands
@@ -23515,6 +23461,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_dow_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
                 #ichimoku_base_line = dow_Ichimoku.ichimoku_base_line()
                 #ichimoku_conversion_line = dow_Ichimoku.ichimoku_conversion_line()
+
 
                 # SP500
                 # Bollinger Bands
