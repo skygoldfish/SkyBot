@@ -17616,7 +17616,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # Ichimoku Indicator
-        futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'], n1=9, n2=26, n3=52, visual=True)
+        #futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'], n1=9, n2=26, n3=52, visual=True)
+        futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'])
 
         df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
         df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
@@ -21175,7 +21176,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     # Ichimoku Indicator
-                    futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'], n1=9, n2=26, n3=52, visual=True)
+                    #futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'], n1=9, n2=26, n3=52, visual=True)
+                    futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'])
 
                     df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
                     df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
@@ -23464,7 +23466,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # Ichimoku Indicator
-                dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_graph['high'], df_dow_graph['low'], n1=9, n2=26, n3=52, visual=True)
+                #dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_graph['high'], df_dow_graph['low'], n1=9, n2=26, n3=52, visual=True)
+                dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_graph['high'], df_dow_graph['low'])
 
                 df_dow_graph['SPAN_A'] = dow_Ichimoku.ichimoku_a()
                 df_dow_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
@@ -23510,7 +23513,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # Ichimoku Indicator
-                sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_graph['high'], df_sp500_graph['low'], n1=9, n2=26, n3=52, visual=True)
+                #sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_graph['high'], df_sp500_graph['low'], n1=9, n2=26, n3=52, visual=True)
+                sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_graph['high'], df_sp500_graph['low'])
 
                 df_sp500_graph['SPAN_A'] = sp500_Ichimoku.ichimoku_a()
                 df_sp500_graph['SPAN_B'] = sp500_Ichimoku.ichimoku_b()
@@ -23556,7 +23560,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # Ichimoku Indicator
-                nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'], n1=9, n2=26, n3=52, visual=True)
+                #nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'], n1=9, n2=26, n3=52, visual=True)
+                nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'])
 
                 df_nasdaq_graph['SPAN_A'] = nasdaq_Ichimoku.ichimoku_a()
                 df_nasdaq_graph['SPAN_B'] = nasdaq_Ichimoku.ichimoku_b()
@@ -23602,7 +23607,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # Ichimoku Indicator
-                wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_graph['high'], df_wti_graph['low'], n1=9, n2=26, n3=52, visual=True)
+                #wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_graph['high'], df_wti_graph['low'], n1=9, n2=26, n3=52, visual=True)
+                wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_graph['high'], df_wti_graph['low'])
 
                 df_wti_graph['SPAN_A'] = wti_Ichimoku.ichimoku_a()
                 df_wti_graph['SPAN_B'] = wti_Ichimoku.ichimoku_b()
