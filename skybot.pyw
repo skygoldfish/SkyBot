@@ -4826,6 +4826,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.OPT_HO = OH0(parent=self)
         self.FUT_REAL = FC0(parent=self)
         self.FUT_HO = FH0(parent=self)
+
+        dt = datetime.datetime.now()
+        
+        if int(current_str[0:2]) < 12:
+            str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Morning! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
+        else:
+            str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Afternoon! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(str)
+        
+        str = '[{0:02d}:{1:02d}:{2:02d}] OS Type : {3}\r'.format(dt.hour, dt.minute, dt.second, os_type)
+        self.textBrowser.append(str) 
         
         if TARGET_MONTH_SELECT == 1:
 
@@ -4852,17 +4863,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         if TELEGRAM_SERVICE:
 
+            # 텔레그램 Webhook 등록여부를 체크한다.
             chk_webhook = Check_Webhook()
 
-            print('telegram webhook =', chk_webhook)
-
             if chk_webhook is not None:
+
                 if chk_webhook.url != '':
-                    # Webhook을 삭제한다.
+                    # Webhook을 삭제한다.                    
+                    print('telegram webhook =', chk_webhook)
+
                     Delete_Webhook()
-                    print('텔레그램 웹훅을 삭제합니다.')
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 웹훅을 삭제합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+                    print(str)
                 else:
-                    print('텔레그램 웹훅이 없습니다.')
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 웹훅이 없습니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+                    print(str)
             else:
                 pass
 
@@ -4917,19 +4935,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        self.setWindowTitle(widget_title) 
-
-        dt = datetime.datetime.now() 
-        
-        if int(current_str[0:2]) < 12:
-            str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Morning! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
-        else:
-            str = '[{0:02d}:{1:02d}:{2:02d}] ♣♣♣ Good Afternoon! Have a Good Day ♣♣♣\r'.format(dt.hour, dt.minute, dt.second)
-        self.textBrowser.append(str)
-        
-        str = '[{0:02d}:{1:02d}:{2:02d}] OS Type : {3}\r'.format(dt.hour, dt.minute, dt.second, os_type)
-        self.textBrowser.append(str)
-        
+        self.setWindowTitle(widget_title)
+                
         str = '[{0:02d}:{1:02d}:{2:02d}] HL File Length = {3}\r'.format(dt.hour, dt.minute, dt.second, hlfile_line_number)
         self.textBrowser.append(str)
 
@@ -13039,6 +13046,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_call_info_graph.at[GuardTime, 'hoga'] = 0
                 df_put_info_graph.at[GuardTime, 'hoga'] = 0
 
+                # 본월물, 차월물 호가잔량비 초기화
                 df_futures_graph.at[0, 'c_hoga_rr'] = 0
                 df_futures_graph.at[0, 'n_hoga_rr'] = 0
 
@@ -22179,8 +22187,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_fut.resizeColumnsToContents()
 
-                    #print('차차월물 매수호가총수량 =', result['매수호가총수량'])
-                    #print('차차월물 매도호가총수량 =', result['매도호가총수량'])
+                    #print('차차월물 매수호가총수량, 매도호가총수량 =', result['매수호가총수량'], result['매도호가총수량'])
                 else:
                     pass
                 
