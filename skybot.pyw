@@ -12358,22 +12358,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_call_info_graph = DataFrame(index=range(0, timespan), columns=['volume', 'hoga', 'drate', 'centerval'])
                 df_put_info_graph = DataFrame(index=range(0, timespan), columns=['volume', 'hoga', 'drate', 'yanghap'])
 
-                df_futures_graph = DataFrame(index=range(0, timespan), columns=['kp200', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'c_hoga_rr', 'n_hoga_rr',\
-                    'drate', 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
+                df_futures_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'kp200', 'c_hoga_rr', \
+                    'n_hoga_rr', 'drate', 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
 
-                df_sp500_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
+                df_sp500_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                     'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
-                df_dow_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
+                df_dow_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                     'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
-                df_nasdaq_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
+                df_nasdaq_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                     'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
-                df_wti_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
+                df_wti_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                     'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
-                df_eurofx_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
+                df_eurofx_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                     'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
-                df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
+                df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                     'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
-                df_gold_graph = DataFrame(index=range(0, timespan), columns=['price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
+                df_gold_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
                     'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
 
                 # 콜처리
@@ -17517,6 +17517,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
         # 1T OHLC 생성
+        df_futures_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
+
         if OVC_SEC == 0:
 
             if not flag_futures_ohlc_open:
@@ -21074,6 +21076,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     global 선물_현재가_버퍼, flag_futures_ohlc_open
 
                     # 1T OHLC 생성
+                    df_futures_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
+
                     if OVC_SEC == 0:
 
                         if not flag_futures_ohlc_open:
@@ -23208,6 +23212,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # OHLC 연산목적 저가, 고가 리스트 생성(기존방식은 실시간지연 발생함!!!)
                 
                 # 1T OHLC 생성
+                df_dow_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
+                df_sp500_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
+                df_nasdaq_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
+                df_wti_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
+
                 if OVC_SEC == 0:
                     
                     # DOW
@@ -23414,7 +23423,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 6: MA_Type.KAMA (Kaufman adaptive)  
                 # 7: MA_Type.MAMA (Mesa adaptive)  
                 # 8: MA_Type.T3 (triple exponential T3)  
-                
+
 
                 # DOW
                 # Bollinger Bands
