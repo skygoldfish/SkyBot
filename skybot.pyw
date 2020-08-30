@@ -12359,22 +12359,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_put_info_graph = DataFrame(index=range(0, timespan), columns=['volume', 'hoga', 'drate', 'yanghap'])
 
                 df_futures_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'kp200', 'c_hoga_rr', \
-                    'n_hoga_rr', 'drate', 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
+                    'n_hoga_rr', 'drate', 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', \
+                        'ICHI_BASE', 'ICHI_CONV', 'SPAN_A', 'SPAN_B'])
 
                 df_sp500_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'ICHI_BASE', 'ICHI_CONV', 'SPAN_A', 'SPAN_B'])
                 df_dow_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'ICHI_BASE', 'ICHI_CONV', 'SPAN_A', 'SPAN_B'])
                 df_nasdaq_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'ICHI_BASE', 'ICHI_CONV', 'SPAN_A', 'SPAN_B'])
                 df_wti_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'ICHI_BASE', 'ICHI_CONV', 'SPAN_A', 'SPAN_B'])
                 df_eurofx_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'ICHI_BASE', 'ICHI_CONV', 'SPAN_A', 'SPAN_B'])
                 df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'ICHI_BASE', 'ICHI_CONV', 'SPAN_A', 'SPAN_B'])
                 df_gold_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'ICHI_BASE', 'ICHI_CONV', 'SPAN_A', 'SPAN_B'])
 
                 # 콜처리
                 for i in range(option_pairs_count):
@@ -17621,8 +17622,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
         df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
-        #ichimoku_base_line = futures_Ichimoku.ichimoku_base_line()
-        #ichimoku_conversion_line = futures_Ichimoku.ichimoku_conversion_line()
+
+        # 일목균형표의 기준선을 FAMA 대용으로 사용가능한지 확인필요!!!
+        df_futures_graph['ICHI_BASE'] = futures_Ichimoku.ichimoku_base_line()
+        df_futures_graph['ICHI_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
 
         # 선물 Up/Down Indicator 표시
         global fut_bollinger_symbol, fut_psar_symbol, fut_macd_symbol, fut_mama_symbol
@@ -21181,8 +21184,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
                     df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
-                    #ichimoku_base_line = futures_Ichimoku.ichimoku_base_line()
-                    #ichimoku_conversion_line = futures_Ichimoku.ichimoku_conversion_line()
+                    df_futures_graph['ICHI_BASE'] = futures_Ichimoku.ichimoku_base_line()
+                    df_futures_graph['ICHI_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
                 else:
                     pass
 
@@ -23471,8 +23474,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_dow_graph['SPAN_A'] = dow_Ichimoku.ichimoku_a()
                 df_dow_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
-                #ichimoku_base_line = dow_Ichimoku.ichimoku_base_line()
-                #ichimoku_conversion_line = dow_Ichimoku.ichimoku_conversion_line()
+                df_dow_graph['ICHI_BASE'] = dow_Ichimoku.ichimoku_base_line()
+                df_dow_graph['ICHI_BASE'] = dow_Ichimoku.ichimoku_conversion_line()
 
 
                 # SP500
@@ -23518,8 +23521,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_sp500_graph['SPAN_A'] = sp500_Ichimoku.ichimoku_a()
                 df_sp500_graph['SPAN_B'] = sp500_Ichimoku.ichimoku_b()
-                #ichimoku_base_line = sp500_Ichimoku.ichimoku_base_line()
-                #ichimoku_conversion_line = sp500_Ichimoku.ichimoku_conversion_line()
+                df_sp500_graph['ICHI_BASE'] = sp500_Ichimoku.ichimoku_base_line()
+                df_sp500_graph['ICHI_CONV'] = sp500_Ichimoku.ichimoku_conversion_line()
 
 
                 # NASDAQ
@@ -23565,8 +23568,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_nasdaq_graph['SPAN_A'] = nasdaq_Ichimoku.ichimoku_a()
                 df_nasdaq_graph['SPAN_B'] = nasdaq_Ichimoku.ichimoku_b()
-                #ichimoku_base_line = nasdaq_Ichimoku.ichimoku_base_line()
-                #ichimoku_conversion_line = nasdaq_Ichimoku.ichimoku_conversion_line()
+                df_nasdaq_graph['ICHI_BASE'] = nasdaq_Ichimoku.ichimoku_base_line()
+                df_nasdaq_graph['ICHI_CONV'] = nasdaq_Ichimoku.ichimoku_conversion_line()
 
 
                 # WTI
@@ -23612,8 +23615,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_wti_graph['SPAN_A'] = wti_Ichimoku.ichimoku_a()
                 df_wti_graph['SPAN_B'] = wti_Ichimoku.ichimoku_b()
-                #ichimoku_base_line = wti_Ichimoku.ichimoku_base_line()
-                #ichimoku_conversion_line = wti_Ichimoku.ichimoku_conversion_line()
+                df_wti_graph['ICHI_BASE'] = wti_Ichimoku.ichimoku_base_line()
+                df_wti_graph['ICHI_CONV'] = wti_Ichimoku.ichimoku_conversion_line()
                 
             elif szTrCode == 'OVH':
 
