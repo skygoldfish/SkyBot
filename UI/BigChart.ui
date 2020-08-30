@@ -195,7 +195,7 @@
     </layout>
    </item>
    <item row="1" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <layout class="QHBoxLayout" name="horizontalLayout_15">
      <item>
       <widget class="PlotWidget" name="bc_Plot1">
        <property name="font">
@@ -231,11 +231,22 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot1_mama">
-          <property name="text">
-           <string>MAMA</string>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QCheckBox" name="checkBox_plot1_mama">
+            <property name="text">
+             <string>MAMA</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_plot1_oe">
+            <property name="text">
+             <string>OE</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
          <widget class="QLabel" name="label_p1_1">
@@ -271,7 +282,7 @@
     </layout>
    </item>
    <item row="1" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout_7">
+    <layout class="QHBoxLayout" name="horizontalLayout_12">
      <item>
       <widget class="PlotWidget" name="bc_Plot4">
        <property name="font">
@@ -307,11 +318,22 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot4_mama">
-          <property name="text">
-           <string>MAMA</string>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <item>
+           <widget class="QCheckBox" name="checkBox_plot4_mama">
+            <property name="text">
+             <string>MAMA</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_plot4_oe">
+            <property name="text">
+             <string>OE</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
          <widget class="QLabel" name="label_p4_1">
@@ -519,7 +541,7 @@
     </layout>
    </item>
    <item row="3" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
+    <layout class="QHBoxLayout" name="horizontalLayout_14">
      <item>
       <widget class="PlotWidget" name="bc_Plot2">
        <property name="font">
@@ -555,11 +577,22 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot2_mama">
-          <property name="text">
-           <string>MAMA</string>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <widget class="QCheckBox" name="checkBox_plot2_mama">
+            <property name="text">
+             <string>MAMA</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_plot2_oe">
+            <property name="text">
+             <string>OE</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
          <widget class="QLabel" name="label_p2_1">
@@ -595,7 +628,7 @@
     </layout>
    </item>
    <item row="3" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout_8">
+    <layout class="QHBoxLayout" name="horizontalLayout_11">
      <item>
       <widget class="PlotWidget" name="bc_Plot5">
        <property name="font">
@@ -631,11 +664,22 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot5_mama">
-          <property name="text">
-           <string>MAMA</string>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <item>
+           <widget class="QCheckBox" name="checkBox_plot5_mama">
+            <property name="text">
+             <string>MAMA</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_plot5_oe">
+            <property name="text">
+             <string>OE</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
          <widget class="QLabel" name="label_p5_1">
@@ -843,7 +887,7 @@
     </layout>
    </item>
    <item row="5" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_6">
+    <layout class="QHBoxLayout" name="horizontalLayout_13">
      <item>
       <widget class="PlotWidget" name="bc_Plot3">
        <property name="font">
@@ -879,11 +923,22 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot3_mama">
-          <property name="text">
-           <string>MAMA</string>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QCheckBox" name="checkBox_plot3_mama">
+            <property name="text">
+             <string>MAMA</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_plot3_oe">
+            <property name="text">
+             <string>OE</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
          <widget class="QLabel" name="label_p3_1">
@@ -919,7 +974,7 @@
     </layout>
    </item>
    <item row="5" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout_9">
+    <layout class="QHBoxLayout" name="horizontalLayout_10">
      <item>
       <widget class="PlotWidget" name="bc_Plot6">
        <property name="font">
@@ -955,11 +1010,22 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_plot6_mama">
-          <property name="text">
-           <string>MAMA</string>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <item>
+           <widget class="QCheckBox" name="checkBox_plot6_mama">
+            <property name="text">
+             <string>MAMA</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_plot6_oe">
+            <property name="text">
+             <string>OE</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
          <widget class="QLabel" name="label_p6_1">
