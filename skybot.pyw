@@ -17596,10 +17596,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # Parabolic SAR
         parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-        ta_psar = ta.trend.PSARIndicator(df_futures_graph['high'], df_futures_graph['low'], df_futures_graph['close'])
+        #ta_psar = ta.trend.PSARIndicator(df_futures_graph['high'], df_futures_graph['low'], df_futures_graph['close'])
 
         df_futures_graph['PSAR'] = parabolic_sar
-        df_futures_graph['TA_PSAR'] = ta_psar.psar()
+        #df_futures_graph['TA_PSAR'] = ta_psar.psar()
 
         # MAMA
         mama, fama = talib.MAMA(np.array(df_futures_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
@@ -17624,8 +17624,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
 
         # 일목균형표의 기준선을 FAMA 대용으로 사용가능한지 확인필요!!!
-        df_futures_graph['ICHI_BASE'] = futures_Ichimoku.ichimoku_base_line()
-        df_futures_graph['ICHI_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
+        #df_futures_graph['ICHI_BASE'] = futures_Ichimoku.ichimoku_base_line()
+        #df_futures_graph['ICHI_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
 
         # 선물 Up/Down Indicator 표시
         global fut_bollinger_symbol, fut_psar_symbol, fut_macd_symbol, fut_mama_symbol
@@ -21158,10 +21158,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # Parabolic SAR
                     parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-                    ta_psar = ta.trend.PSARIndicator(df_futures_graph['high'], df_futures_graph['low'], df_futures_graph['close'])
+                    #ta_psar = ta.trend.PSARIndicator(df_futures_graph['high'], df_futures_graph['low'], df_futures_graph['close'])
 
                     df_futures_graph['PSAR'] = parabolic_sar
-                    df_futures_graph['TA_PSAR'] = ta_psar.psar()
+                    #df_futures_graph['TA_PSAR'] = ta_psar.psar()
 
                     # MAMA
                     mama, fama = talib.MAMA(np.array(df_futures_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
@@ -21184,8 +21184,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
                     df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
-                    df_futures_graph['ICHI_BASE'] = futures_Ichimoku.ichimoku_base_line()
-                    df_futures_graph['ICHI_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
+                    #df_futures_graph['ICHI_BASE'] = futures_Ichimoku.ichimoku_base_line()
+                    #df_futures_graph['ICHI_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
                 else:
                     pass
 
@@ -23447,10 +23447,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_dow_graph['high'], dtype=float), np.array(df_dow_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-                ta_psar = ta.trend.PSARIndicator(df_dow_graph['high'], df_dow_graph['low'], df_dow_graph['close'])
+                #ta_psar = ta.trend.PSARIndicator(df_dow_graph['high'], df_dow_graph['low'], df_dow_graph['close'])
 
                 df_dow_graph['PSAR'] = parabolic_sar
-                df_dow_graph['TA_PSAR'] = ta_psar.psar()
+                #df_dow_graph['TA_PSAR'] = ta_psar.psar()
 
                 # MAMA(약 32 샘플후에 출력값이 나옴)
                 mama, fama = talib.MAMA(np.array(df_dow_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
@@ -23474,8 +23474,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_dow_graph['SPAN_A'] = dow_Ichimoku.ichimoku_a()
                 df_dow_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
-                df_dow_graph['ICHI_BASE'] = dow_Ichimoku.ichimoku_base_line()
-                df_dow_graph['ICHI_BASE'] = dow_Ichimoku.ichimoku_conversion_line()
+                #df_dow_graph['ICHI_BASE'] = dow_Ichimoku.ichimoku_base_line()
+                #df_dow_graph['ICHI_BASE'] = dow_Ichimoku.ichimoku_conversion_line()
 
 
                 # SP500
@@ -23495,10 +23495,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_sp500_graph['high'], dtype=float), np.array(df_sp500_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-                ta_psar = ta.trend.PSARIndicator(df_sp500_graph['high'], df_sp500_graph['low'], df_sp500_graph['close'])
+                #ta_psar = ta.trend.PSARIndicator(df_sp500_graph['high'], df_sp500_graph['low'], df_sp500_graph['close'])
 
                 df_sp500_graph['PSAR'] = parabolic_sar
-                df_sp500_graph['TA_PSAR'] = ta_psar.psar()
+                #df_sp500_graph['TA_PSAR'] = ta_psar.psar()
 
                 # MAMA(약 32샘플후에 출력값이 나옴)
                 mama, fama = talib.MAMA(np.array(df_sp500_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
@@ -23521,8 +23521,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_sp500_graph['SPAN_A'] = sp500_Ichimoku.ichimoku_a()
                 df_sp500_graph['SPAN_B'] = sp500_Ichimoku.ichimoku_b()
-                df_sp500_graph['ICHI_BASE'] = sp500_Ichimoku.ichimoku_base_line()
-                df_sp500_graph['ICHI_CONV'] = sp500_Ichimoku.ichimoku_conversion_line()
+                #df_sp500_graph['ICHI_BASE'] = sp500_Ichimoku.ichimoku_base_line()
+                #df_sp500_graph['ICHI_CONV'] = sp500_Ichimoku.ichimoku_conversion_line()
 
 
                 # NASDAQ
@@ -23542,10 +23542,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_nasdaq_graph['high'], dtype=float), np.array(df_nasdaq_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-                ta_psar = ta.trend.PSARIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'], df_nasdaq_graph['close'])
+                #ta_psar = ta.trend.PSARIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'], df_nasdaq_graph['close'])
 
                 df_nasdaq_graph['PSAR'] = parabolic_sar
-                df_nasdaq_graph['TA_PSAR'] = ta_psar.psar()
+                #df_nasdaq_graph['TA_PSAR'] = ta_psar.psar()
 
                 # MAMA(약 32샘플후에 출력값이 나옴)
                 mama, fama = talib.MAMA(np.array(df_nasdaq_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
@@ -23568,8 +23568,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_nasdaq_graph['SPAN_A'] = nasdaq_Ichimoku.ichimoku_a()
                 df_nasdaq_graph['SPAN_B'] = nasdaq_Ichimoku.ichimoku_b()
-                df_nasdaq_graph['ICHI_BASE'] = nasdaq_Ichimoku.ichimoku_base_line()
-                df_nasdaq_graph['ICHI_CONV'] = nasdaq_Ichimoku.ichimoku_conversion_line()
+                #df_nasdaq_graph['ICHI_BASE'] = nasdaq_Ichimoku.ichimoku_base_line()
+                #df_nasdaq_graph['ICHI_CONV'] = nasdaq_Ichimoku.ichimoku_conversion_line()
 
 
                 # WTI
@@ -23589,10 +23589,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_wti_graph['high'], dtype=float), np.array(df_wti_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-                ta_psar = ta.trend.PSARIndicator(df_wti_graph['high'], df_wti_graph['low'], df_wti_graph['close'])
+                #ta_psar = ta.trend.PSARIndicator(df_wti_graph['high'], df_wti_graph['low'], df_wti_graph['close'])
 
                 df_wti_graph['PSAR'] = parabolic_sar
-                df_wti_graph['TA_PSAR'] = ta_psar.psar()
+                #df_wti_graph['TA_PSAR'] = ta_psar.psar()
 
                 # MAMA(약 32샘플후에 출력값이 나옴)
                 mama, fama = talib.MAMA(np.array(df_wti_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
@@ -23615,8 +23615,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_wti_graph['SPAN_A'] = wti_Ichimoku.ichimoku_a()
                 df_wti_graph['SPAN_B'] = wti_Ichimoku.ichimoku_b()
-                df_wti_graph['ICHI_BASE'] = wti_Ichimoku.ichimoku_base_line()
-                df_wti_graph['ICHI_CONV'] = wti_Ichimoku.ichimoku_conversion_line()
+                #df_wti_graph['ICHI_BASE'] = wti_Ichimoku.ichimoku_base_line()
+                #df_wti_graph['ICHI_CONV'] = wti_Ichimoku.ichimoku_conversion_line()
                 
             elif szTrCode == 'OVH':
 
