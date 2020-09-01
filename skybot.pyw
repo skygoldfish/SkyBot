@@ -1703,6 +1703,9 @@ bc_plot1_macdhist_curve = None
 bc_plot1_mama_curve = None
 bc_plot1_fama_curve = None
 
+bc_plot1_oe_conv_curve = None
+bc_plot1_oe_base_curve = None
+
 # Big Chart Plot2
 bc_plot2_time_line = None
 bc_plot2_time_line_start = None
@@ -1770,6 +1773,9 @@ bc_plot2_macdhist_curve = None
 bc_plot2_mama_curve = None
 bc_plot2_fama_curve = None
 
+bc_plot2_oe_conv_curve = None
+bc_plot2_oe_base_curve = None
+
 # Big Chart Plot3
 bc_plot3_time_line = None
 bc_plot3_time_line_start = None
@@ -1836,6 +1842,9 @@ bc_plot3_macdhist_curve = None
 
 bc_plot3_mama_curve = None
 bc_plot3_fama_curve = None
+
+bc_plot3_oe_conv_curve = None
+bc_plot3_oe_base_curve = None
 
 # Big Chart Plot4
 bc_plot4_time_line = None
@@ -1913,6 +1922,9 @@ bc_plot4_macdhist_curve = None
 bc_plot4_mama_curve = None
 bc_plot4_fama_curve = None
 
+bc_plot4_oe_conv_curve = None
+bc_plot4_oe_base_curve = None
+
 # Big Chart Plot5
 bc_plot5_time_line = None
 bc_plot5_time_line_start = None
@@ -1980,6 +1992,9 @@ bc_plot5_macdhist_curve = None
 bc_plot5_mama_curve = None
 bc_plot5_fama_curve = None
 
+bc_plot5_oe_conv_curve = None
+bc_plot5_oe_base_curve = None
+
 # Big Chart Plot6
 bc_plot6_time_line = None
 bc_plot6_time_line_start = None
@@ -2046,6 +2061,9 @@ bc_plot6_macdhist_curve = None
 
 bc_plot6_mama_curve = None
 bc_plot6_fama_curve = None
+
+bc_plot6_oe_conv_curve = None
+bc_plot6_oe_base_curve = None
 
 yoc_stop = False
 
@@ -2257,6 +2275,13 @@ flag_checkBox_plot3_mama = False
 flag_checkBox_plot4_mama = False
 flag_checkBox_plot5_mama = False
 flag_checkBox_plot6_mama = False
+
+flag_checkBox_plot1_oe = False
+flag_checkBox_plot2_oe = False
+flag_checkBox_plot3_oe = False
+flag_checkBox_plot4_oe = False
+flag_checkBox_plot5_oe = False
+flag_checkBox_plot6_oe = False
 
 fut_bollinger_symbol = ''
 fut_psar_symbol = ''
@@ -12360,22 +12385,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_futures_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'kp200', 'c_hoga_rr', \
                     'n_hoga_rr', 'drate', 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', \
-                        'ICHI_BASE', 'ICHI_CONV', 'SPAN_A', 'SPAN_B'])
+                        'OE_BASE', 'OE_CONV', 'SPAN_A', 'SPAN_B'])
 
                 df_sp500_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'ICHI_BASE', 'ICHI_CONV', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'OE_BASE', 'OE_CONV', 'SPAN_A', 'SPAN_B'])
                 df_dow_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'ICHI_BASE', 'ICHI_CONV', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'OE_BASE', 'OE_CONV', 'SPAN_A', 'SPAN_B'])
                 df_nasdaq_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'ICHI_BASE', 'ICHI_CONV', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'OE_BASE', 'OE_CONV', 'SPAN_A', 'SPAN_B'])
                 df_wti_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'ICHI_BASE', 'ICHI_CONV', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'OE_BASE', 'OE_CONV', 'SPAN_A', 'SPAN_B'])
                 df_eurofx_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'ICHI_BASE', 'ICHI_CONV', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'OE_BASE', 'OE_CONV', 'SPAN_A', 'SPAN_B'])
                 df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'ICHI_BASE', 'ICHI_CONV', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'OE_BASE', 'OE_CONV', 'SPAN_A', 'SPAN_B'])
                 df_gold_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'ICHI_BASE', 'ICHI_CONV', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'OE_BASE', 'OE_CONV', 'SPAN_A', 'SPAN_B'])
 
                 # 콜처리
                 for i in range(option_pairs_count):
@@ -17625,14 +17650,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
 
         # 일목균형표의 기준선을 FAMA 대용으로 사용가능한지 확인필요!!!
-        df_futures_graph['ICHI_BASE'] = futures_Ichimoku.ichimoku_base_line()
-        df_futures_graph['ICHI_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
+        df_futures_graph['OE_BASE'] = futures_Ichimoku.ichimoku_base_line()
+        df_futures_graph['OE_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
 
 
         # 데이타프레임의 모든 요소가 NaN인지 검사!!!
         '''
-        if not df_futures_graph['ICHI_CONV'].isnull().values.all():
-            print('ICHI_CONV =', df_futures_graph['ICHI_CONV'].tolist())
+        if not df_futures_graph['OE_CONV'].isnull().values.all():
+            print('OE_CONV =', df_futures_graph['OE_CONV'].tolist())
         else:
             pass
         '''
@@ -17658,9 +17683,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        if not math.isnan(df_futures_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'ICHI_BASE']):
+        if not math.isnan(df_futures_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'OE_BASE']):
 
-            if df_futures_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_futures_graph.at[ovc_x_idx, 'ICHI_BASE']:
+            if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
                 fut_macd_symbol = '▼'
             else:
                 fut_macd_symbol = '▲'
@@ -21194,8 +21219,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
                     df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
-                    df_futures_graph['ICHI_BASE'] = futures_Ichimoku.ichimoku_base_line()
-                    df_futures_graph['ICHI_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
+                    df_futures_graph['OE_BASE'] = futures_Ichimoku.ichimoku_base_line()
+                    df_futures_graph['OE_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
                 else:
                     pass
 
@@ -23484,8 +23509,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_dow_graph['SPAN_A'] = dow_Ichimoku.ichimoku_a()
                 df_dow_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
-                df_dow_graph['ICHI_BASE'] = dow_Ichimoku.ichimoku_base_line()
-                df_dow_graph['ICHI_BASE'] = dow_Ichimoku.ichimoku_conversion_line()
+                df_dow_graph['OE_BASE'] = dow_Ichimoku.ichimoku_base_line()
+                df_dow_graph['OE_BASE'] = dow_Ichimoku.ichimoku_conversion_line()
 
 
                 # SP500
@@ -23531,8 +23556,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_sp500_graph['SPAN_A'] = sp500_Ichimoku.ichimoku_a()
                 df_sp500_graph['SPAN_B'] = sp500_Ichimoku.ichimoku_b()
-                df_sp500_graph['ICHI_BASE'] = sp500_Ichimoku.ichimoku_base_line()
-                df_sp500_graph['ICHI_CONV'] = sp500_Ichimoku.ichimoku_conversion_line()
+                df_sp500_graph['OE_BASE'] = sp500_Ichimoku.ichimoku_base_line()
+                df_sp500_graph['OE_CONV'] = sp500_Ichimoku.ichimoku_conversion_line()
 
 
                 # NASDAQ
@@ -23578,8 +23603,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_nasdaq_graph['SPAN_A'] = nasdaq_Ichimoku.ichimoku_a()
                 df_nasdaq_graph['SPAN_B'] = nasdaq_Ichimoku.ichimoku_b()
-                df_nasdaq_graph['ICHI_BASE'] = nasdaq_Ichimoku.ichimoku_base_line()
-                df_nasdaq_graph['ICHI_CONV'] = nasdaq_Ichimoku.ichimoku_conversion_line()
+                df_nasdaq_graph['OE_BASE'] = nasdaq_Ichimoku.ichimoku_base_line()
+                df_nasdaq_graph['OE_CONV'] = nasdaq_Ichimoku.ichimoku_conversion_line()
 
 
                 # WTI
@@ -23625,8 +23650,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_wti_graph['SPAN_A'] = wti_Ichimoku.ichimoku_a()
                 df_wti_graph['SPAN_B'] = wti_Ichimoku.ichimoku_b()
-                df_wti_graph['ICHI_BASE'] = wti_Ichimoku.ichimoku_base_line()
-                df_wti_graph['ICHI_CONV'] = wti_Ichimoku.ichimoku_conversion_line()
+                df_wti_graph['OE_BASE'] = wti_Ichimoku.ichimoku_base_line()
+                df_wti_graph['OE_CONV'] = wti_Ichimoku.ichimoku_conversion_line()
 
                 
             elif szTrCode == 'OVH':
@@ -24217,6 +24242,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.checkBox_plot4_mama.stateChanged.connect(self.checkBox_plot4_mama_checkState)
         self.checkBox_plot5_mama.stateChanged.connect(self.checkBox_plot5_mama_checkState)
         self.checkBox_plot6_mama.stateChanged.connect(self.checkBox_plot6_mama_checkState)
+
+        self.checkBox_plot1_oe.stateChanged.connect(self.checkBox_plot1_oe_checkState)
+        self.checkBox_plot2_oe.stateChanged.connect(self.checkBox_plot2_oe_checkState)
+        self.checkBox_plot3_oe.stateChanged.connect(self.checkBox_plot3_oe_checkState)
+        self.checkBox_plot4_oe.stateChanged.connect(self.checkBox_plot4_oe_checkState)
+        self.checkBox_plot5_oe.stateChanged.connect(self.checkBox_plot5_oe_checkState)
+        self.checkBox_plot6_oe.stateChanged.connect(self.checkBox_plot6_oe_checkState)
         
         if not NightTime:
 
@@ -24599,7 +24631,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot1_vLine, bc_plot1_hLine
         global bc_plot1_kp200_line, bc_plot1_kp200_2_line, bc_plot1_kp200_3_line, bc_plot1_kp200_4_line, bc_plot1_kp200_5_line, bc_plot1_kp200_6_line, bc_plot1_kp200_7_line
         global bc_plot1_bollinger_upper_curve, bc_plot1_bollinger_middle_curve, bc_plot1_bollinger_lower_curve, bc_plot1_sar_curve
-        global bc_plot1_macd_curve, bc_plot1_macdsig_curve, bc_plot1_macdhist_curve, bc_plot1_mama_curve, bc_plot1_fama_curve          
+        global bc_plot1_macd_curve, bc_plot1_macdsig_curve, bc_plot1_macdhist_curve, bc_plot1_mama_curve, bc_plot1_fama_curve, bc_plot1_oe_conv_curve, bc_plot1_oe_base_curve           
 
         # Plot2
         global bc_plot2_fut_volume_curve, bc_plot2_fut_volume_plus_curve, bc_plot2_fut_volume_minus_curve        
@@ -24616,7 +24648,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot2_center_val_line, bc_plot2_center_val_upper_line, bc_plot2_center_val_lower_line
         global bc_plot2_vLine, bc_plot2_hLine
         global bc_plot2_bollinger_upper_curve, bc_plot2_bollinger_middle_curve, bc_plot2_bollinger_lower_curve, bc_plot2_sar_curve
-        global bc_plot2_macd_curve, bc_plot2_macdsig_curve, bc_plot2_macdhist_curve, bc_plot2_mama_curve, bc_plot2_fama_curve
+        global bc_plot2_macd_curve, bc_plot2_macdsig_curve, bc_plot2_macdhist_curve, bc_plot2_mama_curve, bc_plot2_fama_curve, bc_plot2_oe_conv_curve, bc_plot2_oe_base_curve
 
         # Plot3
         global bc_plot3_fut_volume_curve, bc_plot3_fut_volume_plus_curve, bc_plot3_fut_volume_minus_curve        
@@ -24633,7 +24665,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot3_center_val_line, bc_plot3_center_val_upper_line, bc_plot3_center_val_lower_line
         global bc_plot3_vLine, bc_plot3_hLine
         global bc_plot3_bollinger_upper_curve, bc_plot3_bollinger_middle_curve, bc_plot3_bollinger_lower_curve, bc_plot3_sar_curve
-        global bc_plot3_macd_curve, bc_plot3_macdsig_curve, bc_plot3_macdhist_curve, bc_plot3_mama_curve, bc_plot3_fama_curve
+        global bc_plot3_macd_curve, bc_plot3_macdsig_curve, bc_plot3_macdhist_curve, bc_plot3_mama_curve, bc_plot3_fama_curve, bc_plot3_oe_conv_curve, bc_plot3_oe_base_curve
 
         # Plot4
         global bc_plot4_time_line_start, bc_plot4_time_line_yagan_start, bc_plot4_time_line, bc_plot4_fut_price_curve, bc_plot4_kp200_curve
@@ -24649,7 +24681,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot4_vLine, bc_plot4_hLine
         global bc_plot4_kp200_line, bc_plot4_kp200_2_line, bc_plot4_kp200_3_line, bc_plot4_kp200_4_line, bc_plot4_kp200_5_line, bc_plot4_kp200_6_line, bc_plot4_kp200_7_line
         global bc_plot4_bollinger_upper_curve, bc_plot4_bollinger_middle_curve, bc_plot4_bollinger_lower_curve, bc_plot4_sar_curve
-        global bc_plot4_macd_curve, bc_plot4_macdsig_curve, bc_plot4_macdhist_curve, bc_plot4_mama_curve, bc_plot4_fama_curve          
+        global bc_plot4_macd_curve, bc_plot4_macdsig_curve, bc_plot4_macdhist_curve, bc_plot4_mama_curve, bc_plot4_fama_curve, bc_plot4_oe_conv_curve, bc_plot4_oe_base_curve          
 
         # Plot5
         global bc_plot5_fut_volume_curve, bc_plot5_fut_volume_plus_curve, bc_plot5_fut_volume_minus_curve        
@@ -24666,7 +24698,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot5_center_val_line, bc_plot5_center_val_upper_line, bc_plot5_center_val_lower_line
         global bc_plot5_vLine, bc_plot5_hLine
         global bc_plot5_bollinger_upper_curve, bc_plot5_bollinger_middle_curve, bc_plot5_bollinger_lower_curve, bc_plot5_sar_curve
-        global bc_plot5_macd_curve, bc_plot5_macdsig_curve, bc_plot5_macdhist_curve, bc_plot5_mama_curve, bc_plot5_fama_curve
+        global bc_plot5_macd_curve, bc_plot5_macdsig_curve, bc_plot5_macdhist_curve, bc_plot5_mama_curve, bc_plot5_fama_curve, bc_plot5_oe_conv_curve, bc_plot5_oe_base_curve
 
         # Plot6
         global bc_plot6_fut_volume_curve, bc_plot6_fut_volume_plus_curve, bc_plot6_fut_volume_minus_curve        
@@ -24683,7 +24715,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot6_center_val_line, bc_plot6_center_val_upper_line, bc_plot6_center_val_lower_line
         global bc_plot6_vLine, bc_plot6_hLine
         global bc_plot6_bollinger_upper_curve, bc_plot6_bollinger_middle_curve, bc_plot6_bollinger_lower_curve, bc_plot6_sar_curve
-        global bc_plot6_macd_curve, bc_plot6_macdsig_curve, bc_plot6_macdhist_curve, bc_plot6_mama_curve, bc_plot6_fama_curve  
+        global bc_plot6_macd_curve, bc_plot6_macdsig_curve, bc_plot6_macdhist_curve, bc_plot6_mama_curve, bc_plot6_fama_curve, bc_plot6_oe_conv_curve, bc_plot6_oe_base_curve  
 
         # Enable antialiasing for prettier plots
         pg.setConfigOptions(antialias=True)
@@ -24774,6 +24806,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         bc_plot1_mama_curve = self.bc_Plot1.plot(pen=mama_pen)
         bc_plot1_fama_curve = self.bc_Plot1.plot(pen=fama_pen)
+
+        bc_plot1_oe_conv_curve = self.bc_Plot1.plot(pen=mama_pen)
+        bc_plot1_oe_base_curve = self.bc_Plot1.plot(pen=fama_pen)
         
         #cross hair
         if CROSS_HAIR:
@@ -24845,6 +24880,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_mama_curve = self.bc_Plot2.plot(pen=mama_pen)
         bc_plot2_fama_curve = self.bc_Plot2.plot(pen=fama_pen)
 
+        bc_plot2_oe_conv_curve = self.bc_Plot2.plot(pen=mama_pen)
+        bc_plot2_oe_base_curve = self.bc_Plot2.plot(pen=fama_pen)
+
         #cross hair
         if CROSS_HAIR:
             bc_plot2_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -24914,6 +24952,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         bc_plot3_mama_curve = self.bc_Plot3.plot(pen=mama_pen)
         bc_plot3_fama_curve = self.bc_Plot3.plot(pen=fama_pen)
+
+        bc_plot3_oe_conv_curve = self.bc_Plot3.plot(pen=mama_pen)
+        bc_plot3_oe_base_curve = self.bc_Plot3.plot(pen=fama_pen)
 
         #cross hair
         if CROSS_HAIR:
@@ -24985,6 +25026,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         bc_plot4_mama_curve = self.bc_Plot4.plot(pen=mama_pen)
         bc_plot4_fama_curve = self.bc_Plot4.plot(pen=fama_pen)
+
+        bc_plot4_oe_conv_curve = self.bc_Plot4.plot(pen=mama_pen)
+        bc_plot4_oe_base_curve = self.bc_Plot4.plot(pen=fama_pen)
         
         #cross hair
         if CROSS_HAIR:
@@ -25056,6 +25100,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot5_mama_curve = self.bc_Plot5.plot(pen=mama_pen)
         bc_plot5_fama_curve = self.bc_Plot5.plot(pen=fama_pen)
 
+        bc_plot5_oe_conv_curve = self.bc_Plot5.plot(pen=mama_pen)
+        bc_plot5_oe_base_curve = self.bc_Plot5.plot(pen=fama_pen)
+
         #cross hair
         if CROSS_HAIR:
             bc_plot5_vLine = pg.InfiniteLine(angle=90, movable=False)
@@ -25125,6 +25172,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         bc_plot6_mama_curve = self.bc_Plot6.plot(pen=mama_pen)
         bc_plot6_fama_curve = self.bc_Plot6.plot(pen=fama_pen)
+
+        bc_plot6_oe_conv_curve = self.bc_Plot6.plot(pen=mama_pen)
+        bc_plot6_oe_base_curve = self.bc_Plot6.plot(pen=fama_pen)
 
         #cross hair
         if CROSS_HAIR:
@@ -25794,6 +25844,60 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             flag_checkBox_plot6_mama = False
 
+    def checkBox_plot1_oe_checkState(self):
+
+        global flag_checkBox_plot1_oe
+
+        if self.checkBox_plot1_oe.isChecked() == True:
+            flag_checkBox_plot1_oe = True
+        else:
+            flag_checkBox_plot1_oe = False
+
+    def checkBox_plot2_oe_checkState(self):
+
+        global flag_checkBox_plot2_oe
+
+        if self.checkBox_plot2_oe.isChecked() == True:
+            flag_checkBox_plot2_oe = True
+        else:
+            flag_checkBox_plot2_oe = False
+
+    def checkBox_plot3_oe_checkState(self):
+
+        global flag_checkBox_plot3_oe
+
+        if self.checkBox_plot3_oe.isChecked() == True:
+            flag_checkBox_plot3_oe = True
+        else:
+            flag_checkBox_plot3_oe = False
+
+    def checkBox_plot4_oe_checkState(self):
+
+        global flag_checkBox_plot4_oe
+
+        if self.checkBox_plot4_oe.isChecked() == True:
+            flag_checkBox_plot4_oe = True
+        else:
+            flag_checkBox_plot4_oe = False
+
+    def checkBox_plot5_oe_checkState(self):
+
+        global flag_checkBox_plot5_oe
+
+        if self.checkBox_plot5_oe.isChecked() == True:
+            flag_checkBox_plot5_oe = True
+        else:
+            flag_checkBox_plot5_oe = False
+
+    def checkBox_plot6_oe_checkState(self):
+
+        global flag_checkBox_plot6_oe
+
+        if self.checkBox_plot6_oe.isChecked() == True:
+            flag_checkBox_plot6_oe = True
+        else:
+            flag_checkBox_plot6_oe = False
+
     
     def bc_cb1_selectionChanged(self):
 
@@ -25813,7 +25917,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_bollinger_lower_curve.clear()
 
         bc_plot1_mama_curve.clear()
-        bc_plot1_fama_curve.clear()  
+        bc_plot1_fama_curve.clear()
+
+        bc_plot1_oe_conv_curve.clear()
+        bc_plot1_oe_base_curve.clear()  
 
         # 선물체결
         if bc_comboindex1 == 0:
@@ -26632,6 +26739,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_mama_curve.clear()
         bc_plot2_fama_curve.clear()
 
+        bc_plot2_oe_conv_curve.clear()
+        bc_plot2_oe_base_curve.clear()
+
         # 옵션체결
         if bc_comboindex2 == 0:
 
@@ -27388,6 +27498,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         bc_plot3_mama_curve.clear()
         bc_plot3_fama_curve.clear()
+
+        bc_plot3_oe_conv_curve.clear()
+        bc_plot3_oe_base_curve.clear()
 
         # 옵션체결
         if bc_comboindex3 == 0:
@@ -28146,6 +28259,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         bc_plot4_mama_curve.clear()
         bc_plot4_fama_curve.clear() 
+
+        bc_plot4_oe_conv_curve.clear()
+        bc_plot4_oe_base_curve.clear()
 
         # 선물체결
         if bc_comboindex4 == 0:
@@ -28969,6 +29085,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot5_mama_curve.clear()
         bc_plot5_fama_curve.clear()
 
+        bc_plot5_oe_conv_curve.clear()
+        bc_plot5_oe_base_curve.clear()
+
         # 옵션체결
         if bc_comboindex5 == 0:
 
@@ -29725,6 +29844,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         bc_plot6_mama_curve.clear()
         bc_plot6_fama_curve.clear()
+
+        bc_plot6_oe_conv_curve.clear()
+        bc_plot6_oe_base_curve.clear()
 
         # 옵션체결
         if bc_comboindex6 == 0:
@@ -30598,16 +30720,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_futures_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_futures_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'ICHI_CONV'], df_futures_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p1_3.setText(str)
                 else:
                     pass
@@ -30725,6 +30847,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot1_mama_curve.clear()
                     bc_plot1_fama_curve.clear()
 
+                if flag_checkBox_plot1_oe:
+
+                    bc_plot1_oe_conv_curve.setData(df_futures_graph['OE_CONV'].tolist())
+                    bc_plot1_oe_base_curve.setData(df_futures_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot1_oe_conv_curve.clear()
+                    bc_plot1_oe_base_curve.clear()
+
             elif bc_comboindex1 == 6:
 
                 pass
@@ -30754,16 +30884,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_sp500_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] < df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'ICHI_CONV'], df_sp500_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p1_3.setText(str)
                 else:
                     pass
@@ -30859,6 +30989,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot1_mama_curve.clear()
                     bc_plot1_fama_curve.clear()
 
+                if flag_checkBox_plot1_oe:
+
+                    bc_plot1_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].tolist())
+                    bc_plot1_oe_base_curve.setData(df_sp500_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot1_oe_conv_curve.clear()
+                    bc_plot1_oe_base_curve.clear()
+
             elif bc_comboindex1 == 8:
 
                 if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBMiddle']):
@@ -30884,16 +31022,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_dow_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] < df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'ICHI_CONV'], df_dow_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p1_3.setText(str)
                 else:
                     pass
@@ -30989,6 +31127,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot1_mama_curve.clear()
                     bc_plot1_fama_curve.clear()
 
+                if flag_checkBox_plot1_oe:
+
+                    bc_plot1_oe_conv_curve.setData(df_dow_graph['OE_CONV'].tolist())
+                    bc_plot1_oe_base_curve.setData(df_dow_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot1_oe_conv_curve.clear()
+                    bc_plot1_oe_base_curve.clear()
+
             elif bc_comboindex1 == 9:
 
                 if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']):
@@ -31014,16 +31160,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'ICHI_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p1_3.setText(str)
                 else:
                     pass
@@ -31119,6 +31265,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot1_mama_curve.clear()
                     bc_plot1_fama_curve.clear()
 
+                if flag_checkBox_plot1_oe:
+
+                    bc_plot1_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].tolist())
+                    bc_plot1_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot1_oe_conv_curve.clear()
+                    bc_plot1_oe_base_curve.clear()
+
             elif bc_comboindex1 == 10:
 
                 if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBMiddle']):
@@ -31144,16 +31298,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_wti_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] < df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'ICHI_CONV'], df_wti_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p1_3.setText(str)
                 else:
                     pass
@@ -31247,6 +31401,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot1_mama_curve.clear()
                     bc_plot1_fama_curve.clear()
+
+                if flag_checkBox_plot1_oe:
+
+                    bc_plot1_oe_conv_curve.setData(df_wti_graph['OE_CONV'].tolist())
+                    bc_plot1_oe_base_curve.setData(df_wti_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot1_oe_conv_curve.clear()
+                    bc_plot1_oe_base_curve.clear()
             else:
                 pass   
 
@@ -31427,16 +31589,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_sp500_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] < df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p2_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'ICHI_CONV'], df_sp500_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p2_3.setText(str)
                 else:
                     pass
@@ -31536,7 +31698,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot2_fama_curve.setData(df_sp500_graph['A_FAMA'].tolist())
                 else:
                     bc_plot2_mama_curve.clear()
-                    bc_plot2_fama_curve.clear() 
+                    bc_plot2_fama_curve.clear()
+
+                if flag_checkBox_plot2_oe:
+
+                    bc_plot2_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].tolist())
+                    bc_plot2_oe_base_curve.setData(df_sp500_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot2_oe_conv_curve.clear()
+                    bc_plot2_oe_base_curve.clear() 
 
             elif bc_comboindex2 == 8:
 
@@ -31563,16 +31733,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_dow_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] < df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p2_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'ICHI_CONV'], df_dow_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p2_3.setText(str)
                 else:
                     pass
@@ -31671,7 +31841,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot2_fama_curve.setData(df_dow_graph['A_FAMA'].tolist())
                 else:
                     bc_plot2_mama_curve.clear()
-                    bc_plot2_fama_curve.clear()   
+                    bc_plot2_fama_curve.clear()
+
+                if flag_checkBox_plot2_oe:
+
+                    bc_plot2_oe_conv_curve.setData(df_dow_graph['OE_CONV'].tolist())
+                    bc_plot2_oe_base_curve.setData(df_dow_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot2_oe_conv_curve.clear()
+                    bc_plot2_oe_base_curve.clear()    
 
             elif bc_comboindex2 == 9:
 
@@ -31698,16 +31876,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p2_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'ICHI_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p2_3.setText(str)
                 else:
                     pass
@@ -31806,7 +31984,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot2_fama_curve.setData(df_nasdaq_graph['A_FAMA'].tolist())
                 else:
                     bc_plot2_mama_curve.clear()
-                    bc_plot2_fama_curve.clear() 
+                    bc_plot2_fama_curve.clear()
+
+                if flag_checkBox_plot2_oe:
+
+                    bc_plot2_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].tolist())
+                    bc_plot2_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot2_oe_conv_curve.clear()
+                    bc_plot2_oe_base_curve.clear() 
 
             elif bc_comboindex2 == 10:
 
@@ -31833,16 +32019,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_wti_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] < df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p2_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'ICHI_CONV'], df_wti_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p2_3.setText(str)
                 else:
                     pass
@@ -31940,7 +32126,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot2_fama_curve.setData(df_wti_graph['A_FAMA'].tolist())
                 else:
                     bc_plot2_mama_curve.clear()
-                    bc_plot2_fama_curve.clear()  
+                    bc_plot2_fama_curve.clear()
+
+                if flag_checkBox_plot2_oe:
+
+                    bc_plot2_oe_conv_curve.setData(df_wti_graph['OE_CONV'].tolist())
+                    bc_plot2_oe_base_curve.setData(df_wti_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot2_oe_conv_curve.clear()
+                    bc_plot2_oe_base_curve.clear()  
             else:
                 pass        
             
@@ -32121,16 +32315,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_sp500_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] < df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p3_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'ICHI_CONV'], df_sp500_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p3_3.setText(str)
                 else:
                     pass
@@ -32230,7 +32424,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot3_fama_curve.setData(df_sp500_graph['A_FAMA'].tolist())
                 else:
                     bc_plot3_mama_curve.clear()
-                    bc_plot3_fama_curve.clear()  
+                    bc_plot3_fama_curve.clear()
+
+                if flag_checkBox_plot3_oe:
+
+                    bc_plot3_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].tolist())
+                    bc_plot3_oe_base_curve.setData(df_sp500_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot3_oe_conv_curve.clear()
+                    bc_plot3_oe_base_curve.clear()  
 
             elif bc_comboindex3 == 8:
 
@@ -32257,16 +32459,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_dow_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] < df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p3_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'ICHI_CONV'], df_dow_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p3_3.setText(str)
                 else:
                     pass
@@ -32365,7 +32567,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot3_fama_curve.setData(df_dow_graph['A_FAMA'].tolist())
                 else:
                     bc_plot3_mama_curve.clear()
-                    bc_plot3_fama_curve.clear()    
+                    bc_plot3_fama_curve.clear()
+
+                if flag_checkBox_plot3_oe:
+
+                    bc_plot3_oe_conv_curve.setData(df_dow_graph['OE_CONV'].tolist())
+                    bc_plot3_oe_base_curve.setData(df_dow_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot3_oe_conv_curve.clear()
+                    bc_plot3_oe_base_curve.clear()    
 
             elif bc_comboindex3 == 9:
 
@@ -32392,16 +32602,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p3_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'ICHI_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p3_3.setText(str)
                 else:
                     pass
@@ -32500,7 +32710,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot3_fama_curve.setData(df_nasdaq_graph['A_FAMA'].tolist())
                 else:
                     bc_plot3_mama_curve.clear()
-                    bc_plot3_fama_curve.clear()  
+                    bc_plot3_fama_curve.clear()
+
+                if flag_checkBox_plot3_oe:
+
+                    bc_plot3_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].tolist())
+                    bc_plot3_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot3_oe_conv_curve.clear()
+                    bc_plot3_oe_base_curve.clear()   
 
             elif bc_comboindex3 == 10:
 
@@ -32527,16 +32745,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_wti_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] < df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p3_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'ICHI_CONV'], df_wti_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p3_3.setText(str)
                 else:
                     pass
@@ -32634,7 +32852,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot3_fama_curve.setData(df_wti_graph['A_FAMA'].tolist())
                 else:
                     bc_plot3_mama_curve.clear()
-                    bc_plot3_fama_curve.clear()  
+                    bc_plot3_fama_curve.clear()
+
+                if flag_checkBox_plot3_oe:
+
+                    bc_plot3_oe_conv_curve.setData(df_wti_graph['OE_CONV'].tolist())
+                    bc_plot3_oe_base_curve.setData(df_wti_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot3_oe_conv_curve.clear()
+                    bc_plot3_oe_base_curve.clear()  
             else:
                 pass
 
@@ -32736,16 +32962,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_futures_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_futures_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'ICHI_CONV'], df_futures_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p4_3.setText(str)
                 else:
                     pass
@@ -32863,6 +33089,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot4_mama_curve.clear()
                     bc_plot4_fama_curve.clear()
 
+                if flag_checkBox_plot4_oe:
+
+                    bc_plot4_oe_conv_curve.setData(df_futures_graph['OE_CONV'].tolist())
+                    bc_plot4_oe_base_curve.setData(df_futures_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot4_oe_conv_curve.clear()
+                    bc_plot4_oe_base_curve.clear()
+
             elif bc_comboindex4 == 6:
 
                 pass
@@ -32892,16 +33126,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_sp500_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] < df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'ICHI_CONV'], df_sp500_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p4_3.setText(str)
                 else:
                     pass
@@ -32997,6 +33231,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot4_mama_curve.clear()
                     bc_plot4_fama_curve.clear()
 
+                if flag_checkBox_plot4_oe:
+
+                    bc_plot4_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].tolist())
+                    bc_plot4_oe_base_curve.setData(df_sp500_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot4_oe_conv_curve.clear()
+                    bc_plot4_oe_base_curve.clear()
+
             elif bc_comboindex4 == 8:
 
                 if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBMiddle']):
@@ -33022,16 +33264,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_dow_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] < df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'ICHI_CONV'], df_dow_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p4_3.setText(str)
                 else:
                     pass
@@ -33127,6 +33369,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot4_mama_curve.clear()
                     bc_plot4_fama_curve.clear()
 
+                if flag_checkBox_plot4_oe:
+
+                    bc_plot4_oe_conv_curve.setData(df_dow_graph['OE_CONV'].tolist())
+                    bc_plot4_oe_base_curve.setData(df_dow_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot4_oe_conv_curve.clear()
+                    bc_plot4_oe_base_curve.clear()
+
             elif bc_comboindex4 == 9:
 
                 if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']):
@@ -33152,16 +33402,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'ICHI_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p4_3.setText(str)
                 else:
                     pass
@@ -33257,6 +33507,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot4_mama_curve.clear()
                     bc_plot4_fama_curve.clear()
 
+                if flag_checkBox_plot4_oe:
+
+                    bc_plot4_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].tolist())
+                    bc_plot4_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot4_oe_conv_curve.clear()
+                    bc_plot4_oe_base_curve.clear()
+
             elif bc_comboindex4 == 10:
 
                 if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBMiddle']):
@@ -33282,16 +33540,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_wti_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] < df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'ICHI_CONV'], df_wti_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p4_3.setText(str)
                 else:
                     pass
@@ -33385,6 +33643,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     bc_plot4_mama_curve.clear()
                     bc_plot4_fama_curve.clear()
+
+                if flag_checkBox_plot4_oe:
+
+                    bc_plot4_oe_conv_curve.setData(df_wti_graph['OE_CONV'].tolist())
+                    bc_plot4_oe_base_curve.setData(df_wti_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot4_oe_conv_curve.clear()
+                    bc_plot4_oe_base_curve.clear()
             else:
                 pass   
 
@@ -33565,16 +33831,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_sp500_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] < df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p5_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'ICHI_CONV'], df_sp500_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p5_3.setText(str)
                 else:
                     pass
@@ -33674,7 +33940,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot5_fama_curve.setData(df_sp500_graph['A_FAMA'].tolist())
                 else:
                     bc_plot5_mama_curve.clear()
-                    bc_plot5_fama_curve.clear() 
+                    bc_plot5_fama_curve.clear()
+
+                if flag_checkBox_plot5_oe:
+
+                    bc_plot5_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].tolist())
+                    bc_plot5_oe_base_curve.setData(df_sp500_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot5_oe_conv_curve.clear()
+                    bc_plot5_oe_base_curve.clear() 
 
             elif bc_comboindex5 == 8:
 
@@ -33701,16 +33975,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_dow_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] < df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p5_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'ICHI_CONV'], df_dow_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p5_3.setText(str)
                 else:
                     pass
@@ -33809,7 +34083,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot5_fama_curve.setData(df_dow_graph['A_FAMA'].tolist())
                 else:
                     bc_plot5_mama_curve.clear()
-                    bc_plot5_fama_curve.clear()   
+                    bc_plot5_fama_curve.clear()
+
+                if flag_checkBox_plot5_oe:
+
+                    bc_plot5_oe_conv_curve.setData(df_dow_graph['OE_CONV'].tolist())
+                    bc_plot5_oe_base_curve.setData(df_dow_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot5_oe_conv_curve.clear()
+                    bc_plot5_oe_base_curve.clear()   
 
             elif bc_comboindex5 == 9:
 
@@ -33836,16 +34118,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p5_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'ICHI_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p5_3.setText(str)
                 else:
                     pass
@@ -33944,7 +34226,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot5_fama_curve.setData(df_nasdaq_graph['A_FAMA'].tolist())
                 else:
                     bc_plot5_mama_curve.clear()
-                    bc_plot5_fama_curve.clear()  
+                    bc_plot5_fama_curve.clear()
+
+                if flag_checkBox_plot5_oe:
+
+                    bc_plot5_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].tolist())
+                    bc_plot5_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot5_oe_conv_curve.clear()
+                    bc_plot5_oe_base_curve.clear()  
 
             elif bc_comboindex5 == 10:
 
@@ -33971,16 +34261,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_wti_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] < df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p5_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'ICHI_CONV'], df_wti_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p5_3.setText(str)
                 else:
                     pass
@@ -34078,7 +34368,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot5_fama_curve.setData(df_wti_graph['A_FAMA'].tolist())
                 else:
                     bc_plot5_mama_curve.clear()
-                    bc_plot5_fama_curve.clear() 
+                    bc_plot5_fama_curve.clear()
+
+                if flag_checkBox_plot5_oe:
+
+                    bc_plot5_oe_conv_curve.setData(df_wti_graph['OE_CONV'].tolist())
+                    bc_plot5_oe_base_curve.setData(df_wti_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot5_oe_conv_curve.clear()
+                    bc_plot5_oe_base_curve.clear() 
             else:
                 pass
 
@@ -34259,16 +34557,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_sp500_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_sp500_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] < df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p6_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'ICHI_CONV'], df_sp500_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p6_3.setText(str)
                 else:
                     pass
@@ -34368,7 +34666,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot6_fama_curve.setData(df_sp500_graph['A_FAMA'].tolist())
                 else:
                     bc_plot6_mama_curve.clear()
-                    bc_plot6_fama_curve.clear()  
+                    bc_plot6_fama_curve.clear()
+
+                if flag_checkBox_plot6_oe:
+
+                    bc_plot6_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].tolist())
+                    bc_plot6_oe_base_curve.setData(df_sp500_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot6_oe_conv_curve.clear()
+                    bc_plot6_oe_base_curve.clear()  
 
             elif bc_comboindex6 == 8:
 
@@ -34395,16 +34701,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_dow_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_dow_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] < df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p6_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'ICHI_CONV'], df_dow_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p6_3.setText(str)
                 else:
                     pass
@@ -34503,7 +34809,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot6_fama_curve.setData(df_dow_graph['A_FAMA'].tolist())
                 else:
                     bc_plot6_mama_curve.clear()
-                    bc_plot6_fama_curve.clear()    
+                    bc_plot6_fama_curve.clear()
+
+                if flag_checkBox_plot6_oe:
+
+                    bc_plot6_oe_conv_curve.setData(df_dow_graph['OE_CONV'].tolist())
+                    bc_plot6_oe_base_curve.setData(df_dow_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot6_oe_conv_curve.clear()
+                    bc_plot6_oe_base_curve.clear()    
 
             elif bc_comboindex6 == 9:
 
@@ -34530,16 +34844,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_nasdaq_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p6_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'ICHI_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p6_3.setText(str)
                 else:
                     pass
@@ -34638,7 +34952,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot6_fama_curve.setData(df_nasdaq_graph['A_FAMA'].tolist())
                 else:
                     bc_plot6_mama_curve.clear()
-                    bc_plot6_fama_curve.clear()  
+                    bc_plot6_fama_curve.clear()
+
+                if flag_checkBox_plot6_oe:
+
+                    bc_plot6_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].tolist())
+                    bc_plot6_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot6_oe_conv_curve.clear()
+                    bc_plot6_oe_base_curve.clear()  
 
             elif bc_comboindex6 == 10:
 
@@ -34665,16 +34987,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'ICHI_CONV']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'ICHI_BASE']):
+                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_BASE']):
 
-                    if df_wti_graph.at[ovc_x_idx, 'ICHI_CONV'] < df_wti_graph.at[ovc_x_idx, 'ICHI_BASE']:
+                    if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] < df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p6_3.setStyleSheet('background-color: blue ; color: white')
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red ; color: white')
 
                     self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'ICHI_CONV'], df_wti_graph.at[ovc_x_idx, 'ICHI_BASE'])
+                    str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p6_3.setText(str)
                 else:
                     pass
@@ -34772,7 +35094,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot6_fama_curve.setData(df_wti_graph['A_FAMA'].tolist())
                 else:
                     bc_plot6_mama_curve.clear()
-                    bc_plot6_fama_curve.clear()  
+                    bc_plot6_fama_curve.clear()
+
+                if flag_checkBox_plot6_oe:
+
+                    bc_plot6_oe_conv_curve.setData(df_wti_graph['OE_CONV'].tolist())
+                    bc_plot6_oe_base_curve.setData(df_wti_graph['OE_BASE'].tolist())
+                else:
+                    bc_plot6_oe_conv_curve.clear()
+                    bc_plot6_oe_base_curve.clear()   
             else:
                 pass
         else:
