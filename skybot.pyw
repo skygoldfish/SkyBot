@@ -23510,7 +23510,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_dow_graph['SPAN_A'] = dow_Ichimoku.ichimoku_a()
                 df_dow_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
                 df_dow_graph['OE_BASE'] = dow_Ichimoku.ichimoku_base_line()
-                df_dow_graph['OE_BASE'] = dow_Ichimoku.ichimoku_conversion_line()
+                df_dow_graph['OE_CONV'] = dow_Ichimoku.ichimoku_conversion_line()
 
 
                 # SP500
