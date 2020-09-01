@@ -20048,12 +20048,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         풋잔량비 = put_remainder_ratio
 
-        if market_service and ovc_x_idx > 0:
-
-            df_call_info_graph.at[ovc_x_idx, 'hoga'] = 콜잔량비
-            df_put_info_graph.at[ovc_x_idx, 'hoga'] = 풋잔량비
-        else:
-            pass
+        df_call_info_graph.at[ovc_x_idx, 'hoga'] = 콜잔량비
+        df_put_info_graph.at[ovc_x_idx, 'hoga'] = 풋잔량비
 
         #temp = call_quote['매수건수'] + call_quote['매도건수']
         #건수합 = format(temp, ',')
@@ -22096,6 +22092,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if not receive_quote:
                     receive_quote = True
+                else:
+                    pass
+
+                if not market_service:
+                    market_service = True
                 else:
                     pass
 
