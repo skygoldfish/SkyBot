@@ -12384,23 +12384,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_put_info_graph = DataFrame(index=range(0, timespan), columns=['volume', 'hoga', 'drate', 'yanghap'])
 
                 df_futures_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'kp200', 'c_hoga_rr', \
-                    'n_hoga_rr', 'drate', 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', \
-                        'OE_BASE', 'OE_CONV', 'SPAN_A', 'SPAN_B'])
+                    'n_hoga_rr', 'drate', 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', \
+                        'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
 
                 df_sp500_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'OE_BASE', 'OE_CONV', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA',  'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
                 df_dow_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'OE_BASE', 'OE_CONV', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
                 df_nasdaq_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'OE_BASE', 'OE_CONV', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
                 df_wti_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'OE_BASE', 'OE_CONV', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
                 df_eurofx_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'OE_BASE', 'OE_CONV', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
                 df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'OE_BASE', 'OE_CONV', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
                 df_gold_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
-                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MACDHist', 'MAMA', 'FAMA', 'A_FAMA', 'OE_BASE', 'OE_CONV', 'SPAN_A', 'SPAN_B'])
+                    'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
 
                 # 콜처리
                 for i in range(option_pairs_count):
@@ -17621,11 +17621,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # Parabolic SAR
         parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+        # PSARIndicator 함수 오동작하는 듯...
         #ta_psar = ta.trend.PSARIndicator(df_futures_graph['high'], df_futures_graph['low'], df_futures_graph['close'])        
 
         df_futures_graph['PSAR'] = parabolic_sar
         #df_futures_graph['TA_PSAR'] = ta_psar.psar()
-        #print('ta_psar =', df_futures_graph['TA_PSAR'].tolist())
 
         # MAMA
         mama, fama = talib.MAMA(np.array(df_futures_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
@@ -21189,6 +21190,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # Parabolic SAR
                     parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+                    # PSARIndicator 함수 오동작하는 듯...
                     #ta_psar = ta.trend.PSARIndicator(df_futures_graph['high'], df_futures_graph['low'], df_futures_graph['close'])
 
                     df_futures_graph['PSAR'] = parabolic_sar
@@ -23483,6 +23486,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_dow_graph['high'], dtype=float), np.array(df_dow_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+                # PSARIndicator 함수 오동작하는 듯...
                 #ta_psar = ta.trend.PSARIndicator(df_dow_graph['high'], df_dow_graph['low'], df_dow_graph['close'])
 
                 df_dow_graph['PSAR'] = parabolic_sar
@@ -23531,6 +23536,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_sp500_graph['high'], dtype=float), np.array(df_sp500_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+                # PSARIndicator 함수 오동작하는 듯...
                 #ta_psar = ta.trend.PSARIndicator(df_sp500_graph['high'], df_sp500_graph['low'], df_sp500_graph['close'])
 
                 df_sp500_graph['PSAR'] = parabolic_sar
@@ -23578,6 +23585,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_nasdaq_graph['high'], dtype=float), np.array(df_nasdaq_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+                # PSARIndicator 함수 오동작하는 듯...
                 #ta_psar = ta.trend.PSARIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'], df_nasdaq_graph['close'])
 
                 df_nasdaq_graph['PSAR'] = parabolic_sar
@@ -23625,6 +23634,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_wti_graph['high'], dtype=float), np.array(df_wti_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+                # PSARIndicator 함수 오동작하는 듯...
                 #ta_psar = ta.trend.PSARIndicator(df_wti_graph['high'], df_wti_graph['low'], df_wti_graph['close'])
 
                 df_wti_graph['PSAR'] = parabolic_sar
