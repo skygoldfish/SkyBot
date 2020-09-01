@@ -17617,7 +17617,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         df_futures_graph['MACD'] = macd
         df_futures_graph['MACDSig'] = macdsignal
-        df_futures_graph['MACDHist'] = macdhist
+        #df_futures_graph['MACDHist'] = macdhist
 
         # Parabolic SAR
         parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -21186,7 +21186,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_futures_graph['MACD'] = macd
                     df_futures_graph['MACDSig'] = macdsignal
-                    df_futures_graph['MACDHist'] = macdhist
+                    #df_futures_graph['MACDHist'] = macdhist
 
                     # Parabolic SAR
                     parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -23482,7 +23482,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_dow_graph['MACD'] = macd
                 df_dow_graph['MACDSig'] = macdsignal
-                df_dow_graph['MACDHist'] = macdhist           
+                #df_dow_graph['MACDHist'] = macdhist           
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_dow_graph['high'], dtype=float), np.array(df_dow_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -23532,7 +23532,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_sp500_graph['MACD'] = macd
                 df_sp500_graph['MACDSig'] = macdsignal
-                df_sp500_graph['MACDHist'] = macdhist           
+                #df_sp500_graph['MACDHist'] = macdhist           
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_sp500_graph['high'], dtype=float), np.array(df_sp500_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -23581,7 +23581,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_nasdaq_graph['MACD'] = macd
                 df_nasdaq_graph['MACDSig'] = macdsignal
-                df_nasdaq_graph['MACDHist'] = macdhist           
+                #df_nasdaq_graph['MACDHist'] = macdhist           
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_nasdaq_graph['high'], dtype=float), np.array(df_nasdaq_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -23630,7 +23630,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_wti_graph['MACD'] = macd
                 df_wti_graph['MACDSig'] = macdsignal
-                df_wti_graph['MACDHist'] = macdhist           
+                #df_wti_graph['MACDHist'] = macdhist           
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_wti_graph['high'], dtype=float), np.array(df_wti_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
