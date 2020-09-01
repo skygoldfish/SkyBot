@@ -17628,13 +17628,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         df_futures_graph['ICHI_BASE'] = futures_Ichimoku.ichimoku_base_line()
         df_futures_graph['ICHI_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
 
-        '''
-        if not df_futures_graph['ICHI_BASE'].isnull():
-            print('ICHI_BASE =', df_futures_graph['ICHI_BASE'].tolist())
-        else:
-            pass
 
-        if not df_futures_graph['ICHI_CONV'].isnull():
+        # 데이타프레임의 모든 요소가 NaN인지 검사!!!
+        '''
+        if not df_futures_graph['ICHI_CONV'].isnull().values.all():
             print('ICHI_CONV =', df_futures_graph['ICHI_CONV'].tolist())
         else:
             pass
