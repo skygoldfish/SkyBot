@@ -6159,7 +6159,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 '''
                 # 호가 갱신
                 if receive_quote:
-                    self.quote_display()
+                    self.option_quote_display()
                 else:
                     pass
                 '''
@@ -6247,7 +6247,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             # 콜 테이블 데이타 갱신
                             self.call_db_update()
-                            #self.call_volume_power_update()
+                            #self.call_volume_power_display()
                             self.call_oi_update()                          
 
                             # 콜 저가, 고가 맥점 컬러갱신
@@ -6291,7 +6291,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             # 풋 테이블 데이타 갱신
                             self.put_db_update()
-                            #self.put_volume_power_update()
+                            #self.put_volume_power_display()
                             self.put_oi_update()                          
 
                             if not NightTime:
@@ -18457,7 +18457,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
     
-    def call_volume_power_update(self):
+    def call_volume_power_display(self):
 
         global df_call, df_call_volume, call_volume_power, call_volume, df_call_info_graph   
         global 콜_순매수_체결량
@@ -19564,7 +19564,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-    def put_volume_power_update(self):
+    def put_volume_power_display(self):
 
         global df_put, df_put_volume, put_volume_power, put_volume, df_put_info_graph
         global 풋_순매수_체결량, option_volume_power
@@ -20018,7 +20018,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
     # 호가표시
-    def quote_display(self):
+    def option_quote_display(self):
         
         global call_quote, put_quote
         global 콜매수잔량, 콜매도잔량, 풋매수잔량, 풋매도잔량, 콜건수비, 콜잔량비, 풋건수비, 풋잔량비
@@ -22108,14 +22108,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    self.call_volume_power_update()                    
+                    self.call_volume_power_display()                    
 
                 elif result['단축코드'][0:3] == '301':
 
                     put_result = copy.deepcopy(result)
 
                     self.put_display()
-                    self.put_volume_power_update()                    
+                    self.put_volume_power_display()                    
                 else:
                     pass
 
@@ -22140,7 +22140,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_call_hoga.loc[index, '매수잔량'] = result['매수호가총수량']
                     df_call_hoga.loc[index, '매도잔량'] = result['매도호가총수량']
 
-                    opt_call_ho_update_counter += 1
+                    #opt_call_ho_update_counter += 1
 
                 elif result['단축코드'][0:3] == '301':
 
@@ -22151,12 +22151,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_put_hoga.loc[index, '매수잔량'] = result['매수호가총수량']
                     df_put_hoga.loc[index, '매도잔량'] = result['매도호가총수량']
 
-                    opt_put_ho_update_counter += 1
+                    #opt_put_ho_update_counter += 1
 
                 else:
                     pass
 
-                self.quote_display()
+                self.option_quote_display()
 
                 '''
                 if opt_call_ho_update_counter == 1000 or opt_put_ho_update_counter == 1000:
