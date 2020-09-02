@@ -13146,9 +13146,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.OVH.AdviseRealData(종목코드=DOW)
                 self.OVH.AdviseRealData(종목코드=NASDAQ)
                 self.OVH.AdviseRealData(종목코드=WTI)
-                self.OVH.AdviseRealData(종목코드=EUROFX)
-                self.OVH.AdviseRealData(종목코드=HANGSENG)
-                self.OVH.AdviseRealData(종목코드=GOLD)
+                #self.OVH.AdviseRealData(종목코드=HANGSENG)
+                #self.OVH.AdviseRealData(종목코드=EUROFX)                
+                #self.OVH.AdviseRealData(종목코드=GOLD)
                 '''
                 # 해외옵션 체결 실시간 요청
                 
