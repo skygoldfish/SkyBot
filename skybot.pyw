@@ -13140,12 +13140,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 #self.OVC.AdviseRealData(종목코드=EUROFX)
                 #self.OVC.AdviseRealData(종목코드=GOLD)
 
-                '''
+                
                 # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)
                 self.OVH.AdviseRealData(종목코드=SP500)
                 self.OVH.AdviseRealData(종목코드=DOW)
                 self.OVH.AdviseRealData(종목코드=NASDAQ)
                 self.OVH.AdviseRealData(종목코드=WTI)
+                '''
                 #self.OVH.AdviseRealData(종목코드=HANGSENG)
                 #self.OVH.AdviseRealData(종목코드=EUROFX)                
                 #self.OVH.AdviseRealData(종목코드=GOLD)
