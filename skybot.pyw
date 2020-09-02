@@ -20546,7 +20546,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         self.pushButton_add.setText('ScrShot')
                         
-                        self.SaveResult()                    
+                        self.SaveResult()
+
+                        if not flag_offline:
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                            self.textBrowser.append(str)
+                            print(str)
+
+                            flag_offline = True  
+
+                            self.parent.connection.disconnect()
+
+                            time.sleep(0.5)
+
+                            self.parent.statusbar.showMessage("오프라인")
+                        else:
+                            pass                    
                     else:
                         pass                                               
 
@@ -24024,6 +24040,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def SaveResult(self):
 
+        global flag_offline
+
         dt = datetime.datetime.now()
         now = time.localtime()
 
@@ -24068,16 +24086,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 Graph 파일을 저장했습니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
-        
-        str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(dt.hour, dt.minute, dt.second)
-        self.textBrowser.append(str)
-        
-        file = open('skybot.log', 'w')
-        text = self.textBrowser.toPlainText()
-        file.write(text)
-        file.close()
-
-        if not NightTime and self.parent.connection.IsConnected() and not flag_offline:
+        '''
+        if not flag_offline:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(str)
@@ -24086,8 +24096,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             flag_offline = True  
 
             self.parent.connection.disconnect()
+
+            time.sleep(0.5)
+
+            self.parent.statusbar.showMessage("오프라인")
         else:
-            pass        
+            pass
+        '''
+        str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(dt.hour, dt.minute, dt.second)
+        self.textBrowser.append(str)
+        
+        file = open('skybot.log', 'w')
+        text = self.textBrowser.toPlainText()
+        file.write(text)
+        file.close()       
 
     def RemoveCode(self):
 
@@ -24186,6 +24208,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             print('flag_telegram_on =', flag_telegram_on)
+
 
     def high_low_list_save_to_file(self):
         
