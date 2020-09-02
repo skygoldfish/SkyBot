@@ -30713,6 +30713,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         dt = datetime.datetime.now()
         start_time = timeit.default_timer()
 
+        '''
         if flag_offline:
 
             str = '[{0:02d}:{1:02d}:{2:02d}] BigChart UI 쓰레드를 종료합니다. : {3:0.2f} ms...\r'.format(\
@@ -30722,6 +30723,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.bigchart_update_worker.terminate()
         else:
             pass
+        '''
 
         if FLAG_GUEST_CONTROL and receive_real_ovc:
 
