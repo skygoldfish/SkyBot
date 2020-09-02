@@ -2139,6 +2139,8 @@ WTI_야간_시작가 = 0
 
 장시작_양합 = 0
 
+선물_호가순매수 = 0
+
 NASDAQ_호가순매수 = 0
 NASDAQ_호가잔량비 = 0
 
@@ -13138,7 +13140,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 #self.OVC.AdviseRealData(종목코드=EUROFX)
                 #self.OVC.AdviseRealData(종목코드=GOLD)
 
-                '''
+                
                 # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)
                 self.OVH.AdviseRealData(종목코드=SP500)
                 self.OVH.AdviseRealData(종목코드=DOW)
@@ -13147,7 +13149,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.OVH.AdviseRealData(종목코드=EUROFX)
                 self.OVH.AdviseRealData(종목코드=HANGSENG)
                 self.OVH.AdviseRealData(종목코드=GOLD)
-
+                '''
                 # 해외옵션 체결 실시간 요청
                 
                 self.WOC.AdviseRealData(종목코드=SP500)
@@ -22170,6 +22172,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             elif szTrCode == 'FH0' or szTrCode == 'NH0':
 
                 global fut_hoga_cr, fut_hoga_rr, fut_cms_hoga_cr, fut_cms_hoga_rr, fut_ccms_hoga_cr, fut_ccms_hoga_rr
+                global 선물_호가순매수
 
                 market_service = True
 
@@ -22213,6 +22216,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         fut_hoga_cr = result['매수호가총건수'] / result['매도호가총건수']
                     else:
                         pass
+
+                    선물_호가순매수 = result['매수호가총수량'] - result['매도호가총수량']
 
                     if result['매도호가총수량'] > 0:
 
@@ -30910,7 +30915,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_futures_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
                     self.label_p1_2.setText(str)
                 else:
                     pass
@@ -31074,7 +31079,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
                     self.label_p1_2.setText(str)
                 else:
                     pass
@@ -31212,7 +31217,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
                     self.label_p1_2.setText(str)
                 else:
                     pass
@@ -31350,7 +31355,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
                     self.label_p1_2.setText(str)
                 else:
                     pass
@@ -31488,7 +31493,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
                     self.label_p1_2.setText(str)
                 else:
                     pass
@@ -31875,7 +31880,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
                     self.label_p2_2.setText(str)
                 else:
                     pass
@@ -32019,7 +32024,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
                     self.label_p2_2.setText(str)
                 else:
                     pass
@@ -32162,7 +32167,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
                     self.label_p2_2.setText(str)
                 else:
                     pass
@@ -32305,7 +32310,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
                     self.label_p2_2.setText(str)
                 else:
                     pass
@@ -32697,7 +32702,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
                     self.label_p3_2.setText(str)
                 else:
                     pass
@@ -32841,7 +32846,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
                     self.label_p3_2.setText(str)
                 else:
                     pass
@@ -32984,7 +32989,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
                     self.label_p3_2.setText(str)
                 else:
                     pass
@@ -33127,7 +33132,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
                     self.label_p3_2.setText(str)
                 else:
                     pass
@@ -33432,7 +33437,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_futures_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
                     self.label_p4_2.setText(str)
                 else:
                     pass
@@ -33596,7 +33601,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
                     self.label_p4_2.setText(str)
                 else:
                     pass
@@ -33734,7 +33739,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
                     self.label_p4_2.setText(str)
                 else:
                     pass
@@ -33872,7 +33877,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
                     self.label_p4_2.setText(str)
                 else:
                     pass
@@ -34010,7 +34015,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
                     self.label_p4_2.setText(str)
                 else:
                     pass
@@ -34399,7 +34404,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
                     self.label_p5_2.setText(str)
                 else:
                     pass
@@ -34543,7 +34548,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
                     self.label_p5_2.setText(str)
                 else:
                     pass
@@ -34686,7 +34691,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
                     self.label_p5_2.setText(str)
                 else:
                     pass
@@ -34829,7 +34834,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
                     self.label_p5_2.setText(str)
                 else:
                     pass
@@ -35221,7 +35226,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
                     self.label_p6_2.setText(str)
                 else:
                     pass
@@ -35365,7 +35370,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
                     self.label_p6_2.setText(str)
                 else:
                     pass
@@ -35508,7 +35513,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
                     self.label_p6_2.setText(str)
                 else:
                     pass
@@ -35651,7 +35656,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                     self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
-                    str = " BB Mid: {1:0.2f} \n PSAR: {0:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'])
+                    str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
                     self.label_p6_2.setText(str)
                 else:
                     pass
