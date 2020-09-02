@@ -22175,7 +22175,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if result['단축코드'] == gmshcode:
 
-                        # 선물호가 갱신
+                    # 선물호가 갱신
                     item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
                     item.setTextAlignment(Qt.AlignCenter)
 
@@ -22223,6 +22223,39 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif result['단축코드'] == cmshcode:
 
+                    # 선물호가 갱신
+                    item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
+                    item.setTextAlignment(Qt.AlignCenter)
+
+                    if NightTime:
+                        self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
+                    else:
+                        self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
+
+                    item = QTableWidgetItem("{0}".format(format(result['매도호가총건수'], ',')))
+                    item.setTextAlignment(Qt.AlignCenter)
+
+                    if NightTime:
+                        self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
+                    else:
+                        self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
+
+                    item = QTableWidgetItem("{0}".format(format(result['매수호가총수량'], ',')))
+                    item.setTextAlignment(Qt.AlignCenter)
+
+                    if NightTime:
+                        self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
+                    else:
+                        self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
+
+                    item = QTableWidgetItem("{0}".format(format(result['매도호가총수량'], ',')))
+                    item.setTextAlignment(Qt.AlignCenter)
+
+                    if NightTime:
+                        self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
+                    else:
+                        self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
+
                     if result['매도호가총건수'] > 0:
                         fut_cms_hoga_cr = result['매수호가총건수'] / result['매도호가총건수']
                     else:
@@ -22236,6 +22269,39 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 elif result['단축코드'] == ccmshcode:
 
+                    # 선물호가 갱신
+                    item = QTableWidgetItem("{0}".format(format(result['매수호가총건수'], ',')))
+                    item.setTextAlignment(Qt.AlignCenter)
+
+                    if NightTime:
+                        self.tableWidget_fut.setItem(0, Futures_column.매수건수.value, item)
+                    else:
+                        self.tableWidget_fut.setItem(1, Futures_column.매수건수.value, item)
+
+                    item = QTableWidgetItem("{0}".format(format(result['매도호가총건수'], ',')))
+                    item.setTextAlignment(Qt.AlignCenter)
+
+                    if NightTime:
+                        self.tableWidget_fut.setItem(0, Futures_column.매도건수.value, item)
+                    else:
+                        self.tableWidget_fut.setItem(1, Futures_column.매도건수.value, item)
+
+                    item = QTableWidgetItem("{0}".format(format(result['매수호가총수량'], ',')))
+                    item.setTextAlignment(Qt.AlignCenter)
+
+                    if NightTime:
+                        self.tableWidget_fut.setItem(0, Futures_column.매수잔량.value, item)
+                    else:
+                        self.tableWidget_fut.setItem(1, Futures_column.매수잔량.value, item)
+
+                    item = QTableWidgetItem("{0}".format(format(result['매도호가총수량'], ',')))
+                    item.setTextAlignment(Qt.AlignCenter)
+
+                    if NightTime:
+                        self.tableWidget_fut.setItem(0, Futures_column.매도잔량.value, item)
+                    else:
+                        self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
+
                     if result['매도호가총건수'] > 0:
                         fut_ccms_hoga_cr = result['매수호가총건수'] / result['매도호가총건수']
                     else:
@@ -22247,20 +22313,40 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     self.tableWidget_fut.resizeColumnsToContents()
-
-                    #print('차차월물 매수호가총수량, 매도호가총수량 =', result['매수호가총수량'], result['매도호가총수량'])
                 else:
                     pass
                 
-                item = QTableWidgetItem("{0:0.2f}\n({1:0.2f})".format(fut_hoga_cr, fut_cms_hoga_cr))
+                # 건수비 표시
+                if TARGET_MONTH_SELECT == 1:
+
+                    item = QTableWidgetItem("{0:0.2f}\n({1:0.2f})".format(fut_hoga_cr, fut_cms_hoga_cr))
+
+                elif TARGET_MONTH_SELECT == 2:
+
+                    item = QTableWidgetItem("{0:0.2f}".format(fut_cms_hoga_cr))
+                    
+                else:
+                    pass
+
                 item.setTextAlignment(Qt.AlignCenter)
 
                 if NightTime:
                     self.tableWidget_fut.setItem(0, Futures_column.건수비.value, item)
                 else:
                     self.tableWidget_fut.setItem(1, Futures_column.건수비.value, item)
+
+                # 잔량비 표시
+                if TARGET_MONTH_SELECT == 1:
+
+                    item = QTableWidgetItem("{0:0.2f}\n({1:0.2f})".format(fut_hoga_rr, fut_cms_hoga_rr))
+
+                elif TARGET_MONTH_SELECT == 2:
+
+                    item = QTableWidgetItem("{0:0.2f}".format(fut_cms_hoga_rr))
+                    
+                else:
+                    pass
                 
-                item = QTableWidgetItem("{0:0.2f}\n({1:0.2f})".format(fut_hoga_rr, fut_cms_hoga_rr))
                 item.setTextAlignment(Qt.AlignCenter)
 
                 if NightTime:
