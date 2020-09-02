@@ -6249,7 +6249,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             # 콜 테이블 데이타 갱신
                             self.call_db_update()
-                            #self.call_volume_power_display()
+                            self.call_volume_power_display()
                             self.call_oi_update()                          
 
                             # 콜 저가, 고가 맥점 컬러갱신
@@ -6293,7 +6293,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             # 풋 테이블 데이타 갱신
                             self.put_db_update()
-                            #self.put_volume_power_display()
+                            self.put_volume_power_display()
                             self.put_oi_update()                          
 
                             if not NightTime:
@@ -13140,7 +13140,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 #self.OVC.AdviseRealData(종목코드=EUROFX)
                 #self.OVC.AdviseRealData(종목코드=GOLD)
 
-                
+                '''
                 # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)
                 self.OVH.AdviseRealData(종목코드=SP500)
                 self.OVH.AdviseRealData(종목코드=DOW)
@@ -13149,7 +13149,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 #self.OVH.AdviseRealData(종목코드=HANGSENG)
                 #self.OVH.AdviseRealData(종목코드=EUROFX)                
                 #self.OVH.AdviseRealData(종목코드=GOLD)
-                '''
+                
                 # 해외옵션 체결 실시간 요청
                 
                 self.WOC.AdviseRealData(종목코드=SP500)
@@ -22110,14 +22110,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    self.call_volume_power_display()                    
+                    #self.call_volume_power_display()                    
 
                 elif result['단축코드'][0:3] == '301':
 
                     put_result = copy.deepcopy(result)
 
                     self.put_display()
-                    self.put_volume_power_display()                    
+                    #self.put_volume_power_display()                    
                 else:
                     pass
 
