@@ -6154,13 +6154,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             put_plot_data[index] = infos[1]
                         else:
-                            pass                
-
+                            pass
+                
+                '''
                 # 호가 갱신
                 if receive_quote:
                     self.quote_display()
                 else:
                     pass
+                '''
 
                 if market_service:                                      
                     
@@ -6245,7 +6247,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             # 콜 테이블 데이타 갱신
                             self.call_db_update()
-                            self.call_volume_power_update()
+                            #self.call_volume_power_update()
                             self.call_oi_update()                          
 
                             # 콜 저가, 고가 맥점 컬러갱신
@@ -6289,7 +6291,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             # 풋 테이블 데이타 갱신
                             self.put_db_update()
-                            self.put_volume_power_update()
+                            #self.put_volume_power_update()
                             self.put_oi_update()                          
 
                             if not NightTime:
@@ -13195,6 +13197,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print('t2301 put open list = ', put_open_list, len(put_open_list))
                     print('\r')
 
+                    # 주간 실시간테이타 요청                
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+
                     if pre_start:
 
                         # FUTURES/KOSPI200 예상지수 요청
@@ -13251,7 +13257,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 프로그램 매매현황 요청
                     self.PM.AdviseRealData()                    
                 else:
-                    pass
+                    # 야간 실시간테이타 요청                
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+
+                    self.OPT_REAL = EC0(parent=self)                
+                    self.OPT_HO = EH0(parent=self)
+
+                    for i in range(option_pairs_count):
+                        self.OPT_REAL.AdviseRealData(call_code[i])
+                        self.OPT_REAL.AdviseRealData(put_code[i]) 
+                        self.OPT_HO.AdviseRealData(call_code[i])
+                        self.OPT_HO.AdviseRealData(put_code[i])                    
+
+                    self.FUT_REAL = NC0(parent=self)
+                    self.FUT_REAL.AdviseRealData(fut_code)
+
+                    self.FUT_HO = NH0(parent=self)                
+                    self.FUT_HO.AdviseRealData(fut_code)
+
+                    # 업종별 투자자별 매매현황 요청
+                    self.BM.AdviseRealData(CME)
 
                 # t8416 요청
                 self.t8416_callworker.start()
@@ -14953,29 +14979,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.item(min_index, Option_column.기준가.value).setBackground(QBrush(검정색))
                     self.tableWidget_put.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
                 else:
-                    pass
-
-                # 실시간테이타 요청                
-                str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
-
-                self.OPT_REAL = EC0(parent=self)                
-                self.OPT_HO = EH0(parent=self)
-
-                for i in range(option_pairs_count):
-                    self.OPT_REAL.AdviseRealData(call_code[i])
-                    self.OPT_REAL.AdviseRealData(put_code[i]) 
-                    self.OPT_HO.AdviseRealData(call_code[i])
-                    self.OPT_HO.AdviseRealData(put_code[i])                    
-
-                self.FUT_REAL = NC0(parent=self)
-                self.FUT_REAL.AdviseRealData(fut_code)
-
-                self.FUT_HO = NH0(parent=self)                
-                self.FUT_HO.AdviseRealData(fut_code)
-
-                # 업종별 투자자별 매매현황 요청
-                self.BM.AdviseRealData(CME)
+                    pass                
                 
                 str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
@@ -17612,12 +17616,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 7: MA_Type.MAMA (Mesa adaptive)  
         # 8: MA_Type.T3 (triple exponential T3)
            
+        '''
         macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_futures_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
             fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
 
         df_futures_graph['MACD'] = macd
         df_futures_graph['MACDSig'] = macdsignal
         #df_futures_graph['MACDHist'] = macdhist
+        '''
 
         # Parabolic SAR
         parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -21197,12 +21203,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 7: MA_Type.MAMA (Mesa adaptive)  
                     # 8: MA_Type.T3 (triple exponential T3)
 
+                    '''
                     macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_futures_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
                         fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
 
                     df_futures_graph['MACD'] = macd
                     df_futures_graph['MACDSig'] = macdsignal
                     #df_futures_graph['MACDHist'] = macdhist
+                    '''
 
                     # Parabolic SAR
                     parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -22098,12 +22106,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if FLAG_GUEST_CONTROL:                        
                         self.call_display()
                     else:
-                        pass                    
+                        pass
+
+                    self.call_volume_power_update()                    
 
                 elif result['단축코드'][0:3] == '301':
 
                     put_result = copy.deepcopy(result)
-                    self.put_display()                    
+
+                    self.put_display()
+                    self.put_volume_power_update()                    
                 else:
                     pass
 
@@ -22144,44 +22156,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
+                self.quote_display()
+
+                '''
                 if opt_call_ho_update_counter == 1000 or opt_put_ho_update_counter == 1000:
 
                     opt_call_ho_update_counter = 0
                     opt_put_ho_update_counter = 0
                 else:
                     pass
-
-                '''
-                process_time = (timeit.default_timer() - start_time) * 1000
-
-                if process_time > 0:
-
-                    if opt_call_ho_update_counter >= opt_put_ho_update_counter:
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] RealData Call {3}=[{4}/{5}] --> {6:0.2f} ms... \r'.format(
-                            dt.hour,
-                            dt.minute,
-                            dt.second,
-                            szTrCode,
-                            opt_call_ho_update_counter,
-                            opt_put_ho_update_counter,
-                            process_time)
-                        # self.textBrowser.append(str)
-                        print(str)
-                    else:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] RealData Put {3}=[{4}/{5}] --> {6:0.2f} ms... \r'.format(
-                            dt.hour,
-                            dt.minute,
-                            dt.second,
-                            szTrCode,
-                            opt_call_ho_update_counter,
-                            opt_put_ho_update_counter,
-                            process_time)
-                        # self.textBrowser.append(str)
-                        print(str)
-                else:
-                    pass
-                '''
+                '''                
 
             elif szTrCode == 'FH0' or szTrCode == 'NH0':
 
@@ -23579,12 +23563,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_dow_graph['BBMiddle'] = middle
                 df_dow_graph['BBLower'] = lower            
 
+                '''
                 macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_dow_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
                     fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
 
                 df_dow_graph['MACD'] = macd
                 df_dow_graph['MACDSig'] = macdsignal
                 #df_dow_graph['MACDHist'] = macdhist           
+                '''
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_dow_graph['high'], dtype=float), np.array(df_dow_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -23629,12 +23615,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_sp500_graph['BBMiddle'] = middle
                 df_sp500_graph['BBLower'] = lower            
 
+                '''
                 macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_sp500_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
                     fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
 
                 df_sp500_graph['MACD'] = macd
                 df_sp500_graph['MACDSig'] = macdsignal
                 #df_sp500_graph['MACDHist'] = macdhist           
+                '''
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_sp500_graph['high'], dtype=float), np.array(df_sp500_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -23678,12 +23666,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_nasdaq_graph['BBMiddle'] = middle
                 df_nasdaq_graph['BBLower'] = lower            
 
+                '''
                 macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_nasdaq_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
                     fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
 
                 df_nasdaq_graph['MACD'] = macd
                 df_nasdaq_graph['MACDSig'] = macdsignal
                 #df_nasdaq_graph['MACDHist'] = macdhist           
+                '''
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_nasdaq_graph['high'], dtype=float), np.array(df_nasdaq_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -23727,12 +23717,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_wti_graph['BBMiddle'] = middle
                 df_wti_graph['BBLower'] = lower            
 
+                '''
                 macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_wti_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
                     fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
 
                 df_wti_graph['MACD'] = macd
                 df_wti_graph['MACDSig'] = macdsignal
                 #df_wti_graph['MACDHist'] = macdhist           
+                '''
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_wti_graph['high'], dtype=float), np.array(df_wti_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
