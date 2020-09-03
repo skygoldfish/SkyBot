@@ -13157,13 +13157,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 #self.OVC.AdviseRealData(종목코드=EUROFX)
                 #self.OVC.AdviseRealData(종목코드=GOLD)
 
-                
+                '''
                 # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)
                 self.OVH.AdviseRealData(종목코드=SP500)
                 self.OVH.AdviseRealData(종목코드=DOW)
                 self.OVH.AdviseRealData(종목코드=NASDAQ)
                 self.OVH.AdviseRealData(종목코드=WTI)
-                '''
+                
                 #self.OVH.AdviseRealData(종목코드=HANGSENG)
                 #self.OVH.AdviseRealData(종목코드=EUROFX)                
                 #self.OVH.AdviseRealData(종목코드=GOLD)
@@ -18858,7 +18858,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.setHorizontalHeaderItem(2, item)
 
                     if NightTime and TARGET_MONTH_SELECT == 2:
-                        call_oloh_str = 'Call OLOH = ' + new_oloh
+
+                        if call_ol_count > 0 or call_oh_count > 0:
+                            call_oloh_str = 'Call OLOH = ' + repr(call_ol_count) + ':' + repr(call_oh_count)
+                        else:
+                            call_oloh_str = ''
                     else:
                         pass
                 else:
@@ -19965,8 +19969,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setHorizontalHeaderItem(2, item)
 
-                    if NightTime and TARGET_MONTH_SELECT == 2:                         
-                            put_oloh_str = 'Put OLOH = ' + new_oloh
+                    if NightTime and TARGET_MONTH_SELECT == 2:
+
+                        if put_ol_count > 0 or put_oh_count > 0:                         
+                            put_oloh_str = 'Put OLOH = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
+                        else:
+                            put_oloh_str = ''
                     else:
                         pass
                 else:
