@@ -20135,7 +20135,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if call_count_ratio > put_count_ratio and call_remainder_ratio > put_remainder_ratio:
                 item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
             elif call_count_ratio < put_count_ratio and call_remainder_ratio < put_remainder_ratio:
                 item.setBackground(QBrush(청색))
                 item.setForeground(QBrush(흰색))
