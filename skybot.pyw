@@ -20568,28 +20568,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         receive_quote = False
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 종료합니다.\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
-                        self.textBrowser.append(str)
+                        #str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 종료합니다.\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
+                        #self.textBrowser.append(str)
                         
                         self.pushButton_add.setText('ScrShot')
                         
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
+                        print(str)
+
+                        flag_offline = True  
+
+                        self.parent.connection.disconnect()
+
+                        time.sleep(0.5)
+
+                        self.parent.statusbar.showMessage("오프라인")
+                        
                         self.SaveResult()
-
-                        if not flag_offline:
-
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)
-                            print(str)
-
-                            flag_offline = True  
-
-                            self.parent.connection.disconnect()
-
-                            time.sleep(0.5)
-
-                            self.parent.statusbar.showMessage("오프라인")
-                        else:
-                            pass                    
+                    
                     else:
                         pass                                               
 
