@@ -3876,21 +3876,20 @@ class telegram_send_worker(QThread):
             if chk_webhook is not None:
 
                 if chk_webhook.url != '':
-                    # Webhook을 삭제한다.
 
+                    # Webhook을 삭제한다.
                     Delete_Webhook()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 웹훅을 삭제합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
+                    str = '웹훅 삭제...'
                     print(str)
                 else:
-                    pass
+                    str = 'None'
             else:
-                pass 
+                str = 'None' 
 
             telegram_toggle = not telegram_toggle
 
-            str = 'None'
+            #str = 'None'
             
             # 텔레그램 명령어 파싱
             element = telegram_command.split()
