@@ -85,12 +85,123 @@
     <enum>QAbstractScrollArea::AdjustToContents</enum>
    </property>
   </widget>
-  <widget class="QWidget" name="layoutWidget">
+  <widget class="QTableWidget" name="tableWidget_fut">
    <property name="geometry">
     <rect>
-     <x>14</x>
+     <x>13</x>
+     <y>682</y>
+     <width>940</width>
+     <height>138</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Consolas</family>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::WinPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget_supply">
+   <property name="geometry">
+    <rect>
+     <x>488</x>
+     <y>922</y>
+     <width>465</width>
+     <height>78</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Consolas</family>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::WinPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QAbstractScrollArea::AdjustToContents</enum>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget_quote">
+   <property name="geometry">
+    <rect>
+     <x>13</x>
+     <y>832</y>
+     <width>941</width>
+     <height>79</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Consolas</family>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::WinPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QAbstractScrollArea::AdjustToContents</enum>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="textBrowser">
+   <property name="geometry">
+    <rect>
+     <x>13</x>
+     <y>922</y>
+     <width>466</width>
+     <height>78</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Consolas</family>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::WinPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QAbstractScrollArea::AdjustToContents</enum>
+   </property>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
      <y>20</y>
-     <width>1892</width>
+     <width>1891</width>
      <height>25</height>
     </rect>
    </property>
@@ -278,6 +389,13 @@
      </spacer>
     </item>
     <item>
+     <widget class="QCheckBox" name="checkBox_HS">
+      <property name="text">
+       <string>HS</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QPushButton" name="pushButton_add">
       <property name="maximumSize">
        <size>
@@ -321,117 +439,6 @@
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QTableWidget" name="tableWidget_fut">
-   <property name="geometry">
-    <rect>
-     <x>13</x>
-     <y>682</y>
-     <width>940</width>
-     <height>138</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Consolas</family>
-     <weight>50</weight>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::NoFocus</enum>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::WinPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
-   </property>
-  </widget>
-  <widget class="QTableWidget" name="tableWidget_supply">
-   <property name="geometry">
-    <rect>
-     <x>488</x>
-     <y>922</y>
-     <width>465</width>
-     <height>78</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Consolas</family>
-    </font>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::NoFocus</enum>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::WinPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
-   </property>
-   <property name="sizeAdjustPolicy">
-    <enum>QAbstractScrollArea::AdjustToContents</enum>
-   </property>
-  </widget>
-  <widget class="QTableWidget" name="tableWidget_quote">
-   <property name="geometry">
-    <rect>
-     <x>13</x>
-     <y>832</y>
-     <width>941</width>
-     <height>79</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Consolas</family>
-     <weight>50</weight>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::NoFocus</enum>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::WinPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
-   </property>
-   <property name="sizeAdjustPolicy">
-    <enum>QAbstractScrollArea::AdjustToContents</enum>
-   </property>
-  </widget>
-  <widget class="QTextBrowser" name="textBrowser">
-   <property name="geometry">
-    <rect>
-     <x>13</x>
-     <y>922</y>
-     <width>466</width>
-     <height>78</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Consolas</family>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::StrongFocus</enum>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::WinPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
-   </property>
-   <property name="sizeAdjustPolicy">
-    <enum>QAbstractScrollArea::AdjustToContents</enum>
-   </property>
   </widget>
  </widget>
  <resources/>

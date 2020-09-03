@@ -2256,6 +2256,8 @@ flag_eurofx_ohlc_open = False
 flag_hangseng_ohlc_open = False
 flag_gold_ohlc_open = False
 
+flag_checkBox_HS = False
+
 flag_checkBox_plot1_bband = False
 flag_checkBox_plot2_bband = False
 flag_checkBox_plot3_bband = False
@@ -5035,7 +5037,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        self.XingAdminCheck()            
+        self.XingAdminCheck()
+
+        self.checkBox_HS.stateChanged.connect(self.checkBox_HS_checkState)            
         
         # 쓰레드 시작은 start(), 종료는 terminate()
         self.t8416_callworker = t8416_Call_Worker()
@@ -5142,6 +5146,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
         str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
         self.label_msg.setText(str)
+
+    def checkBox_HS_checkState(self):
+
+        global flag_checkBox_HS
+
+        if self.checkBox_HS.isChecked() == True:
+            flag_checkBox_HS = True
+        else:
+            flag_checkBox_HS = False
 
     @pyqtSlot(int)
     def call_horizontal_header_clicked(self, idx):
