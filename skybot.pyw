@@ -3868,7 +3868,25 @@ class telegram_send_worker(QThread):
             dt = datetime.datetime.now()
             
             global telegram_toggle, FLAG_ASYM, FLAG_NODE, FLAG_OLOH
-            global FLAG_GUEST_CONTROL  
+            global FLAG_GUEST_CONTROL
+
+            # 텔레그램 Webhook 등록여부를 체크한다.
+            chk_webhook = Check_Webhook()
+
+            if chk_webhook is not None:
+
+                if chk_webhook.url != '':
+                    # Webhook을 삭제한다.
+
+                    Delete_Webhook()
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 웹훅을 삭제합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+                    print(str)
+                else:
+                    pass
+            else:
+                pass 
 
             telegram_toggle = not telegram_toggle
 
@@ -21687,7 +21705,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item = QTableWidgetItem(item_str)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(적색))
-                            item.setForeground(QBrush(검정색))
+                            item.setForeground(QBrush(흰색))
                             self.tableWidget_supply.setItem(0, 0, item)
                         else:
                             pass
@@ -21792,7 +21810,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item = QTableWidgetItem(item_str)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(적색))
-                            item.setForeground(QBrush(검정색))
+                            item.setForeground(QBrush(흰색))
                             self.tableWidget_supply.setItem(0, 4, item)
                         else:
                             pass
@@ -21875,7 +21893,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item = QTableWidgetItem(item_str)
                             item.setTextAlignment(Qt.AlignCenter)
                             item.setBackground(QBrush(적색))
-                            item.setForeground(QBrush(검정색))
+                            item.setForeground(QBrush(흰색))
                             self.tableWidget_supply.setItem(0, 2, item)
                         else:
                             pass
@@ -22032,7 +22050,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem(item_str)
                         item.setTextAlignment(Qt.AlignCenter)
                         item.setBackground(QBrush(적색))
-                        item.setForeground(QBrush(검정색))
+                        item.setForeground(QBrush(흰색))
                         self.tableWidget_supply.setItem(0, 1, item)
                     else:
                         pass
