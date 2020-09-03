@@ -18858,11 +18858,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.setHorizontalHeaderItem(2, item)
 
                     if NightTime and TARGET_MONTH_SELECT == 2:
-
-                        if call_ol_count > 0 or call_oh_count > 0:
-                            call_oloh_str = 'Call OLOH = ' + repr(call_ol_count) + ':' + repr(call_oh_count)
-                        else:
-                            pass
+                        call_oloh_str = 'Call OLOH = ' + new_oloh
                     else:
                         pass
                 else:
@@ -19969,12 +19965,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setHorizontalHeaderItem(2, item)
 
-                    if NightTime and TARGET_MONTH_SELECT == 2:
-
-                        if put_ol_count > 0 or put_oh_count > 0: 
-                            put_oloh_str = 'Put OLOH = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
-                        else:
-                            pass
+                    if NightTime and TARGET_MONTH_SELECT == 2:                         
+                            put_oloh_str = 'Put OLOH = ' + new_oloh
                     else:
                         pass
                 else:
