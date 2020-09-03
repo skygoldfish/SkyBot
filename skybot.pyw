@@ -2118,14 +2118,6 @@ moving_list = []
 동적맥점_리스트 = []
 동적맥점_빈도수_리스트 = []
 
-NASDAQ_장마감일 = ''
-DOW_장마감일 = ''
-SP500_장마감일 = ''
-WTI_장마감일 = ''
-EUROFX_장마감일 = ''
-HANGSENG_장마감일 = ''
-GOLD_장마감일 = ''
-
 DOW_진폭비 = 0
 선물_진폭비 = 0
 
@@ -20316,8 +20308,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             global CME_당일종가, DOW_당일종가, SP500_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가
             global 시스템시간, 서버시간, 시스템_서버_시간차
-            global kp200_시가, kp200_피봇, kp200_저가, kp200_현재가, kp200_고가
-            global NASDAQ_장마감일, DOW_장마감일, SP500_장마감일, WTI_장마감일, EUROFX_장마감일, HANGSENG_장마감일, GOLD_장마감일
+            global kp200_시가, kp200_피봇, kp200_저가, kp200_현재가, kp200_고가            
             global DOW_진폭비
             global DOW_주간_시작가, WTI_주간_시작가
             global DOW_야간_시작가, WTI_야간_시작가
@@ -22486,10 +22477,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     #NASDAQ_체결순매수 = 체결순매수
 
-                    if NASDAQ_장마감일 == '':
-                        NASDAQ_장마감일 = result['장마감일']
-                    else:
-                        pass                    
+                    df_nasdaq_graph.at[ovc_x_idx, 'price'] = result['체결가격']                  
 
                     NASDAQ_저가 =  result['저가']
                     NASDAQ_고가 =  result['고가']                    
@@ -22594,7 +22582,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
                         
                         NASDAQ_과거가 = result['체결가격']
-                        df_nasdaq_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+                        #df_nasdaq_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                     else:
                         pass                    
 
@@ -22602,10 +22590,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     #SP500_체결순매수 = 체결순매수
 
-                    if SP500_장마감일 == '':
-                        SP500_장마감일 = result['장마감일']
-                    else:
-                        pass                    
+                    df_sp500_graph.at[ovc_x_idx, 'price'] = result['체결가격']                  
 
                     SP500_저가 =  result['저가']
                     SP500_고가 =  result['고가']                    
@@ -22756,7 +22741,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         SP500_과거가 = result['체결가격']
-                        df_sp500_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+                        #df_sp500_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                     else:
                         pass                    
 
@@ -22764,10 +22749,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     #DOW_체결순매수 = 체결순매수
 
-                    if DOW_장마감일 == '':
-                        DOW_장마감일 = result['장마감일']
-                    else:
-                        pass
+                    df_dow_graph.at[ovc_x_idx, 'price'] = result['체결가격']
 
                     DOW_저가 =  int(result['저가'])
                     DOW_고가 =  int(result['고가'])
@@ -22884,7 +22866,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         DOW_과거가 = 체결가격
-                        df_dow_graph.at[ovc_x_idx, 'price'] = result['체결가격']                        
+                        #df_dow_graph.at[ovc_x_idx, 'price'] = result['체결가격']                        
                         DOW_진폭비 = DOW_진폭 / DOW_시가
                     else:
                         pass
@@ -22893,10 +22875,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     #WTI_체결순매수 = 체결순매수
                     
-                    if WTI_장마감일 == '':
-                        WTI_장마감일 = result['장마감일']
-                    else:
-                        pass
+                    df_wti_graph.at[ovc_x_idx, 'price'] = result['체결가격']
 
                     WTI_저가 =  result['저가']
                     WTI_고가 =  result['고가']
@@ -23003,19 +22982,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         WTI_과거가 = result['체결가격']
-                        df_wti_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+                        #df_wti_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                     else:
                         pass
                     
                 elif result['종목코드'] == EUROFX:
 
                     #EUROFX_체결순매수 = 체결순매수
-                                     
-                    if EUROFX_장마감일 == '':
-                        EUROFX_장마감일 = result['장마감일']
-                    else:
-                        pass
-
+                    
                     EUROFX_저가 =  result['저가']
                     EUROFX_고가 =  result['고가']
                     
@@ -23129,11 +23103,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     #HANGSENG_체결순매수 = 체결순매수
 
-                    if HANGSENG_장마감일 == '':
-                        HANGSENG_장마감일 = result['장마감일']
-                    else:
-                        pass
-
                     HANGSENG_저가 =  int(result['저가'])
                     HANGSENG_고가 =  int(result['고가'])
                     
@@ -23246,11 +23215,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 elif result['종목코드'] == GOLD:
 
                     #GOLD_체결순매수 = 체결순매수
-
-                    if GOLD_장마감일 == '':
-                        GOLD_장마감일 = result['장마감일']
-                    else:
-                        pass
 
                     GOLD_저가 =  result['저가']
                     GOLD_고가 =  result['고가']
