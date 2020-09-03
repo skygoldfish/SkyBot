@@ -17584,7 +17584,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 선물_현재가_버퍼.append(선물_현재가)
         else:
-            if math.isnan(df_futures_graph.at[ovc_x_idx, 'open']):
+            if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
                 df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
             else:
                 pass
@@ -17660,7 +17660,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         df_futures_graph['MAMA'] = mama
         df_futures_graph['FAMA'] = fama
 
-        if not math.isnan(df_futures_graph.at[ovc_x_idx, 'FAMA']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBLower']):
+        if df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA'] and df_futures_graph.at[ovc_x_idx, 'BBLower'] == df_futures_graph.at[ovc_x_idx, 'BBLower']:
 
             if df_futures_graph.at[ovc_x_idx, 'FAMA'] < df_futures_graph.at[ovc_x_idx, 'BBLower']:
                 df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'BBLower']
@@ -17692,7 +17692,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 선물 Up/Down Indicator 표시
         global fut_bollinger_symbol, fut_psar_symbol, fut_macd_symbol, fut_mama_symbol
 
-        if not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBMiddle']):
+        if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_graph.at[ovc_x_idx, 'BBMiddle']:
 
             if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_graph.at[ovc_x_idx, 'price']:
                 fut_bollinger_symbol = '▼'
@@ -17701,7 +17701,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass               
 
-        if not math.isnan(df_futures_graph.at[ovc_x_idx, 'PSAR']):
+        if df_futures_graph.at[ovc_x_idx, 'PSAR'] == df_futures_graph.at[ovc_x_idx, 'PSAR']:
 
             if df_futures_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_graph.at[ovc_x_idx, 'price']:
                 fut_psar_symbol = '▼'
@@ -17710,7 +17710,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        if not math.isnan(df_futures_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'OE_BASE']):
+        if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
 
             if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
                 fut_macd_symbol = '▼'
@@ -17719,7 +17719,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if not math.isnan(df_futures_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'FAMA']):
+        if df_futures_graph.at[ovc_x_idx, 'MAMA'] == df_futures_graph.at[ovc_x_idx, 'MAMA'] and df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA']:
 
             if df_futures_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -18048,7 +18048,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             # 시가갭 갱신
             temp = call_gap_percent[:]
-            call_gap_percent_local = [value for value in temp if not math.isnan(value)]
+            call_gap_percent_local = [value for value in temp if value == value]
             call_gap_percent_local.sort()
 
             콜시가갭합 = round(df_call['시가갭'].sum(), 2)
@@ -18169,7 +18169,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 대비 갱신
             #temp = call_db_percent[:]
             temp = call_otm_db_percent[:]
-            call_db_percent_local = [value for value in temp if not math.isnan(value)]
+            call_db_percent_local = [value for value in temp if value == value]
             call_db_percent_local.sort()
 
             if call_db_percent_local:
@@ -18385,7 +18385,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #temp = call_db_percent[:]
         temp = call_otm_db_percent[:]
 
-        call_db_percent_local = [value for value in temp if not math.isnan(value)]
+        call_db_percent_local = [value for value in temp if value == value]
         call_db_percent_local.sort()
 
         if call_db_percent_local:
@@ -18872,7 +18872,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # 시가갭 갱신
             temp = call_gap_percent[:]
-            call_gap_percent_local = [value for value in temp if not math.isnan(value)]
+            call_gap_percent_local = [value for value in temp if value == value]
             call_gap_percent_local.sort()
 
             콜시가갭합 = round(df_call['시가갭'].sum(), 2)
@@ -18898,7 +18898,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             #temp = call_db_percent[:]
             temp = call_otm_db_percent[:]
 
-            call_db_percent_local = [value for value in temp if not math.isnan(value)]
+            call_db_percent_local = [value for value in temp if value == value]
             call_db_percent_local.sort()
 
             if call_db_percent_local:
@@ -19154,7 +19154,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             # 시가갭 갱신
             temp = put_gap_percent[:]
-            put_gap_percent_local = [value for value in temp if not math.isnan(value)]
+            put_gap_percent_local = [value for value in temp if value == value]
             put_gap_percent_local.sort()
 
             풋시가갭합 = round(df_put['시가갭'].sum(), 2)
@@ -19275,7 +19275,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 대비 갱신
             #temp = put_db_percent[:]
             temp = put_otm_db_percent[:]
-            put_db_percent_local = [value for value in temp if not math.isnan(value)]
+            put_db_percent_local = [value for value in temp if value == value]
             put_db_percent_local.sort()
 
             if put_db_percent_local:
@@ -19491,7 +19491,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #temp = put_db_percent[:]
         temp = put_otm_db_percent[:]
 
-        put_db_percent_local = [value for value in temp if not math.isnan(value)]
+        put_db_percent_local = [value for value in temp if value == value]
         put_db_percent_local.sort()
 
         if put_db_percent_local:
@@ -19982,7 +19982,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # 시가갭 갱신
             temp = put_gap_percent[:]
-            put_gap_percent_local = [value for value in temp if not math.isnan(value)]
+            put_gap_percent_local = [value for value in temp if value == value]
             put_gap_percent_local.sort()
 
             풋시가갭합 = round(df_put['시가갭'].sum(), 2)
@@ -20008,7 +20008,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             #temp = put_db_percent[:]
             temp = put_otm_db_percent[:]
 
-            put_db_percent_local = [value for value in temp if not math.isnan(value)]
+            put_db_percent_local = [value for value in temp if value == value]
             put_db_percent_local.sort()
 
             if put_db_percent_local:
@@ -20905,7 +20905,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         콜시가갭합 = round(df_call['시가갭'].sum(), 2)
 
                         temp = yoc_call_gap_percent[:]
-                        call_gap_percent_local = [value for value in temp if not math.isnan(value)]
+                        call_gap_percent_local = [value for value in temp if value == value]
                         call_gap_percent_local.sort()
 
                         if call_gap_percent_local:
@@ -21022,7 +21022,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         풋시가갭합 = round(df_put['시가갭'].sum(), 2)
 
                         temp = yoc_put_gap_percent[:]
-                        put_gap_percent_local = [value for value in temp if not math.isnan(value)]
+                        put_gap_percent_local = [value for value in temp if value == value]
                         put_gap_percent_local.sort()
 
                         if put_gap_percent_local:
@@ -21168,7 +21168,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             선물_현재가_버퍼.append(선물_시가)
                     else:
-                        if math.isnan(df_futures_graph.at[ovc_x_idx, 'open']):
+                        if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
                             df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
                         else:
                             pass
@@ -21244,7 +21244,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_futures_graph['MAMA'] = mama
                     df_futures_graph['FAMA'] = fama
 
-                    if not math.isnan(df_futures_graph.at[ovc_x_idx, 'FAMA']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBLower']):
+                    if df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA'] and df_futures_graph.at[ovc_x_idx, 'BBLower'] == df_futures_graph.at[ovc_x_idx, 'BBLower']:
 
                         if df_futures_graph.at[ovc_x_idx, 'FAMA'] < df_futures_graph.at[ovc_x_idx, 'BBLower']:
                             df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'BBLower']
@@ -23427,7 +23427,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 else:
                     # DOW
-                    if math.isnan(df_dow_graph.at[ovc_x_idx, 'open']):
+                    if df_dow_graph.at[ovc_x_idx, 'open'] != df_dow_graph.at[ovc_x_idx, 'open']:
                         df_dow_graph.at[ovc_x_idx, 'open'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
                     else:
                         pass
@@ -23461,7 +23461,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     flag_dow_ohlc_open = False
 
                     # SP500
-                    if math.isnan(df_sp500_graph.at[ovc_x_idx, 'open']):
+                    if df_sp500_graph.at[ovc_x_idx, 'open'] != df_sp500_graph.at[ovc_x_idx, 'open']:
                         df_sp500_graph.at[ovc_x_idx, 'open'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
                     else:
                         pass
@@ -23495,7 +23495,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     flag_sp500_ohlc_open = False
 
                     # NASDAQ
-                    if math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'open']):
+                    if df_nasdaq_graph.at[ovc_x_idx, 'open'] != df_nasdaq_graph.at[ovc_x_idx, 'open']:
                         df_nasdaq_graph.at[ovc_x_idx, 'open'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
                     else:
                         pass
@@ -23529,7 +23529,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     flag_nasdaq_ohlc_open = False
 
                     # WTI
-                    if math.isnan(df_wti_graph.at[ovc_x_idx, 'open']):
+                    if df_wti_graph.at[ovc_x_idx, 'open'] != df_wti_graph.at[ovc_x_idx, 'open']:
                         df_wti_graph.at[ovc_x_idx, 'open'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
                     else:
                         pass
@@ -23608,7 +23608,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_dow_graph['FAMA'] = fama
                 #df_dow_graph['A_FAMA'] = fama
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBLower']):
+                if df_dow_graph.at[ovc_x_idx, 'FAMA'] == df_dow_graph.at[ovc_x_idx, 'FAMA'] and df_dow_graph.at[ovc_x_idx, 'BBLower'] == df_dow_graph.at[ovc_x_idx, 'BBLower']:
 
                     if df_dow_graph.at[ovc_x_idx, 'FAMA'] < df_dow_graph.at[ovc_x_idx, 'BBLower']:
                         df_dow_graph.at[ovc_x_idx, 'A_FAMA'] = df_dow_graph.at[ovc_x_idx, 'BBLower']
@@ -23659,7 +23659,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_sp500_graph['MAMA'] = mama
                 df_sp500_graph['FAMA'] = fama
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBLower']):
+                if df_sp500_graph.at[ovc_x_idx, 'FAMA'] == df_sp500_graph.at[ovc_x_idx, 'FAMA'] and df_sp500_graph.at[ovc_x_idx, 'BBLower'] == df_sp500_graph.at[ovc_x_idx, 'BBLower']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'FAMA'] < df_sp500_graph.at[ovc_x_idx, 'BBLower']:
                         df_sp500_graph.at[ovc_x_idx, 'A_FAMA'] = df_sp500_graph.at[ovc_x_idx, 'BBLower']
@@ -23710,7 +23710,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_nasdaq_graph['MAMA'] = mama
                 df_nasdaq_graph['FAMA'] = fama
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBLower']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] and df_nasdaq_graph.at[ovc_x_idx, 'BBLower'] == df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
                         df_nasdaq_graph.at[ovc_x_idx, 'A_FAMA'] = df_nasdaq_graph.at[ovc_x_idx, 'BBLower']
@@ -23761,7 +23761,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_wti_graph['MAMA'] = mama
                 df_wti_graph['FAMA'] = fama
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBLower']):
+                if df_wti_graph.at[ovc_x_idx, 'FAMA'] == df_wti_graph.at[ovc_x_idx, 'FAMA'] and df_wti_graph.at[ovc_x_idx, 'BBLower'] == df_wti_graph.at[ovc_x_idx, 'BBLower']:
 
                     if df_wti_graph.at[ovc_x_idx, 'FAMA'] < df_wti_graph.at[ovc_x_idx, 'BBLower']:
                         df_wti_graph.at[ovc_x_idx, 'A_FAMA'] = df_wti_graph.at[ovc_x_idx, 'BBLower']
@@ -30912,7 +30912,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 5 and market_service:
 
-                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_graph.at[ovc_x_idx, 'price']:
                         self.label_p1_1.setStyleSheet('background-color: blue ; color: white')
@@ -30921,7 +30921,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass               
 
-                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'PSAR']):
+                if df_futures_graph.at[ovc_x_idx, 'PSAR'] == df_futures_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_futures_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_graph.at[ovc_x_idx, 'price']:
                         self.label_p1_2.setStyleSheet('background-color: blue ; color: white')
@@ -30935,7 +30935,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
@@ -30949,7 +30949,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'FAMA']):
+                if df_futures_graph.at[ovc_x_idx, 'MAMA'] == df_futures_graph.at[ovc_x_idx, 'MAMA'] and df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_futures_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -31076,7 +31076,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 7:
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] == df_sp500_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
                         self.label_p1_1.setStyleSheet('background-color: blue ; color: white')
@@ -31085,7 +31085,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                 
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'PSAR']):
+                if df_sp500_graph.at[ovc_x_idx, 'PSAR'] == df_sp500_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'PSAR'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
                         self.label_p1_2.setStyleSheet('background-color: blue ; color: white')
@@ -31099,7 +31099,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] == df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] and df_sp500_graph.at[ovc_x_idx, 'OE_BASE'] == df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] < df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
@@ -31113,7 +31113,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']):
+                if df_sp500_graph.at[ovc_x_idx, 'MAMA'] == df_sp500_graph.at[ovc_x_idx, 'MAMA'] and df_sp500_graph.at[ovc_x_idx, 'FAMA'] == df_sp500_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'FAMA'] >= df_sp500_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -31214,7 +31214,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 8:
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] == df_dow_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
                         self.label_p1_1.setStyleSheet('background-color: blue ; color: white')
@@ -31223,7 +31223,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                 
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'PSAR']):
+                if df_dow_graph.at[ovc_x_idx, 'PSAR'] == df_dow_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_dow_graph.at[ovc_x_idx, 'PSAR'] >= df_dow_graph.at[ovc_x_idx, 'price']:
                         self.label_p1_2.setStyleSheet('background-color: blue ; color: white')
@@ -31237,7 +31237,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] == df_dow_graph.at[ovc_x_idx, 'OE_CONV'] and df_dow_graph.at[ovc_x_idx, 'OE_BASE'] == df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] < df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
@@ -31251,7 +31251,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']):
+                if df_dow_graph.at[ovc_x_idx, 'MAMA'] == df_dow_graph.at[ovc_x_idx, 'MAMA'] and df_dow_graph.at[ovc_x_idx, 'FAMA'] == df_dow_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_dow_graph.at[ovc_x_idx, 'FAMA'] >= df_dow_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -31352,7 +31352,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 9:
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] == df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
                         self.label_p1_1.setStyleSheet('background-color: blue ; color: white')
@@ -31361,7 +31361,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'PSAR']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] == df_nasdaq_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
                         self.label_p1_2.setStyleSheet('background-color: blue ; color: white')
@@ -31375,7 +31375,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] and df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
@@ -31389,7 +31389,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] and df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] >= df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -31490,7 +31490,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 10:
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] == df_wti_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
                         self.label_p1_1.setStyleSheet('background-color: blue ; color: white')
@@ -31499,7 +31499,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                 
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'PSAR']):
+                if df_wti_graph.at[ovc_x_idx, 'PSAR'] == df_wti_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_wti_graph.at[ovc_x_idx, 'PSAR'] >= df_wti_graph.at[ovc_x_idx, 'price']:
                         self.label_p1_2.setStyleSheet('background-color: blue ; color: white')
@@ -31513,7 +31513,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] == df_wti_graph.at[ovc_x_idx, 'OE_CONV'] and df_wti_graph.at[ovc_x_idx, 'OE_BASE'] == df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] < df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p1_3.setStyleSheet('background-color: blue ; color: white')
@@ -31527,7 +31527,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']):
+                if df_wti_graph.at[ovc_x_idx, 'MAMA'] == df_wti_graph.at[ovc_x_idx, 'MAMA'] and df_wti_graph.at[ovc_x_idx, 'FAMA'] == df_wti_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_wti_graph.at[ovc_x_idx, 'FAMA'] >= df_wti_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -31877,7 +31877,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 7:
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] == df_sp500_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
                         self.label_p2_1.setStyleSheet('background-color: blue ; color: white')
@@ -31886,7 +31886,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                 
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'PSAR']):
+                if df_sp500_graph.at[ovc_x_idx, 'PSAR'] == df_sp500_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'PSAR'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
                         self.label_p2_2.setStyleSheet('background-color: blue ; color: white')
@@ -31900,7 +31900,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] == df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] and df_sp500_graph.at[ovc_x_idx, 'OE_BASE'] == df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] < df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p2_3.setStyleSheet('background-color: blue ; color: white')
@@ -31914,7 +31914,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']):
+                if df_sp500_graph.at[ovc_x_idx, 'MAMA'] == df_sp500_graph.at[ovc_x_idx, 'MAMA'] and df_sp500_graph.at[ovc_x_idx, 'FAMA'] == df_sp500_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'FAMA'] >= df_sp500_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -32021,7 +32021,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 8:
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] == df_dow_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
                         self.label_p2_1.setStyleSheet('background-color: blue ; color: white')
@@ -32030,7 +32030,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'PSAR']):
+                if df_dow_graph.at[ovc_x_idx, 'PSAR'] == df_dow_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_dow_graph.at[ovc_x_idx, 'PSAR'] >= df_dow_graph.at[ovc_x_idx, 'price']:
                         self.label_p2_2.setStyleSheet('background-color: blue ; color: white')
@@ -32044,7 +32044,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] == df_dow_graph.at[ovc_x_idx, 'OE_CONV'] and df_dow_graph.at[ovc_x_idx, 'OE_BASE'] == df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] < df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p2_3.setStyleSheet('background-color: blue ; color: white')
@@ -32058,7 +32058,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']):
+                if df_dow_graph.at[ovc_x_idx, 'MAMA'] == df_dow_graph.at[ovc_x_idx, 'MAMA'] and df_dow_graph.at[ovc_x_idx, 'FAMA'] == df_dow_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_dow_graph.at[ovc_x_idx, 'FAMA'] >= df_dow_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -32164,7 +32164,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 9:
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] == df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
                         self.label_p2_1.setStyleSheet('background-color: blue ; color: white')
@@ -32173,7 +32173,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'PSAR']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] == df_nasdaq_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
                         self.label_p2_2.setStyleSheet('background-color: blue ; color: white')
@@ -32187,7 +32187,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] and df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p2_3.setStyleSheet('background-color: blue ; color: white')
@@ -32201,7 +32201,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] and df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] >= df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -32307,7 +32307,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 10:
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] == df_wti_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
                         self.label_p2_1.setStyleSheet('background-color: blue ; color: white')
@@ -32316,7 +32316,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'PSAR']):
+                if df_wti_graph.at[ovc_x_idx, 'PSAR'] == df_wti_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_wti_graph.at[ovc_x_idx, 'PSAR'] >= df_wti_graph.at[ovc_x_idx, 'price']:
                         self.label_p2_2.setStyleSheet('background-color: blue ; color: white')
@@ -32330,7 +32330,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] == df_wti_graph.at[ovc_x_idx, 'OE_CONV'] and df_wti_graph.at[ovc_x_idx, 'OE_BASE'] == df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] < df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p2_3.setStyleSheet('background-color: blue ; color: white')
@@ -32344,7 +32344,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']):
+                if df_wti_graph.at[ovc_x_idx, 'MAMA'] == df_wti_graph.at[ovc_x_idx, 'MAMA'] and df_wti_graph.at[ovc_x_idx, 'FAMA'] == df_wti_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_wti_graph.at[ovc_x_idx, 'FAMA'] >= df_wti_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -32699,7 +32699,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 7:
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] == df_sp500_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
                         self.label_p3_1.setStyleSheet('background-color: blue ; color: white')
@@ -32708,7 +32708,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                 
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'PSAR']):
+                if df_sp500_graph.at[ovc_x_idx, 'PSAR'] == df_sp500_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'PSAR'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
                         self.label_p3_2.setStyleSheet('background-color: blue ; color: white')
@@ -32722,7 +32722,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] == df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] and df_sp500_graph.at[ovc_x_idx, 'OE_BASE'] == df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] < df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p3_3.setStyleSheet('background-color: blue ; color: white')
@@ -32736,7 +32736,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']):
+                if df_sp500_graph.at[ovc_x_idx, 'MAMA'] == df_sp500_graph.at[ovc_x_idx, 'MAMA'] and df_sp500_graph.at[ovc_x_idx, 'FAMA'] == df_sp500_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'FAMA'] >= df_sp500_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -32843,7 +32843,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 8:
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] == df_dow_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
                         self.label_p3_1.setStyleSheet('background-color: blue ; color: white')
@@ -32852,7 +32852,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'PSAR']):
+                if df_dow_graph.at[ovc_x_idx, 'PSAR'] == df_dow_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_dow_graph.at[ovc_x_idx, 'PSAR'] >= df_dow_graph.at[ovc_x_idx, 'price']:
                         self.label_p3_2.setStyleSheet('background-color: blue ; color: white')
@@ -32866,7 +32866,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] == df_dow_graph.at[ovc_x_idx, 'OE_CONV'] and df_dow_graph.at[ovc_x_idx, 'OE_BASE'] == df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] < df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p3_3.setStyleSheet('background-color: blue ; color: white')
@@ -32880,7 +32880,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']):
+                if df_dow_graph.at[ovc_x_idx, 'MAMA'] == df_dow_graph.at[ovc_x_idx, 'MAMA'] and df_dow_graph.at[ovc_x_idx, 'FAMA'] == df_dow_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_dow_graph.at[ovc_x_idx, 'FAMA'] >= df_dow_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -32986,7 +32986,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 9:
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] == df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
                         self.label_p3_1.setStyleSheet('background-color: blue ; color: white')
@@ -32995,7 +32995,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'PSAR']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] == df_nasdaq_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
                         self.label_p3_2.setStyleSheet('background-color: blue ; color: white')
@@ -33009,7 +33009,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] and df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p3_3.setStyleSheet('background-color: blue ; color: white')
@@ -33023,7 +33023,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] and df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] >= df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -33129,7 +33129,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 10:
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] == df_wti_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
                         self.label_p3_1.setStyleSheet('background-color: blue ; color: white')
@@ -33138,7 +33138,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'PSAR']):
+                if df_wti_graph.at[ovc_x_idx, 'PSAR'] == df_wti_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_wti_graph.at[ovc_x_idx, 'PSAR'] >= df_wti_graph.at[ovc_x_idx, 'price']:
                         self.label_p3_2.setStyleSheet('background-color: blue ; color: white')
@@ -33152,7 +33152,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] == df_wti_graph.at[ovc_x_idx, 'OE_CONV'] and df_wti_graph.at[ovc_x_idx, 'OE_BASE'] == df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] < df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p3_3.setStyleSheet('background-color: blue ; color: white')
@@ -33166,7 +33166,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']):
+                if df_wti_graph.at[ovc_x_idx, 'MAMA'] == df_wti_graph.at[ovc_x_idx, 'MAMA'] and df_wti_graph.at[ovc_x_idx, 'FAMA'] == df_wti_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_wti_graph.at[ovc_x_idx, 'FAMA'] >= df_wti_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -33434,7 +33434,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex4 == 5 and market_service:
 
-                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] >= df_futures_graph.at[ovc_x_idx, 'price']:
                         self.label_p4_1.setStyleSheet('background-color: blue ; color: white')
@@ -33443,7 +33443,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass               
 
-                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'PSAR']):
+                if df_futures_graph.at[ovc_x_idx, 'PSAR'] == df_futures_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_futures_graph.at[ovc_x_idx, 'PSAR'] >= df_futures_graph.at[ovc_x_idx, 'price']:
                         self.label_p4_2.setStyleSheet('background-color: blue ; color: white')
@@ -33457,7 +33457,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
@@ -33471,7 +33471,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_futures_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_futures_graph.at[ovc_x_idx, 'FAMA']):
+                if df_futures_graph.at[ovc_x_idx, 'MAMA'] == df_futures_graph.at[ovc_x_idx, 'MAMA'] and df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_futures_graph.at[ovc_x_idx, 'FAMA'] >= df_futures_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -33598,7 +33598,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex4 == 7:
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] == df_sp500_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
                         self.label_p4_1.setStyleSheet('background-color: blue ; color: white')
@@ -33607,7 +33607,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                 
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'PSAR']):
+                if df_sp500_graph.at[ovc_x_idx, 'PSAR'] == df_sp500_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'PSAR'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
                         self.label_p4_2.setStyleSheet('background-color: blue ; color: white')
@@ -33621,7 +33621,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] == df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] and df_sp500_graph.at[ovc_x_idx, 'OE_BASE'] == df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] < df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
@@ -33635,7 +33635,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']):
+                if df_sp500_graph.at[ovc_x_idx, 'MAMA'] == df_sp500_graph.at[ovc_x_idx, 'MAMA'] and df_sp500_graph.at[ovc_x_idx, 'FAMA'] == df_sp500_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'FAMA'] >= df_sp500_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -33736,7 +33736,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex4 == 8:
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] == df_dow_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
                         self.label_p4_1.setStyleSheet('background-color: blue ; color: white')
@@ -33745,7 +33745,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                 
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'PSAR']):
+                if df_dow_graph.at[ovc_x_idx, 'PSAR'] == df_dow_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_dow_graph.at[ovc_x_idx, 'PSAR'] >= df_dow_graph.at[ovc_x_idx, 'price']:
                         self.label_p4_2.setStyleSheet('background-color: blue ; color: white')
@@ -33759,7 +33759,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] == df_dow_graph.at[ovc_x_idx, 'OE_CONV'] and df_dow_graph.at[ovc_x_idx, 'OE_BASE'] == df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] < df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
@@ -33773,7 +33773,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']):
+                if df_dow_graph.at[ovc_x_idx, 'MAMA'] == df_dow_graph.at[ovc_x_idx, 'MAMA'] and df_dow_graph.at[ovc_x_idx, 'FAMA'] == df_dow_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_dow_graph.at[ovc_x_idx, 'FAMA'] >= df_dow_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -33874,7 +33874,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex4 == 9:
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] == df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
                         self.label_p4_1.setStyleSheet('background-color: blue ; color: white')
@@ -33883,7 +33883,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'PSAR']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] == df_nasdaq_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
                         self.label_p4_2.setStyleSheet('background-color: blue ; color: white')
@@ -33897,7 +33897,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] and df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
@@ -33911,7 +33911,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] and df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] >= df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -34012,7 +34012,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex4 == 10:
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] == df_wti_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
                         self.label_p4_1.setStyleSheet('background-color: blue ; color: white')
@@ -34021,7 +34021,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                 
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'PSAR']):
+                if df_wti_graph.at[ovc_x_idx, 'PSAR'] == df_wti_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_wti_graph.at[ovc_x_idx, 'PSAR'] >= df_wti_graph.at[ovc_x_idx, 'price']:
                         self.label_p4_2.setStyleSheet('background-color: blue ; color: white')
@@ -34035,7 +34035,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] == df_wti_graph.at[ovc_x_idx, 'OE_CONV'] and df_wti_graph.at[ovc_x_idx, 'OE_BASE'] == df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] < df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p4_3.setStyleSheet('background-color: blue ; color: white')
@@ -34049,7 +34049,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']):
+                if df_wti_graph.at[ovc_x_idx, 'MAMA'] == df_wti_graph.at[ovc_x_idx, 'MAMA'] and df_wti_graph.at[ovc_x_idx, 'FAMA'] == df_wti_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_wti_graph.at[ovc_x_idx, 'FAMA'] >= df_wti_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -34401,7 +34401,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex5 == 7:
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] == df_sp500_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
                         self.label_p5_1.setStyleSheet('background-color: blue ; color: white')
@@ -34410,7 +34410,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                 
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'PSAR']):
+                if df_sp500_graph.at[ovc_x_idx, 'PSAR'] == df_sp500_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'PSAR'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
                         self.label_p5_2.setStyleSheet('background-color: blue ; color: white')
@@ -34424,7 +34424,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] == df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] and df_sp500_graph.at[ovc_x_idx, 'OE_BASE'] == df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] < df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p5_3.setStyleSheet('background-color: blue ; color: white')
@@ -34438,7 +34438,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']):
+                if df_sp500_graph.at[ovc_x_idx, 'MAMA'] == df_sp500_graph.at[ovc_x_idx, 'MAMA'] and df_sp500_graph.at[ovc_x_idx, 'FAMA'] == df_sp500_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'FAMA'] >= df_sp500_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -34545,7 +34545,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex5 == 8:
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] == df_dow_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
                         self.label_p5_1.setStyleSheet('background-color: blue ; color: white')
@@ -34554,7 +34554,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'PSAR']):
+                if df_dow_graph.at[ovc_x_idx, 'PSAR'] == df_dow_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_dow_graph.at[ovc_x_idx, 'PSAR'] >= df_dow_graph.at[ovc_x_idx, 'price']:
                         self.label_p5_2.setStyleSheet('background-color: blue ; color: white')
@@ -34568,7 +34568,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] == df_dow_graph.at[ovc_x_idx, 'OE_CONV'] and df_dow_graph.at[ovc_x_idx, 'OE_BASE'] == df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] < df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p5_3.setStyleSheet('background-color: blue ; color: white')
@@ -34582,7 +34582,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']):
+                if df_dow_graph.at[ovc_x_idx, 'MAMA'] == df_dow_graph.at[ovc_x_idx, 'MAMA'] and df_dow_graph.at[ovc_x_idx, 'FAMA'] == df_dow_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_dow_graph.at[ovc_x_idx, 'FAMA'] >= df_dow_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -34688,7 +34688,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex5 == 9:
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] == df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
                         self.label_p5_1.setStyleSheet('background-color: blue ; color: white')
@@ -34697,7 +34697,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'PSAR']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] == df_nasdaq_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
                         self.label_p5_2.setStyleSheet('background-color: blue ; color: white')
@@ -34711,7 +34711,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] and df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p5_3.setStyleSheet('background-color: blue ; color: white')
@@ -34725,7 +34725,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] and df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] >= df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -34831,7 +34831,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex5 == 10:
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] == df_wti_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
                         self.label_p5_1.setStyleSheet('background-color: blue ; color: white')
@@ -34840,7 +34840,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'PSAR']):
+                if df_wti_graph.at[ovc_x_idx, 'PSAR'] == df_wti_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_wti_graph.at[ovc_x_idx, 'PSAR'] >= df_wti_graph.at[ovc_x_idx, 'price']:
                         self.label_p5_2.setStyleSheet('background-color: blue ; color: white')
@@ -34854,7 +34854,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] == df_wti_graph.at[ovc_x_idx, 'OE_CONV'] and df_wti_graph.at[ovc_x_idx, 'OE_BASE'] == df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] < df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p5_3.setStyleSheet('background-color: blue ; color: white')
@@ -34868,7 +34868,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']):
+                if df_wti_graph.at[ovc_x_idx, 'MAMA'] == df_wti_graph.at[ovc_x_idx, 'MAMA'] and df_wti_graph.at[ovc_x_idx, 'FAMA'] == df_wti_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_wti_graph.at[ovc_x_idx, 'FAMA'] >= df_wti_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -35223,7 +35223,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex6 == 7:
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] == df_sp500_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
                         self.label_p6_1.setStyleSheet('background-color: blue ; color: white')
@@ -35232,7 +35232,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass                 
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'PSAR']):
+                if df_sp500_graph.at[ovc_x_idx, 'PSAR'] == df_sp500_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'PSAR'] >= df_sp500_graph.at[ovc_x_idx, 'price']:
                         self.label_p6_2.setStyleSheet('background-color: blue ; color: white')
@@ -35246,7 +35246,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] == df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] and df_sp500_graph.at[ovc_x_idx, 'OE_BASE'] == df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'OE_CONV'] < df_sp500_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p6_3.setStyleSheet('background-color: blue ; color: white')
@@ -35260,7 +35260,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_sp500_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_sp500_graph.at[ovc_x_idx, 'FAMA']):
+                if df_sp500_graph.at[ovc_x_idx, 'MAMA'] == df_sp500_graph.at[ovc_x_idx, 'MAMA'] and df_sp500_graph.at[ovc_x_idx, 'FAMA'] == df_sp500_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_sp500_graph.at[ovc_x_idx, 'FAMA'] >= df_sp500_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -35367,7 +35367,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex6 == 8:
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] == df_dow_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] >= df_dow_graph.at[ovc_x_idx, 'price']:
                         self.label_p6_1.setStyleSheet('background-color: blue ; color: white')
@@ -35376,7 +35376,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'PSAR']):
+                if df_dow_graph.at[ovc_x_idx, 'PSAR'] == df_dow_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_dow_graph.at[ovc_x_idx, 'PSAR'] >= df_dow_graph.at[ovc_x_idx, 'price']:
                         self.label_p6_2.setStyleSheet('background-color: blue ; color: white')
@@ -35390,7 +35390,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] == df_dow_graph.at[ovc_x_idx, 'OE_CONV'] and df_dow_graph.at[ovc_x_idx, 'OE_BASE'] == df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_dow_graph.at[ovc_x_idx, 'OE_CONV'] < df_dow_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p6_3.setStyleSheet('background-color: blue ; color: white')
@@ -35404,7 +35404,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_dow_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_dow_graph.at[ovc_x_idx, 'FAMA']):
+                if df_dow_graph.at[ovc_x_idx, 'MAMA'] == df_dow_graph.at[ovc_x_idx, 'MAMA'] and df_dow_graph.at[ovc_x_idx, 'FAMA'] == df_dow_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_dow_graph.at[ovc_x_idx, 'FAMA'] >= df_dow_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -35510,7 +35510,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex6 == 9:
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] == df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
                         self.label_p6_1.setStyleSheet('background-color: blue ; color: white')
@@ -35519,7 +35519,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'PSAR']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] == df_nasdaq_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'PSAR'] >= df_nasdaq_graph.at[ovc_x_idx, 'price']:
                         self.label_p6_2.setStyleSheet('background-color: blue ; color: white')
@@ -35533,7 +35533,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] and df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'] == df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'] < df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p6_3.setStyleSheet('background-color: blue ; color: white')
@@ -35547,7 +35547,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_nasdaq_graph.at[ovc_x_idx, 'FAMA']):
+                if df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'MAMA'] and df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] >= df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
 
@@ -35653,7 +35653,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex6 == 10:
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'BBMiddle']):
+                if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] == df_wti_graph.at[ovc_x_idx, 'BBMiddle']:
 
                     if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] >= df_wti_graph.at[ovc_x_idx, 'price']:
                         self.label_p6_1.setStyleSheet('background-color: blue ; color: white')
@@ -35662,7 +35662,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'PSAR']):
+                if df_wti_graph.at[ovc_x_idx, 'PSAR'] == df_wti_graph.at[ovc_x_idx, 'PSAR']:
 
                     if df_wti_graph.at[ovc_x_idx, 'PSAR'] >= df_wti_graph.at[ovc_x_idx, 'price']:
                         self.label_p6_2.setStyleSheet('background-color: blue ; color: white')
@@ -35676,7 +35676,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_CONV']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'OE_BASE']):
+                if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] == df_wti_graph.at[ovc_x_idx, 'OE_CONV'] and df_wti_graph.at[ovc_x_idx, 'OE_BASE'] == df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
 
                     if df_wti_graph.at[ovc_x_idx, 'OE_CONV'] < df_wti_graph.at[ovc_x_idx, 'OE_BASE']:
                         self.label_p6_3.setStyleSheet('background-color: blue ; color: white')
@@ -35690,7 +35690,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-                if not math.isnan(df_wti_graph.at[ovc_x_idx, 'MAMA']) and not math.isnan(df_wti_graph.at[ovc_x_idx, 'FAMA']):
+                if df_wti_graph.at[ovc_x_idx, 'MAMA'] == df_wti_graph.at[ovc_x_idx, 'MAMA'] and df_wti_graph.at[ovc_x_idx, 'FAMA'] == df_wti_graph.at[ovc_x_idx, 'FAMA']:
 
                     if df_wti_graph.at[ovc_x_idx, 'FAMA'] >= df_wti_graph.at[ovc_x_idx, 'BBLower']:
 
