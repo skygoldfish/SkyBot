@@ -4199,6 +4199,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.pushButton_add.setStyleSheet("background-color: lightGray")
         self.pushButton_remove.setStyleSheet("background-color: lightGray")
         
+        # label_msg, label_atm 관련 setFont 추후 검토필요!!!
         self.label_msg.setText("🕘")
         self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
         #self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
