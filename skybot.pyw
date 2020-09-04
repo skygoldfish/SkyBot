@@ -35389,40 +35389,48 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 #self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_66.setText(str)
 
-                tmp = self.label_67.text().split()[0]
-                value = tmp.replace(',', '')                
+                if flag_checkBox_HS:
 
-                if SP500_현재가 > float(value):
-
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    str = " {0} ({1}, {2:0.1f}%, {3}) ". \
                         format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
-
-                    if SP500_전일대비 > 0:
-                        self.label_67.setStyleSheet('background-color: pink ; color: red')
-                    elif SP500_전일대비 < 0:
-                        self.label_67.setStyleSheet('background-color: pink ; color: blue')
-                    else:
-                        self.label_67.setStyleSheet('background-color: pink ; color: black')
-
-                    #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_67.setText(str)
-
-                elif SP500_현재가 < float(value):
-
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
-
-                    if SP500_전일대비 > 0:
-                        self.label_67.setStyleSheet('background-color: skyblue ; color: red')
-                    elif SP500_전일대비 < 0:
-                        self.label_67.setStyleSheet('background-color: skyblue ; color: blue')
-                    else:
-                        self.label_67.setStyleSheet('background-color: skyblue ; color: black')
-
-                    #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_67.setStyleSheet('background-color: black ; color: white')
                     self.label_67.setText(str)
                 else:
-                    pass
+
+                    tmp = self.label_67.text().split()[0]
+                    value = tmp.replace(',', '')                
+
+                    if SP500_현재가 > float(value):
+
+                        str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                            format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                        if SP500_전일대비 > 0:
+                            self.label_67.setStyleSheet('background-color: pink ; color: red')
+                        elif SP500_전일대비 < 0:
+                            self.label_67.setStyleSheet('background-color: pink ; color: blue')
+                        else:
+                            self.label_67.setStyleSheet('background-color: pink ; color: black')
+
+                        #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                        self.label_67.setText(str)
+
+                    elif SP500_현재가 < float(value):
+
+                        str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                            format(format(SP500_현재가, ','), SP500_전일대비, SP500_등락율, format(SP500_진폭, ','))
+
+                        if SP500_전일대비 > 0:
+                            self.label_67.setStyleSheet('background-color: skyblue ; color: red')
+                        elif SP500_전일대비 < 0:
+                            self.label_67.setStyleSheet('background-color: skyblue ; color: blue')
+                        else:
+                            self.label_67.setStyleSheet('background-color: skyblue ; color: black')
+
+                        #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                        self.label_67.setText(str)
+                    else:
+                        pass
 
                 str = ' {0} '.format(format(SP500_고가, ','))
                 self.label_68.setStyleSheet('background-color: pink ; color: red')
@@ -35530,42 +35538,50 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' {0} '.format(format(DOW_저가, ','))
                 self.label_66.setStyleSheet('background-color: skyblue ; color: blue')
                 #self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
-                self.label_66.setText(str)  
+                self.label_66.setText(str)
 
-                tmp = self.label_67.text().split()[0]
-                value = tmp.replace(',', '')               
+                if flag_checkBox_HS:
 
-                if DOW_현재가 > float(value):
-
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    str = " {0} ({1}, {2:0.1f}%, {3}) ". \
                         format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-
-                    if DOW_전일대비 > 0:
-                        self.label_67.setStyleSheet('background-color: pink ; color: red')
-                    elif DOW_전일대비 < 0:
-                        self.label_67.setStyleSheet('background-color: pink ; color: blue')
-                    else:
-                        self.label_67.setStyleSheet('background-color: pink ; color: black')
-
-                    #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_67.setStyleSheet('background-color: black ; color: white')
                     self.label_67.setText(str)
+                else: 
 
-                elif DOW_현재가 < float(value):
+                    tmp = self.label_67.text().split()[0]
+                    value = tmp.replace(',', '')               
 
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                    if DOW_현재가 > float(value):
 
-                    if DOW_전일대비 > 0:
-                        self.label_67.setStyleSheet('background-color: skyblue ; color: red')
-                    elif DOW_전일대비 < 0:
-                        self.label_67.setStyleSheet('background-color: skyblue ; color: blue')
+                        str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                            format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                        if DOW_전일대비 > 0:
+                            self.label_67.setStyleSheet('background-color: pink ; color: red')
+                        elif DOW_전일대비 < 0:
+                            self.label_67.setStyleSheet('background-color: pink ; color: blue')
+                        else:
+                            self.label_67.setStyleSheet('background-color: pink ; color: black')
+
+                        #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                        self.label_67.setText(str)
+
+                    elif DOW_현재가 < float(value):
+
+                        str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                            format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                        if DOW_전일대비 > 0:
+                            self.label_67.setStyleSheet('background-color: skyblue ; color: red')
+                        elif DOW_전일대비 < 0:
+                            self.label_67.setStyleSheet('background-color: skyblue ; color: blue')
+                        else:
+                            self.label_67.setStyleSheet('background-color: skyblue ; color: black')
+
+                        #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                        self.label_67.setText(str)
                     else:
-                        self.label_67.setStyleSheet('background-color: skyblue ; color: black')
-
-                    #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_67.setText(str)
-                else:
-                    pass
+                        pass
 
                 str = ' {0} '.format(format(DOW_고가, ','))
                 self.label_68.setStyleSheet('background-color: pink ; color: red')
@@ -35675,40 +35691,48 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 #self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_66.setText(str)
 
-                tmp = self.label_67.text().split()[0]
-                value = tmp.replace(',', '')                
+                if flag_checkBox_HS:
 
-                if NASDAQ_현재가 > float(value):
-
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    str = " {0} ({1}, {2:0.1f}%, {3}) ". \
                         format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
-
-                    if NASDAQ_전일대비 > 0:
-                        self.label_67.setStyleSheet('background-color: pink ; color: red')
-                    elif NASDAQ_전일대비 < 0:
-                        self.label_67.setStyleSheet('background-color: pink ; color: blue')
-                    else:
-                        self.label_67.setStyleSheet('background-color: pink ; color: black')
-
-                    #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_67.setText(str)
-
-                elif NASDAQ_현재가 < float(value):
-
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
-
-                    if NASDAQ_전일대비 > 0:
-                        self.label_67.setStyleSheet('background-color: skyblue ; color: red')
-                    elif NASDAQ_전일대비 < 0:
-                        self.label_67.setStyleSheet('background-color: skyblue ; color: blue')
-                    else:
-                        self.label_67.setStyleSheet('background-color: skyblue ; color: black')
-
-                    #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_67.setStyleSheet('background-color: black ; color: white')
                     self.label_67.setText(str)
                 else:
-                    pass
+
+                    tmp = self.label_67.text().split()[0]
+                    value = tmp.replace(',', '')                
+
+                    if NASDAQ_현재가 > float(value):
+
+                        str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                            format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+
+                        if NASDAQ_전일대비 > 0:
+                            self.label_67.setStyleSheet('background-color: pink ; color: red')
+                        elif NASDAQ_전일대비 < 0:
+                            self.label_67.setStyleSheet('background-color: pink ; color: blue')
+                        else:
+                            self.label_67.setStyleSheet('background-color: pink ; color: black')
+
+                        #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                        self.label_67.setText(str)
+
+                    elif NASDAQ_현재가 < float(value):
+
+                        str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                            format(format(NASDAQ_현재가, ','), format(NASDAQ_전일대비, ','), NASDAQ_등락율, format(NASDAQ_진폭, ','))
+
+                        if NASDAQ_전일대비 > 0:
+                            self.label_67.setStyleSheet('background-color: skyblue ; color: red')
+                        elif NASDAQ_전일대비 < 0:
+                            self.label_67.setStyleSheet('background-color: skyblue ; color: blue')
+                        else:
+                            self.label_67.setStyleSheet('background-color: skyblue ; color: black')
+
+                        #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                        self.label_67.setText(str)
+                    else:
+                        pass
 
                 str = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_68.setStyleSheet('background-color: pink ; color: red')
@@ -35818,39 +35842,47 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 #self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_66.setText(str)
 
-                value = self.label_67.text().split()[0]             
+                if flag_checkBox_HS:
 
-                if WTI_현재가 > float(value):
-
-                    str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                    str = " {0} ({1}, {2:0.1f}%, {3}) ". \
                         format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
-
-                    if WTI_전일대비 > 0:
-                        self.label_67.setStyleSheet('background-color: pink ; color: red')
-                    elif WTI_전일대비 < 0:
-                        self.label_67.setStyleSheet('background-color: pink ; color: blue')
-                    else:
-                        self.label_67.setStyleSheet('background-color: pink ; color: black')
-
-                    #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
-                    self.label_67.setText(str)
-
-                elif WTI_현재가 < float(value):
-
-                    str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
-                        format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
-
-                    if WTI_전일대비 > 0:
-                        self.label_67.setStyleSheet('background-color: skyblue ; color: red')
-                    elif WTI_전일대비 < 0:
-                        self.label_67.setStyleSheet('background-color: skyblue ; color: blue')
-                    else:
-                        self.label_67.setStyleSheet('background-color: skyblue ; color: black')
-
-                    #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    self.label_67.setStyleSheet('background-color: black ; color: white')
                     self.label_67.setText(str)
                 else:
-                    pass
+
+                    value = self.label_67.text().split()[0]             
+
+                    if WTI_현재가 > float(value):
+
+                        str = " {0} ▲ ({1}, {2:0.1f}%, {3}) ". \
+                            format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+
+                        if WTI_전일대비 > 0:
+                            self.label_67.setStyleSheet('background-color: pink ; color: red')
+                        elif WTI_전일대비 < 0:
+                            self.label_67.setStyleSheet('background-color: pink ; color: blue')
+                        else:
+                            self.label_67.setStyleSheet('background-color: pink ; color: black')
+
+                        #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                        self.label_67.setText(str)
+
+                    elif WTI_현재가 < float(value):
+
+                        str = " {0} ▼ ({1}, {2:0.1f}%, {3}) ". \
+                            format(WTI_현재가, WTI_전일대비, WTI_등락율, WTI_진폭)
+
+                        if WTI_전일대비 > 0:
+                            self.label_67.setStyleSheet('background-color: skyblue ; color: red')
+                        elif WTI_전일대비 < 0:
+                            self.label_67.setStyleSheet('background-color: skyblue ; color: blue')
+                        else:
+                            self.label_67.setStyleSheet('background-color: skyblue ; color: black')
+
+                        #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                        self.label_67.setText(str)
+                    else:
+                        pass
 
                 str = ' {0} '.format(format(WTI_고가, ','))
                 self.label_68.setStyleSheet('background-color: pink ; color: red')
