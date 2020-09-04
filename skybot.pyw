@@ -20596,13 +20596,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         receive_quote = False
                         
                         self.pushButton_add.setText('ScrShot')
-                                                
+
+                        self.SaveResult()
+
+                        '''                        
                         str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
-                        print(str)
+                        print(str)                        
                         
-                        self.SaveResult()
-                        '''
                         flag_offline = True  
 
                         self.parent.connection.disconnect()
