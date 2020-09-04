@@ -20594,9 +20594,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             daytime_file.close()
 
                         receive_quote = False
-
-                        #str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 종료합니다.\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
-                        #self.textBrowser.append(str)
                         
                         self.pushButton_add.setText('ScrShot')
                                                 
@@ -20605,14 +20602,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         print(str)
                         
                         self.SaveResult()
-
+                        '''
                         flag_offline = True  
 
                         self.parent.connection.disconnect()
-
                         time.sleep(0.5)
-
-                        self.parent.statusbar.showMessage("오프라인")                    
+                        self.parent.statusbar.showMessage("오프라인")
+                        '''                    
                     else:
                         pass                                               
 
