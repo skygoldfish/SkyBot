@@ -22531,75 +22531,81 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
                     else:
-                        pass                     
+                        pass
 
-                    if result['체결가격'] != NASDAQ_과거가:
+                    if flag_checkBox_HS:
+
+                        jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)
+                        self.label_3rd.setStyleSheet('background-color: black ; color: white')
+                        self.label_3rd.setText(jisu_str)
+                    else:                                             
+
+                        if result['체결가격'] != NASDAQ_과거가:
                         
-                        old_nasdaq_delta = nasdaq_delta
-                        nasdaq_delta = result['체결가격']
-                        nasdaq_직전대비.extend([nasdaq_delta - old_nasdaq_delta])
-                        대비리스트 = list(nasdaq_직전대비)
+                            old_nasdaq_delta = nasdaq_delta
+                            nasdaq_delta = result['체결가격']
+                            nasdaq_직전대비.extend([nasdaq_delta - old_nasdaq_delta])
+                            대비리스트 = list(nasdaq_직전대비)
 
-                        NASDAQ_현재가 = result['체결가격'] 
-                                                                        
-                        if result['체결가격'] > NASDAQ_과거가:
+                            NASDAQ_현재가 = result['체결가격'] 
 
-                            if NASDAQ_등락율 < 0:
+                            if result['체결가격'] > NASDAQ_과거가:
 
-                                if min(대비리스트) > 0:
-                                    jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬈".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
+                                if NASDAQ_등락율 < 0:
+
+                                    if min(대비리스트) > 0:
+                                        jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬈".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
+                                    else:
+                                        jisu_str = "NASDAQ: {0} ▲ ({1:.2f}, {2:0.2f}%)".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)
+
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: pink ; color: blue')
+                                    nasdaq_text_color = 'blue'
+
+                                elif NASDAQ_등락율 > 0:                            
+
+                                    if min(대비리스트) > 0:
+                                        jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬈".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
+                                    else:
+                                        jisu_str = "NASDAQ: {0} ▲ ({1:.2f}, {2:0.2f}%)".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)
+
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: pink ; color: red')
+                                    nasdaq_text_color = 'red'
                                 else:
-                                    jisu_str = "NASDAQ: {0} ▲ ({1:.2f}, {2:0.2f}%)".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)
+                                    pass
 
-                                self.label_3rd.setText(jisu_str)
-                                self.label_3rd.setStyleSheet('background-color: pink ; color: blue')
-                                nasdaq_text_color = 'blue'
+                            elif result['체결가격'] < NASDAQ_과거가:
 
-                            elif NASDAQ_등락율 > 0:                            
+                                if NASDAQ_등락율 < 0:     
 
-                                if min(대비리스트) > 0:
-                                    jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬈".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
+                                    if max(대비리스트) < 0:
+                                        jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬊".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
+                                    else:
+                                        jisu_str = "NASDAQ: {0} ▼ ({1:.2f}, {2:0.2f}%)".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)
+
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: lightskyblue ; color: blue')
+                                    nasdaq_text_color = 'blue'
+
+                                elif NASDAQ_등락율 > 0:     
+
+                                    if max(대비리스트) < 0:
+                                        jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬊".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
+                                    else:
+                                        jisu_str = "NASDAQ: {0} ▼ ({1:.2f}, {2:0.2f}%)".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)
+
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: lightskyblue ; color: red')
+                                    nasdaq_text_color = 'red'
                                 else:
-                                    jisu_str = "NASDAQ: {0} ▲ ({1:.2f}, {2:0.2f}%)".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)
-
-                                self.label_3rd.setText(jisu_str)
-                                self.label_3rd.setStyleSheet('background-color: pink ; color: red')
-                                nasdaq_text_color = 'red'
+                                    pass
                             else:
                                 pass
-
-                        elif result['체결가격'] < NASDAQ_과거가:
-
-                            if NASDAQ_등락율 < 0:     
-
-                                if max(대비리스트) < 0:
-                                    jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬊".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
-                                else:
-                                    jisu_str = "NASDAQ: {0} ▼ ({1:.2f}, {2:0.2f}%)".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)
-
-                                self.label_3rd.setText(jisu_str)
-                                self.label_3rd.setStyleSheet('background-color: lightskyblue ; color: blue')
-                                nasdaq_text_color = 'blue'
-
-                            elif NASDAQ_등락율 > 0:     
-
-                                if max(대비리스트) < 0:
-                                    jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬊".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
-                                else:
-                                    jisu_str = "NASDAQ: {0} ▼ ({1:.2f}, {2:0.2f}%)".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)
-
-                                self.label_3rd.setText(jisu_str)
-                                self.label_3rd.setStyleSheet('background-color: lightskyblue ; color: red')
-                                nasdaq_text_color = 'red'
-                            else:
-                                pass
+                            
+                            NASDAQ_과거가 = result['체결가격']
                         else:
-                            pass
-                        
-                        NASDAQ_과거가 = result['체결가격']
-                        #df_nasdaq_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                    else:
-                        pass                    
+                            pass                    
 
                 elif result['종목코드'] == SP500:
 
@@ -22635,7 +22641,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    SP500_전일대비 = round((result['체결가격'] - SP500_종가), 2)      
+                    SP500_전일대비 = round((result['체결가격'] - SP500_종가), 2)
+                    체결가격 = locale.format('%.2f', result['체결가격'], 1)      
                     
                     if SP500_피봇 == 0:
                         
@@ -22646,119 +22653,123 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    if result['체결가격'] != SP500_과거가:
+                    if flag_checkBox_HS:
+
+                        jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                        self.label_3rd.setStyleSheet('background-color: black ; color: white')
+                        self.label_3rd.setText(jisu_str)
+                    else:
+
+                        if result['체결가격'] != SP500_과거가:
                         
-                        old_sp500_delta = sp500_delta
-                        sp500_delta = result['체결가격']
-                        sp500_직전대비.extend([sp500_delta - old_sp500_delta])
-                        대비리스트 = list(sp500_직전대비)
+                            old_sp500_delta = sp500_delta
+                            sp500_delta = result['체결가격']
+                            sp500_직전대비.extend([sp500_delta - old_sp500_delta])
+                            대비리스트 = list(sp500_직전대비)
 
-                        SP500_현재가 = result['체결가격']
-                                                
-                        체결가격 = locale.format('%.2f', result['체결가격'], 1)
-                        
-                        if result['체결가격'] > SP500_과거가:
-                            
-                            if SP500_등락율 < 0:
+                            SP500_현재가 = result['체결가격']
 
-                                if NightTime:
+                            if result['체결가격'] > SP500_과거가:
 
-                                    if min(대비리스트) > 0:
-                                        jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                if SP500_등락율 < 0:
+
+                                    if NightTime:
+
+                                        if min(대비리스트) > 0:
+                                            jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                        else:
+                                            jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+
+                                        self.label_3rd.setText(jisu_str)
+                                        self.label_3rd.setStyleSheet('background-color: pink; color: blue')
+                                        sp500_text_color = 'blue'
                                     else:
-                                        jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                        if min(대비리스트) > 0:
+                                            jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                        else:
+                                            jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                    self.label_3rd.setText(jisu_str)
-                                    self.label_3rd.setStyleSheet('background-color: pink; color: blue')
-                                    sp500_text_color = 'blue'
+                                        self.label_3rd.setText(jisu_str)
+                                        self.label_3rd.setStyleSheet('background-color: pink; color: blue')
+                                        sp500_text_color = 'blue'                                
+
+                                elif SP500_등락율 > 0:  
+
+                                    if NightTime:
+
+                                        if min(대비리스트) > 0:
+                                            jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                        else:
+                                            jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+
+                                        self.label_3rd.setText(jisu_str)
+                                        self.label_3rd.setStyleSheet('background-color: pink; color: red')
+                                        sp500_text_color = 'red'
+                                    else:
+                                        if min(대비리스트) > 0:
+                                            jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                        else:
+                                            jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+
+                                        self.label_3rd.setText(jisu_str)
+                                        self.label_3rd.setStyleSheet('background-color: pink; color: red')
+                                        sp500_text_color = 'red'
                                 else:
-                                    if min(대비리스트) > 0:
-                                        jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                    pass
+
+                            elif result['체결가격'] < SP500_과거가:
+
+                                if SP500_등락율 < 0: 
+
+                                    if NightTime:
+
+                                        if max(대비리스트) < 0:
+                                            jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                        else:
+                                            jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+
+                                        self.label_3rd.setText(jisu_str)
+                                        self.label_3rd.setStyleSheet('background-color: lightskyblue; color: blue')
+                                        sp500_text_color = 'blue'
                                     else:
-                                        jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                        if max(대비리스트) < 0:
+                                            jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                        else:
+                                            jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                    self.label_3rd.setText(jisu_str)
-                                    self.label_3rd.setStyleSheet('background-color: pink; color: blue')
-                                    sp500_text_color = 'blue'                                
+                                        self.label_3rd.setText(jisu_str)
+                                        self.label_3rd.setStyleSheet('background-color: lightskyblue; color: blue')
+                                        sp500_text_color = 'blue'                                
 
-                            elif SP500_등락율 > 0:  
+                                elif SP500_등락율 > 0:
 
-                                if NightTime:
+                                    if NightTime:
 
-                                    if min(대비리스트) > 0:
-                                        jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                        if max(대비리스트) < 0:
+                                            jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                        else:
+                                            jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+
+                                        self.label_3rd.setText(jisu_str)
+                                        self.label_3rd.setStyleSheet('background-color: lightskyblue; color: red')
+                                        sp500_text_color = 'red'
                                     else:
-                                        jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                        if max(대비리스트) < 0:
+                                            jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                        else:
+                                            jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                    self.label_3rd.setText(jisu_str)
-                                    self.label_3rd.setStyleSheet('background-color: pink; color: red')
-                                    sp500_text_color = 'red'
+                                        self.label_3rd.setText(jisu_str)
+                                        self.label_3rd.setStyleSheet('background-color: lightskyblue; color: red')
+                                        sp500_text_color = 'red'                                
                                 else:
-                                    if min(대비리스트) > 0:
-                                        jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                    else:
-                                        jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
-
-                                    self.label_3rd.setText(jisu_str)
-                                    self.label_3rd.setStyleSheet('background-color: pink; color: red')
-                                    sp500_text_color = 'red'
+                                    pass
                             else:
                                 pass
-                            
-                        elif result['체결가격'] < SP500_과거가:
-                            
-                            if SP500_등락율 < 0: 
 
-                                if NightTime:
-
-                                    if max(대비리스트) < 0:
-                                        jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                    else:
-                                        jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
-
-                                    self.label_3rd.setText(jisu_str)
-                                    self.label_3rd.setStyleSheet('background-color: lightskyblue; color: blue')
-                                    sp500_text_color = 'blue'
-                                else:
-                                    if max(대비리스트) < 0:
-                                        jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                    else:
-                                        jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
-
-                                    self.label_3rd.setText(jisu_str)
-                                    self.label_3rd.setStyleSheet('background-color: lightskyblue; color: blue')
-                                    sp500_text_color = 'blue'                                
-
-                            elif SP500_등락율 > 0:
-
-                                if NightTime:
-
-                                    if max(대비리스트) < 0:
-                                        jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                    else:
-                                        jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
-
-                                    self.label_3rd.setText(jisu_str)
-                                    self.label_3rd.setStyleSheet('background-color: lightskyblue; color: red')
-                                    sp500_text_color = 'red'
-                                else:
-                                    if max(대비리스트) < 0:
-                                        jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                    else:
-                                        jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
-
-                                    self.label_3rd.setText(jisu_str)
-                                    self.label_3rd.setStyleSheet('background-color: lightskyblue; color: red')
-                                    sp500_text_color = 'red'                                
-                            else:
-                                pass                            
+                            SP500_과거가 = result['체결가격']
                         else:
-                            pass
-
-                        SP500_과거가 = result['체결가격']
-                        #df_sp500_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                    else:
-                        pass                    
+                            pass                    
 
                 elif result['종목코드'] == DOW:
 
@@ -22794,7 +22805,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         DOW_시가 = int(result['시가'])
                     else:
-                        pass
+                        DOW_진폭비 = DOW_진폭 / DOW_시가
 
                     DOW_전일대비 = int(result['체결가격'] - DOW_종가) 
                     
@@ -22805,86 +22816,92 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
                     else:
-                        pass  
+                        pass                      
                     
-                    체결가격 = int(result['체결가격'])           
+                    체결가격 = int(result['체결가격'])
 
-                    if 체결가격 != DOW_과거가:
-                        
-                        old_dow_delta = dow_delta
-                        dow_delta = 체결가격
-                        dow_직전대비.extend([dow_delta - old_dow_delta])
-                        대비리스트 = list(dow_직전대비)
+                    if flag_checkBox_HS:
 
-                        DOW_현재가 = int(result['체결가격'])                        
-                        
-                        if 체결가격 > DOW_과거가:
-
-                            if DOW_등락율 < 0:                                                             
-
-                                if min(대비리스트) > 0:
-                                    jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬈". \
-                                    format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
-                                else:
-                                    jisu_str = "DOW: {0} ▲ ({1}, {2:0.2f}%, {3})". \
+                        jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})". \
                                     format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                        self.label_2nd.setStyleSheet('background-color: black ; color: white')
+                        self.label_2nd.setText(jisu_str)
+                    else:           
 
-                                self.label_2nd.setText(jisu_str)
-                                self.label_2nd.setStyleSheet('background-color: pink ; color: blue')
-                                dow_text_color = 'blue'
+                        if 체결가격 != DOW_과거가:
+                        
+                            old_dow_delta = dow_delta
+                            dow_delta = 체결가격
+                            dow_직전대비.extend([dow_delta - old_dow_delta])
+                            대비리스트 = list(dow_직전대비)
 
-                            elif DOW_등락율 > 0:       
+                            DOW_현재가 = int(result['체결가격'])                        
 
-                                if min(대비리스트) > 0:
-                                    jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬈". \
-                                    format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
+                            if 체결가격 > DOW_과거가:
+
+                                if DOW_등락율 < 0:                                                             
+
+                                    if min(대비리스트) > 0:
+                                        jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬈". \
+                                        format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
+                                    else:
+                                        jisu_str = "DOW: {0} ▲ ({1}, {2:0.2f}%, {3})". \
+                                        format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                                    self.label_2nd.setText(jisu_str)
+                                    self.label_2nd.setStyleSheet('background-color: pink ; color: blue')
+                                    dow_text_color = 'blue'
+
+                                elif DOW_등락율 > 0:       
+
+                                    if min(대비리스트) > 0:
+                                        jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬈". \
+                                        format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
+                                    else:
+                                        jisu_str = "DOW: {0} ▲ ({1}, {2:0.2f}%, {3})". \
+                                        format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                                    self.label_2nd.setText(jisu_str)
+                                    self.label_2nd.setStyleSheet('background-color: pink ; color: red')
+                                    dow_text_color = 'red'
                                 else:
-                                    jisu_str = "DOW: {0} ▲ ({1}, {2:0.2f}%, {3})". \
-                                    format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                                    pass
 
-                                self.label_2nd.setText(jisu_str)
-                                self.label_2nd.setStyleSheet('background-color: pink ; color: red')
-                                dow_text_color = 'red'
+                            elif 체결가격 < DOW_과거가:
+
+                                if DOW_등락율 < 0:        
+
+                                    if max(대비리스트) < 0:
+                                        jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬊". \
+                                        format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
+                                    else:
+                                        jisu_str = "DOW: {0} ▼ ({1}, {2:0.2f}%, {3})". \
+                                        format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                                    self.label_2nd.setText(jisu_str)
+                                    self.label_2nd.setStyleSheet('background-color: lightskyblue ; color: blue')
+                                    dow_text_color = 'blue'
+
+                                elif DOW_등락율 > 0:      
+
+                                    if max(대비리스트) < 0:
+                                        jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬊". \
+                                        format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
+                                    else:
+                                        jisu_str = "DOW: {0} ▼ ({1}, {2:0.2f}%, {3})". \
+                                        format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+
+                                    self.label_2nd.setText(jisu_str)
+                                    self.label_2nd.setStyleSheet('background-color: lightskyblue ; color: red')
+                                    dow_text_color = 'red'
+                                else:
+                                    pass
                             else:
                                 pass
 
-                        elif 체결가격 < DOW_과거가:
-
-                            if DOW_등락율 < 0:        
-
-                                if max(대비리스트) < 0:
-                                    jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬊". \
-                                    format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
-                                else:
-                                    jisu_str = "DOW: {0} ▼ ({1}, {2:0.2f}%, {3})". \
-                                    format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-
-                                self.label_2nd.setText(jisu_str)
-                                self.label_2nd.setStyleSheet('background-color: lightskyblue ; color: blue')
-                                dow_text_color = 'blue'
-
-                            elif DOW_등락율 > 0:      
-
-                                if max(대비리스트) < 0:
-                                    jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬊". \
-                                    format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
-                                else:
-                                    jisu_str = "DOW: {0} ▼ ({1}, {2:0.2f}%, {3})". \
-                                    format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-
-                                self.label_2nd.setText(jisu_str)
-                                self.label_2nd.setStyleSheet('background-color: lightskyblue ; color: red')
-                                dow_text_color = 'red'
-                            else:
-                                pass
+                            DOW_과거가 = 체결가격                        
                         else:
                             pass
-
-                        DOW_과거가 = 체결가격
-                        #df_dow_graph.at[ovc_x_idx, 'price'] = result['체결가격']                        
-                        DOW_진폭비 = DOW_진폭 / DOW_시가
-                    else:
-                        pass
 
                 elif result['종목코드'] == WTI:
 
@@ -22918,8 +22935,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         WTI_시가 = result['시가']
                     else:
-                        pass 
+                        pass
 
+                    
+                    체결가격 = locale.format('%.2f', result['체결가격'], 1)
                     WTI_전일대비 = round((result['체결가격'] - WTI_종가), 2)
                     
                     if WTI_피봇 == 0:
@@ -22931,79 +22950,85 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    if result['체결가격'] != WTI_과거가:
+                    if flag_checkBox_HS:
+
+                        jisu_str = "WTI: {0} ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+                        self.label_1st.setStyleSheet('background-color: black ; color: white')
+                        self.label_1st.setText(jisu_str)
+                    else:
+
+                        if result['체결가격'] != WTI_과거가:
                         
-                        old_wti_delta = wti_delta
-                        wti_delta = result['체결가격']
-                        wti_직전대비.extend([wti_delta - old_wti_delta])
-                        대비리스트 = list(wti_직전대비)
+                            old_wti_delta = wti_delta
+                            wti_delta = result['체결가격']
+                            wti_직전대비.extend([wti_delta - old_wti_delta])
+                            대비리스트 = list(wti_직전대비)
 
-                        WTI_현재가 = result['체결가격']
-                                                
-                        체결가격 = locale.format('%.2f', result['체결가격'], 1)
-                        
-                        if result['체결가격'] > WTI_과거가:
-                            
-                            if WTI_등락율 < 0:
+                            WTI_현재가 = result['체결가격']
 
-                                if min(대비리스트) > 0:
-                                    jisu_str = "WTI: {0} ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                            if result['체결가격'] > WTI_과거가:
+
+                                if WTI_등락율 < 0:
+
+                                    if min(대비리스트) > 0:
+                                        jisu_str = "WTI: {0} ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                    else:
+                                        jisu_str = "WTI: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+
+                                    self.label_1st.setText(jisu_str)
+                                    self.label_1st.setStyleSheet('background-color: pink; color: blue')
+                                    wti_text_color = 'blue'  
+
+                                elif WTI_등락율 > 0:
+
+                                    if min(대비리스트) > 0:
+                                        jisu_str = "WTI: {0} ▲ ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                    else:
+                                        jisu_str = "WTI: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+
+                                    self.label_1st.setText(jisu_str)
+                                    self.label_1st.setStyleSheet('background-color: pink; color: red')
+                                    wti_text_color = 'red'                                    
                                 else:
-                                    jisu_str = "WTI: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+                                    pass
+                                
+                            elif result['체결가격'] < WTI_과거가:
 
-                                self.label_1st.setText(jisu_str)
-                                self.label_1st.setStyleSheet('background-color: pink; color: blue')
-                                wti_text_color = 'blue'  
+                                if WTI_등락율 < 0:
 
-                            elif WTI_등락율 > 0:
+                                    if max(대비리스트) < 0:
+                                        jisu_str = "WTI: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                    else:
+                                        jisu_str = "WTI: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
 
-                                if min(대비리스트) > 0:
-                                    jisu_str = "WTI: {0} ▲ ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                    self.label_1st.setText(jisu_str)
+                                    self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
+                                    wti_text_color = 'blue'                                    
+
+                                elif WTI_등락율 > 0:
+
+                                    if max(대비리스트) < 0:
+                                        jisu_str = "WTI: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
+                                    else:
+                                        jisu_str = "WTI: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+
+                                    self.label_1st.setText(jisu_str)
+                                    self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
+                                    wti_text_color = 'red' 
                                 else:
-                                    jisu_str = "WTI: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
-
-                                self.label_1st.setText(jisu_str)
-                                self.label_1st.setStyleSheet('background-color: pink; color: red')
-                                wti_text_color = 'red'                                    
+                                    pass                            
                             else:
                                 pass
-                            
-                        elif result['체결가격'] < WTI_과거가:
-                            
-                            if WTI_등락율 < 0:
 
-                                if max(대비리스트) < 0:
-                                    jisu_str = "WTI: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
-                                else:
-                                    jisu_str = "WTI: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
-
-                                self.label_1st.setText(jisu_str)
-                                self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
-                                wti_text_color = 'blue'                                    
-
-                            elif WTI_등락율 > 0:
-
-                                if max(대비리스트) < 0:
-                                    jisu_str = "WTI: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, WTI_전일대비, WTI_등락율)                                    
-                                else:
-                                    jisu_str = "WTI: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
-
-                                self.label_1st.setText(jisu_str)
-                                self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
-                                wti_text_color = 'red' 
-                            else:
-                                pass                            
+                            WTI_과거가 = result['체결가격']
                         else:
                             pass
-
-                        WTI_과거가 = result['체결가격']
-                        #df_wti_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                    else:
-                        pass
                     
                 elif result['종목코드'] == EUROFX:
 
                     #EUROFX_체결순매수 = 체결순매수
+
+                    df_eurofx_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                     
                     EUROFX_저가 =  result['저가']
                     EUROFX_고가 =  result['고가']
@@ -23043,80 +23068,88 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
                     else:
                         pass
+
+                    체결가격 = result['체결가격']
+
+                    if flag_checkBox_HS:
+
+                        jisu_str = "EUROFX: {0:0.5f} ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+                        self.label_1st.setStyleSheet('background-color: black ; color: white')
+                        self.label_1st.setText(jisu_str)
+                    else:
                     
-                    if result['체결가격'] != EUROFX_과거가:
+                        if result['체결가격'] != EUROFX_과거가:
                         
-                        old_eurofx_delta = eurofx_delta
-                        eurofx_delta = result['체결가격']
-                        eurofx_직전대비.extend([eurofx_delta - old_eurofx_delta])
-                        대비리스트 = list(eurofx_직전대비)
+                            old_eurofx_delta = eurofx_delta
+                            eurofx_delta = result['체결가격']
+                            eurofx_직전대비.extend([eurofx_delta - old_eurofx_delta])
+                            대비리스트 = list(eurofx_직전대비)
 
-                        EUROFX_현재가 = result['체결가격']
-                        
-                        체결가격 = result['체결가격']
-                        
-                        if result['체결가격'] > EUROFX_과거가:
-                            
-                            if EUROFX_등락율 < 0:
+                            EUROFX_현재가 = result['체결가격']                            
 
-                                if min(대비리스트) > 0:
-                                    jisu_str = "EUROFX: {0:0.5f} ({1:0.5f}, {2:0.2f}%)⬈".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                            if result['체결가격'] > EUROFX_과거가:
+
+                                if EUROFX_등락율 < 0:
+
+                                    if min(대비리스트) > 0:
+                                        jisu_str = "EUROFX: {0:0.5f} ({1:0.5f}, {2:0.2f}%)⬈".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                                    else:
+                                        jisu_str = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+
+                                    self.label_1st.setText(jisu_str)
+                                    self.label_1st.setStyleSheet('background-color: pink; color: blue')
+                                    eurofx_text_color = 'blue'                                           
+
+                                elif EUROFX_등락율 > 0:
+
+                                    if min(대비리스트) > 0:
+                                        jisu_str = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:0.2f}%)⬈".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                                    else:
+                                        jisu_str = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+
+                                    self.label_1st.setText(jisu_str)
+                                    self.label_1st.setStyleSheet('background-color: pink; color: red')
+                                    eurofx_text_color = 'red'                                                                             
                                 else:
-                                    jisu_str = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+                                    pass
+                                
+                            elif result['체결가격'] < EUROFX_과거가:
 
-                                self.label_1st.setText(jisu_str)
-                                self.label_1st.setStyleSheet('background-color: pink; color: blue')
-                                eurofx_text_color = 'blue'                                           
+                                if EUROFX_등락율 < 0:
 
-                            elif EUROFX_등락율 > 0:
+                                    if max(대비리스트) < 0:
+                                        jisu_str = "EUROFX: {0:0.5f} ({1:0.5f}, {2:0.2f}%)⬊".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                                    else:
+                                        jisu_str = "EUROFX: {0:0.5f} ▼ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
 
-                                if min(대비리스트) > 0:
-                                    jisu_str = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:0.2f}%)⬈".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                                    self.label_1st.setText(jisu_str)
+                                    self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
+                                    eurofx_text_color = 'blue'
+
+                                elif EUROFX_등락율 > 0:
+
+                                    if max(대비리스트) < 0:
+                                        jisu_str = "EUROFX: {0:0.5f} ({1:0.5f}, {2:0.2f}%)⬊".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
+                                    else:
+                                        jisu_str = "EUROFX: {0:0.5f} ▼ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+
+                                    self.label_1st.setText(jisu_str)
+                                    self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
+                                    eurofx_text_color = 'red'
                                 else:
-                                    jisu_str = "EUROFX: {0:0.5f} ▲ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
-
-                                self.label_1st.setText(jisu_str)
-                                self.label_1st.setStyleSheet('background-color: pink; color: red')
-                                eurofx_text_color = 'red'                                                                             
+                                    pass                            
                             else:
                                 pass
-                            
-                        elif result['체결가격'] < EUROFX_과거가:
-                            
-                            if EUROFX_등락율 < 0:
 
-                                if max(대비리스트) < 0:
-                                    jisu_str = "EUROFX: {0:0.5f} ({1:0.5f}, {2:0.2f}%)⬊".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
-                                else:
-                                    jisu_str = "EUROFX: {0:0.5f} ▼ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
-
-                                self.label_1st.setText(jisu_str)
-                                self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
-                                eurofx_text_color = 'blue'
-
-                            elif EUROFX_등락율 > 0:
-
-                                if max(대비리스트) < 0:
-                                    jisu_str = "EUROFX: {0:0.5f} ({1:0.5f}, {2:0.2f}%)⬊".format(체결가격, EUROFX_전일대비, EUROFX_등락율)                                    
-                                else:
-                                    jisu_str = "EUROFX: {0:0.5f} ▼ ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
-
-                                self.label_1st.setText(jisu_str)
-                                self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
-                                eurofx_text_color = 'red'
-                            else:
-                                pass                            
+                            EUROFX_과거가 = result['체결가격']
                         else:
                             pass
-
-                        EUROFX_과거가 = result['체결가격']
-                        df_eurofx_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                    else:
-                        pass
 
                 elif result['종목코드'] == HANGSENG:
 
                     #HANGSENG_체결순매수 = 체결순매수
+
+                    df_hangseng_graph.at[ovc_x_idx, 'price'] = result['체결가격']
 
                     HANGSENG_저가 =  int(result['저가'])
                     HANGSENG_고가 =  int(result['고가'])
@@ -23147,6 +23180,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass 
 
                     HANGSENG_전일대비 = int(result['체결가격'] - HANGSENG_종가)
+                    체결가격 = locale.format('%d', result['체결가격'], 1)
                     
                     if HANGSENG_피봇 == 0:
                         
@@ -23156,80 +23190,86 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
                     else:
                         pass
+
+                    if flag_checkBox_HS:
+
+                        jisu_str = "HANGSENG: {0} ({1}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                        self.label_1st.setStyleSheet('background-color: black ; color: white')
+                        self.label_1st.setText(jisu_str)
+                    else:
                     
-                    if result['체결가격'] != HANGSENG_과거가:
+                        if result['체결가격'] != HANGSENG_과거가:
                         
-                        old_hangseng_delta = hangseng_delta
-                        hangseng_delta = result['체결가격']
-                        hangseng_직전대비.extend([hangseng_delta - old_hangseng_delta])
-                        대비리스트 = list(hangseng_직전대비)
+                            old_hangseng_delta = hangseng_delta
+                            hangseng_delta = result['체결가격']
+                            hangseng_직전대비.extend([hangseng_delta - old_hangseng_delta])
+                            대비리스트 = list(hangseng_직전대비)
 
-                        HANGSENG_현재가 = int(result['체결가격'])
-                                                
-                        체결가격 = locale.format('%d', result['체결가격'], 1)
-                        
-                        if result['체결가격'] > HANGSENG_과거가:
-                            
-                            if HANGSENG_등락율 < 0:
+                            HANGSENG_현재가 = int(result['체결가격'])
 
-                                if min(대비리스트) > 0:
-                                    jisu_str = "HANGSENG: {0} ({1}, {2:0.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                            if result['체결가격'] > HANGSENG_과거가:
+
+                                if HANGSENG_등락율 < 0:
+
+                                    if min(대비리스트) > 0:
+                                        jisu_str = "HANGSENG: {0} ({1}, {2:0.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                    else:
+                                        jisu_str = "HANGSENG: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+
+                                    self.label_1st.setText(jisu_str)
+                                    self.label_1st.setStyleSheet('background-color: pink; color: blue')
+                                    hangseng_text_color = 'blue'                                           
+
+                                elif HANGSENG_등락율 > 0:
+
+                                    if min(대비리스트) > 0:
+                                        jisu_str = "HANGSENG: {0} ▲ ({1}, {2:0.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                    else:
+                                        jisu_str = "HANGSENG: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+
+                                    self.label_1st.setText(jisu_str)
+                                    self.label_1st.setStyleSheet('background-color: pink; color: red')
+                                    hangseng_text_color = 'red'                                                                             
                                 else:
-                                    jisu_str = "HANGSENG: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                                    pass
 
-                                self.label_1st.setText(jisu_str)
-                                self.label_1st.setStyleSheet('background-color: pink; color: blue')
-                                hangseng_text_color = 'blue'                                           
+                            elif result['체결가격'] < HANGSENG_과거가:
 
-                            elif HANGSENG_등락율 > 0:
+                                if HANGSENG_등락율 < 0:
 
-                                if min(대비리스트) > 0:
-                                    jisu_str = "HANGSENG: {0} ▲ ({1}, {2:0.2f}%)⬈".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                    if max(대비리스트) < 0:
+                                        jisu_str = "HANGSENG: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                    else:
+                                        jisu_str = "HANGSENG: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+
+                                    self.label_1st.setText(jisu_str)
+                                    self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
+                                    hangseng_text_color = 'blue'
+
+                                elif HANGSENG_등락율 > 0:
+
+                                    if max(대비리스트) < 0:
+                                        jisu_str = "HANGSENG: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
+                                    else:
+                                        jisu_str = "HANGSENG: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+
+                                    self.label_1st.setText(jisu_str)
+                                    self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
+                                    hangseng_text_color = 'red'
                                 else:
-                                    jisu_str = "HANGSENG: {0} ▲ ({1}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
-
-                                self.label_1st.setText(jisu_str)
-                                self.label_1st.setStyleSheet('background-color: pink; color: red')
-                                hangseng_text_color = 'red'                                                                             
+                                    pass                            
                             else:
                                 pass
-                            
-                        elif result['체결가격'] < HANGSENG_과거가:
-                            
-                            if HANGSENG_등락율 < 0:
 
-                                if max(대비리스트) < 0:
-                                    jisu_str = "HANGSENG: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
-                                else:
-                                    jisu_str = "HANGSENG: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
-
-                                self.label_1st.setText(jisu_str)
-                                self.label_1st.setStyleSheet('background-color: lightskyblue; color: blue')
-                                hangseng_text_color = 'blue'
-
-                            elif HANGSENG_등락율 > 0:
-
-                                if max(대비리스트) < 0:
-                                    jisu_str = "HANGSENG: {0} ({1}, {2:0.2f}%)⬊".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)                                    
-                                else:
-                                    jisu_str = "HANGSENG: {0} ▼ ({1}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
-
-                                self.label_1st.setText(jisu_str)
-                                self.label_1st.setStyleSheet('background-color: lightskyblue; color: red')
-                                hangseng_text_color = 'red'
-                            else:
-                                pass                            
+                            HANGSENG_과거가 = int(result['체결가격'])
                         else:
                             pass
-
-                        HANGSENG_과거가 = int(result['체결가격'])
-                        df_hangseng_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                    else:
-                        pass
 
                 elif result['종목코드'] == GOLD:
 
                     #GOLD_체결순매수 = 체결순매수
+
+                    df_gold_graph.at[ovc_x_idx, 'price'] = result['체결가격']
 
                     GOLD_저가 =  result['저가']
                     GOLD_고가 =  result['고가']
@@ -23260,6 +23300,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass 
 
                     GOLD_전일대비 = result['체결가격'] - GOLD_종가
+                    체결가격 = locale.format('%.2f', result['체결가격'], 1)
                     
                     if GOLD_피봇 == 0:
                         
@@ -23269,76 +23310,80 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
                     else:
                         pass
+
+                    if flag_checkBox_HS:
+
+                        jisu_str = "GOLD: {0} ({1:0.2f}, {2:0.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+                        self.label_3rd.setStyleSheet('background-color: black ; color: white')
+                        self.label_3rd.setText(jisu_str)
+                    else:
                     
-                    if result['체결가격'] != GOLD_과거가:
+                        if result['체결가격'] != GOLD_과거가:
                         
-                        old_gold_delta = gold_delta
-                        gold_delta = result['체결가격']
-                        gold_직전대비.extend([gold_delta - old_gold_delta])
-                        대비리스트 = list(gold_직전대비)
+                            old_gold_delta = gold_delta
+                            gold_delta = result['체결가격']
+                            gold_직전대비.extend([gold_delta - old_gold_delta])
+                            대비리스트 = list(gold_직전대비)
 
-                        GOLD_현재가 = result['체결가격']
-                                                
-                        체결가격 = locale.format('%.2f', result['체결가격'], 1)
-                        
-                        if result['체결가격'] > GOLD_과거가:
-                            
-                            if GOLD_등락율 < 0:
+                            GOLD_현재가 = result['체결가격']
 
-                                if min(대비리스트) > 0:
-                                    jisu_str = "GOLD: {0} ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                            if result['체결가격'] > GOLD_과거가:
+
+                                if GOLD_등락율 < 0:
+
+                                    if min(대비리스트) > 0:
+                                        jisu_str = "GOLD: {0} ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                                    else:
+                                        jisu_str = "GOLD: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: pink; color: blue')
+                                    gold_text_color = 'blue'                                           
+
+                                elif GOLD_등락율 > 0:
+
+                                    if min(대비리스트) > 0:
+                                        jisu_str = "GOLD: {0} ▲ ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                                    else:
+                                        jisu_str = "GOLD: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: pink; color: red')
+                                    gold_text_color = 'red'                                                                             
                                 else:
-                                    jisu_str = "GOLD: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+                                    pass
 
-                                self.label_3rd.setText(jisu_str)
-                                self.label_3rd.setStyleSheet('background-color: pink; color: blue')
-                                gold_text_color = 'blue'                                           
+                            elif result['체결가격'] < GOLD_과거가:
 
-                            elif GOLD_등락율 > 0:
+                                if GOLD_등락율 < 0:
 
-                                if min(대비리스트) > 0:
-                                    jisu_str = "GOLD: {0} ▲ ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                                    if max(대비리스트) < 0:
+                                        jisu_str = "GOLD: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                                    else:
+                                        jisu_str = "GOLD: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: lightskyblue; color: blue')
+                                    gold_text_color = 'blue'
+
+                                elif GOLD_등락율 > 0:
+
+                                    if max(대비리스트) < 0:
+                                        jisu_str = "GOLD: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
+                                    else:
+                                        jisu_str = "GOLD: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: lightskyblue; color: red')
+                                    gold_text_color = 'red'
                                 else:
-                                    jisu_str = "GOLD: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
-
-                                self.label_3rd.setText(jisu_str)
-                                self.label_3rd.setStyleSheet('background-color: pink; color: red')
-                                gold_text_color = 'red'                                                                             
+                                    pass                            
                             else:
                                 pass
-                            
-                        elif result['체결가격'] < GOLD_과거가:
-                            
-                            if GOLD_등락율 < 0:
 
-                                if max(대비리스트) < 0:
-                                    jisu_str = "GOLD: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
-                                else:
-                                    jisu_str = "GOLD: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
-
-                                self.label_3rd.setText(jisu_str)
-                                self.label_3rd.setStyleSheet('background-color: lightskyblue; color: blue')
-                                gold_text_color = 'blue'
-
-                            elif GOLD_등락율 > 0:
-
-                                if max(대비리스트) < 0:
-                                    jisu_str = "GOLD: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, GOLD_전일대비, GOLD_등락율)                                    
-                                else:
-                                    jisu_str = "GOLD: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
-
-                                self.label_3rd.setText(jisu_str)
-                                self.label_3rd.setStyleSheet('background-color: lightskyblue; color: red')
-                                gold_text_color = 'red'
-                            else:
-                                pass                            
+                            GOLD_과거가 = result['체결가격']
                         else:
                             pass
-
-                        GOLD_과거가 = result['체결가격']
-                        df_gold_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                    else:
-                        pass
                 else:
                     pass
                     
