@@ -22269,6 +22269,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
+                    self.tableWidget_fut.resizeColumnsToContents()
+
                 elif result['단축코드'] == cmshcode:
 
                     # 선물호가 갱신
@@ -22359,8 +22361,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         fut_ccms_hoga_rr = result['매수호가총수량'] / result['매도호가총수량']
                     else:
                         pass
-
-                    self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass
                 
@@ -30832,10 +30832,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot1 그래프 그리기
             if bc_comboindex1 == 0 and market_service:
 
-                self.label_p1_1.setText(" 좌표 ")
-                self.label_p1_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p1_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 self.label_p1_2.setText(" BB Middle\n PSAR ")
                 self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -30864,10 +30860,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot1_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex1 == 1 and market_service:
-
-                self.label_p1_1.setText(" 좌표 ")
-                self.label_p1_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p1_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p1_2.setText(" BB Middle\n PSAR ")
                 self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
@@ -30899,10 +30891,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 2 and market_service:
 
-                self.label_p1_1.setText(" 좌표 ")
-                self.label_p1_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p1_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 self.label_p1_2.setText(" BB Middle\n PSAR ")
                 self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -30930,10 +30918,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 3 and market_service:
 
-                self.label_p1_1.setText(" 좌표 ")
-                self.label_p1_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p1_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 self.label_p1_2.setText(" BB Middle\n PSAR ")
                 self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -30960,10 +30944,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot1_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())
 
             elif bc_comboindex1 == 4 and market_service:
-
-                self.label_p1_1.setText(" 좌표 ")
-                self.label_p1_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p1_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p1_2.setText(" BB Middle\n PSAR ")
                 self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
@@ -31702,10 +31682,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot2 그래프 그리기
             if bc_comboindex2 == 0 and market_service:
 
-                self.label_p2_1.setText(" 좌표 ")
-                self.label_p2_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p2_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 self.label_p2_2.setText(" BB Middle\n PSAR ")
                 self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -31733,10 +31709,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 1 and market_service:
 
-                self.label_p2_1.setText(" 좌표 ")
-                self.label_p2_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p2_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 self.label_p2_2.setText(" BB Middle\n PSAR ")
                 self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -31763,10 +31735,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot2_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
 
             elif bc_comboindex2 == 2 and market_service:
-
-                self.label_p2_1.setText(" 좌표 ")
-                self.label_p2_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p2_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p2_2.setText(" BB Middle\n PSAR ")
                 self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
@@ -31796,10 +31764,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot2_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex2 == 3 and market_service:
-
-                self.label_p2_1.setText(" 좌표 ")
-                self.label_p2_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p2_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p2_2.setText(" BB Middle\n PSAR ")
                 self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
@@ -31831,10 +31795,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 4 and market_service:
 
-                self.label_p2_1.setText(" 좌표 ")
-                self.label_p2_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p2_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 self.label_p2_2.setText(" BB Middle\n PSAR ")
                 self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -31853,10 +31813,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot2_put_drate_curve.setData(df_put_info_graph['drate'].tolist())
 
             elif bc_comboindex2 == 5 and market_service:
-
-                self.label_p2_1.setText(" 좌표 ")
-                self.label_p2_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p2_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p2_2.setText(" BB Middle\n PSAR ")
                 self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
@@ -32524,10 +32480,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot3 그래프 그리기
             if bc_comboindex3 == 0 and market_service:
 
-                self.label_p3_1.setText(" 좌표 ")
-                self.label_p3_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p3_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 self.label_p3_2.setText(" BB Middle\n PSAR ")
                 self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -32555,10 +32507,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 1 and market_service:
 
-                self.label_p3_1.setText(" 좌표 ")
-                self.label_p3_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p3_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 self.label_p3_2.setText(" BB Middle\n PSAR ")
                 self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -32585,10 +32533,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot3_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
 
             elif bc_comboindex3 == 2 and market_service:
-
-                self.label_p3_1.setText(" 좌표 ")
-                self.label_p3_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p3_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p3_2.setText(" BB Middle\n PSAR ")
                 self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
@@ -32618,10 +32562,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot3_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex3 == 3 and market_service:
-
-                self.label_p3_1.setText(" 좌표 ")
-                self.label_p3_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p3_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p3_2.setText(" BB Middle\n PSAR ")
                 self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
@@ -32653,10 +32593,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 4 and market_service:
 
-                self.label_p3_1.setText(" 좌표 ")
-                self.label_p3_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p3_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 self.label_p3_2.setText(" BB Middle\n PSAR ")
                 self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -32675,10 +32611,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot3_put_drate_curve.setData(df_put_info_graph['drate'].tolist())
 
             elif bc_comboindex3 == 5 and market_service:
-
-                self.label_p3_1.setText(" 좌표 ")
-                self.label_p3_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p3_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p3_2.setText(" BB Middle\n PSAR ")
                 self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
@@ -33346,10 +33278,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot4 그래프 그리기
             if bc_comboindex4 == 0 and market_service:
 
-                self.label_p4_1.setText(" 좌표 ")
-                self.label_p4_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p4_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 self.label_p4_2.setText(" BB Middle\n PSAR ")
                 self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -33378,10 +33306,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot4_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex4 == 1 and market_service:
-
-                self.label_p4_1.setText(" 좌표 ")
-                self.label_p4_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p4_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p4_2.setText(" BB Middle\n PSAR ")
                 self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
@@ -33415,10 +33339,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex4 == 2 and market_service:
 
-                self.label_p4_1.setText(" 좌표 ")
-                self.label_p4_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p4_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 self.label_p4_2.setText(" BB Middle\n PSAR ")
                 self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -33448,10 +33368,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex4 == 3 and market_service:
 
-                self.label_p4_1.setText(" 좌표 ")
-                self.label_p4_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p4_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 self.label_p4_2.setText(" BB Middle\n PSAR ")
                 self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -33480,10 +33396,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot4_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())
 
             elif bc_comboindex4 == 4 and market_service:
-
-                self.label_p4_1.setText(" 좌표 ")
-                self.label_p4_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p4_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p4_2.setText(" BB Middle\n PSAR ")
                 self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
@@ -34224,10 +34136,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot5 그래프 그리기
             if bc_comboindex5 == 0 and market_service:
 
-                self.label_p5_1.setText(" 좌표 ")
-                self.label_p5_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p5_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 self.label_p5_2.setText(" BB Middle\n PSAR ")
                 self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -34257,10 +34165,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex5 == 1 and market_service:
 
-                self.label_p5_1.setText(" 좌표 ")
-                self.label_p5_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p5_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 self.label_p5_2.setText(" BB Middle\n PSAR ")
                 self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -34287,10 +34191,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot5_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
 
             elif bc_comboindex5 == 2 and market_service:
-
-                self.label_p5_1.setText(" 좌표 ")
-                self.label_p5_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p5_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p5_2.setText(" BB Middle\n PSAR ")
                 self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
@@ -34320,10 +34220,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot5_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex5 == 3 and market_service:
-
-                self.label_p5_1.setText(" 좌표 ")
-                self.label_p5_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p5_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p5_2.setText(" BB Middle\n PSAR ")
                 self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
@@ -34355,10 +34251,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex5 == 4 and market_service:
 
-                self.label_p5_1.setText(" 좌표 ")
-                self.label_p5_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p5_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 self.label_p5_2.setText(" BB Middle\n PSAR ")
                 self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -34377,10 +34269,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot5_put_drate_curve.setData(df_put_info_graph['drate'].tolist())
 
             elif bc_comboindex5 == 5 and market_service:
-
-                self.label_p5_1.setText(" 좌표 ")
-                self.label_p5_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p5_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p5_2.setText(" BB Middle\n PSAR ")
                 self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
@@ -35048,10 +34936,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot6 그래프 그리기
             if bc_comboindex6 == 0 and market_service:
 
-                self.label_p6_1.setText(" 좌표 ")
-                self.label_p6_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p6_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 self.label_p6_2.setText(" BB Middle\n PSAR ")
                 self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -35079,10 +34963,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex6 == 1 and market_service:
 
-                self.label_p6_1.setText(" 좌표 ")
-                self.label_p6_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p6_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 self.label_p6_2.setText(" BB Middle\n PSAR ")
                 self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -35109,10 +34989,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot6_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
 
             elif bc_comboindex6 == 2 and market_service:
-
-                self.label_p6_1.setText(" 좌표 ")
-                self.label_p6_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p6_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p6_2.setText(" BB Middle\n PSAR ")
                 self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
@@ -35142,10 +35018,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot6_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex6 == 3 and market_service:
-
-                self.label_p6_1.setText(" 좌표 ")
-                self.label_p6_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p6_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p6_2.setText(" BB Middle\n PSAR ")
                 self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
@@ -35177,10 +35049,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex6 == 4 and market_service:
 
-                self.label_p6_1.setText(" 좌표 ")
-                self.label_p6_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p6_1.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 self.label_p6_2.setText(" BB Middle\n PSAR ")
                 self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
                 self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -35199,10 +35067,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot6_put_drate_curve.setData(df_put_info_graph['drate'].tolist())
 
             elif bc_comboindex6 == 5 and market_service:
-
-                self.label_p6_1.setText(" 좌표 ")
-                self.label_p6_1.setStyleSheet('background-color: lime ; color: black')
-                self.label_p6_1.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p6_2.setText(" BB Middle\n PSAR ")
                 self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
