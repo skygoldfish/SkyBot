@@ -20599,10 +20599,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         #self.textBrowser.append(str)
                         
                         self.pushButton_add.setText('ScrShot')
-                        
+                                                
                         str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
                         print(str)
+                        
+                        self.SaveResult()
 
                         flag_offline = True  
 
@@ -20610,10 +20612,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         time.sleep(0.5)
 
-                        self.parent.statusbar.showMessage("오프라인")
-                        
-                        self.SaveResult()
-                    
+                        self.parent.statusbar.showMessage("오프라인")                    
                     else:
                         pass                                               
 
