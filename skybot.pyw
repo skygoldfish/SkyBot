@@ -4001,13 +4001,13 @@ class telegram_send_worker(QThread):
 
                         # 차월물 야간옵션 OLOH 보고
                         if call_oloh_str != '':
-                            str = call_oloh_str
+                            str = call_oloh_str + ', ' + 'Put ▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
                             ToYourTelegram(str)
                         else:
                             pass
 
                         if put_oloh_str != '':
-                            str = put_oloh_str
+                            str = put_oloh_str + ', ' + 'Call ▲:▼ = ' + repr(call_ol_count) + ':' + repr(call_oh_count)
                             ToYourTelegram(str)
                         else:
                             pass
