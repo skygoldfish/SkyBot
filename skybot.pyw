@@ -4200,13 +4200,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.pushButton_remove.setStyleSheet("background-color: lightGray")
         
         # label_msg, label_atm 관련 setFont 추후 검토필요!!!
-        self.label_msg.setText("🕘")
         self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
-        #self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
-
-        self.label_atm.setText("Basis(양합:양차)")
+        self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_msg.setText("🕘")
+        
         self.label_atm.setStyleSheet('background-color: yellow; color: black')
-        #self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_atm.setText("Basis(양합:양차)")
         
         self.label_kospi.setText("KOSPI: 가격 (전일대비, 등락율)")
         self.label_kospi.setStyleSheet('background-color: black ; color: yellow')
@@ -6598,11 +6598,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.textBrowser.append(str)
                         print(str)
 
-                        flag_offline = True  
+                        #flag_offline = True  
 
                         self.parent.connection.disconnect()
+
+                        time.sleep(0.5)
+
+                        if not self.parent.connection.IsConnected():
+
+                            self.parent.statusbar.showMessage("오프라인")
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결이 종료되었습니다...\r'.format(dt.hour, dt.minute, dt.second)
+                            self.textBrowser.append(str)
+                            print(str)
+                        else:
+                            pass
                     else:
-                        self.parent.statusbar.showMessage("오프라인")
+                        pass
                 else:
                     pass
             else:
@@ -6903,8 +6915,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = 'ⓜ {0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
         else:
             str = 'ⓢ {0:02d}:{1:02d}:{2:02d}'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
-            
-        self.label_msg.setText(str)
         
         # 클래스간 데이타 교환
         
@@ -6975,9 +6985,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.label_msg.setStyleSheet('background-color: cyan; color: black')
         else:
             # 대칭장
-            self.label_msg.setStyleSheet('background-color: lawngreen; color: black')
+            self.label_msg.setStyleSheet('background-color: lawngreen; color: black')        
         
-        self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))    
+        self.label_msg.setText(str)
     
     def call_scroll_coloring(self):
 
@@ -7225,18 +7236,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         atm_plus_4 = round((df_call.at[atm_index + 4, '현재가'] + df_put.at[atm_index + 4, '현재가']) , 2)
         atm_plus_5 = round((df_call.at[atm_index + 5, '현재가'] + df_put.at[atm_index + 5, '현재가']) , 2)             
 
-        if FLAG_ATM:
+        if FLAG_ATM:            
+
+            if 장시작_양합 > 0:
+                str = '{0}({1:0.2f}:{2})'.format(basis, 장시작_양합, abs(atm_zero_cha))
+            else :
+                str = '{0}({1}:{2})'.format(basis, atm_zero_sum, abs(atm_zero_cha))
+
             if basis < 0:
                 self.label_atm.setStyleSheet('background-color: black; color: yellow')
                 self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
             else:
                 self.label_atm.setStyleSheet('background-color: yellow; color: black')
                 self.label_atm.setFont(QFont("Consolas", 9, QFont.Bold))
-
-            if 장시작_양합 > 0:
-                str = '{0}({1:0.2f}:{2})'.format(basis, 장시작_양합, abs(atm_zero_cha))
-            else :
-                str = '{0}({1}:{2})'.format(basis, atm_zero_sum, abs(atm_zero_cha))
 
             self.label_atm.setText(str)
         else:
@@ -17908,88 +17920,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         콜월저 = df_call.at[index, '월저']
         콜월고 = df_call.at[index, '월고']
         콜전저 = df_call.at[index, '전저']
-        콜전고 = df_call.at[index, '전고']
-                
-        # 야간선물이 없어짐에 따른 텔레그램 기동 대응
-        if NightTime:
-
-            global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
-
-            opt_time = dt.hour * 3600 + dt.minute * 60 + dt.second
-
-            if TELEGRAM_SERVICE and not flag_telegram_send_worker:            
-
-                self.telegram_send_worker.start()
-                self.telegram_send_worker.daemon = True
-
-                telegram_send_worker_on_time = opt_time 
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker({3})가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second, telegram_send_worker_on_time)
-                self.textBrowser.append(str)
-                print(str) 
-
-                if TARGET_MONTH_SELECT == 1:
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    ToYourTelegram(str)
-
-                elif TARGET_MONTH_SELECT == 2:
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    ToYourTelegram(str)
-
-                elif TARGET_MONTH_SELECT == 3:
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    ToYourTelegram(str)
-
-                    self.telegram_listen_worker.start()
-                    self.telegram_listen_worker.daemon = True
-
-                    # 차차월물은 시작과 동시에 Polling 시작
-                    ToYourTelegram("MAN 텔레그램 Polling이 시작됩니다.")
-
-                    self.pushButton_remove.setStyleSheet("background-color: lawngreen")
-
-                    flag_telegram_listen_worker = True
-                else:
-                    pass         
-
-                flag_telegram_send_worker = True             
-            else:
-                pass
-
-            # Telegram Send Worker 시작 후 TELEGRAM_START_TIME분에 Telegram Listen을 위한 Polling Thread 시작 !!!
-            if not flag_telegram_listen_worker and opt_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME:
-
-                if TELEGRAM_SERVICE:
-
-                    self.telegram_listen_worker.start()
-                    self.telegram_listen_worker.daemon = True
-
-                    if TARGET_MONTH_SELECT == 1:                        
-                        
-                        if SELFID == 'soojin65':
-                            str = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
-                            ToMyTelegram(str)
-                        else:
-                            ToYourTelegram("CM 텔레그램 Polling이 시작됩니다.")
-
-                    elif TARGET_MONTH_SELECT == 2:
-
-                        ToYourTelegram("NM 텔레그램 Polling이 시작됩니다.")
-                    else:
-                        pass
-                    
-                    self.pushButton_remove.setStyleSheet("background-color: lawngreen")
-
-                    flag_telegram_listen_worker = True
-                else:
-                    pass            
-            else:
-                pass
-        else:
-            pass
+        콜전고 = df_call.at[index, '전고']        
 
         if 저가 != 고가 and not call_open[index]:
 
@@ -20598,19 +20529,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         self.pushButton_add.setText('ScrShot')
 
-                        self.SaveResult()
-
-                        '''                        
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
-                        print(str)                        
+                        self.SaveResult()                                              
                         
-                        flag_offline = True  
+                        #flag_offline = True  
 
                         self.parent.connection.disconnect()
+
                         time.sleep(0.5)
-                        self.parent.statusbar.showMessage("오프라인")
-                        '''                    
+
+                        if not self.parent.connection.IsConnected():
+
+                            self.parent.statusbar.showMessage("오프라인")
+                                                   
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결이 종료되었습니다...\r'.format(dt.hour, dt.minute, dt.second)
+                            self.textBrowser.append(str)
+                            print(str) 
+                        else:
+                            pass                                            
                     else:
                         pass                                               
 
@@ -22195,6 +22130,87 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     #opt_put_ho_update_counter += 1
 
+                else:
+                    pass
+                        
+                # 야간선물이 없어짐에 따른 텔레그램 기동 대응
+                if NightTime:
+
+                    global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
+
+                    opt_time = dt.hour * 3600 + dt.minute * 60 + dt.second
+
+                    if TELEGRAM_SERVICE and not flag_telegram_send_worker:            
+
+                        self.telegram_send_worker.start()
+                        self.telegram_send_worker.daemon = True
+
+                        telegram_send_worker_on_time = opt_time 
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] telegram send worker({3})가 시작됩니다...\r'.format(dt.hour, dt.minute, dt.second, telegram_send_worker_on_time)
+                        self.textBrowser.append(str)
+                        print(str) 
+
+                        if TARGET_MONTH_SELECT == 1:
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] CM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            ToYourTelegram(str)
+
+                        elif TARGET_MONTH_SELECT == 2:
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] NM 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            ToYourTelegram(str)
+
+                        elif TARGET_MONTH_SELECT == 3:
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
+                            ToYourTelegram(str)
+
+                            self.telegram_listen_worker.start()
+                            self.telegram_listen_worker.daemon = True
+
+                            # 차차월물은 시작과 동시에 Polling 시작
+                            ToYourTelegram("MAN 텔레그램 Polling이 시작됩니다.")
+
+                            self.pushButton_remove.setStyleSheet("background-color: lawngreen")
+
+                            flag_telegram_listen_worker = True
+                        else:
+                            pass         
+
+                        flag_telegram_send_worker = True             
+                    else:
+                        pass
+
+                    # Telegram Send Worker 시작 후 TELEGRAM_START_TIME분에 Telegram Listen을 위한 Polling Thread 시작 !!!
+                    if not flag_telegram_listen_worker and opt_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME:
+
+                        if TELEGRAM_SERVICE:
+
+                            self.telegram_listen_worker.start()
+                            self.telegram_listen_worker.daemon = True
+
+                            if TARGET_MONTH_SELECT == 1:                        
+
+                                if SELFID == 'soojin65':
+                                    str = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
+                                    ToMyTelegram(str)
+                                else:
+                                    ToYourTelegram("CM 텔레그램 Polling이 시작됩니다.")
+
+                            elif TARGET_MONTH_SELECT == 2:
+
+                                ToYourTelegram("NM 텔레그램 Polling이 시작됩니다.")
+                            else:
+                                pass
+                            
+                            self.pushButton_remove.setStyleSheet("background-color: lawngreen")
+
+                            flag_telegram_listen_worker = True
+                        else:
+                            pass            
+                    else:
+                        pass
                 else:
                     pass
 
@@ -24141,23 +24157,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 Graph 파일을 저장했습니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
-        '''
-        if not flag_offline:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)
-            print(str)
-
-            flag_offline = True  
-
-            self.parent.connection.disconnect()
-
-            time.sleep(0.5)
-
-            self.parent.statusbar.showMessage("오프라인")
-        else:
-            pass
-        '''
+        
         str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(dt.hour, dt.minute, dt.second)
         self.textBrowser.append(str)
         
@@ -24237,7 +24237,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             telegram_command = '/start'
             
             self.pushButton_remove.setStyleSheet("background-color: lawngreen")
-            print('flag_telegram_on =', flag_telegram_on)
+            #print('flag_telegram_on =', flag_telegram_on)
         else:
             telegram_command = ''
 
@@ -24262,8 +24262,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            print('flag_telegram_on =', flag_telegram_on)
-
+            #print('flag_telegram_on =', flag_telegram_on)
 
     def high_low_list_save_to_file(self):
         
