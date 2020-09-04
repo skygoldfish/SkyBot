@@ -30834,15 +30834,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p1_2.setText(" BB Middle\n PSAR ")
                 self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p1_3.setText(" OneEye ")
                 self.label_p1_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p1_4.setText(" MAMA ")
                 self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
@@ -30851,7 +30851,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     self.label_17.setStyleSheet('background-color: blue ; color: white')
 
-                self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_17.setText(str)
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
@@ -30863,15 +30863,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p1_2.setText(" BB Middle\n PSAR ")
                 self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p1_3.setText(" OneEye ")
                 self.label_p1_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p1_4.setText(" MAMA ")
                 self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " 본월물: {0:0.2f}, 차월물: {1:0.2f}({2:0.2f}) ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_rr'], df_futures_graph.at[ovc_x_idx, 'n_hoga_rr'], fut_ccms_hoga_rr)
@@ -30883,7 +30883,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     self.label_17.setStyleSheet('background-color: yellow ; color: black')
 
-                self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_17.setText(str)
 
                 bc_plot1_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_rr'].tolist())
@@ -30893,24 +30893,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p1_2.setText(" BB Middle\n PSAR ")
                 self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p1_3.setText(" OneEye ")
                 self.label_p1_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p1_4.setText(" MAMA ")
                 self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_put_info_graph.at[ovc_x_idx, 'volume'])
                 self.label_16.setStyleSheet('background-color: blue ; color: white')
-                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_16.setText(str)
                 
                 str = " {0:0.0f} ".format(df_call_info_graph.at[ovc_x_idx, 'volume'])
                 self.label_18.setStyleSheet('background-color: red ; color: white')
-                self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_18.setText(str)
 
                 bc_plot1_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
@@ -30920,24 +30920,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p1_2.setText(" BB Middle\n PSAR ")
                 self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p1_3.setText(" OneEye ")
                 self.label_p1_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p1_4.setText(" MAMA ")
                 self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
                 
                 str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
                 self.label_16.setStyleSheet('background-color: blue ; color: white')
-                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_16.setText(str)
                 
                 str = " {0:0.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'hoga'])
                 self.label_18.setStyleSheet('background-color: red ; color: white')
-                self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_18.setText(str)
 
                 bc_plot1_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
@@ -30947,15 +30947,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p1_2.setText(" BB Middle\n PSAR ")
                 self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p1_3.setText(" OneEye ")
                 self.label_p1_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p1_4.setText(" MAMA ")
                 self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 bc_plot1_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
                 bc_plot1_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
@@ -30980,7 +30980,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_futures_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
                     self.label_p1_2.setText(str)
@@ -30994,7 +30994,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p1_3.setText(str)
@@ -31012,7 +31012,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MAMA'], df_futures_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p1_4.setText(str)
@@ -31053,7 +31053,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(선물_저가)
                 self.label_16.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_16.setText(str)       
 
                 value = self.label_17.text().split()[0]
@@ -31069,7 +31069,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_17.setText(str)
 
                 elif 선물_현재가 < float(value):
@@ -31083,14 +31083,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_17.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(선물_고가)
                 self.label_18.setStyleSheet('background-color: pink ; color: red')
-                self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_18.setText(str)   
 
                 bc_plot1_kp200_curve.setData(df_futures_graph['kp200'].tolist())
@@ -31144,7 +31144,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
                     self.label_p1_2.setText(str)
@@ -31158,7 +31158,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p1_3.setText(str)
@@ -31176,7 +31176,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p1_4.setText(str)
@@ -31193,7 +31193,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(SP500_저가, ','))
                 self.label_16.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_16.setText(str) 
 
                 tmp = self.label_17.text().split()[0]
@@ -31211,7 +31211,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_17.setText(str)
 
                 elif SP500_현재가 < float(value):
@@ -31226,14 +31226,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_17.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(SP500_고가, ','))
                 self.label_18.setStyleSheet('background-color: pink ; color: red')
-                self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_18.setText(str)   
 
                 bc_plot1_sp500_curve.setData(df_sp500_graph['price'].tolist())
@@ -31282,7 +31282,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
                     self.label_p1_2.setText(str)
@@ -31296,7 +31296,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p1_3.setText(str)
@@ -31314,7 +31314,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p1_4.setText(str)
@@ -31331,7 +31331,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(DOW_저가, ','))
                 self.label_16.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_16.setText(str)
 
                 tmp = self.label_17.text().split()[0]
@@ -31349,7 +31349,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_17.setText(str)
 
                 elif DOW_현재가 < float(value):
@@ -31364,14 +31364,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_17.setText(str)
                 else:
                     pass
                 
                 str = ' {0} '.format(format(DOW_고가, ','))
                 self.label_18.setStyleSheet('background-color: pink ; color: red')
-                self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_18.setText(str)                      
 
                 bc_plot1_dow_curve.setData(df_dow_graph['price'].tolist())
@@ -31420,7 +31420,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
                     self.label_p1_2.setText(str)
@@ -31434,7 +31434,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p1_3.setText(str)
@@ -31452,7 +31452,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p1_4.setText(str)
@@ -31469,7 +31469,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(NASDAQ_저가, ','))
                 self.label_16.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_16.setText(str)
 
                 tmp = self.label_17.text().split()[0]
@@ -31487,7 +31487,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_17.setText(str)
 
                 elif NASDAQ_현재가 < float(value):
@@ -31502,14 +31502,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_17.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_18.setStyleSheet('background-color: pink ; color: red')
-                self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_18.setText(str) 
 
                 bc_plot1_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
@@ -31558,7 +31558,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
                     self.label_p1_2.setText(str)
@@ -31572,7 +31572,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p1_3.setText(str)
@@ -31590,7 +31590,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p1_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p1_4.setText(str)
@@ -31607,7 +31607,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(WTI_저가, ','))
                 self.label_16.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_16.setText(str)
 
                 value = self.label_17.text().split()[0]     
@@ -31624,7 +31624,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_17.setText(str)
 
                 elif WTI_현재가 < float(value):
@@ -31639,14 +31639,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_17.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_17.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_17.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(WTI_고가, ','))
                 self.label_18.setStyleSheet('background-color: pink ; color: red')
-                self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_18.setText(str) 
 
                 bc_plot1_wti_curve.setData(df_wti_graph['price'].tolist())
@@ -31684,24 +31684,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p2_2.setText(" BB Middle\n PSAR ")
                 self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p2_3.setText(" OneEye ")
                 self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p2_4.setText(" MAMA ")
                 self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_put_info_graph.at[ovc_x_idx, 'volume'])
                 self.label_26.setStyleSheet('background-color: blue ; color: white')
-                self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_26.setText(str)
                 
                 str = " {0:0.0f} ".format(df_call_info_graph.at[ovc_x_idx, 'volume'])
                 self.label_28.setStyleSheet('background-color: red ; color: white')
-                self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_28.setText(str)
 
                 bc_plot2_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
@@ -31711,24 +31711,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p2_2.setText(" BB Middle\n PSAR ")
                 self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p2_3.setText(" OneEye ")
                 self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p2_4.setText(" MAMA ")
                 self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
                 self.label_26.setStyleSheet('background-color: blue ; color: white')
-                self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_26.setText(str)
                 
                 str = " {0:0.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'hoga'])
                 self.label_28.setStyleSheet('background-color: red ; color: white')
-                self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_28.setText(str)
 
                 bc_plot2_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
@@ -31738,15 +31738,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p2_2.setText(" BB Middle\n PSAR ")
                 self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p2_3.setText(" OneEye ")
                 self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p2_4.setText(" MAMA ")
                 self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
@@ -31755,7 +31755,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     self.label_27.setStyleSheet('background-color: blue ; color: white')
 
-                self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_27.setText(str)
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
@@ -31767,15 +31767,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p2_2.setText(" BB Middle\n PSAR ")
                 self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p2_3.setText(" OneEye ")
                 self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p2_4.setText(" MAMA ")
                 self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " 본월물: {0:0.2f}, 차월물: {1:0.2f}({2:0.2f}) ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_rr'], df_futures_graph.at[ovc_x_idx, 'n_hoga_rr'], fut_ccms_hoga_rr)
@@ -31787,7 +31787,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     self.label_27.setStyleSheet('background-color: yellow ; color: black')
 
-                self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_27.setText(str)
 
                 bc_plot2_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_rr'].tolist())
@@ -31797,15 +31797,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p2_2.setText(" BB Middle\n PSAR ")
                 self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p2_3.setText(" OneEye ")
                 self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p2_4.setText(" MAMA ")
                 self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 bc_plot2_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
                 bc_plot2_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
@@ -31816,15 +31816,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p2_2.setText(" BB Middle\n PSAR ")
                 self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p2_3.setText(" OneEye ")
                 self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p2_4.setText(" MAMA ")
                 self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 if selected_opt_list != old_selected_opt_list:
 
@@ -31921,7 +31921,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
                     self.label_p2_2.setText(str)
@@ -31935,7 +31935,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p2_3.setText(str)
@@ -31953,7 +31953,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p2_4.setText(str)
@@ -31976,7 +31976,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(SP500_저가, ','))
                 self.label_26.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_26.setText(str)
 
                 tmp = self.label_27.text().split()[0]
@@ -31994,7 +31994,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_27.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_27.setText(str)
 
                 elif SP500_현재가 < float(value):
@@ -32009,14 +32009,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_27.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(SP500_고가, ','))
                 self.label_28.setStyleSheet('background-color: pink ; color: red')
-                self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_28.setText(str) 
 
                 bc_plot2_sp500_curve.setData(df_sp500_graph['price'].tolist())
@@ -32065,7 +32065,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
                     self.label_p2_2.setText(str)
@@ -32079,7 +32079,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p2_3.setText(str)
@@ -32097,7 +32097,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p2_4.setText(str)
@@ -32119,7 +32119,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(DOW_저가, ','))
                 self.label_26.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_26.setText(str)  
 
                 tmp = self.label_27.text().split()[0]
@@ -32137,7 +32137,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_27.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_27.setText(str)
 
                 elif DOW_현재가 < float(value):
@@ -32152,14 +32152,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_27.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(DOW_고가, ','))
                 self.label_28.setStyleSheet('background-color: pink ; color: red')
-                self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_28.setText(str)                  
 
                 bc_plot2_dow_curve.setData(df_dow_graph['price'].tolist())
@@ -32208,7 +32208,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
                     self.label_p2_2.setText(str)
@@ -32222,7 +32222,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p2_3.setText(str)
@@ -32240,7 +32240,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p2_4.setText(str)
@@ -32262,7 +32262,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(NASDAQ_저가, ','))
                 self.label_26.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_26.setText(str)
 
                 tmp = self.label_27.text().split()[0]
@@ -32280,7 +32280,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_27.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_27.setText(str)
 
                 elif NASDAQ_현재가 < float(value):
@@ -32295,14 +32295,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_27.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_28.setStyleSheet('background-color: pink ; color: red')
-                self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_28.setText(str)    
 
                 bc_plot2_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
@@ -32351,7 +32351,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p2_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
                     self.label_p2_2.setText(str)
@@ -32365,7 +32365,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p2_3.setText(str)
@@ -32383,7 +32383,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p2_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p2_4.setText(str)
@@ -32405,7 +32405,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(WTI_저가, ','))
                 self.label_26.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_26.setText(str)
 
                 value = self.label_27.text().split()[0]             
@@ -32422,7 +32422,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_27.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_27.setText(str)
 
                 elif WTI_현재가 < float(value):
@@ -32437,14 +32437,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_27.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_27.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_27.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(WTI_고가, ','))
                 self.label_28.setStyleSheet('background-color: pink ; color: red')
-                self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_28.setText(str)    
 
                 bc_plot2_wti_curve.setData(df_wti_graph['price'].tolist())
@@ -32482,24 +32482,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p3_2.setText(" BB Middle\n PSAR ")
                 self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p3_3.setText(" OneEye ")
                 self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p3_4.setText(" MAMA ")
                 self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_put_info_graph.at[ovc_x_idx, 'volume'])
                 self.label_36.setStyleSheet('background-color: blue ; color: white')
-                self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_36.setText(str)
                 
                 str = " {0:0.0f} ".format(df_call_info_graph.at[ovc_x_idx, 'volume'])
                 self.label_38.setStyleSheet('background-color: red ; color: white')
-                self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_38.setText(str)
 
                 bc_plot3_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
@@ -32509,24 +32509,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p3_2.setText(" BB Middle\n PSAR ")
                 self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p3_3.setText(" OneEye ")
                 self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p3_4.setText(" MAMA ")
                 self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
                 self.label_36.setStyleSheet('background-color: blue ; color: white')
-                self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_36.setText(str)
                 
                 str = " {0:0.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'hoga'])
                 self.label_38.setStyleSheet('background-color: red ; color: white')
-                self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_38.setText(str)
 
                 bc_plot3_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
@@ -32536,15 +32536,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p3_2.setText(" BB Middle\n PSAR ")
                 self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p3_3.setText(" OneEye ")
                 self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p3_4.setText(" MAMA ")
                 self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
@@ -32553,7 +32553,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     self.label_37.setStyleSheet('background-color: blue ; color: white')
 
-                self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_37.setText(str)
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
@@ -32565,15 +32565,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p3_2.setText(" BB Middle\n PSAR ")
                 self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p3_3.setText(" OneEye ")
                 self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p3_4.setText(" MAMA ")
                 self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " 본월물: {0:0.2f}, 차월물: {1:0.2f}({2:0.2f}) ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_rr'], df_futures_graph.at[ovc_x_idx, 'n_hoga_rr'], fut_ccms_hoga_rr)
@@ -32585,7 +32585,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     self.label_37.setStyleSheet('background-color: yellow ; color: black')
 
-                self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_37.setText(str)
 
                 bc_plot3_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_rr'].tolist())
@@ -32595,15 +32595,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p3_2.setText(" BB Middle\n PSAR ")
                 self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p3_3.setText(" OneEye ")
                 self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p3_4.setText(" MAMA ")
                 self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 bc_plot3_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
                 bc_plot3_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
@@ -32614,15 +32614,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p3_2.setText(" BB Middle\n PSAR ")
                 self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p3_3.setText(" OneEye ")
                 self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p3_4.setText(" MAMA ")
                 self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 if selected_opt_list != old_selected_opt_list:
 
@@ -32719,7 +32719,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
                     self.label_p3_2.setText(str)
@@ -32733,7 +32733,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p3_3.setText(str)
@@ -32751,7 +32751,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p3_4.setText(str)
@@ -32774,7 +32774,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(SP500_저가, ','))
                 self.label_36.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_36.setText(str)
 
                 tmp = self.label_37.text().split()[0]
@@ -32792,7 +32792,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_37.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_37.setText(str)
 
                 elif SP500_현재가 < float(value):
@@ -32807,14 +32807,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_37.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(SP500_고가, ','))
                 self.label_38.setStyleSheet('background-color: pink ; color: red')
-                self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_38.setText(str) 
 
                 bc_plot3_sp500_curve.setData(df_sp500_graph['price'].tolist())
@@ -32863,7 +32863,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
                     self.label_p3_2.setText(str)
@@ -32877,7 +32877,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p3_3.setText(str)
@@ -32895,7 +32895,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p3_4.setText(str)
@@ -32917,7 +32917,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(DOW_저가, ','))
                 self.label_36.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_36.setText(str)  
 
                 tmp = self.label_37.text().split()[0]
@@ -32935,7 +32935,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_37.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_37.setText(str)
 
                 elif DOW_현재가 < float(value):
@@ -32950,14 +32950,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_37.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(DOW_고가, ','))
                 self.label_38.setStyleSheet('background-color: pink ; color: red')
-                self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_38.setText(str)                  
 
                 bc_plot3_dow_curve.setData(df_dow_graph['price'].tolist())
@@ -33006,7 +33006,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
                     self.label_p3_2.setText(str)
@@ -33020,7 +33020,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p3_3.setText(str)
@@ -33038,7 +33038,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p3_4.setText(str)
@@ -33060,7 +33060,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(NASDAQ_저가, ','))
                 self.label_36.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_36.setText(str)
 
                 tmp = self.label_37.text().split()[0]
@@ -33078,7 +33078,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_37.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_37.setText(str)
 
                 elif NASDAQ_현재가 < float(value):
@@ -33093,14 +33093,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_37.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_38.setStyleSheet('background-color: pink ; color: red')
-                self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_38.setText(str)    
 
                 bc_plot3_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
@@ -33149,7 +33149,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p3_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
                     self.label_p3_2.setText(str)
@@ -33163,7 +33163,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p3_3.setText(str)
@@ -33181,7 +33181,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p3_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p3_4.setText(str)
@@ -33203,7 +33203,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(WTI_저가, ','))
                 self.label_36.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_36.setText(str)
 
                 value = self.label_37.text().split()[0]             
@@ -33220,7 +33220,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_37.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_37.setText(str)
 
                 elif WTI_현재가 < float(value):
@@ -33235,14 +33235,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_37.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_37.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_37.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(WTI_고가, ','))
                 self.label_38.setStyleSheet('background-color: pink ; color: red')
-                self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_38.setText(str)    
 
                 bc_plot3_wti_curve.setData(df_wti_graph['price'].tolist())
@@ -33280,15 +33280,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p4_2.setText(" BB Middle\n PSAR ")
                 self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p4_3.setText(" OneEye ")
                 self.label_p4_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p4_4.setText(" MAMA ")
                 self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
@@ -33297,7 +33297,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     self.label_47.setStyleSheet('background-color: blue ; color: white')
 
-                self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_47.setText(str)
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
@@ -33309,15 +33309,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p4_2.setText(" BB Middle\n PSAR ")
                 self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p4_3.setText(" OneEye ")
                 self.label_p4_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p4_4.setText(" MAMA ")
                 self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
@@ -33331,7 +33331,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     self.label_47.setStyleSheet('background-color: yellow ; color: black')
 
-                self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_47.setText(str)
 
                 bc_plot4_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_rr'].tolist())
@@ -33341,26 +33341,26 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p4_2.setText(" BB Middle\n PSAR ")
                 self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p4_3.setText(" OneEye ")
                 self.label_p4_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p4_4.setText(" MAMA ")
                 self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
                 str = " {0:0.0f} ".format(df_put_info_graph.at[ovc_x_idx, 'volume'])
                 self.label_46.setStyleSheet('background-color: blue ; color: white')
-                self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_46.setText(str)
                 
                 str = " {0:0.0f} ".format(df_call_info_graph.at[ovc_x_idx, 'volume'])
                 self.label_48.setStyleSheet('background-color: red ; color: white')
-                self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_48.setText(str)                      
 
                 bc_plot4_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
@@ -33370,26 +33370,26 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p4_2.setText(" BB Middle\n PSAR ")
                 self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p4_3.setText(" OneEye ")
                 self.label_p4_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p4_4.setText(" MAMA ")
                 self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
                 str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
                 self.label_46.setStyleSheet('background-color: blue ; color: white')
-                self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_46.setText(str)
                 
                 str = " {0:0.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'hoga'])
                 self.label_48.setStyleSheet('background-color: red ; color: white')
-                self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_48.setText(str)
 
                 bc_plot4_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
@@ -33399,15 +33399,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p4_2.setText(" BB Middle\n PSAR ")
                 self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p4_3.setText(" OneEye ")
                 self.label_p4_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p4_4.setText(" MAMA ")
                 self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
@@ -33434,7 +33434,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_futures_graph.at[ovc_x_idx, 'BBMiddle'], df_futures_graph.at[ovc_x_idx, 'PSAR'], 선물_호가순매수)
                     self.label_p4_2.setText(str)
@@ -33448,7 +33448,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'OE_CONV'], df_futures_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p4_3.setText(str)
@@ -33466,7 +33466,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_futures_graph.at[ovc_x_idx, 'MAMA'], df_futures_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p4_4.setText(str)
@@ -33507,7 +33507,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(선물_저가)
                 self.label_46.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_46.setText(str)       
 
                 value = self.label_47.text().split()[0]
@@ -33523,7 +33523,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_47.setText(str)
 
                 elif 선물_현재가 < float(value):
@@ -33537,14 +33537,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_47.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(선물_고가)
                 self.label_48.setStyleSheet('background-color: pink ; color: red')
-                self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_48.setText(str)   
 
                 bc_plot4_kp200_curve.setData(df_futures_graph['kp200'].tolist())
@@ -33598,7 +33598,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
                     self.label_p4_2.setText(str)
@@ -33612,7 +33612,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p4_3.setText(str)
@@ -33630,7 +33630,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p4_4.setText(str)
@@ -33647,7 +33647,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(SP500_저가, ','))
                 self.label_46.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_46.setText(str) 
 
                 tmp = self.label_47.text().split()[0]
@@ -33665,7 +33665,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_47.setText(str)
 
                 elif SP500_현재가 < float(value):
@@ -33680,14 +33680,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_47.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(SP500_고가, ','))
                 self.label_48.setStyleSheet('background-color: pink ; color: red')
-                self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_48.setText(str)   
 
                 bc_plot4_sp500_curve.setData(df_sp500_graph['price'].tolist())
@@ -33736,7 +33736,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
                     self.label_p4_2.setText(str)
@@ -33750,7 +33750,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p4_3.setText(str)
@@ -33768,7 +33768,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p4_4.setText(str)
@@ -33785,7 +33785,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(DOW_저가, ','))
                 self.label_46.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_46.setText(str)
 
                 tmp = self.label_47.text().split()[0]
@@ -33803,7 +33803,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_47.setText(str)
 
                 elif DOW_현재가 < float(value):
@@ -33818,14 +33818,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_47.setText(str)
                 else:
                     pass
                 
                 str = ' {0} '.format(format(DOW_고가, ','))
                 self.label_48.setStyleSheet('background-color: pink ; color: red')
-                self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_48.setText(str)                      
 
                 bc_plot4_dow_curve.setData(df_dow_graph['price'].tolist())
@@ -33874,7 +33874,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
                     self.label_p4_2.setText(str)
@@ -33888,7 +33888,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p4_3.setText(str)
@@ -33906,7 +33906,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p4_4.setText(str)
@@ -33923,7 +33923,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(NASDAQ_저가, ','))
                 self.label_46.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_46.setText(str)
 
                 tmp = self.label_47.text().split()[0]
@@ -33941,7 +33941,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_47.setText(str)
 
                 elif NASDAQ_현재가 < float(value):
@@ -33956,14 +33956,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_47.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_48.setStyleSheet('background-color: pink ; color: red')
-                self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_48.setText(str) 
 
                 bc_plot4_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
@@ -34012,7 +34012,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p4_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
                     self.label_p4_2.setText(str)
@@ -34026,7 +34026,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p4_3.setText(str)
@@ -34044,7 +34044,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p4_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p4_4.setText(str)
@@ -34061,7 +34061,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(WTI_저가, ','))
                 self.label_46.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_46.setText(str)
 
                 value = self.label_47.text().split()[0]     
@@ -34078,7 +34078,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_47.setText(str)
 
                 elif WTI_현재가 < float(value):
@@ -34093,14 +34093,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_47.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_47.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_47.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(WTI_고가, ','))
                 self.label_48.setStyleSheet('background-color: pink ; color: red')
-                self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_48.setText(str) 
 
                 bc_plot4_wti_curve.setData(df_wti_graph['price'].tolist())
@@ -34138,26 +34138,26 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p5_2.setText(" BB Middle\n PSAR ")
                 self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p5_3.setText(" OneEye ")
                 self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p5_4.setText(" MAMA ")
                 self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
                 str = " {0:0.0f} ".format(df_put_info_graph.at[ovc_x_idx, 'volume'])
                 self.label_56.setStyleSheet('background-color: blue ; color: white')
-                self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_56.setText(str)
                 
                 str = " {0:0.0f} ".format(df_call_info_graph.at[ovc_x_idx, 'volume'])
                 self.label_58.setStyleSheet('background-color: red ; color: white')
-                self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_58.setText(str)
 
                 bc_plot5_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
@@ -34167,24 +34167,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p5_2.setText(" BB Middle\n PSAR ")
                 self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p5_3.setText(" OneEye ")
                 self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p5_4.setText(" MAMA ")
                 self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
                 self.label_56.setStyleSheet('background-color: blue ; color: white')
-                self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_56.setText(str)
                 
                 str = " {0:0.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'hoga'])
                 self.label_58.setStyleSheet('background-color: red ; color: white')
-                self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_58.setText(str)
 
                 bc_plot5_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
@@ -34194,15 +34194,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p5_2.setText(" BB Middle\n PSAR ")
                 self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p5_3.setText(" OneEye ")
                 self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p5_4.setText(" MAMA ")
                 self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
@@ -34211,7 +34211,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     self.label_57.setStyleSheet('background-color: blue ; color: white')
 
-                self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_57.setText(str)
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
@@ -34223,15 +34223,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p5_2.setText(" BB Middle\n PSAR ")
                 self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p5_3.setText(" OneEye ")
                 self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p5_4.setText(" MAMA ")
                 self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " 본월물: {0:0.2f}, 차월물: {1:0.2f}({2:0.2f}) ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_rr'], df_futures_graph.at[ovc_x_idx, 'n_hoga_rr'], fut_ccms_hoga_rr)
@@ -34243,7 +34243,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     self.label_57.setStyleSheet('background-color: yellow ; color: black')
 
-                self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_57.setText(str)
 
                 bc_plot5_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_rr'].tolist())
@@ -34253,15 +34253,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p5_2.setText(" BB Middle\n PSAR ")
                 self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p5_3.setText(" OneEye ")
                 self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p5_4.setText(" MAMA ")
                 self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 bc_plot5_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
                 bc_plot5_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
@@ -34272,15 +34272,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p5_2.setText(" BB Middle\n PSAR ")
                 self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p5_3.setText(" OneEye ")
                 self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p5_4.setText(" MAMA ")
                 self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 if selected_opt_list != old_selected_opt_list:
 
@@ -34377,7 +34377,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
                     self.label_p5_2.setText(str)
@@ -34391,7 +34391,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p5_3.setText(str)
@@ -34409,7 +34409,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p5_4.setText(str)
@@ -34432,7 +34432,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(SP500_저가, ','))
                 self.label_56.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_56.setText(str)
 
                 tmp = self.label_57.text().split()[0]
@@ -34450,7 +34450,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_57.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_57.setText(str)
 
                 elif SP500_현재가 < float(value):
@@ -34465,14 +34465,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_57.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(SP500_고가, ','))
                 self.label_58.setStyleSheet('background-color: pink ; color: red')
-                self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_58.setText(str) 
 
                 bc_plot5_sp500_curve.setData(df_sp500_graph['price'].tolist())
@@ -34521,7 +34521,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
                     self.label_p5_2.setText(str)
@@ -34535,7 +34535,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p5_3.setText(str)
@@ -34553,7 +34553,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p5_4.setText(str)
@@ -34575,7 +34575,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(DOW_저가, ','))
                 self.label_56.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_56.setText(str)  
 
                 tmp = self.label_57.text().split()[0]
@@ -34593,7 +34593,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_57.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_57.setText(str)
 
                 elif DOW_현재가 < float(value):
@@ -34608,14 +34608,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_57.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(DOW_고가, ','))
                 self.label_58.setStyleSheet('background-color: pink ; color: red')
-                self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_58.setText(str)                  
 
                 bc_plot5_dow_curve.setData(df_dow_graph['price'].tolist())
@@ -34664,7 +34664,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
                     self.label_p5_2.setText(str)
@@ -34678,7 +34678,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p5_3.setText(str)
@@ -34696,7 +34696,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p5_4.setText(str)
@@ -34718,7 +34718,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(NASDAQ_저가, ','))
                 self.label_56.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_56.setText(str)
 
                 tmp = self.label_57.text().split()[0]
@@ -34736,7 +34736,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_57.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_57.setText(str)
 
                 elif NASDAQ_현재가 < float(value):
@@ -34751,14 +34751,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_57.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_58.setStyleSheet('background-color: pink ; color: red')
-                self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_58.setText(str)    
 
                 bc_plot5_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
@@ -34807,7 +34807,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p5_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
                     self.label_p5_2.setText(str)
@@ -34821,7 +34821,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p5_3.setText(str)
@@ -34839,7 +34839,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p5_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p5_4.setText(str)
@@ -34861,7 +34861,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(WTI_저가, ','))
                 self.label_56.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_56.setText(str)
 
                 value = self.label_57.text().split()[0]             
@@ -34878,7 +34878,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_57.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_57.setText(str)
 
                 elif WTI_현재가 < float(value):
@@ -34893,14 +34893,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_57.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_57.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_57.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(WTI_고가, ','))
                 self.label_58.setStyleSheet('background-color: pink ; color: red')
-                self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_58.setText(str)    
 
                 bc_plot5_wti_curve.setData(df_wti_graph['price'].tolist())
@@ -34938,24 +34938,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p6_2.setText(" BB Middle\n PSAR ")
                 self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p6_3.setText(" OneEye ")
                 self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p6_4.setText(" MAMA ")
                 self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_put_info_graph.at[ovc_x_idx, 'volume'])
                 self.label_66.setStyleSheet('background-color: blue ; color: white')
-                self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_66.setText(str)
                 
                 str = " {0:0.0f} ".format(df_call_info_graph.at[ovc_x_idx, 'volume'])
                 self.label_68.setStyleSheet('background-color: red ; color: white')
-                self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_68.setText(str)
 
                 bc_plot6_call_volume_curve.setData(df_call_info_graph['volume'].tolist())
@@ -34965,24 +34965,24 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p6_2.setText(" BB Middle\n PSAR ")
                 self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p6_3.setText(" OneEye ")
                 self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p6_4.setText(" MAMA ")
                 self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
                 self.label_66.setStyleSheet('background-color: blue ; color: white')
-                self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_66.setText(str)
                 
                 str = " {0:0.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'hoga'])
                 self.label_68.setStyleSheet('background-color: red ; color: white')
-                self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_68.setText(str)
 
                 bc_plot6_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
@@ -34992,15 +34992,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p6_2.setText(" BB Middle\n PSAR ")
                 self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p6_3.setText(" OneEye ")
                 self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p6_4.setText(" MAMA ")
                 self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
@@ -35009,7 +35009,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     self.label_67.setStyleSheet('background-color: blue ; color: white')
 
-                self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_67.setText(str)
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
@@ -35021,15 +35021,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p6_2.setText(" BB Middle\n PSAR ")
                 self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p6_3.setText(" OneEye ")
                 self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p6_4.setText(" MAMA ")
                 self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " 본월물: {0:0.2f}, 차월물: {1:0.2f}({2:0.2f}) ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_rr'], df_futures_graph.at[ovc_x_idx, 'n_hoga_rr'], fut_ccms_hoga_rr)
@@ -35041,7 +35041,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     self.label_67.setStyleSheet('background-color: yellow ; color: black')
 
-                self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_67.setText(str)
 
                 bc_plot6_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_rr'].tolist())
@@ -35051,15 +35051,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p6_2.setText(" BB Middle\n PSAR ")
                 self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p6_3.setText(" OneEye ")
                 self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p6_4.setText(" MAMA ")
                 self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 bc_plot6_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
                 bc_plot6_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
@@ -35070,15 +35070,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_p6_2.setText(" BB Middle\n PSAR ")
                 self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p6_3.setText(" OneEye ")
                 self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 self.label_p6_4.setText(" MAMA ")
                 self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
-                self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 if selected_opt_list != old_selected_opt_list:
 
@@ -35175,7 +35175,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_sp500_graph.at[ovc_x_idx, 'BBMiddle'], df_sp500_graph.at[ovc_x_idx, 'PSAR'], SP500_호가순매수)
                     self.label_p6_2.setText(str)
@@ -35189,7 +35189,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'OE_CONV'], df_sp500_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p6_3.setText(str)
@@ -35207,7 +35207,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_sp500_graph.at[ovc_x_idx, 'MAMA'], df_sp500_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p6_4.setText(str)
@@ -35230,7 +35230,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(SP500_저가, ','))
                 self.label_66.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_66.setText(str)
 
                 tmp = self.label_67.text().split()[0]
@@ -35248,7 +35248,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_67.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_67.setText(str)
 
                 elif SP500_현재가 < float(value):
@@ -35263,14 +35263,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_67.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(SP500_고가, ','))
                 self.label_68.setStyleSheet('background-color: pink ; color: red')
-                self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_68.setText(str) 
 
                 bc_plot6_sp500_curve.setData(df_sp500_graph['price'].tolist())
@@ -35319,7 +35319,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_dow_graph.at[ovc_x_idx, 'BBMiddle'], df_dow_graph.at[ovc_x_idx, 'PSAR'], DOW_호가순매수)
                     self.label_p6_2.setText(str)
@@ -35333,7 +35333,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'OE_CONV'], df_dow_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p6_3.setText(str)
@@ -35351,7 +35351,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_dow_graph.at[ovc_x_idx, 'MAMA'], df_dow_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p6_4.setText(str)
@@ -35373,7 +35373,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(DOW_저가, ','))
                 self.label_66.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_66.setText(str)  
 
                 tmp = self.label_67.text().split()[0]
@@ -35391,7 +35391,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_67.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_67.setText(str)
 
                 elif DOW_현재가 < float(value):
@@ -35406,14 +35406,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_67.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(DOW_고가, ','))
                 self.label_68.setStyleSheet('background-color: pink ; color: red')
-                self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_68.setText(str)                  
 
                 bc_plot6_dow_curve.setData(df_dow_graph['price'].tolist())
@@ -35462,7 +35462,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'], df_nasdaq_graph.at[ovc_x_idx, 'PSAR'], NASDAQ_호가순매수)
                     self.label_p6_2.setText(str)
@@ -35476,7 +35476,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'OE_CONV'], df_nasdaq_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p6_3.setText(str)
@@ -35494,7 +35494,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_nasdaq_graph.at[ovc_x_idx, 'MAMA'], df_nasdaq_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p6_4.setText(str)
@@ -35516,7 +35516,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(NASDAQ_저가, ','))
                 self.label_66.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_66.setText(str)
 
                 tmp = self.label_67.text().split()[0]
@@ -35534,7 +35534,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_67.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_67.setText(str)
 
                 elif NASDAQ_현재가 < float(value):
@@ -35549,14 +35549,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_67.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(NASDAQ_고가, ','))
                 self.label_68.setStyleSheet('background-color: pink ; color: red')
-                self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_68.setText(str)    
 
                 bc_plot6_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
@@ -35605,7 +35605,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_2.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p6_2.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " BB Mid: {0:0.2f}\n PSAR: {1:0.2f}\n HG: {2:d} ".format(df_wti_graph.at[ovc_x_idx, 'BBMiddle'], df_wti_graph.at[ovc_x_idx, 'PSAR'], WTI_호가순매수)
                     self.label_p6_2.setText(str)
@@ -35619,7 +35619,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_3.setStyleSheet('background-color: red ; color: white')
 
-                    self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " OE_CONV: {0:0.2f}\n OE_BASE: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'OE_CONV'], df_wti_graph.at[ovc_x_idx, 'OE_BASE'])
                     self.label_p6_3.setText(str)
@@ -35637,7 +35637,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_p6_4.setStyleSheet('background-color: lime ; color: black')
 
-                    self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                     str = " MAMA: {0:0.2f}\n FAMA: {1:0.2f} ".format(df_wti_graph.at[ovc_x_idx, 'MAMA'], df_wti_graph.at[ovc_x_idx, 'FAMA'])
                     self.label_p6_4.setText(str)
@@ -35659,7 +35659,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = ' {0} '.format(format(WTI_저가, ','))
                 self.label_66.setStyleSheet('background-color: skyblue ; color: blue')
-                self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_66.setText(str)
 
                 value = self.label_67.text().split()[0]             
@@ -35676,7 +35676,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_67.setStyleSheet('background-color: pink ; color: black')
 
-                    self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_67.setText(str)
 
                 elif WTI_현재가 < float(value):
@@ -35691,14 +35691,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     else:
                         self.label_67.setStyleSheet('background-color: skyblue ; color: black')
 
-                    self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
+                    #self.label_67.setFont(QFont("Consolas", 9, QFont.Bold))
                     self.label_67.setText(str)
                 else:
                     pass
 
                 str = ' {0} '.format(format(WTI_고가, ','))
                 self.label_68.setStyleSheet('background-color: pink ; color: red')
-                self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
+                #self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_68.setText(str)    
 
                 bc_plot6_wti_curve.setData(df_wti_graph['price'].tolist())
