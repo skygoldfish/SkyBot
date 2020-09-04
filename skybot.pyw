@@ -22563,6 +22563,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
                     else:
                         pass
+                    
+                    NASDAQ_현재가 = result['체결가격'] 
 
                     if flag_checkBox_HS:
 
@@ -22578,7 +22580,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             nasdaq_직전대비.extend([nasdaq_delta - old_nasdaq_delta])
                             대비리스트 = list(nasdaq_직전대비)
 
-                            NASDAQ_현재가 = result['체결가격'] 
+                            #NASDAQ_현재가 = result['체결가격'] 
 
                             if result['체결가격'] > NASDAQ_과거가:
 
@@ -22684,6 +22686,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
+                    SP500_현재가 = result['체결가격']
+
                     if flag_checkBox_HS:
 
                         jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
@@ -22698,7 +22702,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             sp500_직전대비.extend([sp500_delta - old_sp500_delta])
                             대비리스트 = list(sp500_직전대비)
 
-                            SP500_현재가 = result['체결가격']
+                            #SP500_현재가 = result['체결가격']
 
                             if result['체결가격'] > SP500_과거가:
 
@@ -22850,6 +22854,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass                      
                     
                     체결가격 = int(result['체결가격'])
+                    DOW_현재가 = int(result['체결가격'])
 
                     if flag_checkBox_HS:
 
@@ -22866,7 +22871,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             dow_직전대비.extend([dow_delta - old_dow_delta])
                             대비리스트 = list(dow_직전대비)
 
-                            DOW_현재가 = int(result['체결가격'])                        
+                            #DOW_현재가 = int(result['체결가격'])                        
 
                             if 체결가격 > DOW_과거가:
 
@@ -22981,6 +22986,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
+                    WTI_현재가 = result['체결가격']
+
                     if flag_checkBox_HS:
 
                         jisu_str = "WTI: {0} ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
@@ -22995,7 +23002,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             wti_직전대비.extend([wti_delta - old_wti_delta])
                             대비리스트 = list(wti_직전대비)
 
-                            WTI_현재가 = result['체결가격']
+                            #WTI_현재가 = result['체결가격']
 
                             if result['체결가격'] > WTI_과거가:
 
@@ -23101,6 +23108,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     체결가격 = result['체결가격']
+                    EUROFX_현재가 = result['체결가격']
 
                     if flag_checkBox_HS:
 
@@ -23116,7 +23124,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             eurofx_직전대비.extend([eurofx_delta - old_eurofx_delta])
                             대비리스트 = list(eurofx_직전대비)
 
-                            EUROFX_현재가 = result['체결가격']                            
+                            #EUROFX_현재가 = result['체결가격']                            
 
                             if result['체결가격'] > EUROFX_과거가:
 
@@ -23222,6 +23230,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
+                    HANGSENG_현재가 = int(result['체결가격'])
+
                     if flag_checkBox_HS:
 
                         jisu_str = "HANGSENG: {0} ({1}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
@@ -23236,7 +23246,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             hangseng_직전대비.extend([hangseng_delta - old_hangseng_delta])
                             대비리스트 = list(hangseng_직전대비)
 
-                            HANGSENG_현재가 = int(result['체결가격'])
+                            #HANGSENG_현재가 = int(result['체결가격'])
 
                             if result['체결가격'] > HANGSENG_과거가:
 
@@ -23342,6 +23352,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
+                    GOLD_현재가 = result['체결가격']
+
                     if flag_checkBox_HS:
 
                         jisu_str = "GOLD: {0} ({1:0.2f}, {2:0.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
@@ -23356,7 +23368,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             gold_직전대비.extend([gold_delta - old_gold_delta])
                             대비리스트 = list(gold_직전대비)
 
-                            GOLD_현재가 = result['체결가격']
+                            #GOLD_현재가 = result['체결가격']
 
                             if result['체결가격'] > GOLD_과거가:
 
