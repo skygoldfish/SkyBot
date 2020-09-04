@@ -5151,10 +5151,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global flag_checkBox_HS
 
+        dt = datetime.datetime.now()
+
         if self.checkBox_HS.isChecked() == True:
+
             flag_checkBox_HS = True
+
+            self.OVH.UnadviseRealData()
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 호가요청을 중지합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
         else:
             flag_checkBox_HS = False
+
+            self.OVH.AdviseRealData(종목코드=SP500)
+            self.OVH.AdviseRealData(종목코드=DOW)
+            self.OVH.AdviseRealData(종목코드=NASDAQ)
+            self.OVH.AdviseRealData(종목코드=WTI)
+            self.OVH.AdviseRealData(종목코드=HANGSENG)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
 
     @pyqtSlot(int)
     def call_horizontal_header_clicked(self, idx):
@@ -13162,13 +13179,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 #self.OVC.AdviseRealData(종목코드=EUROFX)
                 #self.OVC.AdviseRealData(종목코드=GOLD)
 
-                '''
+                
                 # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)
                 self.OVH.AdviseRealData(종목코드=SP500)
                 self.OVH.AdviseRealData(종목코드=DOW)
                 self.OVH.AdviseRealData(종목코드=NASDAQ)
                 self.OVH.AdviseRealData(종목코드=WTI)
-                
+                self.OVH.AdviseRealData(종목코드=HANGSENG)
+                '''
                 #self.OVH.AdviseRealData(종목코드=HANGSENG)
                 #self.OVH.AdviseRealData(종목코드=EUROFX)                
                 #self.OVH.AdviseRealData(종목코드=GOLD)
