@@ -6594,10 +6594,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             nighttime_file.write(file_str)
                             nighttime_file.close()
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 해제합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
-                        print(str)
-
                         #flag_offline = True  
 
                         self.parent.connection.disconnect()
