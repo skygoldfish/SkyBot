@@ -1084,8 +1084,8 @@ coloring_done_time = 0
 coloring_interval = 1
 node_coloring = False
 
-first_refresh = True
-fut_first_arrive = 0
+flag_first_arrive = False
+fut_first_arrive_time = 0
 
 flag_kp200_low_node = False
 flag_kp200_high_node = False
@@ -16302,7 +16302,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.OVC.AdviseRealData(종목코드=HANGSENG)
                     #self.OVC.AdviseRealData(종목코드=EUROFX)
                     #self.OVC.AdviseRealData(종목코드=GOLD)
-                    
+
                     # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)
                     self.OVH.AdviseRealData(종목코드=SP500)
                     self.OVH.AdviseRealData(종목코드=DOW)
@@ -17040,7 +17040,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 선물_시가, 선물_현재가, 선물_저가, 선물_고가, 선물_피봇
         global flag_fut_low, flag_fut_high 
         global fut_volume_power
-        global first_refresh, fut_first_arrive
+        global first_refresh, flag_first_arrive
         global telegram_send_worker_on_time, flag_telegram_send_worker, flag_telegram_listen_worker
         global 선물_저가, 선물_현재가, 선물_대비, 선물_전일대비, 선물_등락율, 선물_고가, 선물_진폭
         global 선물_진폭비, 선물_체결시간
@@ -17072,10 +17072,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가        
         df_futures_graph.at[ovc_x_idx, 'drate'] = result['등락율']       
 
-        #print('fut_first_arrive = {0}, first_refresh = {1}, market_service = {2}\r'.format(fut_first_arrive, first_refresh, market_service))
+        #print('fut_first_arrive_time = {0}, flag_first_arrive = {1}, market_service = {2}\r'.format(fut_first_arrive_time, flag_first_arrive, market_service))
 
-        fut_time = dt.hour * 3600 + dt.minute * 60 + dt.second         
+        fut_time = dt.hour * 3600 + dt.minute * 60 + dt.second
 
+        if not flag_first_arrive:
+            fut_first_arrive_time = fut_time
+            flag_first_arrive = True
+        else:
+            pass          
+        
         if TELEGRAM_SERVICE and not flag_telegram_send_worker and not NightTime:            
 
             self.telegram_send_worker.start()
@@ -17148,7 +17154,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        if fut_time == telegram_send_worker_on_time + 2 or fut_time == telegram_send_worker_on_time + 3:
+        if fut_time == fut_first_arrive_time + 2 or fut_time == fut_first_arrive_time + 3:
             
             # 선물 시가갭 컬러링(주간 장시작시 표시안되는 오류 대응)
             if NightTime:
