@@ -4863,12 +4863,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.OVC = OVC(parent=self)
         self.OVH = OVH(parent=self)
         self.WOC = WOC(parent=self)
-
+        '''
         self.OPT_REAL = OC0(parent=self)
         self.OPT_HO = OH0(parent=self)
         self.FUT_REAL = FC0(parent=self)
         self.FUT_HO = FH0(parent=self)
-
+        '''
         dt = datetime.datetime.now()
         
         if int(current_str[0:2]) < 12:
@@ -13175,7 +13175,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_oi_init_value = 풋_수정미결합
                 else:
                     pass
-                
+                '''
                 # 장운영정보 요청
                 self.JIF.AdviseRealData('0')
 
@@ -13187,16 +13187,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.OVC.AdviseRealData(종목코드=HANGSENG)
                 #self.OVC.AdviseRealData(종목코드=EUROFX)
                 #self.OVC.AdviseRealData(종목코드=GOLD)
-
                 
                 # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)
                 self.OVH.AdviseRealData(종목코드=SP500)
                 self.OVH.AdviseRealData(종목코드=DOW)
                 self.OVH.AdviseRealData(종목코드=NASDAQ)
                 self.OVH.AdviseRealData(종목코드=WTI)
-                self.OVH.AdviseRealData(종목코드=HANGSENG)
-                '''
-                #self.OVH.AdviseRealData(종목코드=HANGSENG)
+                self.OVH.AdviseRealData(종목코드=HANGSENG)                
                 #self.OVH.AdviseRealData(종목코드=EUROFX)                
                 #self.OVH.AdviseRealData(종목코드=GOLD)
                 
@@ -13274,6 +13271,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
+                    self.OPT_REAL = OC0(parent=self)
+                    self.OPT_HO = OH0(parent=self)
+                    self.FUT_REAL = FC0(parent=self)
+                    self.FUT_HO = FH0(parent=self)
+
                     # 옵션 실시간 가격 및 호가요청
                     for i in range(option_pairs_count):
                         self.OPT_REAL.AdviseRealData(call_code[i])
@@ -13315,17 +13317,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.OPT_REAL = EC0(parent=self)                
                     self.OPT_HO = EH0(parent=self)
+                    self.FUT_REAL = NC0(parent=self)
+                    self.FUT_HO = NH0(parent=self) 
 
                     for i in range(option_pairs_count):
                         self.OPT_REAL.AdviseRealData(call_code[i])
                         self.OPT_REAL.AdviseRealData(put_code[i]) 
                         self.OPT_HO.AdviseRealData(call_code[i])
-                        self.OPT_HO.AdviseRealData(put_code[i])                    
-
-                    self.FUT_REAL = NC0(parent=self)
-                    self.FUT_REAL.AdviseRealData(fut_code)
-
-                    self.FUT_HO = NH0(parent=self)                
+                        self.OPT_HO.AdviseRealData(put_code[i])
+                    
+                    self.FUT_REAL.AdviseRealData(fut_code)                                   
                     self.FUT_HO.AdviseRealData(fut_code)
 
                     # 업종별 투자자별 매매현황 요청
@@ -16292,6 +16293,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_put.item(min_index, Option_column.기준가.value).setForeground(QBrush(노란색))
                     else:
                         pass
+
+                    # 해외선물 체결,가격 실시간 요청
+                    self.OVC.AdviseRealData(종목코드=SP500)
+                    self.OVC.AdviseRealData(종목코드=DOW)
+                    self.OVC.AdviseRealData(종목코드=NASDAQ)
+                    self.OVC.AdviseRealData(종목코드=WTI)                
+                    self.OVC.AdviseRealData(종목코드=HANGSENG)
+                    #self.OVC.AdviseRealData(종목코드=EUROFX)
+                    #self.OVC.AdviseRealData(종목코드=GOLD)
+                    
+                    # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)
+                    self.OVH.AdviseRealData(종목코드=SP500)
+                    self.OVH.AdviseRealData(종목코드=DOW)
+                    self.OVH.AdviseRealData(종목코드=NASDAQ)
+                    self.OVH.AdviseRealData(종목코드=WTI)
+                    self.OVH.AdviseRealData(종목코드=HANGSENG)                
+                    #self.OVH.AdviseRealData(종목코드=EUROFX)                
+                    #self.OVH.AdviseRealData(종목코드=GOLD)
 
                     if NightTime:                        
 
