@@ -26138,6 +26138,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_16.setText(" - ")
             self.label_17.setText(" 체결량 ")
             self.label_18.setText(" - ")
+            
+            self.label_p1_2.setText(" BB Middle\n PSAR ")
+            self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p1_3.setText(" OneEye ")
+            self.label_p1_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p1_4.setText(" MAMA ")
+            self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot1_call_hoga_curve.clear()
             bc_plot1_put_hoga_curve.clear()
@@ -26192,6 +26204,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_16.setText(" - ")
             self.label_17.setText(" 본월물: 0.00, 차월물: 0.00(차차월물) ")
             self.label_18.setText(" - ")
+            
+            self.label_p1_2.setText(" BB Middle\n PSAR ")
+            self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p1_3.setText(" OneEye ")
+            self.label_p1_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p1_4.setText(" MAMA ")
+            self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot1_call_hoga_curve.clear()
             bc_plot1_put_hoga_curve.clear()
@@ -26243,7 +26267,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_15.setText(" - ")
             self.label_16.setText(" 풋체결량 ")
             self.label_17.setText(" - ")
-            self.label_18.setText(" 콜체결량 ")            
+            self.label_18.setText(" 콜체결량 ")
+            
+            self.label_p1_2.setText(" BB Middle\n PSAR ")
+            self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p1_3.setText(" OneEye ")
+            self.label_p1_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p1_4.setText(" MAMA ")
+            self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))            
             
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -26299,6 +26335,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_17.setText(" - ")
             self.label_18.setText(" 콜잔량비 ")
             
+            self.label_p1_2.setText(" BB Middle\n PSAR ")
+            self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p1_3.setText(" OneEye ")
+            self.label_p1_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p1_4.setText(" MAMA ")
+            self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
+            
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
 
@@ -26352,6 +26400,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_16.setText(" DOW등락율 ")
             self.label_17.setText(" 풋등락율 ")
             self.label_18.setText(" 콜등락율 ")
+            
+            self.label_p1_2.setText(" BB Middle\n PSAR ")
+            self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p1_3.setText(" OneEye ")
+            self.label_p1_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p1_4.setText(" MAMA ")
+            self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot1_fut_volume_plus_curve.clear()
             bc_plot1_fut_volume_minus_curve.clear()
@@ -26959,6 +27019,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_27.setText(" - ")
             self.label_28.setText(" 콜체결량 ")
             
+            self.label_p2_2.setText(" BB Middle\n PSAR ")
+            self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p2_3.setText(" OneEye ")
+            self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p2_4.setText(" MAMA ")
+            self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
+            
             bc_plot2_call_hoga_curve.clear()
             bc_plot2_put_hoga_curve.clear()
 
@@ -27011,6 +27083,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_26.setText(" 풋잔량비 ")
             self.label_27.setText(" - ")
             self.label_28.setText(" 콜잔량비 ")
+            
+            self.label_p2_2.setText(" BB Middle\n PSAR ")
+            self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p2_3.setText(" OneEye ")
+            self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p2_4.setText(" MAMA ")
+            self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
                         
             bc_plot2_call_volume_curve.clear()
             bc_plot2_put_volume_curve.clear()
@@ -27064,6 +27148,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_26.setText(" - ")
             self.label_27.setText(" 체결량 ")
             self.label_28.setText(" - ")
+            
+            self.label_p2_2.setText(" BB Middle\n PSAR ")
+            self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p2_3.setText(" OneEye ")
+            self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p2_4.setText(" MAMA ")
+            self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot2_call_hoga_curve.clear()
             bc_plot2_put_hoga_curve.clear()
@@ -27117,6 +27213,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_26.setText(" - ")
             self.label_27.setText(" 본월물: 0.00, 차월물: 0.00(차차월물) ")
             self.label_28.setText(" - ")
+            
+            self.label_p2_2.setText(" BB Middle\n PSAR ")
+            self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p2_3.setText(" OneEye ")
+            self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p2_4.setText(" MAMA ")
+            self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot2_call_hoga_curve.clear()
             bc_plot2_put_hoga_curve.clear()
@@ -27168,6 +27276,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_26.setText(" DOW등락율 ")
             self.label_27.setText(" 풋등락율 ")
             self.label_28.setText(" 콜등락율 ")
+            
+            self.label_p2_2.setText(" BB Middle\n PSAR ")
+            self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p2_3.setText(" OneEye ")
+            self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p2_4.setText(" MAMA ")
+            self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot2_call_hoga_curve.clear()
             bc_plot2_put_hoga_curve.clear()   
@@ -27219,6 +27339,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_26.setText(" 풋현재가 ")
             self.label_27.setText(" 중심가 ")
             self.label_28.setText(" 콜현재가 ")
+            
+            self.label_p2_2.setText(" BB Middle\n PSAR ")
+            self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p2_3.setText(" OneEye ")
+            self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p2_4.setText(" MAMA ")
+            self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot2_call_hoga_curve.clear()
             bc_plot2_put_hoga_curve.clear()   
@@ -27719,6 +27851,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_37.setText(" - ")
             self.label_38.setText(" 콜체결량 ")
             
+            self.label_p3_2.setText(" BB Middle\n PSAR ")
+            self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p3_3.setText(" OneEye ")
+            self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p3_4.setText(" MAMA ")
+            self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
+            
             bc_plot3_call_hoga_curve.clear()
             bc_plot3_put_hoga_curve.clear()
 
@@ -27771,6 +27915,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_36.setText(" 풋잔량비 ")
             self.label_37.setText(" - ")
             self.label_38.setText(" 콜잔량비 ")
+            
+            self.label_p3_2.setText(" BB Middle\n PSAR ")
+            self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p3_3.setText(" OneEye ")
+            self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p3_4.setText(" MAMA ")
+            self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
                         
             bc_plot3_call_volume_curve.clear()
             bc_plot3_put_volume_curve.clear()
@@ -27824,6 +27980,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_36.setText(" - ")
             self.label_37.setText(" 체결량 ")
             self.label_38.setText(" - ")
+            
+            self.label_p3_2.setText(" BB Middle\n PSAR ")
+            self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p3_3.setText(" OneEye ")
+            self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p3_4.setText(" MAMA ")
+            self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot3_call_hoga_curve.clear()
             bc_plot3_put_hoga_curve.clear()
@@ -27877,6 +28045,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_36.setText(" - ")
             self.label_37.setText(" 본월물: 0.00, 차월물: 0.00(차차월물) ")
             self.label_38.setText(" - ")
+            
+            self.label_p3_2.setText(" BB Middle\n PSAR ")
+            self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p3_3.setText(" OneEye ")
+            self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p3_4.setText(" MAMA ")
+            self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot3_call_hoga_curve.clear()
             bc_plot3_put_hoga_curve.clear()
@@ -27928,6 +28108,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_36.setText(" DOW등락율 ")
             self.label_37.setText(" 풋등락율 ")
             self.label_38.setText(" 콜등락율 ")
+            
+            self.label_p3_2.setText(" BB Middle\n PSAR ")
+            self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p3_3.setText(" OneEye ")
+            self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p3_4.setText(" MAMA ")
+            self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot3_call_hoga_curve.clear()
             bc_plot3_put_hoga_curve.clear()   
@@ -27979,6 +28171,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_36.setText(" 풋현재가 ")
             self.label_37.setText(" 중심가 ")
             self.label_38.setText(" 콜현재가 ")
+            
+            self.label_p3_2.setText(" BB Middle\n PSAR ")
+            self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p3_3.setText(" OneEye ")
+            self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p3_4.setText(" MAMA ")
+            self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot3_call_hoga_curve.clear()
             bc_plot3_put_hoga_curve.clear()   
@@ -28479,6 +28683,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_46.setText(" - ")
             self.label_47.setText(" 체결량 ")
             self.label_48.setText(" - ")
+            
+            self.label_p4_2.setText(" BB Middle\n PSAR ")
+            self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p4_3.setText(" OneEye ")
+            self.label_p4_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p4_4.setText(" MAMA ")
+            self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot4_call_hoga_curve.clear()
             bc_plot4_put_hoga_curve.clear()
@@ -28533,6 +28749,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_46.setText(" - ")
             self.label_47.setText(" 본월물: 0.00, 차월물: 0.00(차차월물) ")
             self.label_48.setText(" - ")
+            
+            self.label_p4_2.setText(" BB Middle\n PSAR ")
+            self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p4_3.setText(" OneEye ")
+            self.label_p4_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p4_4.setText(" MAMA ")
+            self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
             
             bc_plot4_fut_volume_plus_curve.clear()
             bc_plot4_fut_volume_minus_curve.clear()
@@ -28589,7 +28817,19 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_45.setText(" - ")
             self.label_46.setText(" 풋체결량 ")
             self.label_47.setText(" - ")
-            self.label_48.setText(" 콜체결량 ")            
+            self.label_48.setText(" 콜체결량 ")
+            
+            self.label_p4_2.setText(" BB Middle\n PSAR ")
+            self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p4_3.setText(" OneEye ")
+            self.label_p4_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p4_4.setText(" MAMA ")
+            self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))            
             
             bc_plot4_fut_volume_plus_curve.clear()
             bc_plot4_fut_volume_minus_curve.clear()
@@ -28645,6 +28885,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_47.setText(" - ")
             self.label_48.setText(" 콜잔량비 ")
             
+            self.label_p4_2.setText(" BB Middle\n PSAR ")
+            self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p4_3.setText(" OneEye ")
+            self.label_p4_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p4_4.setText(" MAMA ")
+            self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
+            
             bc_plot4_fut_volume_plus_curve.clear()
             bc_plot4_fut_volume_minus_curve.clear()
 
@@ -28698,6 +28950,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_46.setText(" DOW등락율 ")
             self.label_47.setText(" 풋등락율 ")
             self.label_48.setText(" 콜등락율 ")
+            
+            self.label_p4_2.setText(" BB Middle\n PSAR ")
+            self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p4_3.setText(" OneEye ")
+            self.label_p4_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p4_4.setText(" MAMA ")
+            self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot4_fut_volume_plus_curve.clear()
             bc_plot4_fut_volume_minus_curve.clear()
@@ -29305,6 +29569,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_57.setText(" - ")
             self.label_58.setText(" 콜체결량 ")
             
+            self.label_p5_2.setText(" BB Middle\n PSAR ")
+            self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p5_3.setText(" OneEye ")
+            self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p5_4.setText(" MAMA ")
+            self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
+            
             bc_plot5_call_hoga_curve.clear()
             bc_plot5_put_hoga_curve.clear()
 
@@ -29357,6 +29633,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_56.setText(" 풋잔량비 ")
             self.label_57.setText(" - ")
             self.label_58.setText(" 콜잔량비 ")
+            
+            self.label_p5_2.setText(" BB Middle\n PSAR ")
+            self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p5_3.setText(" OneEye ")
+            self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p5_4.setText(" MAMA ")
+            self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
                         
             bc_plot5_call_volume_curve.clear()
             bc_plot5_put_volume_curve.clear()
@@ -29410,6 +29698,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_56.setText(" - ")
             self.label_57.setText(" 체결량 ")
             self.label_58.setText(" - ")
+            
+            self.label_p5_2.setText(" BB Middle\n PSAR ")
+            self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p5_3.setText(" OneEye ")
+            self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p5_4.setText(" MAMA ")
+            self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot5_call_hoga_curve.clear()
             bc_plot5_put_hoga_curve.clear()
@@ -29463,6 +29763,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_56.setText(" - ")
             self.label_57.setText(" 본월물: 0.00, 차월물: 0.00(차차월물) ")
             self.label_58.setText(" - ")
+            
+            self.label_p5_2.setText(" BB Middle\n PSAR ")
+            self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p5_3.setText(" OneEye ")
+            self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p5_4.setText(" MAMA ")
+            self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot5_call_hoga_curve.clear()
             bc_plot5_put_hoga_curve.clear()
@@ -29514,6 +29826,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_56.setText(" DOW등락율 ")
             self.label_57.setText(" 풋등락율 ")
             self.label_58.setText(" 콜등락율 ")
+            
+            self.label_p5_2.setText(" BB Middle\n PSAR ")
+            self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p5_3.setText(" OneEye ")
+            self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p5_4.setText(" MAMA ")
+            self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot5_call_hoga_curve.clear()
             bc_plot5_put_hoga_curve.clear()   
@@ -29565,6 +29889,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_56.setText(" 풋현재가 ")
             self.label_57.setText(" 중심가 ")
             self.label_58.setText(" 콜현재가 ")
+            
+            self.label_p5_2.setText(" BB Middle\n PSAR ")
+            self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p5_3.setText(" OneEye ")
+            self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p5_4.setText(" MAMA ")
+            self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot5_call_hoga_curve.clear()
             bc_plot5_put_hoga_curve.clear()   
@@ -30065,6 +30401,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_67.setText(" - ")
             self.label_68.setText(" 콜체결량 ")
             
+            self.label_p6_2.setText(" BB Middle\n PSAR ")
+            self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p6_3.setText(" OneEye ")
+            self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p6_4.setText(" MAMA ")
+            self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
+            
             bc_plot6_call_hoga_curve.clear()
             bc_plot6_put_hoga_curve.clear()
 
@@ -30117,6 +30465,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_66.setText(" 풋잔량비 ")
             self.label_67.setText(" - ")
             self.label_68.setText(" 콜잔량비 ")
+            
+            self.label_p6_2.setText(" BB Middle\n PSAR ")
+            self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p6_3.setText(" OneEye ")
+            self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p6_4.setText(" MAMA ")
+            self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
                         
             bc_plot6_call_volume_curve.clear()
             bc_plot6_put_volume_curve.clear()
@@ -30170,6 +30530,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_66.setText(" - ")
             self.label_67.setText(" 체결량 ")
             self.label_68.setText(" - ")
+            
+            self.label_p6_2.setText(" BB Middle\n PSAR ")
+            self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p6_3.setText(" OneEye ")
+            self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p6_4.setText(" MAMA ")
+            self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot6_call_hoga_curve.clear()
             bc_plot6_put_hoga_curve.clear()
@@ -30223,6 +30595,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_66.setText(" - ")
             self.label_67.setText(" 본월물: 0.00, 차월물: 0.00(차차월물) ")
             self.label_68.setText(" - ")
+            
+            self.label_p6_2.setText(" BB Middle\n PSAR ")
+            self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p6_3.setText(" OneEye ")
+            self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p6_4.setText(" MAMA ")
+            self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot6_call_hoga_curve.clear()
             bc_plot6_put_hoga_curve.clear()
@@ -30274,6 +30658,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_66.setText(" DOW등락율 ")
             self.label_67.setText(" 풋등락율 ")
             self.label_68.setText(" 콜등락율 ")
+            
+            self.label_p6_2.setText(" BB Middle\n PSAR ")
+            self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p6_3.setText(" OneEye ")
+            self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p6_4.setText(" MAMA ")
+            self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot6_call_hoga_curve.clear()
             bc_plot6_put_hoga_curve.clear()   
@@ -30325,6 +30721,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_66.setText(" 풋현재가 ")
             self.label_67.setText(" 중심가 ")
             self.label_68.setText(" 콜현재가 ")
+            
+            self.label_p6_2.setText(" BB Middle\n PSAR ")
+            self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p6_3.setText(" OneEye ")
+            self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
+
+            self.label_p6_4.setText(" MAMA ")
+            self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
+            #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
             bc_plot6_call_hoga_curve.clear()
             bc_plot6_put_hoga_curve.clear()   
@@ -30832,18 +31240,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot1 그래프 그리기
             if bc_comboindex1 == 0 and market_service:
 
-                self.label_p1_2.setText(" BB Middle\n PSAR ")
-                self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p1_3.setText(" OneEye ")
-                self.label_p1_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p1_4.setText(" MAMA ")
-                self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
@@ -30860,18 +31256,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot1_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex1 == 1 and market_service:
-
-                self.label_p1_2.setText(" BB Middle\n PSAR ")
-                self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p1_3.setText(" OneEye ")
-                self.label_p1_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p1_4.setText(" MAMA ")
-                self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " 본월물: {0:0.2f}, 차월물: {1:0.2f}({2:0.2f}) ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_rr'], df_futures_graph.at[ovc_x_idx, 'n_hoga_rr'], fut_ccms_hoga_rr)
@@ -30891,18 +31275,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 2 and market_service:
 
-                self.label_p1_2.setText(" BB Middle\n PSAR ")
-                self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p1_3.setText(" OneEye ")
-                self.label_p1_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p1_4.setText(" MAMA ")
-                self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 str = " {0:0.0f} ".format(df_put_info_graph.at[ovc_x_idx, 'volume'])
                 self.label_16.setStyleSheet('background-color: blue ; color: white')
                 #self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -30917,18 +31289,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot1_put_volume_curve.setData(df_put_info_graph['volume'].tolist())
 
             elif bc_comboindex1 == 3 and market_service:
-
-                self.label_p1_2.setText(" BB Middle\n PSAR ")
-                self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p1_3.setText(" OneEye ")
-                self.label_p1_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p1_4.setText(" MAMA ")
-                self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
                 
                 str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
                 self.label_16.setStyleSheet('background-color: blue ; color: white')
@@ -30944,18 +31304,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot1_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())
 
             elif bc_comboindex1 == 4 and market_service:
-
-                self.label_p1_2.setText(" BB Middle\n PSAR ")
-                self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p1_3.setText(" OneEye ")
-                self.label_p1_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p1_4.setText(" MAMA ")
-                self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 bc_plot1_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
                 bc_plot1_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
@@ -31682,18 +32030,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot2 그래프 그리기
             if bc_comboindex2 == 0 and market_service:
 
-                self.label_p2_2.setText(" BB Middle\n PSAR ")
-                self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p2_3.setText(" OneEye ")
-                self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p2_4.setText(" MAMA ")
-                self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 str = " {0:0.0f} ".format(df_put_info_graph.at[ovc_x_idx, 'volume'])
                 self.label_26.setStyleSheet('background-color: blue ; color: white')
                 #self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -31709,18 +32045,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 1 and market_service:
 
-                self.label_p2_2.setText(" BB Middle\n PSAR ")
-                self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p2_3.setText(" OneEye ")
-                self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p2_4.setText(" MAMA ")
-                self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
                 self.label_26.setStyleSheet('background-color: blue ; color: white')
                 #self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -31735,18 +32059,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot2_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
 
             elif bc_comboindex2 == 2 and market_service:
-
-                self.label_p2_2.setText(" BB Middle\n PSAR ")
-                self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p2_3.setText(" OneEye ")
-                self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p2_4.setText(" MAMA ")
-                self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
@@ -31764,18 +32076,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot2_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex2 == 3 and market_service:
-
-                self.label_p2_2.setText(" BB Middle\n PSAR ")
-                self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p2_3.setText(" OneEye ")
-                self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p2_4.setText(" MAMA ")
-                self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " 본월물: {0:0.2f}, 차월물: {1:0.2f}({2:0.2f}) ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_rr'], df_futures_graph.at[ovc_x_idx, 'n_hoga_rr'], fut_ccms_hoga_rr)
@@ -31795,36 +32095,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 4 and market_service:
 
-                self.label_p2_2.setText(" BB Middle\n PSAR ")
-                self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p2_3.setText(" OneEye ")
-                self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p2_4.setText(" MAMA ")
-                self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 bc_plot2_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
                 bc_plot2_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
                 bc_plot2_call_drate_curve.setData(df_call_info_graph['drate'].tolist())
                 bc_plot2_put_drate_curve.setData(df_put_info_graph['drate'].tolist())
 
             elif bc_comboindex2 == 5 and market_service:
-
-                self.label_p2_2.setText(" BB Middle\n PSAR ")
-                self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p2_3.setText(" OneEye ")
-                self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p2_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p2_4.setText(" MAMA ")
-                self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p2_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 if selected_opt_list != old_selected_opt_list:
 
@@ -32480,18 +32756,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot3 그래프 그리기
             if bc_comboindex3 == 0 and market_service:
 
-                self.label_p3_2.setText(" BB Middle\n PSAR ")
-                self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p3_3.setText(" OneEye ")
-                self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p3_4.setText(" MAMA ")
-                self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 str = " {0:0.0f} ".format(df_put_info_graph.at[ovc_x_idx, 'volume'])
                 self.label_36.setStyleSheet('background-color: blue ; color: white')
                 #self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -32507,18 +32771,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 1 and market_service:
 
-                self.label_p3_2.setText(" BB Middle\n PSAR ")
-                self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p3_3.setText(" OneEye ")
-                self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p3_4.setText(" MAMA ")
-                self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
                 self.label_36.setStyleSheet('background-color: blue ; color: white')
                 #self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -32533,18 +32785,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot3_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
 
             elif bc_comboindex3 == 2 and market_service:
-
-                self.label_p3_2.setText(" BB Middle\n PSAR ")
-                self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p3_3.setText(" OneEye ")
-                self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p3_4.setText(" MAMA ")
-                self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
@@ -32562,18 +32802,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot3_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex3 == 3 and market_service:
-
-                self.label_p3_2.setText(" BB Middle\n PSAR ")
-                self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p3_3.setText(" OneEye ")
-                self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p3_4.setText(" MAMA ")
-                self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " 본월물: {0:0.2f}, 차월물: {1:0.2f}({2:0.2f}) ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_rr'], df_futures_graph.at[ovc_x_idx, 'n_hoga_rr'], fut_ccms_hoga_rr)
@@ -32593,36 +32821,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 4 and market_service:
 
-                self.label_p3_2.setText(" BB Middle\n PSAR ")
-                self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p3_3.setText(" OneEye ")
-                self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p3_4.setText(" MAMA ")
-                self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 bc_plot3_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
                 bc_plot3_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
                 bc_plot3_call_drate_curve.setData(df_call_info_graph['drate'].tolist())
                 bc_plot3_put_drate_curve.setData(df_put_info_graph['drate'].tolist())
 
             elif bc_comboindex3 == 5 and market_service:
-
-                self.label_p3_2.setText(" BB Middle\n PSAR ")
-                self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p3_3.setText(" OneEye ")
-                self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p3_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p3_4.setText(" MAMA ")
-                self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p3_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 if selected_opt_list != old_selected_opt_list:
 
@@ -33278,18 +33482,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot4 그래프 그리기
             if bc_comboindex4 == 0 and market_service:
 
-                self.label_p4_2.setText(" BB Middle\n PSAR ")
-                self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p4_3.setText(" OneEye ")
-                self.label_p4_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p4_4.setText(" MAMA ")
-                self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
@@ -33306,18 +33498,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot4_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex4 == 1 and market_service:
-
-                self.label_p4_2.setText(" BB Middle\n PSAR ")
-                self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p4_3.setText(" OneEye ")
-                self.label_p4_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p4_4.setText(" MAMA ")
-                self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
@@ -33339,18 +33519,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex4 == 2 and market_service:
 
-                self.label_p4_2.setText(" BB Middle\n PSAR ")
-                self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p4_3.setText(" OneEye ")
-                self.label_p4_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p4_4.setText(" MAMA ")
-                self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
                 str = " {0:0.0f} ".format(df_put_info_graph.at[ovc_x_idx, 'volume'])
@@ -33368,18 +33536,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex4 == 3 and market_service:
 
-                self.label_p4_2.setText(" BB Middle\n PSAR ")
-                self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p4_3.setText(" OneEye ")
-                self.label_p4_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p4_4.setText(" MAMA ")
-                self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
                 str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
@@ -33396,18 +33552,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot4_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())
 
             elif bc_comboindex4 == 4 and market_service:
-
-                self.label_p4_2.setText(" BB Middle\n PSAR ")
-                self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p4_3.setText(" OneEye ")
-                self.label_p4_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p4_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p4_4.setText(" MAMA ")
-                self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p4_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
@@ -34136,18 +34280,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot5 그래프 그리기
             if bc_comboindex5 == 0 and market_service:
 
-                self.label_p5_2.setText(" BB Middle\n PSAR ")
-                self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p5_3.setText(" OneEye ")
-                self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p5_4.setText(" MAMA ")
-                self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
                 str = " {0:0.0f} ".format(df_put_info_graph.at[ovc_x_idx, 'volume'])
@@ -34165,18 +34297,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex5 == 1 and market_service:
 
-                self.label_p5_2.setText(" BB Middle\n PSAR ")
-                self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p5_3.setText(" OneEye ")
-                self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p5_4.setText(" MAMA ")
-                self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
                 self.label_56.setStyleSheet('background-color: blue ; color: white')
                 #self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -34191,18 +34311,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot5_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
 
             elif bc_comboindex5 == 2 and market_service:
-
-                self.label_p5_2.setText(" BB Middle\n PSAR ")
-                self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p5_3.setText(" OneEye ")
-                self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p5_4.setText(" MAMA ")
-                self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
@@ -34220,18 +34328,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot5_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex5 == 3 and market_service:
-
-                self.label_p5_2.setText(" BB Middle\n PSAR ")
-                self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p5_3.setText(" OneEye ")
-                self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p5_4.setText(" MAMA ")
-                self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " 본월물: {0:0.2f}, 차월물: {1:0.2f}({2:0.2f}) ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_rr'], df_futures_graph.at[ovc_x_idx, 'n_hoga_rr'], fut_ccms_hoga_rr)
@@ -34251,36 +34347,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex5 == 4 and market_service:
 
-                self.label_p5_2.setText(" BB Middle\n PSAR ")
-                self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p5_3.setText(" OneEye ")
-                self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p5_4.setText(" MAMA ")
-                self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 bc_plot5_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
                 bc_plot5_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
                 bc_plot5_call_drate_curve.setData(df_call_info_graph['drate'].tolist())
                 bc_plot5_put_drate_curve.setData(df_put_info_graph['drate'].tolist())
 
             elif bc_comboindex5 == 5 and market_service:
-
-                self.label_p5_2.setText(" BB Middle\n PSAR ")
-                self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p5_3.setText(" OneEye ")
-                self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p5_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p5_4.setText(" MAMA ")
-                self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p5_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 if selected_opt_list != old_selected_opt_list:
 
@@ -34936,18 +35008,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot6 그래프 그리기
             if bc_comboindex6 == 0 and market_service:
 
-                self.label_p6_2.setText(" BB Middle\n PSAR ")
-                self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p6_3.setText(" OneEye ")
-                self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p6_4.setText(" MAMA ")
-                self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 str = " {0:0.0f} ".format(df_put_info_graph.at[ovc_x_idx, 'volume'])
                 self.label_66.setStyleSheet('background-color: blue ; color: white')
                 #self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -34963,18 +35023,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex6 == 1 and market_service:
 
-                self.label_p6_2.setText(" BB Middle\n PSAR ")
-                self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p6_3.setText(" OneEye ")
-                self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p6_4.setText(" MAMA ")
-                self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
                 self.label_66.setStyleSheet('background-color: blue ; color: white')
                 #self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
@@ -34989,18 +35037,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 bc_plot6_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
 
             elif bc_comboindex6 == 2 and market_service:
-
-                self.label_p6_2.setText(" BB Middle\n PSAR ")
-                self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p6_3.setText(" OneEye ")
-                self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p6_4.setText(" MAMA ")
-                self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
@@ -35018,18 +35054,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     bc_plot6_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif bc_comboindex6 == 3 and market_service:
-
-                self.label_p6_2.setText(" BB Middle\n PSAR ")
-                self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p6_3.setText(" OneEye ")
-                self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p6_4.setText(" MAMA ")
-                self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 str = " 본월물: {0:0.2f}, 차월물: {1:0.2f}({2:0.2f}) ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_rr'], df_futures_graph.at[ovc_x_idx, 'n_hoga_rr'], fut_ccms_hoga_rr)
@@ -35049,36 +35073,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex6 == 4 and market_service:
 
-                self.label_p6_2.setText(" BB Middle\n PSAR ")
-                self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p6_3.setText(" OneEye ")
-                self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p6_4.setText(" MAMA ")
-                self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
-
                 bc_plot6_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
                 bc_plot6_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
                 bc_plot6_call_drate_curve.setData(df_call_info_graph['drate'].tolist())
                 bc_plot6_put_drate_curve.setData(df_put_info_graph['drate'].tolist())
 
             elif bc_comboindex6 == 5 and market_service:
-
-                self.label_p6_2.setText(" BB Middle\n PSAR ")
-                self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p1_2.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p6_3.setText(" OneEye ")
-                self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p6_3.setFont(QFont("Consolas", 9, QFont.Bold))
-
-                self.label_p6_4.setText(" MAMA ")
-                self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
-                #self.label_p6_4.setFont(QFont("Consolas", 9, QFont.Bold))
 
                 if selected_opt_list != old_selected_opt_list:
 
