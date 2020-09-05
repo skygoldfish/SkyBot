@@ -5157,21 +5157,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if self.checkBox_HS.isChecked() == True:
 
             flag_checkBox_HS = True
-
+            '''
+            self.OVC.UnadviseRealDataWithKey(종목코드=SP500)
+            self.OVC.UnadviseRealDataWithKey(종목코드=WTI)
+            self.OVC.UnadviseRealDataWithKey(종목코드=HANGSENG)
+            '''
             self.OVH.UnadviseRealData()
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 호가요청을 중지합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(str)
         else:
             flag_checkBox_HS = False
-
+            '''
+            self.OVC.AdviseRealData(종목코드=SP500)
+            self.OVC.AdviseRealData(종목코드=WTI)                
+            self.OVC.AdviseRealData(종목코드=HANGSENG)
+            '''
             self.OVH.AdviseRealData(종목코드=SP500)
             self.OVH.AdviseRealData(종목코드=DOW)
             self.OVH.AdviseRealData(종목코드=NASDAQ)
             self.OVH.AdviseRealData(종목코드=WTI)
             self.OVH.AdviseRealData(종목코드=HANGSENG)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 호가를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 호가요청을 원복합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(str)
 
     @pyqtSlot(int)
@@ -6477,7 +6485,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if dt.hour == 6 and dt.minute == 5:
 
-                    if self.parent.connection.IsConnected() and not flag_offline:
+                    if self.parent.connection.IsConnected():
 
                         SP500_당일종가 = SP500_현재가
                         DOW_당일종가 = DOW_현재가
@@ -6594,23 +6602,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             nighttime_file.write(file_str)
                             nighttime_file.close()
 
-                        #flag_offline = True  
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 종료합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
+                        print(str)
+
+                        flag_offline = True  
 
                         self.parent.connection.disconnect()
-
-                        time.sleep(0.5)
-
-                        if not self.parent.connection.IsConnected():
-
-                            self.parent.statusbar.showMessage("오프라인")
-
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결이 종료되었습니다...\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)
-                            print(str)
-                        else:
-                            pass
                     else:
-                        pass
+                        self.parent.statusbar.showMessage("오프라인")
                 else:
                     pass
             else:
@@ -20552,7 +20552,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.SaveResult()                                              
                         
-                        #flag_offline = True  
+                        flag_offline = True  
 
                         self.parent.connection.disconnect()
 
@@ -20562,7 +20562,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             self.parent.statusbar.showMessage("오프라인")
                                                    
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결이 종료되었습니다...\r'.format(dt.hour, dt.minute, dt.second)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 종료합니다...\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
                             print(str) 
                         else:
@@ -22532,7 +22532,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 해외선물 시작시간과 동기를 맞춤
 
                 서버시간 = OVC_HOUR * 3600 + OVC_MIN * 60 + OVC_SEC
-
                 시스템_서버_시간차 = 시스템시간 - 서버시간
 
                 # 체결량정보 제공안됨 !!!
@@ -22542,75 +22541,73 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if result['종목코드'] == NASDAQ:
 
-                    #NASDAQ_체결순매수 = 체결순매수
-
-                    df_nasdaq_graph.at[ovc_x_idx, 'price'] = result['체결가격']                  
+                    df_nasdaq_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+                    NASDAQ_현재가 = result['체결가격']
+                    NASDAQ_전일대비 = NASDAQ_현재가 - NASDAQ_종가 
+                    NASDAQ_등락율 = result['등락율']                 
 
                     NASDAQ_저가 =  result['저가']
                     NASDAQ_고가 =  result['고가']                    
+                    NASDAQ_진폭 = NASDAQ_고가 - NASDAQ_저가
+
+                    if not flag_checkBox_HS:
                     
-                    NASDAQ_진폭 = result['고가'] - result['저가']
-                    
-                    if NASDAQ_전일종가 > 0:
-                        if not NightTime:
-                            NASDAQ_등락율 = ((result['체결가격'] - NASDAQ_전일종가) / NASDAQ_전일종가) * 100
+                        if NASDAQ_전일종가 > 0:
+                            if not NightTime:
+                                NASDAQ_등락율 = ((NASDAQ_현재가 - NASDAQ_전일종가) / NASDAQ_전일종가) * 100
+                            else:
+                                NASDAQ_등락율 = result['등락율']
                         else:
                             NASDAQ_등락율 = result['등락율']
-                    else:
-                        NASDAQ_등락율 = result['등락율']
 
-                    if NASDAQ_시가 == 0:
-                        
-                        if result['전일대비기호'] == '5':
+                        if NASDAQ_시가 == 0:
 
-                            NASDAQ_종가 = result['체결가격'] + result['전일대비']
+                            if result['전일대비기호'] == '5':
+
+                                NASDAQ_종가 = NASDAQ_현재가 + result['전일대비']
+                            else:
+                                NASDAQ_종가 = NASDAQ_현재가 - result['전일대비']
+
+                            df_nasdaq_graph.at[0, 'price'] = NASDAQ_종가
+                            df_nasdaq_graph.at[1, 'price'] = result['시가']
+
+                            NASDAQ_시가 = result['시가']
                         else:
-                            NASDAQ_종가 = result['체결가격'] - result['전일대비']
-
-                        df_nasdaq_graph.at[0, 'price'] = NASDAQ_종가
-                        df_nasdaq_graph.at[1, 'price'] = result['시가']
-
-                        NASDAQ_시가 = result['시가']
-                    else:
-                        pass
-
-                    NASDAQ_전일대비 = result['체결가격'] - NASDAQ_종가
-                    
-                    if NASDAQ_피봇 == 0:
+                            pass
                         
-                        if NASDAQ_전저 > 0 and NASDAQ_전고 > 0:
-                            NASDAQ_피봇 = self.calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_시가)
+                        if NASDAQ_피봇 == 0:
+
+                            if NASDAQ_전저 > 0 and NASDAQ_전고 > 0:
+                                NASDAQ_피봇 = self.calc_pivot(NASDAQ_전저, NASDAQ_전고, NASDAQ_종가, NASDAQ_시가)
+                            else:
+                                pass
                         else:
                             pass
                     else:
-                        pass
-                    
-                    NASDAQ_현재가 = result['체결가격'] 
+                        pass                     
 
                     if flag_checkBox_HS:
 
-                        jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)
+                        jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)
                         self.label_3rd.setStyleSheet('background-color: black ; color: white')
                         self.label_3rd.setText(jisu_str)
                     else:                                             
 
-                        if result['체결가격'] != NASDAQ_과거가:
+                        if NASDAQ_현재가 != NASDAQ_과거가:
                         
                             old_nasdaq_delta = nasdaq_delta
-                            nasdaq_delta = result['체결가격']
+                            nasdaq_delta = NASDAQ_현재가
                             nasdaq_직전대비.extend([nasdaq_delta - old_nasdaq_delta])
                             대비리스트 = list(nasdaq_직전대비)
 
-                            #NASDAQ_현재가 = result['체결가격'] 
-
-                            if result['체결가격'] > NASDAQ_과거가:
+                            if NASDAQ_현재가 > NASDAQ_과거가:
 
                                 if NASDAQ_등락율 < 0:
 
                                     if min(대비리스트) > 0:
-                                        jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬈".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
+                                        jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬈".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
                                     else:
-                                        jisu_str = "NASDAQ: {0} ▲ ({1:.2f}, {2:0.2f}%)".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)
+                                        jisu_str = "NASDAQ: {0} ▲ ({1:.2f}, {2:0.2f}%)".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)
 
                                     self.label_3rd.setText(jisu_str)
                                     self.label_3rd.setStyleSheet('background-color: pink ; color: blue')
@@ -22619,9 +22616,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 elif NASDAQ_등락율 > 0:                            
 
                                     if min(대비리스트) > 0:
-                                        jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬈".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
+                                        jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬈".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
                                     else:
-                                        jisu_str = "NASDAQ: {0} ▲ ({1:.2f}, {2:0.2f}%)".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)
+                                        jisu_str = "NASDAQ: {0} ▲ ({1:.2f}, {2:0.2f}%)".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)
 
                                     self.label_3rd.setText(jisu_str)
                                     self.label_3rd.setStyleSheet('background-color: pink ; color: red')
@@ -22629,14 +22626,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     pass
 
-                            elif result['체결가격'] < NASDAQ_과거가:
+                            elif NASDAQ_현재가 < NASDAQ_과거가:
 
                                 if NASDAQ_등락율 < 0:     
 
                                     if max(대비리스트) < 0:
-                                        jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬊".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
+                                        jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬊".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
                                     else:
-                                        jisu_str = "NASDAQ: {0} ▼ ({1:.2f}, {2:0.2f}%)".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)
+                                        jisu_str = "NASDAQ: {0} ▼ ({1:.2f}, {2:0.2f}%)".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)
 
                                     self.label_3rd.setText(jisu_str)
                                     self.label_3rd.setStyleSheet('background-color: lightskyblue ; color: blue')
@@ -22645,9 +22642,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 elif NASDAQ_등락율 > 0:     
 
                                     if max(대비리스트) < 0:
-                                        jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬊".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
+                                        jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)⬊".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)                                    
                                     else:
-                                        jisu_str = "NASDAQ: {0} ▼ ({1:.2f}, {2:0.2f}%)".format(format(result['체결가격'], ','), NASDAQ_전일대비, NASDAQ_등락율)
+                                        jisu_str = "NASDAQ: {0} ▼ ({1:.2f}, {2:0.2f}%)".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)
 
                                     self.label_3rd.setText(jisu_str)
                                     self.label_3rd.setStyleSheet('background-color: lightskyblue ; color: red')
@@ -22657,57 +22654,57 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
                             
-                            NASDAQ_과거가 = result['체결가격']
+                            NASDAQ_과거가 = NASDAQ_현재가
                         else:
                             pass                    
 
                 elif result['종목코드'] == SP500:
 
-                    #SP500_체결순매수 = 체결순매수
+                    df_sp500_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+                    SP500_현재가 = result['체결가격']
+                    체결가격 = locale.format('%.2f', SP500_현재가, 1)
+                    SP500_전일대비 = round((SP500_현재가 - SP500_종가), 2)
+                    SP500_등락율 = result['등락율']
 
-                    df_sp500_graph.at[ovc_x_idx, 'price'] = result['체결가격']                  
+                    if not flag_checkBox_HS:
 
-                    SP500_저가 =  result['저가']
-                    SP500_고가 =  result['고가']                    
-                    
-                    SP500_진폭 = result['고가'] - result['저가']
+                        SP500_저가 =  result['저가']
+                        SP500_고가 =  result['고가']
+                        SP500_진폭 = SP500_고가 - SP500_저가
 
-                    if SP500_전일종가 > 0:
-                        if not NightTime:
-                            SP500_등락율 = ((result['체결가격'] - SP500_전일종가) / SP500_전일종가) * 100
+                        if SP500_전일종가 > 0:
+                            if not NightTime:
+                                SP500_등락율 = ((SP500_현재가 - SP500_전일종가) / SP500_전일종가) * 100
+                            else:
+                                SP500_등락율 = result['등락율']
                         else:
-                            SP500_등락율 = result['등락율']
-                    else:
-                        SP500_등락율 = result['등락율']                   
+                            SP500_등락율 = result['등락율']                   
 
-                    if SP500_시가 == 0:
-                        
-                        if result['전일대비기호'] == '5':
+                        if SP500_시가 == 0:
 
-                            SP500_종가 = result['체결가격'] + result['전일대비']
+                            if result['전일대비기호'] == '5':
+
+                                SP500_종가 = SP500_현재가 + result['전일대비']
+                            else:
+                                SP500_종가 = SP500_현재가 - result['전일대비']
+
+                            df_sp500_graph.at[0, 'price'] = SP500_종가
+                            df_sp500_graph.at[1, 'price'] = result['시가']
+
+                            SP500_시가 = result['시가']
                         else:
-                            SP500_종가 = result['체결가격'] - result['전일대비']
+                            pass                                                 
 
-                        df_sp500_graph.at[0, 'price'] = SP500_종가
-                        df_sp500_graph.at[1, 'price'] = result['시가']
+                        if SP500_피봇 == 0:
 
-                        SP500_시가 = result['시가']
-                    else:
-                        pass
-
-                    SP500_전일대비 = round((result['체결가격'] - SP500_종가), 2)
-                    체결가격 = locale.format('%.2f', result['체결가격'], 1)      
-                    
-                    if SP500_피봇 == 0:
-                        
-                        if SP500_전저 > 0 and SP500_전고 > 0:
-                            SP500_피봇 = self.calc_pivot(SP500_전저, SP500_전고, SP500_종가, SP500_시가)
+                            if SP500_전저 > 0 and SP500_전고 > 0:
+                                SP500_피봇 = self.calc_pivot(SP500_전저, SP500_전고, SP500_종가, SP500_시가)
+                            else:
+                                pass
                         else:
                             pass
                     else:
                         pass
-
-                    SP500_현재가 = result['체결가격']
 
                     if flag_checkBox_HS:
 
@@ -22716,16 +22713,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.label_3rd.setText(jisu_str)
                     else:
 
-                        if result['체결가격'] != SP500_과거가:
+                        if SP500_현재가 != SP500_과거가:
                         
                             old_sp500_delta = sp500_delta
-                            sp500_delta = result['체결가격']
+                            sp500_delta = SP500_현재가
                             sp500_직전대비.extend([sp500_delta - old_sp500_delta])
                             대비리스트 = list(sp500_직전대비)
 
-                            #SP500_현재가 = result['체결가격']
-
-                            if result['체결가격'] > SP500_과거가:
+                            if SP500_현재가 > SP500_과거가:
 
                                 if SP500_등락율 < 0:
 
@@ -22773,7 +22768,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     pass
 
-                            elif result['체결가격'] < SP500_과거가:
+                            elif SP500_현재가 < SP500_과거가:
 
                                 if SP500_등락율 < 0: 
 
@@ -22823,87 +22818,84 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
 
-                            SP500_과거가 = result['체결가격']
+                            SP500_과거가 = SP500_현재가
                         else:
                             pass                    
 
                 elif result['종목코드'] == DOW:
 
-                    #DOW_체결순매수 = 체결순매수
-
                     df_dow_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+                    DOW_현재가 = int(result['체결가격'])
+                    DOW_전일대비 = int(DOW_현재가 - DOW_종가)
+                    DOW_등락율 = result['등락율']
 
                     DOW_저가 =  int(result['저가'])
                     DOW_고가 =  int(result['고가'])
+                    DOW_진폭 = int(DOW_고가 - DOW_저가)
 
-                    DOW_진폭 = int(result['고가'] - result['저가'])
+                    if not flag_checkBox_HS:
 
-                    if DOW_전일종가 > 0:
-                        if not NightTime:
-                            DOW_등락율 = ((result['체결가격'] - DOW_전일종가) / DOW_전일종가) * 100
+                        if DOW_전일종가 > 0:
+                            if not NightTime:
+                                DOW_등락율 = ((DOW_현재가 - DOW_전일종가) / DOW_전일종가) * 100
+                            else:
+                                DOW_등락율 = result['등락율']
                         else:
                             DOW_등락율 = result['등락율']
-                    else:
-                        DOW_등락율 = result['등락율']
 
-                    df_dow_graph.at[ovc_x_idx, 'drate'] = DOW_등락율                                  
+                        df_dow_graph.at[ovc_x_idx, 'drate'] = DOW_등락율                                  
 
-                    if DOW_시가 == 0:
-                        
-                        if result['전일대비기호'] == '5':
+                        if DOW_시가 == 0:
 
-                            DOW_종가 = int(result['체결가격'] + result['전일대비'])
+                            if result['전일대비기호'] == '5':
+
+                                DOW_종가 = int(DOW_현재가 + result['전일대비'])
+                            else:
+                                DOW_종가 = int(DOW_현재가 - result['전일대비'])
+
+                            df_dow_graph.at[0, 'price'] = DOW_종가
+                            df_dow_graph.at[1, 'price'] = result['시가']
+
+                            DOW_시가 = int(result['시가'])
                         else:
-                            DOW_종가 = int(result['체결가격'] - result['전일대비'])
-                        
-                        df_dow_graph.at[0, 'price'] = DOW_종가
-                        df_dow_graph.at[1, 'price'] = result['시가']
+                            DOW_진폭비 = DOW_진폭 / DOW_시가                         
 
-                        DOW_시가 = int(result['시가'])
-                    else:
-                        DOW_진폭비 = DOW_진폭 / DOW_시가
+                        if DOW_피봇 == 0:
 
-                    DOW_전일대비 = int(result['체결가격'] - DOW_종가) 
-                    
-                    if DOW_피봇 == 0:
-                        
-                        if DOW_전저 > 0 and DOW_전고 > 0:
-                            DOW_피봇 = self.calc_pivot(DOW_전저, DOW_전고, DOW_종가, DOW_시가)
+                            if DOW_전저 > 0 and DOW_전고 > 0:
+                                DOW_피봇 = self.calc_pivot(DOW_전저, DOW_전고, DOW_종가, DOW_시가)
+                            else:
+                                pass
                         else:
                             pass
                     else:
                         pass                      
                     
-                    체결가격 = int(result['체결가격'])
-                    DOW_현재가 = int(result['체결가격'])
-
                     if flag_checkBox_HS:
 
                         jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})". \
-                                    format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
                         self.label_2nd.setStyleSheet('background-color: black ; color: white')
                         self.label_2nd.setText(jisu_str)
                     else:           
 
-                        if 체결가격 != DOW_과거가:
+                        if DOW_현재가 != DOW_과거가:
                         
                             old_dow_delta = dow_delta
-                            dow_delta = 체결가격
+                            dow_delta = DOW_현재가
                             dow_직전대비.extend([dow_delta - old_dow_delta])
-                            대비리스트 = list(dow_직전대비)
+                            대비리스트 = list(dow_직전대비)                       
 
-                            #DOW_현재가 = int(result['체결가격'])                        
-
-                            if 체결가격 > DOW_과거가:
+                            if DOW_현재가 > DOW_과거가:
 
                                 if DOW_등락율 < 0:                                                             
 
                                     if min(대비리스트) > 0:
                                         jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬈". \
-                                        format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
+                                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
                                     else:
                                         jisu_str = "DOW: {0} ▲ ({1}, {2:0.2f}%, {3})". \
-                                        format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                                     self.label_2nd.setText(jisu_str)
                                     self.label_2nd.setStyleSheet('background-color: pink ; color: blue')
@@ -22913,10 +22905,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                     if min(대비리스트) > 0:
                                         jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬈". \
-                                        format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
+                                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
                                     else:
                                         jisu_str = "DOW: {0} ▲ ({1}, {2:0.2f}%, {3})". \
-                                        format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                                     self.label_2nd.setText(jisu_str)
                                     self.label_2nd.setStyleSheet('background-color: pink ; color: red')
@@ -22924,16 +22916,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     pass
 
-                            elif 체결가격 < DOW_과거가:
+                            elif DOW_현재가 < DOW_과거가:
 
                                 if DOW_등락율 < 0:        
 
                                     if max(대비리스트) < 0:
                                         jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬊". \
-                                        format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
+                                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
                                     else:
                                         jisu_str = "DOW: {0} ▼ ({1}, {2:0.2f}%, {3})". \
-                                        format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                                     self.label_2nd.setText(jisu_str)
                                     self.label_2nd.setStyleSheet('background-color: lightskyblue ; color: blue')
@@ -22943,10 +22935,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                     if max(대비리스트) < 0:
                                         jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})⬊". \
-                                        format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
+                                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))                                    
                                     else:
                                         jisu_str = "DOW: {0} ▼ ({1}, {2:0.2f}%, {3})". \
-                                        format(format(체결가격, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                                        format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
 
                                     self.label_2nd.setText(jisu_str)
                                     self.label_2nd.setStyleSheet('background-color: lightskyblue ; color: red')
@@ -22956,58 +22948,59 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
 
-                            DOW_과거가 = 체결가격                        
+                            DOW_과거가 = DOW_현재가                        
                         else:
                             pass
 
                 elif result['종목코드'] == WTI:
-
-                    #WTI_체결순매수 = 체결순매수
                     
                     df_wti_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+                    WTI_현재가 = result['체결가격']
+                    체결가격 = locale.format('%.2f', WTI_현재가, 1)
 
-                    WTI_저가 =  result['저가']
-                    WTI_고가 =  result['고가']
-                    
-                    WTI_진폭 = round((result['고가'] - result['저가']), 2)
+                    WTI_전일대비 = round((WTI_현재가 - WTI_종가), 2)
+                    WTI_등락율 = result['등락율']
 
-                    if WTI_전일종가 > 0:
-                        if not NightTime:
-                            WTI_등락율 = ((result['체결가격'] - WTI_전일종가) / WTI_전일종가) * 100
+                    if not flag_checkBox_HS:
+
+                        WTI_저가 =  result['저가']
+                        WTI_고가 =  result['고가']
+
+                        WTI_진폭 = round((result['고가'] - result['저가']), 2)
+
+                        if WTI_전일종가 > 0:
+                            if not NightTime:
+                                WTI_등락율 = ((WTI_현재가 - WTI_전일종가) / WTI_전일종가) * 100
+                            else:
+                                WTI_등락율 = result['등락율']
                         else:
-                            WTI_등락율 = result['등락율']
-                    else:
-                        WTI_등락율 = result['등락율']                    
-                    
-                    if WTI_시가 == 0:
-                        
-                        if result['전일대비기호'] == '5':
+                            WTI_등락율 = result['등락율']                    
 
-                            WTI_종가 = round((result['체결가격'] + result['전일대비']), 2)
+                        if WTI_시가 == 0:
+
+                            if result['전일대비기호'] == '5':
+
+                                WTI_종가 = round((WTI_현재가 + result['전일대비']), 2)
+                            else:
+                                WTI_종가 = round((WTI_현재가 - result['전일대비']), 2)
+
+                            df_wti_graph.at[0, 'price'] = WTI_종가
+                            df_wti_graph.at[1, 'price'] = result['시가']
+
+                            WTI_시가 = result['시가']
                         else:
-                            WTI_종가 = round((result['체결가격'] - result['전일대비']), 2)
-                        
-                        df_wti_graph.at[0, 'price'] = WTI_종가
-                        df_wti_graph.at[1, 'price'] = result['시가']
+                            pass                    
 
-                        WTI_시가 = result['시가']
-                    else:
-                        pass
+                        if WTI_피봇 == 0:
 
-                    
-                    체결가격 = locale.format('%.2f', result['체결가격'], 1)
-                    WTI_전일대비 = round((result['체결가격'] - WTI_종가), 2)
-                    
-                    if WTI_피봇 == 0:
-                        
-                        if WTI_전저 > 0 and WTI_전고 > 0:
-                            WTI_피봇 = self.calc_pivot(WTI_전저, WTI_전고, WTI_종가, WTI_시가)
+                            if WTI_전저 > 0 and WTI_전고 > 0:
+                                WTI_피봇 = self.calc_pivot(WTI_전저, WTI_전고, WTI_종가, WTI_시가)
+                            else:
+                                pass
                         else:
                             pass
                     else:
                         pass
-
-                    WTI_현재가 = result['체결가격']
 
                     if flag_checkBox_HS:
 
@@ -23016,16 +23009,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.label_1st.setText(jisu_str)
                     else:
 
-                        if result['체결가격'] != WTI_과거가:
+                        if WTI_현재가 != WTI_과거가:
                         
                             old_wti_delta = wti_delta
-                            wti_delta = result['체결가격']
+                            wti_delta = WTI_현재가
                             wti_직전대비.extend([wti_delta - old_wti_delta])
                             대비리스트 = list(wti_직전대비)
 
-                            #WTI_현재가 = result['체결가격']
-
-                            if result['체결가격'] > WTI_과거가:
+                            if WTI_현재가 > WTI_과거가:
 
                                 if WTI_등락율 < 0:
 
@@ -23051,7 +23042,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     pass
                                 
-                            elif result['체결가격'] < WTI_과거가:
+                            elif WTI_현재가 < WTI_과거가:
 
                                 if WTI_등락율 < 0:
 
@@ -23079,13 +23070,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
 
-                            WTI_과거가 = result['체결가격']
+                            WTI_과거가 = WTI_현재가
                         else:
                             pass
                     
                 elif result['종목코드'] == EUROFX:
-
-                    #EUROFX_체결순매수 = 체결순매수
 
                     df_eurofx_graph.at[ovc_x_idx, 'price'] = result['체결가격']
                     
@@ -23207,8 +23196,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif result['종목코드'] == HANGSENG:
 
-                    #HANGSENG_체결순매수 = 체결순매수
-
                     df_hangseng_graph.at[ovc_x_idx, 'price'] = result['체결가격']
 
                     HANGSENG_저가 =  int(result['저가'])
@@ -23328,8 +23315,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                 elif result['종목코드'] == GOLD:
-
-                    #GOLD_체결순매수 = 체결순매수
 
                     df_gold_graph.at[ovc_x_idx, 'price'] = result['체결가격']
 
