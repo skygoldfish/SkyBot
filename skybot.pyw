@@ -6602,7 +6602,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             nighttime_file.write(file_str)
                             nighttime_file.close()
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 종료합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 종료합니다...\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
                         print(str)
 
@@ -20562,7 +20562,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             self.parent.statusbar.showMessage("오프라인")
                                                    
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 서버 연결을 종료합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 종료합니다...\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
                             print(str) 
                         else:
