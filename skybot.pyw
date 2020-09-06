@@ -2281,7 +2281,7 @@ flag_checkBox_plot6_oe = False
 
 fut_bollinger_symbol = ''
 fut_psar_symbol = ''
-fut_macd_symbol = ''
+fut_oe_symbol = ''
 fut_mama_symbol = ''
 
 Fibonacci_Ratio = [0.382, 0.5, 0.618, 0.707, 0.786, 0.886]
@@ -4295,7 +4295,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_fut.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_fut.setHorizontalHeaderLabels(
-            ['SBMD', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'MDHR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가',
+            ['SBOM', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'MDHR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가',
              '현재가', '고가', '시가갭', '대비', '진폭', '체결', 'FR', 'OI', 'OI↕'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
 
@@ -17746,7 +17746,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
 
         # 선물 Up/Down Indicator 표시
-        global fut_bollinger_symbol, fut_psar_symbol, fut_macd_symbol, fut_mama_symbol
+        global fut_bollinger_symbol, fut_psar_symbol, fut_oe_symbol, fut_mama_symbol
 
         if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -17769,9 +17769,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] == df_futures_graph.at[ovc_x_idx, 'OE_CONV'] and df_futures_graph.at[ovc_x_idx, 'OE_BASE'] == df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
 
             if df_futures_graph.at[ovc_x_idx, 'OE_CONV'] < df_futures_graph.at[ovc_x_idx, 'OE_BASE']:
-                fut_macd_symbol = '▼'
+                fut_oe_symbol = '▼'
             else:
-                fut_macd_symbol = '▲'
+                fut_oe_symbol = '▲'
         else:
             pass
 
@@ -17788,7 +17788,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        indicator = fut_psar_symbol + ' ' + fut_bollinger_symbol + ' ' + fut_mama_symbol + ' ' + fut_macd_symbol
+        indicator = fut_psar_symbol + ' ' + fut_bollinger_symbol + ' ' + fut_mama_symbol + ' ' + fut_oe_symbol
         
         if indicator != self.tableWidget_fut.horizontalHeaderItem(0).text():
             item = QTableWidgetItem(indicator)
