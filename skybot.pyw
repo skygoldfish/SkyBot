@@ -22485,7 +22485,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             elif szTrCode == 'OVC':
 
-                global NASDAQ_체결순매수, SP500_체결순매수, DOW_체결순매수, WTI_체결순매수, EUROFX_체결순매수, HANGSENG_체결순매수, GOLD_체결순매수
+                #global NASDAQ_체결순매수, SP500_체결순매수, DOW_체결순매수, WTI_체결순매수, EUROFX_체결순매수, HANGSENG_체결순매수, GOLD_체결순매수
                 
                 if not receive_real_ovc:
                     receive_real_ovc = True
@@ -22826,47 +22826,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 if SP500_등락율 < 0:
 
-                                    if NightTime:
-
-                                        if min(대비리스트) > 0:
-                                            jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                        else:
-                                            jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
-
-                                        self.label_3rd.setText(jisu_str)
-                                        self.label_3rd.setStyleSheet('background-color: pink; color: blue')
-                                        sp500_text_color = 'blue'
+                                    if min(대비리스트) > 0:
+                                        jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                     else:
-                                        if min(대비리스트) > 0:
-                                            jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                        else:
-                                            jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                        jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                        self.label_3rd.setText(jisu_str)
-                                        self.label_3rd.setStyleSheet('background-color: pink; color: blue')
-                                        sp500_text_color = 'blue'                                
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: pink; color: blue')
+                                    sp500_text_color = 'blue'                           
 
                                 elif SP500_등락율 > 0:  
 
-                                    if NightTime:
-
-                                        if min(대비리스트) > 0:
-                                            jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                        else:
-                                            jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
-
-                                        self.label_3rd.setText(jisu_str)
-                                        self.label_3rd.setStyleSheet('background-color: pink; color: red')
-                                        sp500_text_color = 'red'
+                                    if min(대비리스트) > 0:
+                                        jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                     else:
-                                        if min(대비리스트) > 0:
-                                            jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                        else:
-                                            jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                        jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                        self.label_3rd.setText(jisu_str)
-                                        self.label_3rd.setStyleSheet('background-color: pink; color: red')
-                                        sp500_text_color = 'red'
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: pink; color: red')
+                                    sp500_text_color = 'red'
                                 else:
                                     pass
 
@@ -22874,47 +22852,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 if SP500_등락율 < 0: 
 
-                                    if NightTime:
-
-                                        if max(대비리스트) < 0:
-                                            jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                        else:
-                                            jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
-
-                                        self.label_3rd.setText(jisu_str)
-                                        self.label_3rd.setStyleSheet('background-color: lightskyblue; color: blue')
-                                        sp500_text_color = 'blue'
+                                    if max(대비리스트) < 0:
+                                        jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                     else:
-                                        if max(대비리스트) < 0:
-                                            jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                        else:
-                                            jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                        jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                        self.label_3rd.setText(jisu_str)
-                                        self.label_3rd.setStyleSheet('background-color: lightskyblue; color: blue')
-                                        sp500_text_color = 'blue'                                
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: lightskyblue; color: blue')
+                                    sp500_text_color = 'blue'                                
 
                                 elif SP500_등락율 > 0:
 
-                                    if NightTime:
-
-                                        if max(대비리스트) < 0:
-                                            jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                        else:
-                                            jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
-
-                                        self.label_3rd.setText(jisu_str)
-                                        self.label_3rd.setStyleSheet('background-color: lightskyblue; color: red')
-                                        sp500_text_color = 'red'
+                                    if max(대비리스트) < 0:
+                                        jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                     else:
-                                        if max(대비리스트) < 0:
-                                            jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
-                                        else:
-                                            jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                        jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                        self.label_3rd.setText(jisu_str)
-                                        self.label_3rd.setStyleSheet('background-color: lightskyblue; color: red')
-                                        sp500_text_color = 'red'                                
+                                    self.label_3rd.setText(jisu_str)
+                                    self.label_3rd.setStyleSheet('background-color: lightskyblue; color: red')
+                                    sp500_text_color = 'red'                                
                                 else:
                                     pass
                             else:
@@ -23537,9 +23493,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             old_eurofx_delta = eurofx_delta
                             eurofx_delta = result['체결가격']
                             eurofx_직전대비.extend([eurofx_delta - old_eurofx_delta])
-                            대비리스트 = list(eurofx_직전대비)
-
-                            #EUROFX_현재가 = result['체결가격']                            
+                            대비리스트 = list(eurofx_직전대비)                         
 
                             if result['체결가격'] > EUROFX_과거가:
 
@@ -23662,8 +23616,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             hangseng_delta = result['체결가격']
                             hangseng_직전대비.extend([hangseng_delta - old_hangseng_delta])
                             대비리스트 = list(hangseng_직전대비)
-
-                            #HANGSENG_현재가 = int(result['체결가격'])
 
                             if result['체결가격'] > HANGSENG_과거가:
 
