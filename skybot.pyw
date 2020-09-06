@@ -17070,7 +17070,128 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         # Plot 데이타프레임 생성
         df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가        
-        df_futures_graph.at[ovc_x_idx, 'drate'] = result['등락율']       
+        df_futures_graph.at[ovc_x_idx, 'drate'] = result['등락율']
+
+        # 1T OHLC 생성
+        df_futures_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
+
+        if OVC_SEC == 0:
+
+            if not flag_futures_ohlc_open:
+
+                if 선물_현재가 > 0:
+                    df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
+                else:
+                    pass
+
+                del 선물_현재가_버퍼[:]
+
+                flag_futures_ohlc_open = True
+            else:
+                선물_현재가_버퍼.append(선물_현재가)
+        else:
+            if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
+                df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+            else:
+                pass
+
+            선물_현재가_버퍼.append(선물_현재가)
+
+            if max(선물_현재가_버퍼) > 0:
+                df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
+            else:
+                pass
+
+            if min(선물_현재가_버퍼) == 0:
+
+                if max(선물_현재가_버퍼) > 0:
+                    df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
+                else:
+                    pass
+            else:
+                df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
+
+            if 선물_현재가 > 0:
+                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
+            else:
+                pass
+
+            if df_futures_graph.at[ovc_x_idx, 'high'] > 0 and df_futures_graph.at[ovc_x_idx, 'low'] > 0:
+                df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
+            else:
+                pass
+
+            flag_futures_ohlc_open = False
+
+        # Bollinger Bands
+        upper, middle, lower = talib.BBANDS(np.array(df_futures_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+        df_futures_graph['BBUpper'] = upper
+        df_futures_graph['BBMiddle'] = middle
+        df_futures_graph['BBLower'] = lower
+
+        # MACD
+        # list of values for the Moving Average Type:  
+        # 0: MA_Type.SMA (simple)  
+        # 1: MA_Type.EMA (exponential)  
+        # 2: MA_Type.WMA (weighted)  
+        # 3: MA_Type.DEMA (double exponential)  
+        # 4: MA_Type.TEMA (triple exponential)  
+        # 5: MA_Type.TRIMA (triangular)  
+        # 6: MA_Type.KAMA (Kaufman adaptive)  
+        # 7: MA_Type.MAMA (Mesa adaptive)  
+        # 8: MA_Type.T3 (triple exponential T3)           
+        
+        #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_futures_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
+            #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
+
+        #df_futures_graph['MACD'] = macd
+        #df_futures_graph['MACDSig'] = macdsignal
+        #df_futures_graph['MACDHist'] = macdhist
+
+        # Parabolic SAR
+        parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+        # PSARIndicator 함수 오동작하는 듯...
+        #ta_psar = ta.trend.PSARIndicator(df_futures_graph['high'], df_futures_graph['low'], df_futures_graph['close'])        
+
+        df_futures_graph['PSAR'] = parabolic_sar
+        #df_futures_graph['TA_PSAR'] = ta_psar.psar()
+
+        # MAMA
+        mama, fama = talib.MAMA(np.array(df_futures_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+        df_futures_graph['MAMA'] = mama
+        df_futures_graph['FAMA'] = fama
+
+        if df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA'] and df_futures_graph.at[ovc_x_idx, 'BBLower'] == df_futures_graph.at[ovc_x_idx, 'BBLower']:
+
+            if df_futures_graph.at[ovc_x_idx, 'FAMA'] < df_futures_graph.at[ovc_x_idx, 'BBLower']:
+                df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'BBLower']
+            else:
+                df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'FAMA']
+        else:
+            pass
+
+        # Ichimoku Indicator
+        #futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'], n1=9, n2=26, n3=52, visual=True)
+        futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'])
+
+        df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
+        df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
+
+        # 일목균형표의 기준선을 FAMA 대용으로 사용가능한지 확인필요!!!
+        df_futures_graph['OE_BASE'] = futures_Ichimoku.ichimoku_base_line()
+        df_futures_graph['OE_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
+
+
+        # 데이타프레임의 모든 요소가 NaN인지 검사!!!
+        '''
+        if not df_futures_graph['OE_CONV'].isnull().values.all():
+            print('OE_CONV =', df_futures_graph['OE_CONV'].tolist())
+        else:
+            pass
+        '''       
 
         #print('fut_first_arrive_time = {0}, flag_first_arrive = {1}, market_service = {2}\r'.format(fut_first_arrive_time, flag_first_arrive, market_service))
 
@@ -17622,129 +17743,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)              
         else:
             pass
-
-        # 1T OHLC 생성
-        df_futures_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
-
-        if OVC_SEC == 0:
-
-            if not flag_futures_ohlc_open:
-
-                if 선물_현재가 > 0:
-                    df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
-                else:
-                    pass
-
-                del 선물_현재가_버퍼[:]
-
-                flag_futures_ohlc_open = True
-            else:
-                선물_현재가_버퍼.append(선물_현재가)
-        else:
-            if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
-                df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-            else:
-                pass
-
-            선물_현재가_버퍼.append(선물_현재가)
-
-            if max(선물_현재가_버퍼) > 0:
-                df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
-            else:
-                pass
-
-            if min(선물_현재가_버퍼) == 0:
-
-                if max(선물_현재가_버퍼) > 0:
-                    df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
-                else:
-                    pass
-            else:
-                df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
-
-            if 선물_현재가 > 0:
-                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
-            else:
-                pass
-
-            if df_futures_graph.at[ovc_x_idx, 'high'] > 0 and df_futures_graph.at[ovc_x_idx, 'low'] > 0:
-                df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
-            else:
-                pass
-
-            flag_futures_ohlc_open = False
-
-        # Bollinger Bands
-        upper, middle, lower = talib.BBANDS(np.array(df_futures_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-        df_futures_graph['BBUpper'] = upper
-        df_futures_graph['BBMiddle'] = middle
-        df_futures_graph['BBLower'] = lower
-
-        # MACD
-        # list of values for the Moving Average Type:  
-        # 0: MA_Type.SMA (simple)  
-        # 1: MA_Type.EMA (exponential)  
-        # 2: MA_Type.WMA (weighted)  
-        # 3: MA_Type.DEMA (double exponential)  
-        # 4: MA_Type.TEMA (triple exponential)  
-        # 5: MA_Type.TRIMA (triangular)  
-        # 6: MA_Type.KAMA (Kaufman adaptive)  
-        # 7: MA_Type.MAMA (Mesa adaptive)  
-        # 8: MA_Type.T3 (triple exponential T3)
-           
-        '''
-        macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_futures_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
-            fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
-
-        df_futures_graph['MACD'] = macd
-        df_futures_graph['MACDSig'] = macdsignal
-        #df_futures_graph['MACDHist'] = macdhist
-        '''
-
-        # Parabolic SAR
-        parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-
-        # PSARIndicator 함수 오동작하는 듯...
-        #ta_psar = ta.trend.PSARIndicator(df_futures_graph['high'], df_futures_graph['low'], df_futures_graph['close'])        
-
-        df_futures_graph['PSAR'] = parabolic_sar
-        #df_futures_graph['TA_PSAR'] = ta_psar.psar()
-
-        # MAMA
-        mama, fama = talib.MAMA(np.array(df_futures_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
-
-        df_futures_graph['MAMA'] = mama
-        df_futures_graph['FAMA'] = fama
-
-        if df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA'] and df_futures_graph.at[ovc_x_idx, 'BBLower'] == df_futures_graph.at[ovc_x_idx, 'BBLower']:
-
-            if df_futures_graph.at[ovc_x_idx, 'FAMA'] < df_futures_graph.at[ovc_x_idx, 'BBLower']:
-                df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'BBLower']
-            else:
-                df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'FAMA']
-        else:
-            pass
-
-        # Ichimoku Indicator
-        #futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'], n1=9, n2=26, n3=52, visual=True)
-        futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'])
-
-        df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
-        df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
-
-        # 일목균형표의 기준선을 FAMA 대용으로 사용가능한지 확인필요!!!
-        df_futures_graph['OE_BASE'] = futures_Ichimoku.ichimoku_base_line()
-        df_futures_graph['OE_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
-
-
-        # 데이타프레임의 모든 요소가 NaN인지 검사!!!
-        '''
-        if not df_futures_graph['OE_CONV'].isnull().values.all():
-            print('OE_CONV =', df_futures_graph['OE_CONV'].tolist())
-        else:
-            pass
-        '''
+        
 
         # 선물 Up/Down Indicator 표시
         global fut_bollinger_symbol, fut_psar_symbol, fut_macd_symbol, fut_mama_symbol
@@ -21200,15 +21199,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 6: MA_Type.KAMA (Kaufman adaptive)  
                     # 7: MA_Type.MAMA (Mesa adaptive)  
                     # 8: MA_Type.T3 (triple exponential T3)
+                    
+                    #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_futures_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
+                        #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
 
-                    '''
-                    macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_futures_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
-                        fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
-
-                    df_futures_graph['MACD'] = macd
-                    df_futures_graph['MACDSig'] = macdsignal
+                    #df_futures_graph['MACD'] = macd
+                    #df_futures_graph['MACDSig'] = macdsignal
                     #df_futures_graph['MACDHist'] = macdhist
-                    '''
 
                     # Parabolic SAR
                     parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
