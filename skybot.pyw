@@ -22542,6 +22542,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if result['종목코드'] == NASDAQ:
 
                     df_nasdaq_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+
                     NASDAQ_현재가 = result['체결가격']
                     NASDAQ_전일대비 = NASDAQ_현재가 - NASDAQ_종가 
                     NASDAQ_등락율 = result['등락율']                 
@@ -22656,21 +22657,122 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             
                             NASDAQ_과거가 = NASDAQ_현재가
                         else:
-                            pass                    
+                            pass
+
+                    # 1T OHLC 생성
+                    df_nasdaq_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
+
+                    if OVC_SEC == 0:
+
+                        if not flag_nasdaq_ohlc_open:
+                        
+                            if NASDAQ_현재가 > 0:
+                                df_nasdaq_graph.at[ovc_x_idx, 'open'] = NASDAQ_현재가
+                            else:
+                                pass
+                            
+                            del NASDAQ_현재가_버퍼[:]
+
+                            flag_nasdaq_ohlc_open = True
+                        else:
+                            NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
+                    else:
+                        if df_nasdaq_graph.at[ovc_x_idx, 'open'] != df_nasdaq_graph.at[ovc_x_idx, 'open']:
+                            df_nasdaq_graph.at[ovc_x_idx, 'open'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
+                        else:
+                            pass
+
+                        NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
+
+                        if max(NASDAQ_현재가_버퍼) > 0:
+                            df_nasdaq_graph.at[ovc_x_idx, 'high'] = max(NASDAQ_현재가_버퍼)
+                        else:
+                            pass
+
+                        if min(NASDAQ_현재가_버퍼) == 0:
+
+                            if max(NASDAQ_현재가_버퍼) > 0:
+                                df_nasdaq_graph.at[ovc_x_idx, 'low'] = max(NASDAQ_현재가_버퍼)
+                            else:
+                                pass
+                        else:
+                            df_nasdaq_graph.at[ovc_x_idx, 'low'] = min(NASDAQ_현재가_버퍼)
+
+                        if NASDAQ_현재가 > 0:
+                            df_nasdaq_graph.at[ovc_x_idx, 'close'] = NASDAQ_현재가
+                        else:
+                            pass
+
+                        if df_nasdaq_graph.at[ovc_x_idx, 'high'] > 0 and df_nasdaq_graph.at[ovc_x_idx, 'low'] > 0:
+                            df_nasdaq_graph.at[ovc_x_idx, 'middle'] = (df_nasdaq_graph.at[ovc_x_idx, 'high'] + df_nasdaq_graph.at[ovc_x_idx, 'low']) / 2
+                        else:
+                            pass
+
+                        flag_nasdaq_ohlc_open = False
+
+                    # Bollinger Bands
+                    upper, middle, lower = talib.BBANDS(np.array(df_nasdaq_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+                    df_nasdaq_graph['BBUpper'] = upper
+                    df_nasdaq_graph['BBMiddle'] = middle
+                    df_nasdaq_graph['BBLower'] = lower
+
+                    #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_nasdaq_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
+                        #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
+
+                    #df_nasdaq_graph['MACD'] = macd
+                    #df_nasdaq_graph['MACDSig'] = macdsignal
+                    #df_nasdaq_graph['MACDHist'] = macdhist
+
+                    # Parabolic SAR
+                    parabolic_sar = talib.SAR(np.array(df_nasdaq_graph['high'], dtype=float), np.array(df_nasdaq_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+                    # PSARIndicator 함수 오동작하는 듯...
+                    #ta_psar = ta.trend.PSARIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'], df_nasdaq_graph['close'])
+
+                    df_nasdaq_graph['PSAR'] = parabolic_sar
+                    #df_nasdaq_graph['TA_PSAR'] = ta_psar.psar()
+
+                    # MAMA(약 32샘플후에 출력값이 나옴)
+                    mama, fama = talib.MAMA(np.array(df_nasdaq_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+                    df_nasdaq_graph['MAMA'] = mama
+                    df_nasdaq_graph['FAMA'] = fama
+
+                    if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] == df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] and df_nasdaq_graph.at[ovc_x_idx, 'BBLower'] == df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_nasdaq_graph.at[ovc_x_idx, 'FAMA'] < df_nasdaq_graph.at[ovc_x_idx, 'BBLower']:
+                            df_nasdaq_graph.at[ovc_x_idx, 'A_FAMA'] = df_nasdaq_graph.at[ovc_x_idx, 'BBLower']
+                        else:
+                            df_nasdaq_graph.at[ovc_x_idx, 'A_FAMA'] = df_nasdaq_graph.at[ovc_x_idx, 'FAMA']
+                    else:
+                        pass
+
+                    # Ichimoku Indicator
+                    #nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'], n1=9, n2=26, n3=52, visual=True)
+                    nasdaq_Ichimoku = ta.trend.IchimokuIndicator(df_nasdaq_graph['high'], df_nasdaq_graph['low'])
+
+                    df_nasdaq_graph['SPAN_A'] = nasdaq_Ichimoku.ichimoku_a()
+                    df_nasdaq_graph['SPAN_B'] = nasdaq_Ichimoku.ichimoku_b()
+                    df_nasdaq_graph['OE_BASE'] = nasdaq_Ichimoku.ichimoku_base_line()
+                    df_nasdaq_graph['OE_CONV'] = nasdaq_Ichimoku.ichimoku_conversion_line()
+
 
                 elif result['종목코드'] == SP500:
 
                     df_sp500_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+
                     SP500_현재가 = result['체결가격']
-                    체결가격 = locale.format('%.2f', SP500_현재가, 1)
                     SP500_전일대비 = round((SP500_현재가 - SP500_종가), 2)
                     SP500_등락율 = result['등락율']
 
-                    if not flag_checkBox_HS:
+                    SP500_저가 =  result['저가']
+                    SP500_고가 =  result['고가']
+                    SP500_진폭 = SP500_고가 - SP500_저가
 
-                        SP500_저가 =  result['저가']
-                        SP500_고가 =  result['고가']
-                        SP500_진폭 = SP500_고가 - SP500_저가
+                    체결가격 = locale.format('%.2f', SP500_현재가, 1)
+
+                    if not flag_checkBox_HS:                        
 
                         if SP500_전일종가 > 0:
                             if not NightTime:
@@ -22820,11 +22922,111 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             SP500_과거가 = SP500_현재가
                         else:
-                            pass                    
+                            pass
+
+                    # 1T OHLC 생성
+                    df_sp500_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
+
+                    if OVC_SEC == 0:
+
+                        if not flag_sp500_ohlc_open:
+                        
+                            if SP500_현재가 > 0:
+                                df_sp500_graph.at[ovc_x_idx, 'open'] = SP500_현재가
+                            else:
+                                pass
+                            
+                            del SP500_현재가_버퍼[:]
+
+                            flag_sp500_ohlc_open = True
+                        else:
+                            SP500_현재가_버퍼.append(SP500_현재가)
+                    else:
+                        if df_sp500_graph.at[ovc_x_idx, 'open'] != df_sp500_graph.at[ovc_x_idx, 'open']:
+                            df_sp500_graph.at[ovc_x_idx, 'open'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
+                        else:
+                            pass
+
+                        SP500_현재가_버퍼.append(SP500_현재가)
+
+                        if max(SP500_현재가_버퍼) > 0:
+                            df_sp500_graph.at[ovc_x_idx, 'high'] = max(SP500_현재가_버퍼)
+                        else:
+                            pass
+
+                        if min(SP500_현재가_버퍼) == 0:
+
+                            if max(SP500_현재가_버퍼) > 0:
+                                df_sp500_graph.at[ovc_x_idx, 'low'] = max(SP500_현재가_버퍼)
+                            else:
+                                pass
+                        else:
+                            df_sp500_graph.at[ovc_x_idx, 'low'] = min(SP500_현재가_버퍼)
+
+                        if SP500_현재가 > 0:
+                            df_sp500_graph.at[ovc_x_idx, 'close'] = SP500_현재가
+                        else:
+                            pass
+
+                        if df_sp500_graph.at[ovc_x_idx, 'high'] > 0 and df_sp500_graph.at[ovc_x_idx, 'low'] > 0:
+                            df_sp500_graph.at[ovc_x_idx, 'middle'] = (df_sp500_graph.at[ovc_x_idx, 'high'] + df_sp500_graph.at[ovc_x_idx, 'low']) / 2
+                        else:
+                            pass
+
+                        flag_sp500_ohlc_open = False
+
+                    # Bollinger Bands
+                    upper, middle, lower = talib.BBANDS(np.array(df_sp500_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+                    df_sp500_graph['BBUpper'] = upper
+                    df_sp500_graph['BBMiddle'] = middle
+                    df_sp500_graph['BBLower'] = lower
+
+                    #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_sp500_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
+                        #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
+
+                    #df_sp500_graph['MACD'] = macd
+                    #df_sp500_graph['MACDSig'] = macdsignal
+                    #df_sp500_graph['MACDHist'] = macdhist                
+
+                    # Parabolic SAR
+                    parabolic_sar = talib.SAR(np.array(df_sp500_graph['high'], dtype=float), np.array(df_sp500_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+                    # PSARIndicator 함수 오동작하는 듯...
+                    #ta_psar = ta.trend.PSARIndicator(df_sp500_graph['high'], df_sp500_graph['low'], df_sp500_graph['close'])
+
+                    df_sp500_graph['PSAR'] = parabolic_sar
+                    #df_sp500_graph['TA_PSAR'] = ta_psar.psar()
+
+                    # MAMA(약 32샘플후에 출력값이 나옴)
+                    mama, fama = talib.MAMA(np.array(df_sp500_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+                    df_sp500_graph['MAMA'] = mama
+                    df_sp500_graph['FAMA'] = fama
+
+                    if df_sp500_graph.at[ovc_x_idx, 'FAMA'] == df_sp500_graph.at[ovc_x_idx, 'FAMA'] and df_sp500_graph.at[ovc_x_idx, 'BBLower'] == df_sp500_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_sp500_graph.at[ovc_x_idx, 'FAMA'] < df_sp500_graph.at[ovc_x_idx, 'BBLower']:
+                            df_sp500_graph.at[ovc_x_idx, 'A_FAMA'] = df_sp500_graph.at[ovc_x_idx, 'BBLower']
+                        else:
+                            df_sp500_graph.at[ovc_x_idx, 'A_FAMA'] = df_sp500_graph.at[ovc_x_idx, 'FAMA']
+                    else:
+                        pass
+
+                    # Ichimoku Indicator
+                    #sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_graph['high'], df_sp500_graph['low'], n1=9, n2=26, n3=52, visual=True)
+                    sp500_Ichimoku = ta.trend.IchimokuIndicator(df_sp500_graph['high'], df_sp500_graph['low'])
+
+                    df_sp500_graph['SPAN_A'] = sp500_Ichimoku.ichimoku_a()
+                    df_sp500_graph['SPAN_B'] = sp500_Ichimoku.ichimoku_b()
+                    df_sp500_graph['OE_BASE'] = sp500_Ichimoku.ichimoku_base_line()
+                    df_sp500_graph['OE_CONV'] = sp500_Ichimoku.ichimoku_conversion_line()
+
 
                 elif result['종목코드'] == DOW:
 
                     df_dow_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+
                     DOW_현재가 = int(result['체결가격'])
                     DOW_전일대비 = int(DOW_현재가 - DOW_종가)
                     DOW_등락율 = result['등락율']
@@ -22952,21 +23154,121 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
+                    # 1T OHLC 생성
+                    df_dow_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
+
+                    if OVC_SEC == 0:
+
+                        if not flag_dow_ohlc_open:
+                        
+                            if DOW_현재가 > 0:
+                                df_dow_graph.at[ovc_x_idx, 'open'] = DOW_현재가
+                            else:
+                                pass
+                            
+                            del DOW_현재가_버퍼[:]
+
+                            flag_dow_ohlc_open = True
+                        else:
+                            DOW_현재가_버퍼.append(DOW_현재가)
+                    else:
+                        if df_dow_graph.at[ovc_x_idx, 'open'] != df_dow_graph.at[ovc_x_idx, 'open']:
+                            df_dow_graph.at[ovc_x_idx, 'open'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
+                        else:
+                            pass
+
+                        DOW_현재가_버퍼.append(DOW_현재가)
+
+                        if max(DOW_현재가_버퍼) > 0:
+                            df_dow_graph.at[ovc_x_idx, 'high'] = max(DOW_현재가_버퍼)
+                        else:
+                            pass
+
+                        if min(DOW_현재가_버퍼) == 0:
+
+                            if max(DOW_현재가_버퍼) > 0:
+                                df_dow_graph.at[ovc_x_idx, 'low'] = max(DOW_현재가_버퍼)
+                            else:
+                                pass
+                        else:
+                            df_dow_graph.at[ovc_x_idx, 'low'] = min(DOW_현재가_버퍼)
+
+                        if DOW_현재가 > 0:
+                            df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
+                        else:
+                            pass
+
+                        if df_dow_graph.at[ovc_x_idx, 'high'] > 0 and df_dow_graph.at[ovc_x_idx, 'low'] > 0:
+                            df_dow_graph.at[ovc_x_idx, 'middle'] = (df_dow_graph.at[ovc_x_idx, 'high'] + df_dow_graph.at[ovc_x_idx, 'low']) / 2
+                        else:
+                            pass
+
+                        flag_dow_ohlc_open = False
+
+                    # Bollinger Bands
+                    upper, middle, lower = talib.BBANDS(np.array(df_dow_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+                    df_dow_graph['BBUpper'] = upper
+                    df_dow_graph['BBMiddle'] = middle
+                    df_dow_graph['BBLower'] = lower
+
+                    #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_dow_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
+                        #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
+
+                    #df_dow_graph['MACD'] = macd
+                    #df_dow_graph['MACDSig'] = macdsignal
+                    #df_dow_graph['MACDHist'] = macdhist
+
+                    # Parabolic SAR
+                    parabolic_sar = talib.SAR(np.array(df_dow_graph['high'], dtype=float), np.array(df_dow_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+                    # PSARIndicator 함수 오동작하는 듯...
+                    #ta_psar = ta.trend.PSARIndicator(df_dow_graph['high'], df_dow_graph['low'], df_dow_graph['close'])
+
+                    df_dow_graph['PSAR'] = parabolic_sar
+                    #df_dow_graph['TA_PSAR'] = ta_psar.psar()
+
+                    # MAMA(약 32 샘플후에 출력값이 나옴)
+                    mama, fama = talib.MAMA(np.array(df_dow_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+                    df_dow_graph['MAMA'] = mama
+                    df_dow_graph['FAMA'] = fama
+                    #df_dow_graph['A_FAMA'] = fama
+
+                    if df_dow_graph.at[ovc_x_idx, 'FAMA'] == df_dow_graph.at[ovc_x_idx, 'FAMA'] and df_dow_graph.at[ovc_x_idx, 'BBLower'] == df_dow_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_dow_graph.at[ovc_x_idx, 'FAMA'] < df_dow_graph.at[ovc_x_idx, 'BBLower']:
+                            df_dow_graph.at[ovc_x_idx, 'A_FAMA'] = df_dow_graph.at[ovc_x_idx, 'BBLower']
+                        else:
+                            df_dow_graph.at[ovc_x_idx, 'A_FAMA'] = df_dow_graph.at[ovc_x_idx, 'FAMA']
+                    else:
+                        pass
+
+                    # Ichimoku Indicator
+                    #dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_graph['high'], df_dow_graph['low'], n1=9, n2=26, n3=52, visual=True)
+                    dow_Ichimoku = ta.trend.IchimokuIndicator(df_dow_graph['high'], df_dow_graph['low'])
+
+                    df_dow_graph['SPAN_A'] = dow_Ichimoku.ichimoku_a()
+                    df_dow_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
+                    df_dow_graph['OE_BASE'] = dow_Ichimoku.ichimoku_base_line()
+                    df_dow_graph['OE_CONV'] = dow_Ichimoku.ichimoku_conversion_line()
+
+
                 elif result['종목코드'] == WTI:
                     
                     df_wti_graph.at[ovc_x_idx, 'price'] = result['체결가격']
-                    WTI_현재가 = result['체결가격']
-                    체결가격 = locale.format('%.2f', WTI_현재가, 1)
 
+                    WTI_현재가 = result['체결가격']
                     WTI_전일대비 = round((WTI_현재가 - WTI_종가), 2)
                     WTI_등락율 = result['등락율']
 
-                    if not flag_checkBox_HS:
+                    WTI_저가 =  result['저가']
+                    WTI_고가 =  result['고가']
+                    WTI_진폭 = round((result['고가'] - result['저가']), 2)
+                    
+                    체결가격 = locale.format('%.2f', WTI_현재가, 1)
 
-                        WTI_저가 =  result['저가']
-                        WTI_고가 =  result['고가']
-
-                        WTI_진폭 = round((result['고가'] - result['저가']), 2)
+                    if not flag_checkBox_HS:                        
 
                         if WTI_전일종가 > 0:
                             if not NightTime:
@@ -23073,52 +23375,155 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             WTI_과거가 = WTI_현재가
                         else:
                             pass
+
+                    # 1T OHLC 생성
+                    df_wti_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
+
+                    if OVC_SEC == 0:
+
+                        if not flag_wti_ohlc_open:
+                        
+                            if WTI_현재가 > 0:
+                                df_wti_graph.at[ovc_x_idx, 'open'] = WTI_현재가
+                            else:
+                                pass
+                            
+                            del WTI_현재가_버퍼[:]
+
+                            flag_wti_ohlc_open = True
+                        else:
+                            WTI_현재가_버퍼.append(WTI_현재가)
+                    else:
+                        if df_wti_graph.at[ovc_x_idx, 'open'] != df_wti_graph.at[ovc_x_idx, 'open']:
+                            df_wti_graph.at[ovc_x_idx, 'open'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
+                        else:
+                            pass
+
+                        WTI_현재가_버퍼.append(WTI_현재가)
+
+                        if max(WTI_현재가_버퍼) > 0:
+                            df_wti_graph.at[ovc_x_idx, 'high'] = max(WTI_현재가_버퍼)
+                        else:
+                            pass
+
+                        if min(WTI_현재가_버퍼) == 0:
+
+                            if max(WTI_현재가_버퍼) > 0:
+                                df_wti_graph.at[ovc_x_idx, 'low'] = max(WTI_현재가_버퍼)
+                            else:
+                                pass
+                        else:
+                            df_wti_graph.at[ovc_x_idx, 'low'] = min(WTI_현재가_버퍼)
+
+                        if WTI_현재가 > 0:
+                            df_wti_graph.at[ovc_x_idx, 'close'] = WTI_현재가
+                        else:
+                            pass
+
+                        if df_wti_graph.at[ovc_x_idx, 'high'] > 0 and df_wti_graph.at[ovc_x_idx, 'low'] > 0:
+                            df_wti_graph.at[ovc_x_idx, 'middle'] = (df_wti_graph.at[ovc_x_idx, 'high'] + df_wti_graph.at[ovc_x_idx, 'low']) / 2
+                        else:
+                            pass
+
+                        flag_wti_ohlc_open = False
+
+                    # Bollinger Bands
+                    upper, middle, lower = talib.BBANDS(np.array(df_wti_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
+
+                    df_wti_graph['BBUpper'] = upper
+                    df_wti_graph['BBMiddle'] = middle
+                    df_wti_graph['BBLower'] = lower
+
+                    #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_wti_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
+                        #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
+
+                    #df_wti_graph['MACD'] = macd
+                    #df_wti_graph['MACDSig'] = macdsignal
+                    #df_wti_graph['MACDHist'] = macdhist                
+
+                    # Parabolic SAR
+                    parabolic_sar = talib.SAR(np.array(df_wti_graph['high'], dtype=float), np.array(df_wti_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
+
+                    # PSARIndicator 함수 오동작하는 듯...
+                    #ta_psar = ta.trend.PSARIndicator(df_wti_graph['high'], df_wti_graph['low'], df_wti_graph['close'])
+
+                    df_wti_graph['PSAR'] = parabolic_sar
+                    #df_wti_graph['TA_PSAR'] = ta_psar.psar()
+
+                    # MAMA(약 32샘플후에 출력값이 나옴)
+                    mama, fama = talib.MAMA(np.array(df_wti_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
+
+                    df_wti_graph['MAMA'] = mama
+                    df_wti_graph['FAMA'] = fama
+
+                    if df_wti_graph.at[ovc_x_idx, 'FAMA'] == df_wti_graph.at[ovc_x_idx, 'FAMA'] and df_wti_graph.at[ovc_x_idx, 'BBLower'] == df_wti_graph.at[ovc_x_idx, 'BBLower']:
+
+                        if df_wti_graph.at[ovc_x_idx, 'FAMA'] < df_wti_graph.at[ovc_x_idx, 'BBLower']:
+                            df_wti_graph.at[ovc_x_idx, 'A_FAMA'] = df_wti_graph.at[ovc_x_idx, 'BBLower']
+                        else:
+                            df_wti_graph.at[ovc_x_idx, 'A_FAMA'] = df_wti_graph.at[ovc_x_idx, 'FAMA']
+                    else:
+                        pass
+
+                    # Ichimoku Indicator
+                    #wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_graph['high'], df_wti_graph['low'], n1=9, n2=26, n3=52, visual=True)
+                    wti_Ichimoku = ta.trend.IchimokuIndicator(df_wti_graph['high'], df_wti_graph['low'])
+
+                    df_wti_graph['SPAN_A'] = wti_Ichimoku.ichimoku_a()
+                    df_wti_graph['SPAN_B'] = wti_Ichimoku.ichimoku_b()
+                    df_wti_graph['OE_BASE'] = wti_Ichimoku.ichimoku_base_line()
+                    df_wti_graph['OE_CONV'] = wti_Ichimoku.ichimoku_conversion_line()
+
                     
                 elif result['종목코드'] == EUROFX:
 
-                    df_eurofx_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+                    df_eurofx_graph.at[ovc_x_idx, 'price'] = result['체결가격']                    
+                    
+                    EUROFX_현재가 = result['체결가격']
+                    EUROFX_전일대비 = round((result['체결가격'] - EUROFX_종가), 5)
+                    EUROFX_등락율 = result['등락율']
                     
                     EUROFX_저가 =  result['저가']
-                    EUROFX_고가 =  result['고가']
-                    
+                    EUROFX_고가 =  result['고가']                    
                     EUROFX_진폭 = round((result['고가'] - result['저가']), 2)
 
-                    if EUROFX_전일종가 > 0:
-                        if not NightTime:
-                            EUROFX_등락율 = ((result['체결가격'] - EUROFX_전일종가) / EUROFX_전일종가) * 100
+                    체결가격 = result['체결가격']
+
+                    if not flag_checkBox_HS:
+
+                        if EUROFX_전일종가 > 0:
+                            if not NightTime:
+                                EUROFX_등락율 = ((result['체결가격'] - EUROFX_전일종가) / EUROFX_전일종가) * 100
+                            else:
+                                EUROFX_등락율 = result['등락율']
                         else:
                             EUROFX_등락율 = result['등락율']
-                    else:
-                        EUROFX_등락율 = result['등락율']
-                    
-                    if EUROFX_시가 == 0:
-                        
-                        if result['전일대비기호'] == '5':
 
-                            EUROFX_종가 = round((result['체결가격'] + result['전일대비']), 5)
+                        if EUROFX_시가 == 0:
+
+                            if result['전일대비기호'] == '5':
+
+                                EUROFX_종가 = round((result['체결가격'] + result['전일대비']), 5)
+                            else:
+                                EUROFX_종가 = round((result['체결가격'] - result['전일대비']), 5)
+
+                            df_eurofx_graph.at[0, 'price'] = EUROFX_종가
+                            df_eurofx_graph.at[1, 'price'] = result['시가']
+
+                            EUROFX_시가 = result['시가']
                         else:
-                            EUROFX_종가 = round((result['체결가격'] - result['전일대비']), 5)
+                            pass                    
                         
-                        df_eurofx_graph.at[0, 'price'] = EUROFX_종가
-                        df_eurofx_graph.at[1, 'price'] = result['시가']
+                        if EUROFX_피봇 == 0:
 
-                        EUROFX_시가 = result['시가']
-                    else:
-                        pass 
-
-                    EUROFX_전일대비 = round((result['체결가격'] - EUROFX_종가), 5)
-                    
-                    if EUROFX_피봇 == 0:
-                        
-                        if EUROFX_전저 > 0 and EUROFX_전고 > 0:
-                            EUROFX_피봇 = self.calc_pivot(EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_시가)
+                            if EUROFX_전저 > 0 and EUROFX_전고 > 0:
+                                EUROFX_피봇 = self.calc_pivot(EUROFX_전저, EUROFX_전고, EUROFX_종가, EUROFX_시가)
+                            else:
+                                pass
                         else:
                             pass
                     else:
                         pass
-
-                    체결가격 = result['체결가격']
-                    EUROFX_현재가 = result['체결가격']
 
                     if flag_checkBox_HS:
 
@@ -23197,48 +23602,52 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 elif result['종목코드'] == HANGSENG:
 
                     df_hangseng_graph.at[ovc_x_idx, 'price'] = result['체결가격']
+                    
+                    HANGSENG_현재가 = int(result['체결가격'])
+                    HANGSENG_전일대비 = int(result['체결가격'] - HANGSENG_종가)                    
+                    NASDAQ_등락율 = result['등락율']
 
                     HANGSENG_저가 =  int(result['저가'])
-                    HANGSENG_고가 =  int(result['고가'])
-                    
+                    HANGSENG_고가 =  int(result['고가'])                    
                     HANGSENG_진폭 = int(result['고가'] - result['저가'])
 
-                    if HANGSENG_전일종가 > 0:
-                        if not NightTime:
-                            HANGSENG_등락율 = ((result['체결가격'] - HANGSENG_전일종가) / HANGSENG_전일종가) * 100
+                    체결가격 = locale.format('%d', result['체결가격'], 1)
+
+                    if not flag_checkBox_HS:
+
+                        if HANGSENG_전일종가 > 0:
+                            if not NightTime:
+                                HANGSENG_등락율 = ((result['체결가격'] - HANGSENG_전일종가) / HANGSENG_전일종가) * 100
+                            else:
+                                HANGSENG_등락율 = result['등락율']
                         else:
                             HANGSENG_등락율 = result['등락율']
-                    else:
-                        HANGSENG_등락율 = result['등락율']
-                    
-                    if HANGSENG_시가 == 0:
-                        
-                        if result['전일대비기호'] == '5':
 
-                            HANGSENG_종가 = int(result['체결가격'] + result['전일대비'])
+                        if HANGSENG_시가 == 0:
+
+                            if result['전일대비기호'] == '5':
+
+                                HANGSENG_종가 = int(result['체결가격'] + result['전일대비'])
+                            else:
+                                HANGSENG_종가 = int(result['체결가격'] - result['전일대비'])
+
+                            df_hangseng_graph.at[0, 'price'] = HANGSENG_종가
+                            df_hangseng_graph.at[1, 'price'] = result['시가']
+
+                            HANGSENG_시가 = int(result['시가'])
                         else:
-                            HANGSENG_종가 = int(result['체결가격'] - result['전일대비'])
+                            pass                    
                         
-                        df_hangseng_graph.at[0, 'price'] = HANGSENG_종가
-                        df_hangseng_graph.at[1, 'price'] = result['시가']
+                        if HANGSENG_피봇 == 0:
 
-                        HANGSENG_시가 = int(result['시가'])
-                    else:
-                        pass 
-
-                    HANGSENG_전일대비 = int(result['체결가격'] - HANGSENG_종가)
-                    체결가격 = locale.format('%d', result['체결가격'], 1)
-                    
-                    if HANGSENG_피봇 == 0:
-                        
-                        if HANGSENG_전저 > 0 and HANGSENG_전고 > 0:
-                            HANGSENG_피봇 = self.calc_pivot(HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_시가)
+                            if HANGSENG_전저 > 0 and HANGSENG_전고 > 0:
+                                HANGSENG_피봇 = self.calc_pivot(HANGSENG_전저, HANGSENG_전고, HANGSENG_종가, HANGSENG_시가)
+                            else:
+                                pass
                         else:
                             pass
                     else:
                         pass
-
-                    HANGSENG_현재가 = int(result['체결가격'])
 
                     if flag_checkBox_HS:
 
@@ -23318,47 +23727,51 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_gold_graph.at[ovc_x_idx, 'price'] = result['체결가격']
 
-                    GOLD_저가 =  result['저가']
-                    GOLD_고가 =  result['고가']
-                    
-                    GOLD_진폭 = result['고가'] - result['저가']
+                    GOLD_현재가 = result['체결가격']
+                    GOLD_전일대비 = result['체결가격'] - GOLD_종가
+                    GOLD_등락율 = result['등락율']
 
-                    if GOLD_전일종가 > 0:
-                        if not NightTime:
-                            GOLD_등락율 = ((result['체결가격'] - GOLD_전일종가) / GOLD_전일종가) * 100
+                    GOLD_저가 =  result['저가']
+                    GOLD_고가 =  result['고가']                    
+                    GOLD_진폭 = result['고가'] - result['저가']
+                    
+                    체결가격 = locale.format('%.2f', result['체결가격'], 1)
+
+                    if not flag_checkBox_HS:
+
+                        if GOLD_전일종가 > 0:
+                            if not NightTime:
+                                GOLD_등락율 = ((result['체결가격'] - GOLD_전일종가) / GOLD_전일종가) * 100
+                            else:
+                                GOLD_등락율 = result['등락율']
                         else:
                             GOLD_등락율 = result['등락율']
-                    else:
-                        GOLD_등락율 = result['등락율']
-                    
-                    if GOLD_시가 == 0:
-                        
-                        if result['전일대비기호'] == '5':
 
-                            GOLD_종가 = result['체결가격'] + result['전일대비']
+                        if GOLD_시가 == 0:
+
+                            if result['전일대비기호'] == '5':
+
+                                GOLD_종가 = result['체결가격'] + result['전일대비']
+                            else:
+                                GOLD_종가 = result['체결가격'] - result['전일대비']
+
+                            df_gold_graph.at[0, 'price'] = GOLD_종가
+                            df_gold_graph.at[1, 'price'] = result['시가']
+
+                            GOLD_시가 = result['시가']
                         else:
-                            GOLD_종가 = result['체결가격'] - result['전일대비']
+                            pass                    
                         
-                        df_gold_graph.at[0, 'price'] = GOLD_종가
-                        df_gold_graph.at[1, 'price'] = result['시가']
+                        if GOLD_피봇 == 0:
 
-                        GOLD_시가 = result['시가']
-                    else:
-                        pass 
-
-                    GOLD_전일대비 = result['체결가격'] - GOLD_종가
-                    체결가격 = locale.format('%.2f', result['체결가격'], 1)
-                    
-                    if GOLD_피봇 == 0:
-                        
-                        if GOLD_전저 > 0 and GOLD_전고 > 0:
-                            GOLD_피봇 = self.calc_pivot(GOLD_전저, GOLD_전고, GOLD_종가, GOLD_시가)
+                            if GOLD_전저 > 0 and GOLD_전고 > 0:
+                                GOLD_피봇 = self.calc_pivot(GOLD_전저, GOLD_전고, GOLD_종가, GOLD_시가)
+                            else:
+                                pass
                         else:
                             pass
                     else:
-                        pass
-
-                    GOLD_현재가 = result['체결가격']
+                        pass                    
 
                     if flag_checkBox_HS:
 
@@ -23373,8 +23786,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             gold_delta = result['체결가격']
                             gold_직전대비.extend([gold_delta - old_gold_delta])
                             대비리스트 = list(gold_직전대비)
-
-                            #GOLD_현재가 = result['체결가격']
 
                             if result['체결가격'] > GOLD_과거가:
 
@@ -23436,8 +23847,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
                     
-                # OHLC 연산목적 저가, 고가 리스트 생성(기존방식은 실시간지연 발생함!!!)
-                
+                '''
+                # 공통계산 방식(실시간이슈 발생!!!) --> 각개계산 방식으로 수정
+                # OHLC 연산목적 저가, 고가 리스트 생성(기존방식은 실시간지연 발생함!!!)                
                 # 1T OHLC 생성
                 df_dow_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
                 df_sp500_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
@@ -23649,8 +24061,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 5: MA_Type.TRIMA (triangular)  
                 # 6: MA_Type.KAMA (Kaufman adaptive)  
                 # 7: MA_Type.MAMA (Mesa adaptive)  
-                # 8: MA_Type.T3 (triple exponential T3)  
-
+                # 8: MA_Type.T3 (triple exponential T3)
 
                 # DOW
                 # Bollinger Bands
@@ -23658,16 +24069,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_dow_graph['BBUpper'] = upper
                 df_dow_graph['BBMiddle'] = middle
-                df_dow_graph['BBLower'] = lower            
+                df_dow_graph['BBLower'] = lower
+                
+                #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_dow_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
+                    #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
 
-                '''
-                macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_dow_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
-                    fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
-
-                df_dow_graph['MACD'] = macd
-                df_dow_graph['MACDSig'] = macdsignal
-                #df_dow_graph['MACDHist'] = macdhist           
-                '''
+                #df_dow_graph['MACD'] = macd
+                #df_dow_graph['MACDSig'] = macdsignal
+                #df_dow_graph['MACDHist'] = macdhist
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_dow_graph['high'], dtype=float), np.array(df_dow_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -23710,16 +24119,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_sp500_graph['BBUpper'] = upper
                 df_sp500_graph['BBMiddle'] = middle
-                df_sp500_graph['BBLower'] = lower            
+                df_sp500_graph['BBLower'] = lower
+                
+                #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_sp500_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
+                    #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
 
-                '''
-                macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_sp500_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
-                    fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
-
-                df_sp500_graph['MACD'] = macd
-                df_sp500_graph['MACDSig'] = macdsignal
-                #df_sp500_graph['MACDHist'] = macdhist           
-                '''
+                #df_sp500_graph['MACD'] = macd
+                #df_sp500_graph['MACDSig'] = macdsignal
+                #df_sp500_graph['MACDHist'] = macdhist                
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_sp500_graph['high'], dtype=float), np.array(df_sp500_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -23761,16 +24168,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_nasdaq_graph['BBUpper'] = upper
                 df_nasdaq_graph['BBMiddle'] = middle
-                df_nasdaq_graph['BBLower'] = lower            
+                df_nasdaq_graph['BBLower'] = lower
+                
+                #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_nasdaq_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
+                    #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
 
-                '''
-                macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_nasdaq_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
-                    fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
-
-                df_nasdaq_graph['MACD'] = macd
-                df_nasdaq_graph['MACDSig'] = macdsignal
-                #df_nasdaq_graph['MACDHist'] = macdhist           
-                '''
+                #df_nasdaq_graph['MACD'] = macd
+                #df_nasdaq_graph['MACDSig'] = macdsignal
+                #df_nasdaq_graph['MACDHist'] = macdhist
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_nasdaq_graph['high'], dtype=float), np.array(df_nasdaq_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -23812,16 +24217,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_wti_graph['BBUpper'] = upper
                 df_wti_graph['BBMiddle'] = middle
-                df_wti_graph['BBLower'] = lower            
+                df_wti_graph['BBLower'] = lower
+                
+                #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_wti_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
+                    #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
 
-                '''
-                macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_wti_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
-                    fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
-
-                df_wti_graph['MACD'] = macd
-                df_wti_graph['MACDSig'] = macdsignal
-                #df_wti_graph['MACDHist'] = macdhist           
-                '''
+                #df_wti_graph['MACD'] = macd
+                #df_wti_graph['MACDSig'] = macdsignal
+                #df_wti_graph['MACDHist'] = macdhist                
 
                 # Parabolic SAR
                 parabolic_sar = talib.SAR(np.array(df_wti_graph['high'], dtype=float), np.array(df_wti_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
@@ -23855,7 +24258,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_wti_graph['SPAN_B'] = wti_Ichimoku.ichimoku_b()
                 df_wti_graph['OE_BASE'] = wti_Ichimoku.ichimoku_base_line()
                 df_wti_graph['OE_CONV'] = wti_Ichimoku.ichimoku_conversion_line()
-
+                '''
                 
             elif szTrCode == 'OVH':
 
