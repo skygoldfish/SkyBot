@@ -13175,10 +13175,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     put_oi_init_value = 풋_수정미결합
                 else:
                     pass
-                '''
+
                 # 장운영정보 요청
                 self.JIF.AdviseRealData('0')
 
+                str = '[{0:02d}:{1:02d}:{2:02d}] 장운영 정보를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+
+                '''
                 # 해외선물 체결,가격 실시간 요청
                 self.OVC.AdviseRealData(종목코드=SP500)
                 self.OVC.AdviseRealData(종목코드=DOW)
