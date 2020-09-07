@@ -18578,7 +18578,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 콜_순매수_체결량 > 0 and 풋_순매수_체결량 < 0:
 
                 item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
 
             elif 콜_순매수_체결량 < 0 and 풋_순매수_체결량 > 0:
 
@@ -18607,7 +18607,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 콜_순매수_체결량 > 0 and 풋_순매수_체결량 < 0:
 
                 item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
 
             elif 콜_순매수_체결량 < 0 and 풋_순매수_체결량 > 0:
 
@@ -19690,7 +19690,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 콜_순매수_체결량 > 0 and 풋_순매수_체결량 < 0:
 
                 item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
 
             elif 콜_순매수_체결량 < 0 and 풋_순매수_체결량 > 0:
 
@@ -19719,7 +19719,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if 콜_순매수_체결량 > 0 and 풋_순매수_체결량 < 0:
 
                 item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
 
             elif 콜_순매수_체결량 < 0 and 풋_순매수_체결량 > 0:
 
