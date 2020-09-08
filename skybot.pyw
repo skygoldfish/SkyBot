@@ -6508,7 +6508,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if dt.hour == 6 and dt.minute == 5:
+                if yagan_service_terminate and (dt.hour == 6 and dt.minute == 5):
 
                     if self.parent.connection.IsConnected():
 
@@ -6640,7 +6640,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
             else:
                 # 16시에 프로그램을 오프라인으로 전환시킴
-                if dt.hour == 16 and dt.minute == 0:
+                if jugan_service_terminate and (dt.hour == 16 and dt.minute == 0):
 
                     if self.parent.connection.IsConnected():
 
@@ -20674,7 +20674,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass                    
 
-                # 야간 옵션장 종료
+                # 야간 옵션장 종료(선물장보다 1시간 먼저 종료됨)
                 elif result['장구분'] == '8' and result['장상태'] == '41':
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 종료되었습니다.\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
