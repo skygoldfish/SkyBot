@@ -32607,13 +32607,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' 중심가 상단: {0:0.2f} '.format(CENTER_VAL + CENTERVAL_UPPER)
                 self.label_24.setText(str)
 
-                str = ' {0:0.2f}({1:0.2f}) '.format(put_atm_value, df_put.at[atm_index, '대비'])
+                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (df_put.at[atm_index, '현재가'] / df_put.at[atm_index, '시가'] - 1) * 100)
                 self.label_26.setText(str)
 
                 str = ' 중심가: {0:0.2f} '.format(CENTER_VAL)
                 self.label_27.setText(str)
 
-                str = ' {0:0.2f}({1:0.2f}) '.format(call_atm_value, df_call.at[atm_index, '대비'])
+                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (df_call.at[atm_index, '현재가'] / df_call.at[atm_index, '시가'] - 1) * 100)
                 self.label_28.setText(str)
 
             elif bc_comboindex2 == 6:
@@ -33365,13 +33365,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' 중심가 상단: {0:0.2f} '.format(CENTER_VAL + CENTERVAL_UPPER)
                 self.label_34.setText(str)
 
-                str = ' {0:0.2f}({1:0.2f}) '.format(put_atm_value, df_put.at[atm_index, '대비'])
+                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (df_put.at[atm_index, '현재가'] / df_put.at[atm_index, '시가'] - 1) * 100)
                 self.label_36.setText(str)
 
                 str = ' 중심가: {0:0.2f} '.format(CENTER_VAL)
                 self.label_37.setText(str)
 
-                str = ' {0:0.2f}({1:0.2f}) '.format(call_atm_value, df_call.at[atm_index, '대비'])
+                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (df_call.at[atm_index, '현재가'] / df_call.at[atm_index, '시가'] - 1) * 100)
                 self.label_38.setText(str)
 
             elif bc_comboindex3 == 6:
@@ -34955,13 +34955,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' 중심가 상단: {0:0.2f} '.format(CENTER_VAL + CENTERVAL_UPPER)
                 self.label_54.setText(str)
 
-                str = ' {0:0.2f}({1:0.2f}) '.format(put_atm_value, df_put.at[atm_index, '대비'])
+                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (df_put.at[atm_index, '현재가'] / df_put.at[atm_index, '시가'] - 1) * 100)
                 self.label_56.setText(str)
 
                 str = ' 중심가: {0:0.2f} '.format(CENTER_VAL)
                 self.label_57.setText(str)
 
-                str = ' {0:0.2f}({1:0.2f}) '.format(call_atm_value, df_call.at[atm_index, '대비'])
+                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (df_call.at[atm_index, '현재가'] / df_call.at[atm_index, '시가'] - 1) * 100)
                 self.label_58.setText(str)
 
             elif bc_comboindex5 == 6:
@@ -35713,13 +35713,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' 중심가 상단: {0:0.2f} '.format(CENTER_VAL + CENTERVAL_UPPER)
                 self.label_64.setText(str)
 
-                str = ' {0:0.2f}({1:0.2f}) '.format(put_atm_value, df_put.at[atm_index, '대비'])
+                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (df_put.at[atm_index, '현재가'] / df_put.at[atm_index, '시가'] - 1) * 100)
                 self.label_66.setText(str)
 
                 str = ' 중심가: {0:0.2f} '.format(CENTER_VAL)
                 self.label_67.setText(str)
 
-                str = ' {0:0.2f}({1:0.2f}) '.format(call_atm_value, df_call.at[atm_index, '대비'])
+                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (df_call.at[atm_index, '현재가'] / df_call.at[atm_index, '시가'] - 1) * 100)
                 self.label_68.setText(str)
 
             elif bc_comboindex6 == 6:
