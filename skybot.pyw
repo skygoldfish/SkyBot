@@ -825,23 +825,23 @@ if os.path.isfile('daytime.txt'):
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
         INIT_CENTER_VAL = float(temp[3])
-        장시작_중심가 = INIT_CENTER_VAL 
+        장시작_중심가 = INIT_CENTER_VAL
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        KP200_종가 = float(temp[3])        
+        KP200_전일시가 = float(temp[3])
+        
+        tmp = daytime_file.readline().strip()
+        temp = tmp.split()
+        KP200_전고 = float(temp[3])        
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        KP200_전저 = float(temp[3])        
+        KP200_전저 = float(temp[3])
 
         tmp = daytime_file.readline().strip()
         temp = tmp.split()
-        KP200_전고 = float(temp[3])
-
-        print('KP200 전저 =', KP200_전저)
-        print('KP200 전고 =', KP200_전고)
-        print('KP200 종가 =', KP200_종가)
+        KP200_전일종가 = float(temp[3])
 
         tmp = daytime_file.readline().strip()
 
@@ -874,6 +874,10 @@ if os.path.isfile('daytime.txt'):
         GOLD_전일종가 = float(temp[4])
 else:
     장시작_중심가 = 0
+    KP200_전일시가 = 0    
+    KP200_전고 = 0
+    KP200_전저 = 0
+    KP200_전일종가 = 0
     SP500_전일종가 = 0
     DOW_전일종가 = 0
     NASDAQ_전일종가 = 0
@@ -881,6 +885,11 @@ else:
     EUROFX_전일종가 = 0
     HANGSENG_전일종가 = 0
     GOLD_전일종가 = 0
+
+print('KP200 전일시가 =', KP200_전일시가)
+print('KP200 전고 =', KP200_전고)
+print('KP200 전저 =', KP200_전저)
+print('KP200 전일종가 =', KP200_전일종가)
 
 # 전역변수
 ########################################################################################################################
@@ -965,9 +974,6 @@ INSTITUTIONAL = "0018"
 t2301_month_info = ''
 t2835_month_info = ''
 
-KP200_전저 = 0
-KP200_전고 = 0
-KP200_종가 = 0
 kp200_피봇 = 0
 kp200_시가 = 0
 kp200_저가 = 0
@@ -12160,7 +12166,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_open_list, put_open_list, opt_total_list
         global call_itm_count, call_max_actval
         global put_itm_count, put_max_actval
-        global KP200_종가, kp200_시가, kp200_저가, kp200_현재가, kp200_고가
+        global KP200_전일종가, kp200_시가, kp200_저가, kp200_현재가, kp200_고가
         global t2835_month_info
         global server_date, server_time, system_server_timegap
         global call_cm_code, put_cm_code, opt_cm_length
@@ -13798,19 +13804,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
 
             # kp200 COREVAL 리스트 만듬
-            if KP200_종가 == 0:
-                KP200_종가 = df['KOSPI200지수']
+            if KP200_전일종가 == 0:
+                KP200_전일종가 = df['KOSPI200지수']
             else:
                 pass
             
-            kp200_realdata['종가'] = KP200_종가
+            kp200_realdata['종가'] = KP200_전일종가
 
-            item = QTableWidgetItem("{0:0.2f}".format(KP200_종가))
+            item = QTableWidgetItem("{0:0.2f}".format(KP200_전일종가))
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(2, Futures_column.종가.value, item)
             
             if not NightTime:
-                #atm_str = self.get_atm_str(KP200_종가)
+                #atm_str = self.get_atm_str(KP200_전일종가)
                 atm_str = self.get_atm_str(kp200_현재가)
             else:
                 atm_str = self.get_atm_str(kp200_현재가)
@@ -13877,7 +13883,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             KP200_COREVAL.sort()
             print('t2801 KP200_COREVAL =', KP200_COREVAL)
 
-            #atm_str = self.get_atm_str(KP200_종가)
+            #atm_str = self.get_atm_str(KP200_전일종가)
 
             if atm_str[-1] == '2' or atm_str[-1] == '7':
 
@@ -13926,7 +13932,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
 
-                df_futures_graph.at[0, 'kp200'] = KP200_종가
+                df_futures_graph.at[0, 'kp200'] = KP200_전일종가
 
                 # 주간 현재가가 야간 종가임
                 df_futures_graph.at[0, 'price'] = fut_realdata['현재가']
@@ -16604,6 +16610,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem("{0:0.2f}".format(KP200_전고))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_fut.setItem(2, Futures_column.전고.value, item)
+
+                item = QTableWidgetItem("{0:0.2f}".format(KP200_전일시가))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.tableWidget_fut.setItem(2, Futures_column.시가.value, item)
             else:
                 pass            
 
@@ -16833,7 +16843,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if self.is_within_n_tick(KP200_종가, kp200_realdata['저가'], 10):
+        if self.is_within_n_tick(KP200_전일종가, kp200_realdata['저가'], 10):
 
             self.tableWidget_fut.item(2, Futures_column.종가.value).setBackground(QBrush(콜종가색))
             self.tableWidget_fut.item(2, Futures_column.종가.value).setForeground(QBrush(검정색))
@@ -16873,7 +16883,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass        
 
-        if self.is_within_n_tick(KP200_종가, kp200_realdata['고가'], 10):
+        if self.is_within_n_tick(KP200_전일종가, kp200_realdata['고가'], 10):
 
             self.tableWidget_fut.item(2, Futures_column.종가.value).setBackground(QBrush(콜종가색))
             self.tableWidget_fut.item(2, Futures_column.종가.value).setForeground(QBrush(검정색))
@@ -20577,12 +20587,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             file_str = '################# < KP200 Index of the Last Day > ###################\n'                        
                             daytime_file.write(file_str)
                             file_str = 'Center Value = {0}\n'.format(CENTER_VAL)
+                            daytime_file.write(file_str)
+                            file_str = 'KP200 Open = {0}\n'.format(kp200_realdata['시가'])
                             daytime_file.write(file_str)                            
-                            file_str = 'KP200 Close = {0}\n'.format(kp200_realdata['현재가'])
+                            file_str = 'KP200 High = {0}\n'.format(kp200_realdata['고가'])
                             daytime_file.write(file_str)
                             file_str = 'KP200 Low = {0}\n'.format(kp200_realdata['저가'])
                             daytime_file.write(file_str)
-                            file_str = 'KP200 High = {0}\n'.format(kp200_realdata['고가'])
+                            file_str = 'KP200 Close = {0}\n'.format(kp200_realdata['현재가'])
                             daytime_file.write(file_str)
                             file_str = '################### < Foreign Futures Index of the Day > #####################\n'
                             daytime_file.write(file_str)
@@ -20718,9 +20730,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item = QTableWidgetItem("{0:0.2f}".format(result['예상지수']))
                             item.setTextAlignment(Qt.AlignCenter)
 
-                            if kp200_시가 > KP200_종가:
+                            if kp200_시가 > KP200_전일종가:
                                 item.setForeground(QBrush(적색))
-                            elif kp200_시가 < KP200_종가:
+                            elif kp200_시가 < KP200_전일종가:
                                 item.setForeground(QBrush(청색))
                             else:
                                 item.setForeground(QBrush(검정색))
@@ -21481,22 +21493,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem(result['시가지수'])
                         item.setTextAlignment(Qt.AlignCenter)
 
-                        if kp200_시가 > KP200_종가:
+                        if kp200_시가 > KP200_전일종가:
                             item.setForeground(QBrush(적색))
-                        elif kp200_시가 < KP200_종가:
+                        elif kp200_시가 < KP200_전일종가:
                             item.setForeground(QBrush(청색))
                         else:
                             item.setForeground(QBrush(검정색))
 
                         self.tableWidget_fut.setItem(2, Futures_column.시가.value, item)
 
-                        item = QTableWidgetItem("{0:0.2f}".format(kp200_시가 - KP200_종가))
+                        item = QTableWidgetItem("{0:0.2f}".format(kp200_시가 - KP200_전일종가))
                         item.setTextAlignment(Qt.AlignCenter)
 
-                        if kp200_시가 > KP200_종가:
+                        if kp200_시가 > KP200_전일종가:
                             item.setBackground(QBrush(콜기준가색))
                             item.setForeground(QBrush(검정색))
-                        elif kp200_시가 < KP200_종가:
+                        elif kp200_시가 < KP200_전일종가:
                             item.setBackground(QBrush(풋기준가색))
                             item.setForeground(QBrush(흰색))
                         else:
@@ -21513,7 +21525,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if KP200_전저 > 0 and KP200_전고 > 0:
 
-                            kp200_피봇 = self.calc_pivot(KP200_전저, KP200_전고, KP200_종가, kp200_시가)         
+                            kp200_피봇 = self.calc_pivot(KP200_전저, KP200_전고, KP200_전일종가, kp200_시가)         
 
                             item = QTableWidgetItem("{0:0.2f}".format(kp200_피봇))
                             item.setTextAlignment(Qt.AlignCenter)
