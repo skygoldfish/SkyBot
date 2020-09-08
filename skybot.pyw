@@ -816,28 +816,6 @@ else:
     GOLD_전고 = 0
     GOLD_종가 = 0
 
-KP200_전저 = 0
-KP200_전고 = 0
-KP200_종가 = 0
-kp200_피봇 = 0
-kp200_시가 = 0
-kp200_저가 = 0
-kp200_현재가 = 0
-kp200_고가 = 0
-
-CENTER_VAL = 0
-
-CENTER_VAL1 = 0
-CENTER_VAL2 = 0
-CENTER_VAL3 = 0
-CENTER_VAL4 = 0
-CENTER_VAL5 = 0
-CENTER_VAL6 = 0
-CENTER_VAL7 = 0
-CENTER_VAL8 = 0
-CENTER_VAL9 = 0
-CENTER_VAL10 = 0
-
 if os.path.isfile('daytime.txt'):
 
     with open('daytime.txt', mode='r') as daytime_file:
@@ -895,7 +873,14 @@ if os.path.isfile('daytime.txt'):
         temp = tmp.split()
         GOLD_전일종가 = float(temp[4])
 else:
-    pass
+    장시작_중심가 = 0
+    SP500_전일종가 = 0
+    DOW_전일종가 = 0
+    NASDAQ_전일종가 = 0
+    WTI_전일종가 = 0
+    EUROFX_전일종가 = 0
+    HANGSENG_전일종가 = 0
+    GOLD_전일종가 = 0
 
 # 전역변수
 ########################################################################################################################
@@ -979,6 +964,28 @@ INSTITUTIONAL = "0018"
 
 t2301_month_info = ''
 t2835_month_info = ''
+
+KP200_전저 = 0
+KP200_전고 = 0
+KP200_종가 = 0
+kp200_피봇 = 0
+kp200_시가 = 0
+kp200_저가 = 0
+kp200_현재가 = 0
+kp200_고가 = 0
+
+CENTER_VAL = 0
+
+CENTER_VAL1 = 0
+CENTER_VAL2 = 0
+CENTER_VAL3 = 0
+CENTER_VAL4 = 0
+CENTER_VAL5 = 0
+CENTER_VAL6 = 0
+CENTER_VAL7 = 0
+CENTER_VAL8 = 0
+CENTER_VAL9 = 0
+CENTER_VAL10 = 0
 
 dongsi_hoga = False
 flag_kp200_start_set = False
@@ -16338,6 +16345,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 실시간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    self.textBrowser.append(str)
+                    print(str)
+
                     # 해외선물 체결,가격 실시간 요청
                     self.OVC.AdviseRealData(종목코드=SP500)
                     self.OVC.AdviseRealData(종목코드=DOW)
@@ -20651,9 +20662,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         yagan_service_terminate = True
                         
                         receive_quote = False
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 옵션표시 스레드를 종료합니다.\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
-                        self.textBrowser.append(str)
                         
                         self.pushButton_add.setText('ScrShot')
                         
@@ -20679,11 +20687,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 옵션장이 종료되었습니다.\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
                     self.textBrowser.append(str)
-
+                    '''
                     file = open('skybot.log', 'w')
                     text = self.textBrowser.toPlainText()
                     file.write(text)
                     file.close()
+                    '''
                 else:
                     pass
 
@@ -22701,9 +22710,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_dow_graph['SPAN_B'] = dow_Ichimoku.ichimoku_b()
                     df_dow_graph['OE_BASE'] = dow_Ichimoku.ichimoku_base_line()
                     df_dow_graph['OE_CONV'] = dow_Ichimoku.ichimoku_conversion_line()
+                    
+                    if flag_checkBox_HS:
 
-                    if not flag_checkBox_HS:
-
+                        jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})". \
+                                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
+                        self.label_2nd.setStyleSheet('background-color: black ; color: white')
+                        self.label_2nd.setText(jisu_str)
+                    else:
                         if DOW_전일종가 > 0:
                             if not NightTime:
                                 DOW_등락율 = ((DOW_현재가 - DOW_전일종가) / DOW_전일종가) * 100
@@ -22736,17 +22750,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
                         else:
-                            pass
-                    else:
-                        pass                      
-                    
-                    if flag_checkBox_HS:
-
-                        jisu_str = "DOW: {0} ({1}, {2:0.2f}%, {3})". \
-                                    format(format(DOW_현재가, ','), format(DOW_전일대비, ','), DOW_등락율, format(DOW_진폭, ','))
-                        self.label_2nd.setStyleSheet('background-color: black ; color: white')
-                        self.label_2nd.setText(jisu_str)
-                    else:           
+                            pass          
 
                         if DOW_현재가 != DOW_과거가:
                         
@@ -22930,10 +22934,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_nasdaq_graph['SPAN_A'] = nasdaq_Ichimoku.ichimoku_a()
                     df_nasdaq_graph['SPAN_B'] = nasdaq_Ichimoku.ichimoku_b()
                     df_nasdaq_graph['OE_BASE'] = nasdaq_Ichimoku.ichimoku_base_line()
-                    df_nasdaq_graph['OE_CONV'] = nasdaq_Ichimoku.ichimoku_conversion_line()
+                    df_nasdaq_graph['OE_CONV'] = nasdaq_Ichimoku.ichimoku_conversion_line()                   
 
-                    if not flag_checkBox_HS:
-                    
+                    if flag_checkBox_HS:
+
+                        jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)
+                        self.label_3rd.setStyleSheet('background-color: black ; color: white')
+                        self.label_3rd.setText(jisu_str)
+                    else:
                         if NASDAQ_전일종가 > 0:
                             if not NightTime:
                                 NASDAQ_등락율 = ((NASDAQ_현재가 - NASDAQ_전일종가) / NASDAQ_전일종가) * 100
@@ -22964,16 +22972,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
                         else:
-                            pass
-                    else:
-                        pass                     
-
-                    if flag_checkBox_HS:
-
-                        jisu_str = "NASDAQ: {0} ({1:.2f}, {2:0.2f}%)".format(format(NASDAQ_현재가, ','), NASDAQ_전일대비, NASDAQ_등락율)
-                        self.label_3rd.setStyleSheet('background-color: black ; color: white')
-                        self.label_3rd.setText(jisu_str)
-                    else:                                             
+                            pass                                             
 
                         if NASDAQ_현재가 != NASDAQ_과거가:
                         
@@ -23153,8 +23152,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_sp500_graph['OE_BASE'] = sp500_Ichimoku.ichimoku_base_line()
                     df_sp500_graph['OE_CONV'] = sp500_Ichimoku.ichimoku_conversion_line()
 
-                    if not flag_checkBox_HS:                        
+                    if flag_checkBox_HS:
 
+                        jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                        self.label_3rd.setStyleSheet('background-color: black ; color: white')
+                        self.label_3rd.setText(jisu_str)
+                    else:
                         if SP500_전일종가 > 0:
                             if not NightTime:
                                 SP500_등락율 = ((SP500_현재가 - SP500_전일종가) / SP500_전일종가) * 100
@@ -23186,15 +23189,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
                         else:
                             pass
-                    else:
-                        pass
-
-                    if flag_checkBox_HS:
-
-                        jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
-                        self.label_3rd.setStyleSheet('background-color: black ; color: white')
-                        self.label_3rd.setText(jisu_str)
-                    else:
 
                         if SP500_현재가 != SP500_과거가:
                         
@@ -23374,8 +23368,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_wti_graph['OE_BASE'] = wti_Ichimoku.ichimoku_base_line()
                     df_wti_graph['OE_CONV'] = wti_Ichimoku.ichimoku_conversion_line()
 
-                    if not flag_checkBox_HS:                        
+                    if flag_checkBox_HS:
 
+                        jisu_str = "WTI: {0} ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
+                        self.label_1st.setStyleSheet('background-color: black ; color: white')
+                        self.label_1st.setText(jisu_str)
+                    else:
                         if WTI_전일종가 > 0:
                             if not NightTime:
                                 WTI_등락율 = ((WTI_현재가 - WTI_전일종가) / WTI_전일종가) * 100
@@ -23407,15 +23405,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
                         else:
                             pass
-                    else:
-                        pass
-
-                    if flag_checkBox_HS:
-
-                        jisu_str = "WTI: {0} ({1:0.2f}, {2:0.2f}%)".format(체결가격, WTI_전일대비, WTI_등락율)
-                        self.label_1st.setStyleSheet('background-color: black ; color: white')
-                        self.label_1st.setText(jisu_str)
-                    else:
 
                         if WTI_현재가 != WTI_과거가:
                         
@@ -23497,8 +23486,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     체결가격 = locale.format('%d', result['체결가격'], 1)
 
-                    if not flag_checkBox_HS:
+                    if flag_checkBox_HS:
 
+                        jisu_str = "HANGSENG: {0} ({1}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
+                        self.label_1st.setStyleSheet('background-color: black ; color: white')
+                        self.label_1st.setText(jisu_str)
+                    else:
                         if HANGSENG_전일종가 > 0:
                             if not NightTime:
                                 HANGSENG_등락율 = ((result['체결가격'] - HANGSENG_전일종가) / HANGSENG_전일종가) * 100
@@ -23530,15 +23523,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
                         else:
                             pass
-                    else:
-                        pass
-
-                    if flag_checkBox_HS:
-
-                        jisu_str = "HANGSENG: {0} ({1}, {2:0.2f}%)".format(체결가격, HANGSENG_전일대비, HANGSENG_등락율)
-                        self.label_1st.setStyleSheet('background-color: black ; color: white')
-                        self.label_1st.setText(jisu_str)
-                    else:
                     
                         if result['체결가격'] != HANGSENG_과거가:
                         
@@ -23620,8 +23604,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     체결가격 = result['체결가격']
 
-                    if not flag_checkBox_HS:
+                    if flag_checkBox_HS:
 
+                        jisu_str = "EUROFX: {0:0.5f} ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
+                        self.label_1st.setStyleSheet('background-color: black ; color: white')
+                        self.label_1st.setText(jisu_str)
+                    else:
                         if EUROFX_전일종가 > 0:
                             if not NightTime:
                                 EUROFX_등락율 = ((result['체결가격'] - EUROFX_전일종가) / EUROFX_전일종가) * 100
@@ -23653,15 +23641,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
                         else:
                             pass
-                    else:
-                        pass
-
-                    if flag_checkBox_HS:
-
-                        jisu_str = "EUROFX: {0:0.5f} ({1:0.5f}, {2:0.2f}%)".format(체결가격, EUROFX_전일대비, EUROFX_등락율)
-                        self.label_1st.setStyleSheet('background-color: black ; color: white')
-                        self.label_1st.setText(jisu_str)
-                    else:
                     
                         if result['체결가격'] != EUROFX_과거가:
                         
@@ -23741,10 +23720,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     GOLD_고가 =  result['고가']                    
                     GOLD_진폭 = result['고가'] - result['저가']
                     
-                    체결가격 = locale.format('%.2f', result['체결가격'], 1)
+                    체결가격 = locale.format('%.2f', result['체결가격'], 1)                   
 
-                    if not flag_checkBox_HS:
+                    if flag_checkBox_HS:
 
+                        jisu_str = "GOLD: {0} ({1:0.2f}, {2:0.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
+                        self.label_3rd.setStyleSheet('background-color: black ; color: white')
+                        self.label_3rd.setText(jisu_str)
+                    else:
                         if GOLD_전일종가 > 0:
                             if not NightTime:
                                 GOLD_등락율 = ((result['체결가격'] - GOLD_전일종가) / GOLD_전일종가) * 100
@@ -23776,15 +23759,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass
                         else:
                             pass
-                    else:
-                        pass                    
-
-                    if flag_checkBox_HS:
-
-                        jisu_str = "GOLD: {0} ({1:0.2f}, {2:0.2f}%)".format(체결가격, GOLD_전일대비, GOLD_등락율)
-                        self.label_3rd.setStyleSheet('background-color: black ; color: white')
-                        self.label_3rd.setText(jisu_str)
-                    else:
                     
                         if result['체결가격'] != GOLD_과거가:
                         
@@ -36721,7 +36695,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 로봇 상태 저장
         self.SaveRobots()
 
-        self.statusbar.showMessage("연결이 끊겼습니다.")
+        self.statusbar.showMessage("연결이 끊겼습니��.")
 
         self.connection.login(url='demo.ebestsec.co.kr', id=self.id, pwd=self.pwd, cert=self.cert)
 
