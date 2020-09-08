@@ -17035,7 +17035,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         str = '[{0:02d}:{1:02d}:{2:02d}] 선물 맥점 컬러링을 완료했습니다.\r'.format(dt.hour, dt.minute, dt.second)
         #self.textBrowser.append(str)
 
-    # 선물표시(sky test)	
+    # 선물표시	
     def futures_display(self, result):        
 
         global cme_realdata, fut_realdata
