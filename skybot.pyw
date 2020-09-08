@@ -5161,11 +5161,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.OVC.UnadviseRealDataWithKey(종목코드=SP500)
             self.OVC.UnadviseRealDataWithKey(종목코드=WTI)
             self.OVC.UnadviseRealDataWithKey(종목코드=HANGSENG)
-            '''
-            self.OVH.UnadviseRealData()
+            '''            
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 호가요청을 취소합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(str)
+
+            self.OVH.UnadviseRealData()
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 중지합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
+
+            if self.telegram_send_worker.isRunning():
+                self.telegram_send_worker.terminate()
+            else:
+                pass
+
+            if self.telegram_listen_worker.isRunning():
+                self.telegram_listen_worker.terminate()
+            else:
+                pass
         else:
             flag_checkBox_HS = False
             '''
@@ -5173,14 +5187,25 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.OVC.AdviseRealData(종목코드=WTI)                
             self.OVC.AdviseRealData(종목코드=HANGSENG)
             '''
+            
+            str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 호가를 재요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
+
             self.OVH.AdviseRealData(종목코드=SP500)
             self.OVH.AdviseRealData(종목코드=DOW)
             self.OVH.AdviseRealData(종목코드=NASDAQ)
             self.OVH.AdviseRealData(종목코드=WTI)
             self.OVH.AdviseRealData(종목코드=HANGSENG)
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 호가요청을 원복합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 재기동합니다.\r'.format(dt.hour, dt.minute, dt.second)
             self.textBrowser.append(str)
+
+            self.telegram_send_worker.start()
+            self.telegram_send_worker.daemon = True
+
+            self.telegram_listen_worker.start()
+            self.telegram_listen_worker.daemon = True
+
 
     @pyqtSlot(int)
     def call_horizontal_header_clicked(self, idx):
@@ -6614,7 +6639,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
             else:
-                pass   
+                # 16시에 프로그램을 오프라인으로 전환시킴
+                if dt.hour == 16 and dt.minute == 0:
+
+                    if self.parent.connection.IsConnected():
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 종료합니다...\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
+                        print(str)
+
+                        flag_offline = True  
+
+                        self.parent.connection.disconnect()
+                    else:
+                        self.parent.statusbar.showMessage("오프라인")
+                else:
+                    pass  
             
             if not flag_offline:
 
@@ -20556,8 +20596,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         self.pushButton_add.setText('ScrShot')
 
-                        self.SaveResult()                                              
-                        
+                        self.SaveResult()
+
+                        '''
+                        # 백그라운드로 프로세스가 이동됨(???)
+
                         flag_offline = True  
 
                         self.parent.connection.disconnect()
@@ -20572,7 +20615,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.textBrowser.append(str)
                             print(str) 
                         else:
-                            pass                                            
+                            pass
+                        '''                                            
                     else:
                         pass                                               
 
