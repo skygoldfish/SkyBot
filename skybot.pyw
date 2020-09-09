@@ -1348,7 +1348,7 @@ atm_str = ''
 atm_val = 0
 atm_index = 0
 old_atm_index = 0
-atm_index_yj = 0
+yj_atm_index = 0
 jgubun = ''
 
 start_time = 0
@@ -12264,14 +12264,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_futures_graph.at[0, 'drate'] = 0
                 df_dow_graph.at[0, 'drate'] = 0
 
-                df_futures_graph.at[GuardTime, 'drate'] = 0
-                df_dow_graph.at[GuardTime, 'drate'] = 0
+                #df_futures_graph.at[GuardTime, 'drate'] = 0
+                #df_dow_graph.at[GuardTime, 'drate'] = 0
 
                 df_call_info_graph.at[0, 'drate'] = 0
                 df_put_info_graph.at[0, 'drate'] = 0
 
-                df_call_info_graph.at[GuardTime, 'drate'] = 0
-                df_put_info_graph.at[GuardTime, 'drate'] = 0
+                #df_call_info_graph.at[GuardTime, 'drate'] = 0
+                #df_put_info_graph.at[GuardTime, 'drate'] = 0
 
                 item_str = '{0:0.1f}%\n{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
@@ -12316,7 +12316,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 df_futures_graph.at[0, 'volume'] = 0
-                df_futures_graph.at[GuardTime, 'volume'] = 0
+                #df_futures_graph.at[GuardTime, 'volume'] = 0
 
             else:
                 pass
@@ -13171,14 +13171,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_call_info_graph.at[0, 'volume'] = 0
                 df_put_info_graph.at[0, 'volume'] = 0
 
-                df_call_info_graph.at[GuardTime, 'volume'] = 0
-                df_put_info_graph.at[GuardTime, 'volume'] = 0
+                #df_call_info_graph.at[GuardTime, 'volume'] = 0
+                #df_put_info_graph.at[GuardTime, 'volume'] = 0
                 
                 df_call_info_graph.at[0, 'hoga'] = 0
                 df_put_info_graph.at[0, 'hoga'] = 0
 
-                df_call_info_graph.at[GuardTime, 'hoga'] = 0
-                df_put_info_graph.at[GuardTime, 'hoga'] = 0
+                #df_call_info_graph.at[GuardTime, 'hoga'] = 0
+                #df_put_info_graph.at[GuardTime, 'hoga'] = 0
 
                 # 본월물, 차월물 호가잔량비 초기화
                 df_futures_graph.at[0, 'c_hoga_rr'] = 0
@@ -13938,7 +13938,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_futures_graph.at[0, 'price'] = fut_realdata['현재가']
 
                 df_futures_graph.at[0, 'volume'] = 0
-                df_futures_graph.at[GuardTime, 'volume'] = 0
+                #df_futures_graph.at[GuardTime, 'volume'] = 0
 
                 if df['시가'] > 0:
                     df_futures_graph.at[GuardTime, 'price'] = df['시가']
@@ -14097,7 +14097,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 df_futures_graph.at[0, 'volume'] = 0
-                df_futures_graph.at[GuardTime, 'volume'] = 0
+                #df_futures_graph.at[GuardTime, 'volume'] = 0
             else:
                 pass
 
@@ -14534,7 +14534,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.setItem(i, Option_column.OID.value, item)
 
                     df_call_info_graph.at[0, 'volume'] = 0
-                    df_call_info_graph.at[GuardTime, 'volume'] = 0
+                    #df_call_info_graph.at[GuardTime, 'volume'] = 0
 
                     # Put 처리
                     df_put.at[i, '시가갭'] = 0
@@ -14796,7 +14796,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.setItem(i, Option_column.OID.value, item)
 
                     df_put_info_graph.at[0, 'volume'] = 0
-                    df_put_info_graph.at[GuardTime, 'volume'] = 0
+                    #df_put_info_graph.at[GuardTime, 'volume'] = 0
                 
                 print('\r')
                 print('t2835 야간 전광판 콜 데이타 = ', df_call)
@@ -20268,7 +20268,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         try:
             global pre_start
             global atm_str, atm_val, atm_index
-            global atm_index_yj
+            global yj_atm_index
 
             global fut_realdata
 
@@ -20518,7 +20518,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     dongsi_hoga = True
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 스레드를 종료합니다.\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
                     self.textBrowser.append(str)
 
                     if self.telegram_send_worker.isRunning():
@@ -20677,7 +20677,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         self.pushButton_add.setText('ScrShot')
                         
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 스레드를 종료합니다.\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
                         self.textBrowser.append(str)
 
                         if self.telegram_send_worker.isRunning():
@@ -20714,11 +20714,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if result['업종코드'] == KOSPI200:
 
-                        if result['시간'] != '':
-                            x_yj_idx = int(result['시간'][2:4]) + 1
-                        else:
-                            pass
-
                         if result['예상지수'] != float(self.tableWidget_fut.item(2, Futures_column.시가.value).text()):
 
                             kp200_시가 = result['예상지수']
@@ -20751,21 +20746,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if fut_realdata['시가'] > 0 and fut_realdata['KP200'] > 0:
 
-                            예상_Basis = fut_realdata['시가'] - fut_realdata['KP200']
-                            '''
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 예상 등가지수 : {3}, 예상 Basis : {4:0.2f}\r'.format(
-                                            int(result['시간'][0:2]),
-                                            int(result['시간'][2:4]),
-                                            int(result['시간'][4:6]),
-                                            atm_str, 예상_Basis)
-                            self.textBrowser.append(str)
-                            '''
+                            예상_Basis = fut_realdata['시가'] - fut_realdata['KP200']                            
                         else:
                             pass
 
                         if atm_str in opt_actval:
-                            atm_index_yj = opt_actval.index(atm_str)
-                            #print('예상 등가지수 index : ', atm_index_yj)
+                            yj_atm_index = opt_actval.index(atm_str)
                         else:
                             print("atm_str이 리스트에 없습니다.", atm_str)
 
@@ -20880,8 +20866,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if result['예상체결가격'] != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
-                            df_call_price_graph.iat[GuardTime, index] = float(result['예상체결가격'])
+                            df_call_price_graph.iat[ovc_x_idx, index] = float(result['예상체결가격'])
                             df_call.at[index, '시가'] = float(result['예상체결가격'])
+
+                            if yj_atm_index > 0:
+                                call_atm_value = df_call.at[yj_atm_index, '현재가']
+                            else:
+                                pass
 
                             전저 = df_call.at[index, '전저']
                             전고 = df_call.at[index, '전고']
@@ -20939,16 +20930,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     pass
                             else:
-                                pass
-                            '''
-                            str = '[{0:02d}:{1:02d}:{2:02d}] [{3}] Call {4} 시작예상가 수신... \r'.format(
-                                int(result['예상체결시간'][0:2]),
-                                int(result['예상체결시간'][2:4]),
-                                int(result['예상체결시간'][4:6]),
-                                szTrCode,
-                                result['예상체결가격'])
-                            self.textBrowser.append(str)
-                            '''
+                                pass                            
                         else:
                             pass
 
@@ -20997,8 +20979,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if result['예상체결가격'] != self.tableWidget_put.item(index, Option_column.시가.value).text():
 
-                            df_put_price_graph.iat[GuardTime, index] = float(result['예상체결가격'])
+                            df_put_price_graph.iat[ovc_x_idx, index] = float(result['예상체결가격'])
                             df_put.at[index, '시가'] = float(result['예상체결가격'])
+
+                            if yj_atm_index > 0:
+                                put_atm_value = df_put.at[yj_atm_index, '현재가']
+                            else:
+                                pass
 
                             전저 = df_put.at[index, '전저']
                             전고 = df_put.at[index, '전고']
@@ -21057,15 +21044,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     pass
                             else:
                                 pass
-                            '''
-                            str = '[{0:02d}:{1:02d}:{2:02d}] [{3}] Put {4} 시작예상가 수신... \r'.format(
-                                int(result['예상체결시간'][0:2]),
-                                int(result['예상체결시간'][2:4]),
-                                int(result['예상체결시간'][4:6]),
-                                szTrCode,
-                                result['예상체결가격'])
-                            self.textBrowser.append(str)
-                            '''
                         else:
                             pass
 
@@ -21478,7 +21456,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
 
                         self.tableWidget_fut.resizeRowToContents(2)
-                        #self.tableWidget_fut.resizeColumnToContents(Futures_column.대비.value)
                     else:
                         pass
 
@@ -21488,7 +21465,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         kp200_시가 = float(result['시가지수'])
                         kp200_realdata['시가'] = float(result['시가지수'])
-                        df_futures_graph.at[GuardTime, 'kp200'] = float(result['시가지수'])
+                        df_futures_graph.at[ovc_x_idx, 'kp200'] = float(result['시가지수'])
 
                         item = QTableWidgetItem(result['시가지수'])
                         item.setTextAlignment(Qt.AlignCenter)
@@ -22586,15 +22563,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         ovc_x_idx = (night_time - 야간선물_기준시간) * 60 + OVC_MIN + 1
                     else:
-                        ovc_x_idx = 1
-
-                    if ovc_x_idx < 0:
-
-                        str = '{0}--{1}'.format(night_time, KSE_START_HOUR)
-
-                        self.label_atm.setText(str)
-                    else:
-                        pass                    
+                        ovc_x_idx = 1             
                 else:                    
                     # 해외선물 개장시간은 국내시장의 2시간 전
                     if OVC_체결시간 != '':
@@ -32607,13 +32576,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' 중심가 상단: {0:0.2f} '.format(CENTER_VAL + CENTERVAL_UPPER)
                 self.label_24.setText(str)
 
-                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (df_put.at[atm_index, '현재가'] / df_put.at[atm_index, '시가'] - 1) * 100)
+                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
                 self.label_26.setText(str)
 
                 str = ' 중심가: {0:0.2f} '.format(CENTER_VAL)
                 self.label_27.setText(str)
 
-                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (df_call.at[atm_index, '현재가'] / df_call.at[atm_index, '시가'] - 1) * 100)
+                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
                 self.label_28.setText(str)
 
             elif bc_comboindex2 == 6:
@@ -33365,13 +33334,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' 중심가 상단: {0:0.2f} '.format(CENTER_VAL + CENTERVAL_UPPER)
                 self.label_34.setText(str)
 
-                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (df_put.at[atm_index, '현재가'] / df_put.at[atm_index, '시가'] - 1) * 100)
+                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
                 self.label_36.setText(str)
 
                 str = ' 중심가: {0:0.2f} '.format(CENTER_VAL)
                 self.label_37.setText(str)
 
-                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (df_call.at[atm_index, '현재가'] / df_call.at[atm_index, '시가'] - 1) * 100)
+                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
                 self.label_38.setText(str)
 
             elif bc_comboindex3 == 6:
@@ -34955,13 +34924,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' 중심가 상단: {0:0.2f} '.format(CENTER_VAL + CENTERVAL_UPPER)
                 self.label_54.setText(str)
 
-                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (df_put.at[atm_index, '현재가'] / df_put.at[atm_index, '시가'] - 1) * 100)
+                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
                 self.label_56.setText(str)
 
                 str = ' 중심가: {0:0.2f} '.format(CENTER_VAL)
                 self.label_57.setText(str)
 
-                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (df_call.at[atm_index, '현재가'] / df_call.at[atm_index, '시가'] - 1) * 100)
+                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
                 self.label_58.setText(str)
 
             elif bc_comboindex5 == 6:
@@ -35713,13 +35682,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' 중심가 상단: {0:0.2f} '.format(CENTER_VAL + CENTERVAL_UPPER)
                 self.label_64.setText(str)
 
-                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (df_put.at[atm_index, '현재가'] / df_put.at[atm_index, '시가'] - 1) * 100)
+                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(put_atm_value, df_put.at[atm_index, '대비'], (put_atm_value / df_put.at[atm_index, '시가'] - 1) * 100)
                 self.label_66.setText(str)
 
                 str = ' 중심가: {0:0.2f} '.format(CENTER_VAL)
                 self.label_67.setText(str)
 
-                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (df_call.at[atm_index, '현재가'] / df_call.at[atm_index, '시가'] - 1) * 100)
+                str = ' {0:0.2f}({1:0.2f}, {2:0.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
                 self.label_68.setText(str)
 
             elif bc_comboindex6 == 6:
