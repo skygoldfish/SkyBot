@@ -6961,9 +6961,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 해외선물 한국시간 표시
         if OVC_체결시간 == '000000':
 
-            str = 'ⓜ {0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
+            str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
         else:
-            str = 'ⓢ {0:02d}:{1:02d}:{2:02d}'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
+            str = '{0:02d}:{1:02d}:{2:02d}'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
         
         # 클래스간 데이타 교환
         
@@ -24844,6 +24844,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.setWindowTitle(widget_title)
 
+        # 시간표시
+        self.label_time.setStyleSheet('background-color: lawngreen; color: blue')
+        self.label_time.setFont(QFont("Consolas", 9, QFont.Bold))
+        self.label_time.setText("🕘")
+
         # Plot1 가격표시
         self.label_p1_1.setText(" 좌표 ")
         self.label_p1_1.setStyleSheet('background-color: lime ; color: black')
@@ -31594,6 +31599,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
         '''
+
+        # 해외선물 한국시간 표시
+        if OVC_체결시간 == '000000':
+
+            str = ' {0:02d}:{1:02d}:{2:02d} '.format(dt.hour, dt.minute, dt.second)
+        else:
+            str = ' {0:02d}:{1:02d}:{2:02d}({3:d}) '.format(OVC_HOUR, OVC_MIN, OVC_SEC, ovc_x_idx)
+
+        #self.label_time.setFont(QFont("Consolas", 9, QFont.Bold))    
+        self.label_time.setText(str)
 
         if FLAG_GUEST_CONTROL and receive_real_ovc:
 
