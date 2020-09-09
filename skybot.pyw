@@ -21093,13 +21093,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if result['단축코드'] == gmshcode:
 
-                    global 선물_시가, 선물_피봇
+                    global 선물_시가, 선물_피봇, 선물_현재가
 
                     market_service = True
                     
                     if result['예상체결가격'] != float(self.tableWidget_fut.item(1, Futures_column.시가.value).text()):
 
                         선물_시가 = result['예상체결가격']
+                        선물_현재가 = result['예상체결가격']
                         fut_realdata['시가'] = result['예상체결가격']
 
                         df_futures_graph.at[ovc_x_idx, 'price'] = 선물_시가
