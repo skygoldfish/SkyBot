@@ -4227,7 +4227,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.label_kospi.setStyleSheet('background-color: black ; color: yellow')
         self.label_kosdaq.setText("KOSDAQ: 가격 (전일대비, 등락율)")
         self.label_kosdaq.setStyleSheet('background-color: black ; color: yellow')
-        self.label_samsung.setText("SAMSUNG: 가격 (전일대비, 등락율)")
+
+        if NightTime:
+            self.label_samsung.setText("S&P 500: 가격 (전일대비, 등락율)")
+        else:
+            self.label_samsung.setText("SAMSUNG: 가격 (전일대비, 등락율)")
+
         self.label_samsung.setStyleSheet('background-color: black ; color: yellow')
 
         self.label_1st.setText("WTI: 가격 (전일대비, 등락율)")
@@ -23125,7 +23130,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if flag_checkBox_HS:
 
                         jisu_str = "S&P 500: {0} ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
-                        self.label_3rd.setStyleSheet('background-color: black ; color: white')
+
+                        if NightTime:
+                            self.label_samsung.setStyleSheet('background-color: black ; color: white')
+                        else:
+                            self.label_3rd.setStyleSheet('background-color: black ; color: white')
+
                         self.label_3rd.setText(jisu_str)
                     else:
                         if SP500_전일종가 > 0:
@@ -23176,8 +23186,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                    self.label_3rd.setText(jisu_str)
-                                    self.label_3rd.setStyleSheet('background-color: pink; color: blue')
+                                    if NightTime:
+                                        self.label_samsung.setText(jisu_str)
+                                        self.label_samsung.setStyleSheet('background-color: pink; color: blue')
+                                    else:
+                                        self.label_3rd.setText(jisu_str)
+                                        self.label_3rd.setStyleSheet('background-color: pink; color: blue')
+
                                     sp500_text_color = 'blue'                           
 
                                 elif SP500_등락율 > 0:  
@@ -23187,8 +23202,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         jisu_str = "S&P 500: {0} ▲ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                    self.label_3rd.setText(jisu_str)
-                                    self.label_3rd.setStyleSheet('background-color: pink; color: red')
+                                    if NightTime:
+                                        self.label_samsung.setText(jisu_str)
+                                        self.label_samsung.setStyleSheet('background-color: pink; color: red')
+                                    else:
+                                        self.label_3rd.setText(jisu_str)
+                                        self.label_3rd.setStyleSheet('background-color: pink; color: red')
+
                                     sp500_text_color = 'red'
                                 else:
                                     pass
@@ -23202,8 +23222,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                    self.label_3rd.setText(jisu_str)
-                                    self.label_3rd.setStyleSheet('background-color: lightskyblue; color: blue')
+                                    if NightTime:
+                                        self.label_samsung.setText(jisu_str)
+                                        self.label_samsung.setStyleSheet('background-color: lightskyblue; color: blue')
+                                    else:
+                                        self.label_3rd.setText(jisu_str)
+                                        self.label_3rd.setStyleSheet('background-color: lightskyblue; color: blue')
+
                                     sp500_text_color = 'blue'                                
 
                                 elif SP500_등락율 > 0:
@@ -23213,8 +23238,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                     else:
                                         jisu_str = "S&P 500: {0} ▼ ({1:0.2f}, {2:0.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
-                                    self.label_3rd.setText(jisu_str)
-                                    self.label_3rd.setStyleSheet('background-color: lightskyblue; color: red')
+                                    if NightTime:
+                                        self.label_samsung.setText(jisu_str)
+                                        self.label_samsung.setStyleSheet('background-color: lightskyblue; color: red')
+                                    else:
+                                        self.label_3rd.setText(jisu_str)
+                                        self.label_3rd.setStyleSheet('background-color: lightskyblue; color: red')
+
                                     sp500_text_color = 'red'                                
                                 else:
                                     pass
