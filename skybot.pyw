@@ -6169,8 +6169,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global 시스템시간
 
             global call_plot_data, put_plot_data, centerval_plot_data
-            #global plot_data1, plot_data2, plot_data3, plot_data4, plot_data5, plot_data6, plot_data7
-            #global plot_data8, plot_data9, plot_data10, plot_data11, plot_data12, plot_data13, plot_data14, plot_data15, plot_data16
             global selected_call, selected_put, selected_opt_list
             global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가 
             global drate_scale_factor 
@@ -6185,9 +6183,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 # 옵션 등락율 scale factor 읽어들임
                 drate_scale_factor = float(self.tableWidget_fut.item(2, Futures_column.진폭.value).text())
-
-                # OHLC 데이타프레임 생성(처리시간 해법필요)
-                #self.OHLC_Gen()
                 
                 if not NightTime:
                     self.display_atm(self.alternate_flag)
@@ -6246,14 +6241,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
                 
-                '''
-                # 호가 갱신
-                if receive_quote:
-                    self.option_quote_display()
-                else:
-                    pass
-                '''
-
                 if market_service:                                      
                     
                     # 시작과 동시에 컬러링 갱신
