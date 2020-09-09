@@ -2309,6 +2309,8 @@ fut_ccms_hoga_rr = 0
 call_oloh_str = ''
 put_oloh_str = ''
 
+bc_ui_update_time = 0
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -5949,13 +5951,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     telegram_command = str
                     
                     if SELFID == 'soojin65':
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)                        
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command is {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)                        
                         print(str)
                     else:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command = {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is {3}, {4:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, telegram_command, bc_ui_update_time)
                         self.textBrowser.append(str)
                 else:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command is None\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is None, {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, bc_ui_update_time)
                     self.textBrowser.append(str)                
             else:
                 pass
@@ -36316,19 +36318,26 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             else:
                 pass
         else:
-            pass        
+            pass
+
+        global bc_ui_update_time
+
+        bc_ui_update_time = (timeit.default_timer() - start_time) * 1000        
         
         str = '[{0:02d}:{1:02d}:{2:02d}] BigChart UI Update : {3:0.2f} ms...\r'.format(\
-            dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
+            dt.hour, dt.minute, dt.second, bc_ui_update_time)
         print(str)
 
     def closeEvent(self,event):
+
+        global bc_ui_update_time
 
         화면_BigChart.bigchart = False
         
         if self.bigchart_update_worker.isRunning():
 
             self.bigchart_update_worker.terminate()
+            bc_ui_update_time = 0
         else:
             pass
 
