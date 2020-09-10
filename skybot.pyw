@@ -17421,7 +17421,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 cme_realdata['시가갭'] = 시가갭
                 df_fut.loc[0, '시가갭'] = 시가갭
             else:
-
                 self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
 
                 df_fut.loc[1, '시가'] = 선물_시가
@@ -17452,7 +17451,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 fut_realdata['시가갭'] = 시가갭
                 df_fut.loc[1, '시가갭'] = 시가갭                
         else:
-
+            pass
+            '''
             if 선물_피봇 == 0 and 선물_시가 > 0:
 
                 선물_피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
@@ -17492,7 +17492,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_fut.loc[1, '시가갭'] = 시가갭
                     fut_realdata['시가갭'] = 시가갭
             else:
-                pass 
+                pass
+            ''' 
         
         # 현재가 갱신
         if NightTime:
@@ -20368,6 +20369,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global SP500_현재가_버퍼
             global NASDAQ_현재가_버퍼
             global WTI_현재가_버퍼
+            global 선물_시가, 선물_피봇, 선물_현재가
                         
             start_time = timeit.default_timer()
 
@@ -21091,9 +21093,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             elif szTrCode == 'YFC':
 
-                if result['단축코드'] == gmshcode:
-
-                    global 선물_시가, 선물_피봇, 선물_현재가
+                if result['단축코드'] == gmshcode:                    
 
                     market_service = True
                     
@@ -21503,7 +21503,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item.setTextAlignment(Qt.AlignCenter)
                             self.tableWidget_fut.setItem(2, Futures_column.피봇.value, item)
                         else:
-                            pass              
+                            pass
+
+                        # 선물 피봇을 다시 계산하여 표시한다.
+                        선물_피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
+
+                        item = QTableWidgetItem("{0:0.2f}".format(선물_피봇))
+                        item.setTextAlignment(Qt.AlignCenter)
+
+                        if NightTime:
+                            self.tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
+                            df_fut.loc[0, '피봇'] = 선물_피봇
+                            cme_realdata['피봇'] = 선물_피봇
+                        else:
+                            self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
+                            df_fut.loc[1, '피봇'] = 선물_피봇
+                            fut_realdata['피봇'] = 선물_피봇              
                         
                         atm_str = self.get_atm_str(kp200_시가)
                         atm_index = opt_actval.index(atm_str)
