@@ -17138,7 +17138,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if receive_real_ovc:
 
             # Plot 데이타프레임 생성
-            df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가        
+            df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
+
+            if df_futures_graph.at[ovc_x_idx, 'price'] != df_futures_graph.at[ovc_x_idx, 'price']:
+                df_futures_graph.at[ovc_x_idx, 'price'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+            else:
+                pass
+
             df_futures_graph.at[ovc_x_idx, 'drate'] = result['등락율']
 
             # 1T OHLC 생성
@@ -17161,6 +17167,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
                     df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+                    del 선물_현재가_버퍼[:]
                 else:
                     pass
 
@@ -21183,6 +21190,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     global 선물_현재가_버퍼, flag_futures_ohlc_open
 
                     if receive_real_ovc:
+
+                        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_시가
+
+                        if df_futures_graph.at[ovc_x_idx, 'price'] != df_futures_graph.at[ovc_x_idx, 'price']:
+                            df_futures_graph.at[ovc_x_idx, 'price'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+                        else:
+                            pass
                         
                         # 1T OHLC 생성
                         df_futures_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
@@ -21204,6 +21218,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
                                 df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+                                del 선물_현재가_버퍼[:]
                             else:
                                 pass
 
@@ -22602,6 +22617,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_dow_graph.at[ovc_x_idx, 'price'] = result['체결가격']
 
+                    if df_dow_graph.at[ovc_x_idx, 'price'] != df_dow_graph.at[ovc_x_idx, 'price']:
+                        df_dow_graph.at[ovc_x_idx, 'price'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
+                    else:
+                        pass
+
                     DOW_현재가 = int(result['체결가격'])
                     DOW_전일대비 = int(DOW_현재가 - DOW_종가)
                     DOW_등락율 = result['등락율']
@@ -22630,6 +22650,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         if df_dow_graph.at[ovc_x_idx, 'open'] != df_dow_graph.at[ovc_x_idx, 'open']:
                             df_dow_graph.at[ovc_x_idx, 'open'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
+                            del DOW_현재가_버퍼[:]
                         else:
                             pass
 
@@ -22828,6 +22849,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_nasdaq_graph.at[ovc_x_idx, 'price'] = result['체결가격']
 
+                    if df_nasdaq_graph.at[ovc_x_idx, 'price'] != df_nasdaq_graph.at[ovc_x_idx, 'price']:
+                        df_nasdaq_graph.at[ovc_x_idx, 'price'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
+                    else:
+                        pass
+
                     NASDAQ_현재가 = result['체결가격']
                     NASDAQ_전일대비 = NASDAQ_현재가 - NASDAQ_종가 
                     NASDAQ_등락율 = result['등락율']                 
@@ -22856,6 +22882,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         if df_nasdaq_graph.at[ovc_x_idx, 'open'] != df_nasdaq_graph.at[ovc_x_idx, 'open']:
                             df_nasdaq_graph.at[ovc_x_idx, 'open'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
+                            del NASDAQ_현재가_버퍼[:]
                         else:
                             pass
 
@@ -23042,6 +23069,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_sp500_graph.at[ovc_x_idx, 'price'] = result['체결가격']
 
+                    if df_sp500_graph.at[ovc_x_idx, 'price'] != df_sp500_graph.at[ovc_x_idx, 'price']:
+                        df_sp500_graph.at[ovc_x_idx, 'price'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
+                    else:
+                        pass
+
                     SP500_현재가 = result['체결가격']
                     SP500_전일대비 = round((SP500_현재가 - SP500_종가), 2)
                     SP500_등락율 = result['등락율']
@@ -23072,6 +23104,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         if df_sp500_graph.at[ovc_x_idx, 'open'] != df_sp500_graph.at[ovc_x_idx, 'open']:
                             df_sp500_graph.at[ovc_x_idx, 'open'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
+                            del SP500_현재가_버퍼[:]
                         else:
                             pass
 
@@ -23283,6 +23316,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     df_wti_graph.at[ovc_x_idx, 'price'] = result['체결가격']
 
+                    if df_wti_graph.at[ovc_x_idx, 'price'] != df_wti_graph.at[ovc_x_idx, 'price']:
+                        df_wti_graph.at[ovc_x_idx, 'price'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
+                    else:
+                        pass
+
                     WTI_현재가 = result['체결가격']
                     WTI_전일대비 = round((WTI_현재가 - WTI_종가), 2)
                     WTI_등락율 = result['등락율']
@@ -23313,6 +23351,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         if df_wti_graph.at[ovc_x_idx, 'open'] != df_wti_graph.at[ovc_x_idx, 'open']:
                             df_wti_graph.at[ovc_x_idx, 'open'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
+                            del WTI_현재가_버퍼[:]
                         else:
                             pass
 
