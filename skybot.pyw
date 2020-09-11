@@ -2309,6 +2309,7 @@ fut_ccms_hoga_rr = 0
 call_oloh_str = ''
 put_oloh_str = ''
 
+main_update_time = 0
 bc_ui_update_time = 0
 
 ########################################################################################################################
@@ -5959,10 +5960,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Command is {3}\r'.format(dt.hour, dt.minute, dt.second, telegram_command)                        
                         print(str)
                     else:
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is {3}, {4:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, telegram_command, bc_ui_update_time)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is {3}, {4:0.2f}({5:0.2f}) ms\r'.format \
+                            (dt.hour, dt.minute, dt.second, telegram_command, main_update_time, bc_ui_update_time)
                         self.textBrowser.append(str)
                 else:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is None, {3:0.2f} ms\r'.format(dt.hour, dt.minute, dt.second, bc_ui_update_time)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is None, {3:0.2f}({4:0.2f}) ms\r'.format \
+                        (dt.hour, dt.minute, dt.second, main_update_time, bc_ui_update_time)
                     self.textBrowser.append(str)                
             else:
                 pass
@@ -6167,6 +6170,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             start_time = timeit.default_timer()            
             dt = datetime.datetime.now()
             current_str = dt.strftime('%H:%M:%S')
+
+            global main_update_time
 
             global flag_fut_low, flag_fut_high
             global flag_kp200_low, flag_kp200_high
@@ -6665,8 +6670,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if not flag_offline:
 
+                main_update_time = (timeit.default_timer() - start_time) * 1000
+
                 str = '[{0:02d}:{1:02d}:{2:02d}] UI Screen Update : {3:0.2f} ms...\r'.format(\
-                    dt.hour, dt.minute, dt.second, (timeit.default_timer() - start_time) * 1000)
+                    dt.hour, dt.minute, dt.second, main_update_time)
                 print(str)
             else:
                 pass
