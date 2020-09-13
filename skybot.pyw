@@ -23861,6 +23861,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # 간혹 종가가 NaN인 경우 방어코드 추가
                 if df_futures_graph.at[ovc_x_idx, 'close'] != df_futures_graph.at[ovc_x_idx, 'close']:
+
                     df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
                     df_futures_graph.at[ovc_x_idx, 'high'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
                     df_futures_graph.at[ovc_x_idx, 'low'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
@@ -23872,6 +23873,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if df_dow_graph.at[ovc_x_idx, 'close'] != df_dow_graph.at[ovc_x_idx, 'close']:
+
                     df_dow_graph.at[ovc_x_idx, 'open'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
                     df_dow_graph.at[ovc_x_idx, 'high'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
                     df_dow_graph.at[ovc_x_idx, 'low'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
@@ -23883,6 +23885,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if df_sp500_graph.at[ovc_x_idx, 'close'] != df_sp500_graph.at[ovc_x_idx, 'close']:
+
                     df_sp500_graph.at[ovc_x_idx, 'open'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
                     df_sp500_graph.at[ovc_x_idx, 'high'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
                     df_sp500_graph.at[ovc_x_idx, 'low'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
@@ -23894,6 +23897,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if df_nasdaq_graph.at[ovc_x_idx, 'close'] != df_nasdaq_graph.at[ovc_x_idx, 'close']:
+
                     df_nasdaq_graph.at[ovc_x_idx, 'open'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
                     df_nasdaq_graph.at[ovc_x_idx, 'high'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
                     df_nasdaq_graph.at[ovc_x_idx, 'low'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
@@ -23905,6 +23909,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 if df_wti_graph.at[ovc_x_idx, 'close'] != df_wti_graph.at[ovc_x_idx, 'close']:
+                    
                     df_wti_graph.at[ovc_x_idx, 'open'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
                     df_wti_graph.at[ovc_x_idx, 'high'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
                     df_wti_graph.at[ovc_x_idx, 'low'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
