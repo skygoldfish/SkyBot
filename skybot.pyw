@@ -17182,28 +17182,44 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
 
-                if 선물_현재가 > 0:
-                    df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
-                else:
-                    pass
-
                 if df_futures_graph.at[ovc_x_idx, 'high'] > 0 and df_futures_graph.at[ovc_x_idx, 'low'] > 0:
                     df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
+                else:
+                    pass
+                
+                if 선물_현재가 > 0:
+                    df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
                 else:
                     pass
 
                 flag_futures_ohlc_open = False
 
             # 간혹 종가가 NaN인 경우 방어코드 추가
+            if df_futures_graph.at[ovc_x_idx, 'high'] != df_futures_graph.at[ovc_x_idx, 'high']:
+
+                df_futures_graph.at[ovc_x_idx, 'high'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+                df_futures_graph.at[ovc_x_idx, 'middle'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 선물고가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'high'])
+                self.textBrowser.append(str)
+            else:
+                pass
+
+            if df_futures_graph.at[ovc_x_idx, 'low'] != df_futures_graph.at[ovc_x_idx, 'low']:                
+
+                df_futures_graph.at[ovc_x_idx, 'low'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+                df_futures_graph.at[ovc_x_idx, 'middle'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 선물저가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'low'])
+                self.textBrowser.append(str)
+            else:
+                pass
+
             if df_futures_graph.at[ovc_x_idx, 'close'] != df_futures_graph.at[ovc_x_idx, 'close']:
 
-                df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-                df_futures_graph.at[ovc_x_idx, 'high'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-                df_futures_graph.at[ovc_x_idx, 'low'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-                df_futures_graph.at[ovc_x_idx, 'middle'] = df_futures_graph.at[ovc_x_idx - 1, 'middle']
                 df_futures_graph.at[ovc_x_idx, 'close'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] 선물 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'close'])
+                str = '[{0:02d}:{1:02d}:{2:02d}] 선물종가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'close'])
                 self.textBrowser.append(str)
             else:
                 pass
@@ -21242,28 +21258,44 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
 
-                            if 선물_시가 > 0:
-                                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_시가
-                            else:
-                                pass
-
                             if df_futures_graph.at[ovc_x_idx, 'high'] > 0 and df_futures_graph.at[ovc_x_idx, 'low'] > 0:
                                 df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
+                            else:
+                                pass
+                            
+                            if 선물_시가 > 0:
+                                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_시가
                             else:
                                 pass
 
                             flag_futures_ohlc_open = False
 
                         # 간혹 종가가 NaN인 경우 방어코드 추가
+                        if df_futures_graph.at[ovc_x_idx, 'high'] != df_futures_graph.at[ovc_x_idx, 'high']:
+
+                            df_futures_graph.at[ovc_x_idx, 'high'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+                            df_futures_graph.at[ovc_x_idx, 'middle'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 선물고가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'high'])
+                            self.textBrowser.append(str)
+                        else:
+                            pass
+
+                        if df_futures_graph.at[ovc_x_idx, 'low'] != df_futures_graph.at[ovc_x_idx, 'low']:                
+
+                            df_futures_graph.at[ovc_x_idx, 'low'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+                            df_futures_graph.at[ovc_x_idx, 'middle'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 선물저가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'low'])
+                            self.textBrowser.append(str)
+                        else:
+                            pass
+
                         if df_futures_graph.at[ovc_x_idx, 'close'] != df_futures_graph.at[ovc_x_idx, 'close']:
 
-                            df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-                            df_futures_graph.at[ovc_x_idx, 'high'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-                            df_futures_graph.at[ovc_x_idx, 'low'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-                            df_futures_graph.at[ovc_x_idx, 'middle'] = df_futures_graph.at[ovc_x_idx - 1, 'middle']
                             df_futures_graph.at[ovc_x_idx, 'close'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
 
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'close'])
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 선물종가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'close'])
                             self.textBrowser.append(str)
                         else:
                             pass
@@ -22683,28 +22715,44 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             df_dow_graph.at[ovc_x_idx, 'low'] = min(DOW_현재가_버퍼)
 
-                        if DOW_현재가 > 0:
-                            df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
-                        else:
-                            pass
-
                         if df_dow_graph.at[ovc_x_idx, 'high'] > 0 and df_dow_graph.at[ovc_x_idx, 'low'] > 0:
                             df_dow_graph.at[ovc_x_idx, 'middle'] = (df_dow_graph.at[ovc_x_idx, 'high'] + df_dow_graph.at[ovc_x_idx, 'low']) / 2
+                        else:
+                            pass
+                        
+                        if DOW_현재가 > 0:
+                            df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
                         else:
                             pass
 
                         flag_dow_ohlc_open = False
 
                     # 간혹 종가가 NaN인 경우 방어코드 추가
+                    if df_dow_graph.at[ovc_x_idx, 'high'] != df_dow_graph.at[ovc_x_idx, 'high']:
+
+                        df_dow_graph.at[ovc_x_idx, 'high'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
+                        df_dow_graph.at[ovc_x_idx, 'middle'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] DOW 고가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_dow_graph.at[ovc_x_idx, 'high'])
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+
+                    if df_dow_graph.at[ovc_x_idx, 'low'] != df_dow_graph.at[ovc_x_idx, 'low']:                
+
+                        df_dow_graph.at[ovc_x_idx, 'low'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
+                        df_dow_graph.at[ovc_x_idx, 'middle'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] DOW 저가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_dow_graph.at[ovc_x_idx, 'low'])
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+
                     if df_dow_graph.at[ovc_x_idx, 'close'] != df_dow_graph.at[ovc_x_idx, 'close']:
 
-                        df_dow_graph.at[ovc_x_idx, 'open'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
-                        df_dow_graph.at[ovc_x_idx, 'high'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
-                        df_dow_graph.at[ovc_x_idx, 'low'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
-                        df_dow_graph.at[ovc_x_idx, 'middle'] = df_dow_graph.at[ovc_x_idx - 1, 'middle']
                         df_dow_graph.at[ovc_x_idx, 'close'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] DOW 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_dow_graph.at[ovc_x_idx, 'close'])
+                        str = '[{0:02d}:{1:02d}:{2:02d}] DOW 종가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_dow_graph.at[ovc_x_idx, 'close'])
                         self.textBrowser.append(str)
                     else:
                         pass
@@ -22923,28 +22971,44 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             df_nasdaq_graph.at[ovc_x_idx, 'low'] = min(NASDAQ_현재가_버퍼)
 
-                        if NASDAQ_현재가 > 0:
-                            df_nasdaq_graph.at[ovc_x_idx, 'close'] = NASDAQ_현재가
-                        else:
-                            pass
-
                         if df_nasdaq_graph.at[ovc_x_idx, 'high'] > 0 and df_nasdaq_graph.at[ovc_x_idx, 'low'] > 0:
                             df_nasdaq_graph.at[ovc_x_idx, 'middle'] = (df_nasdaq_graph.at[ovc_x_idx, 'high'] + df_nasdaq_graph.at[ovc_x_idx, 'low']) / 2
+                        else:
+                            pass
+                        
+                        if NASDAQ_현재가 > 0:
+                            df_nasdaq_graph.at[ovc_x_idx, 'close'] = NASDAQ_현재가
                         else:
                             pass
 
                         flag_nasdaq_ohlc_open = False
 
                     # 간혹 종가가 NaN인 경우 방어코드 추가
+                    if df_nasdaq_graph.at[ovc_x_idx, 'high'] != df_nasdaq_graph.at[ovc_x_idx, 'high']:
+
+                        df_nasdaq_graph.at[ovc_x_idx, 'high'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
+                        df_nasdaq_graph.at[ovc_x_idx, 'middle'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 고가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_nasdaq_graph.at[ovc_x_idx, 'high'])
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+
+                    if df_nasdaq_graph.at[ovc_x_idx, 'low'] != df_nasdaq_graph.at[ovc_x_idx, 'low']:                
+
+                        df_nasdaq_graph.at[ovc_x_idx, 'low'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
+                        df_nasdaq_graph.at[ovc_x_idx, 'middle'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 저가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_nasdaq_graph.at[ovc_x_idx, 'low'])
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+
                     if df_nasdaq_graph.at[ovc_x_idx, 'close'] != df_nasdaq_graph.at[ovc_x_idx, 'close']:
 
-                        df_nasdaq_graph.at[ovc_x_idx, 'open'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
-                        df_nasdaq_graph.at[ovc_x_idx, 'high'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
-                        df_nasdaq_graph.at[ovc_x_idx, 'low'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
-                        df_nasdaq_graph.at[ovc_x_idx, 'middle'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'middle']
                         df_nasdaq_graph.at[ovc_x_idx, 'close'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_nasdaq_graph.at[ovc_x_idx, 'close'])
+                        str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 종가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_nasdaq_graph.at[ovc_x_idx, 'close'])
                         self.textBrowser.append(str)
                     else:
                         pass
@@ -23153,28 +23217,44 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             df_sp500_graph.at[ovc_x_idx, 'low'] = min(SP500_현재가_버퍼)
 
-                        if SP500_현재가 > 0:
-                            df_sp500_graph.at[ovc_x_idx, 'close'] = SP500_현재가
-                        else:
-                            pass
-
                         if df_sp500_graph.at[ovc_x_idx, 'high'] > 0 and df_sp500_graph.at[ovc_x_idx, 'low'] > 0:
                             df_sp500_graph.at[ovc_x_idx, 'middle'] = (df_sp500_graph.at[ovc_x_idx, 'high'] + df_sp500_graph.at[ovc_x_idx, 'low']) / 2
+                        else:
+                            pass
+                        
+                        if SP500_현재가 > 0:
+                            df_sp500_graph.at[ovc_x_idx, 'close'] = SP500_현재가
                         else:
                             pass
 
                         flag_sp500_ohlc_open = False
 
                     # 간혹 종가가 NaN인 경우 방어코드 추가
+                    if df_sp500_graph.at[ovc_x_idx, 'high'] != df_sp500_graph.at[ovc_x_idx, 'high']:
+
+                        df_sp500_graph.at[ovc_x_idx, 'high'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
+                        df_sp500_graph.at[ovc_x_idx, 'middle'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] SP500 고가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_sp500_graph.at[ovc_x_idx, 'high'])
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+
+                    if df_sp500_graph.at[ovc_x_idx, 'low'] != df_sp500_graph.at[ovc_x_idx, 'low']:                
+
+                        df_sp500_graph.at[ovc_x_idx, 'low'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
+                        df_sp500_graph.at[ovc_x_idx, 'middle'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] SP500 저가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_sp500_graph.at[ovc_x_idx, 'low'])
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+
                     if df_sp500_graph.at[ovc_x_idx, 'close'] != df_sp500_graph.at[ovc_x_idx, 'close']:
 
-                        df_sp500_graph.at[ovc_x_idx, 'open'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
-                        df_sp500_graph.at[ovc_x_idx, 'high'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
-                        df_sp500_graph.at[ovc_x_idx, 'low'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
-                        df_sp500_graph.at[ovc_x_idx, 'middle'] = df_sp500_graph.at[ovc_x_idx - 1, 'middle']
                         df_sp500_graph.at[ovc_x_idx, 'close'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] SP500 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_sp500_graph.at[ovc_x_idx, 'close'])
+                        str = '[{0:02d}:{1:02d}:{2:02d}] SP500 종가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_sp500_graph.at[ovc_x_idx, 'close'])
                         self.textBrowser.append(str)
                     else:
                         pass
@@ -23408,31 +23488,47 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             df_wti_graph.at[ovc_x_idx, 'low'] = min(WTI_현재가_버퍼)
 
-                        if WTI_현재가 > 0:
-                            df_wti_graph.at[ovc_x_idx, 'close'] = WTI_현재가
-                        else:
-                            pass
-
                         if df_wti_graph.at[ovc_x_idx, 'high'] > 0 and df_wti_graph.at[ovc_x_idx, 'low'] > 0:
                             df_wti_graph.at[ovc_x_idx, 'middle'] = (df_wti_graph.at[ovc_x_idx, 'high'] + df_wti_graph.at[ovc_x_idx, 'low']) / 2
+                        else:
+                            pass
+                        
+                        if WTI_현재가 > 0:
+                            df_wti_graph.at[ovc_x_idx, 'close'] = WTI_현재가
                         else:
                             pass
 
                         flag_wti_ohlc_open = False
 
                     # 간혹 종가가 NaN인 경우 방어코드 추가
-                    if df_wti_graph.at[ovc_x_idx, 'close'] != df_wti_graph.at[ovc_x_idx, 'close']:
-                    
-                        df_wti_graph.at[ovc_x_idx, 'open'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
-                        df_wti_graph.at[ovc_x_idx, 'high'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
-                        df_wti_graph.at[ovc_x_idx, 'low'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
-                        df_wti_graph.at[ovc_x_idx, 'middle'] = df_wti_graph.at[ovc_x_idx - 1, 'middle']
-                        df_wti_graph.at[ovc_x_idx, 'close'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
+                    if df_wti_graph.at[ovc_x_idx, 'high'] != df_wti_graph.at[ovc_x_idx, 'high']:
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] WTI 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_wti_graph.at[ovc_x_idx, 'close'])
+                        df_wti_graph.at[ovc_x_idx, 'high'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
+                        df_wti_graph.at[ovc_x_idx, 'middle'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] WTI 고가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_wti_graph.at[ovc_x_idx, 'high'])
                         self.textBrowser.append(str)
                     else:
-                        pass      
+                        pass
+
+                    if df_wti_graph.at[ovc_x_idx, 'low'] != df_wti_graph.at[ovc_x_idx, 'low']:                
+
+                        df_wti_graph.at[ovc_x_idx, 'low'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
+                        df_wti_graph.at[ovc_x_idx, 'middle'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] WTI 저가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_wti_graph.at[ovc_x_idx, 'low'])
+                        self.textBrowser.append(str)
+                    else:
+                        pass
+
+                    if df_wti_graph.at[ovc_x_idx, 'close'] != df_wti_graph.at[ovc_x_idx, 'close']:
+
+                        df_wti_graph.at[ovc_x_idx, 'close'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] WTI 종가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_wti_graph.at[ovc_x_idx, 'close'])
+                        self.textBrowser.append(str)
+                    else:
+                        pass   
 
                     # Bollinger Bands
                     upper, middle, lower = talib.BBANDS(np.array(df_wti_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
