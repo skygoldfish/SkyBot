@@ -22424,7 +22424,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_fut.setItem(1, Futures_column.매도잔량.value, item)
 
                     if result['매도호가총건수'] > 0:
-
                         fut_hoga_cr = result['매수호가총건수'] / result['매도호가총건수']
                     else:
                         pass
@@ -22482,6 +22481,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         fut_cms_hoga_cr = result['매수호가총건수'] / result['매도호가총건수']
                     else:
                         pass
+                    
+                    df_futures_graph.at[ovc_x_idx, 'n_ms_hoga_total'] = result['매수호가총수량']
+                    df_futures_graph.at[ovc_x_idx, 'n_md_hoga_total'] = result['매도호가총수량']
 
                     if result['매도호가총수량'] > 0:
                         fut_cms_hoga_rr = result['매수호가총수량'] / result['매도호가총수량']
