@@ -23830,6 +23830,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_futures_graph.at[ovc_x_idx, 'low'] = df_futures_graph.at[ovc_x_idx - 1, 'low']
                         df_futures_graph.at[ovc_x_idx, 'middle'] = df_futures_graph.at[ovc_x_idx - 1, 'middle']
                         df_futures_graph.at[ovc_x_idx, 'close'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+                        df_futures_graph.at[ovc_x_idx, 'price'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] 선물 방어코드 작동 at {3:d}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, ovc_x_idx)
                         self.textBrowser.append(str)
@@ -23843,6 +23844,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_dow_graph.at[ovc_x_idx, 'low'] = df_dow_graph.at[ovc_x_idx - 1, 'low']
                         df_dow_graph.at[ovc_x_idx, 'middle'] = df_dow_graph.at[ovc_x_idx - 1, 'middle']
                         df_dow_graph.at[ovc_x_idx, 'close'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
+                        df_dow_graph.at[ovc_x_idx, 'price'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] DOW 방어코드 작동 at {3:d}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, ovc_x_idx)
                         self.textBrowser.append(str)
@@ -23856,6 +23858,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_nasdaq_graph.at[ovc_x_idx, 'low'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'low']
                         df_nasdaq_graph.at[ovc_x_idx, 'middle'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'middle']
                         df_nasdaq_graph.at[ovc_x_idx, 'close'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
+                        df_nasdaq_graph.at[ovc_x_idx, 'price'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 방어코드 작동 at {3:d}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, ovc_x_idx)
                         self.textBrowser.append(str)
@@ -23869,6 +23872,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_sp500_graph.at[ovc_x_idx, 'low'] = df_sp500_graph.at[ovc_x_idx - 1, 'low']
                         df_sp500_graph.at[ovc_x_idx, 'middle'] = df_sp500_graph.at[ovc_x_idx - 1, 'middle']
                         df_sp500_graph.at[ovc_x_idx, 'close'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
+                        df_sp500_graph.at[ovc_x_idx, 'price'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] SP500 방어코드 작동 at {3:d}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, ovc_x_idx)
                         self.textBrowser.append(str)
@@ -23882,6 +23886,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_wti_graph.at[ovc_x_idx, 'low'] = df_wti_graph.at[ovc_x_idx - 1, 'low']
                         df_wti_graph.at[ovc_x_idx, 'middle'] = df_wti_graph.at[ovc_x_idx - 1, 'middle']
                         df_wti_graph.at[ovc_x_idx, 'close'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
+                        df_wti_graph.at[ovc_x_idx, 'price'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] WTI 방어코드 작동 at {3:d}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, ovc_x_idx)
                         self.textBrowser.append(str)
