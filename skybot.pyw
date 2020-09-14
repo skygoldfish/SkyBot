@@ -17203,6 +17203,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 선물고가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'high'])
                 self.textBrowser.append(str)
+                print(str)
             else:
                 pass
 
@@ -17213,6 +17214,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 선물저가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'low'])
                 self.textBrowser.append(str)
+                print(str)
             else:
                 pass
 
@@ -17222,6 +17224,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 선물종가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'close'])
                 self.textBrowser.append(str)
+                print(str)
             else:
                 pass
 
@@ -21280,6 +21283,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] 선물고가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'high'])
                             self.textBrowser.append(str)
+                            print(str)
                         else:
                             pass
 
@@ -21290,6 +21294,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] 선물저가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'low'])
                             self.textBrowser.append(str)
+                            print(str)
                         else:
                             pass
 
@@ -21299,6 +21304,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] 선물종가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'close'])
                             self.textBrowser.append(str)
+                            print(str)
                         else:
                             pass
 
@@ -22743,6 +22749,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] DOW 고가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_dow_graph.at[ovc_x_idx, 'high'])
                         self.textBrowser.append(str)
+                        print(str)
                     else:
                         pass
 
@@ -22753,6 +22760,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] DOW 저가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_dow_graph.at[ovc_x_idx, 'low'])
                         self.textBrowser.append(str)
+                        print(str)
                     else:
                         pass
 
@@ -22762,6 +22770,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] DOW 종가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_dow_graph.at[ovc_x_idx, 'close'])
                         self.textBrowser.append(str)
+                        print(str)
                     else:
                         pass
 
@@ -23000,6 +23009,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 고가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_nasdaq_graph.at[ovc_x_idx, 'high'])
                         self.textBrowser.append(str)
+                        print(str)
                     else:
                         pass
 
@@ -23010,6 +23020,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 저가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_nasdaq_graph.at[ovc_x_idx, 'low'])
                         self.textBrowser.append(str)
+                        print(str)
                     else:
                         pass
 
@@ -23019,6 +23030,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 종가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_nasdaq_graph.at[ovc_x_idx, 'close'])
                         self.textBrowser.append(str)
+                        print(str)
                     else:
                         pass
 
@@ -23247,6 +23259,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] SP500 고가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_sp500_graph.at[ovc_x_idx, 'high'])
                         self.textBrowser.append(str)
+                        print(str)
                     else:
                         pass
 
@@ -23257,6 +23270,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] SP500 저가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_sp500_graph.at[ovc_x_idx, 'low'])
                         self.textBrowser.append(str)
+                        print(str)
                     else:
                         pass
 
@@ -23266,6 +23280,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] SP500 종가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_sp500_graph.at[ovc_x_idx, 'close'])
                         self.textBrowser.append(str)
+                        print(str)
                     else:
                         pass
 
@@ -23519,6 +23534,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] WTI 고가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_wti_graph.at[ovc_x_idx, 'high'])
                         self.textBrowser.append(str)
+                        print(str)
                     else:
                         pass
 
@@ -23529,6 +23545,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] WTI 저가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_wti_graph.at[ovc_x_idx, 'low'])
                         self.textBrowser.append(str)
+                        print(str)
                     else:
                         pass
 
@@ -23538,6 +23555,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] WTI 종가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_wti_graph.at[ovc_x_idx, 'close'])
                         self.textBrowser.append(str)
+                        print(str)
                     else:
                         pass   
 
