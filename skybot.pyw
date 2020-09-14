@@ -12486,27 +12486,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_call_price_graph = DataFrame(index=range(0, timespan), columns=range(0, option_pairs_count))
                 df_put_price_graph = DataFrame(index=range(0, timespan), columns=range(0, option_pairs_count))
-                df_call_info_graph = DataFrame(index=range(0, timespan), columns=['volume', 'hoga', 'drate', 'centerval'])
-                df_put_info_graph = DataFrame(index=range(0, timespan), columns=['volume', 'hoga', 'drate', 'yanghap'])
+                df_call_info_graph = DataFrame(index=range(0, timespan), columns=['volume', 'ms_hoga_total', 'md_hoga_total', 'hoga_remainder_ratio', 'drate', 'centerval'])
+                df_put_info_graph = DataFrame(index=range(0, timespan), columns=['volume',  'ms_hoga_total', 'md_hoga_total', 'hoga_remainder_ratio', 'drate', 'yanghap'])
 
                 df_futures_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'kp200', \
                     'c_ms_hoga_total', 'c_md_hoga_total', 'c_hoga_remainder_ratio', 'n_ms_hoga_total', 'n_md_hoga_total', 'n_hoga_remainder_ratio', \
                         'drate', 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', \
                         'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
 
-                df_sp500_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
+                df_sp500_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga_remainder_ratio', 'drate', \
                     'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA',  'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-                df_dow_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
+                df_dow_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga_remainder_ratio', 'drate', \
                     'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-                df_nasdaq_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
+                df_nasdaq_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga_remainder_ratio', 'drate', \
                     'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-                df_wti_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
+                df_wti_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga_remainder_ratio', 'drate', \
                     'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-                df_eurofx_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
+                df_eurofx_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga_remainder_ratio', 'drate', \
                     'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-                df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
+                df_hangseng_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga_remainder_ratio', 'drate', \
                     'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
-                df_gold_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga', 'drate', \
+                df_gold_graph = DataFrame(index=range(0, timespan), columns=['time', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'hoga_remainder_ratio', 'drate', \
                     'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', 'OE_CONV', 'OE_BASE', 'SPAN_A', 'SPAN_B'])
 
                 # 콜처리
@@ -13176,24 +13176,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 #df_call_info_graph.at[GuardTime, 'volume'] = 0
                 #df_put_info_graph.at[GuardTime, 'volume'] = 0
                 
-                df_call_info_graph.at[0, 'hoga'] = 0
-                df_put_info_graph.at[0, 'hoga'] = 0
+                df_call_info_graph.at[0, 'hoga_remainder_ratio'] = 0
+                df_put_info_graph.at[0, 'hoga_remainder_ratio'] = 0
 
-                #df_call_info_graph.at[GuardTime, 'hoga'] = 0
-                #df_put_info_graph.at[GuardTime, 'hoga'] = 0
+                #df_call_info_graph.at[GuardTime, 'hoga_remainder_ratio'] = 0
+                #df_put_info_graph.at[GuardTime, 'hoga_remainder_ratio'] = 0
 
                 # 본월물, 차월물 호가잔량비 초기화
                 df_futures_graph.at[0, 'c_hoga_remainder_ratio'] = 0
                 df_futures_graph.at[0, 'n_hoga_remainder_ratio'] = 0
 
                 # 해외선물 호가 초기화
-                df_sp500_graph.at[0, 'hoga'] = 0
-                df_dow_graph.at[0, 'hoga'] = 0
-                df_nasdaq_graph.at[0, 'hoga'] = 0
-                df_wti_graph.at[0, 'hoga'] = 0
-                df_eurofx_graph.at[0, 'hoga'] = 0
-                df_hangseng_graph.at[0, 'hoga'] = 0
-                df_gold_graph.at[0, 'hoga'] = 0
+                df_sp500_graph.at[0, 'hoga_remainder_ratio'] = 0
+                df_dow_graph.at[0, 'hoga_remainder_ratio'] = 0
+                df_nasdaq_graph.at[0, 'hoga_remainder_ratio'] = 0
+                df_wti_graph.at[0, 'hoga_remainder_ratio'] = 0
+                df_eurofx_graph.at[0, 'hoga_remainder_ratio'] = 0
+                df_hangseng_graph.at[0, 'hoga_remainder_ratio'] = 0
+                df_gold_graph.at[0, 'hoga_remainder_ratio'] = 0
                 
                 콜_순미결합 = df_call['순미결'].sum()
                 풋_순미결합 = df_put['순미결'].sum()
@@ -20139,6 +20139,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             call_remainder_ratio = 0
 
+        df_call_info_graph.at[ovc_x_idx, 'ms_hoga_total'] = call_quote['매수잔량']
+        df_call_info_graph.at[ovc_x_idx, 'md_hoga_total'] = call_quote['매도잔량']
+
         콜잔량비 = call_remainder_ratio
 
         if put_quote['매도건수'] > 0:
@@ -20153,10 +20156,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             put_remainder_ratio = 0
 
+        df_put_info_graph.at[ovc_x_idx, 'ms_hoga_total'] = put_quote['매수잔량']
+        df_put_info_graph.at[ovc_x_idx, 'md_hoga_total'] = put_quote['매도잔량']
+
         풋잔량비 = put_remainder_ratio
 
-        df_call_info_graph.at[ovc_x_idx, 'hoga'] = 콜잔량비
-        df_put_info_graph.at[ovc_x_idx, 'hoga'] = 풋잔량비
+        df_call_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = 콜잔량비
+        df_put_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = 풋잔량비
 
         #temp = call_quote['매수건수'] + call_quote['매도건수']
         #건수합 = format(temp, ',')
@@ -24033,7 +24039,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 매도호가총수량 > 0:
                         NASDAQ_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_nasdaq_graph.at[ovc_x_idx, 'hoga'] = NASDAQ_호가순매수
+                        df_nasdaq_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = NASDAQ_호가순매수
                     else:
                         pass
 
@@ -24043,7 +24049,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 매도호가총수량 > 0:
                         SP500_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_sp500_graph.at[ovc_x_idx, 'hoga'] = SP500_호가순매수
+                        df_sp500_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = SP500_호가순매수
                     else:
                         pass
 
@@ -24053,7 +24059,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 매도호가총수량 > 0:
                         DOW_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_dow_graph.at[ovc_x_idx, 'hoga'] = DOW_호가순매수
+                        df_dow_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = DOW_호가순매수
                     else:
                         pass
 
@@ -24063,7 +24069,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 매도호가총수량 > 0:
                         WTI_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_wti_graph.at[ovc_x_idx, 'hoga'] = WTI_호가순매수
+                        df_wti_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = WTI_호가순매수
                     else:
                         pass
 
@@ -24073,7 +24079,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 매도호가총수량 > 0:
                         EUROFX_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_eurofx_graph.at[ovc_x_idx, 'hoga'] = EUROFX_호가순매수
+                        df_eurofx_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = EUROFX_호가순매수
                     else:
                         pass
 
@@ -24083,7 +24089,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 매도호가총수량 > 0:
                         HANGSENG_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_hangseng_graph.at[ovc_x_idx, 'hoga'] = HANGSENG_호가순매수
+                        df_hangseng_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = HANGSENG_호가순매수
                     else:
                         pass
 
@@ -24093,7 +24099,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if 매도호가총수량 > 0:
                         GOLD_잔량비 = 매수호가총수량 / 매도호가총수량
-                        df_gold_graph.at[ovc_x_idx, 'hoga'] = GOLD_호가순매수
+                        df_gold_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = GOLD_호가순매수
                     else:
                         pass
                 else:
@@ -31480,18 +31486,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 3 and market_service:
                 
-                str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
+                str = " {0:0.2f}({1:d}/{2:d}) ".format(df_put_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'], df_put_info_graph.at[ovc_x_idx, 'ms_hoga_total'], df_put_info_graph.at[ovc_x_idx, 'md_hoga_total'])
                 self.label_16.setStyleSheet('background-color: blue ; color: white')
                 #self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_16.setText(str)
                 
-                str = " {0:0.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'hoga'])
+                str = " {0:0.2f}({1:d}/{2:d}) ".format(df_call_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'], df_call_info_graph.at[ovc_x_idx, 'ms_hoga_total'], df_call_info_graph.at[ovc_x_idx, 'md_hoga_total'])
                 self.label_18.setStyleSheet('background-color: red ; color: white')
                 #self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_18.setText(str)
 
-                bc_plot1_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
-                bc_plot1_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())
+                bc_plot1_call_hoga_curve.setData(df_call_info_graph['hoga_remainder_ratio'].tolist())
+                bc_plot1_put_hoga_curve.setData(df_put_info_graph['hoga_remainder_ratio'].tolist())
 
             elif bc_comboindex1 == 4 and market_service:
 
@@ -32267,18 +32273,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 1 and market_service:
 
-                str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
+                str = " {0:0.2f}({1:d}/{2:d}) ".format(df_put_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'], df_put_info_graph.at[ovc_x_idx, 'ms_hoga_total'], df_put_info_graph.at[ovc_x_idx, 'md_hoga_total'])
                 self.label_26.setStyleSheet('background-color: blue ; color: white')
                 #self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_26.setText(str)
                 
-                str = " {0:0.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'hoga'])
+                str = " {0:0.2f}({1:d}/{2:d}) ".format(df_call_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'], df_call_info_graph.at[ovc_x_idx, 'ms_hoga_total'], df_call_info_graph.at[ovc_x_idx, 'md_hoga_total'])
                 self.label_28.setStyleSheet('background-color: red ; color: white')
                 #self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_28.setText(str)
 
-                bc_plot2_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
-                bc_plot2_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
+                bc_plot2_call_hoga_curve.setData(df_call_info_graph['hoga_remainder_ratio'].tolist())
+                bc_plot2_put_hoga_curve.setData(df_put_info_graph['hoga_remainder_ratio'].tolist())        
 
             elif bc_comboindex2 == 2 and market_service:
 
@@ -33027,18 +33033,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 1 and market_service:
 
-                str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
+                str = " {0:0.2f}({1:d}/{2:d}) ".format(df_put_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'], df_put_info_graph.at[ovc_x_idx, 'ms_hoga_total'], df_put_info_graph.at[ovc_x_idx, 'md_hoga_total'])
                 self.label_36.setStyleSheet('background-color: blue ; color: white')
                 #self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_36.setText(str)
                 
-                str = " {0:0.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'hoga'])
+                str = " {0:0.2f}({1:d}/{2:d}) ".format(df_call_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'], df_call_info_graph.at[ovc_x_idx, 'ms_hoga_total'], df_call_info_graph.at[ovc_x_idx, 'md_hoga_total'])
                 self.label_38.setStyleSheet('background-color: red ; color: white')
                 #self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_38.setText(str)
 
-                bc_plot3_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
-                bc_plot3_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
+                bc_plot3_call_hoga_curve.setData(df_call_info_graph['hoga_remainder_ratio'].tolist())
+                bc_plot3_put_hoga_curve.setData(df_put_info_graph['hoga_remainder_ratio'].tolist())        
 
             elif bc_comboindex3 == 2 and market_service:
 
@@ -33830,18 +33836,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = " {0:0.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
-                str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
+                str = " {0:0.2f}({1:d}/{2:d}) ".format(df_put_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'], df_put_info_graph.at[ovc_x_idx, 'ms_hoga_total'], df_put_info_graph.at[ovc_x_idx, 'md_hoga_total'])
                 self.label_46.setStyleSheet('background-color: blue ; color: white')
                 #self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_46.setText(str)
                 
-                str = " {0:0.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'hoga'])
+                str = " {0:0.2f}({1:d}/{2:d}) ".format(df_call_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'], df_call_info_graph.at[ovc_x_idx, 'ms_hoga_total'], df_call_info_graph.at[ovc_x_idx, 'md_hoga_total'])
                 self.label_48.setStyleSheet('background-color: red ; color: white')
                 #self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_48.setText(str)
 
-                bc_plot4_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
-                bc_plot4_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())
+                bc_plot4_call_hoga_curve.setData(df_call_info_graph['hoga_remainder_ratio'].tolist())
+                bc_plot4_put_hoga_curve.setData(df_put_info_graph['hoga_remainder_ratio'].tolist())
 
             elif bc_comboindex4 == 4 and market_service:
 
@@ -34621,18 +34627,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex5 == 1 and market_service:
 
-                str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
+                str = " {0:0.2f}({1:d}/{2:d}) ".format(df_put_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'], df_put_info_graph.at[ovc_x_idx, 'ms_hoga_total'], df_put_info_graph.at[ovc_x_idx, 'md_hoga_total'])
                 self.label_56.setStyleSheet('background-color: blue ; color: white')
                 #self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_56.setText(str)
                 
-                str = " {0:0.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'hoga'])
+                str = " {0:0.2f}({1:d}/{2:d}) ".format(df_call_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'], df_call_info_graph.at[ovc_x_idx, 'ms_hoga_total'], df_call_info_graph.at[ovc_x_idx, 'md_hoga_total'])
                 self.label_58.setStyleSheet('background-color: red ; color: white')
                 #self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_58.setText(str)
 
-                bc_plot5_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
-                bc_plot5_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
+                bc_plot5_call_hoga_curve.setData(df_call_info_graph['hoga_remainder_ratio'].tolist())
+                bc_plot5_put_hoga_curve.setData(df_put_info_graph['hoga_remainder_ratio'].tolist())        
 
             elif bc_comboindex5 == 2 and market_service:
 
@@ -35381,18 +35387,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex6 == 1 and market_service:
 
-                str = " {0:0.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'hoga'])
+                str = " {0:0.2f}({1:d}/{2:d}) ".format(df_put_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'], df_put_info_graph.at[ovc_x_idx, 'ms_hoga_total'], df_put_info_graph.at[ovc_x_idx, 'md_hoga_total'])
                 self.label_66.setStyleSheet('background-color: blue ; color: white')
                 #self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_66.setText(str)
                 
-                str = " {0:0.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'hoga'])
+                str = " {0:0.2f}({1:d}/{2:d}) ".format(df_call_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'], df_call_info_graph.at[ovc_x_idx, 'ms_hoga_total'], df_call_info_graph.at[ovc_x_idx, 'md_hoga_total'])
                 self.label_68.setStyleSheet('background-color: red ; color: white')
                 #self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_68.setText(str)
 
-                bc_plot6_call_hoga_curve.setData(df_call_info_graph['hoga'].tolist())
-                bc_plot6_put_hoga_curve.setData(df_put_info_graph['hoga'].tolist())        
+                bc_plot6_call_hoga_curve.setData(df_call_info_graph['hoga_remainder_ratio'].tolist())
+                bc_plot6_put_hoga_curve.setData(df_put_info_graph['hoga_remainder_ratio'].tolist())        
 
             elif bc_comboindex6 == 2 and market_service:
 
