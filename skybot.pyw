@@ -13226,8 +13226,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     콜_수정미결퍼센트 = (콜_수정미결합 / 수정미결합) * 100
                     풋_수정미결퍼센트 = 100 - 콜_수정미결퍼센트
 
-                    call_oi_init_value = 콜_수정미결합
-                    put_oi_init_value = 풋_수정미결합
+                    #call_oi_init_value = 콜_수정미결합
+                    #put_oi_init_value = 풋_수정미결합
+                    call_oi_init_value = 콜_수정미결퍼센트
+                    put_oi_init_value = 풋_수정미결퍼센트
                 else:
                     pass
 
@@ -20244,26 +20246,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             콜_수정미결퍼센트 = 0
             풋_수정미결퍼센트 = 0
 
-        item_str = '{0:0.1f}%\n{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+        item_str = '{0:.1f}({1:.1f})%\n{2:.1f}({3:.1f})%'.format(콜_수정미결퍼센트, call_oi_init_value, 풋_수정미결퍼센트, put_oi_init_value)
 
         item = QTableWidgetItem(item_str)
         item.setTextAlignment(Qt.AlignCenter)
 
-        if fut_volume_power > 0:
+        if 콜_수정미결퍼센트 > call_oi_init_value and 풋_수정미결퍼센트 < put_oi_init_value:
 
-            if call_volume_power > put_volume_power and 콜잔량비 > 풋잔량비:
+            item.setBackground(QBrush(적색))
+            item.setForeground(QBrush(흰색))
 
-                item.setBackground(QBrush(적색))
-                item.setForeground(QBrush(흰색))
-            else:
-                pass
+        elif 콜_수정미결퍼센트 < call_oi_init_value and 풋_수정미결퍼센트 > put_oi_init_value:
+
+            item.setBackground(QBrush(청색))
+            item.setForeground(QBrush(흰색))    
         else:
-            if call_volume_power < put_volume_power and 콜잔량비 < 풋잔량비:
-
-                item.setBackground(QBrush(청색))
-                item.setForeground(QBrush(흰색))
-            else:
-                pass
+            pass
 
         self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
 
