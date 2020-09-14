@@ -17187,39 +17187,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass                
 
-            # 간혹 HLC가 NaN인 경우 방어코드 추가
-            '''
-            if df_futures_graph.at[ovc_x_idx, 'high'] != df_futures_graph.at[ovc_x_idx, 'high']:
-
-                df_futures_graph.at[ovc_x_idx, 'high'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 선물고가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'high'])
-                self.textBrowser.append(str)
-                print(str)
-            else:
-                pass
-
-            if df_futures_graph.at[ovc_x_idx, 'low'] != df_futures_graph.at[ovc_x_idx, 'low']:                
-
-                df_futures_graph.at[ovc_x_idx, 'low'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 선물저가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'low'])
-                self.textBrowser.append(str)
-                print(str)
-            else:
-                pass
-
-            if df_futures_graph.at[ovc_x_idx, 'close'] != df_futures_graph.at[ovc_x_idx, 'close']:
-
-                df_futures_graph.at[ovc_x_idx, 'close'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 선물종가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'close'])
-                self.textBrowser.append(str)
-                print(str)
-            else:
-                pass
-            '''
-
             # Bollinger Bands
             df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2 
             upper, middle, lower = talib.BBANDS(np.array(df_futures_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
@@ -21265,39 +21232,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass                                 
 
-                        # 간혹 HLC가 NaN인 경우 방어코드 추가
-                        '''
-                        if df_futures_graph.at[ovc_x_idx, 'high'] != df_futures_graph.at[ovc_x_idx, 'high']:
-
-                            df_futures_graph.at[ovc_x_idx, 'high'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 선물고가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'high'])
-                            self.textBrowser.append(str)
-                            print(str)
-                        else:
-                            pass
-
-                        if df_futures_graph.at[ovc_x_idx, 'low'] != df_futures_graph.at[ovc_x_idx, 'low']:                
-
-                            df_futures_graph.at[ovc_x_idx, 'low'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 선물저가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'low'])
-                            self.textBrowser.append(str)
-                            print(str)
-                        else:
-                            pass
-
-                        if df_futures_graph.at[ovc_x_idx, 'close'] != df_futures_graph.at[ovc_x_idx, 'close']:
-
-                            df_futures_graph.at[ovc_x_idx, 'close'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 선물종가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_futures_graph.at[ovc_x_idx, 'close'])
-                            self.textBrowser.append(str)
-                            print(str)
-                        else:
-                            pass
-                        '''
-
                         # Bollinger Bands
                         df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
                         upper, middle, lower = talib.BBANDS(np.array(df_futures_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
@@ -22723,39 +22657,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass                           
 
-                    # 간혹 HLC가 NaN인 경우 방어코드 추가
-                    '''
-                    if df_dow_graph.at[ovc_x_idx, 'high'] != df_dow_graph.at[ovc_x_idx, 'high']:
-
-                        df_dow_graph.at[ovc_x_idx, 'high'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] DOW 고가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_dow_graph.at[ovc_x_idx, 'high'])
-                        self.textBrowser.append(str)
-                        print(str)
-                    else:
-                        pass
-
-                    if df_dow_graph.at[ovc_x_idx, 'low'] != df_dow_graph.at[ovc_x_idx, 'low']:                
-
-                        df_dow_graph.at[ovc_x_idx, 'low'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] DOW 저가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_dow_graph.at[ovc_x_idx, 'low'])
-                        self.textBrowser.append(str)
-                        print(str)
-                    else:
-                        pass
-
-                    if df_dow_graph.at[ovc_x_idx, 'close'] != df_dow_graph.at[ovc_x_idx, 'close']:
-
-                        df_dow_graph.at[ovc_x_idx, 'close'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] DOW 종가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_dow_graph.at[ovc_x_idx, 'close'])
-                        self.textBrowser.append(str)
-                        print(str)
-                    else:
-                        pass
-                    '''
-
                     # Bollinger Bands
                     df_dow_graph.at[ovc_x_idx, 'middle'] = (df_dow_graph.at[ovc_x_idx, 'high'] + df_dow_graph.at[ovc_x_idx, 'low']) / 2
                     upper, middle, lower = talib.BBANDS(np.array(df_dow_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
@@ -22975,39 +22876,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass                          
 
-                    # 간혹 HLC가 NaN인 경우 방어코드 추가
-                    '''
-                    if df_nasdaq_graph.at[ovc_x_idx, 'high'] != df_nasdaq_graph.at[ovc_x_idx, 'high']:
-
-                        df_nasdaq_graph.at[ovc_x_idx, 'high'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 고가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_nasdaq_graph.at[ovc_x_idx, 'high'])
-                        self.textBrowser.append(str)
-                        print(str)
-                    else:
-                        pass
-
-                    if df_nasdaq_graph.at[ovc_x_idx, 'low'] != df_nasdaq_graph.at[ovc_x_idx, 'low']:                
-
-                        df_nasdaq_graph.at[ovc_x_idx, 'low'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 저가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_nasdaq_graph.at[ovc_x_idx, 'low'])
-                        self.textBrowser.append(str)
-                        print(str)
-                    else:
-                        pass
-
-                    if df_nasdaq_graph.at[ovc_x_idx, 'close'] != df_nasdaq_graph.at[ovc_x_idx, 'close']:
-
-                        df_nasdaq_graph.at[ovc_x_idx, 'close'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 종가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_nasdaq_graph.at[ovc_x_idx, 'close'])
-                        self.textBrowser.append(str)
-                        print(str)
-                    else:
-                        pass
-                    '''
-
                     # Bollinger Bands
                     df_nasdaq_graph.at[ovc_x_idx, 'middle'] = (df_nasdaq_graph.at[ovc_x_idx, 'high'] + df_nasdaq_graph.at[ovc_x_idx, 'low']) / 2
                     upper, middle, lower = talib.BBANDS(np.array(df_nasdaq_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
@@ -23216,39 +23084,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             flag_sp500_ohlc_open = False  
                     else:
                         pass                         
-
-                    # 간혹 HLC가 NaN인 경우 방어코드 추가
-                    '''
-                    if df_sp500_graph.at[ovc_x_idx, 'high'] != df_sp500_graph.at[ovc_x_idx, 'high']:
-
-                        df_sp500_graph.at[ovc_x_idx, 'high'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] SP500 고가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_sp500_graph.at[ovc_x_idx, 'high'])
-                        self.textBrowser.append(str)
-                        print(str)
-                    else:
-                        pass
-
-                    if df_sp500_graph.at[ovc_x_idx, 'low'] != df_sp500_graph.at[ovc_x_idx, 'low']:                
-
-                        df_sp500_graph.at[ovc_x_idx, 'low'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] SP500 저가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_sp500_graph.at[ovc_x_idx, 'low'])
-                        self.textBrowser.append(str)
-                        print(str)
-                    else:
-                        pass
-
-                    if df_sp500_graph.at[ovc_x_idx, 'close'] != df_sp500_graph.at[ovc_x_idx, 'close']:
-
-                        df_sp500_graph.at[ovc_x_idx, 'close'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] SP500 종가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_sp500_graph.at[ovc_x_idx, 'close'])
-                        self.textBrowser.append(str)
-                        print(str)
-                    else:
-                        pass
-                    '''
 
                     # Bollinger Bands
                     df_sp500_graph.at[ovc_x_idx, 'middle'] = (df_sp500_graph.at[ovc_x_idx, 'high'] + df_sp500_graph.at[ovc_x_idx, 'low']) / 2
@@ -23483,39 +23318,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             flag_wti_ohlc_open = False
                     else:
                         pass                              
-
-                    # 간혹 HLC가 NaN인 경우 방어코드 추가
-                    '''
-                    if df_wti_graph.at[ovc_x_idx, 'high'] != df_wti_graph.at[ovc_x_idx, 'high']:
-
-                        df_wti_graph.at[ovc_x_idx, 'high'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] WTI 고가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_wti_graph.at[ovc_x_idx, 'high'])
-                        self.textBrowser.append(str)
-                        print(str)
-                    else:
-                        pass
-
-                    if df_wti_graph.at[ovc_x_idx, 'low'] != df_wti_graph.at[ovc_x_idx, 'low']:                
-
-                        df_wti_graph.at[ovc_x_idx, 'low'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] WTI 저가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_wti_graph.at[ovc_x_idx, 'low'])
-                        self.textBrowser.append(str)
-                        print(str)
-                    else:
-                        pass
-
-                    if df_wti_graph.at[ovc_x_idx, 'close'] != df_wti_graph.at[ovc_x_idx, 'close']:
-
-                        df_wti_graph.at[ovc_x_idx, 'close'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
-
-                        str = '[{0:02d}:{1:02d}:{2:02d}] WTI 종가 방어코드 작동 at {3}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, df_wti_graph.at[ovc_x_idx, 'close'])
-                        self.textBrowser.append(str)
-                        print(str)
-                    else:
-                        pass
-                    '''   
 
                     # Bollinger Bands
                     df_wti_graph.at[ovc_x_idx, 'middle'] = (df_wti_graph.at[ovc_x_idx, 'high'] + df_wti_graph.at[ovc_x_idx, 'low']) / 2
@@ -24019,8 +23821,73 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
                 else:
-                    pass                
-                
+                    pass
+
+                # 간혹 HLC가 NaN인 경우 방어코드 추가
+                if df_futures_graph.at[ovc_x_idx, 'price'] != df_futures_graph.at[ovc_x_idx, 'price']:
+                    
+                    df_futures_graph.at[ovc_x_idx, 'high'] = df_futures_graph.at[ovc_x_idx - 1, 'high']
+                    df_futures_graph.at[ovc_x_idx, 'low'] = df_futures_graph.at[ovc_x_idx - 1, 'low']
+                    df_futures_graph.at[ovc_x_idx, 'middle'] = df_futures_graph.at[ovc_x_idx - 1, 'middle']
+                    df_futures_graph.at[ovc_x_idx, 'close'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 선물 방어코드 작동 at {3:d}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, ovc_x_idx)
+                    self.textBrowser.append(str)
+                    print(str)
+                else:
+                    pass
+
+                if df_dow_graph.at[ovc_x_idx, 'price'] != df_dow_graph.at[ovc_x_idx, 'price']:
+
+                    df_dow_graph.at[ovc_x_idx, 'high'] = df_dow_graph.at[ovc_x_idx - 1, 'high']
+                    df_dow_graph.at[ovc_x_idx, 'low'] = df_dow_graph.at[ovc_x_idx - 1, 'low']
+                    df_dow_graph.at[ovc_x_idx, 'middle'] = df_dow_graph.at[ovc_x_idx - 1, 'middle']
+                    df_dow_graph.at[ovc_x_idx, 'close'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] DOW 방어코드 작동 at {3:d}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, ovc_x_idx)
+                    self.textBrowser.append(str)
+                    print(str)
+                else:
+                    pass
+
+                if df_nasdaq_graph.at[ovc_x_idx, 'price'] != df_nasdaq_graph.at[ovc_x_idx, 'price']:
+
+                    df_nasdaq_graph.at[ovc_x_idx, 'high'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'high']
+                    df_nasdaq_graph.at[ovc_x_idx, 'low'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'low']
+                    df_nasdaq_graph.at[ovc_x_idx, 'middle'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'middle']
+                    df_nasdaq_graph.at[ovc_x_idx, 'close'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 방어코드 작동 at {3:d}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, ovc_x_idx)
+                    self.textBrowser.append(str)
+                    print(str)
+                else:
+                    pass
+
+                if df_sp500_graph.at[ovc_x_idx, 'price'] != df_sp500_graph.at[ovc_x_idx, 'price']:
+
+                    df_sp500_graph.at[ovc_x_idx, 'high'] = df_sp500_graph.at[ovc_x_idx - 1, 'high']
+                    df_sp500_graph.at[ovc_x_idx, 'low'] = df_sp500_graph.at[ovc_x_idx - 1, 'low']
+                    df_sp500_graph.at[ovc_x_idx, 'middle'] = df_sp500_graph.at[ovc_x_idx - 1, 'middle']
+                    df_sp500_graph.at[ovc_x_idx, 'close'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] SP500 방어코드 작동 at {3:d}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, ovc_x_idx)
+                    self.textBrowser.append(str)
+                    print(str)
+                else:
+                    pass
+                                
+                if df_wti_graph.at[ovc_x_idx, 'price'] != df_wti_graph.at[ovc_x_idx, 'price']:
+
+                    df_wti_graph.at[ovc_x_idx, 'high'] = df_wti_graph.at[ovc_x_idx - 1, 'high']
+                    df_wti_graph.at[ovc_x_idx, 'low'] = df_wti_graph.at[ovc_x_idx - 1, 'low']
+                    df_wti_graph.at[ovc_x_idx, 'middle'] = df_wti_graph.at[ovc_x_idx - 1, 'middle']
+                    df_wti_graph.at[ovc_x_idx, 'close'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] WTI 방어코드 작동 at {3:d}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, ovc_x_idx)
+                    self.textBrowser.append(str)
+                    print(str)
+                else:
+                    pass
                 
             elif szTrCode == 'OVH':
 
