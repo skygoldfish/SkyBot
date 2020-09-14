@@ -17146,48 +17146,49 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 1T OHLC 생성
             df_futures_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
 
-            if OVC_SEC == 0:
+            if 선물_현재가 > 0:
 
-                if not flag_futures_ohlc_open:
+                if OVC_SEC == 0:
 
-                    if 선물_현재가 > 0:
+                    if not flag_futures_ohlc_open:
+
                         df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
+                        del 선물_현재가_버퍼[:]
+
+                        flag_futures_ohlc_open = True
+                    else:
+                        선물_현재가_버퍼.append(선물_현재가)              
+                else:
+                    if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
+                        df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+                        del 선물_현재가_버퍼[:]
                     else:
                         pass
 
-                    del 선물_현재가_버퍼[:]
-
-                    flag_futures_ohlc_open = True
-                else:
                     선물_현재가_버퍼.append(선물_현재가)
-            else:
-                if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
-                    df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-                    del 선물_현재가_버퍼[:]
-                else:
-                    pass
-
-                선물_현재가_버퍼.append(선물_현재가)
-
-                if max(선물_현재가_버퍼) > 0:
-                    df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
-                else:
-                    pass
-
-                if min(선물_현재가_버퍼) == 0:
 
                     if max(선물_현재가_버퍼) > 0:
-                        df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
+                        df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
                     else:
                         pass
-                else:
-                    df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
-                
-                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
 
-                flag_futures_ohlc_open = False
+                    if min(선물_현재가_버퍼) == 0:
+
+                        if max(선물_현재가_버퍼) > 0:
+                            df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
+                        else:
+                            pass
+                    else:
+                        df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
+
+                    df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
+
+                    flag_futures_ohlc_open = False
+            else:
+                pass                
 
             # 간혹 HLC가 NaN인 경우 방어코드 추가
+            '''
             if df_futures_graph.at[ovc_x_idx, 'high'] != df_futures_graph.at[ovc_x_idx, 'high']:
 
                 df_futures_graph.at[ovc_x_idx, 'high'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
@@ -17217,6 +17218,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print(str)
             else:
                 pass
+            '''
 
             # Bollinger Bands
             df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2 
@@ -21216,48 +21218,49 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         # 1T OHLC 생성
                         df_futures_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
 
-                        if OVC_SEC == 0:
+                        if 선물_시가 > 0:
 
-                            if not flag_futures_ohlc_open:
+                            if OVC_SEC == 0:
 
-                                if 선물_시가 > 0:
+                                if not flag_futures_ohlc_open:
+
                                     df_futures_graph.at[ovc_x_idx, 'open'] = 선물_시가
+                                    del 선물_현재가_버퍼[:]
+
+                                    flag_futures_ohlc_open = True
+                                else:
+                                    선물_현재가_버퍼.append(선물_시가)                            
+                            else:
+                                if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
+                                    df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
+                                    del 선물_현재가_버퍼[:]
                                 else:
                                     pass
 
-                                del 선물_현재가_버퍼[:]
-
-                                flag_futures_ohlc_open = True
-                            else:
                                 선물_현재가_버퍼.append(선물_시가)
-                        else:
-                            if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
-                                df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-                                del 선물_현재가_버퍼[:]
-                            else:
-                                pass
-
-                            선물_현재가_버퍼.append(선물_시가)
-
-                            if max(선물_현재가_버퍼) > 0:
-                                df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
-                            else:
-                                pass
-
-                            if min(선물_현재가_버퍼) == 0:
 
                                 if max(선물_현재가_버퍼) > 0:
-                                    df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
+                                    df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
                                 else:
                                     pass
-                            else:
-                                df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
-                            
-                            df_futures_graph.at[ovc_x_idx, 'close'] = 선물_시가
 
-                            flag_futures_ohlc_open = False
+                                if min(선물_현재가_버퍼) == 0:
+
+                                    if max(선물_현재가_버퍼) > 0:
+                                        df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
+                                    else:
+                                        pass
+                                else:
+                                    df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
+
+                                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_시가
+
+                                flag_futures_ohlc_open = False
+                        else:
+                            pass                                 
 
                         # 간혹 HLC가 NaN인 경우 방어코드 추가
+                        '''
                         if df_futures_graph.at[ovc_x_idx, 'high'] != df_futures_graph.at[ovc_x_idx, 'high']:
 
                             df_futures_graph.at[ovc_x_idx, 'high'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
@@ -21287,6 +21290,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             print(str)
                         else:
                             pass
+                        '''
 
                         # Bollinger Bands
                         df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2
@@ -22672,48 +22676,49 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 1T OHLC 생성
                     df_dow_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
 
-                    if OVC_SEC == 0:
+                    if DOW_현재가 > 0:
 
-                        if not flag_dow_ohlc_open:
-                        
-                            if DOW_현재가 > 0:
-                                df_dow_graph.at[ovc_x_idx, 'open'] = DOW_현재가
+                        if OVC_SEC == 0:
+
+                            if not flag_dow_ohlc_open:
+                            
+                                df_dow_graph.at[ovc_x_idx, 'open'] = DOW_현재가                            
+                                del DOW_현재가_버퍼[:]
+
+                                flag_dow_ohlc_open = True
+                            else:
+                                DOW_현재가_버퍼.append(DOW_현재가)                        
+                        else:
+                            if df_dow_graph.at[ovc_x_idx, 'open'] != df_dow_graph.at[ovc_x_idx, 'open']:
+                                df_dow_graph.at[ovc_x_idx, 'open'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
+                                del DOW_현재가_버퍼[:]
                             else:
                                 pass
-                            
-                            del DOW_현재가_버퍼[:]
 
-                            flag_dow_ohlc_open = True
-                        else:
                             DOW_현재가_버퍼.append(DOW_현재가)
-                    else:
-                        if df_dow_graph.at[ovc_x_idx, 'open'] != df_dow_graph.at[ovc_x_idx, 'open']:
-                            df_dow_graph.at[ovc_x_idx, 'open'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
-                            del DOW_현재가_버퍼[:]
-                        else:
-                            pass
-
-                        DOW_현재가_버퍼.append(DOW_현재가)
-
-                        if max(DOW_현재가_버퍼) > 0:
-                            df_dow_graph.at[ovc_x_idx, 'high'] = max(DOW_현재가_버퍼)
-                        else:
-                            pass
-
-                        if min(DOW_현재가_버퍼) == 0:
 
                             if max(DOW_현재가_버퍼) > 0:
-                                df_dow_graph.at[ovc_x_idx, 'low'] = max(DOW_현재가_버퍼)
+                                df_dow_graph.at[ovc_x_idx, 'high'] = max(DOW_현재가_버퍼)
                             else:
                                 pass
-                        else:
-                            df_dow_graph.at[ovc_x_idx, 'low'] = min(DOW_현재가_버퍼)
-                        
-                        df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
 
-                        flag_dow_ohlc_open = False
+                            if min(DOW_현재가_버퍼) == 0:
+
+                                if max(DOW_현재가_버퍼) > 0:
+                                    df_dow_graph.at[ovc_x_idx, 'low'] = max(DOW_현재가_버퍼)
+                                else:
+                                    pass
+                            else:
+                                df_dow_graph.at[ovc_x_idx, 'low'] = min(DOW_현재가_버퍼)
+
+                            df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
+
+                            flag_dow_ohlc_open = False  
+                    else:
+                        pass                           
 
                     # 간혹 HLC가 NaN인 경우 방어코드 추가
+                    '''
                     if df_dow_graph.at[ovc_x_idx, 'high'] != df_dow_graph.at[ovc_x_idx, 'high']:
 
                         df_dow_graph.at[ovc_x_idx, 'high'] = df_dow_graph.at[ovc_x_idx - 1, 'close']
@@ -22743,6 +22748,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         print(str)
                     else:
                         pass
+                    '''
 
                     # Bollinger Bands
                     df_dow_graph.at[ovc_x_idx, 'middle'] = (df_dow_graph.at[ovc_x_idx, 'high'] + df_dow_graph.at[ovc_x_idx, 'low']) / 2
@@ -22922,48 +22928,49 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 1T OHLC 생성
                     df_nasdaq_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
 
-                    if OVC_SEC == 0:
+                    if NASDAQ_현재가 > 0:
 
-                        if not flag_nasdaq_ohlc_open:
-                        
-                            if NASDAQ_현재가 > 0:
-                                df_nasdaq_graph.at[ovc_x_idx, 'open'] = NASDAQ_현재가
+                        if OVC_SEC == 0:
+
+                            if not flag_nasdaq_ohlc_open:
+                            
+                                df_nasdaq_graph.at[ovc_x_idx, 'open'] = NASDAQ_현재가                            
+                                del NASDAQ_현재가_버퍼[:]
+
+                                flag_nasdaq_ohlc_open = True
+                            else:
+                                NASDAQ_현재가_버퍼.append(NASDAQ_현재가)                       
+                        else:
+                            if df_nasdaq_graph.at[ovc_x_idx, 'open'] != df_nasdaq_graph.at[ovc_x_idx, 'open']:
+                                df_nasdaq_graph.at[ovc_x_idx, 'open'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
+                                del NASDAQ_현재가_버퍼[:]
                             else:
                                 pass
-                            
-                            del NASDAQ_현재가_버퍼[:]
 
-                            flag_nasdaq_ohlc_open = True
-                        else:
                             NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
-                    else:
-                        if df_nasdaq_graph.at[ovc_x_idx, 'open'] != df_nasdaq_graph.at[ovc_x_idx, 'open']:
-                            df_nasdaq_graph.at[ovc_x_idx, 'open'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
-                            del NASDAQ_현재가_버퍼[:]
-                        else:
-                            pass
-
-                        NASDAQ_현재가_버퍼.append(NASDAQ_현재가)
-
-                        if max(NASDAQ_현재가_버퍼) > 0:
-                            df_nasdaq_graph.at[ovc_x_idx, 'high'] = max(NASDAQ_현재가_버퍼)
-                        else:
-                            pass
-
-                        if min(NASDAQ_현재가_버퍼) == 0:
 
                             if max(NASDAQ_현재가_버퍼) > 0:
-                                df_nasdaq_graph.at[ovc_x_idx, 'low'] = max(NASDAQ_현재가_버퍼)
+                                df_nasdaq_graph.at[ovc_x_idx, 'high'] = max(NASDAQ_현재가_버퍼)
                             else:
                                 pass
-                        else:
-                            df_nasdaq_graph.at[ovc_x_idx, 'low'] = min(NASDAQ_현재가_버퍼)
-                        
-                        df_nasdaq_graph.at[ovc_x_idx, 'close'] = NASDAQ_현재가
 
-                        flag_nasdaq_ohlc_open = False
+                            if min(NASDAQ_현재가_버퍼) == 0:
+
+                                if max(NASDAQ_현재가_버퍼) > 0:
+                                    df_nasdaq_graph.at[ovc_x_idx, 'low'] = max(NASDAQ_현재가_버퍼)
+                                else:
+                                    pass
+                            else:
+                                df_nasdaq_graph.at[ovc_x_idx, 'low'] = min(NASDAQ_현재가_버퍼)
+
+                            df_nasdaq_graph.at[ovc_x_idx, 'close'] = NASDAQ_현재가
+
+                            flag_nasdaq_ohlc_open = False
+                    else:
+                        pass                          
 
                     # 간혹 HLC가 NaN인 경우 방어코드 추가
+                    '''
                     if df_nasdaq_graph.at[ovc_x_idx, 'high'] != df_nasdaq_graph.at[ovc_x_idx, 'high']:
 
                         df_nasdaq_graph.at[ovc_x_idx, 'high'] = df_nasdaq_graph.at[ovc_x_idx - 1, 'close']
@@ -22993,6 +23000,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         print(str)
                     else:
                         pass
+                    '''
 
                     # Bollinger Bands
                     df_nasdaq_graph.at[ovc_x_idx, 'middle'] = (df_nasdaq_graph.at[ovc_x_idx, 'high'] + df_nasdaq_graph.at[ovc_x_idx, 'low']) / 2
@@ -23162,48 +23170,49 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 1T OHLC 생성
                     df_sp500_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
 
-                    if OVC_SEC == 0:
+                    if SP500_현재가 > 0:
 
-                        if not flag_sp500_ohlc_open:
-                        
-                            if SP500_현재가 > 0:
-                                df_sp500_graph.at[ovc_x_idx, 'open'] = SP500_현재가
+                        if OVC_SEC == 0:
+
+                            if not flag_sp500_ohlc_open:
+                            
+                                df_sp500_graph.at[ovc_x_idx, 'open'] = SP500_현재가                            
+                                del SP500_현재가_버퍼[:]
+
+                                flag_sp500_ohlc_open = True
+                            else:
+                                SP500_현재가_버퍼.append(SP500_현재가)                        
+                        else:
+                            if df_sp500_graph.at[ovc_x_idx, 'open'] != df_sp500_graph.at[ovc_x_idx, 'open']:
+                                df_sp500_graph.at[ovc_x_idx, 'open'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
+                                del SP500_현재가_버퍼[:]
                             else:
                                 pass
-                            
-                            del SP500_현재가_버퍼[:]
 
-                            flag_sp500_ohlc_open = True
-                        else:
                             SP500_현재가_버퍼.append(SP500_현재가)
-                    else:
-                        if df_sp500_graph.at[ovc_x_idx, 'open'] != df_sp500_graph.at[ovc_x_idx, 'open']:
-                            df_sp500_graph.at[ovc_x_idx, 'open'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
-                            del SP500_현재가_버퍼[:]
-                        else:
-                            pass
-
-                        SP500_현재가_버퍼.append(SP500_현재가)
-
-                        if max(SP500_현재가_버퍼) > 0:
-                            df_sp500_graph.at[ovc_x_idx, 'high'] = max(SP500_현재가_버퍼)
-                        else:
-                            pass
-
-                        if min(SP500_현재가_버퍼) == 0:
 
                             if max(SP500_현재가_버퍼) > 0:
-                                df_sp500_graph.at[ovc_x_idx, 'low'] = max(SP500_현재가_버퍼)
+                                df_sp500_graph.at[ovc_x_idx, 'high'] = max(SP500_현재가_버퍼)
                             else:
                                 pass
-                        else:
-                            df_sp500_graph.at[ovc_x_idx, 'low'] = min(SP500_현재가_버퍼)
-                        
-                        df_sp500_graph.at[ovc_x_idx, 'close'] = SP500_현재가
 
-                        flag_sp500_ohlc_open = False
+                            if min(SP500_현재가_버퍼) == 0:
+
+                                if max(SP500_현재가_버퍼) > 0:
+                                    df_sp500_graph.at[ovc_x_idx, 'low'] = max(SP500_현재가_버퍼)
+                                else:
+                                    pass
+                            else:
+                                df_sp500_graph.at[ovc_x_idx, 'low'] = min(SP500_현재가_버퍼)
+
+                            df_sp500_graph.at[ovc_x_idx, 'close'] = SP500_현재가
+
+                            flag_sp500_ohlc_open = False  
+                    else:
+                        pass                         
 
                     # 간혹 HLC가 NaN인 경우 방어코드 추가
+                    '''
                     if df_sp500_graph.at[ovc_x_idx, 'high'] != df_sp500_graph.at[ovc_x_idx, 'high']:
 
                         df_sp500_graph.at[ovc_x_idx, 'high'] = df_sp500_graph.at[ovc_x_idx - 1, 'close']
@@ -23233,6 +23242,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         print(str)
                     else:
                         pass
+                    '''
 
                     # Bollinger Bands
                     df_sp500_graph.at[ovc_x_idx, 'middle'] = (df_sp500_graph.at[ovc_x_idx, 'high'] + df_sp500_graph.at[ovc_x_idx, 'low']) / 2
@@ -23427,48 +23437,49 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 1T OHLC 생성
                     df_wti_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
 
-                    if OVC_SEC == 0:
+                    if WTI_현재가 > 0:
 
-                        if not flag_wti_ohlc_open:
-                        
-                            if WTI_현재가 > 0:
-                                df_wti_graph.at[ovc_x_idx, 'open'] = WTI_현재가
+                        if OVC_SEC == 0:
+
+                            if not flag_wti_ohlc_open:
+                            
+                                df_wti_graph.at[ovc_x_idx, 'open'] = WTI_현재가                            
+                                del WTI_현재가_버퍼[:]
+
+                                flag_wti_ohlc_open = True
+                            else:
+                                WTI_현재가_버퍼.append(WTI_현재가)                        
+                        else:
+                            if df_wti_graph.at[ovc_x_idx, 'open'] != df_wti_graph.at[ovc_x_idx, 'open']:
+                                df_wti_graph.at[ovc_x_idx, 'open'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
+                                del WTI_현재가_버퍼[:]
                             else:
                                 pass
-                            
-                            del WTI_현재가_버퍼[:]
 
-                            flag_wti_ohlc_open = True
-                        else:
                             WTI_현재가_버퍼.append(WTI_현재가)
-                    else:
-                        if df_wti_graph.at[ovc_x_idx, 'open'] != df_wti_graph.at[ovc_x_idx, 'open']:
-                            df_wti_graph.at[ovc_x_idx, 'open'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
-                            del WTI_현재가_버퍼[:]
-                        else:
-                            pass
-
-                        WTI_현재가_버퍼.append(WTI_현재가)
-
-                        if max(WTI_현재가_버퍼) > 0:
-                            df_wti_graph.at[ovc_x_idx, 'high'] = max(WTI_현재가_버퍼)
-                        else:
-                            pass
-
-                        if min(WTI_현재가_버퍼) == 0:
 
                             if max(WTI_현재가_버퍼) > 0:
-                                df_wti_graph.at[ovc_x_idx, 'low'] = max(WTI_현재가_버퍼)
+                                df_wti_graph.at[ovc_x_idx, 'high'] = max(WTI_현재가_버퍼)
                             else:
                                 pass
-                        else:
-                            df_wti_graph.at[ovc_x_idx, 'low'] = min(WTI_현재가_버퍼)
-                        
-                        df_wti_graph.at[ovc_x_idx, 'close'] = WTI_현재가
 
-                        flag_wti_ohlc_open = False
+                            if min(WTI_현재가_버퍼) == 0:
+
+                                if max(WTI_현재가_버퍼) > 0:
+                                    df_wti_graph.at[ovc_x_idx, 'low'] = max(WTI_현재가_버퍼)
+                                else:
+                                    pass
+                            else:
+                                df_wti_graph.at[ovc_x_idx, 'low'] = min(WTI_현재가_버퍼)
+
+                            df_wti_graph.at[ovc_x_idx, 'close'] = WTI_현재가
+
+                            flag_wti_ohlc_open = False
+                    else:
+                        pass                              
 
                     # 간혹 HLC가 NaN인 경우 방어코드 추가
+                    '''
                     if df_wti_graph.at[ovc_x_idx, 'high'] != df_wti_graph.at[ovc_x_idx, 'high']:
 
                         df_wti_graph.at[ovc_x_idx, 'high'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
@@ -23497,7 +23508,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.textBrowser.append(str)
                         print(str)
                     else:
-                        pass   
+                        pass
+                    '''   
 
                     # Bollinger Bands
                     df_wti_graph.at[ovc_x_idx, 'middle'] = (df_wti_graph.at[ovc_x_idx, 'high'] + df_wti_graph.at[ovc_x_idx, 'low']) / 2
@@ -26368,7 +26380,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_14.setText(" - ")
             self.label_15.setText(" - ")
             self.label_16.setText(" - ")
-            self.label_17.setText(" 본월물: 0.00, 차월물: 0.00(차차월물) ")
+            self.label_17.setText(" 본월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
             self.label_18.setText(" - ")
             
             self.label_p1_2.setText(" BB Middle\n PSAR ")
@@ -27377,7 +27389,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_24.setText(" - ")
             self.label_25.setText(" - ")
             self.label_26.setText(" - ")
-            self.label_27.setText(" 본월물: 0.00, 차월물: 0.00(차차월물) ")
+            self.label_27.setText(" 본월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
             self.label_28.setText(" - ")
             
             self.label_p2_2.setText(" BB Middle\n PSAR ")
@@ -28209,7 +28221,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_34.setText(" - ")
             self.label_35.setText(" - ")
             self.label_36.setText(" - ")
-            self.label_37.setText(" 본월물: 0.00, 차월물: 0.00(차차월물) ")
+            self.label_37.setText(" 본월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
             self.label_38.setText(" - ")
             
             self.label_p3_2.setText(" BB Middle\n PSAR ")
@@ -28913,7 +28925,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_44.setText(" - ")
             self.label_45.setText(" - ")
             self.label_46.setText(" - ")
-            self.label_47.setText(" 본월물: 0.00, 차월물: 0.00(차차월물) ")
+            self.label_47.setText(" 본월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
             self.label_48.setText(" - ")
             
             self.label_p4_2.setText(" BB Middle\n PSAR ")
@@ -29927,7 +29939,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_54.setText(" - ")
             self.label_55.setText(" - ")
             self.label_56.setText(" - ")
-            self.label_57.setText(" 본월물: 0.00, 차월물: 0.00(차차월물) ")
+            self.label_57.setText(" 본월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
             self.label_58.setText(" - ")
             
             self.label_p5_2.setText(" BB Middle\n PSAR ")
@@ -30759,7 +30771,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_64.setText(" - ")
             self.label_65.setText(" - ")
             self.label_66.setText(" - ")
-            self.label_67.setText(" 본월물: 0.00, 차월물: 0.00(차차월물) ")
+            self.label_67.setText(" 본월물: 0.00, 차월물: 0.00, 차차월물: 0.00 ")
             self.label_68.setText(" - ")
             
             self.label_p6_2.setText(" BB Middle\n PSAR ")
