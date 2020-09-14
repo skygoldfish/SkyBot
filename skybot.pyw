@@ -23824,7 +23824,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # 간혹 HLC가 NaN인 경우 방어코드 추가
-                if df_futures_graph.at[ovc_x_idx, 'price'] != df_futures_graph.at[ovc_x_idx, 'price']:
+                if market_service and df_futures_graph.at[ovc_x_idx, 'price'] != df_futures_graph.at[ovc_x_idx, 'price']:
                     
                     df_futures_graph.at[ovc_x_idx, 'high'] = df_futures_graph.at[ovc_x_idx - 1, 'high']
                     df_futures_graph.at[ovc_x_idx, 'low'] = df_futures_graph.at[ovc_x_idx - 1, 'low']
