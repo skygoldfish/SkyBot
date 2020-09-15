@@ -15674,8 +15674,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         풋잔량비 = put_remainder_ratio
 
-        df_call_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = 콜잔량비
-        df_put_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = 풋잔량비
+        if 콜잔량비 > 5.0:
+            df_call_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = 5.0
+        else:
+            df_call_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = 콜잔량비
+
+        if 풋잔량비 > 5.0:
+            df_put_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = 5.0
+        else:
+            df_put_info_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = 풋잔량비
 
         #temp = call_quote['매수건수'] + call_quote['매도건수']
         #건수합 = format(temp, ',')
