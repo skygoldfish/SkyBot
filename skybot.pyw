@@ -12554,29 +12554,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if 선물_피봇 > 0:
+        if 선물_피봇 > 0 and self.is_within_n_tick(선물_피봇, 선물_저가, 10):
 
-            if self.is_within_n_tick(선물_피봇, 선물_저가, 10):
+            if NightTime:
 
-                if NightTime:
-
-                    # 임시대응
-                    if market_service:
-                        self.tableWidget_fut.item(0, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
-                        self.tableWidget_fut.item(0, Futures_column.피봇.value).setForeground(QBrush(검정색))
-                        self.tableWidget_fut.item(0, Futures_column.저가.value).setBackground(QBrush(콜피봇색))
-                        self.tableWidget_fut.item(0, Futures_column.저가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-                else:
-                    self.tableWidget_fut.item(1, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
-                    self.tableWidget_fut.item(1, Futures_column.피봇.value).setForeground(QBrush(검정색))
-                    self.tableWidget_fut.item(1, Futures_column.저가.value).setBackground(QBrush(콜피봇색))
-                    self.tableWidget_fut.item(1, Futures_column.저가.value).setForeground(QBrush(검정색))
+                self.tableWidget_fut.item(0, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
+                self.tableWidget_fut.item(0, Futures_column.피봇.value).setForeground(QBrush(검정색))
+                self.tableWidget_fut.item(0, Futures_column.저가.value).setBackground(QBrush(콜피봇색))
+                self.tableWidget_fut.item(0, Futures_column.저가.value).setForeground(QBrush(검정색))
             else:
-                pass
+                self.tableWidget_fut.item(1, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
+                self.tableWidget_fut.item(1, Futures_column.피봇.value).setForeground(QBrush(검정색))
+                self.tableWidget_fut.item(1, Futures_column.저가.value).setBackground(QBrush(콜피봇색))
+                self.tableWidget_fut.item(1, Futures_column.저가.value).setForeground(QBrush(검정색))
         else:
-            pass        
+            pass       
 
         if self.is_within_n_tick(선물_전저, 선물_고가, 10):
 
@@ -12626,27 +12618,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if 선물_피봇 > 0:
+        if 선물_피봇 > 0 and self.is_within_n_tick(선물_피봇, 선물_고가, 10):                
 
-            if self.is_within_n_tick(선물_피봇, 선물_고가, 10):                
-
-                if NightTime:
-                    
-                    # 임시대응
-                    if market_service:
-                        self.tableWidget_fut.item(0, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
-                        self.tableWidget_fut.item(0, Futures_column.피봇.value).setForeground(QBrush(검정색))
-                        self.tableWidget_fut.item(0, Futures_column.고가.value).setBackground(QBrush(콜피봇색))
-                        self.tableWidget_fut.item(0, Futures_column.고가.value).setForeground(QBrush(검정색))
-                    else:
-                        pass
-                else:
-                    self.tableWidget_fut.item(1, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
-                    self.tableWidget_fut.item(1, Futures_column.피봇.value).setForeground(QBrush(검정색))
-                    self.tableWidget_fut.item(1, Futures_column.고가.value).setBackground(QBrush(콜피봇색))
-                    self.tableWidget_fut.item(1, Futures_column.고가.value).setForeground(QBrush(검정색))
+            if NightTime:
+                
+                self.tableWidget_fut.item(0, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
+                self.tableWidget_fut.item(0, Futures_column.피봇.value).setForeground(QBrush(검정색))
+                self.tableWidget_fut.item(0, Futures_column.고가.value).setBackground(QBrush(콜피봇색))
+                self.tableWidget_fut.item(0, Futures_column.고가.value).setForeground(QBrush(검정색))
             else:
-                pass  
+                self.tableWidget_fut.item(1, Futures_column.피봇.value).setBackground(QBrush(콜피봇색))
+                self.tableWidget_fut.item(1, Futures_column.피봇.value).setForeground(QBrush(검정색))
+                self.tableWidget_fut.item(1, Futures_column.고가.value).setBackground(QBrush(콜피봇색))
+                self.tableWidget_fut.item(1, Futures_column.고가.value).setForeground(QBrush(검정색))
         else:
             pass
 
@@ -15815,12 +15799,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item = QTableWidgetItem(item_str)
         item.setTextAlignment(Qt.AlignCenter)
 
-        if 콜_수정미결퍼센트 > call_oi_init_value and 풋_수정미결퍼센트 < put_oi_init_value:
+        if 콜_수정미결퍼센트 > call_oi_init_value:
 
             item.setBackground(QBrush(적색))
             item.setForeground(QBrush(흰색))
 
-        elif 콜_수정미결퍼센트 < call_oi_init_value and 풋_수정미결퍼센트 > put_oi_init_value:
+        elif 풋_수정미결퍼센트 > put_oi_init_value:
 
             item.setBackground(QBrush(청색))
             item.setForeground(QBrush(흰색))    
@@ -16461,7 +16445,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if df['시가'] > 0:
+            if not NightTime and df['시가'] > 0:
 
                 fut_realdata['피봇'] = self.calc_pivot(fut_realdata['전저'], fut_realdata['전고'],
                                                          fut_realdata['종가'], df['시가'])
@@ -18060,7 +18044,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if NightTime:
                 
-                item_str = '{0:0.1f}% \n {1:0.1f}% '.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                item_str = '{0:0.2f}% \n {1:0.2f}% '.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -18195,7 +18179,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if cme_realdata['피봇'] > 0:
                     선물_피봇 = cme_realdata['피봇']
                 else:
-                    선물_피봇 = cme_realdata['종가']
+                    #선물_피봇 = cme_realdata['종가']
+                    pass
 
                 if df['시가'] > 0:
                     선물_시가 = df['시가']
@@ -18205,7 +18190,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if df['저가'] > 0:
                     선물_저가 = df['저가']
                 else:
-                    선물_저가 = cme_realdata['종가']
+                    #선물_저가 = cme_realdata['종가']
+                    pass
 
                 if df['현재가'] > 0:
                     선물_현재가 = df['현재가']
@@ -18215,7 +18201,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if df['고가'] > 0:
                     선물_고가 = df['고가']
                 else:
-                    선물_고가 = cme_realdata['종가']
+                    #선물_고가 = cme_realdata['종가']
+                    pass
             else:
                 pass    
             
@@ -19888,7 +19875,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem("{0:.2f}".format(block['전일고가']))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(t8416_call_count, Option_column.전고.value, item)
-
+                
                 if block['전일종가'] != df_call.at[t8416_call_count, '종가']:
 
                     df_call.at[t8416_call_count, '종가'] = block['전일종가']
@@ -19910,8 +19897,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     #str = '[{0:02d}:{1:02d}:{2:02d}] t2301과 t8416의 콜[{3}] 종가가 상이합니다. !!!\r'.format(dt.hour, dt.minute, dt.second, t8416_call_count + 1)
                     #self.textBrowser.append(str)
+                    #print(str)
                 else:
-                    pass
+                    pass                
 
                 if not pre_start:
 
@@ -20093,7 +20081,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item = QTableWidgetItem("{0:.2f}".format(block['전일고가']))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(t8416_put_count, Option_column.전고.value, item)
-
+                
                 if block['전일종가'] != df_put.at[t8416_put_count, '종가']:
 
                     df_put.at[t8416_put_count, '종가'] = block['전일종가']
@@ -20115,9 +20103,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     #str = '[{0:02d}:{1:02d}:{2:02d}] t2301과 t8416의 풋[{3}] 종가가 상이합니다. !!!\r'.format(dt.hour, dt.minute, dt.second, t8416_put_count + 1)
                     #self.textBrowser.append(str)
+                    #print(str)
                 else:
-                    pass
-                
+                    pass                
+
                 if not pre_start:
 
                     전저 = df_put.at[t8416_put_count, '전저']
