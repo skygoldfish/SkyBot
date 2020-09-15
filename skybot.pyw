@@ -5197,6 +5197,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_checkBox_HS
 
         dt = datetime.datetime.now()
+        now = time.localtime()
+
+        times = "%04d-%02d-%02d-%02d-%02d-%02d" % \
+                (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
 
         if self.checkBox_HS.isChecked() == True:
 
@@ -16096,11 +16100,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global flag_telegram_listen_worker, flag_telegram_send_worker
         global telegram_command
 
-        dt = datetime.datetime.now()
-        now = time.localtime()
-
-        times = "%04d-%02d-%02d-%02d-%02d-%02d" % \
-                (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+        dt = datetime.datetime.now()        
 
         flag_telegram_on = not flag_telegram_on
         
