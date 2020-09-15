@@ -34,6 +34,7 @@ My coreval = 3.50
 Asymmetric Market Ratio = 2
 OneWay Market Ratio = 3
 Golden Ratio = 0.618
+Cross Coloring Interval(minute) = 10
 Main Update Interval(msec) = 500
 Big Chart Update Interval(msec) = 500
 

@@ -602,6 +602,11 @@ with open('control_info.txt', mode='r') as control_file:
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
+    CROSS_COLOR_INTERVAL = int(temp[4])
+    print('CROSS_COLOR_INTERVAL =', CROSS_COLOR_INTERVAL)
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
     MAIN_UPDATE_INTERVAL = float(temp[4])
     print('MAIN_UPDATE_INTERVAL =', MAIN_UPDATE_INTERVAL)
 
@@ -6286,7 +6291,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         # 매 10분마다 교차컬러링 수행
                         if not flag_call_low_update and not flag_call_high_update and not flag_put_low_update and not flag_put_high_update:
 
-                            if flag_put_cross_coloring or (self.alternate_flag and dt.minute % 10 == 0 and dt.second == 0):
+                            if flag_put_cross_coloring or (self.alternate_flag and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 0):
 
                                 flag_call_cross_coloring = True
 
@@ -6312,7 +6317,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.call_node_color_update()
                                 self.call_coreval_color_update()                                
 
-                            elif flag_call_cross_coloring or (not self.alternate_flag and dt.minute % 10 == 0 and dt.second == 0):
+                            elif flag_call_cross_coloring or (not self.alternate_flag and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 0):
 
                                 flag_put_cross_coloring = True
 
