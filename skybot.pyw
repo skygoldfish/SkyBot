@@ -12709,6 +12709,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if not flag_futures_ohlc_open:
 
                         df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
+                        df_futures_graph.at[ovc_x_idx, 'high'] = 선물_현재가
+                        df_futures_graph.at[ovc_x_idx, 'low'] = 선물_현재가
+                        df_futures_graph.at[ovc_x_idx, 'middle'] = 선물_현재가
+                        df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
+                        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
+
                         del 선물_현재가_버퍼[:]
 
                         flag_futures_ohlc_open = True
@@ -21680,6 +21686,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 if not flag_futures_ohlc_open:
 
                                     df_futures_graph.at[ovc_x_idx, 'open'] = 선물_시가
+                                    df_futures_graph.at[ovc_x_idx, 'high'] = 선물_시가
+                                    df_futures_graph.at[ovc_x_idx, 'low'] = 선물_시가
+                                    df_futures_graph.at[ovc_x_idx, 'middle'] = 선물_시가
+                                    df_futures_graph.at[ovc_x_idx, 'close'] = 선물_시가
+                                    df_futures_graph.at[ovc_x_idx, 'price'] = 선물_시가
+
                                     del 선물_현재가_버퍼[:]
 
                                     flag_futures_ohlc_open = True
@@ -23104,7 +23116,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if not flag_dow_ohlc_open:
                             
-                                df_dow_graph.at[ovc_x_idx, 'open'] = DOW_현재가                            
+                                df_dow_graph.at[ovc_x_idx, 'open'] = DOW_현재가
+                                df_dow_graph.at[ovc_x_idx, 'high'] = DOW_현재가
+                                df_dow_graph.at[ovc_x_idx, 'low'] = DOW_현재가
+                                df_dow_graph.at[ovc_x_idx, 'middle'] = DOW_현재가
+                                df_dow_graph.at[ovc_x_idx, 'close'] = DOW_현재가
+                                df_dow_graph.at[ovc_x_idx, 'price'] = DOW_현재가
+
                                 del DOW_현재가_버퍼[:]
 
                                 flag_dow_ohlc_open = True
@@ -23323,7 +23341,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if not flag_nasdaq_ohlc_open:
                             
-                                df_nasdaq_graph.at[ovc_x_idx, 'open'] = NASDAQ_현재가                            
+                                df_nasdaq_graph.at[ovc_x_idx, 'open'] = NASDAQ_현재가
+                                df_nasdaq_graph.at[ovc_x_idx, 'high'] = NASDAQ_현재가
+                                df_nasdaq_graph.at[ovc_x_idx, 'low'] = NASDAQ_현재가
+                                df_nasdaq_graph.at[ovc_x_idx, 'middle'] = NASDAQ_현재가
+                                df_nasdaq_graph.at[ovc_x_idx, 'close'] = NASDAQ_현재가
+                                df_nasdaq_graph.at[ovc_x_idx, 'price'] = NASDAQ_현재가
+
                                 del NASDAQ_현재가_버퍼[:]
 
                                 flag_nasdaq_ohlc_open = True
@@ -23532,7 +23556,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if not flag_sp500_ohlc_open:
                             
-                                df_sp500_graph.at[ovc_x_idx, 'open'] = SP500_현재가                            
+                                df_sp500_graph.at[ovc_x_idx, 'open'] = SP500_현재가
+                                df_sp500_graph.at[ovc_x_idx, 'high'] = SP500_현재가
+                                df_sp500_graph.at[ovc_x_idx, 'low'] = SP500_현재가
+                                df_sp500_graph.at[ovc_x_idx, 'middle'] = SP500_현재가
+                                df_sp500_graph.at[ovc_x_idx, 'close'] = SP500_현재가
+                                df_sp500_graph.at[ovc_x_idx, 'price'] = SP500_현재가
+
                                 del SP500_현재가_버퍼[:]
 
                                 flag_sp500_ohlc_open = True
@@ -23766,7 +23796,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             if not flag_wti_ohlc_open:
                             
-                                df_wti_graph.at[ovc_x_idx, 'open'] = WTI_현재가                            
+                                df_wti_graph.at[ovc_x_idx, 'open'] = WTI_현재가
+                                df_wti_graph.at[ovc_x_idx, 'high'] = WTI_현재가
+                                df_wti_graph.at[ovc_x_idx, 'low'] = WTI_현재가
+                                df_wti_graph.at[ovc_x_idx, 'middle'] = WTI_현재가
+                                df_wti_graph.at[ovc_x_idx, 'close'] = WTI_현재가
+                                df_wti_graph.at[ovc_x_idx, 'price'] = WTI_현재가
+
                                 del WTI_현재가_버퍼[:]
 
                                 flag_wti_ohlc_open = True
