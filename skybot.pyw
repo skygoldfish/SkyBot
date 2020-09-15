@@ -37061,8 +37061,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dt = datetime.datetime.now()
 
-        #print(szTrCode, result)
-
         if szTrCode == 't0167':
 
             server_date, server_time = result
