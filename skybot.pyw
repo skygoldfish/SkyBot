@@ -15804,7 +15804,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         df_call_info_graph.at[ovc_x_idx, 'open_interest'] = 콜_수정미결퍼센트
         df_put_info_graph.at[ovc_x_idx, 'open_interest'] = 풋_수정미결퍼센트
 
-        item_str = '{0:.2f}({1:.2f})%\n{2:.2f}({3:.2f})%'.format(콜_수정미결퍼센트, call_oi_init_value, 풋_수정미결퍼센트, put_oi_init_value)
+        item_str = '{0:.2f}({1:.2f})% \n {2:.2f}({3:.2f})% '.format(콜_수정미결퍼센트, call_oi_init_value, 풋_수정미결퍼센트, put_oi_init_value)
 
         item = QTableWidgetItem(item_str)
         item.setTextAlignment(Qt.AlignCenter)
@@ -16409,7 +16409,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_call_info_graph.at[0, 'drate'] = 0
                 df_put_info_graph.at[0, 'drate'] = 0
 
-                item_str = '{0:0.2f}%\n{1:0.2f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                item_str = '{0:0.2f}% \n {1:0.2f}% '.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
@@ -18054,7 +18054,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if NightTime:
                 
-                item_str = '{0:0.1f}%\n{1:0.1f}%'.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
+                item_str = '{0:0.1f}% \n {1:0.1f}% '.format(콜_수정미결퍼센트, 풋_수정미결퍼센트)
 
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
