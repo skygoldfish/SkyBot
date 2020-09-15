@@ -5201,6 +5201,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if self.checkBox_HS.isChecked() == True:
 
             flag_checkBox_HS = True
+            
             '''
             self.OVC.UnadviseRealDataWithKey(종목코드=SP500)
             self.OVC.UnadviseRealDataWithKey(종목코드=WTI)
@@ -5224,6 +5225,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.telegram_listen_worker.terminate()
             else:
                 pass
+            
+            if not NightTime:
+
+                futures_graph_csv = "Futures_temp {}{}".format(times, '.csv')
+                df_futures_graph.to_csv(futures_graph_csv, encoding='ms949')
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 국내선물 Graph 파일을 저장합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+            else:
+                pass  
+
+            dow_graph_csv = "DOW_temp {}{}".format(times, '.csv')
+            df_dow_graph.to_csv(dow_graph_csv, encoding='ms949')
+
+            sp500_graph_csv = "SP500_temp {}{}".format(times, '.csv')
+            df_sp500_graph.to_csv(sp500_graph_csv, encoding='ms949')
+
+            nasdaq_graph_csv = "NASDAQ_temp {}{}".format(times, '.csv')
+            df_nasdaq_graph.to_csv(nasdaq_graph_csv, encoding='ms949')
+
+            wti_graph_csv = "WTI_temp {}{}".format(times, '.csv')
+            df_wti_graph.to_csv(wti_graph_csv, encoding='ms949')
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 Graph 파일을 저장합니다.\r'.format(dt.hour, dt.minute, dt.second)
+            self.textBrowser.append(str)
         else:
             flag_checkBox_HS = False
             '''
@@ -16163,33 +16189,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 flag_telegram_on = True
             else:
                 pass
-
-            #print('flag_telegram_on =', flag_telegram_on)
-
-        if not NightTime:
-
-            futures_graph_csv = "Futures_temp {}{}".format(times, '.csv')
-            df_futures_graph.to_csv(futures_graph_csv, encoding='ms949')
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 국내선물 Graph 파일을 저장합니다.\r'.format(dt.hour, dt.minute, dt.second)
-            self.textBrowser.append(str)
-        else:
-            pass  
-
-        dow_graph_csv = "DOW_temp {}{}".format(times, '.csv')
-        df_dow_graph.to_csv(dow_graph_csv, encoding='ms949')
-
-        sp500_graph_csv = "SP500_temp {}{}".format(times, '.csv')
-        df_sp500_graph.to_csv(sp500_graph_csv, encoding='ms949')
-
-        nasdaq_graph_csv = "NASDAQ_temp {}{}".format(times, '.csv')
-        df_nasdaq_graph.to_csv(nasdaq_graph_csv, encoding='ms949')
-
-        wti_graph_csv = "WTI_temp {}{}".format(times, '.csv')
-        df_wti_graph.to_csv(wti_graph_csv, encoding='ms949')
-
-        str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 Graph 파일을 저장합니다.\r'.format(dt.hour, dt.minute, dt.second)
-        self.textBrowser.append(str)
 
     def high_low_list_save_to_file(self):
         
