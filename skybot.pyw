@@ -37073,7 +37073,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.system_server_time_gap = systemtime - servertime
             시스템_서버_시간차 = systemtime - servertime
 
-            print('시스템 서버간 시간차이는 {0}초 입니다.'.format(self.system_server_time_gap))
+            print('시스템 서버간 시간차이는 {0}초 입니다.'.format(시스템_서버_시간차))
         else:
             pass
 
