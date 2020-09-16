@@ -37118,7 +37118,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 로봇 상태 저장
         self.SaveRobots()
 
-        self.statusbar.showMessage("연결이 끊겼습니��.")
+        self.statusbar.showMessage("연결이 끊겼습니다.")
 
         self.connection.login(url='demo.ebestsec.co.kr', id=self.id, pwd=self.pwd, cert=self.cert)
 
