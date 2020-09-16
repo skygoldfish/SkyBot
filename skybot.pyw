@@ -6556,7 +6556,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            # 오전 6시 10분경 증권사 서버초기화전에 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
+            # 증권사 서버초기화(오전 7시 10분경)전에 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
             if NightTime:
                 
                 #시스템시간 = dt.hour * 3600 + dt.minute * 60 + dt.second
@@ -6564,14 +6564,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if 서버시간 == 6 * 3600:
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 시스템 서버간 시간차 = {3}초... \r'.format(dt.hour, dt.minute, dt.second, 시스템_서버_시간차)
-                    self.textBrowser.append(str)
-                    print(str)
-
                     # 해외선물 지수요청 취소                    
                     self.OVC.UnadviseRealData()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소(서버시간) 합니다. \r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다. \r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
                     self.textBrowser.append(str)
                     print(str)
                 else:
