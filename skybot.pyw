@@ -6559,11 +6559,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 오전 6시 10분경 증권사 서버초기화전에 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
             if NightTime:
                 
-                시스템시간 = dt.hour * 3600 + dt.minute * 60 + dt.second
+                #시스템시간 = dt.hour * 3600 + dt.minute * 60 + dt.second
+                #보정된시간 = 시스템시간 - 시스템_서버_시간차
 
-                보정된시간 = 시스템시간 - 시스템_서버_시간차
-
-                if 보정된시간 == 6 * 3600 + 1 * 60:
+                if 서버시간 == 6 * 3600:
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 시스템 서버간 시간차 = {3}초... \r'.format(dt.hour, dt.minute, dt.second, 시스템_서버_시간차)
                     self.textBrowser.append(str)
@@ -6572,16 +6571,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 해외선물 지수요청 취소                    
                     self.OVC.UnadviseRealData()
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소(서버시간) 합니다. \r'.format \
-                        (OVC_HOUR, 
-                        OVC_MIN, 
-                        OVC_SEC)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소(서버시간) 합니다. \r'.format(OVC_HOUR, OVC_MIN, OVC_SEC)
                     self.textBrowser.append(str)
                     print(str)
                 else:
                     pass
 
-                if yagan_service_terminate and (dt.hour == 6 and dt.minute == 5):
+                # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
+                if yagan_service_terminate and 서버시간 == (6 * 3600 + 1 * 60):
 
                     if self.parent.connection.IsConnected():
 
@@ -6593,12 +6590,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         HANGSENG_당일종가 = HANGSENG_현재가
                         GOLD_당일종가 = GOLD_현재가
 
-                        # 다음날 해외선물 피봇계산을 위해 종료시(5시 59분 57초 ?) 마지막 값 저장
-                        str = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:.2f}\r'.format \
-                            (OVC_HOUR, 
-                            OVC_MIN, 
-                            OVC_SEC,
-                            CME_당일종가)
+                        # 다음날 해외선물 피봇계산을 위해 종료시(오전 6시) 마지막 값 저장
+                        str = '[{0:02d}:{1:02d}:{2:02d}] CME 종가 = {3:.2f}\r'.format(OVC_HOUR, OVC_MIN, OVC_SEC, CME_당일종가)
                         self.textBrowser.append(str)
                         print(str)
 
@@ -6712,8 +6705,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
             else:
-                # 16시에 프로그램을 오프라인으로 전환시킴
-                if jugan_service_terminate and (dt.hour == 16 and dt.minute == 0):
+                # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
+                if jugan_service_terminate and 서버시간 == (15 * 3600 + 46 * 60):
 
                     if self.parent.connection.IsConnected():
 
@@ -23135,8 +23128,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # 해외선물 시작시간과 동기를 맞춤
 
-                서버시간 = OVC_HOUR * 3600 + OVC_MIN * 60 + OVC_SEC
-                시스템_서버_시간차 = 시스템시간 - 서버시간
+                #서버시간 = OVC_HOUR * 3600 + OVC_MIN * 60 + OVC_SEC
+                #시스템_서버_시간차 = 시스템시간 - 서버시간
 
                 # 체결량정보 제공안됨 !!!
                 #매도누적체결수량 = int(result['매도누적체결수량'])
@@ -37141,7 +37134,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def OnReceiveData(self, szTrCode, result):
 
-        global 시스템_서버_시간차, flag_heartbeat
+        global 서버시간, 시스템_서버_시간차, flag_heartbeat
 
         dt = datetime.datetime.now()
 
@@ -37152,7 +37145,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             systemtime = int(dt.strftime('%H%M%S')[0:2]) * 3600 + int(dt.strftime('%H%M%S')[2:4]) * 60 + int(dt.strftime('%H%M%S')[4:6])
             servertime = int(server_time[0:2]) * 3600 + int(server_time[2:4]) * 60 + int(server_time[4:6])
 
-            self.system_server_time_gap = systemtime - servertime
+            #self.system_server_time_gap = systemtime - servertime
+            
+            서버시간 = servertime
             시스템_서버_시간차 = systemtime - servertime
 
             print('시스템 서버간 시간차이는 {0}초 입니다.'.format(시스템_서버_시간차))
@@ -37161,7 +37156,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
     def OnReceiveRealData(self, szTrCode, result):
-        # print(szTrCode, result)
         pass
 
     # ------------------------------------------------------------------------------------------------------------------
