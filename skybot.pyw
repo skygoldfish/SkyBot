@@ -32040,12 +32040,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 5 and market_service:
 
-                str = " {0:.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'])
+                str = " {0:.2f}({1:.2f}) ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_value)
                 self.label_16.setStyleSheet('background-color: blue ; color: white')
                 #self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_16.setText(str)
                 
-                str = " {0:.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'])
+                str = " {0:.2f}({1:.2f}) ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_value)
                 self.label_18.setStyleSheet('background-color: red ; color: white')
                 #self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_18.setText(str)
@@ -32879,12 +32879,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 5 and market_service:
 
-                str = " {0:.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'])
+                str = " {0:.2f}({1:.2f}) ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_value)
                 self.label_26.setStyleSheet('background-color: blue ; color: white')
                 #self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_26.setText(str)
                 
-                str = " {0:.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'])
+                str = " {0:.2f}({1:.2f}) ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_value)
                 self.label_28.setStyleSheet('background-color: red ; color: white')
                 #self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_28.setText(str)
@@ -33654,12 +33654,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 5 and market_service:
 
-                str = " {0:.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'])
+                str = " {0:.2f}({1:.2f}) ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_value)
                 self.label_36.setStyleSheet('background-color: blue ; color: white')
                 #self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_36.setText(str)
                 
-                str = " {0:.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'])
+                str = " {0:.2f}({1:.2f}) ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_value)
                 self.label_38.setStyleSheet('background-color: red ; color: white')
                 #self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_38.setText(str)
@@ -34435,12 +34435,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex4 == 5 and market_service:
 
-                str = " {0:.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'])
+                str = " {0:.2f}({1:.2f}) ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_value)
                 self.label_46.setStyleSheet('background-color: blue ; color: white')
                 #self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_46.setText(str)
                 
-                str = " {0:.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'])
+                str = " {0:.2f}({1:.2f}) ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_value)
                 self.label_48.setStyleSheet('background-color: red ; color: white')
                 #self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_48.setText(str)
@@ -35274,12 +35274,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex5 == 5 and market_service:
 
-                str = " {0:.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'])
+                str = " {0:.2f}({1:.2f}) ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_value)
                 self.label_56.setStyleSheet('background-color: blue ; color: white')
                 #self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_56.setText(str)
                 
-                str = " {0:.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'])
+                str = " {0:.2f}({1:.2f}) ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_value)
                 self.label_58.setStyleSheet('background-color: red ; color: white')
                 #self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_58.setText(str)
@@ -36049,12 +36049,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex6 == 5 and market_service:
 
-                str = " {0:.2f} ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'])
+                str = " {0:.2f}({1:.2f}) ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_value)
                 self.label_66.setStyleSheet('background-color: blue ; color: white')
                 #self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_66.setText(str)
                 
-                str = " {0:.2f} ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'])
+                str = " {0:.2f}({1:.2f}) ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_value)
                 self.label_68.setStyleSheet('background-color: red ; color: white')
                 #self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_68.setText(str)
