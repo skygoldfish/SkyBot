@@ -6748,10 +6748,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.textBrowser.append(str)
         print(str)
 
-        if OVC_SEC == 0:
+        # 0~29초, 30~59초인 경우로 분리대응
+        if 0 <= OVC_SEC <= 29:
             x_idx = ovc_x_idx - 1
         else:
-            x_idx = ovc_x_idx 
+            x_idx = ovc_x_idx
 
         if not NightTime and market_service and df_futures_graph.at[x_idx, 'price'] != df_futures_graph.at[x_idx, 'price']:
             
