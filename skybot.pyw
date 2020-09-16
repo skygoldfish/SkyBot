@@ -6574,7 +6574,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
-                if yagan_service_terminate and 서버시간 == (6 * 3600 + 1 * 60):
+                if yagan_service_terminate and 서버시간 >= (6 * 3600 + 1 * 60):
 
                     if self.parent.connection.IsConnected():
 
@@ -6702,7 +6702,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
             else:
                 # 장종료 1분후에 프로그램을 오프라인으로 전환시킴
-                if jugan_service_terminate and 서버시간 == (15 * 3600 + 46 * 60):
+                if jugan_service_terminate and 서버시간 >= (15 * 3600 + 46 * 60):
 
                     if self.parent.connection.IsConnected():
 
