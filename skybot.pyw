@@ -6751,7 +6751,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         #if adj_time1 <= dt.second <= adj_time2:
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 1 Min Heartbeat at OVC_SEC(SERVER_SEC) = {3}({4})\r'.format(dt.hour, dt.minute, dt.second, OVC_SEC, SERVER_SEC)
+        str = '[{0:02d}:{1:02d}:{2:02d}] 1 Min Heartbeat at OVC_SEC(SERVER_SEC) = {3}({4})\r'.format(adj_hour, adj_min, adj_sec, OVC_SEC, SERVER_SEC)
         self.textBrowser.append(str)
         print(str)
 
