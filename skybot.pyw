@@ -37199,7 +37199,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             #self.system_server_time_gap = systemtime - servertime
             시스템_서버_시간차 = systemtime - 서버시간
-            
+            print('*** SERVER_HOUR:SERVER_MIN:SERVER_SEC = [{0}:{1}:{2}], GAP = {3} ***\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차))
+            '''
             # X축 시간좌표 계산
             if NightTime:
 
@@ -37214,9 +37215,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 server_x_idx = (SERVER_HOUR - 주간선물_기준시간) * 60 + SERVER_MIN + 1
             
-            print('*** SERVER_HOUR:SERVER_MIN:SERVER_SEC = [{0}:{1}:{2}], GAP = {3} ***\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차))
-
-            flag_heartbeat = True            
+            flag_heartbeat = True
+            '''            
         else:
             pass
 
