@@ -16421,7 +16421,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 server_x_idx = (SERVER_HOUR - 주간선물_기준시간) * 60 + SERVER_MIN + 1
 
-            str = '[{0}:{1}:{2}] 서버시간을 수신하였습니다.(시간차 = {3}초)\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차)
+            str = 'S[{0:02d}:{1:02d}:{2:02d}] 서버시간을 수신하였습니다.(시간차 = {3}초)\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차)
             self.textBrowser.append(str)
             print(str)
 
