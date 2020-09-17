@@ -4239,7 +4239,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.setGeometry(left, top + 30, width, height - 60)
 
-        self.showMaximized()               
+        self.showMaximized()
+
+        self.XQ_t0167 = t0167(parent=self)              
 
         #주간선물_기준시간 = KSE_START_HOUR - 1
         #print('주,야간 변경 기준시간 =', 주간선물_기준시간)
@@ -6247,6 +6249,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             self.alternate_flag = not self.alternate_flag
             
+            if self.alternate_flag and dt.second == 0: # 매 0초(1분 주기)
+
+                # 현재 서버시간 조회
+                str = '[{0:02d}:{1:02d}:{2:02d}] 서버시간을 조회요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+                print(str)
+
+                self.XQ_t0167.Query()
+            else:
+                pass
+            
             # Market 유형을 시간과 함께 표시
             self.market_type_display(self.alternate_flag)
 
@@ -6750,8 +6763,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #adj_time2 = (59 + 시스템_서버_시간차) % 60
 
         #if adj_time1 <= dt.second <= adj_time2:
-
-        str = '[{0:02d}:{1:02d}:{2:02d}] 1 Min Heartbeat at OVC_SEC(SERVER_SEC) = {3}({4})\r'.format(adj_hour, adj_min, adj_sec, OVC_SEC, SERVER_SEC)
+        
+        str = '[{0:02d}:{1:02d}:{2:02d}] 1 Min Heartbeat({3}) at OVC_SEC(SERVER_SEC) = {4}({5})\r'.format(adj_hour, adj_min, adj_sec, server_x_idx, OVC_SEC, SERVER_SEC)
         self.textBrowser.append(str)
         print(str)
 
@@ -6760,7 +6773,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             x_idx = server_x_idx - 1
         else:
             x_idx = server_x_idx
-
+        
         if not NightTime and market_service and df_futures_graph.at[x_idx, 'price'] != df_futures_graph.at[x_idx, 'price']:
             
             df_futures_graph.at[x_idx, 'high'] = df_futures_graph.at[x_idx- 1, 'high']
@@ -6769,7 +6782,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_futures_graph.at[x_idx, 'close'] = df_futures_graph.at[x_idx - 1, 'close']
             df_futures_graph.at[x_idx, 'price'] = df_futures_graph.at[x_idx - 1, 'close']
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 방어코드 작동 at {3:d}({4:d})\r'.format(adj_hour, adj_min, adj_sec, x_idx, OVC_SEC)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 방어코드 작동 at {3:d}({4:d})\r'.format(adj_hour, adj_min, adj_sec, x_idx, server_x_idx)
             self.textBrowser.append(str)
             print(str)
         else:
@@ -6783,7 +6796,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_dow_graph.at[x_idx, 'close'] = df_dow_graph.at[x_idx - 1, 'close']
             df_dow_graph.at[x_idx, 'price'] = df_dow_graph.at[x_idx - 1, 'close']
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] DOW 방어코드 작동 at {3:d}({4:d})\r'.format(adj_hour, adj_min, adj_sec, x_idx, OVC_SEC)
+            str = '[{0:02d}:{1:02d}:{2:02d}] DOW 방어코드 작동 at {3:d}({4:d})\r'.format(adj_hour, adj_min, adj_sec, x_idx, server_x_idx)
             self.textBrowser.append(str)
             print(str)
         else:
@@ -6797,7 +6810,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_nasdaq_graph.at[x_idx, 'close'] = df_nasdaq_graph.at[x_idx - 1, 'close']
             df_nasdaq_graph.at[x_idx, 'price'] = df_nasdaq_graph.at[x_idx - 1, 'close']
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 방어코드 작동 at {3:d}({4:d})\r'.format(adj_hour, adj_min, adj_sec, x_idx, OVC_SEC)
+            str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 방어코드 작동 at {3:d}({4:d})\r'.format(adj_hour, adj_min, adj_sec, x_idx, server_x_idx)
             self.textBrowser.append(str)
             print(str)
         else:
@@ -6811,7 +6824,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_sp500_graph.at[x_idx, 'close'] = df_sp500_graph.at[x_idx - 1, 'close']
             df_sp500_graph.at[x_idx, 'price'] = df_sp500_graph.at[x_idx - 1, 'close']
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] SP500 방어코드 작동 at {3:d}({4:d})\r'.format(adj_hour, adj_min, adj_sec, x_idx, OVC_SEC)
+            str = '[{0:02d}:{1:02d}:{2:02d}] SP500 방어코드 작동 at {3:d}({4:d})\r'.format(adj_hour, adj_min, adj_sec, x_idx, server_x_idx)
             self.textBrowser.append(str)
             print(str)
         else:
@@ -6825,7 +6838,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df_wti_graph.at[x_idx, 'close'] = df_wti_graph.at[x_idx - 1, 'close']
             df_wti_graph.at[x_idx, 'price'] = df_wti_graph.at[x_idx - 1, 'close']
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] WTI 방어코드 작동 at {3:d}({4:d})\r'.format(adj_hour, adj_min, adj_sec, x_idx, OVC_SEC)
+            str = '[{0:02d}:{1:02d}:{2:02d}] WTI 방어코드 작동 at {3:d}({4:d})\r'.format(adj_hour, adj_min, adj_sec, x_idx, server_x_idx)
             self.textBrowser.append(str)
             print(str)
         else:
@@ -16375,6 +16388,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global df_futures_graph
 
+        global 서버시간, 시스템_서버_시간차, flag_heartbeat
+        global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx
+
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
 
@@ -16382,12 +16398,34 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             server_date, server_time = result
             
-            print('server date =', server_date)
-            print('server time =', server_time)
+            systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
-            system_server_timegap = int(dt.strftime('%H%M%S')) - int(server_time[0:6])
+            SERVER_HOUR = int(server_time[0:2])
+            SERVER_MIN = int(server_time[2:4])
+            SERVER_SEC = int(server_time[4:6])
 
-            print('system_server_timegap = ', system_server_timegap)
+            서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC
+            시스템_서버_시간차 = systemtime - 서버시간
+            
+            # X축 시간좌표 계산
+            if NightTime:
+
+                night_time = SERVER_HOUR
+
+                if 0 <= night_time <= 6:
+                    night_time = night_time + 24
+                else:
+                    pass
+
+                server_x_idx = (night_time - 야간선물_기준시간) * 60 + SERVER_MIN + 1             
+            else:
+                server_x_idx = (SERVER_HOUR - 주간선물_기준시간) * 60 + SERVER_MIN + 1
+
+            str = '[{0}:{1}:{2}] 서버시간을 수신하였습니다.(시간차 = {3}초)\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차)
+            self.textBrowser.append(str)
+            print(str)
+
+            flag_heartbeat = True
 
         elif szTrCode == 't1514':
 
@@ -37150,8 +37188,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if szTrCode == 't0167':
 
             server_date, server_time = result
-
-            systemtime = int(dt.strftime('%H%M%S')[0:2]) * 3600 + int(dt.strftime('%H%M%S')[2:4]) * 60 + int(dt.strftime('%H%M%S')[4:6])
+            
+            systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
 
             SERVER_HOUR = int(server_time[0:2])
             SERVER_MIN = int(server_time[2:4])
@@ -37178,7 +37216,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             print('*** SERVER_HOUR:SERVER_MIN:SERVER_SEC = [{0}:{1}:{2}], GAP = {3} ***\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차))
 
-            flag_heartbeat = True
+            flag_heartbeat = True            
         else:
             pass
 
