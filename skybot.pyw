@@ -1195,6 +1195,7 @@ option_volume_power = 0
 
 # 모든 시간은 해외선물 기준으로 처리
 server_x_idx = 0
+old_server_x_idx = 0
 
 call_itm_count = 0
 put_itm_count = 0
@@ -6250,7 +6251,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global drate_scale_factor 
             
             self.alternate_flag = not self.alternate_flag
-            
+            '''
             if self.alternate_flag and dt.second == 0: # 매 0초(1분 주기)
 
                 # 현재 서버시간 조회
@@ -6261,7 +6262,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.XQ_t0167.Query()
             else:
                 pass
-            
+            '''
             # Market 유형을 시간과 함께 표시
             self.market_type_display(self.alternate_flag)
 
@@ -6271,11 +6272,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 옵션 등락율 scale factor 읽어들임
                 drate_scale_factor = float(self.tableWidget_fut.item(2, Futures_column.진폭.value).text())
 
+                '''
                 # 서버시간 기준으로 1분마다 체크!!!
                 if flag_heartbeat:
                     self.check_ohlc_nan()
                 else:
                     pass
+                '''
                 
                 if not NightTime:
                     self.display_atm(self.alternate_flag)
@@ -20928,7 +20931,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global hangseng_delta, old_hangseng_delta, hangseng_직전대비, hangseng_text_color
             global gold_delta, old_gold_delta, gold_직전대비, gold_text_color
             global receive_real_ovc
-            global server_x_idx
+            global server_x_idx, old_server_x_idx
             
             global FC0_선물현재가, OC0_콜현재가, OC0_풋현재가
             global flag_telegram_send_worker
@@ -23158,8 +23161,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 OVC_체결시간 = result['체결시간_한국']
                 OVC_HOUR = int(OVC_체결시간[0:2])
                 OVC_MIN = int(OVC_체결시간[2:4])
-                OVC_SEC = int(OVC_체결시간[4:6])       
-                '''
+                OVC_SEC = int(OVC_체결시간[4:6])                       
+                
                 # X축 시간좌표 계산
                 if NightTime:
 
@@ -23183,7 +23186,50 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         server_x_idx = (OVC_HOUR - 주간선물_기준시간) * 60 + OVC_MIN + 1
                     else:
                         server_x_idx = 1
-                '''
+
+                if server_x_idx != old_server_x_idx:
+
+                    if not NightTime and market_service:
+                        df_futures_graph.at[server_x_idx, 'high'] = df_futures_graph.at[server_x_idx- 1, 'high']
+                        df_futures_graph.at[server_x_idx, 'low'] = df_futures_graph.at[server_x_idx - 1, 'low']
+                        df_futures_graph.at[server_x_idx, 'middle'] = df_futures_graph.at[server_x_idx - 1, 'middle']
+                        df_futures_graph.at[server_x_idx, 'close'] = df_futures_graph.at[server_x_idx - 1, 'close']
+                        df_futures_graph.at[server_x_idx, 'price'] = df_futures_graph.at[server_x_idx - 1, 'close']
+                    else:
+                        pass
+
+                    df_dow_graph.at[server_x_idx, 'high'] = df_dow_graph.at[server_x_idx - 1, 'high']
+                    df_dow_graph.at[server_x_idx, 'low'] = df_dow_graph.at[server_x_idx - 1, 'low']
+                    df_dow_graph.at[server_x_idx, 'middle'] = df_dow_graph.at[server_x_idx - 1, 'middle']
+                    df_dow_graph.at[server_x_idx, 'close'] = df_dow_graph.at[server_x_idx - 1, 'close']
+                    df_dow_graph.at[server_x_idx, 'price'] = df_dow_graph.at[server_x_idx - 1, 'close']
+
+                    df_nasdaq_graph.at[server_x_idx, 'high'] = df_nasdaq_graph.at[server_x_idx - 1, 'high']
+                    df_nasdaq_graph.at[server_x_idx, 'low'] = df_nasdaq_graph.at[server_x_idx - 1, 'low']
+                    df_nasdaq_graph.at[server_x_idx, 'middle'] = df_nasdaq_graph.at[server_x_idx - 1, 'middle']
+                    df_nasdaq_graph.at[server_x_idx, 'close'] = df_nasdaq_graph.at[server_x_idx - 1, 'close']
+                    df_nasdaq_graph.at[server_x_idx, 'price'] = df_nasdaq_graph.at[server_x_idx - 1, 'close']
+
+                    df_sp500_graph.at[server_x_idx, 'high'] = df_sp500_graph.at[server_x_idx - 1, 'high']
+                    df_sp500_graph.at[server_x_idx, 'low'] = df_sp500_graph.at[server_x_idx - 1, 'low']
+                    df_sp500_graph.at[server_x_idx, 'middle'] = df_sp500_graph.at[server_x_idx - 1, 'middle']
+                    df_sp500_graph.at[server_x_idx, 'close'] = df_sp500_graph.at[server_x_idx - 1, 'close']
+                    df_sp500_graph.at[server_x_idx, 'price'] = df_sp500_graph.at[server_x_idx - 1, 'close']
+
+                    df_wti_graph.at[server_x_idx, 'high'] = df_wti_graph.at[server_x_idx - 1, 'high']
+                    df_wti_graph.at[server_x_idx, 'low'] = df_wti_graph.at[server_x_idx - 1, 'low']
+                    df_wti_graph.at[server_x_idx, 'middle'] = df_wti_graph.at[server_x_idx - 1, 'middle']
+                    df_wti_graph.at[server_x_idx, 'close'] = df_wti_graph.at[server_x_idx - 1, 'close']
+                    df_wti_graph.at[server_x_idx, 'price'] = df_wti_graph.at[server_x_idx - 1, 'close']
+
+                    old_server_x_idx = server_x_idx
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] NaN 방어기능 작동 at {3:d}\r'.format(adj_hour, adj_min, adj_sec, server_x_idx)
+                    self.textBrowser.append(str)
+                    print(str)
+                else:
+                    pass
+                
                 # 해외선물 시작시간과 동기를 맞춤
 
                 #서버시간 = OVC_HOUR * 3600 + OVC_MIN * 60 + OVC_SEC
@@ -37192,8 +37238,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def OnReceiveData(self, szTrCode, result):
 
-        global 서버시간, 시스템_서버_시간차, flag_heartbeat
-        global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx
+        global 서버시간, 시스템_서버_시간차
+        global SERVER_HOUR, SERVER_MIN, SERVER_SEC
 
         dt = datetime.datetime.now()
 
@@ -37211,29 +37257,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             #self.system_server_time_gap = systemtime - servertime
             시스템_서버_시간차 = systemtime - 서버시간
-            print('*** SERVER_HOUR:SERVER_MIN:SERVER_SEC = [{0}:{1}:{2}], GAP = {3} ***\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차))
-            '''
-            # X축 시간좌표 계산
-            if NightTime:
-
-                night_time = SERVER_HOUR
-
-                if 0 <= night_time <= 6:
-                    night_time = night_time + 24
-                else:
-                    pass
-
-                server_x_idx = (night_time - 야간선물_기준시간) * 60 + SERVER_MIN + 1             
-            else:
-                server_x_idx = (SERVER_HOUR - 주간선물_기준시간) * 60 + SERVER_MIN + 1
-            
-            flag_heartbeat = True
-            '''            
+            print('*** SERVER_HOUR:SERVER_MIN:SERVER_SEC = [{0}:{1}:{2}], GAP = {3} ***\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차))                        
         else:
             pass
 
     def OnReceiveRealData(self, szTrCode, result):
         pass
+    
 
     # ------------------------------------------------------------------------------------------------------------------
     def MENU_Action(self, qaction):
