@@ -39,9 +39,9 @@ Main Update Interval(msec) = 500
 Big Chart Update Interval(msec) = 500
 
 [6]. << Code of the Foreign Futures (H/M/U/Z) >>
-S&P 500 = ESU20
-DOW = YMU20
-NASDAQ = NQU20
+S&P 500 = ESZ20
+DOW = YMZ20
+NASDAQ = NQZ20
 WTI = CLV20
 EUROFX = UROZ20
 HANGSENG = HSIU20
