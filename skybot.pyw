@@ -2345,6 +2345,8 @@ SERVER_HOUR = 0
 SERVER_MIN = 0
 SERVER_SEC = 0
 
+flag_server_touch = False
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -16396,6 +16398,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if szTrCode == 't0167':
 
+            global flag_server_touch
+
             server_date, server_time = result
             
             systemtime = dt.hour * 3600 + dt.minute * 60 + dt.second
@@ -16408,20 +16412,28 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             시스템_서버_시간차 = systemtime - 서버시간
             
             # X축 시간좌표 계산
-            if NightTime:
+            if not flag_server_touch:
 
-                night_time = SERVER_HOUR
+                if NightTime:
 
-                if 0 <= night_time <= 6:
-                    night_time = night_time + 24
+                    night_time = SERVER_HOUR
+
+                    if 0 <= night_time <= 6:
+                        night_time = night_time + 24
+                    else:
+                        pass
+
+                    server_x_idx = (night_time - 야간선물_기준시간) * 60 + SERVER_MIN + 1             
                 else:
-                    pass
+                    server_x_idx = (SERVER_HOUR - 주간선물_기준시간) * 60 + SERVER_MIN + 1
 
-                server_x_idx = (night_time - 야간선물_기준시간) * 60 + SERVER_MIN + 1             
+                flag_server_touch = True
             else:
-                server_x_idx = (SERVER_HOUR - 주간선물_기준시간) * 60 + SERVER_MIN + 1
+                pass
 
-            str = 'S[{0:02d}:{1:02d}:{2:02d}] 서버시간을 수신하였습니다.(시간차 = {3}초)\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차)
+            server_x_idx += 1
+
+            str = 'S[{0:02d}:{1:02d}:{2:02d}] 서버시간({3})을 수신하였습니다.(시간차 = {4}초)\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차)
             self.textBrowser.append(str)
             print(str)
 
