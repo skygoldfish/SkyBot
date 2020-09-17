@@ -16025,16 +16025,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if not NightTime:
 
-                if int(current_str[0:2]) == 7 and int(current_str[3:5]) > 10:
-                    pre_start = True
-                elif int(current_str[0:2]) == 8 and int(current_str[3:5]) <= 59:
-                    pre_start = True
-                elif 9 <= int(current_str[0:2]) <= 16:
+                if 9 <= dt.hour < 16:
                     pass
                 else:
-                    pass
+                    pre_start = True
             else:
-                if int(current_str[0:2]) == 17:
+                if 16 <= dt.hour < 18:
                     pre_start = True
                 else:
                     pass
@@ -20572,8 +20568,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.OVC.AdviseRealData(종목코드=NASDAQ)
                     self.OVC.AdviseRealData(종목코드=WTI)                
                     self.OVC.AdviseRealData(종목코드=HANGSENG)
-                    #self.OVC.AdviseRealData(종목코드=EUROFX)
-                    #self.OVC.AdviseRealData(종목코드=GOLD)
+                    self.OVC.AdviseRealData(종목코드=EUROFX)
+                    self.OVC.AdviseRealData(종목코드=GOLD)
 
                     # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)
                     self.OVH.AdviseRealData(종목코드=SP500)
@@ -23166,26 +23162,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # X축 시간좌표 계산
                 if NightTime:
 
-                    #global night_time
+                    night_time = OVC_HOUR
 
-                    if OVC_체결시간 != '':
-
-                        night_time = OVC_HOUR
-
-                        if 0 <= night_time <= 6:
-                            night_time = night_time + 24
-                        else:
-                            pass
-
-                        server_x_idx = (night_time - 야간선물_기준시간) * 60 + OVC_MIN + 1
+                    if 0 <= night_time <= 6:
+                        night_time = night_time + 24
                     else:
-                        server_x_idx = 1             
+                        pass
+
+                    server_x_idx = (night_time - 야간선물_기준시간) * 60 + OVC_MIN + 1         
                 else:                    
                     # 해외선물 개장시간은 국내시장의 2시간 전
-                    if OVC_체결시간 != '':
-                        server_x_idx = (OVC_HOUR - 주간선물_기준시간) * 60 + OVC_MIN + 1
-                    else:
-                        server_x_idx = 1
+                    server_x_idx = (OVC_HOUR - 주간선물_기준시간) * 60 + OVC_MIN + 1
 
                 if server_x_idx != old_server_x_idx:
 
@@ -24250,7 +24237,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
                     
-                elif result['종목코드'] == EUROFX:
+                elif result['종목코드'] == EUROFX and pre_start:
 
                     df_eurofx_graph.at[server_x_idx, 'price'] = result['체결가격']                    
                     
@@ -24367,7 +24354,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
                 
-                elif result['종목코드'] == GOLD:
+                elif result['종목코드'] == GOLD and pre_start:
 
                     df_gold_graph.at[server_x_idx, 'price'] = result['체결가격']
 
