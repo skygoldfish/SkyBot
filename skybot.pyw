@@ -5220,12 +5220,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if self.checkBox_HS.isChecked() == True:
 
             flag_checkBox_HS = True
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] EUROFX, GOLD 실시간요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            self.textBrowser.append(str)
             
-            '''
-            self.OVC.UnadviseRealDataWithKey(종목코드=SP500)
-            self.OVC.UnadviseRealDataWithKey(종목코드=WTI)
-            self.OVC.UnadviseRealDataWithKey(종목코드=HANGSENG)
-            '''            
+            self.OVC.UnadviseRealDataWithKey(종목코드=EUROFX)
+            self.OVC.UnadviseRealDataWithKey(종목코드=GOLD)                      
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 호가요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
@@ -5271,11 +5271,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(str)
         else:
             flag_checkBox_HS = False
-            '''
-            self.OVC.AdviseRealData(종목코드=SP500)
-            self.OVC.AdviseRealData(종목코드=WTI)                
-            self.OVC.AdviseRealData(종목코드=HANGSENG)
-            '''
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] EUROFX, GOLD 실시간요청을 재시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            self.textBrowser.append(str)
+
+            self.OVC.AdviseRealData(종목코드=EUROFX)
+            self.OVC.AdviseRealData(종목코드=GOLD)
             
             str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 호가를 재요청합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
@@ -6251,6 +6252,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global drate_scale_factor 
             
             self.alternate_flag = not self.alternate_flag
+
             '''
             if self.alternate_flag and dt.second == 0: # 매 0초(1분 주기)
 
@@ -6263,6 +6265,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
             '''
+
             # Market 유형을 시간과 함께 표시
             self.market_type_display(self.alternate_flag)
 
@@ -16389,15 +16392,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global df_futures_graph
 
-        global 서버시간, 시스템_서버_시간차, flag_heartbeat
-        global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx
-
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
 
         if szTrCode == 't0167':
-
-            global flag_server_touch
+            
+            global 서버시간, 시스템_서버_시간차, flag_heartbeat
+            global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx
 
             server_date, server_time = result
             
@@ -16411,26 +16412,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             시스템_서버_시간차 = systemtime - 서버시간
             
             # X축 시간좌표 계산
-            if not flag_server_touch:
+            if NightTime:
 
-                if NightTime:
+                night_time = SERVER_HOUR
 
-                    night_time = SERVER_HOUR
-
-                    if 0 <= night_time <= 6:
-                        night_time = night_time + 24
-                    else:
-                        pass
-
-                    server_x_idx = (night_time - 야간선물_기준시간) * 60 + SERVER_MIN + 1             
+                if 0 <= night_time <= 6:
+                    night_time = night_time + 24
                 else:
-                    server_x_idx = (SERVER_HOUR - 주간선물_기준시간) * 60 + SERVER_MIN + 1
+                    pass
 
-                flag_server_touch = True
+                server_x_idx = (night_time - 야간선물_기준시간) * 60 + SERVER_MIN + 1             
             else:
-                pass
-
-            server_x_idx += 1
+                server_x_idx = (SERVER_HOUR - 주간선물_기준시간) * 60 + SERVER_MIN + 1
 
             str = 'S[{0:02d}:{1:02d}:{2:02d}] 서버시간({3})을 수신하였습니다.(시간차 = {4}초)\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차)
             self.textBrowser.append(str)
@@ -20926,8 +20919,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global eurofx_delta, old_eurofx_delta, eurofx_직전대비, eurofx_text_color
             global hangseng_delta, old_hangseng_delta, hangseng_직전대비, hangseng_text_color
             global gold_delta, old_gold_delta, gold_직전대비, gold_text_color
-            global receive_real_ovc
-            global server_x_idx, old_server_x_idx
             
             global FC0_선물현재가, OC0_콜현재가, OC0_풋현재가
             global flag_telegram_send_worker
@@ -20967,6 +20958,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global NASDAQ_현재가_버퍼
             global WTI_현재가_버퍼
             global 선물_시가, 선물_피봇, 선물_현재가
+            
+            global receive_real_ovc, server_x_idx, old_server_x_idx
                         
             start_time = timeit.default_timer()
 
@@ -21457,7 +21450,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if result['예상체결가격'] != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
-                            df_call_price_graph.iat[server_x_idx, index] = float(result['예상체결가격'])
+                            if float(result['예상체결가격']) >= 10.0:
+                                df_call_price_graph.iat[server_x_idx, index] = 9.99
+                            else:
+                                df_call_price_graph.iat[server_x_idx, index] = float(result['예상체결가격'])
+
                             df_call.at[index, '시가'] = float(result['예상체결가격'])
 
                             if yj_atm_index > 0:
@@ -21570,7 +21567,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if result['예상체결가격'] != self.tableWidget_put.item(index, Option_column.시가.value).text():
 
-                            df_put_price_graph.iat[server_x_idx, index] = float(result['예상체결가격'])
+                            if float(result['예상체결가격']) >= 10.0:
+                                df_put_price_graph.iat[server_x_idx, index] = 9.99
+                            else:
+                                df_put_price_graph.iat[server_x_idx, index] = float(result['예상체결가격'])
+
                             df_put.at[index, '시가'] = float(result['예상체결가격'])
 
                             if yj_atm_index > 0:
@@ -23148,7 +23149,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             elif szTrCode == 'OVC':
 
                 #global NASDAQ_체결순매수, SP500_체결순매수, DOW_체결순매수, WTI_체결순매수, EUROFX_체결순매수, HANGSENG_체결순매수, GOLD_체결순매수
-                
+                                
                 if not receive_real_ovc:
                     receive_real_ovc = True
                 else:
@@ -23160,6 +23161,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 OVC_SEC = int(OVC_체결시간[4:6])                       
                 
                 # X축 시간좌표 계산
+                # 해외선물 시간과 동기를 맞춤
                 if NightTime:
 
                     night_time = OVC_HOUR
@@ -23216,11 +23218,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print(str)
                 else:
                     pass
-                
-                # 해외선물 시작시간과 동기를 맞춤
-
-                #서버시간 = OVC_HOUR * 3600 + OVC_MIN * 60 + OVC_SEC
-                #시스템_서버_시간차 = 시스템시간 - 서버시간
 
                 # 체결량정보 제공안됨 !!!
                 #매도누적체결수량 = int(result['매도누적체결수량'])
@@ -37225,8 +37222,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def OnReceiveData(self, szTrCode, result):
 
-        global 서버시간, 시스템_서버_시간차
-        global SERVER_HOUR, SERVER_MIN, SERVER_SEC
+        global 서버시간, 시스템_서버_시간차, flag_heartbeat
+        global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx
 
         dt = datetime.datetime.now()
 
@@ -37240,11 +37237,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             SERVER_MIN = int(server_time[2:4])
             SERVER_SEC = int(server_time[4:6])
 
-            서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC
-
-            #self.system_server_time_gap = systemtime - servertime
+            서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC            
             시스템_서버_시간차 = systemtime - 서버시간
-            print('*** SERVER_HOUR:SERVER_MIN:SERVER_SEC = [{0}:{1}:{2}], GAP = {3} ***\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차))                        
+
+            print('*** SERVER_HOUR:SERVER_MIN:SERVER_SEC = [{0}:{1}:{2}], GAP = {3} ***\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차))
+
+            flag_heartbeat = True                        
         else:
             pass
 
