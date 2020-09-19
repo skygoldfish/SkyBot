@@ -922,7 +922,7 @@ month_after_next = int(MONTH_AFTER_NEXT[4:6])
 GuardTime = 60 * 2
 
 # 오전 6시 ~ 7시는 Break Time
-if 7 <= int(current_str[0:2]) < 야간선물_기준시간:
+if 7 <= now.hour < 야간선물_기준시간:
     # 오전 7시 ~ 오후 3시 59분
     NightTime = False    
     day_timespan = 6 * 60 + 60 + 10
