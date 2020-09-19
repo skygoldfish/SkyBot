@@ -21450,11 +21450,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if result['예상체결가격'] != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
-                            if float(result['예상체결가격']) >= 10.0:
-                                df_call_price_graph.iat[server_x_idx, index] = 9.99
-                            else:
-                                df_call_price_graph.iat[server_x_idx, index] = float(result['예상체결가격'])
-
                             df_call.at[index, '시가'] = float(result['예상체결가격'])
 
                             if yj_atm_index > 0:
@@ -21472,13 +21467,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item.setTextAlignment(Qt.AlignCenter)
 
                             if float(result['예상체결가격']) > 종가:
+
                                 item.setForeground(QBrush(적색))
+
+                                if float(result['예상체결가격']) >= 10.0:
+                                    item.setBackground(QBrush(청색))
+                                else:
+                                    item.setBackground(QBrush(흰색))
+
                             elif float(result['예상체결가격']) < 종가:
+
                                 item.setForeground(QBrush(청색))
+
+                                if float(result['예상체결가격']) >= 10.0:
+                                    item.setBackground(QBrush(적색))
+                                else:
+                                    item.setBackground(QBrush(흰색))
                             else:
                                 item.setForeground(QBrush(검정색))
 
                             self.tableWidget_call.setItem(index, Option_column.시가.value, item)
+                            
+                            if float(result['예상체결가격']) >= 10.0:
+                                df_call_price_graph.iat[server_x_idx, index] = 9.99
+                            else:
+                                df_call_price_graph.iat[server_x_idx, index] = float(result['예상체결가격'])
 
                             if float(result['예상체결가격']) in COREVAL:
 
@@ -21567,11 +21580,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if result['예상체결가격'] != self.tableWidget_put.item(index, Option_column.시가.value).text():
 
-                            if float(result['예상체결가격']) >= 10.0:
-                                df_put_price_graph.iat[server_x_idx, index] = 9.99
-                            else:
-                                df_put_price_graph.iat[server_x_idx, index] = float(result['예상체결가격'])
-
                             df_put.at[index, '시가'] = float(result['예상체결가격'])
 
                             if yj_atm_index > 0:
@@ -21589,13 +21597,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item.setTextAlignment(Qt.AlignCenter)
 
                             if float(result['예상체결가격']) > 종가:
+
                                 item.setForeground(QBrush(적색))
+
+                                if float(result['예상체결가격']) >= 10.0:
+                                    item.setBackground(QBrush(청색))
+                                else:
+                                    item.setBackground(QBrush(흰색))
+
                             elif float(result['예상체결가격']) < 종가:
+
                                 item.setForeground(QBrush(청색))
+
+                                if float(result['예상체결가격']) >= 10.0:
+                                    item.setBackground(QBrush(적색))
+                                else:
+                                    item.setBackground(QBrush(흰색))
                             else:
                                 item.setForeground(QBrush(검정색))
 
                             self.tableWidget_put.setItem(index, Option_column.시가.value, item)
+                            
+                            if float(result['예상체결가격']) >= 10.0:
+                                df_put_price_graph.iat[server_x_idx, index] = 9.99
+                            else:
+                                df_put_price_graph.iat[server_x_idx, index] = float(result['예상체결가격'])
 
                             if float(result['예상체결가격']) in COREVAL:
 
