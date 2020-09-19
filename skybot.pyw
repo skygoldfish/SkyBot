@@ -927,9 +927,9 @@ if 4 < int(current_str[0:2]) < 야간선물_기준시간:
     day_timespan = 6 * 60 + 35 + 10
     jugan_timespan = GuardTime + day_timespan
 else:
-    # 오후 6시 ~ 익일 오전 5시
+    # 오후 6시 ~ 익일 오전 6시
     NightTime = True
-    nighttime_timespan = 11 * 60 + 10
+    nighttime_timespan = 12 * 60 + 10
     yagan_timespan = GuardTime + nighttime_timespan
 
 server_date = ''
@@ -25143,12 +25143,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.bc_Plot5.enableAutoRange('y', True)
         self.bc_Plot5.plotItem.showGrid(True, True, 0.5)
         #self.bc_Plot5.setRange(xRange=[0, jugan_timespan], padding=0) 
-        self.bc_Plot5.setXLink(self.bc_Plot4)
+        #self.bc_Plot5.setXLink(self.bc_Plot4)
 
         self.bc_Plot6.enableAutoRange('y', True)
         self.bc_Plot6.plotItem.showGrid(True, True, 0.5)
         #self.bc_Plot6.setRange(xRange=[0, jugan_timespan], padding=0) 
-        self.bc_Plot6.setXLink(self.bc_Plot4)
+        #self.bc_Plot6.setXLink(self.bc_Plot4)
 
         # Line & Curve of the Plot1 
         bc_plot1_time_line_start = self.bc_Plot1.addLine(x=0, y=None, pen=tpen)
