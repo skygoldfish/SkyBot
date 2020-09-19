@@ -921,7 +921,7 @@ month_after_next = int(MONTH_AFTER_NEXT[4:6])
 주간선물_기준시간 = KSE_START_HOUR - 2
 GuardTime = 60 * 2
 
-if 4 < int(current_str[0:2]) < 야간선물_기준시간:
+if 7 <= int(current_str[0:2]) < 야간선물_기준시간:
     # 오전 7시 ~ 오후 3시 30분
     NightTime = False    
     day_timespan = 6 * 60 + 35 + 10
