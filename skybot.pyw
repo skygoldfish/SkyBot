@@ -927,7 +927,7 @@ if 4 < int(current_str[0:2]) < 야간선물_기준시간:
     day_timespan = 6 * 60 + 35 + 10
     jugan_timespan = GuardTime + day_timespan
 else:
-    # 오후 6시 ~ 익일 오전 6시
+    # 오후 4시 ~ 익일 오전 6시
     NightTime = True
     nighttime_timespan = 12 * 60 + 10
     yagan_timespan = GuardTime + nighttime_timespan
