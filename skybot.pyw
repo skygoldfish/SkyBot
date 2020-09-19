@@ -917,7 +917,7 @@ current_month = int(CURRENT_MONTH[4:6])
 next_month = int(NEXT_MONTH[4:6])
 month_after_next = int(MONTH_AFTER_NEXT[4:6])
 
-# 국내장 시작 2시간전에 해외선물장을 시작함.(기술적 지표연산을 위해...)
+# 해외선물장은 오전 7시 시작
 주간선물_기준시간 = KSE_START_HOUR - 2
 GuardTime = 60 * 2
 
