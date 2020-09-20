@@ -2327,3 +2327,45 @@ class WOH(XAReal):
 
         if self.parent != None:
             self.parent.OnReceiveRealData(szTrCode, result)
+
+
+# US지수(MK2)
+class MK2(XAReal):
+    def __init__(self, parent=None, 식별자='식별자'):
+        super(__class__,self).__init__(parent=parent,식별자=식별자)
+        self.ActiveX.LoadFromResFile(self.RESFILE)
+
+    def AdviseRealData(self, 심볼코드):
+        self.ActiveX.SetFieldData(self.INBLOCK, "symbol", 심볼코드)
+        self.ActiveX.AdviseRealData()
+
+    def UnadviseRealDataWithKey(self, 심볼코드):
+        self.ActiveX.UnadviseRealDataWithKey(심볼코드)
+
+    def UnadviseRealData(self):
+        self.ActiveX.UnadviseRealData()
+
+    def OnReceiveRealData(self, szTrCode):
+        result = dict()
+        result['심볼코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "symbol")
+        result['일자'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "date")
+        result['시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "time")
+        result['한국일자'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kodate")
+        result['한국시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kotime")
+        result['시가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "open"))
+        result['고가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "high"))
+        result['저가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "low"))
+        result['현재가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "price"))
+        result['전일대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "sign")
+        result['전일대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "change"))
+        result['등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "uprate"))
+        result['매수호가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidho"))
+        result['매수잔량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidrem"))
+        result['매도호가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho"))
+        result['매도잔량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerrem"))
+        result['누적거래량'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "volume"))
+        result['심벌'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "xsymbol")
+        result['체결거래량'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "cvolume"))
+
+        if self.parent != None:
+            self.parent.OnReceiveRealData(szTrCode, result)
