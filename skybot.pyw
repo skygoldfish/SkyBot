@@ -24570,7 +24570,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     EUROFX_호가순매수 = 호가순매수
                     print('EURUSD 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
-                    df_eurofx_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = EUROFX_호가순매수
+                    #df_eurofx_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = EUROFX_호가순매수
 
                 elif result['심볼'] == DOW_SND:
 
@@ -24600,13 +24600,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     HANGSENG_호가순매수 = 호가순매수
                     print('HANGSENG_SND 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
-                    df_hangseng_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = HANGSENG_호가순매수
+                    #df_hangseng_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = HANGSENG_호가순매수
 
                 elif result['심볼'] == GOLD_SND:
-                    
+
                     GOLD_호가순매수 = 호가순매수
                     print('GOLD_SND 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
-                    df_gold_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = GOLD_호가순매수
+                    #df_gold_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = GOLD_호가순매수
                 else:
                     pass
             else:
