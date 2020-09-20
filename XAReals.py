@@ -2329,7 +2329,7 @@ class WOH(XAReal):
             self.parent.OnReceiveRealData(szTrCode, result)
 
 
-# US지수(MK2)
+# US지수(MK2) : 수급파악 용도로사용
 class MK2(XAReal):
     def __init__(self, parent=None, 식별자='식별자'):
         super(__class__,self).__init__(parent=parent,식별자=식별자)
