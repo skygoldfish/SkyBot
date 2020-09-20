@@ -1198,6 +1198,8 @@ option_volume_power = 0
 ovc_x_idx = 0
 old_ovc_x_idx = 0
 
+server_x_idx = 0
+
 call_itm_count = 0
 put_itm_count = 0
 
@@ -6257,19 +6259,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global drate_scale_factor 
             
             self.alternate_flag = not self.alternate_flag
-
-            '''
-            if self.alternate_flag and dt.second == 0: # 매 0초(1분 주기)
-
-                # 현재 서버시간 조회
-                str = '[{0:02d}:{1:02d}:{2:02d}] 서버시간을 조회요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
-                print(str)
-
-                self.XQ_t0167.Query()
+            
+            # 서버시간 기준으로 1분마다 체크!!!
+            if self.alternate_flag and flag_heartbeat:
+                self.heartbeat_check()
             else:
                 pass
-            '''
 
             # Market 유형을 시간과 함께 표시
             self.market_type_display(self.alternate_flag)
@@ -6279,14 +6274,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 # 옵션 등락율 scale factor 읽어들임
                 drate_scale_factor = float(self.tableWidget_fut.item(2, Futures_column.진폭.value).text())
-
-                '''
-                # 서버시간 기준으로 1분마다 체크!!!
-                if flag_heartbeat:
-                    self.check_ohlc_nan()
-                else:
-                    pass
-                '''
                 
                 if not NightTime:
                     self.display_atm(self.alternate_flag)
@@ -6764,98 +6751,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         except:
             pass
 
-    def check_ohlc_nan(self):
+    def heartbeat_check(self):
 
-        global df_futures_graph, df_dow_graph, df_nasdaq_graph, df_sp500_graph, df_wti_graph
-        global flag_heartbeat 
+        global flag_heartbeat
 
-        dt = datetime.datetime.now()
-        
-        # 간혹 HLC가 NaN인 경우 방어코드 추가
-        #adj_time1 = (50 + 시스템_서버_시간차) % 60
-        #adj_time2 = (59 + 시스템_서버_시간차) % 60
-
-        #if adj_time1 <= dt.second <= adj_time2:
-        
-        str = '[{0:02d}:{1:02d}:{2:02d}] 1 Min Heartbeat({3}) at OVC_SEC(SERVER_SEC) = {4}({5})\r'.format(adj_hour, adj_min, adj_sec, ovc_x_idx, OVC_SEC, SERVER_SEC)
+        str = 'S[{0:02d}:{1:02d}:{2:02d}] 1 Min Heartbeat({3})을 수신하였습니다.(시간차 = {4}초)\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차)
         self.textBrowser.append(str)
         print(str)
-
-        # 0~29초, 30~59초인 경우로 분리대응
-        if 0 <= SERVER_SEC <= 29:
-            x_idx = ovc_x_idx - 1
-        else:
-            x_idx = ovc_x_idx
-        
-        if not NightTime and market_service and df_futures_graph.at[x_idx, 'price'] != df_futures_graph.at[x_idx, 'price']:
-            
-            df_futures_graph.at[x_idx, 'high'] = df_futures_graph.at[x_idx- 1, 'high']
-            df_futures_graph.at[x_idx, 'low'] = df_futures_graph.at[x_idx - 1, 'low']
-            df_futures_graph.at[x_idx, 'middle'] = df_futures_graph.at[x_idx - 1, 'middle']
-            df_futures_graph.at[x_idx, 'close'] = df_futures_graph.at[x_idx - 1, 'close']
-            df_futures_graph.at[x_idx, 'price'] = df_futures_graph.at[x_idx - 1, 'close']
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 방어코드 작동 at {3:d}({4:d})\r'.format(adj_hour, adj_min, adj_sec, x_idx, ovc_x_idx)
-            self.textBrowser.append(str)
-            print(str)
-        else:
-            pass
-
-        if df_dow_graph.at[x_idx, 'price'] != df_dow_graph.at[x_idx, 'price']:
-
-            df_dow_graph.at[x_idx, 'high'] = df_dow_graph.at[x_idx - 1, 'high']
-            df_dow_graph.at[x_idx, 'low'] = df_dow_graph.at[x_idx - 1, 'low']
-            df_dow_graph.at[x_idx, 'middle'] = df_dow_graph.at[x_idx - 1, 'middle']
-            df_dow_graph.at[x_idx, 'close'] = df_dow_graph.at[x_idx - 1, 'close']
-            df_dow_graph.at[x_idx, 'price'] = df_dow_graph.at[x_idx - 1, 'close']
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] DOW 방어코드 작동 at {3:d}({4:d})\r'.format(adj_hour, adj_min, adj_sec, x_idx, ovc_x_idx)
-            self.textBrowser.append(str)
-            print(str)
-        else:
-            pass
-
-        if df_nasdaq_graph.at[x_idx, 'price'] != df_nasdaq_graph.at[x_idx, 'price']:
-
-            df_nasdaq_graph.at[x_idx, 'high'] = df_nasdaq_graph.at[x_idx - 1, 'high']
-            df_nasdaq_graph.at[x_idx, 'low'] = df_nasdaq_graph.at[x_idx - 1, 'low']
-            df_nasdaq_graph.at[x_idx, 'middle'] = df_nasdaq_graph.at[x_idx - 1, 'middle']
-            df_nasdaq_graph.at[x_idx, 'close'] = df_nasdaq_graph.at[x_idx - 1, 'close']
-            df_nasdaq_graph.at[x_idx, 'price'] = df_nasdaq_graph.at[x_idx - 1, 'close']
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] NASDAQ 방어코드 작동 at {3:d}({4:d})\r'.format(adj_hour, adj_min, adj_sec, x_idx, ovc_x_idx)
-            self.textBrowser.append(str)
-            print(str)
-        else:
-            pass
-
-        if df_sp500_graph.at[x_idx, 'price'] != df_sp500_graph.at[x_idx, 'price']:
-
-            df_sp500_graph.at[x_idx, 'high'] = df_sp500_graph.at[x_idx - 1, 'high']
-            df_sp500_graph.at[x_idx, 'low'] = df_sp500_graph.at[x_idx - 1, 'low']
-            df_sp500_graph.at[x_idx, 'middle'] = df_sp500_graph.at[x_idx - 1, 'middle']
-            df_sp500_graph.at[x_idx, 'close'] = df_sp500_graph.at[x_idx - 1, 'close']
-            df_sp500_graph.at[x_idx, 'price'] = df_sp500_graph.at[x_idx - 1, 'close']
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] SP500 방어코드 작동 at {3:d}({4:d})\r'.format(adj_hour, adj_min, adj_sec, x_idx, ovc_x_idx)
-            self.textBrowser.append(str)
-            print(str)
-        else:
-            pass
-                        
-        if df_wti_graph.at[x_idx, 'price'] != df_wti_graph.at[x_idx, 'price']:
-
-            df_wti_graph.at[x_idx, 'high'] = df_wti_graph.at[x_idx - 1, 'high']
-            df_wti_graph.at[x_idx, 'low'] = df_wti_graph.at[x_idx - 1, 'low']
-            df_wti_graph.at[x_idx, 'middle'] = df_wti_graph.at[x_idx - 1, 'middle']
-            df_wti_graph.at[x_idx, 'close'] = df_wti_graph.at[x_idx - 1, 'close']
-            df_wti_graph.at[x_idx, 'price'] = df_wti_graph.at[x_idx - 1, 'close']
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] WTI 방어코드 작동 at {3:d}({4:d})\r'.format(adj_hour, adj_min, adj_sec, x_idx, ovc_x_idx)
-            self.textBrowser.append(str)
-            print(str)
-        else:
-            pass
 
         flag_heartbeat = False 
 
@@ -37254,7 +37156,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def OnReceiveData(self, szTrCode, result):
 
         global 서버시간, 시스템_서버_시간차, flag_heartbeat
-        global SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx
+        global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx
 
         dt = datetime.datetime.now()
 
@@ -37270,6 +37172,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC            
             시스템_서버_시간차 = systemtime - 서버시간
+
+            if NightTime:
+
+                night_time = SERVER_HOUR
+
+                if 0 <= night_time <= 6:
+                    night_time = night_time + 24
+                else:
+                    pass
+
+                server_x_idx = (night_time - 야간선물_기준시간) * 60 + SERVER_MIN + 1         
+            else:                    
+                # 해외선물 개장시간은 국내시장의 2시간 전
+                server_x_idx = (SERVER_HOUR - 주간선물_기준시간) * 60 + SERVER_MIN + 1
 
             print('*** 서버시간 = [{0:02d}:{1:02d}:{2:02d}], 시스템시간 - 서버시간 = {3}초 ***\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차))
 
