@@ -47,12 +47,22 @@ EUROFX = UROZ20
 HANGSENG = HSIU20
 GOLD = GCZ20
 
-[7]. << Telegram >>
+[7]. << Supply & Demand Code Symbol of the Foreign Futures >>
+KRWUSD = USDKRWSMBS
+DOW SND = DJI@DJC
+S&P 500 SND = SPI@SPX
+NASDAQ SND = NAS@IXIC
+WTI SND = NYM@CLX20
+EURUSD = EURUSDCOMP
+HANGSENG SND = HSI@HSCI
+GOLD SND = HSI@HSCI
+
+[8]. << Telegram >>
 Telegram polling start time(minute) after service = 5
 Telegram polling interval(second) = 10
 Telegram send interval(second) = 5
 
-[8]. << Rules >>
+[9]. << Rules >>
 Threshold of the institutional party's supply & demand = 2500
 
 

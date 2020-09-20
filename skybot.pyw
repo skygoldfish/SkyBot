@@ -615,7 +615,7 @@ with open('control_info.txt', mode='r') as control_file:
     BIGCHART_UPDATE_INTERVAL = float(temp[5])
     print('BIGCHART_UPDATE_INTERVAL =', BIGCHART_UPDATE_INTERVAL)    
     
-    # [7]. << Code of the Foreign Futures (H/M/U/Z) >>
+    # [6]. << Code of the Foreign Futures (H/M/U/Z) >>
     tmp = control_file.readline().strip()
     tmp = control_file.readline().strip()
 
@@ -648,6 +648,44 @@ with open('control_info.txt', mode='r') as control_file:
     temp = tmp.split()
     GOLD = temp[2]
     print('GOLD =',GOLD)
+
+    # [7]. << Supply & Demand Code Symbol of the Foreign Futures >>
+    tmp = control_file.readline().strip()
+    tmp = control_file.readline().strip()
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    KRWUSD = temp[2]
+    print('KRWUSD =', KRWUSD)
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    DOW_SND = temp[3]
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    SP500_SND = temp[4]
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    NASDAQ_SND = temp[3]
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    WTI_SND = temp[3]
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    EURUSD = temp[2]
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    HANGSENG_SND = temp[3]
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    GOLD_SND = temp[3]
+    print('GOLD_SND =', GOLD_SND)
     
     # [8]. << Telegram >>
     tmp = control_file.readline().strip()
