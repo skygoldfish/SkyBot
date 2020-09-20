@@ -24554,40 +24554,56 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 호가순매수 = 매수잔량 - 매도잔량
 
                 if result['심볼'] == KRWUSD:
-                    print('원달러 환율 = {0} at {1}\r'.format(result['현재가'], result['한국시간']))
+                    
                     print('KRWUSD 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
 
+                    str = '원달러 환율 = {0} at {1}\r'.format(result['현재가'], result['한국시간'])
+                    print(str)
+
+                    if not NightTime:
+                        self.label_kosdaq.setText(str)
+                        self.label_kosdaq.setStyleSheet('background-color: black ; color: yellow')
+                    else:
+                        pass
+
                 elif result['심볼'] == EURUSD:
+
                     EUROFX_호가순매수 = 호가순매수
                     print('EURUSD 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
                     df_eurofx_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = EUROFX_호가순매수
 
                 elif result['심볼'] == DOW_SND:
+
                     DOW_호가순매수 = 호가순매수
                     print('DOW_SND 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
                     df_dow_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = DOW_호가순매수
 
                 elif result['심볼'] == SP500_SND:
+
                     SP500_호가순매수 = 호가순매수
                     print('SP500_SND 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
                     df_sp500_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = SP500_호가순매수
 
                 elif result['심볼'] == NASDAQ_SND:
+
                     NASDAQ_호가순매수 = 호가순매수
                     print('NASDAQ_SND 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
                     df_nasdaq_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = NASDAQ_호가순매수
 
                 elif result['심볼'] == WTI_SND:
+
                     WTI_호가순매수 = 호가순매수
                     print('WTI_SND 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
                     df_wti_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = WTI_호가순매수
 
                 elif result['심볼'] == HANGSENG_SND:
+
                     HANGSENG_호가순매수 = 호가순매수
                     print('HANGSENG_SND 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
                     df_hangseng_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = HANGSENG_호가순매수
 
                 elif result['심볼'] == GOLD_SND:
+                    
                     GOLD_호가순매수 = 호가순매수
                     print('GOLD_SND 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
                     df_gold_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = GOLD_호가순매수
