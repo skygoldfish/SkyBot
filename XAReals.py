@@ -2347,7 +2347,6 @@ class MK2(XAReal):
 
     def OnReceiveRealData(self, szTrCode):
         result = dict()
-        result['심볼코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "symbol")
         result['일자'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "date")
         result['시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "time")
         result['한국일자'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "kodate")
@@ -2364,7 +2363,7 @@ class MK2(XAReal):
         result['매도호가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho"))
         result['매도잔량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerrem"))
         result['누적거래량'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "volume"))
-        result['심벌'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "xsymbol")
+        result['심볼'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "xsymbol")
         result['체결거래량'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "cvolume"))
 
         if self.parent != None:
