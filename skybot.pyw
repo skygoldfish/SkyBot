@@ -925,10 +925,10 @@ GuardTime = 60 * 2
 if 7 <= now.hour < 야간선물_기준시간:
     # 오전 7시 ~ 오후 3시 59분
     NightTime = False    
-    day_timespan = 6 * 60 + 60 + 10
+    day_timespan = 7 * 60 + 10
     jugan_timespan = GuardTime + day_timespan
 else:
-    # 오후 4시 ~ 익일 오전 6시
+    # 오후 4시 ~ 익일 오전 5시 59분
     NightTime = True
     nighttime_timespan = 12 * 60 + 10
     yagan_timespan = GuardTime + nighttime_timespan
