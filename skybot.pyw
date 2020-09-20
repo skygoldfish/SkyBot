@@ -24557,7 +24557,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     print('KRWUSD 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
 
-                    str = '원달러 환율 = {0} at {1}\r'.format(result['현재가'], result['한국시간'])
+                    str = '환율: {0} at {1}\r'.format(result['현재가'], result['한국시간'])
                     print(str)
 
                     if not NightTime:
