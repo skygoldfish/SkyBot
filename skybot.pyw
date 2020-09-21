@@ -20540,6 +20540,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.OVH.AdviseRealData(종목코드=GOLD)                    
 
                     # 해외선물 수급 실시간 요청
+                    '''
                     self.MK2.AdviseRealData(심볼코드=KRWUSD)
                     self.MK2.AdviseRealData(심볼코드=EURUSD)
                     self.MK2.AdviseRealData(심볼코드=SP500_SND)
@@ -20548,6 +20549,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.MK2.AdviseRealData(심볼코드=HANGSENG_SND)
                     self.MK2.AdviseRealData(심볼코드=WTI_SND)
                     self.MK2.AdviseRealData(심볼코드=GOLD_SND)
+                    '''
 
                     if NightTime:                        
 
@@ -24569,6 +24571,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             elif szTrCode == 'MK2': # 분주기 데이타 제공하지 않음
 
                 #global NASDAQ_호가순매수, SP500_호가순매수, DOW_호가순매수, WTI_호가순매수, EUROFX_호가순매수, HANGSENG_호가순매수, GOLD_호가순매수
+
+                print('MK2 =', result)
                 
                 매수잔량 = result['매수잔량']
                 매도잔량 = result['매도잔량']
