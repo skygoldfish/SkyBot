@@ -21697,33 +21697,33 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     if result['예상체결가격'] != float(self.tableWidget_fut.item(1, Futures_column.시가.value).text()):
 
-                        선물_시가 = result['예상체결가격']
+                        #선물_시가 = result['예상체결가격']
                         선물_현재가 = result['예상체결가격']
                         fut_realdata['시가'] = result['예상체결가격']
 
-                        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_시가
+                        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
 
-                        item = QTableWidgetItem("{0:.2f}".format(선물_시가))
+                        item = QTableWidgetItem("{0:.2f}".format(선물_현재가))
                         item.setTextAlignment(Qt.AlignCenter)
 
-                        if 선물_시가 > fut_realdata['종가']:
+                        if 선물_현재가 > fut_realdata['종가']:
                             item.setForeground(QBrush(적색))
-                        elif 선물_시가 < fut_realdata['종가']:
+                        elif 선물_현재가 < fut_realdata['종가']:
                             item.setForeground(QBrush(청색))
                         else:
                             item.setForeground(QBrush(검정색))
 
                         self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
 
-                        시가갭 = 선물_시가 - fut_realdata['종가']
+                        시가갭 = 선물_현재가 - fut_realdata['종가']
 
                         item = QTableWidgetItem("{0:.2f}".format(시가갭))
                         item.setTextAlignment(Qt.AlignCenter)
 
-                        if 선물_시가 > fut_realdata['종가']:
+                        if 선물_현재가 > fut_realdata['종가']:
                             item.setBackground(QBrush(콜기준가색))
                             item.setForeground(QBrush(검정색))
-                        elif 선물_시가 < fut_realdata['종가']:
+                        elif 선물_현재가 < fut_realdata['종가']:
                             item.setBackground(QBrush(풋기준가색))
                             item.setForeground(QBrush(흰색))
                         else:
@@ -21731,7 +21731,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
 
-                        선물_피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
+                        선물_피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_현재가)
 
                         item = QTableWidgetItem("{0:.2f}".format(fut_realdata['피봇']))
                         item.setTextAlignment(Qt.AlignCenter)
@@ -21775,29 +21775,29 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if receive_real_ovc:
 
-                        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_시가
+                        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
 
                         # 1T OHLC 생성
                         df_futures_graph.at[ovc_x_idx, 'time'] = OVC_체결시간
 
-                        if 선물_시가 > 0:
+                        if 선물_현재가 > 0:
 
                             if OVC_SEC == 0:
 
                                 if not flag_futures_ohlc_open:
 
-                                    df_futures_graph.at[ovc_x_idx, 'open'] = 선물_시가
-                                    df_futures_graph.at[ovc_x_idx, 'high'] = 선물_시가
-                                    df_futures_graph.at[ovc_x_idx, 'low'] = 선물_시가
-                                    df_futures_graph.at[ovc_x_idx, 'middle'] = 선물_시가
-                                    df_futures_graph.at[ovc_x_idx, 'close'] = 선물_시가
-                                    df_futures_graph.at[ovc_x_idx, 'price'] = 선물_시가
+                                    df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
+                                    df_futures_graph.at[ovc_x_idx, 'high'] = 선물_현재가
+                                    df_futures_graph.at[ovc_x_idx, 'low'] = 선물_현재가
+                                    df_futures_graph.at[ovc_x_idx, 'middle'] = 선물_현재가
+                                    df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
+                                    df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
 
                                     del 선물_현재가_버퍼[:]
 
                                     flag_futures_ohlc_open = True
                                 else:
-                                    선물_현재가_버퍼.append(선물_시가)                            
+                                    선물_현재가_버퍼.append(선물_현재가)                            
                             else:
                                 if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
                                     df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
@@ -21805,7 +21805,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     pass
 
-                                선물_현재가_버퍼.append(선물_시가)
+                                선물_현재가_버퍼.append(선물_현재가)
 
                                 if max(선물_현재가_버퍼) > 0:
                                     df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
@@ -21821,7 +21821,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 else:
                                     df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
 
-                                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_시가
+                                df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
 
                                 flag_futures_ohlc_open = False
                         else:
