@@ -12964,7 +12964,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if 시가 != fut_open:
 
-            df_futures_graph.at[GuardTime, 'price'] = 선물_시가
+            df_futures_graph.at[GuardTime + 1, 'open'] = 선물_시가
 
             선물_피봇 = self.calc_pivot(선물_전저, 선물_전고, 선물_종가, 선물_시가)
 
@@ -13642,7 +13642,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
             df_call.at[index, '시가'] = 콜시가
-            df_call_price_graph.iat[GuardTime, index] = 콜시가
+            df_call_price_graph.iat[GuardTime + 1, index] = 콜시가
             
             item = QTableWidgetItem(시가)
             item.setTextAlignment(Qt.AlignCenter)
@@ -14751,7 +14751,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
             
             df_put.at[index, '시가'] = 풋시가
-            df_put_price_graph.iat[GuardTime, index] = 풋시가
+            df_put_price_graph.iat[GuardTime + 1, index] = 풋시가
             
             item = QTableWidgetItem(시가)
             item.setTextAlignment(Qt.AlignCenter)
@@ -16510,7 +16510,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_futures_graph.at[0, 'price'] = fut_realdata['종가']
 
                 if fut_realdata['시가'] > 0:
-                    df_futures_graph.at[GuardTime, 'price'] = fut_realdata['시가']
+                    df_futures_graph.at[GuardTime + 1, 'open'] = fut_realdata['시가']
                 else:
                     pass
 
@@ -16833,7 +16833,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         if not NightTime:
-                            df_call_price_graph.iat[GuardTime, i] = 시가
+                            df_call_price_graph.iat[GuardTime + 1, i] = 시가
                         else:
                             pass
 
@@ -17126,7 +17126,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         if not NightTime:
-                            df_put_price_graph.iat[GuardTime, i] = 시가
+                            df_put_price_graph.iat[GuardTime + 1, i] = 시가
                         else:
                             pass
 
@@ -18131,7 +18131,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_futures_graph.at[0, 'volume'] = 0
 
                 if df['시가'] > 0:
-                    df_futures_graph.at[GuardTime, 'price'] = df['시가']
+                    df_futures_graph.at[GuardTime + 1, 'open'] = df['시가']
                 else:
                     pass
 
@@ -18285,7 +18285,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 df_futures_graph.at[0, 'price'] = cme_realdata['종가']
 
                 if cme_realdata['시가'] > 0:
-                    df_futures_graph.at[GuardTime, 'price'] = cme_realdata['시가']
+                    df_futures_graph.at[GuardTime + 1, 'open'] = cme_realdata['시가']
                 else:
                     pass
 
@@ -18618,7 +18618,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        df_call_price_graph.iat[GuardTime, i] = 시가
+                        df_call_price_graph.iat[GuardTime + 1, i] = 시가
 
                         시가갭 = 시가 - 종가
                         df_call.at[i, '시가갭'] = 시가갭
@@ -18879,7 +18879,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        df_put_price_graph.iat[GuardTime, i] = 시가
+                        df_put_price_graph.iat[GuardTime + 1, i] = 시가
 
                         시가갭 = 시가 - 종가
                         df_put.at[i, '시가갭'] = 시가갭
