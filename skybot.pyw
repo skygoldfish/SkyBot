@@ -25754,7 +25754,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             str = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
             self.label_p1_1.setText(str) 
 
-            if bc_comboindex1 == 5:
+            if bc_comboindex1 == 6:
 
                 if df_futures_graph.at[plot_x, 'price'] == df_futures_graph.at[plot_x, 'price']:                    
                 
@@ -25768,7 +25768,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex1 == 7:
+            elif bc_comboindex1 == 8:
 
                 if df_sp500_graph.at[plot_x, 'price'] == df_sp500_graph.at[plot_x, 'price']:
                     
@@ -25782,7 +25782,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex1 == 8:
+            elif bc_comboindex1 == 9:
 
                 if df_dow_graph.at[plot_x, 'price'] == df_dow_graph.at[plot_x, 'price']:
                     
@@ -25796,7 +25796,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex1 == 9:
+            elif bc_comboindex1 == 10:
 
                 if df_nasdaq_graph.at[plot_x, 'price'] == df_nasdaq_graph.at[plot_x, 'price']:
                     
@@ -25810,7 +25810,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex1 == 10:
+            elif bc_comboindex1 == 11:
 
                 if df_wti_graph.at[plot_x, 'price'] == df_wti_graph.at[plot_x, 'price']:
                     
@@ -25846,7 +25846,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             str = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
             self.label_p2_1.setText(str)
 
-            if bc_comboindex2 == 7:
+            if bc_comboindex2 == 8:
 
                 if df_sp500_graph.at[plot_x, 'price'] == df_sp500_graph.at[plot_x, 'price']:
                     
@@ -25860,7 +25860,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex2 == 8:
+            elif bc_comboindex2 == 9:
 
                 if df_dow_graph.at[plot_x, 'price'] == df_dow_graph.at[plot_x, 'price']:
                     
@@ -25874,7 +25874,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex2 == 9:
+            elif bc_comboindex2 == 10:
 
                 if df_nasdaq_graph.at[plot_x, 'price'] == df_nasdaq_graph.at[plot_x, 'price']:
                     
@@ -25888,7 +25888,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex2 == 10:
+            elif bc_comboindex2 == 11:
 
                 if df_wti_graph.at[plot_x, 'price'] == df_wti_graph.at[plot_x, 'price']:
                     
@@ -25924,7 +25924,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             str = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
             self.label_p3_1.setText(str)
 
-            if bc_comboindex3 == 7:
+            if bc_comboindex3 == 8:
 
                 if df_sp500_graph.at[plot_x, 'price'] == df_sp500_graph.at[plot_x, 'price']:
                     
@@ -25938,7 +25938,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex3 == 8:
+            elif bc_comboindex3 == 9:
 
                 if df_dow_graph.at[plot_x, 'price'] == df_dow_graph.at[plot_x, 'price']:
                     
@@ -25952,7 +25952,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex3 == 9:
+            elif bc_comboindex3 == 10:
 
                 if df_nasdaq_graph.at[plot_x, 'price'] == df_nasdaq_graph.at[plot_x, 'price']:
                     
@@ -25966,7 +25966,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex3 == 10:
+            elif bc_comboindex3 == 11:
 
                 if df_wti_graph.at[plot_x, 'price'] == df_wti_graph.at[plot_x, 'price']:
                     
@@ -26002,7 +26002,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             str = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
             self.label_p4_1.setText(str) 
 
-            if bc_comboindex4 == 5:
+            if bc_comboindex4 == 6:
 
                 if df_futures_graph.at[plot_x, 'price'] == df_futures_graph.at[plot_x, 'price']:
                     
@@ -26016,7 +26016,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex4 == 7:
+            elif bc_comboindex4 == 8:
 
                 if df_sp500_graph.at[plot_x, 'price'] == df_sp500_graph.at[plot_x, 'price']:
                     
@@ -26030,7 +26030,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex4 == 8:
+            elif bc_comboindex4 == 9:
 
                 if df_dow_graph.at[plot_x, 'price'] == df_dow_graph.at[plot_x, 'price']:
                     
@@ -26044,7 +26044,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex4 == 9:
+            elif bc_comboindex4 == 10:
 
                 if df_nasdaq_graph.at[plot_x, 'price'] == df_nasdaq_graph.at[plot_x, 'price']:
                     
@@ -26058,7 +26058,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex4 == 10:
+            elif bc_comboindex4 == 11:
 
                 if df_wti_graph.at[plot_x, 'price'] == df_wti_graph.at[plot_x, 'price']:
                     
@@ -26092,7 +26092,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             str = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
             self.label_p5_1.setText(str)
 
-            if bc_comboindex5 == 7:
+            if bc_comboindex5 == 8:
 
                 if df_sp500_graph.at[plot_x, 'price'] == df_sp500_graph.at[plot_x, 'price']:
                     
@@ -26106,7 +26106,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex5 == 8:
+            elif bc_comboindex5 == 9:
 
                 if df_dow_graph.at[plot_x, 'price'] == df_dow_graph.at[plot_x, 'price']:
                     
@@ -26120,7 +26120,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex5 == 9:
+            elif bc_comboindex5 == 10:
 
                 if df_nasdaq_graph.at[plot_x, 'price'] == df_nasdaq_graph.at[plot_x, 'price']:
                     
@@ -26134,7 +26134,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex5 == 10:
+            elif bc_comboindex5 == 11:
 
                 if df_wti_graph.at[plot_x, 'price'] == df_wti_graph.at[plot_x, 'price']:
                     
@@ -26170,7 +26170,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             str = " X: {0:d}\n Y: {1:.2f} ".format(plot_x, plot_y)            
             self.label_p6_1.setText(str)
 
-            if bc_comboindex6 == 7:
+            if bc_comboindex6 == 8:
 
                 if df_sp500_graph.at[plot_x, 'price'] == df_sp500_graph.at[plot_x, 'price']:
                     
@@ -26184,7 +26184,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex6 == 8:
+            elif bc_comboindex6 == 9:
 
                 if df_dow_graph.at[plot_x, 'price'] == df_dow_graph.at[plot_x, 'price']:
                     
@@ -26198,7 +26198,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex6 == 9:
+            elif bc_comboindex6 == 10:
 
                 if df_nasdaq_graph.at[plot_x, 'price'] == df_nasdaq_graph.at[plot_x, 'price']:
                     
@@ -26212,7 +26212,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
 
-            elif bc_comboindex6 == 10:
+            elif bc_comboindex6 == 11:
 
                 if df_wti_graph.at[plot_x, 'price'] == df_wti_graph.at[plot_x, 'price']:
                     
