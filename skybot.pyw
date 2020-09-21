@@ -4309,7 +4309,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.label_kosdaq.setStyleSheet('background-color: black ; color: yellow')
 
         if NightTime:
-            self.label_samsung.setText("S&P 500: 가격 (전일대비, 등락율)")
+            self.label_samsung.setText("SP500: 가격 (전일대비, 등락율)")
         else:
             self.label_samsung.setText("SAMSUNG: 가격 (전일대비, 등락율)")
 
@@ -23778,7 +23778,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if flag_checkBox_HS:
 
-                        jisu_str = "S&P 500: {0} ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                        jisu_str = "SP500: {0} ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
                         if NightTime:
                             self.label_samsung.setStyleSheet('background-color: black ; color: white')
@@ -23831,9 +23831,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 if SP500_등락율 < 0:
 
                                     if min(대비리스트) > 0:
-                                        jisu_str = "S&P 500: {0} ({1:.2f}, {2:.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                        jisu_str = "SP500: {0} ({1:.2f}, {2:.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                     else:
-                                        jisu_str = "S&P 500: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                        jisu_str = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
                                     if NightTime:
                                         self.label_samsung.setText(jisu_str)
@@ -23847,9 +23847,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 elif SP500_등락율 > 0:  
 
                                     if min(대비리스트) > 0:
-                                        jisu_str = "S&P 500: {0} ▲ ({1:.2f}, {2:.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                        jisu_str = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)⬈".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                     else:
-                                        jisu_str = "S&P 500: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                        jisu_str = "SP500: {0} ▲ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
                                     if NightTime:
                                         self.label_samsung.setText(jisu_str)
@@ -23867,9 +23867,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 if SP500_등락율 < 0: 
 
                                     if max(대비리스트) < 0:
-                                        jisu_str = "S&P 500: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                        jisu_str = "SP500: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                     else:
-                                        jisu_str = "S&P 500: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                        jisu_str = "SP500: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
                                     if NightTime:
                                         self.label_samsung.setText(jisu_str)
@@ -23883,9 +23883,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 elif SP500_등락율 > 0:
 
                                     if max(대비리스트) < 0:
-                                        jisu_str = "S&P 500: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
+                                        jisu_str = "SP500: {0} ({1:.2f}, {2:.2f}%)⬊".format(체결가격, SP500_전일대비, SP500_등락율)                                    
                                     else:
-                                        jisu_str = "S&P 500: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
+                                        jisu_str = "SP500: {0} ▼ ({1:.2f}, {2:.2f}%)".format(체결가격, SP500_전일대비, SP500_등락율)
 
                                     if NightTime:
                                         self.label_samsung.setText(jisu_str)
