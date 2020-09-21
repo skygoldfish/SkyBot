@@ -5267,15 +5267,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG, EUROFX, GOLD 실시간수신을 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
             
-            #self.OVC.UnadviseRealDataWithKey(종목코드=WTI)
             self.OVC.UnadviseRealDataWithKey(종목코드=HANGSENG)
             self.OVC.UnadviseRealDataWithKey(종목코드=EUROFX)
-            self.OVC.UnadviseRealDataWithKey(종목코드=GOLD)                      
+            self.OVC.UnadviseRealDataWithKey(종목코드=GOLD)
 
+            '''
             str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 수급요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
 
             self.MK2.UnadviseRealData()
+            '''
+            
+            str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 호가요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            self.textBrowser.append(str)
+
+            self.OVH.UnadviseRealData()
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
@@ -5320,14 +5326,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG, EUROFX, GOLD 실시간수신을 재시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
 
-            #self.OVC.AdviseRealData(종목코드=WTI)
             self.OVC.AdviseRealData(종목코드=HANGSENG)
             self.OVC.AdviseRealData(종목코드=EUROFX)
             self.OVC.AdviseRealData(종목코드=GOLD)
             
-            str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 수급을 재요청합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 호가를 재요청합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
 
+            '''
             self.MK2.AdviseRealData(심볼코드=KRWUSD)
             self.MK2.AdviseRealData(심볼코드=EURUSD)
             self.MK2.AdviseRealData(심볼코드=SP500_SND)
@@ -5336,6 +5342,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.MK2.AdviseRealData(심볼코드=HANGSENG_SND)
             self.MK2.AdviseRealData(심볼코드=WTI_SND)
             self.MK2.AdviseRealData(심볼코드=GOLD_SND)
+            '''
+
+            # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)
+            self.OVH.AdviseRealData(종목코드=SP500)
+            self.OVH.AdviseRealData(종목코드=DOW)
+            self.OVH.AdviseRealData(종목코드=NASDAQ)
+            self.OVH.AdviseRealData(종목코드=WTI)
+            self.OVH.AdviseRealData(종목코드=HANGSENG)                
+            self.OVH.AdviseRealData(종목코드=EUROFX)                
+            self.OVH.AdviseRealData(종목코드=GOLD)
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 재기동합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
@@ -20514,16 +20530,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.OVC.AdviseRealData(종목코드=EUROFX)
                     self.OVC.AdviseRealData(종목코드=GOLD)
 
-                    # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)
-                    '''
+                    # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)                    
                     self.OVH.AdviseRealData(종목코드=SP500)
                     self.OVH.AdviseRealData(종목코드=DOW)
                     self.OVH.AdviseRealData(종목코드=NASDAQ)
                     self.OVH.AdviseRealData(종목코드=WTI)
                     self.OVH.AdviseRealData(종목코드=HANGSENG)                
                     self.OVH.AdviseRealData(종목코드=EUROFX)                
-                    self.OVH.AdviseRealData(종목코드=GOLD)
-                    '''
+                    self.OVH.AdviseRealData(종목코드=GOLD)                    
 
                     # 해외선물 수급 실시간 요청
                     self.MK2.AdviseRealData(심볼코드=KRWUSD)
@@ -24460,8 +24474,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
             elif szTrCode == 'OVH':
 
-                pass
-                '''
                 global NASDAQ_호가순매수, SP500_호가순매수, DOW_호가순매수, WTI_호가순매수, EUROFX_호가순매수, HANGSENG_호가순매수, GOLD_호가순매수
 
                 매도호가총건수 = int(result['매도호가총건수'])
@@ -24542,11 +24554,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                 else:
                     pass
-                '''
+                
 
-            elif szTrCode == 'MK2':
+            elif szTrCode == 'MK2': # 분주기 데이타 제공하지 않음
 
-                global NASDAQ_호가순매수, SP500_호가순매수, DOW_호가순매수, WTI_호가순매수, EUROFX_호가순매수, HANGSENG_호가순매수, GOLD_호가순매수
+                #global NASDAQ_호가순매수, SP500_호가순매수, DOW_호가순매수, WTI_호가순매수, EUROFX_호가순매수, HANGSENG_호가순매수, GOLD_호가순매수
                 
                 매수잔량 = result['매수잔량']
                 매도잔량 = result['매도잔량']
@@ -24568,43 +24580,43 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 elif result['심볼'] == EURUSD:
 
-                    EUROFX_호가순매수 = 호가순매수
+                    #EUROFX_호가순매수 = 호가순매수
                     print('EURUSD 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
                     #df_eurofx_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = EUROFX_호가순매수
 
                 elif result['심볼'] == DOW_SND:
 
-                    DOW_호가순매수 = 호가순매수
+                    #DOW_호가순매수 = 호가순매수
                     print('DOW_SND 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
-                    df_dow_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = DOW_호가순매수
+                    #df_dow_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = DOW_호가순매수
 
                 elif result['심볼'] == SP500_SND:
 
-                    SP500_호가순매수 = 호가순매수
+                    #SP500_호가순매수 = 호가순매수
                     print('SP500_SND 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
-                    df_sp500_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = SP500_호가순매수
+                    #df_sp500_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = SP500_호가순매수
 
                 elif result['심볼'] == NASDAQ_SND:
 
-                    NASDAQ_호가순매수 = 호가순매수
+                    #NASDAQ_호가순매수 = 호가순매수
                     print('NASDAQ_SND 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
-                    df_nasdaq_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = NASDAQ_호가순매수
+                    #df_nasdaq_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = NASDAQ_호가순매수
 
                 elif result['심볼'] == WTI_SND:
 
-                    WTI_호가순매수 = 호가순매수
+                    #WTI_호가순매수 = 호가순매수
                     print('WTI_SND 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
-                    df_wti_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = WTI_호가순매수
+                    #df_wti_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = WTI_호가순매수
 
                 elif result['심볼'] == HANGSENG_SND:
 
-                    HANGSENG_호가순매수 = 호가순매수
+                    #HANGSENG_호가순매수 = 호가순매수
                     print('HANGSENG_SND 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
                     #df_hangseng_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = HANGSENG_호가순매수
 
                 elif result['심볼'] == GOLD_SND:
 
-                    GOLD_호가순매수 = 호가순매수
+                    #GOLD_호가순매수 = 호가순매수
                     print('GOLD_SND 매수잔량 = {0}, 매도잔량 = {1}\r'.format(매수잔량, 매도잔량))
                     #df_gold_graph.at[ovc_x_idx, 'hoga_remainder_ratio'] = GOLD_호가순매수
                 else:
