@@ -2386,8 +2386,8 @@ fut_cms_hoga_rr = 0
 fut_ccms_hoga_cr = 0
 fut_ccms_hoga_rr = 0
 
-call_oloh_str = ''
-put_oloh_str = ''
+nm_call_oloh_str = ''
+nm_put_oloh_str = ''
 
 main_update_time = 0
 bc_ui_update_time = 0
@@ -4103,15 +4103,15 @@ class telegram_send_worker(QThread):
                         else:
                             pass
 
-                        # 차월물 야간옵션 OLOH 보고
-                        if call_oloh_str != '':
-                            str = call_oloh_str + ', ' + 'Put ▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
+                        # 차월물 옵션 OLOH 보고
+                        if nm_call_oloh_str != '':
+                            str = nm_call_oloh_str + ', ' + 'Put ▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
                             ToYourTelegram(str)
                         else:
                             pass
 
-                        if put_oloh_str != '':
-                            str = put_oloh_str + ', ' + 'Call ▲:▼ = ' + repr(call_ol_count) + ':' + repr(call_oh_count)
+                        if nm_put_oloh_str != '':
+                            str = nm_put_oloh_str + ', ' + 'Call ▲:▼ = ' + repr(call_ol_count) + ':' + repr(call_oh_count)
                             ToYourTelegram(str)
                         else:
                             pass
@@ -14290,7 +14290,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global call_open_count        
         global 콜시가갭합, 콜시가갭합_퍼센트, 콜시가갭합_단위평균, 콜대비_퍼센트_평균
         global call_otm_db, call_otm_db_percent
-        global call_oloh_str 
+        global nm_call_oloh_str 
         
         dt = datetime.datetime.now()
 
@@ -14496,9 +14496,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH_SELECT == 2:
 
                         if (call_ol_count == 0 and call_oh_count > 0) or (call_ol_count > 0 and call_oh_count == 0):
-                            call_oloh_str = 'NM Call ▲:▼ = ' + repr(call_ol_count) + ':' + repr(call_oh_count)
+                            nm_call_oloh_str = 'NM Call ▲:▼ = ' + repr(call_ol_count) + ':' + repr(call_oh_count)
                         else:
-                            call_oloh_str = ''
+                            nm_call_oloh_str = ''
                     else:
                         pass
                 else:
@@ -15402,7 +15402,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_open_count
         global 풋시가갭합, 풋시가갭합_퍼센트, 풋시가갭합_단위평균, 풋대비_퍼센트_평균
         global put_otm_db, put_otm_db_percent
-        global put_oloh_str
+        global nm_put_oloh_str
         
         dt = datetime.datetime.now()
 
@@ -15609,9 +15609,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if TARGET_MONTH_SELECT == 2:
 
                         if (put_ol_count == 0 and put_oh_count > 0) or (put_ol_count > 0 and put_oh_count == 0):                        
-                            put_oloh_str = 'NM Put ▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
+                            nm_put_oloh_str = 'NM Put ▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
                         else:
-                            put_oloh_str = ''
+                            nm_put_oloh_str = ''
                     else:
                         pass
                 else:
