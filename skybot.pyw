@@ -6176,8 +6176,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 5 Minute resample
         #df_sp500_ohlc_5min = df.resample('5T').ohlc()
         # 15 Minute resample
-        #df_sp500_ohlc_15min = df.resample('15T').ohlc()
-        
+        #df_sp500_ohlc_15min = df.resample('15T').ohlc()        
 
         # DOW OHLC 데이타프레임 생성        
         time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
@@ -6199,7 +6198,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #df_dow_ohlc_5min = df.resample('5T').ohlc()
         # 15 Minute resample
         #df_dow_ohlc_15min = df.resample('15T').ohlc()
-
         
         # NASDAQ OHLC 데이타프레임 생성        
         time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
@@ -6221,7 +6219,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 15 Minute resample
         #df_nasdaq_ohlc_15min = df.resample('15T').ohlc()
 
-
         # WTI OHLC 데이타프레임 생성        
         time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
         chetime = nowDate + ' ' + time_str
@@ -6241,7 +6238,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #df_wti_ohlc_5min = df.resample('5T').ohlc()
         # 15 Minute resample
         #df_wti_ohlc_15min = df.resample('15T').ohlc()
-
         
         # EUROFX OHLC 데이타프레임 생성        
         time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
@@ -6262,7 +6258,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #df_eurofx_ohlc_5min = df.resample('5T').ohlc()
         # 15 Minute resample
         #df_eurofx_ohlc_15min = df.resample('15T').ohlc()
-
         
         # HANGSENG OHLC 데이타프레임 생성        
         time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
@@ -6283,7 +6278,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #df_hangseng_ohlc_5min = df.resample('5T').ohlc()
         # 15 Minute resample
         #df_hangseng_ohlc_15min = df.resample('15T').ohlc()
-
 
         # GOLD OHLC 데이타프레임 생성        
         time_str = OVC_체결시간[0:2] + ':' + OVC_체결시간[2:4] + ':' + OVC_체결시간[4:6]
