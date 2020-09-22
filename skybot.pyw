@@ -15828,6 +15828,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         콜_수정미결합 = df_call['수정미결'].sum()
         풋_수정미결합 = df_put['수정미결'].sum()
+
+        oi_str = '{0}:{1}'.format(format(int(콜_수정미결합), ','), format(int(풋_수정미결합), ','))
+
+        item = QTableWidgetItem(oi_str)
+        self.tableWidget_quote.setHorizontalHeaderItem(Quote_column.미결종합.value - 1, item)
         
         old_oi_delta = oi_delta
         oi_delta = 콜_수정미결합 - 풋_수정미결합
@@ -17396,14 +17401,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     콜_순미결퍼센트 = (콜_순미결합 / 순미결합) * 100
                     풋_순미결퍼센트 = 100 - 콜_순미결퍼센트
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Call/Put OI 초기값 : {3}/{4}\r'.format(dt.hour,
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Call/Put OI 순미결 초기값 : {3}/{4}\r'.format(dt.hour,
                                             dt.minute, dt.second, format(콜_순미결합, ','), format(풋_순미결합, ','))
                     self.textBrowser.append(str)
-
-                    temp = '{0}k:{1}k'.format(format(int(콜_순미결합/1000), ','), format(int(풋_순미결합/1000), ','))
-
-                    item = QTableWidgetItem(temp)
-                    self.tableWidget_quote.setHorizontalHeaderItem(Quote_column.미결종합.value - 1, item)
                 else:
                     pass
 
@@ -17419,6 +17419,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     df_call_info_graph.at[0, 'open_interest'] = call_oi_init_value
                     df_put_info_graph.at[0, 'open_interest'] = put_oi_init_value
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Call/Put OI 수정미결 초기값 : {3}/{4}\r'.format(dt.hour,
+                                            dt.minute, dt.second, format(콜_수정미결합, ','), format(풋_수정미결합, ','))
+                    self.textBrowser.append(str)
+                    
+                    oi_str = '{0}k:{1}k'.format(format(int(콜_수정미결합/1000), ','), format(int(풋_수정미결합/1000), ','))
+
+                    item = QTableWidgetItem(oi_str)
+                    self.tableWidget_quote.setHorizontalHeaderItem(Quote_column.미결종합.value - 1, item)
                 else:
                     pass
 
