@@ -247,7 +247,7 @@ FILE_HIGH_LOW_LIST = []
 UI_STYLE = 'Horizontal_Large_View.ui' 
 
 # control file에서 필요한 정보를 가져옴
-with open('control_info.txt', mode='r') as control_file:
+with open('config.ini', mode='r') as control_file:
 
     # [1]. << Month Info >> 
     tmp = control_file.readline().strip()
@@ -307,7 +307,7 @@ with open('control_info.txt', mode='r') as control_file:
     print('\r')
     print('TELEGRAM_SERVICE =', TELEGRAM_SERVICE)
 
-    # 만기일 야간옵션은 control_info.txt에서 Mangi Yagan을 False -> True로 변경 
+    # 만기일 야간옵션은 config.ini에서 Mangi Yagan을 False -> True로 변경 
     tmp = control_file.readline().strip()
     temp = tmp.split()
     temp_str = temp[3]
@@ -348,7 +348,18 @@ with open('control_info.txt', mode='r') as control_file:
     else:
         CROSS_HAIR = False
 
-    print('CROSS_HAIR =', CROSS_HAIR)    
+    print('CROSS_HAIR =', CROSS_HAIR)
+
+    tmp = control_file.readline().strip()
+    temp = tmp.split()
+    temp_str = temp[4]
+
+    if temp_str == 'ON' or temp_str == 'on':
+        PLOT_SYNC = True
+    else:
+        PLOT_SYNC = False
+
+    print('PLOT_SYNC =', PLOT_SYNC)    
 
     # [4]. << Moving Average Type >>
     tmp = control_file.readline().strip()
@@ -25230,13 +25241,21 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         self.bc_Plot5.enableAutoRange('y', True)
         self.bc_Plot5.plotItem.showGrid(True, True, 0.5)
-        #self.bc_Plot5.setRange(xRange=[0, jugan_timespan], padding=0) 
-        #self.bc_Plot5.setXLink(self.bc_Plot4)
+        #self.bc_Plot5.setRange(xRange=[0, jugan_timespan], padding=0)
+
+        if PLOT_SYNC: 
+            self.bc_Plot5.setXLink(self.bc_Plot4)
+        else:
+            pass
 
         self.bc_Plot6.enableAutoRange('y', True)
         self.bc_Plot6.plotItem.showGrid(True, True, 0.5)
-        #self.bc_Plot6.setRange(xRange=[0, jugan_timespan], padding=0) 
-        #self.bc_Plot6.setXLink(self.bc_Plot4)
+        #self.bc_Plot6.setRange(xRange=[0, jugan_timespan], padding=0)
+
+        if PLOT_SYNC: 
+            self.bc_Plot6.setXLink(self.bc_Plot4)
+        else:
+            pass
 
         # Line & Curve of the Plot1 
         bc_plot1_time_line_start = self.bc_Plot1.addLine(x=0, y=None, pen=tpen)
