@@ -23192,7 +23192,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 OVC_체결시간 = result['체결시간_한국']
                 OVC_HOUR = int(OVC_체결시간[0:2])
                 OVC_MIN = int(OVC_체결시간[2:4])
-                OVC_SEC = int(OVC_체결시간[4:6])                       
+                OVC_SEC = int(OVC_체결시간[4:6])
+
+                # 과거값 저장
+                old_ovc_x_idx = ovc_x_idx                       
                 
                 # X축 시간좌표 계산
                 # 해외선물 시간과 동기를 맞춤
@@ -23210,6 +23213,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 해외선물 개장시간은 국내시장의 2시간 전
                     ovc_x_idx = (OVC_HOUR - 주간선물_기준시간) * 60 + OVC_MIN + 1
 
+                # 갱신된 현재값을 과거값과 비교
                 if ovc_x_idx != old_ovc_x_idx:
 
                     if not NightTime and market_service:
@@ -23244,8 +23248,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_wti_graph.at[ovc_x_idx, 'middle'] = df_wti_graph.at[ovc_x_idx - 1, 'middle']
                     df_wti_graph.at[ovc_x_idx, 'close'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
                     df_wti_graph.at[ovc_x_idx, 'price'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
-
-                    old_ovc_x_idx = ovc_x_idx
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] NaN 방어기능 작동 at {3:d}\r'.format(adj_hour, adj_min, adj_sec, ovc_x_idx)
                     self.textBrowser.append(str)
