@@ -254,18 +254,6 @@ parser.read('skybot.ini')
 # [1]. << Month Info >>
 KSE_START_HOUR = parser.getint('Month Info', 'KSE Start Hour')
 CURRENT_MONTH = parser.get('Month Info', 'Current Month')
-
-if int(CURRENT_MONTH[4:6]) == 11:
-
-    NEXT_MONTH = CURRENT_MONTH[0:4] + '12'
-    MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH[0:4]) + 1) + '01'
-elif int(CURRENT_MONTH[4:6]) == 12:
-    NEXT_MONTH = repr(int(CURRENT_MONTH[0:4]) + 1) + '01'
-    MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH[0:4]) + 1) + '02'
-else:
-    NEXT_MONTH = repr(int(CURRENT_MONTH) + 1)
-    MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH) + 2)
-
 MONTH_FIRSTDAY = parser.get('Month Info', 'First Day of the Current Month')
 
 # [2]. << Target Month Select : current month = 1, next month = 2 >>
@@ -278,6 +266,8 @@ AUTO_START = parser.getboolean('User Switch', 'Auto Start')
 ResizeRowsToContents = parser.getboolean('User Switch', 'Resize Rows To Contents')
 CROSS_HAIR = parser.getboolean('User Switch', 'Cross Hair Line')
 PLOT_SYNC = parser.getboolean('User Switch', 'Second Plot Sync')
+
+print('TELEGRAM_SERVICE =', TELEGRAM_SERVICE)
 
 # [4]. << Moving Average Type >>
 MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
@@ -321,6 +311,17 @@ TELEGRAM_SEND_INTERVAL = parser.getint('Telegram', 'Telegram send interval(secon
 # [9]. << Rules >>
 ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party supply & demand')
 #####################################################################################################################################################################
+
+if int(CURRENT_MONTH[4:6]) == 11:
+
+    NEXT_MONTH = CURRENT_MONTH[0:4] + '12'
+    MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH[0:4]) + 1) + '01'
+elif int(CURRENT_MONTH[4:6]) == 12:
+    NEXT_MONTH = repr(int(CURRENT_MONTH[0:4]) + 1) + '01'
+    MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH[0:4]) + 1) + '02'
+else:
+    NEXT_MONTH = repr(int(CURRENT_MONTH) + 1)
+    MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH) + 2)
 
 pre_진성맥점 = [1.20, 2.50, 3.50, 4.85, 5.10, 5.50, 6.85, 7.10, 8.10]
 
