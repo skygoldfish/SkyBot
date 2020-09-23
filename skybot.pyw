@@ -264,8 +264,8 @@ TELEGRAM_SERVICE = parser.getboolean('User Switch', 'Telegram service')
 MANGI_YAGAN = parser.getboolean('User Switch', 'Mangi Yagan')
 AUTO_START = parser.getboolean('User Switch', 'Auto Start')
 ResizeRowsToContents = parser.getboolean('User Switch', 'Resize Rows To Contents')
-CROSS_HAIR = parser.getboolean('User Switch', 'Cross Hair Line')
-PLOT_SYNC = parser.getboolean('User Switch', 'Second Plot Sync')
+CROSS_HAIR_LINE = parser.getboolean('User Switch', 'Cross Hair Line')
+SECOND_PLOT_SYNC = parser.getboolean('User Switch', 'Second Plot Sync')
 
 print('TELEGRAM_SERVICE =', TELEGRAM_SERVICE)
 
@@ -274,8 +274,8 @@ MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
 
 # [5]. << Initial Value >>
 HL_Depth = parser.getint('Initial Value', 'HL List Depth')
-야간선물_기준시간 = parser.getint('Initial Value', 'NightTime Pre-Start Hour')
-행사가갯수 = parser.getint('Initial Value', 'Actval count of the option pairs')
+NightTime_PreStart_Hour = parser.getint('Initial Value', 'NightTime Pre-Start Hour')
+ActvalCount = parser.getint('Initial Value', 'Actval count of the option pairs')
 MY_COREVAL = parser.getfloat('Initial Value', 'My coreval')
 ASYM_RATIO = parser.getfloat('Initial Value', 'Asymmetric Market Ratio')
 ONEWAY_RATIO = parser.getfloat('Initial Value', 'OneWay Market Ratio')
@@ -599,22 +599,22 @@ with open('config.ini', mode='r') as control_file:
     temp_str = temp[4]
 
     if temp_str == 'ON' or temp_str == 'on':
-        CROSS_HAIR = True
+        CROSS_HAIR_LINE = True
     else:
-        CROSS_HAIR = False
+        CROSS_HAIR_LINE = False
 
-    print('CROSS_HAIR =', CROSS_HAIR)
+    print('CROSS_HAIR_LINE =', CROSS_HAIR_LINE)
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
     temp_str = temp[4]
 
     if temp_str == 'ON' or temp_str == 'on':
-        PLOT_SYNC = True
+        SECOND_PLOT_SYNC = True
     else:
-        PLOT_SYNC = False
+        SECOND_PLOT_SYNC = False
 
-    print('PLOT_SYNC =', PLOT_SYNC)    
+    print('SECOND_PLOT_SYNC =', SECOND_PLOT_SYNC)    
 
     # [4]. << Moving Average Type >>
     tmp = control_file.readline().strip()
@@ -646,13 +646,12 @@ with open('config.ini', mode='r') as control_file:
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
-    야간선물_기준시간 = int(temp[4])
-    #print('야간선물_기준시간 =', 야간선물_기준시간)
+    NightTime_PreStart_Hour = int(temp[4])
+    #print('NightTime_PreStart_Hour =', NightTime_PreStart_Hour)
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
-    행사가갯수 = int(temp[7])
-
+    ActvalCount = int(temp[7])
     
     tmp = control_file.readline().strip()
     temp = tmp.split()
@@ -1207,7 +1206,6 @@ print('KP200 전일종가 =', KP200_전일종가)
 # 전역변수
 ########################################################################################################################
 모니터번호 = 0
-nRowCount = 행사가갯수
 
 now = datetime.datetime.now()        
 nowDate = now.strftime('%Y-%m-%d')
@@ -1226,11 +1224,11 @@ next_month = int(NEXT_MONTH[4:6])
 month_after_next = int(MONTH_AFTER_NEXT[4:6])
 
 # 해외선물장은 오전 7시 시작
-주간선물_기준시간 = KSE_START_HOUR - 2
+DayTime_PreStart_Hour = KSE_START_HOUR - 2
 GuardTime = 60 * 2
 
 # 오전 6시 ~ 7시는 Break Time
-if 7 <= now.hour < 야간선물_기준시간:
+if 7 <= now.hour < NightTime_PreStart_Hour:
     # 오전 7시 ~ 오후 3시 59분
     NightTime = False    
     day_timespan = 7 * 60 + 10
@@ -1752,26 +1750,26 @@ old_selected_opt_list = []
 call_node_state = dict()
 put_node_state = dict()
 
-yoc_call_gap_percent = [NaN] * nRowCount
-yoc_put_gap_percent = [NaN] * nRowCount
+yoc_call_gap_percent = [NaN] * ActvalCount
+yoc_put_gap_percent = [NaN] * ActvalCount
 
-call_open = [False] * nRowCount
-call_ol = [False] * nRowCount
-call_oh = [False] * nRowCount
-call_gap_percent = [NaN] * nRowCount
-call_db_percent = [NaN] * nRowCount
+call_open = [False] * ActvalCount
+call_ol = [False] * ActvalCount
+call_oh = [False] * ActvalCount
+call_gap_percent = [NaN] * ActvalCount
+call_db_percent = [NaN] * ActvalCount
 
-call_otm_db = [0] * nRowCount
-call_otm_db_percent = [NaN] * nRowCount
+call_otm_db = [0] * ActvalCount
+call_otm_db_percent = [NaN] * ActvalCount
 
-put_open = [False] * nRowCount
-put_ol = [False] * nRowCount
-put_oh = [False] * nRowCount
-put_gap_percent = [NaN] * nRowCount
-put_db_percent = [NaN] * nRowCount
+put_open = [False] * ActvalCount
+put_ol = [False] * ActvalCount
+put_oh = [False] * ActvalCount
+put_gap_percent = [NaN] * ActvalCount
+put_db_percent = [NaN] * ActvalCount
 
-put_otm_db = [0] * nRowCount
-put_otm_db_percent = [NaN] * nRowCount
+put_otm_db = [0] * ActvalCount
+put_otm_db_percent = [NaN] * ActvalCount
 
 콜대비_퍼센트_평균 = 0
 풋대비_퍼센트_평균 = 0
@@ -2452,8 +2450,8 @@ flag_fut_oh = False
 풋_저가 = ''
 풋_고가 = ''
 
-call_plot_data = [0] * nRowCount
-put_plot_data = [0] * nRowCount
+call_plot_data = [0] * ActvalCount
+put_plot_data = [0] * ActvalCount
 
 call_scroll = False
 put_scroll = False
@@ -4556,9 +4554,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.showMaximized()
 
         self.XQ_t0167 = t0167(parent=self)              
-
-        #주간선물_기준시간 = KSE_START_HOUR - 1
-        #print('주,야간 변경 기준시간 =', 주간선물_기준시간)
         
         # 위젯 선언 및 초기화
         self.pushButton_add.setStyleSheet("background-color: lightGray")
@@ -4595,7 +4590,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         stylesheet = "::section{Background-color: lightGray}"
 
         # call tablewidget 초기화
-        self.tableWidget_call.setRowCount(nRowCount)
+        self.tableWidget_call.setRowCount(ActvalCount)
         self.tableWidget_call.setColumnCount(Option_column.OID.value + 1)
         
         self.tableWidget_call.horizontalHeader().setStyleSheet(stylesheet)
@@ -4608,7 +4603,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_call.setAlternatingRowColors(True)
 
         # put tablewidget 초기화
-        self.tableWidget_put.setRowCount(nRowCount)
+        self.tableWidget_put.setRowCount(ActvalCount)
         self.tableWidget_put.setColumnCount(Option_column.OID.value + 1)
 
         self.tableWidget_put.horizontalHeader().setStyleSheet(stylesheet)
@@ -4623,7 +4618,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         call_cell_widget = []
         put_cell_widget = []
         
-        for i in range(nRowCount):
+        for i in range(ActvalCount):
 
             call_cell_widget.append(QWidget())            
             lay_out = QHBoxLayout(call_cell_widget[i])
@@ -5759,7 +5754,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_call.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
             
             # cell focus 이동
-            self.tableWidget_call.setCurrentCell(nRowCount, Option_column.OID.value)
+            self.tableWidget_call.setCurrentCell(ActvalCount, Option_column.OID.value)
             self.call_scroll_coloring()
         else:
             pass
@@ -5896,7 +5891,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_put.item(i, Option_column.시가.value).setForeground(QBrush(검정색))
             
             # cell focus 이동
-            self.tableWidget_put.setCurrentCell(nRowCount, Option_column.OID.value)
+            self.tableWidget_put.setCurrentCell(ActvalCount, Option_column.OID.value)
             self.put_scroll_coloring()
         else:
             pass
@@ -5958,7 +5953,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # cell focus 이동
-            self.tableWidget_call.setCurrentCell(nRowCount, Option_column.OID.value)
+            self.tableWidget_call.setCurrentCell(ActvalCount, Option_column.OID.value)
         else:
             pass
 
@@ -5991,7 +5986,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # cell focus 이동
-            self.tableWidget_put.setCurrentCell(nRowCount, Option_column.OID.value)
+            self.tableWidget_put.setCurrentCell(ActvalCount, Option_column.OID.value)
         else:
             pass
 
@@ -16595,9 +16590,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                ovc_x_idx = (night_time - 야간선물_기준시간) * 60 + SERVER_MIN + 1             
+                ovc_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + SERVER_MIN + 1             
             else:
-                ovc_x_idx = (SERVER_HOUR - 주간선물_기준시간) * 60 + SERVER_MIN + 1
+                ovc_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
 
             str = 'S[{0:02d}:{1:02d}:{2:02d}] 서버시간({3})을 수신하였습니다.(시간차 = {4}초)\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, 시스템_서버_시간차)
             self.textBrowser.append(str)
@@ -23405,10 +23400,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    ovc_x_idx = (night_time - 야간선물_기준시간) * 60 + OVC_MIN + 1         
+                    ovc_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + OVC_MIN + 1         
                 else:                    
                     # 해외선물 개장시간은 국내시장의 2시간 전
-                    ovc_x_idx = (OVC_HOUR - 주간선물_기준시간) * 60 + OVC_MIN + 1
+                    ovc_x_idx = (OVC_HOUR - DayTime_PreStart_Hour) * 60 + OVC_MIN + 1
 
                 # 갱신된 현재값을 과거값과 비교
                 if ovc_x_idx != old_ovc_x_idx:
@@ -25442,7 +25437,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.bc_Plot5.plotItem.showGrid(True, True, 0.5)
         #self.bc_Plot5.setRange(xRange=[0, jugan_timespan], padding=0)
 
-        if PLOT_SYNC: 
+        if SECOND_PLOT_SYNC: 
             self.bc_Plot5.setXLink(self.bc_Plot4)
         else:
             pass
@@ -25451,7 +25446,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.bc_Plot6.plotItem.showGrid(True, True, 0.5)
         #self.bc_Plot6.setRange(xRange=[0, jugan_timespan], padding=0)
 
-        if PLOT_SYNC: 
+        if SECOND_PLOT_SYNC: 
             self.bc_Plot6.setXLink(self.bc_Plot4)
         else:
             pass
@@ -25522,7 +25517,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot1_oe_base_curve = self.bc_Plot1.plot(pen=fama_pen)
         
         #cross hair
-        if CROSS_HAIR:
+        if CROSS_HAIR_LINE:
             bc_plot1_vLine = pg.InfiniteLine(angle=90, movable=False)
             bc_plot1_hLine = pg.InfiniteLine(angle=0, movable=False)
             self.bc_Plot1.addItem(bc_plot1_vLine, ignoreBounds=True)
@@ -25572,7 +25567,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_fut_volume_plus_curve = self.bc_Plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
         bc_plot2_fut_volume_minus_curve = self.bc_Plot2.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
         
-        for i in range(nRowCount):
+        for i in range(ActvalCount):
             bc_plot2_call_curve.append(self.bc_Plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             bc_plot2_put_curve.append(self.bc_Plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
         
@@ -25598,7 +25593,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot2_oe_base_curve = self.bc_Plot2.plot(pen=fama_pen)
 
         #cross hair
-        if CROSS_HAIR:
+        if CROSS_HAIR_LINE:
             bc_plot2_vLine = pg.InfiniteLine(angle=90, movable=False)
             bc_plot2_hLine = pg.InfiniteLine(angle=0, movable=False)
             self.bc_Plot2.addItem(bc_plot2_vLine, ignoreBounds=True)
@@ -25648,7 +25643,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot3_fut_volume_plus_curve = self.bc_Plot3.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
         bc_plot3_fut_volume_minus_curve = self.bc_Plot3.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
         
-        for i in range(nRowCount):
+        for i in range(ActvalCount):
             bc_plot3_call_curve.append(self.bc_Plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             bc_plot3_put_curve.append(self.bc_Plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
         
@@ -25674,7 +25669,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot3_oe_base_curve = self.bc_Plot3.plot(pen=fama_pen)
 
         #cross hair
-        if CROSS_HAIR:
+        if CROSS_HAIR_LINE:
             bc_plot3_vLine = pg.InfiniteLine(angle=90, movable=False)
             bc_plot3_hLine = pg.InfiniteLine(angle=0, movable=False)
             self.bc_Plot3.addItem(bc_plot3_vLine, ignoreBounds=True)
@@ -25751,7 +25746,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot4_oe_base_curve = self.bc_Plot4.plot(pen=fama_pen)
         
         #cross hair
-        if CROSS_HAIR:
+        if CROSS_HAIR_LINE:
             bc_plot4_vLine = pg.InfiniteLine(angle=90, movable=False)
             bc_plot4_hLine = pg.InfiniteLine(angle=0, movable=False)
             self.bc_Plot4.addItem(bc_plot4_vLine, ignoreBounds=True)
@@ -25801,7 +25796,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot5_fut_volume_plus_curve = self.bc_Plot5.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
         bc_plot5_fut_volume_minus_curve = self.bc_Plot5.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
         
-        for i in range(nRowCount):
+        for i in range(ActvalCount):
             bc_plot5_call_curve.append(self.bc_Plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             bc_plot5_put_curve.append(self.bc_Plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
         
@@ -25827,7 +25822,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot5_oe_base_curve = self.bc_Plot5.plot(pen=fama_pen)
 
         #cross hair
-        if CROSS_HAIR:
+        if CROSS_HAIR_LINE:
             bc_plot5_vLine = pg.InfiniteLine(angle=90, movable=False)
             bc_plot5_hLine = pg.InfiniteLine(angle=0, movable=False)
             self.bc_Plot5.addItem(bc_plot5_vLine, ignoreBounds=True)
@@ -25877,7 +25872,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot6_fut_volume_plus_curve = self.bc_Plot6.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
         bc_plot6_fut_volume_minus_curve = self.bc_Plot6.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
         
-        for i in range(nRowCount):
+        for i in range(ActvalCount):
             bc_plot6_call_curve.append(self.bc_Plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
             bc_plot6_put_curve.append(self.bc_Plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3))
         
@@ -25903,7 +25898,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         bc_plot6_oe_base_curve = self.bc_Plot6.plot(pen=fama_pen)
 
         #cross hair
-        if CROSS_HAIR:
+        if CROSS_HAIR_LINE:
             bc_plot6_vLine = pg.InfiniteLine(angle=90, movable=False)
             bc_plot6_hLine = pg.InfiniteLine(angle=0, movable=False)
             self.bc_Plot6.addItem(bc_plot6_vLine, ignoreBounds=True)
@@ -27686,7 +27681,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_call_oi_curve.clear()
             bc_plot2_put_oi_curve.clear()
                         
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot2_call_curve[i].clear()
                 bc_plot2_put_curve[i].clear()
 
@@ -27754,7 +27749,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_call_oi_curve.clear()
             bc_plot2_put_oi_curve.clear()
 
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot2_call_curve[i].clear()
                 bc_plot2_put_curve[i].clear()
 
@@ -27822,7 +27817,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_call_oi_curve.clear()
             bc_plot2_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot2_call_curve[i].clear()
                 bc_plot2_put_curve[i].clear()
 
@@ -27888,7 +27883,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_call_oi_curve.clear()
             bc_plot2_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot2_call_curve[i].clear()
                 bc_plot2_put_curve[i].clear()
 
@@ -27951,7 +27946,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_fut_volume_plus_curve.clear()
             bc_plot2_fut_volume_minus_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot2_call_curve[i].clear()
                 bc_plot2_put_curve[i].clear()
 
@@ -28017,7 +28012,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_fut_volume_plus_curve.clear()
             bc_plot2_fut_volume_minus_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot2_call_curve[i].clear()
                 bc_plot2_put_curve[i].clear()
 
@@ -28145,7 +28140,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_call_oi_curve.clear()
             bc_plot2_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot2_call_curve[i].clear()                
                 bc_plot2_put_curve[i].clear()
 
@@ -28251,7 +28246,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_call_oi_curve.clear()
             bc_plot2_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot2_call_curve[i].clear()
                 bc_plot2_put_curve[i].clear()
 
@@ -28357,7 +28352,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_call_oi_curve.clear()
             bc_plot2_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot2_call_curve[i].clear()
                 bc_plot2_put_curve[i].clear()
 
@@ -28463,7 +28458,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot2_call_oi_curve.clear()
             bc_plot2_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot2_call_curve[i].clear()
                 bc_plot2_put_curve[i].clear()
 
@@ -28611,7 +28606,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_call_oi_curve.clear()
             bc_plot3_put_oi_curve.clear()
                         
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot3_call_curve[i].clear()
                 bc_plot3_put_curve[i].clear()
 
@@ -28679,7 +28674,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_call_oi_curve.clear()
             bc_plot3_put_oi_curve.clear()
 
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot3_call_curve[i].clear()
                 bc_plot3_put_curve[i].clear()
 
@@ -28747,7 +28742,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_call_oi_curve.clear()
             bc_plot3_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot3_call_curve[i].clear()
                 bc_plot3_put_curve[i].clear()
 
@@ -28813,7 +28808,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_call_oi_curve.clear()
             bc_plot3_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot3_call_curve[i].clear()
                 bc_plot3_put_curve[i].clear()
 
@@ -28876,7 +28871,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_fut_volume_plus_curve.clear()
             bc_plot3_fut_volume_minus_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot3_call_curve[i].clear()
                 bc_plot3_put_curve[i].clear()
 
@@ -28942,7 +28937,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_fut_volume_plus_curve.clear()
             bc_plot3_fut_volume_minus_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot3_call_curve[i].clear()
                 bc_plot3_put_curve[i].clear()
 
@@ -29070,7 +29065,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_call_oi_curve.clear()
             bc_plot3_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot3_call_curve[i].clear()                
                 bc_plot3_put_curve[i].clear()
 
@@ -29176,7 +29171,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_call_oi_curve.clear()
             bc_plot3_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot3_call_curve[i].clear()
                 bc_plot3_put_curve[i].clear()
 
@@ -29282,7 +29277,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_call_oi_curve.clear()
             bc_plot3_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot3_call_curve[i].clear()
                 bc_plot3_put_curve[i].clear()
 
@@ -29388,7 +29383,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot3_call_oi_curve.clear()
             bc_plot3_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot3_call_curve[i].clear()
                 bc_plot3_put_curve[i].clear()
 
@@ -30514,7 +30509,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot5_call_oi_curve.clear()
             bc_plot5_put_oi_curve.clear()
                         
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot5_call_curve[i].clear()
                 bc_plot5_put_curve[i].clear()
 
@@ -30582,7 +30577,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot5_call_oi_curve.clear()
             bc_plot5_put_oi_curve.clear()
 
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot5_call_curve[i].clear()
                 bc_plot5_put_curve[i].clear()
 
@@ -30650,7 +30645,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot5_call_oi_curve.clear()
             bc_plot5_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot5_call_curve[i].clear()
                 bc_plot5_put_curve[i].clear()
 
@@ -30716,7 +30711,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot5_call_oi_curve.clear()
             bc_plot5_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot5_call_curve[i].clear()
                 bc_plot5_put_curve[i].clear()
 
@@ -30779,7 +30774,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot5_fut_volume_plus_curve.clear()
             bc_plot5_fut_volume_minus_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot5_call_curve[i].clear()
                 bc_plot5_put_curve[i].clear()
 
@@ -30845,7 +30840,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot5_fut_volume_plus_curve.clear()
             bc_plot5_fut_volume_minus_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot5_call_curve[i].clear()
                 bc_plot5_put_curve[i].clear()
 
@@ -30973,7 +30968,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot5_call_oi_curve.clear()
             bc_plot5_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot5_call_curve[i].clear()                
                 bc_plot5_put_curve[i].clear()
 
@@ -31079,7 +31074,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot5_call_oi_curve.clear()
             bc_plot5_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot5_call_curve[i].clear()
                 bc_plot5_put_curve[i].clear()
 
@@ -31185,7 +31180,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot5_call_oi_curve.clear()
             bc_plot5_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot5_call_curve[i].clear()
                 bc_plot5_put_curve[i].clear()
 
@@ -31291,7 +31286,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot5_call_oi_curve.clear()
             bc_plot5_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot5_call_curve[i].clear()
                 bc_plot5_put_curve[i].clear()
 
@@ -31439,7 +31434,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot6_call_oi_curve.clear()
             bc_plot6_put_oi_curve.clear()
                         
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot6_call_curve[i].clear()
                 bc_plot6_put_curve[i].clear()
 
@@ -31507,7 +31502,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot6_call_oi_curve.clear()
             bc_plot6_put_oi_curve.clear()
 
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot6_call_curve[i].clear()
                 bc_plot6_put_curve[i].clear()
 
@@ -31575,7 +31570,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot6_call_oi_curve.clear()
             bc_plot6_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot6_call_curve[i].clear()
                 bc_plot6_put_curve[i].clear()
 
@@ -31641,7 +31636,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot6_call_oi_curve.clear()
             bc_plot6_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot6_call_curve[i].clear()
                 bc_plot6_put_curve[i].clear()
 
@@ -31704,7 +31699,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot6_fut_volume_plus_curve.clear()
             bc_plot6_fut_volume_minus_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot6_call_curve[i].clear()
                 bc_plot6_put_curve[i].clear()
 
@@ -31770,7 +31765,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot6_fut_volume_plus_curve.clear()
             bc_plot6_fut_volume_minus_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot6_call_curve[i].clear()
                 bc_plot6_put_curve[i].clear()
 
@@ -31898,7 +31893,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot6_call_oi_curve.clear()
             bc_plot6_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot6_call_curve[i].clear()                
                 bc_plot6_put_curve[i].clear()
 
@@ -32004,7 +31999,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot6_call_oi_curve.clear()
             bc_plot6_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot6_call_curve[i].clear()
                 bc_plot6_put_curve[i].clear()
 
@@ -32110,7 +32105,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot6_call_oi_curve.clear()
             bc_plot6_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot6_call_curve[i].clear()
                 bc_plot6_put_curve[i].clear()
 
@@ -32216,7 +32211,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot6_call_oi_curve.clear()
             bc_plot6_put_oi_curve.clear()
             
-            for i in range(nRowCount):
+            for i in range(ActvalCount):
                 bc_plot6_call_curve[i].clear()
                 bc_plot6_put_curve[i].clear()
 
@@ -37555,10 +37550,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     pass
 
-                server_x_idx = (night_time - 야간선물_기준시간) * 60 + SERVER_MIN + 1         
+                server_x_idx = (night_time - NightTime_PreStart_Hour) * 60 + SERVER_MIN + 1         
             else:                    
                 # 해외선물 개장시간은 국내시장의 2시간 전
-                server_x_idx = (SERVER_HOUR - 주간선물_기준시간) * 60 + SERVER_MIN + 1
+                server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
 
             print('*** 서버시간 = [{0:02d}:{1:02d}:{2:02d}], 시스템시간 - 서버시간 = {3}초 ***\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차))
 
