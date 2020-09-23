@@ -250,12 +250,27 @@ UI_STYLE = 'Horizontal_Large_View.ui'
 parser = ConfigParser()
 parser.read('skybot.ini')
 
+# [1]. << Month Info >>
 KSE_START_HOUR = parser.getint('Month Info', 'KSE Start Hour')
 CURRENT_MONTH = parser.get('Month Info', 'Current Month')
+
+if int(CURRENT_MONTH[4:6]) == 11:
+
+    NEXT_MONTH = CURRENT_MONTH[0:4] + '12'
+    MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH[0:4]) + 1) + '01'
+elif int(CURRENT_MONTH[4:6]) == 12:
+    NEXT_MONTH = repr(int(CURRENT_MONTH[0:4]) + 1) + '01'
+    MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH[0:4]) + 1) + '02'
+else:
+    NEXT_MONTH = repr(int(CURRENT_MONTH) + 1)
+    MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH) + 2)
+
 MONTH_FIRSTDAY = parser.get('Month Info', 'First Day of the Current Month')
 
+# [2]. << Target Month Select : current month = 1, next month = 2 >>
 TARGET_MONTH_SELECT = parser.getint('Target Month Select', 'Target Month Select')
 
+# [3]. << User Option = 'ON or OFF' >>
 TELEGRAM_SERVICE = parser.getboolean('User Switch', 'Telegram service')
 MANGI_YAGAN = parser.getboolean('User Switch', 'Mangi Yagan')
 AUTO_START = parser.getboolean('User Switch', 'Auto Start')
@@ -263,8 +278,10 @@ ResizeRowsToContents = parser.getboolean('User Switch', 'Resize Rows To Contents
 CROSS_HAIR = parser.getboolean('User Switch', 'Cross Hair Line')
 PLOT_SYNC = parser.getboolean('User Switch', 'Second Plot Sync')
 
+# [4]. << Moving Average Type >>
 MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
 
+# [5]. << Initial Value >>
 HL_Depth = parser.getint('Initial Value', 'HL List Depth')
 야간선물_기준시간 = parser.getint('Initial Value', 'NightTime Pre-Start Hour')
 행사가갯수 = parser.getint('Initial Value', 'Actval count of the option pairs')
@@ -275,6 +292,34 @@ GOLDEN_RATIO = parser.getfloat('Initial Value', 'Golden Ratio')
 CROSS_COLOR_INTERVAL = parser.getint('Initial Value', 'Cross Coloring Interval(minute)')
 MAIN_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Main Update Interval(msec)')
 BIGCHART_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Big Chart Update Interval(msec)')
+
+# [6]. << Code of the Foreign Futures (H/M/U/Z) >>
+SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
+DOW = parser.get('Code of the Foreign Futures', 'DOW')
+NASDAQ = parser.get('Code of the Foreign Futures', 'NASDAQ')
+WTI = parser.get('Code of the Foreign Futures', 'WTI')
+EUROFX = parser.get('Code of the Foreign Futures', 'EUROFX')
+HANGSENG = parser.get('Code of the Foreign Futures', 'HANGSENG')
+GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
+
+# [7]. << Supply & Demand Code Symbol of the Foreign Futures >>
+KRWUSD = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'KRWUSD')
+DOW_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'DOW SND')
+SP500_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'S&P 500 SND')
+NASDAQ_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'NASDAQ SND')
+WTI_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'WTI SND')
+EURUSD = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'EURUSD')
+HANGSENG_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'HANGSENG SND')
+GOLD_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'GOLD SND')
+
+# [8]. << Telegram >>
+TELEGRAM_START_TIME = parser.getint('Telegram', 'Telegram polling start time(minute) after service')
+TELEGRAM_POLLING_INTERVAL = parser.getint('Telegram', 'Telegram polling interval(second)')
+TELEGRAM_SEND_INTERVAL = parser.getint('Telegram', 'Telegram send interval(second)')
+
+# [9]. << Rules >>
+ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party's supply & demand')
+
 '''
 
 # control file에서 필요한 정보를 가져옴
