@@ -246,10 +246,11 @@ GOLD_당일종가 = 0
 FILE_HIGH_LOW_LIST = []
 
 UI_STYLE = 'Horizontal_Large_View.ui'
-'''
+
 parser = ConfigParser()
 parser.read('skybot.ini')
 
+#####################################################################################################################################################################
 # [1]. << Month Info >>
 KSE_START_HOUR = parser.getint('Month Info', 'KSE Start Hour')
 CURRENT_MONTH = parser.get('Month Info', 'Current Month')
@@ -318,10 +319,187 @@ TELEGRAM_POLLING_INTERVAL = parser.getint('Telegram', 'Telegram polling interval
 TELEGRAM_SEND_INTERVAL = parser.getint('Telegram', 'Telegram send interval(second)')
 
 # [9]. << Rules >>
-ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party's supply & demand')
+ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party supply & demand')
+#####################################################################################################################################################################
+
+pre_진성맥점 = [1.20, 2.50, 3.50, 4.85, 5.10, 5.50, 6.85, 7.10, 8.10]
+
+pre_진성맥점.append(MY_COREVAL)
+pre_진성맥점 = list(set(pre_진성맥점))
+pre_진성맥점.sort()
+
+DEFAULT_NODE_LIST = pre_진성맥점[:]
+
+bms_node_val1 = 0
+bms_node_val2 = 0
+bms_node_val3 = 0
+bms_node_val4 = 0
+bms_node_val5 = 0
+bms_node_val6 = 0
+
+pre_high_low_list = []
+bms_node_list = []
+bms_node_frequency_list = []
+
+if os.path.exists('HL-List.txt'):
+
+    # 저가, 고가 리스트에서 맥점 추출
+    with open('HL-List.txt', mode='r') as hlfile:
+        
+        # 한줄씩 읽어서 리스트에 저장
+        file_list = []
+        hlfile_line_number = 0
+        while True:
+
+            line = hlfile.readline().strip()
+            hlfile_line_number += 1
+            temp = line.split()
+            for i in range(len(temp)):
+                file_list.append(float(temp[i]))
+            if not line: break
+        
+        hlfile_line_number = hlfile_line_number - 1
+        
+        pre_high_low_list = file_list[:]
+        FILE_HIGH_LOW_LIST = file_list[:]
+
+        pre_high_low_list.sort()
+        pre_high_low_list.reverse()
+        #print('pre_high_low_list =', pre_high_low_list)
+
+        # 첫번재 최대빈도 맥점탐색
+        result = list(Counter(pre_high_low_list).values())
+        동적맥점1_빈도수 = max(result)
+
+        if 동적맥점1_빈도수 > 2:
+
+            # 중복횟수 최대값 인덱스 구함
+            max_index = result.index(max(result))            
+            #print('중복횟수 최대빈도수 인덱스 =', max_index)
+
+            # 최대 중복값 산출
+            result = list(Counter(pre_high_low_list).keys())
+            bms_node_val1 = result[max_index]
+            print('1st 동적맥점 값 = {0}, 빈도수 = {1}'.format(bms_node_val1, 동적맥점1_빈도수))
+
+            bms_node_list.append(bms_node_val1)
+            bms_node_frequency_list.append(동적맥점1_빈도수)
+            pre_진성맥점.append(bms_node_val1)
+            
+            # 두번재 최대빈도 맥점탐색
+            second_list = list(filter((bms_node_val1).__ne__, pre_high_low_list))
+            #print('2nd 최대빈도 제거된 리스트 =', second_list)
+
+            result = list(Counter(second_list).values())
+            동적맥점2_빈도수 = max(result)
+
+            if 동적맥점2_빈도수 > 2:
+
+                max_index = result.index(max(result))
+
+                # 최대 중복값 산출
+                result = list(Counter(second_list).keys())
+                bms_node_val2 = result[max_index]
+                print('2nd 동적맥점 값 = {0}, 빈도수 = {1}'.format(bms_node_val2, 동적맥점2_빈도수))
+                
+                bms_node_list.append(bms_node_val2)
+                bms_node_frequency_list.append(동적맥점2_빈도수)
+                pre_진성맥점.append(bms_node_val2)
+
+                # 세번재 최대빈도 맥점탐색
+                third_list = list(filter((bms_node_val2).__ne__, second_list))
+                #print('3rd 최대빈도 제거된 리스트 =', third_list)
+
+                result = list(Counter(third_list).values())
+                동적맥점3_빈도수 = max(result)
+
+                if 동적맥점3_빈도수 > 2:
+
+                    max_index = result.index(max(result))
+
+                    # 최대 중복값 산출
+                    result = list(Counter(third_list).keys())
+                    bms_node_val3 = result[max_index]
+                    print('3rd 동적맥점 값 = {0}, 빈도수 = {1}'.format(bms_node_val3, 동적맥점3_빈도수))
+
+                    bms_node_list.append(bms_node_val3)
+                    bms_node_frequency_list.append(동적맥점3_빈도수)
+                    pre_진성맥점.append(bms_node_val3)
+
+                    # 네번재 최대빈도 맥점탐색
+                    fourth_list = list(filter((bms_node_val3).__ne__, third_list))
+
+                    result = list(Counter(fourth_list).values())
+                    동적맥점4_빈도수 = max(result)
+
+                    if 동적맥점4_빈도수 > 2:
+
+                        max_index = result.index(max(result))
+                        result = list(Counter(fourth_list).keys())
+
+                        bms_node_val4 = result[max_index]
+                        print('4th 동적맥점 값 = {0}, 빈도수 = {1}'.format(bms_node_val4, 동적맥점4_빈도수))
+
+                        bms_node_list.append(bms_node_val4)
+                        bms_node_frequency_list.append(동적맥점4_빈도수)
+                        pre_진성맥점.append(bms_node_val4)
+
+                        # 다섯번재 최대빈도 맥점탐색
+                        fifth_list = list(filter((bms_node_val4).__ne__, fourth_list))
+                        result = list(Counter(fifth_list).values())
+                        동적맥점5_빈도수 = max(result)
+
+                        if 동적맥점5_빈도수 > 2:
+
+                            max_index = result.index(max(result))
+                            result = list(Counter(fifth_list).keys())
+
+                            bms_node_val5 = result[max_index]
+                            print('5th 동적맥점 값 = {0}, 빈도수 = {1}'.format(bms_node_val5, 동적맥점5_빈도수))
+
+                            bms_node_list.append(bms_node_val5)
+                            bms_node_frequency_list.append(동적맥점5_빈도수)
+                            pre_진성맥점.append(bms_node_val5)
+
+                            # 여섯번재 최대빈도 맥점탐색
+                            sixth_list = list(filter((bms_node_val5).__ne__, fifth_list))
+                            result = list(Counter(sixth_list).values())
+                            동적맥점6_빈도수 = max(result)
+
+                            if 동적맥점6_빈도수 > 2:
+
+                                max_index = result.index(max(result))
+                                result = list(Counter(sixth_list).keys())
+
+                                bms_node_val6 = result[max_index]
+                                print('6th 동적맥점 값 = {0}, 빈도수 = {1}'.format(bms_node_val6, 동적맥점6_빈도수))
+
+                                bms_node_list.append(bms_node_val6)
+                                bms_node_frequency_list.append(동적맥점6_빈도수)
+
+                                pre_진성맥점.append(bms_node_val6)
+                                pre_진성맥점 = list(set(pre_진성맥점))
+                                pre_진성맥점.sort()                                    
+                                
+                                print('DEFAULT_NODE_LIST =', DEFAULT_NODE_LIST)
+                                print('bms_node_list =', bms_node_list)
+                                print('pre 진성맥점 리스트 =', pre_진성맥점)
+                            else:
+                                pass
+                        else:
+                            pass
+                    else:
+                        pass
+                else:
+                    pass
+            else:
+                pass                
+        else:
+            print('빈도수 3이상인 맥점이 없습니다.')
+else:
+    pass
 
 '''
-
 # control file에서 필요한 정보를 가져옴
 with open('config.ini', mode='r') as control_file:
 
@@ -804,6 +982,7 @@ with open('config.ini', mode='r') as control_file:
     temp = tmp.split()
     ONEWAY_THRESHOLD = int(temp[9])
     #print('ONEWAY_THRESHOLD =', ONEWAY_THRESHOLD)    
+'''
 
 if os.path.isfile('nighttime.txt'):
 
