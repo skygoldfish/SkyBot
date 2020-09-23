@@ -14057,7 +14057,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 미결갱신
-            self.call_oi_update()
+            if not NightTime:
+                self.call_oi_update()
+            else:
+                pass
         else:
             pass
         
@@ -15137,7 +15140,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 미결갱신
-            self.put_oi_update()
+            if not NightTime:
+                self.put_oi_update()
+            else:
+                pass
         else:
             pass
         
