@@ -6396,7 +6396,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
                 
-                if market_service:                                      
+                if market_service:
+                    
+                    # 수정미결 표시
+                    if not NightTime:
+                        self.oi_sum_display()
+                    else:
+                        pass                                      
                     
                     # 시작과 동시에 컬러링 갱신
                     if ovc_x_idx > GuardTime:
@@ -6480,7 +6486,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             # 콜 테이블 데이타 갱신
                             self.call_db_update()
                             self.call_volume_power_display()
-                            self.call_oi_update()                          
+                            #self.call_oi_update()                          
 
                             # 콜 저가, 고가 맥점 컬러갱신
                             if flag_call_low_update:
@@ -6524,13 +6530,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             # 풋 테이블 데이타 갱신
                             self.put_db_update()
                             self.put_volume_power_display()
-                            self.put_oi_update()                          
-
-                            if not NightTime:
-
-                                self.oi_sum_display()
-                            else:
-                                pass                            
+                            #self.put_oi_update()                       
                             
                             # 풋 저가, 고가 맥점 컬러갱신
                             if flag_put_low_update:
@@ -6569,7 +6569,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 flag_put_high_update = False
                             else:
-                                pass                            
+                                pass                                                 
 
                         if not dongsi_hoga:
                         
@@ -13801,38 +13801,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 call_otm_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
             else:
                 pass
-            '''
-            # 대비 갱신
-            #temp = call_db_percent[:]
-            temp = call_otm_db_percent[:]
-            call_db_percent_local = [value for value in temp if value == value]
-            call_db_percent_local.sort()
 
-            if call_db_percent_local:
-
-                콜대비합 = round(sum(call_otm_db), 2)
-
-                콜대비합_단위평균 = round(콜대비합/len(call_db_percent_local), 2)
-
-                tmp = np.array(call_db_percent_local)            
-                콜대비_퍼센트_평균 = round(np.mean(tmp), 1)
-
-                call_str = repr(콜대비합_단위평균) + '\n(' + repr(콜대비_퍼센트_평균) + '%' + ')'
-                item = QTableWidgetItem(call_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
-            else:
-                print('call_db_percent_local is empty...')
-                콜대비합 = 0
-            '''
-            '''
-            process_time = (timeit.default_timer() - start_time) * 1000
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] Call 현재가 {3} Update : {4:.2f} ms\r'.format \
-                (adj_hour, adj_min, adj_sec, 콜현재가, process_time)
-            self.textBrowser.append(str)
-            print(str)
-            '''         
+            # 미결갱신
+            self.call_oi_update()
         else:
             pass
         
@@ -14910,38 +14881,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_otm_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
             else:
                 pass
-            '''
-            # 대비 갱신
-            #temp = put_db_percent[:]
-            temp = put_otm_db_percent[:]
-            put_db_percent_local = [value for value in temp if value == value]
-            put_db_percent_local.sort()
 
-            if put_db_percent_local:
-
-                풋대비합 = round(sum(put_otm_db), 2)
-
-                풋대비합_단위평균 = round(풋대비합/len(put_db_percent_local), 2)
-
-                tmp = np.array(put_db_percent_local)            
-                풋대비_퍼센트_평균 = round(np.mean(tmp), 1)
-
-                put_str = repr(풋대비합_단위평균) + '\n(' + repr(풋대비_퍼센트_평균) + '%' + ')'
-                item = QTableWidgetItem(put_str)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)        
-            else:
-                print('put_db_percent_local is empty...')
-                풋대비합 = 0
-            '''
-            '''
-            process_time = (timeit.default_timer() - start_time) * 1000
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] Put 현재가 {3} Update : {4:.2f} ms\r'.format \
-                (adj_hour, adj_min, adj_sec, 풋현재가, process_time)
-            self.textBrowser.append(str)
-            print(str)
-            '''
+            # 미결갱신
+            self.put_oi_update()
         else:
             pass
         
@@ -15826,10 +15768,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         global 콜_수정미결합, 풋_수정미결합
         global oi_delta, old_oi_delta, 수정미결_직전대비
-        global df_call_info_graph, df_put_info_graph        
-
-        #콜_수정미결합 = df_call['수정미결'].sum() - call_oi_init_value
-        #풋_수정미결합 = df_put['수정미결'].sum() - put_oi_init_value
+        global df_call_info_graph, df_put_info_graph
 
         콜_수정미결합 = df_call['수정미결'].sum()
         풋_수정미결합 = df_put['수정미결'].sum()
@@ -15844,8 +15783,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         수정미결합 = 콜_수정미결합 + 풋_수정미결합
         
-        수정미결_직전대비.extend([oi_delta - old_oi_delta])
-        temp = list(수정미결_직전대비)
+        #수정미결_직전대비.extend([oi_delta - old_oi_delta])
+        #temp = list(수정미결_직전대비)
 
         if 수정미결합 > 0:
 
@@ -22780,6 +22719,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if pre_start:
                     pre_start = False
+                else:
+                    pass
+
+                if not market_service:
+                    market_service = True
                 else:
                     pass
 
