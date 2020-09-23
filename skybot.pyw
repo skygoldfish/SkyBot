@@ -19,7 +19,6 @@
 import sys, os
 import datetime, time
 import win32com.client
-import pythoncom
 import ctypes
 import webbrowser
 import numpy as np
@@ -34,16 +33,6 @@ import collections
 import operator
 import platform
 from configparser import ConfigParser
-
-#import sqlite3
-#import inspect
-#import pickle
-#import uuid
-#import base64
-#import subprocess
-#import pandas.io.sql as pdsql
-#import win32gui
-#import logging.handlers
 
 from PyQt5 import QtCore, QtGui, QtWidgets, QAxContainer, uic
 from PyQt5.QtCore import *
@@ -61,15 +50,26 @@ import talib
 from talib import MA_Type
 import ta
 
-#from subprocess import Popen
-#from PIL import ImageGrab
-#from multiprocessing import Pool, Process, Queue
-
 from XASessions import *
 from XAQueries import *
 from XAReals import *
 from FileWatcher import *
 from Utils import *
+
+#import pythoncom
+#import sqlite3
+#import inspect
+#import pickle
+#import uuid
+#import base64
+#import subprocess
+#import pandas.io.sql as pdsql
+#import win32gui
+#import logging.handlers
+
+#from subprocess import Popen
+#from PIL import ImageGrab
+#from multiprocessing import Pool, Process, Queue
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.expand_frame_repr', False)
