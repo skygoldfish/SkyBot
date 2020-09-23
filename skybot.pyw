@@ -33,6 +33,7 @@ import locale
 import collections
 import operator
 import platform
+from configparser import ConfigParser
 
 #import sqlite3
 #import inspect
@@ -244,7 +245,37 @@ GOLD_당일종가 = 0
 
 FILE_HIGH_LOW_LIST = []
 
-UI_STYLE = 'Horizontal_Large_View.ui' 
+UI_STYLE = 'Horizontal_Large_View.ui'
+'''
+parser = ConfigParser()
+parser.read('skybot.ini')
+
+KSE_START_HOUR = parser.getint('Month Info', 'KSE Start Hour')
+CURRENT_MONTH = parser.get('Month Info', 'Current Month')
+MONTH_FIRSTDAY = parser.get('Month Info', 'First Day of the Current Month')
+
+TARGET_MONTH_SELECT = parser.getint('Target Month Select', 'Target Month Select')
+
+TELEGRAM_SERVICE = parser.getboolean('User Switch', 'Telegram service')
+MANGI_YAGAN = parser.getboolean('User Switch', 'Mangi Yagan')
+AUTO_START = parser.getboolean('User Switch', 'Auto Start')
+ResizeRowsToContents = parser.getboolean('User Switch', 'Resize Rows To Contents')
+CROSS_HAIR = parser.getboolean('User Switch', 'Cross Hair Line')
+PLOT_SYNC = parser.getboolean('User Switch', 'Second Plot Sync')
+
+MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
+
+HL_Depth = parser.getint('Initial Value', 'HL List Depth')
+야간선물_기준시간 = parser.getint('Initial Value', 'NightTime Pre-Start Hour')
+행사가갯수 = parser.getint('Initial Value', 'Actval count of the option pairs')
+MY_COREVAL = parser.getfloat('Initial Value', 'My coreval')
+ASYM_RATIO = parser.getfloat('Initial Value', 'Asymmetric Market Ratio')
+ONEWAY_RATIO = parser.getfloat('Initial Value', 'OneWay Market Ratio')
+GOLDEN_RATIO = parser.getfloat('Initial Value', 'Golden Ratio')
+CROSS_COLOR_INTERVAL = parser.getint('Initial Value', 'Cross Coloring Interval(minute)')
+MAIN_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Main Update Interval(msec)')
+BIGCHART_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Big Chart Update Interval(msec)')
+'''
 
 # control file에서 필요한 정보를 가져옴
 with open('config.ini', mode='r') as control_file:
@@ -396,8 +427,9 @@ with open('config.ini', mode='r') as control_file:
 
     tmp = control_file.readline().strip()
     temp = tmp.split()
-    행사가갯수 = temp[7]
+    행사가갯수 = int(temp[7])
 
+    
     tmp = control_file.readline().strip()
     temp = tmp.split()
 
@@ -410,6 +442,8 @@ with open('config.ini', mode='r') as control_file:
         else:
             pass
     
+    #pre_진성맥점 = [1.20, 2.50, 3.50, 4.85, 5.10, 5.50, 6.85, 7.10, 8.10]
+
     tmp = control_file.readline().strip()
     temp = tmp.split()
     MY_COREVAL = float(temp[3])
@@ -948,7 +982,7 @@ print('KP200 전일종가 =', KP200_전일종가)
 # 전역변수
 ########################################################################################################################
 모니터번호 = 0
-nRowCount = int(행사가갯수)
+nRowCount = 행사가갯수
 
 now = datetime.datetime.now()        
 nowDate = now.strftime('%Y-%m-%d')
