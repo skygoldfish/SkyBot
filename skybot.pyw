@@ -53,8 +53,8 @@ import ta
 from XASessions import *
 from XAQueries import *
 from XAReals import *
-from FileWatcher import *
 from Utils import *
+#from FileWatcher import *
 
 #import pythoncom
 #import sqlite3
