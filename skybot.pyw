@@ -1926,9 +1926,9 @@ ypen = pg.mkPen('y', width=2, style=QtCore.Qt.SolidLine)
 ypen1 = pg.mkPen('y', width=2, style=QtCore.Qt.DotLine)
 mvpen = pg.mkPen('g', width=1, style=QtCore.Qt.DotLine)
 kp200_pen = pg.mkPen('w', width=2, style=QtCore.Qt.DotLine)
-tpen = pg.mkPen('y', width=1, style=QtCore.Qt.DotLine)
-tpen1 = pg.mkPen('w', width=1, style=QtCore.Qt.DotLine)
-yagan_pen = pg.mkPen('g', width=1, style=QtCore.Qt.DotLine)
+jugan_x_start_pen = pg.mkPen('g', width=1, style=QtCore.Qt.DotLine)
+moving_x_pen = pg.mkPen('y', width=1, style=QtCore.Qt.DotLine)
+yagan_x_start_pen = pg.mkPen('g', width=1, style=QtCore.Qt.DotLine)
 
 fut_jl_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.DotLine)
 fut_jh_pen = pg.mkPen(orangered, width=2, style=QtCore.Qt.DotLine)
@@ -1965,7 +1965,7 @@ fama_pen = pg.mkPen(aqua, width=2, style=QtCore.Qt.SolidLine)
 
 # Big Chart Plot1
 bc_plot1_time_line = None
-bc_plot1_time_line_start = None
+bc_plot1_time_line_jugan_start = None
 bc_plot1_time_line_yagan_start = None
 
 bc_plot1_fut_jl_line = None
@@ -2047,7 +2047,7 @@ bc_plot1_oe_base_curve = None
 
 # Big Chart Plot2
 bc_plot2_time_line = None
-bc_plot2_time_line_start = None
+bc_plot2_time_line_jugan_start = None
 bc_plot2_time_line_yagan_start = None
 
 bc_plot2_fut_hoga_line = None
@@ -2120,7 +2120,7 @@ bc_plot2_oe_base_curve = None
 
 # Big Chart Plot3
 bc_plot3_time_line = None
-bc_plot3_time_line_start = None
+bc_plot3_time_line_jugan_start = None
 bc_plot3_time_line_yagan_start = None
 
 bc_plot3_fut_hoga_line = None
@@ -2193,7 +2193,7 @@ bc_plot3_oe_base_curve = None
 
 # Big Chart Plot4
 bc_plot4_time_line = None
-bc_plot4_time_line_start = None
+bc_plot4_time_line_jugan_start = None
 bc_plot4_time_line_yagan_start = None
 
 bc_plot4_fut_jl_line = None
@@ -2275,7 +2275,7 @@ bc_plot4_oe_base_curve = None
 
 # Big Chart Plot5
 bc_plot5_time_line = None
-bc_plot5_time_line_start = None
+bc_plot5_time_line_jugan_start = None
 bc_plot5_time_line_yagan_start = None
 
 bc_plot5_fut_hoga_line = None
@@ -2348,7 +2348,7 @@ bc_plot5_oe_base_curve = None
 
 # Big Chart Plot6
 bc_plot6_time_line = None
-bc_plot6_time_line_start = None
+bc_plot6_time_line_jugan_start = None
 bc_plot6_time_line_yagan_start = None
 
 bc_plot6_fut_hoga_line = None
@@ -25316,7 +25316,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.bc_comboBox6.currentIndexChanged.connect(self.bc_cb6_selectionChanged)             
 
         # Plot1
-        global bc_plot1_time_line_start, bc_plot1_time_line_yagan_start, bc_plot1_time_line, bc_plot1_fut_price_curve, bc_plot1_kp200_curve
+        global bc_plot1_time_line_jugan_start, bc_plot1_time_line_yagan_start, bc_plot1_time_line, bc_plot1_fut_price_curve, bc_plot1_kp200_curve
         global bc_plot1_fut_jl_line, bc_plot1_fut_jh_line, bc_plot1_fut_close_line, bc_plot1_fut_open_line, bc_plot1_fut_pivot_line, bc_plot1_fut_low_line, bc_plot1_fut_high_line    
         global bc_plot1_ovc_jl_line, bc_plot1_ovc_jh_line, bc_plot1_ovc_close_line, bc_plot1_ovc_open_line, bc_plot1_ovc_pivot_line, bc_plot1_ovc_low_line, bc_plot1_ovc_high_line    
         global bc_plot1_fut_hoga_line
@@ -25340,7 +25340,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot2_call_drate_curve, bc_plot2_put_drate_curve
         global bc_plot2_call_oi_curve, bc_plot2_put_oi_curve
         global bc_plot2_sp500_curve, bc_plot2_dow_curve, bc_plot2_nasdaq_curve, bc_plot2_wti_curve        
-        global bc_plot2_time_line_start, bc_plot2_time_line_yagan_start, bc_plot2_time_line
+        global bc_plot2_time_line_jugan_start, bc_plot2_time_line_yagan_start, bc_plot2_time_line
         global bc_plot2_fut_hoga_line
         global bc_plot2_ovc_jl_line, bc_plot2_ovc_jh_line, bc_plot2_ovc_close_line, bc_plot2_ovc_open_line, bc_plot2_ovc_pivot_line, bc_plot2_ovc_low_line, bc_plot2_ovc_high_line
         global bc_plot2_mv_line, bc_plot2_call_curve, bc_plot2_put_curve
@@ -25358,7 +25358,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot3_call_drate_curve, bc_plot3_put_drate_curve
         global bc_plot3_call_oi_curve, bc_plot3_put_oi_curve
         global bc_plot3_sp500_curve, bc_plot3_dow_curve, bc_plot3_nasdaq_curve, bc_plot3_wti_curve        
-        global bc_plot3_time_line_start, bc_plot3_time_line_yagan_start, bc_plot3_time_line
+        global bc_plot3_time_line_jugan_start, bc_plot3_time_line_yagan_start, bc_plot3_time_line
         global bc_plot3_ovc_jl_line, bc_plot3_ovc_jh_line, bc_plot3_ovc_close_line, bc_plot3_ovc_open_line, bc_plot3_ovc_pivot_line, bc_plot3_ovc_low_line, bc_plot3_ovc_high_line
         global bc_plot3_fut_hoga_line
         global bc_plot3_mv_line, bc_plot3_call_curve, bc_plot3_put_curve
@@ -25369,7 +25369,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot3_macd_curve, bc_plot3_macdsig_curve, bc_plot3_macdhist_curve, bc_plot3_mama_curve, bc_plot3_fama_curve, bc_plot3_oe_conv_curve, bc_plot3_oe_base_curve
 
         # Plot4
-        global bc_plot4_time_line_start, bc_plot4_time_line_yagan_start, bc_plot4_time_line, bc_plot4_fut_price_curve, bc_plot4_kp200_curve
+        global bc_plot4_time_line_jugan_start, bc_plot4_time_line_yagan_start, bc_plot4_time_line, bc_plot4_fut_price_curve, bc_plot4_kp200_curve
         global bc_plot4_fut_jl_line, bc_plot4_fut_jh_line, bc_plot4_fut_close_line, bc_plot4_fut_open_line, bc_plot4_fut_pivot_line, bc_plot4_fut_low_line, bc_plot4_fut_high_line    
         global bc_plot4_ovc_jl_line, bc_plot4_ovc_jh_line, bc_plot4_ovc_close_line, bc_plot4_ovc_open_line, bc_plot4_ovc_pivot_line, bc_plot4_ovc_low_line, bc_plot4_ovc_high_line    
         global bc_plot4_fut_hoga_line
@@ -25393,7 +25393,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot5_call_drate_curve, bc_plot5_put_drate_curve
         global bc_plot5_call_oi_curve, bc_plot5_put_oi_curve
         global bc_plot5_sp500_curve, bc_plot5_dow_curve, bc_plot5_nasdaq_curve, bc_plot5_wti_curve        
-        global bc_plot5_time_line_start, bc_plot5_time_line_yagan_start, bc_plot5_time_line
+        global bc_plot5_time_line_jugan_start, bc_plot5_time_line_yagan_start, bc_plot5_time_line
         global bc_plot5_fut_hoga_line
         global bc_plot5_ovc_jl_line, bc_plot5_ovc_jh_line, bc_plot5_ovc_close_line, bc_plot5_ovc_open_line, bc_plot5_ovc_pivot_line, bc_plot5_ovc_low_line, bc_plot5_ovc_high_line
         global bc_plot5_mv_line, bc_plot5_call_curve, bc_plot5_put_curve
@@ -25411,7 +25411,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_plot6_call_drate_curve, bc_plot6_put_drate_curve
         global bc_plot6_call_oi_curve, bc_plot6_put_oi_curve
         global bc_plot6_sp500_curve, bc_plot6_dow_curve, bc_plot6_nasdaq_curve, bc_plot6_wti_curve        
-        global bc_plot6_time_line_start, bc_plot6_time_line_yagan_start, bc_plot6_time_line
+        global bc_plot6_time_line_jugan_start, bc_plot6_time_line_yagan_start, bc_plot6_time_line
         global bc_plot6_fut_hoga_line
         global bc_plot6_ovc_jl_line, bc_plot6_ovc_jh_line, bc_plot6_ovc_close_line, bc_plot6_ovc_open_line, bc_plot6_ovc_pivot_line, bc_plot6_ovc_low_line, bc_plot6_ovc_high_line
         global bc_plot6_mv_line, bc_plot6_call_curve, bc_plot6_put_curve
@@ -25461,9 +25461,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             pass
 
         # Line & Curve of the Plot1 
-        bc_plot1_time_line_start = self.bc_Plot1.addLine(x=0, y=None, pen=tpen)
-        bc_plot1_time_line_yagan_start = self.bc_Plot1.addLine(x=0, y=None, pen=yagan_pen)
-        bc_plot1_time_line = self.bc_Plot1.addLine(x=0, y=None, pen=tpen1)
+        bc_plot1_time_line_jugan_start = self.bc_Plot1.addLine(x=0, y=None, pen=jugan_x_start_pen)
+        bc_plot1_time_line_yagan_start = self.bc_Plot1.addLine(x=0, y=None, pen=yagan_x_start_pen)
+        bc_plot1_time_line = self.bc_Plot1.addLine(x=0, y=None, pen=moving_x_pen)
 
         bc_plot1_fut_hoga_line = self.bc_Plot1.addLine(x=None, pen=ypen1)
         
@@ -25538,9 +25538,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             pass  
 
         # Line & Curve of the Plot2
-        bc_plot2_time_line_start = self.bc_Plot2.addLine(x=0, y=None, pen=tpen)
-        bc_plot2_time_line_yagan_start = self.bc_Plot2.addLine(x=0, y=None, pen=yagan_pen)
-        bc_plot2_time_line = self.bc_Plot2.addLine(x=0, y=None, pen=tpen1)
+        bc_plot2_time_line_jugan_start = self.bc_Plot2.addLine(x=0, y=None, pen=jugan_x_start_pen)
+        bc_plot2_time_line_yagan_start = self.bc_Plot2.addLine(x=0, y=None, pen=yagan_x_start_pen)
+        bc_plot2_time_line = self.bc_Plot2.addLine(x=0, y=None, pen=moving_x_pen)
 
         bc_plot2_fut_hoga_line = self.bc_Plot2.addLine(x=None, pen=ypen1)
         
@@ -25614,9 +25614,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             pass 
 
         # Line & Curve of the Plot3
-        bc_plot3_time_line_start = self.bc_Plot3.addLine(x=0, y=None, pen=tpen)
-        bc_plot3_time_line_yagan_start = self.bc_Plot3.addLine(x=0, y=None, pen=yagan_pen)
-        bc_plot3_time_line = self.bc_Plot3.addLine(x=0, y=None, pen=tpen1)
+        bc_plot3_time_line_jugan_start = self.bc_Plot3.addLine(x=0, y=None, pen=jugan_x_start_pen)
+        bc_plot3_time_line_yagan_start = self.bc_Plot3.addLine(x=0, y=None, pen=yagan_x_start_pen)
+        bc_plot3_time_line = self.bc_Plot3.addLine(x=0, y=None, pen=moving_x_pen)
 
         bc_plot3_fut_hoga_line = self.bc_Plot3.addLine(x=None, pen=ypen1)
         
@@ -25690,9 +25690,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             pass
 
         # Line & Curve of the Plot4 
-        bc_plot4_time_line_start = self.bc_Plot4.addLine(x=0, y=None, pen=tpen)
-        bc_plot4_time_line_yagan_start = self.bc_Plot4.addLine(x=0, y=None, pen=yagan_pen)
-        bc_plot4_time_line = self.bc_Plot4.addLine(x=0, y=None, pen=tpen1)
+        bc_plot4_time_line_jugan_start = self.bc_Plot4.addLine(x=0, y=None, pen=jugan_x_start_pen)
+        bc_plot4_time_line_yagan_start = self.bc_Plot4.addLine(x=0, y=None, pen=yagan_x_start_pen)
+        bc_plot4_time_line = self.bc_Plot4.addLine(x=0, y=None, pen=moving_x_pen)
 
         bc_plot4_fut_hoga_line = self.bc_Plot4.addLine(x=None, pen=ypen1)
         
@@ -25767,9 +25767,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             pass  
 
         # Line & Curve of the Plot5
-        bc_plot5_time_line_start = self.bc_Plot5.addLine(x=0, y=None, pen=tpen)
-        bc_plot5_time_line_yagan_start = self.bc_Plot5.addLine(x=0, y=None, pen=yagan_pen)
-        bc_plot5_time_line = self.bc_Plot5.addLine(x=0, y=None, pen=tpen1)
+        bc_plot5_time_line_jugan_start = self.bc_Plot5.addLine(x=0, y=None, pen=jugan_x_start_pen)
+        bc_plot5_time_line_yagan_start = self.bc_Plot5.addLine(x=0, y=None, pen=yagan_x_start_pen)
+        bc_plot5_time_line = self.bc_Plot5.addLine(x=0, y=None, pen=moving_x_pen)
 
         bc_plot5_fut_hoga_line = self.bc_Plot5.addLine(x=None, pen=ypen1)
         
@@ -25843,9 +25843,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             pass 
 
         # Line & Curve of the Plot6
-        bc_plot6_time_line_start = self.bc_Plot6.addLine(x=0, y=None, pen=tpen)
-        bc_plot6_time_line_yagan_start = self.bc_Plot6.addLine(x=0, y=None, pen=yagan_pen)
-        bc_plot6_time_line = self.bc_Plot6.addLine(x=0, y=None, pen=tpen1)
+        bc_plot6_time_line_jugan_start = self.bc_Plot6.addLine(x=0, y=None, pen=jugan_x_start_pen)
+        bc_plot6_time_line_yagan_start = self.bc_Plot6.addLine(x=0, y=None, pen=yagan_x_start_pen)
+        bc_plot6_time_line = self.bc_Plot6.addLine(x=0, y=None, pen=moving_x_pen)
 
         bc_plot6_fut_hoga_line = self.bc_Plot6.addLine(x=None, pen=ypen1)
         
@@ -25943,12 +25943,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         if NightTime:
             # 야간옵션은 4시, 야간선물은 5시 장마감됨, 시작시간 X축 표시(index 0는 종가, index 1은 시가)
-            bc_plot1_time_line_start.setValue(GuardTime + 1)
-            bc_plot2_time_line_start.setValue(GuardTime + 1)
-            bc_plot3_time_line_start.setValue(GuardTime + 1)
-            bc_plot4_time_line_start.setValue(GuardTime + 1)
-            bc_plot5_time_line_start.setValue(GuardTime + 1)
-            bc_plot6_time_line_start.setValue(GuardTime + 1)
+            bc_plot1_time_line_jugan_start.setValue(GuardTime + 1)
+            bc_plot2_time_line_jugan_start.setValue(GuardTime + 1)
+            bc_plot3_time_line_jugan_start.setValue(GuardTime + 1)
+            bc_plot4_time_line_jugan_start.setValue(GuardTime + 1)
+            bc_plot5_time_line_jugan_start.setValue(GuardTime + 1)
+            bc_plot6_time_line_jugan_start.setValue(GuardTime + 1)
 
             bc_plot1_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
             bc_plot2_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
@@ -25958,13 +25958,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             bc_plot6_time_line_yagan_start.setValue(GuardTime + 4 * 60 + 30)
         else:
             # 시작시간 X축 표시(index 60은 시가)
-            bc_plot1_time_line_start.setValue(GuardTime)
-            bc_plot2_time_line_start.setValue(GuardTime)
-            bc_plot3_time_line_start.setValue(GuardTime)
+            bc_plot1_time_line_jugan_start.setValue(GuardTime)
+            bc_plot2_time_line_jugan_start.setValue(GuardTime)
+            bc_plot3_time_line_jugan_start.setValue(GuardTime)
 
-            bc_plot4_time_line_start.setValue(GuardTime)
-            bc_plot5_time_line_start.setValue(GuardTime)
-            bc_plot6_time_line_start.setValue(GuardTime)
+            bc_plot4_time_line_jugan_start.setValue(GuardTime)
+            bc_plot5_time_line_jugan_start.setValue(GuardTime)
+            bc_plot6_time_line_jugan_start.setValue(GuardTime)
 
         # 쓰레드 시작...
         self.bigchart_update_worker.start()
