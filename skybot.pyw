@@ -19,6 +19,7 @@
 import sys, os
 import datetime, time
 import win32com.client
+import pythoncom
 import ctypes
 import webbrowser
 import numpy as np
@@ -56,7 +57,6 @@ from XAReals import *
 from FileWatcher import *
 from Utils import *
 
-#import pythoncom
 #import sqlite3
 #import inspect
 #import pickle
@@ -322,6 +322,9 @@ elif int(CURRENT_MONTH[4:6]) == 12:
 else:
     NEXT_MONTH = repr(int(CURRENT_MONTH) + 1)
     MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH) + 2)
+
+CENTERVAL_UPPER = GOLDEN_RATIO
+CENTERVAL_LOWER = GOLDEN_RATIO
 
 pre_진성맥점 = [1.20, 2.50, 3.50, 4.85, 5.10, 5.50, 6.85, 7.10, 8.10]
 
@@ -17660,8 +17663,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 #self.OVH.AdviseRealData(종목코드=EUROFX)                
                 #self.OVH.AdviseRealData(종목코드=GOLD)
                 
-                # 해외옵션 체결 실시간 요청
-                
+                # 해외옵션 체결 실시간 요청                
                 self.WOC.AdviseRealData(종목코드=SP500)
                 self.WOC.AdviseRealData(종목코드=DOW)
                 self.WOC.AdviseRealData(종목코드=NASDAQ)
