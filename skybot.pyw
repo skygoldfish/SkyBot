@@ -7079,9 +7079,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 main_update_time = (timeit.default_timer() - start_time) * 1000
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] UI Screen Update : {3:.2f} ms...\r'.format(\
-                    dt.hour, dt.minute, dt.second, main_update_time)
-                print(str)
+                if flag_checkBox_HS and dt.second % 10 == 0 and self.alternate_flag:
+
+                    str = '[{0:02d}:{1:02d}:{2:02d}] UI Screen Update : {3:.2f}({4:.2f}) ms...\r'.format(\
+                        dt.hour, dt.minute, dt.second, main_update_time, bc_ui_update_time)
+                    self.textBrowser.append(str)
+                else:
+                    str = '[{0:02d}:{1:02d}:{2:02d}] UI Screen Update : {3:.2f} ms...\r'.format(\
+                        dt.hour, dt.minute, dt.second, main_update_time)
+                    print(str)
             else:
                 pass
             
@@ -7092,7 +7098,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global flag_heartbeat
 
-        str = 'S[{0:02d}:{1:02d}:{2:02d}] 1 Min Heartbeat({3})을 수신하였습니다.(시간차 = {4}초)\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차)
+        str = '[{0:02d}:{1:02d}:{2:02d}] 1 Min Heartbeat({3})을 수신하였습니다.(시간차 = {4}초)\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차)
         self.textBrowser.append(str)
         print(str)
 
@@ -16623,7 +16629,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 ovc_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
 
-            str = 'S[{0:02d}:{1:02d}:{2:02d}] 서버시간({3})을 수신하였습니다.(시간차 = {4}초)\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, 시스템_서버_시간차)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 서버시간({3})을 수신하였습니다.(시간차 = {4}초)\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, ovc_x_idx, 시스템_서버_시간차)
             self.textBrowser.append(str)
             print(str)
 
