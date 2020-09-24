@@ -5521,7 +5521,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def checkBox_HS_checkState(self):
 
-        global flag_checkBox_HS
+        global flag_checkBox_HS, flag_telegram_on 
 
         dt = datetime.datetime.now()
         now = time.localtime()
@@ -5564,6 +5564,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.telegram_listen_worker.terminate()
             else:
                 pass
+
+            self.pushButton_remove.setStyleSheet("background-color: lightGray")
+            flag_telegram_on = False
             
             if not NightTime:
 
@@ -5631,6 +5634,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.telegram_listen_worker.start()
             self.telegram_listen_worker.daemon = True
 
+            self.pushButton_remove.setStyleSheet("background-color: lawngreen")
+            flag_telegram_on = True
 
     @pyqtSlot(int)
     def call_horizontal_header_clicked(self, idx):
@@ -6660,10 +6665,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if not NightTime:
                         self.oi_sum_display()
                     else:
-                        pass                                      
+                        pass
+
+                    if self.alternate_flag:
+
+                        # 콜 테이블 데이타 갱신
+                        self.call_db_update()
+                        self.call_volume_power_display()
+                    else:
+                        # 풋 테이블 데이타 갱신
+                        self.put_db_update()
+                        self.put_volume_power_display()
                     
                     # 시작과 동시에 컬러링 갱신
-                    if ovc_x_idx > GuardTime:
+                    if ovc_x_idx > GuardTime and not flag_checkBox_HS:
 
                         # 선물, 콜, 풋 현재가 클리어
                         #self.cv_color_clear()
@@ -6742,8 +6757,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if self.alternate_flag:
 
                             # 콜 테이블 데이타 갱신
-                            self.call_db_update()
-                            self.call_volume_power_display()
+                            #self.call_db_update()
+                            #self.call_volume_power_display()
                             #self.call_oi_update()                          
 
                             # 콜 저가, 고가 맥점 컬러갱신
@@ -6786,8 +6801,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 pass                                                               
                         else:
                             # 풋 테이블 데이타 갱신
-                            self.put_db_update()
-                            self.put_volume_power_display()
+                            #self.put_db_update()
+                            #self.put_volume_power_display()
                             #self.put_oi_update()                       
                             
                             # 풋 저가, 고가 맥점 컬러갱신
@@ -6888,7 +6903,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
 
                     # 비대칭장 탐색
-                    if not dongsi_hoga and abs(콜대비_퍼센트_평균) > 0 and abs(풋대비_퍼센트_평균) > 0:
+                    if not flag_checkBox_HS and not dongsi_hoga and abs(콜대비_퍼센트_평균) > 0 and abs(풋대비_퍼센트_평균) > 0:
 
                         self.asym_detect(self.alternate_flag)
                     else:
@@ -7389,64 +7404,68 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         '''
 
-        # 콜 매수 OneWay장
-        if call_ms_oneway:
+        if not flag_checkBox_HS:
 
-            if blink:
+            # 콜 매수 OneWay장
+            if call_ms_oneway:
+
+                if blink:
+                    self.label_msg.setStyleSheet('background-color: red; color: white')
+                else:
+                    self.label_msg.setStyleSheet('background-color: white; color: red')
+
+            # 콜 매수 비대칭장
+            elif call_ms_asymmetric:
+
                 self.label_msg.setStyleSheet('background-color: red; color: white')
-            else:
-                self.label_msg.setStyleSheet('background-color: white; color: red')
 
-        # 콜 매수 비대칭장
-        elif call_ms_asymmetric:
+            # 콜 매도 비대칭장
+            elif call_md_asymmetric:
 
-            self.label_msg.setStyleSheet('background-color: red; color: white')
+                self.label_msg.setStyleSheet('background-color: black; color: pink')
 
-        # 콜 매도 비대칭장
-        elif call_md_asymmetric:
+            # 콜 매도 양꽝장
+            elif call_md_all_down:
 
-            self.label_msg.setStyleSheet('background-color: black; color: pink')
+                self.label_msg.setStyleSheet('background-color: black; color: magenta')
 
-        # 콜 매도 양꽝장
-        elif call_md_all_down:
+            # 콜 매수 양빵장
+            elif call_ms_all_up:
 
-            self.label_msg.setStyleSheet('background-color: black; color: magenta')
+                self.label_msg.setStyleSheet('background-color: magenta; color: black')
 
-        # 콜 매수 양빵장
-        elif call_ms_all_up:
+            # 풋 매수 OneWay장
+            elif put_ms_oneway:
 
-            self.label_msg.setStyleSheet('background-color: magenta; color: black')
+                if blink:
+                    self.label_msg.setStyleSheet('background-color: blue; color: white')
+                else:
+                    self.label_msg.setStyleSheet('background-color: white; color: blue')
 
-        # 풋 매수 OneWay장
-        elif put_ms_oneway:
+            # 풋 매수 비대칭장
+            elif put_ms_asymmetric:
 
-            if blink:
                 self.label_msg.setStyleSheet('background-color: blue; color: white')
+
+            # 풋 매도 비대칭장
+            elif put_md_asymmetric:
+
+                self.label_msg.setStyleSheet('background-color: black; color: lightskyblue')
+
+            # 풋 매도 양꽝장
+            elif put_md_all_down:
+
+                self.label_msg.setStyleSheet('background-color: black; color: cyan')
+
+            # 풋 매수 양빵장
+            elif put_ms_all_up:
+
+                self.label_msg.setStyleSheet('background-color: cyan; color: black')
             else:
-                self.label_msg.setStyleSheet('background-color: white; color: blue')
-
-        # 풋 매수 비대칭장
-        elif put_ms_asymmetric:
-
-            self.label_msg.setStyleSheet('background-color: blue; color: white')
-
-        # 풋 매도 비대칭장
-        elif put_md_asymmetric:
-
-            self.label_msg.setStyleSheet('background-color: black; color: lightskyblue')
-
-        # 풋 매도 양꽝장
-        elif put_md_all_down:
-
-            self.label_msg.setStyleSheet('background-color: black; color: cyan')
-
-        # 풋 매수 양빵장
-        elif put_ms_all_up:
-
-            self.label_msg.setStyleSheet('background-color: cyan; color: black')
+                # 대칭장
+                self.label_msg.setStyleSheet('background-color: lawngreen; color: black')
         else:
-            # 대칭장
-            self.label_msg.setStyleSheet('background-color: lawngreen; color: black')        
+            self.label_msg.setStyleSheet('background-color: lawngreen; color: black')            
         
         self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))    
         self.label_msg.setText(str)
