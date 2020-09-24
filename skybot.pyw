@@ -19,7 +19,6 @@
 import sys, os
 import datetime, time
 import win32com.client
-import pythoncom
 import ctypes
 import webbrowser
 import numpy as np
@@ -57,6 +56,7 @@ from XAReals import *
 from FileWatcher import *
 from Utils import *
 
+#import pythoncom
 #import sqlite3
 #import inspect
 #import pickle
@@ -247,10 +247,11 @@ FILE_HIGH_LOW_LIST = []
 
 UI_STYLE = 'Horizontal_Large_View.ui'
 
+#####################################################################################################################################################################
+# Configuration Parser
 parser = ConfigParser()
 parser.read('skybot.ini')
 
-#####################################################################################################################################################################
 # [1]. << Month Info >>
 KSE_START_HOUR = parser.getint('Month Info', 'KSE Start Hour')
 CURRENT_MONTH = parser.get('Month Info', 'Current Month')
@@ -267,7 +268,7 @@ ResizeRowsToContents = parser.getboolean('User Switch', 'Resize Rows To Contents
 CROSS_HAIR_LINE = parser.getboolean('User Switch', 'Cross Hair Line')
 SECOND_PLOT_SYNC = parser.getboolean('User Switch', 'Second Plot Sync')
 
-print('TELEGRAM_SERVICE =', TELEGRAM_SERVICE)
+#print('TELEGRAM_SERVICE =', TELEGRAM_SERVICE)
 
 # [4]. << Moving Average Type >>
 MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
