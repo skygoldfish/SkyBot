@@ -1497,8 +1497,8 @@ option_pairs_count = 0
 call_result = dict()
 put_result = dict()
 
-call_oi_init_value = 0
-put_oi_init_value = 0
+call_oi_init_percent = 0
+put_oi_init_percent = 0
 
 call_volume_power = 0
 put_volume_power = 0
@@ -16061,17 +16061,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         df_call_info_graph.at[ovc_x_idx, 'open_interest'] = 콜_수정미결퍼센트
         df_put_info_graph.at[ovc_x_idx, 'open_interest'] = 풋_수정미결퍼센트
 
-        item_str = '{0:.2f}({1:.2f})% \n {2:.2f}({3:.2f})% '.format(콜_수정미결퍼센트, call_oi_init_value, 풋_수정미결퍼센트, put_oi_init_value)
+        item_str = '{0:.2f}({1:.2f})% \n {2:.2f}({3:.2f})% '.format(콜_수정미결퍼센트, call_oi_init_percent, 풋_수정미결퍼센트, put_oi_init_percent)
 
         item = QTableWidgetItem(item_str)
         item.setTextAlignment(Qt.AlignCenter)
 
-        if 콜_수정미결퍼센트 > call_oi_init_value:
+        if 콜_수정미결퍼센트 > call_oi_init_percent:
 
             item.setBackground(QBrush(적색))
             item.setForeground(QBrush(흰색))
 
-        elif 풋_수정미결퍼센트 > put_oi_init_value:
+        elif 풋_수정미결퍼센트 > put_oi_init_percent:
 
             item.setBackground(QBrush(청색))
             item.setForeground(QBrush(흰색))    
@@ -16535,7 +16535,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global refresh_flag
 
-        global call_oi_init_value, put_oi_init_value
+        global call_oi_init_percent, put_oi_init_percent
         global call_gap_percent, call_db_percent, put_gap_percent, put_db_percent
         global call_otm_db_percent, put_otm_db_percent
 
@@ -17620,13 +17620,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     콜_수정미결퍼센트 = (콜_수정미결합 / 수정미결합) * 100
                     풋_수정미결퍼센트 = 100 - 콜_수정미결퍼센트
 
-                    #call_oi_init_value = 콜_수정미결합
-                    #put_oi_init_value = 풋_수정미결합
-                    call_oi_init_value = 콜_수정미결퍼센트
-                    put_oi_init_value = 풋_수정미결퍼센트
+                    #call_oi_init_percent = 콜_수정미결합
+                    #put_oi_init_percent = 풋_수정미결합
+                    call_oi_init_percent = 콜_수정미결퍼센트
+                    put_oi_init_percent = 풋_수정미결퍼센트
 
-                    df_call_info_graph.at[0, 'open_interest'] = call_oi_init_value
-                    df_put_info_graph.at[0, 'open_interest'] = put_oi_init_value
+                    df_call_info_graph.at[0, 'open_interest'] = call_oi_init_percent
+                    df_put_info_graph.at[0, 'open_interest'] = put_oi_init_percent
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] Call/Put OI 수정미결 초기값 : {3}/{4}\r'.format(dt.hour,
                                             dt.minute, dt.second, format(콜_수정미결합, ','), format(풋_수정미결합, ','))
@@ -32433,18 +32433,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex1 == 5 and market_service:
 
-                str = " {0:.2f}({1:.2f}) ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_value)
+                str = " {0:.2f}({1:.2f}) ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_16.setStyleSheet('background-color: blue ; color: white')
                 #self.label_16.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_16.setText(str)
 
-                if df_call_info_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_value:
+                if df_call_info_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
                     str = '▲'
                     self.label_17.setStyleSheet('background-color: red ; color: white')
                     self.label_17.setText(str)
 
-                elif df_put_info_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_value:
+                elif df_put_info_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
 
                     str = '▼'
                     self.label_17.setStyleSheet('background-color: blue ; color: white')
@@ -32452,7 +32452,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                str = " {0:.2f}({1:.2f}) ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_value)
+                str = " {0:.2f}({1:.2f}) ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_18.setStyleSheet('background-color: red ; color: white')
                 #self.label_18.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_18.setText(str)
@@ -33286,18 +33286,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex2 == 5 and market_service:
 
-                str = " {0:.2f}({1:.2f}) ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_value)
+                str = " {0:.2f}({1:.2f}) ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_26.setStyleSheet('background-color: blue ; color: white')
                 #self.label_26.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_26.setText(str)
 
-                if df_call_info_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_value:
+                if df_call_info_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
                     str = '▲'
                     self.label_27.setStyleSheet('background-color: red ; color: white')
                     self.label_27.setText(str)
 
-                elif df_put_info_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_value:
+                elif df_put_info_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
 
                     str = '▼'
                     self.label_27.setStyleSheet('background-color: blue ; color: white')
@@ -33305,7 +33305,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                str = " {0:.2f}({1:.2f}) ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_value)
+                str = " {0:.2f}({1:.2f}) ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_28.setStyleSheet('background-color: red ; color: white')
                 #self.label_28.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_28.setText(str)
@@ -34075,18 +34075,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex3 == 5 and market_service:
 
-                str = " {0:.2f}({1:.2f}) ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_value)
+                str = " {0:.2f}({1:.2f}) ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_36.setStyleSheet('background-color: blue ; color: white')
                 #self.label_36.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_36.setText(str)
 
-                if df_call_info_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_value:
+                if df_call_info_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
                     str = '▲'
                     self.label_37.setStyleSheet('background-color: red ; color: white')
                     self.label_37.setText(str)
 
-                elif df_put_info_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_value:
+                elif df_put_info_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
 
                     str = '▼'
                     self.label_37.setStyleSheet('background-color: blue ; color: white')
@@ -34094,7 +34094,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                str = " {0:.2f}({1:.2f}) ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_value)
+                str = " {0:.2f}({1:.2f}) ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_38.setStyleSheet('background-color: red ; color: white')
                 #self.label_38.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_38.setText(str)
@@ -34870,18 +34870,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex4 == 5 and market_service:
 
-                str = " {0:.2f}({1:.2f}) ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_value)
+                str = " {0:.2f}({1:.2f}) ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_46.setStyleSheet('background-color: blue ; color: white')
                 #self.label_46.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_46.setText(str)
 
-                if df_call_info_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_value:
+                if df_call_info_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
                     str = '▲'
                     self.label_47.setStyleSheet('background-color: red ; color: white')
                     self.label_47.setText(str)
 
-                elif df_put_info_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_value:
+                elif df_put_info_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
 
                     str = '▼'
                     self.label_47.setStyleSheet('background-color: blue ; color: white')
@@ -34889,7 +34889,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                str = " {0:.2f}({1:.2f}) ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_value)
+                str = " {0:.2f}({1:.2f}) ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_48.setStyleSheet('background-color: red ; color: white')
                 #self.label_48.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_48.setText(str)
@@ -35723,18 +35723,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex5 == 5 and market_service:
 
-                str = " {0:.2f}({1:.2f}) ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_value)
+                str = " {0:.2f}({1:.2f}) ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_56.setStyleSheet('background-color: blue ; color: white')
                 #self.label_56.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_56.setText(str)
 
-                if df_call_info_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_value:
+                if df_call_info_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
                     str = '▲'
                     self.label_57.setStyleSheet('background-color: red ; color: white')
                     self.label_57.setText(str)
 
-                elif df_put_info_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_value:
+                elif df_put_info_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
 
                     str = '▼'
                     self.label_57.setStyleSheet('background-color: blue ; color: white')
@@ -35742,7 +35742,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                str = " {0:.2f}({1:.2f}) ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_value)
+                str = " {0:.2f}({1:.2f}) ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_58.setStyleSheet('background-color: red ; color: white')
                 #self.label_58.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_58.setText(str)
@@ -36512,18 +36512,18 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif bc_comboindex6 == 5 and market_service:
 
-                str = " {0:.2f}({1:.2f}) ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_value)
+                str = " {0:.2f}({1:.2f}) ".format(df_put_info_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_66.setStyleSheet('background-color: blue ; color: white')
                 #self.label_66.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_66.setText(str)
 
-                if df_call_info_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_value:
+                if df_call_info_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
                     str = '▲'
                     self.label_67.setStyleSheet('background-color: red ; color: white')
                     self.label_67.setText(str)
 
-                elif df_put_info_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_value:
+                elif df_put_info_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
 
                     str = '▼'
                     self.label_67.setStyleSheet('background-color: blue ; color: white')
@@ -36531,7 +36531,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     pass
                 
-                str = " {0:.2f}({1:.2f}) ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_value)
+                str = " {0:.2f}({1:.2f}) ".format(df_call_info_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_68.setStyleSheet('background-color: red ; color: white')
                 #self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
                 self.label_68.setText(str)
