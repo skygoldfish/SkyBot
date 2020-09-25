@@ -2660,6 +2660,7 @@ SERVER_MIN = 0
 SERVER_SEC = 0
 
 flag_server_touch = False
+flag_option_start = False
 
 ########################################################################################################################
 
@@ -6659,8 +6660,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
                 
-                if market_service:
-                    
+                if market_service and flag_option_start:
+
                     # 수정미결 표시
                     if not NightTime:
                         self.oi_sum_display()
@@ -6678,7 +6679,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.put_volume_power_display()
                     
                     # 시작과 동시에 컬러링 갱신
-                    if ovc_x_idx > GuardTime and not flag_checkBox_HS:
+                    if not flag_checkBox_HS:
 
                         # 선물, 콜, 풋 현재가 클리어
                         #self.cv_color_clear()
@@ -7410,7 +7411,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         '''
 
-        if not flag_checkBox_HS:
+        if flag_option_start and not flag_checkBox_HS:
 
             # 콜 매수 OneWay장
             if call_ms_oneway:
@@ -21179,6 +21180,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global 선물_시가, 선물_피봇, 선물_현재가
             
             global receive_real_ovc, ovc_x_idx, old_ovc_x_idx
+            global flag_option_start
                         
             start_time = timeit.default_timer()
 
@@ -21357,6 +21359,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         market_service = False
                         service_terminate = True
                         jugan_service_terminate = True
+                        flag_option_start = False
 
                         call_atm_value = df_call.at[atm_index, '현재가']
                         put_atm_value = df_put.at[atm_index, '현재가']
@@ -23004,6 +23007,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.futures_display(result)
 
             elif szTrCode == 'OC0' or szTrCode == 'EC0':
+
+                if not flag_option_start:
+                    flag_option_start = True
+                else:
+                    pass
 
                 if pre_start:
                     pre_start = False
@@ -32465,13 +32473,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if df_call_info_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
-                    str = '▲'
+                    str = ' ▲ '
                     self.label_17.setStyleSheet('background-color: red ; color: white')
                     self.label_17.setText(str)
 
                 elif df_put_info_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
 
-                    str = '▼'
+                    str = ' ▼ '
                     self.label_17.setStyleSheet('background-color: blue ; color: white')
                     self.label_17.setText(str)
                 else:
@@ -33318,13 +33326,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if df_call_info_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
-                    str = '▲'
+                    str = ' ▲ '
                     self.label_27.setStyleSheet('background-color: red ; color: white')
                     self.label_27.setText(str)
 
                 elif df_put_info_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
 
-                    str = '▼'
+                    str = ' ▼ '
                     self.label_27.setStyleSheet('background-color: blue ; color: white')
                     self.label_27.setText(str)
                 else:
@@ -34107,13 +34115,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if df_call_info_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
-                    str = '▲'
+                    str = ' ▲ '
                     self.label_37.setStyleSheet('background-color: red ; color: white')
                     self.label_37.setText(str)
 
                 elif df_put_info_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
 
-                    str = '▼'
+                    str = ' ▼ '
                     self.label_37.setStyleSheet('background-color: blue ; color: white')
                     self.label_37.setText(str)
                 else:
@@ -34902,13 +34910,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if df_call_info_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
-                    str = '▲'
+                    str = ' ▲ '
                     self.label_47.setStyleSheet('background-color: red ; color: white')
                     self.label_47.setText(str)
 
                 elif df_put_info_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
 
-                    str = '▼'
+                    str = ' ▼ '
                     self.label_47.setStyleSheet('background-color: blue ; color: white')
                     self.label_47.setText(str)
                 else:
@@ -35755,13 +35763,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if df_call_info_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
-                    str = '▲'
+                    str = ' ▲ '
                     self.label_57.setStyleSheet('background-color: red ; color: white')
                     self.label_57.setText(str)
 
                 elif df_put_info_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
 
-                    str = '▼'
+                    str = ' ▼ '
                     self.label_57.setStyleSheet('background-color: blue ; color: white')
                     self.label_57.setText(str)
                 else:
@@ -36544,13 +36552,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if df_call_info_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
-                    str = '▲'
+                    str = ' ▲ '
                     self.label_67.setStyleSheet('background-color: red ; color: white')
                     self.label_67.setText(str)
 
                 elif df_put_info_graph.at[ovc_x_idx, 'open_interest'] > put_oi_init_percent:
 
-                    str = '▼'
+                    str = ' ▼ '
                     self.label_67.setStyleSheet('background-color: blue ; color: white')
                     self.label_67.setText(str)
                 else:
