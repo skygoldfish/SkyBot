@@ -2650,7 +2650,7 @@ fut_ccms_hoga_rr = 0
 nm_call_oloh_str = ''
 nm_put_oloh_str = ''
 
-main_update_time = 0
+main_ui_update_time = 0
 bc_ui_update_time = 0
 
 flag_heartbeat = False
@@ -6371,11 +6371,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         print(str)
                     else:
                         str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is {3}, {4:.2f}({5:.2f}) ms\r'.format \
-                            (adj_hour, adj_min, adj_sec, telegram_command, main_update_time, bc_ui_update_time)
+                            (adj_hour, adj_min, adj_sec, telegram_command, main_ui_update_time, bc_ui_update_time)
                         self.textBrowser.append(str)
                 else:
                     str = '[{0:02d}:{1:02d}:{2:02d}] Telegram Listen Message is None, {3:.2f}({4:.2f}) ms\r'.format \
-                        (adj_hour, adj_min, adj_sec, main_update_time, bc_ui_update_time)
+                        (adj_hour, adj_min, adj_sec, main_ui_update_time, bc_ui_update_time)
                     self.textBrowser.append(str)                
             else:
                 pass
@@ -6575,7 +6575,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             dt = datetime.datetime.now()
             current_str = dt.strftime('%H:%M:%S')
 
-            global main_update_time
+            global main_ui_update_time
 
             global flag_fut_low, flag_fut_high
             global flag_kp200_low, flag_kp200_high
@@ -7078,16 +7078,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if not flag_offline:
 
-                main_update_time = (timeit.default_timer() - start_time) * 1000
+                main_ui_update_time = (timeit.default_timer() - start_time) * 1000
 
                 if flag_checkBox_HS and dt.second % 10 == 0 and self.alternate_flag:
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] UI Screen Update : {3:.2f}({4:.2f}) ms...\r'.format(\
-                        dt.hour, dt.minute, dt.second, main_update_time, bc_ui_update_time)
+                        dt.hour, dt.minute, dt.second, main_ui_update_time, bc_ui_update_time)
                     self.textBrowser.append(str)
                 else:
                     str = '[{0:02d}:{1:02d}:{2:02d}] UI Screen Update : {3:.2f} ms...\r'.format(\
-                        dt.hour, dt.minute, dt.second, main_update_time)
+                        dt.hour, dt.minute, dt.second, main_ui_update_time)
                     print(str)
             else:
                 pass
@@ -25316,37 +25316,37 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             'Reserved'])
         self.comboBox1.insertSeparator(7)
         self.comboBox1.insertSeparator(15)
-        self.comboBox1.currentIndexChanged.connect(self.bc_cb1_selectionChanged)
+        self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
         self.comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox2.insertSeparator(7)
         self.comboBox2.insertSeparator(15)
-        self.comboBox2.currentIndexChanged.connect(self.bc_cb2_selectionChanged)
+        self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         self.comboBox3.addItems(['옵션체결', '옵션잔량비', '선물체결', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox3.insertSeparator(7)
         self.comboBox3.insertSeparator(15)
-        self.comboBox3.currentIndexChanged.connect(self.bc_cb3_selectionChanged)
+        self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
 
         self.comboBox4.addItems(['선물체결', '선물잔량비', '옵션체결', '옵션잔량비', '등락율비', '옵션미결', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox4.insertSeparator(7)
         self.comboBox4.insertSeparator(15)
-        self.comboBox4.currentIndexChanged.connect(self.bc_cb4_selectionChanged)
+        self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged)
 
         self.comboBox5.addItems(['옵션체결', '옵션잔량비', '선물체결', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox5.insertSeparator(7)
         self.comboBox5.insertSeparator(15)
-        self.comboBox5.currentIndexChanged.connect(self.bc_cb5_selectionChanged)
+        self.comboBox5.currentIndexChanged.connect(self.cb5_selectionChanged)
 
         self.comboBox6.addItems(['옵션체결', '옵션잔량비', '선물체결', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox6.insertSeparator(7)
         self.comboBox6.insertSeparator(15)
-        self.comboBox6.currentIndexChanged.connect(self.bc_cb6_selectionChanged)             
+        self.comboBox6.currentIndexChanged.connect(self.cb6_selectionChanged)             
 
         # Plot1
         global plot1_time_line_jugan_start, plot1_time_line_yagan_start, plot1_time_line, plot1_fut_price_curve, plot1_kp200_curve
@@ -26688,7 +26688,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             flag_checkBox_plot6_oe = False
 
     
-    def bc_cb1_selectionChanged(self):
+    def cb1_selectionChanged(self):
 
         global comboindex1
         
@@ -27661,7 +27661,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
-    def bc_cb2_selectionChanged(self):
+    def cb2_selectionChanged(self):
 
         global comboindex2
         
@@ -28586,7 +28586,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
     
-    def bc_cb3_selectionChanged(self):
+    def cb3_selectionChanged(self):
 
         global comboindex3
         
@@ -29511,7 +29511,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
-    def bc_cb4_selectionChanged(self):
+    def cb4_selectionChanged(self):
 
         global comboindex4
         
@@ -30489,7 +30489,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
-    def bc_cb5_selectionChanged(self):
+    def cb5_selectionChanged(self):
 
         global comboindex5
         
@@ -31414,7 +31414,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         else:
             pass
 
-    def bc_cb6_selectionChanged(self):
+    def cb6_selectionChanged(self):
 
         global comboindex6
         
