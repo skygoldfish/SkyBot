@@ -1642,13 +1642,12 @@ df_put_volume = pd.DataFrame()
 # NEW 데이타프레임
 df_futures_graph = pd.DataFrame()
 
-df_call_price_graph = pd.DataFrame()
+#df_call_price_graph = pd.DataFrame()
+df_call_graph = [pd.DataFrame()] * ActvalCount
 df_call_total_graph = pd.DataFrame()
 
-df_call_graph = [pd.DataFrame()] * ActvalCount
+#df_put_price_graph = pd.DataFrame()
 df_put_graph = [pd.DataFrame()] * ActvalCount
-
-df_put_price_graph = pd.DataFrame()
 df_put_total_graph = pd.DataFrame()
 
 df_sp500_graph = pd.DataFrame()
@@ -4156,8 +4155,11 @@ class screen_update_worker(QThread):
         try:
             index = opt_actval.index(actval)
 
-            call_curve_data = df_call_price_graph[index].tolist()
-            put_curve_data = df_put_price_graph[index].tolist()
+            #call_curve_data = df_call_price_graph[index].tolist()            
+            #put_curve_data = df_put_price_graph[index].tolist()
+
+            call_curve_data = df_call_graph[index]['price'].tolist()
+            put_curve_data = df_put_graph[index]['price'].tolist()
             
             return call_curve_data, put_curve_data
         except:
@@ -13845,7 +13847,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_open, call_itm_count
         global df_call
-        global df_call_price_graph
+        global df_call_price_graph, df_call_graph
         global atm_str, atm_index, call_atm_value
         global call_시가, call_시가_node_list, call_피봇, call_피봇_node_list, 콜시가리스트
         global call_저가, call_저가_node_list, call_고가, call_고가_node_list
@@ -13934,7 +13936,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
             df_call.at[index, '시가'] = 콜시가
-            df_call_price_graph.iat[GuardTime + 1, index] = 콜시가
+            #df_call_price_graph.iat[GuardTime + 1, index] = 콜시가
+            df_call_graph[index].at[GuardTime + 1, 'open'] = 콜시가
+            df_call_graph[index].at[GuardTime + 1, 'price'] = 콜시가
             
             item = QTableWidgetItem(시가)
             item.setTextAlignment(Qt.AlignCenter)
@@ -14034,7 +14038,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 현재가 != 콜_현재가:
 
             df_call.at[index, '현재가'] = 콜현재가
-            df_call_price_graph.iat[ovc_x_idx, index] = 콜현재가
+            #df_call_price_graph.iat[ovc_x_idx, index] = 콜현재가
+            df_call_graph[index].at[ovc_x_idx, 'price'] = 콜현재가
 
             if 콜현재가 < float(콜_현재가):
                 item = QTableWidgetItem(현재가 + '\n' + '▼')
@@ -14929,7 +14934,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global put_open, put_itm_count
         global df_put
-        global df_put_price_graph
+        global df_put_price_graph, df_put_graph
         global atm_str, atm_index, put_atm_value
         global put_시가, put_시가_node_list, put_피봇, put_피봇_node_list, 풋시가리스트
         global put_저가, put_저가_node_list, put_고가, put_고가_node_list
@@ -15017,7 +15022,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
             
             df_put.at[index, '시가'] = 풋시가
-            df_put_price_graph.iat[GuardTime + 1, index] = 풋시가
+            #df_put_price_graph.iat[GuardTime + 1, index] = 풋시가
+            df_put_graph[index].at[GuardTime + 1, 'open'] = 풋시가
+            df_put_graph[index].at[GuardTime + 1, 'price'] = 풋시가
             
             item = QTableWidgetItem(시가)
             item.setTextAlignment(Qt.AlignCenter)
@@ -15117,7 +15124,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if 현재가 != 풋_현재가:
 
             df_put.at[index, '현재가'] = 풋현재가
-            df_put_price_graph.iat[ovc_x_idx, index] = 풋현재가
+            #df_put_price_graph.iat[ovc_x_idx, index] = 풋현재가
+            df_put_graph[index].at[ovc_x_idx, 'price'] = 풋현재가
 
             if 풋현재가 < float(풋_현재가):
                 item = QTableWidgetItem(현재가 + '\n' + '▼')
@@ -16922,8 +16930,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_call_graph[i] = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'ms_hoga', 'md_hoga', 'open_interest'])
                     df_put_graph[i] = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'ms_hoga', 'md_hoga', 'open_interest'])
 
-                df_call_price_graph = DataFrame(index=range(0, timespan), columns=range(0, option_pairs_count))
-                df_put_price_graph = DataFrame(index=range(0, timespan), columns=range(0, option_pairs_count))
+                #df_call_price_graph = DataFrame(index=range(0, timespan), columns=range(0, option_pairs_count))
+                #df_put_price_graph = DataFrame(index=range(0, timespan), columns=range(0, option_pairs_count))
                 df_call_total_graph = DataFrame(index=range(0, timespan), columns=['volume', 'open_interest', 'ms_hoga_total', 'md_hoga_total', 'hoga_remainder_ratio', 'drate', 'centerval'])
                 df_put_total_graph = DataFrame(index=range(0, timespan), columns=['volume', 'open_interest', 'ms_hoga_total', 'md_hoga_total', 'hoga_remainder_ratio', 'drate', 'yanghap'])
 
@@ -17004,7 +17012,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.종가.value, item)
 
-                    df_call_price_graph.iat[0, i] = 종가
+                    #df_call_price_graph.iat[0, i] = 종가
+                    df_call_graph[i].at[0, 'open'] = 종가
+                    df_call_graph[i].at[0, 'price'] = 종가
 
                     if df['저가'][i] < df['고가'][i]:
                         저가 = df['저가'][i]
@@ -17079,7 +17089,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         if not NightTime:
-                            df_call_price_graph.iat[GuardTime + 1, i] = 시가
+                            #df_call_price_graph.iat[GuardTime + 1, i] = 시가
+                            df_call_graph[i].at[GuardTime + 1, 'open'] = 시가
+                            df_call_graph[i].at[GuardTime + 1, 'price'] = 시가
                         else:
                             pass
 
@@ -17297,7 +17309,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.종가.value, item)
 
-                    df_put_price_graph.iat[0, i] = 종가
+                    #df_put_price_graph.iat[0, i] = 종가
+                    df_put_graph[i].at[0, 'open'] = 종가
+                    df_put_graph[i].at[0, 'price'] = 종가
 
                     if df1['저가'][i] < df1['고가'][i]:
                         저가 = df1['저가'][i]
@@ -17372,7 +17386,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
 
                         if not NightTime:
-                            df_put_price_graph.iat[GuardTime + 1, i] = 시가
+                            #df_put_price_graph.iat[GuardTime + 1, i] = 시가
+                            df_put_graph[i].at[GuardTime + 1, 'open'] = 시가
+                            df_put_graph[i].at[GuardTime + 1, 'price'] = 시가
                         else:
                             pass
 
@@ -18772,7 +18788,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_call.setItem(i, Option_column.종가.value, item)
 
-                    df_call_price_graph.iat[0, i] = 종가
+                    #df_call_price_graph.iat[0, i] = 종가
+                    df_call_graph[i].at[0, 'open'] = 종가
+                    df_call_graph[i].at[0, 'price'] = 종가
 
                     현재가 = df['현재가'][i]
                     df_call.at[i, '현재가'] = 현재가
@@ -18867,7 +18885,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        df_call_price_graph.iat[GuardTime + 1, i] = 시가
+                        #df_call_price_graph.iat[GuardTime + 1, i] = 시가
+                        df_call_graph[i].at[GuardTime + 1, 'open'] = 시가
+                        df_call_graph[i].at[GuardTime + 1, 'price'] = 시가
 
                         시가갭 = 시가 - 종가
                         df_call.at[i, '시가갭'] = 시가갭
@@ -19032,7 +19052,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setItem(i, Option_column.종가.value, item)
 
-                    df_put_price_graph.iat[0, i] = 종가
+                    #df_put_price_graph.iat[0, i] = 종가
+                    df_put_graph[i].at[0, 'price'] = 종가
 
                     현재가 = df1['현재가'][i]
                     df_put.at[i, '현재가'] = 현재가
@@ -19128,7 +19149,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        df_put_price_graph.iat[GuardTime + 1, i] = 시가
+                        #df_put_price_graph.iat[GuardTime + 1, i] = 시가
+                        df_put_graph[i].at[GuardTime + 1, 'open'] = 시가
+                        df_put_graph[i].at[GuardTime + 1, 'price'] = 시가
 
                         시가갭 = 시가 - 종가
                         df_put.at[i, '시가갭'] = 시가갭
@@ -20213,7 +20236,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_call.setItem(t8416_call_count, Option_column.종가.value, item)
 
                     if t8416_call_count < option_pairs_count:
-                        df_call_price_graph.iat[0, t8416_call_count] = block['전일종가']
+                        #df_call_price_graph.iat[0, t8416_call_count] = block['전일종가']
+                        df_call_graph[t8416_call_count].at[0, 'price'] = block['전일종가']
                     else:
                         pass
 
@@ -20419,7 +20443,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_put.setItem(t8416_put_count, Option_column.종가.value, item)
 
                     if t8416_put_count < option_pairs_count:
-                        df_put_price_graph.iat[0, t8416_put_count] = block['전일종가']
+                        #df_put_price_graph.iat[0, t8416_put_count] = block['전일종가']
+                        df_put_graph[t8416_put_count].at[0, 'price'] = block['전일종가']
                     else:
                         pass
 
@@ -21087,7 +21112,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global df_call, df_put
             global df_call_hoga, df_put_hoga
 
-            global df_call_price_graph, df_put_price_graph 
+            global df_call_price_graph, df_put_price_graph
+            global df_call_graph, df_put_graph
 
             global opt_callreal_update_counter, opt_putreal_update_counter
             global opt_call_ho_update_counter, opt_put_ho_update_counter
@@ -21721,9 +21747,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.tableWidget_call.setItem(index, Option_column.시가.value, item)
                             
                             if float(result['예상체결가격']) >= 10.0:
-                                df_call_price_graph.iat[ovc_x_idx, index] = 9.99
+                                #df_call_price_graph.iat[ovc_x_idx, index] = 9.99
+                                df_call_graph[index].at[ovc_x_idx, 'price'] = 9.99
                             elif 0 < float(result['예상체결가격']) < 10.0:
-                                df_call_price_graph.iat[ovc_x_idx, index] = float(result['예상체결가격'])
+                                #df_call_price_graph.iat[ovc_x_idx, index] = float(result['예상체결가격'])
+                                df_call_graph[index].at[ovc_x_idx, 'price'] = float(result['예상체결가격'])
                             else:
                                 pass
 
@@ -21856,9 +21884,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.tableWidget_put.setItem(index, Option_column.시가.value, item)
                             
                             if float(result['예상체결가격']) >= 10.0:
-                                df_put_price_graph.iat[ovc_x_idx, index] = 9.99
+                                #df_put_price_graph.iat[ovc_x_idx, index] = 9.99
+                                df_put_graph[index].at[ovc_x_idx, 'price'] = 9.99
                             elif 0 < float(result['예상체결가격']) < 10.0:
-                                df_put_price_graph.iat[ovc_x_idx, index] = float(result['예상체결가격'])
+                                #df_put_price_graph.iat[ovc_x_idx, index] = float(result['예상체결가격'])
+                                df_put_graph[index].at[ovc_x_idx, 'price'] = float(result['예상체결가격'])
                             else:
                                 pass
 
