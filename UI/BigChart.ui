@@ -101,7 +101,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QComboBox" name="bc_comboBox1">
+      <widget class="QComboBox" name="comboBox1">
        <property name="font">
         <font>
          <weight>50</weight>
@@ -187,7 +187,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QComboBox" name="bc_comboBox4">
+      <widget class="QComboBox" name="comboBox4">
        <property name="font">
         <font>
          <weight>50</weight>
@@ -447,7 +447,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QComboBox" name="bc_comboBox2">
+      <widget class="QComboBox" name="comboBox2">
        <property name="font">
         <font>
          <weight>50</weight>
@@ -533,7 +533,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QComboBox" name="bc_comboBox5">
+      <widget class="QComboBox" name="comboBox5">
        <property name="font">
         <font>
          <weight>50</weight>
@@ -793,7 +793,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QComboBox" name="bc_comboBox3">
+      <widget class="QComboBox" name="comboBox3">
        <property name="font">
         <font>
          <weight>50</weight>
@@ -879,7 +879,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QComboBox" name="bc_comboBox6">
+      <widget class="QComboBox" name="comboBox6">
        <property name="font">
         <font>
          <weight>50</weight>
