@@ -73,7 +73,7 @@ from Utils import *
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.expand_frame_repr', False)
-pd.set_option('max_colwidth', -1)
+pd.set_option('max_colwidth', None)
 
 # 시스템 기본 로케일 사용
 locale.setlocale(locale.LC_ALL, '')  
@@ -4131,6 +4131,17 @@ class 화면_버전(QDialog, Ui_버전):
 ########################################################################################################################
 class screen_update_worker(QThread):
 
+    finished = pyqtSignal(str)
+
+    def run(self):
+
+        while True:
+
+            str = 'Main UI Update...'                
+
+            self.finished.emit(str)
+            self.msleep(MAIN_UPDATE_INTERVAL)
+    '''
     finished = pyqtSignal(dict)
     
     def run(self):
@@ -4166,7 +4177,7 @@ class screen_update_worker(QThread):
         except:
             
             return None, None
-
+    '''
 ########################################################################################################################
 
 ########################################################################################################################
@@ -6573,7 +6584,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     adj_hour, adj_min, adj_sec, (timeit.default_timer() - start_time) * 1000)
         print(str)
 
-    @pyqtSlot(dict)
+    #@pyqtSlot(dict)
+    @pyqtSlot(str)
     def update_screen(self, data):
 
         try:
@@ -6614,34 +6626,39 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
                 
-                # 선택된 콜, 풋 검사
-                old_selected_opt_list = copy.deepcopy(selected_opt_list)
+                if not self.alternate_flag:
 
-                call_idx = []
-                put_idx = []
-                selected_opt_list = []
+                    # 선택된 콜, 풋 검사
+                    old_selected_opt_list = copy.deepcopy(selected_opt_list)
 
-                for i in range(option_pairs_count):
+                    call_idx = []
+                    put_idx = []
+                    selected_opt_list = []
 
-                    if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
-                        call_idx.append(i)
-                        selected_opt_list.append(opt_actval[i])
-                    else:
-                        pass
+                    for i in range(option_pairs_count):
 
-                    if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
-                        put_idx.append(i)
-                        selected_opt_list.append(opt_actval[i])
-                    else:
-                        pass
+                        if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
+                            call_idx.append(i)
+                            selected_opt_list.append(opt_actval[i])
+                        else:
+                            pass
 
-                selected_call = call_idx                    
-                selected_put = put_idx
+                        if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
+                            put_idx.append(i)
+                            selected_opt_list.append(opt_actval[i])
+                        else:
+                            pass
 
-                # 마지막 행사가 추가해야 쓰레드 정상동작함(?)
-                selected_opt_list.append(opt_actval[option_pairs_count-1])                
+                    selected_call = call_idx                    
+                    selected_put = put_idx
+
+                    # 마지막 행사가 추가해야 쓰레드 정상동작함(?)
+                    selected_opt_list.append(opt_actval[option_pairs_count-1])
+                else:
+                    pass                
                 
-                # 전체 행사가 검색 및 저장
+                # 전체 행사가 검색 및 저장 --> plot chart에서 직접 df_call_graph, df_put_graph 데이타 접근토록 수정
+                '''
                 for actval, infos in data.items():
 
                     index = opt_actval.index(actval)
@@ -6665,6 +6682,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             put_plot_data[index] = infos[1]
                         else:
                             pass
+                '''
                 
                 if market_service and flag_option_start:
 
@@ -33241,7 +33259,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_call)):
 
                         if index == selected_call[i]:
-                            plot2_call_curve[i].setData(call_plot_data[index])
+                            #plot2_call_curve[i].setData(call_plot_data[index])
+                            plot2_call_curve[i].setData(df_call_graph[index]['price'].tolist())
                         else:
                             pass                    
 
@@ -33249,7 +33268,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_put)):
 
                         if index == selected_put[i]:
-                            plot2_put_curve[i].setData(put_plot_data[index])
+                            #plot2_put_curve[i].setData(put_plot_data[index])
+                            plot2_put_curve[i].setData(df_put_graph[index]['price'].tolist())
                         else:
                             pass
                         
@@ -33982,7 +34002,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_call)):
 
                         if index == selected_call[i]:
-                            plot3_call_curve[i].setData(call_plot_data[index])
+                            #plot3_call_curve[i].setData(call_plot_data[index])
+                            plot3_call_curve[i].setData(df_call_graph[index]['price'].tolist())
                         else:
                             pass                    
 
@@ -33990,7 +34011,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_put)):
 
                         if index == selected_put[i]:
-                            plot3_put_curve[i].setData(put_plot_data[index])
+                            #plot3_put_curve[i].setData(put_plot_data[index])
+                            plot3_put_curve[i].setData(df_put_graph[index]['price'].tolist())
                         else:
                             pass
                         
@@ -35525,7 +35547,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_call)):
 
                         if index == selected_call[i]:
-                            plot5_call_curve[i].setData(call_plot_data[index])
+                            #plot5_call_curve[i].setData(call_plot_data[index])
+                            plot5_call_curve[i].setData(df_call_graph[index]['price'].tolist())
                         else:
                             pass                    
 
@@ -35533,7 +35556,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_put)):
 
                         if index == selected_put[i]:
-                            plot5_put_curve[i].setData(put_plot_data[index])
+                            #plot5_put_curve[i].setData(put_plot_data[index])
+                            plot5_put_curve[i].setData(df_put_graph[index]['price'].tolist())
                         else:
                             pass
                         
@@ -36266,7 +36290,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_call)):
 
                         if index == selected_call[i]:
-                            plot6_call_curve[i].setData(call_plot_data[index])
+                            #plot6_call_curve[i].setData(call_plot_data[index])
+                            plot6_call_curve[i].setData(df_call_graph[index]['price'].tolist())
                         else:
                             pass                    
 
@@ -36274,7 +36299,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_put)):
 
                         if index == selected_put[i]:
-                            plot6_put_curve[i].setData(put_plot_data[index])
+                            #plot6_put_curve[i].setData(put_plot_data[index])
+                            plot6_put_curve[i].setData(df_put_graph[index]['price'].tolist())
                         else:
                             pass
                         
