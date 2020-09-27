@@ -1640,6 +1640,7 @@ df_call_volume = pd.DataFrame()
 df_put_volume = pd.DataFrame()
 
 # NEW 데이타프레임
+df_kp200_graph = pd.DataFrame()
 df_futures_graph = pd.DataFrame()
 
 #df_call_price_graph = pd.DataFrame()
@@ -16607,7 +16608,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global 선물_전일종가
         global CENTER_VAL, CENTER_VAL1, CENTER_VAL2, CENTER_VAL3, CENTER_VAL4, CENTER_VAL5, CENTER_VAL6, CENTER_VAL7, CENTER_VAL8, CENTER_VAL9, CENTER_VAL10
 
-        global df_futures_graph
+        global df_futures_graph, df_kp200_graph
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -16759,6 +16760,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_futures_graph.at[0, 'kp200'] = fut_realdata['KP200']
                 df_futures_graph.at[0, 'price'] = fut_realdata['종가']
+                df_kp200_graph.at[0, 'price'] = fut_realdata['KP200']
 
                 if fut_realdata['시가'] > 0:
                     df_futures_graph.at[GuardTime + 1, 'open'] = fut_realdata['시가']
@@ -16927,14 +16929,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     opt_total_list.append(i)
 
-                    df_call_graph[i] = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'ms_hoga', 'md_hoga', 'open_interest'])
-                    df_put_graph[i] = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'ms_hoga', 'md_hoga', 'open_interest'])
+                    df_call_graph[i] = DataFrame(index=range(0, timespan), columns=\
+                        ['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'ms_hoga', 'md_hoga', 'open_interest', 'oi_delta'])
+                    df_put_graph[i] = DataFrame(index=range(0, timespan), columns=\
+                        ['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'ms_hoga', 'md_hoga', 'open_interest', 'oi_delta'])
 
                 #df_call_price_graph = DataFrame(index=range(0, timespan), columns=range(0, option_pairs_count))
                 #df_put_price_graph = DataFrame(index=range(0, timespan), columns=range(0, option_pairs_count))
                 df_call_total_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'volume', 'open_interest', 'ms_hoga', 'md_hoga', 'hoga_remainder_ratio', 'drate', 'centerval'])
                 df_put_total_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'volume', 'open_interest', 'ms_hoga', 'md_hoga', 'hoga_remainder_ratio', 'drate', 'yanghap'])
 
+                df_kp200_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle'])
                 df_futures_graph = DataFrame(index=range(0, timespan), columns=['ctime', 'price', 'open', 'high', 'low', 'close', 'middle', 'volume', 'kp200', \
                     'c_ms_hoga', 'c_md_hoga', 'c_hoga_remainder_ratio', 'n_ms_hoga', 'n_md_hoga', 'n_hoga_remainder_ratio', \
                         'drate', 'PSAR', 'TA_PSAR', 'BBLower', 'BBMiddle', 'BBUpper', 'MACD', 'MACDSig', 'MAMA', 'FAMA', 'A_FAMA', \
@@ -18389,6 +18394,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
 
                 df_futures_graph.at[0, 'kp200'] = KP200_전일종가
+                df_kp200_graph.at[0, 'price'] = KP200_전일종가
 
                 # 주간 현재가가 야간 종가임
                 df_futures_graph.at[0, 'price'] = fut_realdata['현재가']
@@ -21203,6 +21209,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global DOW_야간_시작가, WTI_야간_시작가
             global 장시작_양합
 
+            global df_kp200_graph
             global df_futures_graph, df_dow_graph, df_sp500_graph, df_nasdaq_graph, df_wti_graph, df_eurofx_graph, df_hangseng_graph, df_gold_graph
             global flag_dow_ohlc_open, flag_sp500_ohlc_open, flag_nasdaq_ohlc_open, flag_wti_ohlc_open, flag_eurofx_ohlc_open, flag_hangseng_ohlc_open, flag_gold_ohlc_open
 
@@ -21560,6 +21567,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             fut_realdata['KP200'] = result['예상지수']
 
                             df_futures_graph.at[ovc_x_idx, 'kp200'] = result['예상지수']
+                            df_kp200_graph.at[ovc_x_idx, 'price'] = result['예상지수']
 
                             item = QTableWidgetItem("{0:.2f}".format(result['예상지수']))
                             item.setTextAlignment(Qt.AlignCenter)
@@ -22322,6 +22330,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_fut.at[2, '현재가'] = float(result['지수'])
                         
                         df_futures_graph.at[ovc_x_idx, 'kp200'] = float(result['지수'])
+                        df_kp200_graph.at[ovc_x_idx, 'price'] = float(result['지수'])
 
                         if float(result['지수']) < float(self.tableWidget_fut.item(2, Futures_column.현재가.value).text().split('\n')[0]):
                             item = QTableWidgetItem(result['지수'] + '\n' + '▼')
@@ -22354,6 +22363,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         kp200_시가 = float(result['시가지수'])
                         kp200_realdata['시가'] = float(result['시가지수'])
                         df_futures_graph.at[ovc_x_idx, 'kp200'] = float(result['시가지수'])
+                        df_kp200_graph.at[ovc_x_idx, 'price'] = float(result['시가지수'])
 
                         item = QTableWidgetItem(result['시가지수'])
                         item.setTextAlignment(Qt.AlignCenter)
