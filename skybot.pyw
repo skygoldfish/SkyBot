@@ -6626,7 +6626,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
                 
-                if not self.alternate_flag:
+                if not self.alternate_flag and not flag_checkBox_HS:
 
                     # 선택된 콜, 풋 검사
                     old_selected_opt_list = copy.deepcopy(selected_opt_list)
