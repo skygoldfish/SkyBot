@@ -14137,13 +14137,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_call.at[index, '수정미결'] = int(수정미결)
                 df_call.at[index, '수정미결증감'] = int(수정미결증감)
-            else:
-                pass
 
-            if not NightTime and not flag_checkBox_HS:
-                self.call_oi_update()
+                if not flag_checkBox_HS:
+                    self.call_oi_update()
+                else:
+                    pass
             else:
-                pass
+                pass            
         else:
             pass
         
@@ -15217,13 +15217,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 df_put.at[index, '수정미결'] = int(수정미결)
                 df_put.at[index, '수정미결증감'] = int(수정미결증감)
-            else:
-                pass
 
-            if not NightTime and not flag_checkBox_HS:
-                self.put_oi_update()
+                if not flag_checkBox_HS:
+                    self.put_oi_update()
+                else:
+                    pass
             else:
-                pass
+                pass            
         else:
             pass
         
