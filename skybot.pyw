@@ -73,7 +73,8 @@ from Utils import *
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.expand_frame_repr', False)
-pd.set_option('max_colwidth', None)
+#pd.set_option('max_colwidth', None)
+pd.set_option('max_colwidth', -1)
 
 # 시스템 기본 로케일 사용
 locale.setlocale(locale.LC_ALL, '')  
@@ -6684,10 +6685,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
                 '''
                 
-                if market_service and flag_option_start:
+                if market_service and flag_option_start:                    
 
                     # 수정미결 표시
                     if not NightTime:
+
+                        if flag_checkBox_HS:
+
+                            self.call_oi_update()
+                            self.put_oi_update()
+                        else:
+                            pass
+
                         self.oi_sum_display()
                     else:
                         pass
@@ -14114,7 +14123,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 미결갱신
-            if not NightTime:
+            if not NightTime and not flag_checkBox_HS:
                 self.call_oi_update()
             else:
                 pass
@@ -15200,7 +15209,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 미결갱신
-            if not NightTime:
+            if not NightTime and not flag_checkBox_HS:
                 self.put_oi_update()
             else:
                 pass
