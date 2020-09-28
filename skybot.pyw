@@ -14123,6 +14123,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 미결갱신
+            if not NightTime and 콜시가 > 0 and 콜저가 < 콜고가:
+
+                콜시가갭 = df_call.at[index, '시가갭']
+
+                if 콜현재가 <= 콜시가갭:
+
+                    수정미결 = call_result['미결제약정수량'] * 콜현재가
+                    수정미결증감 = call_result['미결제약정증감'] * 콜현재가
+                else:
+                    수정미결 = call_result['미결제약정수량'] * (콜현재가 - 콜시가갭)
+                    수정미결증감 = call_result['미결제약정증감'] * (콜현재가 - 콜시가갭)
+
+                df_call.at[index, '수정미결'] = int(수정미결)
+                df_call.at[index, '수정미결증감'] = int(수정미결증감)
+            else:
+                pass
+
             if not NightTime and not flag_checkBox_HS:
                 self.call_oi_update()
             else:
@@ -14347,65 +14364,42 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     
     def call_oi_update(self):
 	
-        global df_call
-	
         index = call_행사가.index(call_result['단축코드'][5:8])
 
-        콜시가 = df_call.at[index, '시가']
-        콜저가 = df_call.at[index, '저가']
-        콜고가 = df_call.at[index, '고가']
-        콜현재가 = df_call.at[index, '현재가']
-        콜시가갭 = df_call.at[index, '시가갭']
+        수정미결 = format(df_call.at[index, '수정미결'], ',')
 
-        if 콜시가 > 0 and 콜저가 < 콜고가:
+        if 수정미결 != self.tableWidget_call.item(index, Option_column.OI.value).text():
 
-            if 콜현재가 <= 콜시가갭:
+            item = QTableWidgetItem(수정미결)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_call.setItem(index, Option_column.OI.value, item)
+        else:
+            pass          
 
-                수정미결 = call_result['미결제약정수량'] * 콜현재가
-                수정미결증감 = call_result['미결제약정증감'] * 콜현재가
+        수정미결증감 = format(df_call.at[index, '수정미결증감'], ',')
+
+        if 수정미결증감 != self.tableWidget_call.item(index, Option_column.OID.value).text():
+
+            item = QTableWidgetItem(수정미결증감)
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if call_result['미결제약정증감'] < 0:
+                item.setBackground(QBrush(라임))
             else:
-                수정미결 = call_result['미결제약정수량'] * (콜현재가 - 콜시가갭)
-                수정미결증감 = call_result['미결제약정증감'] * (콜현재가 - 콜시가갭)
+                item.setBackground(QBrush(흰색))
 
-            df_call.at[index, '수정미결'] = int(수정미결)
-            df_call.at[index, '수정미결증감'] = int(수정미결증감)
-
-            수정미결 = format(df_call.at[index, '수정미결'], ',')
-
-            if 수정미결 != self.tableWidget_call.item(index, Option_column.OI.value).text():
-
-                item = QTableWidgetItem(수정미결)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setItem(index, Option_column.OI.value, item)
-            else:
-                pass          
-
-            수정미결증감 = format(df_call.at[index, '수정미결증감'], ',')
-
-            if 수정미결증감 != self.tableWidget_call.item(index, Option_column.OID.value).text():
-
-                item = QTableWidgetItem(수정미결증감)
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if call_result['미결제약정증감'] < 0:
-                    item.setBackground(QBrush(라임))
-                else:
-                    item.setBackground(QBrush(흰색))
-
-                self.tableWidget_call.setItem(index, Option_column.OID.value, item)
-            else:
-                pass
-            
-            수정미결합 = '{0}k'.format(format(int(df_call['수정미결'].sum()/1000), ','))
-
-            if 수정미결합 != self.tableWidget_call.horizontalHeaderItem(Option_column.OI.value).text():
-                item = QTableWidgetItem(수정미결합)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
-            else:
-                pass     
+            self.tableWidget_call.setItem(index, Option_column.OID.value, item)
         else:
             pass
+        
+        수정미결합 = '{0}k'.format(format(int(df_call['수정미결'].sum()/1000), ','))
+
+        if 수정미결합 != self.tableWidget_call.horizontalHeaderItem(Option_column.OI.value).text():
+            item = QTableWidgetItem(수정미결합)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
+        else:
+            pass    
     
     def call_volume_power_display(self):
 
@@ -15209,6 +15203,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             # 미결갱신
+            if not NightTime and 풋시가 > 0 and 풋저가 < 풋고가:
+
+                풋시가갭 = df_put.at[index, '시가갭']
+
+                if 풋현재가 <= 풋시가갭:
+
+                    수정미결 = put_result['미결제약정수량'] * 풋현재가
+                    수정미결증감 = put_result['미결제약정증감'] * 풋현재가
+                else:
+                    수정미결 = put_result['미결제약정수량'] * (풋현재가 - 풋시가갭)
+                    수정미결증감 = put_result['미결제약정증감'] * (풋현재가 - 풋시가갭)
+
+                df_put.at[index, '수정미결'] = int(수정미결)
+                df_put.at[index, '수정미결증감'] = int(수정미결증감)
+            else:
+                pass
+
             if not NightTime and not flag_checkBox_HS:
                 self.put_oi_update()
             else:
@@ -15433,64 +15444,41 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             풋대비합 = 0
     
     def put_oi_update(self):
-	
-        global df_put
 		
         index = put_행사가.index(put_result['단축코드'][5:8])
 
-        풋시가 = df_put.at[index, '시가']
-        풋저가 = df_put.at[index, '저가']
-        풋고가 = df_put.at[index, '고가']
-        풋현재가 = df_put.at[index, '현재가']
-        풋시가갭 = df_put.at[index, '시가갭']
+        수정미결 = format(df_put.at[index, '수정미결'], ',')
 
-        if 풋시가 > 0 and 풋저가 < 풋고가:
+        if 수정미결 != self.tableWidget_put.item(index, Option_column.OI.value).text():
 
-            if 풋현재가 <= 풋시가갭:
+            item = QTableWidgetItem(수정미결)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_put.setItem(index, Option_column.OI.value, item)
+        else:
+            pass            
 
-                수정미결 = put_result['미결제약정수량'] * 풋현재가
-                수정미결증감 = put_result['미결제약정증감'] * 풋현재가
+        미결증감 = format(df_put.at[index, '수정미결증감'], ',')
+
+        if 미결증감 != self.tableWidget_put.item(index, Option_column.OID.value).text():
+
+            item = QTableWidgetItem(미결증감)
+            item.setTextAlignment(Qt.AlignCenter)
+
+            if put_result['미결제약정증감'] < 0:
+                item.setBackground(QBrush(라임))
             else:
-                수정미결 = put_result['미결제약정수량'] * (풋현재가 - 풋시가갭)
-                수정미결증감 = put_result['미결제약정증감'] * (풋현재가 - 풋시가갭)
+                item.setBackground(QBrush(흰색))
 
-            df_put.at[index, '수정미결'] = int(수정미결)
-            df_put.at[index, '수정미결증감'] = int(수정미결증감)
+            self.tableWidget_put.setItem(index, Option_column.OID.value, item)
+        else:
+            pass
 
-            수정미결 = format(df_put.at[index, '수정미결'], ',')
+        수정미결합 = '{0}k'.format(format(int(df_put['수정미결'].sum()/1000), ','))
 
-            if 수정미결 != self.tableWidget_put.item(index, Option_column.OI.value).text():
-
-                item = QTableWidgetItem(수정미결)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setItem(index, Option_column.OI.value, item)
-            else:
-                pass            
-
-            미결증감 = format(df_put.at[index, '수정미결증감'], ',')
-
-            if 미결증감 != self.tableWidget_put.item(index, Option_column.OID.value).text():
-
-                item = QTableWidgetItem(미결증감)
-                item.setTextAlignment(Qt.AlignCenter)
-
-                if put_result['미결제약정증감'] < 0:
-                    item.setBackground(QBrush(라임))
-                else:
-                    item.setBackground(QBrush(흰색))
-
-                self.tableWidget_put.setItem(index, Option_column.OID.value, item)
-            else:
-                pass
-
-            수정미결합 = '{0}k'.format(format(int(df_put['수정미결'].sum()/1000), ','))
-
-            if 수정미결합 != self.tableWidget_put.horizontalHeaderItem(Option_column.OI.value).text():
-                item = QTableWidgetItem(수정미결합)
-                item.setTextAlignment(Qt.AlignCenter)
-                self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
-            else:
-                pass
+        if 수정미결합 != self.tableWidget_put.horizontalHeaderItem(Option_column.OI.value).text():
+            item = QTableWidgetItem(수정미결합)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
         else:
             pass
         
