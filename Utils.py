@@ -6,8 +6,10 @@ import telegram
 TELEGRAM_TOKEN = ''
 CHAT_ID = ''
 
-MY_TELEGRAM_TOKEN = '1036288207:AAHCTnfiEh2YgcHabXzt3fZ7mxOXzXf-Jxw'
-MY_CHAT_ID = '61361737'
+with open('my_telegram_token.txt', mode='r') as my_tokenfile:
+
+    MY_TELEGRAM_TOKEN = my_tokenfile.readline().strip()
+    MY_CHAT_ID = my_tokenfile.readline().strip()
 
 # pip install python-telegram-bot or pip install python-telegram-bot --upgrade
 def ToMyTelegram(str):
