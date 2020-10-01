@@ -38,6 +38,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets, QAxContainer, uic
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+from PyQt5.QtTest import *
 from numpy import NaN, Inf, arange, isscalar, asarray, array
 from pandas import DataFrame, Series
 from threading import Timer
@@ -4141,7 +4142,8 @@ class screen_update_worker(QThread):
             str = 'Main UI Update...'                
 
             self.finished.emit(str)
-            self.msleep(MAIN_UPDATE_INTERVAL)
+            #self.msleep(MAIN_UPDATE_INTERVAL)
+            QTest.qWait(MAIN_UPDATE_INTERVAL)
     '''
     finished = pyqtSignal(dict)
     
@@ -4191,7 +4193,8 @@ class t8415_Call_Worker(QThread):
         while True:
 
             self.finished.emit(t8415_call_count)
-            self.msleep(1100)
+            #self.msleep(1100)
+            QTest.qWait(1100)
 ########################################################################################################################
 
 ########################################################################################################################
@@ -4204,7 +4207,8 @@ class t8415_Put_Worker(QThread):
         while True:
 
             self.finished.emit(t8415_put_count)
-            self.msleep(1100)
+            #self.msleep(1100)
+            QTest.qWait(1100)
 ########################################################################################################################
 
 ########################################################################################################################
@@ -4217,7 +4221,8 @@ class t8416_Call_Worker(QThread):
         while True:
 
             self.finished.emit(t8416_call_count)
-            self.msleep(1100)
+            #self.msleep(1100)
+            QTest.qWait(1100)
 ########################################################################################################################
 
 ########################################################################################################################
@@ -4230,7 +4235,8 @@ class t8416_Put_Worker(QThread):
         while True:
 
             self.finished.emit(t8416_put_count)
-            self.msleep(1100)
+            #self.msleep(1100)
+            QTest.qWait(1100)
 ########################################################################################################################
 
 ########################################################################################################################
@@ -4489,7 +4495,8 @@ class telegram_send_worker(QThread):
                 pass            
 
             self.finished.emit(str)
-            self.msleep(1000 * TELEGRAM_SEND_INTERVAL)
+            #self.msleep(1000 * TELEGRAM_SEND_INTERVAL)
+            QTest.qWait(1000 * TELEGRAM_SEND_INTERVAL)
 
 ########################################################################################################################
 
@@ -4516,7 +4523,8 @@ class telegram_listen_worker(QThread):
                 str = 'Stopped by Tool...'
 
             self.finished.emit(str)
-            self.msleep(1000 * TELEGRAM_POLLING_INTERVAL)
+            #self.msleep(1000 * TELEGRAM_POLLING_INTERVAL)
+            QTest.qWait(1000 * TELEGRAM_POLLING_INTERVAL)
             
 ########################################################################################################################
 # 당월물 옵션전광판 class
@@ -16152,7 +16160,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         XQ = t1514(parent=self)
         XQ.Query(업종코드=KOSPI,구분1='',구분2='1',CTS일자='',조회건수='0001',비중구분='', 연속조회=False)
 
-        time.sleep(1.1)
+        #time.sleep(1.1)
+        QTest.qWait(1100)
 
         # 코스닥지수 조회
         XQ = t1514(parent=self)
@@ -17757,7 +17766,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.textBrowser.append(str)
 
-                time.sleep(0.1)
+                #time.sleep(0.1)
+                QTest.qWait(100)
 
                 XQ = t2801(parent=self)
                 XQ.Query(종목코드=fut_code)
@@ -18223,7 +18233,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
-                    time.sleep(0.1)
+                    #time.sleep(0.1)
+                    QTest.qWait(100)
 
                     XQ = t2801(parent=self)
                     XQ.Query(종목코드=fut_code)
@@ -18231,7 +18242,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
-                    time.sleep(0.1)
+                    #time.sleep(0.1)
+                    QTest.qWait(100)
                     
                 else:                    
                     # EUREX 야간옵션 시세전광판
@@ -19909,13 +19921,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             XQ.Query(종목코드=fut_code)
             print('t2101 요청')
 
-            time.sleep(0.1)
+            #time.sleep(0.1)
+            QTest.qWait(100)
 
             XQ = t2801(parent=self)
             XQ.Query(종목코드=fut_code)
             print('t2801 요청')
 
-            time.sleep(0.1)
+            #time.sleep(0.1)
+            QTest.qWait(100)
 
         elif szTrCode == 't8408':
 
@@ -20128,7 +20142,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             self.tableWidget_call.scrollToItem(call_positionCell)
 
-                            time.sleep(1.1)
+                            #time.sleep(1.1)
+                            QTest.qWait(1100)
 
                             self.t8416_putworker.start()
                             self.t8416_putworker.daemon = True
@@ -20364,7 +20379,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         self.tableWidget_call.scrollToItem(call_positionCell)
 
-                        time.sleep(1.1)
+                        #time.sleep(1.1)
+                        QTest.qWait(1100)
 
                         #t8416_put_count += 1
 
@@ -24988,7 +25004,8 @@ class bigchart_update_worker(QThread):
             str = 'Big Chart Update...'                
 
             self.finished.emit(str)
-            self.msleep(BIGCHART_UPDATE_INTERVAL)
+            #self.msleep(BIGCHART_UPDATE_INTERVAL)
+            QTest.qWait(BIGCHART_UPDATE_INTERVAL)
 
 ########################################################################################################################
 # Big Chart UI Class
@@ -37268,7 +37285,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.dialog['당월물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                     self.dialog['당월물옵션전광판'].show()
 
-                #time.sleep(0.1)
                 self.dialog['당월물옵션전광판'].AddCode()
             else:
                 pass
