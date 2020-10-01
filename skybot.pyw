@@ -4357,13 +4357,13 @@ class telegram_send_worker(QThread):
                     if command[0] == 'Allstop':
                         if FLAG_GUEST_CONTROL:
                             FLAG_GUEST_CONTROL = False
-                            ToMyTelegram('Allstop...')
+                            #ToMyTelegram('Allstop...')
                         else:
                             pass
                     elif command[0] == 'Allgo':
                         if not FLAG_GUEST_CONTROL:
                             FLAG_GUEST_CONTROL = True
-                            ToMyTelegram('Allgo...')
+                            #ToMyTelegram('Allgo...')
                         else:
                             pass
                     else:
@@ -4506,7 +4506,7 @@ class telegram_listen_worker(QThread):
 
                 # 텔레그램 메시지 수신
                 if SELFID == 'soojin65':
-                    str = FromMyTelegram()
+                    #str = FromMyTelegram()
                     print('텔레그램 수신 메시지 =', str)
                     pass
                 else:
@@ -13234,7 +13234,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if SELFID == 'soojin65':
                         str = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
-                        ToMyTelegram(str)
+                        #ToMyTelegram(str)
                     else:
                         ToYourTelegram("CM 텔레그램 Polling이 시작됩니다.")
 
@@ -23203,7 +23203,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 if SELFID == 'soojin65':
                                     str = '[{0:02d}:{1:02d}:{2:02d}] ***님 텔레그램 Polling이 시작됩니다.'.format(dt.hour, dt.minute, dt.second)
-                                    ToMyTelegram(str)
+                                    #ToMyTelegram(str)
                                 else:
                                     ToYourTelegram("CM 텔레그램 Polling이 시작됩니다.")
 
@@ -37066,7 +37066,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     str = '[{0:02d}:{1:02d}:{2:02d}] {3}님이 로그아웃 했습니다.'.format(adj_hour, adj_min, adj_sec, SELFID)
 
-                ToMyTelegram(str)
+                #ToMyTelegram(str)
             else:
                 pass
 
@@ -37249,7 +37249,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         pass
                 
-                ToMyTelegram(str)
+                #ToMyTelegram(str)
             else:
                 pass            
             

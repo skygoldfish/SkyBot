@@ -6,36 +6,6 @@ import telegram
 TELEGRAM_TOKEN = ''
 CHAT_ID = ''
 
-with open('my_telegram_token.txt', mode='r') as my_tokenfile:
-
-    MY_TELEGRAM_TOKEN = my_tokenfile.readline().strip()
-    MY_CHAT_ID = my_tokenfile.readline().strip()
-
-# pip install python-telegram-bot or pip install python-telegram-bot --upgrade
-def ToMyTelegram(str):
-
-    bot = telegram.Bot(token=MY_TELEGRAM_TOKEN)
-    bot.sendMessage(chat_id=MY_CHAT_ID, text=str)
-
-def FromMyTelegram():
-
-    bot = telegram.Bot(token=MY_TELEGRAM_TOKEN)
-
-    try:
-        updates = bot.getUpdates(offset=-1)
-        last_message = None
-
-        for u in updates:
-            if u is not None:
-                last_message = u
-        
-        #print(last_message.message.text)
-
-        return last_message.message.text
-
-    except Exception as e:
-        pass
-
 def ToYourTelegram(str):
     global TELEGRAM_TOKEN
     global CHAT_ID
