@@ -4143,44 +4143,7 @@ class screen_update_worker(QThread):
 
             self.finished.emit(str)
             #self.msleep(MAIN_UPDATE_INTERVAL)
-            QTest.qWait(MAIN_UPDATE_INTERVAL)
-    '''
-    finished = pyqtSignal(dict)
-    
-    def run(self):
-        
-        while True:
-
-            data = {}
-
-            # 선택된 콜,풋 만으로 loop를 돌림
-            for actval in selected_opt_list:
-
-                data[actval] = self.get_data_infos(actval)
-            
-            # 같은 파일내 다른 클래스의 함수를 호출할 경우 classmethod 사용!!!
-            # 화면_선물옵션전광판.test_classmethod()
-            
-            # 500ms 마다 갱신
-            self.finished.emit(data)  
-            self.msleep(MAIN_UPDATE_INTERVAL)
-
-    def get_data_infos(self, actval):
-
-        try:
-            index = opt_actval.index(actval)
-
-            #call_curve_data = df_call_price_graph[index].tolist()            
-            #put_curve_data = df_put_price_graph[index].tolist()
-
-            call_curve_data = df_call_graph[index]['price'].tolist()
-            put_curve_data = df_put_graph[index]['price'].tolist()
-            
-            return call_curve_data, put_curve_data
-        except:
-            
-            return None, None
-    '''
+            QTest.qWait(MAIN_UPDATE_INTERVAL)    
 ########################################################################################################################
 
 ########################################################################################################################
@@ -4497,7 +4460,6 @@ class telegram_send_worker(QThread):
             self.finished.emit(str)
             #self.msleep(1000 * TELEGRAM_SEND_INTERVAL)
             QTest.qWait(1000 * TELEGRAM_SEND_INTERVAL)
-
 ########################################################################################################################
 
 ########################################################################################################################
@@ -4524,8 +4486,7 @@ class telegram_listen_worker(QThread):
 
             self.finished.emit(str)
             #self.msleep(1000 * TELEGRAM_POLLING_INTERVAL)
-            QTest.qWait(1000 * TELEGRAM_POLLING_INTERVAL)
-            
+            QTest.qWait(1000 * TELEGRAM_POLLING_INTERVAL)            
 ########################################################################################################################
 # 당월물 옵션전광판 class
 ########################################################################################################################
@@ -21496,27 +21457,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         self.pushButton_add.setText('ScrShot')
 
-                        self.SaveResult()
-
-                        '''
-                        # 백그라운드로 프로세스가 이동됨(???)
-
-                        flag_offline = True  
-
-                        self.parent.connection.disconnect()
-
-                        time.sleep(0.5)
-
-                        if not self.parent.connection.IsConnected():
-
-                            self.parent.statusbar.showMessage("오프라인")
-                                                   
-                            str = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 종료합니다...\r'.format(dt.hour, dt.minute, dt.second)
-                            self.textBrowser.append(str)
-                            print(str) 
-                        else:
-                            pass
-                        '''                                            
+                        self.SaveResult()                                        
                     else:
                         pass                                               
 
@@ -25006,7 +24947,6 @@ class bigchart_update_worker(QThread):
             self.finished.emit(str)
             #self.msleep(BIGCHART_UPDATE_INTERVAL)
             QTest.qWait(BIGCHART_UPDATE_INTERVAL)
-
 ########################################################################################################################
 # Big Chart UI Class
 ########################################################################################################################
