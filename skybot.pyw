@@ -50,6 +50,8 @@ from PIL import Image
 import talib
 from talib import MA_Type
 import ta
+import qtmodern.styles
+import qtmodern.windows
 
 from XASessions import *
 from XAQueries import *
@@ -262,7 +264,10 @@ MONTH_FIRSTDAY = parser.get('Month Info', 'First Day of the Current Month')
 # [2]. << Target Month Select : current month = 1, next month = 2 >>
 TARGET_MONTH_SELECT = parser.getint('Target Month Select', 'Target Month Select')
 
-# [3]. << User Option = 'ON or OFF' >>
+# [3]. << Window Style >>
+MODERN_WINDOW_DARK_STYLE = parser.getboolean('Window Style', 'Modern Dark Style')
+
+# [4]. << User Option = 'ON or OFF' >>
 TELEGRAM_SERVICE = parser.getboolean('User Switch', 'Telegram service')
 MANGI_YAGAN = parser.getboolean('User Switch', 'Mangi Yagan')
 AUTO_START = parser.getboolean('User Switch', 'Auto Start')
@@ -272,10 +277,10 @@ SECOND_PLOT_SYNC = parser.getboolean('User Switch', 'Second Plot Sync')
 
 #print('TELEGRAM_SERVICE =', TELEGRAM_SERVICE)
 
-# [4]. << Moving Average Type >>
+# [5]. << Moving Average Type >>
 MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
 
-# [5]. << Initial Value >>
+# [6]. << Initial Value >>
 HL_Depth = parser.getint('Initial Value', 'HL List Depth')
 NightTime_PreStart_Hour = parser.getint('Initial Value', 'NightTime Pre-Start Hour')
 ActvalCount = parser.getint('Initial Value', 'Actval count of the option pairs')
@@ -287,7 +292,7 @@ CROSS_COLOR_INTERVAL = parser.getint('Initial Value', 'Cross Coloring Interval(m
 MAIN_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Main Update Interval(msec)')
 BIGCHART_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Big Chart Update Interval(msec)')
 
-# [6]. << Code of the Foreign Futures (H/M/U/Z) >>
+# [7]. << Code of the Foreign Futures (H/M/U/Z) >>
 SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
 DOW = parser.get('Code of the Foreign Futures', 'DOW')
 NASDAQ = parser.get('Code of the Foreign Futures', 'NASDAQ')
@@ -296,7 +301,7 @@ EUROFX = parser.get('Code of the Foreign Futures', 'EUROFX')
 HANGSENG = parser.get('Code of the Foreign Futures', 'HANGSENG')
 GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
 
-# [7]. << Supply & Demand Code Symbol of the Foreign Futures >>
+# [8]. << Supply & Demand Code Symbol of the Foreign Futures >>
 KRWUSD = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'KRWUSD')
 DOW_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'DOW SND')
 SP500_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'S&P 500 SND')
@@ -306,12 +311,12 @@ EURUSD = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'EURUS
 HANGSENG_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'HANGSENG SND')
 GOLD_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'GOLD SND')
 
-# [8]. << Telegram >>
+# [9]. << Telegram >>
 TELEGRAM_START_TIME = parser.getint('Telegram', 'Telegram polling start time(minute) after service')
 TELEGRAM_POLLING_INTERVAL = parser.getint('Telegram', 'Telegram polling interval(second)')
 TELEGRAM_SEND_INTERVAL = parser.getint('Telegram', 'Telegram send interval(second)')
 
-# [9]. << Rules >>
+# [10]. << Rules >>
 ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party supply & demand')
 #####################################################################################################################################################################
 
@@ -37809,11 +37814,16 @@ if __name__ == "__main__":
     logger.info("LOG START")
 
     app = QApplication(sys.argv)
-    #app.setStyle(QStyleFactory.create('Cleanlooks'))
     app.setQuitOnLastWindowClosed(True)
 
     window = MainWindow()
-    window.show()
+
+    if MODERN_WINDOW_DARK_STYLE:
+        qtmodern.styles.dark(app)
+        win = qtmodern.windows.ModernWindow(window)        
+        win.show()
+    else:
+        window.show()
 
     QTimer().singleShot(1, window.OnQApplicationStarted)
 
