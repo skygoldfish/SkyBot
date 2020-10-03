@@ -5402,11 +5402,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.checkBox_HS.stateChanged.connect(self.checkBox_HS_checkState)            
         
         # 쓰레드 시작은 start(), 종료는 terminate()
+        '''
         self.t8416_callworker = t8416_Call_Worker()
         self.t8416_callworker.finished.connect(self.t8416_call_request)
 
         self.t8416_putworker = t8416_Put_Worker()
         self.t8416_putworker.finished.connect(self.t8416_put_request)
+        '''
+        # 이벤트루프를 사용하여 t8416 연속요청(1초당 1건) 처리
+        self.t8416_call_event_loop = QEventLoop()
+        self.t8416_put_event_loop = QEventLoop()
 
         self.screen_update_worker = screen_update_worker()
         self.screen_update_worker.finished.connect(self.update_screen)
@@ -6302,7 +6307,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         except:
             pass
 
-    @pyqtSlot(int)
+    #@pyqtSlot(int)
     def t8416_call_request(self, index):
         try:
             XQ = t8416(parent=self)
@@ -6314,7 +6319,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         except:
             pass
 
-    @pyqtSlot(int)
+    #@pyqtSlot(int)
     def t8416_put_request(self, index):
         try:
             XQ = t8416(parent=self)
@@ -16594,6 +16599,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global CENTER_VAL, CENTER_VAL1, CENTER_VAL2, CENTER_VAL3, CENTER_VAL4, CENTER_VAL5, CENTER_VAL6, CENTER_VAL7, CENTER_VAL8, CENTER_VAL9, CENTER_VAL10
 
         global df_futures_graph, df_kp200_graph
+        global t8416_call_count, t8416_put_count
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -16876,9 +16882,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         elif szTrCode == 't2301':
 
             block, df, df1 = result
-
-            dt = datetime.datetime.now()
-            current_str = dt.strftime('%H:%M:%S')
 
             global 옵션잔존일
 
@@ -17839,8 +17842,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.BM.AdviseRealData(CME)
 
                 # t8416 요청
+                '''
                 self.t8416_callworker.start()
                 self.t8416_callworker.daemon = True
+                '''
+                print('t8416 call 요청시작...')
+
+                for i in range(option_pairs_count):
+                    
+                    self.t8416_call_request(i)
+                    print('t8416 call {0}번째 event loop 시작\r'.format(i+1))
+                    self.t8416_call_event_loop.exec_()
 
             else:
                 # Refresh
@@ -19948,10 +19960,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             block, df = result
 
-            dt = datetime.datetime.now()
-            current_str = dt.strftime('%H:%M:%S')
-
-            global t8416_call_count, t8416_put_count
             global new_actval_up_count, new_actval_down_count, actval_increased
 
             str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
@@ -20069,7 +20077,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if t8416_call_count == option_pairs_count - new_actval_down_count:
 
-                        if self.t8416_callworker.isRunning():
+                        #if self.t8416_callworker.isRunning():
+                        if True:
 
                             call_기준가 = df_call['기준가'].values.tolist()
                             call_월저 = df_call['월저'].values.tolist()
@@ -20095,19 +20104,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             print('Call 과거데이타 수신완료')
 
-                            self.t8416_callworker.terminate()
+                            #self.t8416_callworker.terminate()
                             str = '[{0:02d}:{1:02d}:{2:02d}] Call 과거데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)                            
 
                             call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
-
                             self.tableWidget_call.scrollToItem(call_positionCell)
 
+                            '''
                             #time.sleep(1.1)
-                            QTest.qWait(1100)
-
+                            #QTest.qWait(1100)
+                            
                             self.t8416_putworker.start()
                             self.t8416_putworker.daemon = True
+                            '''
+                            print('t8416 put 요청시작...')
+
+                            for i in range(option_pairs_count):
+                                self.t8416_put_request(i)
+                                print('t8416 put {0}번째 event loop 시작\r'.format(i+1))
+                                self.t8416_put_event_loop.exec_()
                         else:
                             pass
                     else:
@@ -20302,11 +20318,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 t8416_call_count += 1
 
                 print('Call 과거데이타 %d 개중 %d개 수신...' % (option_pairs_count, t8416_call_count))
+
+                # t8416은 초당 1건 전송가능
+                self.t8416_call_event_loop.exit()
+                #print('t8416_call_event_loop exit...')
+                QTest.qWait(1000)
                 
                 # to be checked !!!
                 if t8416_call_count == option_pairs_count:
 
-                    if self.t8416_callworker.isRunning():
+                    #if self.t8416_callworker.isRunning():
+                    if True:
 
                         call_기준가 = df_call['기준가'].values.tolist()
                         call_월저 = df_call['월저'].values.tolist()
@@ -20332,21 +20354,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         print('Call 과거데이타 수신완료')
 
-                        self.t8416_callworker.terminate()
+                        #self.t8416_callworker.terminate()
                         str = '[{0:02d}:{1:02d}:{2:02d}] Call 과거데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
 
                         call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
-
                         self.tableWidget_call.scrollToItem(call_positionCell)
 
+                        '''
                         #time.sleep(1.1)
-                        QTest.qWait(1100)
-
+                        #QTest.qWait(1000)
                         #t8416_put_count += 1
-
+                        
                         self.t8416_putworker.start()
                         self.t8416_putworker.daemon = True
+                        '''
+                        print('t8416 put 요청시작...')
+
+                        for i in range(option_pairs_count):
+                                self.t8416_put_request(i)
+                                print('t8416 put {0}번째 event loop 시작\r'.format(i+1))
+                                self.t8416_put_event_loop.exec_()
                     else:
                         pass
                 else:
@@ -20510,6 +20538,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 print('Put 과거데이타 %d 개중 %d개 수신...' % (option_pairs_count, t8416_put_count))
 
+                self.t8416_put_event_loop.exit()
+                #print('t8416_put_event_loop exit...')
+                QTest.qWait(1000)
+
                 if t8416_put_count == option_pairs_count - new_actval_down_count:
                     
                     str = '[{0:02d}:{1:02d}:{2:02d}] Put 과거데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
@@ -20552,12 +20584,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         pass
                     self.tableWidget_put.resizeColumnsToContents()
 
-                    if self.t8416_putworker.isRunning():
+                    #if self.t8416_putworker.isRunning():
+                    if True:
 
-                        self.t8416_putworker.terminate()
+                        #self.t8416_putworker.terminate()
                                                 
                         put_positionCell = self.tableWidget_put.item(atm_index + 20, 1)
-
                         self.tableWidget_put.scrollToItem(put_positionCell)
                     else:
                         pass
