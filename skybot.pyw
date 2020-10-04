@@ -4503,10 +4503,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def __init__(self, parent=None):
         super(화면_선물옵션전광판, self).\
             __init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
-        self.setAttribute(Qt.WA_DeleteOnClose)
-        self.setupUi(self)
+        self.setAttribute(Qt.WA_DeleteOnClose)        
 
         self.parent = parent
+        
+        self.setupUi(self)
 
         global 모니터번호
         
