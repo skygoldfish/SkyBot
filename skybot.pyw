@@ -5298,13 +5298,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if TARGET_MONTH_SELECT == 1:
 
-                    widget_title = repr(current_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                    if not REAL_SERVER:
+                        widget_title = repr(current_month) + '월 만기 주간 선물옵션(모의투자) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                    else:
+                        widget_title = repr(current_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+
                     print(widget_title)
                     ToYourTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
 
                 elif TARGET_MONTH_SELECT == 2:
 
-                    widget_title = repr(next_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                    if not REAL_SERVER:
+                        widget_title = repr(next_month) + '월 만기 주간 선물옵션(모의투자) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                    else:
+                        widget_title = repr(next_month) + '월 만기 주간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+
                     ToYourTelegram("{0}월물 주간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
 
                 else:
