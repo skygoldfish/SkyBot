@@ -256,6 +256,9 @@ UI_STYLE = 'Horizontal_Large_View.ui'
 parser = ConfigParser()
 parser.read('skybot.ini')
 
+# [0]. << Server Type >>
+REAL_SERVER = parser.getboolean('Server Type', 'Real Server')
+
 # [1]. << Month Info >>
 KSE_START_HOUR = parser.getint('Month Info', 'KSE Start Hour')
 CURRENT_MONTH = parser.get('Month Info', 'Current Month')
@@ -37189,7 +37192,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global SELFID
 
         계좌정보 = pd.read_csv("secret/passwords.csv", converters={'계좌번호': str, '거래비밀번호': str})
-        주식계좌정보 = 계좌정보.query("구분 == '거래'")
+
+        if REAL_SERVER:
+            주식계좌정보 = 계좌정보.query("구분 == '거래'")
+            print('실서버에 접속합니다.')
+        else:
+            주식계좌정보 = 계좌정보.query("구분 == '모의'")
+            print('모의서버에 접속합니다.')        
 
         if len(주식계좌정보) > 0:
             if self.connection is None:
@@ -37202,7 +37211,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.cert = 주식계좌정보['공인인증비밀번호'].values[0].strip()
             self.거래비밀번호 = 주식계좌정보['거래비밀번호'].values[0].strip()
             self.url = 주식계좌정보['url'].values[0].strip()
-            self.connection.login(url='hts.ebestsec.co.kr', id=self.id, pwd=self.pwd, cert=self.cert)
+            self.connection.login(url=self.url, id=self.id, pwd=self.pwd, cert=self.cert)
         else:
             print("secret디렉토리의 passwords.csv 파일에서 거래 계좌를 지정해 주세요")
 
