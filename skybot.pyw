@@ -1503,6 +1503,7 @@ Option_volume_column = Enum('Option_volume_column', '매도누적체결량 매�
 Supply_column = Enum('Supply_column', '외인선옵 개인선옵 기관선옵 외인현물 프로그램')
 Quote_column = Enum('Quote_column', 'C-MSCC C-MDCC C-MSCR C-MDCR P-MSCC P-MDCC P-MSCR P-MDCR 콜건수비 콜잔량비 풋건수비 풋잔량비 호가종합 미결종합')
 option_pairs_count = 0
+real_option_pairs_count = 0
 
 call_result = dict()
 put_result = dict()
@@ -16580,7 +16581,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global put_기준가_node_list, put_월저_node_list, put_월고_node_list, put_전저_node_list, put_전고_node_list, \
             put_종가_node_list, put_피봇_node_list, put_시가_node_list, put_저가_node_list, put_고가_node_list
 
-        global option_pairs_count
+        global option_pairs_count, real_option_pairs_count
 
         global 콜_순미결합, 풋_순미결합, 콜_순미결퍼센트, 풋_순미결퍼센트
         global 콜_수정미결합, 풋_수정미결합, 콜_수정미결퍼센트, 풋_수정미결퍼센트
@@ -16919,6 +16920,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # 옵션 행사가 갯수
                 option_pairs_count = len(df)
+                real_option_pairs_count = len(df)
+
+                if option_pairs_count > 100:
+                    option_pairs_count = 100
+                else:
+                    pass
                 
                 if not NightTime:
 
@@ -19994,7 +20001,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if new_actval_up_count == 0 and new_actval_down_count == 0:
 
-                item_str = '{0:d}'.format(option_pairs_count)
+                item_str = '{0:d}'.format(real_option_pairs_count)
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setHorizontalHeaderItem(0, item)
@@ -20005,7 +20012,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
                 self.tableWidget_call.resizeColumnsToContents()
 
-                item_str = '{0:d}'.format(option_pairs_count)
+                item_str = '{0:d}'.format(real_option_pairs_count)
                 item = QTableWidgetItem(item_str)
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setHorizontalHeaderItem(0, item) 
