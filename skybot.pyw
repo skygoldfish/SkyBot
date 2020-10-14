@@ -5336,26 +5336,42 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if TARGET_MONTH_SELECT == 1:
 
-                        widget_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        if not REAL_SERVER:
+                            widget_title = repr(next_month) + '월 만기 야간 선물옵션(모의투자) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        else:
+                            widget_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+
                         ToYourTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
 
                         print('next_month =', next_month)
 
                     elif TARGET_MONTH_SELECT == 2:
 
-                        widget_title = repr(month_after_next) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        if not REAL_SERVER:
+                            widget_title = repr(month_after_next) + '월 만기 야간 선물옵션(모의투자) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        else:
+                            widget_title = repr(month_after_next) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+
                         ToYourTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(month_after_next)))
                     else:
                         pass
                 else:
                     if TARGET_MONTH_SELECT == 1:
 
-                        widget_title = repr(current_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        if not REAL_SERVER:
+                            widget_title = repr(current_month) + '월 만기 야간 선물옵션(모의투자) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        else:
+                            widget_title = repr(current_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+
                         ToYourTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(current_month)))
 
                     elif TARGET_MONTH_SELECT == 2:
 
-                        widget_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        if not REAL_SERVER:
+                            widget_title = repr(next_month) + '월 만기 야간 선물옵션(모의투자) 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+                        else:
+                            widget_title = repr(next_month) + '월 만기 야간 선물옵션 전광판' + '(' + today_title + ')' + ' build : ' + buildtime
+
                         ToYourTelegram("{0}월물 야간 선물옵션 SkyBot이 실행되었습니다.".format(repr(next_month)))
 
                     else:
