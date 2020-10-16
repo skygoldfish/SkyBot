@@ -5240,14 +5240,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.OVC = OVC(parent=self)
         self.OVH = OVH(parent=self)
         self.WOC = WOC(parent=self)
-
         self.MK2 = MK2(parent=self)
-        '''
-        self.OPT_REAL = OC0(parent=self)
-        self.OPT_HO = OH0(parent=self)
-        self.FUT_REAL = FC0(parent=self)
-        self.FUT_HO = FH0(parent=self)
-        '''
+        
         dt = datetime.datetime.now()
         
         if int(current_str[0:2]) < 12:
@@ -17839,8 +17833,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     for i in range(option_pairs_count):
                         self.OPT_REAL.AdviseRealData(call_code[i])
                         self.OPT_REAL.AdviseRealData(put_code[i])
-                        self.OPT_HO.AdviseRealData(call_code[i])
-                        self.OPT_HO.AdviseRealData(put_code[i])                       
+                        #self.OPT_HO.AdviseRealData(call_code[i])
+                        #self.OPT_HO.AdviseRealData(put_code[i])
+
+                    # 등가 위아래 10개만 요청
+                    for i in range(20):
+                        self.OPT_HO.AdviseRealData(call_code[atm_index - 10 + i])
+                        self.OPT_HO.AdviseRealData(put_code[atm_index - 10 + i])                     
 
                     # 선물 실시간테이타 요청
                     self.FUT_REAL.AdviseRealData(fut_code)
@@ -17882,8 +17881,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     for i in range(option_pairs_count):
                         self.OPT_REAL.AdviseRealData(call_code[i])
                         self.OPT_REAL.AdviseRealData(put_code[i]) 
-                        self.OPT_HO.AdviseRealData(call_code[i])
-                        self.OPT_HO.AdviseRealData(put_code[i])
+                        #self.OPT_HO.AdviseRealData(call_code[i])
+                        #self.OPT_HO.AdviseRealData(put_code[i])
+
+                    # 등가 위아래 10개만 요청
+                    for i in range(20):
+                        self.OPT_HO.AdviseRealData(call_code[atm_index - 10 + i])
+                        self.OPT_HO.AdviseRealData(put_code[atm_index - 10 + i])
                     
                     self.FUT_REAL.AdviseRealData(fut_code)                                   
                     self.FUT_HO.AdviseRealData(fut_code)

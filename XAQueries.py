@@ -2485,6 +2485,24 @@ class t2101(XAQuery):
         if self.parent != None:
             self.parent.OnReceiveData(szTrCode, [result])
 
+# 선물/옵션 현재가 호가조회(t2105), 1초당 10건
+class t2105(XAQuery):
+    def Query(self, 종목코드):
+        self.ActiveX.LoadFromResFile(self.RESFILE)
+        self.ActiveX.SetFieldData(self.INBLOCK, "shcode", 0, 종목코드)
+        self.ActiveX.Request(0)
+
+    def OnReceiveMessage(self, systemError, messageCode, message):
+        클래스이름 = self.__class__.__name__
+        함수이름 = inspect.currentframe().f_code.co_name
+        print("%s-%s " % (클래스이름, 함수이름), systemError, messageCode, message)
+
+    def OnReceiveData(self, szTrCode):
+        result = dict()
+
+        if self.parent != None:
+            self.parent.OnReceiveData(szTrCode, [result])
+
 # CME 현재가조회(t2801)
 class t2801(XAQuery):
     def Query(self, 종목코드):
