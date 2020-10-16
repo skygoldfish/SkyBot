@@ -2487,9 +2487,9 @@ class t2101(XAQuery):
 
 # 선물/옵션 현재가 호가조회(t2105), 1초당 10건
 class t2105(XAQuery):
-    def Query(self, 종목코드):
+    def Query(self, 단축코드):
         self.ActiveX.LoadFromResFile(self.RESFILE)
-        self.ActiveX.SetFieldData(self.INBLOCK, "shcode", 0, 종목코드)
+        self.ActiveX.SetFieldData(self.INBLOCK, "shcode", 0, 단축코드)
         self.ActiveX.Request(0)
 
     def OnReceiveMessage(self, systemError, messageCode, message):
@@ -2499,6 +2499,51 @@ class t2105(XAQuery):
 
     def OnReceiveData(self, szTrCode):
         result = dict()
+
+        result['종목명'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "hname", 0)
+        result['현재가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "price", 0))
+        result['전일대비구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "sign", 0)
+        result['전일대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "change", 0))
+        result['등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "diff", 0))
+        result['거래량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "volume", 0))
+        result['거래량전일동시간비율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "stimeqrt", 0))
+        result['전일종가'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilclose", 0))
+        result['매도호가1'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho1", 0))
+        result['매수호가1'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidho1", 0))
+        result['매도호가수량1'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerrem1", 0))
+        result['매수호가수량1'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidrem1", 0))
+        result['매도호가건수1'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "dcnt1", 0))
+        result['매수호가건수1'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "scnt1", 0))
+        result['매도호가2'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho2", 0))
+        result['매수호가2'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidho2", 0))
+        result['매도호가수량2'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerrem2", 0))
+        result['매수호가수량2'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidrem2", 0))
+        result['매도호가건수2'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "dcnt2", 0))
+        result['매수호가건수2'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "scnt2", 0))
+        result['매도호가3'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho3", 0))
+        result['매수호가3'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidho3", 0))
+        result['매도호가수량3'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerrem3", 0))
+        result['매수호가수량3'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidrem3", 0))
+        result['매도호가건수3'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "dcnt3", 0))
+        result['매수호가건수3'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "scnt3", 0))
+        result['매도호가4'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho4", 0))
+        result['매수호가4'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidho4", 0))
+        result['매도호가수량4'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerrem4", 0))
+        result['매수호가수량4'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidrem4", 0))
+        result['매도호가건수4'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "dcnt4", 0))
+        result['매수호가건수4'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "scnt4", 0))
+        result['매도호가5'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerho5", 0))
+        result['매수호가5'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidho5", 0))
+        result['매도호가수량5'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "offerrem5", 0))
+        result['매수호가수량5'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "bidrem5", 0))
+        result['매도호가건수5'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "dcnt5", 0))
+        result['매수호가건수5'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "scnt5", 0))        
+        result['매도호가총수량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "dvol", 0))
+        result['매수호가총수량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "svol", 0))
+        result['총매도호가건수'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "toffernum"))
+        result['총매수호가건수'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "tbidnum"))
+        result['수신시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "time", 0)
+        result['단축코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "shcode", 0)
 
         if self.parent != None:
             self.parent.OnReceiveData(szTrCode, [result])
