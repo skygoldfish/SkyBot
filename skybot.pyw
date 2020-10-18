@@ -2676,6 +2676,8 @@ SERVER_SEC = 0
 flag_server_touch = False
 flag_option_start = False
 
+flag_t2301_eventloop = False
+
 ########################################################################################################################
 
 def sqliteconn():
@@ -5447,6 +5449,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.t8416_putworker = t8416_Put_Worker()
         self.t8416_putworker.finished.connect(self.t8416_put_request)
         '''
+        # t2301 이벤트루프(1초당 2건) --> 옵션 실시간수신 문제 보완목적
+        self.t2301_event_loop = QEventLoop()
+
         # 이벤트루프를 사용하여 t8416 연속요청(1초당 1건) 처리
         self.t8416_call_event_loop = QEventLoop()
         self.t8416_put_event_loop = QEventLoop()
@@ -6622,6 +6627,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # 서버시간 기준으로 1분마다 체크!!!
             if self.alternate_flag and flag_heartbeat:
                 self.heartbeat_check()
+            else:
+                pass
+
+            if flag_checkBox_HS and self.alternate_flag and dt.second % 2 == 0:
+
+                XQ = t2301(parent=self)
+                XQ.Query(월물=t2301_month_info, 미니구분='G')
+                self.t2301_event_loop.exec_()
             else:
                 pass
 
@@ -16556,6 +16569,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
+    def OnReceiveMessage(self, systemError, messageCode, message):
+        
+        global flag_t2301_eventloop
+
+        if systemError == 0:
+
+            # t2301 이벤트루프 해지                    
+            flag_t2301_eventloop = True
+
+            self.t2301_event_loop.exit()
+            print('t2301_event_loop success exit...')
+        else:
+            # t2301 이벤트루프 해지                    
+            flag_t2301_eventloop = False
+
+            self.t2301_event_loop.exit()
+            print('t2301_event_loop fail exit...')
+
     #####################################################################################################################################################################
     def OnReceiveData(self, szTrCode, result):
 
@@ -17907,13 +17938,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.t8416_call_request(i)
                     print('t8416 call {0}번째 event loop 시작\r'.format(i+1))
                     self.t8416_call_event_loop.exec_()
-
             else:
                 # Refresh
                 if not NightTime:
-                                    
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
+
+                    if not flag_checkBox_HS:                
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 주간옵션 전광판을 갱신합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
+                    else:
+                        pass
 
                     del call_open_list[:]
                     del put_open_list[:]
@@ -18145,6 +18178,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     self.opt_high_low_list_update()
 
+                    '''
                     str = '[{0:02d}:{1:02d}:{2:02d}] call_저가 list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, call_저가)
                     #self.textBrowser.append(str)
                     print(str)
@@ -18164,114 +18198,123 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] high low list in t2301 refresh = {3}\r'.format(dt.hour, dt.minute, dt.second, high_low_list)
                     #self.textBrowser.append(str)
                     print(str) 
+                    '''
 
-                    for i in range(option_pairs_count):
+                    if not flag_checkBox_HS:
 
-                        if df['저가'][i] < df['고가'][i]:
-                            저가 = df['저가'][i]
-                            고가 = df['고가'][i]                        
-                        else:
-                            저가 = 0.0
-                            고가 = 0.0
-                        
-                        df_call.at[i, '저가'] = 저가
-                        빈도수 = moving_list.count(저가)
+                        for i in range(option_pairs_count):
 
-                        if 1.20 < 저가 < 10.0:
-                            item_str = '{0:.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
-                            item = QTableWidgetItem(item_str)
-                        else:
-                            item = QTableWidgetItem("{0:.2f}".format(저가))
+                            if df['저가'][i] < df['고가'][i]:
+                                저가 = df['저가'][i]
+                                고가 = df['고가'][i]                        
+                            else:
+                                저가 = 0.0
+                                고가 = 0.0
 
-                        item.setTextAlignment(Qt.AlignCenter)
+                            df_call.at[i, '저가'] = 저가
+                            빈도수 = moving_list.count(저가)
 
-                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
-                            item.setBackground(QBrush(옅은회색))
-                        else:
-                            item.setBackground(QBrush(흰색))
+                            if 1.20 < 저가 < 10.0:
+                                item_str = '{0:.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
+                                item = QTableWidgetItem(item_str)
+                            else:
+                                item = QTableWidgetItem("{0:.2f}".format(저가))
 
-                        self.tableWidget_call.setItem(i, Option_column.저가.value, item)
+                            item.setTextAlignment(Qt.AlignCenter)
 
-                        df_call.at[i, '고가'] = 고가
-                        빈도수 = moving_list.count(고가)
+                            if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                                item.setBackground(QBrush(옅은회색))
+                            else:
+                                item.setBackground(QBrush(흰색))
 
-                        if 1.20 < 고가 < 10.0:
-                            item_str = '{0:.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
-                            item = QTableWidgetItem(item_str)
-                        else:
-                            item = QTableWidgetItem("{0:.2f}".format(고가))
+                            self.tableWidget_call.setItem(i, Option_column.저가.value, item)
 
-                        item.setTextAlignment(Qt.AlignCenter)
+                            df_call.at[i, '고가'] = 고가
+                            빈도수 = moving_list.count(고가)
 
-                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
-                            item.setBackground(QBrush(옅은회색))
-                        else:
-                            item.setBackground(QBrush(흰색))
+                            if 1.20 < 고가 < 10.0:
+                                item_str = '{0:.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
+                                item = QTableWidgetItem(item_str)
+                            else:
+                                item = QTableWidgetItem("{0:.2f}".format(고가))
 
-                        self.tableWidget_call.setItem(i, Option_column.고가.value, item)
+                            item.setTextAlignment(Qt.AlignCenter)
 
-                        if df1['저가'][i] < df1['고가'][i]:
-                            저가 = df1['저가'][i]
-                            고가 = df1['고가'][i]                        
-                        else:
-                            저가 = 0.0
-                            고가 = 0.0
-                        
-                        df_put.at[i, '저가'] = 저가
-                        빈도수 = moving_list.count(저가)
+                            if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                                item.setBackground(QBrush(옅은회색))
+                            else:
+                                item.setBackground(QBrush(흰색))
 
-                        if 1.20 < 저가 < 10.0:
-                            item_str = '{0:.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
-                            item = QTableWidgetItem(item_str)
-                        else:
-                            item = QTableWidgetItem("{0:.2f}".format(저가))
+                            self.tableWidget_call.setItem(i, Option_column.고가.value, item)
 
-                        item.setTextAlignment(Qt.AlignCenter)
+                            if df1['저가'][i] < df1['고가'][i]:
+                                저가 = df1['저가'][i]
+                                고가 = df1['고가'][i]                        
+                            else:
+                                저가 = 0.0
+                                고가 = 0.0
 
-                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
-                            item.setBackground(QBrush(옅은회색))
-                        else:
-                            item.setBackground(QBrush(흰색))
+                            df_put.at[i, '저가'] = 저가
+                            빈도수 = moving_list.count(저가)
 
-                        self.tableWidget_put.setItem(i, Option_column.저가.value, item)
+                            if 1.20 < 저가 < 10.0:
+                                item_str = '{0:.2f}'.format(저가) + '\n(' + repr(빈도수) + ')'
+                                item = QTableWidgetItem(item_str)
+                            else:
+                                item = QTableWidgetItem("{0:.2f}".format(저가))
 
-                        df_put.at[i, '고가'] = 고가
-                        빈도수 = moving_list.count(고가)
+                            item.setTextAlignment(Qt.AlignCenter)
 
-                        if 1.20 < 고가 < 10.0:
-                            item_str = '{0:.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
-                            item = QTableWidgetItem(item_str)
-                        else:
-                            item = QTableWidgetItem("{0:.2f}".format(고가))
+                            if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                                item.setBackground(QBrush(옅은회색))
+                            else:
+                                item.setBackground(QBrush(흰색))
 
-                        item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget_put.setItem(i, Option_column.저가.value, item)
 
-                        if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
-                            item.setBackground(QBrush(옅은회색))
-                        else:
-                            item.setBackground(QBrush(흰색))
+                            df_put.at[i, '고가'] = 고가
+                            빈도수 = moving_list.count(고가)
 
-                        self.tableWidget_put.setItem(i, Option_column.고가.value, item)
-                    
-                    # 주야간 선물전광판 데이타 요청
-                    XQ = t2101(parent=self)
-                    XQ.Query(종목코드=fut_code)
+                            if 1.20 < 고가 < 10.0:
+                                item_str = '{0:.2f}'.format(고가) + '\n(' + repr(빈도수) + ')'
+                                item = QTableWidgetItem(item_str)
+                            else:
+                                item = QTableWidgetItem("{0:.2f}".format(고가))
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
+                            item.setTextAlignment(Qt.AlignCenter)
 
-                    #time.sleep(0.1)
-                    QTest.qWait(100)
+                            if i == atm_index - 1 or i == atm_index or i == atm_index + 1:
+                                item.setBackground(QBrush(옅은회색))
+                            else:
+                                item.setBackground(QBrush(흰색))
 
-                    XQ = t2801(parent=self)
-                    XQ.Query(종목코드=fut_code)
+                            self.tableWidget_put.setItem(i, Option_column.고가.value, item)
+                    else:
+                        pass
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
+                    if not flag_checkBox_HS:
 
-                    #time.sleep(0.1)
-                    QTest.qWait(100)
-                    
+                        # 주야간 선물전광판 데이타 요청
+                        XQ = t2101(parent=self)
+                        XQ.Query(종목코드=fut_code)
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 주간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
+
+                        #time.sleep(0.1)
+                        QTest.qWait(100)
+
+                        XQ = t2801(parent=self)
+                        XQ.Query(종목코드=fut_code)
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 야간 선물전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
+
+                        #time.sleep(0.1)
+                        QTest.qWait(100)
+                    else:
+                        pass
+                                       
                 else:                    
                     # EUREX 야간옵션 시세전광판
                     XQ = t2835(parent=self)

@@ -2775,6 +2775,9 @@ class t2301(XAQuery):
         #self.주문결과코드 = messageCode
         #self.주문결과메세지 = message
 
+        if self.parent != None:
+            self.parent.OnReceiveMessage(systemError, messageCode, message)
+
     def OnReceiveData(self, szTrCode):
         block = dict()
         nCount = self.ActiveX.GetBlockCount(self.OUTBLOCK)
