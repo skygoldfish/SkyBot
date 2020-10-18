@@ -18053,6 +18053,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         현재가 = df['현재가'][i]
                         df_call.at[i, '현재가'] = 현재가
 
+                        df_call_graph[i].at[ovc_x_idx, 'price'] = 현재가
+
                         item = QTableWidgetItem("{0:.2f}".format(현재가))
                         item.setTextAlignment(Qt.AlignCenter)
 
@@ -18149,6 +18151,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         현재가 = df1['현재가'][i]
                         df_put.at[i, '현재가'] = 현재가
+
+                        df_put_graph[i].at[ovc_x_idx, 'price'] = 현재가
 
                         item = QTableWidgetItem("{0:.2f}".format(현재가))
                         item.setTextAlignment(Qt.AlignCenter)
