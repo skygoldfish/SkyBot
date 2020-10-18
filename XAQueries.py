@@ -2360,6 +2360,9 @@ class t8416(XAQuery):
         #self.주문결과코드 = messageCode
         #self.주문결과메세지 = message
 
+        if self.parent != None:
+            self.parent.OnReceiveMessage(클래스이름, systemError, messageCode, message)
+
     def OnReceiveData(self, szTrCode):
         block = dict()
         nCount = self.ActiveX.GetBlockCount(self.OUTBLOCK)
@@ -2674,6 +2677,9 @@ class t2835(XAQuery):
         함수이름 = inspect.currentframe().f_code.co_name
         print("%s-%s " % (클래스이름, 함수이름), systemError, messageCode, message)
 
+        if self.parent != None:
+            self.parent.OnReceiveMessage(클래스이름, systemError, messageCode, message)
+
     def OnReceiveData(self, szTrCode):
         block = dict()
         nCount = self.ActiveX.GetBlockCount(self.OUTBLOCK)
@@ -2776,7 +2782,7 @@ class t2301(XAQuery):
         #self.주문결과메세지 = message
 
         if self.parent != None:
-            self.parent.OnReceiveMessage(systemError, messageCode, message)
+            self.parent.OnReceiveMessage(클래스이름, systemError, messageCode, message)
 
     def OnReceiveData(self, szTrCode):
         block = dict()
