@@ -249,6 +249,8 @@ GOLD_당일종가 = 0
 
 FILE_HIGH_LOW_LIST = []
 
+OPTION_BOARD_UPDATE_INTERVAL = 2
+
 UI_STYLE = 'Horizontal_Large_View.ui'
 
 #####################################################################################################################################################################
@@ -294,6 +296,7 @@ GOLDEN_RATIO = parser.getfloat('Initial Value', 'Golden Ratio')
 CROSS_COLOR_INTERVAL = parser.getint('Initial Value', 'Cross Coloring Interval(minute)')
 MAIN_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Main Update Interval(msec)')
 BIGCHART_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Big Chart Update Interval(msec)')
+OPTION_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Option Screen Board Update Interval(sec)')
 
 # [7]. << Code of the Foreign Futures (H/M/U/Z) >>
 SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
@@ -6634,7 +6637,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if flag_checkBox_HS and self.alternate_flag and dt.second % 2 == 0:
+            if flag_checkBox_HS and self.alternate_flag and dt.second % OPTION_BOARD_UPDATE_INTERVAL == 0:
 
                 if NightTime:
                     XQ = t2835(parent=self)
@@ -16580,6 +16583,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def OnReceiveMessage(self, ClassName, systemError, messageCode, message):
 
+        dt = datetime.datetime.now()
+
         if ClassName == 't2835':
 
             global flag_t2835_eventloop
@@ -16590,13 +16595,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 flag_t2835_eventloop = True
 
                 self.t2835_event_loop.exit()
-                print('t2835_event_loop success exit...')
-            else:
-                # t2835 이벤트루프 해지                    
+
+                str = 't2301_event_loop success exit...\r'
+                print(str)
+            else:                   
                 flag_t2835_eventloop = False
 
                 self.t2835_event_loop.exit()
-                print('t2835_event_loop fail exit...')
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] t2835_event_loop fail exit...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+                print(str)
 
         elif ClassName == 't2301':
 
@@ -16608,13 +16617,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 flag_t2301_eventloop = True
 
                 self.t2301_event_loop.exit()
-                print('t2301_event_loop success exit...')
-            else:
-                # t2301 이벤트루프 해지                    
+
+                str = 't2301_event_loop success exit...\r'
+                print(str)
+            else:                   
                 flag_t2301_eventloop = False
 
                 self.t2301_event_loop.exit()
-                print('t2301_event_loop fail exit...')
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] t2301_event_loop fail exit...\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+                print(str)
 
         elif ClassName == 't8416':
 
