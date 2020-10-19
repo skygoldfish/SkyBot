@@ -18107,6 +18107,41 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
+                        # 수정거래량, 수정미결 갱신
+                        if df['현재가'][i] <= 시가갭:
+
+                            수정미결 = int(df['미결제약정'][i] * df['현재가'][i])
+                            수정거래량 = int((df['매수잔량'][i] - df['매도잔량'][i]) * df['현재가'][i])
+                        else:
+                            수정미결 = int(df['미결제약정'][i] * (df['현재가'][i] - 시가갭))
+                            수정거래량 = int((df['매수잔량'][i] - df['매도잔량'][i]) * (df['현재가'][i] - 시가갭))
+
+                        df_call.at[i, '수정미결'] = 수정미결
+                        df_call.at[i, '수정거래량'] = 수정거래량
+
+                        순미결 = df['미결제약정'][i]
+                        순거래량 = df['매수잔량'][i] - df['매도잔량'][i]
+
+                        temp = format(수정거래량, ',')
+
+                        item = QTableWidgetItem(temp)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(i, Option_column.VP.value, item)
+
+                        temp = format(수정미결, ',')                                           
+
+                        item = QTableWidgetItem(temp)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(i, Option_column.OI.value, item)
+
+                        순미결증감 = df['미결제약정증감'][i]
+                        수정미결증감 = int(round(df['미결제약정증감'][i] * df['현재가'][i]))
+                        temp = format(수정미결증감, ',')
+
+                        item = QTableWidgetItem(temp)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_call.setItem(i, Option_column.OID.value, item)
+
                         # 풋 데이타 획득                        
                         시가 = df1['시가'][i]
                         df_put.at[i, '시가'] = 시가
@@ -18205,6 +18240,42 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             put_open_list.append(i)
                         else:
                             pass
+
+                        # 수정거래량, 수정미결 갱신
+                        if df1['현재가'][i] <= 시가갭:
+
+                            수정미결 = int(df1['미결제약정'][i] * df1['현재가'][i])
+                            수정거래량 = int((df1['매수잔량'][i] - df1['매도잔량'][i]) * df1['현재가'][i])
+                        else:
+                            수정미결 = int(df1['미결제약정'][i] * (df1['현재가'][i] - 시가갭))
+                            수정거래량 = int((df1['매수잔량'][i] - df1['매도잔량'][i]) * (df1['현재가'][i] - 시가갭))
+
+                        df_put.at[i, '수정미결'] = 수정미결
+                        df_put.at[i, '수정거래량'] = 수정거래량
+
+                        순미결 = df1['미결제약정'][i]
+                        순거래량 = df1['매수잔량'][i] - df1['매도잔량'][i]
+
+                        temp = format(수정거래량, ',')
+
+                        item = QTableWidgetItem(temp)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(i, Option_column.VP.value, item)
+
+                        temp = format(수정미결, ',')                                           
+
+                        item = QTableWidgetItem(temp)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(i, Option_column.OI.value, item)
+
+                        순미결증감 = df1['미결제약정증감'][i]
+                        수정미결증감 = int(round(df1['미결제약정증감'][i] * df1['현재가'][i]))
+                        temp = format(수정미결증감, ',')
+
+                        item = QTableWidgetItem(temp)
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget_put.setItem(i, Option_column.OID.value, item)
+
                     
                     call_시가 = df_call['시가'].values.tolist()
                     call_시가_node_list = self.make_node_list(call_시가)
