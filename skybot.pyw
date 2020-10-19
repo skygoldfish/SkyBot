@@ -5610,7 +5610,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             self.pushButton_remove.setStyleSheet("background-color: lightGray")
             flag_telegram_on = False
-            
+            '''
             if not NightTime:
 
                 futures_graph_csv = "Futures_temp {}{}".format(times, '.csv')
@@ -5635,6 +5635,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 Graph 파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
+            '''
         else:
             flag_checkBox_HS = False
 
