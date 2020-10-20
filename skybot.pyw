@@ -4549,7 +4549,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # thread start
         self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
-        self.real_data_worker.trigger.connect(self.process_realdata)
+        self.real_data_worker.trigger.connect(self.process_realdata)        
+        self.real_data_worker.daemon = True
         self.real_data_worker.start()
 
         global 모니터번호
@@ -5709,12 +5710,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 재기동합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
-
-            self.telegram_send_worker.start()
+            
             self.telegram_send_worker.daemon = True
-
-            self.telegram_listen_worker.start()
+            self.telegram_send_worker.start()
+            
             self.telegram_listen_worker.daemon = True
+            self.telegram_listen_worker.start()
 
             self.pushButton_remove.setStyleSheet("background-color: lawngreen")
             flag_telegram_on = True
@@ -13256,10 +13257,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if TELEGRAM_SERVICE and not flag_telegram_send_worker and not NightTime:            
-
-            self.telegram_send_worker.start()
+        if TELEGRAM_SERVICE and not flag_telegram_send_worker and not NightTime:
+            
             self.telegram_send_worker.daemon = True
+            self.telegram_send_worker.start()
 
             telegram_send_worker_on_time = fut_first_arrive_time 
 
@@ -13281,9 +13282,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                 ToYourTelegram(str)
-
-                self.telegram_listen_worker.start()
+                
                 self.telegram_listen_worker.daemon = True
+                self.telegram_listen_worker.start()
 
                 # 차차월물은 시작과 동시에 Polling 시작
                 ToYourTelegram("MAN 텔레그램 Polling이 시작됩니다.")
@@ -13302,9 +13303,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if not flag_telegram_listen_worker and fut_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME and not NightTime:
 
             if TELEGRAM_SERVICE:
-
-                self.telegram_listen_worker.start()
+                
                 self.telegram_listen_worker.daemon = True
+                self.telegram_listen_worker.start()
 
                 if TARGET_MONTH_SELECT == 1:
 
@@ -16470,8 +16471,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if TELEGRAM_SERVICE and not flag_telegram_send_worker:
 
             # 가끔 send worker가 오동작함(쓰레드 재시작...)
-            self.telegram_send_worker.start()
+            
             self.telegram_send_worker.daemon = True
+            self.telegram_send_worker.start()
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Send Worker를 재시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
@@ -16483,9 +16485,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if TELEGRAM_SERVICE and not flag_telegram_listen_worker:
 
             flag_telegram_on = True
-
-            self.telegram_listen_worker.start()
+            
             self.telegram_listen_worker.daemon = True
+            self.telegram_listen_worker.start()
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 Polling이 시작됩니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
@@ -19840,10 +19842,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_fut.resizeRowsToContents()
                 else:
                     pass  
-                self.tableWidget_fut.resizeColumnsToContents()
+                self.tableWidget_fut.resizeColumnsToContents()                
                 
-                self.screen_update_worker.start()
                 self.screen_update_worker.daemon = True
+                self.screen_update_worker.start()
                 
                 refresh_flag = True
 
@@ -21230,10 +21232,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.tableWidget_fut.resizeRowsToContents()
                         else:
                             pass
-                        self.tableWidget_fut.resizeColumnsToContents()    
-
-                        self.screen_update_worker.start()
+                        self.tableWidget_fut.resizeColumnsToContents()
+                        
                         self.screen_update_worker.daemon = True
+                        self.screen_update_worker.start()
 
                         str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
@@ -23415,10 +23417,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     opt_time = dt.hour * 3600 + dt.minute * 60 + dt.second
 
-                    if TELEGRAM_SERVICE and not flag_telegram_send_worker:            
-
-                        self.telegram_send_worker.start()
+                    if TELEGRAM_SERVICE and not flag_telegram_send_worker:
+                        
                         self.telegram_send_worker.daemon = True
+                        self.telegram_send_worker.start()
 
                         telegram_send_worker_on_time = opt_time 
 
@@ -23440,9 +23442,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             str = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램이 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                             ToYourTelegram(str)
-
-                            self.telegram_listen_worker.start()
+                            
                             self.telegram_listen_worker.daemon = True
+                            self.telegram_listen_worker.start()
 
                             # 차차월물은 시작과 동시에 Polling 시작
                             ToYourTelegram("MAN 텔레그램 Polling이 시작됩니다.")
@@ -23461,9 +23463,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if not flag_telegram_listen_worker and opt_time > telegram_send_worker_on_time + 60 * TELEGRAM_START_TIME:
 
                         if TELEGRAM_SERVICE:
-
-                            self.telegram_listen_worker.start()
+                            
                             self.telegram_listen_worker.daemon = True
+                            self.telegram_listen_worker.start()
 
                             if TARGET_MONTH_SELECT == 1:                        
 
@@ -25228,14 +25230,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def closeEvent(self,event):
 
-        if self.real_data_worker.isRunning():
-            
+        if self.telegram_send_worker.isRunning():
+            self.telegram_send_worker.terminate()
+        else:
+            pass
+
+        if self.telegram_listen_worker.isRunning():
+            self.telegram_listen_worker.terminate()
+        else:
+            pass
+
+        if self.real_data_worker.isRunning():            
             self.real_data_worker.terminate()
         else:
             pass
 
-        if self.screen_update_worker.isRunning():
-            
+        if self.screen_update_worker.isRunning():            
             self.screen_update_worker.terminate()
         else:
             pass
@@ -26333,9 +26343,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_time_line_jugan_start.setValue(GuardTime)
             plot6_time_line_jugan_start.setValue(GuardTime)
 
-        # 쓰레드 시작...
-        self.bigchart_update_worker.start()
+        # 쓰레드 시작...        
         self.bigchart_update_worker.daemon = True
+        self.bigchart_update_worker.start()
 
     #cross hair
     def plot1_mouseMoved(self, evt):
