@@ -4509,7 +4509,7 @@ class telegram_listen_worker(QThread):
 ########################################################################################################################
 
 ########################################################################################################################
-class Worker(QThread):
+class RealDataWorker(QThread):
     # argument는 없는 단순 trigger, 데이터는 queue를 통해서 전달됨
     trigger = pyqtSignal()
 
@@ -4548,9 +4548,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.consumer_queue = Queue()
 
         # thread start
-        self.worker = Worker(self.producer_queue, self.consumer_queue)
-        self.worker.trigger.connect(self.display_data)
-        self.worker.start()
+        self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
+        self.real_data_worker.trigger.connect(self.process_realdata)
+        self.real_data_worker.start()
 
         global 모니터번호
         
@@ -5508,7 +5508,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_put.resizeColumnsToContents()
           
     @pyqtSlot()
-    def display_data(self):
+    def process_realdata(self):
         if not self.consumer_queue.empty():
             data = self.consumer_queue.get()
             print('received real packet =', data['szTrCode'])
@@ -25227,6 +25227,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     #####################################################################################################################################################################
 
     def closeEvent(self,event):
+
+        if self.real_data_worker.isRunning():
+            
+            self.real_data_worker.terminate()
+        else:
+            pass
 
         if self.screen_update_worker.isRunning():
             
