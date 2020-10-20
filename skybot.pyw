@@ -4527,7 +4527,7 @@ class RealDataWorker(QThread):
                 
             else:
                 #print('producer_queue is empty')
-                pass            
+                pass
 ########################################################################################################################
 # 당월물 옵션전광판 class
 ########################################################################################################################
@@ -23814,7 +23814,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_wti_graph.at[ovc_x_idx, 'price'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] NaN 방어기능 작동 at {3:d}\r'.format(adj_hour, adj_min, adj_sec, ovc_x_idx)
-                    self.textBrowser.append(str)
+                    #self.textBrowser.append(str)
                     print(str)
                 else:
                     pass
@@ -25242,6 +25242,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if self.real_data_worker.isRunning():            
             self.real_data_worker.terminate()
+            print('real_data_worker is terminated...')
         else:
             pass
 
