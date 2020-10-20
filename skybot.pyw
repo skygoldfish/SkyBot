@@ -53,6 +53,9 @@ import ta
 import qtmodern.styles
 import qtmodern.windows
 
+from multiprocessing import Process, Queue
+import multiprocessing as mp
+
 from XASessions import *
 from XAQueries import *
 from XAReals import *
@@ -4502,7 +4505,29 @@ class telegram_listen_worker(QThread):
 
             self.finished.emit(str)
             #self.msleep(1000 * TELEGRAM_POLLING_INTERVAL)
-            QTest.qWait(1000 * TELEGRAM_POLLING_INTERVAL)            
+            QTest.qWait(1000 * TELEGRAM_POLLING_INTERVAL)
+########################################################################################################################
+
+########################################################################################################################
+class Worker(QThread):
+    # argument는 없는 단순 trigger, 데이터는 queue를 통해서 전달됨
+    trigger = pyqtSignal()
+
+    def __init__(self, producer_queue, consumer_queue):
+        super().__init__()
+        self.producer_queue = producer_queue          # 데이터를 받는 용
+        self.consumer_queue = consumer_queue              # 주문 요청용
+        
+    def run(self):
+        while True:
+            if not self.producer_queue.empty():
+                data = self.producer_queue.get()
+                self.consumer_queue.put(data)
+                self.trigger.emit()
+                
+            else:
+                #print('producer_queue is empty')
+                pass            
 ########################################################################################################################
 # 당월물 옵션전광판 class
 ########################################################################################################################
@@ -4516,9 +4541,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             __init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
         self.setAttribute(Qt.WA_DeleteOnClose)        
 
-        self.parent = parent
-        
+        self.parent = parent        
         self.setupUi(self)
+
+        self.producer_queue = Queue()
+        self.consumer_queue = Queue()
+
+        # thread start
+        self.worker = Worker(self.producer_queue, self.consumer_queue)
+        self.worker.trigger.connect(self.display_data)
+        self.worker.start()
 
         global 모니터번호
         
@@ -5475,7 +5507,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_call.resizeColumnsToContents()
         self.tableWidget_put.resizeColumnsToContents()
           
-
+    @pyqtSlot()
+    def display_data(self):
+        if not self.consumer_queue.empty():
+            data = self.consumer_queue.get()
+            print('received real packet =', data['szTrCode'])
+            self.RealData_Process(data)
+            
     ## list에서 i번째 아이템을 리턴한다.
     def get_list_item(self, list, i):
 
@@ -21363,6 +21401,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     
     #####################################################################################################################################################################
     def OnReceiveRealData(self, szTrCode, result):
+
+        result['szTrCode'] = szTrCode
+        self.producer_queue.put(result)
+
+    def RealData_Process(self, result):
+
+        szTrCode = result['szTrCode']
 
         try:
             global pre_start
