@@ -5510,10 +5510,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
           
     @pyqtSlot()
     def process_realdata(self):
+
         if not self.consumer_queue.empty():
+
             data = self.consumer_queue.get()
-            print('received real packet =', data['szTrCode'])
+
+            item = QTableWidgetItem("{0}".format(data['szTrCode']))
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(검정색))
+            item.setForeground(QBrush(녹색))
+            self.tableWidget_fut.setItem(2, 0, item)
+
             self.RealData_Process(data)
+        else:
+            pass
             
     ## list에서 i번째 아이템을 리턴한다.
     def get_list_item(self, list, i):
@@ -6676,7 +6686,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.heartbeat_check()
             else:
                 pass
-
+            '''
             if flag_checkBox_HS and self.alternate_flag and dt.second % OPTION_BOARD_UPDATE_INTERVAL == 0:
 
                 if NightTime:
@@ -6689,7 +6699,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.t2301_event_loop.exec_()
             else:
                 pass
-
+            '''
             # Market 유형을 시간과 함께 표시
             self.market_type_display(self.alternate_flag)
 
@@ -25229,6 +25239,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     #####################################################################################################################################################################
 
     def closeEvent(self,event):
+
+        print('서버연결 해지...')
+        self.parent.connection.disconnect()
 
         if self.telegram_send_worker.isRunning():
             self.telegram_send_worker.terminate()
