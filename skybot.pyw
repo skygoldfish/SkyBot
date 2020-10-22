@@ -275,13 +275,14 @@ TARGET_MONTH_SELECT = parser.getint('Target Month Select', 'Target Month Select'
 # [3]. << Window Style >>
 MODERN_WINDOW_DARK_STYLE = parser.getboolean('Window Style', 'Modern Dark Style')
 
-# [4]. << User Option = 'ON or OFF' >>
+# [4]. << User Switch = 'ON or OFF' >>
 TELEGRAM_SERVICE = parser.getboolean('User Switch', 'Telegram service')
 MANGI_YAGAN = parser.getboolean('User Switch', 'Mangi Yagan')
 AUTO_START = parser.getboolean('User Switch', 'Auto Start')
 ResizeRowsToContents = parser.getboolean('User Switch', 'Resize Rows To Contents')
 CROSS_HAIR_LINE = parser.getboolean('User Switch', 'Cross Hair Line')
 SECOND_PLOT_SYNC = parser.getboolean('User Switch', 'Second Plot Sync')
+ALL_QUOTE_REQUEST = parser.getboolean('User Switch', 'All Option Quote Request')
 
 #print('TELEGRAM_SERVICE =', TELEGRAM_SERVICE)
 
@@ -17965,14 +17966,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     for i in range(option_pairs_count):
                         self.OPT_REAL.AdviseRealData(call_code[i])
                         self.OPT_REAL.AdviseRealData(put_code[i])
-                        #self.OPT_HO.AdviseRealData(call_code[i])
-                        #self.OPT_HO.AdviseRealData(put_code[i])
 
-                    # 등가 위아래 10개만 요청
-                    for i in range(20):
-                        self.OPT_HO.AdviseRealData(call_code[atm_index - 10 + i])
-                        self.OPT_HO.AdviseRealData(put_code[atm_index - 10 + i])                     
-
+                    if ALL_QUOTE_REQUEST:
+                        print('주간옵션 모든 호가를 요청합니다.\r')
+                        for i in range(option_pairs_count):
+                            self.OPT_HO.AdviseRealData(call_code[i])
+                            self.OPT_HO.AdviseRealData(put_code[i])
+                    else:
+                        print('주간옵션 호가 20개를 요청합니다.\r')
+                        for i in range(20):
+                            self.OPT_HO.AdviseRealData(call_code[atm_index - 10 + i])
+                            self.OPT_HO.AdviseRealData(put_code[atm_index - 10 + i])  
+                    
                     # 선물 실시간테이타 요청
                     self.FUT_REAL.AdviseRealData(fut_code)
                     self.FUT_HO.AdviseRealData(fut_code)
@@ -18012,14 +18017,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     for i in range(option_pairs_count):
                         self.OPT_REAL.AdviseRealData(call_code[i])
-                        self.OPT_REAL.AdviseRealData(put_code[i]) 
-                        #self.OPT_HO.AdviseRealData(call_code[i])
-                        #self.OPT_HO.AdviseRealData(put_code[i])
+                        self.OPT_REAL.AdviseRealData(put_code[i])
 
-                    # 등가 위아래 10개만 요청
-                    for i in range(20):
-                        self.OPT_HO.AdviseRealData(call_code[atm_index - 10 + i])
-                        self.OPT_HO.AdviseRealData(put_code[atm_index - 10 + i])
+                    if ALL_QUOTE_REQUEST:
+                        print('야간옵션 모든 호가를 요청합니다.\r')
+                        for i in range(option_pairs_count):
+                            self.OPT_HO.AdviseRealData(call_code[i])
+                            self.OPT_HO.AdviseRealData(put_code[i])
+                    else:
+                        print('야간옵션 호가 20개를 요청합니다.\r')
+                        for i in range(20):
+                            self.OPT_HO.AdviseRealData(call_code[atm_index - 10 + i])
+                            self.OPT_HO.AdviseRealData(put_code[atm_index - 10 + i])
                     
                     self.FUT_REAL.AdviseRealData(fut_code)                                   
                     self.FUT_HO.AdviseRealData(fut_code)
