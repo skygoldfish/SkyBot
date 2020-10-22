@@ -37355,6 +37355,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if result == QMessageBox.Yes:
             event.accept()
 
+            self.connection.disconnect()
+
             if TARGET_MONTH_SELECT == 1:
 
                 if SELFID == 'soojin65':
