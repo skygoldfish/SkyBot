@@ -17966,16 +17966,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.OPT_REAL.AdviseRealData(call_code[i])
                         self.OPT_REAL.AdviseRealData(put_code[i])
 
-                    if ALL_QUOTE_REQUEST:
-                        print('주간옵션 모든 호가를 요청합니다.\r')
+                    if not NightTime:
+                        if ALL_QUOTE_REQUEST:
+                            print('주간옵션 모든 호가를 요청합니다.\r')
+                            for i in range(option_pairs_count):
+                                self.OPT_HO.AdviseRealData(call_code[i])
+                                self.OPT_HO.AdviseRealData(put_code[i])
+                        else:
+                            print('주간옵션 호가 20개를 요청합니다.\r')
+                            for i in range(20):
+                                self.OPT_HO.AdviseRealData(call_code[atm_index - 10 + i])
+                                self.OPT_HO.AdviseRealData(put_code[atm_index - 10 + i])
+                    else:
                         for i in range(option_pairs_count):
                             self.OPT_HO.AdviseRealData(call_code[i])
                             self.OPT_HO.AdviseRealData(put_code[i])
-                    else:
-                        print('주간옵션 호가 20개를 요청합니다.\r')
-                        for i in range(20):
-                            self.OPT_HO.AdviseRealData(call_code[atm_index - 10 + i])
-                            self.OPT_HO.AdviseRealData(put_code[atm_index - 10 + i])  
+
                     
                     # 선물 실시간테이타 요청
                     self.FUT_REAL.AdviseRealData(fut_code)
@@ -18018,16 +18024,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.OPT_REAL.AdviseRealData(call_code[i])
                         self.OPT_REAL.AdviseRealData(put_code[i])
 
-                    if ALL_QUOTE_REQUEST:
-                        print('야간옵션 모든 호가를 요청합니다.\r')
+                    if not NightTime:
+                        if ALL_QUOTE_REQUEST:
+                            print('야간옵션 모든 호가를 요청합니다.\r')
+                            for i in range(option_pairs_count):
+                                self.OPT_HO.AdviseRealData(call_code[i])
+                                self.OPT_HO.AdviseRealData(put_code[i])
+                        else:
+                            print('야간옵션 호가 20개를 요청합니다.\r')
+                            for i in range(20):
+                                self.OPT_HO.AdviseRealData(call_code[atm_index - 10 + i])
+                                self.OPT_HO.AdviseRealData(put_code[atm_index - 10 + i])
+                    else:
                         for i in range(option_pairs_count):
                             self.OPT_HO.AdviseRealData(call_code[i])
                             self.OPT_HO.AdviseRealData(put_code[i])
-                    else:
-                        print('야간옵션 호가 20개를 요청합니다.\r')
-                        for i in range(20):
-                            self.OPT_HO.AdviseRealData(call_code[atm_index - 10 + i])
-                            self.OPT_HO.AdviseRealData(put_code[atm_index - 10 + i])
                     
                     self.FUT_REAL.AdviseRealData(fut_code)                                   
                     self.FUT_HO.AdviseRealData(fut_code)
