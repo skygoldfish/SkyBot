@@ -18047,9 +18047,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.BM.AdviseRealData(CME)
 
                 # t8416 요청
-                '''
-                self.t8416_callworker.start()
+                '''                
                 self.t8416_callworker.daemon = True
+                self.t8416_callworker.start()
                 '''
                 print('t8416 call 요청시작...')
 
@@ -20417,8 +20417,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             #time.sleep(1.1)
                             #QTest.qWait(1100)
                             
-                            self.t8416_putworker.start()
                             self.t8416_putworker.daemon = True
+                            self.t8416_putworker.start()                            
                             '''
                             print('t8416 put 요청시작...')
 
@@ -20667,8 +20667,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         #QTest.qWait(1000)
                         #t8416_put_count += 1
                         
-                        self.t8416_putworker.start()
                         self.t8416_putworker.daemon = True
+                        self.t8416_putworker.start()                        
                         '''
                         print('t8416 put 요청시작...')
 
