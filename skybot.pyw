@@ -276,6 +276,7 @@ TARGET_MONTH_SELECT = parser.getint('Target Month Select', 'Target Month Select'
 MODERN_WINDOW_DARK_STYLE = parser.getboolean('Window Style', 'Modern Dark Style')
 
 # [4]. << User Switch = 'ON or OFF' >>
+OPT_NEXT_MONTH = parser.getboolean('User Switch', 'Option Next Month Request')
 TELEGRAM_SERVICE = parser.getboolean('User Switch', 'Telegram service')
 MANGI_YAGAN = parser.getboolean('User Switch', 'Mangi Yagan')
 AUTO_START = parser.getboolean('User Switch', 'Auto Start')
@@ -1644,6 +1645,9 @@ nm_put_code = []
 
 cm_opt_length = 0
 nm_opt_length = 0
+
+CM_CODE = ''
+NM_CODE = ''
 
 opt_actval = []
 
@@ -4172,34 +4176,6 @@ class screen_update_worker(QThread):
 ########################################################################################################################
 
 ########################################################################################################################
-class t8415_Call_Worker(QThread):
-
-    finished = pyqtSignal(int)
-
-    def run(self):
-        
-        while True:
-
-            self.finished.emit(t8415_call_count)
-            #self.msleep(1100)
-            QTest.qWait(1100)
-########################################################################################################################
-
-########################################################################################################################
-class t8415_Put_Worker(QThread):
-
-    finished = pyqtSignal(int)
-
-    def run(self):
-
-        while True:
-
-            self.finished.emit(t8415_put_count)
-            #self.msleep(1100)
-            QTest.qWait(1100)
-########################################################################################################################
-
-########################################################################################################################
 class t8416_Call_Worker(QThread):
 
     finished = pyqtSignal(int)
@@ -4522,7 +4498,7 @@ class RealDataWorker(QThread):
     def __init__(self, producer_queue, consumer_queue):
         super().__init__()
         self.producer_queue = producer_queue          # 데이터를 받는 용
-        self.consumer_queue = consumer_queue              # 주문 요청용
+        self.consumer_queue = consumer_queue          
         
     def run(self):
         while True:
@@ -4532,8 +4508,26 @@ class RealDataWorker(QThread):
                 self.trigger.emit()
                 
             else:
-                #print('producer_queue is empty')
                 pass
+
+if OPT_NEXT_MONTH:
+    class NM_RealDataWorker(QThread):
+        trigger = pyqtSignal()
+
+        def __init__(self, producer_queue, consumer_queue):
+            super().__init__()
+            self.nm_producer_queue = producer_queue          # 데이터를 받는 용
+            self.nm_consumer_queue = consumer_queue              
+
+        def run(self):
+            while True:
+                if not self.nm_producer_queue.empty():
+                    data = self.nm_producer_queue.get()
+                    self.nm_consumer_queue.put(data)
+                    self.trigger.emit()
+
+                else:
+                    pass
 ########################################################################################################################
 # 당월물 옵션전광판 class
 ########################################################################################################################
@@ -4553,11 +4547,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.producer_queue = Queue()
         self.consumer_queue = Queue()
 
-        # thread start
         self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
         self.real_data_worker.trigger.connect(self.process_realdata)        
         self.real_data_worker.daemon = True
         self.real_data_worker.start()
+        
+        if OPT_NEXT_MONTH:
+            self.nm_producer_queue = Queue()
+            self.nm_consumer_queue = Queue()
+            
+            self.nm_real_data_worker = NM_RealDataWorker(self.nm_producer_queue, self.nm_consumer_queue)
+            
+            self.nm_real_data_worker.trigger.connect(self.nm_process_realdata)        
+            self.nm_real_data_worker.daemon = True
+            self.nm_real_data_worker.start()            
 
         global 모니터번호
         
@@ -5530,6 +5533,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.RealData_Process(data)
         else:
             pass
+
+    if OPT_NEXT_MONTH:
+        @pyqtSlot()
+        def nm_process_realdata(self):
+
+            if not self.nm_consumer_queue.empty():
+
+                data = self.nm_consumer_queue.get()
+                '''
+                item = QTableWidgetItem("{0}".format(data['szTrCode']))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(녹색))
+                self.tableWidget_fut.setItem(2, 0, item)
+                '''
+                self.NM_RealData_Process(data)
+            else:
+                pass
             
     ## list에서 i번째 아이템을 리턴한다.
     def get_list_item(self, list, i):
@@ -16768,7 +16789,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global KP200_전일종가, kp200_시가, kp200_저가, kp200_현재가, kp200_고가
         global t2835_month_info
         global server_date, server_time, system_server_timegap
-        global cm_call_code, cm_put_code, cm_opt_length, nm_call_code, nm_put_code, nm_opt_length
+        global cm_call_code, cm_put_code, cm_opt_length, nm_call_code, nm_put_code, nm_opt_length, CM_CODE, NM_CODE
         global selected_opt_list
         global 콜대비_퍼센트_평균, 풋대비_퍼센트_평균
         global atm_zero_sum, atm_zero_cha
@@ -21438,6 +21459,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             cm_opt_length = len(cm_call_code)
             nm_opt_length = len(nm_call_code)
+
+            CM_CODE = cm_call_code[0][3:5]
+            NM_CODE = nm_call_code[0][3:5]
+
+            print('CM_CODE =', CM_CODE)
+            print('NM_CODE =', NM_CODE)
             
             print('cm call code = {0}\r'.format(cm_call_code))
             print('cm put code = {0}\r'.format(cm_put_code))
@@ -21459,9 +21486,34 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     #####################################################################################################################################################################
     def OnReceiveRealData(self, szTrCode, result):
 
-        result['szTrCode'] = szTrCode
-        self.producer_queue.put(result)
+        result['szTrCode'] = szTrCode       
 
+        if OPT_NEXT_MONTH:
+
+            if szTrCode == 'FC0' or szTrCode == 'NC0' or szTrCode == 'FH0' or szTrCode == 'NH0':
+
+                if result['단축코드'] == cmshcode:
+                    self.nm_producer_queue.put(result)
+                else:
+                    self.producer_queue.put(result)
+
+            elif szTrCode == 'OC0' or szTrCode == 'EC0' or szTrCode == 'OH0' or szTrCode == 'EH0':
+
+                if result['단축코드'][3:5] == NM_CODE:
+                    self.nm_producer_queue.put(result)
+                else:
+                    self.producer_queue.put(result)
+            else:
+                self.producer_queue.put(result)
+        else:            
+            self.producer_queue.put(result)
+
+    if OPT_NEXT_MONTH:
+        def NM_RealData_Process(self, result):
+            
+            szTrCode = result['szTrCode']
+            pass
+            
     def RealData_Process(self, result):
 
         szTrCode = result['szTrCode']
