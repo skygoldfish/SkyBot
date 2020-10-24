@@ -1636,9 +1636,14 @@ cme_realdata = dict()
 
 call_code = []
 put_code = []
-call_cm_code = []
-put_cm_code = []
-opt_cm_length = 0
+
+cm_call_code = []
+cm_put_code = []
+nm_call_code = []
+nm_put_code = []
+
+cm_opt_length = 0
+nm_opt_length = 0
 
 opt_actval = []
 
@@ -16265,14 +16270,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] t8432 지수선물 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
-                '''
+                
                 # 지수옵션 마스터조회 API용
                 XQ = t8433(parent=self)
                 XQ.Query()
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] t8433 지수옵션 마스터 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
-                '''
+
+                QTest.qWait(500)                
             else:
                 str = '[{0:02d}:{1:02d}:{2:02d}] OLD 진성맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
                 self.textBrowser.append(str)
@@ -16762,7 +16768,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global KP200_전일종가, kp200_시가, kp200_저가, kp200_현재가, kp200_고가
         global t2835_month_info
         global server_date, server_time, system_server_timegap
-        global call_cm_code, put_cm_code, opt_cm_length
+        global cm_call_code, cm_put_code, cm_opt_length, nm_call_code, nm_put_code, nm_opt_length
         global selected_opt_list
         global 콜대비_퍼센트_평균, 풋대비_퍼센트_평균
         global atm_zero_sum, atm_zero_cha
@@ -21411,21 +21417,35 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             df = result[0]
 
             for i in range(len(df)):
-                
-                if df['단축코드'][i][0:3] == '201' and df['단축코드'][i][4] == repr(current_month):
 
-                    call_cm_code.append(df['단축코드'][i])
+                if df['종목명'][i][2:6] == CURRENT_MONTH[2:6] and df['종목명'][i][0] == 'C':                
 
-                elif df['단축코드'][i][0:3] == '301' and df['단축코드'][i][4] == repr(current_month):
+                    cm_call_code.append(df['단축코드'][i])
 
-                    put_cm_code.append(df['단축코드'][i])
+                elif df['종목명'][i][2:6] == CURRENT_MONTH[2:6] and df['종목명'][i][0] == 'P': 
+
+                    cm_put_code.append(df['단축코드'][i])
+
+                elif df['종목명'][i][2:6] == NEXT_MONTH[2:6] and df['종목명'][i][0] == 'C':                
+
+                    nm_call_code.append(df['단축코드'][i])
+
+                elif df['종목명'][i][2:6] == NEXT_MONTH[2:6] and df['종목명'][i][0] == 'P': 
+
+                    nm_put_code.append(df['단축코드'][i])
                 else:
                     pass 
 
-            opt_cm_length = len(call_cm_code)
+            cm_opt_length = len(cm_call_code)
+            nm_opt_length = len(nm_call_code)
 
-            print('call cm code =', call_cm_code)    
-            print('put cm code =', put_cm_code)            
+            print('본월물 옵션 크기 = {0}, 차월물 옵션 크기 = {1}'.format(cm_opt_length, nm_opt_length))
+            '''
+            print('cm call code =\r', cm_call_code)    
+            print('cm put code =\r', cm_put_code)
+            print('nm call code =\r', nm_call_code)    
+            print('nm put code =\r', nm_put_code)
+            '''           
         else:
             pass
     #####################################################################################################################################################################
