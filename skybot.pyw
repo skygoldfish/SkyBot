@@ -4510,24 +4510,6 @@ class RealDataWorker(QThread):
             else:
                 pass
 
-if OPT_NEXT_MONTH:
-    class NM_RealDataWorker(QThread):
-        trigger = pyqtSignal()
-
-        def __init__(self, producer_queue, consumer_queue):
-            super().__init__()
-            self.nm_producer_queue = producer_queue          # 데이터를 받는 용
-            self.nm_consumer_queue = consumer_queue              
-
-        def run(self):
-            while True:
-                if not self.nm_producer_queue.empty():
-                    data = self.nm_producer_queue.get()
-                    self.nm_consumer_queue.put(data)
-                    self.trigger.emit()
-
-                else:
-                    pass
 ########################################################################################################################
 # 당월물 옵션전광판 class
 ########################################################################################################################
@@ -4543,6 +4525,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.parent = parent        
         self.setupUi(self)
+        
+        global 모니터번호
+        
+        global TARGET_MONTH_SELECT, MONTH_FIRSTDAY
+        global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, fut_code
+        global KSE_START_HOUR        
+        global call_node_state, put_node_state, COREVAL
 
         self.producer_queue = Queue()
         self.consumer_queue = Queue()
@@ -4551,24 +4540,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.real_data_worker.trigger.connect(self.process_realdata)        
         self.real_data_worker.daemon = True
         self.real_data_worker.start()
-        
-        if OPT_NEXT_MONTH:
-            self.nm_producer_queue = Queue()
-            self.nm_consumer_queue = Queue()
-            
-            self.nm_real_data_worker = NM_RealDataWorker(self.nm_producer_queue, self.nm_consumer_queue)
-            
-            self.nm_real_data_worker.trigger.connect(self.nm_process_realdata)        
-            self.nm_real_data_worker.daemon = True
-            self.nm_real_data_worker.start()            
 
-        global 모니터번호
-        
-        global TARGET_MONTH_SELECT, MONTH_FIRSTDAY
-        global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, fut_code
-        global KSE_START_HOUR        
-        global call_node_state, put_node_state, COREVAL
-        
         self.상태그림 = ['▼', '▬', '▲']
         self.상태문자 = ['매도', '대기', '매수']
         self.특수문자 = \
@@ -5533,24 +5505,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.RealData_Process(data)
         else:
             pass
-
-    if OPT_NEXT_MONTH:
-        @pyqtSlot()
-        def nm_process_realdata(self):
-
-            if not self.nm_consumer_queue.empty():
-
-                data = self.nm_consumer_queue.get()
-                '''
-                item = QTableWidgetItem("{0}".format(data['szTrCode']))
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setBackground(QBrush(검정색))
-                item.setForeground(QBrush(녹색))
-                self.tableWidget_fut.setItem(2, 0, item)
-                '''
-                self.NM_RealData_Process(data)
-            else:
-                pass
             
     ## list에서 i번째 아이템을 리턴한다.
     def get_list_item(self, list, i):
@@ -21486,34 +21440,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     #####################################################################################################################################################################
     def OnReceiveRealData(self, szTrCode, result):
 
-        result['szTrCode'] = szTrCode       
+        result['szTrCode'] = szTrCode
+        self.producer_queue.put(result)            
 
-        if OPT_NEXT_MONTH:
-
-            if szTrCode == 'FC0' or szTrCode == 'NC0' or szTrCode == 'FH0' or szTrCode == 'NH0':
-
-                if result['단축코드'] == cmshcode:
-                    self.nm_producer_queue.put(result)
-                else:
-                    self.producer_queue.put(result)
-
-            elif szTrCode == 'OC0' or szTrCode == 'EC0' or szTrCode == 'OH0' or szTrCode == 'EH0':
-
-                if result['단축코드'][3:5] == NM_CODE:
-                    self.nm_producer_queue.put(result)
-                else:
-                    self.producer_queue.put(result)
-            else:
-                self.producer_queue.put(result)
-        else:            
-            self.producer_queue.put(result)
-
-    if OPT_NEXT_MONTH:
-        def NM_RealData_Process(self, result):
-            
-            szTrCode = result['szTrCode']
-            pass
-            
     def RealData_Process(self, result):
 
         szTrCode = result['szTrCode']
@@ -23438,6 +23367,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
                 else:
+                    pass
+                
+                # 차월물 처리
+                if OPT_NEXT_MONTH and result['단축코드'] == cmshcode:
+                    pass
+                else:
                     pass                
 
                 self.futures_display(result)
@@ -23456,6 +23391,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if not market_service:
                     market_service = True
+                else:
+                    pass
+
+                # 차월물 처리
+                if OPT_NEXT_MONTH and result['단축코드'][3:5] == NM_CODE:
+                    pass
                 else:
                     pass
 
@@ -23488,6 +23429,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if not market_service:
                     market_service = True
+                else:
+                    pass
+
+                # 차월물 처리
+                if OPT_NEXT_MONTH and result['단축코드'][3:5] == NM_CODE:
+                    pass
                 else:
                     pass
 
@@ -23669,6 +23616,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     self.tableWidget_fut.resizeColumnsToContents()
 
+                # 차월물 처리
                 elif result['단축코드'] == cmshcode:
 
                     # 선물호가 갱신
