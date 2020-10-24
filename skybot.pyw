@@ -21438,14 +21438,20 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             cm_opt_length = len(cm_call_code)
             nm_opt_length = len(nm_call_code)
+            
+            print('cm call code = {0}\r'.format(cm_call_code))
+            print('cm put code = {0}\r'.format(cm_put_code))
 
-            print('본월물 옵션 크기 = {0}, 차월물 옵션 크기 = {1}'.format(cm_opt_length, nm_opt_length))
-            '''
-            print('cm call code =\r', cm_call_code)    
-            print('cm put code =\r', cm_put_code)
-            print('nm call code =\r', nm_call_code)    
-            print('nm put code =\r', nm_put_code)
-            '''           
+            str = '[{0:02d}:{1:02d}:{2:02d}] 본월물 옵션 크기 = {3}\r'.format(dt.hour, dt.minute, dt.second, cm_opt_length)
+            self.textBrowser.append(str)
+            print(str) 
+
+            print('nm call code = {0}\r'.format(nm_call_code))
+            print('nm put code = {0}\r'.format(nm_put_code))
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 차월물 옵션 크기 = {3}\r'.format(dt.hour, dt.minute, dt.second, nm_opt_length)
+            self.textBrowser.append(str)
+            print(str)                       
         else:
             pass
     #####################################################################################################################################################################
