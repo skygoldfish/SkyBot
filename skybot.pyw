@@ -1646,8 +1646,8 @@ nm_put_code = []
 cm_opt_length = 0
 nm_opt_length = 0
 
-CM_CODE = ''
-NM_CODE = ''
+CM_OPTCODE = ''
+NM_OPTCODE = ''
 
 opt_actval = []
 
@@ -5618,12 +5618,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(str)
 
             self.MK2.UnadviseRealData()
-            '''
-            
+                        
             str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 호가요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
 
             self.OVH.UnadviseRealData()
+            '''
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
@@ -5676,10 +5676,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.OVC.AdviseRealData(종목코드=EUROFX)
             self.OVC.AdviseRealData(종목코드=GOLD)
             
+            '''
             str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 호가를 재요청합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
-
-            '''
+            
+            # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)
+            self.OVH.AdviseRealData(종목코드=SP500)
+            self.OVH.AdviseRealData(종목코드=DOW)
+            self.OVH.AdviseRealData(종목코드=NASDAQ)
+            self.OVH.AdviseRealData(종목코드=WTI)
+            self.OVH.AdviseRealData(종목코드=HANGSENG)                
+            self.OVH.AdviseRealData(종목코드=EUROFX)                
+            self.OVH.AdviseRealData(종목코드=GOLD)
+            
             self.MK2.AdviseRealData(심볼코드=KRWUSD)
             self.MK2.AdviseRealData(심볼코드=EURUSD)
             self.MK2.AdviseRealData(심볼코드=SP500_SND)
@@ -5689,15 +5698,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.MK2.AdviseRealData(심볼코드=WTI_SND)
             self.MK2.AdviseRealData(심볼코드=GOLD_SND)
             '''
-
-            # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)
-            self.OVH.AdviseRealData(종목코드=SP500)
-            self.OVH.AdviseRealData(종목코드=DOW)
-            self.OVH.AdviseRealData(종목코드=NASDAQ)
-            self.OVH.AdviseRealData(종목코드=WTI)
-            self.OVH.AdviseRealData(종목코드=HANGSENG)                
-            self.OVH.AdviseRealData(종목코드=EUROFX)                
-            self.OVH.AdviseRealData(종목코드=GOLD)
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 재기동합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
@@ -16743,7 +16743,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global KP200_전일종가, kp200_시가, kp200_저가, kp200_현재가, kp200_고가
         global t2835_month_info
         global server_date, server_time, system_server_timegap
-        global cm_call_code, cm_put_code, cm_opt_length, nm_call_code, nm_put_code, nm_opt_length, CM_CODE, NM_CODE
+        global cm_call_code, cm_put_code, cm_opt_length, nm_call_code, nm_put_code, nm_opt_length, CM_OPTCODE, NM_OPTCODE
         global selected_opt_list
         global 콜대비_퍼센트_평균, 풋대비_퍼센트_평균
         global atm_zero_sum, atm_zero_cha
@@ -21116,7 +21116,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.OVC.AdviseRealData(종목코드=EUROFX)
                     self.OVC.AdviseRealData(종목코드=GOLD)
 
-                    # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)                    
+                    # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)      
+                    '''              
                     self.OVH.AdviseRealData(종목코드=SP500)
                     self.OVH.AdviseRealData(종목코드=DOW)
                     self.OVH.AdviseRealData(종목코드=NASDAQ)
@@ -21125,8 +21126,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.OVH.AdviseRealData(종목코드=EUROFX)                
                     self.OVH.AdviseRealData(종목코드=GOLD)                    
 
-                    # 해외선물 수급 실시간 요청
-                    '''
+                    # 해외선물 수급 실시간 요청                    
                     self.MK2.AdviseRealData(심볼코드=KRWUSD)
                     self.MK2.AdviseRealData(심볼코드=EURUSD)
                     self.MK2.AdviseRealData(심볼코드=SP500_SND)
@@ -21282,6 +21282,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 cmshcode = 차월물선물코드
                 ccmshcode = 차차월물선물코드
 
+            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 본월물코드 = {3}\r'.format(dt.hour, dt.minute, dt.second, gmshcode)
+            self.textBrowser.append(str)
+            print(str)
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 선물 차월물코드 = {3}\r'.format(dt.hour, dt.minute, dt.second, cmshcode)
+            self.textBrowser.append(str)
+            print(str)
+
             if TARGET_MONTH_SELECT == 1:
 
                 fut_code = gmshcode
@@ -21414,23 +21422,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             cm_opt_length = len(cm_call_code)
             nm_opt_length = len(nm_call_code)
 
-            CM_CODE = cm_call_code[0][3:5]
-            NM_CODE = nm_call_code[0][3:5]
+            CM_OPTCODE = cm_call_code[0][3:5]
+            NM_OPTCODE = nm_call_code[0][3:5]
 
-            print('CM_CODE =', CM_CODE)
-            print('NM_CODE =', NM_CODE)
+            #print('CM_OPTCODE =', CM_OPTCODE)
+            #print('NM_OPTCODE =', NM_OPTCODE)
             
             print('cm call code = {0}\r'.format(cm_call_code))
             print('cm put code = {0}\r'.format(cm_put_code))
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 본월물 옵션 크기 = {3}\r'.format(dt.hour, dt.minute, dt.second, cm_opt_length)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션크기 = {4}\r'.format(dt.hour, dt.minute, dt.second, CM_OPTCODE, cm_opt_length)
             self.textBrowser.append(str)
             print(str) 
 
             print('nm call code = {0}\r'.format(nm_call_code))
             print('nm put code = {0}\r'.format(nm_put_code))
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 차월물 옵션 크기 = {3}\r'.format(dt.hour, dt.minute, dt.second, nm_opt_length)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션크기 = {4}\r'.format(dt.hour, dt.minute, dt.second, NM_OPTCODE, nm_opt_length)
             self.textBrowser.append(str)
             print(str)                       
         else:
@@ -23395,7 +23403,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # 차월물 처리
-                if OPT_NEXT_MONTH and result['단축코드'][3:5] == NM_CODE:
+                if OPT_NEXT_MONTH and result['단축코드'][3:5] == NM_OPTCODE:
                     pass
                 else:
                     pass
@@ -23433,7 +23441,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # 차월물 처리
-                if OPT_NEXT_MONTH and result['단축코드'][3:5] == NM_CODE:
+                if OPT_NEXT_MONTH and result['단축코드'][3:5] == NM_OPTCODE:
                     pass
                 else:
                     pass
