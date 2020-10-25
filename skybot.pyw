@@ -1666,6 +1666,11 @@ df_put_hoga = pd.DataFrame()
 df_call_volume = pd.DataFrame()
 df_put_volume = pd.DataFrame()
 
+df_cm_call = pd.DataFrame()
+df_cm_put = pd.DataFrame()
+df_nm_call = pd.DataFrame()
+df_nm_put = pd.DataFrame()
+
 # NEW 데이타프레임
 df_kp200_graph = pd.DataFrame()
 df_futures_graph = pd.DataFrame()
@@ -21398,25 +21403,50 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             df = result[0]
 
+            global df_cm_call, df_cm_put, df_nm_call, df_nm_put
+
             for i in range(len(df)):
 
                 if df['종목명'][i][2:6] == CURRENT_MONTH[2:6] and df['종목명'][i][0] == 'C':                
 
                     cm_call_code.append(df['단축코드'][i])
 
+                    df_cm_call.at[i, '단축코드'] = df['단축코드'][i]
+                    df_cm_call.at[i, '전일종가'] = df['전일종가'][i]
+                    df_cm_call.at[i, '전일고가'] = df['전일고가'][i]
+                    df_cm_call.at[i, '전일저가'] = df['전일저가'][i]
+
                 elif df['종목명'][i][2:6] == CURRENT_MONTH[2:6] and df['종목명'][i][0] == 'P': 
 
                     cm_put_code.append(df['단축코드'][i])
+
+                    df_cm_put.at[i, '단축코드'] = df['단축코드'][i]
+                    df_cm_put.at[i, '전일종가'] = df['전일종가'][i]
+                    df_cm_put.at[i, '전일고가'] = df['전일고가'][i]
+                    df_cm_put.at[i, '전일저가'] = df['전일저가'][i]
 
                 elif df['종목명'][i][2:6] == NEXT_MONTH[2:6] and df['종목명'][i][0] == 'C':                
 
                     nm_call_code.append(df['단축코드'][i])
 
+                    df_nm_call.at[i, '단축코드'] = df['단축코드'][i]
+                    df_nm_call.at[i, '전일종가'] = df['전일종가'][i]
+                    df_nm_call.at[i, '전일고가'] = df['전일고가'][i]
+                    df_nm_call.at[i, '전일저가'] = df['전일저가'][i]
+
                 elif df['종목명'][i][2:6] == NEXT_MONTH[2:6] and df['종목명'][i][0] == 'P': 
 
                     nm_put_code.append(df['단축코드'][i])
+
+                    df_nm_put.at[i, '단축코드'] = df['단축코드'][i]
+                    df_nm_put.at[i, '전일종가'] = df['전일종가'][i]
+                    df_nm_put.at[i, '전일고가'] = df['전일고가'][i]
+                    df_nm_put.at[i, '전일저가'] = df['전일저가'][i]
                 else:
-                    pass 
+                    pass
+            
+            print('nm call code = {0}\r'.format(nm_call_code))
+            print('nm put code = {0}\r'.format(nm_put_code)) 
 
             cm_opt_length = len(cm_call_code)
             nm_opt_length = len(nm_call_code)
@@ -21424,18 +21454,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             CM_OPTCODE = cm_call_code[0][3:5]
             NM_OPTCODE = nm_call_code[0][3:5]
 
-            #print('CM_OPTCODE =', CM_OPTCODE)
-            #print('NM_OPTCODE =', NM_OPTCODE)
-            
-            print('cm call code = {0}\r'.format(cm_call_code))
-            print('cm put code = {0}\r'.format(cm_put_code))
+            df_cm_call.reset_index(drop=True)
+            df_cm_put.reset_index(drop=True)
+            df_nm_call.reset_index(drop=True)
+            df_nm_put.reset_index(drop=True)
+
+            #df_cm = pd.concat([df_cm_call, df_cm_put], ignore_index=True)
+            #df_nm = pd.concat([df_nm_call, df_nm_put], ignore_index=True)
+
+            print('df cm call = {0}\r'.format(df_cm_call))
+            print('df cm put = {0}\r'.format(df_cm_put))
+            print('df nm call = {0}\r'.format(df_nm_call))
+            print('df nm put = {0}\r'.format(df_nm_put))
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 본월물({3}) 옵션크기 = {4}\r'.format(dt.hour, dt.minute, dt.second, CM_OPTCODE, cm_opt_length)
             self.textBrowser.append(str)
             print(str) 
-
-            print('nm call code = {0}\r'.format(nm_call_code))
-            print('nm put code = {0}\r'.format(nm_put_code))
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션크기 = {4}\r'.format(dt.hour, dt.minute, dt.second, NM_OPTCODE, nm_opt_length)
             self.textBrowser.append(str)
