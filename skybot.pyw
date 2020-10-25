@@ -4505,11 +4505,10 @@ class RealDataWorker(QThread):
             if not self.producer_queue.empty():
                 data = self.producer_queue.get()
                 self.consumer_queue.put(data)
-                self.trigger.emit()
-                
+                #print('consumer_queue =', self.consumer_queue)
+                self.trigger.emit()                
             else:
                 pass
-
 ########################################################################################################################
 # 당월물 옵션전광판 class
 ########################################################################################################################
@@ -18037,7 +18036,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 for i in range(option_pairs_count):
                     
                     self.t8416_call_request(i)
-                    print('t8416 call {0}번째 event loop 시작\r'.format(i+1))
+                    #print('t8416 call {0}번째 event loop 시작\r'.format(i+1))
                     self.t8416_call_event_loop.exec_()
             else:
                 # Refresh
@@ -20385,10 +20384,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             call_저가_node_list = self.make_node_list(call_저가)
                             call_고가_node_list = self.make_node_list(call_고가)
 
-                            print('Call 과거데이타 수신완료')
+                            print('Call 전체 행사가 수신완료')
 
                             #self.t8416_callworker.terminate()
-                            str = '[{0:02d}:{1:02d}:{2:02d}] Call 과거데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
+                            str = '[{0:02d}:{1:02d}:{2:02d}] Call 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)                            
 
                             call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
@@ -20405,7 +20404,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             for i in range(option_pairs_count):
                                 self.t8416_put_request(i)
-                                print('t8416 put {0}번째 event loop 시작\r'.format(i+1))
+                                #print('t8416 put {0}번째 event loop 시작\r'.format(i+1))
                                 self.t8416_put_event_loop.exec_()
                         else:
                             pass
@@ -20593,14 +20592,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Call 행사가 {3}개중 {4}번째 Packet을 수신했습니다.\r'.\
+                str = '[{0:02d}:{1:02d}:{2:02d}] Call 행사가 {3}개중 {4}번째를 수신했습니다.\r'.\
                     format(dt.hour, dt.minute, dt.second, option_pairs_count, t8416_call_count + 1)
 
                 self.textBrowser.append(str)
 
                 t8416_call_count += 1
 
-                print('Call 과거데이타 %d 개중 %d개 수신...' % (option_pairs_count, t8416_call_count))
+                print('Call 행사가 %d 개중 %d개 수신...' % (option_pairs_count, t8416_call_count))
 
                 # t8416은 초당 1건 전송가능
                 self.t8416_call_event_loop.exit()
@@ -20634,10 +20633,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         call_저가_node_list = self.make_node_list(call_저가)
                         call_고가_node_list = self.make_node_list(call_고가)
 
-                        print('Call 과거데이타 수신완료')
+                        print('Call 전체 행사가 수신완료')
 
                         #self.t8416_callworker.terminate()
-                        str = '[{0:02d}:{1:02d}:{2:02d}] Call 과거데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] Call 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
 
                         call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
@@ -20655,7 +20654,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         for i in range(option_pairs_count):
                                 self.t8416_put_request(i)
-                                print('t8416 put {0}번째 event loop 시작\r'.format(i+1))
+                                #print('t8416 put {0}번째 event loop 시작\r'.format(i+1))
                                 self.t8416_put_event_loop.exec_()
                     else:
                         pass
@@ -20812,13 +20811,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Put 행사가 {3}개중 {4}번째 Packet을 수신했습니다.\r'.format(dt.hour, dt.minute, dt.second, 
+                str = '[{0:02d}:{1:02d}:{2:02d}] Put 행사가 {3}개중 {4}번째를 수신했습니다.\r'.format(dt.hour, dt.minute, dt.second, 
                     option_pairs_count, t8416_put_count + 1)
                 self.textBrowser.append(str)
 
                 t8416_put_count += 1
 
-                print('Put 과거데이타 %d 개중 %d개 수신...' % (option_pairs_count, t8416_put_count))
+                print('Put 행사가 %d 개중 %d개 수신...' % (option_pairs_count, t8416_put_count))
 
                 self.t8416_put_event_loop.exit()
                 print('t8416_put_event_loop exit...')
@@ -20826,7 +20825,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if t8416_put_count == option_pairs_count - new_actval_down_count:
                     
-                    str = '[{0:02d}:{1:02d}:{2:02d}] Put 과거데이타 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] Put 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                     print(str)
 
