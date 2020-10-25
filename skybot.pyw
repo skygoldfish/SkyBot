@@ -21422,6 +21422,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
+                    df_cm_call.at[i - cm_call_count, '종목명'] = df['종목명'][i]
                     df_cm_call.at[i - cm_call_count, '단축코드'] = df['단축코드'][i]
                     df_cm_call.at[i - cm_call_count, '전일종가'] = df['전일종가'][i]
                     df_cm_call.at[i - cm_call_count, '전일고가'] = df['전일고가'][i]
@@ -21437,6 +21438,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
+                    df_cm_put.at[i - cm_put_count, '종목명'] = df['종목명'][i]
                     df_cm_put.at[i - cm_put_count, '단축코드'] = df['단축코드'][i]
                     df_cm_put.at[i - cm_put_count, '전일종가'] = df['전일종가'][i]
                     df_cm_put.at[i - cm_put_count, '전일고가'] = df['전일고가'][i]
@@ -21452,6 +21454,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
+                    df_nm_call.at[i - nm_call_count, '종목명'] = df['종목명'][i]
                     df_nm_call.at[i - nm_call_count, '단축코드'] = df['단축코드'][i]
                     df_nm_call.at[i - nm_call_count, '전일종가'] = df['전일종가'][i]
                     df_nm_call.at[i - nm_call_count, '전일고가'] = df['전일고가'][i]
@@ -21467,6 +21470,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
+                    df_nm_put.at[i - nm_put_count, '종목명'] = df['종목명'][i]
                     df_nm_put.at[i - nm_put_count, '단축코드'] = df['단축코드'][i]
                     df_nm_put.at[i - nm_put_count, '전일종가'] = df['전일종가'][i]
                     df_nm_put.at[i - nm_put_count, '전일고가'] = df['전일고가'][i]
@@ -21474,8 +21478,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
             
-            print('nm call code = {0}\r'.format(nm_call_code))
-            print('nm put code = {0}\r'.format(nm_put_code)) 
+            #print('nm call code = {0}\r'.format(nm_call_code))
+            #print('nm put code = {0}\r'.format(nm_put_code)) 
 
             cm_opt_length = len(cm_call_code)
             nm_opt_length = len(nm_call_code)
