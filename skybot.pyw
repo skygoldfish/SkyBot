@@ -21405,43 +21405,72 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             global df_cm_call, df_cm_put, df_nm_call, df_nm_put
 
+            first_cm_call = False
+            first_cm_put = False
+            first_nm_call = False
+            first_nm_put = False
+
             for i in range(len(df)):
 
                 if df['종목명'][i][2:6] == CURRENT_MONTH[2:6] and df['종목명'][i][0] == 'C':                
 
                     cm_call_code.append(df['단축코드'][i])
 
-                    df_cm_call.at[i, '단축코드'] = df['단축코드'][i]
-                    df_cm_call.at[i, '전일종가'] = df['전일종가'][i]
-                    df_cm_call.at[i, '전일고가'] = df['전일고가'][i]
-                    df_cm_call.at[i, '전일저가'] = df['전일저가'][i]
+                    if not first_cm_call:
+                        first_cm_call = True
+                        cm_call_count = i
+                    else:
+                        pass
+
+                    df_cm_call.at[i - cm_call_count, '단축코드'] = df['단축코드'][i]
+                    df_cm_call.at[i - cm_call_count, '전일종가'] = df['전일종가'][i]
+                    df_cm_call.at[i - cm_call_count, '전일고가'] = df['전일고가'][i]
+                    df_cm_call.at[i - cm_call_count, '전일저가'] = df['전일저가'][i]                    
 
                 elif df['종목명'][i][2:6] == CURRENT_MONTH[2:6] and df['종목명'][i][0] == 'P': 
 
                     cm_put_code.append(df['단축코드'][i])
 
-                    df_cm_put.at[i, '단축코드'] = df['단축코드'][i]
-                    df_cm_put.at[i, '전일종가'] = df['전일종가'][i]
-                    df_cm_put.at[i, '전일고가'] = df['전일고가'][i]
-                    df_cm_put.at[i, '전일저가'] = df['전일저가'][i]
+                    if not first_cm_put:
+                        first_cm_put = True
+                        cm_put_count = i
+                    else:
+                        pass
+
+                    df_cm_put.at[i - cm_put_count, '단축코드'] = df['단축코드'][i]
+                    df_cm_put.at[i - cm_put_count, '전일종가'] = df['전일종가'][i]
+                    df_cm_put.at[i - cm_put_count, '전일고가'] = df['전일고가'][i]
+                    df_cm_put.at[i - cm_put_count, '전일저가'] = df['전일저가'][i]
 
                 elif df['종목명'][i][2:6] == NEXT_MONTH[2:6] and df['종목명'][i][0] == 'C':                
 
                     nm_call_code.append(df['단축코드'][i])
 
-                    df_nm_call.at[i, '단축코드'] = df['단축코드'][i]
-                    df_nm_call.at[i, '전일종가'] = df['전일종가'][i]
-                    df_nm_call.at[i, '전일고가'] = df['전일고가'][i]
-                    df_nm_call.at[i, '전일저가'] = df['전일저가'][i]
+                    if not first_nm_call:
+                        first_nm_call = True
+                        nm_call_count = i
+                    else:
+                        pass
+
+                    df_nm_call.at[i - nm_call_count, '단축코드'] = df['단축코드'][i]
+                    df_nm_call.at[i - nm_call_count, '전일종가'] = df['전일종가'][i]
+                    df_nm_call.at[i - nm_call_count, '전일고가'] = df['전일고가'][i]
+                    df_nm_call.at[i - nm_call_count, '전일저가'] = df['전일저가'][i]
 
                 elif df['종목명'][i][2:6] == NEXT_MONTH[2:6] and df['종목명'][i][0] == 'P': 
 
                     nm_put_code.append(df['단축코드'][i])
 
-                    df_nm_put.at[i, '단축코드'] = df['단축코드'][i]
-                    df_nm_put.at[i, '전일종가'] = df['전일종가'][i]
-                    df_nm_put.at[i, '전일고가'] = df['전일고가'][i]
-                    df_nm_put.at[i, '전일저가'] = df['전일저가'][i]
+                    if not first_nm_put:
+                        first_nm_put = True
+                        nm_put_count = i
+                    else:
+                        pass
+
+                    df_nm_put.at[i - nm_put_count, '단축코드'] = df['단축코드'][i]
+                    df_nm_put.at[i - nm_put_count, '전일종가'] = df['전일종가'][i]
+                    df_nm_put.at[i - nm_put_count, '전일고가'] = df['전일고가'][i]
+                    df_nm_put.at[i - nm_put_count, '전일저가'] = df['전일저가'][i]
                 else:
                     pass
             
@@ -21453,14 +21482,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             CM_OPTCODE = cm_call_code[0][3:5]
             NM_OPTCODE = nm_call_code[0][3:5]
-
-            df_cm_call.reset_index(drop=True)
-            df_cm_put.reset_index(drop=True)
-            df_nm_call.reset_index(drop=True)
-            df_nm_put.reset_index(drop=True)
-
-            #df_cm = pd.concat([df_cm_call, df_cm_put], ignore_index=True)
-            #df_nm = pd.concat([df_nm_call, df_nm_put], ignore_index=True)
 
             print('df cm call = {0}\r'.format(df_cm_call))
             print('df cm put = {0}\r'.format(df_cm_put))
