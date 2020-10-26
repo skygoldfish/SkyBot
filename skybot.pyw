@@ -4510,7 +4510,7 @@ class RealDataWorker(QThread):
             if not self.producer_queue.empty():
                 data = self.producer_queue.get()
                 self.consumer_queue.put(data)
-                #print('consumer_queue =', self.consumer_queue)
+                #print('consumer_queue =', data)
                 self.trigger.emit()                
             else:
                 pass
