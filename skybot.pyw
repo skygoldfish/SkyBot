@@ -5629,6 +5629,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.OVH.UnadviseRealData()
             '''
 
+            if not NightTime:
+                
+                str = '[{0:02d}:{1:02d}:{2:02d}] S3, BM, PM요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                self.textBrowser.append(str)
+
+                self.S3.UnadviseRealData()
+                self.BM.UnadviseRealData()
+                self.PM.UnadviseRealData()
+            else:
+                pass
+
             str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
 
@@ -5702,6 +5713,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.MK2.AdviseRealData(심볼코드=WTI_SND)
             self.MK2.AdviseRealData(심볼코드=GOLD_SND)
             '''
+
+            if not NightTime:
+                str = '[{0:02d}:{1:02d}:{2:02d}] S3, BM, PM을 재요청합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                self.textBrowser.append(str)
+
+                self.S3.AdviseRealData(SAMSUNG)
+
+                self.BM.AdviseRealData(FUTURES)
+                self.BM.AdviseRealData(KOSPI)
+
+                self.PM.AdviseRealData()
+            else:
+                pass
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 재기동합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
