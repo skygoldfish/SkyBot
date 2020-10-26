@@ -17990,7 +17990,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         for i in range(option_pairs_count):
                             self.OPT_HO.AdviseRealData(call_code[i])
                             self.OPT_HO.AdviseRealData(put_code[i])
-
                     
                     # 선물 실시간테이타 요청
                     self.FUT_REAL.AdviseRealData(fut_code)
