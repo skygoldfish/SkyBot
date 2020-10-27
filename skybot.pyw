@@ -16653,7 +16653,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
 
         if ClassName == 't2835':
-
+            pass
+            '''
             global flag_t2835_eventloop
 
             if systemError == 0:
@@ -16673,7 +16674,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] t2835_event_loop fail exit...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
                 print(str)
-
+            '''
         elif ClassName == 't2301':
             pass
             '''
@@ -20637,6 +20638,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # t8416은 초당 1건 전송가능
                 self.t8416_call_event_loop.exit()
+                print('t8416_call_event_loop exit...')
                 QTest.qWait(1000)
                 
                 # to be checked !!!
