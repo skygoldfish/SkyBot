@@ -18058,8 +18058,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.FUT_REAL.AdviseRealData(fut_code)                                   
                     self.FUT_HO.AdviseRealData(fut_code)
 
-                    # 업종별 투자자별 매매현황 요청
-                    self.BM.AdviseRealData(CME)
+                    # 업종별 투자자별 매매현황 요청(야간선물 서비스중단)
+                    #self.BM.AdviseRealData(CME)
 
                 # t8416 요청
                 '''                
