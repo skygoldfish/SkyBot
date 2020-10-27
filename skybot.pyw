@@ -5475,6 +5475,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # t2301 이벤트루프(1초당 2건) --> 옵션 실시간수신 문제 보완목적
         self.t2301_event_loop = QEventLoop()
         self.t2835_event_loop = QEventLoop()
+        self.o3126_event_loop = QEventLoop()
 
         # 이벤트루프를 사용하여 t8416 연속요청(1초당 1건) 처리
         #self.t8416_event_loop = QEventLoop()
@@ -6698,6 +6699,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             '''
             if flag_checkBox_HS and self.alternate_flag and dt.second % OPTION_BOARD_UPDATE_INTERVAL == 0:
 
+                # 해외선물 옵션호가                
+                XQ = o3126(parent=self)
+                XQ.Query(시장구분='F',단축코드='HSIV20')
+                self.o3126_event_loop.exec_()
+                
                 if NightTime:
                     XQ = t2835(parent=self)
                     XQ.Query(월물=t2835_month_info)
@@ -6705,7 +6711,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     XQ = t2301(parent=self)                    
                     XQ.Query(월물=t2301_month_info, 미니구분='G')
-                    self.t2301_event_loop.exec_()
+                    self.t2301_event_loop.exec_()                
             else:
                 pass
             '''
@@ -21521,7 +21527,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 차월물({3}) 옵션크기 = {4}\r'.format(dt.hour, dt.minute, dt.second, NM_OPTCODE, nm_opt_length)
             self.textBrowser.append(str)
-            print(str)                       
+            print(str)
+
+        elif szTrCode == 'o3126':
+
+            df = result[0]
+            print('해외선물 호가 =', df)
+            self.o3126_event_loop.exit()
+
         else:
             pass
     #####################################################################################################################################################################

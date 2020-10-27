@@ -4343,6 +4343,11 @@ class o3126(XAQuery):
         self.ActiveX.SetFieldData(self.INBLOCK, "symbol", 0, 단축코드)
         self.ActiveX.Request(0)
 
+    def OnReceiveMessage(self, systemError, messageCode, message):
+        클래스이름 = self.__class__.__name__
+        함수이름 = inspect.currentframe().f_code.co_name
+        print("%s-%s " % (클래스이름, 함수이름), systemError, messageCode, message)
+
     def OnReceiveData(self, szTrCode):
         result = []
         nCount = self.ActiveX.GetBlockCount(self.OUTBLOCK)
