@@ -5473,9 +5473,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.t8416_putworker.finished.connect(self.t8416_put_request)
         '''
         # t2301 이벤트루프(1초당 2건) --> 옵션 실시간수신 문제 보완목적
-        self.t2301_event_loop = QEventLoop()
-        self.t2835_event_loop = QEventLoop()
-        self.o3126_event_loop = QEventLoop()
+        #self.t2301_event_loop = QEventLoop()
+        #self.t2835_event_loop = QEventLoop()
+        #self.o3126_event_loop = QEventLoop()
 
         # 이벤트루프를 사용하여 t8416 연속요청(1초당 1건) 처리
         #self.t8416_event_loop = QEventLoop()
@@ -16675,7 +16675,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print(str)
 
         elif ClassName == 't2301':
-
+            pass
+            '''
             global flag_t2301_eventloop
 
             if systemError == 0:
@@ -16695,12 +16696,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] t2301_event_loop fail exit...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
                 print(str)
-
+            '''
         elif ClassName == 't8416':
-
-            global flag_t8416_eventloop
-
             pass
+            #global flag_t8416_eventloop
+            #pass
         else:
             pass
 
