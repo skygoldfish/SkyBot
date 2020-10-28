@@ -32800,7 +32800,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_16.setStyleSheet('background-color: blue ; color: white')
                 self.label_16.setText(str)
-
+                '''
                 if df_call_total_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
                     str = ' ▲ '
@@ -32814,7 +32814,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_17.setText(str)
                 else:
                     pass
-                
+                '''
                 str = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_18.setStyleSheet('background-color: red ; color: white')
                 self.label_18.setText(str)
@@ -33564,7 +33564,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_26.setStyleSheet('background-color: blue ; color: white')
                 self.label_26.setText(str)
-
+                '''
                 if df_call_total_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
                     str = ' ▲ '
@@ -33578,7 +33578,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_27.setText(str)
                 else:
                     pass
-                
+                '''
                 str = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_28.setStyleSheet('background-color: red ; color: white')
                 self.label_28.setText(str)
@@ -34275,7 +34275,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_36.setStyleSheet('background-color: blue ; color: white')
                 self.label_36.setText(str)
-
+                '''
                 if df_call_total_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
                     str = ' ▲ '
@@ -34289,7 +34289,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_37.setText(str)
                 else:
                     pass
-                
+                '''
                 str = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_38.setStyleSheet('background-color: red ; color: white')
                 self.label_38.setText(str)
@@ -34992,7 +34992,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_46.setStyleSheet('background-color: blue ; color: white')
                 self.label_46.setText(str)
-
+                '''
                 if df_call_total_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
                     str = ' ▲ '
@@ -35006,7 +35006,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_47.setText(str)
                 else:
                     pass
-                
+                '''
                 str = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_48.setStyleSheet('background-color: red ; color: white')
                 self.label_48.setText(str)
@@ -35756,7 +35756,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_56.setStyleSheet('background-color: blue ; color: white')
                 self.label_56.setText(str)
-
+                '''
                 if df_call_total_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
                     str = ' ▲ '
@@ -35770,7 +35770,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_57.setText(str)
                 else:
                     pass
-                
+                '''
                 str = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_58.setStyleSheet('background-color: red ; color: white')
                 self.label_58.setText(str)
@@ -36467,7 +36467,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_66.setStyleSheet('background-color: blue ; color: white')
                 self.label_66.setText(str)
-
+                '''
                 if df_call_total_graph.at[ovc_x_idx, 'open_interest'] > call_oi_init_percent:
 
                     str = ' ▲ '
@@ -36481,7 +36481,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     self.label_67.setText(str)
                 else:
                     pass
-                
+                '''
                 str = " {0:.2f}({1:.2f}) ".format(df_call_total_graph.at[ovc_x_idx, 'open_interest'], call_oi_init_percent)
                 self.label_68.setStyleSheet('background-color: red ; color: white')
                 self.label_68.setText(str)
