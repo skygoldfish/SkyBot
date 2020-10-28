@@ -4352,21 +4352,14 @@ class telegram_send_worker(QThread):
 
                         # 선물 OL/OH 알람
                         if fut_oloh_str != '' and FLAG_OLOH:
-
                             str = fut_oloh_str
                             ToYourTelegram(str)
                         else:
                             pass
 
                         # 차월물 옵션 OLOH 보고
-                        if nm_call_oloh_str != '':
-                            str = nm_call_oloh_str + ', ' + 'Put ▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
-                            ToYourTelegram(str)
-                        else:
-                            pass
-
-                        if nm_put_oloh_str != '':
-                            str = nm_put_oloh_str + ', ' + 'Call ▲:▼ = ' + repr(call_ol_count) + ':' + repr(call_oh_count)
+                        if nm_call_oloh_str != '' and nm_put_oloh_str != '':
+                            str = nm_call_oloh_str + '\r' + nm_put_oloh_str
                             ToYourTelegram(str)
                         else:
                             pass
@@ -4399,8 +4392,7 @@ class telegram_send_worker(QThread):
                             str = put_high_node_str
                             ToYourTelegram(str)
                         else:
-                            pass
-                        '''
+                            pass                        
 
                         if telegram_send_str_call_low != '' and FLAG_NODE:
 
@@ -4429,14 +4421,14 @@ class telegram_send_worker(QThread):
                             ToYourTelegram(str)
                         else:
                             pass                               
-
+                        
                         # 비대칭장(장의 형태) 알람
                         if 비대칭장 != '' and FLAG_ASYM:
-
                             str = 비대칭장
                             ToYourTelegram(str)
                         else:
                             pass
+                        '''
                     else:
                         pass                
                     
