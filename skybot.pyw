@@ -4361,7 +4361,7 @@ class telegram_send_worker(QThread):
                             pass
 
                         # 차월물 옵션 OLOH 보고
-                        if nm_call_oloh_str != '' and nm_put_oloh_str != '':
+                        if nm_call_oloh_str != '' or nm_put_oloh_str != '':
                             str = nm_call_oloh_str + ', ' + nm_put_oloh_str
                             ToYourTelegram(str)
                         else:
@@ -15986,10 +15986,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         nm_put_ol_count = nm_put_ol.count(True)
                         nm_put_oh_count = nm_put_oh.count(True)
 
-                        if nm_put_ol_count > 0 or nm_put_oh_count > 0:
-                            nm_put_oloh_str = 'Put ▲:▼ = ' + repr(nm_put_ol_count) + ':' + repr(nm_put_oh_count)
+                        if not NightTime:
+                            if nm_put_ol_count > 0 or nm_put_oh_count > 0:
+                                nm_put_oloh_str = 'Put ▲:▼ = ' + repr(nm_put_ol_count) + ':' + repr(nm_put_oh_count)
+                            else:
+                                nm_put_oloh_str = ''
                         else:
-                            nm_put_oloh_str = ''
+                            if put_ol_count > 0 or put_oh_count > 0:
+                                nm_put_oloh_str = 'Put ▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
+                            else:
+                                nm_put_oloh_str = ''
                     else:
                         pass
                 else:
