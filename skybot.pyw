@@ -14877,10 +14877,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if TARGET_MONTH_SELECT == 2:
 
+                        nm_call_oloh_str = 'NM Call ▲:▼ = ' + repr(call_ol_count) + ':' + repr(call_oh_count)
+                        '''
                         if (call_ol_count == 0 and call_oh_count > 0) or (call_ol_count > 0 and call_oh_count == 0):
                             nm_call_oloh_str = 'NM Call ▲:▼ = ' + repr(call_ol_count) + ':' + repr(call_oh_count)
                         else:
                             nm_call_oloh_str = ''
+                        '''
                     else:
                         pass
                 else:
@@ -15961,10 +15964,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if TARGET_MONTH_SELECT == 2:
 
+                        nm_put_oloh_str = 'NM Put ▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
+                        '''
                         if (put_ol_count == 0 and put_oh_count > 0) or (put_ol_count > 0 and put_oh_count == 0):                        
                             nm_put_oloh_str = 'NM Put ▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
                         else:
                             nm_put_oloh_str = ''
+                        '''
                     else:
                         pass
                 else:
