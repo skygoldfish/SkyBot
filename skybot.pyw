@@ -4359,7 +4359,7 @@ class telegram_send_worker(QThread):
 
                         # 차월물 옵션 OLOH 보고
                         if nm_call_oloh_str != '' and nm_put_oloh_str != '':
-                            str = nm_call_oloh_str + '\r' + nm_put_oloh_str
+                            str = nm_call_oloh_str + ', ' + nm_put_oloh_str
                             ToYourTelegram(str)
                         else:
                             pass
@@ -15964,7 +15964,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if TARGET_MONTH_SELECT == 2:
 
-                        nm_put_oloh_str = 'NM Put ▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
+                        nm_put_oloh_str = 'Put ▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
                         '''
                         if (put_ol_count == 0 and put_oh_count > 0) or (put_ol_count > 0 and put_oh_count == 0):                        
                             nm_put_oloh_str = 'NM Put ▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
