@@ -1807,6 +1807,9 @@ put_oh = [False] * ActvalCount
 put_gap_percent = [NaN] * ActvalCount
 put_db_percent = [NaN] * ActvalCount
 
+nm_put_ol = [False] * ActvalCount
+nm_put_oh = [False] * ActvalCount
+
 put_otm_db = [0] * ActvalCount
 put_otm_db_percent = [NaN] * ActvalCount
 
@@ -15750,7 +15753,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def put_open_check(self):
 
         global df_put, put_itm_count
-        global put_open, put_ol, put_oh
+        global put_open, put_ol, put_oh, nm_put_ol, nm_put_oh
         global put_gap_percent, put_db_percent     
         global 풋시가갭합, 풋시가갭합_퍼센트
         global put_ol_count, put_oh_count
@@ -15765,7 +15768,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         if not market_service or put_scroll or refresh_coloring:
             
             put_ol = [False] * option_pairs_count
-            put_oh = [False] * option_pairs_count
+            put_oh = [False] * option_pairs_count            
             put_gap_percent = [NaN] * option_pairs_count
             put_db_percent = [NaN] * option_pairs_count
             put_itm_count = 0
@@ -15774,6 +15777,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             put_open = [False] * option_pairs_count
             put_ol_count = 0
             put_oh_count = 0
+
+            nm_put_ol = [False] * option_pairs_count
+            nm_put_oh = [False] * option_pairs_count
             
             if put_open_list:
 
@@ -15869,6 +15875,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 put_ol[index] = True
 
+                                if TARGET_MONTH_SELECT == 2 and 시가 < 0.5:
+                                    nm_put_ol[index] = True
+                                else:
+                                    pass
+
                             elif put_node_state['OLOH'] and self.is_within_n_tick(시가, 고가, oloh_threshold) and not self.is_within_n_tick(시가, 저가, oloh_threshold):
 
                                 oloh_str = '▼'
@@ -15886,6 +15897,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.tableWidget_put.item(index, Option_column.고가.value).setForeground(QBrush(흰색))
 
                                 put_oh[index] = True
+
+                                if TARGET_MONTH_SELECT == 2 and 시가 < 0.5:
+                                    nm_put_oh[index] = True
+                                else:
+                                    pass
                             else:
                                 oloh_str = ''
 
@@ -15899,6 +15915,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                                 put_ol[index] = False
                                 put_oh[index] = False
+
+                                if TARGET_MONTH_SELECT == 2 and 시가 < 0.5:
+                                    nm_put_ol[index] = False
+                                    nm_put_oh[index] = False
+                                else:
+                                    pass
                         else:
                             pass
                     else:
@@ -15964,7 +15986,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if TARGET_MONTH_SELECT == 2:
 
-                        nm_put_oloh_str = 'Put ▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
+                        nm_put_ol_count = nm_put_ol.count(True)
+                        nm_put_oh_count = nm_put_oh.count(True)
+
+                        nm_put_oloh_str = 'Put ▲:▼ = ' + repr(nm_put_ol_count) + ':' + repr(nm_put_oh_count)
                         '''
                         if (put_ol_count == 0 and put_oh_count > 0) or (put_ol_count > 0 and put_oh_count == 0):                        
                             nm_put_oloh_str = 'NM Put ▲:▼ = ' + repr(put_ol_count) + ':' + repr(put_oh_count)
