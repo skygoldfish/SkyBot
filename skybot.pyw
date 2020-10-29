@@ -15973,7 +15973,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_ol_count = put_ol.count(True)
                 put_oh_count = put_oh.count(True)
 
-                if TARGET_MONTH_SELECT == 2:
+                if TARGET_MONTH_SELECT == 2 and not NightTime:
                     nm_put_ol_count = nm_put_ol.count(True)
                     nm_put_oh_count = nm_put_oh.count(True)
                 else:
