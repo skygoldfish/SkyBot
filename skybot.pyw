@@ -15973,7 +15973,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 put_ol_count = put_ol.count(True)
                 put_oh_count = put_oh.count(True)
 
-                new_oloh = repr(put_ol_count) + ':' + repr(put_oh_count) + '\n✓'                
+                if TARGET_MONTH_SELECT == 2:
+                    nm_put_ol_count = nm_put_ol.count(True)
+                    nm_put_oh_count = nm_put_oh.count(True)
+                else:
+                    pass
+
+                new_oloh = repr(put_ol_count) + ':' + repr(put_oh_count) + '\n✓'                                    
 
                 if new_oloh != self.tableWidget_put.horizontalHeaderItem(2).text():
 
@@ -15981,14 +15987,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     item.setTextAlignment(Qt.AlignCenter)
                     self.tableWidget_put.setHorizontalHeaderItem(2, item)
 
-                    if TARGET_MONTH_SELECT == 2:
-
-                        nm_put_ol_count = nm_put_ol.count(True)
-                        nm_put_oh_count = nm_put_oh.count(True)
+                    if TARGET_MONTH_SELECT == 2:                        
 
                         if not NightTime:
                             if nm_put_ol_count > 0 or nm_put_oh_count > 0:
-                                nm_put_oloh_str = 'Put ▲:▼ = ' + repr(nm_put_ol_count) + ':' + repr(nm_put_oh_count)
+                                nm_put_oloh_str = 'Put ▲:▼ = ' + repr(put_ol_count) + '(' + repr(nm_put_ol_count) + ')' + ':' \
+                                    + repr(put_oh_count) + '(' + repr(nm_put_oh_count) + ')'
                             else:
                                 nm_put_oloh_str = ''
                         else:
