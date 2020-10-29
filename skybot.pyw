@@ -14872,7 +14872,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 new_oloh = repr(call_ol_count) + ':' + repr(call_oh_count) + '\n✓'                
 
-                if new_oloh != self.tableWidget_call.horizontalHeaderItem(2).text():
+                #if new_oloh != self.tableWidget_call.horizontalHeaderItem(2).text():
+                if True:
 
                     item = QTableWidgetItem(new_oloh)
                     item.setTextAlignment(Qt.AlignCenter)
@@ -15981,7 +15982,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 new_oloh = repr(put_ol_count) + ':' + repr(put_oh_count) + '\n✓'                                    
 
-                if new_oloh != self.tableWidget_put.horizontalHeaderItem(2).text():
+                #if new_oloh != self.tableWidget_put.horizontalHeaderItem(2).text():
+                if True:
 
                     item = QTableWidgetItem(new_oloh)
                     item.setTextAlignment(Qt.AlignCenter)
