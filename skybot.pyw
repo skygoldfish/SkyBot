@@ -284,6 +284,7 @@ ResizeRowsToContents = parser.getboolean('User Switch', 'Resize Rows To Contents
 CROSS_HAIR_LINE = parser.getboolean('User Switch', 'Cross Hair Line')
 SECOND_PLOT_SYNC = parser.getboolean('User Switch', 'Second Plot Sync')
 ALL_QUOTE_REQUEST = parser.getboolean('User Switch', 'All Option Quote Request')
+CSV_FILE = parser.getboolean('User Switch', 'CSV Data File')
 
 #print('TELEGRAM_SERVICE =', TELEGRAM_SERVICE)
 
@@ -16470,30 +16471,34 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
         self.textBrowser.append(str)
 
-        if not NightTime:
+        if CSV_FILE:
 
-            futures_graph_csv = "Futures {}{}".format(times, '.csv')
-            df_futures_graph.to_csv(futures_graph_csv, encoding='ms949')
+            if not NightTime:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 국내선물 Graph 파일을 저장했습니다.\r'.format(adj_hour, adj_min, adj_sec)
+                futures_graph_csv = "Futures {}{}".format(times, '.csv')
+                df_futures_graph.to_csv(futures_graph_csv, encoding='ms949')
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 국내선물 Graph 파일을 저장했습니다.\r'.format(adj_hour, adj_min, adj_sec)
+                self.textBrowser.append(str)
+            else:
+                pass  
+
+            dow_graph_csv = "DOW {}{}".format(times, '.csv')
+            df_dow_graph.to_csv(dow_graph_csv, encoding='ms949')
+
+            sp500_graph_csv = "SP500 {}{}".format(times, '.csv')
+            df_sp500_graph.to_csv(sp500_graph_csv, encoding='ms949')
+
+            nasdaq_graph_csv = "NASDAQ {}{}".format(times, '.csv')
+            df_nasdaq_graph.to_csv(nasdaq_graph_csv, encoding='ms949')
+
+            wti_graph_csv = "WTI {}{}".format(times, '.csv')
+            df_wti_graph.to_csv(wti_graph_csv, encoding='ms949')
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 Graph 파일을 저장했습니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
         else:
-            pass  
-
-        dow_graph_csv = "DOW {}{}".format(times, '.csv')
-        df_dow_graph.to_csv(dow_graph_csv, encoding='ms949')
-
-        sp500_graph_csv = "SP500 {}{}".format(times, '.csv')
-        df_sp500_graph.to_csv(sp500_graph_csv, encoding='ms949')
-
-        nasdaq_graph_csv = "NASDAQ {}{}".format(times, '.csv')
-        df_nasdaq_graph.to_csv(nasdaq_graph_csv, encoding='ms949')
-
-        wti_graph_csv = "WTI {}{}".format(times, '.csv')
-        df_wti_graph.to_csv(wti_graph_csv, encoding='ms949')
-
-        str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 Graph 파일을 저장했습니다.\r'.format(adj_hour, adj_min, adj_sec)
-        self.textBrowser.append(str)
+            pass
         
         str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
         self.textBrowser.append(str)
