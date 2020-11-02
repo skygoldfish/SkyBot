@@ -7184,7 +7184,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             nighttime_file.write(file_str)
                             nighttime_file.close()
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 종료합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(adj_hour, adj_min, adj_sec)
                         self.textBrowser.append(str)
                         print(str)
 
@@ -7193,6 +7193,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.parent.connection.disconnect()
                     else:
                         self.parent.statusbar.showMessage("오프라인")
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                        self.textBrowser.append(str)
+
+                        file = open('skybot.log', 'w')
+                        text = self.textBrowser.toPlainText()
+                        file.write(text)
+                        file.close()
                 else:
                     pass
             else:
@@ -7201,7 +7209,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if self.parent.connection.IsConnected():
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 종료합니다...\r'.format(adj_hour, adj_min, adj_sec)
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 서버연결을 해지합니다...\r'.format(adj_hour, adj_min, adj_sec)
                         self.textBrowser.append(str)
                         print(str)
 
@@ -7210,6 +7218,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.parent.connection.disconnect()
                     else:
                         self.parent.statusbar.showMessage("오프라인")
+
+                        str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                        self.textBrowser.append(str)
+                        
+                        file = open('skybot.log', 'w')
+                        text = self.textBrowser.toPlainText()
+                        file.write(text)
+                        file.close()
                 else:
                     pass  
             
@@ -16449,7 +16465,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def SaveResult(self):
 
-        global flag_offline
+        #global flag_offline
 
         dt = datetime.datetime.now()
         now = time.localtime()
@@ -16499,14 +16515,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(str)
         else:
             pass
-        
+        '''
         str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
         self.textBrowser.append(str)
         
         file = open('skybot.log', 'w')
         text = self.textBrowser.toPlainText()
         file.write(text)
-        file.close()       
+        file.close()
+        '''       
 
     def RemoveCode(self):
 
@@ -37505,7 +37522,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 pass            
             
-            self.statusbar.showMessage("로그인 되었습니다.")
+            self.statusbar.showMessage("로그인 성공 !!!")
 
             # 옵션전광판 자동 시작
             if AUTO_START:                
