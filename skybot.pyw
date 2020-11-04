@@ -16515,7 +16515,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(str)
         else:
             pass
-        '''
+        
         str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
         self.textBrowser.append(str)
         
@@ -16523,7 +16523,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         text = self.textBrowser.toPlainText()
         file.write(text)
         file.close()
-        '''       
+              
 
     def RemoveCode(self):
 
