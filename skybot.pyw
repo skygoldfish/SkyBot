@@ -2706,6 +2706,21 @@ flag_t2835_eventloop = False
 flag_t8416_eventloop = False
 
 ########################################################################################################################
+def xing_func():
+    if bool(화면_선물옵션전광판.xing_realdata):
+        print('sky.....', 화면_선물옵션전광판.xing_realdata)
+
+def xing_real(q):
+        #proc = mp.current_process()
+        #print(proc.name)
+
+        while True:
+            if bool(화면_선물옵션전광판.xing_realdata):
+                print('RcvData =', 화면_선물옵션전광판.xing_realdata)
+                data = 화면_선물옵션전광판.xing_realdata            
+                q.put(data)
+            else:
+                pass
 
 def sqliteconn():
     conn = sqlite3.connect(DATABASE)
@@ -4524,7 +4539,7 @@ class RealDataWorker(QThread):
 Ui_선물옵션전광판, QtBaseClass_선물옵션전광판 = uic.loadUiType(UI_DIR + UI_STYLE)
 class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
-    #xing_realdata = dict()
+    xing_realdata = dict()
 
     def __init__(self, parent=None):
         super(화면_선물옵션전광판, self).\
@@ -5497,17 +5512,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         self.tableWidget_call.resizeColumnsToContents()
         self.tableWidget_put.resizeColumnsToContents()
-    '''
-    @staticmethod
-    def xing_real(q):
-        #proc = mp.current_process()
-        #print(proc.name)
 
-        while True:
-            data = 화면_선물옵션전광판.xing_realdata
-            print('RcvData =', data)
-            q.put(data)
-    '''      
     @pyqtSlot()
     def process_realdata(self):
 
@@ -6704,6 +6709,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global drate_scale_factor 
             
             self.alternate_flag = not self.alternate_flag
+
+            #xing_func()
             
             # 서버시간 기준으로 1분마다 체크!!!
             if self.alternate_flag and flag_heartbeat:
@@ -38079,7 +38086,7 @@ if __name__ == "__main__":
     #ToYourTelegram("SkyBot이 실행되었습니다.")
     '''
     q = mp.Queue()
-    p = Process(name="xing_real", target=화면_선물옵션전광판.xing_real, args=(q, ), daemon=True)
+    p = Process(name="xing_real", target=xing_real, args=(q, ), daemon=True)
     p.start()
     '''
     # 1.로그 인스턴스를 만든다.
