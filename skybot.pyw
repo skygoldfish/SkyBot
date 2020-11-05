@@ -4524,6 +4524,8 @@ class RealDataWorker(QThread):
 Ui_선물옵션전광판, QtBaseClass_선물옵션전광판 = uic.loadUiType(UI_DIR + UI_STYLE)
 class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
+    #xing_realdata = dict()
+
     def __init__(self, parent=None):
         super(화면_선물옵션전광판, self).\
             __init__(parent, flags = Qt.WindowTitleHint | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint)
@@ -5495,7 +5497,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         self.tableWidget_call.resizeColumnsToContents()
         self.tableWidget_put.resizeColumnsToContents()
-          
+    '''
+    @staticmethod
+    def xing_real(q):
+        #proc = mp.current_process()
+        #print(proc.name)
+
+        while True:
+            data = 화면_선물옵션전광판.xing_realdata
+            print('RcvData =', data)
+            q.put(data)
+    '''      
     @pyqtSlot()
     def process_realdata(self):
 
@@ -21602,6 +21614,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def OnReceiveRealData(self, szTrCode, result):
 
         result['szTrCode'] = szTrCode
+        #화면_선물옵션전광판.xing_realdata = result
         self.producer_queue.put(result)            
 
     def RealData_Process(self, result):
@@ -38064,7 +38077,11 @@ if __name__ == "__main__":
     # Speak("스카이봇이 시작됩니다.")
 
     #ToYourTelegram("SkyBot이 실행되었습니다.")
-
+    '''
+    q = mp.Queue()
+    p = Process(name="xing_real", target=화면_선물옵션전광판.xing_real, args=(q, ), daemon=True)
+    p.start()
+    '''
     # 1.로그 인스턴스를 만든다.
     logger = logging.getLogger('mymoneybot')
     # 2.formatter를 만든다.
