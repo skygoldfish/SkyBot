@@ -9,6 +9,8 @@ import inspect
 import pandas as pd
 from pandas import Panel, DataFrame, Series
 
+xarealdata = dict()
+
 class XARealEvents(object):
     def __init__(self):
         self.parent = None
@@ -883,7 +885,7 @@ class SC4(XAReal):
         # result['메세지출력구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "outgu")
         # result['압축요청구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "compreq")
         # result['기능키'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "funckey")
-        # result['요청레코드개수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "reqcnt")
+        # result['요청��코드개수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "reqcnt")
         # result['예비영역'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "filler")
         # result['연속구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "cont")
         # result['연속키값'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "contkey")

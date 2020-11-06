@@ -59,6 +59,7 @@ import multiprocessing as mp
 from XASessions import *
 from XAQueries import *
 from XAReals import *
+#from XAReals import xarealdata
 from Utils import *
 #from FileWatcher import *
 
@@ -2708,10 +2709,11 @@ flag_t8416_eventloop = False
 flag_logfile = False
 
 ########################################################################################################################
-def xing_func():
+def xing_test_func():
     if bool(화면_선물옵션전광판.xing_realdata):
         print('sky.....', 화면_선물옵션전광판.xing_realdata)
 
+# 멀티프로세싱 목적, 큐로 전역변수 전달안됨
 def xing_real(q):
         #proc = mp.current_process()
         #print(proc.name)
@@ -6712,8 +6714,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global flag_logfile
             
             self.alternate_flag = not self.alternate_flag
-
-            #xing_func()
             
             # 서버시간 기준으로 1분마다 체크!!!
             if self.alternate_flag and flag_heartbeat:
