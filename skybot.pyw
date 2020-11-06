@@ -2705,6 +2705,8 @@ flag_t2301_eventloop = False
 flag_t2835_eventloop = False
 flag_t8416_eventloop = False
 
+flag_logfile = False
+
 ########################################################################################################################
 def xing_func():
     if bool(화면_선물옵션전광판.xing_realdata):
@@ -6706,7 +6708,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global call_plot_data, put_plot_data, centerval_plot_data
             global selected_call, selected_put, selected_opt_list
             global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가 
-            global drate_scale_factor 
+            global drate_scale_factor
+            global flag_logfile
             
             self.alternate_flag = not self.alternate_flag
 
@@ -7213,13 +7216,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         self.parent.statusbar.showMessage("오프라인")
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                        self.textBrowser.append(str)
+                        if not flag_logfile:
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                            self.textBrowser.append(str)
 
-                        file = open('skybot.log', 'w')
-                        text = self.textBrowser.toPlainText()
-                        file.write(text)
-                        file.close()
+                            file = open('skybot.log', 'w')
+                            text = self.textBrowser.toPlainText()
+                            file.write(text)
+                            file.close()
+
+                            flag_logfile = True
+                        else:
+                            pass
                 else:
                     pass
             else:
@@ -7238,13 +7246,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         self.parent.statusbar.showMessage("오프라인")
 
-                        str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                        self.textBrowser.append(str)
-                        
-                        file = open('skybot.log', 'w')
-                        text = self.textBrowser.toPlainText()
-                        file.write(text)
-                        file.close()
+                        if not flag_logfile:
+                            str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                            self.textBrowser.append(str)
+
+                            file = open('skybot.log', 'w')
+                            text = self.textBrowser.toPlainText()
+                            file.write(text)
+                            file.close()
+
+                            flag_logfile = True
+                        else:
+                            pass
                 else:
                     pass  
             
@@ -16485,6 +16498,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def SaveResult(self):
 
         #global flag_offline
+        global flag_logfile
 
         dt = datetime.datetime.now()
         now = time.localtime()
@@ -16535,13 +16549,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-        str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
-        self.textBrowser.append(str)
-        
-        file = open('skybot.log', 'w')
-        text = self.textBrowser.toPlainText()
-        file.write(text)
-        file.close()
+        if not flag_logfile:
+            str = '[{0:02d}:{1:02d}:{2:02d}] 로그파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            self.textBrowser.append(str)
+
+            file = open('skybot.log', 'w')
+            text = self.textBrowser.toPlainText()
+            file.write(text)
+            file.close()
+
+            flag_logfile = True
+        else:
+            pass
               
 
     def RemoveCode(self):
