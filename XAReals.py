@@ -110,6 +110,7 @@ class H1_(XAReal):
         result['동시호가구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "donsigubun")
         result['단축코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "shcode")
         result['배분적용구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "alloc_gubun")
+        result['szTrCode'] = szTrCode
 
         if self.parent != None:
             self.parent.OnReceiveRealData(szTrCode, result)
@@ -154,6 +155,7 @@ class HA_(XAReal):
         result['동시호가구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "donsigubun")
         result['단축코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "shcode")
         result['배분적용구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "alloc_gubun")
+        result['szTrCode'] = szTrCode
 
         if self.parent != None:
             self.parent.OnReceiveRealData(szTrCode, result)
@@ -207,6 +209,7 @@ class K3_(XAReal):
         result['장정보'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "status")
         result['전일동시간대거래량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilvolume"))
         result['단축코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "shcode")
+        result['szTrCode'] = szTrCode
 
         if self.parent != None:
             self.parent.OnReceiveRealData(szTrCode, result)
@@ -261,6 +264,7 @@ class S3_(XAReal):
         result['장정보'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "status")
         result['전일동시간대거래량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilvolume"))
         result['단축코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "shcode")
+        result['szTrCode'] = szTrCode
 
         if self.parent != None:
             self.parent.OnReceiveRealData(szTrCode, result)
@@ -393,6 +397,7 @@ class SC0(XAReal):
         # result['주문가능현금'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "ordablemny"))
         # result['주문가능대용'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "ordablesubstamt"))
         # result['재사용가능금액'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "ruseableamt"))
+        # result['szTrCode'] = szTrCode
 
         if self.parent != None:
             self.parent.OnReceiveRealData(szTrCode, result)
@@ -542,6 +547,7 @@ class SC1(XAReal):
         # result['주문가능현금'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ordablemny")
         # result['주문가능대용'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ordablesubstamt")
         # result['재사용가능금액'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ruseableamt")
+        # result['szTrCode'] = szTrCode
 
         if self.parent != None:
             self.parent.OnReceiveRealData(szTrCode, result)
@@ -691,6 +697,7 @@ class SC2(XAReal):
         # result['주문가능현금'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ordablemny")
         # result['주문가능대용'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ordablesubstamt")
         # result['재사용가능금액'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ruseableamt")
+        #result['szTrCode'] = szTrCode
 
         if self.parent != None:
             self.parent.OnReceiveRealData(szTrCode, result)
@@ -840,6 +847,7 @@ class SC3(XAReal):
         # result['주문가능현금'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ordablemny")
         # result['주문가능대용'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ordablesubstamt")
         # result['재사용가능금액'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ruseableamt")
+        #result['szTrCode'] = szTrCode
 
         if self.parent != None:
             self.parent.OnReceiveRealData(szTrCode, result)
@@ -989,6 +997,7 @@ class SC4(XAReal):
         # result['주문가능현금'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ordablemny")
         # result['주문가능대용'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ordablesubstamt")
         # result['재사용가능금액'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ruseableamt")
+        #result['szTrCode'] = szTrCode
 
         if self.parent != None:
             self.parent.OnReceiveRealData(szTrCode, result)
@@ -1016,6 +1025,7 @@ class NWS(XAReal):
         result['제목'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "title")
         result['단축종목코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "code")
         result['BODY길이'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "bodysize"))
+        result['szTrCode'] = szTrCode
 
         if self.parent != None:
             self.parent.OnReceiveRealData(szTrCode, result)
@@ -1070,9 +1080,11 @@ class FC0(XAReal):
             result['장운영정보'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "jgubun")
             result['전일동시간대거래량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilvolume"))
             result['단축코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "futcode")
+            result['szTrCode'] = szTrCode
 
             if self.parent != None:
                 self.parent.OnReceiveRealData(szTrCode, result)
+
         except Exception as e:
             클래스이름 = self.__class__.__name__
             함수이름 = inspect.currentframe().f_code.co_name
@@ -1130,9 +1142,11 @@ class NC0(XAReal):
             result['장운영정보'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "jgubun")
             # result['미사용filler'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilvolume"))
             result['단축코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "futcode")
+            result['szTrCode'] = szTrCode
 
             if self.parent != None:
                 self.parent.OnReceiveRealData(szTrCode, result)
+
         except Exception as e:
             클래스이름 = self.__class__.__name__
             함수이름 = inspect.currentframe().f_code.co_name
@@ -1198,9 +1212,11 @@ class FH0(XAReal):
             result['단축코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "futcode")
             result['단일가호가여부'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "danhochk")
             result['배분적용구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "alloc_gubun")
+            result['szTrCode'] = szTrCode
 
             if self.parent != None:
                 self.parent.OnReceiveRealData(szTrCode, result)
+
         except Exception as e:
             클래스이름 = self.__class__.__name__
             함수이름 = inspect.currentframe().f_code.co_name
@@ -1265,9 +1281,11 @@ class NH0(XAReal):
             result['매도호가총건수'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "totoffercnt"))
             result['매수호가총건수'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "totbidcnt"))
             result['단축코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "futcode")
+            result['szTrCode'] = szTrCode
 
             if self.parent != None:
                 self.parent.OnReceiveRealData(szTrCode, result)
+
         except Exception as e:
             클래스이름 = self.__class__.__name__
             함수이름 = inspect.currentframe().f_code.co_name
@@ -1328,6 +1346,7 @@ class OC0(XAReal):
             result['장운영정보'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "jgubun")
             result['전일동시간대거래량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilvolume"))
             result['단축코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "optcode")
+            result['szTrCode'] = szTrCode
 
             if self.parent != None:
                 self.parent.OnReceiveRealData(szTrCode, result)
@@ -1400,6 +1419,7 @@ class OH0(XAReal):
             result['단축코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "optcode")
             result['단일가호가여부'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "danhochk")
             result['배분적용구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "alloc_gubun")
+            result['szTrCode'] = szTrCode
 
             if self.parent != None:
                 self.parent.OnReceiveRealData(szTrCode, result)
@@ -1464,6 +1484,7 @@ class EC0(XAReal):
             result['장운영정보'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "jgubun")
             result['전일동시간대거래량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilvolume"))
             result['단축코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "optcode")
+            result['szTrCode'] = szTrCode
 
             if self.parent != None:
                 self.parent.OnReceiveRealData(szTrCode, result)
@@ -1538,6 +1559,7 @@ class EH0(XAReal):
             result['매수호가총건수'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "totbidcnt"))
             result['단축코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "optcode")
             result['단일가호가여부'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "danhochk")
+            result['szTrCode'] = szTrCode
 
             if self.parent != None:
                 self.parent.OnReceiveRealData(szTrCode, result)
@@ -1571,10 +1593,10 @@ class JIF(XAReal):
             result = dict()
             result['장구분'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "jangubun")
             result['장상태'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "jstatus")
+            result['szTrCode'] = szTrCode
 
             if self.parent != None:
                 self.parent.OnReceiveRealData(szTrCode, result)
-                #print(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1612,10 +1634,10 @@ class YJ_(XAReal):
             result['누적거래량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "volume"))
             result['예상거래대금'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "value"))
             result['업종코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "upcode")
+            result['szTrCode'] = szTrCode
 
             if self.parent != None:
                 self.parent.OnReceiveRealData(szTrCode, result)
-                #print(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1650,10 +1672,10 @@ class YFC(XAReal):
             result['예상체결가전일종가대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "preychange"))
             result['예상체결가전일종가등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilydrate"))
             result['단축코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "futcode")
+            result['szTrCode'] = szTrCode
 
             if self.parent != None:
                 self.parent.OnReceiveRealData(szTrCode, result)
-                #print(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1688,10 +1710,10 @@ class YOC(XAReal):
             result['예상체결가전일종가대비'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "preychange"))
             result['예상체결가전일종가등락율'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "jnilydrate"))
             result['단축코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "optcode")
+            result['szTrCode'] = szTrCode
 
             if self.parent != None:
                 self.parent.OnReceiveRealData(szTrCode, result)
-                #print(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1731,10 +1753,10 @@ class YS3(XAReal):
             result['예상매도호가수량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "yofferrem0"))
             result['예상매수호가수량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "ybidrem0"))
             result['단축코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "shcode")
+            result['szTrCode'] = szTrCode
 
             if self.parent != None:
                 self.parent.OnReceiveRealData(szTrCode, result)
-                #print(result)
 
         except Exception as e:
             클래스이름 = self.__class__.__name__
@@ -1791,6 +1813,7 @@ class IJ_(XAReal):
             result['외인순매수금액'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "frgsvalue"))
             result['기관순매수금액'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "orgsvalue"))
             result['업종코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "upcode")
+            result['szTrCode'] = szTrCode
 
             if self.parent != None:
                 self.parent.OnReceiveRealData(szTrCode, result)
@@ -1836,6 +1859,7 @@ class BM_(XAReal):
             result['거래대금순매수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "msval")
             result['거래대금순매수직전대비'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "p_msval")
             result['업종코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "upcode")
+            result['szTrCode'] = szTrCode
 
             if self.parent != None:
                 self.parent.OnReceiveRealData(szTrCode, result)
@@ -1969,6 +1993,7 @@ class BMT(XAReal):
             result['거래대금순매수0'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "msval0")
 
             result['업종코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "upcode")
+            result['szTrCode'] = szTrCode
 
             if self.parent != None:
                 self.parent.OnReceiveRealData(szTrCode, result)
@@ -2006,6 +2031,7 @@ class PM_(XAReal):
             result['전체순매수금액합계'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "tval"))
             result['전체순매수금액직전대비'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "p_tvalcha"))
             result['구분값'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "gubun")
+            result['szTrCode'] = szTrCode
 
             if self.parent != None:
                 self.parent.OnReceiveRealData(szTrCode, result)
@@ -2056,6 +2082,7 @@ class OVC(XAReal):
         result['매도누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "mdvolume")
         result['매수누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "msvolume")
         result['장마감일'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ovsmkend")
+        result['szTrCode'] = szTrCode
 
         if self.parent != None:
             self.parent.OnReceiveRealData(szTrCode, result)
@@ -2106,6 +2133,7 @@ class OVH(XAReal):
         result['매수호가총건수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totbidcnt")
         result['매도호가총수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totofferrem")
         result['매수호가총수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totbidrem")
+        result['szTrCode'] = szTrCode
 
         if self.parent != None:
             self.parent.OnReceiveRealData(szTrCode, result)
@@ -2147,6 +2175,7 @@ class TC1(XAReal):
         result['주문수량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "ordr_q"))
         result['주문시간'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ordr_tm")
         result['사용자ID'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "userid")
+        result['szTrCode'] = szTrCode
 
         if self.parent != None:
             self.parent.OnReceiveRealData(szTrCode, result)
@@ -2190,6 +2219,7 @@ class TC2(XAReal):
         result['호가확인수량'] = int(self.ActiveX.GetFieldData(self.OUTBLOCK, "cnfr_q"))
         result['호가거부사유코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "rfsl_cd")
         result['호가거부사유코드명'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "text")
+        result['szTrCode'] = szTrCode
 
         if self.parent != None:
             self.parent.OnReceiveRealData(szTrCode, result)
@@ -2235,6 +2265,7 @@ class TC3(XAReal):
         result['현재가격'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "now_prc"))
         result['통화코드'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "crncy_cd")
         result['만기일자'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "mtrt_dt")
+        result['szTrCode'] = szTrCode
 
         if self.parent != None:
             self.parent.OnReceiveRealData(szTrCode, result)
@@ -2276,6 +2307,7 @@ class WOC(XAReal):
         result['매도누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "mdvolume")
         result['매수누적체결수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "msvolume")
         result['장마감일'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "ovsmkend")
+        result['szTrCode'] = szTrCode
 
         if self.parent != None:
             self.parent.OnReceiveRealData(szTrCode, result)
@@ -2326,6 +2358,7 @@ class WOH(XAReal):
         result['매수호가총건수'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totbidcnt")
         result['매도호가총수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totofferrem")
         result['매수호가총수량'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "totbidrem")
+        result['szTrCode'] = szTrCode
 
         if self.parent != None:
             self.parent.OnReceiveRealData(szTrCode, result)
@@ -2367,6 +2400,7 @@ class MK2(XAReal):
         result['누적거래량'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "volume"))
         result['심볼'] = self.ActiveX.GetFieldData(self.OUTBLOCK, "xsymbol")
         result['체결거래량'] = float(self.ActiveX.GetFieldData(self.OUTBLOCK, "cvolume"))
+        result['szTrCode'] = szTrCode
 
         if self.parent != None:
             self.parent.OnReceiveRealData(szTrCode, result)

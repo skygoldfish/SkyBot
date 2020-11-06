@@ -4531,7 +4531,6 @@ class RealDataWorker(QThread):
             if not self.producer_queue.empty():
                 data = self.producer_queue.get()
                 self.consumer_queue.put(data)
-                #print('consumer_queue =', data)
                 self.trigger.emit()                
             else:
                 pass
@@ -21639,7 +21638,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     #####################################################################################################################################################################
     def OnReceiveRealData(self, szTrCode, result):
 
-        result['szTrCode'] = szTrCode
+        #result['szTrCode'] = szTrCode
         #화면_선물옵션전광판.xing_realdata = result
         self.producer_queue.put(result)            
 
