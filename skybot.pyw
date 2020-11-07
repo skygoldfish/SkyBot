@@ -4518,20 +4518,19 @@ class telegram_listen_worker(QThread):
 
 ########################################################################################################################
 class RealDataWorker(QThread):
-    # argument는 없는 단순 trigger, 데이터는 queue를 통해서 전달됨
     trigger = pyqtSignal()
 
     def __init__(self, producer_queue, consumer_queue):
         super().__init__()
-        self.producer_queue = producer_queue          # 데이터를 받는 용
-        self.consumer_queue = consumer_queue          
+        self.producer_queue = producer_queue
+        self.consumer_queue = consumer_queue
         
     def run(self):
         while True:
             if not self.producer_queue.empty():
                 data = self.producer_queue.get()
                 self.consumer_queue.put(data)
-                self.trigger.emit()                
+                self.trigger.emit()    
             else:
                 pass
 ########################################################################################################################
@@ -4559,8 +4558,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         global KSE_START_HOUR        
         global call_node_state, put_node_state, COREVAL
 
-        self.producer_queue = Queue()
-        self.consumer_queue = Queue()
+        self.producer_queue = mp.Queue()
+        self.consumer_queue = mp.Queue()
 
         self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
         self.real_data_worker.trigger.connect(self.process_realdata)        
