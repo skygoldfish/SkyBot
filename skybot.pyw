@@ -2714,7 +2714,7 @@ def xing_test_func():
         print('sky.....', 화면_선물옵션전광판.xing_realdata)
 
 # 멀티프로세싱 목적, 큐로 전역변수 전달안됨
-def xing_real(q):
+def producer(q):
         #proc = mp.current_process()
         #print(proc.name)
 
@@ -38104,7 +38104,7 @@ if __name__ == "__main__":
     #ToYourTelegram("SkyBot이 실행되었습니다.")
     '''
     q = mp.Queue()
-    p = Process(name="xing_real", target=xing_real, args=(q, ), daemon=True)
+    p = Process(name="producer", target=producer, args=(q, ), daemon=True)
     p.start()
     '''
     # 1.로그 인스턴스를 만든다.
