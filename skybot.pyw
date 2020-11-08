@@ -4561,11 +4561,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.producer_queue = mp.Queue()
         self.consumer_queue = mp.Queue()
 
-        self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
-        self.real_data_worker.trigger.connect(self.process_realdata)        
-        self.real_data_worker.daemon = True
-        self.real_data_worker.start()
-
         self.상태그림 = ['▼', '▬', '▲']
         self.상태문자 = ['매도', '대기', '매수']
         self.특수문자 = \
@@ -5483,25 +5478,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.XingAdminCheck()
 
-        self.checkBox_HS.stateChanged.connect(self.checkBox_HS_checkState)            
+        self.checkBox_HS.stateChanged.connect(self.checkBox_HS_checkState)
+
+        # 이벤트루프를 사용하여 t8416 연속요청(1초당 1건) 처리
+        #self.t8416_event_loop = QEventLoop()
+        self.t8416_call_event_loop = QEventLoop()
+        self.t8416_put_event_loop = QEventLoop()
+
+        # t2301, t2835 이벤트루프(1초당 2건) --> 옵션 실시간수신 문제 보완목적
+        self.t2301_event_loop = QEventLoop()
+        self.t2835_event_loop = QEventLoop()
+        #self.o3126_event_loop = QEventLoop()            
         
-        # 쓰레드 시작은 start(), 종료는 terminate()
+        # 쓰레드 시작은 start(), 종료는 terminate()        
+        self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
+        self.real_data_worker.trigger.connect(self.process_realdata)        
+        self.real_data_worker.daemon = True
+        self.real_data_worker.start()
+
         '''
         self.t8416_callworker = t8416_Call_Worker()
         self.t8416_callworker.finished.connect(self.t8416_call_request)
 
         self.t8416_putworker = t8416_Put_Worker()
         self.t8416_putworker.finished.connect(self.t8416_put_request)
-        '''
-        # t2301 이벤트루프(1초당 2건) --> 옵션 실시간수신 문제 보완목적
-        #self.t2301_event_loop = QEventLoop()
-        #self.t2835_event_loop = QEventLoop()
-        #self.o3126_event_loop = QEventLoop()
-
-        # 이벤트루프를 사용하여 t8416 연속요청(1초당 1건) 처리
-        #self.t8416_event_loop = QEventLoop()
-        self.t8416_call_event_loop = QEventLoop()
-        self.t8416_put_event_loop = QEventLoop()
+        '''        
 
         self.screen_update_worker = screen_update_worker()
         self.screen_update_worker.finished.connect(self.update_screen)
@@ -6718,13 +6719,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.heartbeat_check()
             else:
                 pass
-            '''
+            
             if flag_checkBox_HS and self.alternate_flag and dt.second % OPTION_BOARD_UPDATE_INTERVAL == 0:
 
                 # 해외선물 옵션호가                
-                XQ = o3126(parent=self)
-                XQ.Query(시장구분='F',단축코드='HSIV20')
-                self.o3126_event_loop.exec_()
+                #XQ = o3126(parent=self)
+                #XQ.Query(시장구분='F',단축코드='HSIV20')
+                #self.o3126_event_loop.exec_()
                 
                 if NightTime:
                     XQ = t2835(parent=self)
@@ -6736,7 +6737,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.t2301_event_loop.exec_()                
             else:
                 pass
-            '''
+            
             # Market 유형을 시간과 함께 표시
             self.market_type_display(self.alternate_flag)
 
@@ -16746,8 +16747,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         dt = datetime.datetime.now()
 
         if ClassName == 't2835':
-            pass
-            '''
+
             global flag_t2835_eventloop
 
             if systemError == 0:
@@ -16757,7 +16757,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.t2835_event_loop.exit()
 
-                str = 't2301_event_loop success exit...\r'
+                str = 't2835_event_loop success exit...\r'
                 print(str)
             else:                   
                 flag_t2835_eventloop = False
@@ -16767,10 +16767,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] t2835_event_loop fail exit...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
                 print(str)
-            '''
+            
         elif ClassName == 't2301':
-            pass
-            '''
+
             global flag_t2301_eventloop
 
             if systemError == 0:
@@ -16790,7 +16789,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] t2301_event_loop fail exit...\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
                 print(str)
-            '''
+            
         elif ClassName == 't8416':
             pass
             #global flag_t8416_eventloop
