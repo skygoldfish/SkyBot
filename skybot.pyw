@@ -4528,8 +4528,8 @@ class RealDataWorker(QThread):
     def run(self):
         while True:
             if not self.producer_queue.empty():
-                data = self.producer_queue.get()
-                self.consumer_queue.put(data)
+                data = self.producer_queue.get(False)
+                self.consumer_queue.put(data, False)
                 self.trigger.emit()    
             else:
                 pass
@@ -5521,7 +5521,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if not self.consumer_queue.empty():
 
-            data = self.consumer_queue.get()
+            data = self.consumer_queue.get(False)
 
             item = QTableWidgetItem("{0}".format(data['szTrCode']))
             item.setTextAlignment(Qt.AlignCenter)
@@ -6722,11 +6722,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if flag_checkBox_HS and self.alternate_flag and dt.second % OPTION_BOARD_UPDATE_INTERVAL == 0:
 
+                pass
+
                 # 해외선물 옵션호가                
                 #XQ = o3126(parent=self)
                 #XQ.Query(시장구분='F',단축코드='HSIV20')
                 #self.o3126_event_loop.exec_()
-                
+                '''
                 if NightTime:
                     XQ = t2835(parent=self)
                     XQ.Query(월물=t2835_month_info)
@@ -6734,7 +6736,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     XQ = t2301(parent=self)                    
                     XQ.Query(월물=t2301_month_info, 미니구분='G')
-                    self.t2301_event_loop.exec_()                
+                    self.t2301_event_loop.exec_()
+                '''                
             else:
                 pass
             
@@ -21638,7 +21641,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         #result['szTrCode'] = szTrCode
         #화면_선물옵션전광판.xing_realdata = result
-        self.producer_queue.put(result)            
+        self.producer_queue.put(result, False)            
 
     def RealData_Process(self, result):
 
