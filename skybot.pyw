@@ -7212,9 +7212,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.textBrowser.append(str)
                         print(str)
 
-                        flag_offline = True  
-
-                        self.parent.connection.disconnect()
+                        if not flag_offline:
+                            flag_offline = True                            
+                            self.parent.connection.disconnect()
+                        else:
+                            pass
                     else:
                         self.parent.statusbar.showMessage("오프라인")
 
@@ -7242,9 +7244,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.textBrowser.append(str)
                         print(str)
 
-                        flag_offline = True  
-
-                        self.parent.connection.disconnect()
+                        if not flag_offline:
+                            flag_offline = True                            
+                            self.parent.connection.disconnect()
+                        else:
+                            pass
                     else:
                         self.parent.statusbar.showMessage("오프라인")
 
