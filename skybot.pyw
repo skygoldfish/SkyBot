@@ -2707,6 +2707,7 @@ flag_t2835_eventloop = False
 flag_t8416_eventloop = False
 
 flag_logfile = False
+flag_t8416_call_done = False
 
 ########################################################################################################################
 def xing_test_func():
@@ -16802,7 +16803,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global t8416_call_count, t8416_put_count
             global flag_t8416_eventloop
 
-            if  t8416_call_count < option_pairs_count:
+            if  not flag_t8416_call_done:
                 self.t8416_call_event_loop.exit()
                 print('t8416_call_event_loop exit...', t8416_call_count)
                 #t8416_call_count += 1
@@ -16810,7 +16811,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            if  t8416_call_count == option_pairs_count - 1 and t8416_put_count < option_pairs_count:
+            if  flag_t8416_call_done:
                 self.t8416_put_event_loop.exit()
                 print('t8416_put_event_loop exit...', t8416_put_count)
                 #t8416_put_count += 1
@@ -20392,7 +20393,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             block, df = result
 
-            global new_actval_up_count, new_actval_down_count, actval_increased
+            global new_actval_up_count, new_actval_down_count, actval_increased            
+            global flag_t8416_call_done
 
             str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
             self.label_msg.setText(str)
@@ -20554,7 +20556,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             #self.t8416_callworker.terminate()
                             str = '[{0:02d}:{1:02d}:{2:02d}] Call 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
-                            print(str)                            
+                            print(str)
+
+                            flag_t8416_call_done = True
+                            print('flag_t8416_call_done =', flag_t8416_call_done)                           
 
                             call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
                             self.tableWidget_call.scrollToItem(call_positionCell)
@@ -20567,6 +20572,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             self.t8416_putworker.start()                            
                             '''
                             print('t8416 put 요청시작...')
+                            QTest.qWait(1000)
 
                             for i in range(option_pairs_count):
                                 t8416_put_count = i
@@ -20816,6 +20822,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         str = '[{0:02d}:{1:02d}:{2:02d}] Call 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
                         print(str)
+                            
+                        flag_t8416_call_done = True
+                        print('flag_t8416_call_done =', flag_t8416_call_done) 
 
                         call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
                         self.tableWidget_call.scrollToItem(call_positionCell)
@@ -20829,6 +20838,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.t8416_putworker.start()                        
                         '''
                         print('t8416 put 요청시작...')
+                        QTest.qWait(1000)
 
                         for i in range(option_pairs_count):
                                 t8416_put_count = i
