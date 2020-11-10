@@ -20476,7 +20476,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
                 
-                if new_actval_up_count > 0 and t8416_call_count == option_pairs_count:
+                if new_actval_up_count > 0 and t8416_call_count == option_pairs_count - 1:
                     # t8416은 초당 1건 전송가능
                     #self.t8416_put_event_loop.exit()
                     #print('t8416_put_event_loop exit...')
@@ -20769,14 +20769,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Call 행사가 {3}개중 {4}번째를 수신했습니다.\r'.\
+                str = '[{0:02d}:{1:02d}:{2:02d}] Call 행사가 {3}개중 {4}개를 수신했습니다.\r'.\
                     format(dt.hour, dt.minute, dt.second, option_pairs_count, t8416_call_count + 1)
 
                 self.textBrowser.append(str)
+                print(str)
 
                 #t8416_call_count += 1
-
-                print('Call 행사가 %d 개중 %d개 수신...' % (option_pairs_count, t8416_call_count+1))
 
                 # t8416은 초당 1건 전송가능
                 #self.t8416_call_event_loop.exit()
@@ -20991,13 +20990,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                str = '[{0:02d}:{1:02d}:{2:02d}] Put 행사가 {3}개중 {4}번째를 수신했습니다.\r'.format(dt.hour, dt.minute, dt.second, 
+                str = '[{0:02d}:{1:02d}:{2:02d}] Put 행사가 {3}개중 {4}개를 수신했습니다.\r'.format(dt.hour, dt.minute, dt.second, 
                     option_pairs_count, t8416_put_count + 1)
                 self.textBrowser.append(str)
+                print(str)
 
                 #t8416_put_count += 1
-
-                print('Put 행사가 %d 개중 %d개 수신...' % (option_pairs_count, t8416_put_count+1))
 
                 #self.t8416_put_event_loop.exit()
                 #print('t8416_put_event_loop exit...')
