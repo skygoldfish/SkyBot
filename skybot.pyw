@@ -20452,10 +20452,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
                     self.tableWidget_put.resizeColumnsToContents()
+
+                    # t8416은 초당 1건 전송가능
+                    self.t8416_call_event_loop.exit()
+                    print('t8416_call_event_loop exit...')
+                    QTest.qWait(1000)
                 else:
                     pass
                 
                 if new_actval_up_count > 0 and t8416_call_count == option_pairs_count:
+                    # t8416은 초당 1건 전송가능
+                    self.t8416_put_event_loop.exit()
+                    print('t8416_put_event_loop exit...')
+                    QTest.qWait(1000)
                     t8416_put_count += 1
                 else:
                     pass
@@ -20489,7 +20498,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_put.resizeRowsToContents()
                     else:
                         pass                   
-                    self.tableWidget_put.resizeColumnsToContents()                  
+                    self.tableWidget_put.resizeColumnsToContents()
+
+                    # t8416은 초당 1건 전송가능
+                    self.t8416_call_event_loop.exit()
+                    print('t8416_call_event_loop exit...')
+                    QTest.qWait(1000)                  
 
                     if t8416_call_count == option_pairs_count - new_actval_down_count:
 
@@ -20544,6 +20558,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             pass
                     else:
                         pass                    
+                else:
+                    pass
+
+                if new_actval_down_count > 0:
+                    # t8416은 초당 1건 전송가능
+                    self.t8416_put_event_loop.exit()
+                    print('t8416_put_event_loop exit...')
+                    QTest.qWait(1000)
+                    t8416_put_count += 1
                 else:
                     pass                
             else:
