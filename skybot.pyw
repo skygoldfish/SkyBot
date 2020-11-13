@@ -2711,6 +2711,8 @@ flag_logfile = False
 flag_t8416_call_done = False
 flag_t8416_put_done = False
 
+flag_realdata = False
+
 ########################################################################################################################
 def xing_test_func():
     if bool(화면_선물옵션전광판.xing_realdata):
@@ -21704,6 +21706,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def RealData_Process(self, result):
 
+        global flag_realdata
+
+        flag_realdata = True
+
         szTrCode = result['szTrCode']
 
         try:
@@ -25487,7 +25493,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
             else:
-                pass                               
+                pass
+
+            flag_realdata = False                              
 
         except Exception as e:
             pass
@@ -32840,6 +32848,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         dt = datetime.datetime.now()
         start_time = timeit.default_timer()
 
+        if flag_realdata:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 1. flag_realdata : {3}\r'.format(\
+                dt.hour, dt.minute, dt.second, flag_realdata)
+            print(str)
+        else:
+            pass
+
         '''
         if flag_offline:
 
@@ -37268,6 +37284,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         str = '[{0:02d}:{1:02d}:{2:02d}] BigChart UI Update : {3:.2f} ms...\r'.format(\
             dt.hour, dt.minute, dt.second, bc_ui_update_time)
         print(str)
+
+        if flag_realdata:
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 2. flag_realdata : {3}\r'.format(\
+                dt.hour, dt.minute, dt.second, flag_realdata)
+            print(str)
+        else:
+            pass
 
     def closeEvent(self,event):
 
