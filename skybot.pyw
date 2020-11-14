@@ -32848,14 +32848,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         dt = datetime.datetime.now()
         start_time = timeit.default_timer()
 
-        if flag_realdata:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 1. flag_realdata : {3}\r'.format(\
-                dt.hour, dt.minute, dt.second, flag_realdata)
-            print(str)
-        else:
-            pass
-
         '''
         if flag_offline:
 
@@ -37281,17 +37273,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         bc_ui_update_time = (timeit.default_timer() - start_time) * 1000        
         
-        str = '[{0:02d}:{1:02d}:{2:02d}] BigChart UI Update : {3:.2f} ms...\r'.format(\
-            dt.hour, dt.minute, dt.second, bc_ui_update_time)
-        print(str)
-
         if flag_realdata:
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 2. flag_realdata : {3}\r'.format(\
-                dt.hour, dt.minute, dt.second, flag_realdata)
+            str = '[{0:02d}:{1:02d}:{2:02d}] BigChart UI Thread Update... : {3:.2f} ms...\r'.format(\
+                dt.hour, dt.minute, dt.second, bc_ui_update_time)
             print(str)
         else:
-            pass
+            str = '[{0:02d}:{1:02d}:{2:02d}] BigChart UI Update : {3:.2f} ms...\r'.format(\
+                dt.hour, dt.minute, dt.second, bc_ui_update_time)
+            print(str)
 
     def closeEvent(self,event):
 
