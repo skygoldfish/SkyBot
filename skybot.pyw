@@ -1660,6 +1660,8 @@ t8415_put_count = 0
 t8416_call_count = 0
 t8416_put_count = 0
 
+df_fut_t8416 = pd.DataFrame()
+
 df_fut = pd.DataFrame()
 df_call = pd.DataFrame()
 df_put = pd.DataFrame()
@@ -2712,6 +2714,9 @@ flag_t8416_call_done = False
 flag_t8416_put_done = False
 
 flag_realdata = False
+ui_start_time = 0
+
+flag_option_pair_full = False
 
 ########################################################################################################################
 def xing_test_func():
@@ -6418,7 +6423,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass    
 
-    @pyqtSlot(int)
     def t8415_call_request(self, index):
         try:
             XQ = t8415(parent=self)
@@ -6431,7 +6435,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         except:
             pass
 
-    @pyqtSlot(int)
     def t8415_put_request(self, index):
         try:
             XQ = t8415(parent=self)
@@ -6444,7 +6447,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         except:
             pass
 
-    #@pyqtSlot(int)
+    def t8416_fut_request(self, code):
+        try:
+            XQ = t8416(parent=self)
+
+            # 휴일 포함 30일치 과거데이타를 구한다.
+            temp = today - datetime.timedelta(30)
+            startday_str = temp.strftime('%Y%m%d')
+
+            XQ.Query(단축코드=code, 시작일자=startday_str, 종료일자=today_str)
+        except:
+            pass
+
     def t8416_call_request(self, index):
         try:
             XQ = t8416(parent=self)
@@ -6456,7 +6470,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         except:
             pass
 
-    #@pyqtSlot(int)
     def t8416_put_request(self, index):
         try:
             XQ = t8416(parent=self)
@@ -6716,8 +6729,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가 
             global drate_scale_factor
             global flag_logfile
+
+            if flag_option_pair_full:
+                ui_update_time = dt.hour * 3600 + dt.minute * 60 + dt.second
+            else:
+                pass
             
             self.alternate_flag = not self.alternate_flag
+            
+            # t8416 요청제한이 10분내에 200회, 회피 로직추가
+            if flag_option_pair_full and self.alternate_flag and ui_update_time == ui_start_time + 10 * 60:
+                
+                # t8416 선물요청
+                str = '[{0:02d}:{1:02d}:{2:02d}] t8416 선물을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                self.textBrowser.append(str)
+                print(str)
+
+                self.t8416_fut_request(fut_code)
+                #QTest.qWait(1000)
+            else:
+                pass
             
             # 서버시간 기준으로 1분마다 체크!!!
             if self.alternate_flag and flag_heartbeat:
@@ -13335,7 +13366,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         #print('fut_first_arrive_time = {0}, flag_first_arrive = {1}, market_service = {2}\r'.format(fut_first_arrive_time, flag_first_arrive, market_service))
 
-        fut_time = dt.hour * 3600 + dt.minute * 60 + dt.second        
+        fut_time = dt.hour * 3600 + dt.minute * 60 + dt.second
         
         if not flag_first_arrive:
             fut_first_arrive_time = fut_time
@@ -16904,6 +16935,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global df_futures_graph, df_kp200_graph
         global t8416_call_count, t8416_put_count
+        global ui_start_time
+        global df_fut_t8416
 
         dt = datetime.datetime.now()
         current_str = dt.strftime('%H:%M:%S')
@@ -17186,7 +17219,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             block, df, df1 = result
 
-            global 옵션잔존일
+            global 옵션잔존일, flag_option_pair_full
 
             if not refresh_flag:
 
@@ -17199,6 +17232,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if option_pairs_count > 100:
                     option_pairs_count = 100
+                    flag_option_pair_full = True
                 else:
                     pass
                 
@@ -18638,7 +18672,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.textBrowser.append(str)
 
                         #time.sleep(0.1)
-                        QTest.qWait(100)
+                        QTest.qWait(100)                        
                     else:
                         pass
                                        
@@ -19987,6 +20021,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(str)
                 print(str)
 
+                ui_start_time = dt.hour * 3600 + dt.minute * 60 + dt.second
+                print('야간 ui_start_time =', ui_start_time)
+
                 if ResizeRowsToContents:
                     self.tableWidget_call.resizeRowsToContents()
                 else:
@@ -20601,6 +20638,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if block['단축코드'][0:3] == '101':
 
+                df_fut_t8416 = df
+                print('t8416 선물 df =', len(df_fut_t8416), df_fut_t8416)                
+
+                #for i in range(len(df)):
+
+                '''
                 if not NightTime:
 
                     item = QTableWidgetItem("{0:.2f}".format(block['전일저가']))
@@ -20625,6 +20668,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass
+                '''
 
             elif block['단축코드'][0:3] == '201':
 
@@ -21294,6 +21338,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
+                    if not flag_option_pair_full:
+
+                        # t8416 선물요청
+                        str = '[{0:02d}:{1:02d}:{2:02d}] t8416 선물을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                        self.textBrowser.append(str)
+                        print(str)
+
+                        self.t8416_fut_request(fut_code)
+                        #QTest.qWait(1000)
+                    else:
+                        pass
+
                     str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 실시간 데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
                     print(str)
@@ -21441,6 +21497,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         str = '[{0:02d}:{1:02d}:{2:02d}] Screen Update 쓰레드가 시작됩니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
                         print(str)
+                        
+                        ui_start_time = dt.hour * 3600 + dt.minute * 60 + dt.second
+                        print('주간 ui_start_time =', ui_start_time)
 
                         refresh_flag = True
 
