@@ -20639,7 +20639,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if block['단축코드'][0:3] == '101':
 
                 df_fut_t8416 = df
-                print('t8416 선물 df =', len(df_fut_t8416), df_fut_t8416)                
+                print('t8416 선물 df_fut_t8416 =', len(df_fut_t8416), df_fut_t8416)                
 
                 #for i in range(len(df)):
 
