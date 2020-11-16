@@ -21341,12 +21341,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if not flag_option_pair_full:
 
                         # t8416 선물요청
+                        QTest.qWait(1000)
                         str = '[{0:02d}:{1:02d}:{2:02d}] t8416 선물을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
                         print(str)
 
                         self.t8416_fut_request(fut_code)
-                        #QTest.qWait(1000)
                     else:
                         pass
 
