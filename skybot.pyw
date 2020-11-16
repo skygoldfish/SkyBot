@@ -14065,7 +14065,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
     # 콜 표시
-    def call_display(self):
+    def call_display(self, result):
 
         global call_open, call_itm_count
         global df_call
@@ -14088,16 +14088,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        index = call_행사가.index(call_result['단축코드'][5:8])
+        index = call_행사가.index(result['단축코드'][5:8])
         
-        시가 = call_result['시가']
-        현재가 = call_result['현재가']
-        저가 = call_result['저가']
-        고가 = call_result['고가']
+        시가 = result['시가']
+        현재가 = result['현재가']
+        저가 = result['저가']
+        고가 = result['고가']
 
         if not NightTime and index == atm_index:
-            콜등락율 = call_result['등락율']
-            df_call_total_graph.at[ovc_x_idx, 'drate'] = call_result['등락율']
+            콜등락율 = result['등락율']
+            df_call_total_graph.at[ovc_x_idx, 'drate'] = result['등락율']
         else:
             pass
         
@@ -14323,11 +14323,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if 콜현재가 <= 콜시가갭:
 
-                    수정미결 = call_result['미결제약정수량'] * 콜현재가
-                    수정미결증감 = call_result['미결제약정증감'] * 콜현재가
+                    수정미결 = result['미결제약정수량'] * 콜현재가
+                    수정미결증감 = result['미결제약정증감'] * 콜현재가
                 else:
-                    수정미결 = call_result['미결제약정수량'] * (콜현재가 - 콜시가갭)
-                    수정미결증감 = call_result['미결제약정증감'] * (콜현재가 - 콜시가갭)
+                    수정미결 = result['미결제약정수량'] * (콜현재가 - 콜시가갭)
+                    수정미결증감 = result['미결제약정증감'] * (콜현재가 - 콜시가갭)
 
                 df_call.at[index, '수정미결'] = int(수정미결)
                 df_call.at[index, '수정미결증감'] = int(수정미결증감)
@@ -15147,7 +15147,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         
     # 풋 표시
-    def put_display(self):
+    def put_display(self, result):
 
         global put_open, put_itm_count
         global df_put
@@ -15169,16 +15169,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         dt = datetime.datetime.now()
 
-        index = put_행사가.index(put_result['단축코드'][5:8])
+        index = put_행사가.index(result['단축코드'][5:8])
         
-        시가 = put_result['시가']
-        현재가 = put_result['현재가']
-        저가 = put_result['저가']
-        고가 = put_result['고가']
+        시가 = result['시가']
+        현재가 = result['현재가']
+        저가 = result['저가']
+        고가 = result['고가']
         
         if not NightTime and index == atm_index:
-            풋등락율 = put_result['등락율']
-            df_put_total_graph.at[ovc_x_idx, 'drate'] = put_result['등락율']
+            풋등락율 = result['등락율']
+            df_put_total_graph.at[ovc_x_idx, 'drate'] = result['등락율']
         else:
             pass
         
@@ -15404,11 +15404,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if 풋현재가 <= 풋시가갭:
 
-                    수정미결 = put_result['미결제약정수량'] * 풋현재가
-                    수정미결증감 = put_result['미결제약정증감'] * 풋현재가
+                    수정미결 = result['미결제약정수량'] * 풋현재가
+                    수정미결증감 = result['미결제약정증감'] * 풋현재가
                 else:
-                    수정미결 = put_result['미결제약정수량'] * (풋현재가 - 풋시가갭)
-                    수정미결증감 = put_result['미결제약정증감'] * (풋현재가 - 풋시가갭)
+                    수정미결 = result['미결제약정수량'] * (풋현재가 - 풋시가갭)
+                    수정미결증감 = result['미결제약정증감'] * (풋현재가 - 풋시가갭)
 
                 df_put.at[index, '수정미결'] = int(수정미결)
                 df_put.at[index, '수정미결증감'] = int(수정미결증감)
@@ -23729,7 +23729,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     call_result = copy.deepcopy(result)
 
                     if FLAG_GUEST_CONTROL:                        
-                        self.call_display()
+                        self.call_display(result)
                     else:
                         pass
 
@@ -23739,7 +23739,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     put_result = copy.deepcopy(result)
 
-                    self.put_display()
+                    self.put_display(result)
                     #self.put_volume_power_display()                    
                 else:
                     pass
