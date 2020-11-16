@@ -20477,7 +20477,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 actval_increased = True
 
                 #if t8416_call_count == 0:
-                if new_actval_down_count == 0 and t8416_call_count < option_pairs_count:
+                if new_actval_down_count == 0 and not flag_t8416_call_done:
 
                     new_actval_up_count += 1
                     #t8416_call_count += 1
