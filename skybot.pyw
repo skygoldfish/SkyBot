@@ -2719,6 +2719,7 @@ ui_start_time = 0
 flag_option_pair_full = False
 
 fut_avg_noise_ratio = 1
+k_value = 0
 
 ########################################################################################################################
 def xing_test_func():
@@ -19134,7 +19135,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             # EUREX 야간옵션 시세전광판
 
             block, df, df1 = result
-
+            '''
+            print('t2835 df =', df)
+            option_pairs_count = len(df)
+            print('t2835 option_pairs_count =', option_pairs_count)
+            '''
             if not refresh_flag:
 
                 # open, ol/oh 초기화
@@ -20640,7 +20645,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if block['단축코드'][0:3] == '101':
 
-                global fut_avg_noise_ratio
+                global fut_avg_noise_ratio, k_value
 
                 df_fut_t8416 = df           
 
@@ -20651,6 +20656,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 #print('df_fut_t8416 =', df_fut_t8416)
                 fut_avg_noise_ratio = df_fut_t8416['noise_ratio'].sum() / len(df_fut_t8416)
+                k_value = (선물_전고 - 선물_전저) * fut_avg_noise_ratio
 
                 '''
                 # 9시 이전과 이후로 구분하여 전일 저가, 고가를 구한다.
@@ -20660,7 +20666,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print('전일 고가, 저가 =', df_fut_t8416['고가'][len(df_fut_t8416) - 2], df_fut_t8416['저가'][len(df_fut_t8416) - 2])
                 '''
 
-                print('noise_ratio 합, 평균 =', df_fut_t8416['noise_ratio'].sum(), fut_avg_noise_ratio)
+                print('noise_ratio 평균, k_value =', fut_avg_noise_ratio, k_value)
+                
+                item = QTableWidgetItem("{0}\n({1:.2f})".format('KSE', k_value))
+                item.setTextAlignment(Qt.AlignCenter)
+                item.setBackground(QBrush(검정색))
+                item.setForeground(QBrush(흰색))
+                self.tableWidget_fut.setItem(1, 0, item)
+
+                self.tableWidget_fut.resizeColumnsToContents()
 
                 '''
                 if not NightTime:
