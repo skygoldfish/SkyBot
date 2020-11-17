@@ -2718,6 +2718,8 @@ ui_start_time = 0
 
 flag_option_pair_full = False
 
+fut_avg_noise_ratio = 1
+
 ########################################################################################################################
 def xing_test_func():
     if bool(화면_선물옵션전광판.xing_realdata):
@@ -20638,10 +20640,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             if block['단축코드'][0:3] == '101':
 
-                df_fut_t8416 = df
-                print('t8416 선물 df_fut_t8416 =', len(df_fut_t8416), df_fut_t8416)                
+                global fut_avg_noise_ratio
 
-                #for i in range(len(df)):
+                df_fut_t8416 = df           
+
+                for i in range(len(df)):
+
+                    noise_ratio = 1 - (abs(df['시가'][i] - df['종가'][i]) / (df['고가'][i] - df['저가'][i]))
+                    df_fut_t8416.at[i, 'noise_ratio'] = noise_ratio
+
+                #print('df_fut_t8416 =', df_fut_t8416)
+                fut_avg_noise_ratio = df_fut_t8416['noise_ratio'].sum() / len(df_fut_t8416)
+                print('noise_ratio 합, 평균 =', df_fut_t8416['noise_ratio'].sum(), fut_avg_noise_ratio)
 
                 '''
                 if not NightTime:
