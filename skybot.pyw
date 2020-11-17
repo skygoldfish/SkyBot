@@ -27650,8 +27650,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_dow_curve.clear()
             plot1_nasdaq_curve.clear()
             plot1_wti_curve.clear()
-
-            plot1_fut_hoga_line.setValue(0)   
             
             plot1_fut_jl_line.setValue(0)
             plot1_fut_jh_line.setValue(0)
@@ -27670,7 +27668,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_ovc_jh_line.setValue(0)
             plot1_ovc_pivot_line.setValue(0)
             plot1_ovc_low_line.setValue(0)
-            plot1_ovc_high_line.setValue(0) 
+            plot1_ovc_high_line.setValue(0)
+            
+            plot1_fut_hoga_line.setValue(1.0)  
         
         # 등락율비
         elif comboindex1 == 4:
@@ -30417,9 +30417,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_sp500_curve.clear()
             plot4_dow_curve.clear()
             plot4_nasdaq_curve.clear()
-            plot4_wti_curve.clear()
-            
-            plot4_fut_hoga_line.setValue(1.0)   
+            plot4_wti_curve.clear()              
             
             plot4_fut_jl_line.setValue(0)
             plot4_fut_jh_line.setValue(0)
@@ -30438,7 +30436,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_ovc_jh_line.setValue(0)
             plot4_ovc_pivot_line.setValue(0)
             plot4_ovc_low_line.setValue(0)
-            plot4_ovc_high_line.setValue(0) 
+            plot4_ovc_high_line.setValue(0)
+            
+            plot4_fut_hoga_line.setValue(1.0) 
         
         # 등락율비
         elif comboindex4 == 4:
@@ -32947,7 +32947,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
    
         self.label_time.setText(str)
 
-        if FLAG_GUEST_CONTROL and receive_real_ovc:
+        if not flag_checkBox_HS and FLAG_GUEST_CONTROL and receive_real_ovc:
 
             # Plot1 x축 타임라인 그리기
             plot1_time_line.setValue(ovc_x_idx)
