@@ -20666,7 +20666,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 print('전일 고가, 저가 =', df_fut_t8416['고가'][len(df_fut_t8416) - 2], df_fut_t8416['저가'][len(df_fut_t8416) - 2])
                 '''
 
-                print('noise_ratio 평균, k_value =', fut_avg_noise_ratio, k_value)
+                str = '[{0:02d}:{1:02d}:{2:02d}] noise_ratio 평균 = {3:.2f}, k_value = {4:.2f}\r'.format(dt.hour, dt.minute, dt.second, fut_avg_noise_ratio, k_value)
+                self.textBrowser.append(str)
+                print(str)
                 
                 item = QTableWidgetItem("{0}\n({1:.2f})".format('KSE', k_value))
                 item.setTextAlignment(Qt.AlignCenter)
