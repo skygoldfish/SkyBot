@@ -28530,7 +28530,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot2_center_val_lower_line.setValue(0)
             plot2_center_val_line.setValue(0)
-            plot2_center_val_upper_line.setValue(0)                      
+            plot2_center_val_upper_line.setValue(0)
+
+            plot2_fut_hoga_line.setValue(1.0)                      
 
         # 선물체결
         elif comboindex2 == 2:
@@ -29434,7 +29436,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot3_center_val_lower_line.setValue(0)
             plot3_center_val_line.setValue(0)
-            plot3_center_val_upper_line.setValue(0)                      
+            plot3_center_val_upper_line.setValue(0)
+
+            plot3_fut_hoga_line.setValue(1.0)                      
 
         # 선물체결
         elif comboindex3 == 2:
@@ -31298,7 +31302,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot5_center_val_lower_line.setValue(0)
             plot5_center_val_line.setValue(0)
-            plot5_center_val_upper_line.setValue(0)                      
+            plot5_center_val_upper_line.setValue(0)
+
+            plot5_fut_hoga_line.setValue(1.0)                      
 
         # 선물체결
         elif comboindex5 == 2:
@@ -32202,7 +32208,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot6_center_val_lower_line.setValue(0)
             plot6_center_val_line.setValue(0)
-            plot6_center_val_upper_line.setValue(0)                      
+            plot6_center_val_upper_line.setValue(0)
+
+            plot6_fut_hoga_line.setValue(1.0)                      
 
         # 선물체결
         elif comboindex6 == 2:
