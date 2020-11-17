@@ -13742,15 +13742,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # 저가 갱신
         if NightTime:
-            fut_low = self.tableWidget_fut.item(0, Futures_column.저가.value).text()
+            fut_low = self.tableWidget_fut.item(0, Futures_column.저가.value).text().split('\n')[0]
         else:
-            fut_low = self.tableWidget_fut.item(1, Futures_column.저가.value).text()
+            fut_low = self.tableWidget_fut.item(1, Futures_column.저가.value).text().split('\n')[0]
 
         if 저가 != fut_low:
 
             flag_fut_low = True
 
-            item = QTableWidgetItem(저가)
+            str = '{0:.2f}'.format(선물_저가) + '\n' + '({0:.2f})'.format(선물_시가 - k_value)
+
+            #item = QTableWidgetItem(저가)
+            item = QTableWidgetItem(str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(회색))            
 
@@ -13805,15 +13808,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # 고가 갱신
         if NightTime:
-            fut_high = self.tableWidget_fut.item(0, Futures_column.고가.value).text()
+            fut_high = self.tableWidget_fut.item(0, Futures_column.고가.value).text().split('\n')[0]
         else:
-            fut_high = self.tableWidget_fut.item(1, Futures_column.고가.value).text()
+            fut_high = self.tableWidget_fut.item(1, Futures_column.고가.value).text().split('\n')[0]
 
         if 고가 != fut_high:
 
             flag_fut_high = True
 
-            item = QTableWidgetItem(고가)
+            str = '{0:.2f}'.format(선물_고가) + '\n' + '({0:.2f})'.format(선물_시가 + k_value)
+
+            #item = QTableWidgetItem(고가)
+            item = QTableWidgetItem(str)
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(회색))            
 
