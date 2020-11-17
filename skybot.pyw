@@ -20651,6 +20651,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 #print('df_fut_t8416 =', df_fut_t8416)
                 fut_avg_noise_ratio = df_fut_t8416['noise_ratio'].sum() / len(df_fut_t8416)
+
+                '''
+                # 9시 이전과 이후로 구분하여 전일 저가, 고가를 구한다.
+                # 9시 이전
+                print('전일 고가, 저가 =', df_fut_t8416['고가'][len(df_fut_t8416) - 1], df_fut_t8416['저가'][len(df_fut_t8416) - 1])
+                # 9시 이후
+                print('전일 고가, 저가 =', df_fut_t8416['고가'][len(df_fut_t8416) - 2], df_fut_t8416['저가'][len(df_fut_t8416) - 2])
+                '''
+
                 print('noise_ratio 합, 평균 =', df_fut_t8416['noise_ratio'].sum(), fut_avg_noise_ratio)
 
                 '''
