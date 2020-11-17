@@ -6744,11 +6744,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if flag_option_pair_full and self.alternate_flag and ui_update_time == ui_start_time + 10 * 60:
                 
                 # t8416 선물요청
-                str = '[{0:02d}:{1:02d}:{2:02d}] t8416 선물을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
-                print(str)
+                if TARGET_MONTH_SELECT == 1:
+                    str = '[{0:02d}:{1:02d}:{2:02d}] t8416 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, gmshcode)
+                    self.textBrowser.append(str)
+                    print(str)
 
-                self.t8416_fut_request(fut_code)
+                    self.t8416_fut_request(gmshcode)
+                    
+                elif TARGET_MONTH_SELECT == 2:
+                    str = '[{0:02d}:{1:02d}:{2:02d}] t8416 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, cmshcode)
+                    self.textBrowser.append(str)
+                    print(str)
+
+                    self.t8416_fut_request(cmshcode)
+                else:
+                    pass
+
                 #QTest.qWait(1000)
             else:
                 pass
@@ -21376,12 +21387,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if not flag_option_pair_full:
 
                         # t8416 선물요청
-                        QTest.qWait(1000)
-                        str = '[{0:02d}:{1:02d}:{2:02d}] t8416 선물을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                        self.textBrowser.append(str)
-                        print(str)
+                        QTest.qWait(1000)                       
 
-                        self.t8416_fut_request(fut_code)
+                        if TARGET_MONTH_SELECT == 1:
+                            str = '[{0:02d}:{1:02d}:{2:02d}] t8416 본월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, gmshcode)
+                            self.textBrowser.append(str)
+                            print(str)
+
+                            self.t8416_fut_request(gmshcode)
+
+                        elif TARGET_MONTH_SELECT == 2:
+                            str = '[{0:02d}:{1:02d}:{2:02d}] t8416 차월물 선물({3})을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second, cmshcode)
+                            self.textBrowser.append(str)
+                            print(str)
+
+                            self.t8416_fut_request(cmshcode)
+                        else:
+                            pass
                     else:
                         pass
 
