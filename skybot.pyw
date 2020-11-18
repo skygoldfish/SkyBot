@@ -6861,7 +6861,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             put_plot_data[index] = infos[1]
                         else:
                             pass
-                '''
+                '''                
                 
                 if market_service and flag_option_start:                    
 
@@ -6879,6 +6879,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
+                    #main_ui_update_time = (timeit.default_timer() - start_time) * 1000
+
                     if self.alternate_flag:
 
                         # 콜 테이블 데이타 갱신
@@ -6888,6 +6890,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         # 풋 테이블 데이타 갱신
                         self.put_db_update()
                         self.put_volume_power_display()
+                    
+                    #main_ui_update_time = (timeit.default_timer() - start_time) * 1000
                     
                     # 시작과 동시에 컬러링 갱신
                     if not flag_checkBox_HS:
@@ -7112,7 +7116,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass                                               
                     else:
-                        pass
+                        pass                    
 
                     # 비대칭장 탐색
                     if not flag_checkBox_HS and not dongsi_hoga and abs(콜대비_퍼센트_평균) > 0 and abs(풋대비_퍼센트_평균) > 0:
@@ -14532,8 +14536,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global call_진폭, 콜대비합, 콜대비합_단위평균, 콜대비_퍼센트_평균
         
-        call_진폭 = df_call['진폭'].values.tolist()
-        진폭최대값 = max(call_진폭)
+        #call_진폭 = df_call['진폭'].values.tolist()
+        #진폭최대값 = max(call_진폭)
+        진폭최대값 = df_call['진폭'].max()
 
         max_str = '{0:.2f}'.format(진폭최대값)
 
@@ -14542,7 +14547,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.진폭.value, item)
         else:
             pass
-
+        
+        # 처리시간 줄여야함
         #temp = call_db_percent[:]
         temp = call_otm_db_percent[:]
 
@@ -14568,14 +14574,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.resizeRowsToContents()
                 else:
                     pass
-                self.tableWidget_call.resizeColumnsToContents()
+                #self.tableWidget_call.resizeColumnsToContents()
             else:
                 pass                               
         else:
             print('call_db_percent_local is empty...')
 
             콜대비합 = 0
-    
+        
     def call_oi_update(self):
 	
         index = call_행사가.index(call_result['단축코드'][5:8])
@@ -15613,8 +15619,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global put_진폭, 풋대비합, 풋대비합_단위평균, 풋대비_퍼센트_평균 
         
-        put_진폭 = df_put['진폭'].values.tolist()
-        진폭최대값 = max(put_진폭)
+        #put_진폭 = df_put['진폭'].values.tolist()
+        #진폭최대값 = max(put_진폭)
+        진폭최대값 = df_put['진폭'].max()
 
         max_str = '{0:.2f}'.format(진폭최대값)
 
@@ -15623,7 +15630,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.진폭.value, item)
         else:
             pass
-
+        
+        # 처리시간 줄여야함
         #temp = put_db_percent[:]
         temp = put_otm_db_percent[:]
 
@@ -15650,14 +15658,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.resizeRowsToContents()
                 else:
                     pass
-                self.tableWidget_put.resizeColumnsToContents()
+                #self.tableWidget_put.resizeColumnsToContents()
             else:
                 pass            
         else:
             print('put_db_percent_local is empty...')
 
             풋대비합 = 0
-    
+        
     def put_oi_update(self):
 		
         index = put_행사가.index(put_result['단축코드'][5:8])
