@@ -9554,7 +9554,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
 
                 #self.tableWidget_call.resizeRowsToContents()
-                self.tableWidget_call.resizeColumnsToContents()
+                self.tableWidget_call.resizeColumnsToContents(Option_column.저가.value)
 
                 telegram_send_str_call_low = ''
             else:
@@ -9568,7 +9568,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
 
                 #self.tableWidget_call.resizeRowsToContents()
-                self.tableWidget_call.resizeColumnsToContents()
+                self.tableWidget_call.resizeColumnsToContents(Option_column.저가.value)
 
                 if TARGET_MONTH_SELECT == 1 and call_low_node_count != call_low_node_old_count:
 
@@ -9603,7 +9603,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
 
                 #self.tableWidget_call.resizeRowsToContents()
-                self.tableWidget_call.resizeColumnsToContents()
+                self.tableWidget_call.resizeColumnsToContents(Option_column.저가.value)
 
                 if TARGET_MONTH_SELECT == 1 and call_low_node_count != call_low_node_old_count:
 
@@ -9638,7 +9638,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
 
                 #self.tableWidget_call.resizeRowsToContents()
-                self.tableWidget_call.resizeColumnsToContents()
+                self.tableWidget_call.resizeColumnsToContents(Option_column.저가.value)
 
                 if TARGET_MONTH_SELECT == 1 and call_low_node_count != call_low_node_old_count:
 
@@ -9734,7 +9734,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
                 #self.tableWidget_call.resizeRowsToContents()
-                self.tableWidget_call.resizeColumnsToContents()
+                self.tableWidget_call.resizeColumnsToContents(Option_column.고가.value)
 
                 telegram_send_str_call_high = '' 
             else:
@@ -9748,7 +9748,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
                 #self.tableWidget_call.resizeRowsToContents()
-                self.tableWidget_call.resizeColumnsToContents()
+                self.tableWidget_call.resizeColumnsToContents(Option_column.고가.value)
 
                 if TARGET_MONTH_SELECT == 1 and call_high_node_count != call_high_node_old_count:
 
@@ -9783,7 +9783,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
                 #self.tableWidget_call.resizeRowsToContents()
-                self.tableWidget_call.resizeColumnsToContents()
+                self.tableWidget_call.resizeColumnsToContents(Option_column.고가.value)
 
                 if TARGET_MONTH_SELECT == 1 and call_high_node_count != call_high_node_old_count:
 
@@ -9818,7 +9818,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
                 #self.tableWidget_call.resizeRowsToContents()
-                self.tableWidget_call.resizeColumnsToContents()
+                self.tableWidget_call.resizeColumnsToContents(Option_column.고가.value)
 
                 if TARGET_MONTH_SELECT == 1 and call_high_node_count != call_high_node_old_count:
 
@@ -12161,7 +12161,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
 
                 #self.tableWidget_put.resizeRowsToContents()
-                self.tableWidget_put.resizeColumnsToContents()
+                self.tableWidget_put.resizeColumnsToContents(Option_column.저가.value)
 
                 telegram_send_str_put_low = ''
             else:
@@ -12175,7 +12175,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
 
                 #self.tableWidget_put.resizeRowsToContents()
-                self.tableWidget_put.resizeColumnsToContents()
+                self.tableWidget_put.resizeColumnsToContents(Option_column.저가.value)
 
                 if TARGET_MONTH_SELECT == 1 and put_low_node_count != put_low_node_old_count:
 
@@ -12210,7 +12210,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
 
                 #self.tableWidget_put.resizeRowsToContents()
-                self.tableWidget_put.resizeColumnsToContents()
+                self.tableWidget_put.resizeColumnsToContents(Option_column.저가.value)
 
                 if TARGET_MONTH_SELECT == 1 and put_low_node_count != put_low_node_old_count:
 
@@ -12245,7 +12245,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
 
                 #self.tableWidget_put.resizeRowsToContents()
-                self.tableWidget_put.resizeColumnsToContents()
+                self.tableWidget_put.resizeColumnsToContents(Option_column.저가.value)
 
                 if TARGET_MONTH_SELECT == 1 and put_low_node_count != put_low_node_old_count:
 
@@ -12341,7 +12341,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
                 #self.tableWidget_put.resizeRowsToContents()
-                self.tableWidget_put.resizeColumnsToContents()
+                self.tableWidget_put.resizeColumnsToContents(Option_column.고가.value)
 
                 telegram_send_str_put_high = ''
             else:
@@ -12355,7 +12355,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
                 #self.tableWidget_put.resizeRowsToContents()
-                self.tableWidget_put.resizeColumnsToContents()
+                self.tableWidget_put.resizeColumnsToContents(Option_column.고가.value)
 
                 if TARGET_MONTH_SELECT == 1 and put_high_node_count != put_high_node_old_count:
 
@@ -12390,7 +12390,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
                 #self.tableWidget_put.resizeRowsToContents()
-                self.tableWidget_put.resizeColumnsToContents()
+                self.tableWidget_put.resizeColumnsToContents(Option_column.고가.value)
 
                 if TARGET_MONTH_SELECT == 1 and put_high_node_count != put_high_node_old_count:
 
@@ -12424,7 +12424,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
                 #self.tableWidget_put.resizeRowsToContents()
-                self.tableWidget_put.resizeColumnsToContents()
+                self.tableWidget_put.resizeColumnsToContents(Option_column.고가.value)
 
                 if TARGET_MONTH_SELECT == 1 and put_high_node_count != put_high_node_old_count:
 
@@ -14574,7 +14574,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.resizeRowsToContents()
                 else:
                     pass
-                #self.tableWidget_call.resizeColumnsToContents()
+                self.tableWidget_call.resizeColumnsToContents(Option_column.대비.value)
             else:
                 pass                               
         else:
@@ -15658,7 +15658,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.resizeRowsToContents()
                 else:
                     pass
-                #self.tableWidget_put.resizeColumnsToContents()
+                self.tableWidget_put.resizeColumnsToContents(Option_column.대비.value)
             else:
                 pass            
         else:
