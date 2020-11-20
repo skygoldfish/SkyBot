@@ -26073,37 +26073,37 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_68.setStyleSheet('background-color: pink ; color: black')
         self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.comboBox1.addItems(['선물체결', '선물잔량비', '선옵체결', '옵션잔량비', '등락율비', '옵션미결', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+        self.comboBox1.addItems(['선물잔량비', '선옵체결', '옵션잔량비', '등락율비', '옵션미결', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox1.insertSeparator(7)
         self.comboBox1.insertSeparator(15)
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['선옵체결', '옵션잔량비', '선물체결', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+        self.comboBox2.addItems(['선옵체결', '옵션잔량비', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox2.insertSeparator(7)
         self.comboBox2.insertSeparator(15)
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
-        self.comboBox3.addItems(['선옵체결', '옵션잔량비', '선물체결', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+        self.comboBox3.addItems(['선옵체결', '옵션잔량비', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox3.insertSeparator(7)
         self.comboBox3.insertSeparator(15)
         self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
 
-        self.comboBox4.addItems(['선물체결', '선물잔량비', '선옵체결', '옵션잔량비', '등락율비', '옵션미결', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+        self.comboBox4.addItems(['선물잔량비', '선옵체결', '옵션잔량비', '등락율비', '옵션미결', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox4.insertSeparator(7)
         self.comboBox4.insertSeparator(15)
         self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged)
 
-        self.comboBox5.addItems(['선옵체결', '옵션잔량비', '선물체결', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+        self.comboBox5.addItems(['선옵체결', '옵션잔량비', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox5.insertSeparator(7)
         self.comboBox5.insertSeparator(15)
         self.comboBox5.currentIndexChanged.connect(self.cb5_selectionChanged)
 
-        self.comboBox6.addItems(['선옵체결', '옵션잔량비', '선물체결', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+        self.comboBox6.addItems(['선옵체결', '옵션잔량비', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox6.insertSeparator(7)
         self.comboBox6.insertSeparator(15)
@@ -27470,76 +27470,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         plot1_fama_curve.clear()
 
         plot1_oe_conv_curve.clear()
-        plot1_oe_base_curve.clear()  
-
-        # 선물체결
-        if comboindex1 == 0:
-
-            self.label_11.setText(" - ")
-            self.label_12.setText(" - ")
-            self.label_13.setText(" - ")
-            self.label_14.setText(" - ")
-            self.label_15.setText(" - ")
-            self.label_16.setText(" - ")
-            self.label_17.setText(" 체결량 ")
-            self.label_18.setText(" - ")
-            
-            self.label_p1_2.setText(" BB Middle\n PSAR ")
-            self.label_p1_2.setStyleSheet('background-color: yellow ; color: black')
-
-            self.label_p1_3.setText(" OneEye ")
-            self.label_p1_3.setStyleSheet('background-color: yellow ; color: black')
-
-            self.label_p1_4.setText(" MAMA ")
-            self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
-
-            plot1_call_hoga_curve.clear()
-            plot1_put_hoga_curve.clear()
-
-            plot1_call_volume_curve.clear()
-            plot1_put_volume_curve.clear()
-
-            plot1_fut_choga_rr_curve.clear()
-            plot1_fut_nhoga_rr_curve.clear()
-            plot1_fut_drate_curve.clear()
-            plot1_dow_drate_curve.clear()
-            plot1_call_drate_curve.clear()
-            plot1_put_drate_curve.clear()
-
-            plot1_call_oi_curve.clear()
-            plot1_put_oi_curve.clear()           
-            
-            plot1_kp200_curve.clear()
-            plot1_fut_price_curve.clear()
-            
-            plot1_sp500_curve.clear()
-            plot1_dow_curve.clear()
-            plot1_nasdaq_curve.clear()
-            plot1_wti_curve.clear()
-
-            plot1_fut_hoga_line.setValue(0)
-            
-            plot1_fut_jl_line.setValue(0)
-            plot1_fut_jh_line.setValue(0)
-            plot1_fut_close_line.setValue(0)
-            plot1_fut_pivot_line.setValue(0)
-            plot1_fut_open_line.setValue(0)
-            plot1_fut_low_line.setValue(0)
-            plot1_fut_high_line.setValue(0)
-            
-            for i in range(10):
-                plot1_kp200_line[i].setValue(0)
-            
-            plot1_ovc_close_line.setValue(0)
-            plot1_ovc_open_line.setValue(0)
-            plot1_ovc_jl_line.setValue(0)
-            plot1_ovc_jh_line.setValue(0)
-            plot1_ovc_pivot_line.setValue(0)
-            plot1_ovc_low_line.setValue(0)
-            plot1_ovc_high_line.setValue(0)
+        plot1_oe_base_curve.clear()        
 
         # 선물잔량비
-        elif comboindex1 == 1:
+        if comboindex1 == 0:
 
             self.label_11.setText(" - ")
             self.label_12.setText(" - ")
@@ -27603,7 +27537,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_fut_hoga_line.setValue(1.0)
 
         # 선옵체결
-        elif comboindex1 == 2:
+        elif comboindex1 == 1:
 
             self.label_11.setText(" - ")
             self.label_12.setText(" - ")
@@ -27669,7 +27603,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_ovc_high_line.setValue(0)
 
         # 옵션잔량비
-        elif comboindex1 == 3:
+        elif comboindex1 == 2:
 
             self.label_11.setText(" - ")
             self.label_12.setText(" - ")
@@ -27735,7 +27669,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_fut_hoga_line.setValue(1.0)  
         
         # 등락율비
-        elif comboindex1 == 4:
+        elif comboindex1 == 3:
 
             self.label_11.setText(" - ")
             self.label_12.setText(" - ")
@@ -27794,7 +27728,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_ovc_high_line.setValue(0)
 
         # 옵션미결
-        elif comboindex1 == 5:
+        elif comboindex1 == 4:
 
             self.label_11.setText(" - ")
             self.label_12.setText(" - ")
@@ -27856,7 +27790,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_ovc_high_line.setValue(0)         
 
         # 선물가격
-        elif comboindex1 == 6:
+        elif comboindex1 == 5:
                         
             plot1_fut_volume_plus_curve.clear()
             plot1_fut_volume_minus_curve.clear()
@@ -27970,12 +27904,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_fut_close_line.setValue(선물_종가)
 
         # 분리선
-        elif comboindex1 == 7:
+        elif comboindex1 == 6:
 
             pass
 
         # SP500
-        elif comboindex1 == 8:
+        elif comboindex1 == 7:
 
             plot1_fut_volume_plus_curve.clear()
             plot1_fut_volume_minus_curve.clear()
@@ -28082,7 +28016,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_ovc_high_line.setValue(SP500_고가)
 
         # DOW   
-        elif comboindex1 == 9:
+        elif comboindex1 == 8:
 
             plot1_fut_volume_plus_curve.clear()
             plot1_fut_volume_minus_curve.clear()
@@ -28189,7 +28123,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_ovc_high_line.setValue(DOW_고가)
 
         # NASDAQ
-        elif comboindex1 == 10:
+        elif comboindex1 == 9:
 
             plot1_fut_volume_plus_curve.clear()
             plot1_fut_volume_minus_curve.clear()
@@ -28296,7 +28230,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot1_ovc_high_line.setValue(NASDAQ_고가)            
 
         # WTI   
-        elif comboindex1 == 11:
+        elif comboindex1 == 10:
 
             plot1_fut_volume_plus_curve.clear()
             plot1_fut_volume_minus_curve.clear()
@@ -28556,75 +28490,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_center_val_line.setValue(0)
             plot2_center_val_upper_line.setValue(0)
 
-            plot2_fut_hoga_line.setValue(1.0)                      
-
-        # 선물체결
-        elif comboindex2 == 2:
-
-            self.label_21.setText(" - ")
-            self.label_22.setText(" - ")
-            self.label_23.setText(" - ")
-            self.label_24.setText(" - ")
-            self.label_25.setText(" - ")
-            self.label_26.setText(" - ")
-            self.label_27.setText(" 체결량 ")
-            self.label_28.setText(" - ")
-            
-            self.label_p2_2.setText(" BB Middle\n PSAR ")
-            self.label_p2_2.setStyleSheet('background-color: yellow ; color: black')
-
-            self.label_p2_3.setText(" OneEye ")
-            self.label_p2_3.setStyleSheet('background-color: yellow ; color: black')
-
-            self.label_p2_4.setText(" MAMA ")
-            self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
-
-            plot2_call_hoga_curve.clear()
-            plot2_put_hoga_curve.clear()
-
-            plot2_call_volume_curve.clear()
-            plot2_put_volume_curve.clear()
-
-            plot2_fut_choga_rr_curve.clear()
-            plot2_fut_nhoga_rr_curve.clear()
-            plot2_fut_drate_curve.clear()
-            plot2_dow_drate_curve.clear()
-            plot2_call_drate_curve.clear()
-            plot2_put_drate_curve.clear()
-
-            plot2_call_oi_curve.clear()
-            plot2_put_oi_curve.clear()
-            
-            for i in range(ActvalCount):
-                plot2_call_curve[i].clear()
-                plot2_put_curve[i].clear()
-
-            plot2_center_val_curve.clear()                
-
-            plot2_sp500_curve.clear()
-            plot2_dow_curve.clear()
-            plot2_nasdaq_curve.clear() 
-            plot2_wti_curve.clear()
-
-            plot2_fut_hoga_line.setValue(0)
-
-            for i in range(9):
-                plot2_mv_line[i].setValue(0)
-
-            plot2_ovc_close_line.setValue(0)
-            plot2_ovc_open_line.setValue(0)
-            plot2_ovc_jl_line.setValue(0)
-            plot2_ovc_jh_line.setValue(0)
-            plot2_ovc_pivot_line.setValue(0)
-            plot2_ovc_low_line.setValue(0)
-            plot2_ovc_high_line.setValue(0)
-
-            plot2_center_val_lower_line.setValue(0)
-            plot2_center_val_line.setValue(0)
-            plot2_center_val_upper_line.setValue(0)
+            plot2_fut_hoga_line.setValue(1.0)        
 
         # 선물잔량비
-        elif comboindex2 == 3:
+        elif comboindex2 == 2:
 
             self.label_21.setText(" - ")
             self.label_22.setText(" - ")
@@ -28687,7 +28556,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_fut_hoga_line.setValue(1.0)
 
         # 등락율비
-        elif comboindex2 == 4:
+        elif comboindex2 == 3:
 
             self.label_21.setText(" - ")
             self.label_22.setText(" - ")
@@ -28747,7 +28616,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_center_val_upper_line.setValue(0)
 
         # 옵션미결
-        elif comboindex2 == 5:
+        elif comboindex2 == 4:
 
             self.label_21.setText(" - ")
             self.label_22.setText(" - ")
@@ -28810,7 +28679,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_center_val_upper_line.setValue(0) 
 
         # 옵션가격
-        elif comboindex2 == 6:
+        elif comboindex2 == 5:
 
             self.label_21.setText(" 등가: 행사가 ")
             self.label_22.setText(" 시작 중심가 ")
@@ -28880,12 +28749,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_UPPER)
 
         # 분리선
-        elif comboindex2 == 7:
+        elif comboindex2 == 6:
 
             pass
 
         # SP500
-        elif comboindex2 == 8:
+        elif comboindex2 == 7:
 
             plot2_call_hoga_curve.clear()
             plot2_put_hoga_curve.clear()   
@@ -28991,7 +28860,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_ovc_high_line.setValue(SP500_고가)
 
         # DOW
-        elif comboindex2 == 9:
+        elif comboindex2 == 8:
 
             plot2_call_hoga_curve.clear()
             plot2_put_hoga_curve.clear()   
@@ -29097,7 +28966,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_ovc_high_line.setValue(DOW_고가)
 
         # NASDAQ
-        elif comboindex2 == 10:
+        elif comboindex2 == 9:
 
             plot2_call_hoga_curve.clear()
             plot2_put_hoga_curve.clear()   
@@ -29203,7 +29072,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_ovc_high_line.setValue(NASDAQ_고가)            
 
         # WTI  
-        elif comboindex2 == 11:
+        elif comboindex2 == 10:
 
             plot2_call_hoga_curve.clear()
             plot2_put_hoga_curve.clear()   
@@ -29462,75 +29331,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_center_val_line.setValue(0)
             plot3_center_val_upper_line.setValue(0)
 
-            plot3_fut_hoga_line.setValue(1.0)                      
-
-        # 선물체결
-        elif comboindex3 == 2:
-
-            self.label_31.setText(" - ")
-            self.label_32.setText(" - ")
-            self.label_33.setText(" - ")
-            self.label_34.setText(" - ")
-            self.label_35.setText(" - ")
-            self.label_36.setText(" - ")
-            self.label_37.setText(" 체결량 ")
-            self.label_38.setText(" - ")
-            
-            self.label_p3_2.setText(" BB Middle\n PSAR ")
-            self.label_p3_2.setStyleSheet('background-color: yellow ; color: black')
-
-            self.label_p3_3.setText(" OneEye ")
-            self.label_p3_3.setStyleSheet('background-color: yellow ; color: black')
-
-            self.label_p3_4.setText(" MAMA ")
-            self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
-
-            plot3_call_hoga_curve.clear()
-            plot3_put_hoga_curve.clear()
-
-            plot3_call_volume_curve.clear()
-            plot3_put_volume_curve.clear()
-
-            plot3_fut_choga_rr_curve.clear()
-            plot3_fut_nhoga_rr_curve.clear()
-            plot3_fut_drate_curve.clear()
-            plot3_dow_drate_curve.clear()
-            plot3_call_drate_curve.clear()
-            plot3_put_drate_curve.clear()
-
-            plot3_call_oi_curve.clear()
-            plot3_put_oi_curve.clear()
-            
-            for i in range(ActvalCount):
-                plot3_call_curve[i].clear()
-                plot3_put_curve[i].clear()
-
-            plot3_center_val_curve.clear()                
-
-            plot3_sp500_curve.clear()
-            plot3_dow_curve.clear()
-            plot3_nasdaq_curve.clear() 
-            plot3_wti_curve.clear()
-
-            plot3_fut_hoga_line.setValue(0)
-
-            for i in range(9):
-                plot3_mv_line[i].setValue(0)
-
-            plot3_ovc_close_line.setValue(0)
-            plot3_ovc_open_line.setValue(0)
-            plot3_ovc_jl_line.setValue(0)
-            plot3_ovc_jh_line.setValue(0)
-            plot3_ovc_pivot_line.setValue(0)
-            plot3_ovc_low_line.setValue(0)
-            plot3_ovc_high_line.setValue(0)
-
-            plot3_center_val_lower_line.setValue(0)
-            plot3_center_val_line.setValue(0)
-            plot3_center_val_upper_line.setValue(0)
+            plot3_fut_hoga_line.setValue(1.0)        
 
         # 선물잔량비
-        elif comboindex3 == 3:
+        elif comboindex3 == 2:
 
             self.label_31.setText(" - ")
             self.label_32.setText(" - ")
@@ -29593,7 +29397,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_fut_hoga_line.setValue(1.0)
 
         # 등락율비
-        elif comboindex3 == 4:
+        elif comboindex3 == 3:
 
             self.label_31.setText(" - ")
             self.label_32.setText(" - ")
@@ -29653,7 +29457,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_center_val_upper_line.setValue(0)
 
         # 옵션미결
-        elif comboindex3 == 5:
+        elif comboindex3 == 4:
 
             self.label_31.setText(" - ")
             self.label_32.setText(" - ")
@@ -29716,7 +29520,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_center_val_upper_line.setValue(0) 
 
         # 옵션가격
-        elif comboindex3 == 6:
+        elif comboindex3 == 5:
 
             self.label_31.setText(" 등가: 행사가 ")
             self.label_32.setText(" 시작 중심가 ")
@@ -29786,12 +29590,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_UPPER)
 
         # 분리선
-        elif comboindex3 == 7:
+        elif comboindex3 == 6:
 
             pass
 
         # SP500
-        elif comboindex3 == 8:
+        elif comboindex3 == 7:
 
             plot3_call_hoga_curve.clear()
             plot3_put_hoga_curve.clear()   
@@ -29897,7 +29701,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_ovc_high_line.setValue(SP500_고가)
 
         # DOW
-        elif comboindex3 == 9:
+        elif comboindex3 == 8:
 
             plot3_call_hoga_curve.clear()
             plot3_put_hoga_curve.clear()   
@@ -30003,7 +29807,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_ovc_high_line.setValue(DOW_고가)
 
         # NASDAQ
-        elif comboindex3 == 10:
+        elif comboindex3 == 9:
 
             plot3_call_hoga_curve.clear()
             plot3_put_hoga_curve.clear()   
@@ -30109,7 +29913,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_ovc_high_line.setValue(NASDAQ_고가)            
 
         # WTI
-        elif comboindex3 == 11:
+        elif comboindex3 == 10:
 
             plot3_call_hoga_curve.clear()
             plot3_put_hoga_curve.clear()   
@@ -30237,76 +30041,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         plot4_fama_curve.clear() 
 
         plot4_oe_conv_curve.clear()
-        plot4_oe_base_curve.clear()
-
-        # 선물체결
-        if comboindex4 == 0:
-
-            self.label_41.setText(" - ")
-            self.label_42.setText(" - ")
-            self.label_43.setText(" - ")
-            self.label_44.setText(" - ")
-            self.label_45.setText(" - ")
-            self.label_46.setText(" - ")
-            self.label_47.setText(" 체결량 ")
-            self.label_48.setText(" - ")
-            
-            self.label_p4_2.setText(" BB Middle\n PSAR ")
-            self.label_p4_2.setStyleSheet('background-color: yellow ; color: black')
-
-            self.label_p4_3.setText(" OneEye ")
-            self.label_p4_3.setStyleSheet('background-color: yellow ; color: black')
-
-            self.label_p4_4.setText(" MAMA ")
-            self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
-
-            plot4_call_hoga_curve.clear()
-            plot4_put_hoga_curve.clear()
-
-            plot4_call_volume_curve.clear()
-            plot4_put_volume_curve.clear()
-
-            plot4_fut_choga_rr_curve.clear()
-            plot4_fut_nhoga_rr_curve.clear()
-            plot4_fut_drate_curve.clear()
-            plot4_dow_drate_curve.clear()
-            plot4_call_drate_curve.clear()
-            plot4_put_drate_curve.clear() 
-
-            plot4_call_oi_curve.clear()
-            plot4_put_oi_curve.clear()          
-            
-            plot4_kp200_curve.clear()
-            plot4_fut_price_curve.clear()
-            
-            plot4_sp500_curve.clear()
-            plot4_dow_curve.clear()
-            plot4_nasdaq_curve.clear()
-            plot4_wti_curve.clear()
-
-            plot4_fut_hoga_line.setValue(0) 
-            
-            plot4_fut_jl_line.setValue(0)
-            plot4_fut_jh_line.setValue(0)
-            plot4_fut_close_line.setValue(0)
-            plot4_fut_pivot_line.setValue(0)
-            plot4_fut_open_line.setValue(0)
-            plot4_fut_low_line.setValue(0)
-            plot4_fut_high_line.setValue(0)
-            
-            for i in range(10):
-                plot4_kp200_line[i].setValue(0)
-            
-            plot4_ovc_close_line.setValue(0)
-            plot4_ovc_open_line.setValue(0)
-            plot4_ovc_jl_line.setValue(0)
-            plot4_ovc_jh_line.setValue(0)
-            plot4_ovc_pivot_line.setValue(0)
-            plot4_ovc_low_line.setValue(0)
-            plot4_ovc_high_line.setValue(0)
+        plot4_oe_base_curve.clear()        
 
         # 선물잔량비
-        elif comboindex4 == 1:
+        if comboindex4 == 0:
 
             self.label_41.setText(" - ")
             self.label_42.setText(" - ")
@@ -30375,7 +30113,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_fut_hoga_line.setValue(1.0)
 
         # 선옵체결
-        elif comboindex4 == 2:
+        elif comboindex4 == 1:
 
             self.label_41.setText(" - ")
             self.label_42.setText(" - ")
@@ -30441,7 +30179,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_ovc_high_line.setValue(0)
 
         # 옵션잔량비
-        elif comboindex4 == 3:
+        elif comboindex4 == 2:
 
             self.label_41.setText(" - ")
             self.label_42.setText(" - ")
@@ -30507,7 +30245,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_fut_hoga_line.setValue(1.0) 
         
         # 등락율비
-        elif comboindex4 == 4:
+        elif comboindex4 == 3:
 
             self.label_41.setText(" - ")
             self.label_42.setText(" - ")
@@ -30566,7 +30304,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_ovc_high_line.setValue(0)
 
         # 옵션미결
-        elif comboindex4 == 5:
+        elif comboindex4 == 4:
 
             self.label_41.setText(" - ")
             self.label_42.setText(" - ")
@@ -30628,7 +30366,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_ovc_high_line.setValue(0)          
 
         # 선물가격
-        elif comboindex4 == 6:
+        elif comboindex4 == 5:
                         
             plot4_fut_volume_plus_curve.clear()
             plot4_fut_volume_minus_curve.clear()
@@ -30742,12 +30480,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_fut_close_line.setValue(선물_종가)
 
         # 분리선
-        elif comboindex4 == 7:
+        elif comboindex4 == 6:
 
             pass
 
         # SP500
-        elif comboindex4 == 8:
+        elif comboindex4 == 7:
 
             plot4_fut_volume_plus_curve.clear()
             plot4_fut_volume_minus_curve.clear()
@@ -30854,7 +30592,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_ovc_high_line.setValue(SP500_고가)
 
         # DOW    
-        elif comboindex4 == 9:
+        elif comboindex4 == 8:
 
             plot4_fut_volume_plus_curve.clear()
             plot4_fut_volume_minus_curve.clear()
@@ -30961,7 +30699,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_ovc_high_line.setValue(DOW_고가)
 
         # NASDAQ
-        elif comboindex4 == 10:
+        elif comboindex4 == 9:
 
             plot4_fut_volume_plus_curve.clear()
             plot4_fut_volume_minus_curve.clear()
@@ -31068,7 +30806,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_ovc_high_line.setValue(NASDAQ_고가)            
 
         # WTI    
-        elif comboindex4 == 11:
+        elif comboindex4 == 10:
 
             plot4_fut_volume_plus_curve.clear()
             plot4_fut_volume_minus_curve.clear()
@@ -31328,75 +31066,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_center_val_line.setValue(0)
             plot5_center_val_upper_line.setValue(0)
 
-            plot5_fut_hoga_line.setValue(1.0)                      
-
-        # 선물체결
-        elif comboindex5 == 2:
-
-            self.label_51.setText(" - ")
-            self.label_52.setText(" - ")
-            self.label_53.setText(" - ")
-            self.label_54.setText(" - ")
-            self.label_55.setText(" - ")
-            self.label_56.setText(" - ")
-            self.label_57.setText(" 체결량 ")
-            self.label_58.setText(" - ")
-            
-            self.label_p5_2.setText(" BB Middle\n PSAR ")
-            self.label_p5_2.setStyleSheet('background-color: yellow ; color: black')
-
-            self.label_p5_3.setText(" OneEye ")
-            self.label_p5_3.setStyleSheet('background-color: yellow ; color: black')
-
-            self.label_p5_4.setText(" MAMA ")
-            self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
-
-            plot5_call_hoga_curve.clear()
-            plot5_put_hoga_curve.clear()
-
-            plot5_call_volume_curve.clear()
-            plot5_put_volume_curve.clear()
-
-            plot5_fut_choga_rr_curve.clear()
-            plot5_fut_nhoga_rr_curve.clear()
-            plot5_fut_drate_curve.clear()
-            plot5_dow_drate_curve.clear()
-            plot5_call_drate_curve.clear()
-            plot5_put_drate_curve.clear()
-
-            plot5_call_oi_curve.clear()
-            plot5_put_oi_curve.clear()
-            
-            for i in range(ActvalCount):
-                plot5_call_curve[i].clear()
-                plot5_put_curve[i].clear()
-
-            plot5_center_val_curve.clear()                
-
-            plot5_sp500_curve.clear()
-            plot5_dow_curve.clear()
-            plot5_nasdaq_curve.clear() 
-            plot5_wti_curve.clear()
-
-            plot5_fut_hoga_line.setValue(0)
-
-            for i in range(9):
-                plot5_mv_line[i].setValue(0)
-
-            plot5_ovc_close_line.setValue(0)
-            plot5_ovc_open_line.setValue(0)
-            plot5_ovc_jl_line.setValue(0)
-            plot5_ovc_jh_line.setValue(0)
-            plot5_ovc_pivot_line.setValue(0)
-            plot5_ovc_low_line.setValue(0)
-            plot5_ovc_high_line.setValue(0)
-
-            plot5_center_val_lower_line.setValue(0)
-            plot5_center_val_line.setValue(0)
-            plot5_center_val_upper_line.setValue(0)
+            plot5_fut_hoga_line.setValue(1.0)        
 
         # 선물잔량비
-        elif comboindex5 == 3:
+        elif comboindex5 == 2:
 
             self.label_51.setText(" - ")
             self.label_52.setText(" - ")
@@ -31459,7 +31132,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_fut_hoga_line.setValue(1.0)
 
         # 등락율비
-        elif comboindex5 == 4:
+        elif comboindex5 == 3:
 
             self.label_51.setText(" - ")
             self.label_52.setText(" - ")
@@ -31519,7 +31192,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_center_val_upper_line.setValue(0)
 
         # 옵션미결
-        elif comboindex5 == 5:
+        elif comboindex5 == 4:
 
             self.label_51.setText(" - ")
             self.label_52.setText(" - ")
@@ -31582,7 +31255,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_center_val_upper_line.setValue(0) 
 
         # 옵션가격
-        elif comboindex5 == 6:
+        elif comboindex5 == 5:
 
             self.label_51.setText(" 등가: 행사가 ")
             self.label_52.setText(" 시작 중심가 ")
@@ -31652,12 +31325,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_UPPER)
 
         # 분리선
-        elif comboindex5 == 7:
+        elif comboindex5 == 6:
 
             pass
 
         # SP500
-        elif comboindex5 == 8:
+        elif comboindex5 == 7:
 
             plot5_call_hoga_curve.clear()
             plot5_put_hoga_curve.clear()   
@@ -31763,7 +31436,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_ovc_high_line.setValue(SP500_고가)
 
         # DOW
-        elif comboindex5 == 9:
+        elif comboindex5 == 8:
 
             plot5_call_hoga_curve.clear()
             plot5_put_hoga_curve.clear()   
@@ -31869,7 +31542,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_ovc_high_line.setValue(DOW_고가)
 
         # NASDAQ
-        elif comboindex5 == 10:
+        elif comboindex5 == 9:
 
             plot5_call_hoga_curve.clear()
             plot5_put_hoga_curve.clear()   
@@ -31975,7 +31648,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_ovc_high_line.setValue(NASDAQ_고가)            
 
         # WTI
-        elif comboindex5 == 11:
+        elif comboindex5 == 10:
 
             plot5_call_hoga_curve.clear()
             plot5_put_hoga_curve.clear()   
@@ -32234,75 +31907,10 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_center_val_line.setValue(0)
             plot6_center_val_upper_line.setValue(0)
 
-            plot6_fut_hoga_line.setValue(1.0)                      
-
-        # 선물체결
-        elif comboindex6 == 2:
-
-            self.label_61.setText(" - ")
-            self.label_62.setText(" - ")
-            self.label_63.setText(" - ")
-            self.label_64.setText(" - ")
-            self.label_65.setText(" - ")
-            self.label_66.setText(" - ")
-            self.label_67.setText(" 체결량 ")
-            self.label_68.setText(" - ")
-            
-            self.label_p6_2.setText(" BB Middle\n PSAR ")
-            self.label_p6_2.setStyleSheet('background-color: yellow ; color: black')
-
-            self.label_p6_3.setText(" OneEye ")
-            self.label_p6_3.setStyleSheet('background-color: yellow ; color: black')
-
-            self.label_p6_4.setText(" MAMA ")
-            self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
-
-            plot6_call_hoga_curve.clear()
-            plot6_put_hoga_curve.clear()
-
-            plot6_call_volume_curve.clear()
-            plot6_put_volume_curve.clear()
-
-            plot6_fut_choga_rr_curve.clear()
-            plot6_fut_nhoga_rr_curve.clear()
-            plot6_fut_drate_curve.clear()
-            plot6_dow_drate_curve.clear()
-            plot6_call_drate_curve.clear()
-            plot6_put_drate_curve.clear()
-
-            plot6_call_oi_curve.clear()
-            plot6_put_oi_curve.clear()
-            
-            for i in range(ActvalCount):
-                plot6_call_curve[i].clear()
-                plot6_put_curve[i].clear()
-
-            plot6_center_val_curve.clear()                
-
-            plot6_sp500_curve.clear()
-            plot6_dow_curve.clear()
-            plot6_nasdaq_curve.clear() 
-            plot6_wti_curve.clear()
-
-            plot6_fut_hoga_line.setValue(0)
-
-            for i in range(9):
-                plot6_mv_line[i].setValue(0)
-
-            plot6_ovc_close_line.setValue(0)
-            plot6_ovc_open_line.setValue(0)
-            plot6_ovc_jl_line.setValue(0)
-            plot6_ovc_jh_line.setValue(0)
-            plot6_ovc_pivot_line.setValue(0)
-            plot6_ovc_low_line.setValue(0)
-            plot6_ovc_high_line.setValue(0)
-
-            plot6_center_val_lower_line.setValue(0)
-            plot6_center_val_line.setValue(0)
-            plot6_center_val_upper_line.setValue(0)
+            plot6_fut_hoga_line.setValue(1.0)        
 
         # 선물잔량비
-        elif comboindex6 == 3:
+        elif comboindex6 == 2:
 
             self.label_61.setText(" - ")
             self.label_62.setText(" - ")
@@ -32365,7 +31973,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_fut_hoga_line.setValue(1.0)
 
         # 등락율비
-        elif comboindex6 == 4:
+        elif comboindex6 == 3:
 
             self.label_61.setText(" - ")
             self.label_62.setText(" - ")
@@ -32425,7 +32033,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_center_val_upper_line.setValue(0)
 
         # 옵션미결
-        elif comboindex6 == 5:
+        elif comboindex6 == 4:
 
             self.label_61.setText(" - ")
             self.label_62.setText(" - ")
@@ -32488,7 +32096,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_center_val_upper_line.setValue(0) 
 
         # 옵션가격
-        elif comboindex6 == 6:
+        elif comboindex6 == 5:
 
             self.label_61.setText(" 등가: 행사가 ")
             self.label_62.setText(" 시작 중심가 ")
@@ -32558,12 +32166,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_UPPER)
 
         # 분리선
-        elif comboindex6 == 7:
+        elif comboindex6 == 6:
 
             pass
 
         # SP500
-        elif comboindex6 == 8:
+        elif comboindex6 == 7:
 
             plot6_call_hoga_curve.clear()
             plot6_put_hoga_curve.clear()   
@@ -32669,7 +32277,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_ovc_high_line.setValue(SP500_고가)
 
         # DOW
-        elif comboindex6 == 9:
+        elif comboindex6 == 8:
 
             plot6_call_hoga_curve.clear()
             plot6_put_hoga_curve.clear()   
@@ -32775,7 +32383,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_ovc_high_line.setValue(DOW_고가)
 
         # NASDAQ
-        elif comboindex6 == 10:
+        elif comboindex6 == 9:
 
             plot6_call_hoga_curve.clear()
             plot6_put_hoga_curve.clear()   
@@ -32881,7 +32489,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_ovc_high_line.setValue(NASDAQ_고가)            
 
         # WTI
-        elif comboindex6 == 11:
+        elif comboindex6 == 10:
 
             plot6_call_hoga_curve.clear()
             plot6_put_hoga_curve.clear()   
