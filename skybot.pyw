@@ -6812,6 +6812,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     call_idx = []
                     put_idx = []
+                    selected_call = []
+                    selected_put = []
                     selected_opt_list = []
 
                     for i in range(option_pairs_count):
@@ -33933,6 +33935,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         plot2_put_curve[index].clear()                    
                 else:
                     # 선택된 행사가 그래프 클리어
+                    '''
                     for index in range(option_pairs_count):
 
                         if index in selected_call:
@@ -33944,20 +33947,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                             plot2_put_curve[index].clear()
                         else:
                             pass
+                    '''
+                    for i in range(len(selected_call)):
+
+                        if selected_call[i]:
+                            plot2_call_curve[selected_call[i]].clear()
+                        else:
+                            pass
+
+                    for i in range(len(selected_put)):
+
+                        if selected_put[i]:
+                            plot2_put_curve[selected_put[i]].clear()
+                        else:
+                            pass
 
                 plot2_center_val_curve.clear()
 
                 plot2_mv_line[1].setValue(2.5)
                 plot2_mv_line[2].setValue(3.5)
                 plot2_mv_line[3].setValue(4.85)
-
+                '''
                 for index in range(option_pairs_count):
 
                     # 선택된 콜그래프 그리기
                     for i in range(len(selected_call)):
 
                         if index == selected_call[i]:
-                            #plot2_call_curve[i].setData(call_plot_data[index])
                             plot2_call_curve[i].setData(df_call_graph[index]['price'].tolist())
                         else:
                             pass                    
@@ -33966,11 +33982,26 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_put)):
 
                         if index == selected_put[i]:
-                            #plot2_put_curve[i].setData(put_plot_data[index])
                             plot2_put_curve[i].setData(df_put_graph[index]['price'].tolist())
                         else:
                             pass
-                        
+                '''
+                # 선택된 콜그래프 그리기
+                for i in range(len(selected_call)):
+
+                    if selected_call[i]:
+                        plot2_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].tolist())
+                    else:
+                        pass                    
+
+                # 선택된 풋그래프 그리기
+                for i in range(len(selected_put)):
+
+                    if selected_put[i]:
+                        plot2_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].tolist())
+                    else:
+                        pass
+
                 plot2_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_LOWER)
                 plot2_center_val_line.setValue(CENTER_VAL)
                 plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_UPPER)
@@ -34658,6 +34689,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         plot3_put_curve[index].clear()
                 else:
                     # 선택된 행사가 그래프 클리어
+                    '''
                     for index in range(option_pairs_count):
 
                         if index in selected_call:
@@ -34669,20 +34701,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                             plot3_put_curve[index].clear()
                         else:
                             pass
+                    '''
+                    for i in range(len(selected_call)):
+
+                        if selected_call[i]:
+                            plot3_call_curve[selected_call[i]].clear()
+                        else:
+                            pass
+
+                    for i in range(len(selected_put)):
+
+                        if selected_put[i]:
+                            plot3_put_curve[selected_put[i]].clear()
+                        else:
+                            pass
 
                 plot3_center_val_curve.clear()
 
                 plot3_mv_line[1].setValue(2.5)
                 plot3_mv_line[2].setValue(3.5)
                 plot3_mv_line[3].setValue(4.85)
-
+                '''
                 for index in range(option_pairs_count):
 
                     # 선택된 콜그래프 그리기
                     for i in range(len(selected_call)):
 
                         if index == selected_call[i]:
-                            #plot3_call_curve[i].setData(call_plot_data[index])
                             plot3_call_curve[i].setData(df_call_graph[index]['price'].tolist())
                         else:
                             pass                    
@@ -34691,10 +34736,25 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_put)):
 
                         if index == selected_put[i]:
-                            #plot3_put_curve[i].setData(put_plot_data[index])
                             plot3_put_curve[i].setData(df_put_graph[index]['price'].tolist())
                         else:
                             pass
+                '''
+                # 선택된 콜그래프 그리기
+                for i in range(len(selected_call)):
+
+                    if selected_call[i]:
+                        plot3_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].tolist())
+                    else:
+                        pass                    
+
+                # 선택된 풋그래프 그리기
+                for i in range(len(selected_put)):
+
+                    if selected_put[i]:
+                        plot3_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].tolist())
+                    else:
+                        pass
                         
                 plot3_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_LOWER)
                 plot3_center_val_line.setValue(CENTER_VAL)
@@ -36165,6 +36225,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         plot5_put_curve[index].clear()                    
                 else:
                     # 선택된 행사가 그래프 클리어
+                    '''
                     for index in range(option_pairs_count):
 
                         if index in selected_call:
@@ -36176,20 +36237,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                             plot5_put_curve[index].clear()
                         else:
                             pass
+                    '''
+                    for i in range(len(selected_call)):
+
+                        if selected_call[i]:
+                            plot5_call_curve[selected_call[i]].clear()
+                        else:
+                            pass
+
+                    for i in range(len(selected_put)):
+
+                        if selected_put[i]:
+                            plot5_put_curve[selected_put[i]].clear()
+                        else:
+                            pass
 
                 plot5_center_val_curve.clear()
 
                 plot5_mv_line[1].setValue(2.5)
                 plot5_mv_line[2].setValue(3.5)
                 plot5_mv_line[3].setValue(4.85)
-
+                '''
                 for index in range(option_pairs_count):
 
                     # 선택된 콜그래프 그리기
                     for i in range(len(selected_call)):
 
                         if index == selected_call[i]:
-                            #plot5_call_curve[i].setData(call_plot_data[index])
                             plot5_call_curve[i].setData(df_call_graph[index]['price'].tolist())
                         else:
                             pass                    
@@ -36198,10 +36272,25 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_put)):
 
                         if index == selected_put[i]:
-                            #plot5_put_curve[i].setData(put_plot_data[index])
                             plot5_put_curve[i].setData(df_put_graph[index]['price'].tolist())
                         else:
                             pass
+                '''
+                # 선택된 콜그래프 그리기
+                for i in range(len(selected_call)):
+
+                    if selected_call[i]:
+                        plot5_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].tolist())
+                    else:
+                        pass                    
+
+                # 선택된 풋그래프 그리기
+                for i in range(len(selected_put)):
+
+                    if selected_put[i]:
+                        plot5_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].tolist())
+                    else:
+                        pass
                         
                 plot5_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_LOWER)
                 plot5_center_val_line.setValue(CENTER_VAL)
@@ -36890,6 +36979,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         plot6_put_curve[index].clear()
                 else:
                     # 선택된 행사가 그래프 클리어
+                    '''
                     for index in range(option_pairs_count):
 
                         if index in selected_call:
@@ -36901,20 +36991,33 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                             plot6_put_curve[index].clear()
                         else:
                             pass
+                    '''
+                    for i in range(len(selected_call)):
+
+                        if selected_call[i]:
+                            plot6_call_curve[selected_call[i]].clear()
+                        else:
+                            pass
+
+                    for i in range(len(selected_put)):
+
+                        if selected_put[i]:
+                            plot6_put_curve[selected_put[i]].clear()
+                        else:
+                            pass
 
                 plot6_center_val_curve.clear()
 
                 plot6_mv_line[1].setValue(2.5)
                 plot6_mv_line[2].setValue(3.5)
                 plot6_mv_line[3].setValue(4.85)
-
+                '''
                 for index in range(option_pairs_count):
 
                     # 선택된 콜그래프 그리기
                     for i in range(len(selected_call)):
 
                         if index == selected_call[i]:
-                            #plot6_call_curve[i].setData(call_plot_data[index])
                             plot6_call_curve[i].setData(df_call_graph[index]['price'].tolist())
                         else:
                             pass                    
@@ -36923,10 +37026,25 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_put)):
 
                         if index == selected_put[i]:
-                            #plot6_put_curve[i].setData(put_plot_data[index])
                             plot6_put_curve[i].setData(df_put_graph[index]['price'].tolist())
                         else:
                             pass
+                '''
+                # 선택된 콜그래프 그리기
+                for i in range(len(selected_call)):
+
+                    if selected_call[i]:
+                        plot6_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].tolist())
+                    else:
+                        pass                    
+
+                # 선택된 풋그래프 그리기
+                for i in range(len(selected_put)):
+
+                    if selected_put[i]:
+                        plot6_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].tolist())
+                    else:
+                        pass
                         
                 plot6_center_val_lower_line.setValue(CENTER_VAL - CENTERVAL_LOWER)
                 plot6_center_val_line.setValue(CENTER_VAL)
