@@ -33050,9 +33050,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_17.setText(str)
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    plot1_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot1_fut_volume_plus_curve.setData(df_futures_graph['volume'])
                 else:
-                    plot1_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot1_fut_volume_minus_curve.setData(df_futures_graph['volume'])
 
             elif comboindex1 == 1 and market_service:
 
@@ -33070,8 +33070,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_17.setText(str)
 
-                plot1_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].tolist())
-                plot1_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'].tolist())
+                plot1_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'])
+                plot1_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'])
 
             elif comboindex1 == 2 and market_service:
 
@@ -33092,13 +33092,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_18.setStyleSheet('background-color: red ; color: white')
                 self.label_18.setText(str)
 
-                plot1_call_volume_curve.setData(df_call_total_graph['volume'].tolist())
-                plot1_put_volume_curve.setData(df_put_total_graph['volume'].tolist())
+                plot1_call_volume_curve.setData(df_call_total_graph['volume'])
+                plot1_put_volume_curve.setData(df_put_total_graph['volume'])
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    plot1_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot1_fut_volume_plus_curve.setData(df_futures_graph['volume'])
                 else:
-                    plot1_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot1_fut_volume_minus_curve.setData(df_futures_graph['volume'])
 
             elif comboindex1 == 3 and market_service:
                 
@@ -33110,15 +33110,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_18.setStyleSheet('background-color: red ; color: white')
                 self.label_18.setText(str)
 
-                plot1_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'].tolist())
-                plot1_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'].tolist())
+                plot1_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'])
+                plot1_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'])
 
             elif comboindex1 == 4 and market_service:
 
-                plot1_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
-                plot1_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
-                plot1_call_drate_curve.setData(df_call_total_graph['drate'].tolist())
-                plot1_put_drate_curve.setData(df_put_total_graph['drate'].tolist())
+                plot1_fut_drate_curve.setData(df_futures_graph['drate'])
+                plot1_dow_drate_curve.setData(df_dow_graph['drate'])
+                plot1_call_drate_curve.setData(df_call_total_graph['drate'])
+                plot1_put_drate_curve.setData(df_put_total_graph['drate'])
 
             elif comboindex1 == 5 and market_service:
 
@@ -33144,8 +33144,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_18.setStyleSheet('background-color: red ; color: white')
                 self.label_18.setText(str)
 
-                plot1_call_oi_curve.setData(df_call_total_graph['open_interest'].tolist())
-                plot1_put_oi_curve.setData(df_put_total_graph['open_interest'].tolist())
+                plot1_call_oi_curve.setData(df_call_total_graph['open_interest'])
+                plot1_put_oi_curve.setData(df_put_total_graph['open_interest'])
 
             elif comboindex1 == 6 and market_service:
 
@@ -33268,15 +33268,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_18.setStyleSheet('background-color: pink ; color: red')
                 self.label_18.setText(str)   
 
-                #plot1_kp200_curve.setData(df_futures_graph['kp200'].tolist())
-                plot1_kp200_curve.setData(df_kp200_graph['price'].tolist())
-                plot1_fut_price_curve.setData(df_futures_graph['price'].tolist())
+                #plot1_kp200_curve.setData(df_futures_graph['kp200'])
+                plot1_kp200_curve.setData(df_kp200_graph['price'])
+                plot1_fut_price_curve.setData(df_futures_graph['price'])
 
                 if flag_checkBox_plot1_bband:
 
-                    plot1_bollinger_upper_curve.setData(df_futures_graph['BBUpper'].tolist())
-                    plot1_bollinger_middle_curve.setData(df_futures_graph['BBMiddle'].tolist())
-                    plot1_bollinger_lower_curve.setData(df_futures_graph['BBLower'].tolist())
+                    plot1_bollinger_upper_curve.setData(df_futures_graph['BBUpper'])
+                    plot1_bollinger_middle_curve.setData(df_futures_graph['BBMiddle'])
+                    plot1_bollinger_lower_curve.setData(df_futures_graph['BBLower'])
                 else:
                     plot1_bollinger_upper_curve.clear()
                     plot1_bollinger_middle_curve.clear()
@@ -33284,16 +33284,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_mama:
 
-                    plot1_mama_curve.setData(df_futures_graph['MAMA'].tolist())
-                    plot1_fama_curve.setData(df_futures_graph['A_FAMA'].tolist())
+                    plot1_mama_curve.setData(df_futures_graph['MAMA'])
+                    plot1_fama_curve.setData(df_futures_graph['A_FAMA'])
                 else:
                     plot1_mama_curve.clear()
                     plot1_fama_curve.clear()
 
                 if flag_checkBox_plot1_oe:
 
-                    plot1_oe_conv_curve.setData(df_futures_graph['OE_CONV'].tolist())
-                    plot1_oe_base_curve.setData(df_futures_graph['OE_BASE'].tolist())
+                    plot1_oe_conv_curve.setData(df_futures_graph['OE_CONV'])
+                    plot1_oe_base_curve.setData(df_futures_graph['OE_BASE'])
                 else:
                     plot1_oe_conv_curve.clear()
                     plot1_oe_base_curve.clear()
@@ -33402,13 +33402,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_18.setStyleSheet('background-color: pink ; color: red')
                 self.label_18.setText(str)   
 
-                plot1_sp500_curve.setData(df_sp500_graph['price'].tolist())
+                plot1_sp500_curve.setData(df_sp500_graph['price'])
 
                 if flag_checkBox_plot1_bband:
 
-                    plot1_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].tolist())
-                    plot1_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].tolist())
-                    plot1_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].tolist())
+                    plot1_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'])
+                    plot1_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'])
+                    plot1_bollinger_lower_curve.setData(df_sp500_graph['BBLower'])
                 else:
                     plot1_bollinger_upper_curve.clear()
                     plot1_bollinger_middle_curve.clear()
@@ -33416,16 +33416,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_mama:
 
-                    plot1_mama_curve.setData(df_sp500_graph['MAMA'].tolist())
-                    plot1_fama_curve.setData(df_sp500_graph['A_FAMA'].tolist())
+                    plot1_mama_curve.setData(df_sp500_graph['MAMA'])
+                    plot1_fama_curve.setData(df_sp500_graph['A_FAMA'])
                 else:
                     plot1_mama_curve.clear()
                     plot1_fama_curve.clear()
 
                 if flag_checkBox_plot1_oe:
 
-                    plot1_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].tolist())
-                    plot1_oe_base_curve.setData(df_sp500_graph['OE_BASE'].tolist())
+                    plot1_oe_conv_curve.setData(df_sp500_graph['OE_CONV'])
+                    plot1_oe_base_curve.setData(df_sp500_graph['OE_BASE'])
                 else:
                     plot1_oe_conv_curve.clear()
                     plot1_oe_base_curve.clear()
@@ -33530,13 +33530,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_18.setStyleSheet('background-color: pink ; color: red')
                 self.label_18.setText(str)                      
 
-                plot1_dow_curve.setData(df_dow_graph['price'].tolist())
+                plot1_dow_curve.setData(df_dow_graph['price'])
 
                 if flag_checkBox_plot1_bband:
 
-                    plot1_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].tolist())
-                    plot1_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].tolist())
-                    plot1_bollinger_lower_curve.setData(df_dow_graph['BBLower'].tolist())
+                    plot1_bollinger_upper_curve.setData(df_dow_graph['BBUpper'])
+                    plot1_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'])
+                    plot1_bollinger_lower_curve.setData(df_dow_graph['BBLower'])
                 else:
                     plot1_bollinger_upper_curve.clear()
                     plot1_bollinger_middle_curve.clear()
@@ -33544,16 +33544,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_mama:
 
-                    plot1_mama_curve.setData(df_dow_graph['MAMA'].tolist())
-                    plot1_fama_curve.setData(df_dow_graph['A_FAMA'].tolist())
+                    plot1_mama_curve.setData(df_dow_graph['MAMA'])
+                    plot1_fama_curve.setData(df_dow_graph['A_FAMA'])
                 else:
                     plot1_mama_curve.clear()
                     plot1_fama_curve.clear()
 
                 if flag_checkBox_plot1_oe:
 
-                    plot1_oe_conv_curve.setData(df_dow_graph['OE_CONV'].tolist())
-                    plot1_oe_base_curve.setData(df_dow_graph['OE_BASE'].tolist())
+                    plot1_oe_conv_curve.setData(df_dow_graph['OE_CONV'])
+                    plot1_oe_base_curve.setData(df_dow_graph['OE_BASE'])
                 else:
                     plot1_oe_conv_curve.clear()
                     plot1_oe_base_curve.clear()
@@ -33658,13 +33658,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_18.setStyleSheet('background-color: pink ; color: red')
                 self.label_18.setText(str) 
 
-                plot1_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
+                plot1_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
                 if flag_checkBox_plot1_bband:
 
-                    plot1_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].tolist())
-                    plot1_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].tolist())
-                    plot1_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].tolist())
+                    plot1_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'])
+                    plot1_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'])
+                    plot1_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'])
                 else:
                     plot1_bollinger_upper_curve.clear()
                     plot1_bollinger_middle_curve.clear()
@@ -33672,16 +33672,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_mama:
 
-                    plot1_mama_curve.setData(df_nasdaq_graph['MAMA'].tolist())
-                    plot1_fama_curve.setData(df_nasdaq_graph['A_FAMA'].tolist())
+                    plot1_mama_curve.setData(df_nasdaq_graph['MAMA'])
+                    plot1_fama_curve.setData(df_nasdaq_graph['A_FAMA'])
                 else:
                     plot1_mama_curve.clear()
                     plot1_fama_curve.clear()
 
                 if flag_checkBox_plot1_oe:
 
-                    plot1_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].tolist())
-                    plot1_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].tolist())
+                    plot1_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'])
+                    plot1_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'])
                 else:
                     plot1_oe_conv_curve.clear()
                     plot1_oe_base_curve.clear()
@@ -33785,13 +33785,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_18.setStyleSheet('background-color: pink ; color: red')
                 self.label_18.setText(str) 
 
-                plot1_wti_curve.setData(df_wti_graph['price'].tolist())
+                plot1_wti_curve.setData(df_wti_graph['price'])
 
                 if flag_checkBox_plot1_bband:
 
-                    plot1_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].tolist())
-                    plot1_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].tolist())
-                    plot1_bollinger_lower_curve.setData(df_wti_graph['BBLower'].tolist())
+                    plot1_bollinger_upper_curve.setData(df_wti_graph['BBUpper'])
+                    plot1_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'])
+                    plot1_bollinger_lower_curve.setData(df_wti_graph['BBLower'])
                 else:
                     plot1_bollinger_upper_curve.clear()
                     plot1_bollinger_middle_curve.clear()
@@ -33799,16 +33799,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot1_mama:
 
-                    plot1_mama_curve.setData(df_wti_graph['MAMA'].tolist())
-                    plot1_fama_curve.setData(df_wti_graph['A_FAMA'].tolist())
+                    plot1_mama_curve.setData(df_wti_graph['MAMA'])
+                    plot1_fama_curve.setData(df_wti_graph['A_FAMA'])
                 else:
                     plot1_mama_curve.clear()
                     plot1_fama_curve.clear()
 
                 if flag_checkBox_plot1_oe:
 
-                    plot1_oe_conv_curve.setData(df_wti_graph['OE_CONV'].tolist())
-                    plot1_oe_base_curve.setData(df_wti_graph['OE_BASE'].tolist())
+                    plot1_oe_conv_curve.setData(df_wti_graph['OE_CONV'])
+                    plot1_oe_base_curve.setData(df_wti_graph['OE_BASE'])
                 else:
                     plot1_oe_conv_curve.clear()
                     plot1_oe_base_curve.clear()
@@ -33835,13 +33835,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_28.setStyleSheet('background-color: red ; color: white')
                 self.label_28.setText(str)
 
-                plot2_call_volume_curve.setData(df_call_total_graph['volume'].tolist())
-                plot2_put_volume_curve.setData(df_put_total_graph['volume'].tolist())
+                plot2_call_volume_curve.setData(df_call_total_graph['volume'])
+                plot2_put_volume_curve.setData(df_put_total_graph['volume'])
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    plot2_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot2_fut_volume_plus_curve.setData(df_futures_graph['volume'])
                 else:
-                    plot2_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot2_fut_volume_minus_curve.setData(df_futures_graph['volume'])
 
             elif comboindex2 == 1 and market_service:
 
@@ -33853,8 +33853,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_28.setStyleSheet('background-color: red ; color: white')
                 self.label_28.setText(str)
 
-                plot2_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'].tolist())
-                plot2_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'].tolist())        
+                plot2_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'])
+                plot2_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'])        
 
             elif comboindex2 == 2 and market_service:
 
@@ -33868,9 +33868,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_27.setText(str)
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    plot2_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot2_fut_volume_plus_curve.setData(df_futures_graph['volume'])
                 else:
-                    plot2_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot2_fut_volume_minus_curve.setData(df_futures_graph['volume'])
 
             elif comboindex2 == 3 and market_service:
 
@@ -33888,15 +33888,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_27.setText(str)
 
-                plot2_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].tolist())
-                plot2_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'].tolist())
+                plot2_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'])
+                plot2_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'])
 
             elif comboindex2 == 4 and market_service:
 
-                plot2_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
-                plot2_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
-                plot2_call_drate_curve.setData(df_call_total_graph['drate'].tolist())
-                plot2_put_drate_curve.setData(df_put_total_graph['drate'].tolist())
+                plot2_fut_drate_curve.setData(df_futures_graph['drate'])
+                plot2_dow_drate_curve.setData(df_dow_graph['drate'])
+                plot2_call_drate_curve.setData(df_call_total_graph['drate'])
+                plot2_put_drate_curve.setData(df_put_total_graph['drate'])
 
             elif comboindex2 == 5 and market_service:
 
@@ -33922,8 +33922,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_28.setStyleSheet('background-color: red ; color: white')
                 self.label_28.setText(str)
 
-                plot2_call_oi_curve.setData(df_call_total_graph['open_interest'].tolist())
-                plot2_put_oi_curve.setData(df_put_total_graph['open_interest'].tolist())
+                plot2_call_oi_curve.setData(df_call_total_graph['open_interest'])
+                plot2_put_oi_curve.setData(df_put_total_graph['open_interest'])
 
             elif comboindex2 == 6 and market_service:
 
@@ -33974,7 +33974,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_call)):
 
                         if index == selected_call[i]:
-                            plot2_call_curve[i].setData(df_call_graph[index]['price'].tolist())
+                            plot2_call_curve[i].setData(df_call_graph[index]['price'])
                         else:
                             pass                    
 
@@ -33982,7 +33982,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_put)):
 
                         if index == selected_put[i]:
-                            plot2_put_curve[i].setData(df_put_graph[index]['price'].tolist())
+                            plot2_put_curve[i].setData(df_put_graph[index]['price'])
                         else:
                             pass
                 '''
@@ -33990,7 +33990,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 for i in range(len(selected_call)):
 
                     if selected_call[i]:
-                        plot2_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].tolist())
+                        plot2_call_curve[i].setData(df_call_graph[selected_call[i]]['price'])
                     else:
                         pass                    
 
@@ -33998,7 +33998,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 for i in range(len(selected_put)):
 
                     if selected_put[i]:
-                        plot2_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].tolist())
+                        plot2_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
                     else:
                         pass
 
@@ -34007,7 +34007,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot2_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_UPPER)
 
                 # 중심가 그리기
-                plot2_center_val_curve.setData(df_call_total_graph['centerval'].tolist())
+                plot2_center_val_curve.setData(df_call_total_graph['centerval'])
 
                 # 등가표시
                 str = ' 등가: {0} '.format(atm_str)
@@ -34141,13 +34141,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_28.setStyleSheet('background-color: pink ; color: red')
                 self.label_28.setText(str) 
 
-                plot2_sp500_curve.setData(df_sp500_graph['price'].tolist())
+                plot2_sp500_curve.setData(df_sp500_graph['price'])
 
                 if flag_checkBox_plot2_bband:
 
-                    plot2_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].tolist())
-                    plot2_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].tolist())
-                    plot2_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].tolist())
+                    plot2_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'])
+                    plot2_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'])
+                    plot2_bollinger_lower_curve.setData(df_sp500_graph['BBLower'])
                 else:
                     plot2_bollinger_upper_curve.clear()
                     plot2_bollinger_middle_curve.clear()
@@ -34155,16 +34155,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot2_mama:
 
-                    plot2_mama_curve.setData(df_sp500_graph['MAMA'].tolist())
-                    plot2_fama_curve.setData(df_sp500_graph['A_FAMA'].tolist())
+                    plot2_mama_curve.setData(df_sp500_graph['MAMA'])
+                    plot2_fama_curve.setData(df_sp500_graph['A_FAMA'])
                 else:
                     plot2_mama_curve.clear()
                     plot2_fama_curve.clear()
 
                 if flag_checkBox_plot2_oe:
 
-                    plot2_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].tolist())
-                    plot2_oe_base_curve.setData(df_sp500_graph['OE_BASE'].tolist())
+                    plot2_oe_conv_curve.setData(df_sp500_graph['OE_CONV'])
+                    plot2_oe_base_curve.setData(df_sp500_graph['OE_BASE'])
                 else:
                     plot2_oe_conv_curve.clear()
                     plot2_oe_base_curve.clear() 
@@ -34274,13 +34274,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_28.setStyleSheet('background-color: pink ; color: red')
                 self.label_28.setText(str)                  
 
-                plot2_dow_curve.setData(df_dow_graph['price'].tolist())
+                plot2_dow_curve.setData(df_dow_graph['price'])
 
                 if flag_checkBox_plot2_bband:
 
-                    plot2_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].tolist())
-                    plot2_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].tolist())
-                    plot2_bollinger_lower_curve.setData(df_dow_graph['BBLower'].tolist())
+                    plot2_bollinger_upper_curve.setData(df_dow_graph['BBUpper'])
+                    plot2_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'])
+                    plot2_bollinger_lower_curve.setData(df_dow_graph['BBLower'])
                 else:
                     plot2_bollinger_upper_curve.clear()
                     plot2_bollinger_middle_curve.clear()
@@ -34288,16 +34288,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot2_mama:
 
-                    plot2_mama_curve.setData(df_dow_graph['MAMA'].tolist())
-                    plot2_fama_curve.setData(df_dow_graph['A_FAMA'].tolist())
+                    plot2_mama_curve.setData(df_dow_graph['MAMA'])
+                    plot2_fama_curve.setData(df_dow_graph['A_FAMA'])
                 else:
                     plot2_mama_curve.clear()
                     plot2_fama_curve.clear()
 
                 if flag_checkBox_plot2_oe:
 
-                    plot2_oe_conv_curve.setData(df_dow_graph['OE_CONV'].tolist())
-                    plot2_oe_base_curve.setData(df_dow_graph['OE_BASE'].tolist())
+                    plot2_oe_conv_curve.setData(df_dow_graph['OE_CONV'])
+                    plot2_oe_base_curve.setData(df_dow_graph['OE_BASE'])
                 else:
                     plot2_oe_conv_curve.clear()
                     plot2_oe_base_curve.clear()    
@@ -34407,13 +34407,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_28.setStyleSheet('background-color: pink ; color: red')
                 self.label_28.setText(str)    
 
-                plot2_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
+                plot2_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
                 if flag_checkBox_plot2_bband:
 
-                    plot2_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].tolist())
-                    plot2_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].tolist())
-                    plot2_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].tolist())
+                    plot2_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'])
+                    plot2_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'])
+                    plot2_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'])
                 else:
                     plot2_bollinger_upper_curve.clear()
                     plot2_bollinger_middle_curve.clear()
@@ -34421,16 +34421,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot2_mama:
 
-                    plot2_mama_curve.setData(df_nasdaq_graph['MAMA'].tolist())
-                    plot2_fama_curve.setData(df_nasdaq_graph['A_FAMA'].tolist())
+                    plot2_mama_curve.setData(df_nasdaq_graph['MAMA'])
+                    plot2_fama_curve.setData(df_nasdaq_graph['A_FAMA'])
                 else:
                     plot2_mama_curve.clear()
                     plot2_fama_curve.clear()
 
                 if flag_checkBox_plot2_oe:
 
-                    plot2_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].tolist())
-                    plot2_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].tolist())
+                    plot2_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'])
+                    plot2_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'])
                 else:
                     plot2_oe_conv_curve.clear()
                     plot2_oe_base_curve.clear() 
@@ -34539,13 +34539,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_28.setStyleSheet('background-color: pink ; color: red')
                 self.label_28.setText(str)    
 
-                plot2_wti_curve.setData(df_wti_graph['price'].tolist())
+                plot2_wti_curve.setData(df_wti_graph['price'])
 
                 if flag_checkBox_plot2_bband:
 
-                    plot2_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].tolist())
-                    plot2_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].tolist())
-                    plot2_bollinger_lower_curve.setData(df_wti_graph['BBLower'].tolist())
+                    plot2_bollinger_upper_curve.setData(df_wti_graph['BBUpper'])
+                    plot2_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'])
+                    plot2_bollinger_lower_curve.setData(df_wti_graph['BBLower'])
                 else:
                     plot2_bollinger_upper_curve.clear()
                     plot2_bollinger_middle_curve.clear()
@@ -34553,16 +34553,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot2_mama:
 
-                    plot2_mama_curve.setData(df_wti_graph['MAMA'].tolist())
-                    plot2_fama_curve.setData(df_wti_graph['A_FAMA'].tolist())
+                    plot2_mama_curve.setData(df_wti_graph['MAMA'])
+                    plot2_fama_curve.setData(df_wti_graph['A_FAMA'])
                 else:
                     plot2_mama_curve.clear()
                     plot2_fama_curve.clear()
 
                 if flag_checkBox_plot2_oe:
 
-                    plot2_oe_conv_curve.setData(df_wti_graph['OE_CONV'].tolist())
-                    plot2_oe_base_curve.setData(df_wti_graph['OE_BASE'].tolist())
+                    plot2_oe_conv_curve.setData(df_wti_graph['OE_CONV'])
+                    plot2_oe_base_curve.setData(df_wti_graph['OE_BASE'])
                 else:
                     plot2_oe_conv_curve.clear()
                     plot2_oe_base_curve.clear()  
@@ -34589,13 +34589,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_38.setStyleSheet('background-color: red ; color: white')
                 self.label_38.setText(str)
 
-                plot3_call_volume_curve.setData(df_call_total_graph['volume'].tolist())
-                plot3_put_volume_curve.setData(df_put_total_graph['volume'].tolist())
+                plot3_call_volume_curve.setData(df_call_total_graph['volume'])
+                plot3_put_volume_curve.setData(df_put_total_graph['volume'])
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    plot3_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot3_fut_volume_plus_curve.setData(df_futures_graph['volume'])
                 else:
-                    plot3_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot3_fut_volume_minus_curve.setData(df_futures_graph['volume'])
 
             elif comboindex3 == 1 and market_service:
 
@@ -34607,8 +34607,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_38.setStyleSheet('background-color: red ; color: white')
                 self.label_38.setText(str)
 
-                plot3_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'].tolist())
-                plot3_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'].tolist())        
+                plot3_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'])
+                plot3_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'])        
 
             elif comboindex3 == 2 and market_service:
 
@@ -34622,9 +34622,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_37.setText(str)
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    plot3_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot3_fut_volume_plus_curve.setData(df_futures_graph['volume'])
                 else:
-                    plot3_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot3_fut_volume_minus_curve.setData(df_futures_graph['volume'])
 
             elif comboindex3 == 3 and market_service:
 
@@ -34642,15 +34642,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_37.setText(str)
 
-                plot3_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].tolist())
-                plot3_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'].tolist())
+                plot3_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'])
+                plot3_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'])
 
             elif comboindex3 == 4 and market_service:
 
-                plot3_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
-                plot3_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
-                plot3_call_drate_curve.setData(df_call_total_graph['drate'].tolist())
-                plot3_put_drate_curve.setData(df_put_total_graph['drate'].tolist())
+                plot3_fut_drate_curve.setData(df_futures_graph['drate'])
+                plot3_dow_drate_curve.setData(df_dow_graph['drate'])
+                plot3_call_drate_curve.setData(df_call_total_graph['drate'])
+                plot3_put_drate_curve.setData(df_put_total_graph['drate'])
 
             elif comboindex3 == 5 and market_service:
 
@@ -34676,8 +34676,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_38.setStyleSheet('background-color: red ; color: white')
                 self.label_38.setText(str)
 
-                plot3_call_oi_curve.setData(df_call_total_graph['open_interest'].tolist())
-                plot3_put_oi_curve.setData(df_put_total_graph['open_interest'].tolist())
+                plot3_call_oi_curve.setData(df_call_total_graph['open_interest'])
+                plot3_put_oi_curve.setData(df_put_total_graph['open_interest'])
 
             elif comboindex3 == 6 and market_service:
 
@@ -34728,7 +34728,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_call)):
 
                         if index == selected_call[i]:
-                            plot3_call_curve[i].setData(df_call_graph[index]['price'].tolist())
+                            plot3_call_curve[i].setData(df_call_graph[index]['price'])
                         else:
                             pass                    
 
@@ -34736,7 +34736,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_put)):
 
                         if index == selected_put[i]:
-                            plot3_put_curve[i].setData(df_put_graph[index]['price'].tolist())
+                            plot3_put_curve[i].setData(df_put_graph[index]['price'])
                         else:
                             pass
                 '''
@@ -34744,7 +34744,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 for i in range(len(selected_call)):
 
                     if selected_call[i]:
-                        plot3_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].tolist())
+                        plot3_call_curve[i].setData(df_call_graph[selected_call[i]]['price'])
                     else:
                         pass                    
 
@@ -34752,7 +34752,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 for i in range(len(selected_put)):
 
                     if selected_put[i]:
-                        plot3_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].tolist())
+                        plot3_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
                     else:
                         pass
                         
@@ -34761,7 +34761,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot3_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_UPPER)
 
                 # 중심가 그리기
-                plot3_center_val_curve.setData(df_call_total_graph['centerval'].tolist())
+                plot3_center_val_curve.setData(df_call_total_graph['centerval'])
 
                 # 등가표시
                 str = ' 등가: {0} '.format(atm_str)
@@ -34895,13 +34895,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_38.setStyleSheet('background-color: pink ; color: red')
                 self.label_38.setText(str) 
 
-                plot3_sp500_curve.setData(df_sp500_graph['price'].tolist())
+                plot3_sp500_curve.setData(df_sp500_graph['price'])
 
                 if flag_checkBox_plot3_bband:
 
-                    plot3_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].tolist())
-                    plot3_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].tolist())
-                    plot3_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].tolist())
+                    plot3_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'])
+                    plot3_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'])
+                    plot3_bollinger_lower_curve.setData(df_sp500_graph['BBLower'])
                 else:
                     plot3_bollinger_upper_curve.clear()
                     plot3_bollinger_middle_curve.clear()
@@ -34909,16 +34909,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot3_mama:
 
-                    plot3_mama_curve.setData(df_sp500_graph['MAMA'].tolist())
-                    plot3_fama_curve.setData(df_sp500_graph['A_FAMA'].tolist())
+                    plot3_mama_curve.setData(df_sp500_graph['MAMA'])
+                    plot3_fama_curve.setData(df_sp500_graph['A_FAMA'])
                 else:
                     plot3_mama_curve.clear()
                     plot3_fama_curve.clear()
 
                 if flag_checkBox_plot3_oe:
 
-                    plot3_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].tolist())
-                    plot3_oe_base_curve.setData(df_sp500_graph['OE_BASE'].tolist())
+                    plot3_oe_conv_curve.setData(df_sp500_graph['OE_CONV'])
+                    plot3_oe_base_curve.setData(df_sp500_graph['OE_BASE'])
                 else:
                     plot3_oe_conv_curve.clear()
                     plot3_oe_base_curve.clear()  
@@ -35028,13 +35028,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_38.setStyleSheet('background-color: pink ; color: red')
                 self.label_38.setText(str)                  
 
-                plot3_dow_curve.setData(df_dow_graph['price'].tolist())
+                plot3_dow_curve.setData(df_dow_graph['price'])
 
                 if flag_checkBox_plot3_bband:
 
-                    plot3_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].tolist())
-                    plot3_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].tolist())
-                    plot3_bollinger_lower_curve.setData(df_dow_graph['BBLower'].tolist())
+                    plot3_bollinger_upper_curve.setData(df_dow_graph['BBUpper'])
+                    plot3_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'])
+                    plot3_bollinger_lower_curve.setData(df_dow_graph['BBLower'])
                 else:
                     plot3_bollinger_upper_curve.clear()
                     plot3_bollinger_middle_curve.clear()
@@ -35042,16 +35042,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot3_mama:
 
-                    plot3_mama_curve.setData(df_dow_graph['MAMA'].tolist())
-                    plot3_fama_curve.setData(df_dow_graph['A_FAMA'].tolist())
+                    plot3_mama_curve.setData(df_dow_graph['MAMA'])
+                    plot3_fama_curve.setData(df_dow_graph['A_FAMA'])
                 else:
                     plot3_mama_curve.clear()
                     plot3_fama_curve.clear()
 
                 if flag_checkBox_plot3_oe:
 
-                    plot3_oe_conv_curve.setData(df_dow_graph['OE_CONV'].tolist())
-                    plot3_oe_base_curve.setData(df_dow_graph['OE_BASE'].tolist())
+                    plot3_oe_conv_curve.setData(df_dow_graph['OE_CONV'])
+                    plot3_oe_base_curve.setData(df_dow_graph['OE_BASE'])
                 else:
                     plot3_oe_conv_curve.clear()
                     plot3_oe_base_curve.clear()    
@@ -35161,13 +35161,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_38.setStyleSheet('background-color: pink ; color: red')
                 self.label_38.setText(str)    
 
-                plot3_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
+                plot3_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
                 if flag_checkBox_plot3_bband:
 
-                    plot3_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].tolist())
-                    plot3_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].tolist())
-                    plot3_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].tolist())
+                    plot3_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'])
+                    plot3_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'])
+                    plot3_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'])
                 else:
                     plot3_bollinger_upper_curve.clear()
                     plot3_bollinger_middle_curve.clear()
@@ -35175,16 +35175,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot3_mama:
 
-                    plot3_mama_curve.setData(df_nasdaq_graph['MAMA'].tolist())
-                    plot3_fama_curve.setData(df_nasdaq_graph['A_FAMA'].tolist())
+                    plot3_mama_curve.setData(df_nasdaq_graph['MAMA'])
+                    plot3_fama_curve.setData(df_nasdaq_graph['A_FAMA'])
                 else:
                     plot3_mama_curve.clear()
                     plot3_fama_curve.clear()
 
                 if flag_checkBox_plot3_oe:
 
-                    plot3_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].tolist())
-                    plot3_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].tolist())
+                    plot3_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'])
+                    plot3_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'])
                 else:
                     plot3_oe_conv_curve.clear()
                     plot3_oe_base_curve.clear()   
@@ -35293,13 +35293,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_38.setStyleSheet('background-color: pink ; color: red')
                 self.label_38.setText(str)    
 
-                plot3_wti_curve.setData(df_wti_graph['price'].tolist())
+                plot3_wti_curve.setData(df_wti_graph['price'])
 
                 if flag_checkBox_plot3_bband:
 
-                    plot3_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].tolist())
-                    plot3_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].tolist())
-                    plot3_bollinger_lower_curve.setData(df_wti_graph['BBLower'].tolist())
+                    plot3_bollinger_upper_curve.setData(df_wti_graph['BBUpper'])
+                    plot3_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'])
+                    plot3_bollinger_lower_curve.setData(df_wti_graph['BBLower'])
                 else:
                     plot3_bollinger_upper_curve.clear()
                     plot3_bollinger_middle_curve.clear()
@@ -35307,16 +35307,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot3_mama:
 
-                    plot3_mama_curve.setData(df_wti_graph['MAMA'].tolist())
-                    plot3_fama_curve.setData(df_wti_graph['A_FAMA'].tolist())
+                    plot3_mama_curve.setData(df_wti_graph['MAMA'])
+                    plot3_fama_curve.setData(df_wti_graph['A_FAMA'])
                 else:
                     plot3_mama_curve.clear()
                     plot3_fama_curve.clear()
 
                 if flag_checkBox_plot3_oe:
 
-                    plot3_oe_conv_curve.setData(df_wti_graph['OE_CONV'].tolist())
-                    plot3_oe_base_curve.setData(df_wti_graph['OE_BASE'].tolist())
+                    plot3_oe_conv_curve.setData(df_wti_graph['OE_CONV'])
+                    plot3_oe_base_curve.setData(df_wti_graph['OE_BASE'])
                 else:
                     plot3_oe_conv_curve.clear()
                     plot3_oe_base_curve.clear()  
@@ -35336,9 +35336,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_47.setText(str)
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    plot4_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot4_fut_volume_plus_curve.setData(df_futures_graph['volume'])
                 else:
-                    plot4_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot4_fut_volume_minus_curve.setData(df_futures_graph['volume'])
 
             elif comboindex4 == 1 and market_service:
 
@@ -35358,8 +35358,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_47.setText(str)
 
-                plot4_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].tolist())
-                plot4_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'].tolist())
+                plot4_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'])
+                plot4_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'])
 
             elif comboindex4 == 2 and market_service:
 
@@ -35378,13 +35378,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_48.setStyleSheet('background-color: red ; color: white')
                 self.label_48.setText(str)                      
 
-                plot4_call_volume_curve.setData(df_call_total_graph['volume'].tolist())
-                plot4_put_volume_curve.setData(df_put_total_graph['volume'].tolist())
+                plot4_call_volume_curve.setData(df_call_total_graph['volume'])
+                plot4_put_volume_curve.setData(df_put_total_graph['volume'])
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    plot4_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot4_fut_volume_plus_curve.setData(df_futures_graph['volume'])
                 else:
-                    plot4_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot4_fut_volume_minus_curve.setData(df_futures_graph['volume'])
 
             elif comboindex4 == 3 and market_service:
 
@@ -35398,17 +35398,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_48.setStyleSheet('background-color: red ; color: white')
                 self.label_48.setText(str)
 
-                plot4_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'].tolist())
-                plot4_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'].tolist())
+                plot4_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'])
+                plot4_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'])
 
             elif comboindex4 == 4 and market_service:
 
                 str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
-                plot4_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
-                plot4_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
-                plot4_call_drate_curve.setData(df_call_total_graph['drate'].tolist())
-                plot4_put_drate_curve.setData(df_put_total_graph['drate'].tolist())
+                plot4_fut_drate_curve.setData(df_futures_graph['drate'])
+                plot4_dow_drate_curve.setData(df_dow_graph['drate'])
+                plot4_call_drate_curve.setData(df_call_total_graph['drate'])
+                plot4_put_drate_curve.setData(df_put_total_graph['drate'])
 
             elif comboindex4 == 5 and market_service:
 
@@ -35434,8 +35434,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_48.setStyleSheet('background-color: red ; color: white')
                 self.label_48.setText(str)
 
-                plot4_call_oi_curve.setData(df_call_total_graph['open_interest'].tolist())
-                plot4_put_oi_curve.setData(df_put_total_graph['open_interest'].tolist())
+                plot4_call_oi_curve.setData(df_call_total_graph['open_interest'])
+                plot4_put_oi_curve.setData(df_put_total_graph['open_interest'])
 
             elif comboindex4 == 6 and market_service:
 
@@ -35558,15 +35558,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_48.setStyleSheet('background-color: pink ; color: red')
                 self.label_48.setText(str)   
 
-                #plot4_kp200_curve.setData(df_futures_graph['kp200'].tolist())
-                plot4_kp200_curve.setData(df_kp200_graph['price'].tolist())
-                plot4_fut_price_curve.setData(df_futures_graph['price'].tolist())
+                #plot4_kp200_curve.setData(df_futures_graph['kp200'])
+                plot4_kp200_curve.setData(df_kp200_graph['price'])
+                plot4_fut_price_curve.setData(df_futures_graph['price'])
 
                 if flag_checkBox_plot4_bband:
 
-                    plot4_bollinger_upper_curve.setData(df_futures_graph['BBUpper'].tolist())
-                    plot4_bollinger_middle_curve.setData(df_futures_graph['BBMiddle'].tolist())
-                    plot4_bollinger_lower_curve.setData(df_futures_graph['BBLower'].tolist())
+                    plot4_bollinger_upper_curve.setData(df_futures_graph['BBUpper'])
+                    plot4_bollinger_middle_curve.setData(df_futures_graph['BBMiddle'])
+                    plot4_bollinger_lower_curve.setData(df_futures_graph['BBLower'])
                 else:
                     plot4_bollinger_upper_curve.clear()
                     plot4_bollinger_middle_curve.clear()
@@ -35574,16 +35574,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_mama:
 
-                    plot4_mama_curve.setData(df_futures_graph['MAMA'].tolist())
-                    plot4_fama_curve.setData(df_futures_graph['A_FAMA'].tolist())
+                    plot4_mama_curve.setData(df_futures_graph['MAMA'])
+                    plot4_fama_curve.setData(df_futures_graph['A_FAMA'])
                 else:
                     plot4_mama_curve.clear()
                     plot4_fama_curve.clear()
 
                 if flag_checkBox_plot4_oe:
 
-                    plot4_oe_conv_curve.setData(df_futures_graph['OE_CONV'].tolist())
-                    plot4_oe_base_curve.setData(df_futures_graph['OE_BASE'].tolist())
+                    plot4_oe_conv_curve.setData(df_futures_graph['OE_CONV'])
+                    plot4_oe_base_curve.setData(df_futures_graph['OE_BASE'])
                 else:
                     plot4_oe_conv_curve.clear()
                     plot4_oe_base_curve.clear()
@@ -35692,13 +35692,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_48.setStyleSheet('background-color: pink ; color: red')
                 self.label_48.setText(str)   
 
-                plot4_sp500_curve.setData(df_sp500_graph['price'].tolist())
+                plot4_sp500_curve.setData(df_sp500_graph['price'])
 
                 if flag_checkBox_plot4_bband:
 
-                    plot4_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].tolist())
-                    plot4_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].tolist())
-                    plot4_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].tolist())
+                    plot4_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'])
+                    plot4_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'])
+                    plot4_bollinger_lower_curve.setData(df_sp500_graph['BBLower'])
                 else:
                     plot4_bollinger_upper_curve.clear()
                     plot4_bollinger_middle_curve.clear()
@@ -35706,16 +35706,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_mama:
 
-                    plot4_mama_curve.setData(df_sp500_graph['MAMA'].tolist())
-                    plot4_fama_curve.setData(df_sp500_graph['A_FAMA'].tolist())
+                    plot4_mama_curve.setData(df_sp500_graph['MAMA'])
+                    plot4_fama_curve.setData(df_sp500_graph['A_FAMA'])
                 else:
                     plot4_mama_curve.clear()
                     plot4_fama_curve.clear()
 
                 if flag_checkBox_plot4_oe:
 
-                    plot4_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].tolist())
-                    plot4_oe_base_curve.setData(df_sp500_graph['OE_BASE'].tolist())
+                    plot4_oe_conv_curve.setData(df_sp500_graph['OE_CONV'])
+                    plot4_oe_base_curve.setData(df_sp500_graph['OE_BASE'])
                 else:
                     plot4_oe_conv_curve.clear()
                     plot4_oe_base_curve.clear()
@@ -35820,13 +35820,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_48.setStyleSheet('background-color: pink ; color: red')
                 self.label_48.setText(str)                      
 
-                plot4_dow_curve.setData(df_dow_graph['price'].tolist())
+                plot4_dow_curve.setData(df_dow_graph['price'])
 
                 if flag_checkBox_plot4_bband:
 
-                    plot4_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].tolist())
-                    plot4_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].tolist())
-                    plot4_bollinger_lower_curve.setData(df_dow_graph['BBLower'].tolist())
+                    plot4_bollinger_upper_curve.setData(df_dow_graph['BBUpper'])
+                    plot4_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'])
+                    plot4_bollinger_lower_curve.setData(df_dow_graph['BBLower'])
                 else:
                     plot4_bollinger_upper_curve.clear()
                     plot4_bollinger_middle_curve.clear()
@@ -35834,16 +35834,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_mama:
 
-                    plot4_mama_curve.setData(df_dow_graph['MAMA'].tolist())
-                    plot4_fama_curve.setData(df_dow_graph['A_FAMA'].tolist())
+                    plot4_mama_curve.setData(df_dow_graph['MAMA'])
+                    plot4_fama_curve.setData(df_dow_graph['A_FAMA'])
                 else:
                     plot4_mama_curve.clear()
                     plot4_fama_curve.clear()
 
                 if flag_checkBox_plot4_oe:
 
-                    plot4_oe_conv_curve.setData(df_dow_graph['OE_CONV'].tolist())
-                    plot4_oe_base_curve.setData(df_dow_graph['OE_BASE'].tolist())
+                    plot4_oe_conv_curve.setData(df_dow_graph['OE_CONV'])
+                    plot4_oe_base_curve.setData(df_dow_graph['OE_BASE'])
                 else:
                     plot4_oe_conv_curve.clear()
                     plot4_oe_base_curve.clear()
@@ -35948,13 +35948,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_48.setStyleSheet('background-color: pink ; color: red')
                 self.label_48.setText(str) 
 
-                plot4_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
+                plot4_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
                 if flag_checkBox_plot4_bband:
 
-                    plot4_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].tolist())
-                    plot4_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].tolist())
-                    plot4_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].tolist())
+                    plot4_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'])
+                    plot4_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'])
+                    plot4_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'])
                 else:
                     plot4_bollinger_upper_curve.clear()
                     plot4_bollinger_middle_curve.clear()
@@ -35962,16 +35962,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_mama:
 
-                    plot4_mama_curve.setData(df_nasdaq_graph['MAMA'].tolist())
-                    plot4_fama_curve.setData(df_nasdaq_graph['A_FAMA'].tolist())
+                    plot4_mama_curve.setData(df_nasdaq_graph['MAMA'])
+                    plot4_fama_curve.setData(df_nasdaq_graph['A_FAMA'])
                 else:
                     plot4_mama_curve.clear()
                     plot4_fama_curve.clear()
 
                 if flag_checkBox_plot4_oe:
 
-                    plot4_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].tolist())
-                    plot4_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].tolist())
+                    plot4_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'])
+                    plot4_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'])
                 else:
                     plot4_oe_conv_curve.clear()
                     plot4_oe_base_curve.clear()
@@ -36075,13 +36075,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_48.setStyleSheet('background-color: pink ; color: red')
                 self.label_48.setText(str) 
 
-                plot4_wti_curve.setData(df_wti_graph['price'].tolist())
+                plot4_wti_curve.setData(df_wti_graph['price'])
 
                 if flag_checkBox_plot4_bband:
 
-                    plot4_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].tolist())
-                    plot4_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].tolist())
-                    plot4_bollinger_lower_curve.setData(df_wti_graph['BBLower'].tolist())
+                    plot4_bollinger_upper_curve.setData(df_wti_graph['BBUpper'])
+                    plot4_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'])
+                    plot4_bollinger_lower_curve.setData(df_wti_graph['BBLower'])
                 else:
                     plot4_bollinger_upper_curve.clear()
                     plot4_bollinger_middle_curve.clear()
@@ -36089,16 +36089,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot4_mama:
 
-                    plot4_mama_curve.setData(df_wti_graph['MAMA'].tolist())
-                    plot4_fama_curve.setData(df_wti_graph['A_FAMA'].tolist())
+                    plot4_mama_curve.setData(df_wti_graph['MAMA'])
+                    plot4_fama_curve.setData(df_wti_graph['A_FAMA'])
                 else:
                     plot4_mama_curve.clear()
                     plot4_fama_curve.clear()
 
                 if flag_checkBox_plot4_oe:
 
-                    plot4_oe_conv_curve.setData(df_wti_graph['OE_CONV'].tolist())
-                    plot4_oe_base_curve.setData(df_wti_graph['OE_BASE'].tolist())
+                    plot4_oe_conv_curve.setData(df_wti_graph['OE_CONV'])
+                    plot4_oe_base_curve.setData(df_wti_graph['OE_BASE'])
                 else:
                     plot4_oe_conv_curve.clear()
                     plot4_oe_base_curve.clear()
@@ -36125,13 +36125,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_58.setStyleSheet('background-color: red ; color: white')
                 self.label_58.setText(str)
 
-                plot5_call_volume_curve.setData(df_call_total_graph['volume'].tolist())
-                plot5_put_volume_curve.setData(df_put_total_graph['volume'].tolist())
+                plot5_call_volume_curve.setData(df_call_total_graph['volume'])
+                plot5_put_volume_curve.setData(df_put_total_graph['volume'])
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    plot5_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot5_fut_volume_plus_curve.setData(df_futures_graph['volume'])
                 else:
-                    plot5_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot5_fut_volume_minus_curve.setData(df_futures_graph['volume'])
 
             elif comboindex5 == 1 and market_service:
 
@@ -36143,8 +36143,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_58.setStyleSheet('background-color: red ; color: white')
                 self.label_58.setText(str)
 
-                plot5_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'].tolist())
-                plot5_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'].tolist())        
+                plot5_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'])
+                plot5_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'])        
 
             elif comboindex5 == 2 and market_service:
 
@@ -36158,9 +36158,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_57.setText(str)
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    plot5_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot5_fut_volume_plus_curve.setData(df_futures_graph['volume'])
                 else:
-                    plot5_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot5_fut_volume_minus_curve.setData(df_futures_graph['volume'])
 
             elif comboindex5 == 3 and market_service:
 
@@ -36178,15 +36178,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_57.setText(str)
 
-                plot5_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].tolist())
-                plot5_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'].tolist())
+                plot5_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'])
+                plot5_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'])
 
             elif comboindex5 == 4 and market_service:
 
-                plot5_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
-                plot5_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
-                plot5_call_drate_curve.setData(df_call_total_graph['drate'].tolist())
-                plot5_put_drate_curve.setData(df_put_total_graph['drate'].tolist())
+                plot5_fut_drate_curve.setData(df_futures_graph['drate'])
+                plot5_dow_drate_curve.setData(df_dow_graph['drate'])
+                plot5_call_drate_curve.setData(df_call_total_graph['drate'])
+                plot5_put_drate_curve.setData(df_put_total_graph['drate'])
 
             elif comboindex5 == 5 and market_service:
 
@@ -36212,8 +36212,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_58.setStyleSheet('background-color: red ; color: white')
                 self.label_58.setText(str)
 
-                plot5_call_oi_curve.setData(df_call_total_graph['open_interest'].tolist())
-                plot5_put_oi_curve.setData(df_put_total_graph['open_interest'].tolist())
+                plot5_call_oi_curve.setData(df_call_total_graph['open_interest'])
+                plot5_put_oi_curve.setData(df_put_total_graph['open_interest'])
 
             elif comboindex5 == 6 and market_service:
 
@@ -36264,7 +36264,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_call)):
 
                         if index == selected_call[i]:
-                            plot5_call_curve[i].setData(df_call_graph[index]['price'].tolist())
+                            plot5_call_curve[i].setData(df_call_graph[index]['price'])
                         else:
                             pass                    
 
@@ -36272,7 +36272,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_put)):
 
                         if index == selected_put[i]:
-                            plot5_put_curve[i].setData(df_put_graph[index]['price'].tolist())
+                            plot5_put_curve[i].setData(df_put_graph[index]['price'])
                         else:
                             pass
                 '''
@@ -36280,7 +36280,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 for i in range(len(selected_call)):
 
                     if selected_call[i]:
-                        plot5_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].tolist())
+                        plot5_call_curve[i].setData(df_call_graph[selected_call[i]]['price'])
                     else:
                         pass                    
 
@@ -36288,7 +36288,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 for i in range(len(selected_put)):
 
                     if selected_put[i]:
-                        plot5_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].tolist())
+                        plot5_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
                     else:
                         pass
                         
@@ -36297,7 +36297,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot5_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_UPPER)
 
                 # 중심가 그리기
-                plot5_center_val_curve.setData(df_call_total_graph['centerval'].tolist())
+                plot5_center_val_curve.setData(df_call_total_graph['centerval'])
 
                 # 등가표시
                 str = ' 등가: {0} '.format(atm_str)
@@ -36431,13 +36431,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_58.setStyleSheet('background-color: pink ; color: red')
                 self.label_58.setText(str) 
 
-                plot5_sp500_curve.setData(df_sp500_graph['price'].tolist())
+                plot5_sp500_curve.setData(df_sp500_graph['price'])
 
                 if flag_checkBox_plot5_bband:
 
-                    plot5_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].tolist())
-                    plot5_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].tolist())
-                    plot5_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].tolist())
+                    plot5_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'])
+                    plot5_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'])
+                    plot5_bollinger_lower_curve.setData(df_sp500_graph['BBLower'])
                 else:
                     plot5_bollinger_upper_curve.clear()
                     plot5_bollinger_middle_curve.clear()
@@ -36445,16 +36445,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot5_mama:
 
-                    plot5_mama_curve.setData(df_sp500_graph['MAMA'].tolist())
-                    plot5_fama_curve.setData(df_sp500_graph['A_FAMA'].tolist())
+                    plot5_mama_curve.setData(df_sp500_graph['MAMA'])
+                    plot5_fama_curve.setData(df_sp500_graph['A_FAMA'])
                 else:
                     plot5_mama_curve.clear()
                     plot5_fama_curve.clear()
 
                 if flag_checkBox_plot5_oe:
 
-                    plot5_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].tolist())
-                    plot5_oe_base_curve.setData(df_sp500_graph['OE_BASE'].tolist())
+                    plot5_oe_conv_curve.setData(df_sp500_graph['OE_CONV'])
+                    plot5_oe_base_curve.setData(df_sp500_graph['OE_BASE'])
                 else:
                     plot5_oe_conv_curve.clear()
                     plot5_oe_base_curve.clear() 
@@ -36564,13 +36564,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_58.setStyleSheet('background-color: pink ; color: red')
                 self.label_58.setText(str)                  
 
-                plot5_dow_curve.setData(df_dow_graph['price'].tolist())
+                plot5_dow_curve.setData(df_dow_graph['price'])
 
                 if flag_checkBox_plot5_bband:
 
-                    plot5_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].tolist())
-                    plot5_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].tolist())
-                    plot5_bollinger_lower_curve.setData(df_dow_graph['BBLower'].tolist())
+                    plot5_bollinger_upper_curve.setData(df_dow_graph['BBUpper'])
+                    plot5_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'])
+                    plot5_bollinger_lower_curve.setData(df_dow_graph['BBLower'])
                 else:
                     plot5_bollinger_upper_curve.clear()
                     plot5_bollinger_middle_curve.clear()
@@ -36578,16 +36578,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot5_mama:
 
-                    plot5_mama_curve.setData(df_dow_graph['MAMA'].tolist())
-                    plot5_fama_curve.setData(df_dow_graph['A_FAMA'].tolist())
+                    plot5_mama_curve.setData(df_dow_graph['MAMA'])
+                    plot5_fama_curve.setData(df_dow_graph['A_FAMA'])
                 else:
                     plot5_mama_curve.clear()
                     plot5_fama_curve.clear()
 
                 if flag_checkBox_plot5_oe:
 
-                    plot5_oe_conv_curve.setData(df_dow_graph['OE_CONV'].tolist())
-                    plot5_oe_base_curve.setData(df_dow_graph['OE_BASE'].tolist())
+                    plot5_oe_conv_curve.setData(df_dow_graph['OE_CONV'])
+                    plot5_oe_base_curve.setData(df_dow_graph['OE_BASE'])
                 else:
                     plot5_oe_conv_curve.clear()
                     plot5_oe_base_curve.clear()   
@@ -36697,13 +36697,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_58.setStyleSheet('background-color: pink ; color: red')
                 self.label_58.setText(str)    
 
-                plot5_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
+                plot5_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
                 if flag_checkBox_plot5_bband:
 
-                    plot5_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].tolist())
-                    plot5_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].tolist())
-                    plot5_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].tolist())
+                    plot5_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'])
+                    plot5_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'])
+                    plot5_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'])
                 else:
                     plot5_bollinger_upper_curve.clear()
                     plot5_bollinger_middle_curve.clear()
@@ -36711,16 +36711,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot5_mama:
 
-                    plot5_mama_curve.setData(df_nasdaq_graph['MAMA'].tolist())
-                    plot5_fama_curve.setData(df_nasdaq_graph['A_FAMA'].tolist())
+                    plot5_mama_curve.setData(df_nasdaq_graph['MAMA'])
+                    plot5_fama_curve.setData(df_nasdaq_graph['A_FAMA'])
                 else:
                     plot5_mama_curve.clear()
                     plot5_fama_curve.clear()
 
                 if flag_checkBox_plot5_oe:
 
-                    plot5_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].tolist())
-                    plot5_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].tolist())
+                    plot5_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'])
+                    plot5_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'])
                 else:
                     plot5_oe_conv_curve.clear()
                     plot5_oe_base_curve.clear()  
@@ -36829,13 +36829,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_58.setStyleSheet('background-color: pink ; color: red')
                 self.label_58.setText(str)    
 
-                plot5_wti_curve.setData(df_wti_graph['price'].tolist())
+                plot5_wti_curve.setData(df_wti_graph['price'])
 
                 if flag_checkBox_plot5_bband:
 
-                    plot5_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].tolist())
-                    plot5_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].tolist())
-                    plot5_bollinger_lower_curve.setData(df_wti_graph['BBLower'].tolist())
+                    plot5_bollinger_upper_curve.setData(df_wti_graph['BBUpper'])
+                    plot5_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'])
+                    plot5_bollinger_lower_curve.setData(df_wti_graph['BBLower'])
                 else:
                     plot5_bollinger_upper_curve.clear()
                     plot5_bollinger_middle_curve.clear()
@@ -36843,16 +36843,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot5_mama:
 
-                    plot5_mama_curve.setData(df_wti_graph['MAMA'].tolist())
-                    plot5_fama_curve.setData(df_wti_graph['A_FAMA'].tolist())
+                    plot5_mama_curve.setData(df_wti_graph['MAMA'])
+                    plot5_fama_curve.setData(df_wti_graph['A_FAMA'])
                 else:
                     plot5_mama_curve.clear()
                     plot5_fama_curve.clear()
 
                 if flag_checkBox_plot5_oe:
 
-                    plot5_oe_conv_curve.setData(df_wti_graph['OE_CONV'].tolist())
-                    plot5_oe_base_curve.setData(df_wti_graph['OE_BASE'].tolist())
+                    plot5_oe_conv_curve.setData(df_wti_graph['OE_CONV'])
+                    plot5_oe_base_curve.setData(df_wti_graph['OE_BASE'])
                 else:
                     plot5_oe_conv_curve.clear()
                     plot5_oe_base_curve.clear() 
@@ -36879,13 +36879,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_68.setStyleSheet('background-color: red ; color: white')
                 self.label_68.setText(str)
 
-                plot6_call_volume_curve.setData(df_call_total_graph['volume'].tolist())
-                plot6_put_volume_curve.setData(df_put_total_graph['volume'].tolist())
+                plot6_call_volume_curve.setData(df_call_total_graph['volume'])
+                plot6_put_volume_curve.setData(df_put_total_graph['volume'])
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    plot6_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot6_fut_volume_plus_curve.setData(df_futures_graph['volume'])
                 else:
-                    plot6_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot6_fut_volume_minus_curve.setData(df_futures_graph['volume'])
 
             elif comboindex6 == 1 and market_service:
 
@@ -36897,8 +36897,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_68.setStyleSheet('background-color: red ; color: white')
                 self.label_68.setText(str)
 
-                plot6_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'].tolist())
-                plot6_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'].tolist())        
+                plot6_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'])
+                plot6_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'])        
 
             elif comboindex6 == 2 and market_service:
 
@@ -36912,9 +36912,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_67.setText(str)
 
                 if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    plot6_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot6_fut_volume_plus_curve.setData(df_futures_graph['volume'])
                 else:
-                    plot6_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
+                    plot6_fut_volume_minus_curve.setData(df_futures_graph['volume'])
 
             elif comboindex6 == 3 and market_service:
 
@@ -36932,15 +36932,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 self.label_67.setText(str)
 
-                plot6_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'].tolist())
-                plot6_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'].tolist())
+                plot6_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'])
+                plot6_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'])
 
             elif comboindex6 == 4 and market_service:
 
-                plot6_fut_drate_curve.setData(df_futures_graph['drate'].tolist())
-                plot6_dow_drate_curve.setData(df_dow_graph['drate'].tolist())
-                plot6_call_drate_curve.setData(df_call_total_graph['drate'].tolist())
-                plot6_put_drate_curve.setData(df_put_total_graph['drate'].tolist())
+                plot6_fut_drate_curve.setData(df_futures_graph['drate'])
+                plot6_dow_drate_curve.setData(df_dow_graph['drate'])
+                plot6_call_drate_curve.setData(df_call_total_graph['drate'])
+                plot6_put_drate_curve.setData(df_put_total_graph['drate'])
 
             elif comboindex6 == 5 and market_service:
 
@@ -36966,8 +36966,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_68.setStyleSheet('background-color: red ; color: white')
                 self.label_68.setText(str)
 
-                plot6_call_oi_curve.setData(df_call_total_graph['open_interest'].tolist())
-                plot6_put_oi_curve.setData(df_put_total_graph['open_interest'].tolist())
+                plot6_call_oi_curve.setData(df_call_total_graph['open_interest'])
+                plot6_put_oi_curve.setData(df_put_total_graph['open_interest'])
 
             elif comboindex6 == 6 and market_service:
 
@@ -37018,7 +37018,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_call)):
 
                         if index == selected_call[i]:
-                            plot6_call_curve[i].setData(df_call_graph[index]['price'].tolist())
+                            plot6_call_curve[i].setData(df_call_graph[index]['price'])
                         else:
                             pass                    
 
@@ -37026,7 +37026,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     for i in range(len(selected_put)):
 
                         if index == selected_put[i]:
-                            plot6_put_curve[i].setData(df_put_graph[index]['price'].tolist())
+                            plot6_put_curve[i].setData(df_put_graph[index]['price'])
                         else:
                             pass
                 '''
@@ -37034,7 +37034,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 for i in range(len(selected_call)):
 
                     if selected_call[i]:
-                        plot6_call_curve[i].setData(df_call_graph[selected_call[i]]['price'].tolist())
+                        plot6_call_curve[i].setData(df_call_graph[selected_call[i]]['price'])
                     else:
                         pass                    
 
@@ -37042,7 +37042,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 for i in range(len(selected_put)):
 
                     if selected_put[i]:
-                        plot6_put_curve[i].setData(df_put_graph[selected_put[i]]['price'].tolist())
+                        plot6_put_curve[i].setData(df_put_graph[selected_put[i]]['price'])
                     else:
                         pass
                         
@@ -37051,7 +37051,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot6_center_val_upper_line.setValue(CENTER_VAL + CENTERVAL_UPPER)
 
                 # 중심가 그리기
-                plot6_center_val_curve.setData(df_call_total_graph['centerval'].tolist())
+                plot6_center_val_curve.setData(df_call_total_graph['centerval'])
 
                 # 등가표시
                 str = ' 등가: {0} '.format(atm_str)
@@ -37185,13 +37185,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_68.setStyleSheet('background-color: pink ; color: red')
                 self.label_68.setText(str) 
 
-                plot6_sp500_curve.setData(df_sp500_graph['price'].tolist())
+                plot6_sp500_curve.setData(df_sp500_graph['price'])
 
                 if flag_checkBox_plot6_bband:
 
-                    plot6_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'].tolist())
-                    plot6_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'].tolist())
-                    plot6_bollinger_lower_curve.setData(df_sp500_graph['BBLower'].tolist())
+                    plot6_bollinger_upper_curve.setData(df_sp500_graph['BBUpper'])
+                    plot6_bollinger_middle_curve.setData(df_sp500_graph['BBMiddle'])
+                    plot6_bollinger_lower_curve.setData(df_sp500_graph['BBLower'])
                 else:
                     plot6_bollinger_upper_curve.clear()
                     plot6_bollinger_middle_curve.clear()
@@ -37199,16 +37199,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot6_mama:
 
-                    plot6_mama_curve.setData(df_sp500_graph['MAMA'].tolist())
-                    plot6_fama_curve.setData(df_sp500_graph['A_FAMA'].tolist())
+                    plot6_mama_curve.setData(df_sp500_graph['MAMA'])
+                    plot6_fama_curve.setData(df_sp500_graph['A_FAMA'])
                 else:
                     plot6_mama_curve.clear()
                     plot6_fama_curve.clear()
 
                 if flag_checkBox_plot6_oe:
 
-                    plot6_oe_conv_curve.setData(df_sp500_graph['OE_CONV'].tolist())
-                    plot6_oe_base_curve.setData(df_sp500_graph['OE_BASE'].tolist())
+                    plot6_oe_conv_curve.setData(df_sp500_graph['OE_CONV'])
+                    plot6_oe_base_curve.setData(df_sp500_graph['OE_BASE'])
                 else:
                     plot6_oe_conv_curve.clear()
                     plot6_oe_base_curve.clear()  
@@ -37318,13 +37318,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_68.setStyleSheet('background-color: pink ; color: red')
                 self.label_68.setText(str)                  
 
-                plot6_dow_curve.setData(df_dow_graph['price'].tolist())
+                plot6_dow_curve.setData(df_dow_graph['price'])
 
                 if flag_checkBox_plot6_bband:
 
-                    plot6_bollinger_upper_curve.setData(df_dow_graph['BBUpper'].tolist())
-                    plot6_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'].tolist())
-                    plot6_bollinger_lower_curve.setData(df_dow_graph['BBLower'].tolist())
+                    plot6_bollinger_upper_curve.setData(df_dow_graph['BBUpper'])
+                    plot6_bollinger_middle_curve.setData(df_dow_graph['BBMiddle'])
+                    plot6_bollinger_lower_curve.setData(df_dow_graph['BBLower'])
                 else:
                     plot6_bollinger_upper_curve.clear()
                     plot6_bollinger_middle_curve.clear()
@@ -37332,16 +37332,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot6_mama:
 
-                    plot6_mama_curve.setData(df_dow_graph['MAMA'].tolist())
-                    plot6_fama_curve.setData(df_dow_graph['A_FAMA'].tolist())
+                    plot6_mama_curve.setData(df_dow_graph['MAMA'])
+                    plot6_fama_curve.setData(df_dow_graph['A_FAMA'])
                 else:
                     plot6_mama_curve.clear()
                     plot6_fama_curve.clear()
 
                 if flag_checkBox_plot6_oe:
 
-                    plot6_oe_conv_curve.setData(df_dow_graph['OE_CONV'].tolist())
-                    plot6_oe_base_curve.setData(df_dow_graph['OE_BASE'].tolist())
+                    plot6_oe_conv_curve.setData(df_dow_graph['OE_CONV'])
+                    plot6_oe_base_curve.setData(df_dow_graph['OE_BASE'])
                 else:
                     plot6_oe_conv_curve.clear()
                     plot6_oe_base_curve.clear()    
@@ -37451,13 +37451,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_68.setStyleSheet('background-color: pink ; color: red')
                 self.label_68.setText(str)    
 
-                plot6_nasdaq_curve.setData(df_nasdaq_graph['price'].tolist())
+                plot6_nasdaq_curve.setData(df_nasdaq_graph['price'])
 
                 if flag_checkBox_plot6_bband:
 
-                    plot6_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'].tolist())
-                    plot6_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'].tolist())
-                    plot6_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'].tolist())
+                    plot6_bollinger_upper_curve.setData(df_nasdaq_graph['BBUpper'])
+                    plot6_bollinger_middle_curve.setData(df_nasdaq_graph['BBMiddle'])
+                    plot6_bollinger_lower_curve.setData(df_nasdaq_graph['BBLower'])
                 else:
                     plot6_bollinger_upper_curve.clear()
                     plot6_bollinger_middle_curve.clear()
@@ -37465,16 +37465,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot6_mama:
 
-                    plot6_mama_curve.setData(df_nasdaq_graph['MAMA'].tolist())
-                    plot6_fama_curve.setData(df_nasdaq_graph['A_FAMA'].tolist())
+                    plot6_mama_curve.setData(df_nasdaq_graph['MAMA'])
+                    plot6_fama_curve.setData(df_nasdaq_graph['A_FAMA'])
                 else:
                     plot6_mama_curve.clear()
                     plot6_fama_curve.clear()
 
                 if flag_checkBox_plot6_oe:
 
-                    plot6_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'].tolist())
-                    plot6_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'].tolist())
+                    plot6_oe_conv_curve.setData(df_nasdaq_graph['OE_CONV'])
+                    plot6_oe_base_curve.setData(df_nasdaq_graph['OE_BASE'])
                 else:
                     plot6_oe_conv_curve.clear()
                     plot6_oe_base_curve.clear()  
@@ -37583,13 +37583,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_68.setStyleSheet('background-color: pink ; color: red')
                 self.label_68.setText(str)    
 
-                plot6_wti_curve.setData(df_wti_graph['price'].tolist())
+                plot6_wti_curve.setData(df_wti_graph['price'])
 
                 if flag_checkBox_plot6_bband:
 
-                    plot6_bollinger_upper_curve.setData(df_wti_graph['BBUpper'].tolist())
-                    plot6_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'].tolist())
-                    plot6_bollinger_lower_curve.setData(df_wti_graph['BBLower'].tolist())
+                    plot6_bollinger_upper_curve.setData(df_wti_graph['BBUpper'])
+                    plot6_bollinger_middle_curve.setData(df_wti_graph['BBMiddle'])
+                    plot6_bollinger_lower_curve.setData(df_wti_graph['BBLower'])
                 else:
                     plot6_bollinger_upper_curve.clear()
                     plot6_bollinger_middle_curve.clear()
@@ -37597,16 +37597,16 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 if flag_checkBox_plot6_mama:
 
-                    plot6_mama_curve.setData(df_wti_graph['MAMA'].tolist())
-                    plot6_fama_curve.setData(df_wti_graph['A_FAMA'].tolist())
+                    plot6_mama_curve.setData(df_wti_graph['MAMA'])
+                    plot6_fama_curve.setData(df_wti_graph['A_FAMA'])
                 else:
                     plot6_mama_curve.clear()
                     plot6_fama_curve.clear()
 
                 if flag_checkBox_plot6_oe:
 
-                    plot6_oe_conv_curve.setData(df_wti_graph['OE_CONV'].tolist())
-                    plot6_oe_base_curve.setData(df_wti_graph['OE_BASE'].tolist())
+                    plot6_oe_conv_curve.setData(df_wti_graph['OE_CONV'])
+                    plot6_oe_base_curve.setData(df_wti_graph['OE_BASE'])
                 else:
                     plot6_oe_conv_curve.clear()
                     plot6_oe_base_curve.clear()   
