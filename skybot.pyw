@@ -6930,7 +6930,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.call_open_check()   
                                 self.call_cross_color_update()        
                                 self.call_node_color_update()
-                                self.call_coreval_color_update()                                
+                                self.call_coreval_color_update()
+
+                                self.tableWidget_call.resizeColumnsToContents()                                
 
                             elif flag_call_cross_coloring or (not self.alternate_flag and dt.minute % CROSS_COLOR_INTERVAL == 0 and dt.second == 0):
 
@@ -6957,6 +6959,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.put_cross_color_update()         
                                 self.put_node_color_update()
                                 self.put_coreval_color_update()
+
+                                self.tableWidget_put.resizeColumnsToContents()
                             else:
                                 pass
                         else:
@@ -14618,6 +14622,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem(수정미결합)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.OI.value, item)
+            self.tableWidget_call.resizeColumnsToContents(Option_column.OI.value)
         else:
             pass    
     
@@ -14700,8 +14705,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem(순매수누적체결량)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_call.setHorizontalHeaderItem(Option_column.VP.value, item)
+            self.tableWidget_call.resizeColumnsToContents(Option_column.VP.value)            
         else:
-            pass
+            pass        
         
         call_volume = df_call_volume.sum()
 
@@ -15702,6 +15708,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem(수정미결합)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.OI.value, item)
+            self.tableWidget_put.resizeColumnsToContents(Option_column.OI.value)
         else:
             pass
         
@@ -15786,8 +15793,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem(순매수누적체결량)
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_put.setHorizontalHeaderItem(Option_column.VP.value, item)
+            self.tableWidget_put.resizeColumnsToContents(Option_column.VP.value)            
         else:
-            pass        
+            pass                
 
         put_volume = df_put_volume.sum()
 
@@ -26063,37 +26071,37 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_68.setStyleSheet('background-color: pink ; color: black')
         self.label_68.setFont(QFont("Consolas", 9, QFont.Bold))
 
-        self.comboBox1.addItems(['선물체결', '선물잔량비', '옵션체결', '옵션잔량비', '등락율비', '옵션미결', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+        self.comboBox1.addItems(['선물체결', '선물잔량비', '선옵체결', '옵션잔량비', '등락율비', '옵션미결', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox1.insertSeparator(7)
         self.comboBox1.insertSeparator(15)
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
-        self.comboBox2.addItems(['옵션체결', '옵션잔량비', '선물체결', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+        self.comboBox2.addItems(['선옵체결', '옵션잔량비', '선물체결', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox2.insertSeparator(7)
         self.comboBox2.insertSeparator(15)
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
-        self.comboBox3.addItems(['옵션체결', '옵션잔량비', '선물체결', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+        self.comboBox3.addItems(['선옵체결', '옵션잔량비', '선물체결', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox3.insertSeparator(7)
         self.comboBox3.insertSeparator(15)
         self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
 
-        self.comboBox4.addItems(['선물체결', '선물잔량비', '옵션체결', '옵션잔량비', '등락율비', '옵션미결', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+        self.comboBox4.addItems(['선물체결', '선물잔량비', '선옵체결', '옵션잔량비', '등락율비', '옵션미결', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox4.insertSeparator(7)
         self.comboBox4.insertSeparator(15)
         self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged)
 
-        self.comboBox5.addItems(['옵션체결', '옵션잔량비', '선물체결', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+        self.comboBox5.addItems(['선옵체결', '옵션잔량비', '선물체결', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox5.insertSeparator(7)
         self.comboBox5.insertSeparator(15)
         self.comboBox5.currentIndexChanged.connect(self.cb5_selectionChanged)
 
-        self.comboBox6.addItems(['옵션체결', '옵션잔량비', '선물체결', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
+        self.comboBox6.addItems(['선옵체결', '옵션잔량비', '선물체결', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox6.insertSeparator(7)
         self.comboBox6.insertSeparator(15)
@@ -27592,7 +27600,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             plot1_fut_hoga_line.setValue(1.0)
 
-        # 옵션체결
+        # 선옵체결
         elif comboindex1 == 2:
 
             self.label_11.setText(" - ")
@@ -27601,7 +27609,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_14.setText(" - ")
             self.label_15.setText(" - ")
             self.label_16.setText(" 풋체결량 ")
-            self.label_17.setText(" - ")
+            self.label_17.setText(" 선물체결량 ")
             self.label_18.setText(" 콜체결량 ")
             
             self.label_p1_2.setText(" BB Middle\n PSAR ")
@@ -27613,8 +27621,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p1_4.setText(" MAMA ")
             self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
             
-            plot1_fut_volume_plus_curve.clear()
-            plot1_fut_volume_minus_curve.clear()
+            #plot1_fut_volume_plus_curve.clear()
+            #plot1_fut_volume_minus_curve.clear()
 
             plot1_call_hoga_curve.clear()
             plot1_put_hoga_curve.clear()
@@ -28416,7 +28424,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         plot2_oe_conv_curve.clear()
         plot2_oe_base_curve.clear()
 
-        # 옵션체결
+        # 선옵체결
         if comboindex2 == 0:
 
             self.label_21.setText(" - ")
@@ -28425,7 +28433,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_24.setText(" - ")
             self.label_25.setText(" - ")
             self.label_26.setText(" 풋체결량 ")
-            self.label_27.setText(" - ")
+            self.label_27.setText(" 선물체결량 ")
             self.label_28.setText(" 콜체결량 ")
             
             self.label_p2_2.setText(" BB Middle\n PSAR ")
@@ -28440,8 +28448,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_call_hoga_curve.clear()
             plot2_put_hoga_curve.clear()
 
-            plot2_fut_volume_plus_curve.clear()
-            plot2_fut_volume_minus_curve.clear()
+            #plot2_fut_volume_plus_curve.clear()
+            #plot2_fut_volume_minus_curve.clear()
 
             plot2_fut_choga_rr_curve.clear()
             plot2_fut_nhoga_rr_curve.clear()
@@ -29322,7 +29330,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         plot3_oe_conv_curve.clear()
         plot3_oe_base_curve.clear()
 
-        # 옵션체결
+        # 선옵체결
         if comboindex3 == 0:
 
             self.label_31.setText(" - ")
@@ -29331,7 +29339,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_34.setText(" - ")
             self.label_35.setText(" - ")
             self.label_36.setText(" 풋체결량 ")
-            self.label_37.setText(" - ")
+            self.label_37.setText(" 선물체결량 ")
             self.label_38.setText(" 콜체결량 ")
             
             self.label_p3_2.setText(" BB Middle\n PSAR ")
@@ -29346,8 +29354,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_call_hoga_curve.clear()
             plot3_put_hoga_curve.clear()
 
-            plot3_fut_volume_plus_curve.clear()
-            plot3_fut_volume_minus_curve.clear()
+            #plot3_fut_volume_plus_curve.clear()
+            #plot3_fut_volume_minus_curve.clear()
 
             plot3_fut_choga_rr_curve.clear()
             plot3_fut_nhoga_rr_curve.clear()
@@ -30364,7 +30372,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             
             plot4_fut_hoga_line.setValue(1.0)
 
-        # 옵션체결
+        # 선옵체결
         elif comboindex4 == 2:
 
             self.label_41.setText(" - ")
@@ -30373,7 +30381,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_44.setText(" - ")
             self.label_45.setText(" - ")
             self.label_46.setText(" 풋체결량 ")
-            self.label_47.setText(" - ")
+            self.label_47.setText(" 선물체결량 ")
             self.label_48.setText(" 콜체결량 ")
             
             self.label_p4_2.setText(" BB Middle\n PSAR ")
@@ -30385,8 +30393,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p4_4.setText(" MAMA ")
             self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
             
-            plot4_fut_volume_plus_curve.clear()
-            plot4_fut_volume_minus_curve.clear()
+            #plot4_fut_volume_plus_curve.clear()
+            #plot4_fut_volume_minus_curve.clear()
 
             plot4_call_hoga_curve.clear()
             plot4_put_hoga_curve.clear()
@@ -31188,7 +31196,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         plot5_oe_conv_curve.clear()
         plot5_oe_base_curve.clear()
 
-        # 옵션체결
+        # 선옵체결
         if comboindex5 == 0:
 
             self.label_51.setText(" - ")
@@ -31197,7 +31205,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_54.setText(" - ")
             self.label_55.setText(" - ")
             self.label_56.setText(" 풋체결량 ")
-            self.label_57.setText(" - ")
+            self.label_57.setText(" 선물체결량 ")
             self.label_58.setText(" 콜체결량 ")
             
             self.label_p5_2.setText(" BB Middle\n PSAR ")
@@ -31212,8 +31220,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_call_hoga_curve.clear()
             plot5_put_hoga_curve.clear()
 
-            plot5_fut_volume_plus_curve.clear()
-            plot5_fut_volume_minus_curve.clear()
+            #plot5_fut_volume_plus_curve.clear()
+            #plot5_fut_volume_minus_curve.clear()
 
             plot5_fut_choga_rr_curve.clear()
             plot5_fut_nhoga_rr_curve.clear()
@@ -32094,7 +32102,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         plot6_oe_conv_curve.clear()
         plot6_oe_base_curve.clear()
 
-        # 옵션체결
+        # 선옵체결
         if comboindex6 == 0:
 
             self.label_61.setText(" - ")
@@ -32103,7 +32111,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_64.setText(" - ")
             self.label_65.setText(" - ")
             self.label_66.setText(" 풋체결량 ")
-            self.label_67.setText(" - ")
+            self.label_67.setText(" 선물체결량 ")
             self.label_68.setText(" 콜체결량 ")
             
             self.label_p6_2.setText(" BB Middle\n PSAR ")
@@ -32118,8 +32126,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_call_hoga_curve.clear()
             plot6_put_hoga_curve.clear()
 
-            plot6_fut_volume_plus_curve.clear()
-            plot6_fut_volume_minus_curve.clear()
+            #plot6_fut_volume_plus_curve.clear()
+            #plot6_fut_volume_minus_curve.clear()
 
             plot6_fut_choga_rr_curve.clear()
             plot6_fut_nhoga_rr_curve.clear()
@@ -33068,6 +33076,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_16.setStyleSheet('background-color: blue ; color: white')
                 self.label_16.setText(str)
+
+                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                    self.label_17.setStyleSheet('background-color: red ; color: white')
+                else:
+                    self.label_17.setStyleSheet('background-color: blue ; color: white')
+
+                self.label_17.setText(str)
                 
                 str = " {0:.0f} ".format(df_call_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_18.setStyleSheet('background-color: red ; color: white')
@@ -33075,6 +33092,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 plot1_call_volume_curve.setData(df_call_total_graph['volume'].tolist())
                 plot1_put_volume_curve.setData(df_put_total_graph['volume'].tolist())
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                    plot1_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                else:
+                    plot1_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif comboindex1 == 3 and market_service:
                 
@@ -33797,6 +33819,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_26.setStyleSheet('background-color: blue ; color: white')
                 self.label_26.setText(str)
+
+                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                    self.label_27.setStyleSheet('background-color: red ; color: white')
+                else:
+                    self.label_27.setStyleSheet('background-color: blue ; color: white')
+
+                self.label_27.setText(str)
                 
                 str = " {0:.0f} ".format(df_call_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_28.setStyleSheet('background-color: red ; color: white')
@@ -33804,6 +33835,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 plot2_call_volume_curve.setData(df_call_total_graph['volume'].tolist())
                 plot2_put_volume_curve.setData(df_put_total_graph['volume'].tolist())
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                    plot2_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                else:
+                    plot2_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif comboindex2 == 1 and market_service:
 
@@ -34508,6 +34544,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_36.setStyleSheet('background-color: blue ; color: white')
                 self.label_36.setText(str)
+
+                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                    self.label_37.setStyleSheet('background-color: red ; color: white')
+                else:
+                    self.label_37.setStyleSheet('background-color: blue ; color: white')
+
+                self.label_37.setText(str)
                 
                 str = " {0:.0f} ".format(df_call_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_38.setStyleSheet('background-color: red ; color: white')
@@ -34515,6 +34560,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 plot3_call_volume_curve.setData(df_call_total_graph['volume'].tolist())
                 plot3_put_volume_curve.setData(df_put_total_graph['volume'].tolist())
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                    plot3_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                else:
+                    plot3_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif comboindex3 == 1 and market_service:
 
@@ -35256,6 +35306,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_46.setStyleSheet('background-color: blue ; color: white')
                 self.label_46.setText(str)
+
+                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                    self.label_47.setStyleSheet('background-color: red ; color: white')
+                else:
+                    self.label_47.setStyleSheet('background-color: blue ; color: white')
                 
                 str = " {0:.0f} ".format(df_call_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_48.setStyleSheet('background-color: red ; color: white')
@@ -35263,6 +35320,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 plot4_call_volume_curve.setData(df_call_total_graph['volume'].tolist())
                 plot4_put_volume_curve.setData(df_put_total_graph['volume'].tolist())
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                    plot4_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                else:
+                    plot4_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif comboindex4 == 3 and market_service:
 
@@ -35989,6 +36051,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_56.setStyleSheet('background-color: blue ; color: white')
                 self.label_56.setText(str)
+
+                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                    self.label_57.setStyleSheet('background-color: red ; color: white')
+                else:
+                    self.label_57.setStyleSheet('background-color: blue ; color: white')
+
+                self.label_57.setText(str)
                 
                 str = " {0:.0f} ".format(df_call_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_58.setStyleSheet('background-color: red ; color: white')
@@ -35996,6 +36067,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 plot5_call_volume_curve.setData(df_call_total_graph['volume'].tolist())
                 plot5_put_volume_curve.setData(df_put_total_graph['volume'].tolist())
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                    plot5_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                else:
+                    plot5_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif comboindex5 == 1 and market_service:
 
@@ -36700,6 +36776,15 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_66.setStyleSheet('background-color: blue ; color: white')
                 self.label_66.setText(str)
+
+                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                    self.label_67.setStyleSheet('background-color: red ; color: white')
+                else:
+                    self.label_67.setStyleSheet('background-color: blue ; color: white')
+
+                self.label_67.setText(str)
                 
                 str = " {0:.0f} ".format(df_call_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_68.setStyleSheet('background-color: red ; color: white')
@@ -36707,6 +36792,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 plot6_call_volume_curve.setData(df_call_total_graph['volume'].tolist())
                 plot6_put_volume_curve.setData(df_put_total_graph['volume'].tolist())
+
+                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
+                    plot6_fut_volume_plus_curve.setData(df_futures_graph['volume'].tolist())
+                else:
+                    plot6_fut_volume_minus_curve.setData(df_futures_graph['volume'].tolist())
 
             elif comboindex6 == 1 and market_service:
 
