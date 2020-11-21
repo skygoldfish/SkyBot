@@ -32648,22 +32648,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             # Plot1 그래프 그리기
             if comboindex1 == 0 and market_service:
 
-                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
-
-                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    self.label_17.setStyleSheet('background-color: red ; color: white')
-                else:
-                    self.label_17.setStyleSheet('background-color: blue ; color: white')
-
-                self.label_17.setText(str)
-
-                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    plot1_fut_volume_plus_curve.setData(df_futures_graph['volume'])
-                else:
-                    plot1_fut_volume_minus_curve.setData(df_futures_graph['volume'])
-
-            elif comboindex1 == 1 and market_service:
-
                 str = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
                     df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
@@ -32681,7 +32665,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot1_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'])
                 plot1_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'])
 
-            elif comboindex1 == 2 and market_service:
+            elif comboindex1 == 1 and market_service:
 
                 str = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_16.setStyleSheet('background-color: blue ; color: white')
@@ -32708,7 +32692,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     plot1_fut_volume_minus_curve.setData(df_futures_graph['volume'])
 
-            elif comboindex1 == 3 and market_service:
+            elif comboindex1 == 2 and market_service:
                 
                 str = " {0:.2f}({1:.0f}/{2:.0f}) ".format(풋잔량비, df_put_total_graph.at[ovc_x_idx, 'ms_hoga'], df_put_total_graph.at[ovc_x_idx, 'md_hoga'])
                 self.label_16.setStyleSheet('background-color: blue ; color: white')
@@ -32721,14 +32705,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot1_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'])
                 plot1_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'])
 
-            elif comboindex1 == 4 and market_service:
+            elif comboindex1 == 3 and market_service:
 
                 plot1_fut_drate_curve.setData(df_futures_graph['drate'])
                 plot1_dow_drate_curve.setData(df_dow_graph['drate'])
                 plot1_call_drate_curve.setData(df_call_total_graph['drate'])
                 plot1_put_drate_curve.setData(df_put_total_graph['drate'])
 
-            elif comboindex1 == 5 and market_service:
+            elif comboindex1 == 4 and market_service:
 
                 str = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_16.setStyleSheet('background-color: blue ; color: white')
@@ -32755,7 +32739,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot1_call_oi_curve.setData(df_call_total_graph['open_interest'])
                 plot1_put_oi_curve.setData(df_put_total_graph['open_interest'])
 
-            elif comboindex1 == 6 and market_service:
+            elif comboindex1 == 5 and market_service:
 
                 if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -32906,11 +32890,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot1_oe_conv_curve.clear()
                     plot1_oe_base_curve.clear()
 
-            elif comboindex1 == 7:
+            elif comboindex1 == 6:
 
                 pass
 
-            elif comboindex1 == 8:
+            elif comboindex1 == 7:
 
                 if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] == df_sp500_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -33038,7 +33022,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot1_oe_conv_curve.clear()
                     plot1_oe_base_curve.clear()
 
-            elif comboindex1 == 9:
+            elif comboindex1 == 8:
 
                 if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] == df_dow_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -33166,7 +33150,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot1_oe_conv_curve.clear()
                     plot1_oe_base_curve.clear()
 
-            elif comboindex1 == 10:
+            elif comboindex1 == 9:
 
                 if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] == df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -33294,7 +33278,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot1_oe_conv_curve.clear()
                     plot1_oe_base_curve.clear()
 
-            elif comboindex1 == 11:
+            elif comboindex1 == 10:
 
                 if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] == df_wti_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -33466,22 +33450,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex2 == 2 and market_service:
 
-                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
-
-                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    self.label_27.setStyleSheet('background-color: red ; color: white')
-                else:
-                    self.label_27.setStyleSheet('background-color: blue ; color: white')
-
-                self.label_27.setText(str)
-
-                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    plot2_fut_volume_plus_curve.setData(df_futures_graph['volume'])
-                else:
-                    plot2_fut_volume_minus_curve.setData(df_futures_graph['volume'])
-
-            elif comboindex2 == 3 and market_service:
-
                 str = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
                     df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
@@ -33499,14 +33467,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot2_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'])
                 plot2_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'])
 
-            elif comboindex2 == 4 and market_service:
+            elif comboindex2 == 3 and market_service:
 
                 plot2_fut_drate_curve.setData(df_futures_graph['drate'])
                 plot2_dow_drate_curve.setData(df_dow_graph['drate'])
                 plot2_call_drate_curve.setData(df_call_total_graph['drate'])
                 plot2_put_drate_curve.setData(df_put_total_graph['drate'])
 
-            elif comboindex2 == 5 and market_service:
+            elif comboindex2 == 4 and market_service:
 
                 str = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_26.setStyleSheet('background-color: blue ; color: white')
@@ -33533,7 +33501,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot2_call_oi_curve.setData(df_call_total_graph['open_interest'])
                 plot2_put_oi_curve.setData(df_put_total_graph['open_interest'])
 
-            elif comboindex2 == 6 and market_service:
+            elif comboindex2 == 5 and market_service:
 
                 if selected_opt_list != old_selected_opt_list:
 
@@ -33639,11 +33607,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
                 self.label_28.setText(str)
 
-            elif comboindex2 == 7:
+            elif comboindex2 == 6:
 
                 pass
 
-            elif comboindex2 == 8:
+            elif comboindex2 == 7:
 
                 if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] == df_sp500_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -33777,7 +33745,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot2_oe_conv_curve.clear()
                     plot2_oe_base_curve.clear() 
 
-            elif comboindex2 == 9:
+            elif comboindex2 == 8:
 
                 if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] == df_dow_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -33910,7 +33878,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot2_oe_conv_curve.clear()
                     plot2_oe_base_curve.clear()    
 
-            elif comboindex2 == 10:
+            elif comboindex2 == 9:
 
                 if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] == df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -34043,7 +34011,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot2_oe_conv_curve.clear()
                     plot2_oe_base_curve.clear() 
 
-            elif comboindex2 == 11:
+            elif comboindex2 == 10:
 
                 if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] == df_wti_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -34216,25 +34184,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 self.label_38.setText(str)
 
                 plot3_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'])
-                plot3_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'])        
+                plot3_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'])            
 
             elif comboindex3 == 2 and market_service:
-
-                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
-
-                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    self.label_37.setStyleSheet('background-color: red ; color: white')
-                else:
-                    self.label_37.setStyleSheet('background-color: blue ; color: white')
-
-                self.label_37.setText(str)
-
-                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    plot3_fut_volume_plus_curve.setData(df_futures_graph['volume'])
-                else:
-                    plot3_fut_volume_minus_curve.setData(df_futures_graph['volume'])
-
-            elif comboindex3 == 3 and market_service:
 
                 str = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
@@ -34253,14 +34205,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot3_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'])
                 plot3_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'])
 
-            elif comboindex3 == 4 and market_service:
+            elif comboindex3 == 3 and market_service:
 
                 plot3_fut_drate_curve.setData(df_futures_graph['drate'])
                 plot3_dow_drate_curve.setData(df_dow_graph['drate'])
                 plot3_call_drate_curve.setData(df_call_total_graph['drate'])
                 plot3_put_drate_curve.setData(df_put_total_graph['drate'])
 
-            elif comboindex3 == 5 and market_service:
+            elif comboindex3 == 4 and market_service:
 
                 str = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_36.setStyleSheet('background-color: blue ; color: white')
@@ -34287,7 +34239,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot3_call_oi_curve.setData(df_call_total_graph['open_interest'])
                 plot3_put_oi_curve.setData(df_put_total_graph['open_interest'])
 
-            elif comboindex3 == 6 and market_service:
+            elif comboindex3 == 5 and market_service:
 
                 if selected_opt_list != old_selected_opt_list:
 
@@ -34393,11 +34345,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
                 self.label_38.setText(str)
 
-            elif comboindex3 == 7:
+            elif comboindex3 == 6:
 
                 pass
 
-            elif comboindex3 == 8:
+            elif comboindex3 == 7:
 
                 if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] == df_sp500_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -34531,7 +34483,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot3_oe_conv_curve.clear()
                     plot3_oe_base_curve.clear()  
 
-            elif comboindex3 == 9:
+            elif comboindex3 == 8:
 
                 if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] == df_dow_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -34664,7 +34616,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot3_oe_conv_curve.clear()
                     plot3_oe_base_curve.clear()    
 
-            elif comboindex3 == 10:
+            elif comboindex3 == 9:
 
                 if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] == df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -34797,7 +34749,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot3_oe_conv_curve.clear()
                     plot3_oe_base_curve.clear()   
 
-            elif comboindex3 == 11:
+            elif comboindex3 == 10:
 
                 if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] == df_wti_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -34936,22 +34888,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                 str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
-                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    self.label_47.setStyleSheet('background-color: red ; color: white')
-                else:
-                    self.label_47.setStyleSheet('background-color: blue ; color: white')
-
-                self.label_47.setText(str)
-
-                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    plot4_fut_volume_plus_curve.setData(df_futures_graph['volume'])
-                else:
-                    plot4_fut_volume_minus_curve.setData(df_futures_graph['volume'])
-
-            elif comboindex4 == 1 and market_service:
-
-                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
-
                 str = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
                     df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
@@ -34969,7 +34905,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot4_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'])
                 plot4_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'])
 
-            elif comboindex4 == 2 and market_service:
+            elif comboindex4 == 1 and market_service:
 
                 str = " {0:.0f} ".format(df_put_total_graph.at[ovc_x_idx, 'volume'])
                 self.label_46.setStyleSheet('background-color: blue ; color: white')
@@ -34994,7 +34930,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 else:
                     plot4_fut_volume_minus_curve.setData(df_futures_graph['volume'])
 
-            elif comboindex4 == 3 and market_service:
+            elif comboindex4 == 2 and market_service:
 
                 str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
@@ -35009,7 +34945,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot4_call_hoga_curve.setData(df_call_total_graph['hoga_remainder_ratio'])
                 plot4_put_hoga_curve.setData(df_put_total_graph['hoga_remainder_ratio'])
 
-            elif comboindex4 == 4 and market_service:
+            elif comboindex4 == 3 and market_service:
 
                 str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
 
@@ -35018,7 +34954,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot4_call_drate_curve.setData(df_call_total_graph['drate'])
                 plot4_put_drate_curve.setData(df_put_total_graph['drate'])
 
-            elif comboindex4 == 5 and market_service:
+            elif comboindex4 == 4 and market_service:
 
                 str = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_46.setStyleSheet('background-color: blue ; color: white')
@@ -35045,7 +34981,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot4_call_oi_curve.setData(df_call_total_graph['open_interest'])
                 plot4_put_oi_curve.setData(df_put_total_graph['open_interest'])
 
-            elif comboindex4 == 6 and market_service:
+            elif comboindex4 == 5 and market_service:
 
                 if df_futures_graph.at[ovc_x_idx, 'BBMiddle'] == df_futures_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -35196,11 +35132,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot4_oe_conv_curve.clear()
                     plot4_oe_base_curve.clear()
 
-            elif comboindex4 == 7:
+            elif comboindex4 == 6:
 
                 pass
 
-            elif comboindex4 == 8:
+            elif comboindex4 == 7:
 
                 if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] == df_sp500_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -35328,7 +35264,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot4_oe_conv_curve.clear()
                     plot4_oe_base_curve.clear()
 
-            elif comboindex4 == 9:
+            elif comboindex4 == 8:
 
                 if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] == df_dow_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -35456,7 +35392,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot4_oe_conv_curve.clear()
                     plot4_oe_base_curve.clear()
 
-            elif comboindex4 == 10:
+            elif comboindex4 == 9:
 
                 if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] == df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -35584,7 +35520,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot4_oe_conv_curve.clear()
                     plot4_oe_base_curve.clear()
 
-            elif comboindex4 == 11:
+            elif comboindex4 == 10:
 
                 if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] == df_wti_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -35756,22 +35692,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex5 == 2 and market_service:
 
-                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
-
-                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    self.label_57.setStyleSheet('background-color: red ; color: white')
-                else:
-                    self.label_57.setStyleSheet('background-color: blue ; color: white')
-
-                self.label_57.setText(str)
-
-                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    plot5_fut_volume_plus_curve.setData(df_futures_graph['volume'])
-                else:
-                    plot5_fut_volume_minus_curve.setData(df_futures_graph['volume'])
-
-            elif comboindex5 == 3 and market_service:
-
                 str = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
                     df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
@@ -35789,14 +35709,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot5_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'])
                 plot5_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'])
 
-            elif comboindex5 == 4 and market_service:
+            elif comboindex5 == 3 and market_service:
 
                 plot5_fut_drate_curve.setData(df_futures_graph['drate'])
                 plot5_dow_drate_curve.setData(df_dow_graph['drate'])
                 plot5_call_drate_curve.setData(df_call_total_graph['drate'])
                 plot5_put_drate_curve.setData(df_put_total_graph['drate'])
 
-            elif comboindex5 == 5 and market_service:
+            elif comboindex5 == 4 and market_service:
 
                 str = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_56.setStyleSheet('background-color: blue ; color: white')
@@ -35823,7 +35743,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot5_call_oi_curve.setData(df_call_total_graph['open_interest'])
                 plot5_put_oi_curve.setData(df_put_total_graph['open_interest'])
 
-            elif comboindex5 == 6 and market_service:
+            elif comboindex5 == 5 and market_service:
 
                 if selected_opt_list != old_selected_opt_list:
 
@@ -35929,11 +35849,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
                 self.label_58.setText(str)
 
-            elif comboindex5 == 7:
+            elif comboindex5 == 6:
 
                 pass
 
-            elif comboindex5 == 8:
+            elif comboindex5 == 7:
 
                 if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] == df_sp500_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -36067,7 +35987,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot5_oe_conv_curve.clear()
                     plot5_oe_base_curve.clear() 
 
-            elif comboindex5 == 9:
+            elif comboindex5 == 8:
 
                 if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] == df_dow_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -36200,7 +36120,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot5_oe_conv_curve.clear()
                     plot5_oe_base_curve.clear()   
 
-            elif comboindex5 == 10:
+            elif comboindex5 == 9:
 
                 if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] == df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -36333,7 +36253,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot5_oe_conv_curve.clear()
                     plot5_oe_base_curve.clear()  
 
-            elif comboindex5 == 11:
+            elif comboindex5 == 10:
 
                 if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] == df_wti_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -36510,22 +36430,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             elif comboindex6 == 2 and market_service:
 
-                str = " {0:.0f} ".format(df_futures_graph.at[ovc_x_idx, 'volume'])
-
-                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    self.label_67.setStyleSheet('background-color: red ; color: white')
-                else:
-                    self.label_67.setStyleSheet('background-color: blue ; color: white')
-
-                self.label_67.setText(str)
-
-                if df_futures_graph.at[ovc_x_idx, 'volume'] > 0:
-                    plot6_fut_volume_plus_curve.setData(df_futures_graph['volume'])
-                else:
-                    plot6_fut_volume_minus_curve.setData(df_futures_graph['volume'])
-
-            elif comboindex6 == 3 and market_service:
-
                 str = " 본월물: {0:.2f}({1:.0f}/{2:.0f}), 차월물: {3:.2f}({4:.0f}/{5:.0f}), {6:.2f} ".format(\
                     df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'c_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'c_md_hoga'], \
                     df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
@@ -36543,14 +36447,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot6_fut_choga_rr_curve.setData(df_futures_graph['c_hoga_remainder_ratio'])
                 plot6_fut_nhoga_rr_curve.setData(df_futures_graph['n_hoga_remainder_ratio'])
 
-            elif comboindex6 == 4 and market_service:
+            elif comboindex6 == 3 and market_service:
 
                 plot6_fut_drate_curve.setData(df_futures_graph['drate'])
                 plot6_dow_drate_curve.setData(df_dow_graph['drate'])
                 plot6_call_drate_curve.setData(df_call_total_graph['drate'])
                 plot6_put_drate_curve.setData(df_put_total_graph['drate'])
 
-            elif comboindex6 == 5 and market_service:
+            elif comboindex6 == 4 and market_service:
 
                 str = " {0:.2f}({1:.2f}) ".format(df_put_total_graph.at[ovc_x_idx, 'open_interest'], put_oi_init_percent)
                 self.label_66.setStyleSheet('background-color: blue ; color: white')
@@ -36577,7 +36481,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot6_call_oi_curve.setData(df_call_total_graph['open_interest'])
                 plot6_put_oi_curve.setData(df_put_total_graph['open_interest'])
 
-            elif comboindex6 == 6 and market_service:
+            elif comboindex6 == 5 and market_service:
 
                 if selected_opt_list != old_selected_opt_list:
 
@@ -36683,11 +36587,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 str = ' {0:.2f}({1:.2f}, {2:.2f}%) '.format(call_atm_value, df_call.at[atm_index, '대비'], (call_atm_value / df_call.at[atm_index, '시가'] - 1) * 100)
                 self.label_68.setText(str)
 
-            elif comboindex6 == 7:
+            elif comboindex6 == 6:
 
                 pass
 
-            elif comboindex6 == 8:
+            elif comboindex6 == 7:
 
                 if df_sp500_graph.at[ovc_x_idx, 'BBMiddle'] == df_sp500_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -36821,7 +36725,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot6_oe_conv_curve.clear()
                     plot6_oe_base_curve.clear()  
 
-            elif comboindex6 == 9:
+            elif comboindex6 == 8:
 
                 if df_dow_graph.at[ovc_x_idx, 'BBMiddle'] == df_dow_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -36954,7 +36858,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot6_oe_conv_curve.clear()
                     plot6_oe_base_curve.clear()    
 
-            elif comboindex6 == 10:
+            elif comboindex6 == 9:
 
                 if df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle'] == df_nasdaq_graph.at[ovc_x_idx, 'BBMiddle']:
 
@@ -37087,7 +36991,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     plot6_oe_conv_curve.clear()
                     plot6_oe_base_curve.clear()  
 
-            elif comboindex6 == 11:
+            elif comboindex6 == 10:
 
                 if df_wti_graph.at[ovc_x_idx, 'BBMiddle'] == df_wti_graph.at[ovc_x_idx, 'BBMiddle']:
 
