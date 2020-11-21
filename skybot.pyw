@@ -6728,7 +6728,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global flag_offline, receive_real_ovc            
 
             global call_plot_data, put_plot_data, centerval_plot_data
-            global selected_call, selected_put, selected_opt_list
+            global selected_call, selected_put, selected_opt_list, old_selected_opt_list
             global SP500_당일종가, DOW_당일종가, NASDAQ_당일종가, WTI_당일종가, EUROFX_당일종가, HANGSENG_당일종가, GOLD_당일종가 
             global drate_scale_factor
             global flag_logfile
@@ -6807,7 +6807,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 if not self.alternate_flag and not flag_checkBox_HS:
 
-                    # 선택된 콜, 풋 검사
+                    # 선택된 콜, 풋 검사, 약 3ms 정도 시간이 소요됨
                     old_selected_opt_list = copy.deepcopy(selected_opt_list)
 
                     call_idx = []
@@ -6815,7 +6815,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     selected_call = []
                     selected_put = []
                     selected_opt_list = []
-
+                    '''
                     for i in range(option_pairs_count):
 
                         if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
@@ -6829,42 +6829,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             selected_opt_list.append(opt_actval[i])
                         else:
                             pass
+                    '''
+                    for i in range(call_scroll_begin_position, call_scroll_end_position):
 
+                        if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
+                            call_idx.append(i)
+                            selected_opt_list.append(opt_actval[i])
+                        else:
+                            pass
+
+                    for i in range(put_scroll_begin_position, put_scroll_end_position):
+
+                        if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
+                            put_idx.append(i)
+                            selected_opt_list.append(opt_actval[i])
+                        else:
+                            pass                    
+                    
                     selected_call = call_idx                    
                     selected_put = put_idx
 
                     # 마지막 행사가 추가해야 쓰레드 정상동작함(?)
                     selected_opt_list.append(opt_actval[option_pairs_count-1])
                 else:
-                    pass                
-                
-                # 전체 행사가 검색 및 저장 --> plot chart에서 직접 df_call_graph, df_put_graph 데이타 접근토록 수정
-                '''
-                for actval, infos in data.items():
-
-                    index = opt_actval.index(actval)
-
-                    # 옵션그래프 초기화 및 옵션데이타 가져오기
-                    
-                    # 선택된 콜그래프 저장
-                    for i in range(len(selected_call)):
-
-                        if index == selected_call[i]:
-
-                            call_plot_data[index] = infos[0]                            
-                        else:
-                            pass                    
-
-                    # 선택된 풋그래프 저장
-                    for i in range(len(selected_put)):
-
-                        if index == selected_put[i]:
-
-                            put_plot_data[index] = infos[1]
-                        else:
-                            pass
-                '''                
-                
+                    pass
+                                
                 if market_service and flag_option_start:                    
 
                     # 수정미결 표시
