@@ -6793,7 +6793,46 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             # Market 유형을 시간과 함께 표시
             self.market_type_display(self.alternate_flag)
+            '''
+            if not self.alternate_flag and not flag_checkBox_HS:
 
+                # 선택된 콜, 풋 검사, 약 3ms 정도 시간이 소요됨
+                old_selected_opt_list = copy.deepcopy(selected_opt_list)
+
+                call_idx = []
+                put_idx = []
+                selected_call = []
+                selected_put = []
+                selected_opt_list = []
+                
+                for i in range(call_scroll_begin_position, call_scroll_end_position):
+
+                    if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
+                        call_idx.append(i)
+                        selected_opt_list.append(opt_actval[i])
+                    else:
+                        pass
+
+                for i in range(put_scroll_begin_position, put_scroll_end_position):
+
+                    if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
+                        put_idx.append(i)
+                        selected_opt_list.append(opt_actval[i])
+                    else:
+                        pass                    
+                
+                selected_call = call_idx                    
+                selected_put = put_idx
+
+                print('selected_call =', selected_call)
+                print('selected_put =', selected_put)                
+
+                # 마지막 행사가 추가해야 쓰레드 정상동작함(?)
+                #selected_opt_list.append(opt_actval[option_pairs_count-1])
+                print('selected_opt_list =', selected_opt_list)
+            else:
+                pass
+            '''
             # 실시간 서비스                     
             if FLAG_GUEST_CONTROL and receive_real_ovc:
                 
@@ -6850,7 +6889,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     selected_put = put_idx
 
                     # 마지막 행사가 추가해야 쓰레드 정상동작함(?)
-                    selected_opt_list.append(opt_actval[option_pairs_count-1])
+                    #selected_opt_list.append(opt_actval[option_pairs_count-1])
                 else:
                     pass
                                 
@@ -18772,7 +18811,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             old_atm_index = atm_index
                         
             # update 쓰레드 시간단축 목적 !!!
-            selected_opt_list.append(opt_actval[option_pairs_count-1])
+            #selected_opt_list.append(opt_actval[option_pairs_count-1])
 
             if atm_str[-1] == '2' or atm_str[-1] == '7':
 
@@ -33491,7 +33530,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot2_put_oi_curve.setData(df_put_total_graph['open_interest'])
 
             elif comboindex2 == 5 and market_service:
-
+                '''
                 if selected_opt_list != old_selected_opt_list:
 
                     # 전체 행사가 그래프 클리어
@@ -33500,7 +33539,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         plot2_put_curve[index].clear()                    
                 else:
                     # 선택된 행사가 그래프 클리어
-                    '''
+                    
                     for index in range(option_pairs_count):
 
                         if index in selected_call:
@@ -33512,7 +33551,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                             plot2_put_curve[index].clear()
                         else:
                             pass
-                    '''
+                    
                     for i in range(len(selected_call)):
 
                         if selected_call[i]:
@@ -33532,7 +33571,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot2_mv_line[1].setValue(2.5)
                 plot2_mv_line[2].setValue(3.5)
                 plot2_mv_line[3].setValue(4.85)
-                '''
+                
                 for index in range(option_pairs_count):
 
                     # 선택된 콜그래프 그리기
@@ -33551,6 +33590,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         else:
                             pass
                 '''
+                for i in range(len(selected_call)):
+
+                    if selected_call[i]:
+                        plot2_call_curve[selected_call[i]].clear()
+                    else:
+                        pass
+
+                for i in range(len(selected_put)):
+
+                    if selected_put[i]:
+                        plot2_put_curve[selected_put[i]].clear()
+                    else:
+                        pass
+
+                plot2_center_val_curve.clear()
+
                 # 선택된 콜그래프 그리기
                 for i in range(len(selected_call)):
 
@@ -34229,7 +34284,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot3_put_oi_curve.setData(df_put_total_graph['open_interest'])
 
             elif comboindex3 == 5 and market_service:
-
+                '''
                 if selected_opt_list != old_selected_opt_list:
 
                     # 전체 행사가 그래프 클리어
@@ -34238,7 +34293,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         plot3_put_curve[index].clear()
                 else:
                     # 선택된 행사가 그래프 클리어
-                    '''
+                    
                     for index in range(option_pairs_count):
 
                         if index in selected_call:
@@ -34250,7 +34305,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                             plot3_put_curve[index].clear()
                         else:
                             pass
-                    '''
+                    
                     for i in range(len(selected_call)):
 
                         if selected_call[i]:
@@ -34270,7 +34325,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot3_mv_line[1].setValue(2.5)
                 plot3_mv_line[2].setValue(3.5)
                 plot3_mv_line[3].setValue(4.85)
-                '''
+                
                 for index in range(option_pairs_count):
 
                     # 선택된 콜그래프 그리기
@@ -34289,6 +34344,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         else:
                             pass
                 '''
+                for i in range(len(selected_call)):
+
+                    if selected_call[i]:
+                        plot3_call_curve[selected_call[i]].clear()
+                    else:
+                        pass
+
+                for i in range(len(selected_put)):
+
+                    if selected_put[i]:
+                        plot3_put_curve[selected_put[i]].clear()
+                    else:
+                        pass
+
+                plot3_center_val_curve.clear()
+
                 # 선택된 콜그래프 그리기
                 for i in range(len(selected_call)):
 
@@ -35733,7 +35804,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot5_put_oi_curve.setData(df_put_total_graph['open_interest'])
 
             elif comboindex5 == 5 and market_service:
-
+                '''
                 if selected_opt_list != old_selected_opt_list:
 
                     # 전체 행사가 그래프 클리어
@@ -35742,7 +35813,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         plot5_put_curve[index].clear()                    
                 else:
                     # 선택된 행사가 그래프 클리어
-                    '''
+                    
                     for index in range(option_pairs_count):
 
                         if index in selected_call:
@@ -35754,7 +35825,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                             plot5_put_curve[index].clear()
                         else:
                             pass
-                    '''
+                    
                     for i in range(len(selected_call)):
 
                         if selected_call[i]:
@@ -35774,7 +35845,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot5_mv_line[1].setValue(2.5)
                 plot5_mv_line[2].setValue(3.5)
                 plot5_mv_line[3].setValue(4.85)
-                '''
+                
                 for index in range(option_pairs_count):
 
                     # 선택된 콜그래프 그리기
@@ -35793,6 +35864,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         else:
                             pass
                 '''
+                for i in range(len(selected_call)):
+
+                    if selected_call[i]:
+                        plot5_call_curve[selected_call[i]].clear()
+                    else:
+                        pass
+
+                for i in range(len(selected_put)):
+
+                    if selected_put[i]:
+                        plot5_put_curve[selected_put[i]].clear()
+                    else:
+                        pass
+
+                plot5_center_val_curve.clear()
+
                 # 선택된 콜그래프 그리기
                 for i in range(len(selected_call)):
 
@@ -36471,7 +36558,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot6_put_oi_curve.setData(df_put_total_graph['open_interest'])
 
             elif comboindex6 == 5 and market_service:
-
+                '''
                 if selected_opt_list != old_selected_opt_list:
 
                     # 전체 행사가 그래프 클리어
@@ -36480,7 +36567,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         plot6_put_curve[index].clear()
                 else:
                     # 선택된 행사가 그래프 클리어
-                    '''
+                    
                     for index in range(option_pairs_count):
 
                         if index in selected_call:
@@ -36492,7 +36579,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                             plot6_put_curve[index].clear()
                         else:
                             pass
-                    '''
+                    
                     for i in range(len(selected_call)):
 
                         if selected_call[i]:
@@ -36512,7 +36599,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 plot6_mv_line[1].setValue(2.5)
                 plot6_mv_line[2].setValue(3.5)
                 plot6_mv_line[3].setValue(4.85)
-                '''
+                
                 for index in range(option_pairs_count):
 
                     # 선택된 콜그래프 그리기
@@ -36531,6 +36618,22 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                         else:
                             pass
                 '''
+                for i in range(len(selected_call)):
+
+                    if selected_call[i]:
+                        plot6_call_curve[selected_call[i]].clear()
+                    else:
+                        pass
+
+                for i in range(len(selected_put)):
+
+                    if selected_put[i]:
+                        plot6_put_curve[selected_put[i]].clear()
+                    else:
+                        pass
+
+                plot6_center_val_curve.clear()
+
                 # 선택된 콜그래프 그리기
                 for i in range(len(selected_call)):
 
