@@ -33551,20 +33551,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                             plot2_put_curve[index].clear()
                         else:
                             pass
-                    
-                    for i in range(len(selected_call)):
-
-                        if selected_call[i]:
-                            plot2_call_curve[selected_call[i]].clear()
-                        else:
-                            pass
-
-                    for i in range(len(selected_put)):
-
-                        if selected_put[i]:
-                            plot2_put_curve[selected_put[i]].clear()
-                        else:
-                            pass
 
                 plot2_center_val_curve.clear()
 
@@ -34303,20 +34289,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                         if index in selected_put:
                             plot3_put_curve[index].clear()
-                        else:
-                            pass
-                    
-                    for i in range(len(selected_call)):
-
-                        if selected_call[i]:
-                            plot3_call_curve[selected_call[i]].clear()
-                        else:
-                            pass
-
-                    for i in range(len(selected_put)):
-
-                        if selected_put[i]:
-                            plot3_put_curve[selected_put[i]].clear()
                         else:
                             pass
 
@@ -35825,20 +35797,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                             plot5_put_curve[index].clear()
                         else:
                             pass
-                    
-                    for i in range(len(selected_call)):
-
-                        if selected_call[i]:
-                            plot5_call_curve[selected_call[i]].clear()
-                        else:
-                            pass
-
-                    for i in range(len(selected_put)):
-
-                        if selected_put[i]:
-                            plot5_put_curve[selected_put[i]].clear()
-                        else:
-                            pass
 
                 plot5_center_val_curve.clear()
 
@@ -36577,20 +36535,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
                         if index in selected_put:
                             plot6_put_curve[index].clear()
-                        else:
-                            pass
-                    
-                    for i in range(len(selected_call)):
-
-                        if selected_call[i]:
-                            plot6_call_curve[selected_call[i]].clear()
-                        else:
-                            pass
-
-                    for i in range(len(selected_put)):
-
-                        if selected_put[i]:
-                            plot6_put_curve[selected_put[i]].clear()
                         else:
                             pass
 
