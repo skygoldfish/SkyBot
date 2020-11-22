@@ -6759,8 +6759,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.t8416_fut_request(cmshcode)
                 else:
                     pass
-
-                #QTest.qWait(1000)
             else:
                 pass
             
@@ -6904,7 +6902,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
 
-                        self.oi_sum_display()
+                        self.oi_total_update()
                     else:
                         pass
 
@@ -6914,11 +6912,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         # 콜 테이블 데이타 갱신
                         self.call_db_update()
-                        self.call_volume_power_display()
+                        self.call_volume_power_update()
                     else:
                         # 풋 테이블 데이타 갱신
                         self.put_db_update()
-                        self.put_volume_power_display()
+                        self.put_volume_power_update()
                     
                     #main_ui_update_time = (timeit.default_timer() - start_time) * 1000
                     
@@ -7003,12 +7001,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             pass
                         
-                        if self.alternate_flag:
-
-                            # 콜 테이블 데이타 갱신
-                            #self.call_db_update()
-                            #self.call_volume_power_display()
-                            #self.call_oi_update()                          
+                        if self.alternate_flag:                    
 
                             # 콜 저가, 고가 맥점 컬러갱신
                             if flag_call_low_update:
@@ -7048,12 +7041,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 flag_call_high_update = False
                             else:
                                 pass                                                               
-                        else:
-                            # 풋 테이블 데이타 갱신
-                            #self.put_db_update()
-                            #self.put_volume_power_display()
-                            #self.put_oi_update()                       
-                            
+                        else:                            
                             # 풋 저가, 고가 맥점 컬러갱신
                             if flag_put_low_update:
 
@@ -7164,9 +7152,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             # 증권사 서버초기화(오전 7시 10분경)전에 프로그램을 미리 오프라인으로 전환하여야 Crash 발생안함
             if NightTime:
-                
-                #시스템시간 = dt.hour * 3600 + dt.minute * 60 + dt.second
-                #보정된시간 = 시스템시간 - 시스템_서버_시간차
 
                 if 서버시간 == 6 * 3600:
 
@@ -14655,7 +14640,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass    
     
-    def call_volume_power_display(self):
+    def call_volume_power_update(self):
 
         global df_call, df_call_volume, call_volume_power, call_volume, df_call_total_graph   
         global 콜_순매수_체결량
@@ -15741,7 +15726,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
         
-    def put_volume_power_display(self):
+    def put_volume_power_update(self):
 
         global df_put, df_put_volume, put_volume_power, put_volume, df_put_total_graph
         global 풋_순매수_체결량, option_volume_power
@@ -16374,7 +16359,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass        
 
-    def oi_sum_display(self):
+    def oi_total_update(self):
         
         global 콜_수정미결합, 풋_수정미결합
         global oi_delta, old_oi_delta, 수정미결_직전대비
@@ -23841,14 +23826,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    #self.call_volume_power_display()                    
+                    #self.call_volume_power_update()                    
 
                 elif result['단축코드'][0:3] == '301':
 
                     put_result = copy.deepcopy(result)
 
                     self.put_display(result)
-                    #self.put_volume_power_display()                    
+                    #self.put_volume_power_update()                    
                 else:
                     pass
 
