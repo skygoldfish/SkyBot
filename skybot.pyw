@@ -6769,16 +6769,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.heartbeat_check()
             else:
                 pass
-            
-            if flag_checkBox_HS and self.alternate_flag and dt.second % OPTION_BOARD_UPDATE_INTERVAL == 0:
 
-                pass
+            '''
+            if flag_checkBox_HS and self.alternate_flag and dt.second % OPTION_BOARD_UPDATE_INTERVAL == 0:                
 
                 # 해외선물 옵션호가                
                 #XQ = o3126(parent=self)
                 #XQ.Query(시장구분='F',단축코드='HSIV20')
                 #self.o3126_event_loop.exec_()
-                '''
+                
                 if NightTime:
                     XQ = t2835(parent=self)
                     XQ.Query(월물=t2835_month_info)
@@ -6786,10 +6785,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     XQ = t2301(parent=self)                    
                     XQ.Query(월물=t2301_month_info, 미니구분='G')
-                    self.t2301_event_loop.exec_()
-                '''                
+                    self.t2301_event_loop.exec_()                                
             else:
                 pass
+            '''
             
             # Market 유형을 시간과 함께 표시
             self.market_type_display(self.alternate_flag)
@@ -6847,13 +6846,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if not self.alternate_flag and not flag_checkBox_HS:
 
                     # 선택된 콜, 풋 검사, 약 3ms 정도 시간이 소요됨
-                    old_selected_opt_list = copy.deepcopy(selected_opt_list)
+                    #old_selected_opt_list = copy.deepcopy(selected_opt_list)
 
-                    call_idx = []
-                    put_idx = []
+                    #call_idx = []
+                    #put_idx = []
                     selected_call = []
                     selected_put = []
-                    selected_opt_list = []
+                    #selected_opt_list = []
                     '''
                     for i in range(option_pairs_count):
 
@@ -6872,21 +6871,21 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     for i in range(call_scroll_begin_position, call_scroll_end_position):
 
                         if self.tableWidget_call.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
-                            call_idx.append(i)
-                            selected_opt_list.append(opt_actval[i])
+                            selected_call.append(i)
+                            #selected_opt_list.append(opt_actval[i])
                         else:
                             pass
 
                     for i in range(put_scroll_begin_position, put_scroll_end_position):
 
                         if self.tableWidget_put.cellWidget(i, 0).findChild(type(QCheckBox())).isChecked():
-                            put_idx.append(i)
-                            selected_opt_list.append(opt_actval[i])
+                            selected_put.append(i)
+                            #selected_opt_list.append(opt_actval[i])
                         else:
                             pass                    
                     
-                    selected_call = call_idx                    
-                    selected_put = put_idx
+                    #selected_call = call_idx                    
+                    #selected_put = put_idx
 
                     # 마지막 행사가 추가해야 쓰레드 정상동작함(?)
                     #selected_opt_list.append(opt_actval[option_pairs_count-1])
