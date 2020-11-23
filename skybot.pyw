@@ -4537,6 +4537,99 @@ class RealDataWorker(QThread):
         super().__init__()
         self.producer_queue = producer_queue
         self.consumer_queue = consumer_queue
+
+        # 초기화시 실시간데이타 요청
+        self.JIF = JIF(parent=self)
+
+        self.YJ = YJ_(parent=self)
+        self.YFC = YFC(parent=self)
+        self.YS3 = YS3(parent=self)
+        self.YOC = YOC(parent=self)        
+
+        if NightTime:
+            self.OPT_REAL = EC0(parent=self)                
+            self.OPT_HO = EH0(parent=self)
+            self.FUT_REAL = NC0(parent=self)
+            self.FUT_HO = NH0(parent=self)
+        else:
+            self.OPT_REAL = OC0(parent=self)
+            self.OPT_HO = OH0(parent=self)
+            self.FUT_REAL = FC0(parent=self)
+            self.FUT_HO = FH0(parent=self)
+
+        self.IJ = IJ_(parent=self)
+        self.S3 = S3_(parent=self)
+        self.BM = BM_(parent=self)
+        self.PM = PM_(parent=self)
+
+        self.OVC = OVC(parent=self)
+        self.OVH = OVH(parent=self)
+        self.WOC = WOC(parent=self)
+        self.MK2 = MK2(parent=self)
+
+        self.news = NWS(parent=self)
+
+        self.JIF.AdviseRealData('0')
+
+        # FUTURES/KOSPI200 예상지수 요청
+        self.YJ.AdviseRealData(FUTURES)
+        self.YJ.AdviseRealData(KOSPI200)
+
+        # 지수선물 예상체결 요청
+        self.YFC.AdviseRealData(fut_code)
+
+        # KOSPI 예상체결 요청                        
+        self.YS3.AdviseRealData(SAMSUNG)
+        self.YS3.AdviseRealData(HYUNDAI)
+        #self.YS3.AdviseRealData(Celltrion)
+
+        # 지수옵션 예상체결 요청
+        for i in range(option_pairs_count):
+            self.YOC.AdviseRealData(call_code[i])
+            self.YOC.AdviseRealData(put_code[i])
+
+        # 옵션 실시간 가격 및 호가 요청
+        for i in range(option_pairs_count):
+
+            self.OPT_REAL.AdviseRealData(call_code[i])
+            self.OPT_REAL.AdviseRealData(put_code[i])
+            self.OPT_HO.AdviseRealData(call_code[i])
+            self.OPT_HO.AdviseRealData(put_code[i])
+
+        # 선물 실시간테이타 요청
+        self.FUT_REAL.AdviseRealData(fut_code)
+        self.FUT_HO.AdviseRealData(fut_code)
+
+        # KOSPI/KOSPI200/KOSDAQ 지수요청
+        self.IJ.AdviseRealData(KOSPI)
+        self.IJ.AdviseRealData(KOSPI200)
+        self.IJ.AdviseRealData(KOSDAQ)
+
+        # SAMSUNG 체결 요청
+        self.S3.AdviseRealData(SAMSUNG)
+
+        # 업종별 투자자별 매매현황 요청
+        self.BM.AdviseRealData(FUTURES)
+        self.BM.AdviseRealData(KOSPI)
+
+        # 프로그램 매매현황 요청
+        self.PM.AdviseRealData()
+
+        # 해외선물 체결,가격 실시간 요청
+        self.OVC.AdviseRealData(종목코드=SP500)
+        self.OVC.AdviseRealData(종목코드=DOW)
+        self.OVC.AdviseRealData(종목코드=NASDAQ)
+        self.OVC.AdviseRealData(종목코드=WTI)                
+        self.OVC.AdviseRealData(종목코드=HANGSENG)
+        self.OVC.AdviseRealData(종목코드=EUROFX)
+        self.OVC.AdviseRealData(종목코드=GOLD)        
+        
+        #self.news.AdviseRealData()
+
+    # 실시간 수신 콜백함수
+    def OnReceiveRealData(self, szTrCode, result):
+        
+        self.producer_queue.put(result, False)
         
     def run(self):
         while True:
@@ -5503,11 +5596,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.t2835_event_loop = QEventLoop()
         #self.o3126_event_loop = QEventLoop()            
         
-        # 쓰레드 시작은 start(), 종료는 terminate()        
+        # 쓰레드 시작은 start(), 종료는 terminate()
+        '''        
         self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
         self.real_data_worker.trigger.connect(self.process_realdata)        
         self.real_data_worker.daemon = True
         self.real_data_worker.start()
+        '''
 
         '''
         self.t8416_callworker = t8416_Call_Worker()
@@ -5723,9 +5818,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG, EUROFX, GOLD 실시간수신을 재시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
 
-            self.OVC.AdviseRealData(종목코드=HANGSENG)
-            self.OVC.AdviseRealData(종목코드=EUROFX)
-            self.OVC.AdviseRealData(종목코드=GOLD)
+            #self.OVC.AdviseRealData(종목코드=HANGSENG)
+            #self.OVC.AdviseRealData(종목코드=EUROFX)
+            #self.OVC.AdviseRealData(종목코드=GOLD)
             
             '''
             str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 호가를 재요청합니다.\r'.format(adj_hour, adj_min, adj_sec)
@@ -5753,13 +5848,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not NightTime:
                 str = '[{0:02d}:{1:02d}:{2:02d}] S3, BM, PM을 재요청합니다.\r'.format(adj_hour, adj_min, adj_sec)
                 self.textBrowser.append(str)
-
+                '''
                 self.S3.AdviseRealData(SAMSUNG)
 
                 self.BM.AdviseRealData(FUTURES)
                 self.BM.AdviseRealData(KOSPI)
 
                 self.PM.AdviseRealData()
+                '''
             else:
                 pass
 
@@ -18075,7 +18171,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # 장운영정보 요청
-                self.JIF.AdviseRealData('0')
+                #self.JIF.AdviseRealData('0')
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 장운영 정보를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                 self.textBrowser.append(str)
@@ -18151,7 +18247,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 주간 실시간테이타 요청                
                     str = '[{0:02d}:{1:02d}:{2:02d}] 주간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
-
+                    '''
                     if pre_start:
 
                         # FUTURES/KOSPI200 예상지수 요청
@@ -18225,12 +18321,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.BM.AdviseRealData(KOSPI)
 
                     # 프로그램 매매현황 요청
-                    self.PM.AdviseRealData()                    
+                    self.PM.AdviseRealData()
+                    '''
+                    # 실시간데이타는 스레드를 통해 수신함
+                    self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
+                    self.real_data_worker.trigger.connect(self.process_realdata)        
+                    self.real_data_worker.daemon = True
+                    self.real_data_worker.start()                    
                 else:
                     # 야간 실시간테이타 요청                
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
-
+                    '''
                     self.OPT_REAL = EC0(parent=self)                
                     self.OPT_HO = EH0(parent=self)
                     self.FUT_REAL = NC0(parent=self)
@@ -18258,9 +18360,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     self.FUT_REAL.AdviseRealData(fut_code)                                   
                     self.FUT_HO.AdviseRealData(fut_code)
-
+                    '''
                     # 업종별 투자자별 매매현황 요청(야간선물 서비스중단)
                     #self.BM.AdviseRealData(CME)
+
+                    # 실시간데이타는 스레드를 통해 수신함
+                    self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
+                    self.real_data_worker.trigger.connect(self.process_realdata)        
+                    self.real_data_worker.daemon = True
+                    self.real_data_worker.start()
 
                 # t8416 요청
                 '''                
@@ -21448,6 +21556,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print(str)
 
                     # 해외선물 체결,가격 실시간 요청
+                    '''
                     self.OVC.AdviseRealData(종목코드=SP500)
                     self.OVC.AdviseRealData(종목코드=DOW)
                     self.OVC.AdviseRealData(종목코드=NASDAQ)
@@ -21455,6 +21564,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.OVC.AdviseRealData(종목코드=HANGSENG)
                     self.OVC.AdviseRealData(종목코드=EUROFX)
                     self.OVC.AdviseRealData(종목코드=GOLD)
+                    '''
 
                     # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)      
                     '''              
@@ -21854,7 +21964,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         #result['szTrCode'] = szTrCode
         #화면_선물옵션전광판.xing_realdata = result
-        self.producer_queue.put(result, False)            
+        #self.producer_queue.put(result, False)
+        pass            
 
     def RealData_Process(self, result):
 
