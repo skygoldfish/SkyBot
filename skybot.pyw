@@ -26199,37 +26199,37 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.comboBox1.addItems(['선물잔량비', '선옵체결', '옵션잔량비', '등락율비', '옵션미결', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox1.insertSeparator(6)
-        self.comboBox1.insertSeparator(15)
+        self.comboBox1.insertSeparator(14)
         self.comboBox1.currentIndexChanged.connect(self.cb1_selectionChanged)
 
         self.comboBox2.addItems(['선옵체결', '옵션잔량비', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox2.insertSeparator(6)
-        self.comboBox2.insertSeparator(15)
+        self.comboBox2.insertSeparator(14)
         self.comboBox2.currentIndexChanged.connect(self.cb2_selectionChanged)
 
         self.comboBox3.addItems(['선옵체결', '옵션잔량비', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox3.insertSeparator(6)
-        self.comboBox3.insertSeparator(15)
+        self.comboBox3.insertSeparator(14)
         self.comboBox3.currentIndexChanged.connect(self.cb3_selectionChanged)
 
         self.comboBox4.addItems(['선물잔량비', '선옵체결', '옵션잔량비', '등락율비', '옵션미결', '선물가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox4.insertSeparator(6)
-        self.comboBox4.insertSeparator(15)
+        self.comboBox4.insertSeparator(14)
         self.comboBox4.currentIndexChanged.connect(self.cb4_selectionChanged)
 
         self.comboBox5.addItems(['선옵체결', '옵션잔량비', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox5.insertSeparator(6)
-        self.comboBox5.insertSeparator(15)
+        self.comboBox5.insertSeparator(14)
         self.comboBox5.currentIndexChanged.connect(self.cb5_selectionChanged)
 
         self.comboBox6.addItems(['선옵체결', '옵션잔량비', '선물잔량비', '등락율비', '옵션미결', '옵션가격', 'SP500', 'DOW', 'NASDAQ', 'WTI Oil', 'EUROFX', '항셍', 'GOLD', \
             'Reserved'])
         self.comboBox6.insertSeparator(6)
-        self.comboBox6.insertSeparator(15)
+        self.comboBox6.insertSeparator(14)
         self.comboBox6.currentIndexChanged.connect(self.cb6_selectionChanged)             
 
         # Plot1
