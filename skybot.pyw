@@ -4569,6 +4569,7 @@ class RealDataWorker(QThread):
 
         self.news = NWS(parent=self)
 
+        # 장운영 정보 요청
         self.JIF.AdviseRealData('0')
 
         # FUTURES/KOSPI200 예상지수 요청
@@ -4599,6 +4600,13 @@ class RealDataWorker(QThread):
         # 선물 실시간테이타 요청
         self.FUT_REAL.AdviseRealData(fut_code)
         self.FUT_HO.AdviseRealData(fut_code)
+
+        if TARGET_MONTH_SELECT == 1:
+            # 차월물 호가요청
+            self.FUT_HO.AdviseRealData(cmshcode)
+            self.FUT_HO.AdviseRealData(ccmshcode)
+        else:
+            pass
 
         # KOSPI/KOSPI200/KOSDAQ 지수요청
         self.IJ.AdviseRealData(KOSPI)
@@ -5377,7 +5385,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.YJ = YJ_(parent=self)
         self.YFC = YFC(parent=self)
         self.YS3 = YS3(parent=self)
-        self.YOC = YOC(parent=self)
+        self.YOC = YOC(parent=self)        
+
+        if NightTime:
+            self.OPT_REAL = EC0(parent=self)                
+            self.OPT_HO = EH0(parent=self)
+            self.FUT_REAL = NC0(parent=self)
+            self.FUT_HO = NH0(parent=self)
+        else:
+            self.OPT_REAL = OC0(parent=self)
+            self.OPT_HO = OH0(parent=self)
+            self.FUT_REAL = FC0(parent=self)
+            self.FUT_HO = FH0(parent=self)
 
         self.IJ = IJ_(parent=self)
         self.S3 = S3_(parent=self)
@@ -5388,6 +5407,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.OVH = OVH(parent=self)
         self.WOC = WOC(parent=self)
         self.MK2 = MK2(parent=self)
+
+        self.news = NWS(parent=self)
         
         dt = datetime.datetime.now()
         
@@ -5744,11 +5765,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             str = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG, EUROFX, GOLD 실시간수신을 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
             
+            '''
             self.OVC.UnadviseRealDataWithKey(종목코드=HANGSENG)
             self.OVC.UnadviseRealDataWithKey(종목코드=EUROFX)
             self.OVC.UnadviseRealDataWithKey(종목코드=GOLD)
-
-            '''
+            
             str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 수급요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
 
@@ -5758,7 +5779,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.textBrowser.append(str)
 
             self.OVH.UnadviseRealData()
-            '''
 
             if not NightTime:
                 
@@ -5770,6 +5790,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.PM.UnadviseRealData()
             else:
                 pass
+            '''
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
@@ -22196,7 +22217,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 1분전입니다.\r'.format(adj_hour, adj_min, adj_sec)
                     self.textBrowser.append(str)
-
+                    '''
                     # FUTURES/KOSPI200 예상지수 요청취소
                     self.YJ.UnadviseRealData()
 
@@ -22220,6 +22241,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
                     self.textBrowser.append(str)
+                    '''
 
                 # 장후 동시호가 시작
                 elif result['장구분'] == '5' and result['장상태'] == '31':
@@ -22541,7 +22563,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     (int(result['예상체결시간'][4:6]) == 58 or int(result['예상체결시간'][4:6]) == 59):
 
                     # 지수옵션 예상체결 요청취소(안하면 시작시 지연발생함 ???)
-                    self.YOC.UnadviseRealData()
+                    #self.YOC.UnadviseRealData()
 
                     yoc_stop = True
 
