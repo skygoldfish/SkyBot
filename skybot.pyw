@@ -5658,7 +5658,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setForeground(QBrush(녹색))
             self.tableWidget_fut.setItem(2, 0, item)
 
-            self.RealData_Process(data)
+            self.realdata_update(data)
         else:
             pass
             
@@ -21988,7 +21988,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #self.producer_queue.put(result, False)
         pass            
 
-    def RealData_Process(self, result):
+    def realdata_update(self, result):
 
         global flag_realdata
 
