@@ -2720,6 +2720,7 @@ flag_option_pair_full = False
 
 fut_avg_noise_ratio = 1
 k_value = 0
+energy_direction = ''
 
 ########################################################################################################################
 def xing_test_func():
@@ -4528,7 +4529,7 @@ class telegram_listen_worker(QThread):
             #self.msleep(1000 * TELEGRAM_POLLING_INTERVAL)
             QTest.qWait(1000 * TELEGRAM_POLLING_INTERVAL)
 ########################################################################################################################
-
+# 실시간 데이타수신을 위한 쓰레드 클래스
 ########################################################################################################################
 class RealDataWorker(QThread):
     trigger = pyqtSignal()
@@ -4567,7 +4568,7 @@ class RealDataWorker(QThread):
         self.WOC = WOC(parent=self)
         self.MK2 = MK2(parent=self)
 
-        self.news = NWS(parent=self)
+        self.NEWS = NWS(parent=self)
 
         # 장운영 정보 요청
         self.JIF.AdviseRealData('0')
@@ -4582,20 +4583,16 @@ class RealDataWorker(QThread):
         # KOSPI 예상체결 요청                        
         self.YS3.AdviseRealData(SAMSUNG)
         self.YS3.AdviseRealData(HYUNDAI)
-        #self.YS3.AdviseRealData(Celltrion)
-
-        # 지수옵션 예상체결 요청
+        
         for i in range(option_pairs_count):
+            # 지수옵션 예상체결 요청
             self.YOC.AdviseRealData(call_code[i])
             self.YOC.AdviseRealData(put_code[i])
-
-        # 옵션 실시간 가격 및 호가 요청
-        for i in range(option_pairs_count):
-
+            # 옵션 실시간 가격 및 호가 요청
             self.OPT_REAL.AdviseRealData(call_code[i])
             self.OPT_REAL.AdviseRealData(put_code[i])
             self.OPT_HO.AdviseRealData(call_code[i])
-            self.OPT_HO.AdviseRealData(put_code[i])
+            self.OPT_HO.AdviseRealData(put_code[i])            
 
         # 선물 실시간테이타 요청
         self.FUT_REAL.AdviseRealData(fut_code)
@@ -4632,11 +4629,10 @@ class RealDataWorker(QThread):
         self.OVC.AdviseRealData(종목코드=EUROFX)
         self.OVC.AdviseRealData(종목코드=GOLD)        
         
-        #self.news.AdviseRealData()
+        #self.NEWS.AdviseRealData()
 
     # 실시간 수신 콜백함수
-    def OnReceiveRealData(self, szTrCode, result):
-        
+    def OnReceiveRealData(self, szTrCode, result):        
         self.producer_queue.put(result, False)
         
     def run(self):
@@ -13814,9 +13810,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)
 
                 self.tableWidget_fut.resizeRowToContents(1)
-                self.tableWidget_fut.resizeColumnToContents(Futures_column.현재가.value)            
+                self.tableWidget_fut.resizeColumnToContents(Futures_column.현재가.value)
             
-            if 선물_대비 > 0:
+            if energy_direction == 'call':
 
                 if NightTime:
                     self.tableWidget_fut.item(0, 0).setBackground(QBrush(적색))
@@ -13825,7 +13821,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_fut.item(1, 0).setBackground(QBrush(적색))
                     self.tableWidget_fut.item(1, 0).setForeground(QBrush(흰색))
 
-            elif 선물_대비 < 0:
+            elif energy_direction == 'put':
 
                 if NightTime:
                     self.tableWidget_fut.item(0, 0).setBackground(QBrush(청색))
@@ -22108,6 +22104,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             global receive_real_ovc, ovc_x_idx, old_ovc_x_idx
             global flag_option_start
+            global energy_direction
                         
             start_time = timeit.default_timer()
 
@@ -24260,6 +24257,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         fut_ccms_hoga_rr = result['매수호가총수량'] / result['매도호가총수량']
                     else:
                         pass
+                else:
+                    pass
+
+                # 에너지방향
+                if not NightTime:
+                    if fut_cms_hoga_rr > fut_hoga_rr:
+                        energy_direction = 'call'
+                    else:
+                        energy_direction = 'put'
                 else:
                     pass
                 
