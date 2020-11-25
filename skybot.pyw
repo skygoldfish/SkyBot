@@ -2722,6 +2722,9 @@ fut_avg_noise_ratio = 1
 k_value = 0
 energy_direction = ''
 
+main_ui_update_interval = 500
+plot_update_interval = 500
+
 ########################################################################################################################
 def xing_test_func():
     if bool(화면_선물옵션전광판.xing_realdata):
@@ -4214,7 +4217,7 @@ class screen_update_worker(QThread):
 
             self.finished.emit(str)
             #self.msleep(MAIN_UPDATE_INTERVAL)
-            QTest.qWait(MAIN_UPDATE_INTERVAL)    
+            QTest.qWait(main_ui_update_interval)    
 ########################################################################################################################
 
 ########################################################################################################################
@@ -5746,7 +5749,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def checkBox_HS_checkState(self):
 
-        global flag_checkBox_HS, flag_telegram_on 
+        global flag_checkBox_HS, flag_telegram_on
+        global main_ui_update_interval, plot_update_interval  
 
         dt = datetime.datetime.now()
         now = time.localtime()
@@ -5758,8 +5762,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             flag_checkBox_HS = True
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG, EUROFX, GOLD 실시간수신을 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            main_ui_update_interval = 1000
+            plot_update_interval = 1000
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 화면갱신주기를 0.5초 --> 1초로 늘립니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
+
+            #str = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG, EUROFX, GOLD 실시간수신을 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            #self.textBrowser.append(str)
             
             '''
             self.OVC.UnadviseRealDataWithKey(종목코드=HANGSENG)
@@ -5832,8 +5842,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             flag_checkBox_HS = False
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG, EUROFX, GOLD 실시간수신을 재시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            main_ui_update_interval = 500
+            plot_update_interval = 500
+
+            str = '[{0:02d}:{1:02d}:{2:02d}] 화면갱신주기를 1초 --> 0.5초로 줄입니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
+
+            #str = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG, EUROFX, GOLD 실시간수신을 재시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
+            #self.textBrowser.append(str)
 
             #self.OVC.AdviseRealData(종목코드=HANGSENG)
             #self.OVC.AdviseRealData(종목코드=EUROFX)
@@ -25845,7 +25861,7 @@ class bigchart_update_worker(QThread):
 
             self.finished.emit(str)
             #self.msleep(BIGCHART_UPDATE_INTERVAL)
-            QTest.qWait(BIGCHART_UPDATE_INTERVAL)
+            QTest.qWait(plot_update_interval)
 ########################################################################################################################
 # Big Chart UI Class
 ########################################################################################################################
@@ -32855,7 +32871,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
    
         self.label_time.setText(str)
 
-        if not flag_checkBox_HS and FLAG_GUEST_CONTROL and receive_real_ovc:
+        #if not flag_checkBox_HS and FLAG_GUEST_CONTROL and receive_real_ovc:
+        if FLAG_GUEST_CONTROL and receive_real_ovc:
 
             # Plot1 x축 타임라인 그리기
             plot1_time_line.setValue(ovc_x_idx)
