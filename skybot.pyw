@@ -24266,10 +24266,18 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 # 에너지방향
                 if not NightTime:
-                    if fut_cms_hoga_rr > fut_hoga_rr:
-                        energy_direction = 'call'
+                    if TARGET_MONTH_SELECT == 1:
+                        if fut_cms_hoga_rr > fut_hoga_rr:
+                            energy_direction = 'call'
+                        else:
+                            energy_direction = 'put'
+                    elif TARGET_MONTH_SELECT == 2:
+                        if fut_cms_hoga_rr > 1.0:
+                            energy_direction = 'call'
+                        else:
+                            energy_direction = 'put'
                     else:
-                        energy_direction = 'put'
+                        pass
                 else:
                     pass
                 
