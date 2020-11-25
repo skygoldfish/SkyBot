@@ -2725,6 +2725,8 @@ energy_direction = ''
 main_ui_update_interval = 500
 plot_update_interval = 500
 
+flag_produce_queue_empty = True
+
 ########################################################################################################################
 def xing_test_func():
     if bool(화면_선물옵션전광판.xing_realdata):
@@ -4639,13 +4641,17 @@ class RealDataWorker(QThread):
         self.producer_queue.put(result, False)
         
     def run(self):
+
+        global flag_produce_queue_empty
+
         while True:
             if not self.producer_queue.empty():
+                flag_produce_queue_empty = False
                 data = self.producer_queue.get(False)
                 self.consumer_queue.put(data, False)
                 self.trigger.emit()    
             else:
-                pass
+                flag_produce_queue_empty = True
 ########################################################################################################################
 # 당월물 옵션전광판 class
 ########################################################################################################################
@@ -6960,7 +6966,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             '''
             # 실시간 서비스                     
-            if FLAG_GUEST_CONTROL and receive_real_ovc:
+            if flag_produce_queue_empty and FLAG_GUEST_CONTROL and receive_real_ovc:
                 
                 # 옵션 등락율 scale factor 읽어들임
                 drate_scale_factor = float(self.tableWidget_fut.item(2, Futures_column.진폭.value).text())
@@ -32872,7 +32878,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_time.setText(str)
 
         #if not flag_checkBox_HS and FLAG_GUEST_CONTROL and receive_real_ovc:
-        if FLAG_GUEST_CONTROL and receive_real_ovc:
+        if flag_produce_queue_empty and FLAG_GUEST_CONTROL and receive_real_ovc:
 
             # Plot1 x축 타임라인 그리기
             plot1_time_line.setValue(ovc_x_idx)
