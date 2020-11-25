@@ -14263,12 +14263,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         df_call.at[index, '시가'] = 콜시가
         df_call.at[index, '현재가'] = 콜현재가
+        df_call_graph[index].at[ovc_x_idx, 'price'] = 콜현재가
+        콜대비 = 콜현재가 - 콜시가
+        df_call.at[index, '대비'] = 콜대비
+
         df_call.at[index, '저가'] = 콜저가
         df_call.at[index, '고가'] = 콜고가
-        df_call.at[index, '진폭'] = 콜고가 - 콜저가
-        df_call_graph[index].at[ovc_x_idx, 'price'] = 콜현재가
 
-        df_call.at[index, '대비'] = 콜현재가 - 콜시가
+        콜진폭 = 콜고가 - 콜저가
+        df_call.at[index, '진폭'] = 콜진폭        
         
         콜종가 = df_call.at[index, '종가']
         콜기준가 = df_call.at[index, '기준가']
@@ -14321,8 +14324,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 시가 갱신
         if 시가 != self.tableWidget_call.item(index, Option_column.시가.value).text():
 
-            #df_call.at[index, '시가'] = 콜시가
-            #df_call_price_graph.iat[GuardTime + 1, index] = 콜시가
             df_call_graph[index].at[GuardTime + 1, 'open'] = 콜시가
             df_call_graph[index].at[GuardTime + 1, 'price'] = 콜시가
             
@@ -14425,10 +14426,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 현재가 != 콜_현재가:
 
-                #df_call.at[index, '현재가'] = 콜현재가
-                #df_call_price_graph.iat[ovc_x_idx, index] = 콜현재가
-                #df_call_graph[index].at[ovc_x_idx, 'price'] = 콜현재가
-
                 if 콜현재가 < float(콜_현재가):
                     item = QTableWidgetItem(현재가 + '\n' + '▼')
                     item.setBackground(QBrush(lightskyblue))
@@ -14453,9 +14450,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_call.resizeRowToContents(index)
                 else:
                     pass
-
-                콜대비 = 콜현재가 - 콜시가
-                #df_call.at[index, '대비'] = 콜대비
 
                 if 콜시가 > 0.1:
                     call_db_percent[index] = (콜현재가 / 콜시가 - 1) * 100
@@ -14512,8 +14506,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 item = QTableWidgetItem('▼')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
-
-                #df_call.at[index, '저가'] = 콜저가
 
                 call_저가 = df_call['저가'].values.tolist()
                 call_저가_node_list = self.make_node_list(call_저가)
@@ -14575,10 +14567,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                진폭 = 콜고가 - 콜저가
-                #df_call.at[index, '진폭'] = 진폭
-
-                item = QTableWidgetItem("{0:.2f}".format(진폭))
+                item = QTableWidgetItem("{0:.2f}".format(콜진폭))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
 
@@ -14604,8 +14593,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 item = QTableWidgetItem('▲')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
-
-                #df_call.at[index, '고가'] = 콜고가
 
                 call_고가 = df_call['고가'].values.tolist()
                 call_고가_node_list = self.make_node_list(call_고가)
@@ -14650,10 +14637,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                진폭 = 콜고가 - 콜저가
-                #df_call.at[index, '진폭'] = 진폭
-
-                item = QTableWidgetItem("{0:.2f}".format(진폭))
+                item = QTableWidgetItem("{0:.2f}".format(콜진폭))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_call.setItem(index, Option_column.진폭.value, item)
 
@@ -15361,12 +15345,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         df_put.at[index, '시가'] = 풋시가
         df_put.at[index, '현재가'] = 풋현재가
+        df_put_graph[index].at[ovc_x_idx, 'price'] = 풋현재가
+        풋대비 = 풋현재가 - 풋시가
+        df_put.at[index, '대비'] = 풋대비
+
         df_put.at[index, '저가'] = 풋저가
         df_put.at[index, '고가'] = 풋고가
-        df_put.at[index, '진폭'] = 풋고가 - 풋저가
-        df_put_graph[index].at[ovc_x_idx, 'price'] = 풋현재가
 
-        df_put.at[index, '대비'] = 풋현재가 - 풋시가
+        풋진폭 = 풋고가 - 풋저가
+        df_put.at[index, '진폭'] = 풋진폭   
         
         풋종가 = df_put.at[index, '종가']
         풋기준가 = df_put.at[index, '기준가']
@@ -15419,8 +15406,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         # 시가 갱신
         if 시가 != self.tableWidget_put.item(index, Option_column.시가.value).text():
             
-            #df_put.at[index, '시가'] = 풋시가
-            #df_put_price_graph.iat[GuardTime + 1, index] = 풋시가
             df_put_graph[index].at[GuardTime + 1, 'open'] = 풋시가
             df_put_graph[index].at[GuardTime + 1, 'price'] = 풋시가
             
@@ -15523,10 +15508,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if 현재가 != 풋_현재가:
 
-                #df_put.at[index, '현재가'] = 풋현재가
-                #df_put_price_graph.iat[ovc_x_idx, index] = 풋현재가
-                #df_put_graph[index].at[ovc_x_idx, 'price'] = 풋현재가
-
                 if 풋현재가 < float(풋_현재가):
                     item = QTableWidgetItem(현재가 + '\n' + '▼')
                     item.setBackground(QBrush(lightskyblue))
@@ -15551,9 +15532,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.tableWidget_put.resizeRowToContents(index)
                 else:
                     pass
-
-                풋대비 = 풋현재가 - 풋시가
-                #df_put.at[index, '대비'] = 풋대비
 
                 if 풋시가 > 0.1:
                     put_db_percent[index] = (풋현재가 / 풋시가 - 1) * 100
@@ -15610,8 +15588,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 item = QTableWidgetItem('▼')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
-
-                #df_put.at[index, '저가'] = 풋저가
 
                 put_저가 = df_put['저가'].values.tolist()
                 put_저가_node_list = self.make_node_list(put_저가)
@@ -15673,10 +15649,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                진폭 = 풋고가 - 풋저가
-                #df_put.at[index, '진폭'] = 진폭
-
-                item = QTableWidgetItem("{0:.2f}".format(진폭))
+                item = QTableWidgetItem("{0:.2f}".format(풋진폭))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
@@ -15702,8 +15675,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 item = QTableWidgetItem('▲')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
-
-                #df_put.at[index, '고가'] = 풋고가
 
                 put_고가 = df_put['고가'].values.tolist()
                 put_고가_node_list = self.make_node_list(put_고가)
@@ -15748,10 +15719,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                진폭 = 풋고가 - 풋저가
-                #df_put.at[index, '진폭'] = 진폭
-
-                item = QTableWidgetItem("{0:.2f}".format(진폭))
+                item = QTableWidgetItem("{0:.2f}".format(풋진폭))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.tableWidget_put.setItem(index, Option_column.진폭.value, item)
 
