@@ -22555,7 +22555,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass                
 
             elif szTrCode == 'YOC':
-
+                '''
                 if int(result['예상체결시간'][0:2]) == (KSE_START_HOUR - 1) and int(result['예상체결시간'][2:4]) == 59 and \
                     (int(result['예상체결시간'][4:6]) == 58 or int(result['예상체결시간'][4:6]) == 59):
 
@@ -22569,8 +22569,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(str)
                 else:
                     pass
-
-                if not yoc_stop:
+                '''
+                #if not yoc_stop:
+                if True:
 
                     if result['단축코드'][0:3] == '201':
 
@@ -22848,12 +22849,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
                 else:
+                    pass
+                    '''
                     str = '[{0:02d}:{1:02d}:{2:02d}] Wrong [{3}] 수신... \r'.format(
                         int(result['예상체결시간'][0:2]),
                         int(result['예상체결시간'][2:4]),
                         int(result['예상체결시간'][4:6]),
                         szTrCode)
                     self.textBrowser.append(str)
+                    '''
 
             elif szTrCode == 'YFC':
 
