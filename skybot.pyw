@@ -14441,7 +14441,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if call_scroll_begin_position <= index <= call_scroll_end_position:
+        #if call_scroll_begin_position <= index <= call_scroll_end_position:
+        if True:
 
             # 현재가 갱신
             콜_현재가 = self.tableWidget_call.item(index, Option_column.현재가.value).text().split('\n')[0]
@@ -15523,7 +15524,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             pass
 
-        if put_scroll_begin_position <= index <= put_scroll_end_position:
+        #if put_scroll_begin_position <= index <= put_scroll_end_position:
+        if True:
         
             # 현재가 갱신
             풋_현재가 = self.tableWidget_put.item(index, Option_column.현재가.value).text().split('\n')[0]
