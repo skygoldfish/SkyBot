@@ -2039,8 +2039,8 @@ plot1_ovc_high_line = None
 
 plot1_fut_price_curve = None
 plot1_fut_volume_curve = None
-plot1_fut_volume_plus_curve = None
-plot1_fut_volume_minus_curve = None
+#plot1_fut_volume_plus_curve = None
+#plot1_fut_volume_minus_curve = None
 
 plot1_kp200_curve = None
 plot1_call_volume_curve = None
@@ -2116,8 +2116,8 @@ plot2_call_oi_curve = None
 plot2_put_oi_curve = None
 
 plot2_fut_volume_curve = None
-plot2_fut_volume_plus_curve = None
-plot2_fut_volume_minus_curve = None
+#plot2_fut_volume_plus_curve = None
+#plot2_fut_volume_minus_curve = None
 plot2_call_volume_curve = None
 plot2_put_volume_curve = None
 
@@ -2189,8 +2189,8 @@ plot3_call_oi_curve = None
 plot3_put_oi_curve = None
 
 plot3_fut_volume_curve = None
-plot3_fut_volume_plus_curve = None
-plot3_fut_volume_minus_curve = None
+#plot3_fut_volume_plus_curve = None
+#plot3_fut_volume_minus_curve = None
 plot3_call_volume_curve = None
 plot3_put_volume_curve = None
 
@@ -2267,8 +2267,8 @@ plot4_ovc_high_line = None
 
 plot4_fut_price_curve = None
 plot4_fut_volume_curve = None
-plot4_fut_volume_plus_curve = None
-plot4_fut_volume_minus_curve = None
+#plot4_fut_volume_plus_curve = None
+#plot4_fut_volume_minus_curve = None
 
 plot4_kp200_curve = None
 plot4_call_volume_curve = None
@@ -2344,8 +2344,8 @@ plot5_call_oi_curve = None
 plot5_put_oi_curve = None
 
 plot5_fut_volume_curve = None
-plot5_fut_volume_plus_curve = None
-plot5_fut_volume_minus_curve = None
+#plot5_fut_volume_plus_curve = None
+#plot5_fut_volume_minus_curve = None
 plot5_call_volume_curve = None
 plot5_put_volume_curve = None
 
@@ -2417,8 +2417,8 @@ plot6_call_oi_curve = None
 plot6_put_oi_curve = None
 
 plot6_fut_volume_curve = None
-plot6_fut_volume_plus_curve = None
-plot6_fut_volume_minus_curve = None
+#plot6_fut_volume_plus_curve = None
+#plot6_fut_volume_minus_curve = None
 plot6_call_volume_curve = None
 plot6_put_volume_curve = None
 
@@ -26293,7 +26293,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global plot1_fut_jl_line, plot1_fut_jh_line, plot1_fut_close_line, plot1_fut_open_line, plot1_fut_pivot_line, plot1_fut_low_line, plot1_fut_high_line    
         global plot1_ovc_jl_line, plot1_ovc_jh_line, plot1_ovc_close_line, plot1_ovc_open_line, plot1_ovc_pivot_line, plot1_ovc_low_line, plot1_ovc_high_line    
         global plot1_fut_hoga_line
-        global plot1_fut_volume_curve, plot1_fut_volume_plus_curve, plot1_fut_volume_minus_curve
+        global plot1_fut_volume_curve
         global plot1_call_hoga_curve, plot1_put_hoga_curve
         global plot1_call_volume_curve, plot1_put_volume_curve
         global plot1_fut_choga_rr_curve, plot1_fut_nhoga_rr_curve, plot1_fut_drate_curve, plot1_dow_drate_curve
@@ -26306,7 +26306,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global plot1_macd_curve, plot1_macdsig_curve, plot1_macdhist_curve, plot1_mama_curve, plot1_fama_curve, plot1_oe_conv_curve, plot1_oe_base_curve           
 
         # Plot2
-        global plot2_fut_volume_curve, plot2_fut_volume_plus_curve, plot2_fut_volume_minus_curve        
+        global plot2_fut_volume_curve
         global plot2_call_hoga_curve, plot2_put_hoga_curve        
         global plot2_call_volume_curve, plot2_put_volume_curve
         global plot2_fut_choga_rr_curve, plot2_fut_nhoga_rr_curve, plot2_fut_drate_curve, plot2_dow_drate_curve
@@ -26324,7 +26324,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global plot2_macd_curve, plot2_macdsig_curve, plot2_macdhist_curve, plot2_mama_curve, plot2_fama_curve, plot2_oe_conv_curve, plot2_oe_base_curve
 
         # Plot3
-        global plot3_fut_volume_curve, plot3_fut_volume_plus_curve, plot3_fut_volume_minus_curve        
+        global plot3_fut_volume_curve
         global plot3_call_hoga_curve, plot3_put_hoga_curve        
         global plot3_call_volume_curve, plot3_put_volume_curve
         global plot3_fut_choga_rr_curve, plot3_fut_nhoga_rr_curve, plot3_fut_drate_curve, plot3_dow_drate_curve
@@ -26346,7 +26346,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global plot4_fut_jl_line, plot4_fut_jh_line, plot4_fut_close_line, plot4_fut_open_line, plot4_fut_pivot_line, plot4_fut_low_line, plot4_fut_high_line    
         global plot4_ovc_jl_line, plot4_ovc_jh_line, plot4_ovc_close_line, plot4_ovc_open_line, plot4_ovc_pivot_line, plot4_ovc_low_line, plot4_ovc_high_line    
         global plot4_fut_hoga_line
-        global plot4_fut_volume_curve, plot4_fut_volume_plus_curve, plot4_fut_volume_minus_curve
+        global plot4_fut_volume_curve
         global plot4_call_hoga_curve, plot4_put_hoga_curve
         global plot4_call_volume_curve, plot4_put_volume_curve
         global plot4_fut_choga_rr_curve, plot4_fut_nhoga_rr_curve, plot4_fut_drate_curve, plot4_dow_drate_curve
@@ -26359,7 +26359,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global plot4_macd_curve, plot4_macdsig_curve, plot4_macdhist_curve, plot4_mama_curve, plot4_fama_curve, plot4_oe_conv_curve, plot4_oe_base_curve          
 
         # Plot5
-        global plot5_fut_volume_curve, plot5_fut_volume_plus_curve, plot5_fut_volume_minus_curve        
+        global plot5_fut_volume_curve   
         global plot5_call_hoga_curve, plot5_put_hoga_curve        
         global plot5_call_volume_curve, plot5_put_volume_curve
         global plot5_fut_choga_rr_curve, plot5_fut_nhoga_rr_curve, plot5_fut_drate_curve, plot5_dow_drate_curve
@@ -26377,7 +26377,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global plot5_macd_curve, plot5_macdsig_curve, plot5_macdhist_curve, plot5_mama_curve, plot5_fama_curve, plot5_oe_conv_curve, plot5_oe_base_curve
 
         # Plot6
-        global plot6_fut_volume_curve, plot6_fut_volume_plus_curve, plot6_fut_volume_minus_curve        
+        global plot6_fut_volume_curve
         global plot6_call_hoga_curve, plot6_put_hoga_curve        
         global plot6_call_volume_curve, plot6_put_volume_curve
         global plot6_fut_choga_rr_curve, plot6_fut_nhoga_rr_curve, plot6_fut_drate_curve, plot6_dow_drate_curve
@@ -26471,8 +26471,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         plot1_put_oi_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3) 
 
         plot1_fut_volume_curve = self.plot1.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot1_fut_volume_plus_curve = self.plot1.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        plot1_fut_volume_minus_curve = self.plot1.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
 
         plot1_call_volume_curve = self.plot1.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot1_put_volume_curve = self.plot1.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
@@ -26545,9 +26543,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         plot2_call_volume_curve = self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot2_put_volume_curve = self.plot2.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
-        plot2_fut_volume_curve = self.plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3) 
-        plot2_fut_volume_plus_curve = self.plot2.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
-        plot2_fut_volume_minus_curve = self.plot2.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        plot2_fut_volume_curve = self.plot2.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         
         for i in range(ActvalCount):
             plot2_call_curve.append(self.plot2.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
@@ -26621,9 +26617,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         plot3_call_volume_curve = self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot3_put_volume_curve = self.plot3.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
-        plot3_fut_volume_curve = self.plot3.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3) 
-        plot3_fut_volume_plus_curve = self.plot3.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
-        plot3_fut_volume_minus_curve = self.plot3.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
+        plot3_fut_volume_curve = self.plot3.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
         
         for i in range(ActvalCount):
             plot3_call_curve.append(self.plot3.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
@@ -26700,8 +26694,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         plot4_put_oi_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         plot4_fut_volume_curve = self.plot4.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot4_fut_volume_plus_curve = self.plot4.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
-        plot4_fut_volume_minus_curve = self.plot4.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3)
 
         plot4_call_volume_curve = self.plot4.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3)
         plot4_put_volume_curve = self.plot4.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
@@ -26775,8 +26767,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         plot5_put_volume_curve = self.plot5.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         plot5_fut_volume_curve = self.plot5.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot5_fut_volume_plus_curve = self.plot5.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
-        plot5_fut_volume_minus_curve = self.plot5.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
         
         for i in range(ActvalCount):
             plot5_call_curve.append(self.plot5.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
@@ -26851,8 +26841,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         plot6_put_volume_curve = self.plot6.plot(pen=bpen, symbolBrush=cyan, symbolPen='w', symbol='h', symbolSize=3)
 
         plot6_fut_volume_curve = self.plot6.plot(pen=ypen, symbolBrush=cyan, symbolPen='w', symbol='o', symbolSize=3)
-        plot6_fut_volume_plus_curve = self.plot6.plot(pen=magenta_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
-        plot6_fut_volume_minus_curve = self.plot6.plot(pen=aqua_pen1, symbolBrush='g', symbolPen='w', symbol='o', symbolSize=3) 
         
         for i in range(ActvalCount):
             plot6_call_curve.append(self.plot6.plot(pen=rpen, symbolBrush=magenta, symbolPen='w', symbol='o', symbolSize=3))
@@ -27736,6 +27724,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p1_4.setText(" MAMA ")
             self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
             
+            #plot1_fut_volume_curve.clear()
             #plot1_fut_volume_plus_curve.clear()
             #plot1_fut_volume_minus_curve.clear()
 
@@ -27744,6 +27733,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot1_fut_choga_rr_curve.clear()
             plot1_fut_nhoga_rr_curve.clear()
+
             plot1_fut_drate_curve.clear()
             plot1_dow_drate_curve.clear()
             plot1_call_drate_curve.clear()
@@ -27803,7 +27793,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
             
             plot1_fut_volume_curve.clear()
-
             #plot1_fut_volume_plus_curve.clear()
             #plot1_fut_volume_minus_curve.clear()
 
@@ -27871,7 +27860,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
 
             plot1_fut_volume_curve.clear()
-
             #plot1_fut_volume_plus_curve.clear()
             #plot1_fut_volume_minus_curve.clear()
 
@@ -27932,7 +27920,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p1_4.setStyleSheet('background-color: yellow ; color: black')
 
             plot1_fut_volume_curve.clear()
-
             #plot1_fut_volume_plus_curve.clear()
             #plot1_fut_volume_minus_curve.clear()
 
@@ -27978,15 +27965,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif comboindex1 == 5:
                         
             plot1_fut_volume_curve.clear()
-
             #plot1_fut_volume_plus_curve.clear()
             #plot1_fut_volume_minus_curve.clear()
+            
+            plot1_call_volume_curve.clear()
+            plot1_put_volume_curve.clear()
 
             plot1_call_hoga_curve.clear()
             plot1_put_hoga_curve.clear()
-
-            plot1_call_volume_curve.clear()
-            plot1_put_volume_curve.clear()
 
             plot1_fut_choga_rr_curve.clear()
             plot1_fut_nhoga_rr_curve.clear()
@@ -28099,15 +28085,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif comboindex1 == 7:
 
             plot1_fut_volume_curve.clear()
-
             #plot1_fut_volume_plus_curve.clear()
             #plot1_fut_volume_minus_curve.clear()
+            
+            plot1_call_volume_curve.clear()
+            plot1_put_volume_curve.clear()
 
             plot1_call_hoga_curve.clear()
             plot1_put_hoga_curve.clear()
-
-            plot1_call_volume_curve.clear()
-            plot1_put_volume_curve.clear()
 
             plot1_fut_choga_rr_curve.clear()
             plot1_fut_nhoga_rr_curve.clear()
@@ -28208,15 +28193,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif comboindex1 == 8:
 
             plot1_fut_volume_curve.clear()
-
             #plot1_fut_volume_plus_curve.clear()
             #plot1_fut_volume_minus_curve.clear()
+            
+            plot1_call_volume_curve.clear()
+            plot1_put_volume_curve.clear()
 
             plot1_call_hoga_curve.clear()
             plot1_put_hoga_curve.clear()
-
-            plot1_call_volume_curve.clear()
-            plot1_put_volume_curve.clear()
 
             plot1_fut_choga_rr_curve.clear()
             plot1_fut_nhoga_rr_curve.clear()
@@ -28317,15 +28301,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif comboindex1 == 9:
 
             plot1_fut_volume_curve.clear()
-
             #plot1_fut_volume_plus_curve.clear()
             #plot1_fut_volume_minus_curve.clear()
+            
+            plot1_call_volume_curve.clear()
+            plot1_put_volume_curve.clear()
 
             plot1_call_hoga_curve.clear()
             plot1_put_hoga_curve.clear()
-
-            plot1_call_volume_curve.clear()
-            plot1_put_volume_curve.clear()
 
             plot1_fut_choga_rr_curve.clear()
             plot1_fut_nhoga_rr_curve.clear()
@@ -28426,15 +28409,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         elif comboindex1 == 10:
 
             plot1_fut_volume_curve.clear()
-
             #plot1_fut_volume_plus_curve.clear()
             #plot1_fut_volume_minus_curve.clear()
+            
+            plot1_call_volume_curve.clear()
+            plot1_put_volume_curve.clear()
 
             plot1_call_hoga_curve.clear()
             plot1_put_hoga_curve.clear()
-
-            plot1_call_volume_curve.clear()
-            plot1_put_volume_curve.clear()
 
             plot1_fut_choga_rr_curve.clear()
             plot1_fut_nhoga_rr_curve.clear()
@@ -28579,6 +28561,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_call_hoga_curve.clear()
             plot2_put_hoga_curve.clear()
 
+            #plot2_fut_volume_curve.clear()
             #plot2_fut_volume_plus_curve.clear()
             #plot2_fut_volume_minus_curve.clear()
 
@@ -28640,14 +28623,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.label_p2_4.setText(" MAMA ")
             self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
+            
+            plot2_fut_volume_curve.clear()
+            #plot2_fut_volume_plus_curve.clear()
+            #plot2_fut_volume_minus_curve.clear()
                         
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
-
-            plot2_fut_volume_curve.clear()
-
-            #plot2_fut_volume_plus_curve.clear()
-            #plot2_fut_volume_minus_curve.clear()
 
             plot2_fut_choga_rr_curve.clear()
             plot2_fut_nhoga_rr_curve.clear()
@@ -28669,8 +28651,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_dow_curve.clear()
             plot2_nasdaq_curve.clear()
             plot2_wti_curve.clear()
-
-            plot2_fut_hoga_line.setValue(0)
 
             for i in range(9):
                 plot2_mv_line[i].setValue(0)
@@ -28712,6 +28692,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot2_call_hoga_curve.clear()
             plot2_put_hoga_curve.clear()
+            
+            plot2_fut_volume_curve.clear()
 
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
@@ -28724,19 +28706,23 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_call_oi_curve.clear()
             plot2_put_oi_curve.clear()
             
+            for i in range(9):
+                plot2_mv_line[i].setValue(0)
+            
             for i in range(ActvalCount):
                 plot2_call_curve[i].clear()
                 plot2_put_curve[i].clear()
 
-            plot2_center_val_curve.clear()                
+            plot2_center_val_curve.clear()
+            
+            plot2_center_val_lower_line.setValue(0)
+            plot2_center_val_line.setValue(0)
+            plot2_center_val_upper_line.setValue(0)               
 
             plot2_sp500_curve.clear()
             plot2_dow_curve.clear()
             plot2_nasdaq_curve.clear() 
             plot2_wti_curve.clear()
-
-            for i in range(9):
-                plot2_mv_line[i].setValue(0)
 
             plot2_ovc_close_line.setValue(0)
             plot2_ovc_open_line.setValue(0)
@@ -28745,10 +28731,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_ovc_pivot_line.setValue(0)
             plot2_ovc_low_line.setValue(0)
             plot2_ovc_high_line.setValue(0)
-
-            plot2_center_val_lower_line.setValue(0)
-            plot2_center_val_line.setValue(0)
-            plot2_center_val_upper_line.setValue(0)
 
             plot2_fut_hoga_line.setValue(1.0)
 
@@ -28774,18 +28756,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
 
             plot2_call_hoga_curve.clear()
-            plot2_put_hoga_curve.clear()   
+            plot2_put_hoga_curve.clear()  
+            
+            plot2_fut_volume_curve.clear()
+            #plot2_fut_volume_plus_curve.clear()
+            #plot2_fut_volume_minus_curve.clear() 
 
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
 
             plot2_fut_choga_rr_curve.clear()
             plot2_fut_nhoga_rr_curve.clear()
-
-            plot2_fut_volume_curve.clear()
-
-            #plot2_fut_volume_plus_curve.clear()
-            #plot2_fut_volume_minus_curve.clear()
             
             for i in range(ActvalCount):
                 plot2_call_curve[i].clear()
@@ -28837,7 +28818,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p2_4.setStyleSheet('background-color: yellow ; color: black')
 
             plot2_call_hoga_curve.clear()
-            plot2_put_hoga_curve.clear()   
+            plot2_put_hoga_curve.clear()
+            
+            plot2_fut_volume_curve.clear()
+            #plot2_fut_volume_plus_curve.clear()
+            #plot2_fut_volume_minus_curve.clear()   
 
             plot2_call_volume_curve.clear()
             plot2_put_volume_curve.clear()
@@ -28847,11 +28832,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot2_fut_choga_rr_curve.clear()
             plot2_fut_nhoga_rr_curve.clear()
-
-            plot2_fut_volume_curve.clear()
-
-            #plot2_fut_volume_plus_curve.clear()
-            #plot2_fut_volume_minus_curve.clear()
             
             for i in range(ActvalCount):
                 plot2_call_curve[i].clear()
@@ -28905,13 +28885,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_call_hoga_curve.clear()
             plot2_put_hoga_curve.clear()   
 
-            plot2_call_volume_curve.clear()
-            plot2_put_volume_curve.clear()
-
             plot2_fut_volume_curve.clear()
-
             #plot2_fut_volume_plus_curve.clear()
             #plot2_fut_volume_minus_curve.clear()
+            
+            plot2_call_volume_curve.clear()
+            plot2_put_volume_curve.clear()
 
             plot2_fut_choga_rr_curve.clear()
             plot2_fut_nhoga_rr_curve.clear()
@@ -28964,13 +28943,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_call_hoga_curve.clear()
             plot2_put_hoga_curve.clear()   
 
-            plot2_call_volume_curve.clear()
-            plot2_put_volume_curve.clear()
-
             plot2_fut_volume_curve.clear()
-
             #plot2_fut_volume_plus_curve.clear()
             #plot2_fut_volume_minus_curve.clear()
+            
+            plot2_call_volume_curve.clear()
+            plot2_put_volume_curve.clear()
 
             plot2_fut_choga_rr_curve.clear()
             plot2_fut_nhoga_rr_curve.clear()
@@ -29072,13 +29050,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_call_hoga_curve.clear()
             plot2_put_hoga_curve.clear()   
 
-            plot2_call_volume_curve.clear()
-            plot2_put_volume_curve.clear()
-
             plot2_fut_volume_curve.clear()
-
             #plot2_fut_volume_plus_curve.clear()
             #plot2_fut_volume_minus_curve.clear()
+            
+            plot2_call_volume_curve.clear()
+            plot2_put_volume_curve.clear()
 
             plot2_fut_choga_rr_curve.clear()
             plot2_fut_nhoga_rr_curve.clear()
@@ -29180,13 +29157,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_call_hoga_curve.clear()
             plot2_put_hoga_curve.clear()   
 
-            plot2_call_volume_curve.clear()
-            plot2_put_volume_curve.clear()
-
             plot2_fut_volume_curve.clear()
-
             #plot2_fut_volume_plus_curve.clear()
             #plot2_fut_volume_minus_curve.clear()
+            
+            plot2_call_volume_curve.clear()
+            plot2_put_volume_curve.clear()
 
             plot2_fut_choga_rr_curve.clear()
             plot2_fut_nhoga_rr_curve.clear()
@@ -29288,13 +29264,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot2_call_hoga_curve.clear()
             plot2_put_hoga_curve.clear()   
 
-            plot2_call_volume_curve.clear()
-            plot2_put_volume_curve.clear()
-
             plot2_fut_volume_curve.clear()
-
             #plot2_fut_volume_plus_curve.clear()
             #plot2_fut_volume_minus_curve.clear()
+            
+            plot2_call_volume_curve.clear()
+            plot2_put_volume_curve.clear()
 
             plot2_fut_choga_rr_curve.clear()
             plot2_fut_nhoga_rr_curve.clear()
@@ -29438,6 +29413,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_call_hoga_curve.clear()
             plot3_put_hoga_curve.clear()
 
+            #plot3_fut_volume_curve.clear()
             #plot3_fut_volume_plus_curve.clear()
             #plot3_fut_volume_minus_curve.clear()
 
@@ -29499,13 +29475,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.label_p3_4.setText(" MAMA ")
             self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
-                        
-            plot3_call_volume_curve.clear()
-            plot3_put_volume_curve.clear()
-
+            
             plot3_fut_volume_curve.clear()
             #plot3_fut_volume_plus_curve.clear()
             #plot3_fut_volume_minus_curve.clear()
+                        
+            plot3_call_volume_curve.clear()
+            plot3_put_volume_curve.clear()
 
             plot3_fut_choga_rr_curve.clear()
             plot3_fut_nhoga_rr_curve.clear()
@@ -29527,8 +29503,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_dow_curve.clear()
             plot3_nasdaq_curve.clear()
             plot3_wti_curve.clear()
-
-            plot3_fut_hoga_line.setValue(0)
 
             for i in range(9):
                 plot3_mv_line[i].setValue(0)
@@ -29570,6 +29544,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot3_call_hoga_curve.clear()
             plot3_put_hoga_curve.clear()
+            
+            plot3_fut_volume_curve.clear()
 
             plot3_call_volume_curve.clear()
             plot3_put_volume_curve.clear()
@@ -29632,17 +29608,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
 
             plot3_call_hoga_curve.clear()
-            plot3_put_hoga_curve.clear()   
+            plot3_put_hoga_curve.clear()
+            
+            plot3_fut_volume_curve.clear()
+            #plot3_fut_volume_plus_curve.clear()
+            #plot3_fut_volume_minus_curve.clear()   
 
             plot3_call_volume_curve.clear()
             plot3_put_volume_curve.clear()
 
             plot3_fut_choga_rr_curve.clear()
             plot3_fut_nhoga_rr_curve.clear()
-
-            plot3_fut_volume_curve.clear()
-            #plot3_fut_volume_plus_curve.clear()
-            #plot3_fut_volume_minus_curve.clear()
             
             for i in range(ActvalCount):
                 plot3_call_curve[i].clear()
@@ -29694,7 +29670,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p3_4.setStyleSheet('background-color: yellow ; color: black')
 
             plot3_call_hoga_curve.clear()
-            plot3_put_hoga_curve.clear()   
+            plot3_put_hoga_curve.clear()
+            
+            plot3_fut_volume_curve.clear()
+            #plot3_fut_volume_plus_curve.clear()
+            #plot3_fut_volume_minus_curve.clear()   
 
             plot3_call_volume_curve.clear()
             plot3_put_volume_curve.clear()
@@ -29704,10 +29684,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot3_fut_choga_rr_curve.clear()
             plot3_fut_nhoga_rr_curve.clear()
-
-            plot3_fut_volume_curve.clear()
-            #plot3_fut_volume_plus_curve.clear()
-            #plot3_fut_volume_minus_curve.clear()
             
             for i in range(ActvalCount):
                 plot3_call_curve[i].clear()
@@ -29761,12 +29737,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_call_hoga_curve.clear()
             plot3_put_hoga_curve.clear()   
 
-            plot3_call_volume_curve.clear()
-            plot3_put_volume_curve.clear()
-
             plot3_fut_volume_curve.clear()
             #plot3_fut_volume_plus_curve.clear()
             #plot3_fut_volume_minus_curve.clear()
+            
+            plot3_call_volume_curve.clear()
+            plot3_put_volume_curve.clear()
 
             plot3_fut_choga_rr_curve.clear()
             plot3_fut_nhoga_rr_curve.clear()
@@ -29819,12 +29795,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_call_hoga_curve.clear()
             plot3_put_hoga_curve.clear()   
 
-            plot3_call_volume_curve.clear()
-            plot3_put_volume_curve.clear()
-
             plot3_fut_volume_curve.clear()
             #plot3_fut_volume_plus_curve.clear()
             #plot3_fut_volume_minus_curve.clear()
+            
+            plot3_call_volume_curve.clear()
+            plot3_put_volume_curve.clear()
 
             plot3_fut_choga_rr_curve.clear()
             plot3_fut_nhoga_rr_curve.clear()
@@ -29926,12 +29902,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_call_hoga_curve.clear()
             plot3_put_hoga_curve.clear()   
 
-            plot3_call_volume_curve.clear()
-            plot3_put_volume_curve.clear()
-
             plot3_fut_volume_curve.clear()
             #plot3_fut_volume_plus_curve.clear()
             #plot3_fut_volume_minus_curve.clear()
+            
+            plot3_call_volume_curve.clear()
+            plot3_put_volume_curve.clear()
 
             plot3_fut_choga_rr_curve.clear()
             plot3_fut_nhoga_rr_curve.clear()
@@ -30033,12 +30009,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_call_hoga_curve.clear()
             plot3_put_hoga_curve.clear()   
 
-            plot3_call_volume_curve.clear()
-            plot3_put_volume_curve.clear()
-
             plot3_fut_volume_curve.clear()
             #plot3_fut_volume_plus_curve.clear()
             #plot3_fut_volume_minus_curve.clear()
+            
+            plot3_call_volume_curve.clear()
+            plot3_put_volume_curve.clear()
 
             plot3_fut_choga_rr_curve.clear()
             plot3_fut_nhoga_rr_curve.clear()
@@ -30140,12 +30116,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot3_call_hoga_curve.clear()
             plot3_put_hoga_curve.clear()   
 
-            plot3_call_volume_curve.clear()
-            plot3_put_volume_curve.clear()
-
             plot3_fut_volume_curve.clear()
             #plot3_fut_volume_plus_curve.clear()
             #plot3_fut_volume_minus_curve.clear()
+            
+            plot3_call_volume_curve.clear()
+            plot3_put_volume_curve.clear()
 
             plot3_fut_choga_rr_curve.clear()
             plot3_fut_nhoga_rr_curve.clear()
@@ -30290,12 +30266,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_fut_volume_curve.clear()
             #plot4_fut_volume_plus_curve.clear()
             #plot4_fut_volume_minus_curve.clear()
+            
+            plot4_call_volume_curve.clear()
+            plot4_put_volume_curve.clear()
 
             plot4_call_hoga_curve.clear()
             plot4_put_hoga_curve.clear()
-
-            plot4_call_volume_curve.clear()
-            plot4_put_volume_curve.clear()
 
             plot4_fut_choga_rr_curve.clear()
             plot4_fut_nhoga_rr_curve.clear()
@@ -30357,6 +30333,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p4_4.setText(" MAMA ")
             self.label_p4_4.setStyleSheet('background-color: yellow ; color: black')
             
+            #plot4_fut_volume_curve.clear()
             #plot4_fut_volume_plus_curve.clear()
             #plot4_fut_volume_minus_curve.clear()
 
@@ -30381,7 +30358,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_nasdaq_curve.clear()
             plot4_wti_curve.clear()
             
-            plot4_fut_hoga_line.setValue(1.0)     
+            plot4_fut_hoga_line.setValue(0)     
             
             plot4_fut_jl_line.setValue(0)
             plot4_fut_jh_line.setValue(0)
@@ -30508,7 +30485,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_nasdaq_curve.clear()
             plot4_wti_curve.clear()
             
-            plot4_fut_hoga_line.setValue(1.0)
+            plot4_fut_hoga_line.setValue(0)
             
             plot4_fut_jl_line.setValue(0)
             plot4_fut_jh_line.setValue(0)
@@ -30571,7 +30548,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_nasdaq_curve.clear()
             plot4_wti_curve.clear()
             
-            plot4_fut_hoga_line.setValue(1.0)
+            plot4_fut_hoga_line.setValue(0)
             
             plot4_fut_jl_line.setValue(0)
             plot4_fut_jh_line.setValue(0)
@@ -30598,12 +30575,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_fut_volume_curve.clear()
             #plot4_fut_volume_plus_curve.clear()
             #plot4_fut_volume_minus_curve.clear()
+            
+            plot4_call_volume_curve.clear()
+            plot4_put_volume_curve.clear()
 
             plot4_call_hoga_curve.clear()
             plot4_put_hoga_curve.clear()
-
-            plot4_call_volume_curve.clear()
-            plot4_put_volume_curve.clear()
 
             plot4_fut_choga_rr_curve.clear()
             plot4_fut_nhoga_rr_curve.clear()
@@ -30718,12 +30695,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_fut_volume_curve.clear()
             #plot4_fut_volume_plus_curve.clear()
             #plot4_fut_volume_minus_curve.clear()
+            
+            plot4_call_volume_curve.clear()
+            plot4_put_volume_curve.clear()
 
             plot4_call_hoga_curve.clear()
             plot4_put_hoga_curve.clear()
-
-            plot4_call_volume_curve.clear()
-            plot4_put_volume_curve.clear()
 
             plot4_fut_choga_rr_curve.clear()
             plot4_fut_nhoga_rr_curve.clear()
@@ -30826,12 +30803,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_fut_volume_curve.clear()
             #plot4_fut_volume_plus_curve.clear()
             #plot4_fut_volume_minus_curve.clear()
+            
+            plot4_call_volume_curve.clear()
+            plot4_put_volume_curve.clear()
 
             plot4_call_hoga_curve.clear()
             plot4_put_hoga_curve.clear()
-
-            plot4_call_volume_curve.clear()
-            plot4_put_volume_curve.clear()
 
             plot4_fut_choga_rr_curve.clear()
             plot4_fut_nhoga_rr_curve.clear()
@@ -30934,12 +30911,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_fut_volume_curve.clear()
             #plot4_fut_volume_plus_curve.clear()
             #plot4_fut_volume_minus_curve.clear()
+            
+            plot4_call_volume_curve.clear()
+            plot4_put_volume_curve.clear()
 
             plot4_call_hoga_curve.clear()
             plot4_put_hoga_curve.clear()
-
-            plot4_call_volume_curve.clear()
-            plot4_put_volume_curve.clear()
 
             plot4_fut_choga_rr_curve.clear()
             plot4_fut_nhoga_rr_curve.clear()
@@ -31042,12 +31019,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot4_fut_volume_curve.clear()
             #plot4_fut_volume_plus_curve.clear()
             #plot4_fut_volume_minus_curve.clear()
+            
+            plot4_call_volume_curve.clear()
+            plot4_put_volume_curve.clear()
 
             plot4_call_hoga_curve.clear()
             plot4_put_hoga_curve.clear()
-
-            plot4_call_volume_curve.clear()
-            plot4_put_volume_curve.clear()
 
             plot4_fut_choga_rr_curve.clear()
             plot4_fut_nhoga_rr_curve.clear()
@@ -31192,6 +31169,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_call_hoga_curve.clear()
             plot5_put_hoga_curve.clear()
 
+            #plot5_fut_volume_curve.clear()
             #plot5_fut_volume_plus_curve.clear()
             #plot5_fut_volume_minus_curve.clear()
 
@@ -31253,13 +31231,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.label_p5_4.setText(" MAMA ")
             self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
-                        
-            plot5_call_volume_curve.clear()
-            plot5_put_volume_curve.clear()
-
+            
             plot5_fut_volume_curve.clear()
             #plot5_fut_volume_plus_curve.clear()
             #plot5_fut_volume_minus_curve.clear()
+                        
+            plot5_call_volume_curve.clear()
+            plot5_put_volume_curve.clear()
 
             plot5_fut_choga_rr_curve.clear()
             plot5_fut_nhoga_rr_curve.clear()
@@ -31281,8 +31259,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_dow_curve.clear()
             plot5_nasdaq_curve.clear()
             plot5_wti_curve.clear()
-
-            plot5_fut_hoga_line.setValue(0)
 
             for i in range(9):
                 plot5_mv_line[i].setValue(0)
@@ -31324,6 +31300,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot5_call_hoga_curve.clear()
             plot5_put_hoga_curve.clear()
+            
+            plot5_fut_volume_curve.clear()
 
             plot5_call_volume_curve.clear()
             plot5_put_volume_curve.clear()
@@ -31386,17 +31364,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
 
             plot5_call_hoga_curve.clear()
-            plot5_put_hoga_curve.clear()   
+            plot5_put_hoga_curve.clear()
+            
+            plot5_fut_volume_curve.clear()
+            #plot5_fut_volume_plus_curve.clear()
+            #plot5_fut_volume_minus_curve.clear()   
 
             plot5_call_volume_curve.clear()
             plot5_put_volume_curve.clear()
 
             plot5_fut_choga_rr_curve.clear()
             plot5_fut_nhoga_rr_curve.clear()
-
-            plot5_fut_volume_curve.clear()
-            #plot5_fut_volume_plus_curve.clear()
-            #plot5_fut_volume_minus_curve.clear()
             
             for i in range(ActvalCount):
                 plot5_call_curve[i].clear()
@@ -31448,7 +31426,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p5_4.setStyleSheet('background-color: yellow ; color: black')
 
             plot5_call_hoga_curve.clear()
-            plot5_put_hoga_curve.clear()   
+            plot5_put_hoga_curve.clear() 
+            
+            plot5_fut_volume_curve.clear()
+            #plot5_fut_volume_plus_curve.clear()
+            #plot5_fut_volume_minus_curve.clear()  
 
             plot5_call_volume_curve.clear()
             plot5_put_volume_curve.clear()
@@ -31458,10 +31440,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot5_fut_choga_rr_curve.clear()
             plot5_fut_nhoga_rr_curve.clear()
-
-            plot5_fut_volume_curve.clear()
-            #plot5_fut_volume_plus_curve.clear()
-            #plot5_fut_volume_minus_curve.clear()
             
             for i in range(ActvalCount):
                 plot5_call_curve[i].clear()
@@ -31515,12 +31493,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_call_hoga_curve.clear()
             plot5_put_hoga_curve.clear()   
 
-            plot5_call_volume_curve.clear()
-            plot5_put_volume_curve.clear()
-
             plot5_fut_volume_curve.clear()
             #plot5_fut_volume_plus_curve.clear()
             #plot5_fut_volume_minus_curve.clear()
+            
+            plot5_call_volume_curve.clear()
+            plot5_put_volume_curve.clear()
 
             plot5_fut_choga_rr_curve.clear()
             plot5_fut_nhoga_rr_curve.clear()
@@ -31573,12 +31551,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_call_hoga_curve.clear()
             plot5_put_hoga_curve.clear()   
 
-            plot5_call_volume_curve.clear()
-            plot5_put_volume_curve.clear()
-
             plot5_fut_volume_curve.clear()
             #plot5_fut_volume_plus_curve.clear()
             #plot5_fut_volume_minus_curve.clear()
+            
+            plot5_call_volume_curve.clear()
+            plot5_put_volume_curve.clear()
 
             plot5_fut_choga_rr_curve.clear()
             plot5_fut_nhoga_rr_curve.clear()
@@ -31680,12 +31658,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_call_hoga_curve.clear()
             plot5_put_hoga_curve.clear()   
 
-            plot5_call_volume_curve.clear()
-            plot5_put_volume_curve.clear()
-
             plot5_fut_volume_curve.clear()
             #plot5_fut_volume_plus_curve.clear()
             #plot5_fut_volume_minus_curve.clear()
+            
+            plot5_call_volume_curve.clear()
+            plot5_put_volume_curve.clear()
 
             plot5_fut_choga_rr_curve.clear()
             plot5_fut_nhoga_rr_curve.clear()
@@ -31787,12 +31765,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_call_hoga_curve.clear()
             plot5_put_hoga_curve.clear()   
 
-            plot5_call_volume_curve.clear()
-            plot5_put_volume_curve.clear()
-
             plot5_fut_volume_curve.clear()
             #plot5_fut_volume_plus_curve.clear()
             #plot5_fut_volume_minus_curve.clear()
+            
+            plot5_call_volume_curve.clear()
+            plot5_put_volume_curve.clear()
 
             plot5_fut_choga_rr_curve.clear()
             plot5_fut_nhoga_rr_curve.clear()
@@ -31894,12 +31872,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot5_call_hoga_curve.clear()
             plot5_put_hoga_curve.clear()   
 
-            plot5_call_volume_curve.clear()
-            plot5_put_volume_curve.clear()
-
             plot5_fut_volume_curve.clear()
             #plot5_fut_volume_plus_curve.clear()
             #plot5_fut_volume_minus_curve.clear()
+            
+            plot5_call_volume_curve.clear()
+            plot5_put_volume_curve.clear()
 
             plot5_fut_choga_rr_curve.clear()
             plot5_fut_nhoga_rr_curve.clear()
@@ -32043,6 +32021,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_call_hoga_curve.clear()
             plot6_put_hoga_curve.clear()
 
+            #plot6_fut_volume_curve.clear()
             #plot6_fut_volume_plus_curve.clear()
             #plot6_fut_volume_minus_curve.clear()
 
@@ -32104,13 +32083,13 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             self.label_p6_4.setText(" MAMA ")
             self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
-                        
-            plot6_call_volume_curve.clear()
-            plot6_put_volume_curve.clear()
-
+            
             plot6_fut_volume_curve.clear()
             #plot6_fut_volume_plus_curve.clear()
             #plot6_fut_volume_minus_curve.clear()
+                        
+            plot6_call_volume_curve.clear()
+            plot6_put_volume_curve.clear()
 
             plot6_fut_choga_rr_curve.clear()
             plot6_fut_nhoga_rr_curve.clear()
@@ -32132,8 +32111,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_dow_curve.clear()
             plot6_nasdaq_curve.clear()
             plot6_wti_curve.clear()
-
-            plot6_fut_hoga_line.setValue(0)
 
             for i in range(9):
                 plot6_mv_line[i].setValue(0)
@@ -32175,6 +32152,8 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot6_call_hoga_curve.clear()
             plot6_put_hoga_curve.clear()
+            
+            plot6_fut_volume_curve.clear()
 
             plot6_call_volume_curve.clear()
             plot6_put_volume_curve.clear()
@@ -32237,17 +32216,17 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
 
             plot6_call_hoga_curve.clear()
-            plot6_put_hoga_curve.clear()   
+            plot6_put_hoga_curve.clear()  
+            
+            plot6_fut_volume_curve.clear()
+            #plot6_fut_volume_plus_curve.clear()
+            #plot6_fut_volume_minus_curve.clear() 
 
             plot6_call_volume_curve.clear()
             plot6_put_volume_curve.clear()
 
             plot6_fut_choga_rr_curve.clear()
             plot6_fut_nhoga_rr_curve.clear()
-
-            plot6_fut_volume_curve.clear()
-            #plot6_fut_volume_plus_curve.clear()
-            #plot6_fut_volume_minus_curve.clear()
             
             for i in range(ActvalCount):
                 plot6_call_curve[i].clear()
@@ -32299,7 +32278,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
 
             plot6_call_hoga_curve.clear()
-            plot6_put_hoga_curve.clear()   
+            plot6_put_hoga_curve.clear()
+            
+            plot6_fut_volume_curve.clear()
+            #plot6_fut_volume_plus_curve.clear()
+            #plot6_fut_volume_minus_curve.clear()   
 
             plot6_call_volume_curve.clear()
             plot6_put_volume_curve.clear()
@@ -32309,10 +32292,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
             plot6_fut_choga_rr_curve.clear()
             plot6_fut_nhoga_rr_curve.clear()
-
-            plot6_fut_volume_curve.clear()
-            #plot6_fut_volume_plus_curve.clear()
-            #plot6_fut_volume_minus_curve.clear()
             
             for i in range(ActvalCount):
                 plot6_call_curve[i].clear()
@@ -32364,14 +32343,14 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             self.label_p6_4.setStyleSheet('background-color: yellow ; color: black')
 
             plot6_call_hoga_curve.clear()
-            plot6_put_hoga_curve.clear()   
+            plot6_put_hoga_curve.clear() 
+            
+            plot6_fut_volume_curve.clear()
+            #plot6_fut_volume_plus_curve.clear()
+            #plot6_fut_volume_minus_curve.clear()  
 
             plot6_call_volume_curve.clear()
             plot6_put_volume_curve.clear()
-
-            plot6_fut_volume_curve.clear()
-            #plot6_fut_volume_plus_curve.clear()
-            #plot6_fut_volume_minus_curve.clear()
 
             plot6_fut_drate_curve.clear()
             plot6_dow_drate_curve.clear()
@@ -32424,12 +32403,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_call_hoga_curve.clear()
             plot6_put_hoga_curve.clear()   
 
-            plot6_call_volume_curve.clear()
-            plot6_put_volume_curve.clear()
-
             plot6_fut_volume_curve.clear()
             #plot6_fut_volume_plus_curve.clear()
             #plot6_fut_volume_minus_curve.clear()
+            
+            plot6_call_volume_curve.clear()
+            plot6_put_volume_curve.clear()
 
             plot6_fut_choga_rr_curve.clear()
             plot6_fut_nhoga_rr_curve.clear()
@@ -32531,12 +32510,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_call_hoga_curve.clear()
             plot6_put_hoga_curve.clear()   
 
-            plot6_call_volume_curve.clear()
-            plot6_put_volume_curve.clear()
-
             plot6_fut_volume_curve.clear()
             #plot6_fut_volume_plus_curve.clear()
             #plot6_fut_volume_minus_curve.clear()
+            
+            plot6_call_volume_curve.clear()
+            plot6_put_volume_curve.clear()
 
             plot6_fut_choga_rr_curve.clear()
             plot6_fut_nhoga_rr_curve.clear()
@@ -32638,12 +32617,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_call_hoga_curve.clear()
             plot6_put_hoga_curve.clear()   
 
-            plot6_call_volume_curve.clear()
-            plot6_put_volume_curve.clear()
-
             plot6_fut_volume_curve.clear()
             #plot6_fut_volume_plus_curve.clear()
             #plot6_fut_volume_minus_curve.clear()
+            
+            plot6_call_volume_curve.clear()
+            plot6_put_volume_curve.clear()
 
             plot6_fut_choga_rr_curve.clear()
             plot6_fut_nhoga_rr_curve.clear()
@@ -32745,12 +32724,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             plot6_call_hoga_curve.clear()
             plot6_put_hoga_curve.clear()   
 
-            plot6_call_volume_curve.clear()
-            plot6_put_volume_curve.clear()
-
             plot6_fut_volume_curve.clear()
             #plot6_fut_volume_plus_curve.clear()
             #plot6_fut_volume_minus_curve.clear()
+            
+            plot6_call_volume_curve.clear()
+            plot6_put_volume_curve.clear()
 
             plot6_fut_choga_rr_curve.clear()
             plot6_fut_nhoga_rr_curve.clear()
