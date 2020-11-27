@@ -5673,7 +5673,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item = QTableWidgetItem("{0}".format(data['szTrCode']))
             item.setTextAlignment(Qt.AlignCenter)
             item.setBackground(QBrush(검정색))
-            item.setForeground(QBrush(녹색))
+
+            if flag_realdata_process:                
+                item.setForeground(QBrush(적색))
+            else:
+                item.setForeground(QBrush(녹색))
+
             self.tableWidget_fut.setItem(2, 0, item)
 
             self.realdata_update(data)
