@@ -5786,25 +5786,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 화면갱신주기를 0.5초 --> 1초로 늘립니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
-
-            #str = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG, EUROFX, GOLD 실시간수신을 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
-            #self.textBrowser.append(str)
             
-            '''
-            self.OVC.UnadviseRealDataWithKey(종목코드=HANGSENG)
-            self.OVC.UnadviseRealDataWithKey(종목코드=EUROFX)
-            self.OVC.UnadviseRealDataWithKey(종목코드=GOLD)
-            
-            str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 수급요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
-            self.textBrowser.append(str)
-
-            self.MK2.UnadviseRealData()
-                        
-            str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 호가요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
-            self.textBrowser.append(str)
-
-            self.OVH.UnadviseRealData()
-
+            '''            
             if not NightTime:
                 
                 str = '[{0:02d}:{1:02d}:{2:02d}] S3, BM, PM요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
@@ -5831,86 +5814,31 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
 
             self.pushButton_remove.setStyleSheet("background-color: lightGray")
-            flag_telegram_on = False
-            '''
-            if not NightTime:
-
-                futures_graph_csv = "Futures_temp {}{}".format(times, '.csv')
-                df_futures_graph.to_csv(futures_graph_csv, encoding='ms949')
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 국내선물 Graph 파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                self.textBrowser.append(str)
-            else:
-                pass  
-
-            dow_graph_csv = "DOW_temp {}{}".format(times, '.csv')
-            df_dow_graph.to_csv(dow_graph_csv, encoding='ms949')
-
-            sp500_graph_csv = "SP500_temp {}{}".format(times, '.csv')
-            df_sp500_graph.to_csv(sp500_graph_csv, encoding='ms949')
-
-            nasdaq_graph_csv = "NASDAQ_temp {}{}".format(times, '.csv')
-            df_nasdaq_graph.to_csv(nasdaq_graph_csv, encoding='ms949')
-
-            wti_graph_csv = "WTI_temp {}{}".format(times, '.csv')
-            df_wti_graph.to_csv(wti_graph_csv, encoding='ms949')
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 Graph 파일을 저장합니다.\r'.format(adj_hour, adj_min, adj_sec)
-            self.textBrowser.append(str)
-            '''
+            flag_telegram_on = False            
         else:
             flag_checkBox_HS = False
 
             main_ui_update_interval = 500
             plot_update_interval = 500
 
-            str = '[{0:02d}:{1:02d}:{2:02d}] 화면갱신주기를 1초 --> 0.5초로 줄입니다.\r'.format(adj_hour, adj_min, adj_sec)
+            str = '[{0:02d}:{1:02d}:{2:02d}] 화면갱신주기를 0.5초로 복구합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
 
-            #str = '[{0:02d}:{1:02d}:{2:02d}] HANGSENG, EUROFX, GOLD 실시간수신을 재시작합니다.\r'.format(adj_hour, adj_min, adj_sec)
-            #self.textBrowser.append(str)
-
-            #self.OVC.AdviseRealData(종목코드=HANGSENG)
-            #self.OVC.AdviseRealData(종목코드=EUROFX)
-            #self.OVC.AdviseRealData(종목코드=GOLD)
-            
             '''
-            str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 호가를 재요청합니다.\r'.format(adj_hour, adj_min, adj_sec)
-            self.textBrowser.append(str)
-            
-            # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)
-            self.OVH.AdviseRealData(종목코드=SP500)
-            self.OVH.AdviseRealData(종목코드=DOW)
-            self.OVH.AdviseRealData(종목코드=NASDAQ)
-            self.OVH.AdviseRealData(종목코드=WTI)
-            self.OVH.AdviseRealData(종목코드=HANGSENG)                
-            self.OVH.AdviseRealData(종목코드=EUROFX)                
-            self.OVH.AdviseRealData(종목코드=GOLD)
-            
-            self.MK2.AdviseRealData(심볼코드=KRWUSD)
-            self.MK2.AdviseRealData(심볼코드=EURUSD)
-            self.MK2.AdviseRealData(심볼코드=SP500_SND)
-            self.MK2.AdviseRealData(심볼코드=DOW_SND)
-            self.MK2.AdviseRealData(심볼코드=NASDAQ_SND)
-            self.MK2.AdviseRealData(심볼코드=HANGSENG_SND)
-            self.MK2.AdviseRealData(심볼코드=WTI_SND)
-            self.MK2.AdviseRealData(심볼코드=GOLD_SND)
-            '''
-
             if not NightTime:
                 str = '[{0:02d}:{1:02d}:{2:02d}] S3, BM, PM을 재요청합니다.\r'.format(adj_hour, adj_min, adj_sec)
                 self.textBrowser.append(str)
-                '''
+                
                 self.S3.AdviseRealData(SAMSUNG)
 
                 self.BM.AdviseRealData(FUTURES)
                 self.BM.AdviseRealData(KOSPI)
 
-                self.PM.AdviseRealData()
-                '''
+                self.PM.AdviseRealData()                
             else:
                 pass
-
+            '''
+            
             str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 재기동합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
             
