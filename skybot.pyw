@@ -2713,7 +2713,7 @@ flag_logfile = False
 flag_t8416_call_done = False
 flag_t8416_put_done = False
 
-flag_realdata = False
+flag_realdata_process = False
 ui_start_time = 0
 
 flag_option_pair_full = False
@@ -4637,8 +4637,21 @@ class RealDataWorker(QThread):
         #self.NEWS.AdviseRealData()
 
     # 실시간 수신 콜백함수
-    def OnReceiveRealData(self, szTrCode, result):        
-        self.producer_queue.put(result, False)
+    def OnReceiveRealData(self, szTrCode, result):
+
+        if flag_checkBox_HS:        
+
+            if not flag_realdata_process:        
+                self.producer_queue.put(result, False)
+            else:
+                print('Queue input is dropped...')
+        else:
+            if flag_realdata_process:
+                print('RealData is processing...')
+            else:
+                pass
+
+            self.producer_queue.put(result, False)
         
     def run(self):
 
@@ -22010,9 +22023,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def realdata_update(self, result):
 
-        global flag_realdata
+        global flag_realdata_process
 
-        flag_realdata = True
+        flag_realdata_process = True
 
         szTrCode = result['szTrCode']
 
@@ -25820,12 +25833,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
             else:
-                pass
-
-            flag_realdata = False                              
+                pass          
 
         except Exception as e:
             pass
+
+        flag_realdata_process = False                              
     #####################################################################################################################################################################
 
     def closeEvent(self,event):
@@ -37366,15 +37379,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
 
         bc_ui_update_time = (timeit.default_timer() - start_time) * 1000        
         
-        if flag_realdata:
-
-            str = '[{0:02d}:{1:02d}:{2:02d}] BigChart UI Thread Update... : {3:.2f} ms...\r'.format(\
+        str = '[{0:02d}:{1:02d}:{2:02d}] BigChart UI Update : {3:.2f} ms...\r'.format(\
                 dt.hour, dt.minute, dt.second, bc_ui_update_time)
-            print(str)
-        else:
-            str = '[{0:02d}:{1:02d}:{2:02d}] BigChart UI Update : {3:.2f} ms...\r'.format(\
-                dt.hour, dt.minute, dt.second, bc_ui_update_time)
-            print(str)
+        print(str)            
 
     def closeEvent(self,event):
 
