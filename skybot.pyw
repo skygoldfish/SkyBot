@@ -2713,7 +2713,11 @@ flag_logfile = False
 flag_t8416_call_done = False
 flag_t8416_put_done = False
 
-flag_realdata_process = False
+flag_realdata_update = False
+flag_plot_update = False
+flag_queue_input_drop = False
+queue_input_drop_count = 0
+
 ui_start_time = 0
 
 flag_option_pair_full = False
@@ -4639,19 +4643,15 @@ class RealDataWorker(QThread):
     # 실시간 수신 콜백함수
     def OnReceiveRealData(self, szTrCode, result):
 
-        if flag_checkBox_HS:        
+        global flag_queue_input_drop, queue_input_drop_count 
 
-            if not flag_realdata_process:        
-                self.producer_queue.put(result, False)
-            else:
-                print('Queue input is dropped...')
-        else:
-            if flag_realdata_process:
-                print('RealData is processing...')
-            else:
-                pass
-
+        if not flag_realdata_update and not flag_plot_update:
+            flag_queue_input_drop = False
             self.producer_queue.put(result, False)
+        else:
+            flag_queue_input_drop = True
+            queue_input_drop_count += 1
+            #print('Queue input is dropped...')            
         
     def run(self):
 
@@ -5672,12 +5672,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             item = QTableWidgetItem("{0}".format(data['szTrCode']))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(검정색))
 
-            if flag_realdata_process:                
-                item.setForeground(QBrush(적색))
-            else:
-                item.setForeground(QBrush(녹색))
+            item.setBackground(QBrush(검정색))
+            item.setForeground(QBrush(녹색))                
 
             self.tableWidget_fut.setItem(2, 0, item)
 
@@ -7432,12 +7429,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if flag_checkBox_HS and dt.second % 10 == 0 and self.alternate_flag:
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] UI Screen Update : {3:.2f}({4:.2f}) ms...\r'.format(\
-                        dt.hour, dt.minute, dt.second, main_ui_update_time, bc_ui_update_time)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f}({4:.2f}) ms, Drop Count = {5}\r'.format(\
+                        dt.hour, dt.minute, dt.second, main_ui_update_time, bc_ui_update_time, queue_input_drop_count)
                     self.textBrowser.append(str)
                 else:
-                    str = '[{0:02d}:{1:02d}:{2:02d}] UI Screen Update : {3:.2f} ms...\r'.format(\
-                        dt.hour, dt.minute, dt.second, main_ui_update_time)
+                    str = '[{0:02d}:{1:02d}:{2:02d}] UI Update = {3:.2f} ms, Drop Count = {4}\r'.format(\
+                        dt.hour, dt.minute, dt.second, main_ui_update_time, queue_input_drop_count)
                     print(str)
             else:
                 pass
@@ -7449,7 +7446,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         global flag_heartbeat
 
-        str = '[{0:02d}:{1:02d}:{2:02d}] 1 Min Heartbeat({3})을 수신하였습니다.(시간차 = {4}초)\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차)
+        str = '[{0:02d}:{1:02d}:{2:02d}] Heartbeat({3}, 시간차 = {4}초)수신, Drop Count = {5}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차, queue_input_drop_count)
         self.textBrowser.append(str)
         print(str)
 
@@ -21956,9 +21953,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def realdata_update(self, result):
 
-        global flag_realdata_process
+        global flag_realdata_update
 
-        flag_realdata_process = True
+        flag_realdata_update = True
 
         szTrCode = result['szTrCode']
 
@@ -25771,7 +25768,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         except Exception as e:
             pass
 
-        flag_realdata_process = False                              
+        flag_realdata_update = False                              
     #####################################################################################################################################################################
 
     def closeEvent(self,event):
@@ -32786,8 +32783,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     @pyqtSlot(str)
     def update_bigchart(self):
 
+        global flag_plot_update
+
         dt = datetime.datetime.now()
         start_time = timeit.default_timer()
+
+        flag_plot_update = True
 
         '''
         if flag_offline:
@@ -37311,10 +37312,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         global bc_ui_update_time
 
         bc_ui_update_time = (timeit.default_timer() - start_time) * 1000        
-        
+        '''
         str = '[{0:02d}:{1:02d}:{2:02d}] BigChart UI Update : {3:.2f} ms...\r'.format(\
                 dt.hour, dt.minute, dt.second, bc_ui_update_time)
-        print(str)            
+        print(str)
+        '''
+        flag_plot_update = False            
 
     def closeEvent(self,event):
 
