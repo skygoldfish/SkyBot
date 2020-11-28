@@ -17442,6 +17442,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             item = QTableWidgetItem("{0:.2f}".format(fut_realdata['현재가']))
             item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(흰색))
 
             if df['현재가'] > df['시가']:
                 item.setForeground(QBrush(적색))
@@ -17626,6 +17627,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     현재가 = df['현재가'][i]
                     item = QTableWidgetItem("{0:.2f}".format(현재가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
 
                     if pre_start:
                         item.setForeground(QBrush(검정색))
@@ -17929,6 +17931,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     현재가 = df1['현재가'][i]
                     item = QTableWidgetItem("{0:.2f}".format(현재가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
 
                     if pre_start:
                         item.setForeground(QBrush(검정색))
@@ -18629,6 +18632,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item = QTableWidgetItem("{0:.2f}".format(현재가))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
 
                         if 시가 > 0:
 
@@ -18763,6 +18767,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item = QTableWidgetItem("{0:.2f}".format(현재가))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
 
                         if 시가 > 0:
 
@@ -19058,6 +19063,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             kp200_현재가 = df['KOSPI200지수']           
             item = QTableWidgetItem("{0:.2f}".format(df['KOSPI200지수']))
             item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(흰색))
+            item.setForeground(QBrush(검정색))
             self.tableWidget_fut.setItem(2, Futures_column.현재가.value, item)
 
             # kp200 COREVAL 리스트 만듬
@@ -19284,6 +19291,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             item = QTableWidgetItem("{0:.2f}".format(df['현재가']))
             item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(흰색))
 
             if df['시가'] > 0:
 
@@ -19604,6 +19612,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem("{0:.2f}".format(현재가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
 
                     if 시가 > 0:
 
@@ -19868,6 +19877,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem("{0:.2f}".format(현재가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
 
                     if 시가 > 0:
 
@@ -20436,6 +20446,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem("{0:.2f}".format(현재가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
 
                     if 시가 > 0:
 
@@ -20516,6 +20527,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem("{0:.2f}".format(현재가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
 
                     if 시가 > 0:
 
