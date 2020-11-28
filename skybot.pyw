@@ -52,6 +52,7 @@ from talib import MA_Type
 import ta
 import qtmodern.styles
 import qtmodern.windows
+import qdarkstyle
 
 from multiprocessing import Process, Queue
 import multiprocessing as mp
@@ -274,7 +275,7 @@ MONTH_FIRSTDAY = parser.get('Month Info', 'First Day of the Current Month')
 TARGET_MONTH_SELECT = parser.getint('Target Month Select', 'Target Month Select')
 
 # [3]. << Window Style >>
-MODERN_WINDOW_DARK_STYLE = parser.getboolean('Window Style', 'Modern Dark Style')
+DARK_STYLESHEET = parser.getboolean('Window Style', 'Dark Style')
 
 # [4]. << User Switch = 'ON or OFF' >>
 OPT_NEXT_MONTH = parser.getboolean('User Switch', 'Option Next Month Request')
@@ -38242,16 +38243,24 @@ if __name__ == "__main__":
 
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(True)
-
+    
+    if DARK_STYLESHEET:    
+        dark_stylesheet = qdarkstyle.load_stylesheet_pyqt5()
+        app.setStyleSheet(dark_stylesheet)
+    else:
+        pass
+    
     window = MainWindow()
-
+    window.show()
+    
+    '''
     if MODERN_WINDOW_DARK_STYLE:
         qtmodern.styles.dark(app)
         win = qtmodern.windows.ModernWindow(window)        
         win.show()
     else:
         window.show()
-
+    '''
     QTimer().singleShot(1, window.OnQApplicationStarted)
 
     sys.exit(app.exec_())
