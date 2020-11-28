@@ -2714,8 +2714,10 @@ flag_logfile = False
 flag_t8416_call_done = False
 flag_t8416_put_done = False
 
-flag_realdata_update = False
-flag_plot_update = False
+flag_realdata_update_is_running = False
+flag_screen_update_is_running = False
+flag_plot_update_is_running = False
+
 flag_queue_input_drop = False
 queue_input_drop_count = 0
 
@@ -4646,7 +4648,8 @@ class RealDataWorker(QThread):
 
         global flag_queue_input_drop, queue_input_drop_count 
 
-        if not flag_realdata_update and not flag_plot_update:
+        #if not flag_realdata_update_is_running and not flag_screen_update_is_running and not flag_plot_update_is_running:
+        if not flag_realdata_update_is_running and not flag_plot_update_is_running:
             flag_queue_input_drop = False
             self.producer_queue.put(result, False)
         else:
@@ -6795,7 +6798,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     @pyqtSlot(str)
     def update_screen(self, data):
 
+        global flag_screen_update_is_running
+
         try:
+            flag_screen_update_is_running = True
+
             start_time = timeit.default_timer()            
             dt = datetime.datetime.now()
             current_str = dt.strftime('%H:%M:%S')
@@ -7442,6 +7449,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
         except:
             pass
+
+        flag_screen_update_is_running = False
 
     def heartbeat_check(self):
 
@@ -21954,9 +21963,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
     def realdata_update(self, result):
 
-        global flag_realdata_update
+        global flag_realdata_update_is_running
 
-        flag_realdata_update = True
+        flag_realdata_update_is_running = True
 
         szTrCode = result['szTrCode']
 
@@ -25769,7 +25778,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         except Exception as e:
             pass
 
-        flag_realdata_update = False                              
+        flag_realdata_update_is_running = False                              
     #####################################################################################################################################################################
 
     def closeEvent(self,event):
@@ -32784,12 +32793,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     @pyqtSlot(str)
     def update_bigchart(self):
 
-        global flag_plot_update
+        global flag_plot_update_is_running
 
         dt = datetime.datetime.now()
         start_time = timeit.default_timer()
 
-        flag_plot_update = True
+        flag_plot_update_is_running = True
 
         '''
         if flag_offline:
@@ -37318,7 +37327,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 dt.hour, dt.minute, dt.second, bc_ui_update_time)
         print(str)
         '''
-        flag_plot_update = False            
+        flag_plot_update_is_running = False            
 
     def closeEvent(self,event):
 
