@@ -19291,7 +19291,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             item = QTableWidgetItem("{0:.2f}".format(df['현재가']))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
+            #item.setBackground(QBrush(흰색))
 
             if df['시가'] > 0:
 
@@ -32993,7 +32993,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     @pyqtSlot(str)
     def update_bigchart(self):
 
-        global flag_plot_update_is_running
+        global flag_plot_update_is_running, bc_ui_update_time
 
         dt = datetime.datetime.now()
         start_time = timeit.default_timer()
@@ -37518,8 +37518,6 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 pass
         else:
             pass
-
-        global bc_ui_update_time
 
         bc_ui_update_time = (timeit.default_timer() - start_time) * 1000        
         '''
