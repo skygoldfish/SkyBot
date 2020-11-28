@@ -50,8 +50,8 @@ from PIL import Image
 import talib
 from talib import MA_Type
 import ta
-import qtmodern.styles
-import qtmodern.windows
+#import qtmodern.styles
+#import qtmodern.windows
 import qdarkstyle
 
 from multiprocessing import Process, Queue
