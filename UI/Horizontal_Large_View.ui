@@ -396,7 +396,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_add">
+     <widget class="QPushButton" name="pushButton_start">
       <property name="maximumSize">
        <size>
         <width>100</width>
@@ -416,7 +416,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_remove">
+     <widget class="QPushButton" name="pushButton_telegram">
       <property name="maximumSize">
        <size>
         <width>100</width>
@@ -442,40 +442,7 @@
   </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>pushButton_add</sender>
-   <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
-   <slot>AddCode()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>457</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>458</x>
-     <y>-8</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_remove</sender>
-   <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
-   <slot>RemoveCode()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>496</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>461</x>
-     <y>-22</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <slot>AddCode()</slot>
   <slot>RemoveCode()</slot>
