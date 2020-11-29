@@ -16706,7 +16706,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if not refresh_flag:
                 
                 self.pushButton_add.setStyleSheet("background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: gray")
-                self.pushButton_add.setText('Starting...')
+                self.pushButton_add.setText(' Starting... ')
 
                 # 지수선물 마스터조회 API용
                 XQ = t8432(parent=self)
@@ -16725,7 +16725,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 QTest.qWait(500)                
             else:
                 self.pushButton_add.setStyleSheet("background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: gray")
-                self.pushButton_add.setText('Refreshing...')
+                self.pushButton_add.setText(' Refreshing... ')
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] OLD 진성맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
                 self.textBrowser.append(str)
@@ -19029,7 +19029,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(str)
 
             self.pushButton_add.setStyleSheet("background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: gray")
-            self.pushButton_add.setText('Refresh')                    
+            self.pushButton_add.setText(' Refresh ')                    
             
             if ResizeRowsToContents:
                 self.tableWidget_call.resizeRowsToContents()
@@ -20408,7 +20408,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 refresh_flag = True
 
                 self.pushButton_add.setStyleSheet("background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: gray")
-                self.pushButton_add.setText('Refresh')                
+                self.pushButton_add.setText(' Refresh ')                
             else:
                 # Refresh
                 if not flag_checkBox_HS:
@@ -21907,7 +21907,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         refresh_flag = True
 
                         self.pushButton_add.setStyleSheet("background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: gray")
-                        self.pushButton_add.setText('Refresh')                                                                                
+                        self.pushButton_add.setText(' Refresh ')                                                                                
                 else:
                     pass
             else:
@@ -22531,7 +22531,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         receive_quote = False
                         
-                        self.pushButton_add.setText('ScrShot')
+                        self.pushButton_add.setText(' ScrShot ')
 
                         self.SaveResult()                                        
                     else:
@@ -22569,7 +22569,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         receive_quote = False
                         
-                        self.pushButton_add.setText('ScrShot')
+                        self.pushButton_add.setText(' ScrShot ')
                         
                         str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(adj_hour, adj_min, adj_sec)
                         self.textBrowser.append(str)
