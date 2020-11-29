@@ -4736,7 +4736,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         # 위젯 선언 및 초기화
         self.pushButton_add.setStyleSheet("background-color: white; color: black; border-style: solid; border-width: 1px; border-color: gray")
+        self.pushButton_add.setText('Start')
         self.pushButton_remove.setStyleSheet("background-color: white; color: black; border-style: solid; border-width: 1px; border-color: gray")
+        self.pushButton_remove.setText(' Telegram ')
         
         # label_msg, label_atm 관련 setFont 추후 검토필요!!!
         self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
