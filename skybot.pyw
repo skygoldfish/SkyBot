@@ -4646,7 +4646,10 @@ class RealDataWorker(QThread):
         self.OVC.AdviseRealData(종목코드=EUROFX)
         self.OVC.AdviseRealData(종목코드=GOLD)        
         
-        self.NEWS.AdviseRealData()
+        if NEWS_DISPLAY:
+            self.NEWS.AdviseRealData()
+        else:
+            pass
 
     def UnadviseRealDataAll(self):
 
@@ -22289,12 +22292,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             dt = datetime.datetime.now()
 
             if szTrCode == 'NWS':
-
-                if NEWS_DISPLAY:
-                    str = '[{0}] {1}\r'.format(result['시간'], result['제목'])
-                    self.textBrowser.append(str)
-                else:
-                    pass
+                
+                str = '[{0}] {1}\r'.format(result['시간'], result['제목'])
+                self.textBrowser.append(str)
 
             elif szTrCode == 'JIF':
 
