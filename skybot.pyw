@@ -277,7 +277,10 @@ TARGET_MONTH_SELECT = parser.getint('Target Month Select', 'Target Month Select'
 # [3]. << Window Style >>
 DARK_STYLESHEET = parser.getboolean('Window Style', 'Dark Style')
 
-# [4]. << User Switch = 'ON or OFF' >>
+# [4]. << News >>
+NEWS_DISPLAY = parser.getboolean('News', 'News Display')
+
+# [5]. << User Switch = 'ON or OFF' >>
 OPT_NEXT_MONTH = parser.getboolean('User Switch', 'Option Next Month Request')
 TELEGRAM_SERVICE = parser.getboolean('User Switch', 'Telegram service')
 MANGI_YAGAN = parser.getboolean('User Switch', 'Mangi Yagan')
@@ -290,10 +293,10 @@ CSV_FILE = parser.getboolean('User Switch', 'CSV Data File')
 
 #print('TELEGRAM_SERVICE =', TELEGRAM_SERVICE)
 
-# [5]. << Moving Average Type >>
+# [6]. << Moving Average Type >>
 MA_TYPE = parser.getint('Moving Average Type', 'MA Type')
 
-# [6]. << Initial Value >>
+# [7]. << Initial Value >>
 HL_Depth = parser.getint('Initial Value', 'HL List Depth')
 NightTime_PreStart_Hour = parser.getint('Initial Value', 'NightTime Pre-Start Hour')
 ActvalCount = parser.getint('Initial Value', 'Actval count of the option pairs')
@@ -306,7 +309,7 @@ MAIN_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Main Update Interval(ms
 BIGCHART_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Big Chart Update Interval(msec)')
 OPTION_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Option Screen Board Update Interval(sec)')
 
-# [7]. << Code of the Foreign Futures (H/M/U/Z) >>
+# [8]. << Code of the Foreign Futures (H/M/U/Z) >>
 SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
 DOW = parser.get('Code of the Foreign Futures', 'DOW')
 NASDAQ = parser.get('Code of the Foreign Futures', 'NASDAQ')
@@ -315,7 +318,7 @@ EUROFX = parser.get('Code of the Foreign Futures', 'EUROFX')
 HANGSENG = parser.get('Code of the Foreign Futures', 'HANGSENG')
 GOLD = parser.get('Code of the Foreign Futures', 'GOLD')
 
-# [8]. << Supply & Demand Code Symbol of the Foreign Futures >>
+# [9]. << Supply & Demand Code Symbol of the Foreign Futures >>
 KRWUSD = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'KRWUSD')
 DOW_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'DOW SND')
 SP500_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'S&P 500 SND')
@@ -325,12 +328,12 @@ EURUSD = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'EURUS
 HANGSENG_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'HANGSENG SND')
 GOLD_SND = parser.get('Supply & Demand Code Symbol of the Foreign Futures', 'GOLD SND')
 
-# [9]. << Telegram >>
+# [10]. << Telegram >>
 TELEGRAM_START_TIME = parser.getint('Telegram', 'Telegram polling start time(minute) after service')
 TELEGRAM_POLLING_INTERVAL = parser.getint('Telegram', 'Telegram polling interval(second)')
 TELEGRAM_SEND_INTERVAL = parser.getint('Telegram', 'Telegram send interval(second)')
 
-# [10]. << Rules >>
+# [11]. << Rules >>
 ONEWAY_THRESHOLD = parser.getint('Rules', 'Threshold of the institutional party supply & demand')
 #####################################################################################################################################################################
 
@@ -4580,7 +4583,9 @@ class RealDataWorker(QThread):
         self.WOC = WOC(parent=self)
         self.MK2 = MK2(parent=self)
 
-        self.NEWS = NWS(parent=self)
+        self.NEWS = NWS(parent=self)        
+
+    def AdviseRealDataAll(self):
 
         # 장운영 정보 요청
         self.JIF.AdviseRealData('0')
@@ -4641,12 +4646,18 @@ class RealDataWorker(QThread):
         self.OVC.AdviseRealData(종목코드=EUROFX)
         self.OVC.AdviseRealData(종목코드=GOLD)        
         
-        #self.NEWS.AdviseRealData()
+        self.NEWS.AdviseRealData()
+
+    def UnadviseRealDataAll(self):
+
+        pass
 
     # 실시간 수신 콜백함수
     def OnReceiveRealData(self, szTrCode, result):
 
-        global flag_queue_input_drop, queue_input_drop_count 
+        global flag_queue_input_drop, queue_input_drop_count
+
+        #print('result =', result)
 
         #if not flag_realdata_update_is_running and not flag_screen_update_is_running and not flag_plot_update_is_running:
         if not flag_realdata_update_is_running and not flag_plot_update_is_running:
@@ -5809,21 +5820,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #self.o3126_event_loop = QEventLoop()            
         
         # 쓰레드 시작은 start(), 종료는 terminate()
-        '''        
-        self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
-        self.real_data_worker.trigger.connect(self.process_realdata)        
-        self.real_data_worker.daemon = True
-        self.real_data_worker.start()
-        '''
-
-        '''
-        self.t8416_callworker = t8416_Call_Worker()
-        self.t8416_callworker.finished.connect(self.t8416_call_request)
-
-        self.t8416_putworker = t8416_Put_Worker()
-        self.t8416_putworker.finished.connect(self.t8416_put_request)
-        '''        
-
         self.screen_update_worker = screen_update_worker()
         self.screen_update_worker.finished.connect(self.update_screen)
         
@@ -18508,12 +18504,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     # 프로그램 매매현황 요청
                     self.PM.AdviseRealData()
-                    '''
-                    # 실시간데이타는 스레드를 통해 수신함
-                    self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
-                    self.real_data_worker.trigger.connect(self.process_realdata)        
-                    self.real_data_worker.daemon = True
-                    self.real_data_worker.start()                    
+                    '''                  
                 else:
                     # 야간 실시간테이타 요청                
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
@@ -18550,11 +18541,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     # 업종별 투자자별 매매현황 요청(야간선물 서비스중단)
                     #self.BM.AdviseRealData(CME)
 
-                    # 실시간데이타는 스레드를 통해 수신함
-                    self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
-                    self.real_data_worker.trigger.connect(self.process_realdata)        
-                    self.real_data_worker.daemon = True
-                    self.real_data_worker.start()
+                # 실시간데이타는 스레드를 통해 수신함
+                self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
+                self.real_data_worker.trigger.connect(self.process_realdata)        
+                self.real_data_worker.daemon = True
+
+                self.real_data_worker.start()
+                self.real_data_worker.AdviseRealDataAll()
 
                 # t8416 요청
                 '''                
@@ -22295,7 +22288,15 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             dt = datetime.datetime.now()
 
-            if szTrCode == 'JIF':
+            if szTrCode == 'NWS':
+
+                if NEWS_DISPLAY:
+                    str = '[{0}] {1}\r'.format(result['시간'], result['제목'])
+                    self.textBrowser.append(str)
+                else:
+                    pass
+
+            elif szTrCode == 'JIF':
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] 장구분[{3}], 장상태[{4}]\r'.format(\
                     adj_hour, adj_min, adj_sec, result['장구분'], result['장상태'])
