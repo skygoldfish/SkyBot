@@ -4651,6 +4651,19 @@ class RealDataWorker(QThread):
         else:
             pass
 
+    def AdviseRealDataEtc(self):
+
+        self.S3.AdviseRealData(SAMSUNG)
+        self.BM.AdviseRealData(FUTURES)
+        self.BM.AdviseRealData(KOSPI)
+        self.PM.AdviseRealData()
+
+    def UnadviseRealDataEtc(self):
+
+        self.S3.UnadviseRealData()
+        self.BM.UnadviseRealData()
+        self.PM.UnadviseRealData()
+
     def UnadviseRealDataAll(self):
 
         pass
@@ -5972,20 +5985,16 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             plot_update_interval = 1000
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 화면갱신주기를 0.5초 --> 1초로 늘립니다.\r'.format(adj_hour, adj_min, adj_sec)
-            self.textBrowser.append(str)
-            
-            '''            
+            self.textBrowser.append(str)            
+                        
             if not NightTime:
                 
                 str = '[{0:02d}:{1:02d}:{2:02d}] S3, BM, PM요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
                 self.textBrowser.append(str)
 
-                self.S3.UnadviseRealData()
-                self.BM.UnadviseRealData()
-                self.PM.UnadviseRealData()
+                self.real_data_worker.UnadviseRealDataEtc()
             else:
-                pass
-            '''
+                pass            
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
@@ -6010,21 +6019,14 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             str = '[{0:02d}:{1:02d}:{2:02d}] 화면갱신주기를 0.5초로 복구합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
-
-            '''
+            
             if not NightTime:
                 str = '[{0:02d}:{1:02d}:{2:02d}] S3, BM, PM을 재요청합니다.\r'.format(adj_hour, adj_min, adj_sec)
                 self.textBrowser.append(str)
                 
-                self.S3.AdviseRealData(SAMSUNG)
-
-                self.BM.AdviseRealData(FUTURES)
-                self.BM.AdviseRealData(KOSPI)
-
-                self.PM.AdviseRealData()                
+                self.real_data_worker.AdviseRealDataEtc()                
             else:
-                pass
-            '''
+                pass            
             
             str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 재기동합니다.\r'.format(adj_hour, adj_min, adj_sec)
             self.textBrowser.append(str)
