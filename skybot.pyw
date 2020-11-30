@@ -14906,6 +14906,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setForeground(QBrush(검정색))
 
             self.tableWidget_call.setItem(index, Option_column.OID.value, item)
+            self.tableWidget_call.resizeColumnToContents(Option_column.OID.value)
         else:
             pass
         
@@ -15994,6 +15995,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setForeground(QBrush(검정색))
 
             self.tableWidget_put.setItem(index, Option_column.OID.value, item)
+            self.tableWidget_put.resizeColumnToContents(Option_column.OID.value)
         else:
             pass
 
