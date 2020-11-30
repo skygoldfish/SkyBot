@@ -26071,12 +26071,12 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.bigchart_update_worker = bigchart_update_worker()
         self.bigchart_update_worker.finished.connect(self.update_bigchart)
 
-        self.comboBox1.setStyleSheet("background-color: white")
-        self.comboBox2.setStyleSheet("background-color: white")
-        self.comboBox3.setStyleSheet("background-color: white")
-        self.comboBox4.setStyleSheet("background-color: white")
-        self.comboBox5.setStyleSheet("background-color: white")
-        self.comboBox6.setStyleSheet("background-color: white")
+        self.comboBox1.setStyleSheet("background-color: lightgreen; color: black")
+        self.comboBox2.setStyleSheet("background-color: lightgreen; color: black")
+        self.comboBox3.setStyleSheet("background-color: lightgreen; color: black")
+        self.comboBox4.setStyleSheet("background-color: lightgreen; color: black")
+        self.comboBox5.setStyleSheet("background-color: lightgreen; color: black")
+        self.comboBox6.setStyleSheet("background-color: lightgreen; color: black")
 
         self.checkBox_plot1_bband.stateChanged.connect(self.checkBox_plot1_bband_checkState)
         self.checkBox_plot2_bband.stateChanged.connect(self.checkBox_plot2_bband_checkState)
@@ -37542,11 +37542,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
             pass
 
         bc_ui_update_time = (timeit.default_timer() - start_time) * 1000        
-        '''
+        
         str = '[{0:02d}:{1:02d}:{2:02d}] BigChart UI Update : {3:.2f} ms...\r'.format(\
                 dt.hour, dt.minute, dt.second, bc_ui_update_time)
         print(str)
-        '''
+        
         flag_plot_update_is_running = False            
 
     def closeEvent(self,event):
