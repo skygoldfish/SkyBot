@@ -13907,7 +13907,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 item.setBackground(QBrush(lightskyblue))
             else:
-                pass
+                item.setBackground(QBrush(흰색))
 
             item.setForeground(QBrush(검정색))
 
