@@ -4808,7 +4808,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_call.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_call.setHorizontalHeaderLabels(['C', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
-        '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
+        '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '진폭', '체결', '∑OI', 'OI↕'])
         self.tableWidget_call.verticalHeader().setVisible(False)
 
         #self.tableWidget_call.horizontalHeader().setSectionResizeMode(1)
@@ -4823,7 +4823,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_put.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_put.setHorizontalHeaderLabels(['P', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
-        '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '진폭', '∑PVP', '∑OI', 'OI↕'])
+        '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '진폭', '체결', '∑OI', 'OI↕'])
         self.tableWidget_put.verticalHeader().setVisible(False)
 
         #self.tableWidget_put.horizontalHeader().setSectionResizeMode(1)
@@ -19430,7 +19430,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('대비\n(%)')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.대비.value, item)
 
-                item = QTableWidgetItem('∑PVP')
+                item = QTableWidgetItem('체결')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.VP.value, item)
 
                 item = QTableWidgetItem('∑OI')
@@ -19448,7 +19448,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('대비\n(%)')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.대비.value, item)
 
-                item = QTableWidgetItem('∑PVP')
+                item = QTableWidgetItem('체결')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.VP.value, item)
 
                 item = QTableWidgetItem('∑OI')
