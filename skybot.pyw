@@ -17532,6 +17532,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     OLOH = '-'
                     item = QTableWidgetItem(OLOH)
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.OLOH.value, item)
 
                     시가 = round(df['시가'][i], 2)
@@ -17574,6 +17576,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem("{0:.2f}".format(종가))
 
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.종가.value, item)
 
                     #df_call_price_graph.iat[0, i] = 종가
@@ -17624,6 +17628,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     진폭 = 고가 - 저가
                     item = QTableWidgetItem("{0:.2f}".format(진폭))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.진폭.value, item)
                     
                     if not NightTime:
@@ -17639,6 +17645,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item = QTableWidgetItem("{0:.2f}".format(시가))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
 
                         if 시가 > 종가:
                             item.setForeground(QBrush(적색))
@@ -17674,6 +17681,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(흰색))
+                            item.setForeground(QBrush(검정색))
                             self.tableWidget_call.setItem(i, Option_column.시가갭.value, item)
 
                             call_db_percent[i] = (현재가 / 시가 - 1) * 100
@@ -17682,18 +17691,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(흰색))
+                            item.setForeground(QBrush(검정색))
                             self.tableWidget_call.setItem(i, Option_column.대비.value, item)
                         else:
                             gap_str = "{0:.2f}".format(시가갭)
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(흰색))
+                            item.setForeground(QBrush(검정색))
                             self.tableWidget_call.setItem(i, Option_column.시가갭.value, item)
 
                             gap_str = "{0:.2f}".format(대비)
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(흰색))
+                            item.setForeground(QBrush(검정색))
                             self.tableWidget_call.setItem(i, Option_column.대비.value, item)
                     else:
                         시가 = 0.0
@@ -17702,19 +17717,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item = QTableWidgetItem("{0:.2f}".format(시가))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
                         self.tableWidget_call.setItem(i, Option_column.시가.value, item)
 
                         item = QTableWidgetItem("{0:.2f}".format(시가갭))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
                         self.tableWidget_call.setItem(i, Option_column.시가갭.value, item)
 
                         item = QTableWidgetItem("{0:.2f}".format(대비))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
                         self.tableWidget_call.setItem(i, Option_column.대비.value, item)
 
                     피봇 = 0.0
                     item = QTableWidgetItem("{0:.2f}".format(피봇))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.피봇.value, item)
 
                     if NightTime:
@@ -17740,6 +17763,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.VP.value, item)
 
                     if pre_start:
@@ -17750,6 +17775,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.OI.value, item)
 
                     순미결증감 = df['미결제약정증감'][i]
@@ -17758,6 +17785,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.OID.value, item)
 
                     단축코드 = 0
@@ -17836,6 +17865,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     OLOH = '-'
                     item = QTableWidgetItem(OLOH)
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.OLOH.value, item)
 
                     시가 = round(df1['시가'][i], 2)
@@ -17878,6 +17909,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem("{0:.2f}".format(종가))
 
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.종가.value, item)
 
                     #df_put_price_graph.iat[0, i] = 종가
@@ -17928,6 +17961,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     진폭 = 고가 - 저가
                     item = QTableWidgetItem("{0:.2f}".format(진폭))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.진폭.value, item)
                     
                     if not NightTime:
@@ -17943,6 +17978,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item = QTableWidgetItem("{0:.2f}".format(시가))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
 
                         if 시가 > 종가:
                             item.setForeground(QBrush(적색))
@@ -17978,6 +18014,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(흰색))
+                            item.setForeground(QBrush(검정색))
                             self.tableWidget_put.setItem(i, Option_column.시가갭.value, item)
 
                             put_db_percent[i] = (현재가 / 시가 - 1) * 100
@@ -17986,18 +18024,24 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(흰색))
+                            item.setForeground(QBrush(검정색))
                             self.tableWidget_put.setItem(i, Option_column.대비.value, item)
                         else:
                             gap_str = "{0:.2f}".format(시가갭)
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(흰색))
+                            item.setForeground(QBrush(검정색))
                             self.tableWidget_put.setItem(i, Option_column.시가갭.value, item)
 
                             gap_str = "{0:.2f}".format(대비)
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(흰색))
+                            item.setForeground(QBrush(검정색))
                             self.tableWidget_put.setItem(i, Option_column.대비.value, item)
                     else:
                         시가 = 0.0
@@ -18006,19 +18050,27 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item = QTableWidgetItem("{0:.2f}".format(시가))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
                         self.tableWidget_put.setItem(i, Option_column.시가.value, item)
 
                         item = QTableWidgetItem("{0:.2f}".format(시가갭))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
                         self.tableWidget_put.setItem(i, Option_column.시가갭.value, item)
 
                         item = QTableWidgetItem("{0:.2f}".format(대비))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
                         self.tableWidget_put.setItem(i, Option_column.대비.value, item)
 
                     피봇 = 0.0
                     item = QTableWidgetItem("{0:.2f}".format(피봇))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.피봇.value, item)
 
                     if NightTime:
@@ -18044,6 +18096,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.VP.value, item)                   
 
                     if pre_start:
@@ -18054,6 +18108,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.OI.value, item)
 
                     순미결증감 = df1['미결제약정증감'][i]
@@ -18062,6 +18118,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.OID.value, item)
 
                     단축코드 = 0
@@ -19481,6 +19539,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem("{0:.2f}".format(전저))
 
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.전저.value, item)
 
                     전고 = df_call.at[i, '고가']
@@ -19492,6 +19552,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem("{0:.2f}".format(전고))
 
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.전고.value, item)
 
                     # to be check !!!
@@ -19515,6 +19577,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem("{0:.2f}".format(종가))
 
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.종가.value, item)
 
                     #df_call_price_graph.iat[0, i] = 종가
@@ -19558,6 +19622,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         item.setBackground(QBrush(흰색))
 
+                    item.setForeground(QBrush(검정색))
+
                     self.tableWidget_call.setItem(i, Option_column.저가.value, item)
 
                     df_call.at[i, '고가'] = 고가
@@ -19569,6 +19635,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setBackground(QBrush(옅은회색))
                     else:
                         item.setBackground(QBrush(흰색))
+
+                    item.setForeground(QBrush(검정색))
 
                     self.tableWidget_call.setItem(i, Option_column.고가.value, item)
 
@@ -19587,6 +19655,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem("{0:.2f}".format(진폭))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.진폭.value, item)
                     
                     if 시가 > opt_search_start_value and df['저가'][i] < df['고가'][i]:
@@ -19598,6 +19668,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item = QTableWidgetItem("{0:.2f}".format(시가))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
 
                         if 시가 > 종가:
                             item.setForeground(QBrush(적색))
@@ -19633,6 +19704,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(흰색))
+                            item.setForeground(QBrush(검정색))
                             self.tableWidget_call.setItem(i, Option_column.시가갭.value, item)
 
                             call_db_percent[i] = (현재가 / 시가 - 1) * 100
@@ -19641,24 +19714,32 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(흰색))
+                            item.setForeground(QBrush(검정색))
                             self.tableWidget_call.setItem(i, Option_column.대비.value, item)
                         else:
                             gap_str = "{0:.2f}".format(시가갭)
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(흰색))
+                            item.setForeground(QBrush(검정색))
                             self.tableWidget_call.setItem(i, Option_column.시가갭.value, item)
 
                             gap_str = "{0:.2f}".format(대비)
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(흰색))
+                            item.setForeground(QBrush(검정색))
                             self.tableWidget_call.setItem(i, Option_column.대비.value, item)
 
                         피봇 = self.calc_pivot(전저, 전고, 종가, 시가)
 
                         item = QTableWidgetItem("{0:.2f}".format(피봇))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
                         self.tableWidget_call.setItem(i, Option_column.피봇.value, item)
                     else:
                         시가 = 0.0
@@ -19668,18 +19749,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item = QTableWidgetItem("{0:.2f}".format(시가))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
                         self.tableWidget_call.setItem(i, Option_column.시가.value, item)
 
                         item = QTableWidgetItem("{0:.2f}".format(피봇))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
                         self.tableWidget_call.setItem(i, Option_column.피봇.value, item)
 
                         item = QTableWidgetItem("{0:.2f}".format(시가갭))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
                         self.tableWidget_call.setItem(i, Option_column.시가갭.value, item)
 
                         item = QTableWidgetItem("{0:.2f}".format(대비))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
                         self.tableWidget_call.setItem(i, Option_column.대비.value, item)
 
                         self.tableWidget_call.item(i, Option_column.행사가.value).setBackground(QBrush(흰색))
@@ -19712,16 +19801,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.VP.value, item)
                     
                     temp = format(0, ',')
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.OI.value, item)
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.OID.value, item)
 
                     df_call_total_graph.at[0, 'volume'] = 0
@@ -19747,6 +19842,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem("{0:.2f}".format(전저))
 
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.전저.value, item)
 
                     전고 = df_put.at[i, '고가']
@@ -19758,6 +19855,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem("{0:.2f}".format(전고))
 
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.전고.value, item)
 
                     # to be check !!!
@@ -19781,6 +19880,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item = QTableWidgetItem("{0:.2f}".format(종가))
 
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.종가.value, item)
 
                     #df_put_price_graph.iat[0, i] = 종가
@@ -19823,6 +19924,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         item.setBackground(QBrush(흰색))
 
+                    item.setForeground(QBrush(검정색))
+
                     self.tableWidget_put.setItem(i, Option_column.저가.value, item)
 
                     df_put.at[i, '고가'] = 고가
@@ -19834,6 +19937,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setBackground(QBrush(옅은회색))
                     else:
                         item.setBackground(QBrush(흰색))
+
+                    item.setForeground(QBrush(검정색))
 
                     self.tableWidget_put.setItem(i, Option_column.고가.value, item)
 
@@ -19853,6 +19958,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem("{0:.2f}".format(진폭))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.진폭.value, item)
                     
                     if 시가 > opt_search_start_value and df1['저가'][i] < df1['고가'][i]:
@@ -19864,6 +19971,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item = QTableWidgetItem("{0:.2f}".format(시가))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
 
                         if 시가 > 종가:
                             item.setForeground(QBrush(적색))
@@ -19899,6 +20007,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(흰색))
+                            item.setForeground(QBrush(검정색))
                             self.tableWidget_put.setItem(i, Option_column.시가갭.value, item)
 
                             put_db_percent[i] = (현재가 / 시가 - 1) * 100
@@ -19907,24 +20017,32 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(흰색))
+                            item.setForeground(QBrush(검정색))
                             self.tableWidget_put.setItem(i, Option_column.대비.value, item)
                         else:
                             gap_str = "{0:.2f}".format(시가갭)
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(흰색))
+                            item.setForeground(QBrush(검정색))
                             self.tableWidget_put.setItem(i, Option_column.시가갭.value, item)
 
                             gap_str = "{0:.2f}".format(대비)
 
                             item = QTableWidgetItem(gap_str)
                             item.setTextAlignment(Qt.AlignCenter)
+                            item.setBackground(QBrush(흰색))
+                            item.setForeground(QBrush(검정색))
                             self.tableWidget_put.setItem(i, Option_column.대비.value, item)
 
                         피봇 = self.calc_pivot(전저, 전고, 종가, 시가)
 
                         item = QTableWidgetItem("{0:.2f}".format(피봇))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
                         self.tableWidget_put.setItem(i, Option_column.피봇.value, item)
                     else:
                         시가 = 0.0
@@ -19934,18 +20052,26 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item = QTableWidgetItem("{0:.2f}".format(시가))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
                         self.tableWidget_put.setItem(i, Option_column.시가.value, item)
 
                         item = QTableWidgetItem("{0:.2f}".format(피봇))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
                         self.tableWidget_put.setItem(i, Option_column.피봇.value, item)
 
                         item = QTableWidgetItem("{0:.2f}".format(시가갭))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
                         self.tableWidget_put.setItem(i, Option_column.시가갭.value, item)
 
                         item = QTableWidgetItem("{0:.2f}".format(대비))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
                         self.tableWidget_put.setItem(i, Option_column.대비.value, item)
 
                         self.tableWidget_put.item(i, Option_column.행사가.value).setBackground(QBrush(흰색))
@@ -19978,16 +20104,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.VP.value, item)
 
                     temp = format(0, ',')
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.OI.value, item)
 
                     item = QTableWidgetItem(temp)
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.OID.value, item)
 
                     df_put_total_graph.at[0, 'volume'] = 0
@@ -20338,6 +20470,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem("{0:.2f}".format(시가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_call.setItem(i, Option_column.시가.value, item)
 
                     if 시가 > 0:
@@ -20392,6 +20526,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         item.setBackground(QBrush(흰색))
 
+                    item.setForeground(QBrush(검정색))
+
                     self.tableWidget_call.setItem(i, Option_column.저가.value, item)
 
                     df_call.at[i, '고가'] = 고가
@@ -20403,6 +20539,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setBackground(QBrush(옅은회색))
                     else:
                         item.setBackground(QBrush(흰색))
+
+                    item.setForeground(QBrush(검정색))
 
                     self.tableWidget_call.setItem(i, Option_column.고가.value, item)
                     
@@ -20419,6 +20557,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     item = QTableWidgetItem("{0:.2f}".format(시가))
                     item.setTextAlignment(Qt.AlignCenter)
+                    item.setBackground(QBrush(흰색))
+                    item.setForeground(QBrush(검정색))
                     self.tableWidget_put.setItem(i, Option_column.시가.value, item)
 
                     if 시가 > 0:
@@ -20431,6 +20571,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item = QTableWidgetItem("{0:.2f}".format(피봇))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
                         self.tableWidget_put.setItem(i, Option_column.피봇.value, item)
                     else:
                         시가갭 = 0
@@ -20473,6 +20615,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         item.setBackground(QBrush(흰색))
 
+                    item.setForeground(QBrush(검정색))
+
                     self.tableWidget_put.setItem(i, Option_column.저가.value, item)
 
                     df_put.at[i, '고가'] = 고가
@@ -20484,6 +20628,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setBackground(QBrush(옅은회색))
                     else:
                         item.setBackground(QBrush(흰색))
+
+                    item.setForeground(QBrush(검정색))
 
                     self.tableWidget_put.setItem(i, Option_column.고가.value, item)
                     
@@ -20550,6 +20696,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             item.setBackground(QBrush(흰색))
 
+                        item.setForeground(QBrush(검정색))
+
                         self.tableWidget_call.setItem(i, Option_column.저가.value, item)
 
                         df_call.at[i, '고가'] = 고가
@@ -20567,6 +20715,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item.setBackground(QBrush(옅은회색))
                         else:
                             item.setBackground(QBrush(흰색))
+
+                        item.setForeground(QBrush(검정색))
 
                         self.tableWidget_call.setItem(i, Option_column.고가.value, item)
 
@@ -20593,6 +20743,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             item.setBackground(QBrush(흰색))
 
+                        item.setForeground(QBrush(검정색))
+
                         self.tableWidget_put.setItem(i, Option_column.저가.value, item)
 
                         df_put.at[i, '고가'] = 고가
@@ -20610,6 +20762,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             item.setBackground(QBrush(옅은회색))
                         else:
                             item.setBackground(QBrush(흰색))
+
+                        item.setForeground(QBrush(검정색))
 
                         self.tableWidget_put.setItem(i, Option_column.고가.value, item)
                 else:
