@@ -13878,7 +13878,23 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             item = QTableWidgetItem("DOW\n({0:.2f}%)".format(DOW_등락율))
             item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(흰색))
+            item.setForeground(QBrush(검정색))
             self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)
+            
+            선물_진폭비 = (선물_고가 - 선물_저가) / 선물_시가   
+            
+            선물_DOW_진폭비율 = 선물_진폭비 / DOW_진폭비 
+
+            item = QTableWidgetItem("{0:.2f}".format(선물_DOW_진폭비율))
+            item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(흰색))
+            item.setForeground(QBrush(검정색))
+
+            if NightTime:
+                self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
+            else:
+                self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
             
             item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_대비, 선물_등락율))
             item.setTextAlignment(Qt.AlignCenter)
@@ -13899,18 +13915,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)                       
-
-            선물_진폭비 = (선물_고가 - 선물_저가) / 선물_시가   
-            
-            선물_DOW_진폭비율 = 선물_진폭비 / DOW_진폭비 
-
-            item = QTableWidgetItem("{0:.2f}".format(선물_DOW_진폭비율))
-            item.setTextAlignment(Qt.AlignCenter)
-
-            if NightTime:
-                self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
-            else:
-                self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
             
             self.tableWidget_fut.resizeColumnToContents(Futures_column.대비.value)            
         else:
@@ -17367,6 +17371,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             item = QTableWidgetItem("{0:.2f}".format(fut_realdata['대비']))
             item.setTextAlignment(Qt.AlignCenter)
+            item.setBackground(QBrush(흰색))
+            item.setForeground(QBrush(검정색))
             self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
             
             fut_realdata['저가'] = df['저가']
@@ -23077,6 +23083,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         item = QTableWidgetItem("선물\n({0:.2f}%)".format(선물_등락율))
                         item.setTextAlignment(Qt.AlignCenter)
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
                         self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
 
                         item = QTableWidgetItem("DOW\n({0:.2f}%)".format(DOW_등락율))
