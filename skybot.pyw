@@ -32971,11 +32971,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
     def update_bigchart(self):
 
         global flag_plot_update_is_running, bc_ui_update_time
+        
+        flag_plot_update_is_running = True
 
         dt = datetime.datetime.now()
         start_time = timeit.default_timer()
-
-        flag_plot_update_is_running = True
 
         '''
         if flag_offline:
