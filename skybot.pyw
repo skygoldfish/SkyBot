@@ -9850,9 +9850,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('★')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
 
-                #self.tableWidget_call.resizeRowsToContents()
                 self.tableWidget_call.resizeColumnToContents(Option_column.저가.value)
-
                 telegram_send_str_call_low = ''
             else:
                 pass
@@ -9864,29 +9862,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('★ 2')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
 
-                #self.tableWidget_call.resizeRowsToContents()
                 self.tableWidget_call.resizeColumnToContents(Option_column.저가.value)
 
                 if TARGET_MONTH_SELECT == 1 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 2 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 3 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
-
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass  
             else:
@@ -9899,29 +9887,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('★ 3')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
 
-                #self.tableWidget_call.resizeRowsToContents()
                 self.tableWidget_call.resizeColumnToContents(Option_column.저가.value)
 
                 if TARGET_MONTH_SELECT == 1 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 2 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 3 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
-
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass  
             else:
@@ -9934,29 +9912,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('★ +')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.저가.value, item)
 
-                #self.tableWidget_call.resizeRowsToContents()
                 self.tableWidget_call.resizeColumnToContents(Option_column.저가.value)
 
                 if TARGET_MONTH_SELECT == 1 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] CM 콜저가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 2 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] NM 콜저가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 3 and call_low_node_count != call_low_node_old_count:
 
                     telegram_send_str_call_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜저가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
-
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass  
             else:
@@ -10030,9 +9998,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('★')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                #self.tableWidget_call.resizeRowsToContents()
                 self.tableWidget_call.resizeColumnToContents(Option_column.고가.value)
-
                 telegram_send_str_call_high = '' 
             else:
                 pass
@@ -10044,29 +10010,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('★ 2')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                #self.tableWidget_call.resizeRowsToContents()
                 self.tableWidget_call.resizeColumnToContents(Option_column.고가.value)
 
                 if TARGET_MONTH_SELECT == 1 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 2 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 3 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
-
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass  
             else:
@@ -10079,29 +10035,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('★ 3')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                #self.tableWidget_call.resizeRowsToContents()
                 self.tableWidget_call.resizeColumnToContents(Option_column.고가.value)
 
                 if TARGET_MONTH_SELECT == 1 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 2 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 3 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
-
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass 
             else:
@@ -10114,29 +10060,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('★ +')
                 self.tableWidget_call.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                #self.tableWidget_call.resizeRowsToContents()
                 self.tableWidget_call.resizeColumnToContents(Option_column.고가.value)
 
                 if TARGET_MONTH_SELECT == 1 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] CM 콜고가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 2 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] NM 콜고가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 3 and call_high_node_count != call_high_node_old_count:
 
                     telegram_send_str_call_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 콜고가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
-
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass 
             else:
@@ -12457,9 +12393,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('★')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
 
-                #self.tableWidget_put.resizeRowsToContents()
                 self.tableWidget_put.resizeColumnToContents(Option_column.저가.value)
-
                 telegram_send_str_put_low = ''
             else:
                 pass
@@ -12471,29 +12405,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('★ 2')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
 
-                #self.tableWidget_put.resizeRowsToContents()
                 self.tableWidget_put.resizeColumnToContents(Option_column.저가.value)
 
                 if TARGET_MONTH_SELECT == 1 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 2 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 3 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
-
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass
             else:
@@ -12506,29 +12430,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('★ 3')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
 
-                #self.tableWidget_put.resizeRowsToContents()
                 self.tableWidget_put.resizeColumnToContents(Option_column.저가.value)
 
                 if TARGET_MONTH_SELECT == 1 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 2 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 3 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
-
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass
             else:
@@ -12541,29 +12455,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('★ +')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.저가.value, item)
 
-                #self.tableWidget_put.resizeRowsToContents()
                 self.tableWidget_put.resizeColumnToContents(Option_column.저가.value)
 
                 if TARGET_MONTH_SELECT == 1 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] CM 풋저가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 2 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] NM 풋저가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 3 and put_low_node_count != put_low_node_old_count:
 
                     telegram_send_str_put_low = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋저가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
-
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass
             else:
@@ -12637,7 +12541,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('★')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                #self.tableWidget_put.resizeRowsToContents()
                 self.tableWidget_put.resizeColumnToContents(Option_column.고가.value)
 
                 telegram_send_str_put_high = ''
@@ -12651,29 +12554,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('★ 2')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                #self.tableWidget_put.resizeRowsToContents()
                 self.tableWidget_put.resizeColumnToContents(Option_column.고가.value)
 
                 if TARGET_MONTH_SELECT == 1 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 2 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 3 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 ★ 2 발생".format(adj_hour, adj_min, adj_sec)
-
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass
             else:
@@ -12686,29 +12579,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('★ 3')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                #self.tableWidget_put.resizeRowsToContents()
                 self.tableWidget_put.resizeColumnToContents(Option_column.고가.value)
 
                 if TARGET_MONTH_SELECT == 1 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 2 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 3 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 ★ 3 발생".format(adj_hour, adj_min, adj_sec)
-
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass
             else:
@@ -12720,29 +12603,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item = QTableWidgetItem('★ +')
                 self.tableWidget_put.setHorizontalHeaderItem(Option_column.고가.value, item)
 
-                #self.tableWidget_put.resizeRowsToContents()
                 self.tableWidget_put.resizeColumnToContents(Option_column.고가.value)
 
                 if TARGET_MONTH_SELECT == 1 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] CM 풋고가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 2 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] NM 풋고가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
 
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
-
                 elif TARGET_MONTH_SELECT == 3 and put_high_node_count != put_high_node_old_count:
 
                     telegram_send_str_put_high = "[{0:02d}:{1:02d}:{2:02d}] MAN 풋고가 맥점 ★ + 발생".format(adj_hour, adj_min, adj_sec)
-
-                    #self.tableWidget_fut.resizeRowsToContents()
-                    #self.tableWidget_fut.resizeColumnsToContents()
                 else:
                     pass
             else:
@@ -13951,7 +13824,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(0, Futures_column.현재가.value, item)
 
                 self.tableWidget_fut.resizeRowToContents(0)
-                self.tableWidget_fut.resizeColumnToContents(Futures_column.현재가.value)
             else:
                 df_fut.at[1, '현재가'] = 선물_현재가
                 fut_realdata['현재가'] = 선물_현재가 
@@ -13976,7 +13848,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.현재가.value, item)
 
                 self.tableWidget_fut.resizeRowToContents(1)
-                self.tableWidget_fut.resizeColumnToContents(Futures_column.현재가.value)
+            
+            self.tableWidget_fut.resizeColumnToContents(Futures_column.현재가.value)
             
             if energy_direction == 'call':
 
@@ -14007,8 +13880,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             item.setTextAlignment(Qt.AlignCenter)
             self.tableWidget_fut.setItem(2, Futures_column.대비.value, item)
             
-            self.tableWidget_fut.resizeColumnToContents(Futures_column.대비.value)
-
             item = QTableWidgetItem("{0:.2f}\n({1:.2f}%)".format(선물_대비, 선물_등락율))
             item.setTextAlignment(Qt.AlignCenter)
 
@@ -14021,6 +13892,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setBackground(QBrush(lightskyblue))
             else:
                 pass
+
+            item.setForeground(QBrush(검정색))
 
             if NightTime:
                 self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
@@ -14037,7 +13910,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             if NightTime:
                 self.tableWidget_fut.setItem(1, Futures_column.대비.value, item)
             else:
-                self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)            
+                self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
+            
+            self.tableWidget_fut.resizeColumnToContents(Futures_column.대비.value)            
         else:
             pass
 
@@ -14232,6 +14107,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setBackground(QBrush(라임))
             else:
                 item.setBackground(QBrush(흰색))
+
+            item.setForeground(QBrush(검정색))
 
             self.tableWidget_fut.setItem(1, Futures_column.OID.value, item)              
         else:
@@ -19437,6 +19314,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 item.setBackground(QBrush(라임))
             else:
                 item.setBackground(QBrush(흰색))
+
+            item.setForeground(QBrush(검정색))    
 
             self.tableWidget_fut.setItem(0, Futures_column.OID.value, item)                        
 
