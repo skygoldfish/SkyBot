@@ -7145,6 +7145,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 # 옵션 등락율 scale factor 읽어들임
                 drate_scale_factor = float(self.tableWidget_fut.item(2, Futures_column.진폭.value).text())
+
+                self.option_quote_display()
                 
                 if not NightTime:
                     self.display_atm(self.alternate_flag)
@@ -13724,7 +13726,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_fut.setItem(0, Futures_column.시가.value, item)
 
-                df_fut.loc[0, '시가'] = 선물_시가
+                df_fut.at[0, '시가'] = 선물_시가
                 cme_realdata['시가'] = 선물_시가
 
                 item = QTableWidgetItem("{0:.2f}".format(선물_피봇))
@@ -13732,7 +13734,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
 
-                df_fut.loc[0, '피봇'] = 선물_피봇
+                df_fut.at[0, '피봇'] = 선물_피봇
                 cme_realdata['피봇'] = 선물_피봇
 
                 item = QTableWidgetItem("{0:.2f}".format(시가갭))
@@ -13750,11 +13752,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
                 
                 cme_realdata['시가갭'] = 시가갭
-                df_fut.loc[0, '시가갭'] = 시가갭
+                df_fut.at[0, '시가갭'] = 시가갭
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.시가.value, item)
 
-                df_fut.loc[1, '시가'] = 선물_시가
+                df_fut.at[1, '시가'] = 선물_시가
                 fut_realdata['시가'] = 선물_시가
 
                 item = QTableWidgetItem("{0:.2f}".format(선물_피봇))
@@ -13762,7 +13764,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
 
-                df_fut.loc[1, '피봇'] = 선물_피봇
+                df_fut.at[1, '피봇'] = 선물_피봇
                 fut_realdata['피봇'] = 선물_피봇             
 
                 item = QTableWidgetItem("{0:.2f}".format(시가갭))
@@ -13780,7 +13782,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
                 
                 fut_realdata['시가갭'] = 시가갭
-                df_fut.loc[1, '시가갭'] = 시가갭                
+                df_fut.at[1, '시가갭'] = 시가갭                
         else:
             pass
             '''
@@ -13795,11 +13797,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if NightTime:
                     self.tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
-                    df_fut.loc[0, '피봇'] = 선물_피봇
+                    df_fut.at[0, '피봇'] = 선물_피봇
                     cme_realdata['피봇'] = 선물_피봇
                 else:
                     self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
-                    df_fut.loc[1, '피봇'] = 선물_피봇
+                    df_fut.at[1, '피봇'] = 선물_피봇
                     fut_realdata['피봇'] = 선물_피봇
 
                 item = QTableWidgetItem("{0:.2f}".format(시가갭))
@@ -13816,11 +13818,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if NightTime:
                     self.tableWidget_fut.setItem(0, Futures_column.시가갭.value, item)
-                    df_fut.loc[0, '시가갭'] = 시가갭
+                    df_fut.at[0, '시가갭'] = 시가갭
                     cme_realdata['시가갭'] = 시가갭
                 else:
                     self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
-                    df_fut.loc[1, '시가갭'] = 시가갭
+                    df_fut.at[1, '시가갭'] = 시가갭
                     fut_realdata['시가갭'] = 시가갭
             else:
                 pass
@@ -17238,33 +17240,33 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             CTS일자, df = result
             
-            if df.iloc[0]['업종코드'] == KOSPI:
+            if df.at[0, '업종코드'] == KOSPI:
 
-                if df.iloc[0]['전일대비구분'] == '5':
+                if df.at[0, '전일대비구분'] == '5':
 
-                    jisu_str = "KOSPI: {0} (-{1:.2f}, {2:0.1f}%)".format(format(df.iloc[0]['지수'], ','), df.iloc[0]['전일대비'], df.iloc[0]['등락율'])
+                    jisu_str = "KOSPI: {0} (-{1:.2f}, {2:0.1f}%)".format(format(df.at[0, '지수'], ','), df.at[0, '전일대비'], df.at[0, '등락율'])
                     self.label_kospi.setText(jisu_str)
                     self.label_kospi.setStyleSheet('background-color: black ; color: lightskyblue')
 
-                elif df.iloc[0]['전일대비구분'] == '2':
+                elif df.at[0, '전일대비구분'] == '2':
 
-                    jisu_str = "KOSPI: {0} ({1:.2f}, {2:0.1f}%)".format(format(df.iloc[0]['지수'], ','), df.iloc[0]['전일대비'], df.iloc[0]['등락율'])
+                    jisu_str = "KOSPI: {0} ({1:.2f}, {2:0.1f}%)".format(format(df.at[0, '지수'], ','), df.at[0, '전일대비'], df.at[0, '등락율'])
                     self.label_kospi.setText(jisu_str)
                     self.label_kospi.setStyleSheet('background-color: black ; color: pink')
                 else:
                     pass
 
-            elif df.iloc[0]['업종코드'] == KOSDAQ:
+            elif df.at[0, '업종코드'] == KOSDAQ:
 
-                if df.iloc[0]['전일대비구분'] == '5':
+                if df.at[0, '전일대비구분'] == '5':
 
-                    jisu_str = "KOSDAQ: {0} (-{1:.2f}, {2:0.1f}%)".format(format(df.iloc[0]['지수'], ','), df.iloc[0]['전일대비'], df.iloc[0]['등락율'])
+                    jisu_str = "KOSDAQ: {0} (-{1:.2f}, {2:0.1f}%)".format(format(df.at[0, '지수'], ','), df.at[0, '전일대비'], df.at[0, '등락율'])
                     self.label_kosdaq.setText(jisu_str)
                     self.label_kosdaq.setStyleSheet('background-color: black ; color: lightskyblue')
 
-                elif df.iloc[0]['전일대비구분'] == '2':
+                elif df.at[0, '전일대비구분'] == '2':
 
-                    jisu_str = "KOSDAQ: {0} ({1:.2f}, {2:0.1f}%)".format(format(df.iloc[0]['지수'], ','), df.iloc[0]['전일대비'], df.iloc[0]['등락율'])
+                    jisu_str = "KOSDAQ: {0} ({1:.2f}, {2:0.1f}%)".format(format(df.at[0, '지수'], ','), df.at[0, '전일대비'], df.at[0, '등락율'])
                     self.label_kosdaq.setText(jisu_str)
                     self.label_kosdaq.setStyleSheet('background-color: black ; color: pink')
                 else:
@@ -23676,11 +23678,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         if NightTime:
                             self.tableWidget_fut.setItem(0, Futures_column.피봇.value, item)
-                            df_fut.loc[0, '피봇'] = 선물_피봇
+                            df_fut.at[0, '피봇'] = 선물_피봇
                             cme_realdata['피봇'] = 선물_피봇
                         else:
                             self.tableWidget_fut.setItem(1, Futures_column.피봇.value, item)
-                            df_fut.loc[1, '피봇'] = 선물_피봇
+                            df_fut.at[1, '피봇'] = 선물_피봇
                             fut_realdata['피봇'] = 선물_피봇              
                         
                         atm_str = self.get_atm_str(kp200_시가)
@@ -24384,10 +24386,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     index = call_행사가.index(result['단축코드'][5:8])
 
-                    df_call_hoga.loc[index, '매수건수'] = result['매수호가총건수']
-                    df_call_hoga.loc[index, '매도건수'] = result['매도호가총건수']
-                    df_call_hoga.loc[index, '매수잔량'] = result['매수호가총수량']
-                    df_call_hoga.loc[index, '매도잔량'] = result['매도호가총수량']
+                    df_call_hoga.at[index, '매수건수'] = result['매수호가총건수']
+                    df_call_hoga.at[index, '매도건수'] = result['매도호가총건수']
+                    df_call_hoga.at[index, '매수잔량'] = result['매수호가총수량']
+                    df_call_hoga.at[index, '매도잔량'] = result['매도호가총수량']
 
                     #opt_call_ho_update_counter += 1
 
@@ -24395,10 +24397,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     index = put_행사가.index(result['단축코드'][5:8])
 
-                    df_put_hoga.loc[index, '매수건수'] = result['매수호가총건수']
-                    df_put_hoga.loc[index, '매도건수'] = result['매도호가총건수']
-                    df_put_hoga.loc[index, '매수잔량'] = result['매수호가총수량']
-                    df_put_hoga.loc[index, '매도잔량'] = result['매도호가총수량']
+                    df_put_hoga.at[index, '매수건수'] = result['매수호가총건수']
+                    df_put_hoga.at[index, '매도건수'] = result['매도호가총건수']
+                    df_put_hoga.at[index, '매수잔량'] = result['매수호가총수량']
+                    df_put_hoga.at[index, '매도잔량'] = result['매도호가총수량']
 
                     #opt_put_ho_update_counter += 1
 
@@ -24486,7 +24488,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                self.option_quote_display()
+                #self.option_quote_display()
 
                 '''
                 if opt_call_ho_update_counter == 1000 or opt_put_ho_update_counter == 1000:
