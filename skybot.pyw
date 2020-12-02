@@ -308,6 +308,7 @@ CROSS_COLOR_INTERVAL = parser.getint('Initial Value', 'Cross Coloring Interval(m
 MAIN_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Main Update Interval(msec)')
 BIGCHART_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Big Chart Update Interval(msec)')
 OPTION_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Option Screen Board Update Interval(sec)')
+QUOTE_REQUEST_NUMBER = parser.get('Initial Value', 'Number of Option Pairs Quote Request')
 
 # [8]. << Code of the Foreign Futures (H/M/U/Z) >>
 SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
@@ -4608,8 +4609,18 @@ class RealDataWorker(QThread):
             # 옵션 실시간 가격 및 호가 요청
             self.OPT_REAL.AdviseRealData(call_code[i])
             self.OPT_REAL.AdviseRealData(put_code[i])
-            self.OPT_HO.AdviseRealData(call_code[i])
-            self.OPT_HO.AdviseRealData(put_code[i])            
+
+        if QUOTE_REQUEST_NUMBER == 'All':
+            #print('QUOTE_REQUEST_NUMBER =', QUOTE_REQUEST_NUMBER)
+            for i in range(option_pairs_count):
+                self.OPT_HO.AdviseRealData(call_code[i])
+                self.OPT_HO.AdviseRealData(put_code[i]) 
+        else:
+            NEW_INDEX = int(int(QUOTE_REQUEST_NUMBER)/2)
+            #print('NEW_INDEX =', NEW_INDEX)
+            for i in range(atm_index - NEW_INDEX, atm_index + NEW_INDEX + 1):
+                self.OPT_HO.AdviseRealData(call_code[i])
+                self.OPT_HO.AdviseRealData(put_code[i])        
 
         # 선물 실시간테이타 요청
         self.FUT_REAL.AdviseRealData(fut_code)
@@ -4663,6 +4674,20 @@ class RealDataWorker(QThread):
         self.S3.UnadviseRealData()
         self.BM.UnadviseRealData()
         self.PM.UnadviseRealData()
+
+    def AdviseRealData_HS_ON(self):
+
+        self.OPT_HO.UnadviseRealData()
+
+        for i in range(atm_index - 5, atm_index + 5 + 1):
+            self.OPT_HO.AdviseRealData(call_code[i])
+            self.OPT_HO.AdviseRealData(put_code[i])
+
+    def AdviseRealData_HS_OFF(self):
+
+        for i in range(option_pairs_count):
+            self.OPT_HO.AdviseRealData(call_code[i])
+            self.OPT_HO.AdviseRealData(put_code[i])
 
     def UnadviseRealDataAll(self):
 
@@ -5993,6 +6018,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(str)
 
                 self.real_data_worker.UnadviseRealDataEtc()
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 호가요청을 등가중심 10개만 합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                self.textBrowser.append(str)
+
+                self.real_data_worker.AdviseRealData_HS_ON()
             else:
                 pass            
 
@@ -6024,7 +6054,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] S3, BM, PM을 재요청합니다.\r'.format(adj_hour, adj_min, adj_sec)
                 self.textBrowser.append(str)
                 
-                self.real_data_worker.AdviseRealDataEtc()                
+                self.real_data_worker.AdviseRealDataEtc()
+
+                str = '[{0:02d}:{1:02d}:{2:02d}] 옵션 호가요청을 원복합니다.\r'.format(adj_hour, adj_min, adj_sec)
+                self.textBrowser.append(str)
+
+                self.real_data_worker.AdviseRealData_HS_OFF()                
             else:
                 pass            
             
