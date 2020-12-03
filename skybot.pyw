@@ -7043,6 +7043,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             
             self.alternate_flag = not self.alternate_flag
+
+            if receive_quote:                
+                self.option_quote_update()
+            else:
+                pass
             
             # t8416 요청제한이 10분내에 200회, 회피 로직추가
             if flag_option_pair_full and self.alternate_flag and ui_update_time == ui_start_time + 10 * 60:
@@ -7145,8 +7150,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 # 옵션 등락율 scale factor 읽어들임
                 drate_scale_factor = float(self.tableWidget_fut.item(2, Futures_column.진폭.value).text())
-
-                self.option_quote_display()
                 
                 if not NightTime:
                     self.display_atm(self.alternate_flag)
@@ -7300,6 +7303,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.put_coreval_color_update()
 
                                 self.tableWidget_put.resizeColumnsToContents()
+                                self.tableWidget_fut.resizeColumnsToContents()
                             else:
                                 pass
                         else:
@@ -13423,7 +13427,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #self.textBrowser.append(str)
 
     # 선물표시	
-    def futures_display(self, result):        
+    def futures_update(self, result):        
 
         global cme_realdata, fut_realdata
         global df_fut
@@ -14306,7 +14310,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
     # 콜 표시
-    def call_display(self, result):
+    def call_update(self, result):
 
         global call_open, call_itm_count
         global df_call
@@ -14616,7 +14620,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if str != self.tableWidget_call.item(index, Option_column.전저.value).text():
                         item = QTableWidgetItem(str)
                         item.setTextAlignment(Qt.AlignCenter)
-                        item.setForeground(QBrush(청색))             
+
+                        if DARK_STYLESHEET:
+                            item.setForeground(QBrush(cyan))
+                        else:
+                            item.setForeground(QBrush(청색))
+
                         self.tableWidget_call.setItem(index, Option_column.전저.value, item)
                     else:
                         pass
@@ -14630,7 +14639,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if str != self.tableWidget_call.item(index, Option_column.월저.value).text():
                         item = QTableWidgetItem(str)
                         item.setTextAlignment(Qt.AlignCenter)
-                        item.setForeground(QBrush(청색))             
+
+                        if DARK_STYLESHEET:
+                            item.setForeground(QBrush(cyan))
+                        else:
+                            item.setForeground(QBrush(청색))
+
                         self.tableWidget_call.setItem(index, Option_column.월저.value, item)
                     else:
                         pass
@@ -14647,7 +14661,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if str != self.tableWidget_call.item(index, Option_column.기준가.value).text():
                             item = QTableWidgetItem(str)
                             item.setTextAlignment(Qt.AlignCenter)
-                            item.setForeground(QBrush(청색))             
+
+                            if DARK_STYLESHEET:
+                                item.setForeground(QBrush(cyan))
+                            else:
+                                item.setForeground(QBrush(청색))
+
                             self.tableWidget_call.setItem(index, Option_column.기준가.value, item)
                         else:
                             pass
@@ -14703,7 +14722,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if str != self.tableWidget_call.item(index, Option_column.전고.value).text():
                         item = QTableWidgetItem(str)
                         item.setTextAlignment(Qt.AlignCenter)
-                        item.setForeground(QBrush(적색))             
+                        item.setForeground(QBrush(magenta))             
                         self.tableWidget_call.setItem(index, Option_column.전고.value, item)
                     else:
                         pass
@@ -14717,7 +14736,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if str != self.tableWidget_call.item(index, Option_column.월고.value).text():
                         item = QTableWidgetItem(str)
                         item.setTextAlignment(Qt.AlignCenter)
-                        item.setForeground(QBrush(적색))             
+                        item.setForeground(QBrush(magenta))             
                         self.tableWidget_call.setItem(index, Option_column.월고.value, item)
                     else:
                         pass
@@ -15395,7 +15414,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         
     # 풋 표시
-    def put_display(self, result):
+    def put_update(self, result):
 
         global put_open, put_itm_count
         global df_put
@@ -15704,7 +15723,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if str != self.tableWidget_put.item(index, Option_column.전저.value).text():
                         item = QTableWidgetItem(str)
                         item.setTextAlignment(Qt.AlignCenter)
-                        item.setForeground(QBrush(청색))             
+
+                        if DARK_STYLESHEET:
+                            item.setForeground(QBrush(cyan))
+                        else:
+                            item.setForeground(QBrush(청색))
+
                         self.tableWidget_put.setItem(index, Option_column.전저.value, item)
                     else:
                         pass
@@ -15718,7 +15742,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if str != self.tableWidget_put.item(index, Option_column.월저.value).text():
                         item = QTableWidgetItem(str)
                         item.setTextAlignment(Qt.AlignCenter)
-                        item.setForeground(QBrush(청색))             
+
+                        if DARK_STYLESHEET:
+                            item.setForeground(QBrush(cyan))
+                        else:
+                            item.setForeground(QBrush(청색))
+
                         self.tableWidget_put.setItem(index, Option_column.월저.value, item)
                     else:
                         pass
@@ -15735,7 +15764,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         if str != self.tableWidget_put.item(index, Option_column.기준가.value).text():
                             item = QTableWidgetItem(str)
                             item.setTextAlignment(Qt.AlignCenter)
-                            item.setForeground(QBrush(청색))             
+
+                            if DARK_STYLESHEET:
+                                item.setForeground(QBrush(cyan))
+                            else:
+                                item.setForeground(QBrush(청색))
+
                             self.tableWidget_put.setItem(index, Option_column.기준가.value, item)
                         else:
                             pass                    
@@ -15791,7 +15825,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if str != self.tableWidget_put.item(index, Option_column.전고.value).text():
                         item = QTableWidgetItem(str)
                         item.setTextAlignment(Qt.AlignCenter)
-                        item.setForeground(QBrush(적색))             
+                        item.setForeground(QBrush(magenta))             
                         self.tableWidget_put.setItem(index, Option_column.전고.value, item)
                     else:
                         pass
@@ -15805,7 +15839,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     if str != self.tableWidget_put.item(index, Option_column.월고.value).text():
                         item = QTableWidgetItem(str)
                         item.setTextAlignment(Qt.AlignCenter)
-                        item.setForeground(QBrush(적색))             
+                        item.setForeground(QBrush(magenta))             
                         self.tableWidget_put.setItem(index, Option_column.월고.value, item)
                     else:
                         pass
@@ -16421,7 +16455,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
 
     # 호가표시
-    def option_quote_display(self):
+    def option_quote_update(self):
         
         global call_quote, put_quote
         global 콜매수잔량, 콜매도잔량, 풋매수잔량, 풋매도잔량, 콜건수비, 콜잔량비, 풋건수비, 풋잔량비
@@ -24319,7 +24353,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass                
 
-                self.futures_display(result)
+                self.futures_update(result)
 
             elif szTrCode == 'OC0' or szTrCode == 'EC0':
 
@@ -24349,7 +24383,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     call_result = copy.deepcopy(result)
 
                     if FLAG_GUEST_CONTROL:                        
-                        self.call_display(result)
+                        self.call_update(result)
                     else:
                         pass
 
@@ -24359,7 +24393,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     put_result = copy.deepcopy(result)
 
-                    self.put_display(result)
+                    self.put_update(result)
                     #self.put_volume_power_update()                    
                 else:
                     pass
@@ -24488,7 +24522,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                #self.option_quote_display()
+                #self.option_quote_update()
 
                 '''
                 if opt_call_ho_update_counter == 1000 or opt_put_ho_update_counter == 1000:
