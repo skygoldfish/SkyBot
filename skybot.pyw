@@ -4760,7 +4760,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         모니터번호 = QtWidgets.QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
         screen = QtGui.QDesktopWidget().screenGeometry(모니터번호)
 
-        print('모니터화면 번호 = ', 모니터번호)
+        if 모니터번호 == 0:
+            print('주모니터 화면입니다.')
+        else:
+            print('모니터화면 번호 = ', 모니터번호)
         
         print('current month = %s, month firstday = %s, next month = %s, month after next = %s, next month select = %s, SP500 = %s, DOW = %s, NASDAQ = %s, WTI = %s' \
             % (CURRENT_MONTH, MONTH_FIRSTDAY, NEXT_MONTH, MONTH_AFTER_NEXT, TARGET_MONTH_SELECT, SP500, DOW, NASDAQ, WTI))
@@ -4782,7 +4785,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.setGeometry(left, top + 30, width, height - 60)
 
-        self.showMaximized()
+        if screen.width() > 1920 and screen.height() > 1080:
+            pass
+        else:
+            self.showMaximized()
 
         self.XQ_t0167 = t0167(parent=self)              
         
@@ -37857,7 +37863,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # AxtiveX 설정
         # self.connection = XASession(parent=self)
         self.connection = None
-        self.XQ_t0167 = t0167(parent=self)
+        self.XQ_t0167 = t0167(parent=self)        
 
     def OnQApplicationStarted(self):
         self.clock = QtCore.QTimer()
@@ -38700,7 +38706,26 @@ if __name__ == "__main__":
 
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(True)
-    
+
+    '''    
+    app.setAttribute(Qt.AA_EnableHighDpiScaling, True)
+    app.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
+    '''
+
+    all_screens = app.screens()
+    print('스크린갯수 =', len(all_screens))
+
+    for s in all_screens:
+
+        print()
+        print(s.name())
+        print(s.availableGeometry())
+        print(s.availableGeometry().width())
+        print(s.availableGeometry().height())
+        print(s.size())
+        print(s.size().width())
+        print(s.size().height())
+
     if DARK_STYLESHEET:    
         dark_stylesheet = qdarkstyle.load_stylesheet_pyqt5()
         app.setStyleSheet(dark_stylesheet)
