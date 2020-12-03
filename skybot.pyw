@@ -13427,7 +13427,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         #self.textBrowser.append(str)
 
     # 선물표시	
-    def futures_update(self, result):        
+    def fut_update(self, result):        
 
         global cme_realdata, fut_realdata
         global df_fut
@@ -24353,7 +24353,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass                
 
-                self.futures_update(result)
+                self.fut_update(result)
 
             elif szTrCode == 'OC0' or szTrCode == 'EC0':
 
