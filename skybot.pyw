@@ -33305,9 +33305,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
-                if df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] > 1.0 and df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'] > 1.0:
+                if energy_direction == 'call':
                     self.label_17.setStyleSheet('background-color: red ; color: white')
-                elif df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] < 1.0 and df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'] < 1.0:
+                elif energy_direction == 'put':
                     self.label_17.setStyleSheet('background-color: blue ; color: white')
                 else:
                     self.label_17.setStyleSheet('background-color: yellow ; color: black')
@@ -34101,9 +34101,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
-                if df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] > 1.0 and df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'] > 1.0:
+                if energy_direction == 'call':
                     self.label_27.setStyleSheet('background-color: red ; color: white')
-                elif df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] < 1.0 and df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'] < 1.0:
+                elif energy_direction == 'put':
                     self.label_27.setStyleSheet('background-color: blue ; color: white')
                 else:
                     self.label_27.setStyleSheet('background-color: yellow ; color: black')
@@ -34838,9 +34838,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
-                if df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] > 1.0 and df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'] > 1.0:
+                if energy_direction == 'call':
                     self.label_37.setStyleSheet('background-color: red ; color: white')
-                elif df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] < 1.0 and df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'] < 1.0:
+                elif energy_direction == 'put':
                     self.label_37.setStyleSheet('background-color: blue ; color: white')
                 else:
                     self.label_37.setStyleSheet('background-color: yellow ; color: black')
@@ -35540,9 +35540,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
-                if df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] > 1.0 and df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'] > 1.0:
+                if energy_direction == 'call':
                     self.label_47.setStyleSheet('background-color: red ; color: white')
-                elif df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] < 1.0 and df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'] < 1.0:
+                elif energy_direction == 'put':
                     self.label_47.setStyleSheet('background-color: blue ; color: white')
                 else:
                     self.label_47.setStyleSheet('background-color: yellow ; color: black')
@@ -36338,9 +36338,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
-                if df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] > 1.0 and df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'] > 1.0:
+                if energy_direction == 'call':
                     self.label_57.setStyleSheet('background-color: red ; color: white')
-                elif df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] < 1.0 and df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'] < 1.0:
+                elif energy_direction == 'put':
                     self.label_57.setStyleSheet('background-color: blue ; color: white')
                 else:
                     self.label_57.setStyleSheet('background-color: yellow ; color: black')
@@ -37075,9 +37075,9 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                     df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'], df_futures_graph.at[ovc_x_idx, 'n_ms_hoga'], df_futures_graph.at[ovc_x_idx, 'n_md_hoga'], \
                     fut_ccms_hoga_rr)
 
-                if df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] > 1.0 and df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'] > 1.0:
+                if energy_direction == 'call':
                     self.label_67.setStyleSheet('background-color: red ; color: white')
-                elif df_futures_graph.at[ovc_x_idx, 'c_hoga_remainder_ratio'] < 1.0 and df_futures_graph.at[ovc_x_idx, 'n_hoga_remainder_ratio'] < 1.0:
+                elif energy_direction == 'put':
                     self.label_67.setStyleSheet('background-color: blue ; color: white')
                 else:
                     self.label_67.setStyleSheet('background-color: yellow ; color: black')
