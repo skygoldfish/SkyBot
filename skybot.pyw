@@ -4808,10 +4808,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.XQ_t0167 = t0167(parent=self)              
         
         # 위젯 선언 및 초기화
-        self.pushButton_start.setStyleSheet("background-color: white; color: black; border-style: solid; border-width: 1px; border-color: gray")
-        self.pushButton_start.setText('Start')
-        self.pushButton_telegram.setStyleSheet("background-color: white; color: black; border-style: solid; border-width: 1px; border-color: gray")
-        self.pushButton_telegram.setText(' Telegram ')
+        self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white;}') 
+        self.pushButton_telegram.setStyleSheet('QPushButton:hover {background-color: black; color: white;}')
+        
+        self.pushButton_start.setText('Start')       
+        self.pushButton_telegram.setText('Telegram')
 
         self.pushButton_start.clicked.connect(self.start_button_clicked)
         self.pushButton_telegram.clicked.connect(self.telegram_button_clicked)
@@ -5645,7 +5646,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             COREVAL = DEFAULT_NODE_LIST + list_low1 + list_low2 + list_low3 + list_low4 + list_low5 + list_high1 + list_high2 + list_high3 + list_high4 + list_high5
         
         COREVAL.sort()
-                        
+        '''                
         self.JIF = JIF(parent=self)
 
         self.YJ = YJ_(parent=self)
@@ -5675,7 +5676,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.MK2 = MK2(parent=self)
 
         self.news = NWS(parent=self)
-        
+        '''
         dt = datetime.datetime.now()
         
         if int(current_str[0:2]) < 12:
@@ -6060,7 +6061,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            self.pushButton_telegram.setStyleSheet("background-color: white; color: black; border-style: solid; border-width: 1px; border-color: gray")
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black;} QPushButton:hover {background-color: black; color: white;}')
             flag_telegram_on = False            
         else:
             flag_checkBox_HS = False
@@ -6093,7 +6094,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.telegram_listen_worker.daemon = True
             self.telegram_listen_worker.start()
 
-            self.pushButton_telegram.setStyleSheet("background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: gray")
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black;} QPushButton:hover {background-color: black; color: white;}')
             flag_telegram_on = True
 
     @pyqtSlot(int)
@@ -7429,12 +7430,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 if 서버시간 == 6 * 3600:
 
-                    # 해외선물 지수요청 취소                    
-                    self.OVC.UnadviseRealData()
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다. \r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
-                    print(str)
+                    # 해외선물 지수요청 취소 
+                    pass
                 else:
                     pass
 
@@ -13702,8 +13699,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 차차월물은 시작과 동시에 Polling 시작
                 ToYourTelegram("MAN 텔레그램 Polling이 시작됩니다.")
 
-                self.pushButton_telegram.setStyleSheet("background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: gray")
-
+                self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black;} QPushButton:hover {background-color: black; color: white;}')
                 flag_telegram_listen_worker = True
             else:
                 pass         
@@ -13734,8 +13730,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
                 
-                self.pushButton_telegram.setStyleSheet("background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: gray")
-
+                self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black;} QPushButton:hover {background-color: black; color: white;}')
                 flag_telegram_listen_worker = True
             else:
                 pass            
@@ -16827,7 +16822,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         else:
             if not refresh_flag:
                 
-                self.pushButton_start.setStyleSheet("background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: gray")
                 self.pushButton_start.setText(' Starting... ')
 
                 # 지수선물 마스터조회 API용
@@ -16846,7 +16840,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 QTest.qWait(500)                
             else:
-                self.pushButton_start.setStyleSheet("background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: gray")
                 self.pushButton_start.setText(' Refreshing... ')
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] OLD 진성맥점 = {3}\r'.format(dt.hour, dt.minute, dt.second, 진성맥점)
@@ -16991,8 +16984,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         str = '[{0:02d}:{1:02d}:{2:02d}] High-Low 리스트파일을 갱신했습니다.\r'.format(adj_hour, adj_min, adj_sec)
         self.textBrowser.append(str)
 
-        # 해외선물 지수요청 취소                    
-        self.OVC.UnadviseRealData()
+        # 해외선물 지수요청 취소
 
         str = '[{0:02d}:{1:02d}:{2:02d}] 해외선물 지수요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
         self.textBrowser.append(str)
@@ -17101,8 +17093,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 ToYourTelegram("MAN 텔레그램 Polling이 시작됩니다.")
             
-            self.pushButton_telegram.setStyleSheet("background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: gray")
-            
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black;} QPushButton:hover {background-color: black; color: white;}')            
             flag_telegram_listen_worker = True                       
         else:
             pass               
@@ -17111,8 +17102,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             telegram_command = '/start'
             
-            self.pushButton_telegram.setStyleSheet("background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: gray")
-            #print('flag_telegram_on =', flag_telegram_on)
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black;} QPushButton:hover {background-color: black; color: white;}')
         else:
             telegram_command = ''
 
@@ -17130,7 +17120,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램 Polling을 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
                 self.textBrowser.append(str)
 
-            self.pushButton_telegram.setStyleSheet("background-color: white; color: black; border-style: solid; border-width: 1px; border-color: gray")
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black;} QPushButton:hover {background-color: black; color: white;}')
             
             if SELFID == 'soojin65':
                 flag_telegram_on = True
@@ -18552,39 +18542,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
 
                 # 장운영정보 요청
-                #self.JIF.AdviseRealData('0')
-
-                str = '[{0:02d}:{1:02d}:{2:02d}] 장운영 정보를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                self.textBrowser.append(str)
-
-                '''
-                # 해외선물 체결,가격 실시간 요청
-                self.OVC.AdviseRealData(종목코드=SP500)
-                self.OVC.AdviseRealData(종목코드=DOW)
-                self.OVC.AdviseRealData(종목코드=NASDAQ)
-                self.OVC.AdviseRealData(종목코드=WTI)                
-                self.OVC.AdviseRealData(종목코드=HANGSENG)
-                #self.OVC.AdviseRealData(종목코드=EUROFX)
-                #self.OVC.AdviseRealData(종목코드=GOLD)
-                
-                # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)
-                self.OVH.AdviseRealData(종목코드=SP500)
-                self.OVH.AdviseRealData(종목코드=DOW)
-                self.OVH.AdviseRealData(종목코드=NASDAQ)
-                self.OVH.AdviseRealData(종목코드=WTI)
-                self.OVH.AdviseRealData(종목코드=HANGSENG)                
-                #self.OVH.AdviseRealData(종목코드=EUROFX)                
-                #self.OVH.AdviseRealData(종목코드=GOLD)
-                
-                # 해외옵션 체결 실시간 요청                
-                self.WOC.AdviseRealData(종목코드=SP500)
-                self.WOC.AdviseRealData(종목코드=DOW)
-                self.WOC.AdviseRealData(종목코드=NASDAQ)
-                self.WOC.AdviseRealData(종목코드=WTI)
-                self.WOC.AdviseRealData(종목코드=EUROFX)
-                self.WOC.AdviseRealData(종목코드=HANGSENG)
-                self.WOC.AdviseRealData(종목코드=GOLD)
-                '''
+                #str = '[{0:02d}:{1:02d}:{2:02d}] 장운영 정보를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                #self.textBrowser.append(str)
 
                 XQ = t2101(parent=self)
                 XQ.Query(종목코드=fut_code)
@@ -18626,119 +18585,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     print('\r')
 
                     # 주간 실시간테이타 요청                
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 주간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
-                    '''
-                    if pre_start:
-
-                        # FUTURES/KOSPI200 예상지수 요청
-                        self.YJ.AdviseRealData(FUTURES)
-                        self.YJ.AdviseRealData(KOSPI200)
-
-                        # 지수선물예상체결 요청
-                        self.YFC.AdviseRealData(fut_code)
-
-                        # KOSPI예상체결 요청                        
-                        self.YS3.AdviseRealData(SAMSUNG)
-                        self.YS3.AdviseRealData(HYUNDAI)
-                        #self.YS3.AdviseRealData(Celltrion)
-
-                        # 지수옵션예상체결 요청
-                        for i in range(option_pairs_count):
-                            self.YOC.AdviseRealData(call_code[i])
-                            self.YOC.AdviseRealData(put_code[i])
-                    else:
-                        pass
-
-                    self.OPT_REAL = OC0(parent=self)
-                    self.OPT_HO = OH0(parent=self)
-                    self.FUT_REAL = FC0(parent=self)
-                    self.FUT_HO = FH0(parent=self)
-
-                    # 옵션 실시간 가격 및 호가요청
-                    for i in range(option_pairs_count):
-                        self.OPT_REAL.AdviseRealData(call_code[i])
-                        self.OPT_REAL.AdviseRealData(put_code[i])
-
-                    if not NightTime:
-                        if ALL_QUOTE_REQUEST:
-                            print('주간옵션 모든 호가를 요청합니다.\r')
-                            for i in range(option_pairs_count):
-                                self.OPT_HO.AdviseRealData(call_code[i])
-                                self.OPT_HO.AdviseRealData(put_code[i])
-                        else:
-                            print('주간옵션 호가 20개를 요청합니다.\r')
-                            for i in range(20):
-                                self.OPT_HO.AdviseRealData(call_code[atm_index - 10 + i])
-                                self.OPT_HO.AdviseRealData(put_code[atm_index - 10 + i])
-                    else:
-                        for i in range(option_pairs_count):
-                            self.OPT_HO.AdviseRealData(call_code[i])
-                            self.OPT_HO.AdviseRealData(put_code[i])
-                    
-                    # 선물 실시간테이타 요청
-                    self.FUT_REAL.AdviseRealData(fut_code)
-                    self.FUT_HO.AdviseRealData(fut_code)
-
-                    if TARGET_MONTH_SELECT == 1:
-                        # 차월물 호가요청
-                        self.FUT_HO.AdviseRealData(cmshcode)
-                        self.FUT_HO.AdviseRealData(ccmshcode)
-                    else:
-                        pass
-
-                    # KOSPI/KOSPI200/KOSDAQ 지수요청
-                    self.IJ.AdviseRealData(KOSPI)
-                    self.IJ.AdviseRealData(KOSPI200)
-                    self.IJ.AdviseRealData(KOSDAQ)
-
-                    # KOSPI체결 요청
-                    self.S3.AdviseRealData(SAMSUNG)
-                    #self.S3.AdviseRealData(HYUNDAI)
-                    #self.S3.AdviseRealData(Celltrion)
-
-                    # 업종별 투자자별 매매현황 요청
-                    self.BM.AdviseRealData(FUTURES)
-                    self.BM.AdviseRealData(KOSPI)
-
-                    # 프로그램 매매현황 요청
-                    self.PM.AdviseRealData()
-                    '''                  
+                    #str = '[{0:02d}:{1:02d}:{2:02d}] 주간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    #self.textBrowser.append(str)                    
                 else:
+                    pass
                     # 야간 실시간테이타 요청                
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
-                    self.textBrowser.append(str)
-                    '''
-                    self.OPT_REAL = EC0(parent=self)                
-                    self.OPT_HO = EH0(parent=self)
-                    self.FUT_REAL = NC0(parent=self)
-                    self.FUT_HO = NH0(parent=self) 
-
-                    for i in range(option_pairs_count):
-                        self.OPT_REAL.AdviseRealData(call_code[i])
-                        self.OPT_REAL.AdviseRealData(put_code[i])
-
-                    if not NightTime:
-                        if ALL_QUOTE_REQUEST:
-                            print('야간옵션 모든 호가를 요청합니다.\r')
-                            for i in range(option_pairs_count):
-                                self.OPT_HO.AdviseRealData(call_code[i])
-                                self.OPT_HO.AdviseRealData(put_code[i])
-                        else:
-                            print('야간옵션 호가 20개를 요청합니다.\r')
-                            for i in range(20):
-                                self.OPT_HO.AdviseRealData(call_code[atm_index - 10 + i])
-                                self.OPT_HO.AdviseRealData(put_code[atm_index - 10 + i])
-                    else:
-                        for i in range(option_pairs_count):
-                            self.OPT_HO.AdviseRealData(call_code[i])
-                            self.OPT_HO.AdviseRealData(put_code[i])
-                    
-                    self.FUT_REAL.AdviseRealData(fut_code)                                   
-                    self.FUT_HO.AdviseRealData(fut_code)
-                    '''
-                    # 업종별 투자자별 매매현황 요청(야간선물 서비스중단)
-                    #self.BM.AdviseRealData(CME)
+                    #str = '[{0:02d}:{1:02d}:{2:02d}] 야간 실시간데이타를 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
+                    #self.textBrowser.append(str)                    
 
                 # 실시간데이타는 스레드를 통해 수신함
                 self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
@@ -19222,8 +19075,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
-            self.pushButton_start.setStyleSheet("background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: gray")
-            self.pushButton_start.setText(' Refresh ')                    
+            self.pushButton_start.setText('Refresh')                    
             
             if ResizeRowsToContents:
                 self.tableWidget_call.resizeRowsToContents()
@@ -20700,8 +20552,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 refresh_flag = True
 
-                self.pushButton_start.setStyleSheet("background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: gray")
-                self.pushButton_start.setText(' Refresh ')                
+                self.pushButton_start.setText('Refresh')                
             else:
                 # Refresh
                 if not flag_checkBox_HS:
@@ -22134,38 +21985,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(str)
                     print(str)
 
-                    # 해외선물 체결,가격 실시간 요청
-                    '''
-                    self.OVC.AdviseRealData(종목코드=SP500)
-                    self.OVC.AdviseRealData(종목코드=DOW)
-                    self.OVC.AdviseRealData(종목코드=NASDAQ)
-                    self.OVC.AdviseRealData(종목코드=WTI)                
-                    self.OVC.AdviseRealData(종목코드=HANGSENG)
-                    self.OVC.AdviseRealData(종목코드=EUROFX)
-                    self.OVC.AdviseRealData(종목코드=GOLD)
-                    '''
-
-                    # 해외선물 호가 실시간 요청(호가정보가 국내용인듯)      
-                    '''              
-                    self.OVH.AdviseRealData(종목코드=SP500)
-                    self.OVH.AdviseRealData(종목코드=DOW)
-                    self.OVH.AdviseRealData(종목코드=NASDAQ)
-                    self.OVH.AdviseRealData(종목코드=WTI)
-                    self.OVH.AdviseRealData(종목코드=HANGSENG)                
-                    self.OVH.AdviseRealData(종목코드=EUROFX)                
-                    self.OVH.AdviseRealData(종목코드=GOLD)                    
-
-                    # 해외선물 수급 실시간 요청                    
-                    self.MK2.AdviseRealData(심볼코드=KRWUSD)
-                    self.MK2.AdviseRealData(심볼코드=EURUSD)
-                    self.MK2.AdviseRealData(심볼코드=SP500_SND)
-                    self.MK2.AdviseRealData(심볼코드=DOW_SND)
-                    self.MK2.AdviseRealData(심볼코드=NASDAQ_SND)
-                    self.MK2.AdviseRealData(심볼코드=HANGSENG_SND)
-                    self.MK2.AdviseRealData(심볼코드=WTI_SND)
-                    self.MK2.AdviseRealData(심볼코드=GOLD_SND)
-                    '''
-
                     if NightTime:                        
 
                         # EUREX 야간옵션 시세전광판
@@ -22285,8 +22104,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         refresh_flag = True
 
-                        self.pushButton_start.setStyleSheet("background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: gray")
-                        self.pushButton_start.setText(' Refresh ')                                                                                
+                        self.pushButton_start.setText('Refresh')                                                                                
                 else:
                     pass
             else:
@@ -22783,32 +22601,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 현물 장마감 1분전입니다.\r'.format(adj_hour, adj_min, adj_sec)
                     self.textBrowser.append(str)
-                    '''
-                    # FUTURES/KOSPI200 예상지수 요청취소
-                    self.YJ.UnadviseRealData()
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] FUTURES/KOSPI200 예상지수 요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
-
-                    # 지수선물예상체결 요청취소
-                    self.YFC.UnadviseRealData()
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수선물 예상체결 요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
-
-                    # KOSPI예상체결 요청취소
-                    self.YS3.UnadviseRealData()
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] KOSPI 예상체결 요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
-
-                    # 지수옵션예상체결 요청취소
-                    self.YOC.UnadviseRealData()
-
-                    str = '[{0:02d}:{1:02d}:{2:02d}] 지수옵션 예상체결 요청을 취소합니다.\r'.format(adj_hour, adj_min, adj_sec)
-                    self.textBrowser.append(str)
-                    '''
-
+                    
                 # 장후 동시호가 시작
                 elif result['장구분'] == '5' and result['장상태'] == '31':
 
@@ -22917,7 +22710,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         receive_quote = False
                         
-                        self.pushButton_start.setText(' ScrShot ')
+                        self.pushButton_start.setText('ScrShot')
 
                         self.SaveResult()                                        
                     else:
@@ -22955,7 +22748,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         receive_quote = False
                         
-                        self.pushButton_start.setText(' ScrShot ')
+                        self.pushButton_start.setText('ScrShot')
                         
                         str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(adj_hour, adj_min, adj_sec)
                         self.textBrowser.append(str)
@@ -24626,8 +24419,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             # 차차월물은 시작과 동시에 Polling 시작
                             ToYourTelegram("MAN 텔레그램 Polling이 시작됩니다.")
 
-                            self.pushButton_telegram.setStyleSheet("background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: gray")
-
+                            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black;} QPushButton:hover {background-color: black; color: white;}')
                             flag_telegram_listen_worker = True
                         else:
                             pass         
@@ -24658,8 +24450,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
                             
-                            self.pushButton_telegram.setStyleSheet("background-color: lawngreen; color: black; border-style: solid; border-width: 1px; border-color: gray")
-
+                            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black;} QPushButton:hover {background-color: black; color: white;}')
                             flag_telegram_listen_worker = True
                         else:
                             pass            
