@@ -56,6 +56,7 @@ import qdarkstyle
 
 from multiprocessing import Process, Queue
 import multiprocessing as mp
+import pyautogui
 
 from XASessions import *
 from XAQueries import *
@@ -309,6 +310,8 @@ MAIN_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Main Update Interval(ms
 BIGCHART_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Big Chart Update Interval(msec)')
 OPTION_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Option Screen Board Update Interval(sec)')
 QUOTE_REQUEST_NUMBER = parser.get('Initial Value', 'Number of Option Pairs Quote Request')
+SECOND_DISPLAY_X_POSITION = parser.getint('Initial Value', 'X Position of the Second Program')
+SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Second Program')
 
 # [8]. << Code of the Foreign Futures (H/M/U/Z) >>
 SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
@@ -37756,6 +37759,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             entry = menu.addAction(icon, item)
             entry.setObjectName(item)
         '''
+
+        if TARGET_MONTH_SELECT == 2:
+            print('SECOND_DISPLAY_X_POSITION = {0}, SECOND_DISPLAY_Y_POSITION = {1}\r'.format(SECOND_DISPLAY_X_POSITION, SECOND_DISPLAY_Y_POSITION))
+            pyautogui.moveTo(SECOND_DISPLAY_X_POSITION, SECOND_DISPLAY_Y_POSITION)
+        else:
+            pass
+
         self.시작시각 = datetime.datetime.now()
 
         self.robots = []
