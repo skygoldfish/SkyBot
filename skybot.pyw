@@ -310,8 +310,8 @@ MAIN_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Main Update Interval(ms
 BIGCHART_UPDATE_INTERVAL = parser.getfloat('Initial Value', 'Big Chart Update Interval(msec)')
 OPTION_BOARD_UPDATE_INTERVAL = parser.getint('Initial Value', 'Option Screen Board Update Interval(sec)')
 QUOTE_REQUEST_NUMBER = parser.get('Initial Value', 'Number of Option Pairs Quote Request')
-SECOND_DISPLAY_X_POSITION = parser.getint('Initial Value', 'X Position of the Second Program')
-SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Second Program')
+SECOND_DISPLAY_X_POSITION = parser.getint('Initial Value', 'X Position of the Second Display')
+SECOND_DISPLAY_Y_POSITION = parser.getint('Initial Value', 'Y Position of the Second Display')
 
 # [8]. << Code of the Foreign Futures (H/M/U/Z) >>
 SP500 = parser.get('Code of the Foreign Futures', 'S&P 500')
