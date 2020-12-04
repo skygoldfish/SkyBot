@@ -4933,13 +4933,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.tableWidget_fut.setAlternatingRowColors(True)
 
-        item = QTableWidgetItem("{0}".format('CME'))
+        item = QTableWidgetItem("{0}".format('야간'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(0, 0, item)
 
-        item = QTableWidgetItem("{0}".format('KSE'))
+        item = QTableWidgetItem("{0}".format('주간'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(흰색))
@@ -7144,7 +7144,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
 
-                if not self.alternate_flag and not flag_checkBox_HS:
+                if not self.alternate_flag:
 
                     # 선택된 콜, 풋 검사, 약 3ms 정도 시간이 소요됨
                     selected_call = []
@@ -7177,6 +7177,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.oi_total_update()
                     else:
                         pass
+                    
+                    self.call_volume_power_update()
+                    self.put_volume_power_update()
 
                     #main_ui_update_time = (timeit.default_timer() - start_time) * 1000
 
@@ -7184,11 +7187,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         # 콜 테이블 데이타 갱신
                         self.call_db_update()
-                        self.call_volume_power_update()
                     else:
                         # 풋 테이블 데이타 갱신
                         self.put_db_update()
-                        self.put_volume_power_update()
                     
                     #main_ui_update_time = (timeit.default_timer() - start_time) * 1000
                     
@@ -21339,7 +21340,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.textBrowser.append(str)
                 print(str)
                 
-                item = QTableWidgetItem("{0}\n({1:.2f})".format('KSE', k_value))
+                item = QTableWidgetItem("{0}\n({1:.2f})".format('주간', k_value))
                 item.setTextAlignment(Qt.AlignCenter)
                 item.setBackground(QBrush(검정색))
                 item.setForeground(QBrush(흰색))
