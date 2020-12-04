@@ -532,490 +532,6 @@ if os.path.exists('HL-List.txt'):
 else:
     pass
 
-'''
-# control file에서 필요한 정보를 가져옴
-with open('config.ini', mode='r') as control_file:
-
-    # [1]. << Month Info >> 
-    tmp = control_file.readline().strip()
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    KSE_START_HOUR = int(temp[4])
-    #print('KSE_START_HOUR =', KSE_START_HOUR)
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    CURRENT_MONTH = temp[3]
-
-    if int(CURRENT_MONTH[4:6]) == 11:
-
-        NEXT_MONTH = CURRENT_MONTH[0:4] + '12'
-        MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH[0:4]) + 1) + '01'
-
-    elif int(CURRENT_MONTH[4:6]) == 12:
-
-        NEXT_MONTH = repr(int(CURRENT_MONTH[0:4]) + 1) + '01'
-        MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH[0:4]) + 1) + '02'
-
-    else:
-        NEXT_MONTH = repr(int(CURRENT_MONTH) + 1)
-        MONTH_AFTER_NEXT = repr(int(CURRENT_MONTH) + 2)
-
-    #print('NEXT MONTH =', NEXT_MONTH)
-    #print('MONTH AFTER NEXT =', MONTH_AFTER_NEXT)
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    MONTH_FIRSTDAY = temp[7]
-    
-    # [2]. << Target Month Select : current month = 1, next month = 2 >>
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    TARGET_MONTH_SELECT = int(temp[4])
-    #print('TARGET MONTH SELECT =', TARGET_MONTH_SELECT)
-    
-    # [3]. << User Option = 'ON or OFF' >>
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    temp_str = temp[3]
-
-    if temp_str == 'ON' or temp_str == 'on':
-        TELEGRAM_SERVICE = True
-    else:
-        TELEGRAM_SERVICE = False
-
-    print('\r')
-    print('TELEGRAM_SERVICE =', TELEGRAM_SERVICE)
-
-    # 만기일 야간옵션은 config.ini에서 Mangi Yagan을 False -> True로 변경 
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    temp_str = temp[3]
-
-    if temp_str == 'ON' or temp_str == 'on':
-        MANGI_YAGAN = True 
-    else:
-        MANGI_YAGAN = False
-
-    print('MANGI_YAGAN =', MANGI_YAGAN)
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    temp_str = temp[3]
-
-    if temp_str == 'ON' or temp_str == 'on':
-        AUTO_START = True
-    else:
-        AUTO_START = False
-    
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    temp_str = temp[5]
-
-    if temp_str == 'ON' or temp_str == 'on':
-        ResizeRowsToContents = True
-    else:
-        ResizeRowsToContents = False
-
-    print('ResizeRowsToContents =', ResizeRowsToContents)    
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    temp_str = temp[4]
-
-    if temp_str == 'ON' or temp_str == 'on':
-        CROSS_HAIR_LINE = True
-    else:
-        CROSS_HAIR_LINE = False
-
-    print('CROSS_HAIR_LINE =', CROSS_HAIR_LINE)
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    temp_str = temp[4]
-
-    if temp_str == 'ON' or temp_str == 'on':
-        SECOND_PLOT_SYNC = True
-    else:
-        SECOND_PLOT_SYNC = False
-
-    print('SECOND_PLOT_SYNC =', SECOND_PLOT_SYNC)    
-
-    # [4]. << Moving Average Type >>
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    MA_TYPE = int(temp[3])
-    print('MA_TYPE =', MA_TYPE)
-    print('\r')   
-
-    # [5]. << Initial Value >>
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()    
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    HL_Depth = int(temp[4])
-    #print('HL_Depth =', HL_Depth)
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    NightTime_PreStart_Hour = int(temp[4])
-    #print('NightTime_PreStart_Hour =', NightTime_PreStart_Hour)
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    ActvalCount = int(temp[7])
-    
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-
-    pre_진성맥점 = []
-
-    for i in range(len(temp)):
-
-        if i > 5:
-            pre_진성맥점.append(float(temp[i]))
-        else:
-            pass
-    
-    #pre_진성맥점 = [1.20, 2.50, 3.50, 4.85, 5.10, 5.50, 6.85, 7.10, 8.10]
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    MY_COREVAL = float(temp[3])
-
-    pre_진성맥점.append(MY_COREVAL)
-    pre_진성맥점 = list(set(pre_진성맥점))
-    pre_진성맥점.sort()
-
-    DEFAULT_NODE_LIST = pre_진성맥점[:]
-
-    bms_node_val1 = 0
-    bms_node_val2 = 0
-    bms_node_val3 = 0
-    bms_node_val4 = 0
-    bms_node_val5 = 0
-    bms_node_val6 = 0
-
-    pre_high_low_list = []
-    bms_node_list = []
-    bms_node_frequency_list = []
-
-    if os.path.exists('HL-List.txt'):
-
-        # 저가, 고가 리스트에서 맥점 추출
-        with open('HL-List.txt', mode='r') as hlfile:
-            
-            # 한줄씩 읽어서 리스트에 저장
-            file_list = []
-            hlfile_line_number = 0
-
-            while True:
-    
-                line = hlfile.readline().strip()
-                hlfile_line_number += 1
-
-                temp = line.split()
-
-                for i in range(len(temp)):
-
-                    file_list.append(float(temp[i]))
-
-                if not line: break
-            
-            hlfile_line_number = hlfile_line_number - 1
-            
-            pre_high_low_list = file_list[:]
-            FILE_HIGH_LOW_LIST = file_list[:]
-
-            pre_high_low_list.sort()
-            pre_high_low_list.reverse()
-            #print('pre_high_low_list =', pre_high_low_list)
-
-            # 첫번재 최대빈도 맥점탐색
-            result = list(Counter(pre_high_low_list).values())
-            동적맥점1_빈도수 = max(result)
-
-            if 동적맥점1_빈도수 > 2:
-
-                # 중복횟수 최대값 인덱스 구함
-                max_index = result.index(max(result))            
-                #print('중복횟수 최대빈도수 인덱스 =', max_index)
-
-                # 최대 중복값 산출
-                result = list(Counter(pre_high_low_list).keys())
-                bms_node_val1 = result[max_index]
-                print('1st 동적맥점 값 = {0}, 빈도수 = {1}'.format(bms_node_val1, 동적맥점1_빈도수))
-
-                bms_node_list.append(bms_node_val1)
-                bms_node_frequency_list.append(동적맥점1_빈도수)
-                pre_진성맥점.append(bms_node_val1)
-                
-                # 두번재 최대빈도 맥점탐색
-                second_list = list(filter((bms_node_val1).__ne__, pre_high_low_list))
-                #print('2nd 최대빈도 제거된 리스트 =', second_list)
-
-                result = list(Counter(second_list).values())
-                동적맥점2_빈도수 = max(result)
-
-                if 동적맥점2_빈도수 > 2:
-
-                    max_index = result.index(max(result))
-
-                    # 최대 중복값 산출
-                    result = list(Counter(second_list).keys())
-                    bms_node_val2 = result[max_index]
-                    print('2nd 동적맥점 값 = {0}, 빈도수 = {1}'.format(bms_node_val2, 동적맥점2_빈도수))
-                    
-                    bms_node_list.append(bms_node_val2)
-                    bms_node_frequency_list.append(동적맥점2_빈도수)
-                    pre_진성맥점.append(bms_node_val2)
-
-                    # 세번재 최대빈도 맥점탐색
-                    third_list = list(filter((bms_node_val2).__ne__, second_list))
-                    #print('3rd 최대빈도 제거된 리스트 =', third_list)
-
-                    result = list(Counter(third_list).values())
-                    동적맥점3_빈도수 = max(result)
-
-                    if 동적맥점3_빈도수 > 2:
-
-                        max_index = result.index(max(result))
-
-                        # 최대 중복값 산출
-                        result = list(Counter(third_list).keys())
-                        bms_node_val3 = result[max_index]
-                        print('3rd 동적맥점 값 = {0}, 빈도수 = {1}'.format(bms_node_val3, 동적맥점3_빈도수))
-
-                        bms_node_list.append(bms_node_val3)
-                        bms_node_frequency_list.append(동적맥점3_빈도수)
-                        pre_진성맥점.append(bms_node_val3)
-
-                        # 네번재 최대빈도 맥점탐색
-                        fourth_list = list(filter((bms_node_val3).__ne__, third_list))
-
-                        result = list(Counter(fourth_list).values())
-                        동적맥점4_빈도수 = max(result)
-
-                        if 동적맥점4_빈도수 > 2:
-
-                            max_index = result.index(max(result))
-                            result = list(Counter(fourth_list).keys())
-
-                            bms_node_val4 = result[max_index]
-                            print('4th 동적맥점 값 = {0}, 빈도수 = {1}'.format(bms_node_val4, 동적맥점4_빈도수))
-
-                            bms_node_list.append(bms_node_val4)
-                            bms_node_frequency_list.append(동적맥점4_빈도수)
-                            pre_진성맥점.append(bms_node_val4)
-
-                            # 다섯번재 최대빈도 맥점탐색
-                            fifth_list = list(filter((bms_node_val4).__ne__, fourth_list))
-                            result = list(Counter(fifth_list).values())
-                            동적맥점5_빈도수 = max(result)
-
-                            if 동적맥점5_빈도수 > 2:
-
-                                max_index = result.index(max(result))
-                                result = list(Counter(fifth_list).keys())
-
-                                bms_node_val5 = result[max_index]
-                                print('5th 동적맥점 값 = {0}, 빈도수 = {1}'.format(bms_node_val5, 동적맥점5_빈도수))
-
-                                bms_node_list.append(bms_node_val5)
-                                bms_node_frequency_list.append(동적맥점5_빈도수)
-                                pre_진성맥점.append(bms_node_val5)
-
-                                # 여섯번재 최대빈도 맥점탐색
-                                sixth_list = list(filter((bms_node_val5).__ne__, fifth_list))
-                                result = list(Counter(sixth_list).values())
-                                동적맥점6_빈도수 = max(result)
-
-                                if 동적맥점6_빈도수 > 2:
-
-                                    max_index = result.index(max(result))
-                                    result = list(Counter(sixth_list).keys())
-
-                                    bms_node_val6 = result[max_index]
-                                    print('6th 동적맥점 값 = {0}, 빈도수 = {1}'.format(bms_node_val6, 동적맥점6_빈도수))
-
-                                    bms_node_list.append(bms_node_val6)
-                                    bms_node_frequency_list.append(동적맥점6_빈도수)                                    
-
-                                    pre_진성맥점.append(bms_node_val6)
-                                    pre_진성맥점 = list(set(pre_진성맥점))
-                                    pre_진성맥점.sort()                                    
-                                    
-                                    print('DEFAULT_NODE_LIST =', DEFAULT_NODE_LIST)
-                                    print('bms_node_list =', bms_node_list)
-                                    print('pre 진성맥점 리스트 =', pre_진성맥점)
-                                else:
-                                    pass
-                            else:
-                                pass
-                        else:
-                            pass
-                    else:
-                        pass
-                else:
-                    pass                
-            else:
-                print('빈도수 3이상인 맥점이 없습니다.')
-    else:
-        pass
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    ASYM_RATIO = float(temp[4])
-    #print('ASYM_RATIO =', ASYM_RATIO)
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    ONEWAY_RATIO = float(temp[4])
-    #print('ONEWAY_RATIO =', ONEWAY_RATIO)
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    GOLDEN_RATIO = float(temp[3])
-    CENTERVAL_UPPER = float(temp[3])
-    CENTERVAL_LOWER = float(temp[3])
-    #print('GOLDEN_RATIO =', GOLDEN_RATIO)
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    CROSS_COLOR_INTERVAL = int(temp[4])
-    print('CROSS_COLOR_INTERVAL =', CROSS_COLOR_INTERVAL)
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    MAIN_UPDATE_INTERVAL = float(temp[4])
-    print('MAIN_UPDATE_INTERVAL =', MAIN_UPDATE_INTERVAL)
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    BIGCHART_UPDATE_INTERVAL = float(temp[5])
-    print('BIGCHART_UPDATE_INTERVAL =', BIGCHART_UPDATE_INTERVAL)    
-    
-    # [6]. << Code of the Foreign Futures (H/M/U/Z) >>
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    SP500 = temp[3]
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    DOW = temp[2]
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    NASDAQ = temp[2]
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    WTI = temp[2]
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    EUROFX = temp[2]
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    HANGSENG = temp[2]
-    #print('HANGSENG =',HANGSENG)
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    GOLD = temp[2]
-    print('GOLD =',GOLD)
-
-    # [7]. << Supply & Demand Code Symbol of the Foreign Futures >>
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    KRWUSD = temp[2]
-    print('KRWUSD =', KRWUSD)
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    DOW_SND = temp[3]
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    SP500_SND = temp[4]
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    NASDAQ_SND = temp[3]
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    WTI_SND = temp[3]
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    EURUSD = temp[2]
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    HANGSENG_SND = temp[3]
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    GOLD_SND = temp[3]
-    print('GOLD_SND =', GOLD_SND)
-    
-    # [8]. << Telegram >>
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    TELEGRAM_START_TIME = int(temp[7])
-    #print(TELEGRAM_START_TIME)
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    TELEGRAM_POLLING_INTERVAL = int(temp[4])
-    #print(TELEGRAM_POLLING_INTERVAL)
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    TELEGRAM_SEND_INTERVAL = int(temp[4])
-    #print(TELEGRAM_SEND_INTERVAL)
-
-    # [9]. << Rules >>
-    tmp = control_file.readline().strip()
-    tmp = control_file.readline().strip()
-
-    tmp = control_file.readline().strip()
-    temp = tmp.split()
-    ONEWAY_THRESHOLD = int(temp[9])
-    #print('ONEWAY_THRESHOLD =', ONEWAY_THRESHOLD)    
-'''
-
 if os.path.isfile('nighttime.txt'):
 
     # 야간시장의 데이타를 가져옴
@@ -1689,11 +1205,9 @@ df_nm_put = pd.DataFrame()
 df_kp200_graph = pd.DataFrame()
 df_futures_graph = pd.DataFrame()
 
-#df_call_price_graph = pd.DataFrame()
 df_call_graph = [pd.DataFrame()] * ActvalCount
 df_call_total_graph = pd.DataFrame()
 
-#df_put_price_graph = pd.DataFrame()
 df_put_graph = [pd.DataFrame()] * ActvalCount
 df_put_total_graph = pd.DataFrame()
 
@@ -2049,8 +1563,6 @@ plot1_ovc_high_line = None
 
 plot1_fut_price_curve = None
 plot1_fut_volume_curve = None
-#plot1_fut_volume_plus_curve = None
-#plot1_fut_volume_minus_curve = None
 
 plot1_kp200_curve = None
 plot1_call_volume_curve = None
@@ -2126,8 +1638,6 @@ plot2_call_oi_curve = None
 plot2_put_oi_curve = None
 
 plot2_fut_volume_curve = None
-#plot2_fut_volume_plus_curve = None
-#plot2_fut_volume_minus_curve = None
 plot2_call_volume_curve = None
 plot2_put_volume_curve = None
 
@@ -2199,8 +1709,6 @@ plot3_call_oi_curve = None
 plot3_put_oi_curve = None
 
 plot3_fut_volume_curve = None
-#plot3_fut_volume_plus_curve = None
-#plot3_fut_volume_minus_curve = None
 plot3_call_volume_curve = None
 plot3_put_volume_curve = None
 
@@ -2277,8 +1785,6 @@ plot4_ovc_high_line = None
 
 plot4_fut_price_curve = None
 plot4_fut_volume_curve = None
-#plot4_fut_volume_plus_curve = None
-#plot4_fut_volume_minus_curve = None
 
 plot4_kp200_curve = None
 plot4_call_volume_curve = None
@@ -2354,8 +1860,6 @@ plot5_call_oi_curve = None
 plot5_put_oi_curve = None
 
 plot5_fut_volume_curve = None
-#plot5_fut_volume_plus_curve = None
-#plot5_fut_volume_minus_curve = None
 plot5_call_volume_curve = None
 plot5_put_volume_curve = None
 
@@ -2427,8 +1931,6 @@ plot6_call_oi_curve = None
 plot6_put_oi_curve = None
 
 plot6_fut_volume_curve = None
-#plot6_fut_volume_plus_curve = None
-#plot6_fut_volume_minus_curve = None
 plot6_call_volume_curve = None
 plot6_put_volume_curve = None
 
@@ -4242,34 +3744,6 @@ class screen_update_worker(QThread):
 ########################################################################################################################
 
 ########################################################################################################################
-class t8416_Call_Worker(QThread):
-
-    finished = pyqtSignal(int)
-
-    def run(self):
-
-        while True:
-
-            self.finished.emit(t8416_call_count)
-            #self.msleep(1100)
-            QTest.qWait(1100)
-########################################################################################################################
-
-########################################################################################################################
-class t8416_Put_Worker(QThread):
-
-    finished = pyqtSignal(int)
-
-    def run(self):
-
-        while True:
-
-            self.finished.emit(t8416_put_count)
-            #self.msleep(1100)
-            QTest.qWait(1100)
-########################################################################################################################
-
-########################################################################################################################
 # 텔레그램 송수신시 약 1.2초 정도 전달지연 시간 발생함
 class telegram_send_worker(QThread):
 
@@ -4861,8 +4335,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '진폭', '체결', '∑OI', 'OI↕'])
         self.tableWidget_call.verticalHeader().setVisible(False)
 
-        #self.tableWidget_call.horizontalHeader().setSectionResizeMode(1)
-
         self.tableWidget_call.setAlternatingRowColors(True)
 
         # put tablewidget 초기화
@@ -4875,8 +4347,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_put.setHorizontalHeaderLabels(['P', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
         '종가\n✓', '피봇\n✓', '시가\n✓', '저가', '현재가', '고가', '시가갭\n(%)', '대비\n(%)', '진폭', '체결', '∑OI', 'OI↕'])
         self.tableWidget_put.verticalHeader().setVisible(False)
-
-        #self.tableWidget_put.horizontalHeader().setSectionResizeMode(1)
 
         self.tableWidget_put.setAlternatingRowColors(True)
         
@@ -4932,8 +4402,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             ['SBOM', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'MDHR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가',
              '현재가', '고가', '시가갭', '대비', '진폭', '체결', 'FR', 'OI', 'OI↕'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
-
-        #self.tableWidget_fut.horizontalHeader().setSectionResizeMode(1)
 
         self.tableWidget_fut.setAlternatingRowColors(True)
 
@@ -5392,7 +4860,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
         header.setSectionResizeMode(12, QHeaderView.Stretch)
 
-        #self.tableWidget_quote.horizontalHeader().setSectionResizeMode(1)
         self.tableWidget_quote.verticalHeader().setStretchLastSection(True)
         self.tableWidget_quote.clearContents()
 
@@ -5410,7 +4877,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
         header.setSectionResizeMode(5, QHeaderView.Stretch)
 
-        #self.tableWidget_supply.horizontalHeader().setSectionResizeMode(1)
         self.tableWidget_supply.verticalHeader().setStretchLastSection(True)
         self.tableWidget_supply.clearContents()        
 
@@ -5649,37 +5115,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             COREVAL = DEFAULT_NODE_LIST + list_low1 + list_low2 + list_low3 + list_low4 + list_low5 + list_high1 + list_high2 + list_high3 + list_high4 + list_high5
         
         COREVAL.sort()
-        '''                
-        self.JIF = JIF(parent=self)
-
-        self.YJ = YJ_(parent=self)
-        self.YFC = YFC(parent=self)
-        self.YS3 = YS3(parent=self)
-        self.YOC = YOC(parent=self)        
-
-        if NightTime:
-            self.OPT_REAL = EC0(parent=self)                
-            self.OPT_HO = EH0(parent=self)
-            self.FUT_REAL = NC0(parent=self)
-            self.FUT_HO = NH0(parent=self)
-        else:
-            self.OPT_REAL = OC0(parent=self)
-            self.OPT_HO = OH0(parent=self)
-            self.FUT_REAL = FC0(parent=self)
-            self.FUT_HO = FH0(parent=self)
-
-        self.IJ = IJ_(parent=self)
-        self.S3 = S3_(parent=self)
-        self.BM = BM_(parent=self)
-        self.PM = PM_(parent=self)
-
-        self.OVC = OVC(parent=self)
-        self.OVH = OVH(parent=self)
-        self.WOC = WOC(parent=self)
-        self.MK2 = MK2(parent=self)
-
-        self.news = NWS(parent=self)
-        '''
+        
         dt = datetime.datetime.now()
         
         if int(current_str[0:2]) < 12:
@@ -5813,10 +5249,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
         
         self.setWindowTitle(widget_title)
-                
-        #str = '[{0:02d}:{1:02d}:{2:02d}] HL File Length = {3}\r'.format(adj_hour, adj_min, adj_sec, hlfile_line_number)
-        #self.textBrowser.append(str)
-
+        
         if SELFID == 'soojin65':
             str = '[{0:02d}:{1:02d}:{2:02d}] COREVAL = {3}\r'.format(adj_hour, adj_min, adj_sec, COREVAL)
             self.textBrowser.append(str)
@@ -5885,8 +5318,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         # t2301, t2835 이벤트루프(1초당 2건) --> 옵션 실시간수신 문제 보완목적
         self.t2301_event_loop = QEventLoop()
-        self.t2835_event_loop = QEventLoop()
-        #self.o3126_event_loop = QEventLoop()            
+        self.t2835_event_loop = QEventLoop()          
         
         # 쓰레드 시작은 start(), 종료는 terminate()
         self.screen_update_worker = screen_update_worker()
@@ -6541,8 +5973,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송이 예약되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
                     self.textBrowser.append(str)
-
-                    #self.telegram_flag = not self.telegram_flag
                 else:
                     item = QTableWidgetItem("{0}".format('T'))
                     item.setTextAlignment(Qt.AlignCenter)
@@ -6588,8 +6018,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 전송예약이 취소되었습니다.\r'.format(adj_hour, adj_min, adj_sec)
                     self.textBrowser.append(str)
-
-                    #self.telegram_flag = not self.telegram_flag
             else:
                 pass
 
@@ -18604,17 +18032,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.real_data_worker.start()
                 self.real_data_worker.AdviseRealDataAll()
 
-                # t8416 요청
-                '''                
-                self.t8416_callworker.daemon = True
-                self.t8416_callworker.start()
-                '''
+                # t8416 요청                
                 print('t8416 call 요청시작...')
                 
                 for i in range(option_pairs_count):
                     t8416_call_count = i
                     self.t8416_call_request(i)
-                    #print('t8416 call {0}번째 event loop 시작\r'.format(i+1))
                     self.t8416_call_event_loop.exec_()
             else:
                 # Refresh
@@ -21011,7 +20434,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 if new_actval_down_count == 0 and not flag_t8416_call_done:
 
                     new_actval_up_count += 1
-                    #t8416_call_count += 1
 
                     str = '[{0:02d}:{1:02d}:{2:02d}] 새로운 상방 행사가 {3}개 추가됨 !!!\r'.format(dt.hour, dt.minute, dt.second, new_actval_up_count)
                     #self.textBrowser.append(str)
@@ -21046,17 +20468,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     #QTest.qWait(1000)
                 else:
                     pass
-                
-                if new_actval_up_count > 0 and t8416_call_count == option_pairs_count - 1:
-                    # t8416은 초당 1건 전송가능
-                    #self.t8416_put_event_loop.exit()
-                    #print('t8416_put_event_loop exit...')
-                    #QTest.qWait(1000)
-                    #t8416_put_count += 1
-                    pass
-                else:
-                    pass
-                
+                                
                 if new_actval_up_count == 0 and t8416_put_count == 0:
 
                     new_actval_down_count += 1 
@@ -21095,7 +20507,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                     if t8416_call_count == (option_pairs_count - 1) - new_actval_down_count:
 
-                        #if self.t8416_callworker.isRunning():
                         if True:
 
                             call_기준가 = df_call['기준가'].values.tolist()
@@ -21122,7 +20533,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             print('Call 전체 행사가 수신완료')
 
-                            #self.t8416_callworker.terminate()
                             str = '[{0:02d}:{1:02d}:{2:02d}] Call 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                             self.textBrowser.append(str)
                             print(str)
@@ -21133,37 +20543,19 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
                             self.tableWidget_call.scrollToItem(call_positionCell)
 
-                            '''
-                            #time.sleep(1.1)
-                            #QTest.qWait(1100)
-                            
-                            self.t8416_putworker.daemon = True
-                            self.t8416_putworker.start()                            
-                            '''
                             print('t8416 put 요청시작...')
                             QTest.qWait(1000)
 
                             for i in range(option_pairs_count):
                                 t8416_put_count = i
                                 self.t8416_put_request(i)
-                                #print('t8416 put {0}번째 event loop 시작\r'.format(i+1))
                                 self.t8416_put_event_loop.exec_()
                         else:
                             pass
                     else:
                         pass                    
                 else:
-                    pass
-
-                if new_actval_down_count > 0:
-                    # t8416은 초당 1건 전송가능
-                    #self.t8416_put_event_loop.exit()
-                    #print('t8416_put_event_loop exit...')
-                    #QTest.qWait(1000)
-                    #t8416_put_count += 1
-                    pass
-                else:
-                    pass                
+                    pass              
             else:
                 pass
             
@@ -21178,17 +20570,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     noise_ratio = 1 - (abs(df['시가'][i] - df['종가'][i]) / (df['고가'][i] - df['저가'][i]))
                     df_fut_t8416.at[i, 'noise_ratio'] = noise_ratio
 
-                #print('df_fut_t8416 =', df_fut_t8416)
                 fut_avg_noise_ratio = df_fut_t8416['noise_ratio'].sum() / len(df_fut_t8416)
                 k_value = (선물_전고 - 선물_전저) * fut_avg_noise_ratio
-
-                '''
-                # 9시 이전과 이후로 구분하여 전일 저가, 고가를 구한다.
-                # 9시 이전
-                print('전일 고가, 저가 =', df_fut_t8416['고가'][len(df_fut_t8416) - 1], df_fut_t8416['저가'][len(df_fut_t8416) - 1])
-                # 9시 이후
-                print('전일 고가, 저가 =', df_fut_t8416['고가'][len(df_fut_t8416) - 2], df_fut_t8416['저가'][len(df_fut_t8416) - 2])
-                '''
 
                 str = '[{0:02d}:{1:02d}:{2:02d}] noise_ratio 평균 = {3:.2f}, k_value = {4:.2f}\r'.format(dt.hour, dt.minute, dt.second, fut_avg_noise_ratio, k_value)
                 self.textBrowser.append(str)
@@ -21201,33 +20584,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.tableWidget_fut.setItem(1, 0, item)
 
                 self.tableWidget_fut.resizeColumnsToContents()
-
-                '''
-                if not NightTime:
-
-                    item = QTableWidgetItem("{0:.2f}".format(block['전일저가']))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_fut.setItem(1, Futures_column.전저.value, item)
-
-                    item = QTableWidgetItem("{0:.2f}".format(block['전일고가']))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    self.tableWidget_fut.setItem(1, Futures_column.전고.value, item)
-
-                    if int(current_str[0:2]) == 8 and int(current_str[3:5]) <= 59:
-                        item = QTableWidgetItem("{0:.2f}".format(block['전일종가']))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.tableWidget_fut.setItem(1, Futures_column.종가.value, item)
-                    else:
-                        pass
-
-                    if ResizeRowsToContents:
-                        self.tableWidget_fut.resizeRowsToContents()
-                    else:
-                        pass
-                    self.tableWidget_fut.resizeColumnsToContents()
-                else:
-                    pass
-                '''
 
             elif block['단축코드'][0:3] == '201':
 
@@ -21342,7 +20698,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_call.setItem(t8416_call_count, Option_column.종가.value, item)
 
                     if t8416_call_count < option_pairs_count:
-                        #df_call_price_graph.iat[0, t8416_call_count] = block['전일종가']
                         df_call_graph[t8416_call_count].at[0, 'price'] = block['전일종가']
                     else:
                         pass
@@ -21416,18 +20771,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.textBrowser.append(str)
                 print(str)
-
-                #t8416_call_count += 1
-
-                # t8416은 초당 1건 전송가능
-                #self.t8416_call_event_loop.exit()
-                #print('t8416_call_event_loop exit...')
-                #QTest.qWait(1000)
                 
                 # to be checked !!!
                 if t8416_call_count == option_pairs_count - 1:
 
-                    #if self.t8416_callworker.isRunning():
                     if True:
 
                         call_기준가 = df_call['기준가'].values.tolist()
@@ -21454,7 +20801,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         print('Call 전체 행사가 수신완료')
 
-                        #self.t8416_callworker.terminate()
                         str = '[{0:02d}:{1:02d}:{2:02d}] Call 전체 행사가 수신완료 !!!\r'.format(dt.hour, dt.minute, dt.second)
                         self.textBrowser.append(str)
                         print(str)
@@ -21465,21 +20811,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         call_positionCell = self.tableWidget_call.item(atm_index + 9, 1)
                         self.tableWidget_call.scrollToItem(call_positionCell)
 
-                        '''
-                        #time.sleep(1.1)
-                        #QTest.qWait(1000)
-                        #t8416_put_count += 1
-                        
-                        self.t8416_putworker.daemon = True
-                        self.t8416_putworker.start()                        
-                        '''
                         print('t8416 put 요청시작...')
                         QTest.qWait(1000)
 
                         for i in range(option_pairs_count):
                                 t8416_put_count = i
                                 self.t8416_put_request(i)
-                                #print('t8416 put {0}번째 event loop 시작\r'.format(i+1))
                                 self.t8416_put_event_loop.exec_()
                     else:
                         pass
@@ -21599,7 +20936,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         self.tableWidget_put.setItem(t8416_put_count, Option_column.종가.value, item)
 
                     if t8416_put_count < option_pairs_count:
-                        #df_put_price_graph.iat[0, t8416_put_count] = block['전일종가']
                         df_put_graph[t8416_put_count].at[0, 'price'] = block['전일종가']
                     else:
                         pass
