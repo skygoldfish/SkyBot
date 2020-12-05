@@ -35704,7 +35704,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         모니터번호 = QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
         screen_info = QDesktopWidget().screenGeometry(모니터번호)
 
-        txt = '{0}번 모니터, 화면해상도 = {1}x{2}\r'.format(모니터번호, screen_info.width(), screen_info.height())
+        txt = '{0}번 모니터, 화면해상도 = {1} x {2}\r'.format(모니터번호, screen_info.width(), screen_info.height())
         self.textBrowser.append(txt)
         
         self.시작시각 = datetime.datetime.now()
