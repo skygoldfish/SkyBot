@@ -2909,10 +2909,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         # 위젯 선언 및 초기화
         self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white;}') 
-        self.pushButton_telegram.setStyleSheet('QPushButton:hover {background-color: black; color: white;}')
+        self.pushButton_telegram.setStyleSheet('QPushButton:hover {background-color: black; color: white;}')        
         
-        self.pushButton_start.setText('Start')       
+        self.pushButton_start.setText('Start')          
         self.pushButton_telegram.setText('Telegram')
+        
+        #self.pushButton_telegram.setCheckable(True)
+        #self.pushButton_telegram.toggle()
 
         self.pushButton_start.clicked.connect(self.start_button_clicked)
         self.pushButton_telegram.clicked.connect(self.telegram_button_clicked)
