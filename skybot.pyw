@@ -35698,6 +35698,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         self.setWindowTitle("SkyBot ver1.0")
         self.textBrowser.append('Welcome to SkyBot\r')
+        
+        self.시작시각 = datetime.datetime.now()
+
+        txt = '시작시간 = {0}\r'.format(self.시작시각)
+        self.textBrowser.append(txt)
 
         global 모니터번호, screen_info
         
@@ -35707,8 +35712,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         txt = '모니터번호 = {0}번, 화면해상도 = {1}x{2}\r'.format(모니터번호, screen_info.width(), screen_info.height())
         self.textBrowser.append(txt)
         
-        self.시작시각 = datetime.datetime.now()
-
         self.dialog = dict()
 
         self.주문제한 = 0
