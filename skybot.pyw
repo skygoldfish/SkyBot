@@ -35692,11 +35692,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
         
-        if TARGET_MONTH_SELECT == 2:            
-            pyautogui.moveTo(SECOND_DISPLAY_X_POSITION, SECOND_DISPLAY_Y_POSITION)
-        else:
-            pass
-
         self.setWindowTitle("SkyBot ver1.0")
         self.textBrowser.append('Welcome to SkyBot\r')
 
@@ -36088,6 +36083,11 @@ if __name__ == "__main__":
     if DARK_STYLESHEET:    
         dark_stylesheet = qdarkstyle.load_stylesheet_pyqt5()
         app.setStyleSheet(dark_stylesheet)
+    else:
+        pass
+    
+    if TARGET_MONTH_SELECT == 2:            
+        pyautogui.moveTo(SECOND_DISPLAY_X_POSITION, SECOND_DISPLAY_Y_POSITION)
     else:
         pass
     
