@@ -284,6 +284,7 @@ CROSS_HAIR_LINE = parser.getboolean('User Switch', 'Cross Hair Line')
 SECOND_PLOT_SYNC = parser.getboolean('User Switch', 'Second Plot Sync')
 ALL_QUOTE_REQUEST = parser.getboolean('User Switch', 'All Option Quote Request')
 CSV_FILE = parser.getboolean('User Switch', 'CSV Data File')
+TTS = parser.getboolean('User Switch', 'Text To Speach')
 
 #print('TELEGRAM_SERVICE =', TELEGRAM_SERVICE)
 
@@ -36031,7 +36032,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 if __name__ == "__main__":
     # Window 8, 10
     # Window 7은 한글을 못읽음
-    # Speak("스카이봇이 시작됩니다.")
+    if TTS:
+        Speak("스카이봇이 시작됩니다.")
+    else:
+        pass
 
     #ToYourTelegram("SkyBot이 실행되었습니다.")
     '''
