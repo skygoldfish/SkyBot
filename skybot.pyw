@@ -753,8 +753,6 @@ print('KP200 전일종가 =', KP200_전일종가)
 
 # 전역변수
 ########################################################################################################################
-모니터번호 = 0
-
 now = datetime.datetime.now()        
 nowDate = now.strftime('%Y-%m-%d')
 current_str = now.strftime('%H:%M:%S')
@@ -1479,7 +1477,7 @@ lightskyblue = QColor(0x87, 0xCE, 0xFA)
 풋월고색 = dodgerblue
 풋전저색 = steelblue
 풋전고색 = skyblue
-풋종가색 = darkturquoise
+풋종가색 = deepskyblue
 풋피봇색 = cyan
 풋시가색 = 청색
 
@@ -4231,8 +4229,6 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.parent = parent        
         self.setupUi(self)
         
-        global 모니터번호
-        
         global TARGET_MONTH_SELECT, MONTH_FIRSTDAY
         global widget_title, CURRENT_MONTH, NEXT_MONTH, MONTH_AFTER_NEXT, SP500, DOW, NASDAQ, fut_code
         global KSE_START_HOUR        
@@ -4253,13 +4249,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         screen = QtGui.QDesktopWidget().screenGeometry(모니터번호)
 
         if 모니터번호 == 0:
-            print('주모니터 화면입니다.')
+            print('주모니터 화면({0}X{1})입니다.'.format(screen.width(), screen.height()))
         else:
-            print('모니터화면 번호 = ', 모니터번호)
+            print('{0}번 보조모니터 화면({1}X{2})입니다.'.format(모니터번호, screen.width(), screen.height()))
         
-        print('current month = %s, month firstday = %s, next month = %s, month after next = %s, next month select = %s, SP500 = %s, DOW = %s, NASDAQ = %s, WTI = %s' \
-            % (CURRENT_MONTH, MONTH_FIRSTDAY, NEXT_MONTH, MONTH_AFTER_NEXT, TARGET_MONTH_SELECT, SP500, DOW, NASDAQ, WTI))
-
         left = screen.left()
         top = screen.top()
 
@@ -4281,8 +4274,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.showNormal()
         else:
             self.showMaximized()
-
-        self.XQ_t0167 = t0167(parent=self)              
+        
+        print('current month = %s, month firstday = %s, next month = %s, month after next = %s, next month select = %s, SP500 = %s, DOW = %s, NASDAQ = %s, WTI = %s' \
+            % (CURRENT_MONTH, MONTH_FIRSTDAY, NEXT_MONTH, MONTH_AFTER_NEXT, TARGET_MONTH_SELECT, SP500, DOW, NASDAQ, WTI))
         
         # 위젯 선언 및 초기화
         self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white;}') 
@@ -4732,8 +4726,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         item = QTableWidgetItem("{0}".format('FD\n진폭비'))
         item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(검정색))
-        item.setForeground(QBrush(흰색))
+        item.setBackground(QBrush(라임))
+        item.setForeground(QBrush(검정색))
         self.tableWidget_fut.setItem(0, Futures_column.대비.value, item)
 
         item = QTableWidgetItem("{0}".format('-'))
@@ -13278,8 +13272,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                 self.tableWidget_fut.setItem(1, Futures_column.시가갭.value, item)
                 
-                fut_realdata['시가갭'] = 시가갭
-                df_fut.at[1, '시가갭'] = 시가갭                
+                #fut_realdata['시가갭'] = 시가갭
+                #df_fut.at[1, '시가갭'] = 시가갭                
         else:
             pass
         
@@ -13382,7 +13376,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             item = QTableWidgetItem("{0:.2f}".format(선물_DOW_진폭비율))
             item.setTextAlignment(Qt.AlignCenter)
-            item.setBackground(QBrush(흰색))
+            item.setBackground(QBrush(라임))
             item.setForeground(QBrush(검정색))
 
             if NightTime:
@@ -13473,12 +13467,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if NightTime:
                 self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
-                df_fut.at[0, '진폭'] = 진폭
-                cme_realdata['진폭'] = 진폭
+                #df_fut.at[0, '진폭'] = 진폭
+                #cme_realdata['진폭'] = 진폭
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
-                df_fut.at[1, '진폭'] = 진폭
-                fut_realdata['진폭'] = 진폭         
+                #df_fut.at[1, '진폭'] = 진폭
+                #fut_realdata['진폭'] = 진폭         
         else:
             pass
 
@@ -13537,12 +13531,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
             if NightTime:
                 self.tableWidget_fut.setItem(0, Futures_column.진폭.value, item)
-                df_fut.at[0, '진폭'] = 진폭
-                cme_realdata['진폭'] = 진폭
+                #df_fut.at[0, '진폭'] = 진폭
+                #cme_realdata['진폭'] = 진폭
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
-                df_fut.at[1, '진폭'] = 진폭  
-                fut_realdata['진폭'] = 진폭         
+                #df_fut.at[1, '진폭'] = 진폭  
+                #fut_realdata['진폭'] = 진폭         
         else:
             pass
 
@@ -13569,12 +13563,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         if NightTime:
             self.tableWidget_fut.setItem(0, Futures_column.거래량.value, item)
-            df_fut.at[0, '거래량'] = fut_volume_power 
-            cme_realdata['거래량'] = fut_volume_power
+            #df_fut.at[0, '거래량'] = fut_volume_power 
+            #cme_realdata['거래량'] = fut_volume_power
         else:
             self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
-            df_fut.at[1, '거래량'] = fut_volume_power 
-            fut_realdata['거래량'] = fut_volume_power        
+            #df_fut.at[1, '거래량'] = fut_volume_power 
+            #fut_realdata['거래량'] = fut_volume_power        
 
     def fut_etc_update(self, result):
 
@@ -23624,10 +23618,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
                 
                 # 차월물 처리
+                '''
                 if OPT_NEXT_MONTH and result['단축코드'] == cmshcode:
                     pass
                 else:
                     pass
+                '''
 
                 fut_result = copy.deepcopy(result)                
 
