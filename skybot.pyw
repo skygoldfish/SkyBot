@@ -35691,23 +35691,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
-        self.setWindowTitle("SkyBot ver1.0")
-
-        self.textBrowser.append('Welcome to SkyBot\r')
-
-        global 모니터번호, screen_info
-
-        모니터번호 = QtWidgets.QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
-        screen_info = QtGui.QDesktopWidget().screenGeometry(모니터번호)
-
-        txt = '모니터 화면해상도 = {0}x{1}\r'.format(screen_info.width(), screen_info.height())
-        self.textBrowser.append(txt)
         
         if TARGET_MONTH_SELECT == 2:            
             pyautogui.moveTo(SECOND_DISPLAY_X_POSITION, SECOND_DISPLAY_Y_POSITION)
         else:
             pass
 
+        self.setWindowTitle("SkyBot ver1.0")
+        self.textBrowser.append('Welcome to SkyBot\r')
+
+        global 모니터번호, screen_info
+        
+        모니터번호 = QtWidgets.QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
+        screen_info = QtGui.QDesktopWidget().screenGeometry(모니터번호)
+
+        txt = '모니터 화면해상도 = {0}x{1}\r'.format(screen_info.width(), screen_info.height())
+        self.textBrowser.append(txt)
+        
         self.시작시각 = datetime.datetime.now()
 
         self.dialog = dict()
