@@ -5136,12 +5136,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             
             # 서버시간 기준으로 1분마다 체크!!!
+            '''
             if self.alternate_flag and flag_heartbeat:
                 self.heartbeat_check()
             else:
                 pass
-
-            '''
+            
             if flag_checkBox_HS and self.alternate_flag and dt.second % OPTION_BOARD_UPDATE_INTERVAL == 0:                
 
                 # 해외선물 옵션호가                
