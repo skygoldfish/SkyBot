@@ -2,18 +2,10 @@
 
 프로그램정보 = [
     ['프로그램명','SkyBot-eBEST'],
-    ['Version','1.4'],
-    ['개발일','2018-02-28'],
-    ['2018-06-04','포트폴리오 더블클릭으로 삭제 기능 추가'],
-    ['2018-05-23','시장가매도, query->ActiveX 오류수정'],
-    ['2018-07-19','국내선물옵션, 해외선물옵션에 필요한 모듈을 XAQuery, XAReals에 추가'],
-    ['2018-07-19','검색식에서 종목이 빠지는 경우, 손절 및 익절이 나가지 않는 부분 추가'],
-    ['2018-07-20','체결시간과 종목검색에서 종목이 빠지는 시간차가 있는 경우 주문이 나가지 않는 부분추가'],
-    ['2018-07-25','종목검색 중지시 계속 검색된 종목이 들어오는 문제 수정'],
-    ['2018-08-01','종목검색, Chartindex에서 식별자를 사용하는 방법 통일'],
-    ['2018-08-01','한번에 수량이 다 체결된 경우 포트에 반영되지 않는 것을 수정'],
-    ['2018-08-07','조건검색시 다른 조건검색과 섞이는 것을 수정'],
-    ['2018-08-07','API메뉴중 백업에 OnReceiveMessage 추가']
+    ['Version','1.0'],
+    ['개발일','2020-12-05'],
+    ['2018-08-07','mymoneybot 프로그램으로 시작'],
+    ['2020-12-05','SkyBot v1.0 배포']
 ]
 
 import sys, os
@@ -2266,6 +2258,84 @@ def sqliteconn():
     conn = sqlite3.connect(DATABASE)
     return conn
 
+class PandasModel(QtCore.QAbstractTableModel):
+    def __init__(self, data=None, parent=None):
+        QtCore.QAbstractTableModel.__init__(self, parent)
+        self._data = data
+        if data is None:
+            self._data = DataFrame()
+
+    def rowCount(self, parent=None):
+        return len(self._data.index)
+
+    def columnCount(self, parent=None):
+        return self._data.columns.size
+
+    def data(self, index, role=Qt.DisplayRole):
+        if index.isValid():
+            if role == Qt.DisplayRole:
+                return str(self._data.values[index.row()][index.column()])
+        return None
+
+    def headerData(self, column, orientation, role=Qt.DisplayRole):
+        if role != Qt.DisplayRole:
+            return None
+        if orientation == Qt.Horizontal:
+            return self._data.columns[column]
+        return int(column + 1)
+
+    def update(self, data):
+        self._data = data
+        self.reset()
+
+    def reset(self):
+        self.beginResetModel()
+        self.endResetModel()
+
+    def flags(self, index):
+        return QtCore.Qt.ItemIsEnabled
+
+class RealDataTableModel(QAbstractTableModel):
+    def __init__(self, parent=None):
+        QtCore.QAbstractTableModel.__init__(self, parent)
+        self.realdata = {}
+        self.headers = ['종목코드', '현재가' , '전일대비', '등락률' , '매도호가', '매수호가', '누적거래량', '시가' , '고가' , '저가' , '거래회전율', '시가총액']
+
+    def rowCount(self, index=QModelIndex()):
+        return len(self.realdata)
+
+    def columnCount(self, index=QModelIndex()):
+        return len(self.headers)
+
+    def data(self, index, role=Qt.DisplayRole):
+        if (not index.isValid() or not (0 <= index.row() < len(self.realdata))):
+            return None
+
+        if role == Qt.DisplayRole:
+            rows = []
+            for k in self.realdata.keys():
+                rows.append(k)
+            one_row = rows[index.row()]
+            selected_row = self.realdata[one_row]
+
+            return selected_row[index.column()]
+
+        return None
+
+    def headerData(self, column, orientation, role=Qt.DisplayRole):
+        if role != Qt.DisplayRole:
+            return None
+        if orientation == Qt.Horizontal:
+            return self.headers[column]
+        return int(column + 1)
+
+    def flags(self, index):
+        return QtCore.Qt.ItemIsEnabled
+
+    def reset(self):
+        self.beginResetModel()
+        self.endResetModel()
+
 Ui_버전, QtBaseClass_버전 = uic.loadUiType(UI_DIR+"버전.ui")
 class 화면_버전(QDialog, Ui_버전):
 
@@ -2275,7 +2345,7 @@ class 화면_버전(QDialog, Ui_버전):
         self.setupUi(self)
         self.setWindowTitle('버전')
         self.parent = parent
-
+        
         self.model = PandasModel()
         self.tableView.setModel(self.model)
 
@@ -35904,10 +35974,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # 사용법
         if _action == "actionMustRead":
-            webbrowser.open('https://thinkpoolost.wixsite.com/moneybot')
+            pass
+            #webbrowser.open('https://thinkpoolost.wixsite.com/moneybot')
 
         if _action == "actionUsage":
-            webbrowser.open('https://docs.google.com/document/d/1BGENxWqJyZdihQFuWcmTNy3_4J0kHolCc-qcW3RULzs/edit')
+            pass
+            #webbrowser.open('https://docs.google.com/document/d/1BGENxWqJyZdihQFuWcmTNy3_4J0kHolCc-qcW3RULzs/edit')
 
         if _action == "actionVersion":
             if self.dialog.get('Version') is not None:
