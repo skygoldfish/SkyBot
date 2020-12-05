@@ -36066,11 +36066,11 @@ if __name__ == "__main__":
 
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(True)
-
-    '''    
+   
+   # 4K 해상도 대응
     app.setAttribute(Qt.AA_EnableHighDpiScaling, True)
     app.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
-    '''
+    
     all_screens = app.screens()
     print('스크린갯수 =', len(all_screens))
 
