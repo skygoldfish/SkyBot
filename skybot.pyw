@@ -78,9 +78,7 @@ pd.set_option('display.expand_frame_repr', False)
 pd.set_option('max_colwidth', -1)
 
 # 시스템 기본 로케일 사용
-locale.setlocale(locale.LC_ALL, '')  
-
-주문지연 = 3000
+locale.setlocale(locale.LC_ALL, '') 
 
 DATABASE = 'DATA\\mymoneybot.sqlite'
 UI_DIR = "UI\\"
@@ -92,6 +90,9 @@ SELFID = ''
 os_type = platform.platform()
 print('\r')
 print('OS 유형 :', os_type)
+
+모니터번호 = 0
+screen_info = None
 
 콜등락율 = 0
 풋등락율 = 0
@@ -1022,7 +1023,7 @@ update_end = 10.0
 basis = 0
 
 Option_column = Enum('Option_column', '행사가 OLOH 기준가 월저 월고 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 진폭 VP OI OID')
-Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수잔량 매도잔량 건수비 잔량비 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 진폭 거래량 FR OI OID')
+Futures_column = Enum('Futures_column', 'OLOH 매수건수 매도건수 매수잔량 매도잔량 건수비 잔량비 전저 전고 종가 피봇 시가 저가 현재가 고가 시가갭 대비 진폭 거래량 OI OID')
 Option_volume_column = Enum('Option_volume_column', '매도누적체결량 매도누적체결건수 매수누적체결량 매수누적체결건수')
 Supply_column = Enum('Supply_column', '외인선옵 개인선옵 기관선옵 외인현물 프로그램')
 Quote_column = Enum('Quote_column', 'C-MSCC C-MDCC C-MSCR C-MDCR P-MSCC P-MDCC P-MSCR P-MDCR 콜건수비 콜잔량비 풋건수비 풋잔량비 호가종합 미결종합')
@@ -2349,7 +2350,7 @@ class 화면_버전(QDialog, Ui_버전):
         self.model = PandasModel()
         self.tableView.setModel(self.model)
 
-        df = DataFrame(data=프로그램정보,columns=['A','B'])
+        df = DataFrame(data=프로그램정보,columns=['제목','내용'])
 
         self.model.update(df)
         for i in range(len(df.columns)):
@@ -2778,12 +2779,12 @@ class RealDataWorker(QThread):
         self.OVC.AdviseRealData(종목코드=HANGSENG)
         self.OVC.AdviseRealData(종목코드=EUROFX)
         self.OVC.AdviseRealData(종목코드=GOLD)        
-        
+        '''
         if NEWS_DISPLAY:
             self.NEWS.AdviseRealData()
         else:
             pass
-
+        '''
     def AdviseRealDataEtc(self):
 
         self.S3.AdviseRealData(SAMSUNG)
@@ -2875,34 +2876,30 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         ['☆', '★', '※', '○', '●', '◎', '☀', '☁', '√', '↗', '⬈', '↘', '⬊', '↑', '⬆', '↓', '⬇', '↕', '♣', '♠', '♥', '♦', 'Δ', '【', '】', '🕘', '✔', '⬍', '⌛', '⬀ ⬁ ⬂ ⬃']
 
         self.특수문자_숫자 = ['⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼ ⑽ ⓵ ⓶ ⓷ ⓸ ⓹ ⓺ ⓻ ⓼ ⓽ ⓾']
-        
-        # 다중모니터와 WQHD 해상도에서 초기화면 표시를 위한 Setting
-        모니터번호 = QtWidgets.QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
-        screen = QtGui.QDesktopWidget().screenGeometry(모니터번호)
-
+       
         if 모니터번호 == 0:
-            print('주모니터 화면({0}X{1})입니다.'.format(screen.width(), screen.height()))
+            print('주모니터 화면({0}X{1})입니다.'.format(screen_info.width(), screen_info.height()))
         else:
-            print('{0}번 보조모니터 화면({1}X{2})입니다.'.format(모니터번호, screen.width(), screen.height()))
+            print('{0}번 보조모니터 화면({1}X{2})입니다.'.format(모니터번호, screen_info.width(), screen_info.height()))
         
-        left = screen.left()
-        top = screen.top()
+        left = screen_info.left()
+        top = screen_info.top()
 
-        if screen.width() > 1920:
+        if screen_info.width() > 1920:
 
             width = 1920
         else:
-            width = screen.width()
+            width = screen_info.width()
 
-        if screen.height() > 1080:
+        if screen_info.height() > 1080:
 
             height = 1080
         else:
-            height = screen.height()
+            height = screen_info.height()
 
         self.setGeometry(left, top + 30, width, height - 60)
 
-        if screen.width() > 1920 and screen.height() > 1080:
+        if screen_info.width() > 1920 and screen_info.height() > 1080:
             self.showNormal()
         else:
             self.showMaximized()
@@ -3026,7 +3023,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.tableWidget_fut.setHorizontalHeaderLabels(
             ['SBOM', '▲▼', 'HMSC', 'HMDC', 'HMSR', 'MDHR', 'HCR', 'HRR', '전저', '전고', '종가', '피봇', '시가', '저가',
-             '현재가', '고가', '시가갭', '대비', '진폭', '체결', 'FR', 'OI', 'OI↕'])
+             '현재가', '고가', '시가갭', '대비', '진폭', '체결', 'OI', 'OI↕'])
         self.tableWidget_fut.verticalHeader().setVisible(False)
 
         self.tableWidget_fut.setAlternatingRowColors(True)
@@ -3403,6 +3400,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setBackground(QBrush(검정색))
         item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(1, Futures_column.거래량.value, item)
+
         '''
         item = QTableWidgetItem("{0}".format('중심가'))
         item.setTextAlignment(Qt.AlignCenter)
@@ -3410,24 +3408,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         item.setForeground(QBrush(흰색))
         self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)
         '''
-        item = QTableWidgetItem("{0}".format('-'))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(검정색))
-        item.setForeground(QBrush(흰색))
-        self.tableWidget_fut.setItem(0, Futures_column.FR.value, item)
-
-        item = QTableWidgetItem("{0}".format('-'))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(검정색))
-        item.setForeground(QBrush(흰색))
-        self.tableWidget_fut.setItem(1, Futures_column.FR.value, item)
-
-        item = QTableWidgetItem("{0}".format('-'))
-        item.setTextAlignment(Qt.AlignCenter)
-        item.setBackground(QBrush(검정색))
-        item.setForeground(QBrush(흰색))
-        self.tableWidget_fut.setItem(2, Futures_column.FR.value, item)
-
+        
         item = QTableWidgetItem("{0}".format('-'))
         item.setTextAlignment(Qt.AlignCenter)
         item.setBackground(QBrush(검정색))
@@ -3962,12 +3943,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     @pyqtSlot()
     def start_button_clicked(self):
 
-        self.AddCode()
+        self.RunCode()
 
     @pyqtSlot()
     def telegram_button_clicked(self):
 
-        self.RemoveCode()
+        self.RunTelegram()
 
     @pyqtSlot()
     def process_realdata(self):
@@ -14845,7 +14826,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_quote.setItem(0, Quote_column.미결종합.value - 1, item)
 
         
-    def AddCode(self):
+    def RunCode(self):
 
         global pre_start
         global t2301_month_info
@@ -15034,7 +15015,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
 
         # 저장전 전체 데이타를 다시 내려받음
-        self.AddCode()
+        self.RunCode()
 
         self.high_low_list_save_to_file()
 
@@ -15089,7 +15070,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             pass
               
 
-    def RemoveCode(self):
+    def RunTelegram(self):
 
         global flag_telegram_on
         global flag_telegram_listen_worker, flag_telegram_send_worker
@@ -35711,9 +35692,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
         self.setWindowTitle("SkyBot ver1.0")
+
+        self.textBrowser.append('Welcome to SkyBot\r')
+
+        global 모니터번호, screen_info
+
+        모니터번호 = QtWidgets.QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
+        screen_info = QtGui.QDesktopWidget().screenGeometry(모니터번호)
+
+        txt = '모니터 화면해상도 = {0}x{1}\r'.format(screen_info.width(), screen_info.height())
+        self.textBrowser.append(txt)
         
-        if TARGET_MONTH_SELECT == 2:
-            print('SECOND_DISPLAY_X_POSITION = {0}, SECOND_DISPLAY_Y_POSITION = {1}\r'.format(SECOND_DISPLAY_X_POSITION, SECOND_DISPLAY_Y_POSITION))
+        if TARGET_MONTH_SELECT == 2:            
             pyautogui.moveTo(SECOND_DISPLAY_X_POSITION, SECOND_DISPLAY_Y_POSITION)
         else:
             pass
@@ -35733,9 +35723,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.system_server_time_gap = 0
 
         # AxtiveX 설정
-        # self.connection = XASession(parent=self)
         self.connection = None
-        self.XQ_t0167 = t0167(parent=self)        
+
+        self.XQ_t0167 = t0167(parent=self)
+        self.NEWS = NWS(parent=self)        
+
+        if NEWS_DISPLAY:
+            txt = '뉴스를 요청합니다.\r'
+            self.textBrowser.append(txt)
+            self.NEWS.AdviseRealData()
+        else:
+            pass
 
     def OnQApplicationStarted(self):
         self.clock = QtCore.QTimer()
@@ -35880,7 +35878,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.dialog['당월물옵션전광판'] = 화면_선물옵션전광판(parent=self)
                     self.dialog['당월물옵션전광판'].show()
 
-                self.dialog['당월물옵션전광판'].AddCode()
+                self.dialog['당월물옵션전광판'].RunCode()
             else:
                 pass
         else:
@@ -35934,14 +35932,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # 해외선물 개장시간은 국내시장의 2시간 전
                 server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
 
-            print('*** 서버시간 = [{0:02d}:{1:02d}:{2:02d}], 시스템시간 - 서버시간 = {3}초 ***\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차))
+            txt = '*** 시스템시간 = [{0:02d}:{1:02d}:{2:02d}], 서버시간 = [{3:02d}:{4:02d}:{5:02d}], 시스템시간 - 서버시간 = {6}초 ***\r'.format\
+                (dt.hour, dt.minute, dt.second, SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차)
+            self.textBrowser.append(txt)
+            print(txt)
 
             flag_heartbeat = True                        
         else:
             pass
 
     def OnReceiveRealData(self, szTrCode, result):
-        pass    
+
+        if szTrCode == 'NWS':
+                
+            txt = '[{0}] : {1}\r'.format(result['시간'], result['제목'])
+            self.textBrowser.append(txt)
+            print(txt)
+        else:
+            pass    
 
     # ------------------------------------------------------------------------------------------------------------------
     def MENU_Action(self, qaction):
