@@ -8,6 +8,7 @@
     ['2020-12-05','SkyBot v1.0 배포']
 ]
 
+# 기본 모듈
 import sys, os
 import datetime, time
 import win32com.client
@@ -24,13 +25,6 @@ import locale
 import collections
 import operator
 import platform
-from configparser import ConfigParser
-
-from PyQt5 import QtCore, QtGui, QtWidgets, QAxContainer, uic
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtTest import *
 from numpy import NaN, Inf, arange, isscalar, asarray, array
 from pandas import DataFrame, Series
 from threading import Timer
@@ -42,23 +36,12 @@ from PIL import Image
 import talib
 from talib import MA_Type
 import ta
-#import qtmodern.styles
-#import qtmodern.windows
-import qdarkstyle
-
+from configparser import ConfigParser
 from multiprocessing import Process, Queue
 import multiprocessing as mp
 import pyautogui
-
-from XASessions import *
-from XAQueries import *
-from XAReals import *
-#from XAReals import xarealdata
-from Utils import *
-#from FileWatcher import *
-
-#import pythoncom
 #import sqlite3
+#import pythoncom
 #import inspect
 #import pickle
 #import uuid
@@ -67,10 +50,26 @@ from Utils import *
 #import pandas.io.sql as pdsql
 #import win32gui
 #import logging.handlers
-
 #from subprocess import Popen
 #from PIL import ImageGrab
-#from multiprocessing import Pool, Process, Queue
+
+# GUI 모듈
+from PyQt5 import QtCore, QtGui, QtWidgets, QAxContainer, uic
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtTest import *
+import qdarkstyle
+#import qtmodern.styles
+#import qtmodern.windows
+
+# 이베스트 모듈
+from XASessions import *
+from XAQueries import *
+from XAReals import *
+from Utils import *
+#from FileWatcher import *
+#from XAReals import xarealdata
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.expand_frame_repr', False)
