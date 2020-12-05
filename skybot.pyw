@@ -36086,7 +36086,9 @@ if __name__ == "__main__":
     else:
         pass
     
-    if TARGET_MONTH_SELECT == 2:            
+    if TARGET_MONTH_SELECT == 2:
+        txt = '마우스 위치를 X = {0}, Y = {1} 위치로 이동합니다.\r'.format(SECOND_DISPLAY_X_POSITION, SECOND_DISPLAY_Y_POSITION)
+        print(txt)            
         pyautogui.moveTo(SECOND_DISPLAY_X_POSITION, SECOND_DISPLAY_Y_POSITION)
     else:
         pass
