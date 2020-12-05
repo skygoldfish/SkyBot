@@ -35697,8 +35697,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global 모니터번호, screen_info
         
-        모니터번호 = QtWidgets.QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
-        screen_info = QtGui.QDesktopWidget().screenGeometry(모니터번호)
+        모니터번호 = QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
+        screen_info = QDesktopWidget().screenGeometry(모니터번호)
 
         txt = '{0}번 모니터, 화면해상도 = {1}x{2}\r'.format(모니터번호, screen_info.width(), screen_info.height())
         self.textBrowser.append(txt)
