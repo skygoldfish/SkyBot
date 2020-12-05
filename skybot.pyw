@@ -35706,10 +35706,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         global 모니터번호, screen_info
         
+        # 커서가 위치한 화면정보
         모니터번호 = QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
+        
+        centerPoint = QApplication.desktop().screenGeometry(모니터번호).center()
         screen_info = QDesktopWidget().screenGeometry(모니터번호)
 
-        txt = '모니터번호 = {0}번, 화면해상도 = {1}x{2}\r'.format(모니터번호, screen_info.width(), screen_info.height())
+        txt = '모니터번호 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(모니터번호, screen_info.width(), screen_info.height(), centerPoint.x(), centerPoint.y())
         self.textBrowser.append(txt)
         
         self.dialog = dict()
