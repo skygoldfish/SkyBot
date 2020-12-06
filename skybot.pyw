@@ -5137,12 +5137,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 pass
             
             # 서버시간 기준으로 1분마다 체크!!!
-            '''
+            
             if self.alternate_flag and flag_heartbeat:
                 self.heartbeat_check()
             else:
                 pass
-            
+            '''
             if flag_checkBox_HS and self.alternate_flag and dt.second % OPTION_BOARD_UPDATE_INTERVAL == 0:                
 
                 # 해외선물 옵션호가                
@@ -5305,7 +5305,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                                 self.put_coreval_color_update()
 
                                 self.tableWidget_put.resizeColumnsToContents()
-                                self.tableWidget_fut.resizeColumnsToContents()
+                                #self.tableWidget_fut.resizeColumnsToContents()
                             else:
                                 pass
                         else:
@@ -5677,10 +5677,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def heartbeat_check(self):
 
         global flag_heartbeat
-
+        '''
         str = '[{0:02d}:{1:02d}:{2:02d}] Heartbeat({3}, 시간차 = {4}초)수신, Drop Count = {5}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차, queue_input_drop_count)
         self.textBrowser.append(str)
         print(str)
+        '''
+        self.tableWidget_fut.resizeRowsToContents()
+        self.tableWidget_fut.resizeColumnsToContents()
 
         flag_heartbeat = False 
 
@@ -12090,7 +12093,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
                 #df_fut.at[1, '진폭'] = 진폭
-                #fut_realdata['진폭'] = 진폭         
+                #fut_realdata['진폭'] = 진폭
+
+            #self.tableWidget_fut.resizeColumnToContents(Futures_column.저가.value)         
         else:
             pass
 
@@ -12154,7 +12159,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 self.tableWidget_fut.setItem(1, Futures_column.진폭.value, item)
                 #df_fut.at[1, '진폭'] = 진폭  
-                #fut_realdata['진폭'] = 진폭         
+                #fut_realdata['진폭'] = 진폭
+
+            #self.tableWidget_fut.resizeColumnToContents(Futures_column.고가.value)         
         else:
             pass
 
@@ -22487,7 +22494,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
 
-                    self.tableWidget_fut.resizeColumnsToContents()
+                    #self.tableWidget_fut.resizeColumnsToContents()
 
                 # 차월물 처리
                 elif result['단축코드'] == cmshcode:
