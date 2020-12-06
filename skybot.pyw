@@ -35714,6 +35714,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         all_screens = QApplication.screens()
 
+        txt = '총 {0}개의 모니터가 사용가능합니다.\r'.format(len(all_screens))
+        self.textBrowser.append(txt)
+
         for index, s in enumerate(all_screens):
             '''
             print()
@@ -35725,7 +35728,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print(s.size().width())
             print(s.size().height())
             '''
-            txt = '스크린 {0}번, 화면해상도 = {1}x{2}\r'.format(index, s.size().width(), s.size().height())
+            txt = '<스크린 {0}번, 화면해상도 = {1}x{2}>\r'.format(index, s.size().width(), s.size().height())
             self.textBrowser.append(txt)
         
         # 현재 커서가 위치한 화면정보
