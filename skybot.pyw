@@ -5677,11 +5677,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
     def heartbeat_check(self):
 
         global flag_heartbeat
-        '''
+        
         str = '[{0:02d}:{1:02d}:{2:02d}] Heartbeat({3}, 시간차 = {4}초)수신, Drop Count = {5}\r'.format(SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, 시스템_서버_시간차, queue_input_drop_count)
         self.textBrowser.append(str)
-        print(str)
-        '''
+        #print(str)
+        
         self.tableWidget_fut.resizeRowsToContents()
         self.tableWidget_fut.resizeColumnsToContents()
 
@@ -35938,7 +35938,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def OnReceiveData(self, szTrCode, result):
 
         global 서버시간, 시스템_서버_시간차, flag_heartbeat
-        global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx
+        global SERVER_HOUR, SERVER_MIN, SERVER_SEC, server_x_idx, ovc_x_idx
 
         dt = datetime.datetime.now()
 
@@ -35955,6 +35955,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             서버시간 = SERVER_HOUR * 3600 + SERVER_MIN * 60 + SERVER_SEC            
             시스템_서버_시간차 = systemtime - 서버시간
 
+            # X축 시간좌표 계산
             if NightTime:
 
                 night_time = SERVER_HOUR
@@ -35968,6 +35969,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:                    
                 # 해외선물 개장시간은 국내시장의 2시간 전
                 server_x_idx = (SERVER_HOUR - DayTime_PreStart_Hour) * 60 + SERVER_MIN + 1
+
+            #ovc_x_idx = server_x_idx
 
             txt = '*** 시스템시간 = [{0:02d}:{1:02d}:{2:02d}], 서버시간 = [{3:02d}:{4:02d}:{5:02d}], 시스템시간 - 서버시간 = {6}초 ***\r'.format\
                 (dt.hour, dt.minute, dt.second, SERVER_HOUR, SERVER_MIN, SERVER_SEC, 시스템_서버_시간차)
