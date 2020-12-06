@@ -2908,8 +2908,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             % (CURRENT_MONTH, MONTH_FIRSTDAY, NEXT_MONTH, MONTH_AFTER_NEXT, TARGET_MONTH_SELECT, SP500, DOW, NASDAQ, WTI))
         
         # 위젯 선언 및 초기화
-        self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white;}') 
-        self.pushButton_telegram.setStyleSheet('QPushButton:hover {background-color: black; color: white;}')        
+        self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
+        self.pushButton_telegram.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')        
         
         self.pushButton_start.setText('Start')          
         self.pushButton_telegram.setText('Telegram')
@@ -4106,7 +4106,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
 
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black;} QPushButton:hover {background-color: black; color: white;}')
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
             flag_telegram_on = False            
         else:
             flag_checkBox_HS = False
@@ -4139,7 +4139,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.telegram_listen_worker.daemon = True
             self.telegram_listen_worker.start()
 
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black;} QPushButton:hover {background-color: black; color: white;}')
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
             flag_telegram_on = True
 
     @pyqtSlot(int)
@@ -11740,7 +11740,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 # 차차월물은 시작과 동시에 Polling 시작
                 ToYourTelegram("MAN 텔레그램 Polling이 시작됩니다.")
 
-                self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black;} QPushButton:hover {background-color: black; color: white;}')
+                self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
                 flag_telegram_listen_worker = True
             else:
                 pass         
@@ -11771,7 +11771,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 else:
                     pass
                 
-                self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black;} QPushButton:hover {background-color: black; color: white;}')
+                self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
                 flag_telegram_listen_worker = True
             else:
                 pass            
@@ -15134,7 +15134,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 ToYourTelegram("MAN 텔레그램 Polling이 시작됩니다.")
             
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black;} QPushButton:hover {background-color: black; color: white;}')            
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')            
             flag_telegram_listen_worker = True                       
         else:
             pass               
@@ -15143,7 +15143,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             
             telegram_command = '/start'
             
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black;} QPushButton:hover {background-color: black; color: white;}')
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
         else:
             telegram_command = ''
 
@@ -15161,7 +15161,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 str = '[{0:02d}:{1:02d}:{2:02d}] MAN 텔레그램 Polling을 중지합니다.\r'.format(adj_hour, adj_min, adj_sec)
                 self.textBrowser.append(str)
 
-            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black;} QPushButton:hover {background-color: black; color: white;}')
+            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: white; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
             
             if SELFID == 'soojin65':
                 flag_telegram_on = True
@@ -17111,6 +17111,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] 야간옵션 전광판 갱신을 요청합니다.\r'.format(dt.hour, dt.minute, dt.second)
                     self.textBrowser.append(str)
 
+            self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
             self.pushButton_start.setText('Refresh')                    
             
             if ResizeRowsToContents:
@@ -18588,6 +18589,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 
                 refresh_flag = True
 
+                self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}') 
                 self.pushButton_start.setText('Refresh')                
             else:
                 # Refresh
@@ -20053,6 +20055,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         refresh_flag = True
 
+                        self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}') 
                         self.pushButton_start.setText('Refresh')                                                                                
                 else:
                     pass
@@ -20659,6 +20662,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                         receive_quote = False
                         
+                        self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}') 
                         self.pushButton_start.setText('ScrShot')
 
                         self.SaveResult()                                        
@@ -20697,6 +20701,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         
                         receive_quote = False
                         
+                        self.pushButton_start.setStyleSheet('QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}') 
                         self.pushButton_start.setText('ScrShot')
                         
                         str = '[{0:02d}:{1:02d}:{2:02d}] 텔레그램 쓰레드를 종료합니다.\r'.format(adj_hour, adj_min, adj_sec)
@@ -22370,7 +22375,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             # 차차월물은 시작과 동시에 Polling 시작
                             ToYourTelegram("MAN 텔레그램 Polling이 시작됩니다.")
 
-                            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black;} QPushButton:hover {background-color: black; color: white;}')
+                            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
                             flag_telegram_listen_worker = True
                         else:
                             pass         
@@ -22401,7 +22406,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                             else:
                                 pass
                             
-                            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black;} QPushButton:hover {background-color: black; color: white;}')
+                            self.pushButton_telegram.setStyleSheet('QPushButton {background-color: lawngreen; color: black} QPushButton:hover {background-color: black; color: white} QPushButton:pressed {background-color: gold}')
                             flag_telegram_listen_worker = True
                         else:
                             pass            

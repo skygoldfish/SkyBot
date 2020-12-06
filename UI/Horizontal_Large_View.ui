@@ -413,6 +413,9 @@
       <property name="text">
        <string>Start</string>
       </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
      </widget>
     </item>
     <item>
@@ -435,6 +438,9 @@
       </property>
       <property name="text">
        <string>Telegram</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
