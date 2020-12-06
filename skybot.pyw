@@ -90,7 +90,9 @@ os_type = platform.platform()
 print('\r')
 print('OS 유형 :', os_type)
 
-모니터번호 = 0
+all_screens = None
+
+스크린번호 = 0
 screen_info = None
 
 콜등락율 = 0
@@ -2877,10 +2879,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.특수문자_숫자 = ['⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼ ⑽ ⓵ ⓶ ⓷ ⓸ ⓹ ⓺ ⓻ ⓼ ⓽ ⓾']
        
-        if 모니터번호 == 0:
+        if 스크린번호 == 0:
             print('주모니터 화면({0}X{1})입니다.'.format(screen_info.width(), screen_info.height()))
         else:
-            print('{0}번 보조모니터 화면({1}X{2})입니다.'.format(모니터번호, screen_info.width(), screen_info.height()))
+            print('{0}번 보조모니터 화면({1}X{2})입니다.'.format(스크린번호, screen_info.width(), screen_info.height()))
         
         left = screen_info.left()
         top = screen_info.top()
@@ -35708,15 +35710,31 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         txt = '시작시간 = {0}\r'.format(self.시작시각)
         self.textBrowser.append(txt)
 
-        global 모니터번호, screen_info
-        
-        # 커서가 위치한 화면정보
-        모니터번호 = QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
-        
-        centerPoint = QApplication.desktop().screenGeometry(모니터번호).center()
-        screen_info = QDesktopWidget().screenGeometry(모니터번호)
+        global all_screens, 스크린번호, screen_info
 
-        txt = '모니터번호 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(모니터번호, screen_info.width(), screen_info.height(), centerPoint.x(), centerPoint.y())
+        all_screens = QApplication.screens()
+
+        for index, s in enumerate(all_screens):
+            '''
+            print()
+            print(s.name())
+            print(s.availableGeometry())
+            print(s.availableGeometry().width())
+            print(s.availableGeometry().height())
+            print(s.size())
+            print(s.size().width())
+            print(s.size().height())
+            '''
+            txt = '스크린 {0}번, 화면해상도 = {1}x{2}\r'.format(index, s.size().width(), s.size().height())
+            self.textBrowser.append(txt)
+        
+        # 현재 커서가 위치한 화면정보
+        스크린번호 = QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
+        
+        centerPoint = QApplication.desktop().screenGeometry(스크린번호).center()
+        screen_info = QDesktopWidget().screenGeometry(스크린번호)
+
+        txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), centerPoint.x(), centerPoint.y())
         self.textBrowser.append(txt)
         
         self.dialog = dict()
@@ -36082,20 +36100,6 @@ if __name__ == "__main__":
    # 4K 해상도 대응
     app.setAttribute(Qt.AA_EnableHighDpiScaling, True)
     app.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
-    
-    all_screens = app.screens()
-    print('스크린갯수 =', len(all_screens))
-
-    for s in all_screens:
-
-        print()
-        print(s.name())
-        print(s.availableGeometry())
-        print(s.availableGeometry().width())
-        print(s.availableGeometry().height())
-        print(s.size())
-        print(s.size().width())
-        print(s.size().height())
     
     if DARK_STYLESHEET:    
         dark_stylesheet = qdarkstyle.load_stylesheet_pyqt5()
