@@ -2924,7 +2924,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.pushButton_telegram.clicked.connect(self.telegram_button_clicked)
         
         # label_msg, label_atm 관련 setFont 추후 검토필요!!!
-        self.label_msg.setStyleSheet('background-color: lawngreen; color: blue')
+        self.label_msg.setStyleSheet('background-color: lawngreen; color: black')
         self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
         self.label_msg.setText("🕘")
         
@@ -6057,8 +6057,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                 self.label_msg.setStyleSheet('background-color: cyan; color: black')
             else:
                 # 대칭장
-                pass
-                #self.label_msg.setStyleSheet('background-color: lawngreen; color: black')
+                self.label_msg.setStyleSheet('background-color: lawngreen; color: black')
 
             # 콜 매수 OneWay장
             if flag_call_oneway:
@@ -6078,7 +6077,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             else:
                 pass
         else:
-            self.label_msg.setStyleSheet('background-color: lawngreen; color: black')            
+            self.label_msg.setStyleSheet('background-color: black; color: lawngreen')            
         
         self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))    
         self.label_msg.setText(str)
@@ -19010,6 +19009,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             global new_actval_up_count, new_actval_down_count, actval_increased            
             global flag_t8416_call_done, flag_t8416_put_done
 
+            self.label_msg.setStyleSheet('background-color: black; color: lawngreen')
+            self.label_msg.setFont(QFont("Consolas", 9, QFont.Bold))
+            
             str = '{0:02d}:{1:02d}:{2:02d}'.format(dt.hour, dt.minute, dt.second)
             self.label_msg.setText(str)
             
