@@ -35765,13 +35765,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.XQ_t0167 = t0167(parent=self)
         self.NEWS = NWS(parent=self)        
 
-        if NEWS_DISPLAY:
-            txt = '뉴스를 요청합니다.\r'
-            self.textBrowser.append(txt)
-            self.NEWS.AdviseRealData()
-        else:
-            pass
-
     def OnQApplicationStarted(self):
         self.clock = QtCore.QTimer()
         self.clock.timeout.connect(self.OnClockTick)
@@ -35901,6 +35894,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass            
             
             self.statusbar.showMessage("로그인 성공 !!!")
+            
+            # 로그인 후 요청
+            if NEWS_DISPLAY:
+                txt = '뉴스를 요청합니다.\r'
+                self.textBrowser.append(txt)
+                self.NEWS.AdviseRealData()
+            else:
+                pass
 
             # 옵션전광판 자동 시작
             if AUTO_START:                
@@ -35982,6 +35983,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             pass
 
     def OnReceiveRealData(self, szTrCode, result):
+
+        #szTrCode = result['szTrCode']
 
         if szTrCode == 'NWS':
                 
