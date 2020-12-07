@@ -22343,7 +22343,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     index = put_행사가.index(result['단축코드'][5:8])
 
                     df_put_hoga.at[index, '매수건수'] = result['매수호가총건수']
-                    df_put_hoga.at[index, '매도건수'] = result['매도호가총건��']
+                    df_put_hoga.at[index, '매도건수'] = result['매도호가총건수']
                     df_put_hoga.at[index, '매수잔량'] = result['매수호가총수량']
                     df_put_hoga.at[index, '매도잔량'] = result['매도호가총수량']
 
@@ -23498,7 +23498,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
                             flag_wti_ohlc_open = False
                     else:
-                        pass                              
+                        pass                            
 
                     # Bollinger Bands
                     df_wti_graph.at[ovc_x_idx, 'middle'] = (df_wti_graph.at[ovc_x_idx, 'high'] + df_wti_graph.at[ovc_x_idx, 'low']) / 2
@@ -23554,7 +23554,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         else:
                             WTI_등락율 = result['등락율']
                     else:
-                        WTI_등락율 = result['등락율']                    
+                        WTI_등락율 = result['등락율']                   
 
                     if WTI_시가 == 0:
 
@@ -23567,9 +23567,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_wti_graph.at[0, 'price'] = WTI_종가
                         df_wti_graph.at[1, 'price'] = result['시가']
 
-                        WTI_시가 = result['��가']
+                        WTI_시가 = result['시가']
                     else:
-                        pass                    
+                        pass                 
 
                     if WTI_피봇 == 0:
 
