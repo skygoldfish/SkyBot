@@ -20501,6 +20501,11 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     str = '[{0:02d}:{1:02d}:{2:02d}] WTI 주간시작가 = {3}\r'.format(adj_hour, adj_min, adj_sec, WTI_주간_시작가)
                     self.textBrowser.append(str)
 
+                    if TTS:
+                        Speak("주간장이 시작됩니다.")
+                    else:
+                        pass
+
                 # 야간 선물장 시작
                 elif result['장구분'] == '7' and result['장상태'] == '21':
                     
