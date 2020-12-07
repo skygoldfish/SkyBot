@@ -40,6 +40,7 @@ from configparser import ConfigParser
 from multiprocessing import Process, Queue
 import multiprocessing as mp
 import pyautogui
+from playsound import playsound
 #import sqlite3
 #import pythoncom
 #import inspect
@@ -20502,7 +20503,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     self.textBrowser.append(str)
 
                     if TTS:
-                        Speak("주간장이 시작됩니다.")
+                        #Speak("주간장이 시작됩니다.")
+                        playsound( "Doorbell_start.wav" )
                     else:
                         pass
 
@@ -22341,7 +22343,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     index = put_행사가.index(result['단축코드'][5:8])
 
                     df_put_hoga.at[index, '매수건수'] = result['매수호가총건수']
-                    df_put_hoga.at[index, '매도건수'] = result['매도호가총건수']
+                    df_put_hoga.at[index, '매도건수'] = result['매도호가총건��']
                     df_put_hoga.at[index, '매수잔량'] = result['매수호가총수량']
                     df_put_hoga.at[index, '매도잔량'] = result['매도호가총수량']
 
@@ -23565,7 +23567,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         df_wti_graph.at[0, 'price'] = WTI_종가
                         df_wti_graph.at[1, 'price'] = result['시가']
 
-                        WTI_시가 = result['시가']
+                        WTI_시가 = result['��가']
                     else:
                         pass                    
 
@@ -35899,6 +35901,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 pass            
             
             self.statusbar.showMessage("로그인 성공 !!!")
+
+            playsound( "Doorbell_login.wav" )
             
             # 로그인 후 요청
             if NEWS_DISPLAY:
@@ -36082,7 +36086,8 @@ if __name__ == "__main__":
     # Window 8, 10
     # Window 7은 한글을 못읽음
     if TTS:
-        Speak("스카이봇이 시작됩니다.")
+        #Speak("스카이봇이 시작됩니다.")
+        pass
     else:
         pass
 
