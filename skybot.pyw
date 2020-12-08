@@ -37,8 +37,8 @@ import talib
 from talib import MA_Type
 import ta
 from configparser import ConfigParser
-from multiprocessing import Process, Queue
 import multiprocessing as mp
+from multiprocessing import Process, Queue
 import pyautogui
 from playsound import playsound
 #import sqlite3
@@ -2841,13 +2841,15 @@ class RealDataWorker(QThread):
             else:
                 flag_produce_queue_empty = True
 ########################################################################################################################
-# 실시간 데이타수신을 위한 멀티프로세스 클래스
+# 실시간 데이타수신을 위한 멀티프로세스 클래스, 시그날/슬롯 사용불가?
 ########################################################################################################################
-class MultiProcess_RealDataWorker():
+class MultiProcess_RealDataWorker(mp.Process):
     trigger = pyqtSignal()
 
     def __init__(self, producer_queue, consumer_queue):
         super().__init__()
+
+        self.daemon = True
         self.producer_queue = producer_queue
         self.consumer_queue = consumer_queue
         
@@ -2995,7 +2997,7 @@ class MultiProcess_RealDataWorker():
 
         global flag_queue_input_drop, queue_input_drop_count
 
-        #print('result =', result)
+        print('result =', result)
 
         #if not flag_realdata_update_is_running and not flag_screen_update_is_running and not flag_plot_update_is_running:
         if not flag_realdata_update_is_running and not flag_plot_update_is_running:
@@ -3019,7 +3021,7 @@ class MultiProcess_RealDataWorker():
             else:
                 flag_produce_queue_empty = True
 ########################################################################################################################
-# 실시간 멀티프로세싱 함수
+# 실시간 멀티프로세스 함수
 ########################################################################################################################
 '''
 def get_realdata(p_queue, c_queue):
@@ -3057,12 +3059,13 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.producer_queue = mp.Queue()
         self.consumer_queue = mp.Queue()
         
-        # 실시간 멀티프로세싱
-        '''        
-        p = Process(name="producer", target=get_realdata, args=(self.producer_queue, self.consumer_queue, ), daemon=True)
-        p.start()       
+        # 실시간 멀티프로세스
         '''
-
+        get_realdata.trigger.connect(self.process_realdata)        
+        m_process = Process(name="producer", target=get_realdata, args=(self.producer_queue, self.consumer_queue, ), daemon=True)
+        #m_process = MultiProcess_RealDataWorker(self.producer_queue, self.consumer_queue)
+        m_process.start()       
+        '''
         self.상태그림 = ['▼', '▬', '▲']
         self.상태문자 = ['매도', '대기', '매수']
         self.특수문자 = \
@@ -16834,13 +16837,22 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     #self.textBrowser.append(str)                    
 
                 # 실시간데이타는 스레드를 통해 수신함
+                
                 self.real_data_worker = RealDataWorker(self.producer_queue, self.consumer_queue)
                 self.real_data_worker.trigger.connect(self.process_realdata)        
                 self.real_data_worker.daemon = True
-
                 self.real_data_worker.start()
                 self.real_data_worker.AdviseRealDataAll()
-
+                '''
+                # 멀티프로세스
+                #self.get_realdata = MultiProcess_RealDataWorker(self.producer_queue, self.consumer_queue)
+                #MultiProcess_RealDataWorker.trigger.connect(self.process_realdata)        
+                #m_process = Process(name="producer", target=self.get_realdata, daemon=True)
+                #m_process = MultiProcess_RealDataWorker(self.producer_queue, self.consumer_queue)
+                #self.get_realdata.start()
+                #self.get_realdata.join()
+                MultiProcess_RealDataWorker.AdviseRealDataAll()
+                '''
                 # t8416 요청                
                 print('t8416 call 요청시작...')
                 
