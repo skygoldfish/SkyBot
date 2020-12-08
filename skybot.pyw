@@ -39,6 +39,7 @@ import ta
 from configparser import ConfigParser
 import multiprocessing as mp
 from multiprocessing import Process, Queue
+#from queue import Queue
 import pyautogui
 from playsound import playsound
 #import sqlite3
