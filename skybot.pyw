@@ -2680,8 +2680,7 @@ class RealDataWorker(QThread):
         super().__init__()
         self.producer_queue = producer_queue
         self.consumer_queue = consumer_queue
-
-        # 초기화시 실시간데이타 요청
+        
         self.JIF = JIF(parent=self)
 
         self.YJ = YJ_(parent=self)
@@ -2782,12 +2781,7 @@ class RealDataWorker(QThread):
         self.OVC.AdviseRealData(종목코드=HANGSENG)
         self.OVC.AdviseRealData(종목코드=EUROFX)
         self.OVC.AdviseRealData(종목코드=GOLD)        
-        '''
-        if NEWS_DISPLAY:
-            self.NEWS.AdviseRealData()
-        else:
-            pass
-        '''
+        
     def AdviseRealDataEtc(self):
 
         self.S3.AdviseRealData(SAMSUNG)
@@ -2816,7 +2810,6 @@ class RealDataWorker(QThread):
             self.OPT_HO.AdviseRealData(put_code[i])
 
     def UnadviseRealDataAll(self):
-
         pass
 
     # 실시간 수신 콜백함수
@@ -2848,10 +2841,201 @@ class RealDataWorker(QThread):
             else:
                 flag_produce_queue_empty = True
 ########################################################################################################################
+# 실시간 데이타수신을 위한 멀티프로세스 클래스
+########################################################################################################################
+class MultiProcess_RealDataWorker():
+    trigger = pyqtSignal()
+
+    def __init__(self, producer_queue, consumer_queue):
+        super().__init__()
+        self.producer_queue = producer_queue
+        self.consumer_queue = consumer_queue
+        
+        self.JIF = JIF(parent=self)
+
+        self.YJ = YJ_(parent=self)
+        self.YFC = YFC(parent=self)
+        self.YS3 = YS3(parent=self)
+        self.YOC = YOC(parent=self)        
+
+        if NightTime:
+            self.OPT_REAL = EC0(parent=self)                
+            self.OPT_HO = EH0(parent=self)
+            self.FUT_REAL = NC0(parent=self)
+            self.FUT_HO = NH0(parent=self)
+        else:
+            self.OPT_REAL = OC0(parent=self)
+            self.OPT_HO = OH0(parent=self)
+            self.FUT_REAL = FC0(parent=self)
+            self.FUT_HO = FH0(parent=self)
+
+        self.IJ = IJ_(parent=self)
+        self.S3 = S3_(parent=self)
+        self.BM = BM_(parent=self)
+        self.PM = PM_(parent=self)
+
+        self.OVC = OVC(parent=self)
+        self.OVH = OVH(parent=self)
+        self.WOC = WOC(parent=self)
+        self.MK2 = MK2(parent=self)
+
+        self.NEWS = NWS(parent=self)        
+
+    @classmethod
+    def AdviseRealDataAll(cls):
+
+        #print('advise...............................')
+
+        # 장운영 정보 요청
+        self.JIF.AdviseRealData('0')
+
+        # FUTURES/KOSPI200 예상지수 요청
+        self.YJ.AdviseRealData(FUTURES)
+        self.YJ.AdviseRealData(KOSPI200)
+
+        # 지수선물 예상체결 요청
+        self.YFC.AdviseRealData(fut_code)
+
+        # KOSPI 예상체결 요청                        
+        self.YS3.AdviseRealData(SAMSUNG)
+        self.YS3.AdviseRealData(HYUNDAI)
+        
+        for i in range(option_pairs_count):
+            # 지수옵션 예상체결 요청
+            self.YOC.AdviseRealData(call_code[i])
+            self.YOC.AdviseRealData(put_code[i])
+            # 옵션 실시간 가격 및 호가 요청
+            self.OPT_REAL.AdviseRealData(call_code[i])
+            self.OPT_REAL.AdviseRealData(put_code[i])
+
+        if QUOTE_REQUEST_NUMBER == 'All':
+            #print('QUOTE_REQUEST_NUMBER =', QUOTE_REQUEST_NUMBER)
+            for i in range(option_pairs_count):
+                self.OPT_HO.AdviseRealData(call_code[i])
+                self.OPT_HO.AdviseRealData(put_code[i]) 
+        else:
+            NEW_INDEX = int(int(QUOTE_REQUEST_NUMBER)/2)
+            #print('NEW_INDEX =', NEW_INDEX)
+            for i in range(atm_index - NEW_INDEX, atm_index + NEW_INDEX + 1):
+                self.OPT_HO.AdviseRealData(call_code[i])
+                self.OPT_HO.AdviseRealData(put_code[i])        
+
+        # 선물 실시간테이타 요청
+        self.FUT_REAL.AdviseRealData(fut_code)
+        self.FUT_HO.AdviseRealData(fut_code)
+
+        if TARGET_MONTH_SELECT == 1:
+            # 차월물 호가요청
+            self.FUT_HO.AdviseRealData(cmshcode)
+            self.FUT_HO.AdviseRealData(ccmshcode)
+        else:
+            pass
+
+        # KOSPI/KOSPI200/KOSDAQ 지수요청
+        self.IJ.AdviseRealData(KOSPI)
+        self.IJ.AdviseRealData(KOSPI200)
+        self.IJ.AdviseRealData(KOSDAQ)
+
+        # SAMSUNG 체결 요청
+        self.S3.AdviseRealData(SAMSUNG)
+
+        # 업종별 투자자별 매매현황 요청
+        self.BM.AdviseRealData(FUTURES)
+        self.BM.AdviseRealData(KOSPI)
+
+        # 프로그램 매매현황 요청
+        self.PM.AdviseRealData()
+
+        # 해외선물 체결,가격 실시간 요청
+        self.OVC.AdviseRealData(종목코드=SP500)
+        self.OVC.AdviseRealData(종목코드=DOW)
+        self.OVC.AdviseRealData(종목코드=NASDAQ)
+        self.OVC.AdviseRealData(종목코드=WTI)                
+        self.OVC.AdviseRealData(종목코드=HANGSENG)
+        self.OVC.AdviseRealData(종목코드=EUROFX)
+        self.OVC.AdviseRealData(종목코드=GOLD)        
+
+    @classmethod    
+    def AdviseRealDataEtc(cls):
+
+        self.S3.AdviseRealData(SAMSUNG)
+        self.BM.AdviseRealData(FUTURES)
+        self.BM.AdviseRealData(KOSPI)
+        self.PM.AdviseRealData()
+
+    @classmethod
+    def UnadviseRealDataEtc(cls):
+
+        self.S3.UnadviseRealData()
+        self.BM.UnadviseRealData()
+        self.PM.UnadviseRealData()
+
+    @classmethod
+    def AdviseRealData_HS_ON(cls):
+
+        self.OPT_HO.UnadviseRealData()
+
+        for i in range(atm_index - 5, atm_index + 5 + 1):
+            self.OPT_HO.AdviseRealData(call_code[i])
+            self.OPT_HO.AdviseRealData(put_code[i])
+
+    @classmethod
+    def AdviseRealData_HS_OFF(cls):
+
+        for i in range(option_pairs_count):
+            self.OPT_HO.AdviseRealData(call_code[i])
+            self.OPT_HO.AdviseRealData(put_code[i])
+
+    @classmethod
+    def UnadviseRealDataAll(cls):
+        pass
+
+    # 실시간 수신 콜백함수
+    def OnReceiveRealData(self, szTrCode, result):
+
+        global flag_queue_input_drop, queue_input_drop_count
+
+        #print('result =', result)
+
+        #if not flag_realdata_update_is_running and not flag_screen_update_is_running and not flag_plot_update_is_running:
+        if not flag_realdata_update_is_running and not flag_plot_update_is_running:
+            flag_queue_input_drop = False
+            self.producer_queue.put(result, False)
+        else:
+            flag_queue_input_drop = True
+            queue_input_drop_count += 1
+            #print('Queue input is dropped...')            
+        
+    def run(self):
+
+        global flag_produce_queue_empty
+
+        while True:
+            if not self.producer_queue.empty():
+                flag_produce_queue_empty = False
+                data = self.producer_queue.get(False)
+                self.consumer_queue.put(data, False)
+                self.trigger.emit()    
+            else:
+                flag_produce_queue_empty = True
+########################################################################################################################
+# 실시간 멀티프로세싱 함수
+########################################################################################################################
+'''
+def get_realdata(p_queue, c_queue):
+
+    # 객체생성
+    get_real = MultiProcess_RealDataWorker(p_queue, c_queue)
+
+    # 실시간요청은 클래스메소드로 수행
+    #MultiProcess_RealDataWorker.AdviseRealDataAll()
+
+    # 실시간수신
+    #get_real.run()
+'''
+########################################################################################################################
 # 당월물 옵션전광판 class
 ########################################################################################################################
-#Ui_당월물옵션전광판, QtBaseClass_당월물옵션전광판 = uic.loadUiType(UI_DIR+"당월물옵션전광판.ui")
-
 Ui_선물옵션전광판, QtBaseClass_선물옵션전광판 = uic.loadUiType(UI_DIR + UI_STYLE)
 class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
@@ -2872,6 +3056,12 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
 
         self.producer_queue = mp.Queue()
         self.consumer_queue = mp.Queue()
+        
+        # 실시간 멀티프로세싱
+        '''        
+        p = Process(name="producer", target=get_realdata, args=(self.producer_queue, self.consumer_queue, ), daemon=True)
+        p.start()       
+        '''
 
         self.상태그림 = ['▼', '▬', '▲']
         self.상태문자 = ['매도', '대기', '매수']
@@ -5167,7 +5357,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
             self.market_type_display(self.alternate_flag)
             
             if not flag_produce_queue_empty:
-                print('flag_produce_queue_empty 1 =', flag_produce_queue_empty)
+                print('flag_produce_queue_empty in update_screen =', flag_produce_queue_empty)
             else:
                 pass
 
@@ -31183,7 +31373,7 @@ class 화면_BigChart(QDialog, Ui_BigChart):
         self.label_time.setText(str)
 
         if not flag_produce_queue_empty:
-            print('flag_produce_queue_empty 2 =', flag_produce_queue_empty)
+            print('flag_produce_queue_empty in update_bigchart =', flag_produce_queue_empty)
         else:
             pass
 
@@ -36094,11 +36284,7 @@ if __name__ == "__main__":
         pass
 
     #ToYourTelegram("SkyBot이 실행되었습니다.")
-    '''
-    q = mp.Queue()
-    p = Process(name="producer", target=producer, args=(q, ), daemon=True)
-    p.start()
-    '''
+    
     # 1.로그 인스턴스를 만든다.
     logger = logging.getLogger('mymoneybot')
     # 2.formatter를 만든다.
