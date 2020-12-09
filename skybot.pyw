@@ -35827,16 +35827,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         def __init__(self, child_process_queue: Queue, emitter: Emitter):
             super(MainWindow, self).__init__()
             
-            if MULTIPROCESS:
-                self.process_queue = child_process_queue
-                self.emitter = emitter
-                self.emitter.daemon = True
-                self.emitter.start()
+            self.process_queue = child_process_queue
+            self.emitter = emitter
+            self.emitter.daemon = True
+            self.emitter.start()
         
-                # When the emitter has data available for the UI call the updateUI function
-                #self.emitter.ui_data_available.connect(self.realdata_update)
-            else:
-                pass
+            # When the emitter has data available for the UI call the updateUI function
+            #self.emitter.ui_data_available.connect(self.realdata_update)
                 
             QMainWindow.__init__(self)
             Ui_MainWindow.__init__(self)
@@ -35900,17 +35897,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     else:        
         def __init__(self, *args, **kwargs):
             super(MainWindow, self).__init__(*args, **kwargs)
-
-            if MULTIPROCESS:
-                self.process_queue = child_process_queue
-                self.emitter = emitter
-                self.emitter.daemon = True
-                self.emitter.start()
-
-                # When the emitter has data available for the UI call the updateUI function
-                #self.emitter.ui_data_available.connect(self.realdata_update)
-            else:
-                pass
 
             QMainWindow.__init__(self)
             Ui_MainWindow.__init__(self)
