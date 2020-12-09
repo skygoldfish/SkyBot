@@ -2753,7 +2753,9 @@ class RealDataWorker(QThread):
         self.FUT_HO.AdviseRealData(fut_code)
 
         if TARGET_MONTH_SELECT == 1:
-            # 차월물 호가요청
+            # 차월물 가격요청
+            self.FUT_REAL.AdviseRealData(cmshcode)
+            # 차월물, 차차월물 호가요청
             self.FUT_HO.AdviseRealData(cmshcode)
             self.FUT_HO.AdviseRealData(ccmshcode)
         else:
@@ -2928,6 +2930,8 @@ class MultiProcess_RealDataWorker(mp.Process):
         self.FUT_HO.AdviseRealData(fut_code)
 
         if TARGET_MONTH_SELECT == 1:
+            # 차월물 가격요청
+            self.FUT_REAL.AdviseRealData(cmshcode)
             # 차월물 호가요청
             self.FUT_HO.AdviseRealData(cmshcode)
             self.FUT_HO.AdviseRealData(ccmshcode)
@@ -4139,6 +4143,8 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         
         self.tableWidget_call.resizeColumnsToContents()
         self.tableWidget_put.resizeColumnsToContents()
+
+        self.pushButton_start.setFocus()
 
     @pyqtSlot()
     def start_button_clicked(self):
@@ -11777,128 +11783,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         선물_진폭 = 선물_고가 - 선물_저가
         
         fut_time = dt.hour * 3600 + dt.minute * 60 + dt.second        
-        '''
-        if receive_real_ovc:
-
-            # Plot 데이타프레임 생성
-            df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
-
-            df_futures_graph.at[ovc_x_idx, 'drate'] = result['등락율']
-
-            # 1T OHLC 생성
-            df_futures_graph.at[ovc_x_idx, 'ctime'] = OVC_체결시간
-
-            if 선물_현재가 > 0:
-
-                if OVC_SEC == 0:
-
-                    if not flag_futures_ohlc_open:
-
-                        df_futures_graph.at[ovc_x_idx, 'open'] = 선물_현재가
-                        df_futures_graph.at[ovc_x_idx, 'high'] = 선물_현재가
-                        df_futures_graph.at[ovc_x_idx, 'low'] = 선물_현재가
-                        df_futures_graph.at[ovc_x_idx, 'middle'] = 선물_현재가
-                        df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
-                        df_futures_graph.at[ovc_x_idx, 'price'] = 선물_현재가
-
-                        del 선물_현재가_버퍼[:]
-
-                        flag_futures_ohlc_open = True
-                    else:
-                        선물_현재가_버퍼.append(선물_현재가)              
-                else:
-                    if df_futures_graph.at[ovc_x_idx, 'open'] != df_futures_graph.at[ovc_x_idx, 'open']:
-                        df_futures_graph.at[ovc_x_idx, 'open'] = df_futures_graph.at[ovc_x_idx - 1, 'close']
-                        del 선물_현재가_버퍼[:]
-                    else:
-                        pass
-
-                    선물_현재가_버퍼.append(선물_현재가)
-
-                    if max(선물_현재가_버퍼) > 0:
-                        df_futures_graph.at[ovc_x_idx, 'high'] = max(선물_현재가_버퍼)
-                    else:
-                        pass
-
-                    if min(선물_현재가_버퍼) == 0:
-
-                        if max(선물_현재가_버퍼) > 0:
-                            df_futures_graph.at[ovc_x_idx, 'low'] = max(선물_현재가_버퍼)
-                        else:
-                            pass
-                    else:
-                        df_futures_graph.at[ovc_x_idx, 'low'] = min(선물_현재가_버퍼)
-
-                    df_futures_graph.at[ovc_x_idx, 'close'] = 선물_현재가
-
-                    flag_futures_ohlc_open = False
-            else:
-                pass                
-
-            # Bollinger Bands
-            df_futures_graph.at[ovc_x_idx, 'middle'] = (df_futures_graph.at[ovc_x_idx, 'high'] + df_futures_graph.at[ovc_x_idx, 'low']) / 2 
-            upper, middle, lower = talib.BBANDS(np.array(df_futures_graph['middle'], dtype=float), timeperiod=20, nbdevup=2, nbdevdn=2, matype=MA_TYPE)
-
-            df_futures_graph['BBUpper'] = upper
-            df_futures_graph['BBMiddle'] = middle
-            df_futures_graph['BBLower'] = lower
-
-            # MACD
-            # list of values for the Moving Average Type:  
-            # 0: MA_Type.SMA (simple)  
-            # 1: MA_Type.EMA (exponential)  
-            # 2: MA_Type.WMA (weighted)  
-            # 3: MA_Type.DEMA (double exponential)  
-            # 4: MA_Type.TEMA (triple exponential)  
-            # 5: MA_Type.TRIMA (triangular)  
-            # 6: MA_Type.KAMA (Kaufman adaptive)  
-            # 7: MA_Type.MAMA (Mesa adaptive)  
-            # 8: MA_Type.T3 (triple exponential T3)           
-
-            #macd, macdsignal, macdhist = talib.MACDEXT(np.array(df_futures_graph['close'], dtype=float), fastperiod=12, slowperiod=26, signalperiod=9, \
-                #fastmatype=MA_TYPE, slowmatype=MA_TYPE, signalmatype=MA_TYPE)
-
-            #df_futures_graph['MACD'] = macd
-            #df_futures_graph['MACDSig'] = macdsignal
-            #df_futures_graph['MACDHist'] = macdhist
-
-            # Parabolic SAR
-            parabolic_sar = talib.SAR(np.array(df_futures_graph['high'], dtype=float), np.array(df_futures_graph['low'], dtype=float), acceleration=0.02, maximum=0.2)
-
-            # PSARIndicator 함수 오동작하는 듯...
-            #ta_psar = ta.trend.PSARIndicator(df_futures_graph['high'], df_futures_graph['low'], df_futures_graph['close'])        
-
-            df_futures_graph['PSAR'] = parabolic_sar
-            #df_futures_graph['TA_PSAR'] = ta_psar.psar()
-
-            # MAMA
-            mama, fama = talib.MAMA(np.array(df_futures_graph['close'], dtype=float), fastlimit=0.5, slowlimit=0.05)
-
-            df_futures_graph['MAMA'] = mama
-            df_futures_graph['FAMA'] = fama
-
-            if df_futures_graph.at[ovc_x_idx, 'FAMA'] == df_futures_graph.at[ovc_x_idx, 'FAMA'] and df_futures_graph.at[ovc_x_idx, 'BBLower'] == df_futures_graph.at[ovc_x_idx, 'BBLower']:
-
-                if df_futures_graph.at[ovc_x_idx, 'FAMA'] < df_futures_graph.at[ovc_x_idx, 'BBLower']:
-                    df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'BBLower']
-                else:
-                    df_futures_graph.at[ovc_x_idx, 'A_FAMA'] = df_futures_graph.at[ovc_x_idx, 'FAMA']
-            else:
-                pass
-
-            # Ichimoku Indicator
-            #futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'], n1=9, n2=26, n3=52, visual=True)
-            futures_Ichimoku = ta.trend.IchimokuIndicator(df_futures_graph['high'], df_futures_graph['low'])
-
-            df_futures_graph['SPAN_A'] = futures_Ichimoku.ichimoku_a()
-            df_futures_graph['SPAN_B'] = futures_Ichimoku.ichimoku_b()
-
-            # 일목균형표의 기준선을 FAMA 대용으로 사용가능한지 확인필요!!!
-            df_futures_graph['OE_BASE'] = futures_Ichimoku.ichimoku_base_line()
-            df_futures_graph['OE_CONV'] = futures_Ichimoku.ichimoku_conversion_line()
-        else:
-            pass       
-        '''
+        
         #print('fut_first_arrive_time = {0}, flag_first_arrive = {1}, market_service = {2}\r'.format(fut_first_arrive_time, flag_first_arrive, market_service))
         
         if not flag_first_arrive:
@@ -22467,9 +22352,32 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
                 '''
 
-                fut_result = copy.deepcopy(result)                
+                if result['단축코드'] == gmshcode:
+                    fut_result = copy.deepcopy(result)
+                    self.fut_update(result)
+                elif result['단축코드'] == cmshcode:
+                    fut_cm_volume_power = result['매수누적체결량'] - result['매도누적체결량']
 
-                self.fut_update(result)
+                    temp = format(fut_cm_volume_power, ',')
+
+                    item = QTableWidgetItem(temp)
+                    item.setTextAlignment(Qt.AlignCenter)
+
+                    if fut_cm_volume_power > 0:
+
+                        item.setBackground(QBrush(적색))
+                        item.setForeground(QBrush(흰색))
+                    elif fut_cm_volume_power < 0:
+
+                        item.setBackground(QBrush(청색))
+                        item.setForeground(QBrush(흰색))
+                    else:
+                        item.setBackground(QBrush(흰색))
+                        item.setForeground(QBrush(검정색))
+
+                    self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item) 
+                else:
+                    pass
 
             elif szTrCode == 'OC0' or szTrCode == 'EC0':
 
@@ -22976,9 +22884,9 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     df_wti_graph.at[ovc_x_idx, 'close'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
                     df_wti_graph.at[ovc_x_idx, 'price'] = df_wti_graph.at[ovc_x_idx - 1, 'close']
 
-                    str = '[{0:02d}:{1:02d}:{2:02d}] NaN 방어기능 작동 at {3:d}\r'.format(adj_hour, adj_min, adj_sec, ovc_x_idx)
+                    #str = '[{0:02d}:{1:02d}:{2:02d}] NaN 방어기능 작동 at {3:d}\r'.format(adj_hour, adj_min, adj_sec, ovc_x_idx)
                     #self.textBrowser.append(str)
-                    print(str)
+                    #print(str)
                 else:
                     pass
 
