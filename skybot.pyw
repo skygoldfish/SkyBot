@@ -1426,7 +1426,7 @@ indianred = QColor(0xCD, 0x5C, 0x5C)
 
 greenyellow = QColor(0xAD, 0xFF, 0x2F)
 lawngreen = QColor(0x7C, 0xFC, 0x00)
-greenyellow = QColor(0xAD, 0xFF, 0x2F)
+lightgreen = QColor(0x99, 0xFF, 0x33)
 gold = QColor(0xFF, 0xD7, 0x00)
 goldenrod = QColor(0xDA, 0xA5, 0x20)
 skyblue = QColor(0x87, 0xCE, 0xEB)
@@ -3147,12 +3147,17 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.label_2nd_index.setStyleSheet('background-color: black ; color: yellow')
 
         header_stylesheet = '::section{Background-color: black; color: white; border-style: solid; border-width: 1px; border-color: gray}'
+        call_header_stylesheet = '::section{Background-color: black; color: lightgreen; border-style: solid; border-width: 1px; border-color: gray}'
+        put_header_stylesheet = '::section{Background-color: black; color: lightgreen; border-style: solid; border-width: 1px; border-color: gray}'
+        fut_header_stylesheet = '::section{Background-color: black; color: lightgreen; border-style: solid; border-width: 1px; border-color: gray}'
+        quote_header_stylesheet = '::section{Background-color: black; color: lightgreen; border-style: solid; border-width: 1px; border-color: gray}'
+        supply_header_stylesheet = '::section{Background-color: black; color: lightgreen; border-style: solid; border-width: 1px; border-color: gray}'
 
         # call tablewidget 초기화
         self.tableWidget_call.setRowCount(ActvalCount)
         self.tableWidget_call.setColumnCount(Option_column.OID.value + 1)
         
-        self.tableWidget_call.horizontalHeader().setStyleSheet(header_stylesheet)
+        self.tableWidget_call.horizontalHeader().setStyleSheet(call_header_stylesheet)
         self.tableWidget_call.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_call.setHorizontalHeaderLabels(['C', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
@@ -3165,7 +3170,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_put.setRowCount(ActvalCount)
         self.tableWidget_put.setColumnCount(Option_column.OID.value + 1)
 
-        self.tableWidget_put.horizontalHeader().setStyleSheet(header_stylesheet)
+        self.tableWidget_put.horizontalHeader().setStyleSheet(put_header_stylesheet)
         self.tableWidget_put.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_put.setHorizontalHeaderLabels(['P', '행사가', '▲:▼\n✓', '기준가', '월저', '월고', '전저', '전고', 
@@ -3219,7 +3224,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_fut.setRowCount(3)
         self.tableWidget_fut.setColumnCount(Futures_column.OID.value + 1)
 
-        self.tableWidget_fut.horizontalHeader().setStyleSheet(header_stylesheet)
+        self.tableWidget_fut.horizontalHeader().setStyleSheet(fut_header_stylesheet)
         self.tableWidget_fut.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_fut.setHorizontalHeaderLabels(
@@ -3656,7 +3661,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_quote.setRowCount(1)
         self.tableWidget_quote.setColumnCount(Quote_column.미결종합.value)
 
-        self.tableWidget_quote.horizontalHeader().setStyleSheet(header_stylesheet)
+        self.tableWidget_quote.horizontalHeader().setStyleSheet(quote_header_stylesheet)
         self.tableWidget_quote.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_quote.setHorizontalHeaderLabels(['콜CMSC', '콜CMDC', '콜CMSR', '콜CMDR',
@@ -3675,7 +3680,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
         self.tableWidget_supply.setRowCount(1)
         self.tableWidget_supply.setColumnCount(Supply_column.프로그램.value + 1)
 
-        self.tableWidget_supply.horizontalHeader().setStyleSheet(header_stylesheet)
+        self.tableWidget_supply.horizontalHeader().setStyleSheet(supply_header_stylesheet)
         self.tableWidget_supply.horizontalHeader().setFont(QFont("Consolas", 9, QFont.Bold))
 
         self.tableWidget_supply.setHorizontalHeaderLabels(['외인선물', '프로그램', '외인현물', '개인선물', '기관선물', '∑선물/∑현물'])
