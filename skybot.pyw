@@ -23980,7 +23980,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     else:
                         pass
                 
-                elif result['종목코드'] == GOLD and pre_start:
+                elif result['종목코드'] == GOLD:
 
                     df_gold_graph.at[ovc_x_idx, 'price'] = result['체결가격']
 
