@@ -2869,12 +2869,14 @@ if MULTIPROCESS:
 
     class ChildProc(Process):
         """ Process to receive data and return this over the Pipe. """
-        def __init__(self, from_server: Queue, to_emitter: Pipe, daemon=True):
+        def __init__(self, to_emitter: Pipe, from_mother: Queue, daemon=True):
             super().__init__()
             self.daemon = daemon
-            self.data_from_server = from_server
+            self.data_from_server = from_mother
             self.to_emitter = to_emitter
-            
+
+            # 프로세스 내에서 실시간수신 방법 필요!!!
+            '''
             self.JIF = JIF(parent=self)
 
             self.YJ = YJ_(parent=self)
@@ -2904,8 +2906,8 @@ if MULTIPROCESS:
             self.MK2 = MK2(parent=self)
 
             self.NEWS = NWS(parent=self)
-            
-        
+            '''
+        '''
         def AdviseRealDataAll(self):
 
             # 장운영 정보 요청
@@ -2994,7 +2996,8 @@ if MULTIPROCESS:
                 flag_queue_input_drop = True
                 queue_input_drop_count += 1
                 #print('Queue input is dropped...') 
-        
+        '''
+        '''
         def run(self):
 
             global flag_produce_queue_empty
@@ -3010,9 +3013,9 @@ if MULTIPROCESS:
         def run(self):
             """ Wait for a ui_data_available on the queue and send a capitalized version of the received string to the pipe. """
             while True:
-                text = self.data_from_mother.get()
+                text = self.data_from_server.get()
                 self.to_emitter.send(text.upper())
-        '''
+        
 else:
     pass
 ########################################################################################################################
@@ -35819,80 +35822,155 @@ else:
 
 Ui_MainWindow, QtBaseClass_MainWindow = uic.loadUiType(UI_DIR+ui_type)
 class MainWindow(QMainWindow, Ui_MainWindow):
-    def __init__(self, *args, **kwargs):
-    #def __init__(self, child_process_queue: Queue, emitter: Emitter):
-        super(MainWindow, self).__init__(*args, **kwargs)
+
+    if MULTIPROCESS:
+        def __init__(self, child_process_queue: Queue, emitter: Emitter):
+            super(MainWindow, self).__init__()
+            
+            if MULTIPROCESS:
+                self.process_queue = child_process_queue
+                self.emitter = emitter
+                self.emitter.daemon = True
+                self.emitter.start()
         
-        if MULTIPROCESS:
-            self.process_queue = child_process_queue
-            self.emitter = emitter
-            self.emitter.daemon = True
-            self.emitter.start()
-
-            # When the emitter has data available for the UI call the updateUI function
-            #self.emitter.ui_data_available.connect(self.realdata_update)
-        else:
-            pass
-
-        QMainWindow.__init__(self)
-        Ui_MainWindow.__init__(self)
-        self.setupUi(self)
+                # When the emitter has data available for the UI call the updateUI function
+                #self.emitter.ui_data_available.connect(self.realdata_update)
+            else:
+                pass
+                
+            QMainWindow.__init__(self)
+            Ui_MainWindow.__init__(self)
+            self.setupUi(self)
+            
+            self.setWindowTitle("SkyBot ver1.0")
+            self.textBrowser.append('Welcome to SkyBot\r')
+            
+            self.시작시각 = datetime.datetime.now()
         
-        self.setWindowTitle("SkyBot ver1.0")
-        self.textBrowser.append('Welcome to SkyBot\r')
-        
-        self.시작시각 = datetime.datetime.now()
-
-        txt = '시작시간 = {0}\r'.format(self.시작시각)
-        self.textBrowser.append(txt)
-
-        global all_screens, 스크린번호, screen_info
-
-        all_screens = QApplication.screens()
-
-        txt = '총 {0}개의 모니터가 사용가능합니다.\r'.format(len(all_screens))
-        self.textBrowser.append(txt)
-
-        for index, s in enumerate(all_screens):
-            '''
-            print()
-            print(s.name())
-            print(s.availableGeometry())
-            print(s.availableGeometry().width())
-            print(s.availableGeometry().height())
-            print(s.size())
-            print(s.size().width())
-            print(s.size().height())
-            '''
-            txt = '<스크린 {0}번, 화면해상도 = {1}x{2}>\r'.format(index, s.size().width(), s.size().height())
+            txt = '시작시간 = {0}\r'.format(self.시작시각)
             self.textBrowser.append(txt)
         
-        # 현재 커서가 위치한 화면정보
-        스크린번호 = QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
+            global all_screens, 스크린번호, screen_info
         
-        centerPoint = QApplication.desktop().screenGeometry(스크린번호).center()
-        screen_info = QDesktopWidget().screenGeometry(스크린번호)
-
-        txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), centerPoint.x(), centerPoint.y())
-        self.textBrowser.append(txt)
+            all_screens = QApplication.screens()
         
-        self.dialog = dict()
+            txt = '총 {0}개의 모니터가 사용가능합니다.\r'.format(len(all_screens))
+            self.textBrowser.append(txt)
+        
+            for index, s in enumerate(all_screens):
+                '''
+                print()
+                print(s.name())
+                print(s.availableGeometry())
+                print(s.availableGeometry().width())
+                print(s.availableGeometry().height())
+                print(s.size())
+                print(s.size().width())
+                print(s.size().height())
+                '''
+                txt = '<스크린 {0}번, 화면해상도 = {1}x{2}>\r'.format(index, s.size().width(), s.size().height())
+                self.textBrowser.append(txt)
+            
+            # 현재 커서가 위치한 화면정보
+            스크린번호 = QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
+            
+            centerPoint = QApplication.desktop().screenGeometry(스크린번호).center()
+            screen_info = QDesktopWidget().screenGeometry(스크린번호)
+        
+            txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), centerPoint.x(), centerPoint.y())
+            self.textBrowser.append(txt)
+            
+            self.dialog = dict()
+        
+            self.주문제한 = 0
+            self.조회제한 = 0
+            self.금일백업작업중 = False
+            self.종목선정작업중 = False
+        
+            self.id = ''
+            self.계좌번호 = None
+            self.거래비밀번호 = None
+            self.system_server_time_gap = 0
+        
+            # AxtiveX 설정
+            self.connection = None
+        
+            self.XQ_t0167 = t0167(parent=self)
+            self.NEWS = NWS(parent=self)
+    else:        
+        def __init__(self, *args, **kwargs):
+            super(MainWindow, self).__init__(*args, **kwargs)
 
-        self.주문제한 = 0
-        self.조회제한 = 0
-        self.금일백업작업중 = False
-        self.종목선정작업중 = False
+            if MULTIPROCESS:
+                self.process_queue = child_process_queue
+                self.emitter = emitter
+                self.emitter.daemon = True
+                self.emitter.start()
 
-        self.id = ''
-        self.계좌번호 = None
-        self.거래비밀번호 = None
-        self.system_server_time_gap = 0
+                # When the emitter has data available for the UI call the updateUI function
+                #self.emitter.ui_data_available.connect(self.realdata_update)
+            else:
+                pass
 
-        # AxtiveX 설정
-        self.connection = None
+            QMainWindow.__init__(self)
+            Ui_MainWindow.__init__(self)
+            self.setupUi(self)
 
-        self.XQ_t0167 = t0167(parent=self)
-        self.NEWS = NWS(parent=self)        
+            self.setWindowTitle("SkyBot ver1.0")
+            self.textBrowser.append('Welcome to SkyBot\r')
+
+            self.시작시각 = datetime.datetime.now()
+
+            txt = '시작시간 = {0}\r'.format(self.시작시각)
+            self.textBrowser.append(txt)
+
+            global all_screens, 스크린번호, screen_info
+
+            all_screens = QApplication.screens()
+
+            txt = '총 {0}개의 모니터가 사용가능합니다.\r'.format(len(all_screens))
+            self.textBrowser.append(txt)
+
+            for index, s in enumerate(all_screens):
+                '''
+                print()
+                print(s.name())
+                print(s.availableGeometry())
+                print(s.availableGeometry().width())
+                print(s.availableGeometry().height())
+                print(s.size())
+                print(s.size().width())
+                print(s.size().height())
+                '''
+                txt = '<스크린 {0}번, 화면해상도 = {1}x{2}>\r'.format(index, s.size().width(), s.size().height())
+                self.textBrowser.append(txt)
+
+            # 현재 커서가 위치한 화면정보
+            스크린번호 = QApplication.desktop().screenNumber(QtWidgets.QApplication.desktop().cursor().pos())
+
+            centerPoint = QApplication.desktop().screenGeometry(스크린번호).center()
+            screen_info = QDesktopWidget().screenGeometry(스크린번호)
+
+            txt = '현재스크린 = {0}번, 화면해상도 = {1}x{2}, 중심좌표 X = {3}, Y = {4}\r'.format(스크린번호, screen_info.width(), screen_info.height(), centerPoint.x(), centerPoint.y())
+            self.textBrowser.append(txt)
+
+            self.dialog = dict()
+
+            self.주문제한 = 0
+            self.조회제한 = 0
+            self.금일백업작업중 = False
+            self.종목선정작업중 = False
+
+            self.id = ''
+            self.계좌번호 = None
+            self.거래비밀번호 = None
+            self.system_server_time_gap = 0
+
+            # AxtiveX 설정
+            self.connection = None
+
+            self.XQ_t0167 = t0167(parent=self)
+            self.NEWS = NWS(parent=self)        
 
     def OnQApplicationStarted(self):
         self.clock = QtCore.QTimer()
@@ -36214,12 +36292,12 @@ if __name__ == "__main__":
 
         # Create the communication lines.
         mother_pipe, child_pipe = Pipe()
-        p_queue = Queue()
+        queue = Queue()
 
         # Instantiate (i.e. create instances of) our classes.
         emitter = Emitter(mother_pipe)
         
-        child_process = ChildProc(p_queue, child_pipe)
+        child_process = ChildProc(child_pipe, queue)
         # Start our process.
         child_process.start()
     else:
@@ -36279,7 +36357,7 @@ if __name__ == "__main__":
         pass
     
     if MULTIPROCESS:
-        window = MainWindow(p_queue, emitter)
+        window = MainWindow(queue, emitter)
     else:
         window = MainWindow()
 
