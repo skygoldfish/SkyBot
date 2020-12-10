@@ -36193,10 +36193,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             #print(txt)
 
             if flag_call_oneway:
-                txt = "[{0:02d}:{1:02d}:{2:02d}] ★★★ Call OneWay({3:.2f}/{4:.2f}) ★★★\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                txt = "[{0:02d}:{1:02d}:{2:02d}] ▲ Call OneWay({3:.2f}/{4:.2f}) ▲\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
                 self.textBrowser.append(txt)
             elif flag_put_oneway:
-                txt = "[{0:02d}:{1:02d}:{2:02d}] ★★★ Put OneWay({3:.2f}/{4:.2f}) ★★★\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
+                txt = "[{0:02d}:{1:02d}:{2:02d}] ▼ Put OneWay({3:.2f}/{4:.2f}) ▼\r".format(dt.hour, dt.minute, dt.second, 선물_등락율, DOW_등락율)
                 self.textBrowser.append(txt)
             else:
                 pass
