@@ -35761,10 +35761,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.setWindowTitle("SkyBot ver1.0")
             self.textBrowser.append('Welcome to SkyBot\r')
 
-            currentMouseX, currentMouseY = pyautogui.position()
-
-            self.move(currentMouseX, currentMouseY)
-            self.showNormal()
+            if TARGET_MONTH_SELECT == 'CM':
+                currentMouseX, currentMouseY = pyautogui.position()
+                self.move(currentMouseX, currentMouseY)
+                self.showNormal()
+            else:
+                pass
             
             self.시작시각 = datetime.datetime.now()
         
@@ -35831,10 +35833,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.setWindowTitle("SkyBot ver1.0")
             self.textBrowser.append('Welcome to SkyBot\r')
 
-            currentMouseX, currentMouseY = pyautogui.position()
-
-            self.move(currentMouseX, currentMouseY)
-            self.showNormal()
+            if TARGET_MONTH_SELECT == 'CM':
+                currentMouseX, currentMouseY = pyautogui.position()
+                self.move(currentMouseX, currentMouseY)
+                self.showNormal()
+            else:
+                pass
 
             self.시작시각 = datetime.datetime.now()
 
