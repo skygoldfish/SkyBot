@@ -32267,7 +32267,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
                 self.label_22.setText(txt)
 
-                txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTER_VAL_MINUS1)
+                if CENTER_VAL < 1.0:
+                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                else:
+                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTER_VAL_MINUS1)
+
                 self.label_23.setText(txt)
 
                 txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + CENTER_VAL_PLUS1)
@@ -33004,7 +33008,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
                 self.label_32.setText(txt)
 
-                txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTER_VAL_MINUS1)
+                if CENTER_VAL < 1.0:
+                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                else:
+                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTER_VAL_MINUS1)
+
                 self.label_33.setText(txt)
 
                 txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + CENTER_VAL_PLUS1)
@@ -34504,7 +34512,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
                 self.label_52.setText(txt)
 
-                txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTER_VAL_MINUS1)
+                if CENTER_VAL < 1.0:
+                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                else:
+                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTER_VAL_MINUS1)
+
                 self.label_53.setText(txt)
 
                 txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + CENTER_VAL_PLUS1)
@@ -35241,7 +35253,11 @@ class 화면_BigChart(QDialog, Ui_BigChart):
                 txt = ' 시작 중심가: {0:.2f} '.format(INIT_CENTER_VAL)
                 self.label_62.setText(txt)
 
-                txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTER_VAL_MINUS1)
+                if CENTER_VAL < 1.0:
+                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - GOLDEN_RATIO)
+                else:
+                    txt = ' 중심가 하단: {0:.2f} '.format(CENTER_VAL - CENTER_VAL_MINUS1)
+
                 self.label_63.setText(txt)
 
                 txt = ' 중심가 상단: {0:.2f} '.format(CENTER_VAL + CENTER_VAL_PLUS1)
