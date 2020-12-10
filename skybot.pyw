@@ -22357,10 +22357,10 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                     pass
                 '''
 
-                if result['단축코드'] == gmshcode:
+                if result['단축코드'] == fut_code:
                     fut_result = copy.deepcopy(result)
                     self.fut_update(result)
-                elif result['단축코드'] == cmshcode:
+                elif TARGET_MONTH_SELECT == 1 and result['단축코드'] == cmshcode:
                     fut_cm_volume_power = result['매수누적체결량'] - result['매도누적체결량']
 
                     temp = format(fut_cm_volume_power, ',')
@@ -22380,7 +22380,7 @@ class 화면_선물옵션전광판(QDialog, Ui_선물옵션전광판):
                         item.setBackground(QBrush(흰색))
                         item.setForeground(QBrush(검정색))
 
-                    self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item) 
+                    self.tableWidget_fut.setItem(2, Futures_column.거래량.value, item)     
                 else:
                     pass
 
